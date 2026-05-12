@@ -1,3 +1,6 @@
+# Trash
+**/*.trashinfo
+
 # OS / Windows artifacts
 $RECYCLE.BIN/
 System Volume Information/
