@@ -3,6 +3,7 @@
 ## Domains
 - `Code/` — software projects
 - `Academy/` — research, teaching, academic management
+- `Branches/` — personal life management (health, finances, home)
 - `Models/` — local AI models and checkpoints
 - `Outputs/` — generated artifacts
 - `Core/Skills/` — reusable cognitive skills

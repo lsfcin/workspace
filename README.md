@@ -8,6 +8,7 @@ Personal workspace root. Organizes projects, research, skills, and generated art
 |--------|---------|
 | `Code/` | Software projects |
 | `Academy/` | Research, teaching, and academic management |
+| `Branches/` | Personal life management (health, finances, home) |
 | `Models/` | Local AI models and checkpoints |
 | `Outputs/` | Generated artifacts |
 | `Core/` | Reusable skills and cross-domain resources |

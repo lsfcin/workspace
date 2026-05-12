@@ -27,6 +27,18 @@ Academy/lab/*
 Academy/papers/*
 !Academy/papers/CONTEXT.md
 
+Branches/*
+!Branches/CONTEXT.md
+!Branches/casinhas/
+Branches/casinhas/*
+!Branches/casinhas/CONTEXT.md
+!Branches/financas/
+Branches/financas/*
+!Branches/financas/CONTEXT.md
+!Branches/saude/
+Branches/saude/*
+!Branches/saude/CONTEXT.md
+
 Core/*
 !Core/CONTEXT.md
 !Core/skills/
