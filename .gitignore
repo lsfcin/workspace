@@ -1,0 +1,19 @@
+# OS / Windows artifacts
+$RECYCLE.BIN/
+System Volume Information/
+
+# Downloads
+Downloads/
+
+# Domain folders: track only first-level .md files (no subdirectories)
+Code/*
+!Code/*.md
+
+Academy/*
+!Academy/*.md
+
+Models/*
+!Models/*.md
+
+Outputs/*
+!Outputs/*.md

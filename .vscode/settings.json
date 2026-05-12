@@ -1,0 +1,9 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.*": true,
+    "$RECYCLE.BIN": true,
+    "System Volume Information": true
+  },
+  "explorer.sortOrder": "type"
+}
