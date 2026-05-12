@@ -6,7 +6,7 @@ Software projects developed under this workspace.
 
 | Project | Stack | Status |
 |---------|-------|--------|
-| [workflows](workflows/CONTEXT.md) | Python | Active — V1 in progress |
+| [flows](flows/CONTEXT.md) | Python | Active — V1 in progress |
 | [apptime](apptime/CONTEXT.md) | Flutter + Kotlin | Active — pre-release |
 | [voti](voti/CONTEXT.md) | Next.js / TypeScript | Active |
 | [corpora](corpora/CONTEXT.md) | Python / PyTorch | Research — 3D CV pipeline |
