@@ -9,6 +9,10 @@ Software projects developed under this workspace.
 | [workflows](workflows/CONTEXT.md) | Python | Active — V1 in progress |
 | [apptime](apptime/CONTEXT.md) | Flutter + Kotlin | Active — pre-release |
 | [voti](voti/CONTEXT.md) | Next.js / TypeScript | Active |
+| [corpora](corpora/CONTEXT.md) | Python / PyTorch | Research — 3D CV pipeline |
+| [futebots](futebots/CONTEXT.md) | Python | Experiment — multi-agent simulation |
+| [isoroll](isoroll/CONTEXT.md) | Python / ComfyUI | Active — asset generation pipeline |
+| [shortvid](shortvid/CONTEXT.md) | Python / PySide6 | Active — desktop video editor |
 
 ## Engineering Principles
 
