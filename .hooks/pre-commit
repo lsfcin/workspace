@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Workspace pre-commit hook — line-count warnings + Python stub generation.
+# Central location: /mnt/workspace/.hooks/pre-commit
+# Applied globally via: git config --global core.hooksPath /mnt/workspace/.hooks
+
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+WARN_LINES=150
+CRITICAL_LINES=300
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null)
+[ -z "$STAGED" ] && exit 0
+
+# ── 1. Line-count warnings (all file types) ──────────────────────────────────
+while IFS= read -r file; do
+  [ -f "$file" ] || continue
+  lines=$(wc -l < "$file")
+  if [ "$lines" -ge "$CRITICAL_LINES" ]; then
+    echo -e "${RED}${BOLD}🚨 FILE SIZE — serious: $file ($lines lines)${NC}"
+    echo "   This file likely carries multiple responsibilities."
+    echo "   Refactor recommended — code quality and token cost are affected."
+    echo ""
+  elif [ "$lines" -ge "$WARN_LINES" ]; then
+    echo -e "${YELLOW}⚠  FILE SIZE — check: $file ($lines lines)${NC}"
+    echo "   Verify single responsibility. Check cohesion and coupling."
+    echo ""
+  fi
+done <<< "$STAGED"
+
+# ── 2. Python → .pyi stubs (mypy stubgen) ───────────────────────────────────
+PY_FILES=$(echo "$STAGED" | grep '\.py$' | grep -v '__pycache__' || true)
+if [ -n "$PY_FILES" ]; then
+  if ! command -v stubgen &>/dev/null; then
+    echo -e "${YELLOW}⚠  stubgen not found — .pyi stubs not generated. Install: pip install mypy${NC}"
+  else
+    while IFS= read -r f; do
+      [ -f "$f" ] || continue
+      dir=$(dirname "$f")
+      if stubgen "$f" -o "$dir" --quiet 2>/dev/null; then
+        pyi="${f%.py}.pyi"
+        [ -f "$pyi" ] && git add "$pyi"
+      else
+        echo -e "${YELLOW}⚠  stubgen failed for $f — .pyi not staged${NC}"
+      fi
+    done <<< "$PY_FILES"
+  fi
+fi
+
+# ── 3. TypeScript → .d.ts (project-configured, per tsconfig.json) ───────────
+# Auto-generation is framework-specific (Next.js, plain TS, etc.).
+# Configure declarationDir in the project's tsconfig.json and run
+# `tsc --declaration --emitDeclarationOnly` as a project-level step.
+# The hook does not run tsc to avoid framework-specific failures.
+TS_FILES=$(echo "$STAGED" | grep -E '\.(ts|tsx)$' | grep -v '\.d\.ts$' || true)
+if [ -n "$TS_FILES" ]; then
+  root=$(git rev-parse --show-toplevel)
+  if [ -f "$root/tsconfig.json" ] && ! grep -q '"declarationDir"' "$root/tsconfig.json" 2>/dev/null; then
+    echo -e "${YELLOW}⚠  TypeScript files changed but tsconfig.json has no declarationDir.${NC}"
+    echo "   Consider adding declaration generation — see Code/CONTEXT.md § Interface Files."
+    echo ""
+  fi
+fi
+
+exit 0

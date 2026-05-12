@@ -16,6 +16,10 @@ Personal workspace root. Organizes projects, research, skills, and generated art
 
 Each domain may contain a `CONTEXT.md` that specializes behavior for that subtree. Local context overrides the root [`CLAUDE.md`](CLAUDE.md).
 
+## Setup
+
+New machine or reinstall → see [SETUP.md](SETUP.md).
+
 ## What's tracked
 
 - `Core/` — fully tracked
