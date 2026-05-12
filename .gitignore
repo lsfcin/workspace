@@ -8,15 +8,33 @@ System Volume Information/
 # Downloads
 Downloads/
 
-# Domain folders: track only first-level .md files (no subdirectories)
+# Domain folders: track only workspace-structure files by name.
+# Project-internal files (STATUS.md, BENCHMARKS.md, etc.) are not workspace
+# concerns — they belong to each project's own git repo.
+
 Code/*
-!Code/*.md
+!Code/CONTEXT.md
 
 Academy/*
-!Academy/*.md
+!Academy/CONTEXT.md
+!Academy/classes/
+Academy/classes/*
+!Academy/classes/CONTEXT.md
+!Academy/lab/
+Academy/lab/*
+!Academy/lab/CONTEXT.md
+!Academy/papers/
+Academy/papers/*
+!Academy/papers/CONTEXT.md
+
+Core/*
+!Core/CONTEXT.md
+!Core/skills/
+Core/skills/*
+!Core/skills/CONTEXT.md
 
 Models/*
-!Models/*.md
+!Models/CONTEXT.md
 
 Outputs/*
-!Outputs/*.md
+!Outputs/CONTEXT.md

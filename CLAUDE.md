@@ -12,6 +12,11 @@
 - Local `CONTEXT.md` overrides this file. Load only what's relevant to the current subtree.
 - Use `SPECS.md` for technical contracts inside coding projects.
 
+## Git
+- Each project under `Code/` has its own git repo — commit project changes there, not in the workspace repo.
+- Workspace repo tracks only structural files (`CLAUDE.md`, `CONTEXT.md`, domain-level docs). Commit workspace changes here.
+- Use `git -C <project-path>` to commit inside a project without leaving the workspace root.
+
 ## Behavior
 - Read before modifying. Understand the local architecture first.
 - Don't invent requirements. If scope is unclear, ask.
