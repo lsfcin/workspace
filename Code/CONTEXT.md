@@ -13,6 +13,7 @@ Software projects developed under this workspace.
 | [futebots](futebots/CONTEXT.md) | Python | Experiment — multi-agent simulation |
 | [isoroll](isoroll/CONTEXT.md) | Python / ComfyUI | Active — asset generation pipeline |
 | [shortvid](shortvid/CONTEXT.md) | Python / PySide6 | Active — desktop video editor |
+| [ppc](ppc/CONTEXT.md) | Vanilla HTML / Alpine.js | Active — LC/UFRPE curriculum redesign tool |
 
 ## Engineering Principles
 
