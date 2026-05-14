@@ -69,12 +69,11 @@ def extract_api(path: Path) -> str:
 # ── Directory scanning ────────────────────────────────────────────────────────
 
 def interface_for(src: Path, ctx_dir: Path) -> str:
-    for iext in ('.pyi', '.d.ts'):
-        c = src.with_suffix(iext)
-        if c.exists():
-            rel = c.relative_to(ctx_dir)
-            return f'[`{rel}`]({rel})'
-    return '—'
+    if src.suffix == '.py':            c = src.with_suffix('.pyi')
+    elif src.suffix in {'.js', '.ts', '.tsx'}: c = src.with_suffix('.d.ts')
+    elif src.suffix == '.dart':        c = src.parent / (src.stem + '.dart.api')
+    else: return '—'
+    return f'[`{c.relative_to(ctx_dir)}`]({c.relative_to(ctx_dir)})' if c.exists() else '—'
 
 def code_files(directory: Path) -> list:
     return sorted(p for p in directory.iterdir()

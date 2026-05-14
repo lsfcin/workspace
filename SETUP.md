@@ -15,7 +15,7 @@ Applied globally via `core.hooksPath`. Fires on every `git commit` across all re
 - Warns when a newly staged code file lacks a first-line description comment
 - **Auto-syncs CONTEXT.md File Map** via `ctx-sync.py` for every directory with staged files, and stages the result
 - Auto-generates `.pyi` stubs for Python files (via `stubgen`) and stages them
-- Auto-generates `.d.ts` declarations for JS files (via `tsc`) when a `jsconfig.json` is found
+- Auto-generates `.d.ts` declarations for JS/TS files (via `tsc`) and `.dart.api` stubs for Dart files (via `dart-api-extract.py`), and stages them
 
 ### Claude Code Hooks (`.claude/settings.json`)
 Fires on every `Edit`, `Write`, and `Read` tool call during Claude Code sessions.
@@ -23,15 +23,15 @@ Fires on every `Edit`, `Write`, and `Read` tool call during Claude Code sessions
 | Script | Trigger | Behavior |
 |--------|---------|----------|
 | `.hooks/claude-pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits that would push any code file past 200 lines; **hard-blocks Write of new files missing a first-line description comment** |
-| `.hooks/claude-post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts`; reminds about missing first-line comment on existing files; runs `ctx-sync.py` |
-| `.hooks/claude-pre-read.sh` | PreToolUse: Read | Non-blocking hint to read the interface file (`.pyi`/`.d.ts`) before the implementation |
+| `.hooks/claude-post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts` / `.dart.api`; auto-scaffolds `jsconfig.json`/`tsconfig.json` if missing; reminds about missing first-line comment; runs `ctx-sync.py` |
+| `.hooks/claude-pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading a source file when its interface is current (timestamp check); warns when interface is stale |
 
 ### CONTEXT.md Auto-Sync (`.hooks/ctx-sync.py`)
 Runs on every Claude edit (via `claude-post-edit.sh` — also re-syncs the parent dir) and on every git commit (via `pre-commit`). Keeps each project's `## File Map` block accurate without manual maintenance:
 
 - **Adds** new code files with description from first-line comment + extracted public API
 - **Removes** stale entries for deleted files
-- **Links** interface files (`.pyi`/`.d.ts`) automatically
+- **Links** interface files (`.pyi` / `.d.ts` / `.dart.api`) automatically
 - **Folds** small subdirectories (< 7 files, leaf dirs) into the parent File Map with relative paths
 - **Links** large subdirectories (≥ 7 files, or has own CONTEXT.md, or has deeper nesting) in a `## Sub-modules` section; auto-creates a scaffold CONTEXT.md for intermediate dirs that have no CONTEXT.md but do have sub-hierarchy
 - **Warns** when a directory exceeds 7 direct files
@@ -47,10 +47,16 @@ Enforcement model:
 - **git commit** → warning: `pre-commit` warns when a newly staged file lacks the comment
 
 ### Interface File Generation
-- **Python** → `.pyi` stubs via `stubgen` (auto on every Claude edit and on git commit)
-- **JavaScript** → `.d.ts` declarations via `tsc --allowJs` (requires `jsconfig.json` in the project root; auto on every Claude edit and on git commit)
-- **TypeScript** → `.d.ts` via `tsconfig.json` with `declarationDir` (hook warns if not configured)
-- **Dart/Flutter** → abstract classes in `lib/core/interfaces/` (manual)
+Every save of a supported source file unconditionally produces an interface file. Generation is universal — no per-project configuration required.
+
+| Language | Output | Tool | Notes |
+|----------|--------|------|-------|
+| Python | `.pyi` | `stubgen` | Auto on every Claude edit and on git commit |
+| JavaScript | `.d.ts` | `tsc --allowJs --emitDeclarationOnly` | Auto on every Claude edit; `jsconfig.json` auto-scaffolded if missing (IDE use only) |
+| TypeScript | `.d.ts` | `tsc --emitDeclarationOnly` | Auto on every Claude edit; `tsconfig.json` auto-scaffolded if no ancestor config found |
+| Dart/Flutter | `.dart.api` | `dart-api-extract.py` | Auto on every Claude edit; extracts public class/mixin/method signatures |
+
+**Enforcement**: `claude-pre-read.sh` hard-blocks reading any source file when its interface file is current (interface timestamp ≥ source timestamp). Reading the interface file first is not optional when the interface is trustworthy.
 
 ### Engineering Policies
 See [Code/CONTEXT.md](Code/CONTEXT.md) for the full file size policy, modularization strategy, and interface conventions that Claude follows during coding sessions.
@@ -79,7 +85,7 @@ git config --global core.hooksPath
 chmod +x /mnt/workspace/.hooks/claude-post-edit.sh
 chmod +x /mnt/workspace/.hooks/claude-pre-read.sh
 ```
-(`claude-pre-edit.py` is invoked via `python3` and does not need execute permission.)
+(`claude-pre-edit.py` and `dart-api-extract.py` are invoked via `python3` and do not need execute permission.)
 
 ### 3. Python Interface Generation (stubgen)
 ```bash
@@ -99,36 +105,26 @@ source ~/.bashrc
 nvm install --lts
 npm install -g typescript
 ```
-Or if Node is already installed:
+Or if Node is already installed but global install requires sudo:
 ```bash
-npm install -g typescript
+npm install -g typescript --prefix ~/.local
 ```
-Verify: `tsc --version`
+The hook checks `tsc` on PATH first, then falls back to `~/.local/bin/tsc`.
+
+Verify: `tsc --version` or `~/.local/bin/tsc --version`
 
 ### 5. Claude Code Hooks
 No action required. `.claude/settings.json` is versioned in this repo and Claude Code reads it automatically when the workspace is opened. The hooks in `.hooks/` activate immediately.
 
 ---
 
-## Per-Project: JavaScript Interface Generation
+## Per-Project: Interface Generation Notes
 
-Each vanilla JS project needs a `jsconfig.json` at its root to enable `.d.ts` generation. Template:
+**JavaScript / TypeScript**: no manual setup required. The hook auto-scaffolds `jsconfig.json` (for JS) or `tsconfig.json` (for TS, walking up to the git root first) on the first file write. These config files are for IDE tooling only — the hook generates declarations via direct CLI regardless.
 
-```json
-{
-  "compilerOptions": {
-    "allowJs": true,
-    "checkJs": false,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "outDir": ".",
-    "target": "ES2020"
-  },
-  "include": ["*.js", "partials/*.js"]
-}
-```
+**Dart**: no setup required. `dart-api-extract.py` runs on every `.dart` save and requires only Python 3 (no Dart SDK).
 
-Projects with `jsconfig.json` already configured: `Code/ppc/`
+**Python**: requires `stubgen` (mypy) to be installed. See Step 3 above.
 
 ---
 
@@ -155,8 +151,12 @@ ls -la /mnt/workspace/.hooks/claude-post-edit.sh /mnt/workspace/.hooks/claude-pr
 
 Behavioral verification (inside a Claude Code session):
 - Edit a `.py` file → `.pyi` regenerates immediately (visible in shell output)
+- Edit a `.js` file → `.d.ts` regenerates; `jsconfig.json` auto-created if missing
+- Edit a `.ts` file → `.d.ts` regenerates; `tsconfig.json` auto-created if no ancestor config found
+- Edit a `.dart` file → `.dart.api` regenerates immediately
+- Read a `.py`/`.js`/`.ts`/`.dart` source file when its interface is current → hard-blocked; must read interface first
 - Attempt to grow any code file past 200 lines → Claude Code blocks the edit
-- Attempt to create a new `.js` file without a `//` first-line comment → Claude Code blocks the Write
+- Attempt to create a new file without a first-line description comment → Claude Code blocks the Write
 - Edit a file missing a first-line comment → reminder printed immediately after the edit
 - Run `git commit` on a 300+ line code file → commit is rejected
 - Run `git commit` with any staged code file → CONTEXT.md File Map auto-updated and staged
@@ -172,8 +172,9 @@ All infrastructure lives in the workspace git repo. This is what gets replicated
   pre-commit            ← git hook: size enforcement + stub/declaration generation + ctx-sync
   claude-pre-edit.py   ← Claude Code hook: 200-line size gate (PreToolUse: Edit, Write)
   claude-post-edit.sh  ← Claude Code hook: interface regen + ctx-sync (PostToolUse: Edit, Write)
-  claude-pre-read.sh   ← Claude Code hook: interface hint before reading source (PreToolUse: Read)
+  claude-pre-read.sh   ← Claude Code hook: hard-blocks source reads when interface is current (PreToolUse: Read)
   ctx-sync.py          ← CONTEXT.md File Map synchronizer: add/remove/link files, extract API
+  dart-api-extract.py  ← Dart public API extractor: produces .dart.api stubs from .dart sources
 .claude/
   settings.json        ← Claude Code hook wiring + workspace permissions
 SETUP.md               ← this file: replication instructions

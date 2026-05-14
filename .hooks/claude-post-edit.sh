@@ -1,38 +1,79 @@
 #!/usr/bin/env bash
-# PostToolUse: Edit, Write
-# - Regenerates .pyi (Python) or .d.ts (JS) immediately after every save
-# - Reminds to add first-line description comment when editing files that lack one
-# - Syncs CONTEXT.md File Map via ctx-sync.py
+# PostToolUse: Edit, Write — regenerates interfaces, checks first-line comment, syncs CONTEXT.md
 
 file=$(echo "$CLAUDE_TOOL_INPUT" | python3 -c \
   "import sys,json; d=json.load(sys.stdin); print(d.get('file_path',''))" 2>/dev/null)
 
 [ -z "$file" ] || [ ! -f "$file" ] && exit 0
 
-# Interface regeneration
+dir=$(dirname "$file")
+
+# Locate tsc (PATH or ~/.local/bin fallback)
+TSC=""; command -v tsc &>/dev/null && TSC="tsc"
+[ -z "$TSC" ] && [ -x "$HOME/.local/bin/tsc" ] && TSC="$HOME/.local/bin/tsc"
+
+# Walk up to nearest tsconfig.json, stopping at git root
+find_tsconfig() {
+  local d="$1"
+  while [ "$d" != "/" ]; do
+    [ -f "$d/tsconfig.json" ] && echo "$d/tsconfig.json" && return
+    { [ -f "$d/.git" ] || [ -d "$d/.git" ]; } && return
+    d=$(dirname "$d")
+  done
+}
+
+# ── Interface regeneration ──────────────────────────────────────────────────────
 case "$file" in
   *.py)
     STUBGEN="/mnt/workspace/.venv/bin/stubgen"
-    if [ -x "$STUBGEN" ]; then
-      dir=$(dirname "$file")
-      "$STUBGEN" "$file" -o "$dir" --quiet 2>/dev/null \
-        && printf "✓ .pyi updated: ${file%.py}.pyi\n"
-    fi
+    [ -x "$STUBGEN" ] && "$STUBGEN" "$file" -o "$dir" --quiet 2>/dev/null \
+      && printf "✓ .pyi: ${file%.py}.pyi\n"
     ;;
   *.js)
-    d=$(dirname "$file"); cfg=""
-    while [ "$d" != "." ] && [ "$d" != "/" ]; do
-      [ -f "$d/jsconfig.json" ] && cfg="$d/jsconfig.json" && break
-      d=$(dirname "$d")
-    done
-    if [ -n "$cfg" ] && command -v tsc &>/dev/null; then
-      tsc -p "$cfg" --emitDeclarationOnly 2>/dev/null \
-        && printf "✓ .d.ts updated in $(dirname $cfg)\n"
+    if [ -n "$TSC" ]; then
+      "$TSC" --allowJs --checkJs false --declaration --emitDeclarationOnly \
+             --declarationDir "$dir" --target ES2020 "$file" 2>/dev/null \
+        && printf "✓ .d.ts: ${file%.js}.d.ts\n"
     fi
+    if [ ! -f "$dir/jsconfig.json" ]; then
+      cat > "$dir/jsconfig.json" << 'EOF'
+{
+  "compilerOptions": {
+    "allowJs": true, "checkJs": false,
+    "declaration": true, "emitDeclarationOnly": true,
+    "outDir": ".", "target": "ES2020"
+  },
+  "include": ["*.js"]
+}
+EOF
+      printf "✓ jsconfig.json scaffolded: %s\n" "$dir"
+    fi
+    ;;
+  *.ts)
+    if [ -n "$TSC" ]; then
+      "$TSC" --declaration --emitDeclarationOnly \
+             --declarationDir "$dir" --target ES2020 --skipLibCheck \
+             "$file" 2>/dev/null \
+        && printf "✓ .d.ts: ${file%.ts}.d.ts\n"
+    fi
+    if [ -z "$(find_tsconfig "$dir")" ]; then
+      cat > "$dir/tsconfig.json" << 'EOF'
+{
+  "compilerOptions": {
+    "declaration": true, "emitDeclarationOnly": true,
+    "outDir": ".", "target": "ES2020", "strict": true
+  }
+}
+EOF
+      printf "✓ tsconfig.json scaffolded: %s\n" "$dir"
+    fi
+    ;;
+  *.dart)
+    python3 /mnt/workspace/.hooks/dart-api-extract.py "$file" 2>/dev/null
     ;;
 esac
 
-# First-line description reminder (fires after editing existing files without comment)
+# ── First-line description reminder ────────────────────────────────────────────
 if [ "$CLAUDE_TOOL_NAME" = "Edit" ]; then
   first=$(head -1 "$file" 2>/dev/null)
   missing=false
@@ -40,26 +81,22 @@ if [ "$CLAUDE_TOOL_NAME" = "Edit" ]; then
     *.py)                   echo "$first" | grep -qE '^\s*#'    || missing=true ;;
     *.js|*.ts|*.tsx|*.dart) echo "$first" | grep -qE '^\s*//'   || missing=true ;;
     *.css|*.scss)           echo "$first" | grep -qE '^\s*/\*'  || missing=true ;;
-    *.html)                  echo "$first" | grep -qE '^\s*<!--' || missing=true ;;
-    *.yaml|*.yml|*.toml)     echo "$first" | grep -qE '^\s*#'   || missing=true ;;
-    *.tex)                   echo "$first" | grep -qE '^\s*%'   || missing=true ;;
-    *.md)                    echo "$first" | grep -qE '^\s*#'   || missing=true ;;
+    *.html)                 echo "$first" | grep -qE '^\s*<!--' || missing=true ;;
+    *.yaml|*.yml|*.toml)    echo "$first" | grep -qE '^\s*#'   || missing=true ;;
+    *.tex)                  echo "$first" | grep -qE '^\s*%'   || missing=true ;;
+    *.md)                   echo "$first" | grep -qE '^\s*#'   || missing=true ;;
   esac
-  if $missing; then
-    printf "💬 FIRST-LINE MISSING: %s\n   Add a description comment as line 1 before the next edit.\n" "$file"
-  fi
+  $missing && printf "💬 FIRST-LINE MISSING: %s\n   Add a description comment as line 1.\n" "$file"
 fi
 
-# CONTEXT.md description reminder (line 2 should be "> description")
+# ── CONTEXT.md line-2 description reminder ─────────────────────────────────────
 if [ "$(basename "$file")" = "CONTEXT.md" ]; then
-    line2=$(sed -n '2p' "$file" 2>/dev/null)
-    if ! printf '%s' "$line2" | grep -qE '^>\s*\S'; then
-        printf "💬 CONTEXT.md DESCRIPTION MISSING: %s\n   Add '> One-line description' as line 2.\n" "$file"
-    fi
+  line2=$(sed -n '2p' "$file" 2>/dev/null)
+  printf '%s' "$line2" | grep -qE '^>\s*\S' \
+    || printf "💬 CONTEXT.md DESCRIPTION MISSING: %s\n   Add '> One-line description' as line 2.\n" "$file"
 fi
 
-# Sync CONTEXT.md File Map for the file's directory and its parent
-dir=$(dirname "$file")
+# ── Sync CONTEXT.md File Map ───────────────────────────────────────────────────
 python3 /mnt/workspace/.hooks/ctx-sync.py "$dir" 2>/dev/null
 parent=$(dirname "$dir")
 [ -f "$parent/CONTEXT.md" ] && python3 /mnt/workspace/.hooks/ctx-sync.py "$parent" 2>/dev/null

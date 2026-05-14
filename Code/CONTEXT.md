@@ -54,29 +54,18 @@ When the gate fires, do not split at an arbitrary line. Stop, apply this reasoni
 
 Each language has a native interface format — a compact public-API summary readable instead of the full implementation:
 
-| Language | Format | How to generate |
-|----------|--------|-----------------|
-| Python | `.pyi` stubs | `stubgen <file.py> -o <same-dir>/` — auto-staged by pre-commit hook |
-| JavaScript (vanilla) | `.d.ts` declarations | Add `jsconfig.json` with `"allowJs": true, `"declaration": true`, `"outDir": "."` — auto-staged by pre-commit hook when `tsc` is available |
-| TypeScript | `.d.ts` declarations | Add `"declaration": true, "declarationDir": "types"` to `tsconfig.json`; hook warns if missing |
-| Dart/Flutter | Abstract classes | No auto-generation — declare interfaces explicitly in `lib/core/interfaces/` |
+| Language | Format | Generation | Enforcement |
+|----------|--------|------------|-------------|
+| Python | `.pyi` stubs | Auto — `stubgen` on every `.py` save | Hard-block if `.pyi` current; warn if stale |
+| JavaScript | `.d.ts` declarations | Auto — `tsc --allowJs --emitDeclarationOnly` on every `.js` save; `jsconfig.json` auto-scaffolded if missing | Hard-block if `.d.ts` current; warn if stale |
+| TypeScript | `.d.ts` declarations | Auto — `tsc --emitDeclarationOnly` on every `.ts` save; `tsconfig.json` auto-scaffolded if no ancestor found | Hard-block if `.d.ts` current; warn if stale |
+| Dart/Flutter | `.dart.api` stubs | Auto — `dart-api-extract.py` on every `.dart` save; extracts public class/mixin/method signatures | Hard-block if `.dart.api` current; warn if stale |
 
-Read the interface file first. Open the `.py` / `.js` / `.ts` / `.dart` only when you need to understand *how*, not *what*.
+**Generation is universal — every save of a supported file produces an interface file, unconditionally.**
 
-**jsconfig.json template for vanilla JS projects:**
-```json
-{
-  "compilerOptions": {
-    "allowJs": true,
-    "checkJs": false,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "outDir": ".",
-    "target": "ES2020"
-  },
-  "include": ["*.js"]
-}
-```
+**Enforcement** (`claude-pre-read.sh`): when a source file has a companion interface that is **current** (interface timestamp ≥ source timestamp), reading the source is **hard-blocked** — you must read the interface first. If the source was modified after the interface was generated (stale), a warning is shown and the read is allowed. This ensures interface-first reading is not advisory but enforced whenever the interface is trustworthy.
+
+**jsconfig.json / tsconfig.json** are auto-scaffolded by the hook for IDE tooling. Generation itself always uses the direct CLI and does not depend on these files.
 
 ## First-Line Description Convention
 
