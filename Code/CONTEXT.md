@@ -1,4 +1,5 @@
 # Code
+> Software projects developed under this workspace
 
 Software projects developed under this workspace.
 
@@ -81,14 +82,17 @@ Read the interface file first. Open the `.py` / `.js` / `.ts` / `.dart` only whe
 
 **Every code file must have a one-line description comment as its very first line.** This is the canonical description of the file — it is read by `ctx-sync.py` and written into CONTEXT.md automatically. It travels with the file if it is moved or renamed.
 
-| Language | Format |
-|----------|--------|
-| Python | `# Short description of this module` |
-| JavaScript / TypeScript / Dart | `// Short description of this module` |
-| CSS / SCSS | `/* Short description of this stylesheet */` |
-| HTML | `<!-- Short description of this template -->` |
+| Language / Format | First-line format |
+|-------------------|-------------------|
+| Python | `# Short description` |
+| JavaScript / TypeScript / Dart | `// Short description` |
+| CSS / SCSS | `/* Short description */` |
+| HTML | `<!-- Short description -->` |
+| Markdown (`.md`) | `# Title of this document` |
+| YAML / TOML | `# Short description` |
+| LaTeX (`.tex`) | `% Short description` |
 
-Rules: one sentence, no period, fits in ~80 chars. Describe *what* the file is responsible for, not *how* it works.
+Rules: one sentence, no period, fits in ~80 chars. Describe *what* the file is responsible for, not *how* it works. For `.md` files the heading IS the description — `ctx-sync.py` extracts it as such and it appears in the File Map.
 
 Enforcement (three layers, in order of when they fire):
 1. **Write (new file) → hard block**: `claude-pre-edit.py` rejects the Write if the content doesn't start with a description comment. The file cannot be created without it.
@@ -96,6 +100,13 @@ Enforcement (three layers, in order of when they fire):
 3. **git commit → warning**: `pre-commit` warns when a newly staged code file lacks the comment.
 
 ## CONTEXT.md Convention
+
+**Every `CONTEXT.md` must have a one-line description as line 2**, directly after the title heading, in blockquote format:
+```markdown
+# Module Name
+> Short description of what this directory contains
+```
+This description is auto-extracted by `ctx-sync.py` and used as the Sub-modules table entry in the parent CONTEXT.md. Enforcement: `claude-pre-edit.py` hard-blocks Write of a new CONTEXT.md without a line-2 description; `claude-post-edit.sh` reminds on Edit.
 
 Every project and significant sub-module has a `CONTEXT.md`. A `## File Map` section (auto-managed by `ctx-sync.py`) lists all source files with their interface and description:
 
@@ -111,9 +122,13 @@ Every project and significant sub-module has a `CONTEXT.md`. A `## File Map` sec
 - **API** lists top-level public functions/classes extracted from the file automatically
 - **Description** comes from the file's first-line comment; if missing, shows `← add first-line comment`
 
-`ctx-sync.py` runs on every Claude edit (via `claude-post-edit.sh`) and on every git commit (via `pre-commit`). It adds new files, removes entries for deleted files, and warns when a directory exceeds 7 code files. **Renames are not detected automatically** — the old entry disappears and the new file appears with a placeholder; update the description manually. **Do not edit the block between `<!-- ctx-sync:auto:start -->` and `<!-- ctx-sync:auto:end -->` manually** — changes will be overwritten on the next run.
+`ctx-sync.py` runs on every Claude edit (via `claude-post-edit.sh`) and on every git commit (via `pre-commit`). It tracks all meaningful file types — code (`.js .ts .py .dart .html .css .scss`) and content (`.md .yaml .yml .tex .toml`) — and adds new files, removes entries for deleted files, and warns when a directory exceeds 7 code files. **Renames are not detected automatically** — the old entry disappears and the new file appears with a placeholder; update the description manually. **Do not edit the block between `<!-- ctx-sync:auto:start -->` and `<!-- ctx-sync:auto:end -->` manually** — changes will be overwritten on the next run.
 
-When a directory grows beyond ~7 files, create a sub-`CONTEXT.md` for it and add a link in the parent.
+**Subdirectory folding** — ctx-sync automatically handles subdirectories using a threshold rule:
+- **Fold** (< 7 files, no own CONTEXT.md, no sub-subdirs): files appear in the parent's File Map with relative paths (`subdir/file.js`)
+- **Link** (≥ 7 files, OR has own CONTEXT.md, OR has sub-subdirs with code): subdir gets its own CONTEXT.md (auto-created as scaffold if missing); a `## Sub-modules` section appears in the parent, auto-managed between `<!-- ctx-sync:sub:start -->` and `<!-- ctx-sync:sub:end -->` sentinels
+
+The parent's Sub-modules section is also updated when you edit a file in a subdirectory (via parent re-sync in `claude-post-edit.sh`). Do not edit either sentinel block manually.
 
 ## Claude Code Hooks
 

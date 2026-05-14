@@ -27,12 +27,14 @@ Fires on every `Edit`, `Write`, and `Read` tool call during Claude Code sessions
 | `.hooks/claude-pre-read.sh` | PreToolUse: Read | Non-blocking hint to read the interface file (`.pyi`/`.d.ts`) before the implementation |
 
 ### CONTEXT.md Auto-Sync (`.hooks/ctx-sync.py`)
-Runs on every Claude edit (via `claude-post-edit.sh`) and on every git commit (via `pre-commit`). Keeps each project's `## File Map` block accurate without manual maintenance:
+Runs on every Claude edit (via `claude-post-edit.sh` — also re-syncs the parent dir) and on every git commit (via `pre-commit`). Keeps each project's `## File Map` block accurate without manual maintenance:
 
 - **Adds** new code files with description from first-line comment + extracted public API
 - **Removes** stale entries for deleted files
 - **Links** interface files (`.pyi`/`.d.ts`) automatically
-- **Warns** when a directory exceeds 7 files (time to create a sub-`CONTEXT.md`)
+- **Folds** small subdirectories (< 7 files, leaf dirs) into the parent File Map with relative paths
+- **Links** large subdirectories (≥ 7 files, or has own CONTEXT.md, or has deeper nesting) in a `## Sub-modules` section; auto-creates a scaffold CONTEXT.md for intermediate dirs that have no CONTEXT.md but do have sub-hierarchy
+- **Warns** when a directory exceeds 7 direct files
 
 Also run manually: `python3 /mnt/workspace/.hooks/ctx-sync.py <directory>`
 

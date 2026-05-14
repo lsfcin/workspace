@@ -1,4 +1,5 @@
 # Branches
+> Personal life management — health, finances, and home construction
 
 Personal life management — health, finances, and home construction. Each subfolder is a self-contained branch of ongoing work tracked separately from research and software.
 

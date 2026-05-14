@@ -40,14 +40,28 @@ if [ "$CLAUDE_TOOL_NAME" = "Edit" ]; then
     *.py)                   echo "$first" | grep -qE '^\s*#'    || missing=true ;;
     *.js|*.ts|*.tsx|*.dart) echo "$first" | grep -qE '^\s*//'   || missing=true ;;
     *.css|*.scss)           echo "$first" | grep -qE '^\s*/\*'  || missing=true ;;
-    *.html)                 echo "$first" | grep -qE '^\s*<!--' || missing=true ;;
+    *.html)                  echo "$first" | grep -qE '^\s*<!--' || missing=true ;;
+    *.yaml|*.yml|*.toml)     echo "$first" | grep -qE '^\s*#'   || missing=true ;;
+    *.tex)                   echo "$first" | grep -qE '^\s*%'   || missing=true ;;
+    *.md)                    echo "$first" | grep -qE '^\s*#'   || missing=true ;;
   esac
   if $missing; then
     printf "💬 FIRST-LINE MISSING: %s\n   Add a description comment as line 1 before the next edit.\n" "$file"
   fi
 fi
 
-# Sync CONTEXT.md File Map for the file's directory
-python3 /mnt/workspace/.hooks/ctx-sync.py "$(dirname "$file")" 2>/dev/null
+# CONTEXT.md description reminder (line 2 should be "> description")
+if [ "$(basename "$file")" = "CONTEXT.md" ]; then
+    line2=$(sed -n '2p' "$file" 2>/dev/null)
+    if ! printf '%s' "$line2" | grep -qE '^>\s*\S'; then
+        printf "💬 CONTEXT.md DESCRIPTION MISSING: %s\n   Add '> One-line description' as line 2.\n" "$file"
+    fi
+fi
+
+# Sync CONTEXT.md File Map for the file's directory and its parent
+dir=$(dirname "$file")
+python3 /mnt/workspace/.hooks/ctx-sync.py "$dir" 2>/dev/null
+parent=$(dirname "$dir")
+[ -f "$parent/CONTEXT.md" ] && python3 /mnt/workspace/.hooks/ctx-sync.py "$parent" 2>/dev/null
 
 exit 0
