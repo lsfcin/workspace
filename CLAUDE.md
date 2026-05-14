@@ -1,5 +1,9 @@
 # Workspace Root
 
+## Purpose and Design
+- This workspace handles sorts types of projects including self-maintaining and improving strategies.
+- It is designed for agents to use, the FILE SYSTEM is its core base, don't rely on memory, don't rely on the current machine setup, rely on the file system.
+
 ## Domains
 - `Code/` — software projects
 - `Academy/` — research, teaching, academic management

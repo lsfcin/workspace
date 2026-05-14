@@ -7,5 +7,38 @@
       "Bash(git -C * show *)",
       "Bash(git -C * branch *)"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/.hooks/claude-pre-edit.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/mnt/workspace/.hooks/claude-pre-read.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/mnt/workspace/.hooks/claude-post-edit.sh"
+          }
+        ]
+      }
+    ]
   }
 }
