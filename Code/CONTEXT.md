@@ -88,7 +88,12 @@ Read the interface file first. Open the `.py` / `.js` / `.ts` / `.dart` only whe
 | CSS / SCSS | `/* Short description of this stylesheet */` |
 | HTML | `<!-- Short description of this template -->` |
 
-Rules: one sentence, no period, fits in ~80 chars. Describe *what* the file is responsible for, not *how* it works. The pre-commit hook warns when a new file is staged without this line.
+Rules: one sentence, no period, fits in ~80 chars. Describe *what* the file is responsible for, not *how* it works.
+
+Enforcement (three layers, in order of when they fire):
+1. **Write (new file) → hard block**: `claude-pre-edit.py` rejects the Write if the content doesn't start with a description comment. The file cannot be created without it.
+2. **Edit (existing file) → in-session reminder**: `claude-post-edit.sh` checks line 1 after every edit and prints a reminder if it is missing. Non-blocking — but fires immediately in-session.
+3. **git commit → warning**: `pre-commit` warns when a newly staged code file lacks the comment.
 
 ## CONTEXT.md Convention
 
@@ -106,7 +111,7 @@ Every project and significant sub-module has a `CONTEXT.md`. A `## File Map` sec
 - **API** lists top-level public functions/classes extracted from the file automatically
 - **Description** comes from the file's first-line comment; if missing, shows `← add first-line comment`
 
-`ctx-sync.py` runs on every Claude edit (via `claude-post-edit.sh`) and on every git commit (via `pre-commit`). It adds new files, removes deleted ones, and detects renames. When a directory exceeds 7 code files, it warns to create a sub-`CONTEXT.md`. **Do not edit the block between `<!-- ctx-sync:auto:start -->` and `<!-- ctx-sync:auto:end -->` manually** — changes will be overwritten.
+`ctx-sync.py` runs on every Claude edit (via `claude-post-edit.sh`) and on every git commit (via `pre-commit`). It adds new files, removes entries for deleted files, and warns when a directory exceeds 7 code files. **Renames are not detected automatically** — the old entry disappears and the new file appears with a placeholder; update the description manually. **Do not edit the block between `<!-- ctx-sync:auto:start -->` and `<!-- ctx-sync:auto:end -->` manually** — changes will be overwritten on the next run.
 
 When a directory grows beyond ~7 files, create a sub-`CONTEXT.md` for it and add a link in the parent.
 
@@ -116,9 +121,9 @@ Four scripts in `.hooks/` fire during every Claude coding session:
 
 | Script | Trigger | Effect |
 |--------|---------|--------|
-| `claude-pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits that would push code files past 200 lines |
-| `claude-post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi`/`.d.ts`; runs `ctx-sync.py` to update File Map |
+| `claude-pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits that would push code files past 200 lines; **hard-blocks Write of new files missing a first-line description comment** |
+| `claude-post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi`/`.d.ts`; reminds about missing first-line comment on existing files; runs `ctx-sync.py` |
 | `claude-pre-read.sh` | PreToolUse: Read | Non-blocking hint to read interface file before implementation |
-| `ctx-sync.py` | Called by post-edit + pre-commit | Syncs CONTEXT.md File Map with actual directory contents |
+| `ctx-sync.py` | Called by post-edit + pre-commit | Syncs CONTEXT.md File Map: adds new files, removes deleted entries, links interfaces |
 
 **To bypass the size gate**: ask explicitly. Temporarily edit `LIMIT` in `claude-pre-edit.py`, or request user approval.

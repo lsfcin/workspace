@@ -12,7 +12,8 @@ Applied globally via `core.hooksPath`. Fires on every `git commit` across all re
 
 - Warns on code files ≥ 200 lines (`.js .ts .tsx .py .dart .html .css .scss` — not data files)
 - **Blocks** commits on code files ≥ 300 lines (exit 1)
-- Warns if new code files are not documented in the nearest `CONTEXT.md`
+- Warns when a newly staged code file lacks a first-line description comment
+- **Auto-syncs CONTEXT.md File Map** via `ctx-sync.py` for every directory with staged files, and stages the result
 - Auto-generates `.pyi` stubs for Python files (via `stubgen`) and stages them
 - Auto-generates `.d.ts` declarations for JS files (via `tsc`) when a `jsconfig.json` is found
 
@@ -21,8 +22,8 @@ Fires on every `Edit`, `Write`, and `Read` tool call during Claude Code sessions
 
 | Script | Trigger | Behavior |
 |--------|---------|----------|
-| `.hooks/claude-pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits that would push any code file past 200 lines (exit 2) |
-| `.hooks/claude-post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts` immediately after every save; runs `ctx-sync.py` to update CONTEXT.md File Map |
+| `.hooks/claude-pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits that would push any code file past 200 lines; **hard-blocks Write of new files missing a first-line description comment** |
+| `.hooks/claude-post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts`; reminds about missing first-line comment on existing files; runs `ctx-sync.py` |
 | `.hooks/claude-pre-read.sh` | PreToolUse: Read | Non-blocking hint to read the interface file (`.pyi`/`.d.ts`) before the implementation |
 
 ### CONTEXT.md Auto-Sync (`.hooks/ctx-sync.py`)
@@ -36,7 +37,12 @@ Runs on every Claude edit (via `claude-post-edit.sh`) and on every git commit (v
 Also run manually: `python3 /mnt/workspace/.hooks/ctx-sync.py <directory>`
 
 ### First-Line Description Convention
-Every code file must begin with a one-line description comment. `ctx-sync.py` reads this as the file's canonical description. The pre-commit hook warns when new files are missing it.
+Every code file must begin with a one-line description comment. `ctx-sync.py` reads this as the canonical description and writes it into CONTEXT.md automatically.
+
+Enforcement model:
+- **New file (Write)** → hard block: `claude-pre-edit.py` rejects the Write if the content doesn't start with a description comment
+- **Existing file (Edit)** → in-session reminder: `claude-post-edit.sh` checks line 1 after every edit and prints a reminder if missing
+- **git commit** → warning: `pre-commit` warns when a newly staged file lacks the comment
 
 ### Interface File Generation
 - **Python** → `.pyi` stubs via `stubgen` (auto on every Claude edit and on git commit)
@@ -148,7 +154,10 @@ ls -la /mnt/workspace/.hooks/claude-post-edit.sh /mnt/workspace/.hooks/claude-pr
 Behavioral verification (inside a Claude Code session):
 - Edit a `.py` file → `.pyi` regenerates immediately (visible in shell output)
 - Attempt to grow any code file past 200 lines → Claude Code blocks the edit
+- Attempt to create a new `.js` file without a `//` first-line comment → Claude Code blocks the Write
+- Edit a file missing a first-line comment → reminder printed immediately after the edit
 - Run `git commit` on a 300+ line code file → commit is rejected
+- Run `git commit` with any staged code file → CONTEXT.md File Map auto-updated and staged
 
 ---
 

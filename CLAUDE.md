@@ -22,6 +22,10 @@
 - Workspace repo tracks only structural files (`CLAUDE.md`, `CONTEXT.md`, domain-level docs). Commit workspace changes here.
 - Use `git -C <project-path>` to commit inside a project without leaving the workspace root.
 
+## Infrastructure
+- See `SETUP.md` for full replication instructions: git hooks, stubgen, tsc, Claude Code hooks.
+- All enforcement infrastructure (`.hooks/`, `.claude/settings.json`) is versioned in this repo.
+
 ## Behavior
 - Read before modifying. Understand the local architecture first.
 - Don't invent requirements. If scope is unclear, ask.

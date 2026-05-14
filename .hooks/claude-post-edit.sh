@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # PostToolUse: Edit, Write
 # - Regenerates .pyi (Python) or .d.ts (JS) immediately after every save
+# - Reminds to add first-line description comment when editing files that lack one
 # - Syncs CONTEXT.md File Map via ctx-sync.py
 
 file=$(echo "$CLAUDE_TOOL_INPUT" | python3 -c \
@@ -8,6 +9,7 @@ file=$(echo "$CLAUDE_TOOL_INPUT" | python3 -c \
 
 [ -z "$file" ] || [ ! -f "$file" ] && exit 0
 
+# Interface regeneration
 case "$file" in
   *.py)
     STUBGEN="/mnt/workspace/.venv/bin/stubgen"
@@ -29,6 +31,21 @@ case "$file" in
     fi
     ;;
 esac
+
+# First-line description reminder (fires after editing existing files without comment)
+if [ "$CLAUDE_TOOL_NAME" = "Edit" ]; then
+  first=$(head -1 "$file" 2>/dev/null)
+  missing=false
+  case "$file" in
+    *.py)                   echo "$first" | grep -qE '^\s*#'    || missing=true ;;
+    *.js|*.ts|*.tsx|*.dart) echo "$first" | grep -qE '^\s*//'   || missing=true ;;
+    *.css|*.scss)           echo "$first" | grep -qE '^\s*/\*'  || missing=true ;;
+    *.html)                 echo "$first" | grep -qE '^\s*<!--' || missing=true ;;
+  esac
+  if $missing; then
+    printf "💬 FIRST-LINE MISSING: %s\n   Add a description comment as line 1 before the next edit.\n" "$file"
+  fi
+fi
 
 # Sync CONTEXT.md File Map for the file's directory
 python3 /mnt/workspace/.hooks/ctx-sync.py "$(dirname "$file")" 2>/dev/null
