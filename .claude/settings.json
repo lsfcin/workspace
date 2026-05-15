@@ -15,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 /mnt/workspace/.hooks/claude-pre-edit.py"
+            "command": "python3 /mnt/workspace/.hooks/pre-edit.py"
           }
         ]
       },
@@ -24,7 +24,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/mnt/workspace/.hooks/claude-pre-read.sh"
+            "command": "bash /mnt/workspace/.hooks/pre-read.sh"
           }
         ]
       }
@@ -35,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/mnt/workspace/.hooks/claude-post-edit.sh"
+            "command": "bash /mnt/workspace/.hooks/post-edit.sh"
           }
         ]
       }

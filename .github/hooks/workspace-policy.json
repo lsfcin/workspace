@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "python3 .hooks/copilot-session-start.py",
+        "windows": "python .hooks/copilot-session-start.py",
+        "cwd": "."
+      }
+    ],
+    "PreToolUse": [
+      {
+        "type": "command",
+        "command": "python3 .hooks/copilot-pre-tool.py",
+        "windows": "python .hooks/copilot-pre-tool.py",
+        "cwd": "."
+      }
+    ],
+    "PostToolUse": [
+      {
+        "type": "command",
+        "command": "python3 .hooks/copilot-post-tool.py",
+        "windows": "python .hooks/copilot-post-tool.py",
+        "cwd": "."
+      }
+    ]
+  }
+}

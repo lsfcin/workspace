@@ -1,0 +1,12 @@
+{
+  "read_on_start": true,
+  "start_session": ".hooks/start-session.sh",
+  "start_session_windows": ".hooks/start-session.ps1",
+  "pre_read_hook": ".hooks/pre-read.sh",
+  "pre_edit_hook": ".hooks/pre-edit.py",
+  "post_edit_hook": ".hooks/post-edit.sh",
+  "interface_first": true,
+  "generate_interfaces": true,
+  "require_first_line": true,
+  "hooks_dir": ".hooks"
+}

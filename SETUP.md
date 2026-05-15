@@ -3,6 +3,31 @@
 Infrastructure for code quality enforcement and AI-assisted development.
 Design principle: **the file system is the source of truth**. No configuration lives only in machine state or memory — everything is versioned here.
 
+## Parity And Enforcement Model
+
+The current workspace structure follows a simple rule: canonical behavior lives in neutral files under `.hooks/` and `WORKSPACE.md`, while company-specific files act as shims, discovery points, or startup wiring for Claude, Copilot, and VS Code.
+
+Where a hook can block a read, edit, or commit, the behavior is treated as **ENFORCED**. Where a file only injects guidance or context, the behavior is **INDUCED**. If a file is present only for compatibility or convenience and does not affect enforcement, it is **SKIPPED** in the enforcement model.
+
+### Modularization / Interface Tasks
+
+| Task | Canonical files | Claude files | Copilot / VS Code files | Behavior |
+|------|-----------------|--------------|--------------------------|----------|
+| Add workspace parity config and wrapper scripts | `WORKSPACE.md`, `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/post-edit.sh`, `.hooks/start-session.sh`, `.hooks/start-session.ps1` | `CLAUDE.md`, `.hooks/claude-pre-read.sh`, `.hooks/claude-pre-edit.py`, `.hooks/claude-post-edit.sh`, `.claude/settings.json` | `.agentrc.json`, `.hooks/copilot-agent.sh`, `.github/copilot-instructions.md` | **ENFORCED** |
+| Wire Copilot wrapper to call pre-read / pre-edit / post-edit hooks | `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/post-edit.sh`, `.hooks/copilot-session-start.py`, `.hooks/copilot-pre-tool.py`, `.hooks/copilot-post-tool.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json`, `.vscode/settings.json` | **ENFORCED** |
+| Integrate `ctx-sync.py` and interface generation into wrapper | `.hooks/post-edit.sh`, `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/ctx-sync.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json` | **ENFORCED** |
+| Add VS Code tasks / settings to run session-start checks | `.hooks/start-session.sh`, `.hooks/start-session.ps1`, `.hooks/copilot-session-start.py` | `CLAUDE.md` | `.vscode/tasks.json`, `.vscode/settings.json`, `.github/copilot-instructions.md` | **INDUCED** |
+| Test workflow: simulate read / edit / commit and fix issues | `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/post-edit.sh`, `.hooks/copilot-pre-tool.py`, `.hooks/copilot-post-tool.py`, `.hooks/pre-commit` | `.claude/settings.json` | `.vscode/tasks.json` | **INDUCED** |
+
+### Additional Files Not Tied To One Task
+
+| File | Why it exists | Behavior |
+|------|---------------|----------|
+| `WORKSPACE.md` | Canonical workspace policy and startup anchor for every agent | **INDUCED** |
+| `.github/copilot-instructions.md` | One-line Copilot shim pointing to `WORKSPACE.md` | **INDUCED** |
+| `.github/hooks/workspace-policy.json` | VS Code hook registration file for Copilot lifecycle events | **ENFORCED** |
+| `.vscode/settings.json` | Limits hook-file discovery so Copilot loads the workspace hook path, not user-level `.claude` hooks | **INDUCED** |
+
 ---
 
 ## What Is Configured
