@@ -111,11 +111,25 @@ Every project and significant sub-module has a `CONTEXT.md`. A `## File Map` sec
 - **API** lists top-level public functions/classes extracted from the file automatically
 - **Description** comes from the file's first-line comment; if missing, shows `← add first-line comment`
 
-`ctx-sync.py` runs on every Claude edit (via `claude-post-edit.sh`) and on every git commit (via `pre-commit`). It tracks all meaningful file types — code (`.js .ts .py .dart .html .css .scss`) and content (`.md .yaml .yml .tex .toml`) — and adds new files, removes entries for deleted files, and warns when a directory exceeds 7 code files. **Renames are not detected automatically** — the old entry disappears and the new file appears with a placeholder; update the description manually. **Do not edit the block between `<!-- ctx-sync:auto:start -->` and `<!-- ctx-sync:auto:end -->` manually** — changes will be overwritten on the next run.
+`ctx-sync.py` runs on every Claude edit (via `claude-post-edit.sh`) and on every git commit (via `pre-commit`). It tracks all meaningful file types — code (`.js .ts .py .dart .html .css .scss`) and content (`.md .yaml .yml .tex .toml`) — and adds new files, removes entries for deleted files, and warns when a directory exceeds 7 code files. **Renames are not detected automatically** — the old entry disappears and the new file appears with a placeholder; update the description manually. **Do not edit the block between `<!-- ctx-sync:auto:start -->
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+<!-- ctx-sync:auto:end -->` manually** — changes will be overwritten on the next run.
 
 **Subdirectory folding** — ctx-sync automatically handles subdirectories using a threshold rule:
 - **Fold** (< 7 files, no own CONTEXT.md, no sub-subdirs): files appear in the parent's File Map with relative paths (`subdir/file.js`)
-- **Link** (≥ 7 files, OR has own CONTEXT.md, OR has sub-subdirs with code): subdir gets its own CONTEXT.md (auto-created as scaffold if missing); a `## Sub-modules` section appears in the parent, auto-managed between `<!-- ctx-sync:sub:start -->` and `<!-- ctx-sync:sub:end -->` sentinels
+- **Link** (≥ 7 files, OR has own CONTEXT.md, OR has sub-subdirs with code): subdir gets its own CONTEXT.md (auto-created as scaffold if missing); a `## Sub-modules` section appears in the parent, auto-managed between `<!-- ctx-sync:sub:start -->
+| Subdirectory | Description |
+|--------------|-------------|
+| [`apptime/`](apptime/CONTEXT.md) | Android app to reduce phone addiction through awareness, without blocking |
+| [`corpora/`](corpora/CONTEXT.md) | Real-time 3D computer vision research pipeline — depth, pose, segmentation from  |
+| [`flows/`](flows/CONTEXT.md) | Graph-based workflow execution engine — typed slots, YAML-defined flows, pluggab |
+| [`futebots/`](futebots/CONTEXT.md) | Multi-agent football simulation with genetic algorithm agent evolution |
+| [`isoroll/`](isoroll/CONTEXT.md) | Foundry VTT isometric-play module and offline asset generation pipeline |
+| [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for experimenting with LC/UFRPE curriculum redesign |
+| [`shortvid/`](shortvid/CONTEXT.md) | Desktop video editor for short-form content — chroma-key, timeline, WebM export |
+| [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records |
+<!-- ctx-sync:sub:end -->` sentinels
 
 The parent's Sub-modules section is also updated when you edit a file in a subdirectory (via parent re-sync in `claude-post-edit.sh`). Do not edit either sentinel block manually.
 
