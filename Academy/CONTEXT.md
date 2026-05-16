@@ -7,4 +7,5 @@
 | Subdirectory | Description |
 |--------------|-------------|
 | [`administration/`](administration/CONTEXT.md) | — |
+| [`papers/`](papers/CONTEXT.md) | LaTeX papers, submissions, and manuscript workflows |
 <!-- routing:end -->
