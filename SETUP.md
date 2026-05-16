@@ -13,9 +13,9 @@ Where a hook can block a read, edit, or commit, the behavior is treated as **ENF
 
 | Task | Canonical files | Claude files | Copilot / VS Code files | Behavior |
 |------|-----------------|--------------|--------------------------|----------|
-| Add workspace parity config and wrapper scripts | `WORKSPACE.md`, `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/post-edit.sh`, `.hooks/start-session.sh`, `.hooks/start-session.ps1` | `CLAUDE.md`, `.hooks/claude-pre-read.sh`, `.hooks/claude-pre-edit.py`, `.hooks/claude-post-edit.sh`, `.claude/settings.json` | `.agentrc.json`, `.hooks/copilot-agent.sh`, `.github/copilot-instructions.md` | **ENFORCED** |
+| Add workspace parity config and wrapper scripts | `WORKSPACE.md`, `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/post-edit.sh`, `.hooks/start-session.sh`, `.hooks/start-session.ps1` | `CLAUDE.md`, `.claude/settings.json` | `.agentrc.json`, `.hooks/copilot-agent.sh`, `.github/copilot-instructions.md` | **ENFORCED** |
 | Wire Copilot wrapper to call pre-read / pre-edit / post-edit hooks | `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/post-edit.sh`, `.hooks/copilot-session-start.py`, `.hooks/copilot-pre-tool.py`, `.hooks/copilot-post-tool.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json`, `.vscode/settings.json` | **ENFORCED** |
-| Integrate `ctx-sync.py` and interface generation into wrapper | `.hooks/post-edit.sh`, `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/ctx-sync.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json` | **ENFORCED** |
+| Integrate `context_synchronizer.py` and interface generation into wrapper | `.hooks/post-edit.sh`, `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/context_synchronizer.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json` | **ENFORCED** |
 | Add VS Code tasks / settings to run session-start checks | `.hooks/start-session.sh`, `.hooks/start-session.ps1`, `.hooks/copilot-session-start.py` | `CLAUDE.md` | `.vscode/tasks.json`, `.vscode/settings.json`, `.github/copilot-instructions.md` | **INDUCED** |
 | Test workflow: simulate read / edit / commit and fix issues | `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/post-edit.sh`, `.hooks/copilot-pre-tool.py`, `.hooks/copilot-post-tool.py`, `.hooks/pre-commit` | `.claude/settings.json` | `.vscode/tasks.json` | **INDUCED** |
 
@@ -34,41 +34,44 @@ Where a hook can block a read, edit, or commit, the behavior is treated as **ENF
 
 ### Git Pre-Commit Hook (`.hooks/pre-commit`)
 Applied globally via `core.hooksPath`. Fires on every `git commit` across all repos under this workspace.
-
-- Warns on code files ≥ 200 lines (`.js .ts .tsx .py .dart .html .css .scss` — not data files)
-- **Blocks** commits on code files ≥ 300 lines (exit 1)
+- Warns on code files ≥ 150 lines and blocks commits on code files ≥ 200 lines (`.js .ts .tsx .py .dart .html .css .scss` — not data files). Shared thresholds live in [`.hooks/line-limits.env`](.hooks/line-limits.env)
 - Warns when a newly staged code file lacks a first-line description comment
-- **Auto-syncs CONTEXT.md File Map** via `ctx-sync.py` for every directory with staged files, and stages the result
+- **Auto-syncs CONTEXT.md Routing block** via `context_synchronizer.py` for every directory with staged files, and stages the result
 - Auto-generates `.pyi` stubs for Python files (via `stubgen`) and stages them
 - Auto-generates `.d.ts` declarations for JS/TS files (via `tsc`) and `.dart.api` stubs for Dart files (via `dart-api-extract.py`), and stages them
+- Shares its staged-file line-count enforcement with `.hooks/check-line-counts.sh`, which can also be run manually for a workspace-wide audit
 
 ### Claude Code Hooks (`.claude/settings.json`)
 Fires on every `Edit`, `Write`, and `Read` tool call during Claude Code sessions.
 
 | Script | Trigger | Behavior |
 |--------|---------|----------|
-| `.hooks/claude-pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits that would push any code file past 200 lines; **hard-blocks Write of new files missing a first-line description comment** |
-| `.hooks/claude-post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts` / `.dart.api`; auto-scaffolds `jsconfig.json`/`tsconfig.json` if missing; reminds about missing first-line comment; runs `ctx-sync.py` |
-| `.hooks/claude-pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading a source file when its interface is current (timestamp check); warns when interface is stale |
+| `.hooks/pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits that would push any code file past 200 lines; **hard-blocks Write of new files missing a first-line description comment** |
+| `.hooks/post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts` / `.dart.api`; auto-scaffolds `jsconfig.json`/`tsconfig.json` if missing; reminds about missing first-line comment; runs `context_synchronizer.py` |
+| `.hooks/pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading a source file when its interface is current (timestamp check); warns when interface is stale |
 
-### CONTEXT.md Auto-Sync (`.hooks/ctx-sync.py`)
-Runs on every Claude edit (via `claude-post-edit.sh` — also re-syncs the parent dir) and on every git commit (via `pre-commit`). Keeps each project's `## File Map` block accurate without manual maintenance:
+### CONTEXT.md Auto-Sync (`.hooks/context_synchronizer.py`)
+Runs on every Claude edit (via `post-edit.sh` — also re-syncs the parent dir) and on every git commit (via `pre-commit`). Keeps each project's `## Routing` block accurate without manual maintenance:
 
 - **Adds** new code files with description from first-line comment + extracted public API
 - **Removes** stale entries for deleted files
 - **Links** interface files (`.pyi` / `.d.ts` / `.dart.api`) automatically
-- **Folds** small subdirectories (< 7 files, leaf dirs) into the parent File Map with relative paths
-- **Links** large subdirectories (≥ 7 files, or has own CONTEXT.md, or has deeper nesting) in a `## Sub-modules` section; auto-creates a scaffold CONTEXT.md for intermediate dirs that have no CONTEXT.md but do have sub-hierarchy
+- **Folds** small subdirectories (< 7 files, leaf dirs) into the parent Routing block with relative paths
+- **Links** large subdirectories (≥ 7 files, or has own CONTEXT.md, or has deeper nesting) in the Routing block; auto-creates a scaffold CONTEXT.md for intermediate dirs that have no CONTEXT.md but do have sub-hierarchy
 - **Warns** when a directory exceeds 7 direct files
 
-Also run manually: `python3 /mnt/workspace/.hooks/ctx-sync.py <directory>`
+**Do not edit the sentinel block manually** (`<!-- ctx-sync:routing:start/end -->`). Changes are overwritten on the next sync run.
+
+**Renames are not tracked automatically.** The old entry disappears and the new file appears with a placeholder description. Update the description in CONTEXT.md manually after renaming a file.
+
+Also run manually: `python3 /mnt/workspace/.hooks/context_synchronizer.py <directory>`
 
 ### First-Line Description Convention
-Every code file must begin with a one-line description comment. `ctx-sync.py` reads this as the canonical description and writes it into CONTEXT.md automatically.
+Every code file must begin with a one-line description comment. `context_synchronizer.py` reads this as the canonical description and writes it into CONTEXT.md automatically.
 
 Enforcement model:
-- **New file (Write)** → hard block: `claude-pre-edit.py` rejects the Write if the content doesn't start with a description comment
-- **Existing file (Edit)** → in-session reminder: `claude-post-edit.sh` checks line 1 after every edit and prints a reminder if missing
+- **New file (Write)** → hard block: `pre-edit.py` rejects the Write if the content doesn't start with a description comment
+- **Existing file (Edit)** → in-session reminder: `post-edit.sh` checks line 1 after every edit and prints a reminder if missing
 - **git commit** → warning: `pre-commit` warns when a newly staged file lacks the comment
 
 ### Interface File Generation
@@ -81,7 +84,9 @@ Every save of a supported source file unconditionally produces an interface file
 | TypeScript | `.d.ts` | `tsc --emitDeclarationOnly` | Auto on every Claude edit; `tsconfig.json` auto-scaffolded if no ancestor config found |
 | Dart/Flutter | `.dart.api` | `dart-api-extract.py` | Auto on every Claude edit; extracts public class/mixin/method signatures |
 
-**Enforcement**: `claude-pre-read.sh` hard-blocks reading any source file when its interface file is current (interface timestamp ≥ source timestamp). Reading the interface file first is not optional when the interface is trustworthy.
+**Enforcement**: `pre-read.sh` hard-blocks reading any source file when its interface file is current (interface timestamp ≥ source timestamp). Reading the interface file first is not optional when the interface is trustworthy.
+
+**To bypass the size gate temporarily**: edit `BLOCK_LINES` in `.hooks/line-limits.env`, perform the operation, then revert. Both `pre-edit.py` and `check-line-counts.sh` will pick up the new value immediately.
 
 ### Engineering Policies
 See [Code/CONTEXT.md](Code/CONTEXT.md) for the full file size policy, modularization strategy, and interface conventions that Claude follows during coding sessions.
@@ -107,10 +112,14 @@ git config --global core.hooksPath
 
 ### 2. Make Hook Scripts Executable
 ```bash
-chmod +x /mnt/workspace/.hooks/claude-post-edit.sh
-chmod +x /mnt/workspace/.hooks/claude-pre-read.sh
+chmod +x /mnt/workspace/.hooks/post-edit.sh
+chmod +x /mnt/workspace/.hooks/pre-read.sh
+chmod +x /mnt/workspace/.hooks/pre-commit
+chmod +x /mnt/workspace/.hooks/check-line-counts.sh
+chmod +x /mnt/workspace/.hooks/copilot-agent.sh
+chmod +x /mnt/workspace/.hooks/start-session.sh
 ```
-(`claude-pre-edit.py` and `dart-api-extract.py` are invoked via `python3` and do not need execute permission.)
+(`pre-edit.py`, `copilot-pre-tool.py`, `copilot-post-tool.py`, `copilot-session-start.py`, and `dart-api-extract.py` are invoked via `python3` and do not need execute permission.)
 
 ### 3. Python Interface Generation (stubgen)
 ```bash
@@ -171,7 +180,7 @@ grep -c "hooks" /mnt/workspace/.claude/settings.json
 # Expected: > 0
 
 # 5. Hook scripts are executable
-ls -la /mnt/workspace/.hooks/claude-post-edit.sh /mnt/workspace/.hooks/claude-pre-read.sh
+ls -la /mnt/workspace/.hooks/post-edit.sh /mnt/workspace/.hooks/pre-read.sh /mnt/workspace/.hooks/pre-commit /mnt/workspace/.hooks/check-line-counts.sh
 ```
 
 Behavioral verification (inside a Claude Code session):
@@ -183,8 +192,8 @@ Behavioral verification (inside a Claude Code session):
 - Attempt to grow any code file past 200 lines → Claude Code blocks the edit
 - Attempt to create a new file without a first-line description comment → Claude Code blocks the Write
 - Edit a file missing a first-line comment → reminder printed immediately after the edit
-- Run `git commit` on a 300+ line code file → commit is rejected
-- Run `git commit` with any staged code file → CONTEXT.md File Map auto-updated and staged
+- Run `git commit` on a 200+ line code file → commit is rejected
+- Run `git commit` with any staged code file → CONTEXT.md Routing block auto-updated and staged
 
 ---
 
@@ -194,20 +203,46 @@ All infrastructure lives in the workspace git repo. This is what gets replicated
 
 ```
 .hooks/
-  pre-commit            ← git hook: size enforcement + stub/declaration generation + ctx-sync
-  claude-pre-edit.py   ← Claude Code hook: 200-line size gate (PreToolUse: Edit, Write)
-  claude-post-edit.sh  ← Claude Code hook: interface regen + ctx-sync (PostToolUse: Edit, Write)
-  claude-pre-read.sh   ← Claude Code hook: hard-blocks source reads when interface is current (PreToolUse: Read)
-  ctx-sync.py          ← CONTEXT.md File Map synchronizer: add/remove/link files, extract API
-  dart-api-extract.py  ← Dart public API extractor: produces .dart.api stubs from .dart sources
+  pre-commit              ← git hook: size enforcement + stub/declaration generation + ctx-sync
+  pre-edit.py             ← canonical pre-edit policy: 200-line size gate + first-line check
+  post-edit.sh            ← canonical post-edit: interface regen + ctx-sync + first-line reminder
+  pre-read.sh             ← canonical pre-read: hard-blocks source reads when interface is current
+  check-line-counts.sh    ← standalone audit tool (also called by pre-commit); reads line-limits.env
+  line-limits.env         ← single source of truth for WARN_LINES and BLOCK_LINES thresholds
+  context_synchronizer.py             ← CONTEXT.md Routing block synchronizer: add/remove/link files, extract API
+  dart-api-extract.py     ← Dart public API extractor: produces .dart.api stubs from .dart sources
+  copilot-pre-tool.py     ← Copilot PreToolUse shim: dispatches to pre-read.sh / pre-edit.py
+  copilot-post-tool.py    ← Copilot PostToolUse shim: dispatches to post-edit.sh
+  copilot-session-start.py← Copilot SessionStart shim: injects WORKSPACE.md excerpt as context
+  copilot-agent.sh        ← Copilot agent launcher: reads .agentrc.json and runs start-session.sh
+  start-session.sh        ← neutral session-start: prints WORKSPACE.md header (Linux/macOS)
+  start-session.ps1       ← neutral session-start: prints WORKSPACE.md header (Windows/PowerShell)
 .claude/
-  settings.json        ← Claude Code hook wiring + workspace permissions
-SETUP.md               ← this file: replication instructions
-CLAUDE.md              ← workspace behavioral instructions for Claude
-Code/CONTEXT.md        ← engineering principles: file size, modularization, interface conventions
+  settings.json           ← Claude Code hook wiring (calls neutral pre-edit/post-edit/pre-read) + permissions
+.github/
+  copilot-instructions.md ← Copilot shim: one line pointing to WORKSPACE.md
+  hooks/workspace-policy.json ← Copilot hook registration: SessionStart, PreToolUse, PostToolUse
+.agentrc.json             ← Copilot agent config: start_session path + declarative capability flags
+SETUP.md                  ← this file: replication instructions
+CLAUDE.md                 ← workspace behavioral instructions for Claude
+Code/CONTEXT.md           ← engineering principles: file size, modularization, interface conventions
+WORKSPACE.md              ← canonical workspace entrypoint read by all agents at session start
 ```
 
 The only steps that cannot be versioned are the global git config command and external tool installations (stubgen, tsc, nvm). Everything else is in the file system.
+
+---
+
+## Policy Decisions
+
+### Line-limit rule (canonicalized)
+
+- Warning threshold: 150 lines (`WARN_LINES` in `.hooks/line-limits.env`)
+- Hard block: 200 lines (`BLOCK_LINES` in `.hooks/line-limits.env`)
+- The pre-commit hook is **incremental only** — it checks staged files per commit, not the full tree.
+- Intent: force graph-like design — small single-responsibility nodes with explicit edges (imports).
+- To change thresholds, edit only `.hooks/line-limits.env`. Both `pre-edit.py` and `check-line-counts.sh` read from it; no other file needs updating.
+- Project-specific overrides: add a note in the project's `CONTEXT.md` and document the exemption reason. Exempt categories so far: vendored ML model architecture files, generated string-table files, Dart `part of` split fragments.
 
 ---
 

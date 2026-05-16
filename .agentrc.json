@@ -1,4 +1,5 @@
 {
+  "_comment": "start_session is read by copilot-agent.sh. All other keys are declarative documentation — they are not consumed by any hook script.",
   "read_on_start": true,
   "start_session": ".hooks/start-session.sh",
   "start_session_windows": ".hooks/start-session.ps1",

@@ -13,7 +13,7 @@
       "label": "Workspace: Hook Smoke Test",
       "type": "shell",
       "command": "bash",
-      "args": ["-lc", "bash -n .hooks/claude-pre-read.sh .hooks/pre-read.sh .hooks/claude-post-edit.sh .hooks/post-edit.sh .hooks/start-session.sh .hooks/copilot-agent.sh && python3 -m py_compile .hooks/claude-pre-edit.py .hooks/pre-edit.py .hooks/copilot-session-start.py .hooks/copilot-pre-tool.py .hooks/copilot-post-tool.py"],
+      "args": ["-lc", "bash -n .hooks/pre-read.sh .hooks/post-edit.sh .hooks/start-session.sh .hooks/copilot-agent.sh .hooks/pre-commit .hooks/check-line-counts.sh && python3 -m py_compile .hooks/pre-edit.py .hooks/ctx-sync.py .hooks/dart-api-extract.py .hooks/copilot-session-start.py .hooks/copilot-pre-tool.py .hooks/copilot-post-tool.py"],
       "group": "test",
       "problemMatcher": []
     }

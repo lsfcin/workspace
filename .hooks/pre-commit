@@ -8,9 +8,6 @@ RED='\033[0;31m'
 BOLD='\033[1m'
 NC='\033[0m'
 
-WARN_LINES=200
-CRITICAL_LINES=300
-
 STAGED=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null)
 [ -z "$STAGED" ] && exit 0
 
@@ -20,23 +17,23 @@ BLOCKED=0
 CODE_FILES=$(echo "$STAGED" | grep -E '\.(js|ts|tsx|py|dart|html|css|scss)$' | grep -v '\.d\.ts$' || true)
 
 if [ -n "$CODE_FILES" ]; then
-  while IFS= read -r file; do
-    [ -f "$file" ] || continue
-    lines=$(wc -l < "$file")
-    if [ "$lines" -ge "$CRITICAL_LINES" ]; then
-      printf "${RED}${BOLD}🚨 FILE SIZE — blocked: $file ($lines lines)${NC}\n"
-      printf "   Split before committing. File carries too many responsibilities.\n\n"
-      BLOCKED=1
-    elif [ "$lines" -ge "$WARN_LINES" ]; then
-      printf "${YELLOW}⚠  FILE SIZE — check: $file ($lines lines)${NC}\n"
-      printf "   Verify single responsibility. Check cohesion and coupling.\n\n"
-    fi
-  done <<< "$CODE_FILES"
-fi
-
-if [ "$BLOCKED" -eq 1 ]; then
-  printf "${RED}${BOLD}Commit blocked. Split oversized file(s) before continuing.${NC}\n"
-  exit 1
+  if ! printf '%s\n' "$CODE_FILES" | /mnt/workspace/.hooks/check-line-counts.sh --from-stdin >/tmp/workspace-line-counts.$$ 2>&1; then
+    cat /tmp/workspace-line-counts.$$ | while IFS= read -r line; do
+      case "$line" in
+        🚨*) printf "%s${NC}\n" "$line" ;;
+        *) printf "%s\n" "$line" ;;
+      esac
+    done
+    rm -f /tmp/workspace-line-counts.$$
+    exit 1
+  fi
+  cat /tmp/workspace-line-counts.$$ | while IFS= read -r line; do
+    case "$line" in
+      ⚠*) printf "${YELLOW}%s${NC}\n" "$line" ;;
+      *) printf "%s\n" "$line" ;;
+    esac
+  done
+  rm -f /tmp/workspace-line-counts.$$
 fi
 
 # ── 2. Missing first-line description comment (new files only) ─────────────────
@@ -58,12 +55,16 @@ if [ -n "$NEW_CODE" ]; then
   done <<< "$NEW_CODE"
 fi
 
-# ── 3. Sync CONTEXT.md File Map for all affected directories ───────────────────
+# ── 3. Sync CONTEXT.md Routing block for all affected directories ──────────────
 if [ -n "$CODE_FILES" ]; then
   while IFS= read -r dir; do
-    [ -f "$dir/CONTEXT.md" ] || continue
-    python3 /mnt/workspace/.hooks/ctx-sync.py "$dir" 2>/dev/null \
-      && git add "$dir/CONTEXT.md" 2>/dev/null || true
+    if [ -f "$dir/CONTEXT.md" ]; then
+      python3 /mnt/workspace/.hooks/context_synchronizer.py "$dir" 2>/dev/null \
+        && git add "$dir/CONTEXT.md" 2>/dev/null || true
+    elif [ -f "$dir/WORKSPACE.md" ]; then
+      python3 /mnt/workspace/.hooks/context_synchronizer.py "$dir" 2>/dev/null \
+        && git add "$dir/WORKSPACE.md" 2>/dev/null || true
+    fi
   done < <(echo "$CODE_FILES" | xargs -I{} dirname {} | sort -u)
 fi
 

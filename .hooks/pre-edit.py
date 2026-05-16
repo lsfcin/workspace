@@ -1,9 +1,24 @@
 #!/usr/bin/env python3
-import sys, json, os, re
+import json, os, re, sys
+from pathlib import Path
 
 CODE_EXTS    = {'.js', '.ts', '.tsx', '.py', '.dart', '.html', '.css', '.scss'}
 CONTENT_EXTS = {'.md', '.yaml', '.yml', '.tex', '.toml'}
-LIMIT = 200
+
+
+def load_line_limits() -> tuple[int, int]:
+	limits_path = Path(__file__).with_name('line-limits.env')
+	limits: dict[str, int] = {}
+	for raw_line in limits_path.read_text().splitlines():
+		line = raw_line.strip()
+		if not line or line.startswith('#') or '=' not in line:
+			continue
+		name, value = line.split('=', 1)
+		limits[name] = int(value)
+	return limits['WARN_LINES'], limits['BLOCK_LINES']
+
+
+WARN_LINES, BLOCK_LINES = load_line_limits()
 
 FIRST_LINE_COMMENT = {
 	'.py': r'^\s*#',    '.js':   r'^\s*//', '.ts':   r'^\s*//',
@@ -66,8 +81,8 @@ elif tool == 'Edit':
 else:
 	sys.exit(0)
 
-if is_code and new_lines >= LIMIT:
-	print(f"⛔ SIZE GATE — {file_path} would reach {new_lines} lines (limit: {LIMIT}).")
+if is_code and new_lines >= BLOCK_LINES:
+	print(f"⛔ SIZE GATE — {file_path} would reach {new_lines} lines (limit: {BLOCK_LINES}).")
 	print(f"   Create a new module file and write there instead.")
 	sys.exit(2)
 

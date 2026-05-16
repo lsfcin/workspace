@@ -96,9 +96,10 @@ if [ "$(basename "$file")" = "CONTEXT.md" ]; then
 		|| printf "💬 CONTEXT.md DESCRIPTION MISSING: %s\n   Add '> One-line description' as line 2.\n" "$file"
 fi
 
-# ── Sync CONTEXT.md File Map ───────────────────────────────────────────────────
-python3 /mnt/workspace/.hooks/ctx-sync.py "$dir" 2>/dev/null
+# ── Sync CONTEXT.md Routing block ─────────────────────────────────────────────
+python3 /mnt/workspace/.hooks/context_synchronizer.py "$dir" 2>/dev/null
 parent=$(dirname "$dir")
-[ -f "$parent/CONTEXT.md" ] && python3 /mnt/workspace/.hooks/ctx-sync.py "$parent" 2>/dev/null
+{ [ -f "$parent/CONTEXT.md" ] || [ -f "$parent/WORKSPACE.md" ]; } \
+  && python3 /mnt/workspace/.hooks/context_synchronizer.py "$parent" 2>/dev/null
 
 exit 0
