@@ -2,7 +2,7 @@
 > Completed project log — all phases done. See HANDOFF.md for summary and per-project status.
 
 ## Strategy
-1. **Phase 1 — Infrastructure catchup**: batch-generate all missing interface files; run ctx-sync on every project dir
+1. **Phase 1 — Infrastructure catchup**: batch-generate all missing interface files; run `context_synchronizer.py` on every project dir
 2. **Phase 2 — Critical splits**: files > 500 lines — the monsters that block any productive session
 3. **Phase 3 — Moderate splits**: files 150–500 lines, with 200 as the hard stop
 4. **Phase 4 — First-line comments**: add to all files missing them
@@ -13,7 +13,7 @@ CONTEXT.md scaffold is created by context_synchronizer.py when run on a dir.
 
 ---
 
-## Phase 1 — Interface Generation & ctx-sync (batch, no code changes)
+## Phase 1 — Interface Generation & context-sync (batch, no code changes)
 
 ### 1a — Generate interface files for all existing source files
 - [ ] Python: run `stubgen` on all `.py` files across all projects
@@ -21,7 +21,7 @@ CONTEXT.md scaffold is created by context_synchronizer.py when run on a dir.
 - [ ] Dart: run `dart-api-extract.py` on all `.dart` files (apptime)
 - [ ] JavaScript: run `tsc --allowJs --emitDeclarationOnly` on all `.js` files (flows, ppc already done)
 
-### 1b — Run ctx-sync on every project and key subdirs
+### 1b — Run context_synchronizer.py on every project and key subdirs
 - [ ] flows/ (+ engine/, libraries/, all sub-dirs)
 - [ ] apptime/ (+ lib/, lib/screens/, lib/data/)
 - [ ] voti/ (+ src/, src/components/, src/lib/, src/data/)

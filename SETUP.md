@@ -60,7 +60,7 @@ Runs on every Claude edit (via `post-edit.sh` — also re-syncs the parent dir) 
 - **Links** large subdirectories (≥ 7 files, or has own CONTEXT.md, or has deeper nesting) in the Routing block; auto-creates a scaffold CONTEXT.md for intermediate dirs that have no CONTEXT.md but do have sub-hierarchy
 - **Warns** when a directory exceeds 7 direct files
 
-**Do not edit the sentinel block manually** (`<!-- ctx-sync:routing:start/end -->`). Changes are overwritten on the next sync run.
+**Do not edit the sentinel block manually** (`<!-- routing:start/end -->`). Changes are overwritten on the next sync run.
 
 **Renames are not tracked automatically.** The old entry disappears and the new file appears with a placeholder description. Update the description in CONTEXT.md manually after renaming a file.
 
@@ -203,9 +203,9 @@ All infrastructure lives in the workspace git repo. This is what gets replicated
 
 ```
 .hooks/
-  pre-commit              ← git hook: size enforcement + stub/declaration generation + ctx-sync
+  pre-commit              ← git hook: size enforcement + stub/declaration generation + routing-sync
   pre-edit.py             ← canonical pre-edit policy: 200-line size gate + first-line check
-  post-edit.sh            ← canonical post-edit: interface regen + ctx-sync + first-line reminder
+  post-edit.sh            ← canonical post-edit: interface regen + routing-sync + first-line reminder
   pre-read.sh             ← canonical pre-read: hard-blocks source reads when interface is current
   check-line-counts.sh    ← standalone audit tool (also called by pre-commit); reads line-limits.env
   line-limits.env         ← single source of truth for WARN_LINES and BLOCK_LINES thresholds

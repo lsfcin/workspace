@@ -10,14 +10,16 @@ from workspace_scanner import (
     build_sub_rows, build_file_rows, build_routing_block,
 )
 
-RS  = '<!-- ctx-sync:routing:start -->'
-RE  = '<!-- ctx-sync:routing:end -->'
+RS  = '<!-- routing:start -->'
+RE  = '<!-- routing:end -->'
 
 # Legacy sentinel names — detected and converted automatically on first sync.
 _OLD_AS = '<!-- ctx-sync:auto:start -->'
 _OLD_AE = '<!-- ctx-sync:auto:end -->'
 _OLD_SS = '<!-- ctx-sync:sub:start -->'
 _OLD_SE = '<!-- ctx-sync:sub:end -->'
+_OLD_RS = '<!-- ctx-sync:routing:start -->'
+_OLD_RE = '<!-- ctx-sync:routing:end -->'
 
 
 def _line_pos(text: str, sentinel: str) -> int:
@@ -44,7 +46,12 @@ def _extract_between_lines(text: str, start: str, end: str) -> str:
 
 
 def migrate_legacy(text: str) -> tuple[str, bool]:
-    """Convert old two-block format to single routing block (line-anchored only)."""
+    """Convert old sentinel formats to current routing block (line-anchored only)."""
+    # Migration: ctx-sync:routing:* → routing:*
+    if _line_pos(text, _OLD_RS) != -1:
+        text = text.replace(_OLD_RS, RS).replace(_OLD_RE, RE)
+        return text, True
+
     has_auto = _line_pos(text, _OLD_AS) != -1
     has_sub  = _line_pos(text, _OLD_SS) != -1
     if not has_auto and not has_sub:
@@ -131,7 +138,7 @@ def sync(target: Path):
     text = text.rstrip('\n') + '\n\n' + new_block
 
     ctx.write_text(text, encoding='utf-8')
-    print(f'✓ ctx-sync: {ctx}')
+    print(f'✓ routing-sync: {ctx}')
 
     removed = set(preserved_files) - {rel for _, rel in all_files}
     for r in removed:

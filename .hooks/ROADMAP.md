@@ -35,7 +35,7 @@
 - [x] Update `SETUP.md` tsc PATH section
 
 ## Verification
-- [x] JS/TS: ctx-sync correctly links `.d.ts` for all 7 ppc JS files
+- [x] JS/TS: routing-sync correctly links `.d.ts` for all 7 ppc JS files
 - [x] Dart: extractor generates clean `.dart.api` (tested on goal_config, main_screen, insights)
 - [x] Dart enforcement: timestamp logic correctly hard-blocks when interface is current
 - [ ] TS generation: needs a real `.ts` file edit to trigger end-to-end test

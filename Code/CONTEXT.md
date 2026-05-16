@@ -71,14 +71,14 @@ Every `CONTEXT.md` must have a one-line description as line 2, directly after th
 
 This is auto-extracted by `context_synchronizer.py` and used as the Routing table entry in the parent CONTEXT.md. New CONTEXT.md files without a line-2 description are hard-blocked by the pre-edit hook.
 
-Each CONTEXT.md contains a `## Routing` section at the bottom, auto-managed by `context_synchronizer.py` between a pair of `ctx-sync:routing` HTML comment sentinels. **Do not edit the sentinel block manually** — changes are overwritten on the next sync. Renames are not tracked automatically; update the description manually after renaming a file.
+Each CONTEXT.md contains a `## Routing` section at the bottom, auto-managed by `context_synchronizer.py` between `<!-- routing:start -->` / `<!-- routing:end -->` HTML comment sentinels. **Do not edit the sentinel block manually** — changes are overwritten on the next sync. Renames are not tracked automatically; update the description manually after renaming a file.
 
 ## Git Structure
 
 - Projects inside `Code/` use their own independent git repositories — commit project changes there, not in the workspace repo.
 - Use `git -C <project-path>` to commit inside a project without leaving the workspace root.
 
-<!-- ctx-sync:routing:start -->
+<!-- routing:start -->
 ## Routing
 
 | Subdirectory | Description |
@@ -91,4 +91,4 @@ Each CONTEXT.md contains a `## Routing` section at the bottom, auto-managed by `
 | [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for experimenting with LC/UFRPE curriculum redesign |
 | [`shortvid/`](shortvid/CONTEXT.md) | Desktop video editor for short-form content — chroma-key, timeline, WebM export |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records |
-<!-- ctx-sync:routing:end -->
+<!-- routing:end -->

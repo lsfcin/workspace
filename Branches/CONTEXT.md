@@ -14,3 +14,8 @@ Personal life management — health, finances, and home construction. Each subfo
 ## Convention
 
 Each subfolder may contain a `CONTEXT.md` summarizing its current state and active threads. Files inside (documents, notes, spreadsheets) are not versioned — only structural markdown is tracked.
+
+<!-- routing:start -->
+## Routing
+
+<!-- routing:end -->

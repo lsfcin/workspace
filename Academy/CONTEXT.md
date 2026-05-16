@@ -1,7 +1,10 @@
 # Academy
 > Research, teaching, and academic work
 
-<!-- ctx-sync:routing:start -->
+<!-- routing:start -->
 ## Routing
 
-<!-- ctx-sync:routing:end -->
+| Subdirectory | Description |
+|--------------|-------------|
+| [`administration/`](administration/CONTEXT.md) | — |
+<!-- routing:end -->
