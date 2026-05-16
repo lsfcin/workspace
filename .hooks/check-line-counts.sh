@@ -16,7 +16,7 @@ check_file() {
     *.d.ts) return 0 ;;
   esac
 
-  if ! printf '%s\n' "$f" | grep -Eq '\.(js|ts|tsx|py|dart|html|css|scss)$'; then
+  if ! printf '%s\n' "$f" | grep -Eq '\.(js|ts|tsx|py|dart|html|css|scss|tex)$'; then
     return 0
   fi
 
@@ -46,7 +46,7 @@ elif [ "$#" -gt 0 ]; then
   files=("$@")
 else
   shopt -s nullglob globstar
-  files=(**/*.{js,ts,tsx,py,dart,html,css,scss})
+  files=(**/*.{js,ts,tsx,py,dart,html,css,scss,tex})
 fi
 
 for f in "${files[@]}"; do

@@ -1,5 +1,5 @@
 # Trash
-**/*.trashinfo
+.Trash-1000/
 
 # OS / Windows artifacts
 $RECYCLE.BIN/

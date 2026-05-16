@@ -1,98 +1,71 @@
 # Papers
 > LaTeX papers, submissions, and manuscript workflows
 
-This subtree stores paper projects that behave like small research codebases: each paper can have its own build rules, submission target, and local workflow.
+Each paper lives in its own subdirectory with its own git repo (Overleaf as remote). Local compilation is primary; Overleaf is the sync/checkpoint copy for final validation.
 
 ## Behavioral Cues
 
-- Local-first workflow: edit and compile locally first, then sync to Overleaf.
-- Evidence-first writing: avoid claims without explicit source, experiment, or derivation.
-- Reproducibility by default: every number in the manuscript should map to script, table, or log.
-- Section ownership: each `.tex` file should have a clear purpose (intro, methods, experiments, discussion).
+- Evidence-first: avoid claims without explicit source, experiment, or derivation.
+- Reproducibility: every number in the manuscript must trace back to a script, table, or log.
 - Revision discipline: prefer small, reviewable commits over large rewrites.
 
-## Recommended Project Layout
-
-Prefer splitting long manuscripts into section files and keeping `main.tex` as orchestration:
+## Project Layout
 
 ```text
-main.tex
-sections/
-	01_intro.tex
-	02_background.tex
-	03_methods.tex
-	04_experiments.tex
-	05_results.tex
-	06_conclusion.tex
-figures/
-tables/
-refs.bib
+<paper>/
+├── main.tex              ← orchestration only: preamble + \input of sections
+├── main.pdf              ← compiled output (gitignored, stays at root)
+├── .latexmkrc            ← engine config: aux_dir=build, out_dir=.
+├── .gitignore / CONTEXT.md
+├── sections/             ← one .tex per section, 200 LOC limit
+│   └── 01_intro.tex, 02_methods.tex, ...
+├── lib/                  ← venue template files (cls, sty, bst, bib) — do not edit
+├── figures/              ← paper figures (prefer source scripts over bare images)
+├── tables/               ← extracted table .tex files when a table exceeds ~30 lines
+├── plans/                ← research notes, feynman output, literature summaries
+└── build/                ← all LaTeX artifacts (gitignored, managed by latexmk)
 ```
 
-For this first paper we keep the existing structure and evolve incrementally.
+`main.tex` contains no prose. `lib/` is never manually edited. `build/` can be freely deleted.
 
-## File Size Guidance
+## File Size
 
-This is a soft policy for writing quality and maintainability, not a hard hook gate.
+**200 LOC per section file** — enforced by the workspace hook (warning at 150, hard-block at 200). Split by extracting subsection inputs or moving content to `tables/*.tex` / `figures/*.tex`. `main.tex` stays orchestration only. `.bib` has no LOC limit.
 
-- `.tex`: target under 250 LOC per section file; warning at 400 LOC.
-- `main.tex`: should stay mostly orchestration (`\input` / `\include`) and preamble.
-- `.bib`: no strict LOC limit (intentionally monolithic by design), but keep entries consistently formatted.
-- Figure data and generated artifacts: avoid manual edits; keep source scripts where possible.
+## First-Line Description
 
-Local PDF builds should use the installed CLI toolchain, not Overleaf as the primary compiler. The following tools are installed on this machine and available in PATH:
+Every new `.tex` file must open with a `%` comment — the hook blocks new files without it:
 
-```bash
-latexmk
-xelatex
-lualatex
-pdflatex
+```latex
+% Methods: scene design, GPU platforms, and numerical integrators.
+\section{Methods}
 ```
 
-For this paper template, use XeLaTeX as default because the class depends on `fontspec` and `Times New Roman`. The practical local command is:
+## Building
 
 ```bash
 cd /mnt/workspace/Academy/papers/<paper-folder>
 latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
+latexmk -C && latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex  # clean rebuild
 ```
 
-If you want a clean rebuild:
+Use XeLaTeX for document classes that require `fontspec` (e.g. SBC/JBCS). Artifacts go to `build/`; PDF lands at root.
+
+## Feynman CLI
+
+`feynman` accelerates research — not a source of truth. Always verify primary sources before committing claims or citations.
 
 ```bash
-cd /mnt/workspace/Academy/papers/<paper-folder>
-latexmk -C
-latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
+feynman lit "<topic>"           # candidate papers
+feynman deepresearch "<topic>"  # research brief
+feynman review "<draft claim>"  # simulate reviewer objections
 ```
 
-Keep Overleaf as the sync/checkpoint copy for final validation.
+## Git
 
-## Feynman CLI In This Workflow
-
-`feynman` is installed and can accelerate paper development when used as a research assistant, not a source of truth.
-
-Useful commands:
-
-```bash
-feynman status
-feynman lit "<topic>"
-feynman deepresearch "<topic>"
-feynman compare "<topic>"
-feynman review "<artifact or draft claim>"
-```
-
-Practical usage pattern:
-
-1. Use `feynman lit` or `deepresearch` to gather candidate sources and claims.
-2. Manually verify primary sources before inserting any claim in the paper.
-3. Use `feynman review` near milestones to simulate reviewer objections.
-4. Convert accepted insights into concrete manuscript changes with citations.
-
-## Git Hygiene For Papers
-
-- Track source files (`.tex`, `.bib`, figures, class/style files).
-- Ignore local build artifacts (`.aux`, `.log`, `.xdv`, generated PDFs, etc.).
-- Commit from the paper repo itself and push to Overleaf remote.
-- Keep workflow docs (`CONTEXT.md`, `ROADMAP.md`) versioned when useful to the writing process.
+- Source files (`.tex`, `.bib`, figures, `lib/`) live in the paper repo; push to Overleaf remote.
+- `build/` and `main.pdf` are gitignored. Version `CONTEXT.md` alongside the manuscript.
+- Workspace repo tracks only `CONTEXT.md`; all other paper files belong to the paper repo.
 
 <!-- routing:start -->
 ## Routing

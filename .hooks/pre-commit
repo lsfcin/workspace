@@ -14,7 +14,7 @@ STAGED=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null)
 BLOCKED=0
 
 # ── 1. Line-count checks (code files only — not JSON, Markdown, binaries) ─────
-CODE_FILES=$(echo "$STAGED" | grep -E '\.(js|ts|tsx|py|dart|html|css|scss)$' | grep -v '\.d\.ts$' || true)
+CODE_FILES=$(echo "$STAGED" | grep -E '\.(js|ts|tsx|py|dart|html|css|scss|tex)$' | grep -v '\.d\.ts$' || true)
 
 if [ -n "$CODE_FILES" ]; then
   if ! printf '%s\n' "$CODE_FILES" | /mnt/workspace/.hooks/check-line-counts.sh --from-stdin >/tmp/workspace-line-counts.$$ 2>&1; then
@@ -37,7 +37,7 @@ if [ -n "$CODE_FILES" ]; then
 fi
 
 # ── 2. Missing first-line description comment (new files only) ─────────────────
-NEW_CODE=$(git diff --cached --name-only --diff-filter=A 2>/dev/null | grep -E '\.(js|ts|tsx|py|dart|html|css)$' | grep -v '\.d\.ts$' || true)
+NEW_CODE=$(git diff --cached --name-only --diff-filter=A 2>/dev/null | grep -E '\.(js|ts|tsx|py|dart|html|css|tex)$' | grep -v '\.d\.ts$' || true)
 if [ -n "$NEW_CODE" ]; then
   while IFS= read -r f; do
     [ -f "$f" ] || continue
@@ -51,6 +51,8 @@ if [ -n "$NEW_CODE" ]; then
                 printf "${YELLOW}⚠  No first-line description: $f${NC}\n   Add: /* Short description of this stylesheet */\n\n" ;;
       *.html) echo "$first" | grep -qE '^\s*<!--' || \
                 printf "${YELLOW}⚠  No first-line description: $f${NC}\n   Add: <!-- Short description of this template -->\n\n" ;;
+      *.tex) echo "$first" | grep -qE '^\s*%' || \
+                printf "${YELLOW}⚠  No first-line description: $f${NC}\n   Add: %% Short description of this section\n\n" ;;
     esac
   done <<< "$NEW_CODE"
 fi

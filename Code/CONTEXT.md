@@ -30,7 +30,6 @@ Every code file must begin with a one-line description comment:
 | CSS / SCSS | `/* Short description */` |
 | HTML | `<!-- Short description -->` |
 | Markdown | `# Title` (heading IS the description) |
-| LaTeX | `% Short description` |
 
 One sentence, no period, ~80 chars. Describe *what*, not *how*. New files without it are blocked.
 

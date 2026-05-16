@@ -34,7 +34,7 @@ Where a hook can block a read, edit, or commit, the behavior is treated as **ENF
 
 ### Git Pre-Commit Hook (`.hooks/pre-commit`)
 Applied globally via `core.hooksPath`. Fires on every `git commit` across all repos under this workspace.
-- Warns on code files ≥ 150 lines and blocks commits on code files ≥ 200 lines (`.js .ts .tsx .py .dart .html .css .scss` — not data files). Shared thresholds live in [`.hooks/line-limits.env`](.hooks/line-limits.env)
+- Warns on code files ≥ 150 lines and blocks commits on code files ≥ 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex` — not data files). Shared thresholds live in [`.hooks/line-limits.env`](.hooks/line-limits.env)
 - Warns when a newly staged code file lacks a first-line description comment
 - **Auto-syncs CONTEXT.md Routing block** via `context_synchronizer.py` for every directory with staged files, and stages the result
 - Auto-generates `.pyi` stubs for Python files (via `stubgen`) and stages them
@@ -211,7 +211,7 @@ Behavioral verification (inside a Claude Code session):
 - Edit a `.ts` file → `.d.ts` regenerates; `tsconfig.json` auto-created if no ancestor config found
 - Edit a `.dart` file → `.dart.api` regenerates immediately
 - Read a `.py`/`.js`/`.ts`/`.dart` source file when its interface is current → hard-blocked; must read interface first
-- Attempt to grow any code file past 200 lines → Claude Code blocks the edit
+- Attempt to grow any code file past 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex`) → Claude Code blocks the edit
 - Attempt to create a new file without a first-line description comment → Claude Code blocks the Write
 - Edit a file missing a first-line comment → reminder printed immediately after the edit
 - Run `git commit` on a 200+ line code file → commit is rejected

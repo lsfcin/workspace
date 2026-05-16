@@ -2,8 +2,8 @@
 import json, os, re, sys
 from pathlib import Path
 
-CODE_EXTS    = {'.js', '.ts', '.tsx', '.py', '.dart', '.html', '.css', '.scss'}
-CONTENT_EXTS = {'.md', '.yaml', '.yml', '.tex', '.toml'}
+CODE_EXTS    = {'.js', '.ts', '.tsx', '.py', '.dart', '.html', '.css', '.scss', '.tex'}
+CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml'}
 
 
 def load_line_limits() -> tuple[int, int]:
@@ -34,7 +34,7 @@ EXAMPLE_COMMENT = {
 	'.dart': '// Short description', '.css': '/* Short description */',
 	'.scss': '/* Short description */', '.html': '<!-- Short description -->',
 	'.yaml': '# Short description', '.yml':  '# Short description',
-	'.toml': '# Short description', '.tex':  '% Short description',
+	'.toml': '# Short description', '.tex': '% Short description of this section',
 	'.md': '# Title of this document',
 }
 
