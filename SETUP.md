@@ -150,6 +150,28 @@ Verify: `tsc --version` or `~/.local/bin/tsc --version`
 ### 5. Claude Code Hooks
 No action required. `.claude/settings.json` is versioned in this repo and Claude Code reads it automatically when the workspace is opened. The hooks in `.hooks/` activate immediately.
 
+### 6. Local LaTeX Toolchain (for `Academy/papers/`)
+For local PDF builds (without depending on Overleaf compilation), install a LaTeX CLI stack:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y latexmk texlive-xetex texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
+```
+
+For paper templates that require `Times New Roman` via `fontspec` (e.g. `\setmainfont{Times New Roman}`), install core Microsoft fonts:
+
+```bash
+printf 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true\n' | sudo debconf-set-selections
+sudo apt-get install -y ttf-mscorefonts-installer
+```
+
+Verify:
+
+```bash
+latexmk --version
+xelatex --version
+```
+
 ---
 
 ## Per-Project: Interface Generation Notes
@@ -260,3 +282,19 @@ Each project under `Code/` has its own git repo and `CONTEXT.md`. See those file
 | `isoroll` | Python / ComfyUI | see project CONTEXT.md |
 | `shortvid` | Python / PySide6 | `pip install -r requirements.txt` |
 | `ppc` | Vanilla HTML / Alpine.js | open `index.html` via local server |
+
+### Papers Quick Start (`Academy/papers`)
+
+Use local-first compilation and Overleaf as sync/checkpoint:
+
+```bash
+cd /mnt/workspace/Academy/papers/<paper-folder>
+latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
+```
+
+Clean rebuild:
+
+```bash
+latexmk -C
+latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
+```
