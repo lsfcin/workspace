@@ -4,33 +4,21 @@
 ## Core Principles
 
 - The filesystem is the source of truth. Do not rely on memory, prior sessions, or machine-specific state.
-- Prefer targeted reads over broad repository traversal.
 - Load only the minimal relevant context for the current task.
-- Preserve semantic locality: related logic should remain understandable from a small number of nearby files.
-- Prefer extraction and modularization over extending large files.
 
 ## Context Conventions
 
-- `CONTEXT.md` files add context
-- Context concatenates hierarchically by navigating the folder structure downwards.
-- Always check for a local `CONTEXT.md` before starting work.
-- Load only context relevant to the active subtree.
-- Every `CONTEXT.md` must contain:
-  - a title heading
-  - a one-line description in line 2 (blockquote), immediately below the title
-  - relevant local constraints only
-  - at the end, a `## Routing` block auto-synced (post-edit | pre-commit hooks) by `context_synchronizer.py`
+- `CONTEXT.md` files add context; context concatenates hierarchically — navigate the folder structure downward.
+- Always check for a local `CONTEXT.md` before starting work; load only context relevant to the active subtree.
+- Every `CONTEXT.md` must have a title, a `> one-line description` on line 2, and a `## Routing` block at the end auto-synced by `context_synchronizer.py`.
 
 ## Behavioral Rules
 
-- Read the minimal relevant context before modifying code.
 - Understand local architecture before introducing changes.
 - Do not invent requirements or hidden constraints.
-- Prefer simple, explicit, composable solutions.
 - Prefer modifying existing abstractions over creating parallel patterns.
-- Verify external APIs, package behavior, and current documentation before making factual claims.
 - Avoid creating new files unless clearly necessary.
-- When in doubt, check the web; if needed, ask.
+- When uncertain about current APIs, library versions, or any factual claim — **search the web first**. Outdated knowledge causes real mistakes; do not assume.
 
 ## Git
 - Workspace repo tracks only structural files (`CLAUDE.md`, `CONTEXT.md`, domain-level docs). Commit only workspace changes here. For internal projects use internal git repos.
