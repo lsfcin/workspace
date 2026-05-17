@@ -3,11 +3,6 @@
 # Location: /mnt/workspace/.hooks/pre-commit
 # Applied via: git config --global core.hooksPath /mnt/workspace/.hooks
 
-YELLOW='\033[1;33m'
-RED='\033[0;31m'
-BOLD='\033[1m'
-NC='\033[0m'
-
 STAGED=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null)
 [ -z "$STAGED" ] && exit 0
 
@@ -18,21 +13,11 @@ CODE_FILES=$(echo "$STAGED" | grep -E '\.(js|ts|tsx|py|dart|html|css|scss|tex)$'
 
 if [ -n "$CODE_FILES" ]; then
   if ! printf '%s\n' "$CODE_FILES" | /mnt/workspace/.hooks/check-line-counts.sh --from-stdin >/tmp/workspace-line-counts.$$ 2>&1; then
-    cat /tmp/workspace-line-counts.$$ | while IFS= read -r line; do
-      case "$line" in
-        🚨*) printf "%s${NC}\n" "$line" ;;
-        *) printf "%s\n" "$line" ;;
-      esac
-    done
+    cat /tmp/workspace-line-counts.$$
     rm -f /tmp/workspace-line-counts.$$
     exit 1
   fi
-  cat /tmp/workspace-line-counts.$$ | while IFS= read -r line; do
-    case "$line" in
-      ⚠*) printf "${YELLOW}%s${NC}\n" "$line" ;;
-      *) printf "%s\n" "$line" ;;
-    esac
-  done
+  cat /tmp/workspace-line-counts.$$
   rm -f /tmp/workspace-line-counts.$$
 fi
 
@@ -44,15 +29,15 @@ if [ -n "$NEW_CODE" ]; then
     first=$(head -1 "$f")
     case "$f" in
       *.py)   echo "$first" | grep -qE '^\s*(#|"""|'"''')" || \
-                printf "${YELLOW}⚠  No first-line description: $f${NC}\n   Add: # Short description of this module\n\n" ;;
+                printf "⚠  No first-line description: $f\n   Add: # Short description of this module\n\n" ;;
       *.js|*.ts|*.tsx|*.dart) echo "$first" | grep -qE '^\s*//' || \
-                printf "${YELLOW}⚠  No first-line description: $f${NC}\n   Add: // Short description of this module\n\n" ;;
+                printf "⚠  No first-line description: $f\n   Add: // Short description of this module\n\n" ;;
       *.css|*.scss) echo "$first" | grep -qE '^\s*/\*' || \
-                printf "${YELLOW}⚠  No first-line description: $f${NC}\n   Add: /* Short description of this stylesheet */\n\n" ;;
+                printf "⚠  No first-line description: $f\n   Add: /* Short description of this stylesheet */\n\n" ;;
       *.html) echo "$first" | grep -qE '^\s*<!--' || \
-                printf "${YELLOW}⚠  No first-line description: $f${NC}\n   Add: <!-- Short description of this template -->\n\n" ;;
+                printf "⚠  No first-line description: $f\n   Add: <!-- Short description of this template -->\n\n" ;;
       *.tex) echo "$first" | grep -qE '^\s*%' || \
-                printf "${YELLOW}⚠  No first-line description: $f${NC}\n   Add: %% Short description of this section\n\n" ;;
+                printf "⚠  No first-line description: $f\n   Add: %% Short description of this section\n\n" ;;
     esac
   done <<< "$NEW_CODE"
 fi
@@ -74,7 +59,7 @@ fi
 PY_FILES=$(echo "$STAGED" | grep '\.py$' | grep -v '__pycache__' || true)
 if [ -n "$PY_FILES" ]; then
   if ! command -v stubgen &>/dev/null; then
-    printf "${YELLOW}⚠  stubgen not found — .pyi stubs skipped. Install: pip install mypy${NC}\n\n"
+    printf "⚠  stubgen not found — .pyi stubs skipped. Install: pip install mypy\n\n"
   else
     while IFS= read -r f; do
       [ -f "$f" ] || continue
@@ -83,7 +68,7 @@ if [ -n "$PY_FILES" ]; then
         pyi="${f%.py}.pyi"
         [ -f "$pyi" ] && git add "$pyi"
       else
-        printf "${YELLOW}⚠  stubgen failed for $f — .pyi not staged${NC}\n\n"
+        printf "⚠  stubgen failed for $f — .pyi not staged\n\n"
       fi
     done <<< "$PY_FILES"
   fi
@@ -93,7 +78,7 @@ fi
 JS_FILES=$(echo "$STAGED" | grep '\.js$' | grep -v '\.min\.js$' | grep -v '\.config\.js$' || true)
 if [ -n "$JS_FILES" ]; then
   if ! command -v tsc &>/dev/null; then
-    printf "${YELLOW}⚠  tsc not found — .d.ts not generated for JS files.${NC}\n"
+    printf "⚠  tsc not found — .d.ts not generated for JS files.\n"
     printf "   Install: npm install -g typescript\n\n"
   else
     SEEN_DIRS=""
@@ -107,7 +92,7 @@ if [ -n "$JS_FILES" ]; then
         d=$(dirname "$d")
       done
       if [ -z "$cfg" ]; then
-        printf "${YELLOW}⚠  No jsconfig.json for $f — .d.ts not generated.${NC}\n"
+        printf "⚠  No jsconfig.json for $f — .d.ts not generated.\n"
         printf "   Create jsconfig.json with allowJs + declaration settings.\n\n"
         continue
       fi
@@ -117,7 +102,7 @@ if [ -n "$JS_FILES" ]; then
       if tsc -p "$cfg" --emitDeclarationOnly 2>/dev/null; then
         git add "$proj_dir"/**/*.d.ts 2>/dev/null || true
       else
-        printf "${YELLOW}⚠  tsc failed in $proj_dir — .d.ts not generated${NC}\n\n"
+        printf "⚠  tsc failed in $proj_dir — .d.ts not generated\n\n"
       fi
     done <<< "$JS_FILES"
   fi
@@ -128,7 +113,7 @@ TS_FILES=$(echo "$STAGED" | grep -E '\.(ts|tsx)$' | grep -v '\.d\.ts$' || true)
 if [ -n "$TS_FILES" ]; then
   root=$(git rev-parse --show-toplevel)
   if [ -f "$root/tsconfig.json" ] && ! grep -q '"declarationDir"' "$root/tsconfig.json" 2>/dev/null; then
-    printf "${YELLOW}⚠  TypeScript files changed but tsconfig.json has no declarationDir.${NC}\n"
+    printf "⚠  TypeScript files changed but tsconfig.json has no declarationDir.\n"
     printf "   See Code/CONTEXT.md § Interface Files.\n\n"
   fi
 fi
