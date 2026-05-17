@@ -117,6 +117,61 @@ notes: ~  # free-form: cross-paper lineage, group connections, anything cross-fi
 
 Use `notes` for cross-paper prose (lineage, group affiliations) instead of adding `<other-key>:` entries under `relationships:`.
 
+## Related Work Craft
+
+A related work section in a graphics/systems benchmark paper must do three jobs: (1) show the reviewer you know the field completely, (2) build the gap argument brick by brick until it feels inevitable, and (3) explicitly cover the host community's own literature. Failure on any one of these is the most common reason for a "reject, insufficient positioning" decision.
+
+### Subsection structure
+
+Organise by *conceptual axis*, not chronologically. For a benchmark paper the canonical skeleton is:
+
+1. **Implementations** — prior renderers ordered by approach family (numerical integration → precomputed/analytic → learned/neural), then by metric complexity. Within each family, move from offline → interactive → real-time.
+2. **Validation / Ground Truth** — how others verified correctness; sets up your own validation section.
+3. **Applications** — ordered from highest-profile to most niche (entertainment → science → education). Starting with the highest-profile example (e.g. Interstellar) anchors the field's stakes.
+
+A short closing paragraph (3–5 sentences) synthesises all three subsections into the single gap your paper fills. Name the axes explicitly — do not let the reviewer infer them.
+
+### Three citation tiers
+
+**Tier 1 — Gap-forming (mandatory):** Papers that get closest to your contribution on one axis but not both. Cite these precisely: say what each paper measures and what it omits. A reviewer who knows these papers will check that you described them accurately.
+
+**Tier 2 — Community coverage (non-negotiable for Brazilian venues):** For JBCS/SVR submissions, include at minimum one SIBGRAPI paper, one C&G/Computers & Graphics special-issue paper, and the most relevant SBGAMES paper if one exists. Reviewers from the programme committee will notice their community's work is absent. The IMPA/VISGRAF group (Novello, da Silva, Velho) is the canonical Brazilian reference for GPU non-Euclidean rendering.
+
+**Tier 3 — Frontier (recency signal):** One or two papers from the last 12–18 months that mark where the field is heading. A single sentence is enough; it signals to reviewers that the survey is not stale.
+
+### Making the gap argument tight
+
+- Name the two (or more) axes your benchmark spans. Then for each prior paper show which axes it covers and which it leaves open. A comparison table at the end of the section makes this visual and is appropriate in benchmark papers.
+- Use concrete language: "reports performance without quality analysis" beats "does not fully characterise". Feynman's rule — precision over impression.
+- Define terminology once (e.g. "real-time: ≥24 fps at 1080p") and use it consistently. Inconsistent use of "real-time" / "near-real-time" / "interactive" is a frequent minor critique.
+- Every citation must do exactly one job. If you cannot state in one clause why a paper is cited, it does not belong.
+
+### Reviewer-proofing checklist
+
+Before finalising the section, run through these:
+
+- [ ] Is the Interstellar / DNGR paper (James et al. 2015, CQG) cited? It is the field's most-cited rendering paper.
+- [ ] Is every GPU API mentioned in your paper (CUDA, OpenGL, Vulkan, Unity, WebGPU) represented in the related work?
+- [ ] Is at least one SIBGRAPI paper cited?
+- [ ] Is at least one C&G/Computers & Graphics paper cited?
+- [ ] Is there a paper ≤ 2 years old?
+- [ ] Does the closing paragraph name your specific axes (platform × integrator, or whatever they are)?
+- [ ] Are "real-time", "interactive", and "near-real-time" used consistently with a defined threshold?
+- [ ] Does the comparison table (if present) have a row for every paper in Tier 1?
+
+### Getting the venue reviewer form
+
+Reviewer forms for JBCS and SVR are not publicly available — they live inside JEMS (SBC's submission system) and are only visible to registered reviewers. Two practical workarounds:
+
+1. **Ask a colleague who has reviewed for SVR/JBCS** to share the form's dimension titles (they are not NDA'd). Typical dimensions: *Originality*, *Technical Quality*, *Significance*, *Clarity*, *Related Work Coverage*, *Reproducibility*.
+2. **Use `feynman review "<claim>"` to simulate reviewer objections** on each subsection. This is the most efficient substitute.
+
+JBCS's published criteria (from submissions page): scientific soundness and coherence · originality (no duplication) · clarity · significance. SVR adds: "consolidated research ideas with strong evaluation evidence." Map every paragraph in the related work to at least one of these.
+
+### Images in related work
+
+In computer graphics papers, one carefully composed figure in the related work is welcome and often strengthens the reviewer's confidence that you understand the visual output of prior work. The recommended approach: a labelled mosaic (2–3 columns × 2 rows) showing renders from representative prior systems side by side with your own, with a caption that points out the visual differences (photon ring fidelity, Doppler colour shift, artifact pattern). Keep it to one figure; do not pad. Omit it entirely if you cannot obtain or reproduce an image from at least two prior systems — a partial mosaic is worse than none.
+
 ## Feynman CLI
 
 `feynman` accelerates research — not a source of truth. Always verify primary sources before committing claims or citations.
