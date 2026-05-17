@@ -89,8 +89,7 @@ contributions:
 gaps:
   - <limitation or gap relevant to this paper>
 tags: [<role-tags-first>, <metric-tags>, <method-tags>, <platform-tags>]
-relationships:
-  this_paper: "<how this reference relates to the current manuscript>"
+relevance: "<how this reference relates to the current manuscript>"
 notes: ~  # free-form: cross-paper lineage, group connections, anything cross-file
 ```
 

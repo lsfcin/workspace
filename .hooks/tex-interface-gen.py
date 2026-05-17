@@ -74,12 +74,12 @@ def check_relationships(data: dict, paper_root: Path) -> None:
         yp = paper_root / 'reviews' / f'{key}.yaml'
         if yp.exists():
             txt = yp.read_text(encoding='utf-8', errors='ignore')
-            if not re.search(r'this_paper:\s*".{5,}"', txt):
+            if not re.search(r'relevance:\s*".{5,}"', txt):
                 missing.append(key)
     if missing:
-        print(f'💬 RELATIONSHIPS: add/update this_paper in {len(missing)} review(s):')
+        print(f'💬 RELEVANCE: add/update relevance field in {len(missing)} review(s):')
         for k in missing:
-            print(f'   reviews/{k}.yaml → relationships.this_paper')
+            print(f'   reviews/{k}.yaml → relevance: "..."')
 
 
 def regenerate_labels(paper_root: Path) -> None:
