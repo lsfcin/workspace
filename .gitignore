@@ -54,3 +54,9 @@ Models/*
 
 Outputs/*
 !Outputs/CONTEXT.md
+
+Datasets/*
+!Datasets/CONTEXT.md
+!Datasets/relativistic_raytracer/
+Datasets/relativistic_raytracer/*
+!Datasets/relativistic_raytracer/CONTEXT.md
