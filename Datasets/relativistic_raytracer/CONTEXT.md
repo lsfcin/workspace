@@ -7,7 +7,7 @@ metadata:
 
 # Dataset: Relativistic Raytracer Benchmark
 
-**Download:** https://zenodo.org/records/20240662?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjVhNTA2ZGUwLTAzOTMtNDY5YS1iYTEyLTZhYzE5NjYwNTc0ZiIsImRhdGEiOnt9LCJyYW5kb20iOiIzMmJjZWU1MTU4Mzg5ZmYwZDJkY2EzNmI4MjViYjEzNiJ9.K94s8utWTTVW1ZWpvi2q9K6Lg9IKj8XBxDvO55tS1d8TNPPdevHUdM58xn3i3SXf-Sv_vL_eSRhhGQntB_X9vQ
+**Download:** https://zenodo.org/records/20240662
 
 ## Setup
 
