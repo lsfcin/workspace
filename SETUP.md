@@ -83,7 +83,7 @@ Every save of a supported source file unconditionally produces an interface file
 | JavaScript | `.d.ts` | `tsc --allowJs --emitDeclarationOnly` | Auto on every Claude edit; `jsconfig.json` auto-scaffolded if missing (IDE use only) |
 | TypeScript | `.d.ts` | `tsc --emitDeclarationOnly` | Auto on every Claude edit; `tsconfig.json` auto-scaffolded if no ancestor config found |
 | Dart/Flutter | `.dart.api` | `dart-api-extract.py` | Auto on every Claude edit; extracts public class/mixin/method signatures |
-| LaTeX | `.tex.if` | `tex-interface-gen.py` | Auto on every Claude edit; extracts structure, equations (full), figures/tables/listings, citations, TODO comments, section/subsection opening sentences. Also regenerates `LABELS.md` (cross-file label registry + dangling ref check) in the paper root. `.bib` edits warn about missing `reviews/<key>.yaml` files. |
+| LaTeX | `.texif` | `tex-interface-gen.py` + `tex_interface_parser.py` | Auto on every Claude edit; extracts structure, equations (full), figures/tables/listings, citations, TODO comments, section/subsection opening sentences. Also regenerates `LABELS.md` (cross-file label registry + dangling ref check) in the paper root. `.bib` edits warn about missing `reviews/<key>.yaml` files. |
 
 **Enforcement**: `pre-read.sh` hard-blocks reading any source file when its interface file is current (interface timestamp ≥ source timestamp). Reading the interface file first is not optional when the interface is trustworthy.
 
@@ -211,8 +211,8 @@ Behavioral verification (inside a Claude Code session):
 - Edit a `.js` file → `.d.ts` regenerates; `jsconfig.json` auto-created if missing
 - Edit a `.ts` file → `.d.ts` regenerates; `tsconfig.json` auto-created if no ancestor config found
 - Edit a `.dart` file → `.dart.api` regenerates immediately
-- Read a `.py`/`.js`/`.ts`/`.dart`/`.tex` source file when its interface is current → hard-blocked; must read interface first
-- Edit a `.tex` file → `.tex.if` regenerated + `LABELS.md` regenerated immediately
+- Read a `.py`/`.js`/`.ts`/`.dart`/`.tex` source file when its interface (`.pyi`/`.d.ts`/`.dart.api`/`.texif`) is current → hard-blocked; must read interface first
+- Edit a `.tex` file → `.texif` regenerated + `LABELS.md` regenerated immediately
 - Edit a `.bib` file → warning printed for any bib keys missing a `reviews/<key>.yaml`
 - Attempt to grow any code file past 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex`) → Claude Code blocks the edit
 - Attempt to create a new file without a first-line description comment → Claude Code blocks the Write
@@ -236,7 +236,8 @@ All infrastructure lives in the workspace git repo. This is what gets replicated
   line-limits.env         ← single source of truth for WARN_LINES and BLOCK_LINES thresholds
   context_synchronizer.py             ← CONTEXT.md Routing block synchronizer: add/remove/link files, extract API
   dart-api-extract.py     ← Dart public API extractor: produces .dart.api stubs from .dart sources
-  tex-interface-gen.py    ← LaTeX interface extractor: produces .tex.if (structure/equations/floats/citations) + LABELS.md; bib-check mode warns about missing reviews/*.yaml
+  tex-interface-gen.py    ← LaTeX interface extractor: produces .texif (structure/equations/floats/citations) + LABELS.md; bib-check mode warns about missing reviews/*.yaml
+  tex_interface_parser.py ← LaTeX parser module imported by tex-interface-gen.py (parse_tex, find_paper_root, helpers)
   copilot-pre-tool.py     ← Copilot PreToolUse shim: dispatches to pre-read.sh / pre-edit.py
   copilot-post-tool.py    ← Copilot PostToolUse shim: dispatches to post-edit.sh
   copilot-session-start.py← Copilot SessionStart shim: injects WORKSPACE.md excerpt as context

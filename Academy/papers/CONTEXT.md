@@ -51,13 +51,13 @@ latexmk -C && latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex 
 
 Use XeLaTeX for document classes that require `fontspec` (e.g. SBC/JBCS). Artifacts go to `build/`; PDF lands at root.
 
-## LaTeX Interface System (`.tex.if`)
+## LaTeX Interface System (`.texif`)
 
-Every `.tex` file automatically gets a `.tex.if` sibling generated on save. These are
+Every `.tex` file automatically gets a `.texif` sibling generated on save. These are
 auto-generated — do not edit them directly.
 
 **Mandatory workflow:**
-- **Read `.tex.if` before reading or editing any `.tex` source file.** The `pre-read` hook
+- **Read `.texif` before reading or editing any `.tex` source file.** The `pre-read` hook
   hard-blocks direct source reads when the interface is current. Always start with the interface.
 - The interface contains: section/subsection structure with line numbers, full equation content
   and labels, figure/table captions and labels, listing previews, all `\cite{}` keys used,
@@ -88,14 +88,19 @@ contributions:
   - <main contribution — one bullet per distinct claim>
 gaps:
   - <limitation or gap relevant to this paper>
-tags: [<method-tags>, <domain-tags>, <role-tag>]
+tags: [<role-tags-first>, <metric-tags>, <method-tags>, <platform-tags>]
 relationships:
   this_paper: "<how this reference relates to the current manuscript>"
-  <other-bib-key>: "<relationship between this paper and the other>"  # only if pertinent
+notes: ~  # free-form: cross-paper lineage, group connections, anything cross-file
 ```
 
-Role tag conventions: `foundational`, `baseline-we-beat`, `method-we-extend`, `survey`,
-`competing-work`, `tool`, `negative-result`.
+**Tag categories** (flat list, role tags always first):
+- **Role** (1–2): `foundational` · `survey` · `competing-work` · `baseline` · `ground-truth` · `method-source` · `tool` · `application`
+- **Metric/physics**: `schwarzschild` · `kerr` · `newtonian` · `special-relativity` · `general-relativity` · `numerical-relativity`
+- **Integration method**: `geodesic-tracing` · `analytic-approx` · `rk4-integrator` · `euler-integrator`
+- **Platform/content**: `gpu` · `cpu` · `cuda` · `vulkan` · `real-time` · `offline` · `visualization` · `benchmark` · `education` · `textbook` · `astrophysics` · `gravitational-lensing` · `doppler-shift` · `accretion-disk`
+
+Use `notes` for cross-paper prose (lineage, group affiliations) instead of adding `<other-key>:` entries under `relationships:`.
 
 ## Feynman CLI
 
