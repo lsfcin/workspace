@@ -159,6 +159,9 @@ def main() -> int:
         print(f'⚠ tex-interface-gen: {tex_path}: {e}', file=sys.stderr)
         return 1
     if root:
+        if not (root / 'reviews' / 'CONTEXT.md').exists():
+            print(f'💬 SCAFFOLD: reviews/CONTEXT.md missing — run:')
+            print(f'   python3 {Path(__file__).parent}/paper-scaffold.py adapt {root}')
         try:
             regenerate_labels(root)
         except Exception as e:

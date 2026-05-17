@@ -238,6 +238,7 @@ All infrastructure lives in the workspace git repo. This is what gets replicated
   dart-api-extract.py     ← Dart public API extractor: produces .dart.api stubs from .dart sources
   tex-interface-gen.py    ← LaTeX interface extractor: produces .texif (structure/equations/floats/citations) + LABELS.md; bib-check mode warns about missing reviews/*.yaml
   tex_interface_parser.py ← LaTeX parser module imported by tex-interface-gen.py (parse_tex, find_paper_root, helpers)
+  paper-scaffold.py       ← paper directory initializer: `new <name>` creates full layout; `adapt <path>` fills missing files
   copilot-pre-tool.py     ← Copilot PreToolUse shim: dispatches to pre-read.sh / pre-edit.py
   copilot-post-tool.py    ← Copilot PostToolUse shim: dispatches to post-edit.sh
   copilot-session-start.py← Copilot SessionStart shim: injects WORKSPACE.md excerpt as context

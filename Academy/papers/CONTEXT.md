@@ -3,6 +3,22 @@
 
 Each paper lives in its own subdirectory with its own git repo (Overleaf as remote). Local compilation is primary; Overleaf is the sync/checkpoint copy for final validation.
 
+## Starting a New Paper
+
+```bash
+python3 /mnt/workspace/.hooks/paper-scaffold.py new <paper-name>
+```
+
+This creates `Academy/papers/<name>/` with the full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `CONTEXT.md`, `LABELS.md`, and subdirectory `CONTEXT.md` files for `sections/`, `reviews/`, `lib/`, `figures/`, `tables/`, `plans/`. The `reviews/CONTEXT.md` is pre-filled with the tag schema and workflow.
+
+To add missing scaffold files to an **existing** paper without overwriting anything:
+
+```bash
+python3 /mnt/workspace/.hooks/paper-scaffold.py adapt <path-to-paper>
+```
+
+The `post-edit` hook warns with the adapt command if `reviews/CONTEXT.md` is missing whenever a `.tex` file is saved.
+
 ## Behavioral Cues
 
 - Evidence-first: avoid claims without explicit source, experiment, or derivation.
