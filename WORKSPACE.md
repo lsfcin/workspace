@@ -8,7 +8,7 @@
 
 ## Context Conventions
 
-- `CONTEXT.md` files add context; context concatenates hierarchically — navigate the folder structure downward.
+- `CONTEXT.md` files add context; context chain concatenates hierarchically — navigate the folder structure downward.
 - Always check for a local `CONTEXT.md` before starting work; load only context relevant to the active subtree.
 - Every `CONTEXT.md` must have a title, a `> one-line description` on line 2, and a `## Routing` block at the end auto-synced by `context_synchronizer.py`.
 

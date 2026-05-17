@@ -71,6 +71,12 @@ EOF
 	*.dart)
 		python3 /mnt/workspace/.hooks/dart-api-extract.py "$file" 2>/dev/null
 		;;
+	*.tex)
+		python3 /mnt/workspace/.hooks/tex-interface-gen.py "$file" 2>/dev/null
+		;;
+	*.bib)
+		python3 /mnt/workspace/.hooks/tex-interface-gen.py --bib-check "$file" 2>/dev/null
+		;;
 esac
 
 # ── First-line description reminder ────────────────────────────────────────────

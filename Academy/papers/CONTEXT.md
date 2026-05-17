@@ -51,6 +51,52 @@ latexmk -C && latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex 
 
 Use XeLaTeX for document classes that require `fontspec` (e.g. SBC/JBCS). Artifacts go to `build/`; PDF lands at root.
 
+## LaTeX Interface System (`.tex.if`)
+
+Every `.tex` file automatically gets a `.tex.if` sibling generated on save. These are
+auto-generated — do not edit them directly.
+
+**Mandatory workflow:**
+- **Read `.tex.if` before reading or editing any `.tex` source file.** The `pre-read` hook
+  hard-blocks direct source reads when the interface is current. Always start with the interface.
+- The interface contains: section/subsection structure with line numbers, full equation content
+  and labels, figure/table captions and labels, listing previews, all `\cite{}` keys used,
+  TODO comments, and subsection opening sentences.
+- `LABELS.md` at the paper root lists all `\label{}` definitions across every `.tex` file and
+  flags dangling `\ref{}` usages. Check it before adding cross-references.
+
+## Reference Reviews (`reviews/`)
+
+Each bib entry must have a corresponding `reviews/<key>.yaml` with structured analysis.
+The `post-edit` hook warns about missing review files whenever the `.bib` is edited.
+
+**Mandatory workflow:**
+- When adding a new `\cite{key}` to any section, create or update `reviews/key.yaml`.
+- When editing the `.bib` file, respond to any REVIEWS MISSING warnings before finishing.
+- Read `reviews/<key>.yaml` (via `reviews/CONTEXT.md` for routing) before making claims
+  about a paper — the review captures contributions, gaps, and how it relates to this manuscript.
+
+**YAML schema** (`reviews/<key>.yaml`):
+```yaml
+key: <bib-key>
+type: article | book | conference | preprint | thesis
+year: <year>
+venue: "<journal/conference name>"
+url: "<DOI URL or canonical link>"
+citations: <exact count or "~N">
+contributions:
+  - <main contribution — one bullet per distinct claim>
+gaps:
+  - <limitation or gap relevant to this paper>
+tags: [<method-tags>, <domain-tags>, <role-tag>]
+relationships:
+  this_paper: "<how this reference relates to the current manuscript>"
+  <other-bib-key>: "<relationship between this paper and the other>"  # only if pertinent
+```
+
+Role tag conventions: `foundational`, `baseline-we-beat`, `method-we-extend`, `survey`,
+`competing-work`, `tool`, `negative-result`.
+
 ## Feynman CLI
 
 `feynman` accelerates research — not a source of truth. Always verify primary sources before committing claims or citations.

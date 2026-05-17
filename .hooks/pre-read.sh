@@ -14,6 +14,7 @@ case "$file" in
 	*.ts)   iface="${file%.ts}.d.ts" ;;
 	*.tsx)  iface="${file%.tsx}.d.ts" ;;
 	*.dart) iface="${file%.dart}.dart.api" ;;
+	*.tex)  iface="${file%.tex}.texif" ;;
 esac
 
 [ -z "$iface" ] || [ ! -f "$iface" ] && exit 0
