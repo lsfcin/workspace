@@ -6,6 +6,9 @@
 - The filesystem is the source of truth. Do not rely on memory, prior sessions, or machine-specific state.
 - Load only the minimal relevant context for the current task.
 
+## Interaction Side-note
+- English is not my (I, Lucas, the user) mother language, and I want to improve my writing. Whenever you can outline my errors and give me writing tips based on my prompts.
+
 ## Context Conventions
 
 - `CONTEXT.md` files add context; context chain concatenates hierarchically — navigate the folder structure downward.
@@ -23,6 +26,13 @@
 ## Git
 - Workspace repo tracks only structural files (`CLAUDE.md`, `CONTEXT.md`, domain-level docs). Commit only workspace changes here. For internal projects use internal git repos.
 
+## Core
+- `Core/` contains a provider-agnostic agent systems: agent definitions, workflow protocols, and CLI tools.
+- See `Core/CONTEXT.md` for the full system map.
+
+## Research
+- Use `/research <flow> <query>` to invoke it (e.g. `/research lit "topic"`, `/research review file.tex`).
+
 ## Infrastructure
 - See `SETUP.md` for full replication instructions: hooks, stubgen, tsc, etc.
 
@@ -34,7 +44,7 @@
 | [`Academy/`](Academy/CONTEXT.md) | Research, teaching, and academic work |
 | [`Branches/`](Branches/CONTEXT.md) | Personal life management — health, finances, and home construction |
 | [`Code/`](Code/CONTEXT.md) | Software projects developed under this workspace |
-| [`Core/`](Core/CONTEXT.md) | Workspace-level shared resources, templates, and cross-domain utilities |
+| [`Core/`](Core/CONTEXT.md) | Shared research infrastructure: agents, workflow protocols, and CLI tools. |
 | [`Models/`](Models/CONTEXT.md) | Local model checkpoints and weights used across research and code projects |
 | [`Outputs/`](Outputs/CONTEXT.md) | Generated artifacts; avoid manual edits unless requested |
 <!-- routing:end -->

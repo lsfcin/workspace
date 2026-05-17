@@ -45,9 +45,9 @@ Branches/saude/*
 
 Core/*
 !Core/CONTEXT.md
-!Core/skills/
-Core/skills/*
-!Core/skills/CONTEXT.md
+!Core/agents/
+!Core/flows/
+!Core/tools/
 
 Models/*
 !Models/CONTEXT.md

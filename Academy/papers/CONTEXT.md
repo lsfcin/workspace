@@ -164,7 +164,7 @@ Before finalising the section, run through these:
 Reviewer forms for JBCS and SVR are not publicly available — they live inside JEMS (SBC's submission system) and are only visible to registered reviewers. Two practical workarounds:
 
 1. **Ask a colleague who has reviewed for SVR/JBCS** to share the form's dimension titles (they are not NDA'd). Typical dimensions: *Originality*, *Technical Quality*, *Significance*, *Clarity*, *Related Work Coverage*, *Reproducibility*.
-2. **Use `feynman review "<claim>"` to simulate reviewer objections** on each subsection. This is the most efficient substitute.
+2. **Use `/research review "<claim>"` to simulate reviewer objections** on each subsection. This is the most efficient substitute.
 
 JBCS's published criteria (from submissions page): scientific soundness and coherence · originality (no duplication) · clarity · significance. SVR adds: "consolidated research ideas with strong evaluation evidence." Map every paragraph in the related work to at least one of these.
 
@@ -172,15 +172,40 @@ JBCS's published criteria (from submissions page): scientific soundness and cohe
 
 In computer graphics papers, one carefully composed figure in the related work is welcome and often strengthens the reviewer's confidence that you understand the visual output of prior work. The recommended approach: a labelled mosaic (2–3 columns × 2 rows) showing renders from representative prior systems side by side with your own, with a caption that points out the visual differences (photon ring fidelity, Doppler colour shift, artifact pattern). Keep it to one figure; do not pad. Omit it entirely if you cannot obtain or reproduce an image from at least two prior systems — a partial mosaic is worse than none.
 
-## Feynman CLI
+## Writing Quality Standards
 
-`feynman` accelerates research — not a source of truth. Always verify primary sources before committing claims or citations.
+These apply to every section, not just related work. Hold every paragraph to all five before committing.
+
+**Argumentative nuance** — claims must be precisely scoped, hedged where uncertainty exists, and logically entailed by the evidence that precedes them. Replace vague intensifiers ("very fast", "significantly better") with measured language ("30% lower latency at 1080p"). Never overstate; never understate. A claim that a careful reviewer could re-scope to something weaker is a claim that will get a comment.
+
+**Long-term coherence** — terminology, notation, and the central argument must be stable across the entire manuscript. Define each concept once; use the same word every time. The introduction's gap statement must be the same gap the conclusion closes. If a new section redefines a term or silently changes scope, it will confuse reviewers and lose the thread for readers who read non-linearly.
+
+**Semantical compression** — academic writing earns its length. Each sentence must carry exactly one new unit of meaning that could not be inferred from the previous sentence. Eliminate throat-clearing openers ("It is important to note that…"), redundant restatement of figures, and motivation paragraphs that say what the section headings already say. The test: can you cut this sentence without losing any information a reviewer would miss?
+
+**Academic taste** — writing registers the author's awareness of the community. This means: cite seminal work even when it is old, because omitting it signals ignorance not modernity; use the community's own vocabulary rather than inventing synonyms; calibrate boldness to evidence (exploratory claims belong in future work, not contributions). For Brazilian venues (JBCS, SVR, SIBGRAPI) explicitly acknowledge Brazilian work in the area — omission reads as oversight even when unintentional.
+
+**Reviewer simulation** — before finalising any paragraph, read it as a hostile reviewer looking for a reason to reject. Common objections: "is this actually novel, or just X applied to Y?", "where is the ablation?", "this claim is not supported by the experiment shown". Write pre-emptive counter-arguments into the prose. A well-positioned limitation paragraph is a shield; a reviewer who spots your limitation and finds you already named it becomes less hostile.
+
+## Research Tools
+
+Use `/research` to invoke the workspace research system, or call tools directly:
 
 ```bash
-feynman lit "<topic>"           # candidate papers
-feynman deepresearch "<topic>"  # research brief
-feynman review "<draft claim>"  # simulate reviewer objections
+# Paper search
+Core/tools/papers "Schwarzschild geodesics" --cat gr-qc --n 15
+Core/tools/papers 2501.12345                           # fetch specific arXiv paper
+
+# Web / code search
+Core/tools/search "relativistic renderer benchmark"
+Core/tools/fetch "https://arxiv.org/abs/2501.12345"
+
+# Full research workflows (via slash command)
+/research lit "relativistic raytracing"                # literature review
+/research deepresearch "GPU geodesic integration"      # full research brief
+/research review sections/03_related_work.tex          # reviewer simulation
 ```
+
+See [Core/tools/CONTEXT.md](../../Core/tools/CONTEXT.md) for all tools and [Core/flows/](../../Core/flows/) for workflow protocols. Always verify primary sources before committing claims or citations.
 
 ## Git
 

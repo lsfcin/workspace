@@ -53,7 +53,7 @@ Fires on every `Edit`, `Write`, and `Read` tool call during Claude Code sessions
 ### CONTEXT.md Auto-Sync (`.hooks/context_synchronizer.py`)
 Runs on every Claude edit (via `post-edit.sh` — also re-syncs the parent dir) and on every git commit (via `pre-commit`). Keeps each project's `## Routing` block accurate without manual maintenance:
 
-- **Adds** new code files with description from first-line comment + extracted public API
+- **Adds** new files with description extracted from: first-line comment (code files), `description:` YAML frontmatter (`.md` files), or usage comment after ` — ` (extensionless executable scripts)
 - **Removes** stale entries for deleted files
 - **Links** interface files (`.pyi` / `.d.ts` / `.dart.api`) automatically
 - **Folds** small subdirectories (< 7 files, leaf dirs) into the parent Routing block with relative paths
@@ -253,8 +253,13 @@ All infrastructure lives in the workspace git repo. This is what gets replicated
 .agentrc.json             ← Copilot agent config: start_session path + declarative capability flags
 SETUP.md                  ← this file: replication instructions
 CLAUDE.md                 ← workspace behavioral instructions for Claude
-Code/CONTEXT.md           ← engineering principles: file size, modularization, interface conventions
 WORKSPACE.md              ← canonical workspace entrypoint read by all agents at session start
+Code/CONTEXT.md           ← engineering principles: file size, modularization, interface conventions
+Core/                     ← provider-agnostic research system (agents, flows, tools)
+  Core/agents/            ← agent role definitions (lead, researcher, reviewer, verifier, writer)
+  Core/flows/             ← workflow protocols (lit, deepresearch, review, draft, …)
+  Core/tools/             ← executable CLI research tools (search, papers, fetch, parse, …)
+.claude/commands/         ← Claude Code slash commands (e.g. /research dispatcher)
 ```
 
 The only steps that cannot be versioned are the global git config command and external tool installations (stubgen, tsc, nvm). Everything else is in the file system.

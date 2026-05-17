@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+# Usage: Core/tools/papers <query> [--n N] [--cat CATEGORY] [--id ARXIV_ID] [--ss] — search academic papers via arXiv (default) or Semantic Scholar (--ss); returns JSON
+import argparse, json, sys, urllib.request, urllib.parse, xml.etree.ElementTree as ET
+
+_NS = {'a': 'http://www.w3.org/2005/Atom'}
+
+def _arxiv_search(query, n, cat):
+    q = f'({query}) AND cat:{cat}' if cat else query
+    url = 'https://export.arxiv.org/api/query?' + urllib.parse.urlencode(
+        {'search_query': q, 'max_results': n, 'sortBy': 'relevance'}
+    )
+    with urllib.request.urlopen(url, timeout=30) as r:
+        root = ET.parse(r).getroot()
+    out = []
+    for e in root.findall('a:entry', _NS):
+        aid = e.find('a:id', _NS).text.split('/')[-1]
+        out.append({
+            'arxiv_id': aid,
+            'title': e.find('a:title', _NS).text.strip().replace('\n', ' '),
+            'authors': [a.find('a:name', _NS).text for a in e.findall('a:author', _NS)],
+            'published': e.find('a:published', _NS).text[:10],
+            'abstract': e.find('a:summary', _NS).text.strip().replace('\n', ' ')[:500],
+            'url': f'https://arxiv.org/abs/{aid}',
+            'pdf': f'https://arxiv.org/pdf/{aid}',
+        })
+    return {'source': 'arxiv', 'results': out}
+
+def _arxiv_id(aid):
+    url = f'https://export.arxiv.org/api/query?id_list={aid}'
+    with urllib.request.urlopen(url, timeout=30) as r:
+        root = ET.parse(r).getroot()
+    entries = root.findall('a:entry', _NS)
+    if not entries:
+        return {'error': f'arxiv id not found: {aid}'}
+    e = entries[0]
+    return {
+        'arxiv_id': aid,
+        'title': e.find('a:title', _NS).text.strip(),
+        'authors': [a.find('a:name', _NS).text for a in e.findall('a:author', _NS)],
+        'published': e.find('a:published', _NS).text[:10],
+        'abstract': e.find('a:summary', _NS).text.strip(),
+        'url': f'https://arxiv.org/abs/{aid}',
+        'pdf': f'https://arxiv.org/pdf/{aid}',
+    }
+
+def _ss_search(query, n):
+    url = 'https://api.semanticscholar.org/graph/v1/paper/search?' + urllib.parse.urlencode(
+        {'query': query, 'fields': 'title,authors,year,citationCount,externalIds,abstract,url', 'limit': n}
+    )
+    req = urllib.request.Request(url, headers={'User-Agent': 'research-agent'})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        data = json.loads(r.read())
+    out = []
+    for p in data.get('data', []):
+        ext = p.get('externalIds') or {}
+        aid = ext.get('ArXiv')
+        out.append({
+            'title': p.get('title', ''),
+            'authors': [a['name'] for a in p.get('authors', [])],
+            'year': p.get('year'),
+            'citations': p.get('citationCount', 0),
+            'abstract': (p.get('abstract') or '')[:500],
+            'arxiv_id': aid,
+            'url': p.get('url') or (f'https://arxiv.org/abs/{aid}' if aid else None),
+        })
+    return {'source': 'semantic_scholar', 'results': out}
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument('query', nargs='?', default='')
+    p.add_argument('--n', type=int, default=10)
+    p.add_argument('--cat', help='arXiv category, e.g. cs.CV, gr-qc, cs.LG')
+    p.add_argument('--id', metavar='ARXIV_ID', help='fetch a specific arXiv paper by ID')
+    p.add_argument('--ss', action='store_true', help='use Semantic Scholar instead of arXiv')
+    args = p.parse_args()
+    try:
+        if args.id:
+            print(json.dumps(_arxiv_id(args.id), indent=2))
+        elif args.ss:
+            print(json.dumps(_ss_search(args.query, args.n), indent=2))
+        else:
+            print(json.dumps(_arxiv_search(args.query, args.n, args.cat), indent=2))
+    except Exception as e:
+        print(json.dumps({'error': str(e)}), file=sys.stderr)
+        sys.exit(1)
+
+if __name__ == '__main__':
+    main()

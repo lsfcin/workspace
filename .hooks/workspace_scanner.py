@@ -17,7 +17,47 @@ COMMENT_RE = {
     '.tex': [r'^%\s*(.+)'], '.toml': [r'^#\s*(.+)'],
 }
 
+def _exec_description(path: Path) -> str:
+    """Extract description from an extensionless executable (shebang file).
+    Skips the shebang, finds the first # comment line, returns the part after ' — '."""
+    try:
+        lines = path.read_text(encoding='utf-8', errors='ignore').splitlines()
+    except OSError:
+        return ''
+    for line in lines[:6]:
+        if line.startswith('#!'):
+            continue
+        m = re.match(r'^#\s*(.+)', line)
+        if m:
+            text = m.group(1).strip()
+            if ' — ' in text:
+                return text.split(' — ', 1)[1].strip()
+            return text
+    return ''
+
+def _frontmatter_description(path: Path) -> str:
+    """Read 'description:' from YAML frontmatter (files that start with ---)."""
+    try:
+        lines = path.read_text(encoding='utf-8', errors='ignore').splitlines()
+    except OSError:
+        return ''
+    if not lines or lines[0].strip() != '---':
+        return ''
+    for line in lines[1:20]:
+        if line.strip() in ('---', '...'):
+            break
+        m = re.match(r'^description:\s*["\']?(.+?)["\']?\s*$', line)
+        if m:
+            return m.group(1).strip()
+    return ''
+
 def file_description(path: Path) -> str:
+    if not path.suffix:
+        return _exec_description(path)
+    if path.suffix == '.md':
+        fm = _frontmatter_description(path)
+        if fm:
+            return fm
     patterns = COMMENT_RE.get(path.suffix, [])
     try:
         first = path.read_text(encoding='utf-8', errors='ignore').splitlines()[0]
@@ -59,11 +99,21 @@ def interface_for(src: Path, ctx_dir: Path) -> str:
     else: return '—'
     return f'[`{c.relative_to(ctx_dir)}`]({c.relative_to(ctx_dir)})' if c.exists() else '—'
 
+def _is_exec_script(path: Path) -> bool:
+    """True for extensionless files that start with a shebang."""
+    if path.suffix or not path.is_file():
+        return False
+    try:
+        return path.open('rb').read(2) == b'#!'
+    except OSError:
+        return False
+
 def code_files(directory: Path) -> list:
     return sorted(p for p in directory.iterdir()
-                  if p.is_file() and p.suffix in ALL_EXTS
+                  if p.is_file()
                   and p.name not in ('CONTEXT.md', 'WORKSPACE.md')
-                  and not p.name.endswith(('.d.ts', '.pyi')))
+                  and not p.name.endswith(('.d.ts', '.pyi'))
+                  and (p.suffix in ALL_EXTS or _is_exec_script(p)))
 
 def has_code_content(directory: Path) -> bool:
     if code_files(directory): return True
