@@ -46,5 +46,4 @@
 | [`Code/`](Code/CONTEXT.md) | Software projects developed under this workspace |
 | [`Core/`](Core/CONTEXT.md) | Shared research infrastructure: agents, workflow protocols, and CLI tools. |
 | [`Models/`](Models/CONTEXT.md) | Local model checkpoints and weights used across research and code projects |
-| [`Outputs/`](Outputs/CONTEXT.md) | Generated artifacts; avoid manual edits unless requested |
 <!-- routing:end -->

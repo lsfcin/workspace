@@ -40,15 +40,17 @@ notes: ~  # cross-paper lineage, group connections, anything cross-file
 
 ## Tag Categories
 
+Tags are a flat list. Always put role tags first; add domain-specific tags after.
+
 | Category | Values |
 |----------|--------|
 | **Role** (1–2, always first) | `foundational` · `survey` · `competing-work` · `baseline` · `ground-truth` · `method-source` · `tool` · `application` |
-| **Metric/physics** | `schwarzschild` · `kerr` · `newtonian` · `special-relativity` · `general-relativity` · `numerical-relativity` |
-| **Integration method** | `geodesic-tracing` · `analytic-approx` · `rk4-integrator` · `euler-integrator` |
-| **Platform/content** | `gpu` · `cpu` · `cuda` · `vulkan` · `real-time` · `offline` · `visualization` · `benchmark` · `education` · `textbook` · `astrophysics` |
+| **Domain** | ← add paper-specific domain tags here (e.g. method names, platforms, metrics) |
 
-Use `notes` for cross-paper prose. `baseline` = directly benchmarked against;
-`competing-work` = same problem space, no direct comparison.
+`baseline` = directly compared against in experiments; `competing-work` = same problem space, no direct benchmark.
+Add a `## Domain Tags` section below with the specific values for this paper once the domain is clear.
+
+Use `notes` for cross-paper prose. No need to update both files when noting a connection — write it in whichever file you are editing.
 
 ## Workflow
 
@@ -136,8 +138,7 @@ def scaffold(root: Path, name: str, slug: str, is_new: bool) -> None:
     put('reviews/CONTEXT.md', _reviews_ctx(name))
     for d in ('lib', 'images', 'tables'):
         put(f'{d}/CONTEXT.md', _SUB_CTX(d))
-    put('outputs/CONTEXT.md', '# Outputs\n> Research artifacts: metrics CSVs, analysis notes, generated reports. Do not edit manually.\n\n' + ROUTE)
-    put('plans/CONTEXT.md', '# Plans\n> Session planning documents: agent roadmaps, handoff notes, checklists. Ephemeral — archive to outputs/ when done.\n\n' + ROUTE)
+    put('outputs/CONTEXT.md', '# Outputs\n> Research artifacts: metrics CSVs, analysis notes, generated reports, planning docs. Do not edit manually.\n\n' + ROUTE)
 
     verb = 'Created' if is_new else 'Adapted'
     print(f'{verb}: {root}')

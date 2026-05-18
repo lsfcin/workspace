@@ -9,7 +9,7 @@ Each paper lives in its own subdirectory with its own git repo (Overleaf as remo
 python3 /mnt/workspace/.hooks/paper-scaffold.py new <paper-name>
 ```
 
-This creates `Academy/papers/<name>/` with the full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `CONTEXT.md`, `LABELS.md`, and subdirectory `CONTEXT.md` files for `sections/`, `reviews/`, `lib/`, `figures/`, `tables/`, `outputs/`. The `reviews/CONTEXT.md` is pre-filled with the tag schema and workflow.
+This creates `Academy/papers/<name>/` with the full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `CONTEXT.md`, `LABELS.md`, and subdirectory `CONTEXT.md` files for `sections/`, `reviews/`, `lib/`, `images/`, `tables/`, `outputs/`. The `reviews/CONTEXT.md` is pre-filled with the tag schema and workflow.
 
 To add missing scaffold files to an **existing** paper without overwriting anything:
 
@@ -38,8 +38,7 @@ The `post-edit` hook warns with the adapt command if `reviews/CONTEXT.md` is mis
 ├── lib/                  ← venue template files (cls, sty, bst, bib) — do not edit
 ├── images/               ← paper figures (prefer source scripts over bare images)
 ├── tables/               ← extracted table .tex files when a table exceeds ~30 lines
-├── outputs/              ← research artifacts: metrics, analysis, generated reports
-├── plans/                ← session planning docs (roadmaps, checklists); archive to outputs/ when done
+├── outputs/              ← all research artifacts: metrics, analysis, planning docs, generated reports
 └── build/                ← all LaTeX artifacts (gitignored, managed by latexmk)
 ```
 
@@ -111,12 +110,11 @@ notes: ~  # free-form: cross-paper lineage, group connections, anything cross-fi
 ```
 
 **Tag categories** (flat list, role tags always first):
-- **Role** (1–2): `foundational` · `survey` · `competing-work` · `baseline` · `ground-truth` · `method-source` · `tool` · `application`
-- **Metric/physics**: `schwarzschild` · `kerr` · `newtonian` · `special-relativity` · `general-relativity` · `numerical-relativity`
-- **Integration method**: `geodesic-tracing` · `analytic-approx` · `rk4-integrator` · `euler-integrator`
-- **Platform/content**: `gpu` · `cpu` · `cuda` · `vulkan` · `real-time` · `offline` · `visualization` · `benchmark` · `education` · `textbook` · `astrophysics` · `gravitational-lensing` · `doppler-shift` · `accretion-disk`
+- **Role** (1–2, mandatory): `foundational` · `survey` · `competing-work` · `baseline` · `ground-truth` · `method-source` · `tool` · `application`
+- **Domain** (paper-specific): defined in each paper's `reviews/CONTEXT.md`. Add a `## Domain Tags` section there with values specific to the paper's field once the domain is clear.
 
-Use `notes` for cross-paper prose (lineage, group affiliations) instead of adding `<other-key>:` entries under `relationships:`.
+`baseline` = directly compared against in experiments; `competing-work` = same problem space, no direct benchmark.
+Use `notes` for cross-paper prose (lineage, group affiliations) — no need to update both files for a connection.
 
 ## Related Work Craft
 
@@ -219,6 +217,7 @@ See [Core/tools/CONTEXT.md](../../Core/tools/CONTEXT.md) for all tools and [Core
 
 | Subdirectory | Description |
 |--------------|-------------|
+| [`megatruth/`](megatruth/CONTEXT.md) | Hybrid intelligence paper — crowd truth aggregation via mechanism design |
 | [`relativistic_raytracer/`](relativistic_raytracer/CONTEXT.md) | JBCS special issue paper on relativistic raytracing benchmarking for SVR 2026 |
 
 | File | Interface | API | Description |
