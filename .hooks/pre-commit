@@ -42,7 +42,36 @@ if [ -n "$NEW_CODE" ]; then
   done <<< "$NEW_CODE"
 fi
 
-# ── 3. Sync CONTEXT.md Routing block for all affected directories ──────────────
+# ── 3. Term consistency check (papers with terms.yaml) ────────────────────────
+TEX_STAGED=$(echo "$STAGED" | grep '\.tex$' || true)
+if [ -n "$TEX_STAGED" ]; then
+  PAPER_ROOTS=$(echo "$TEX_STAGED" | xargs -I{} dirname {} | sort -u | while read -r d; do
+    # Walk up to the directory that contains terms.yaml
+    curr="$d"
+    while [ "$curr" != "." ] && [ "$curr" != "/" ]; do
+      [ -f "$curr/terms.yaml" ] && echo "$curr" && break
+      curr=$(dirname "$curr")
+    done
+  done | sort -u)
+  if [ -n "$PAPER_ROOTS" ]; then
+    TERMS_TOOL="/mnt/workspace/Core/tools/terms"
+    while IFS= read -r paper_root; do
+      if [ -x "$TERMS_TOOL" ]; then
+        if ! "$TERMS_TOOL" "$paper_root" >/tmp/terms-check.$$ 2>&1; then
+          cat /tmp/terms-check.$$
+          rm -f /tmp/terms-check.$$
+          printf "⚠  Fix terminology inconsistencies before committing (or edit terms.yaml).\n\n"
+          # Warn-only — do not block commit; exit 1 here to make it blocking
+        else
+          cat /tmp/terms-check.$$
+          rm -f /tmp/terms-check.$$
+        fi
+      fi
+    done <<< "$PAPER_ROOTS"
+  fi
+fi
+
+# ── 5. Sync CONTEXT.md Routing block for all affected directories ──────────────
 if [ -n "$CODE_FILES" ]; then
   while IFS= read -r dir; do
     if [ -f "$dir/CONTEXT.md" ]; then
@@ -55,7 +84,7 @@ if [ -n "$CODE_FILES" ]; then
   done < <(echo "$CODE_FILES" | xargs -I{} dirname {} | sort -u)
 fi
 
-# ── 4. Python → .pyi stubs (mypy stubgen) ─────────────────────────────────────
+# ── 6. Python → .pyi stubs (mypy stubgen) ─────────────────────────────────────
 PY_FILES=$(echo "$STAGED" | grep '\.py$' | grep -v '__pycache__' || true)
 if [ -n "$PY_FILES" ]; then
   if ! command -v stubgen &>/dev/null; then
@@ -74,7 +103,7 @@ if [ -n "$PY_FILES" ]; then
   fi
 fi
 
-# ── 5. JavaScript → .d.ts (tsc --allowJs via jsconfig.json) ───────────────────
+# ── 7. JavaScript → .d.ts (tsc --allowJs via jsconfig.json) ───────────────────
 JS_FILES=$(echo "$STAGED" | grep '\.js$' | grep -v '\.min\.js$' | grep -v '\.config\.js$' || true)
 if [ -n "$JS_FILES" ]; then
   if ! command -v tsc &>/dev/null; then
@@ -108,7 +137,7 @@ if [ -n "$JS_FILES" ]; then
   fi
 fi
 
-# ── 6. TypeScript → .d.ts advice ──────────────────────────────────────────────
+# ── 8. TypeScript → .d.ts advice ──────────────────────────────────────────────
 TS_FILES=$(echo "$STAGED" | grep -E '\.(ts|tsx)$' | grep -v '\.d\.ts$' || true)
 if [ -n "$TS_FILES" ]; then
   root=$(git rev-parse --show-toplevel)
