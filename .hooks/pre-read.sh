@@ -15,8 +15,7 @@ case "$file" in
 	*.tsx)  iface="${file%.tsx}.d.ts" ;;
 	*.dart) iface="${file%.dart}.dart.api" ;;
 	*.tex)  iface="${file%.tex}.texif" ;;
-	*.png|*.jpg|*.jpeg|*.tiff|*.tif|*.eps|*.svg|*.csv|*.tsv)
-	        iface="${file}if" ;;  # teaser.png → teaser.pngif, results.csv → results.csvif
+	*.csv|*.tsv) iface="${file}if" ;;  # results.csv → results.csvif
 esac
 
 [ -z "$iface" ] || [ ! -f "$iface" ] && exit 0
