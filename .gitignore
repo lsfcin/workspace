@@ -12,6 +12,15 @@ System Volume Information/
 # Downloads
 Downloads/
 
+# Local working outputs: audit reports, review notes, roadmaps, plan files.
+# These are session-local artefacts and must not be versioned here;
+# paper-level outputs live inside each project's own repo.
+outputs/
+**/*audit.md
+**/iq-fix-roadmap.md
+HANDOFF.md
+ROADMAP.md
+
 # Domain folders: track only workspace-structure files by name.
 # Project-internal files (STATUS.md, BENCHMARKS.md, etc.) are not workspace
 # concerns — they belong to each project's own git repo.
