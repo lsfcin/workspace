@@ -47,8 +47,8 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`code-search`](code-search) | — | — | search code examples and technical documentation via Exa (default) or GitHub code search (--gh); returns JSON |
 | [`fetch`](fetch) | — | — | fetch a URL and return readable plain text; falls back to raw for non-HTML |
 | [`hf`](hf) | — | — | query HuggingFace Hub metadata and file contents; returns JSON |
-| [`inspect`](inspect) | — | — | generate or update .imgif/.csvif interface file |
-| [`inspect-batch`](inspect-batch) | — | — | generate .pngif/.csvif stubs for all assets missing interfaces |
+| [`inspect`](inspect) | — | — | generate or update .csvif interface file for CSV/TSV assets |
+| [`inspect-batch`](inspect-batch) | — | — | generate .csvif stubs for all CSV/TSV assets missing interfaces |
 | [`papers`](papers) | — | — | search academic papers via arXiv (default) or Semantic Scholar (--ss); returns JSON |
 | [`parse`](parse) | — | — | extract readable text from PDF, DOCX, PPTX, or plain text files; returns raw text |
 | [`search`](search) | — | — | web search via Exa; returns JSON results array |

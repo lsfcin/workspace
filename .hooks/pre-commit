@@ -73,20 +73,7 @@ if [ -n "$TEX_STAGED" ]; then
   fi
 fi
 
-# ── 4. Image interface check (warn on new images committed without .pngif) ─────
-NEW_IMAGES=$(git diff --cached --name-only --diff-filter=A 2>/dev/null | grep -E '\.(png|jpg|jpeg|tiff|tif|eps|svg)$' || true)
-if [ -n "$NEW_IMAGES" ]; then
-  INSPECT="/mnt/workspace/Core/tools/inspect"
-  while IFS= read -r img; do
-    iface="${img}if"
-    if [ ! -f "$iface" ]; then
-      printf "⚠  IMAGE WITHOUT INTERFACE: %s\n" "$img"
-      printf "   Run: Core/tools/inspect %s --desc \"...\"\n\n" "$img"
-    fi
-  done <<< "$NEW_IMAGES"
-fi
-
-# ── 5. Sync CONTEXT.md Routing block for all affected directories ──────────────
+# ── 4. Sync CONTEXT.md Routing block for all affected directories ──────────────
 if [ -n "$CODE_FILES" ]; then
   while IFS= read -r dir; do
     if [ -f "$dir/CONTEXT.md" ]; then
