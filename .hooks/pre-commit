@@ -60,8 +60,10 @@ if [ -n "$TEX_STAGED" ]; then
         if ! "$TERMS_TOOL" "$paper_root" >/tmp/terms-check.$$ 2>&1; then
           cat /tmp/terms-check.$$
           rm -f /tmp/terms-check.$$
-          printf "⚠  Fix terminology inconsistencies before committing (or edit terms.yaml).\n\n"
-          # Warn-only — do not block commit; exit 1 here to make it blocking
+          printf "⛔ Fix terminology inconsistencies before committing.\n"
+          printf "   Edit the .tex file, or update terms.yaml if the term was intentionally revised.\n"
+          printf "   Override: git commit --no-verify\n\n"
+          exit 1
         else
           cat /tmp/terms-check.$$
           rm -f /tmp/terms-check.$$
@@ -69,6 +71,19 @@ if [ -n "$TEX_STAGED" ]; then
       fi
     done <<< "$PAPER_ROOTS"
   fi
+fi
+
+# ── 4. Image interface check (warn on new images committed without .pngif) ─────
+NEW_IMAGES=$(git diff --cached --name-only --diff-filter=A 2>/dev/null | grep -E '\.(png|jpg|jpeg|tiff|tif|eps|svg)$' || true)
+if [ -n "$NEW_IMAGES" ]; then
+  INSPECT="/mnt/workspace/Core/tools/inspect"
+  while IFS= read -r img; do
+    iface="${img}if"
+    if [ ! -f "$iface" ]; then
+      printf "⚠  IMAGE WITHOUT INTERFACE: %s\n" "$img"
+      printf "   Run: Core/tools/inspect %s --desc \"...\"\n\n" "$img"
+    fi
+  done <<< "$NEW_IMAGES"
 fi
 
 # ── 5. Sync CONTEXT.md Routing block for all affected directories ──────────────

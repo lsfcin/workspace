@@ -72,10 +72,6 @@ EOF
 		python3 /mnt/workspace/Core/tools/inspect "$file" 2>/dev/null \
 			&& printf "✓ .csvif: %sif\n" "$file"
 		;;
-	*.png|*.jpg|*.jpeg|*.tiff|*.tif|*.eps|*.svg)
-		python3 /mnt/workspace/Core/tools/inspect "$file" 2>/dev/null \
-			&& printf "✓ .pngif: %sif\n" "$file"
-		;;
 	*.dart)
 		python3 /mnt/workspace/.hooks/dart-api-extract.py "$file" 2>/dev/null
 		;;
