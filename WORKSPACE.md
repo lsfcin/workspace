@@ -5,9 +5,7 @@
 
 - The filesystem is the source of truth. Do not rely on memory, prior sessions, or machine-specific state.
 - Load only the minimal relevant context for the current task.
-
-## Interaction Side-note
-- English is not my (I, Lucas, the user) mother language, and I want to improve my writing. Whenever you can outline my errors and give me writing tips based on my prompts.
+- English is not my (I, Lucas, the user) first language and I want to improve my writing. Outline my errors and give writing tips when you can.
 
 ## Context Conventions
 

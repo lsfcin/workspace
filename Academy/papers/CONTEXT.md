@@ -67,140 +67,55 @@ latexmk -C && latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex 
 
 Use XeLaTeX for document classes that require `fontspec` (e.g. SBC/JBCS). Artifacts go to `build/`; PDF lands at root.
 
-## LaTeX Interface System (`.texif`)
+## LaTeX Interface System
 
-Every `.tex` file automatically gets a `.texif` sibling generated on save. These are
-auto-generated — do not edit them directly.
+Every `.tex` file gets a `.texif` sibling on save. **Read the `.texif` before the source** — the `pre-read` hook hard-blocks direct reads when the interface is current. Contents: section/subsection structure with line numbers, equations and labels, figure/table captions, `\cite{}` keys, TODO comments.
 
-**Mandatory workflow:**
-- **Read `.texif` before reading or editing any `.tex` source file.** The `pre-read` hook
-  hard-blocks direct source reads when the interface is current. Always start with the interface.
-- The interface contains: section/subsection structure with line numbers, full equation content
-  and labels, figure/table captions and labels, listing previews, all `\cite{}` keys used,
-  TODO comments, and subsection opening sentences.
-- `LABELS.md` at the paper root lists all `\label{}` definitions across every `.tex` file and
-  flags dangling `\ref{}` usages. Check it before adding cross-references.
+`LABELS.md` at paper root: all `\label{}` definitions and dangling `\ref{}` warnings. Check before adding cross-references.
 
 ## Reference Reviews (`reviews/`)
 
-Each bib entry must have a corresponding `reviews/<key>.yaml` with structured analysis.
-The `post-edit` hook warns about missing review files whenever the `.bib` is edited.
+Each bib entry gets `reviews/<key>.yaml` — create or update whenever adding a `\cite{key}`. The `post-edit` hook warns when `.bib` is edited. Read the review before making claims about a paper.
 
-**Mandatory workflow:**
-- When adding a new `\cite{key}` to any section, create or update `reviews/key.yaml`.
-- When editing the `.bib` file, respond to any REVIEWS MISSING warnings before finishing.
-- Read `reviews/<key>.yaml` (via `reviews/CONTEXT.md` for routing) before making claims
-  about a paper — the review captures contributions, gaps, and how it relates to this manuscript.
-
-**YAML schema** (`reviews/<key>.yaml`):
+**YAML schema:**
 ```yaml
-key: <bib-key>
-type: article | book | conference | preprint | thesis
-year: <year>
-venue: "<journal/conference name>"
-url: "<DOI URL or canonical link>"
-citations: <exact count or "~N">
-contributions:
-  - <main contribution — one bullet per distinct claim>
-gaps:
-  - <limitation or gap relevant to this paper>
-tags: [<role-tags-first>, <metric-tags>, <method-tags>, <platform-tags>]
-relevance: "<how this reference relates to the current manuscript>"
-notes: ~  # free-form: cross-paper lineage, group connections, anything cross-file
+key:           # bib key (matches lib/refs.bib)
+type:          # article | book | conference | preprint | thesis
+year:
+venue:
+url:
+citations:
+contributions: # list — what the paper achieves
+gaps:          # list — limitations relevant to this work
+tags:          # flat list — role tags first, then domain tags
+relevance: "..." # how this relates to the manuscript (required)
+notes: ~       # cross-paper lineage, group connections, anything cross-file
 ```
 
-**Tag categories** (flat list, role tags always first):
+**Tag categories (flat list, role tags always first):**
 - **Role** (1–2, mandatory): `foundational` · `survey` · `competing-work` · `baseline` · `ground-truth` · `method-source` · `tool` · `application`
-- **Domain** (paper-specific): defined in each paper's `reviews/CONTEXT.md`. Add a `## Domain Tags` section there with values specific to the paper's field once the domain is clear.
+- **Domain**: defined per-paper in `reviews/CONTEXT.md` — add a `## Domain Tags` section once the domain is clear.
 
-`baseline` = directly compared against in experiments; `competing-work` = same problem space, no direct benchmark.
-Use `notes` for cross-paper prose (lineage, group affiliations) — no need to update both files for a connection.
-
-## Related Work Craft
-
-A related work section in a graphics/systems benchmark paper must do three jobs: (1) show the reviewer you know the field completely, (2) build the gap argument brick by brick until it feels inevitable, and (3) explicitly cover the host community's own literature. Failure on any one of these is the most common reason for a "reject, insufficient positioning" decision.
-
-### Subsection structure
-
-Organise by *conceptual axis*, not chronologically. For a benchmark paper the canonical skeleton is:
-
-1. **Implementations** — prior renderers ordered by approach family (numerical integration → precomputed/analytic → learned/neural), then by metric complexity. Within each family, move from offline → interactive → real-time.
-2. **Validation / Ground Truth** — how others verified correctness; sets up your own validation section.
-3. **Applications** — ordered from highest-profile to most niche (entertainment → science → education). Starting with the highest-profile example (e.g. Interstellar) anchors the field's stakes.
-
-A short closing paragraph (3–5 sentences) synthesises all three subsections into the single gap your paper fills. Name the axes explicitly — do not let the reviewer infer them.
-
-### Three citation tiers
-
-**Tier 1 — Gap-forming (mandatory):** Papers that get closest to your contribution on one axis but not both. Cite these precisely: say what each paper measures and what it omits. A reviewer who knows these papers will check that you described them accurately.
-
-**Tier 2 — Community coverage (non-negotiable for Brazilian venues):** For JBCS/SVR submissions, include at minimum one SIBGRAPI paper, one C&G/Computers & Graphics special-issue paper, and the most relevant SBGAMES paper if one exists. Reviewers from the programme committee will notice their community's work is absent. The IMPA/VISGRAF group (Novello, da Silva, Velho) is the canonical Brazilian reference for GPU non-Euclidean rendering.
-
-**Tier 3 — Frontier (recency signal):** One or two papers from the last 12–18 months that mark where the field is heading. A single sentence is enough; it signals to reviewers that the survey is not stale.
-
-### Making the gap argument tight
-
-- Name the two (or more) axes your benchmark spans. Then for each prior paper show which axes it covers and which it leaves open. A comparison table at the end of the section makes this visual and is appropriate in benchmark papers.
-- Use concrete language: "reports performance without quality analysis" beats "does not fully characterise". Feynman's rule — precision over impression.
-- Define terminology once (e.g. "real-time: ≥24 fps at 1080p") and use it consistently. Inconsistent use of "real-time" / "near-real-time" / "interactive" is a frequent minor critique.
-- Every citation must do exactly one job. If you cannot state in one clause why a paper is cited, it does not belong.
-
-### Reviewer-proofing checklist
-
-Before finalising the section, run through these:
-
-- [ ] Is the Interstellar / DNGR paper (James et al. 2015, CQG) cited? It is the field's most-cited rendering paper.
-- [ ] Is every GPU API mentioned in your paper (CUDA, OpenGL, Vulkan, Unity, WebGPU) represented in the related work?
-- [ ] Is at least one SIBGRAPI paper cited?
-- [ ] Is at least one C&G/Computers & Graphics paper cited?
-- [ ] Is there a paper ≤ 2 years old?
-- [ ] Does the closing paragraph name your specific axes (platform × integrator, or whatever they are)?
-- [ ] Are "real-time", "interactive", and "near-real-time" used consistently with a defined threshold?
-- [ ] Does the comparison table (if present) have a row for every paper in Tier 1?
-
-### Getting the venue reviewer form
-
-Reviewer forms for JBCS and SVR are not publicly available — they live inside JEMS (SBC's submission system) and are only visible to registered reviewers. Two practical workarounds:
-
-1. **Ask a colleague who has reviewed for SVR/JBCS** to share the form's dimension titles (they are not NDA'd). Typical dimensions: *Originality*, *Technical Quality*, *Significance*, *Clarity*, *Related Work Coverage*, *Reproducibility*.
-2. **Use `/research review "<claim>"` to simulate reviewer objections** on each subsection. This is the most efficient substitute.
-
-JBCS's published criteria (from submissions page): scientific soundness and coherence · originality (no duplication) · clarity · significance. SVR adds: "consolidated research ideas with strong evaluation evidence." Map every paragraph in the related work to at least one of these.
-
-### Images in related work
-
-In computer graphics papers, one carefully composed figure in the related work is welcome and often strengthens the reviewer's confidence that you understand the visual output of prior work. The recommended approach: a labelled mosaic (2–3 columns × 2 rows) showing renders from representative prior systems side by side with your own, with a caption that points out the visual differences (photon ring fidelity, Doppler colour shift, artifact pattern). Keep it to one figure; do not pad. Omit it entirely if you cannot obtain or reproduce an image from at least two prior systems — a partial mosaic is worse than none.
+`baseline` = directly benchmarked in experiments; `competing-work` = same problem space, no direct benchmark. Use `notes` for cross-paper lineage and group affiliations.
 
 ## Writing Quality Standards
 
-These apply to every section, not just related work. Hold every paragraph to all five before committing.
+Hold every paragraph to all five before committing.
 
-**Argumentative nuance** — claims must be precisely scoped, hedged where uncertainty exists, and logically entailed by the evidence that precedes them. Replace vague intensifiers ("very fast", "significantly better") with measured language ("30% lower latency at 1080p"). Never overstate; never understate. A claim that a careful reviewer could re-scope to something weaker is a claim that will get a comment.
-
-**Long-term coherence** — terminology, notation, and the central argument must be stable across the entire manuscript. Define each concept once; use the same word every time. The introduction's gap statement must be the same gap the conclusion closes. If a new section redefines a term or silently changes scope, it will confuse reviewers and lose the thread for readers who read non-linearly.
-
-**Semantical compression** — academic writing earns its length. Each sentence must carry exactly one new unit of meaning that could not be inferred from the previous sentence. Eliminate throat-clearing openers ("It is important to note that…"), redundant restatement of figures, and motivation paragraphs that say what the section headings already say. The test: can you cut this sentence without losing any information a reviewer would miss?
-
-**Academic taste** — writing registers the author's awareness of the community. This means: cite seminal work even when it is old, because omitting it signals ignorance not modernity; use the community's own vocabulary rather than inventing synonyms; calibrate boldness to evidence (exploratory claims belong in future work, not contributions). For Brazilian venues (JBCS, SVR, SIBGRAPI) explicitly acknowledge Brazilian work in the area — omission reads as oversight even when unintentional.
-
-**Reviewer simulation** — before finalising any paragraph, read it as a hostile reviewer looking for a reason to reject. Common objections: "is this actually novel, or just X applied to Y?", "where is the ablation?", "this claim is not supported by the experiment shown". Write pre-emptive counter-arguments into the prose. A well-positioned limitation paragraph is a shield; a reviewer who spots your limitation and finds you already named it becomes less hostile.
+- **Argumentative nuance** — scope claims precisely; replace vague intensifiers with measured language ("30% lower latency at 1080p"). Never over- or understate.
+- **Long-term coherence** — define each term once, use it consistently throughout. The introduction's gap must be the same gap the conclusion closes.
+- **Semantical compression** — each sentence carries exactly one new unit of meaning. Cut throat-clearing openers, redundant figure restatements, motivation paragraphs that restate section headings.
+- **Academic taste** — cite seminal work even when old; use the community's vocabulary; for regional venues, explicitly acknowledge local work in the area.
+- **Reviewer simulation** — read each paragraph as a hostile reviewer seeking rejection. Write pre-emptive counter-arguments into the prose; name your limitations before a reviewer does.
 
 ## Research Tools
 
-Use `/research` to invoke the workspace research system, or call tools directly:
-
 ```bash
-# Paper search
 Core/tools/papers "Schwarzschild geodesics" --cat gr-qc --n 15
 Core/tools/papers 2501.12345                           # fetch specific arXiv paper
-
-# Web / code search
-Core/tools/search "relativistic renderer benchmark"
+Core/tools/search "benchmark topic"
 Core/tools/fetch "https://arxiv.org/abs/2501.12345"
-
-# Full research workflows (via slash command)
-/research lit "relativistic raytracing"                # literature review
-/research deepresearch "GPU geodesic integration"      # full research brief
+/research lit "topic"                                  # literature review
 /research review sections/03_related_work.tex          # reviewer simulation
 ```
 
