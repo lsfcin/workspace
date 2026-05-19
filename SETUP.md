@@ -153,15 +153,79 @@ No action required. `.claude/settings.json` is versioned in this repo and Claude
 
 ### 6. Caveman (Claude Code output compression)
 
-Installs caveman as a Claude Code skill. Auto-activates every session, cutting output tokens ~65%.
+Installs caveman as a Claude Code skill (~65% output token savings). Requires Node ≥18. Safe to re-run.
 
+**Linux / macOS:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/JuliusBrussee/caveman/main/install.sh | bash
 ```
 
-Requires Node ≥18. Safe to re-run.
+**Windows (PowerShell — run as your normal user, not admin):**
+```powershell
+irm https://raw.githubusercontent.com/JuliusBrussee/caveman/main/src/hooks/install.ps1 | iex
+```
+If execution policy blocks the command: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` first.
 
-Verify: open a Claude Code session — `[CAVEMAN] ⛏` badge should appear in the statusline.
+**Set default mode** via caveman's own config:
+
+Linux / macOS:
+```bash
+mkdir -p ~/.config/caveman && echo '{"defaultMode": "full"}' > ~/.config/caveman/config.json
+```
+
+Windows (PowerShell):
+```powershell
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.config\caveman" | Out-Null
+'{"defaultMode": "full"}' | Set-Content "$env:USERPROFILE\.config\caveman\config.json"
+```
+
+Change `"full"` to `"lite"`, `"ultra"`, or `"off"` to adjust. `"full"` is caveman's built-in default, so the config file is optional but makes the setting explicit and reproducible.
+
+**Add the `caveman-compress` shell function:**
+
+Linux / macOS — append to `~/.bashrc` (or `~/.zshrc`):
+```bash
+cat >> ~/.bashrc << 'EOF'
+
+# caveman-compress shortcut
+caveman-compress() {
+  local CLAUDE_BIN
+  CLAUDE_BIN="$(dirname "$CLAUDE_CODE_EXECPATH")"
+  (cd ~/.claude/skills/caveman-compress && PATH="$CLAUDE_BIN:$PATH" python3 -m scripts "$1")
+}
+EOF
+source ~/.bashrc
+```
+
+Windows — append to your PowerShell profile (`$PROFILE`):
+```powershell
+Add-Content $PROFILE @'
+
+# caveman-compress shortcut
+function caveman-compress {
+    param([string]$File)
+    $claudeBin = Split-Path $env:CLAUDE_CODE_EXECPATH
+    Push-Location "$env:USERPROFILE\.claude\skills\caveman-compress"
+    $env:PATH = "$claudeBin;$env:PATH"
+    python3 -m scripts $File
+    Pop-Location
+}
+'@
+```
+
+Run `/caveman-compress <file>` on CONTEXT.md files periodically to cut input tokens.
+
+**Verify:** open a Claude Code session — `[CAVEMAN] ⛏` badge should appear in the statusline.
+
+**Agent integration pattern — installed vs induced:**
+Every agent in this workspace should activate caveman via one of two mechanisms:
+
+| Mechanism | Agent | How |
+|-----------|-------|-----|
+| **Installed** | Claude Code | `SessionStart` + `UserPromptSubmit` hooks in `~/.claude/settings.json` call `caveman-activate.js`. Auto-activates every session. |
+| **Induced** | Copilot | `copilot-session-start.py` reads `~/.config/caveman/config.json` and injects rules as `additionalContext` at session start. |
+
+When adding a new agent: if it supports session-start hooks or context injection, add caveman injection there following the induced pattern in `.hooks/copilot-session-start.py`. Both mechanisms read the same config file — one toggle controls all agents.
 
 ### 7. Local LaTeX Toolchain (for `Academy/papers/`)
 For local PDF builds (without depending on Overleaf compilation), install a LaTeX CLI stack:

@@ -34,7 +34,8 @@
 ## Infrastructure
 - See `SETUP.md` for full replication instructions: hooks, stubgen, tsc, caveman, etc.
 - Run `codeburn optimize` periodically to audit token waste.
-- Caveman auto-compresses Claude output each session (~65% output token savings). Run `/caveman-compress <file>` on CONTEXT.md files to cut input tokens.
+- Run `caveman-compress <file>` on CONTEXT.md files periodically to cut input tokens.
+
 
 <!-- routing:start -->
 ## Routing
