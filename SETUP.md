@@ -151,7 +151,19 @@ Verify: `tsc --version` or `~/.local/bin/tsc --version`
 ### 5. Claude Code Hooks
 No action required. `.claude/settings.json` is versioned in this repo and Claude Code reads it automatically when the workspace is opened. The hooks in `.hooks/` activate immediately.
 
-### 6. Local LaTeX Toolchain (for `Academy/papers/`)
+### 6. Caveman (Claude Code output compression)
+
+Installs caveman as a Claude Code skill. Auto-activates every session, cutting output tokens ~65%.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/JuliusBrussee/caveman/main/install.sh | bash
+```
+
+Requires Node ≥18. Safe to re-run.
+
+Verify: open a Claude Code session — `[CAVEMAN] ⛏` badge should appear in the statusline.
+
+### 7. Local LaTeX Toolchain (for `Academy/papers/`)
 For local PDF builds (without depending on Overleaf compilation), install a LaTeX CLI stack:
 
 ```bash

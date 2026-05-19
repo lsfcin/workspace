@@ -3,36 +3,38 @@
 
 ## Core Principles
 
-- The filesystem is the source of truth. Do not rely on memory, prior sessions, or machine-specific state.
-- Load only the minimal relevant context for the current task.
-- English is not my (I, Lucas, the user) first language and I want to improve my writing. Outline my errors and give writing tips when you can.
+- Filesystem = source of truth. Don't rely on memory, prior sessions, or machine state.
+- Load minimal relevant context for current task.
 
 ## Context Conventions
 
-- `CONTEXT.md` files add context; context chain concatenates hierarchically — navigate the folder structure downward.
-- Always check for a local `CONTEXT.md` before starting work; load only context relevant to the active subtree.
-- Every `CONTEXT.md` must have a title, a `> one-line description` on line 2, and a `## Routing` block at the end auto-synced by `context_synchronizer.py`.
+- `CONTEXT.md` files add context; chain concatenates hierarchically — navigate folder structure downward.
+- Always check local `CONTEXT.md` before starting work; load only context relevant to active subtree.
+- Every `CONTEXT.md` must have title, `> one-line description` on line 2, and `## Routing` block at end auto-synced by `context_synchronizer.py`.
 
 ## Behavioral Rules
 
-- Understand local architecture before introducing changes.
+- Understand local architecture before changes.
 - Do not invent requirements or hidden constraints.
 - Prefer modifying existing abstractions over creating parallel patterns.
-- Avoid creating new files unless clearly necessary.
-- When uncertain about current APIs, library versions, or any factual claim — **search the web first**. Outdated knowledge causes real mistakes; do not assume.
+- Avoid new files unless clearly necessary.
+- Uncertain about APIs, library versions, any factual claim — **search web first**. Outdated knowledge causes real mistakes; do not assume.
+- **Read before editing.** Read full file before modifying. Grep all callers before changing function. Never edit blind.
 
 ## Git
-- Workspace repo tracks only structural files (`CLAUDE.md`, `CONTEXT.md`, domain-level docs). Commit only workspace changes here. For internal projects use internal git repos.
+- Workspace repo tracks only structural files (`CLAUDE.md`, `CONTEXT.md`, domain-level docs). Commit only workspace changes here. Internal projects use internal git repos.
 
 ## Core
-- `Core/` contains a provider-agnostic agent systems: agent definitions, workflow protocols, and CLI tools.
-- See `Core/CONTEXT.md` for the full system map.
+- `Core/` contains provider-agnostic agent systems: agent definitions, workflow protocols, CLI tools.
+- See `Core/CONTEXT.md` for full system map.
 
 ## Research
-- Use `/research <flow> <query>` to invoke it (e.g. `/research lit "topic"`, `/research review file.tex`).
+- Use `/research <flow> <query>` to invoke (e.g. `/research lit "topic"`, `/research review file.tex`).
 
 ## Infrastructure
-- See `SETUP.md` for full replication instructions: hooks, stubgen, tsc, etc.
+- See `SETUP.md` for full replication instructions: hooks, stubgen, tsc, caveman, etc.
+- Run `codeburn optimize` periodically to audit token waste.
+- Caveman auto-compresses Claude output each session (~65% output token savings). Run `/caveman-compress <file>` on CONTEXT.md files to cut input tokens.
 
 <!-- routing:start -->
 ## Routing

@@ -3,10 +3,10 @@
 
 ## Engineering Principles
 
-- **One responsibility per file** — prefer many small files over monoliths; think file-size limits ahead.
-- **Explicit naming** — file names must be guessable without opening them.
+- **One responsibility per file** — many small files over monoliths; think file-size limits ahead.
+- **Explicit naming** — file names guessable without opening.
 - **Flat structure** — sub-modules over deep nesting; max 3 directory levels.
-- **Low coupling** — small modules with explicit imports; no hidden cross-directory coupling.
+- **Low coupling** — small modules, explicit imports; no hidden cross-directory coupling.
 - **Interface-first reading** — read `.pyi` / `.d.ts` / `.dart.api` before source files (enforced by hook).
 
 ## File Size Policy
@@ -17,11 +17,11 @@ Applies to `.js .ts .tsx .py .dart .html .css .scss`:
 - Warning at **150 LOC** (hook warns on commit)
 - Hard block at **200 LOC** (commits and AI edits blocked)
 
-When approaching limits: extract modules, separate orchestration from implementation.
+Near limits: extract modules, separate orchestration from implementation.
 
 ## First-Line Description
 
-Every code file must begin with a one-line description comment:
+Every code file must begin with one-line description comment:
 
 | Language | Format |
 |----------|--------|
@@ -31,16 +31,16 @@ Every code file must begin with a one-line description comment:
 | HTML | `<!-- Short description -->` |
 | Markdown | `# Title` (heading IS the description) |
 
-One sentence, no period, ~80 chars. Describe *what*, not *how*. New files without it are blocked.
+One sentence, no period, ~80 chars. Describe *what*, not *how*. New files without it blocked.
 
 ## CONTEXT.md Convention
 
 Line 2 must be `> Short description` (auto-extracted for parent Routing table).
-The `## Routing` block at the end is auto-managed by `context_synchronizer.py` between `<!-- routing:start -->` / `<!-- routing:end -->` — **do not edit manually**. Renames are not tracked; update the description manually.
+`## Routing` block auto-managed by `context_synchronizer.py` between `<!-- routing:start -->` / `<!-- routing:end -->` — **do not edit manually**. Renames not tracked; update description manually.
 
 ## Git Structure
 
-Projects inside `Code/` have their own git repos. Commit there: `git -C <project-path> commit`.
+Projects inside `Code/` have own git repos. Commit: `git -C <project-path> commit`.
 
 <!-- routing:start -->
 ## Routing
