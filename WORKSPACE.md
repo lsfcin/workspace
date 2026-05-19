@@ -35,6 +35,7 @@
 - See `SETUP.md` for full replication instructions: hooks, stubgen, tsc, caveman, etc.
 - Run `codeburn optimize` periodically to audit token waste.
 - Run `caveman-compress <file>` on CONTEXT.md files periodically to cut input tokens.
+- Responses use caveman compression by default. Deactivate for a session: say "stop caveman" or "normal mode". To change the default, see `SETUP.md §6`.
 
 
 <!-- routing:start -->
