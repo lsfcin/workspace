@@ -126,6 +126,7 @@ See [Core/tools/CONTEXT.md](../../Core/tools/CONTEXT.md) for all tools and [Core
 - Source files (`.tex`, `.bib`, figures, `lib/`) live in the paper repo; push to Overleaf remote.
 - `build/` and `main.pdf` are gitignored. Version `CONTEXT.md` alongside the manuscript.
 - Workspace repo tracks only `CONTEXT.md`; all other paper files belong to the paper repo.
+- Overleaf remote is authoritative — co-authors edit there directly. Always git pull --rebase before pushing; in conflicts, preserve remote edits and reapply local additions on top.
 
 <!-- routing:start -->
 ## Routing
