@@ -8,10 +8,12 @@
 # Both modes are safe: existing files are never overwritten (skipped with ~).
 
 from __future__ import annotations
+import re
 import sys
 from pathlib import Path
 
 PAPERS = Path(__file__).parent.parent / 'Academy' / 'papers'
+_slug_to_name = lambda s: re.sub(r'^\d{4}-[^-]+-', '', s).replace('_', ' ').title()
 RS, RE = '<!-- routing:start -->', '<!-- routing:end -->'
 ROUTE = f'{RS}\n## Routing\n\n{RE}\n'
 
@@ -165,10 +167,7 @@ def scaffold(root: Path, name: str, slug: str, is_new: bool) -> None:
     for f in skipped:
         print(f'  ~ {f} (exists — skipped)')
     if is_new:
-        print(f'\nNext steps:')
-        print(f'  cd {root}')
-        print(f'  git init && git remote add origin <overleaf-url>')
-        print(f'  git add . && git commit -m "Initial scaffold"')
+        print(f'\nNext steps:\n  cd {root}\n  git init && git remote add origin <overleaf-url>\n  git add . && git commit -m "Initial scaffold"')
 
 
 def main() -> int:
@@ -178,18 +177,18 @@ def main() -> int:
         return 1
 
     if args[0] == 'new':
-        slug = args[1].replace(' ', '_').lower()
+        slug = args[1].replace(' ', '_')
         root = PAPERS / slug
         if root.exists():
             print(f'Error: {root} already exists — use "adapt" to fill missing files.', file=sys.stderr)
             return 1
-        scaffold(root, args[1], slug, is_new=True)
+        scaffold(root, _slug_to_name(slug), slug, is_new=True)
     else:
         root = Path(args[1]).resolve()
         if not root.exists():
             print(f'Error: {root} does not exist.', file=sys.stderr)
             return 1
-        scaffold(root, root.name.replace('_', ' ').title(), root.name, is_new=False)
+        scaffold(root, _slug_to_name(root.name), root.name, is_new=False)
 
     return 0
 
