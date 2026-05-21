@@ -86,6 +86,20 @@ if [ -n "$CODE_FILES" ]; then
   done < <(echo "$CODE_FILES" | xargs -I{} dirname {} | sort -u)
 fi
 
+# ── 5b. TeX → .texif interfaces ───────────────────────────────────────────────
+TEX_FILES=$(echo "$STAGED" | grep '\.tex$' || true)
+if [ -n "$TEX_FILES" ]; then
+  while IFS= read -r f; do
+    [ -f "$f" ] || continue
+    if python3 /mnt/workspace/.hooks/tex-interface-gen.py "$f" 2>/dev/null; then
+      texif="${f%.tex}.texif"
+      [ -f "$texif" ] && git add "$texif"
+    else
+      printf "⚠  tex-interface-gen failed for $f — .texif not staged\n\n"
+    fi
+  done <<< "$TEX_FILES"
+fi
+
 # ── 6. Python → .pyi stubs (mypy stubgen) ─────────────────────────────────────
 PY_FILES=$(echo "$STAGED" | grep '\.py$' | grep -v '__pycache__' || true)
 if [ -n "$PY_FILES" ]; then
