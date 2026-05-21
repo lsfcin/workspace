@@ -1,1 +1,1 @@
-../CLAUDE.md
+../WORKSPACE.md

@@ -1,13 +1,13 @@
 # Workspace Setup
 
-Infrastructure for code quality enforcement and AI-assisted development.
-Design principle: **the file system is the source of truth**. No configuration lives only in machine state or memory — everything is versioned here.
+Code quality enforcement + AI-assisted dev infrastructure.
+Design principle: **the file system is the source of truth**. No config lives only in machine state or memory — everything versioned here.
 
 ## Parity And Enforcement Model
 
-The current workspace structure follows a simple rule: canonical behavior lives in neutral files under `.hooks/` and `WORKSPACE.md`, while company-specific files act as shims, discovery points, or startup wiring for Claude, Copilot, and VS Code.
+Canonical behavior lives in neutral files under `.hooks/` and `WORKSPACE.md`. Company-specific files act as shims, discovery points, or startup wiring for Claude, Copilot, VS Code.
 
-Where a hook can block a read, edit, or commit, the behavior is treated as **ENFORCED**. Where a file only injects guidance or context, the behavior is **INDUCED**. If a file is present only for compatibility or convenience and does not affect enforcement, it is **SKIPPED** in the enforcement model.
+Hook can block read/edit/commit → **ENFORCED**. File only injects guidance → **INDUCED**. Present only for compatibility, no enforcement effect → **SKIPPED**.
 
 ### Modularization / Interface Tasks
 
@@ -23,10 +23,10 @@ Where a hook can block a read, edit, or commit, the behavior is treated as **ENF
 
 | File | Why it exists | Behavior |
 |------|---------------|----------|
-| `WORKSPACE.md` | Canonical workspace policy and startup anchor for every agent | **INDUCED** |
+| `WORKSPACE.md` | Canonical workspace policy + startup anchor for every agent | **INDUCED** |
 | `.github/copilot-instructions.md` | One-line Copilot shim pointing to `WORKSPACE.md` | **INDUCED** |
-| `.github/hooks/workspace-policy.json` | VS Code hook registration file for Copilot lifecycle events | **ENFORCED** |
-| `.vscode/settings.json` | Limits hook-file discovery so Copilot loads the workspace hook path, not user-level `.claude` hooks | **INDUCED** |
+| `.github/hooks/workspace-policy.json` | VS Code hook registration for Copilot lifecycle events | **ENFORCED** |
+| `.vscode/settings.json` | Limits hook-file discovery so Copilot loads workspace hook path, not user-level `.claude` hooks | **INDUCED** |
 
 ---
 
@@ -34,76 +34,76 @@ Where a hook can block a read, edit, or commit, the behavior is treated as **ENF
 
 ### Git Pre-Commit Hook (`.hooks/pre-commit`)
 Applied globally via `core.hooksPath`. Fires on every `git commit` across all repos under this workspace.
-- Warns on code files ≥ 150 lines and blocks commits on code files ≥ 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex` — not data files). Shared thresholds live in [`.hooks/line-limits.env`](.hooks/line-limits.env)
-- Warns when a newly staged code file lacks a first-line description comment
-- **Auto-syncs CONTEXT.md Routing block** via `context_synchronizer.py` for every directory with staged files, and stages the result
-- Auto-generates `.pyi` stubs for Python files (via `stubgen`) and stages them
-- Auto-generates `.d.ts` declarations for JS/TS files (via `tsc`) and `.dart.api` stubs for Dart files (via `dart-api-extract.py`), and stages them
-- Shares its staged-file line-count enforcement with `.hooks/check-line-counts.sh`, which can also be run manually for a workspace-wide audit
+- Warns on code files ≥ 150 lines; blocks commits on code files ≥ 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex` — not data files). Shared thresholds in [`.hooks/line-limits.env`](.hooks/line-limits.env)
+- Warns when newly staged code file lacks first-line description comment
+- **Auto-syncs CONTEXT.md Routing block** via `context_synchronizer.py` for every dir with staged files, stages result
+- Auto-generates `.pyi` stubs for Python files (via `stubgen`), stages them
+- Auto-generates `.d.ts` declarations for JS/TS files (via `tsc`) and `.dart.api` stubs for Dart files (via `dart-api-extract.py`), stages them
+- Shares staged-file line-count enforcement with `.hooks/check-line-counts.sh`, which can also run manually for workspace-wide audit
 
 ### Claude Code Hooks (`.claude/settings.json`)
-Fires on every `Edit`, `Write`, and `Read` tool call during Claude Code sessions.
+Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
 
 | Script | Trigger | Behavior |
 |--------|---------|----------|
-| `.hooks/pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits that would push any code file past 200 lines; **hard-blocks Write of new files missing a first-line description comment** |
+| `.hooks/pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits pushing code file past 200 lines; **hard-blocks Write of new files missing first-line description comment** |
 | `.hooks/post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts` / `.dart.api`; auto-scaffolds `jsconfig.json`/`tsconfig.json` if missing; reminds about missing first-line comment; runs `context_synchronizer.py` |
-| `.hooks/pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading a source file when its interface is current (timestamp check); warns when interface is stale |
+| `.hooks/pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading source file when interface is current (timestamp check); warns when interface is stale |
 
 ### CONTEXT.md Auto-Sync (`.hooks/context_synchronizer.py`)
-Runs on every Claude edit (via `post-edit.sh` — also re-syncs the parent dir) and on every git commit (via `pre-commit`). Keeps each project's `## Routing` block accurate without manual maintenance:
+Runs on every Claude edit (via `post-edit.sh` — also re-syncs parent dir) and every git commit (via `pre-commit`). Keeps each project's `## Routing` block accurate without manual maintenance:
 
-- **Adds** new files with description extracted from: first-line comment (code files), `description:` YAML frontmatter (`.md` files), or usage comment after ` — ` (extensionless executable scripts)
+- **Adds** new files with description from: first-line comment (code files), `description:` YAML frontmatter (`.md` files), usage comment after ` — ` (extensionless executable scripts)
 - **Removes** stale entries for deleted files
 - **Links** interface files (`.pyi` / `.d.ts` / `.dart.api`) automatically
-- **Folds** small subdirectories (< 7 files, leaf dirs) into the parent Routing block with relative paths
-- **Links** large subdirectories (≥ 7 files, or has own CONTEXT.md, or has deeper nesting) in the Routing block; auto-creates a scaffold CONTEXT.md for intermediate dirs that have no CONTEXT.md but do have sub-hierarchy
-- **Warns** when a directory exceeds 7 direct files
+- **Folds** small subdirs (< 7 files, leaf dirs) into parent Routing block with relative paths
+- **Links** large subdirs (≥ 7 files, or has own CONTEXT.md, or has deeper nesting) in Routing block; auto-creates scaffold CONTEXT.md for intermediate dirs with no CONTEXT.md but with sub-hierarchy
+- **Warns** when dir exceeds 7 direct files
 
-**Do not edit the sentinel block manually** (`<!-- routing:start/end -->`). Changes are overwritten on the next sync run.
+**Do not edit the sentinel block manually** (`<!-- routing:start/end -->`). Changes overwritten on next sync run.
 
-**Renames are not tracked automatically.** The old entry disappears and the new file appears with a placeholder description. Update the description in CONTEXT.md manually after renaming a file.
+**Renames not tracked automatically.** Old entry disappears, new file appears with placeholder description. Update description in CONTEXT.md manually after rename.
 
-Also run manually: `python3 /mnt/workspace/.hooks/context_synchronizer.py <directory>`
+Manual run: `python3 /mnt/workspace/.hooks/context_synchronizer.py <directory>`
 
 ### First-Line Description Convention
-Every code file must begin with a one-line description comment. `context_synchronizer.py` reads this as the canonical description and writes it into CONTEXT.md automatically.
+Every code file must begin with one-line description comment. `context_synchronizer.py` reads this as canonical description and writes it into CONTEXT.md automatically.
 
 Enforcement model:
-- **New file (Write)** → hard block: `pre-edit.py` rejects the Write if the content doesn't start with a description comment
-- **Existing file (Edit)** → in-session reminder: `post-edit.sh` checks line 1 after every edit and prints a reminder if missing
-- **git commit** → warning: `pre-commit` warns when a newly staged file lacks the comment
+- **New file (Write)** → hard block: `pre-edit.py` rejects Write if content doesn't start with description comment
+- **Existing file (Edit)** → in-session reminder: `post-edit.sh` checks line 1 after every edit, prints reminder if missing
+- **git commit** → warning: `pre-commit` warns when newly staged file lacks comment
 
 ### Interface File Generation
-Every save of a supported source file unconditionally produces an interface file. Generation is universal — no per-project configuration required.
+Every save of supported source file unconditionally produces interface file. Generation universal — no per-project config required.
 
 | Language | Output | Tool | Notes |
 |----------|--------|------|-------|
-| Python | `.pyi` | `stubgen` | Auto on every Claude edit and on git commit |
+| Python | `.pyi` | `stubgen` | Auto on every Claude edit and git commit |
 | JavaScript | `.d.ts` | `tsc --allowJs --emitDeclarationOnly` | Auto on every Claude edit; `jsconfig.json` auto-scaffolded if missing (IDE use only) |
 | TypeScript | `.d.ts` | `tsc --emitDeclarationOnly` | Auto on every Claude edit; `tsconfig.json` auto-scaffolded if no ancestor config found |
 | Dart/Flutter | `.dart.api` | `dart-api-extract.py` | Auto on every Claude edit; extracts public class/mixin/method signatures |
-| LaTeX | `.texif` | `tex-interface-gen.py` + `tex_interface_parser.py` | Auto on every Claude edit; extracts structure, equations (full), figures/tables/listings, citations, TODO comments, section/subsection opening sentences. Also regenerates `LABELS.md` (cross-file label registry + dangling ref check) in the paper root. `.bib` edits warn about missing `reviews/<key>.yaml` files. |
+| LaTeX | `.texif` | `tex-interface-gen.py` + `tex_interface_parser.py` | Auto on every Claude edit; extracts structure, equations (full), figures/tables/listings, citations, TODO comments, section/subsection opening sentences. Also regenerates `LABELS.md` (cross-file label registry + dangling ref check) in paper root. `.bib` edits warn about missing `reviews/<key>.yaml` files. |
 
-**Enforcement**: `pre-read.sh` hard-blocks reading any source file when its interface file is current (interface timestamp ≥ source timestamp). Reading the interface file first is not optional when the interface is trustworthy.
+**Enforcement**: `pre-read.sh` hard-blocks reading source file when interface file is current (interface timestamp ≥ source timestamp). Reading interface first is not optional when interface is trustworthy.
 
-**To bypass the size gate temporarily**: edit `BLOCK_LINES` in `.hooks/line-limits.env`, perform the operation, then revert. Both `pre-edit.py` and `check-line-counts.sh` will pick up the new value immediately.
+**To bypass size gate temporarily**: edit `BLOCK_LINES` in `.hooks/line-limits.env`, perform operation, revert. Both `pre-edit.py` and `check-line-counts.sh` pick up new value immediately.
 
 ### Engineering Policies
-See [Code/CONTEXT.md](Code/CONTEXT.md) for the full file size policy, modularization strategy, and interface conventions that Claude follows during coding sessions.
+See [Code/CONTEXT.md](Code/CONTEXT.md) for full file size policy, modularization strategy, and interface conventions Claude follows during coding sessions.
 
 ---
 
 ## First-Time Setup (New Machine)
 
-Run these steps once after cloning or moving the workspace.
+Run once after cloning or moving workspace.
 
 ### 1. Wire the Git Hook
 ```bash
 git config --global core.hooksPath /mnt/workspace/.hooks
 ```
-This applies `.hooks/pre-commit` to every git repo on the machine.
-If the workspace is at a different path, replace `/mnt/workspace` with the actual path everywhere in this file.
+Applies `.hooks/pre-commit` to every git repo on machine.
+If workspace is at different path, replace `/mnt/workspace` with actual path everywhere in this file.
 
 Verify:
 ```bash
@@ -120,13 +120,13 @@ chmod +x /mnt/workspace/.hooks/check-line-counts.sh
 chmod +x /mnt/workspace/.hooks/copilot-agent.sh
 chmod +x /mnt/workspace/.hooks/start-session.sh
 ```
-(`pre-edit.py`, `copilot-pre-tool.py`, `copilot-post-tool.py`, `copilot-session-start.py`, and `dart-api-extract.py` are invoked via `python3` and do not need execute permission.)
+(`pre-edit.py`, `copilot-pre-tool.py`, `copilot-post-tool.py`, `copilot-session-start.py`, `dart-api-extract.py` invoked via `python3` — no execute permission needed.)
 
 ### 3. Python Interface Generation (stubgen)
 ```bash
 pip install mypy
 ```
-Or using the workspace virtual environment:
+Or using workspace venv:
 ```bash
 /mnt/workspace/.venv/bin/pip install mypy
 ```
@@ -140,33 +140,33 @@ source ~/.bashrc
 nvm install --lts
 npm install -g typescript
 ```
-Or if Node is already installed but global install requires sudo:
+Or if Node installed but global install requires sudo:
 ```bash
 npm install -g typescript --prefix ~/.local
 ```
-The hook checks `tsc` on PATH first, then falls back to `~/.local/bin/tsc`.
+Hook checks `tsc` on PATH first, then falls back to `~/.local/bin/tsc`.
 
 Verify: `tsc --version` or `~/.local/bin/tsc --version`
 
 ### 5. Claude Code Hooks
-No action required. `.claude/settings.json` is versioned in this repo and Claude Code reads it automatically when the workspace is opened. The hooks in `.hooks/` activate immediately.
+No action needed. `.claude/settings.json` versioned in this repo; Claude Code reads it automatically when workspace opened. Hooks in `.hooks/` activate immediately.
 
 ### 6. Caveman (Claude Code output compression)
 
-Installs caveman as a Claude Code skill (~65% output token savings). Requires Node ≥18. Safe to re-run.
+Installs caveman as Claude Code skill (~65% output token savings). Requires Node ≥18. Safe to re-run.
 
 **Linux / macOS:**
 ```bash
 curl -fsSL https://raw.githubusercontent.com/JuliusBrussee/caveman/main/install.sh | bash
 ```
 
-**Windows (PowerShell — run as your normal user, not admin):**
+**Windows (PowerShell — run as normal user, not admin):**
 ```powershell
 irm https://raw.githubusercontent.com/JuliusBrussee/caveman/main/src/hooks/install.ps1 | iex
 ```
-If execution policy blocks the command: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` first.
+If execution policy blocks: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` first.
 
-**Set default mode** via caveman's own config:
+**Set default mode** via caveman's config:
 
 Linux / macOS:
 ```bash
@@ -179,7 +179,7 @@ New-Item -ItemType Directory -Force "$env:USERPROFILE\.config\caveman" | Out-Nul
 '{"defaultMode": "full"}' | Set-Content "$env:USERPROFILE\.config\caveman\config.json"
 ```
 
-Change `"full"` to `"lite"`, `"ultra"`, or `"off"` to adjust. `"full"` is caveman's built-in default, so the config file is optional but makes the setting explicit and reproducible.
+Change `"full"` to `"lite"`, `"ultra"`, or `"off"` to adjust. `"full"` is caveman's built-in default — config file optional but makes setting explicit and reproducible.
 
 **Add the `caveman-compress` shell function:**
 
@@ -197,7 +197,7 @@ EOF
 source ~/.bashrc
 ```
 
-Windows — append to your PowerShell profile (`$PROFILE`):
+Windows — append to PowerShell profile (`$PROFILE`):
 ```powershell
 Add-Content $PROFILE @'
 
@@ -215,7 +215,7 @@ function caveman-compress {
 
 Run `/caveman-compress <file>` on CONTEXT.md files periodically to cut input tokens.
 
-**Verify:** open a Claude Code session — `[CAVEMAN] ⛏` badge should appear in the statusline.
+**Verify:** open Claude Code session — `[CAVEMAN] ⛏` badge should appear in statusline.
 
 **Agent integration pattern — installed vs induced:**
 Every agent in this workspace should activate caveman via one of two mechanisms:
@@ -225,17 +225,19 @@ Every agent in this workspace should activate caveman via one of two mechanisms:
 | **Installed** | Claude Code | `SessionStart` + `UserPromptSubmit` hooks in `~/.claude/settings.json` call `caveman-activate.js`. Auto-activates every session. |
 | **Induced** | Copilot | `copilot-session-start.py` reads `~/.config/caveman/config.json` and injects rules as `additionalContext` at session start. |
 
-When adding a new agent: if it supports session-start hooks or context injection, add caveman injection there following the induced pattern in `.hooks/copilot-session-start.py`. Both mechanisms read the same config file — one toggle controls all agents.
+When adding new agent: if it supports session-start hooks or context injection, add caveman injection there following induced pattern in `.hooks/copilot-session-start.py`. Both mechanisms read same config file — one toggle controls all agents.
+
+> **New agent checklist:** consult [caveman INSTALL.md](https://github.com/JuliusBrussee/caveman/blob/main/INSTALL.md) for target agent (e.g. OpenCode → `npx -y github:JuliusBrussee/caveman -- --only opencode --with-init` generates `.opencode/AGENTS.md` and `AGENTS.md`). Cross-check against induced pattern here to avoid duplicating rule injection.
 
 ### 7. Local LaTeX Toolchain (for `Academy/papers/`)
-For local PDF builds (without depending on Overleaf compilation), install a LaTeX CLI stack:
+For local PDF builds (without Overleaf):
 
 ```bash
 sudo apt-get update
 sudo apt-get install -y latexmk texlive-xetex texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
 ```
 
-For paper templates that require `Times New Roman` via `fontspec` (e.g. `\setmainfont{Times New Roman}`), install core Microsoft fonts:
+For paper templates requiring `Times New Roman` via `fontspec` (e.g. `\setmainfont{Times New Roman}`):
 
 ```bash
 printf 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true\n' | sudo debconf-set-selections
@@ -253,11 +255,11 @@ xelatex --version
 
 ## Per-Project: Interface Generation Notes
 
-**JavaScript / TypeScript**: no manual setup required. The hook auto-scaffolds `jsconfig.json` (for JS) or `tsconfig.json` (for TS, walking up to the git root first) on the first file write. These config files are for IDE tooling only — the hook generates declarations via direct CLI regardless.
+**JavaScript / TypeScript**: no manual setup. Hook auto-scaffolds `jsconfig.json` (JS) or `tsconfig.json` (TS, walks up to git root first) on first file write. Config files for IDE tooling only — hook generates declarations via direct CLI regardless.
 
-**Dart**: no setup required. `dart-api-extract.py` runs on every `.dart` save and requires only Python 3 (no Dart SDK).
+**Dart**: no setup. `dart-api-extract.py` runs on every `.dart` save, requires only Python 3 (no Dart SDK).
 
-**Python**: requires `stubgen` (mypy) to be installed. See Step 3 above.
+**Python**: requires `stubgen` (mypy). See Step 3.
 
 ---
 
@@ -282,25 +284,25 @@ grep -c "hooks" /mnt/workspace/.claude/settings.json
 ls -la /mnt/workspace/.hooks/post-edit.sh /mnt/workspace/.hooks/pre-read.sh /mnt/workspace/.hooks/pre-commit /mnt/workspace/.hooks/check-line-counts.sh
 ```
 
-Behavioral verification (inside a Claude Code session):
-- Edit a `.py` file → `.pyi` regenerates immediately (visible in shell output)
-- Edit a `.js` file → `.d.ts` regenerates; `jsconfig.json` auto-created if missing
-- Edit a `.ts` file → `.d.ts` regenerates; `tsconfig.json` auto-created if no ancestor config found
-- Edit a `.dart` file → `.dart.api` regenerates immediately
-- Read a `.py`/`.js`/`.ts`/`.dart`/`.tex` source file when its interface (`.pyi`/`.d.ts`/`.dart.api`/`.texif`) is current → hard-blocked; must read interface first
-- Edit a `.tex` file → `.texif` regenerated + `LABELS.md` regenerated immediately
-- Edit a `.bib` file → warning printed for any bib keys missing a `reviews/<key>.yaml`
-- Attempt to grow any code file past 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex`) → Claude Code blocks the edit
-- Attempt to create a new file without a first-line description comment → Claude Code blocks the Write
-- Edit a file missing a first-line comment → reminder printed immediately after the edit
-- Run `git commit` on a 200+ line code file → commit is rejected
-- Run `git commit` with any staged code file → CONTEXT.md Routing block auto-updated and staged
+Behavioral verification (inside Claude Code session):
+- Edit `.py` file → `.pyi` regenerates immediately (visible in shell output)
+- Edit `.js` file → `.d.ts` regenerates; `jsconfig.json` auto-created if missing
+- Edit `.ts` file → `.d.ts` regenerates; `tsconfig.json` auto-created if no ancestor config found
+- Edit `.dart` file → `.dart.api` regenerates immediately
+- Read `.py`/`.js`/`.ts`/`.dart`/`.tex` source when interface (`.pyi`/`.d.ts`/`.dart.api`/`.texif`) is current → hard-blocked; must read interface first
+- Edit `.tex` file → `.texif` regenerated + `LABELS.md` regenerated immediately
+- Edit `.bib` file → warning printed for bib keys missing `reviews/<key>.yaml`
+- Attempt to grow code file past 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex`) → Claude Code blocks edit
+- Attempt to create new file without first-line description comment → Claude Code blocks Write
+- Edit file missing first-line comment → reminder printed immediately after edit
+- Run `git commit` on 200+ line code file → commit rejected
+- Run `git commit` with staged code file → CONTEXT.md Routing block auto-updated and staged
 
 ---
 
 ## Versioned Files
 
-All infrastructure lives in the workspace git repo. This is what gets replicated:
+All infrastructure lives in workspace git repo:
 
 ```
 .hooks/
@@ -338,7 +340,7 @@ Core/                     ← provider-agnostic research system (agents, flows, 
 .claude/commands/         ← Claude Code slash commands (e.g. /research dispatcher)
 ```
 
-The only steps that cannot be versioned are the global git config command and external tool installations (stubgen, tsc, nvm). Everything else is in the file system.
+Only steps that can't be versioned: global git config command + external tool installs (stubgen, tsc, nvm). Everything else in file system.
 
 ---
 
@@ -348,16 +350,16 @@ The only steps that cannot be versioned are the global git config command and ex
 
 - Warning threshold: 150 lines (`WARN_LINES` in `.hooks/line-limits.env`)
 - Hard block: 200 lines (`BLOCK_LINES` in `.hooks/line-limits.env`)
-- The pre-commit hook is **incremental only** — it checks staged files per commit, not the full tree.
+- Pre-commit hook **incremental only** — checks staged files per commit, not full tree.
 - Intent: force graph-like design — small single-responsibility nodes with explicit edges (imports).
-- To change thresholds, edit only `.hooks/line-limits.env`. Both `pre-edit.py` and `check-line-counts.sh` read from it; no other file needs updating.
-- Project-specific overrides: add a note in the project's `CONTEXT.md` and document the exemption reason. Exempt categories so far: vendored ML model architecture files, generated string-table files, Dart `part of` split fragments.
+- To change thresholds: edit only `.hooks/line-limits.env`. Both `pre-edit.py` and `check-line-counts.sh` read from it; no other file needs updating.
+- Project-specific overrides: add note in project's `CONTEXT.md`, document exemption reason. Exempt categories so far: vendored ML model architecture files, generated string-table files, Dart `part of` split fragments.
 
 ---
 
 ## Per-Project Quick Start
 
-Each project under `Code/` has its own git repo and `CONTEXT.md`. See those files for project-specific setup.
+Each project under `Code/` has own git repo and `CONTEXT.md`. See those files for project-specific setup.
 
 | Project | Stack | Quick start |
 |---------|-------|-------------|
@@ -372,7 +374,7 @@ Each project under `Code/` has its own git repo and `CONTEXT.md`. See those file
 
 ### Papers Quick Start (`Academy/papers`)
 
-Use local-first compilation and Overleaf as sync/checkpoint:
+Use local-first compilation, Overleaf as sync/checkpoint:
 
 ```bash
 cd /mnt/workspace/Academy/papers/<paper-folder>
