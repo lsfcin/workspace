@@ -2,9 +2,18 @@
 
 <!-- stats:start -->
 ## Attention Dashboard  _(auto-updated on every commit)_
-last-updated: 2026-05-22 18:53
+last-updated: 2026-05-22 18:54
 
-### Actual Attention — last 14 days (git signal)
+### Actual Attention: Areas — last 14 days (git signal)
+```
+health       ██████████   2 touches
+career       █████░░░░░   1 touches
+finances     ░░░░░░░░░░   0 touches
+fun          ░░░░░░░░░░   0 touches
+spiritual    ░░░░░░░░░░   0 touches
+```
+
+### Actual Attention: Goals — last 14 days (git signal)
 ```
 health-checkup-2026      ██████████   1 touches
 sibgrapi-2026            ██████████   1 touches

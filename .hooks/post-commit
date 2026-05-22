@@ -10,50 +10,89 @@ DAYS=14
 
 [ -f "$GOALS" ] || exit 0
 
-# ── 1. Get touch counts per goal file in last N days ──────────────────────────
+# ── 1. Get touch counts per goal file + aggregate by area ─────────────────────
 
 declare -A TOUCHES
+declare -A AREA_TOUCHES
+
+# Pre-populate all known areas at 0 so they always appear
+for a in health career finances fun spiritual; do
+  AREA_TOUCHES[$a]=0
+done
+
 for f in "$GOALS_DIR"/*.md; do
   [ -f "$f" ] || continue
   slug=$(basename "$f" .md)
   # skip template files (all-uppercase names like ARCHETYPE)
   [[ "$slug" =~ ^[A-Z]+$ ]] && continue
+
   count=$(git log --oneline --since="${DAYS} days ago" -- "$f" 2>/dev/null | wc -l | tr -d ' ')
   TOUCHES["$slug"]=$count
+
+  # parse area: field and accumulate
+  area=$(grep -m1 '^area:' "$f" 2>/dev/null | sed 's/^area:[[:space:]]*//' | tr -d '[:space:]')
+  if [ -n "$area" ] && [ -n "${AREA_TOUCHES[$area]+x}" ]; then
+    AREA_TOUCHES[$area]=$(( AREA_TOUCHES[$area] + count ))
+  fi
 done
 
-# ── 2. Build bar chart lines ──────────────────────────────────────────────────
+# ── 2. Build bar chart helper ─────────────────────────────────────────────────
 
-MAX=0
+build_bar() {
+  local count=$1 max=$2 width=10
+  [ "$max" -eq 0 ] && max=1
+  local filled=$(( count * width / max ))
+  local empty=$(( width - filled ))
+  local bar=""
+  for ((i=0; i<filled; i++)); do bar="${bar}█"; done
+  for ((i=0; i<empty;  i++)); do bar="${bar}░"; done
+  echo "$bar"
+}
+
+# ── 3. Build area bar chart ───────────────────────────────────────────────────
+
+AREA_MAX=0
+for a in "${!AREA_TOUCHES[@]}"; do
+  c=${AREA_TOUCHES[$a]}
+  [ "$c" -gt "$AREA_MAX" ] && AREA_MAX=$c
+done
+
+AREA_LINES=""
+for a in health career finances fun spiritual; do
+  c=${AREA_TOUCHES[$a]:-0}
+  bar=$(build_bar "$c" "$AREA_MAX")
+  AREA_LINES="${AREA_LINES}$(printf '%-12s %s   %s\n' "$a" "$bar" "${c} touches")"$'\n'
+done
+
+# ── 4. Build per-goal bar chart ───────────────────────────────────────────────
+
+GOAL_MAX=0
 for slug in "${!TOUCHES[@]}"; do
   c=${TOUCHES[$slug]}
-  [ "$c" -gt "$MAX" ] && MAX=$c
+  [ "$c" -gt "$GOAL_MAX" ] && GOAL_MAX=$c
 done
-[ "$MAX" -eq 0 ] && MAX=1  # avoid division by zero
 
-BAR_LINES=""
+GOAL_LINES=""
 for slug in $(echo "${!TOUCHES[@]}" | tr ' ' '\n' | sort); do
   c=${TOUCHES[$slug]}
-  filled=$(( c * 10 / MAX ))
-  empty=$(( 10 - filled ))
-  bar=$(printf '█%.0s' $(seq 1 $filled 2>/dev/null) 2>/dev/null; printf '░%.0s' $(seq 1 $empty 2>/dev/null) 2>/dev/null)
-  # fallback if printf seq trick fails
-  bar=""
-  for ((i=0; i<filled; i++)); do bar="${bar}█"; done
-  for ((i=0; i<empty; i++));  do bar="${bar}░"; done
-  BAR_LINES="${BAR_LINES}$(printf '%-24s %s   %s touches\n' "$slug" "$bar" "$c")"$'\n'
+  bar=$(build_bar "$c" "$GOAL_MAX")
+  GOAL_LINES="${GOAL_LINES}$(printf '%-24s %s   %s\n' "$slug" "$bar" "${c} touches")"$'\n'
 done
 
-# ── 3. Build replacement stats block ─────────────────────────────────────────
+# ── 5. Build replacement stats block ─────────────────────────────────────────
 
 NOW=$(date '+%Y-%m-%d %H:%M')
 NEW_BLOCK="<!-- stats:start -->
 ## Attention Dashboard  _(auto-updated on every commit)_
 last-updated: $NOW
 
-### Actual Attention — last ${DAYS} days (git signal)
+### Actual Attention: Areas — last ${DAYS} days (git signal)
 \`\`\`
-${BAR_LINES}\`\`\`
+${AREA_LINES}\`\`\`
+
+### Actual Attention: Goals — last ${DAYS} days (git signal)
+\`\`\`
+${GOAL_LINES}\`\`\`
 
 ### Prescribed — Pareto Lens
 > *(update with Claude during compass review)*
@@ -62,30 +101,27 @@ ${BAR_LINES}\`\`\`
 > *(update with Claude during compass review)*
 <!-- stats:end -->"
 
-# ── 4. Replace block in GOALS.md between markers ─────────────────────────────
+# ── 6. Replace block in GOALS.md between markers ─────────────────────────────
 
 python3 - "$GOALS" "$NEW_BLOCK" <<'PYEOF'
 import sys, re
 
-path   = sys.argv[1]
+path      = sys.argv[1]
 new_block = sys.argv[2]
 
 with open(path, 'r') as fh:
     content = fh.read()
 
-pattern = r'<!-- stats:start -->.*?<!-- stats:end -->'
+pattern  = r'<!-- stats:start -->.*?<!-- stats:end -->'
 replaced = re.sub(pattern, new_block, content, flags=re.DOTALL)
 
 with open(path, 'w') as fh:
     fh.write(replaced)
 
-print(f"[Brain] GOALS.md stats updated")
+print("[Brain] GOALS.md stats updated")
 PYEOF
 
-# ── 5. Stage the updated GOALS.md silently (amend would be intrusive — skip) ─
-# We intentionally do NOT amend. Stats update appears in next commit naturally.
-
-# ── 6. Append to attention log ───────────────────────────────────────────────
+# ── 7. Append to attention log ───────────────────────────────────────────────
 
 COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
 TOUCHED_GOALS=$(git diff-tree --no-commit-id -r --name-only HEAD 2>/dev/null \
