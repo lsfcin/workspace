@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+# Workspace post-commit hook — _atelier attention tracker
+# Runs after every commit. Updates GOALS.md stats block + appends to .log/attention.md.
+
+ATELIER="Brain"
+GOALS="$ATELIER/GOALS.md"
+LOG="$ATELIER/.log/attention.md"
+GOALS_DIR="$ATELIER/goals"
+DAYS=14
+
+[ -f "$GOALS" ] || exit 0
+
+# ── 1. Get touch counts per goal file in last N days ──────────────────────────
+
+declare -A TOUCHES
+for f in "$GOALS_DIR"/*.md; do
+  [ -f "$f" ] || continue
+  slug=$(basename "$f" .md)
+  count=$(git log --oneline --since="${DAYS} days ago" -- "$f" 2>/dev/null | wc -l | tr -d ' ')
+  TOUCHES["$slug"]=$count
+done
+
+# ── 2. Build bar chart lines ──────────────────────────────────────────────────
+
+MAX=0
+for slug in "${!TOUCHES[@]}"; do
+  c=${TOUCHES[$slug]}
+  [ "$c" -gt "$MAX" ] && MAX=$c
+done
+[ "$MAX" -eq 0 ] && MAX=1  # avoid division by zero
+
+BAR_LINES=""
+for slug in $(echo "${!TOUCHES[@]}" | tr ' ' '\n' | sort); do
+  c=${TOUCHES[$slug]}
+  filled=$(( c * 10 / MAX ))
+  empty=$(( 10 - filled ))
+  bar=$(printf '█%.0s' $(seq 1 $filled 2>/dev/null) 2>/dev/null; printf '░%.0s' $(seq 1 $empty 2>/dev/null) 2>/dev/null)
+  # fallback if printf seq trick fails
+  bar=""
+  for ((i=0; i<filled; i++)); do bar="${bar}█"; done
+  for ((i=0; i<empty; i++));  do bar="${bar}░"; done
+  BAR_LINES="${BAR_LINES}$(printf '%-24s %s   %s touches\n' "$slug" "$bar" "$c")"$'\n'
+done
+
+# ── 3. Build replacement stats block ─────────────────────────────────────────
+
+NOW=$(date '+%Y-%m-%d %H:%M')
+NEW_BLOCK="<!-- stats:start -->
+## Attention Dashboard  _(auto-updated on every commit)_
+last-updated: $NOW
+
+### Actual Attention — last ${DAYS} days (git signal)
+\`\`\`
+${BAR_LINES}\`\`\`
+
+### Prescribed — Pareto Lens
+> *(update with Claude during compass review)*
+
+### Gap Diagnosis
+> *(update with Claude during compass review)*
+<!-- stats:end -->"
+
+# ── 4. Replace block in GOALS.md between markers ─────────────────────────────
+
+python3 - "$GOALS" "$NEW_BLOCK" <<'PYEOF'
+import sys, re
+
+path   = sys.argv[1]
+new_block = sys.argv[2]
+
+with open(path, 'r') as fh:
+    content = fh.read()
+
+pattern = r'<!-- stats:start -->.*?<!-- stats:end -->'
+replaced = re.sub(pattern, new_block, content, flags=re.DOTALL)
+
+with open(path, 'w') as fh:
+    fh.write(replaced)
+
+print(f"[atelier] GOALS.md stats updated")
+PYEOF
+
+# ── 5. Stage the updated GOALS.md silently (amend would be intrusive — skip) ─
+# We intentionally do NOT amend. Stats update appears in next commit naturally.
+
+# ── 6. Append to attention log ───────────────────────────────────────────────
+
+COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
+TOUCHED_GOALS=$(git diff-tree --no-commit-id -r --name-only HEAD 2>/dev/null \
+  | grep "^$GOALS_DIR/" | tr '\n' ' ')
+
+if [ -n "$TOUCHED_GOALS" ]; then
+  echo "$(date '+%Y-%m-%d %H:%M') | $COMMIT | $TOUCHED_GOALS" >> "$LOG"
+fi
+
+exit 0
