@@ -2,28 +2,18 @@
 
 <!-- stats:start -->
 ## Attention Dashboard  _(auto-updated on every commit)_
-last-updated: 2026-05-21
+last-updated: 2026-05-22 18:41
 
-### Actual Attention: Areas — last 30 days (git signal)
+### Actual Attention — last 14 days (git signal)
 ```
-health      ░░░░░░░░░░   some way of mapping effort spent and achievements x deadlines
-career      ░░░░░░░░░░   ...
-finances    ░░░░░░░░░░   ...
-...
-```
-
-### Actual Attention: Goals — last 30 days (git signal)
-```
-sibgrapi-2026        ░░░░░░░░░░   0 touches
-sleep-regularity     ░░░░░░░░░░   0 touches
-health-checkup-2026  ░░░░░░░░░░   0 touches
+ARCHETYPE                ██████████   1 touches
+health-checkup-2026      ██████████   1 touches
+sibgrapi-2026            ██████████   1 touches
+sleep-regularity         ██████████   1 touches
 ```
 
 ### Prescribed — Pareto Lens
 > *(update with Claude during compass review)*
-> Top 20% → 80% effort:
-> 1. ...
-> 2. ...
 
 ### Gap Diagnosis
 > *(update with Claude during compass review)*
@@ -33,17 +23,17 @@ health-checkup-2026  ░░░░░░░░░░   0 touches
 
 ## Active Goals
 
-| Goal | Area | Horizon | Deadline | Next Achievement | File |
-|------|------|---------|----------|-----------------|------|
-| SIBGRAPI 2026 paper | Research | NOW | Aug 15 🔴 | ablation done + results table | [→](goals/sibgrapi-2026.md) |
-| Sleep regularity | Health | NEAR | — | 7 consecutive days on target | [→](goals/sleep-regularity.md) |
-| Health checkup 2026 | Health | NEAR | Aug 01 🟡 | appointment scheduled | [→](goals/health-checkup-2026.md) |
+| Goal | Area | Horizon | Window | Selected Achievement | File |
+|------|------|---------|--------|---------------------|------|
+| SIBGRAPI 2026 paper | career | NOW | Aug 15 | [exp-ablation] ablation study complete | [→](goals/sibgrapi-2026.md) |
+| Sleep regularity | health | NEAR | 6 weeks | [streak-3] 3 consecutive days on target | [→](goals/sleep-regularity.md) |
+| Health checkup 2026 | health | NEAR | Aug 01 | [checkup-schedule] call clinic | [→](goals/health-checkup-2026.md) |
 
 ---
 
-## Urgency × Importance
+## Engagement × Impact (Pareto lens — update with Claude)
 
-|               | Important       | Not Important |
-|---------------|-----------------|---------------|
-| **Urgent**    | sibgrapi-2026   | —             |
-| **Not urgent**| sleep-regularity | health-checkup |
+|                | High impact | Low impact |
+|----------------|-------------|------------|
+| **High engagement** | sibgrapi-2026 | — |
+| **Low engagement**  | sleep-regularity | health-checkup |

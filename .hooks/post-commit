@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Workspace post-commit hook — _atelier attention tracker
+# Workspace post-commit hook — Brain attention tracker
 # Runs after every commit. Updates GOALS.md stats block + appends to .log/attention.md.
 
 ATELIER="Brain"
@@ -16,6 +16,8 @@ declare -A TOUCHES
 for f in "$GOALS_DIR"/*.md; do
   [ -f "$f" ] || continue
   slug=$(basename "$f" .md)
+  # skip template files (all-uppercase names like ARCHETYPE)
+  [[ "$slug" =~ ^[A-Z]+$ ]] && continue
   count=$(git log --oneline --since="${DAYS} days ago" -- "$f" 2>/dev/null | wc -l | tr -d ' ')
   TOUCHES["$slug"]=$count
 done
@@ -77,7 +79,7 @@ replaced = re.sub(pattern, new_block, content, flags=re.DOTALL)
 with open(path, 'w') as fh:
     fh.write(replaced)
 
-print(f"[atelier] GOALS.md stats updated")
+print(f"[Brain] GOALS.md stats updated")
 PYEOF
 
 # ── 5. Stage the updated GOALS.md silently (amend would be intrusive — skip) ─
