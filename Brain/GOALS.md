@@ -2,11 +2,10 @@
 
 <!-- stats:start -->
 ## Attention Dashboard  _(auto-updated on every commit)_
-last-updated: 2026-05-22 18:41
+last-updated: 2026-05-22 18:53
 
 ### Actual Attention — last 14 days (git signal)
 ```
-ARCHETYPE                ██████████   1 touches
 health-checkup-2026      ██████████   1 touches
 sibgrapi-2026            ██████████   1 touches
 sleep-regularity         ██████████   1 touches
