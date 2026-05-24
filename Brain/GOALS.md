@@ -1,10 +1,11 @@
-# Goals
+# goals
 
 <!-- stats:start -->
-## Attention Dashboard  _(auto-updated on every commit)_
-last-updated: 2026-05-22 18:54
+<!-- data:start -->
+## attention dashboard  _(auto-updated on every commit)_
+last-updated: 2026-05-23 21:10
 
-### Actual Attention: Areas — last 14 days (git signal)
+>**areas** — last 14 days  
 ```
 health       ██████████   2 touches
 career       █████░░░░░   1 touches
@@ -13,35 +14,29 @@ fun          ░░░░░░░░░░   0 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
-### Actual Attention: Goals — last 14 days (git signal)
+>**goals** — last 14 days  
 ```
 health-checkup-2026      ██████████   1 touches
 sibgrapi-2026            ██████████   1 touches
 sleep-regularity         ██████████   1 touches
 ```
+<!-- data:end -->
 
-### Prescribed — Pareto Lens
-> *(update with Claude during compass review)*
+>**pareto**  
+*— (run compass review)*
 
-### Gap Diagnosis
-> *(update with Claude during compass review)*
+>**gap**  
+*— (run compass review)*
 <!-- stats:end -->
 
 ---
 
-## Active Goals
+<!-- goals:start -->
+## active goals
 
-| Goal | Area | Horizon | Window | Selected Achievement | File |
+| goal | area | horizon | timing | selected achievement | file |
 |------|------|---------|--------|---------------------|------|
-| SIBGRAPI 2026 paper | career | NOW | Aug 15 | [exp-ablation] ablation study complete | [→](goals/sibgrapi-2026.md) |
-| Sleep regularity | health | NEAR | 6 weeks | [streak-3] 3 consecutive days on target | [→](goals/sleep-regularity.md) |
-| Health checkup 2026 | health | NEAR | Aug 01 | [checkup-schedule] call clinic | [→](goals/health-checkup-2026.md) |
-
----
-
-## Engagement × Impact (Pareto lens — update with Claude)
-
-|                | High impact | Low impact |
-|----------------|-------------|------------|
-| **High engagement** | sibgrapi-2026 | — |
-| **Low engagement**  | sleep-regularity | health-checkup |
+| health checkup 2026 | health | near | before August | [checkup-call] call clinic and schedule appointment | [→](goals/health-checkup-2026.md) |
+| SIBGRAPI 2026 — Hybrid Intelligence paper | career | now | Aug 15 | [exp-ablation] Ablation study complete — all variants r… | [→](goals/sibgrapi-2026.md) |
+| sleep regularity | health | near | 6 weeks | [streak-3] 3 consecutive days on target — in bed by 00:… | [→](goals/sleep-regularity.md) |
+<!-- goals:end -->

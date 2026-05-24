@@ -1,65 +1,145 @@
-# [Goal Title]
-> Seed minimum: title + area + horizon + one backlog item. All else grows when useful.
+<!-- area can be health, career, finances, fun, or spiritual -->
+<!-- horizon can be now / near / year / dream -->
+# [ area | horizon ] goal title
+<!-- 
+paths
+related list of subfolders
+-->
+*related files at /workspace/code/ppc/*
 
-## Overview
-area: health / career / finances / fun / spiritual
-tags: []
-description: [scope, contours, constraints, horizon, aimed ideal future]
-related: [folder/project, repo]
-auto-diagnosis: [Claude fills — on-track / stalled / stuck / always-postponed / achieveless-hardwork]
+<!--
+DESCRIPTION 
+detail in one paragraph the desired outcomes, its constraints, the aimed ideal future, motivations and any other relevant topic-->
+Write here the goal description...
 
----
+<!-- 
+SIGNALS
+engagement:
+“I feel ___ about this.”
+reluctant, indifferent, motivated, thrilled
 
-## Signals
-engagement: none / low / ok / high — [why, one line]
-impact: none / low / medium / high
-requirement: none / could / should / must
+impact:
+“This will be ___.”
+forgettable, useful, meaningful, transformative
 
----
+requirement:
+“This is ___.”
+optional, expected, essential 
+-->
+>**signals**  
+transformative · essential · reluctant
 
-## Timing
-horizon: NOW / NEAR / YEAR / DREAM
-want-by: [when does this feel right — your rhythm, not obligation]
-window: [external anchor you chose to work with — conference, semester, a commitment to someone]
-feels-done-when: [what achievement or state makes this feel complete enough to let go?]
-if-i-miss: [what actually happens? is it negotiable? worth naming?]
-plan-b: [if the window closes — what then?]
+<!-- 
+DYNAMICS 
+auto-filled by agent
+if needed talk with user and ask for inputs
 
----
+mode:
+dominant psychological/work dynamic
+overprocessing / pressured / avoidant / pragmatic / relaxed / immersed
 
-## Triggered Fears
-fear-of: [what specifically?]
-triggers: [when does it activate?]
-reasons: [where inside you does this come from?]
-barriers: [personality traits / current patterns that get in the way]
-to-overcome: [your current ideas]
+motion:
+actual progress behavior over time
+blocked / stalled / looping / advancing / steady / intense
 
----
+source:
+main activation/sustainability driver
+intrinsic / structured / external
+-->
+>**dynamics**  
+overprocessing mode · looping motion · intrinsic source
 
-## Selected Next Achievement
-> Always on. First unchecked item in Backlog = selected. Written with Claude, updated on each check-off.
+<!--
+fears
+related to the goal
+focus on observable emotional/cognitive resistance patterns
 
-[short-id] [full description of the achievement]
+what:
+fear of what specifically? situation? person? place? what negative outcome or emotional experience is being avoided?
 
-timing: [want done by — countdown if parseable date — if I miss: one phrase]
-ease-start: [smallest step that bypasses the emotional or cognitive barrier — specific, doable now]
-steps:
-- [step 1]
-- [step 2]
+when:
+triggers, when does it activate? situations that activate this fear
 
----
+why:
+reasons that show why inside you does this come from? the origins, perceived beliefs, past experiences, or internal expectations that seems to reinforce this fear
 
-## Backlog
-> Selected achievement always first. Remaining in your preferred order.
-> Format: [short-id] description — optional inline date for achievements with their own timing.
-> Done items move to ## Done below.
+how: I handle it now, behavioral barriers, personality traits and patterns that get in the way
+-->
 
-- [ ] [short-id] [first achievement — this one is selected]
-- [ ] [short-id] [next achievement]
+>**fears**  
+*what · ...  
+when · ...  
+why · ...  
+how · ... *
 
-## Done
-- [x] [short-id] [completed achievement]
+<!-- 
+analysis
+how is goal being handled, ponderate all its aspects
+how to surpass the fear, to-overcome your current fear. bring to me with backed scientific arguments (behavioral science and self-regulation research), practical, insightful, and precise thoughts and strategies
+-->
 
----
+>**analysis**  
+...
 
-## Log
+<!--
+always on. first unchecked item in backlog = selected. written with agent, updated on each check-off.
+-->
+
+## selected next achievement
+    [short-id] full description of the achievement
+
+<!--
+easiest way to begin contact with the tasks and steps to proceed afterwards
+-->
+**ease-start**  
+...
+
+<!--
+TIMING
+timing, pacing, closure and temporal flexibility around the goal
+
+target:
+when does this feel naturally right to happen? personal rhythm, not obligation.
+
+anchor:
+external timing anchor you intentionally chose to work with, e.g., semester, conference, season, commitment, opportunity window
+
+closure:
+what outcome or state would make this feel complete enough to release?
+
+tolerance:
+what actually happens if missed and this timing slips? is it negotiable, costly, emotionally relevant, or mostly symbolic?
+
+fallback:
+if the current window closes is there a plan-b? how should this evolve instead of collapsing?
+-->
+
+>**timing**  
+*target · ...  
+anchor · ...  
+closure · ...  
+tolerance · ...  
+fallback · ...*
+
+<!--
+BACKLOG
+Selected achievement always first. Remaining in your preferred order.
+Format: [short-id] description — optional inline date for achievements with their own timing.
+Done items move to ## Done below.
+
+-->
+
+## backlog
+
+> [ ] [short-id] [first achievement — this one is selected]  
+> [ ] [short-id] [next achievement]  
+
+## done
+
+<!-- done:start -->
+> [x] [short-id] [completed achievement]  
+<!-- done:end -->
+
+## stats
+<!-- stats:start -->
+<!-- stats:end -->

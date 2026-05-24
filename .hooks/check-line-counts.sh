@@ -14,6 +14,7 @@ check_file() {
 
   case "$f" in
     *.d.ts) return 0 ;;
+    .hooks/*) return 0 ;;
   esac
 
   if ! printf '%s\n' "$f" | grep -Eq '\.(js|ts|tsx|py|dart|html|css|scss|tex)$'; then

@@ -1,20 +1,44 @@
-# Health checkup 2026
-area: health
-tags: [admin, annual]
-horizon: NEAR
-requirement: should
-auto-diagnosis: always-postponed
+# [ health | near ] health checkup 2026
 
----
+Annual health checkup — call clinic, schedule appointment, attend, review results with doctor.
 
-## Timing
-want-by: before August
-if-i-miss: reschedule — no hard consequence
-feels-done-when: appointment attended, results reviewed with doctor
+>**signals**  
+useful · expected · reluctant
 
----
+## selected next achievement
+    [checkup-call] call clinic and schedule appointment
 
-## Backlog
-- [ ] call clinic and schedule appointment
-- [ ] attend appointment
-- [ ] review results
+**ease-start**  
+Find the clinic number in your phone contacts. Call during business hours — 5-minute task.
+
+>**timing**  
+*target · before August  
+anchor · —  
+closure · appointment attended, results reviewed with doctor  
+tolerance · reschedule — no hard consequence  
+fallback · not needed*
+
+## backlog
+
+> [ ] [checkup-call] call clinic and schedule appointment
+> [ ] [checkup-attend] attend appointment
+> [ ] [checkup-review] review results with doctor
+
+## done
+
+<!-- done:start -->
+<!-- done:end -->
+
+## stats
+<!-- stats:start -->
+last-touch: 2026-05-22  ·  trend: advancing
+
+| period      | touches |
+|-------------|----------|
+| month       |       1 |
+| trimester   |       1 |
+| semester    |       1 |
+| year        |       1 |
+| 2-year      |       1 |
+| 4-year      |       1 |
+<!-- stats:end -->

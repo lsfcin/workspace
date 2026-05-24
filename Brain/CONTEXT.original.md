@@ -1,10 +1,10 @@
 # Brain
-> Personal OS: goals, attention, ideas, life. Agent collaborates here.
+> Personal operating system: goals, attention, ideas, life. Agent collaborates here.
 
 ## What This Is
 
-Brain = Lucas's personal OS. Not productivity tool — thinking partner space.
-Agent is first-class collaborator, not just reader.
+Brain is Lucas's personal OS. Not a productivity tool — a thinking partner space.
+The agent is a first-class collaborator here, not just a reader.
 
 Core files:
 
@@ -20,18 +20,18 @@ Core files:
 
 ## User Profile
 
-Lucas = CS professor (UFRPE / CIn-UFPE). Research: Hybrid Intelligence, Mechanism Design, AR, 3D Computer Vision. Creative, fuzzy thinker. Strong starter; struggles to finish.
+Lucas is a CS professor (UFRPE / CIn-UFPE). Research areas: Hybrid Intelligence, Mechanism Design, AR, 3D Computer Vision. Creative, fuzzy thinker. Very good at starting; struggles to finish.
 
 **What helps:**
 - Internal motivation and alignment — works best when genuinely believes in what he's doing
 - Forward-looking framing ("next achievement to celebrate") over completion pressure
 - Small consistent wins over milestone sprints
-- Right question asked, not task list given
+- Being asked the right question, not given a task list
 
 **Patterns to know:**
-- **Finishing problem**: over-refines, loses interest, overwhelmed by new things. `closure` and `ease-start` address this directly.
-- **Fear mapping**: high-stakes goals carry completion anxiety. `fears` block = real data — read when diagnosing stalls. `analysis` = synthesis layer on top.
-- **Internal timing**: almost all timing self-imposed. Treat `anchor` dates as aspirations unless explicitly flagged hard. `tolerance` usually reveals missing = manageable.
+- **Finishing problem**: over-refines, loses interest, gets overwhelmed by new things. `closure` and `ease-start` address this directly.
+- **Fear mapping**: high-stakes goals carry completion anxiety. The `fears` block is real data — read it when diagnosing stalls. `analysis` is the synthesis layer on top.
+- **Internal timing**: almost all timing is self-imposed. Treat `anchor` dates as aspirations unless explicitly flagged as hard commitments. `tolerance` usually reveals the consequence of missing is manageable.
 - **Motivation over obligation**: impact × engagement drives 80% of energy. `essential` requirement goals get 20% — enough to satisfy, not primary focus.
 
 ---
@@ -50,7 +50,7 @@ Lucas = CS professor (UFRPE / CIn-UFPE). Research: Hybrid Intelligence, Mechanis
 
 ## Goal File Structure — Organic Growth
 
-Goal files grow from seed to full. No section required at creation.
+Goal files grow from seed to full. No section is required at creation.
 
 **Minimum viable seed:**
 ```
@@ -61,45 +61,45 @@ Goal files grow from seed to full. No section required at creation.
 Area: `health` / `career` / `finances` / `fun` / `spiritual`
 Horizon: `now` / `near` / `year` / `dream`
 
-**Growth triggers** — add section when useful, not before:
+**Growth triggers** — add a section when it becomes useful, not before:
 
 | Section | Add when... |
 |---------|-------------|
 | description | scope worth writing down |
 | `>**signals**` | want to reason about priority |
-| `>**dynamics**` | diagnosing stall, or after meaningful work session |
-| `>**fears**` | stalling on goal, or stakes feel high |
-| `>**analysis**` | need strategic synthesis on fears or block |
-| `## selected next achievement` | always on once backlog exists — ease-start always filled |
+| `>**dynamics**` | diagnosing a stall, or after a meaningful work session |
+| `>**fears**` | stalling on this goal, or stakes feel high |
+| `>**analysis**` | need strategic synthesis on the fears or block |
+| `## selected next achievement` | always on once a backlog exists — ease-start always filled |
 | `>**timing**` | external anchor or window worth naming |
 | `## stats` | refreshed by agent during compass review |
 
-**Signals** — display order always: impact · requirement · engagement
+**Signals** — display order is always: impact · requirement · engagement
 - impact: `forgettable` / `useful` / `meaningful` / `transformative`
 - requirement: `optional` / `expected` / `essential`
 - engagement: `reluctant` / `indifferent` / `motivated` / `thrilled`
 
-Rule: 80% energy → transformative/meaningful × motivated/thrilled. Essential-only goals get minimum viable effort.
+Rule: 80% of energy → transformative/meaningful × motivated/thrilled. Essential-requirement-only goals get minimum viable effort.
 
-**Dynamics** (agent-filled — update during compass review or diagnosing):
+**Dynamics** (agent-filled — update during compass review or when diagnosing):
 - mode: `overprocessing` / `pressured` / `avoidant` / `pragmatic` / `relaxed` / `immersed`
 - motion: `blocked` / `stalled` / `looping` / `advancing` / `steady` / `intense`
 - source: `intrinsic` / `structured` / `external`
 
 **Fears block** (what/when/why/how — raw data, no interpretation):
-- what: specific negative outcome or emotional experience avoided
+- what: specific negative outcome or emotional experience being avoided
 - when: situations that trigger it
 - why: origins — perceived beliefs, past experiences, internal expectations
-- how: current behavioral response — barriers, patterns in the way
+- how: current behavioral response — barriers, patterns getting in the way
 
 **Analysis block** (agent-filled — synthesis on top of fears):
-- How goal is being handled
-- Science-backed strategies for specific block or fear
+- How the goal is being handled
+- Science-backed strategies for the specific block or fear
 - Practical, precise, grounded in behavioral science and self-regulation research
 
 **Backlog ordering policy** (enforced by agent):
 - Selected achievement = always first unchecked `[ ]` item in backlog
-- Remaining unchecked = ordered by Lucas's judgment
+- Remaining unchecked items = ordered by Lucas's judgment
 - Done items = move to `## done` section
 - Achievement format: `[short-id] description` — short-id is 2-4 word kebab-case slug
 - Optional inline timing: `> [ ] [id] description — Jun 01`
@@ -116,7 +116,7 @@ Backlog item format:
 - `anchor` — external timing anchor intentionally chosen (conference, semester, commitment)
 - `closure` — what outcome makes this feel complete enough to release?
 - `tolerance` — what actually happens if missed? negotiable, costly, or mostly symbolic?
-- `fallback` — if window closes, how does this evolve instead of collapse?
+- `fallback` — if the window closes, how does this evolve instead of collapse?
 
 **Selected Next Achievement** (always on once backlog exists):
 ```
@@ -127,7 +127,7 @@ Backlog item format:
 smallest action that bypasses the emotional or cognitive barrier — specific, doable now
 steps to proceed afterwards
 ```
-Ease-start always filled, never blank.
+Ease-start is always filled, never blank.
 
 ---
 
@@ -150,25 +150,25 @@ Tone: "here's what has good wind" — not "here's what you're behind on."
 ### /brain-finished [id] — Achievement Check-off
 Triggered by: `/brain-finished [id]`, "finished [id]", "done with [id]", or similar.
 
-Mark `[id]` done in backlog, move to done section, advance selected next achievement, write new ease-start, update dynamics to `advancing`. Acknowledge win before moving on.
+Marks `[id]` done in backlog, moves to done section, advances selected next achievement, writes new ease-start, updates dynamics to `advancing`. Acknowledge the win before moving on.
 
 ### /brain-inbox — Triage INBOX
 Triggered by: `/brain-inbox`, "triage inbox", or similar.
 
-Read INBOX.md, propose route per entry (new goal / add to backlog / delete). Wait for confirmation before moving anything.
+Reads INBOX.md, proposes route for each entry (new goal / add to backlog / delete). Waits for confirmation before moving anything.
 
 ### Writing Ease-Start
-Triggered when: reviewing selected next achievement, or goal stalling.
+Triggered when: reviewing a selected next achievement, or when a goal is stalling.
 
 - Read goal context, selected achievement, `fears` + `analysis` blocks
-- Propose smallest action bypassing emotional or cognitive barrier
-- Phrase as "easiest way in is..." — specific, action-oriented, minimal
-- Barrier usually emotional (fear of judgment, perfectionism) or cognitive (unclear first step) — sidestep it, don't fight it
+- Propose the smallest action that bypasses the emotional or cognitive barrier
+- Phrase as "the easiest way in is..." — specific, action-oriented, minimal
+- The barrier is usually emotional (fear of judgment, perfectionism) or cognitive (unclear first step) — sidestep it, don't fight it
 
 ### Auto-Diagnosis
-Read: git touches for goal file + checked achievements + timing. Diagnose:
+Read: git touches for this goal file + checked achievements + timing. Diagnose:
 - `on-track` — touches consistent, achievements moving
-- `stalled` — was active, no touches 2+ weeks
+- `stalled` — was active, no touches for 2+ weeks
 - `stuck` — touches but no achievement progress
 - `always-postponed` — low touches consistently, timing pressure building
 - `achieveless-hardwork` — many touches, no `[x]` items recently
@@ -176,7 +176,7 @@ Read: git touches for goal file + checked achievements + timing. Diagnose:
 ### Pareto Lens (during compass review)
 - Score: impact × engagement → transformative/meaningful × motivated/thrilled = top bucket
 - Cross-reference timing urgency (approaching anchor = bump priority)
-- Name 2–3 goals deserving 80% of energy
+- Name the 2–3 goals that deserve 80% of energy
 - Everything else: minimum viable attention
 
 ---

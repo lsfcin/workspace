@@ -1,64 +1,63 @@
-# Sleep regularity
-area: health
-tags: [habit, ongoing]
-horizon: NEAR
-engagement: ok — I know it matters, not exciting to pursue
-impact: high — compound daily return on focus, mood, energy
-requirement: could
-auto-diagnosis: always-postponed — low touches, no streak started
+# [ health | near ] sleep regularity
 
----
+Consistent sleep and wake times. Currently irregular — late nights working, inconsistent wake times. Target: in bed by 00:30, up by 07:30. Compound daily return on focus, mood, and energy — everything else runs better on a stable sleep base.
 
-## Timing
-want-by: feel the habit established within 6 weeks
-window: —
-if-i-miss: no consequence — habit goals don't expire, just restart
-feels-done-when: 7 consecutive days on target, noticing the difference in energy and clarity
-plan-b: not needed
+>**signals**  
+transformative · optional · indifferent
 
----
+>**dynamics**  
+immersed mode · stalled motion · intrinsic source
 
-## Description
-Consistent sleep and wake times. Currently irregular — late nights working,
-inconsistent wake times. Compound daily return on everything else.
-Target: in bed by 00:30, up by 07:30.
+>**fears**  
+*what · no high-stakes outcome — this isn't fear in the classic sense  
+when · "just one more thing" at 01:00 — work feels urgent, cost feels invisible in the moment  
+why · identity tied to late-night productivity; mornings feel slow so evenings feel like real work time  
+how · no external accountability; consequence of one bad night is invisible until it accumulates*
 
----
+>**analysis**  
+The blocker is a cognitive distortion: late-night work feels more productive because the day's noise is gone, but the next day's compounded cost is invisible at 01:00. The fix is making that cost visible *before* the decision point — note how the next morning actually feels after a late night. Structural: a phone alarm at 00:15 interrupts the "just one more thing" loop before the decision activates. One structural trigger change beats any amount of intention (Ariely & Wertenbroch 2002 — external structure supplements, not replaces, internal motivation).
 
-## Triggered Fears
-fear-of: not applicable in the classic sense — this isn't high-stakes
-triggers: "just one more thing" at 01:00 — work feels urgent, cost feels invisible in the moment
-reasons: identity tied to late-night productivity; mornings feel slow so evenings feel like real work time
-barriers: no external accountability; consequence of one bad night invisible until it accumulates
-to-overcome: make the cost visible — note how the next day feels after a late night
+## selected next achievement
+    [streak-3] 3 consecutive days on target — in bed by 00:30, up by 07:30
 
----
+**ease-start**  
+Tonight, set a phone alarm for 00:15 labeled "close everything" before opening any new work.
 
-## Selected Next Achievement
-[streak-3] 3 consecutive days on target — in bed by 00:30, up by 07:30
-
-timing: no fixed date — do it this week — if I miss: just restart, no penalty
-ease-start: tonight, set a phone alarm for 00:15 labeled "close everything"
 steps:
-- set the alarm tonight before opening any new work
+- set the alarm tonight
 - at 00:15 close laptop regardless of state — no exceptions
-- write one line in the log tomorrow morning about how it felt
+- write one line tomorrow morning about how it felt
 
----
+>**timing**  
+*target · feel the habit established within 6 weeks  
+anchor · —  
+closure · 7 consecutive days on target, noticing the difference in energy and clarity  
+tolerance · no consequence — habit goals don't expire, just restart  
+fallback · not needed*
 
-## Backlog
-> [streak-3] is selected — always first.
+## backlog
 
-- [ ] [streak-3] 3 consecutive days on target
-- [ ] [streak-7] 7 consecutive days on target
-- [ ] [trigger-map] Late-work trigger identified — what consistently pushes bedtime past 01:00
-- [ ] [trigger-fix] One structural change in place to address the trigger
-- [ ] [streak-30] 30 consecutive days — habit integrated
+> [ ] [streak-3] 3 consecutive days on target
+> [ ] [streak-7] 7 consecutive days on target
+> [ ] [trigger-map] late-work trigger identified — what consistently pushes bedtime past 01:00
+> [ ] [trigger-fix] one structural change in place to address the trigger
+> [ ] [streak-30] 30 consecutive days — habit integrated
 
-## Done
+## done
 
----
+<!-- done:start -->
+<!-- done:end -->
 
-## Log
-- 2026-05-21: file created. No streak yet. Starting cold.
-- 2026-05-22: migrated to new format with IDs and always-on timing/ease-start.
+## stats
+<!-- stats:start -->
+last-touch: 2026-05-22  ·  trend: advancing
+
+| period      | touches |
+|-------------|----------|
+| month       |       1 |
+| trimester   |       1 |
+| semester    |       1 |
+| year        |       1 |
+| 2-year      |       1 |
+| 4-year      |       1 |
+<!-- stats:end -->

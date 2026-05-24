@@ -1,71 +1,71 @@
-# SIBGRAPI 2026 — Hybrid Intelligence paper
-area: career
-tags: [research, paper, hybrid-intelligence]
-horizon: NOW
-engagement: high — genuinely curious about the results, career signal
-impact: high
-requirement: should
-related: [Academy/papers/sibgrapi-2026]
-auto-diagnosis: stalled — touches dropped after baseline, experiments not advancing
+# [ career | now ] SIBGRAPI 2026 — Hybrid Intelligence paper
 
----
+*related: [Academy/papers/sibgrapi-2026](../Academy/papers/sibgrapi-2026)*
 
-## Timing
-want-by: submitted by mid-August
-window: SIBGRAPI submission deadline Aug 15
-if-i-miss: can target workshop version (4-page, venue TBD Nov) — real fallback, not just comfort
-feels-done-when: submitted to system, confirmation email received, co-authors notified
-plan-b: 4-page workshop version; scope contribution down, pick a different venue in Nov
+Submitting a full paper to SIBGRAPI 2026 on hybrid human-AI decision making. Builds on last year's rejected submission — main weakness was thin experiments. First solo first-author paper at this venue: career signal and validation of the research line.
 
----
+>**signals**  
+transformative · expected · motivated
 
-## Description
-Submitting a full paper to SIBGRAPI 2026 on hybrid human-AI decision making.
-Builds on last year's rejected submission — main weakness was thin experiments.
-Career signal: first solo first-author paper at this venue.
+>**dynamics**  
+avoidant mode · stalled motion · intrinsic source
 
----
+>**fears**  
+*what · submitting and being rejected — public confirmation of "not good enough"  
+when · hardest right before writing the intro and at the moment of submission  
+why · identity tied to the work; rejection feels like a verdict on me, not the paper  
+how · perfectionism — experiments are never conclusive enough to feel safe to write*
 
-## Triggered Fears
-fear-of: submitting and being rejected — public confirmation of "not good enough"
-triggers: activates hardest right before writing the intro and at the moment of submission
-reasons: identity tied to the work; rejection feels like a verdict on me, not the paper
-barriers: perfectionism — experiments are never conclusive enough to feel safe to write
-to-overcome: remember plan-b exists; workshop version is a real outcome, not a failure
+>**analysis**  
+Stall is perfectionism-as-protection: each new ablation raises the bar for "enough data" before it feels safe to write. This loop has no exit condition. The plan-b (workshop version) exists intellectually but isn't being used psychologically — it needs to become a real outcome, not an escape hatch. The ablation doesn't need to be conclusive; it needs to be *done*. Narrow the claim to match the data you have, not the data you wish you had. Submitting a scoped workshop paper beats never submitting the perfect full one (Steel 2007 — the problem is launch avoidance, not insufficient data).
 
----
+## selected next achievement
+    [exp-ablation] Ablation study complete — all variants run, results table filled
 
-## Selected Next Achievement
-[exp-ablation] Ablation study complete — all variants run, results table filled
+**ease-start**  
+Open the notebook. Run one ablation variant. Write the number in a single table cell. Close it.
 
-timing: want done by Jun 01 — 10 days — if I miss: writing window still intact with 10+ weeks
-ease-start: open the notebook, run one ablation variant, write the number in a single table cell
 steps:
 - run remaining 3 ablation variants
 - fill results table
 - compute significance tests
 - send table to co-author with a one-paragraph interpretation
 
----
+>**timing**  
+*target · mid-August  
+anchor · SIBGRAPI submission deadline Aug 15  
+closure · submitted to system, confirmation email received, co-authors notified  
+tolerance · workshop version (4-page, venue TBD Nov) — real fallback, not comfort  
+fallback · 4-page workshop version; scope contribution down, pick a different venue in Nov*
 
-## Backlog
-> [exp-ablation] is selected — always first.
+## backlog
 
-- [ ] [exp-ablation] Ablation study complete — all variants run, results table filled — Jun 01
-- [ ] [exp-signoff] Co-author sign-off on results
-- [ ] [write-related] Related work section drafted
-- [ ] [write-method] Method section drafted
-- [ ] [write-experiments] Experiments section drafted
-- [ ] [write-draft] Full draft sent to co-authors — Jun 30
-- [ ] [write-revision] Co-author feedback incorporated
-- [ ] [submit-format] Camera-ready formatting done
-- [ ] [submit-done] Submitted to system, confirmation received — Aug 15
+> [ ] [exp-ablation] Ablation study complete — all variants run, results table filled — Jun 01
+> [ ] [exp-signoff] Co-author sign-off on results
+> [ ] [write-related] Related work section drafted
+> [ ] [write-method] Method section drafted
+> [ ] [write-experiments] Experiments section drafted
+> [ ] [write-draft] Full draft sent to co-authors — Jun 30
+> [ ] [write-revision] Co-author feedback incorporated
+> [ ] [submit-format] Camera-ready formatting done
+> [ ] [submit-done] Submitted to system, confirmation received — Aug 15
 
-## Done
-- [x] [exp-baseline] Baseline running on dataset
+## done
 
----
+<!-- done:start -->
+> [x] [exp-baseline] Baseline running on dataset
+<!-- done:end -->
 
-## Log
-- 2026-05-21: file created. Baseline done. Ablation not started.
-- 2026-05-22: migrated to new format with IDs and always-on timing/ease-start.
+## stats
+<!-- stats:start -->
+last-touch: 2026-05-22  ·  trend: advancing
+
+| period      | touches |
+|-------------|----------|
+| month       |       1 |
+| trimester   |       1 |
+| semester    |       1 |
+| year        |       1 |
+| 2-year      |       1 |
+| 4-year      |       1 |
+<!-- stats:end -->
