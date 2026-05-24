@@ -1,6 +1,7 @@
-<!-- area can be health, career, finances, fun, or spiritual -->
+<!-- area can be health, craft, finances, fun, or spiritual -->
+<!-- subarea can be anything, patterns will stablish with usage -->
 <!-- horizon can be now / near / year / dream -->
-# [ area | horizon ] goal title
+# [ area | subarea | horizon ] goal title
 <!-- 
 paths
 related list of subfolders
@@ -14,10 +15,6 @@ Write here the goal description...
 
 <!-- 
 SIGNALS
-engagement:
-“I feel ___ about this.”
-reluctant, indifferent, motivated, thrilled
-
 impact:
 “This will be ___.”
 forgettable, useful, meaningful, transformative
@@ -25,6 +22,10 @@ forgettable, useful, meaningful, transformative
 requirement:
 “This is ___.”
 optional, expected, essential 
+
+engagement:
+“I feel ___ about this.”
+reluctant, indifferent, motivated, thrilled
 -->
 >**signals**  
 transformative · essential · reluctant

@@ -10,7 +10,6 @@ from pathlib import Path
 
 BRAIN      = Path("Brain")
 GOALS_FILE = BRAIN / "GOALS.md"
-ATTN_LOG   = BRAIN / ".log" / "attention.md"
 DONE_LOG   = BRAIN / ".log" / "done.md"
 GOALS_DIR  = BRAIN / "goals"
 
@@ -323,17 +322,6 @@ def update_goals_md(goal_files):
         GOALS_FILE.write_text(result)
         print("[Brain] GOALS.md updated")
 
-# ── Attention log ──────────────────────────────────────────────────────────────
-
-def update_attention_log(commit, touched_paths):
-    if not touched_paths:
-        return
-    ATTN_LOG.parent.mkdir(parents=True, exist_ok=True)
-    now   = datetime.now().strftime("%Y-%m-%d %H:%M")
-    files = " ".join(str(p) for p in touched_paths)
-    with open(ATTN_LOG, "a") as f:
-        f.write(f"{now} | {commit} | {files}\n")
-
 # ── Main ───────────────────────────────────────────────────────────────────────
 
 def load_goal_files():
@@ -349,6 +337,8 @@ def load_goal_files():
 def pre_commit():
     """Run before commit: update stats/goals, stage modified files."""
     goal_files = load_goal_files()
+    if not goal_files:
+        return
     modified   = []
 
     for slug, path in goal_files.items():
@@ -379,26 +369,8 @@ def pre_commit():
     check_compass_reminder()
 
 
-def post_commit():
-    """Run after commit: append attention log (needs commit hash)."""
-    commit = git("rev-parse", "--short", "HEAD") or "unknown"
-
-    diff_out      = git("diff-tree", "--no-commit-id", "-r", "--name-only", "HEAD")
-    touched_paths = [
-        Path(line) for line in diff_out.splitlines()
-        if Path(line).parent == GOALS_DIR
-        and Path(line).suffix == ".md"
-        and not re.match(r'^[A-Z]+$', Path(line).stem)
-    ]
-    update_attention_log(commit, touched_paths)
-
-
 def main():
-    import sys
-    if "--post-commit" in sys.argv:
-        post_commit()
-    else:
-        pre_commit()
+    pre_commit()
 
 
 def check_compass_reminder():

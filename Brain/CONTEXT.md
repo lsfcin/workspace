@@ -15,7 +15,7 @@ Core files:
 | [USER.md](USER.md) | User profile — identity, language, patterns, what helps |
 | [INBOX.md](INBOX.md) | Zero-friction capture, no taxonomy |
 | [ARCHIVE.md](ARCHIVE.md) | Closed goals — never auto-loaded, ask explicitly |
-| [.log/attention.md](.log/attention.md) | Auto-appended by post-commit hook |
+| [.log/done.md](.log/done.md) | Achieved items archived from goal files |
 
 ---
 
@@ -184,5 +184,5 @@ See [FOUNDATIONS.md](FOUNDATIONS.md) — research basis and design rationale.
 | [goals/](goals/) | Individual goal files |
 | [INBOX.md](INBOX.md) | Capture inbox |
 | [ARCHIVE.md](ARCHIVE.md) | Closed and abandoned goals |
-| [.log/attention.md](.log/attention.md) | Auto-generated attention log |
+| [.log/done.md](.log/done.md) | Achieved items archived from goal files |
 | [FOUNDATIONS.md](FOUNDATIONS.md) | Design rationale and research basis |

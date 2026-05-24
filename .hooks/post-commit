@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-# Workspace post-commit hook — Brain attention tracker
-
-[ -f "Brain/GOALS.md" ] || exit 0
-
-python3 .hooks/brain_stats.py --post-commit
+# Workspace post-commit hook — no-op
+# Attention log removed: Brain/goals/ touch history is queryable via
+#   git log --format="%ci %h" --name-only -- Brain/goals/
 exit 0
