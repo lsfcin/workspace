@@ -3,12 +3,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-05-23 21:10
+last-updated: 2026-05-23 21:24
 
 >**areas** — last 14 days  
 ```
-health       ██████████   2 touches
-career       █████░░░░░   1 touches
+health       ██████████   4 touches
+career       █████░░░░░   2 touches
 finances     ░░░░░░░░░░   0 touches
 fun          ░░░░░░░░░░   0 touches
 spiritual    ░░░░░░░░░░   0 touches
@@ -16,9 +16,9 @@ spiritual    ░░░░░░░░░░   0 touches
 
 >**goals** — last 14 days  
 ```
-health-checkup-2026      ██████████   1 touches
-sibgrapi-2026            ██████████   1 touches
-sleep-regularity         ██████████   1 touches
+health-checkup-2026      ██████████   2 touches
+sibgrapi-2026            ██████████   2 touches
+sleep-regularity         ██████████   2 touches
 ```
 <!-- data:end -->
 
