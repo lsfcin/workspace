@@ -58,14 +58,14 @@ fallback · 4-page workshop version; scope contribution down, pick a different v
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-05-23  ·  trend: advancing
+last-touch: 2026-05-24  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       3 |
-| trimester   |       3 |
-| semester    |       3 |
-| year        |       3 |
-| 2-year      |       3 |
-| 4-year      |       3 |
+| month       |       4 |
+| trimester   |       4 |
+| semester    |       4 |
+| year        |       4 |
+| 2-year      |       4 |
+| 4-year      |       4 |
 <!-- stats:end -->

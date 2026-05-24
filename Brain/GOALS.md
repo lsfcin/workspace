@@ -7,8 +7,8 @@ last-updated: 2026-05-24 03:20
 
 >**areas** — last 14 days  
 ```
-health       ██████████   6 touches
-career       █████░░░░░   3 touches
+health       ██████████   8 touches
+career       █████░░░░░   4 touches
 finances     ░░░░░░░░░░   0 touches
 fun          ░░░░░░░░░░   0 touches
 spiritual    ░░░░░░░░░░   0 touches
@@ -16,9 +16,9 @@ spiritual    ░░░░░░░░░░   0 touches
 
 >**goals** — last 14 days  
 ```
-health-checkup-2026      ██████████   3 touches
-sibgrapi-2026            ██████████   3 touches
-sleep-regularity         ██████████   3 touches
+health-checkup-2026      ██████████   4 touches
+sibgrapi-2026            ██████████   4 touches
+sleep-regularity         ██████████   4 touches
 ```
 <!-- data:end -->
 
