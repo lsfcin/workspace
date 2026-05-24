@@ -1,7 +1,7 @@
 # Core
-> Shared research infra: agents, workflow protocols, CLI tools.
+> Agent library: skills, agents, prompts, flows, tools. Provider-agnostic.
 
-**Runtime-agnostic** — no provider-specific code. Invoke via `/research <flow> <query>` or call `Core/tools/` scripts directly.
+**Runtime-agnostic** — no provider-specific code. Skills invoke via `/skill-name`. Tools call via bash. Flows orchestrate agents.
 
 ## Research Agent System
 
@@ -19,5 +19,6 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 |--------------|-------------|
 | [`agents/`](agents/CONTEXT.md) | Agent definitions; load as system prompt to spawn a specialist worker. |
 | [`flows/`](flows/CONTEXT.md) | Workflow protocols; each names the agents and steps to execute. |
+| [`skills/`](skills/) | Slash command skills — invoke via `/skill-name` in any session. |
 | [`tools/`](tools/CONTEXT.md) | CLI research tools callable via bash; routing block auto-synced on save. |
 <!-- routing:end -->
