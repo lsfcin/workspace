@@ -12,6 +12,7 @@ Core files:
 |---------------|------|
 | [GOALS.md](GOALS.md) | Dashboard, attention monitor, Pareto lens, router to goal files |
 | [goals/](goals/) | One file per goal — organic growth from seed to full |
+| [USER.md](USER.md) | User profile — identity, language, patterns, what helps |
 | [INBOX.md](INBOX.md) | Zero-friction capture, no taxonomy |
 | [ARCHIVE.md](ARCHIVE.md) | Closed goals — never auto-loaded, ask explicitly |
 | [.log/attention.md](.log/attention.md) | Auto-appended by post-commit hook |
@@ -20,19 +21,7 @@ Core files:
 
 ## User Profile
 
-Lucas = CS professor (UFRPE / CIn-UFPE). Research: Hybrid Intelligence, Mechanism Design, AR, 3D Computer Vision. Creative, fuzzy thinker. Strong starter; struggles to finish.
-
-**What helps:**
-- Internal motivation and alignment — works best when genuinely believes in what he's doing
-- Forward-looking framing ("next achievement to celebrate") over completion pressure
-- Small consistent wins over milestone sprints
-- Right question asked, not task list given
-
-**Patterns to know:**
-- **Finishing problem**: over-refines, loses interest, overwhelmed by new things. `closure` and `ease-start` address this directly.
-- **Fear mapping**: high-stakes goals carry completion anxiety. `fears` block = real data — read when diagnosing stalls. `analysis` = synthesis layer on top.
-- **Internal timing**: almost all timing self-imposed. Treat `anchor` dates as aspirations unless explicitly flagged hard. `tolerance` usually reveals missing = manageable.
-- **Motivation over obligation**: impact × engagement drives 80% of energy. `essential` requirement goals get 20% — enough to satisfy, not primary focus.
+→ [USER.md](USER.md)
 
 ---
 
