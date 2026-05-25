@@ -51,6 +51,9 @@ Branches/financas/*
 !Branches/saude/
 Branches/saude/*
 !Branches/saude/CONTEXT.md
+!Branches/writing/
+Branches/writing/*
+!Branches/writing/mantras.md
 
 Core/*
 !Core/CONTEXT.md

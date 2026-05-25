@@ -10,6 +10,7 @@ Personal life management — health, finances, and home construction. Each subfo
 | `casinhas/` | Home building project — plans, decisions, suppliers, timeline |
 | `financas/` | Financial planning — budget, investments, expenses |
 | `saude/` | Health notes — records, routines, goals |
+| `writing/` | Personal writing — mantras, reflections, fragments |
 
 ## Convention
 
