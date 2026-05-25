@@ -1,6 +1,9 @@
 # inbox
 > zero friction. timestamp · thought. no taxonomy. no formating. handle duplications.
-> triage with `/brain-inbox`: each item routed to a goal file, todo/backlog, or deleted.
+> triage with `/brain-inbox`: each entry routed to a goal, task, draft, or deleted.
+>
+> signal the route preemptively (optional — agent infers if omitted):
+> `goal` · `task: today` / `task: week` / `task: month` / `task: backlog` · `draft`
 
 ---
 

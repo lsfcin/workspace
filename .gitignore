@@ -54,11 +54,15 @@ Branches/saude/*
 !Branches/writing/
 Branches/writing/*
 !Branches/writing/mantras.md
+!Branches/writing/drafts/
+Branches/writing/drafts/*
+!Branches/writing/drafts/CONTEXT.md
 
 Core/*
 !Core/CONTEXT.md
 !Core/agents/
 !Core/flows/
+!Core/skills/
 !Core/tools/
 
 Models/*
