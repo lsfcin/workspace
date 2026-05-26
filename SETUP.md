@@ -346,6 +346,10 @@ Only steps that can't be versioned: global git config command + external tool in
 
 ## Policy Decisions
 
+### Per-project SETUP.md (pattern)
+
+Projects under `Code/` — and any other workspace subdirectory with non-trivial environment requirements — may include their own `SETUP.md`. This file covers what the workspace-level `SETUP.md` cannot: third-party tool installs, model downloads, platform-specific paths, extension dependencies. The workspace-level file delegates per-project setup to these files; the quick-start table above links to them. When adding a project with environment setup that can't be inferred from the code, create `<project>/SETUP.md` and add a row to the table.
+
 ### Line-limit rule (canonicalized)
 
 - Warning threshold: 150 lines (`WARN_LINES` in `.hooks/line-limits.env`)
@@ -368,7 +372,7 @@ Each project under `Code/` has own git repo and `CONTEXT.md`. See those files fo
 | `voti` | Next.js / TypeScript | `npm install && npm run dev` |
 | `corpora` | Python / PyTorch | `pip install -r requirements.txt` |
 | `futebots` | Python | `pip install -r requirements.txt` |
-| `isoroll` | Python / ComfyUI | see project CONTEXT.md |
+| `isoroll` | Python / ComfyUI | [`Code/isoroll/SETUP.md`](Code/isoroll/SETUP.md) |
 | `shortvid` | Python / PySide6 | `pip install -r requirements.txt` |
 | `ppc` | Vanilla HTML / Alpine.js | open `index.html` via local server |
 

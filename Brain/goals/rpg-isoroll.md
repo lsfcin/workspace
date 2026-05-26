@@ -26,6 +26,13 @@ Open the recovered files. Don't try to run anything. Just read — what workflow
 ## backlog
 
 > [ ] [setup-rebuild] recover ComfyUI + local model setup — document it this time  
+> [ ] [face-detailer] integrate FaceDetailer via YOLO — install Impact Subpack, verify UltralyticsDetectorProvider, test character_quality_yolo.json  
+> [ ] [hand-detailer] separate hand detailer pass after face works — needs bbox model  
+> [ ] [alpha-pipeline] solve background transparency — SAM segmentation or chroma key, never resolved  
+> [ ] [8dir-sprites] generate 8-direction views per character  
+> [ ] [anim-pipeline] animate characters: idle, attack, defend, hurt, cast, crouch  
+> [ ] [tile-generation] generate tiles with 8 viewpoints from prompt  
+> [ ] [sprite-atlas] sprite atlas packing for Foundry export  
 > [ ] [foundry-review] review Foundry extension code — understand current state  
 > [ ] [iso-prototype] get isometric perspective rendering working in Foundry again  
 > [ ] [content-gen-reconnect] reconnect content generation pipeline to Foundry extension  
@@ -41,10 +48,10 @@ last-touch: 2026-05-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       1 |
-| trimester   |       1 |
-| semester    |       1 |
-| year        |       1 |
-| 2-year      |       1 |
-| 4-year      |       1 |
+| month       |       2 |
+| trimester   |       2 |
+| semester    |       2 |
+| year        |       2 |
+| 2-year      |       2 |
+| 4-year      |       2 |
 <!-- stats:end -->

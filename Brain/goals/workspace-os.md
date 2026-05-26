@@ -31,6 +31,11 @@ fallback · iterate — MVP can always be extended*
 > [ ] [mvp-validate] use system daily for 30 days, assess: does it reduce mental load?  
 > [ ] [gdrive-integration] define strategy to bring Google Drive into workspace — link, sync, or selective copy  
 > [ ] [courses-import] bring course materials into workspace — define folder structure and import strategy  
+> [ ] [todo-accountability] design accountability layer for TODO.md — calendar reminders, daily review, or notification hook so tasks don't silently expire  
+> [ ] [gcal-link] link workspace to Google Calendar — deadlines and events visible in context  
+> [ ] [gmail-link] link workspace to Gmail — surface relevant emails as context for goals and tasks  
+> [ ] [whatsapp-link] connect workspace notifications or reminders to WhatsApp  
+> [ ] [telegram-link] connect workspace to Telegram — bot or channel for daily nudges  
 
 ## done
 
@@ -43,10 +48,10 @@ last-touch: 2026-05-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       3 |
-| trimester   |       3 |
-| semester    |       3 |
-| year        |       3 |
-| 2-year      |       3 |
-| 4-year      |       3 |
+| month       |       4 |
+| trimester   |       4 |
+| semester    |       4 |
+| year        |       4 |
+| 2-year      |       4 |
+| 4-year      |       4 |
 <!-- stats:end -->

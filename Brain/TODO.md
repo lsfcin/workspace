@@ -20,10 +20,13 @@
 - [ ] [pandeiro / show-up] confirm Pandeirada time, show up Saturday
 - [ ] [sleep / streak-3] 3 consecutive nights in bed by 00:30
 - [ ] [brain] set up mobile inbox access for Android — recover 2 app options from prior Claude conversation, pick one for Xiaomi Redmi Note 10 Pro
+- [ ] check IC scholarship deadline at UFRPE — recent edital closing soon, open application if still open
+- [ ] [workspace-os / todo-accountability] design TODO accountability layer — what would make you actually check it daily?
 
 ## month
 
 - [ ] standardize workspace folder names to lowercase — update on Ubuntu and Windows
+- [ ] fix downloads folder — some programs bypassing workspace path, still writing to ~/Downloads by default
 
 ## backlog
 

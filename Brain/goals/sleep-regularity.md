@@ -50,10 +50,10 @@ last-touch: 2026-05-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      10 |
-| trimester   |      10 |
-| semester    |      10 |
-| year        |      10 |
-| 2-year      |      10 |
-| 4-year      |      10 |
+| month       |      11 |
+| trimester   |      11 |
+| semester    |      11 |
+| year        |      11 |
+| 2-year      |      11 |
+| 4-year      |      11 |
 <!-- stats:end -->
