@@ -8,5 +8,3 @@
 ---
 
 <!-- add entries below, newest first -->
-
-sobre o workspace

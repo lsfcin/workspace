@@ -19,6 +19,11 @@
 
 - [ ] [pandeiro / show-up] confirm Pandeirada time, show up Saturday
 - [ ] [sleep / streak-3] 3 consecutive nights in bed by 00:30
+- [ ] [brain] set up mobile inbox access for Android — recover 2 app options from prior Claude conversation, pick one for Xiaomi Redmi Note 10 Pro
+
+## month
+
+- [ ] standardize workspace folder names to lowercase — update on Ubuntu and Windows
 
 ## backlog
 

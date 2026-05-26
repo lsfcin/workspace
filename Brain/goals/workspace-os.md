@@ -29,6 +29,8 @@ fallback · iterate — MVP can always be extended*
 > [ ] [brain-full-files] all GOALS.md stubs have actual goal files  
 > [ ] [branches-coverage] Branches/ covers all active life domains  
 > [ ] [mvp-validate] use system daily for 30 days, assess: does it reduce mental load?  
+> [ ] [gdrive-integration] define strategy to bring Google Drive into workspace — link, sync, or selective copy  
+> [ ] [courses-import] bring course materials into workspace — define folder structure and import strategy  
 
 ## done
 
@@ -41,10 +43,10 @@ last-touch: 2026-05-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       2 |
-| trimester   |       2 |
-| semester    |       2 |
-| year        |       2 |
-| 2-year      |       2 |
-| 4-year      |       2 |
+| month       |       3 |
+| trimester   |       3 |
+| semester    |       3 |
+| year        |       3 |
+| 2-year      |       3 |
+| 4-year      |       3 |
 <!-- stats:end -->

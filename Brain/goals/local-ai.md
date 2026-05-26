@@ -28,6 +28,7 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 > [ ] [local-setup] set up a local model environment (Ollama or equivalent) compatible with Claude Code  
 > [ ] [prototype-context] build a first prototype: dynamic context collapse for a specific task type  
 > [ ] [benchmark] measure: speed, reliability, quality vs cloud baseline  
+> [ ] [claude-code-alt] set up CLI coding agent alternative to Claude Code — candidates: qwencode + qwen model locally, GLM 5.1 (free cloud), opencode, codex  
 
 ## done
 
@@ -40,10 +41,10 @@ last-touch: 2026-05-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       2 |
-| trimester   |       2 |
-| semester    |       2 |
-| year        |       2 |
-| 2-year      |       2 |
-| 4-year      |       2 |
+| month       |       3 |
+| trimester   |       3 |
+| semester    |       3 |
+| year        |       3 |
+| 2-year      |       3 |
+| 4-year      |       3 |
 <!-- stats:end -->
