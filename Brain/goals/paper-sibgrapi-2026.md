@@ -5,6 +5,18 @@ Paper going to SIBGRAPI 2026 (deadline May 30). Originally aimed at JBCS. Co-aut
 >**signals**  
 meaningful · essential · indifferent
 
+>**dynamics**  
+avoidant mode · stalled motion · external source
+
+>**fears**  
+*what · submitting confirms whether "I can publish interesting work" — making it real makes it judgeable  
+when · when the next step is simple enough that not doing it becomes conspicuous  
+why · accumulated block around research output; paper is simultaneously proof and test of research identity  
+how · "almost done" framing reduces urgency — "it'll be quick, I'll do it later" loop; identity coupling with quality prevents logistical action*
+
+>**analysis**  
+"Almost done" tasks generate a Zeigarnik reversal: near-completion creates false safety ("I can do this anytime") that paradoxically drops activation. The real block is identity — submitting this paper is a statement about Lucas as researcher. The procedural steps (download dataset, rerun metrics) become cognitive cover for avoiding that statement. Intervention: decouple identity from logistics. Messaging Artur isn't a commitment to the paper's quality — it's just requesting a file. The submission belongs to Artur and the work; Lucas' job is to remove blockers. With 5 days left, one action per day is enough. First action is the only action that matters right now.
+
 >**timing**  
 *target · before 2026-05-30  
 anchor · SIBGRAPI 2026 submission deadline  
@@ -34,14 +46,14 @@ Message Artur now and ask for the corrected dataset link. That's the only blocke
 
 ## stats
 <!-- stats:start -->
-last-touch: —  ·  trend: new
+last-touch: 2026-05-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       0 |
-| trimester   |       0 |
-| semester    |       0 |
-| year        |       0 |
-| 2-year      |       0 |
-| 4-year      |       0 |
+| month       |       1 |
+| trimester   |       1 |
+| semester    |       1 |
+| year        |       1 |
+| 2-year      |       1 |
+| 4-year      |       1 |
 <!-- stats:end -->

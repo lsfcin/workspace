@@ -1,5 +1,5 @@
 # inbox
-> zero friction. timestamp · thought. no taxonomy. no formating. handle duplications.
+> zero friction. thoughts. no taxonomy. no formating. handle duplications.
 > triage with `/brain-inbox`: each entry routed to a goal, task, draft, or deleted.
 >
 > signal the route preemptively (optional — agent infers if omitted):
@@ -8,3 +8,5 @@
 ---
 
 <!-- add entries below, newest first -->
+
+sobre o workspace

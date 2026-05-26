@@ -5,6 +5,9 @@ Aprender o pandeiro e as percussões. Unlock rhythm — in the head, the hand, a
 >**signals**  
 meaningful · expected · motivated
 
+>**dynamics**  
+pragmatic mode · advancing motion · intrinsic source
+
 ## selected next achievement
     [show-up] go to Pandeirada next Saturday
 
@@ -38,10 +41,10 @@ last-touch: 2026-05-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       1 |
-| trimester   |       1 |
-| semester    |       1 |
-| year        |       1 |
-| 2-year      |       1 |
-| 4-year      |       1 |
+| month       |       2 |
+| trimester   |       2 |
+| semester    |       2 |
+| year        |       2 |
+| 2-year      |       2 |
+| 4-year      |       2 |
 <!-- stats:end -->

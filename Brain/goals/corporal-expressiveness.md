@@ -15,17 +15,14 @@ how · avoiding situations that require exposure of voice or body — silence ov
 "Parar de me esconder" / "me permitir desagradar" — the mantras already name it. This goal sits at the intersection of fear of judgment and body awareness. The indifferent engagement signal might be a protection mechanism rather than genuine disinterest — the description is written with real desire. The ease-start is designed to create a private feedback loop before any audience exists.
 
 ## selected next achievement
-    [record-self] record 3 minutes of yourself talking about something you care about
+    [body-awareness] read or watch something about body language — practical, not academic
 
 **ease-start**  
-Record yourself talking for 3 minutes about something you genuinely care about. Don't listen immediately — put the recording away for an hour. Then listen once. The goal isn't critique — it's just to meet yourself as others hear you.
+Pick one video about body language or presence — practical, not academic. A TED talk works. Watch it in one sitting, no notes.
 
 ## backlog
 
-> [ ] [record-self] record 3 minutes of yourself talking about something you care about  
-> [ ] [voice-explore] find voice exercises or singing lessons — just one session  
 > [ ] [body-awareness] read or watch something about body language — practical, not academic  
-> [ ] [sing-private] sing alone for 10 minutes — any song, just let the voice out  
 > [ ] [public-small] speak in a small comfortable setting with awareness of body and voice  
 
 ## done
@@ -39,10 +36,10 @@ last-touch: 2026-05-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       1 |
-| trimester   |       1 |
-| semester    |       1 |
-| year        |       1 |
-| 2-year      |       1 |
-| 4-year      |       1 |
+| month       |       2 |
+| trimester   |       2 |
+| semester    |       2 |
+| year        |       2 |
+| 2-year      |       2 |
+| 4-year      |       2 |
 <!-- stats:end -->
