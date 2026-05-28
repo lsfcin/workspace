@@ -1,0 +1,204 @@
+Foundry VTT v14 module development reference. Load this before any Foundry module work.
+
+Arguments: $ARGUMENTS
+
+If arguments name a topic (e.g. "hud", "tabs", "transform", "hierarchy", "hooks"), jump to that section. Otherwise print the full reference.
+
+---
+
+# Foundry VTT v14 — Module Dev Reference
+
+## Canvas Component Hierarchy
+
+```
+PIXI.Application (canvas.app)
+└── PIXI.Stage (canvas.app.stage)          ← we apply rotation/skew here for isometric
+    ├── EnvironmentCanvasGroup              (canvas.environment)
+    │   └── PrimaryCanvasGroup             (canvas.environment.primary)
+    │       └── PrimarySpriteMesh          (canvas.environment.primary.background) ← v14 bg sprite
+    ├── PrimaryCanvasGroup                 (canvas.primary)
+    │   ├── background                     (canvas.primary.background) ← WRONG — no visual effect
+    │   ├── TokenLayer                     (canvas.tokens)
+    │   │   └── Token[]                    (canvas.tokens.placeables)
+    │   │       └── PrimarySpriteMesh      (token.mesh)
+    │   └── TilesLayer                     (canvas.tiles)
+    │       └── Tile[]                     (canvas.tiles.placeables)
+    │           └── PrimarySpriteMesh      (tile.mesh)
+    └── HeadsUpDisplayContainer            → DOM overlay, NOT a PIXI child
+        └── #hud div                       (canvas.hud.element)
+```
+
+Key rule: **`canvas.environment.primary.background` is the rendered bg sprite in v14.**
+`canvas.primary.background` exists but transforming it has no visual effect.
+
+## Coordinate Systems
+
+- **Canvas coords** — scene pixel space, origin = scene top-left (includes padding). `token.document.x/y`.
+- **Stage local space** = canvas coords. Stage transform maps canvas → screen.
+- **PIXI global / screen coords** — `stage.worldTransform.apply({x,y})` = where a canvas point appears in screen pixels.
+- **`canvas.clientCoordinatesFromCanvas(pt)`** — calls `stage.worldTransform.apply(pt)`. Includes full matrix (rotation + skew + zoom + pan).
+- **`#hud` CSS space** — canvas-unit coords (no rotation). Formula: `L = (m.a*cx + m.c*cy) / zoom`.
+
+## Isometric Stage Transform (dimetric 2:1)
+
+```typescript
+// Apply to canvas.app.stage:
+stage.rotation = rad(-45);
+stage.skew.set(rad(18.435), rad(18.435));
+
+// Resulting worldTransform matrix coefficients at zoom z:
+//   a = z * cos(26.565°)  ≈  z * 0.8944
+//   b = z * sin(-26.565°) ≈  z * -0.4472
+//   c = z * cos(26.565°)  ≈  z * 0.8944   (same as a)
+//   d = z * sin(26.565°)  ≈  z * 0.4472
+//   tx = stage.position.x,  ty = stage.position.y
+```
+
+Counter-transform constants (dimetric 2:1):
+- `reverseRotation = +45°`
+- `reverseSkewX = reverseSkewY = 0`  ← NOT −18.435° — applying inside +18.435° parent doubles distortion
+- `ratio = 2.0`
+- `counterFactor = √10/4 ≈ 0.7906`  ← from matrix composition: worldScale = localScale × 4/√10
+
+## Background Counter-Transform
+
+Foundry pre-scales the bg sprite to fill the canvas (`PrimarySpriteMesh` scale ≠ 1).
+Capture the original scale at `canvasReady` and multiply — do NOT hardcode `scale(1, ratio)` (→ ~1/4 size).
+
+```typescript
+// canvasReady: capture original
+origScaleX = bg.scale.x;
+
+// apply counter-transform:
+bg.rotation = rad(45);
+bg.skew.set(0, 0);
+bg.anchor.set(0.5, 0.5);
+bg.scale.set(origScaleX * counterFactor, origScaleX * ratio * counterFactor);
+bg.position.set(scene.width / 2 + paddingX, scene.height / 2 + paddingY);
+```
+
+## Per-Object Counter-Transform (tokens / tiles)
+
+Hooks: `refreshToken(token, flags?)`, `refreshTile(tile, flags?)`.
+
+Foundry resets mesh scale on certain flags — only apply scale then (never accumulate):
+```typescript
+const meshReset = !flags || flags["refreshMesh"] || flags["refreshSize"]
+  || flags["refreshShape"] || flags["redraw"];
+// rotation: apply every refresh (absolute, not cumulative)
+// scale: apply only on meshReset
+```
+
+**Token (undistorted)**:
+```typescript
+mesh.rotation = reverseRotation;       // lock rotation — v14 auto-rotates tokens on move
+mesh.skew?.set(0, 0);
+mesh.anchor?.set(0.5, 0.5);           // required — HUD bounds derived from this
+if (meshReset) {
+  mesh.scale.x *= counterFactor;
+  mesh.scale.y *= ratio * counterFactor;
+}
+// TODO: use docRotation here for 8-directional sprite selection
+```
+
+**Tile (undistorted, preserves aspect ratio)**:
+```typescript
+mesh.rotation = (docRotationDeg * Math.PI / 180) + reverseRotation;
+mesh.skew?.set(0, 0);
+if (meshReset) {
+  const texW = mesh.texture?.width || 1;
+  const texH = mesh.texture?.height || 1;
+  const uniform = Math.max(docW, docH) / Math.max(texW, texH);
+  mesh.scale.set(uniform * counterFactor, uniform * ratio * counterFactor);
+  // use .set(), not *= — tiles need uniform scale to preserve image aspect ratio
+}
+```
+
+## TokenHUD / TileHUD Positioning
+
+`HeadsUpDisplayContainer.align()` sets `#hud` CSS: `left = canvas.primary.getGlobalPosition().x`, `top = .y`, `transform = scale(zoom)`. **No rotation.**
+
+CSS `left/top` within `#hud` are in canvas-unit space. Foundry default `_updatePosition` uses raw `token.bounds.x/y` — correct without rotation because container applies matching scale+translate.
+
+With isometric rotation — correct formula (tx/ty and zoom cancel out):
+```typescript
+// Hook: Hooks.on("renderTokenHUD", (hud, html) => { ... })
+// Use requestAnimationFrame so Foundry positions first, then override:
+const m = canvas.app.stage.worldTransform;
+const zoom = canvas.stage.scale.x;
+const { x: cx, y: cy } = token.center;
+const L = (m.a * cx + m.c * cy) / zoom;   // = cos(26.565°) * (cx + cy)
+const T = (m.b * cx + m.d * cy) / zoom;   // b is negative → = sin(26.565°) * (cy - cx)
+$html.css({ left: `${L}px`, top: `${T}px`, transform: "translate(-50%, -50%)" });
+```
+
+## Hooks Reference
+
+| Hook | Trigger | Notable args |
+|------|---------|-------------|
+| `init` | Module init, before canvas | — |
+| `canvasReady` | Canvas fully loaded | — |
+| `updateScene(scene, changes)` | Scene document updated | `changes.flags?.MODULE_ID` to detect flag changes |
+| `refreshToken(token, flags)` | Token visual refresh | `flags`: `refreshMesh`, `refreshSize`, `refreshShape`, `refreshRotation`, `redraw` |
+| `refreshTile(tile, flags)` | Tile visual refresh | same flags as refreshToken |
+| `renderSceneConfig(app, html)` | SceneConfig AppV2 sheet renders | `html` IS the `<form>` element |
+| `renderTokenConfig(app, html)` | TokenConfig sheet renders | — |
+| `renderTileConfig(app, html)` | TileConfig sheet renders | — |
+| `renderTokenHUD(hud, html)` | Token right-click HUD opens | `hud.object` = Token |
+| `renderTileHUD(hud, html)` | Tile right-click HUD opens | `hud.object` = Tile |
+
+Key patterns:
+- `Hooks.once("init", ...)` — register settings and hook listeners; fires once per session
+- `Hooks.on("updateScene", (scene, changes) => { if (scene.id !== canvas.scene?.id) return; ... })` — always guard for current scene
+- Render hooks for AppV2 sheets fire after DOM is built; html is already in document
+
+## AppV2 Tab Injection
+
+Nav selector differs by sheet type — SceneConfig uses `sheet-tabs`, others use `tabs`:
+```typescript
+const $nav = $html.find("nav.tabs:not(.secondary-tabs), nav.sheet-tabs:not(.secondary-tabs)").first();
+```
+
+Content element: `<div class="tab" data-tab="NAME">` (div, no data-group). Insert after last existing tab:
+```typescript
+$html.find(".tab[data-tab]").last().after($section);
+// Falls inside .sheet-body — NOT after the footer.
+```
+
+AppV2 `changeTab()` validates against static `TABS` — unregistered tab names throw. Fix:
+```typescript
+$html.on("click", `a[data-tab="${TAB}"]`, (e) => {
+  e.stopPropagation();                             // prevent AppV2 from calling changeTab
+  $nav.find("a[data-tab]").removeClass("active");
+  $html.find(".tab[data-tab]").removeClass("active");
+  $(e.currentTarget).addClass("active");
+  $html.find(`.tab[data-tab="${TAB}"]`).addClass("active");
+});
+// Also deactivate ours when other tabs clicked:
+$nav.on("click", `a[data-tab]:not([data-tab="${TAB}"])`, () => {
+  $html.find(`.tab[data-tab="${TAB}"], a[data-tab="${TAB}"]`).removeClass("active");
+});
+```
+
+Other AppV2 gotchas:
+- `html` in `renderSceneConfig` **IS the `<form>`** — `$html.find("form")` returns 0
+- `[data-tab="basics"]` matches both nav `<a>` and content `<section>` — always add element type
+- `name="flags.MODULE_ID.key"` on checkbox → Foundry auto-persists on form submit, no JS needed
+- Do NOT clone the submit button — Foundry's own button handles form save
+
+## Depth Sort
+
+`canvas.primary.children.sort()` corrupts Foundry's internal z-order.
+Correct: use `PrimaryCanvasGroup` API, assign `zIndex` on objects or add custom foreground container.
+
+## Reference Locations
+
+- Fork with working patterns: `github.com/lsfcin/isometric-perspective`
+  - `scripts/transform.js` — tile/token counter-transforms and uniform scale
+  - `scripts/hud.js` — HUD repositioning math
+  - `scripts/consts.js` — HudAngle per projection (dimetric 2:1 → 26.57°)
+- Foundry v14 source (while server running):
+  `/proc/$(pgrep -f 'foundry.*main')/cwd/resources/app/public/scripts/foundry.mjs`
+  - `BasePlaceableHUD._updatePosition` — how HUD CSS left/top are set from token bounds
+  - `HeadsUpDisplayContainer.align()` — how `#hud` container is positioned (no rotation)
+  - `Canvas.clientCoordinatesFromCanvas` — uses full worldTransform matrix
