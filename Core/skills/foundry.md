@@ -33,11 +33,24 @@ Key rule: **`canvas.environment.primary.background` is the rendered bg sprite in
 
 ## Coordinate Systems
 
-- **Canvas coords** — scene pixel space, origin = scene top-left (includes padding). `token.document.x/y`.
+- **Canvas coords** — scene pixel space, origin = scene top-left (includes padding). `token.document.x/y` / `tile.document.x/y`.
 - **Stage local space** = canvas coords. Stage transform maps canvas → screen.
 - **PIXI global / screen coords** — `stage.worldTransform.apply({x,y})` = where a canvas point appears in screen pixels.
 - **`canvas.clientCoordinatesFromCanvas(pt)`** — calls `stage.worldTransform.apply(pt)`. Includes full matrix (rotation + skew + zoom + pan).
 - **`#hud` CSS space** — canvas-unit coords (no rotation). Formula: `L = (m.a*cx + m.c*cy) / zoom`.
+
+### v14 CRITICAL: `tile.x/y` ≠ canvas position; `document.x/y` = CENTER
+
+In Foundry v14, `Tile` (and `PlaceableObject` subclasses) park their PIXI container at `(0, 0)`. The actual canvas-space position is in the **document**: `tile.document.x`, `tile.document.y`. Using `tile.x` / `tile.y` returns 0 — **wrong**.
+
+Additionally, `tile.document.x/y` is the **CENTER** of the tile (not top-left corner). To get the top-left:
+```typescript
+const tw = tile.document.width ?? 0;
+const th = tile.document.height ?? 0;
+const tx = (tile.document.x ?? 0) - tw / 2;   // top-left x
+const ty = (tile.document.y ?? 0) - th / 2;   // top-left y
+```
+`tile.document.width/height` are in canvas pixels (not grid units).
 
 ## Isometric Stage Transform (dimetric 2:1)
 
@@ -81,13 +94,21 @@ bg.position.set(scene.width / 2 + paddingX, scene.height / 2 + paddingY);
 
 Hooks: `refreshToken(token, flags?)`, `refreshTile(tile, flags?)`.
 
-Foundry resets mesh scale on certain flags — only apply scale then (never accumulate):
+Foundry resets mesh scale on certain flags:
 ```typescript
 const meshReset = !flags || flags["refreshMesh"] || flags["refreshSize"]
   || flags["refreshShape"] || flags["redraw"];
 // rotation: apply every refresh (absolute, not cumulative)
-// scale: apply only on meshReset
 ```
+
+**v14 CRITICAL — `setFlag` does NOT trigger meshReset flags.**
+When `tile.document.setFlag(MODULE_ID, "someFlag", value)` fires `refreshTile`, the flags
+are `{refreshPosition: true, refreshPerception: true}` — meshReset will be **false**.
+Any code guarded by `if (meshReset)` will be skipped for custom-flag updates.
+
+**`mesh.scale.set()` is safe on every refresh** — it is an absolute assignment (not `*=`),
+so there is no accumulation risk. Remove the `isMeshReset` guard from `mesh.scale.set()`
+calls if you need them to respond to flag changes. Only guard `mesh.scale *= ...` patterns.
 
 **Token (undistorted)**:
 ```typescript
@@ -95,7 +116,7 @@ mesh.rotation = reverseRotation;       // lock rotation — v14 auto-rotates tok
 mesh.skew?.set(0, 0);
 mesh.anchor?.set(0.5, 0.5);           // required — HUD bounds derived from this
 if (meshReset) {
-  mesh.scale.x *= counterFactor;
+  mesh.scale.x *= counterFactor;       // *= pattern: must guard (accumulates)
   mesh.scale.y *= ratio * counterFactor;
 }
 // TODO: use docRotation here for 8-directional sprite selection
@@ -105,7 +126,8 @@ if (meshReset) {
 ```typescript
 mesh.rotation = (docRotationDeg * Math.PI / 180) + reverseRotation;
 mesh.skew?.set(0, 0);
-if (meshReset) {
+// No meshReset guard needed — scale.set() is absolute, safe every refresh:
+{
   const texW = mesh.texture?.width || 1;
   const texH = mesh.texture?.height || 1;
   const uniform = Math.max(docW, docH) / Math.max(texW, texH);
