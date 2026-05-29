@@ -130,10 +130,16 @@ mesh.skew?.set(0, 0);
 {
   const texW = mesh.texture?.width || 1;
   const texH = mesh.texture?.height || 1;
-  const uniform = Math.max(docW, docH) / Math.max(texW, texH);
+  // Include boundHeight in scale so tall volumes scale the image correctly
+  const uniform = Math.max(docW, docH, docBoundH) / Math.max(texW, texH);
   mesh.scale.set(uniform * counterFactor, uniform * ratio * counterFactor);
   // use .set(), not *= — tiles need uniform scale to preserve image aspect ratio
 }
+// Elevation displacement: move mesh so image follows the 3D box base
+const E = elevation * gridSize / gridDistance;
+mesh.x = (tile.document.x ?? 0) + hdx * E;
+mesh.y = (tile.document.y ?? 0) + hdy * E;
+// hdx/hdy from getProjection(scene).heightDir — for dimetric 2:1: {x:1, y:-1}
 ```
 
 ## TokenHUD / TileHUD Positioning
@@ -207,6 +213,36 @@ Other AppV2 gotchas:
 - `[data-tab="basics"]` matches both nav `<a>` and content `<section>` — always add element type
 - `name="flags.MODULE_ID.key"` on checkbox → Foundry auto-persists on form submit, no JS needed
 - Do NOT clone the submit button — Foundry's own button handles form save
+
+## Native Handle Suppression
+
+Foundry renders interactive handles on selected placeables via `tile.controls` (a PIXI Container).
+To suppress a specific handle (e.g. rotation triangle) in iso mode — place an invisible event-absorbing overlay on top:
+
+**Locating the rotation handle** (confirmed v14, ShapeControlsHandle with cursor=grab):
+```typescript
+type H = { children?: H[]; getGlobalPosition?: () => {x:number;y:number}; getBounds?: () => {x:number;y:number;width:number;height:number} };
+const handle = (tile as any).controls?.children?.[1]?.children?.[0] as H | undefined;
+```
+
+**Creating a blocker on your overlay layer** (layer is a direct child of canvas.stage):
+```typescript
+const gp  = handle.getGlobalPosition();       // screen coords
+const lp  = layer.toLocal(gp);                // canvas coords (layer has identity transform)
+const tw  = tile.document.width ?? 0;
+// Rotation handle origin is offset from visual center; correct by tw/2 in canvas space
+const corrected = { x: lp.x + tw / 2, y: lp.y };
+const bounds = handle.getBounds?.();
+const zoom = (canvas.stage as any)?.scale?.x ?? 1;
+const r = bounds ? Math.max(bounds.width, bounds.height) * 0.5 * 1.03 / zoom : 20;
+const g = new PIXI.Graphics();
+g.beginFill(0x000000, 0.001); g.drawCircle(0, 0, r); g.endFill();
+g.x = corrected.x; g.y = corrected.y;
+g.eventMode = "static"; g.cursor = "default";
+layer.addChild(g);
+```
+Key: **`layer.toLocal(globalPos)`** converts screen coords to canvas coords; `getBounds()` gives screen-space size → divide by zoom to get canvas-space radius.  
+The blocker must be in a layer added AFTER all Foundry layers (use `bringToTop()`) to intercept events.
 
 ## Depth Sort
 
