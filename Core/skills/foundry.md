@@ -110,6 +110,42 @@ Any code guarded by `if (meshReset)` will be skipped for custom-flag updates.
 so there is no accumulation risk. Remove the `isMeshReset` guard from `mesh.scale.set()`
 calls if you need them to respond to flag changes. Only guard `mesh.scale *= ...` patterns.
 
+**v14 CRITICAL — token animations fire `refreshMesh` every frame, NOT `refreshPosition`.**
+Foundry's hide/show animation (alpha lerp) and other non-movement animations call
+`_onAnimationUpdate` each tick, which sets `refreshMesh: true` but never `refreshPosition`.
+`_refreshMesh()` only updates anchor/alpha/tint — it does NOT reset `mesh.x/y`.
+If your hook overrides `mesh.x/y` and you capture the "natural base" on `refreshMesh`,
+you'll bake in your own offset and re-add it every animation frame → image drifts off screen.
+
+**Safe pattern for `mesh.x/y` override (token image offset):**
+```typescript
+// Only capture mesh.x/y as natural base when _refreshPosition() has run.
+// refreshPosition is set on movement, setFlag, and all structural resets (redraw,
+// refreshSize, refreshShape) — they all propagate through refreshPosition.
+// refreshMesh alone (animation frames) does NOT run _refreshPosition() — skip it.
+if (!flags || flags["refreshPosition"]) {
+  tokenBase.set(token, { x: mesh.x, y: mesh.y });
+}
+const base = tokenBase.get(token) ?? { x: mesh.x - imgOff.x, y: mesh.y - imgOff.y };
+// ... apply counter-transform ...
+mesh.x = base.x + imgOff.x;
+mesh.y = base.y + imgOff.y;
+```
+
+**What `_refreshMesh()` and `_refreshPosition()` actually do (from v14 source):**
+```typescript
+// _refreshMesh() — updates appearance only, never touches mesh.x/y:
+this._refreshMeshSizeAndScale();           // scale from doc size + texture.scaleX/Y
+this.mesh.anchor.set(anchorX, anchorY);   // from doc.texture.anchorX/Y (default 0.5/0.5)
+this.mesh.alpha = this.alpha * doc.alpha;
+this.mesh.tint = doc.texture.tint;
+
+// _refreshPosition() — sets mesh to current token position:
+this.position.set(doc.x, doc.y);          // token PIXI container
+this.mesh.position = this.center;          // mesh.x = center.x, mesh.y = center.y
+```
+`token.center` ≈ `{x: doc.x + docW/2, y: doc.y + docH/2}` — the canvas center of the token footprint.
+
 **Token (undistorted)**:
 ```typescript
 mesh.rotation = reverseRotation;       // lock rotation — v14 auto-rotates tokens on move
