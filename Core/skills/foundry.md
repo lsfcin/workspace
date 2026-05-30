@@ -52,6 +52,23 @@ const ty = (tile.document.y ?? 0) - th / 2;   // top-left y
 ```
 `tile.document.width/height` are in canvas pixels (not grid units).
 
+### Token document coords — DIFFERENT from tiles
+
+| Property | Tile | Token |
+|----------|------|-------|
+| `document.x/y` | CENTER of footprint (canvas px) | TOP-LEFT of footprint (canvas px) |
+| `document.width/height` | canvas pixels | **grid units** — multiply by `gridSize` for pixels |
+
+```typescript
+// Token canvas footprint:
+const gs = canvas.grid?.size ?? 100;
+const tw = (token.document.width  ?? 1) * gs;   // canvas pixels
+const th = (token.document.height ?? 1) * gs;
+const tx = token.document.x ?? 0;               // already top-left
+const ty = token.document.y ?? 0;
+// token.center ≈ { x: tx + tw/2, y: ty + th/2 }
+```
+
 ## Isometric Stage Transform (dimetric 2:1)
 
 ```typescript
@@ -117,19 +134,33 @@ Foundry's hide/show animation (alpha lerp) and other non-movement animations cal
 If your hook overrides `mesh.x/y` and you capture the "natural base" on `refreshMesh`,
 you'll bake in your own offset and re-add it every animation frame → image drifts off screen.
 
-**Safe pattern for `mesh.x/y` override (token image offset):**
+**`refreshPosition` flag — what actually sets it (confirmed from v14 source):**
+
+`Token._onUpdate` (foundry.mjs ~line 192979):
+```javascript
+refreshPosition: ("x" in changed) || ("y" in changed)
+```
+Only `x` or `y` in the update payload triggers `refreshPosition`. This means:
+- ✅ fires: movement (x/y update), movement animation frames (via `_onAnimationUpdate` with positionChanged=true)
+- ❌ does NOT fire: `setFlag()`, elevation changes (`update({ elevation })`), other doc property changes
+
+Consequence: **elevation changes update the document but do NOT reset `mesh.x/y`**. If you only apply offsets on `refreshPosition`, elevation drags silently break. Apply offsets on ALL refresh frames using the cached tokenBase.
+
+**Safe pattern for `mesh.x/y` override with elevation + image offset:**
 ```typescript
-// Only capture mesh.x/y as natural base when _refreshPosition() has run.
-// refreshPosition is set on movement, setFlag, and all structural resets (redraw,
-// refreshSize, refreshShape) — they all propagate through refreshPosition.
-// refreshMesh alone (animation frames) does NOT run _refreshPosition() — skip it.
+// Capture natural base only when _refreshPosition() ran (Foundry reset mesh.x to center).
+// On setFlag / elevation changes (no refreshPosition): mesh.x was NOT reset — reuse cached
+// base so we apply updated offset without accumulation.
+// On refreshMesh-only (hide/show animation): also reuse base — _refreshMesh() never touches mesh.x/y.
 if (!flags || flags["refreshPosition"]) {
   tokenBase.set(token, { x: mesh.x, y: mesh.y });
 }
-const base = tokenBase.get(token) ?? { x: mesh.x - imgOff.x, y: mesh.y - imgOff.y };
-// ... apply counter-transform ...
-mesh.x = base.x + imgOff.x;
-mesh.y = base.y + imgOff.y;
+const base = tokenBase.get(token) ?? { x: mesh.x, y: mesh.y };
+// Read elevation + offset fresh every frame so any document change is reflected immediately:
+const E      = elevation * gridSize / gridDist;
+const imgOff = VolumeFlags.getImageOffset(token.document);
+mesh.x = base.x + hdx * E + imgOff.x;
+mesh.y = base.y + hdy * E + imgOff.y;
 ```
 
 **What `_refreshMesh()` and `_refreshPosition()` actually do (from v14 source):**
@@ -145,6 +176,24 @@ this.position.set(doc.x, doc.y);          // token PIXI container
 this.mesh.position = this.center;          // mesh.x = center.x, mesh.y = center.y
 ```
 `token.center` ≈ `{x: doc.x + docW/2, y: doc.y + docH/2}` — the canvas center of the token footprint.
+
+**PIXI mutation guards — prevent dirty-signal feedback loops:**
+
+Setting PIXI properties (`mesh.scale`, `mesh.rotation`, `mesh.anchor`) unconditionally on every `refreshToken` generates PIXI internal dirty signals that can cascade into additional render-flag processing each frame. Guard before mutating:
+```typescript
+const EPS = 1e-6;
+if (Math.abs(mesh.rotation - reverseRotation) > EPS) mesh.rotation = reverseRotation;
+if (mesh.skew && (mesh.skew.x !== 0 || mesh.skew.y !== 0)) mesh.skew.set(0, 0);
+if (mesh.anchor && (Math.abs(mesh.anchor.x - 0.5) > EPS || Math.abs(mesh.anchor.y - 0.5) > EPS)) {
+  mesh.anchor.set(0.5, 0.5);
+}
+const targetSX = uniform * counterFactor, targetSY = uniform * ratio * counterFactor;
+if (Math.abs(mesh.scale.x - targetSX) > EPS || Math.abs(mesh.scale.y - targetSY) > EPS) {
+  mesh.scale.set(targetSX, targetSY);
+}
+// For flipped tiles (scale.x < 0): compare magnitude when guarding scale.
+```
+After initial setup, subsequent refresh calls find values already correct and skip → no dirty signal.
 
 **Token (undistorted)**:
 ```typescript
