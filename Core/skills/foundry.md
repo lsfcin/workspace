@@ -259,6 +259,7 @@ $html.css({ left: `${L}px`, top: `${T}px`, transform: "translate(-50%, -50%)" })
 | `renderTileConfig(app, html)` | TileConfig sheet renders | — |
 | `renderTokenHUD(hud, html)` | Token right-click HUD opens | `hud.object` = Token |
 | `renderTileHUD(hud, html)` | Tile right-click HUD opens | `hud.object` = Tile |
+| `renderGridConfig(app, html)` | Grid Configuration Tool opens | fires after `#createPreview()` completes |
 
 Key patterns:
 - `Hooks.once("init", ...)` — register settings and hook listeners; fires once per session
@@ -298,6 +299,69 @@ Other AppV2 gotchas:
 - `[data-tab="basics"]` matches both nav `<a>` and content `<section>` — always add element type
 - `name="flags.MODULE_ID.key"` on checkbox → Foundry auto-persists on form submit, no JS needed
 - Do NOT clone the submit button — Foundry's own button handles form save
+
+### AppV2 stale `tabGroups` bug
+
+When you `stopPropagation` on your custom tab click (to prevent AppV2 calling `changeTab`), AppV2 never updates `tabGroups[group]`. Next time the user clicks a **native** tab, `changeTab()` compares `tabGroups[group] === clickedTab` — if the group was already on that tab before you stole focus, it returns early without activating the content `<div>`.
+
+Fix: in the "other tab clicked" handler, **explicitly add the `active` class** to the clicked tab's content section:
+```typescript
+$nav.on("click", `a[data-tab]:not([data-tab="${TAB}"])`, (e) => {
+  $html.find(`.tab[data-tab="${TAB}"], a[data-tab="${TAB}"]`).removeClass("active");
+  // Re-activate clicked section in case changeTab() returned early due to stale tabGroups
+  const clickedTab = (e.currentTarget as HTMLElement).dataset.tab;
+  if (clickedTab) $html.find(`.tab[data-tab="${clickedTab}"]`).addClass("active");
+});
+```
+
+## GridConfig Preview Tool
+
+`GridConfig` (Scene Config → Basics → grid wrench) adds a preview overlay via `#createPreview()` directly on `canvas.stage`. Hook: `renderGridConfig` fires after `_onRender` completes (AppV2 async `_doEvent`).
+
+**Preview container structure** (find by searching stage children in reverse for last plain `PIXI.Container`):
+```typescript
+// children[0] = black fill (screen-space, always correct)
+// children[1] = background Sprite  ← position/scale reset by #refreshPreview on every form change
+// children[2] = grid mesh          ← inherits stage transform (keep isometric)
+for (let i = stage.children.length - 1; i >= 0; i--) {
+  const c = stage.children[i];
+  if (c instanceof PIXI.Container && c.constructor === PIXI.Container) { previewContainer = c; break; }
+}
+```
+
+`#refreshPreview()` resets on every form change: `bg.position.set(sceneX, sceneY)`, `bg.width = sceneWidth` (sets `scale.x = sceneWidth / texture.width`).
+
+### Counter-transform pattern (updateTransform override)
+
+Override the bg sprite's `updateTransform` with **save→apply→origUpdate→restore** so `#refreshPreview`'s per-change resets are picked up cleanly each frame with no accumulation. Do NOT transform the container — the grid mesh must inherit the stage isometric transform, and camera position stays stable.
+
+```typescript
+const origUpdate = bg.updateTransform.bind(bg);
+(bg as any).updateTransform = function(this: PIXI.Sprite) {
+  const x = this.x, y = this.y, sx = this.scale.x, sy = this.scale.y;
+  const rot = this.rotation;
+  const ax = this.anchor.x, ay = this.anchor.y;
+  const skx = this.skew.x, sky = this.skew.y;
+  const tw = this.texture?.width ?? 1, th = this.texture?.height ?? 1;
+  // apply counter-transform
+  this.anchor.set(0, 0);  // position = texture top-left; center via R·S matrix below
+  this.rotation = proj.reverseRotation;
+  this.skew.set(proj.reverseSkewX, proj.reverseSkewY);
+  this.scale.set(sx * proj.counterFactor, sx * proj.ratio * proj.counterFactor);
+  // center image on grid: scene center + R·S·(-tw/2,-th/2) converts texture half-size to canvas space
+  // skew=0 for all presets: R·S(vx,vy) = (cos·scX·vx − sin·scY·vy, sin·scX·vx + cos·scY·vy)
+  const cosR = Math.cos(proj.reverseRotation), sinR = Math.sin(proj.reverseRotation);
+  const scX = sx * proj.counterFactor, scY = sx * proj.ratio * proj.counterFactor;
+  this.position.set(
+    x + sx * tw * 0.5 + cosR * scX * (-tw * 0.5) - sinR * scY * (-th * 0.5),
+    y + sy * th * 0.5 + sinR * scX * (-tw * 0.5) + cosR * scY * (-th * 0.5),
+  );
+  origUpdate.call(this);
+  // restore so next frame starts clean
+  this.anchor.set(ax, ay); this.rotation = rot; this.skew.set(skx, sky);
+  this.scale.set(sx, sy); this.position.set(x, y);
+};
+```
 
 ## Native Handle Suppression
 
