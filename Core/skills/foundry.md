@@ -134,12 +134,8 @@ Foundry's hide/show animation (alpha lerp) and other non-movement animations cal
 If your hook overrides `mesh.x/y` and you capture the "natural base" on `refreshMesh`,
 you'll bake in your own offset and re-add it every animation frame → image drifts off screen.
 
-**`refreshPosition` flag — what actually sets it (confirmed from v14 source):**
+**`refreshPosition` flag — what actually sets it:**
 
-`Token._onUpdate` (foundry.mjs ~line 192979):
-```javascript
-refreshPosition: ("x" in changed) || ("y" in changed)
-```
 Only `x` or `y` in the update payload triggers `refreshPosition`. This means:
 - ✅ fires: movement (x/y update), movement animation frames (via `_onAnimationUpdate` with positionChanged=true)
 - ❌ does NOT fire: `setFlag()`, elevation changes (`update({ elevation })`), other doc property changes
@@ -163,19 +159,7 @@ mesh.x = base.x + hdx * E + imgOff.x;
 mesh.y = base.y + hdy * E + imgOff.y;
 ```
 
-**What `_refreshMesh()` and `_refreshPosition()` actually do (from v14 source):**
-```typescript
-// _refreshMesh() — updates appearance only, never touches mesh.x/y:
-this._refreshMeshSizeAndScale();           // scale from doc size + texture.scaleX/Y
-this.mesh.anchor.set(anchorX, anchorY);   // from doc.texture.anchorX/Y (default 0.5/0.5)
-this.mesh.alpha = this.alpha * doc.alpha;
-this.mesh.tint = doc.texture.tint;
-
-// _refreshPosition() — sets mesh to current token position:
-this.position.set(doc.x, doc.y);          // token PIXI container
-this.mesh.position = this.center;          // mesh.x = center.x, mesh.y = center.y
-```
-`token.center` ≈ `{x: doc.x + docW/2, y: doc.y + docH/2}` — the canvas center of the token footprint.
+`token.center` ≈ `{x: doc.x + docW/2, y: doc.y + docH/2}` — canvas center of the token footprint.
 
 **PIXI mutation guards — prevent dirty-signal feedback loops:**
 
@@ -200,11 +184,9 @@ After initial setup, subsequent refresh calls find values already correct and sk
 mesh.rotation = reverseRotation;       // lock rotation — v14 auto-rotates tokens on move
 mesh.skew?.set(0, 0);
 mesh.anchor?.set(0.5, 0.5);           // required — HUD bounds derived from this
-if (meshReset) {
-  mesh.scale.x *= counterFactor;       // *= pattern: must guard (accumulates)
-  mesh.scale.y *= ratio * counterFactor;
-}
-// TODO: use docRotation here for 8-directional sprite selection
+// scale.set() is absolute/safe every refresh — no meshReset guard needed
+const uniform = (token.document.width ?? 1) * gs / (mesh.texture?.width || 1);
+mesh.scale.set(uniform * counterFactor, uniform * ratio * counterFactor);
 ```
 
 **Tile (undistorted, preserves aspect ratio)**:
@@ -400,10 +382,6 @@ Correct: use `PrimaryCanvasGroup` API, assign `zIndex` on objects or add custom 
 
 ## Reference Locations
 
-- Fork with working patterns: `github.com/lsfcin/isometric-perspective`
-  - `scripts/transform.js` — tile/token counter-transforms and uniform scale
-  - `scripts/hud.js` — HUD repositioning math
-  - `scripts/consts.js` — HudAngle per projection (dimetric 2:1 → 26.57°)
 - Foundry v14 source (while server running):
   `/proc/$(pgrep -f 'foundry.*main')/cwd/resources/app/public/scripts/foundry.mjs`
   - `BasePlaceableHUD._updatePosition` — how HUD CSS left/top are set from token bounds
