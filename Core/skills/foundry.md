@@ -1,8 +1,8 @@
-Foundry VTT v14 module development reference. Load this before any Foundry module work.
+Foundry VTT v14 module dev reference. Load before any Foundry module work.
 
 Arguments: $ARGUMENTS
 
-If arguments name a topic (e.g. "hud", "tabs", "transform", "hierarchy", "hooks"), jump to that section. Otherwise print the full reference.
+If arguments name topic (e.g. "hud", "tabs", "transform", "hierarchy", "hooks"), jump to that section. Else print full reference.
 
 ---
 
@@ -28,29 +28,47 @@ PIXI.Application (canvas.app)
         └── #hud div                       (canvas.hud.element)
 ```
 
-Key rule: **`canvas.environment.primary.background` is the rendered bg sprite in v14.**
+Key rule: **`canvas.environment.primary.background` = rendered bg sprite in v14.**
 `canvas.primary.background` exists but transforming it has no visual effect.
 
 ## Coordinate Systems
 
 - **Canvas coords** — scene pixel space, origin = scene top-left (includes padding). `token.document.x/y` / `tile.document.x/y`.
 - **Stage local space** = canvas coords. Stage transform maps canvas → screen.
-- **PIXI global / screen coords** — `stage.worldTransform.apply({x,y})` = where a canvas point appears in screen pixels.
+- **PIXI global / screen coords** — `stage.worldTransform.apply({x,y})` = where canvas point appears in screen pixels.
 - **`canvas.clientCoordinatesFromCanvas(pt)`** — calls `stage.worldTransform.apply(pt)`. Includes full matrix (rotation + skew + zoom + pan).
 - **`#hud` CSS space** — canvas-unit coords (no rotation). Formula: `L = (m.a*cx + m.c*cy) / zoom`.
 
+### `canvas.dimensions` vs scene flags for scene-space positioning
+
+`scene.width/height/padding` are static document values — do NOT update when Scene Offset changes. Use `canvas.dimensions` for dynamic scene content bounds:
+
+| Need | Wrong | Right |
+|------|-------|-------|
+| Scene content center | `scene.width/2 + scene.width*scene.padding` | `dims.sceneX + dims.sceneWidth/2` |
+| Scene content top-left | compute from scene flags | `dims.sceneX`, `dims.sceneY` |
+| Scene content size | `scene.width`, `scene.height` | `dims.sceneWidth`, `dims.sceneHeight` |
+
+```typescript
+const dims = canvas.dimensions as unknown as { sceneX: number; sceneY: number; sceneWidth: number; sceneHeight: number };
+const cx = dims.sceneX + dims.sceneWidth / 2;   // tracks scene offset
+const cy = dims.sceneY + dims.sceneHeight / 2;
+```
+
+Scene offset (GridConfig "Scene Offset" field) reflected in `dims.sceneX/Y`, never in scene flags.
+
 ### v14 CRITICAL: `tile.x/y` ≠ canvas position; `document.x/y` = CENTER
 
-In Foundry v14, `Tile` (and `PlaceableObject` subclasses) park their PIXI container at `(0, 0)`. The actual canvas-space position is in the **document**: `tile.document.x`, `tile.document.y`. Using `tile.x` / `tile.y` returns 0 — **wrong**.
+In Foundry v14, `Tile` (and `PlaceableObject` subclasses) park PIXI container at `(0, 0)`. Actual canvas-space position is in **document**: `tile.document.x`, `tile.document.y`. `tile.x`/`tile.y` returns 0 — **wrong**.
 
-Additionally, `tile.document.x/y` is the **CENTER** of the tile (not top-left corner). To get the top-left:
+`tile.document.x/y` = **CENTER** of tile (not top-left). Top-left:
 ```typescript
 const tw = tile.document.width ?? 0;
 const th = tile.document.height ?? 0;
 const tx = (tile.document.x ?? 0) - tw / 2;   // top-left x
 const ty = (tile.document.y ?? 0) - th / 2;   // top-left y
 ```
-`tile.document.width/height` are in canvas pixels (not grid units).
+`tile.document.width/height` in canvas pixels (not grid units).
 
 ### Token document coords — DIFFERENT from tiles
 
@@ -92,8 +110,8 @@ Counter-transform constants (dimetric 2:1):
 
 ## Background Counter-Transform
 
-Foundry pre-scales the bg sprite to fill the canvas (`PrimarySpriteMesh` scale ≠ 1).
-Capture the original scale at `canvasReady` and multiply — do NOT hardcode `scale(1, ratio)` (→ ~1/4 size).
+Foundry pre-scales bg sprite to fill canvas (`PrimarySpriteMesh` scale ≠ 1).
+Capture original scale at `canvasReady`, multiply — do NOT hardcode `scale(1, ratio)` (→ ~1/4 size).
 
 ```typescript
 // canvasReady: capture original
@@ -119,28 +137,26 @@ const meshReset = !flags || flags["refreshMesh"] || flags["refreshSize"]
 ```
 
 **v14 CRITICAL — `setFlag` does NOT trigger meshReset flags.**
-When `tile.document.setFlag(MODULE_ID, "someFlag", value)` fires `refreshTile`, the flags
-are `{refreshPosition: true, refreshPerception: true}` — meshReset will be **false**.
-Any code guarded by `if (meshReset)` will be skipped for custom-flag updates.
+`tile.document.setFlag(MODULE_ID, "someFlag", value)` fires `refreshTile` with flags
+`{refreshPosition: true, refreshPerception: true}` — meshReset = **false**.
+Code guarded by `if (meshReset)` skipped for custom-flag updates.
 
-**`mesh.scale.set()` is safe on every refresh** — it is an absolute assignment (not `*=`),
-so there is no accumulation risk. Remove the `isMeshReset` guard from `mesh.scale.set()`
-calls if you need them to respond to flag changes. Only guard `mesh.scale *= ...` patterns.
+**`mesh.scale.set()` safe on every refresh** — absolute assignment (not `*=`), no accumulation risk. Remove `isMeshReset` guard from `mesh.scale.set()` calls if they need to respond to flag changes. Only guard `mesh.scale *= ...` patterns.
 
 **v14 CRITICAL — token animations fire `refreshMesh` every frame, NOT `refreshPosition`.**
 Foundry's hide/show animation (alpha lerp) and other non-movement animations call
-`_onAnimationUpdate` each tick, which sets `refreshMesh: true` but never `refreshPosition`.
-`_refreshMesh()` only updates anchor/alpha/tint — it does NOT reset `mesh.x/y`.
-If your hook overrides `mesh.x/y` and you capture the "natural base" on `refreshMesh`,
-you'll bake in your own offset and re-add it every animation frame → image drifts off screen.
+`_onAnimationUpdate` each tick: sets `refreshMesh: true`, never `refreshPosition`.
+`_refreshMesh()` updates only anchor/alpha/tint — does NOT reset `mesh.x/y`.
+If hook overrides `mesh.x/y` and captures "natural base" on `refreshMesh`,
+offset bakes in and re-adds every animation frame → image drifts off screen.
 
 **`refreshPosition` flag — what actually sets it:**
 
-Only `x` or `y` in the update payload triggers `refreshPosition`. This means:
+Only `x` or `y` in update payload triggers `refreshPosition`:
 - ✅ fires: movement (x/y update), movement animation frames (via `_onAnimationUpdate` with positionChanged=true)
 - ❌ does NOT fire: `setFlag()`, elevation changes (`update({ elevation })`), other doc property changes
 
-Consequence: **elevation changes update the document but do NOT reset `mesh.x/y`**. If you only apply offsets on `refreshPosition`, elevation drags silently break. Apply offsets on ALL refresh frames using the cached tokenBase.
+Consequence: **elevation changes update document but do NOT reset `mesh.x/y`**. Offsets only on `refreshPosition` → elevation drags silently break. Apply offsets on ALL refresh frames using cached tokenBase.
 
 **Safe pattern for `mesh.x/y` override with elevation + image offset:**
 ```typescript
@@ -159,11 +175,11 @@ mesh.x = base.x + hdx * E + imgOff.x;
 mesh.y = base.y + hdy * E + imgOff.y;
 ```
 
-`token.center` ≈ `{x: doc.x + docW/2, y: doc.y + docH/2}` — canvas center of the token footprint.
+`token.center` ≈ `{x: doc.x + docW/2, y: doc.y + docH/2}` — canvas center of token footprint.
 
 **PIXI mutation guards — prevent dirty-signal feedback loops:**
 
-Setting PIXI properties (`mesh.scale`, `mesh.rotation`, `mesh.anchor`) unconditionally on every `refreshToken` generates PIXI internal dirty signals that can cascade into additional render-flag processing each frame. Guard before mutating:
+Setting PIXI props (`mesh.scale`, `mesh.rotation`, `mesh.anchor`) unconditionally on every `refreshToken` generates PIXI dirty signals → additional render-flag processing each frame. Guard before mutating:
 ```typescript
 const EPS = 1e-6;
 if (Math.abs(mesh.rotation - reverseRotation) > EPS) mesh.rotation = reverseRotation;
@@ -177,7 +193,7 @@ if (Math.abs(mesh.scale.x - targetSX) > EPS || Math.abs(mesh.scale.y - targetSY)
 }
 // For flipped tiles (scale.x < 0): compare magnitude when guarding scale.
 ```
-After initial setup, subsequent refresh calls find values already correct and skip → no dirty signal.
+After initial setup, subsequent refresh calls find values correct and skip → no dirty signal.
 
 **Token (undistorted)**:
 ```typescript
@@ -213,7 +229,7 @@ mesh.y = (tile.document.y ?? 0) + hdy * E;
 
 `HeadsUpDisplayContainer.align()` sets `#hud` CSS: `left = canvas.primary.getGlobalPosition().x`, `top = .y`, `transform = scale(zoom)`. **No rotation.**
 
-CSS `left/top` within `#hud` are in canvas-unit space. Foundry default `_updatePosition` uses raw `token.bounds.x/y` — correct without rotation because container applies matching scale+translate.
+CSS `left/top` within `#hud` in canvas-unit space. Foundry default `_updatePosition` uses raw `token.bounds.x/y` — correct without rotation; container applies matching scale+translate.
 
 With isometric rotation — correct formula (tx/ty and zoom cancel out):
 ```typescript
@@ -246,7 +262,7 @@ $html.css({ left: `${L}px`, top: `${T}px`, transform: "translate(-50%, -50%)" })
 Key patterns:
 - `Hooks.once("init", ...)` — register settings and hook listeners; fires once per session
 - `Hooks.on("updateScene", (scene, changes) => { if (scene.id !== canvas.scene?.id) return; ... })` — always guard for current scene
-- Render hooks for AppV2 sheets fire after DOM is built; html is already in document
+- Render hooks for AppV2 sheets fire after DOM built; html already in document
 
 ## AppV2 Tab Injection
 
@@ -280,13 +296,13 @@ Other AppV2 gotchas:
 - `html` in `renderSceneConfig` **IS the `<form>`** — `$html.find("form")` returns 0
 - `[data-tab="basics"]` matches both nav `<a>` and content `<section>` — always add element type
 - `name="flags.MODULE_ID.key"` on checkbox → Foundry auto-persists on form submit, no JS needed
-- Do NOT clone the submit button — Foundry's own button handles form save
+- Do NOT clone submit button — Foundry's own button handles form save
 
 ### AppV2 stale `tabGroups` bug
 
-When you `stopPropagation` on your custom tab click (to prevent AppV2 calling `changeTab`), AppV2 never updates `tabGroups[group]`. Next time the user clicks a **native** tab, `changeTab()` compares `tabGroups[group] === clickedTab` — if the group was already on that tab before you stole focus, it returns early without activating the content `<div>`.
+When `stopPropagation` on custom tab click (prevents AppV2 calling `changeTab`), AppV2 never updates `tabGroups[group]`. Next native tab click: `changeTab()` compares `tabGroups[group] === clickedTab` — if group was already on that tab, returns early without activating content `<div>`.
 
-Fix: in the "other tab clicked" handler, **explicitly add the `active` class** to the clicked tab's content section:
+Fix: in "other tab clicked" handler, **explicitly add `active` class** to clicked tab's content section:
 ```typescript
 $nav.on("click", `a[data-tab]:not([data-tab="${TAB}"])`, (e) => {
   $html.find(`.tab[data-tab="${TAB}"], a[data-tab="${TAB}"]`).removeClass("active");
@@ -298,7 +314,7 @@ $nav.on("click", `a[data-tab]:not([data-tab="${TAB}"])`, (e) => {
 
 ## GridConfig Preview Tool
 
-`GridConfig` (Scene Config → Basics → grid wrench) adds a preview overlay via `#createPreview()` directly on `canvas.stage`. Hook: `renderGridConfig` fires after `_onRender` completes (AppV2 async `_doEvent`).
+`GridConfig` (Scene Config → Basics → grid wrench) adds preview overlay via `#createPreview()` directly on `canvas.stage`. Hook: `renderGridConfig` fires after `_onRender` completes (AppV2 async `_doEvent`).
 
 **Preview container structure** (find by searching stage children in reverse for last plain `PIXI.Container`):
 ```typescript
@@ -315,7 +331,7 @@ for (let i = stage.children.length - 1; i >= 0; i--) {
 
 ### Counter-transform pattern (updateTransform override)
 
-Override the bg sprite's `updateTransform` with **save→apply→origUpdate→restore** so `#refreshPreview`'s per-change resets are picked up cleanly each frame with no accumulation. Do NOT transform the container — the grid mesh must inherit the stage isometric transform, and camera position stays stable.
+Override bg sprite's `updateTransform` with **save→apply→origUpdate→restore** so `#refreshPreview` per-change resets picked up cleanly each frame, no accumulation. Do NOT transform container — grid mesh must inherit stage isometric transform, camera position stays stable.
 
 ```typescript
 const origUpdate = bg.updateTransform.bind(bg);
@@ -347,8 +363,8 @@ const origUpdate = bg.updateTransform.bind(bg);
 
 ## Native Handle Suppression
 
-Foundry renders interactive handles on selected placeables via `tile.controls` (a PIXI Container).
-To suppress a specific handle (e.g. rotation triangle) in iso mode — place an invisible event-absorbing overlay on top:
+Foundry renders interactive handles on selected placeables via `tile.controls` (PIXI Container).
+Suppress specific handle (e.g. rotation triangle) in iso mode — place invisible event-absorbing overlay on top:
 
 **Locating the rotation handle** (confirmed v14, ShapeControlsHandle with cursor=grab):
 ```typescript
@@ -372,13 +388,13 @@ g.x = corrected.x; g.y = corrected.y;
 g.eventMode = "static"; g.cursor = "default";
 layer.addChild(g);
 ```
-Key: **`layer.toLocal(globalPos)`** converts screen coords to canvas coords; `getBounds()` gives screen-space size → divide by zoom to get canvas-space radius.  
-The blocker must be in a layer added AFTER all Foundry layers (use `bringToTop()`) to intercept events.
+Key: **`layer.toLocal(globalPos)`** converts screen → canvas coords; `getBounds()` gives screen-space size → divide by zoom for canvas-space radius.
+Blocker must be in layer added AFTER all Foundry layers (use `bringToTop()`) to intercept events.
 
 ## Depth Sort
 
-`canvas.primary.children.sort()` corrupts Foundry's internal z-order.
-Correct: use `PrimaryCanvasGroup` API, assign `zIndex` on objects or add custom foreground container.
+`canvas.primary.children.sort()` corrupts Foundry internal z-order.
+Use `PrimaryCanvasGroup` API, assign `zIndex` on objects or add custom foreground container.
 
 ## Reference Locations
 
