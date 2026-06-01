@@ -225,7 +225,7 @@ mesh.y = (tile.document.y ?? 0) + hdy * E;
 // hdx/hdy from getProjection(scene).heightDir — for dimetric 2:1: {x:1, y:-1}
 ```
 
-## TokenHUD / TileHUD Positioning
+## TokenHUD / TileHUD / Ruler Label Positioning
 
 `HeadsUpDisplayContainer.align()` sets `#hud` CSS: `left = canvas.primary.getGlobalPosition().x`, `top = .y`, `transform = scale(zoom)`. **No rotation.**
 
@@ -233,14 +233,37 @@ CSS `left/top` within `#hud` in canvas-unit space. Foundry default `_updatePosit
 
 With isometric rotation — correct formula (tx/ty and zoom cancel out):
 ```typescript
-// Hook: Hooks.on("renderTokenHUD", (hud, html) => { ... })
-// Use requestAnimationFrame so Foundry positions first, then override:
 const m = canvas.app.stage.worldTransform;
 const zoom = canvas.stage.scale.x;
-const { x: cx, y: cy } = token.center;
-const L = (m.a * cx + m.c * cy) / zoom;   // = cos(26.565°) * (cx + cy)
-const T = (m.b * cx + m.d * cy) / zoom;   // b is negative → = sin(26.565°) * (cy - cx)
+const L = (m.a * cx + m.c * cy) / zoom;
+const T = (m.b * cx + m.d * cy) / zoom;
+```
+
+**TokenHUD/TileHUD** — hook `renderTokenHUD`/`renderTileHUD`, use `requestAnimationFrame` so Foundry positions first:
+```typescript
 $html.css({ left: `${L}px`, top: `${T}px`, transform: "translate(-50%, -50%)" });
+```
+
+**Ruler waypoint labels** — same bug, different entry point. Both `Ruler` and `TokenRuler` compute `context.position = {x: canvasX, y: canvasY}` in `_getWaypointLabelContext`, then write to `#hud #measurement` as CSS `--position-x`/`--position-y`. Patch both prototypes at `init`:
+```typescript
+// TokenRuler is NOT a global — access via CONFIG.Token.rulerClass
+// Ruler IS a global — globalThis.Ruler
+const rulerProto      = (globalThis as any).Ruler?.prototype;
+const tokenRulerProto = (CONFIG as any).Token?.rulerClass?.prototype;
+
+function patch(proto) {
+  const orig = proto._getWaypointLabelContext;
+  proto._getWaypointLabelContext = function(...args) {
+    const ctx = orig.apply(this, args);
+    if (!ctx || !isIsoScene()) return ctx;
+    const { x, y } = ctx.position;
+    const m = canvas.app.stage.worldTransform;
+    const zoom = canvas.stage.scale?.x ?? 1;
+    ctx.position = { x: (m.a*x + m.c*y)/zoom, y: (m.b*x + m.d*y)/zoom };
+    return ctx;
+  };
+}
+patch(rulerProto); patch(tokenRulerProto);
 ```
 
 ## Hooks Reference
@@ -258,6 +281,8 @@ $html.css({ left: `${L}px`, top: `${T}px`, transform: "translate(-50%, -50%)" })
 | `renderTokenHUD(hud, html)` | Token right-click HUD opens | `hud.object` = Token |
 | `renderTileHUD(hud, html)` | Tile right-click HUD opens | `hud.object` = Tile |
 | `renderGridConfig(app, html)` | Grid Configuration Tool opens | fires after `#createPreview()` completes |
+| `preUpdateScene(scene, changes)` | Before scene document update | `scene` = pre-update state; `changes.grid?.size` = new grid size if changing |
+| `updateScene(scene, changes)` | After scene document update | `scene` = updated state; use with `preUpdateScene` to get both old and new values |
 
 Key patterns:
 - `Hooks.once("init", ...)` — register settings and hook listeners; fires once per session
@@ -390,6 +415,37 @@ layer.addChild(g);
 ```
 Key: **`layer.toLocal(globalPos)`** converts screen → canvas coords; `getBounds()` gives screen-space size → divide by zoom for canvas-space radius.
 Blocker must be in layer added AFTER all Foundry layers (use `bringToTop()`) to intercept events.
+
+## Detecting gridSize Changes
+
+`preUpdateScene` fires before the update — `scene.grid.size` = old value, `changes.grid?.size` = new value. Capture ratio there; apply in `updateScene`. Only GM should write embedded document updates.
+
+```typescript
+let pendingRescale: { sceneId: string; ratio: number } | null = null;
+
+Hooks.on("preUpdateScene", (scene, changes) => {
+  if (!changes.grid?.size) return;
+  const ratio = changes.grid.size / scene.grid.size;
+  if (ratio === 1) return;
+  pendingRescale = { sceneId: scene.id, ratio };
+});
+
+Hooks.on("updateScene", (scene) => {
+  const p = pendingRescale;
+  pendingRescale = null;
+  if (!p || p.sceneId !== scene.id) return;
+  if (scene.id !== canvas.scene?.id || !game.user?.isGM) return;
+  const tiles = canvas.tiles?.placeables ?? [];
+  const updates = tiles
+    .filter(t => shouldRescale(t))
+    .map(t => ({ _id: t.id, x: t.document.x * p.ratio, y: t.document.y * p.ratio,
+                  width: t.document.width * p.ratio, height: t.document.height * p.ratio }));
+  if (updates.length) void canvas.scene!.updateEmbeddedDocuments("Tile", updates);
+});
+```
+
+`boundH` (grid units) and `elevation` (feet) are already scale-invariant — don't touch them.
+Tile `x/y/width/height` are canvas px — multiply by ratio to keep grid-unit footprint constant.
 
 ## Depth Sort
 
