@@ -239,10 +239,32 @@ const L = (m.a * cx + m.c * cy) / zoom;
 const T = (m.b * cx + m.d * cy) / zoom;
 ```
 
-**TokenHUD/TileHUD** — hook `renderTokenHUD`/`renderTileHUD`, use `requestAnimationFrame` so Foundry positions first:
+**TokenHUD** — hook `renderTokenHUD`, use `requestAnimationFrame` so Foundry positions first:
 ```typescript
 $html.css({ left: `${L}px`, top: `${T}px`, transform: "translate(-50%, -50%)" });
 ```
+
+**TileHUD — patch `_updatePosition` instead of hooking `renderTileHUD`.**
+Foundry calls `_updatePosition` on every tile document change (e.g. resize, flag update) without re-firing the hook. Patching it handles all cases with zero rAF timing issues.
+Access via `CONFIG.Tile.hudClass.prototype`. The `position` object passed in has `left/top/width/height/scale`.
+
+Critical: AppV2 elements use **`transform-origin: top-left`** → `visual_left = CSS_left` (no centering correction). Scale(s) shrinks from top-left corner, not center.
+
+For isometric TileHUD positioned at tile visual footprint:
+```typescript
+const s = canvas.dimensions.uiScale;
+const docW = tile.document.width ?? 0, docH = tile.document.height ?? 0;
+const cosA = m.a / zoom, cosC = m.c / zoom;        // ≈ 0.895 for dimetric 2:1
+const sinB = Math.abs(m.b / zoom);                  // ≈ 0.447 = cosA/2
+const visualCssW = cosA * docW + cosC * docH;       // tile visual screen width in CSS px
+// Left/top of tile visual footprint (top-left origin: CSS pos = visual pos)
+pos.left  = L - visualCssW / 2;
+pos.top   = T - sinB * (docW + docH) / 2;           // = T - visualCssW/4
+pos.width = visualCssW / s;                         // CSS width → scale(s) → visualCssW rendered
+pos.height = 0;  // 0 → el.style.height = "" (auto) — avoids docH dependency
+```
+
+`pos.top = T - sinB*(docW+docH)/2` is swap-stable: `docW+docH` is constant when dimensions swap.
 
 **Ruler waypoint labels** — same bug, different entry point. Both `Ruler` and `TokenRuler` compute `context.position = {x: canvasX, y: canvasY}` in `_getWaypointLabelContext`, then write to `#hud #measurement` as CSS `--position-x`/`--position-y`. Patch both prototypes at `init`:
 ```typescript
