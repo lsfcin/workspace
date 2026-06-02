@@ -16,7 +16,8 @@ Foundry VTT v14 — hooks reference table, key patterns, gridSize detection.
 | `renderTileConfig(app, html)` | TileConfig sheet renders | — |
 | `renderTokenHUD(hud, html)` | Token right-click HUD opens | `hud.object` = Token |
 | `renderTileHUD(hud, html)` | Tile right-click HUD opens | `hud.object` = Tile |
-| `renderGridConfig(app, html)` | Grid Configuration Tool opens | fires after `#createPreview()` completes |
+| `renderGridConfig(app, html)` | Grid Configuration Tool opens or form part re-renders | fires after `#createPreview()` completes; also fires on Reset Changes (form re-render only, preview container persists) |
+| `closeGridConfig(app, html)` | Grid Configuration Tool closes | fires in `_onClose`; preview container already destroyed |
 | `preUpdateScene(scene, changes)` | Before scene document update | `scene` = pre-update state; `changes.grid?.size` = new grid size if changing |
 | `updateScene(scene, changes)` | After scene document update | `scene` = updated state; use with `preUpdateScene` to get both old and new values |
 

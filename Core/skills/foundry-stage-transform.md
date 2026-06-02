@@ -42,9 +42,11 @@ bg.position.set(scene.width / 2 + paddingX, scene.height / 2 + paddingY);
 
 ## GridConfig Preview Tool
 
-`GridConfig` (Scene Config → Basics → grid wrench) adds preview overlay via `#createPreview()` directly on `canvas.stage`. Hook: `renderGridConfig` fires after `_onRender` completes (AppV2 async `_doEvent`).
+`GridConfig` (Scene Config → Basics → grid wrench) adds preview overlay via `#createPreview()` directly on `canvas.stage`. Hook: `renderGridConfig` fires after `_onRender` completes (AppV2 async `_doEvent`). Hook `closeGridConfig` fires in `_onClose`.
 
 **Preview container structure** (find by searching stage children in reverse for last plain `PIXI.Container`):
+
+> **CRITICAL**: search for the preview container BEFORE adding any overlay PIXI.Container layer of your own — your layer would be found first (also a plain `PIXI.Container`). Cache the reference at `renderGridConfig` time; reuse on subsequent calls.
 ```typescript
 // children[0] = black fill (screen-space, always correct)
 // children[1] = background Sprite  ← position/scale reset by #refreshPreview on every form change
@@ -88,3 +90,35 @@ const origUpdate = bg.updateTransform.bind(bg);
   this.scale.set(sx, sy); this.position.set(x, y);
 };
 ```
+
+> **Centering invariant**: if you apply an extra Y multiplier (e.g. `bgYScale`) to `scale.set()`, you **must** also use the same multiplied `scY` in the position formula. Using `scY` without `bgYScale` in position while `scale.set` uses it will shift the visual center upward as the scale decreases — image anchors to its top edge instead of scaling around center.
+
+### GridConfig Form Fields
+
+Native form elements (accessible via `this.form.elements.<name>` inside GridConfig, or `form.elements.namedItem(n)` from outside):
+
+| Name | Meaning | Units | Dispatch |
+|------|---------|-------|---------|
+| `scale` | Background scale (`sceneWidth / texture.width`) | unitless, range 0.25–10 | `change` event → `_onChangeForm` → `#previewChanges` → `#refreshPreview` |
+| `shiftX` / `shiftY` | Scene offset (bg position shift) | canvas pixels | same |
+| `grid.size` | Grid cell size | canvas pixels | same |
+| `grid.type` | Grid type enum | — | same |
+
+Trigger preview update from code: `el.value = newVal; el.dispatchEvent(new Event("change", { bubbles: true }))`.
+
+### GridConfig `_processSubmitData` — Non-Native Fields
+
+`_processSubmitData` only calls `super._processSubmitData` (→ `document.update`) if one of the 7 native fields above changed. Module-specific form fields are silently skipped.
+
+**Workaround**: patch the instance at `renderGridConfig` time:
+```typescript
+if (typeof app._processSubmitData === 'function') {
+  const orig = app._processSubmitData.bind(app);
+  app._processSubmitData = async (...a: unknown[]) => {
+    await orig(...a);
+    // save module flag regardless of whether native fields changed
+    await canvas.scene?.setFlag(MODULE_ID, "myFlag", currentValue);
+  };
+}
+```
+This runs after Foundry's native save (or even if Foundry skipped saving). Safe to do on every re-render because the patch is on the instance, not the prototype.
