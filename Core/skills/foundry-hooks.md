@@ -18,11 +18,13 @@ Foundry VTT v14 — hooks reference table, key patterns, gridSize detection.
 | `renderTileHUD(hud, html)` | Tile right-click HUD opens | `hud.object` = Tile |
 | `renderGridConfig(app, html)` | Grid Configuration Tool opens or form part re-renders | fires after `#createPreview()` completes; also fires on Reset Changes (form re-render only, preview container persists) |
 | `closeGridConfig(app, html)` | Grid Configuration Tool closes | fires in `_onClose`; preview container already destroyed |
+| `preCreateTile(doc, data, options, userId)` | Before tile persisted to server | Modify pending data via `doc.updateSource({...})` — works in v14; see blink note below |
 | `preUpdateScene(scene, changes)` | Before scene document update | `scene` = pre-update state; `changes.grid?.size` = new grid size if changing |
 | `updateScene(scene, changes)` | After scene document update | `scene` = updated state; use with `preUpdateScene` to get both old and new values |
 
 Key patterns:
 - `Hooks.once("init", ...)` — register settings and hook listeners; fires once per session
+- **`preCreateTile` + no-blink pattern**: `doc.updateSource(data)` in `preCreateTile` correctly modifies creation data — `createTile` receives the updated values. BUT calling `doc.update()` again in `createTile` with the same data triggers a full PIXI sprite redraw, causing a visible blink. Skip the `createTile` update when `preCreateTile` already applied the data (use a shared in-memory cache to detect this).
 - `Hooks.on("updateScene", (scene, changes) => { if (scene.id !== canvas.scene?.id) return; ... })` — always guard for current scene
 - Render hooks for AppV2 sheets fire after DOM built; html already in document
 
