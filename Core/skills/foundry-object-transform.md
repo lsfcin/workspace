@@ -54,6 +54,28 @@ mesh.y = base.y + hdy * E + imgOff.y;
 
 `token.center` ≈ `{x: doc.x + docW/2, y: doc.y + docH/2}` — canvas center of token footprint.
 
+## PIXI Overlay Drag-Drop Blink Guard
+
+`refreshTile` hooks that redraw PIXI overlays (bounding boxes, gizmos, etc.) keyed by `tile.id` will cause a **1-frame blink** after drag-drop if they don't guard against the preview-clone lifecycle:
+
+**What happens:**
+1. During drag, the *clone* (isPreview=true) fires `refreshTile` — doc.x/y track cursor. Overlay draws at cursor. ✓
+2. On drop, server confirms → doc.x/y update to new position → Foundry fires `refreshState+refreshVisibility` (no `refreshPosition`) on the *original* tile **while the clone still exists** (`hasPreview=true`). At this point `tile.document.x/y` is still the **old pre-drag position** — overlay redraws there. ← **the blink**
+3. Clone is destroyed → original fires full refresh at correct new position. ✓
+
+`hasPreview=true` identifies step 2 (original tile, clone still alive). Fix: skip overlay redraw in that state.
+
+```typescript
+private static onRefreshTile(tile: Tile, flags?: Record<string, boolean>): void {
+  if (!overlay.has(tile.id)) return;
+  // Skip while drag clone exists — server update fires refreshState with old doc pos before clone is cleared
+  if ((tile as unknown as { hasPreview?: boolean }).hasPreview) return;
+  redraw(tile); // now doc.x/y is correct final position
+}
+```
+
+Clone's `refreshTile` fires with `isPreview=true` (not `hasPreview`), so it still updates the overlay during drag. Guard only suppresses the premature original-tile refresh.
+
 ## PIXI Mutation Guards — Prevent Dirty-Signal Feedback Loops
 
 Setting PIXI props (`mesh.scale`, `mesh.rotation`, `mesh.anchor`) unconditionally on every `refreshToken` generates PIXI dirty signals → additional render-flag processing each frame. Guard before mutating:
