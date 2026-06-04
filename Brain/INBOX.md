@@ -9,6 +9,16 @@
 
 <!-- add entries below, newest first -->
 
+pedir pra mudar a data de pagamento do aluguel do dia 5 pro dia 10
+
+potenciais ferramentas de IA pra olhar
+ECC
+airLLM
+odysseus - pewdiepipe
+kimi 2.6
+moonshot AI
+qwen code
+
 ver o que é o hermes pra IA
 
 pagar o IPVA
