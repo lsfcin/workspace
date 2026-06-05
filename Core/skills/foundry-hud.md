@@ -2,54 +2,129 @@ Foundry VTT v14 — HUD positioning in isometric mode: TokenHUD, TileHUD, Ruler 
 
 ---
 
-## HUD Coordinate Formula
+## #hud Coordinate System
 
-`HeadsUpDisplayContainer.align()` sets `#hud` CSS: `left = canvas.primary.getGlobalPosition().x`, `top = .y`, `transform = scale(zoom)`. **No rotation.**
+Foundry positions `#hud` by setting its CSS `style.left = wt.tx + "px"` and `style.top = wt.ty + "px"` **inside the `canvasPan` handler only**. The `#hud` CSS transform is always `scale(1)` — no rotation, no translation in the transform property. Pan offset lives in `style.left/top` directly.
 
-CSS `left/top` within `#hud` in canvas-unit space. Foundry default `_updatePosition` uses raw `token.bounds.x/y` — correct without rotation; container applies matching scale+translate.
+Within `#hud`, the formula for a world point `(cx, cy)` in CSS px:
 
-With isometric rotation — correct formula (tx/ty and zoom cancel out):
 ```typescript
-const m = canvas.app.stage.worldTransform;
+const wt   = canvas.app.stage.worldTransform;
 const zoom = canvas.stage.scale.x;
-const L = (m.a * cx + m.c * cy) / zoom;
-const T = (m.b * cx + m.d * cy) / zoom;
+const L = (wt.a * cx + wt.c * cy) / zoom;  // zoom cancels: wt.a includes zoom
+const T = (wt.b * cx + wt.d * cy) / zoom;
+// wt.tx/ty intentionally omitted — absorbed by #hud style.left/top
 ```
 
-## TokenHUD
+**Zoom cancels**: `wt.a = zoom * cos_component`, so `wt.a / zoom = cos_component`. The formula is zoom-independent. Works at any zoom level.
 
-Hook `renderTokenHUD`, use `requestAnimationFrame` so Foundry positions first:
+## PIXI worldTransform Cache — Critical Gotcha
+
+PIXI only recomputes `worldTransform` during the render loop. After setting `stage.rotation` / `stage.skew`, `worldTransform` remains stale (identity) until the next frame.
+
+**Symptom**: HUD positions correctly after first pan/zoom but wrong on initial load (before any interaction).
+
+**Why**: `canvasPan` never fires on initial load. `#hud style.left/top` are at their default (not matching new `wt.tx/ty`). The formula is correct, but `#hud` is mispositioned.
+
+**Fix** — call after `applyCurrentState()` in `canvasReady`:
+
 ```typescript
-$html.css({ left: `${L}px`, top: `${T}px`, transform: "translate(-50%, -50%)" });
+// 1. Flush worldTransform cache (stage is root — no parent for updateTransform())
+stage.transform.updateLocalTransform();
+stage.worldTransform.copyFrom(stage.localTransform);
+// 2. Sync #hud CSS to match what canvasPan would have set
+const hud = document.getElementById("hud");
+if (hud) { hud.style.left = `${wt.tx}px`; hud.style.top = `${wt.ty}px`; }
 ```
 
-## TileHUD
+## Correct Pattern: _updatePosition Prototype Patch
 
-**Patch `_updatePosition` instead of hooking `renderTileHUD`.**
-Foundry calls `_updatePosition` on every tile document change (e.g. resize, flag update) without re-firing the hook. Patching it handles all cases with zero rAF timing issues.
-Access via `CONFIG.Tile.hudClass.prototype`. The `position` object passed in has `left/top/width/height/scale`.
+**Use `_updatePosition` prototype patch for both TileHUD and TokenHUD.** Do NOT use `renderTileHUD` / `renderTokenHUD` hooks:
+- Hooks fire only on initial render; `_updatePosition` fires on every tile/token document update too
+- Hooks + RAF have timing issues and can accidentally stomp Foundry's native `transform: scale(uiScale)`
+- Prototype patch preserves `pos.scale` (uiScale) automatically — only set `left/top/width`
 
-Critical: AppV2 elements use **`transform-origin: top-left`** → `visual_left = CSS_left` (no centering correction). Scale(s) shrinks from top-left corner, not center.
+Access via `CONFIG.Tile.hudClass.prototype` and `CONFIG.Token.hudClass.prototype`. Patch at `init`.
 
-For isometric TileHUD positioned at tile visual footprint:
 ```typescript
+type HudPosition = { left?: number; top?: number; width?: number; height?: number; scale?: number };
+const orig = proto._updatePosition;
+proto._updatePosition = function(pos) {
+  orig.call(this, pos);           // native runs first; provides centering offset
+  const obj = this.object;        // Tile or Token
+  if (!isIsoScene()) return pos;
+  // ... override pos.left / pos.top / pos.width — never touch pos.scale
+  return pos;
+};
+```
+
+## TileHUD — Visual Footprint Layout
+
+Tile origin is `(tile.document.x, tile.document.y)` — the **top-left corner** (not center).
+
+```typescript
+const c = isoHudCenter(cx, cy);      // projected corner (see isoHudCenter below)
+const visualCssW = isoVisualCssWidth(docW, docH);   // see below
 const s = canvas.dimensions.uiScale;
-const docW = tile.document.width ?? 0, docH = tile.document.height ?? 0;
-const cosA = m.a / zoom, cosC = m.c / zoom;        // ≈ 0.895 for dimetric 2:1
-const sinB = Math.abs(m.b / zoom);                  // ≈ 0.447 = cosA/2
-const visualCssW = cosA * docW + cosC * docH;       // tile visual screen width in CSS px
-// Left/top of tile visual footprint (top-left origin: CSS pos = visual pos)
-pos.left  = L - visualCssW / 2;
-pos.top   = T - sinB * (docW + docH) / 2;           // = T - visualCssW/4
-pos.width = visualCssW / s;                         // CSS width → scale(s) → visualCssW rendered
-pos.height = 0;  // 0 → el.style.height = "" (auto) — avoids docH dependency
+// AppV2 transform-origin: top-left → CSS left = visual left edge
+pos.left   = c.left - visualCssW / 2;
+pos.top    = c.top  - visualCssW / 4;   // = T - sinB*(W+H)/2, swap-stable
+pos.width  = visualCssW / s;
+pos.height = 0;   // auto — avoids docH dependency
 ```
 
-`pos.top = T - sinB*(docW+docH)/2` is swap-stable: `docW+docH` is constant when dimensions swap.
+`pos.top = T - visualCssW/4` is swap-stable: `visualCssW ∝ (W+H)`, constant when W↔H swap.
+
+## TokenHUD — Centered Layout with Expanded Width
+
+Token `center` is the **visual center** in world space. TokenHUD should be centered horizontally on the iso footprint and use native vertical centering.
+
+```typescript
+const raw = token.center ?? { x: token.x, y: token.y };
+const c   = isoHudCenter(raw.x, raw.y);
+
+// Native vertical centering offset (zoom-independent: zoom cancels in isoHudCenter)
+const centeringOffsetY = (pos.top ?? 0) - raw.y;
+
+// Token pixel dimensions: token.w/h = document.width/height * gridSize
+const gs  = canvas.grid?.size ?? 100;
+const tw  = token.w ?? token.document.width  * gs;
+const th  = token.h ?? token.document.height * gs;
+const visualCssW = isoVisualCssWidth(tw, th);
+const s   = canvas.dimensions.uiScale;
+
+pos.left  = c.left - visualCssW / 2;    // center horizontally on footprint
+pos.top   = c.top  + centeringOffsetY;  // preserve native vertical centering
+pos.width = visualCssW / s;
+```
+
+**Centering offset derivation**: in non-iso, `isoHudCenter(x,y).left = x` (zoom cancels). Native `_updatePosition` gives `pos.left = x + centering_offset`. So `centering_offset = pos.left - x = pos.left - raw.x`, zoom-independent.
+
+## Shared Utilities
+
+```typescript
+// isoHudCenter — world point → {left, top} in #hud CSS px (no tx/ty)
+export function isoHudCenter(x: number, y: number): { left: number; top: number } | null {
+  const wt = canvas.app?.stage?.worldTransform;
+  const zoom = canvasZoom();
+  if (!wt) return null;
+  return { left: (wt.a * x + wt.c * y) / zoom, top: (wt.b * x + wt.d * y) / zoom };
+}
+
+// isoVisualCssWidth — iso-projected CSS width of a w×h canvas rectangle
+export function isoVisualCssWidth(w: number, h: number): number {
+  const wt = canvas.app?.stage?.worldTransform;
+  const zoom = canvasZoom();
+  if (!wt) return 0;
+  return (wt.a / zoom) * w + (wt.c / zoom) * h;
+  // For dimetric 2:1 square (w=h): visualCssW ≈ 1.84 * w (≈ √(2²+1²)/√(1²+0.5²) * w)
+}
+```
 
 ## Ruler Waypoint Labels
 
 Both `Ruler` and `TokenRuler` compute `context.position = {x: canvasX, y: canvasY}` in `_getWaypointLabelContext`, then write to `#hud #measurement` as CSS `--position-x`/`--position-y`. Patch both prototypes at `init`:
+
 ```typescript
 // TokenRuler is NOT a global — access via CONFIG.Token.rulerClass
 // Ruler: use v14 namespaced path; fall back to deprecated global for older hosts

@@ -23,6 +23,30 @@ Counter-transform constants (dimetric 2:1):
 - `ratio = 2.0`
 - `counterFactor = √10/4 ≈ 0.7906`  ← from matrix composition: worldScale = localScale × 4/√10
 
+## PIXI worldTransform Cache — Initial Load Gotcha
+
+PIXI only recomputes `stage.worldTransform` during its render loop. After setting `stage.rotation` / `stage.skew.set()` in `canvasReady`, `worldTransform` is still **identity** until the next render frame.
+
+Additionally, Foundry sets `#hud style.left = wt.tx` / `style.top = wt.ty` **only inside `canvasPan`**. On initial load, `canvasPan` never fires, so `#hud` is misaligned after `applyStage()` changes `wt.tx/ty`.
+
+**Fix — call after `applyCurrentState()` in `onCanvasReady`:**
+
+```typescript
+private static syncHudAfterStageApply(): void {
+  const stage = canvas.app?.stage;
+  if (!stage) return;
+  // Step 1: flush worldTransform cache (stage is root — call 2-step instead of updateTransform())
+  stage.transform.updateLocalTransform();
+  stage.worldTransform.copyFrom(stage.localTransform);
+  // Step 2: sync #hud CSS to match what canvasPan would have done
+  const wt  = stage.worldTransform;
+  const hud = document.getElementById("hud");
+  if (hud) { hud.style.left = `${wt.tx}px`; hud.style.top = `${wt.ty}px`; }
+}
+```
+
+> `stage.updateTransform()` crashes when `stage.parent` is null (which it is during `canvasReady`). Use the two-step alternative: `updateLocalTransform()` then `copyFrom(localTransform)`.
+
 ## Background Counter-Transform
 
 Foundry pre-scales bg sprite to fill canvas (`PrimarySpriteMesh` scale ≠ 1).
