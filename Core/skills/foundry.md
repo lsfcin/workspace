@@ -17,6 +17,7 @@ Load subfiles relevant to the task. Multiple subfiles fine when task spans topic
 | TokenHUD, TileHUD, Ruler label positioning | `foundry-hud.md` | HUD button position, ruler waypoint labels |
 | AppV2 tab injection, stale tabGroups, re-render nav-wipe bug | `foundry-appv2.md` | SceneConfig/TokenConfig/TileConfig custom tab, AppV2 sheet work |
 | Hooks reference table, gridSize detection pattern | `foundry-hooks.md` | any hook work, scene update patterns |
+| Undo/history system: suppression, manual push, dual-stack ordering | `foundry-undo.md` | Ctrl+Z behavior, undo stack, `{ isUndo: true }`, drag history, custom undo stacks |
 
 ## Reference Locations
 
