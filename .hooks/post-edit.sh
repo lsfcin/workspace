@@ -51,13 +51,28 @@ EOF
 		;;
 	*.ts)
 		if [ -n "$TSC" ]; then
-			"$TSC" --declaration --emitDeclarationOnly \
-						 --declarationDir "$dir" --target ES2020 --skipLibCheck \
-						 "$file" 2>/dev/null \
-				&& printf "✓ .d.ts: ${file%.ts}.d.ts\n"
-		fi
-		if [ -z "$(find_tsconfig "$dir")" ]; then
-			cat > "$dir/tsconfig.json" << 'EOF'
+			tsconfig=$(find_tsconfig "$dir")
+			if [ -n "$tsconfig" ]; then
+				proj_root=$(dirname "$tsconfig")
+				decl_cfg="$proj_root/tsconfig.declarations.json"
+				if [ -f "$decl_cfg" ]; then
+					# Project-specific declarations config — handles complex typeRoots (e.g. Foundry VTT).
+					# noEmitOnError:false allows partial emission despite unresolved globals; suppress
+					# diagnostic noise since errors are expected (Foundry globals are bundler-only).
+					"$TSC" -p "$decl_cfg" >/dev/null 2>&1 || true
+					printf "✓ .d.ts regenerated: %s\n" "$proj_root"
+				else
+					"$TSC" --declaration --emitDeclarationOnly \
+								 --declarationDir "$dir" --target ES2020 --skipLibCheck \
+								 "$file" 2>/dev/null \
+						&& printf "✓ .d.ts: ${file%.ts}.d.ts\n"
+				fi
+			else
+				"$TSC" --declaration --emitDeclarationOnly \
+							 --declarationDir "$dir" --target ES2020 --skipLibCheck \
+							 "$file" 2>/dev/null \
+					&& printf "✓ .d.ts: ${file%.ts}.d.ts\n"
+				cat > "$dir/tsconfig.json" << 'EOF'
 {
 	"compilerOptions": {
 		"declaration": true, "emitDeclarationOnly": true,
@@ -65,7 +80,8 @@ EOF
 	}
 }
 EOF
-			printf "✓ tsconfig.json scaffolded: %s\n" "$dir"
+				printf "✓ tsconfig.json scaffolded: %s\n" "$dir"
+			fi
 		fi
 		;;
 	*.csv|*.tsv)
