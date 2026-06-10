@@ -171,14 +171,58 @@ if [ -n "$JS_FILES" ]; then
   fi
 fi
 
-# ── 8. TypeScript → .d.ts advice ──────────────────────────────────────────────
+# ── 8. TypeScript → .d.ts (tsc --incremental, once per project) ───────────────
 TS_FILES=$(echo "$STAGED" | grep -E '\.(ts|tsx)$' | grep -v '\.d\.ts$' || true)
 if [ -n "$TS_FILES" ]; then
-  root=$(git rev-parse --show-toplevel)
-  if [ -f "$root/tsconfig.json" ] && ! grep -q '"declarationDir"' "$root/tsconfig.json" 2>/dev/null; then
-    printf "⚠  TypeScript files changed but tsconfig.json has no declarationDir.\n"
-    printf "   See Code/CONTEXT.md § Interface Files.\n\n"
+  TSC=""; command -v tsc &>/dev/null && TSC="tsc"
+  [ -z "$TSC" ] && [ -x "$HOME/.local/bin/tsc" ] && TSC="$HOME/.local/bin/tsc"
+  if [ -z "$TSC" ]; then
+    printf "⚠  tsc not found — .d.ts not generated. Install: npm install -g typescript\n\n"
+  else
+    declare -A _ts_seen
+    while IFS= read -r f; do
+      [ -f "$f" ] || continue
+      proj_root=""
+      d=$(dirname "$f")
+      while [ "$d" != "." ] && [ "$d" != "/" ]; do
+        [ -f "$d/tsconfig.json" ] && proj_root="$d" && break
+        d=$(dirname "$d")
+      done
+      [ -z "$proj_root" ] && continue
+      [ -n "${_ts_seen[$proj_root]+x}" ] && continue
+      _ts_seen["$proj_root"]=1
+      # Pick declarations config
+      cfg="$proj_root/tsconfig.json"
+      [ -f "$proj_root/tsconfig.declarations.json" ] && cfg="$proj_root/tsconfig.declarations.json"
+      # Ensure .tsbuildinfo-declarations is gitignored in this project
+      gi="$proj_root/.gitignore"
+      if ! grep -qF '.tsbuildinfo-declarations' "$gi" 2>/dev/null; then
+        printf '\n.tsbuildinfo-declarations\n' >> "$gi"
+        git add "$gi" 2>/dev/null || true
+      fi
+      # Generate declarations (incremental; || true — partial emit OK for bundler projects)
+      "$TSC" -p "$cfg" --emitDeclarationOnly --incremental \
+        --tsBuildInfoFile "$proj_root/.tsbuildinfo-declarations" >/dev/null 2>&1 || true
+      find "$proj_root" -name '*.d.ts' ! -path '*/node_modules/*' \
+        -exec git add {} \; 2>/dev/null || true
+      printf "✓ .d.ts generated: %s\n" "$proj_root"
+    done <<< "$TS_FILES"
+    unset _ts_seen
   fi
+fi
+
+# ── 9. Dart → .dart.api stubs ─────────────────────────────────────────────────
+DART_FILES=$(echo "$STAGED" | grep '\.dart$' || true)
+if [ -n "$DART_FILES" ]; then
+  while IFS= read -r f; do
+    [ -f "$f" ] || continue
+    if python3 /mnt/workspace/.hooks/dart-api-extract.py "$f" 2>/dev/null; then
+      dartapi="${f%.dart}.dart.api"
+      [ -f "$dartapi" ] && git add "$dartapi"
+    else
+      printf "⚠  dart-api-extract failed for $f — .dart.api not staged\n\n"
+    fi
+  done <<< "$DART_FILES"
 fi
 
 exit 0
