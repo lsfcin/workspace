@@ -147,13 +147,8 @@ if [ "$(basename "$file")" = "CONTEXT.md" ]; then
 		|| printf "💬 CONTEXT.md DESCRIPTION MISSING: %s\n   Add '> One-line description' as line 2.\n" "$file"
 fi
 
-# ── Sync CONTEXT.md Routing block — walk up to workspace root ─────────────────
-walk="$dir"
-while [ "$walk" != "/" ]; do
-    { [ -f "$walk/CONTEXT.md" ] || [ -f "$walk/WORKSPACE.md" ]; } \
-        && python3 /mnt/workspace/.hooks/context_synchronizer.py "$walk" 2>/dev/null
-    [ -f "$walk/WORKSPACE.md" ] && break
-    walk=$(dirname "$walk")
-done
+# ── Sync CONTEXT.md Routing block — leaf dir only ─────────────────────────────
+[ -f "$dir/CONTEXT.md" ] \
+    && python3 /mnt/workspace/.hooks/context_synchronizer.py "$dir" 2>/dev/null
 
 exit 0

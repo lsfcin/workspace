@@ -87,25 +87,19 @@ if [ -n "$TEX_STAGED" ]; then
   fi
 fi
 
-# ── 4. Sync CONTEXT.md Routing block — walk up to workspace root ───────────────
+# ── 4. Sync CONTEXT.md Routing block — leaf dirs only ─────────────────────────
+# Parent CONTEXT.md files list subdirectory entries (links), not individual files.
+# They only need re-sync when a subdir is created/deleted, not on every file edit.
 if [ -n "$CODE_FILES" ]; then
   declare -A _ctx_synced
   while IFS= read -r leaf_dir; do
-    walk="$leaf_dir"
-    while [ "$walk" != "/" ]; do
-      if [ -z "${_ctx_synced[$walk]+x}" ]; then
-        _ctx_synced["$walk"]=1
-        if [ -f "$walk/CONTEXT.md" ]; then
-          python3 /mnt/workspace/.hooks/context_synchronizer.py "$walk" 2>/dev/null \
-            && git add "$walk/CONTEXT.md" 2>/dev/null || true
-        elif [ -f "$walk/WORKSPACE.md" ]; then
-          python3 /mnt/workspace/.hooks/context_synchronizer.py "$walk" 2>/dev/null \
-            && git add "$walk/WORKSPACE.md" 2>/dev/null || true
-        fi
+    if [ -z "${_ctx_synced[$leaf_dir]+x}" ]; then
+      _ctx_synced["$leaf_dir"]=1
+      if [ -f "$leaf_dir/CONTEXT.md" ]; then
+        python3 /mnt/workspace/.hooks/context_synchronizer.py "$leaf_dir" 2>/dev/null \
+          && git add "$leaf_dir/CONTEXT.md" 2>/dev/null || true
       fi
-      [ -f "$walk/WORKSPACE.md" ] && break
-      walk=$(dirname "$walk")
-    done
+    fi
   done < <(echo "$CODE_FILES" | xargs -I{} dirname {} | sort -u)
   unset _ctx_synced
 fi
