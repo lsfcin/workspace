@@ -1,0 +1,10 @@
+from _typeshed import Incomplete
+from pathlib import Path
+
+EXEMPT_RE: Incomplete
+TS_FROM_RE: Incomplete
+PY_REL_RE: Incomplete
+
+def ts_violations(path: Path, src: str) -> list[str]: ...
+def py_violations(path: Path, src: str) -> list[str]: ...
+def check(f: str) -> list[str]: ...

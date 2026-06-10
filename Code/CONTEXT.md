@@ -8,7 +8,31 @@
 - **Explicit naming** — file names guessable without opening, keep naming patterns.
 - **Flat structure** — sub-modules over deep nesting.
 - **Low coupling** — small modules, explicit imports; no hidden cross-directory coupling.
+- **Facade boundaries** — cross-folder imports go through `index` / `__init__` only (enforced by hook).
 - **Interface-first reading** — read `.pyi` / `.d.ts` / `.dart.api` before source files (enforced by hook).
+
+## Facade Pattern
+
+Every folder with more than one source file exposes a **facade** — the single entry point through which all external consumers import. Nothing imports internal files from another module directly.
+
+**Per-language convention:**
+
+| Language | Facade file | Notes |
+|----------|-------------|-------|
+| TypeScript / JS | `index.ts` / `index.js` | Explicit named re-exports only — no `export *` (breaks tree-shaking) |
+| Python | `__init__.py` | Explicit `__all__` required |
+| Dart | `index.dart` | `export '...' show ...` pattern |
+| SCSS | `_index.scss` | `@forward` only |
+
+**Rules:**
+- Facade re-exports only the public API — internal helpers stay invisible
+- Cross-folder imports that target a non-facade file → **hard block at commit** (`check-facade-imports.py`)
+- Intra-folder imports (within the same module) always allowed
+- Circular dependencies → fix the architecture, not the import rule
+
+**Exempt from enforcement:** test files, the facade file itself, `generated/` and `vendor/` dirs.
+
+See [Code/SETUP.md](SETUP.md) for facade templates per language.
 
 ## File Size Policy
 

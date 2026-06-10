@@ -36,6 +36,7 @@ Hook can block read/edit/commit → **ENFORCED**. File only injects guidance →
 Applied globally via `core.hooksPath`. Fires on every `git commit` across all repos under this workspace.
 - Warns on code files ≥ 150 lines; blocks commits on code files ≥ 200 lines (`.js .ts .tsx .py .dart .html .css .scss .tex` — not data files). Shared thresholds in [`.hooks/line-limits.env`](.hooks/line-limits.env)
 - Warns when newly staged code file lacks first-line description comment
+- **Hard-blocks cross-module imports bypassing facade** (`index` / `__init__`) via `check-facade-imports.py`
 - **Auto-syncs CONTEXT.md Routing block** via `context_synchronizer.py` for every dir with staged files, stages result
 - Auto-generates `.pyi` stubs for Python files (via `stubgen`), stages them
 - Auto-generates `.d.ts` declarations for JS/TS files (via `tsc`) and `.dart.api` stubs for Dart files (via `dart-api-extract.py`), stages them
@@ -319,6 +320,7 @@ All infrastructure lives in workspace git repo:
   check-line-counts.sh    ← standalone audit tool (also called by pre-commit); reads line-limits.env
   line-limits.env         ← single source of truth for WARN_LINES and BLOCK_LINES thresholds
   context_synchronizer.py             ← CONTEXT.md Routing block synchronizer: add/remove/link files, extract API
+  check-facade-imports.py ← Facade boundary enforcer: blocks cross-module imports bypassing index/__init__
   dart-api-extract.py     ← Dart public API extractor: produces .dart.api stubs from .dart sources
   tex-interface-gen.py    ← LaTeX interface extractor: produces .texif (structure/equations/floats/citations) + LABELS.md; bib-check mode warns about missing reviews/*.yaml
   tex_interface_parser.py ← LaTeX parser module imported by tex-interface-gen.py (parse_tex, find_paper_root, helpers)

@@ -48,6 +48,14 @@ if [ -n "$NEW_CODE" ]; then
   done <<< "$NEW_CODE"
 fi
 
+# ── 2b. Facade boundary check ─────────────────────────────────────────────────
+FACADE_FILES=$(echo "$STAGED" | grep -E '\.(ts|tsx|js|jsx|py)$' | grep -v '\.d\.ts$' || true)
+if [ -n "$FACADE_FILES" ]; then
+  if ! echo "$FACADE_FILES" | python3 /mnt/workspace/.hooks/check-facade-imports.py; then
+    exit 1
+  fi
+fi
+
 # ── 3. Term consistency check (papers with terms.yaml) ────────────────────────
 TEX_STAGED=$(echo "$STAGED" | grep '\.tex$' || true)
 if [ -n "$TEX_STAGED" ]; then
