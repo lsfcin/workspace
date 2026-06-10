@@ -3,7 +3,7 @@
 
 ## Facade Pattern
 
-Every folder with more than one source file exposes a **facade** — the single entry point through which all external consumers import. Nothing imports internal files from another module directly.
+Every folder with source files exposes a **facade** — the single entry point through which all external consumers import. Nothing imports internal files from another module directly.
 
 **Per-language convention:**
 
@@ -22,6 +22,8 @@ Every folder with more than one source file exposes a **facade** — the single 
 - Circular dependencies → fix the architecture, not the import rule
 
 **Exempt from enforcement:** test files, the facade file itself, `generated/` and `vendor/` dirs.
+
+**Reading facades:** `index.ts` / `__init__.py` / `index.dart` are read directly — `pre-read.sh` does not block them. They are already minimal interfaces. Implementation files are redirected to their `.d.ts` / `.pyi` / `.dart.api` interface instead.
 
 See [SETUP.md](SETUP.md) for facade templates per language.
 

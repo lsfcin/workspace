@@ -61,12 +61,12 @@ Reading order for any unfamiliar module (most compact → least compact):
 
 ```
 CONTEXT.md routing        ← which folder do I need?
-<folder>/index.d.ts       ← what does that folder export? (fold point)
-<folder>/file.d.ts        ← what does a specific file export?
+<folder>/index.ts         ← what does that folder export? (fold point — read directly)
+<folder>/file.d.ts        ← what does a specific file export? (full signatures)
 <folder>/file.ts          ← source (only when modifying)
 ```
 
-Stop as soon as you have enough context. Most tasks stop at `index.d.ts`.
+Stop as soon as you have enough context. Most tasks stop at `index.ts` or `file.d.ts`.
 
 ---
 

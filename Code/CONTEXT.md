@@ -9,7 +9,7 @@
 - **Flat structure** — sub-modules over deep nesting.
 - **Low coupling** — small modules, explicit imports; no hidden cross-directory coupling.
 - **Facade boundaries** — cross-folder imports go through `index` / `__init__` only (enforced by hook).
-- **Interface-first reading** — read `.pyi` / `.d.ts` / `.dart.api` before source files (enforced by hook).
+- **Interface-first reading** — read `.pyi` / `.d.ts` / `.dart.api` before source files (enforced by hook). Facade files (`index.ts`, `__init__.py`, `index.dart`) are exempt — read directly.
 
 ## Facade Pattern
 
