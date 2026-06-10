@@ -49,7 +49,7 @@ if [ -n "$NEW_CODE" ]; then
 fi
 
 # ── 2b. Facade boundary check ─────────────────────────────────────────────────
-FACADE_FILES=$(echo "$STAGED" | grep -E '\.(ts|tsx|js|jsx|py)$' | grep -v '\.d\.ts$' || true)
+FACADE_FILES=$(echo "$STAGED" | grep -E '\.(ts|tsx|js|jsx|py|dart)$' | grep -v '\.d\.ts$' || true)
 if [ -n "$FACADE_FILES" ]; then
   if ! echo "$FACADE_FILES" | python3 /mnt/workspace/.hooks/check-facade-imports.py; then
     exit 1

@@ -5,22 +5,24 @@ from pathlib import Path
 
 # Test files, facade files themselves, and generated dirs are exempt.
 EXEMPT_RE = re.compile(
-    r'(?:^|/)[^/]*\.(?:test|spec)\.[tj]sx?$'     # TS/JS: *.test.ts, *.spec.ts
-    r'|(?:^|/)(?:test_[^/]*|[^/]*_test)\.py$'    # Python: test_*.py, *_test.py
-    r'|(?:^|/)(?:__init__\.py|index\.[tj]sx?)$'  # facade files themselves
+    r'(?:^|/)[^/]*\.(?:test|spec)\.[tj]sx?$'          # TS/JS: *.test.ts, *.spec.ts
+    r'|(?:^|/)(?:test_[^/]*|[^/]*_test)\.(?:py|dart)$' # Python/Dart: test_*.py, *_test.dart
+    r'|(?:^|/)(?:__init__\.py|index\.(?:[tj]sx?|dart))$' # facade files themselves
     r'|(?:^|/)(?:generated|vendor|node_modules)/',
     re.IGNORECASE,
 )
 
 # Matches: from '...', export ... from '...', require('...')  — relative paths only.
-TS_FROM_RE = re.compile(r'''(?:from|require\s*\()\s*['"](\.[^'"]+)['"]''')
+TS_FROM_RE   = re.compile(r'''(?:from|require\s*\()\s*['"](\.[^'"]+)['"]''')
 # Matches: from ..pkg.submod import  — relative Python imports descending into a submodule.
-PY_REL_RE  = re.compile(r'^from\s+(\.+)(\S+)\s+import', re.MULTILINE)
+PY_REL_RE    = re.compile(r'^from\s+(\.+)(\S+)\s+import', re.MULTILINE)
+# Matches: import '../folder/file.dart' or export '../folder/file.dart'
+DART_FROM_RE = re.compile(r'''(?:import|export)\s+['"](\.[^'"]+\.dart)['"]''')
 
 
 def _has_facade(folder: Path) -> bool:
     """True if the folder already has a facade file — enforcement only applies then."""
-    for name in ('index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py'):
+    for name in ('index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'):
         if (folder / name).exists():
             return True
     return False
@@ -60,6 +62,21 @@ def py_violations(path: Path, src: str) -> list[str]:
     return out
 
 
+def dart_violations(path: Path, src: str) -> list[str]:
+    out = []
+    for m in DART_FROM_RE.finditer(src):
+        imp = m.group(1)
+        target = (path.parent / imp).resolve()
+        if target.parent == path.parent.resolve():
+            continue  # same folder — intra-module, OK
+        if target.name in ('index.dart',):
+            continue  # explicit facade import — OK
+        if not _has_facade(target.parent):
+            continue  # target folder has no facade yet
+        out.append(f"  {path}: '{imp}' bypasses facade → import 'index.dart' from '{target.parent.name}/' instead")
+    return out
+
+
 def check(f: str) -> list[str]:
     path = Path(f).resolve()
     if not path.is_file() or EXEMPT_RE.search(f.replace('\\', '/')):
@@ -72,6 +89,8 @@ def check(f: str) -> list[str]:
         return ts_violations(path, src)
     if path.suffix == '.py':
         return py_violations(path, src)
+    if path.suffix == '.dart':
+        return dart_violations(path, src)
     return []
 
 

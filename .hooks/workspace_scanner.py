@@ -120,7 +120,8 @@ def has_code_content(directory: Path) -> bool:
     return any(has_code_content(p) for p in directory.iterdir()
                if p.is_dir() and not p.name.startswith('.') and p.name not in _SKIP_DIRS)
 
-_SKIP_DIRS = {'node_modules', '__pycache__', '.git', 'dist', 'build', '.venv', 'venv'}
+_SKIP_DIRS   = {'node_modules', '__pycache__', '.git', 'dist', 'build', '.venv', 'venv'}
+FACADE_NAMES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
 
 def subdir_scan(directory: Path, rs: str, re_end: str) -> tuple:
     fold_list, link_list = [], []
@@ -180,12 +181,11 @@ def build_sub_rows(link_list: list, preserved_subs: dict) -> str:
     return '\n'.join(rows)
 
 def build_file_rows(files_with_rel: list, preserved: dict, ctx_dir: Path) -> str:
-    lines = ['| File | Interface | API | Description |',
-             '|------|-----------|-----|-------------|']
-    for f, rel in files_with_rel:
-        desc = file_description(f) or preserved.get(rel, preserved.get(f.name, PLACEHOLDER))
-        lines.append(
-            f'| [`{rel}`]({rel}) | {interface_for(f, ctx_dir)} | {extract_api(f)} | {desc} |')
+    lines = ['| File | Interface | API | Description |', '|------|-----------|-----|-------------|']
+    for f, rel in sorted(files_with_rel, key=lambda x: (x[0].name not in FACADE_NAMES, x[1])):
+        pre  = '**facade** — ' if f.name in FACADE_NAMES else ''
+        desc = pre + (file_description(f) or preserved.get(rel, preserved.get(f.name, PLACEHOLDER)))
+        lines.append(f'| [`{rel}`]({rel}) | {interface_for(f, ctx_dir)} | {extract_api(f)} | {desc} |')
     return '\n'.join(lines)
 
 def build_routing_block(sub_content: str, file_content: str, rs: str, re_end: str) -> str:
