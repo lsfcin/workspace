@@ -1,6 +1,8 @@
 # Academy
 > Research, teaching, academic work
 
+Environment setup (LaTeX toolchain, papers compilation): [SETUP.md](SETUP.md)
+
 <!-- routing:start -->
 ## Routing
 

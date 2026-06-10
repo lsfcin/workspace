@@ -46,6 +46,10 @@ One sentence, no period, ~80 chars. Describe *what*, not *how*. New files withou
 Line 2 must be `> Short description` (auto-extracted for parent Routing table).
 `## Routing` block auto-managed by `context_synchronizer.py` between `<!-- routing:start -->` / `<!-- routing:end -->` — **do not edit manually**. Renames not tracked; update description manually.
 
+## Setup
+
+Dev environment, per-project quick-start, facade templates: [SETUP.md](SETUP.md)
+
 ## Core Files
 Each project MUST have a CONTEXT.md root file and a README.md file.
 In addition, it CAN have:

@@ -35,6 +35,7 @@ Code/_templates/*
 
 Academy/*
 !Academy/CONTEXT.md
+!Academy/SETUP.md
 !Academy/classes/
 Academy/classes/*
 !Academy/classes/CONTEXT.md
