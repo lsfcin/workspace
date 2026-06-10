@@ -23,6 +23,7 @@ Every folder with more than one source file exposes a **facade** — the single 
 | Python | `__init__.py` | Explicit `__all__` required |
 | Dart | `index.dart` | `export '...' show ...` pattern |
 | SCSS | `_index.scss` | `@forward` only |
+| Java / Kotlin | `package-info.java` / package object | Access modifiers are the facade — `public` = API, `package-private` / `internal` = hidden. No extra file needed; the compiler enforces it. |
 
 **Rules:**
 - Facade re-exports only the public API — internal helpers stay invisible
