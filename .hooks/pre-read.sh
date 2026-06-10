@@ -7,6 +7,11 @@ file=$(python3 -c \
 	"import sys,json; d=json.load(sys.stdin); print(d.get('file_path',''))" 2>/dev/null \
 	<<< "$(cat)")
 
+# Facade files are already minimal interfaces — reading source directly is correct.
+case "$(basename "$file")" in
+	index.ts|index.tsx|index.js|index.jsx|__init__.py|index.dart) exit 0 ;;
+esac
+
 iface=""
 case "$file" in
 	*.py)   iface="${file%.py}.pyi" ;;
