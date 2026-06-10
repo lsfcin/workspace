@@ -13,7 +13,7 @@
 
 ## Facade Pattern
 
-Every folder with more than one source file exposes a facade (`index.ts`, `__init__.py`, etc.) as sole public entry point. Cross-folder imports that bypass the facade are hard-blocked at commit.
+Every folder with source files exposes a facade (`index.ts`, `__init__.py`, etc.) as sole public entry point. Cross-folder imports that bypass the facade are hard-blocked at commit.
 
 Full per-language convention, rules, and enforcement details: [SPECS.md](SPECS.md).
 

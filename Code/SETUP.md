@@ -75,7 +75,7 @@ Stop as soon as you have enough context. Most tasks stop at `index.d.ts`.
 Each project under `Code/` must have:
 - `CONTEXT.md` — line 2 is `> Short description`
 - `README.md` — user-facing overview
-- Facade (`index.ts` / `__init__.py`) at each folder with ≥2 source files
+- Facade (`index.ts` / `__init__.py` / `index.dart`) at every folder with source files
 
 Optional but recommended:
 - `SPECS.md` — architecture decisions and design rationale

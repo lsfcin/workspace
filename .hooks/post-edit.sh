@@ -135,7 +135,7 @@ case "$file" in
 				\( -name "*.ts" -o -name "*.js" -o -name "*.tsx" -o -name "*.py" -o -name "*.dart" \) \
 				! -name "index.*" ! -name "__init__.py" ! -name "*.d.ts" ! -name "*.pyi" \
 				2>/dev/null | wc -l)
-			[ "$_n" -ge 2 ] && printf "💬 NO FACADE: %s has %d files — add index.ts / __init__.py / index.dart\n" "$dir" "$_n"
+			[ "$_n" -ge 1 ] && printf "💬 NO FACADE: %s has %d file(s) — add index.ts / __init__.py / index.dart\n" "$dir" "$_n"
 		fi
 		;;
 esac
