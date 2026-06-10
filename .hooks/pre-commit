@@ -79,17 +79,27 @@ if [ -n "$TEX_STAGED" ]; then
   fi
 fi
 
-# ── 4. Sync CONTEXT.md Routing block for all affected directories ──────────────
+# ── 4. Sync CONTEXT.md Routing block — walk up to workspace root ───────────────
 if [ -n "$CODE_FILES" ]; then
-  while IFS= read -r dir; do
-    if [ -f "$dir/CONTEXT.md" ]; then
-      python3 /mnt/workspace/.hooks/context_synchronizer.py "$dir" 2>/dev/null \
-        && git add "$dir/CONTEXT.md" 2>/dev/null || true
-    elif [ -f "$dir/WORKSPACE.md" ]; then
-      python3 /mnt/workspace/.hooks/context_synchronizer.py "$dir" 2>/dev/null \
-        && git add "$dir/WORKSPACE.md" 2>/dev/null || true
-    fi
+  declare -A _ctx_synced
+  while IFS= read -r leaf_dir; do
+    walk="$leaf_dir"
+    while [ "$walk" != "/" ]; do
+      if [ -z "${_ctx_synced[$walk]+x}" ]; then
+        _ctx_synced["$walk"]=1
+        if [ -f "$walk/CONTEXT.md" ]; then
+          python3 /mnt/workspace/.hooks/context_synchronizer.py "$walk" 2>/dev/null \
+            && git add "$walk/CONTEXT.md" 2>/dev/null || true
+        elif [ -f "$walk/WORKSPACE.md" ]; then
+          python3 /mnt/workspace/.hooks/context_synchronizer.py "$walk" 2>/dev/null \
+            && git add "$walk/WORKSPACE.md" 2>/dev/null || true
+        fi
+      fi
+      [ -f "$walk/WORKSPACE.md" ] && break
+      walk=$(dirname "$walk")
+    done
   done < <(echo "$CODE_FILES" | xargs -I{} dirname {} | sort -u)
+  unset _ctx_synced
 fi
 
 # ── 5b. TeX → .texif interfaces ───────────────────────────────────────────────

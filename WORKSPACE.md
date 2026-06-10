@@ -8,44 +8,32 @@
 
 ## Context Conventions
 
-- `CONTEXT.md` files add context; chain concatenates hierarchically — navigate folder structure downward.
-- Always check local `CONTEXT.md` before starting work; load only context relevant to active subtree.
+- `CONTEXT.md` files COMPOUND context; chain concatenates hierarchically — navigate folder structure downward.
+- ALWAYS check `CONTEXT.md` before work; MUST load the CONTEXT.md of the active subtree.
 - Every `CONTEXT.md` must have title, `> one-line description` on line 2, and `## Routing` block at end auto-synced by `context_synchronizer.py`.
 
 ## Behavioral Rules
 
-- Understand local architecture before changes.
-- Do not invent requirements or hidden constraints.
-- Prefer modifying existing abstractions over creating parallel patterns.
-- Avoid new files unless clearly necessary.
-- Uncertain about APIs, library versions, any factual claim — **search web first**. Outdated knowledge causes real mistakes; do not assume.
-- **Read before editing.** Read full file before modifying. Grep all callers before changing function. Never edit blind.
+- Understand local architecture, file structure, and ALL patterns before changes.
+- Uncertain about APIs, library versions, any factual claim — **search web first**. Avoid mistakes and rework; DO NOT assume.
+- **Understand before editing.** Never edit blind.
 
 ## Git
-- Workspace repo tracks only structural files (`CLAUDE.md`, `CONTEXT.md`, domain-level docs). Commit only workspace changes here. Internal projects use internal git repos.
-
-## Core
-- `Core/` contains provider-agnostic agent systems: agent definitions, workflow protocols, CLI tools.
-- See `Core/CONTEXT.md` for full system map.
-
-## Research
-- Use `/research <flow> <query>` to invoke (e.g. `/research lit "topic"`, `/research review file.tex`).
+- Workspace repo tracks only structural files (`WORKSPACE.md`, `CONTEXT.md`, domain-level docs). Commit only workspace changes here. Internal projects use internal git repos.
 
 ## Infrastructure
-- See `SETUP.md` for full replication instructions: hooks, stubgen, tsc, caveman, etc.
-- Run `codeburn optimize` periodically to audit token waste.
-- Run `caveman-compress <file>` on CONTEXT.md files periodically to cut input tokens.
-- Responses use caveman compression by default. Deactivate for a session: say "stop caveman" or "normal mode". To change the default, see `SETUP.md §6`.
-
+- See `SETUP.md` for full replication instructions: hooks, stubgen, tsc, caveman, codeburn, etc.
 
 <!-- routing:start -->
 ## Routing
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`Academy/`](Academy/CONTEXT.md) | Research, teaching, and academic work |
+| [`Academy/`](Academy/CONTEXT.md) | Research, teaching, academic work |
+| [`Brain/`](Brain/CONTEXT.md) | Personal OS: goals, attention, ideas, life. Agent collaborates here. |
 | [`Branches/`](Branches/CONTEXT.md) | Personal life management — health, finances, and home construction |
 | [`Code/`](Code/CONTEXT.md) | Software projects developed under this workspace |
-| [`Core/`](Core/CONTEXT.md) | Shared research infrastructure: agents, workflow protocols, and CLI tools. |
+| [`Core/`](Core/CONTEXT.md) | Agent library: skills, agents, prompts, flows, tools. Provider-agnostic. |
+| [`Datasets/`](Datasets/CONTEXT.md) | — |
 | [`Models/`](Models/CONTEXT.md) | Local model checkpoints and weights used across research and code projects |
 <!-- routing:end -->

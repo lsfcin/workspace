@@ -3,9 +3,10 @@
 
 ## Engineering Principles
 
-- **One responsibility per file** — many small files over monoliths; think file-size limits ahead.
-- **Explicit naming** — file names guessable without opening.
-- **Flat structure** — sub-modules over deep nesting; max 3 directory levels.
+- **High cohesion** — one CRISTAL CLEAR responsibility per file.
+- **Minimize file LOC** — small is better! many small files over monoliths; think limits ahead.
+- **Explicit naming** — file names guessable without opening, keep naming patterns.
+- **Flat structure** — sub-modules over deep nesting.
 - **Low coupling** — small modules, explicit imports; no hidden cross-directory coupling.
 - **Interface-first reading** — read `.pyi` / `.d.ts` / `.dart.api` before source files (enforced by hook).
 
@@ -38,6 +39,12 @@ One sentence, no period, ~80 chars. Describe *what*, not *how*. New files withou
 Line 2 must be `> Short description` (auto-extracted for parent Routing table).
 `## Routing` block auto-managed by `context_synchronizer.py` between `<!-- routing:start -->` / `<!-- routing:end -->` — **do not edit manually**. Renames not tracked; update description manually.
 
+## Core Files
+Each project MUST have a CONTEXT.md root file and a README.md file.
+In addition, it CAN have:
+- SPECS.md file, handling architecture details and design decisions
+- ROADMAP.md file, 
+
 ## Git Structure
 
 Projects inside `Code/` have own git repos. Commit: `git -C <project-path> commit`.
@@ -51,8 +58,14 @@ Projects inside `Code/` have own git repos. Commit: `git -C <project-path> commi
 | [`corpora/`](corpora/CONTEXT.md) | Real-time 3D computer vision research pipeline — depth, pose, segmentation from  |
 | [`flows/`](flows/CONTEXT.md) | Graph-based workflow execution engine — typed slots, YAML-defined flows, pluggab |
 | [`futebots/`](futebots/CONTEXT.md) | Multi-agent football simulation with genetic algorithm agent evolution |
-| [`isoroll/`](isoroll/CONTEXT.md) | Foundry VTT isometric-play module and offline asset generation pipeline |
+| [`isometric-perspective/`](isometric-perspective/CONTEXT.md) | — |
+| [`isoroll-content/`](isoroll-content/CONTEXT.md) | Offline asset generation pipeline for the isoroll Foundry VTT module |
+| [`isoroll-module/`](isoroll-module/CONTEXT.md) | Foundry VTT v14 isometric projection module — TypeScript + Vite + SCSS. |
 | [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for experimenting with LC/UFRPE curriculum redesign |
 | [`shortvid/`](shortvid/CONTEXT.md) | Desktop video editor for short-form content — chroma-key, timeline, WebM export |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records |
+
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`prog1/main.py`](prog1/main.py) | — | — | ← add first-line comment |
 <!-- routing:end -->

@@ -151,7 +151,10 @@ Verify: `tsc --version` or `~/.local/bin/tsc --version`
 ### 5. Claude Code Hooks
 No action needed. `.claude/settings.json` versioned in this repo; Claude Code reads it automatically when workspace opened. Hooks in `.hooks/` activate immediately.
 
-### 6. Caveman (Claude Code output compression)
+### 6. Codeburn
+Run `codeburn optimize` periodically to audit token waste.
+
+### 7. Caveman (Claude Code output compression)
 
 Installs caveman as Claude Code skill (~65% output token savings). Requires Node ≥18. Safe to re-run.
 
@@ -229,7 +232,10 @@ When adding new agent: if it supports session-start hooks or context injection, 
 
 > **New agent checklist:** consult [caveman INSTALL.md](https://github.com/JuliusBrussee/caveman/blob/main/INSTALL.md) for target agent (e.g. OpenCode → `npx -y github:JuliusBrussee/caveman -- --only opencode --with-init` generates `.opencode/AGENTS.md` and `AGENTS.md`). Cross-check against induced pattern here to avoid duplicating rule injection.
 
-### 7. Local LaTeX Toolchain (for `Academy/papers/`)
+Run `caveman-compress <file>` on CONTEXT.md files periodically to cut input tokens.
+Responses use caveman compression by default. Deactivate for a session: say "stop caveman" or "normal mode". To change the default, see `SETUP.md §6`.
+
+### 8. Local LaTeX Toolchain (for `Academy/papers/`)
 For local PDF builds (without Overleaf):
 
 ```bash

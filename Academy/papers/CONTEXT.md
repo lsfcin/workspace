@@ -3,6 +3,8 @@
 
 Each paper: own subdirectory, own git repo (Overleaf as remote). Local compilation primary; Overleaf = sync/checkpoint for final validation.
 
+- Use `/research <flow> <query>` to invoke (e.g. `/research lit "topic"`, `/research review file.tex`).
+
 ## Folder Naming Convention
 
 All paper folders follow pattern `YEAR-VENUE-paper_name`. Example:
@@ -140,9 +142,9 @@ See [Core/tools/CONTEXT.md](../../Core/tools/CONTEXT.md) for all tools and [Core
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`megatruth/`](megatruth/CONTEXT.md) | Hybrid intelligence paper — crowd truth aggregation via mechanism design |
 | [`2026-JBCS-relativistic_raytracer/`](2026-JBCS-relativistic_raytracer/CONTEXT.md) | JBCS special issue paper on relativistic raytracing benchmarking for SVR 2026 |
 | [`2026-SIBGRAPI-relativistic_raytracer/`](2026-SIBGRAPI-relativistic_raytracer/CONTEXT.md) | SIBGRAPI 2026 paper on relativistic raytracing benchmarking |
+| [`megatruth/`](megatruth/CONTEXT.md) | Hybrid intelligence paper — crowd truth aggregation via mechanism design |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|

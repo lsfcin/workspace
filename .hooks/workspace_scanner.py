@@ -118,12 +118,15 @@ def code_files(directory: Path) -> list:
 def has_code_content(directory: Path) -> bool:
     if code_files(directory): return True
     return any(has_code_content(p) for p in directory.iterdir()
-               if p.is_dir() and not p.name.startswith('.'))
+               if p.is_dir() and not p.name.startswith('.') and p.name not in _SKIP_DIRS)
+
+_SKIP_DIRS = {'node_modules', '__pycache__', '.git', 'dist', 'build', '.venv', 'venv'}
 
 def subdir_scan(directory: Path, rs: str, re_end: str) -> tuple:
     fold_list, link_list = [], []
     for sub in sorted(p for p in directory.iterdir()
-                      if p.is_dir() and not p.name.startswith('.')):
+                      if p.is_dir() and not p.name.startswith('.')
+                      and p.name not in _SKIP_DIRS):
         has_ctx = (sub / 'CONTEXT.md').exists()
         if not has_code_content(sub) and not has_ctx: continue
         files = code_files(sub)

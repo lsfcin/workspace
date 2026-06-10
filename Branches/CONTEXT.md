@@ -19,4 +19,7 @@ Each subfolder may contain a `CONTEXT.md` summarizing its current state and acti
 <!-- routing:start -->
 ## Routing
 
+| Subdirectory | Description |
+|--------------|-------------|
+| [`writing/`](writing/CONTEXT.md) | — |
 <!-- routing:end -->
