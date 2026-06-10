@@ -92,7 +92,7 @@ Each project has its own git repo. Project-specific environment setup lives in t
 | `isoroll-module` | TypeScript + Vite | `npm install` |
 | `isoroll-content` | Python | `pip install -r requirements.txt` |
 | `flows` | Python | `pip install -r requirements.txt` |
-| `apptime` | Flutter + Kotlin | `flutter pub get` |
+| `apptime` | Flutter + Kotlin | [`apptime/SETUP.md`](apptime/SETUP.md) |
 | `voti` | Next.js / TypeScript | `npm install` |
 | `corpora` | Python / PyTorch | `pip install -r requirements.txt` |
 | `futebots` | Python | `pip install -r requirements.txt` |

@@ -13,27 +13,9 @@
 
 ## Facade Pattern
 
-Every folder with more than one source file exposes a **facade** — the single entry point through which all external consumers import. Nothing imports internal files from another module directly.
+Every folder with more than one source file exposes a facade (`index.ts`, `__init__.py`, etc.) as sole public entry point. Cross-folder imports that bypass the facade are hard-blocked at commit.
 
-**Per-language convention:**
-
-| Language | Facade file | Notes |
-|----------|-------------|-------|
-| TypeScript / JS | `index.ts` / `index.js` | Explicit named re-exports only — no `export *` (breaks tree-shaking) |
-| Python | `__init__.py` | Explicit `__all__` required |
-| Dart | `index.dart` | `export '...' show ...` pattern |
-| SCSS | `_index.scss` | `@forward` only |
-| Java / Kotlin | `package-info.java` / package object | Access modifiers are the facade — `public` = API, `package-private` / `internal` = hidden. No extra file needed; the compiler enforces it. |
-
-**Rules:**
-- Facade re-exports only the public API — internal helpers stay invisible
-- Cross-folder imports that target a non-facade file → **hard block at commit** (`check-facade-imports.py`)
-- Intra-folder imports (within the same module) always allowed
-- Circular dependencies → fix the architecture, not the import rule
-
-**Exempt from enforcement:** test files, the facade file itself, `generated/` and `vendor/` dirs.
-
-See [Code/SETUP.md](SETUP.md) for facade templates per language.
+Full per-language convention, rules, and enforcement details: [SPECS.md](SPECS.md).
 
 ## File Size Policy
 
@@ -77,6 +59,8 @@ Skeletons for all five files: [`_templates/`](_templates/)
 ## Git Structure
 
 Projects inside `Code/` have own git repos. Commit: `git -C <project-path> commit`.
+
+All projects follow Git Flow (`main`, `develop`, `feature/*`, `release/*`, `hotfix/*`). Branching rules: [SPECS.md](SPECS.md).
 
 <!-- routing:start -->
 ## Routing

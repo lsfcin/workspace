@@ -237,26 +237,8 @@ Run `caveman-compress <file>` on CONTEXT.md files periodically to cut input toke
 Responses use caveman compression by default. Deactivate for a session: say "stop caveman" or "normal mode". To change the default, see `SETUP.md §6`.
 
 ### 8. Local LaTeX Toolchain (for `Academy/papers/`)
-For local PDF builds (without Overleaf):
 
-```bash
-sudo apt-get update
-sudo apt-get install -y latexmk texlive-xetex texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
-```
-
-For paper templates requiring `Times New Roman` via `fontspec` (e.g. `\setmainfont{Times New Roman}`):
-
-```bash
-printf 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true\n' | sudo debconf-set-selections
-sudo apt-get install -y ttf-mscorefonts-installer
-```
-
-Verify:
-
-```bash
-latexmk --version
-xelatex --version
-```
+See [Academy/SETUP.md](Academy/SETUP.md).
 
 ---
 
@@ -371,31 +353,6 @@ Projects under `Code/` — and any other workspace subdirectory with non-trivial
 
 ## Per-Project Quick Start
 
-Each project under `Code/` has own git repo and `CONTEXT.md`. See those files for project-specific setup.
+See [Code/SETUP.md](Code/SETUP.md) for Code project quick-start commands and per-project setup.
 
-| Project | Stack | Quick start |
-|---------|-------|-------------|
-| `flows` | Python | `pip install -r requirements.txt` |
-| `apptime` | Flutter + Kotlin | `flutter pub get` |
-| `voti` | Next.js / TypeScript | `npm install && npm run dev` |
-| `corpora` | Python / PyTorch | `pip install -r requirements.txt` |
-| `futebots` | Python | `pip install -r requirements.txt` |
-| `isoroll` | Python / ComfyUI | [`Code/isoroll/SETUP.md`](Code/isoroll/SETUP.md) |
-| `shortvid` | Python / PySide6 | `pip install -r requirements.txt` |
-| `ppc` | Vanilla HTML / Alpine.js | open `index.html` via local server |
-
-### Papers Quick Start (`Academy/papers`)
-
-Use local-first compilation, Overleaf as sync/checkpoint:
-
-```bash
-cd /mnt/workspace/Academy/papers/<paper-folder>
-latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
-```
-
-Clean rebuild:
-
-```bash
-latexmk -C
-latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
-```
+See [Academy/SETUP.md](Academy/SETUP.md) for LaTeX toolchain and papers compilation.
