@@ -66,8 +66,12 @@ Line 2 must be `> Short description` (auto-extracted for parent Routing table).
 ## Core Files
 Each project MUST have a CONTEXT.md root file and a README.md file.
 In addition, it CAN have:
-- SPECS.md file, handling architecture details and design decisions
-- ROADMAP.md file, 
+- SPECS.md — architecture decisions and design rationale (WHY, not WHAT)
+- ROADMAP.md — pending milestones with agent-ready technical context
+- SETUP.md — dev environment setup from scratch
+- HISTORY.md — archive of completed milestones (moved from ROADMAP.md)
+
+Skeletons for all five files: [`_templates/`](_templates/)
 
 ## Git Structure
 

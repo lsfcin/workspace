@@ -28,6 +28,9 @@ ROADMAP.md
 Code/*
 !Code/CONTEXT.md
 !Code/SETUP.md
+!Code/_templates/
+Code/_templates/*
+!Code/_templates/*.md
 
 Academy/*
 !Academy/CONTEXT.md
