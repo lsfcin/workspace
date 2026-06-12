@@ -25,10 +25,54 @@ PIXI.Application (canvas.app)
 Key rule: **`canvas.environment.primary.background` = rendered bg sprite in v14.**
 `canvas.primary.background` exists but transforming it has no visual effect.
 
+## VisibilityFilter on canvas.primary
+
+`canvas.primary` has a `VisibilityFilter` applied. It **hard-clips** the rendered output to the token/tile's grid footprint bounding box — any sprite pixels outside the footprint are discarded. This causes visual issues for isometric sprites taller or wider than their footprint (volume sprites, counter-transformed tiles).
+
+**There is no in-place fix.** VisibilityFilter operates at the GPU shader level on the entire PrimaryCanvasGroup output. The only escape: add a separate `PIXI.Container` directly to `canvas.stage` (outside canvas.primary entirely).
+
+```typescript
+// Add container to canvas.stage — inherits stage iso transform, not subject to VisibilityFilter
+const layer = new PIXI.Container();
+canvas.stage.addChild(layer);           // or insert at specific index
+layer.eventMode = "passive";            // no hit detection on the layer itself
+```
+
+Clones in this external layer share texture handles with originals in canvas.primary — zero extra VRAM.
+
+## canvas.visibility (global fog compositing)
+
+**Separate** from VisibilityFilter. `canvas.visibility` is a global compositing pass that darkens/hides pixels EVERYWHERE on `canvas.stage` based on the vision polygon — including external layers added to canvas.stage. Two distinct problems:
+
+| System | What it does | Affects |
+|--------|-------------|---------|
+| `VisibilityFilter` on `canvas.primary` | Hard-clips sprite pixels to footprint bounding box | Only children of canvas.primary |
+| `canvas.visibility` | Darkens pixels outside vision polygon (fog of war) | Entire canvas.stage |
+
+Phase 3 (IsoSpriteLayer) solves VisibilityFilter clip. Phase 4 handles canvas.visibility darkening on overflow pixels.
+
 ## Depth Sort
 
 `canvas.primary.children.sort()` corrupts Foundry internal z-order.
 Use `PrimaryCanvasGroup` API, assign `zIndex` on objects or add custom foreground container.
+
+## mesh.alpha = 0 — hide without losing interactivity
+
+Setting `mesh.alpha = 0` on a `PrimarySpriteMesh` makes it invisible but leaves it fully present in canvas.primary — Foundry continues to use it for hit detection, HUD positioning, and mechanics. Used when moving visual rendering to an external layer while keeping Foundry's interaction system intact.
+
+```typescript
+// Hide original — stays interactive, hit-detectable, used by Foundry internals
+mesh.alpha = 0;
+
+// Clone at same position in external layer — visible, no events
+const clone = new PIXI.Sprite(mesh.texture);  // shared texture handle
+clone.eventMode = "passive";
+externalLayer.addChild(clone);
+```
+
+**Restore on destroy:** `mesh.alpha = docAlpha(doc)` when the clone is removed (e.g. on `destroyToken`).
+
+**Do NOT read `mesh.alpha` back for clone state** — we set it to 0, so copying it kills the clone. Clone alpha must come from `doc.alpha`, not from mesh.
 
 ## Native Handle Suppression
 

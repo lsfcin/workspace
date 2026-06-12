@@ -94,6 +94,48 @@ if (Math.abs(mesh.scale.x - targetSX) > EPS || Math.abs(mesh.scale.y - targetSY)
 ```
 After initial setup, subsequent refresh calls find values correct and skip → no dirty signal.
 
+## token.visible vs document.hidden — transient vs stable
+
+`token.visible` is a transient PIXI property. Foundry sets it to `false` during:
+- Token drag (mid-drag, while preview clone exists)
+- Canvas layer switches (switching from tokens to tiles layer etc.)
+- Any state where Foundry temporarily hides the token's PIXI subtree
+
+**Never use `token.visible` to drive clone visibility** — clone will flicker and disappear during drag.
+
+`document.hidden` is the stable, GM-set game state. Only changes when a GM explicitly hides/shows the token via the HUD. Use this for clone visibility:
+
+```typescript
+clone.visible = !token.document.hidden;
+clone.alpha   = typeof token.document.alpha === "number" ? token.document.alpha : 1;
+```
+
+Same applies to tiles: `tile.visible` is transient, `tile.document.hidden` is stable.
+
+## Clone Sync Pattern — geometry only, alpha from document
+
+When cloning a `PrimarySpriteMesh` to an external layer (see `foundry-canvas.md` — VisibilityFilter escape), split sync into two separate operations:
+
+**`syncSprite(clone, mesh)`** — geometry ONLY, called on every refresh:
+```typescript
+clone.texture   = mesh.texture ?? PIXI.Texture.EMPTY;
+clone.position.set(mesh.x, mesh.y);
+if (mesh.anchor) clone.anchor.set(mesh.anchor.x, mesh.anchor.y);
+if (mesh.skew)   clone.skew.set(mesh.skew.x, mesh.skew.y);
+if (mesh.scale)  clone.scale.set(mesh.scale.x, mesh.scale.y);
+clone.rotation  = mesh.rotation ?? 0;
+// DO NOT copy mesh.alpha — we set it to 0; copying it kills the clone
+// DO NOT copy mesh.visible — transient PIXI state; use document instead
+```
+
+**`applyDocState(clone, doc)`** — visibility from document, called after syncSprite:
+```typescript
+clone.alpha   = typeof doc.alpha === "number" ? doc.alpha : 1;
+clone.visible = !doc.hidden;
+```
+
+Always call both in sequence on `refreshToken`/`refreshTile`. After geometry sync, set `mesh.alpha = 0` again (Foundry may have reset it to 1 during its own refresh pass).
+
 ## Token (Undistorted)
 
 ```typescript
