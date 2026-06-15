@@ -1,0 +1,16 @@
+from _typeshed import Incomplete
+
+WORKSPACE: Incomplete
+FACADE_FOR: Incomplete
+data: Incomplete
+file_path: Incomplete
+facade_name: Incomplete
+facade: Incomplete
+content: Incomplete
+exports: Incomplete
+m: Incomplete
+m2: Incomplete
+name: Incomplete
+named: Incomplete
+rel: Incomplete
+rel = facade

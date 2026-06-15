@@ -1,6 +1,20 @@
 # Code — Specs
 > Engineering conventions, architecture decisions, and process rules for all Code/ projects.
 
+## Hook Enforcement Reference
+
+What hooks block vs what you must self-enforce:
+
+| Hook | Trigger | What it does |
+|------|---------|-------------|
+| `pre-edit.py` | Any Edit/Write | Hard-blocks: file exceeds 200 LOC; new file missing first-line description |
+| `facade-scan.py` | Write (new files only) | Prints existing exports from target module's facade — verify no duplication before proceeding |
+| `post-edit.sh` | Any Edit/Write | Regenerates `.d.ts`/`.pyi`/`.dart.api`; syncs `CONTEXT.md` routing block |
+| `pre-read.sh` | Any Read | Redirects source reads to interface file (`.d.ts`/`.pyi`) when interface is current |
+| `pre-commit` | git commit | LOC check, facade boundary check, first-line comment, stub generation, CONTEXT.md sync |
+
+Full wiring details: [`/SETUP.md`](/SETUP.md#claude-code-hooks-claudesettingsjson)
+
 ## Engineering Constraints
 
 These are enforced by code review, not hooks. Violation = redo before continuing.
