@@ -1,28 +1,12 @@
 # Workspace Root
 > Canonical workspace entrypoint. Read before any task.
 
-## Core Principles
+- Filesystem = source of truth. No memory, no assumptions.
+- Always load the CONTEXT.md of the active subtree before work.
+- Uncertain about APIs, library versions, any factual claim — search web first.
+- Workspace repo commits only structural files (`WORKSPACE.md`, `CONTEXT.md`, domain docs). Internal projects use their own git repos.
 
-- Filesystem = source of truth. Don't rely on memory, prior sessions, or machine state.
-- Load minimal relevant context for current task.
-
-## Context Conventions
-
-- `CONTEXT.md` files COMPOUND context; chain concatenates hierarchically — navigate folder structure downward.
-- ALWAYS check `CONTEXT.md` before work; MUST load the CONTEXT.md of the active subtree.
-- Every `CONTEXT.md` must have title, `> one-line description` on line 2, and `## Routing` block at end auto-synced by `context_synchronizer.py`.
-
-## Behavioral Rules
-
-- Understand local architecture, file structure, and ALL patterns before changes.
-- Uncertain about APIs, library versions, any factual claim — **search web first**. Avoid mistakes and rework; DO NOT assume.
-- **Understand before editing.** Never edit blind.
-
-## Git
-- Workspace repo tracks only structural files (`WORKSPACE.md`, `CONTEXT.md`, domain-level docs). Commit only workspace changes here. Internal projects use internal git repos.
-
-## Infrastructure
-- See `SETUP.md` for full replication instructions: hooks, stubgen, tsc, caveman, codeburn, etc.
+See [SETUP.md](SETUP.md) for hooks, stubgen, tsc, caveman, and toolchain setup.
 
 <!-- routing:start -->
 ## Routing

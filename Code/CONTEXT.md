@@ -1,73 +1,25 @@
 # Code
 > Software projects developed under this workspace
 
-## Engineering Principles
+**Before editing any file:**
+1. Read the target project's CONTEXT.md.
+2. Read the facade (`index.ts` / `__init__.py`) of every module you'll touch.
+3. Language/pattern rules and file templates: [SPECS.md](SPECS.md).
 
-- **Reuse** — NEVER copy and paste; use tiny functions and classes for EVERYTHING.
-- **High cohesion** — one CRISTAL CLEAR responsibility per file.
-- **Minimize file LOC** — small is better! many small files over monoliths.
-- **Review ALWAYS** — after EACH PROMPT check, is the code clearer or messier.
-- **Quality OVER quantity** — if STANDARDS aren't met, go back and redo. I'll wait.
-- **Explicit naming** — file, classes, functions and variables names must be guessable.
-- **Flat structure** — sub-modules over deep nesting.
-- **Low coupling** — small modules imports; no hidden cross-directory coupling.
-- **Facade boundaries** — cross-folder imports go through `index` / `__init__` only (enforced by hook).
-- **Interface-first reading** — read `.pyi` / `.d.ts` / `.dart.api` before source (enforced by hook). Facade files (`index.ts`, `__init__.py`, `index.dart`) are exempt — read directly.
+**Hooks enforce automatically** (no need to re-check):
+- File size: warn at 150 LOC, hard block at 200 LOC
+- Cross-folder imports only through `index` / `__init__` (facade boundary)
+- New files require first-line description comment
+- Interface stubs (`.d.ts`, `.pyi`, `.dart.api`) regenerated at commit
 
-## Facade Pattern
+**You enforce** (hooks cannot catch these):
+- One responsibility per file — never copy-paste, extract a function instead
+- After each prompt: code cleaner or messier? If messier, redo before continuing
+- Names must be guessable without opening the file
 
-Every folder with source files exposes a facade (`index.ts`, `__init__.py`, etc.) as sole public entry point. Cross-folder imports that bypass the facade are hard-blocked at commit.
-
-Full per-language convention, rules, and enforcement details: [SPECS.md](SPECS.md).
-
-## File Size Policy
-
-Applies to `.js .ts .tsx .py .dart .html .css .scss`:
-
-- Target: under **100 LOC**
-- Warning at **150 LOC** (hook warns on commit)
-- Hard block at **200 LOC** (commits and AI edits blocked)
-
-Near limits: extract modules, separate orchestration from implementation.
-
-## First-Line Description
-
-Every code file must begin with one-line description comment:
-
-| Language | Format |
-|----------|--------|
-| Python / YAML / TOML | `# Short description` |
-| JS / TS / Dart | `// Short description` |
-| CSS / SCSS | `/* Short description */` |
-| HTML | `<!-- Short description -->` |
-| Markdown | `# Title` (heading IS the description) |
-
-One sentence, no period, ~80 chars. Describe *what*, not *how*. New files without it blocked.
-
-## CONTEXT.md Convention
-
-Line 2 must be `> Short description` (auto-extracted for parent Routing table).
-`## Routing` block auto-managed by `context_synchronizer.py` between `<!-- routing:start -->` / `<!-- routing:end -->` — **do not edit manually**. Renames not tracked; update description manually.
-
-## Setup
-
-Dev environment, per-project quick-start, facade templates: [SETUP.md](SETUP.md)
-
-## Core Files
-Each project MUST have a CONTEXT.md root file and a README.md file.
-In addition, it CAN have:
-- SPECS.md — architecture decisions and design rationale (WHY, not WHAT)
-- ROADMAP.md — pending milestones with agent-ready technical context
-- SETUP.md — dev environment setup from scratch
-- HISTORY.md — archive of completed milestones (moved from ROADMAP.md)
-
-Skeletons for all five files: [`_templates/`](_templates/)
-
-## Git Structure
-
-Projects inside `Code/` have own git repos. Commit: `git -C <project-path> commit`.
-
-All projects follow Git Flow (`main`, `develop`, `feature/*`, `release/*`, `hotfix/*`). Branching rules: [SPECS.md](SPECS.md).
+**Git**: projects use own repos — `git -C <project-path> commit`. Git Flow branching.
+**New project**: needs `CONTEXT.md` + `README.md`. Templates: [`_templates/`](_templates/).
+**CONTEXT.md files**: line 2 = `> description`. Routing block auto-managed — do not edit manually.
 
 <!-- routing:start -->
 ## Routing
