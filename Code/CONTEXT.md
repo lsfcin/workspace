@@ -3,13 +3,16 @@
 
 ## Engineering Principles
 
+- **Reuse** — NEVER copy and paste; use tiny functions and classes for EVERYTHING.
 - **High cohesion** — one CRISTAL CLEAR responsibility per file.
-- **Minimize file LOC** — small is better! many small files over monoliths; think limits ahead.
-- **Explicit naming** — file names guessable without opening, keep naming patterns.
+- **Minimize file LOC** — small is better! many small files over monoliths.
+- **Review ALWAYS** — after EACH PROMPT check, is the code clearer or messier.
+- **Quality OVER quantity** — if STANDARDS aren't met, go back and redo. I'll wait.
+- **Explicit naming** — file, classes, functions and variables names must be guessable.
 - **Flat structure** — sub-modules over deep nesting.
-- **Low coupling** — small modules, explicit imports; no hidden cross-directory coupling.
+- **Low coupling** — small modules imports; no hidden cross-directory coupling.
 - **Facade boundaries** — cross-folder imports go through `index` / `__init__` only (enforced by hook).
-- **Interface-first reading** — read `.pyi` / `.d.ts` / `.dart.api` before source files (enforced by hook). Facade files (`index.ts`, `__init__.py`, `index.dart`) are exempt — read directly.
+- **Interface-first reading** — read `.pyi` / `.d.ts` / `.dart.api` before source (enforced by hook). Facade files (`index.ts`, `__init__.py`, `index.dart`) are exempt — read directly.
 
 ## Facade Pattern
 
