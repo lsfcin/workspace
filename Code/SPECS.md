@@ -1,6 +1,58 @@
 # Code — Specs
 > Engineering conventions, architecture decisions, and process rules for all Code/ projects.
 
+## Engineering Constraints
+
+These are enforced by code review, not hooks. Violation = redo before continuing.
+
+- **One responsibility per file** — if you need to describe a file with "and", split it
+- **Never copy-paste** — if the same logic appears twice, extract a function or class first
+- **Names must be guessable** — file, class, function, variable names without opening the file
+- **Flat over deep** — prefer sub-modules over nested directories beyond 2 levels
+- **After each prompt** — is the code cleaner or messier than before? If messier, redo
+
+## File Size Policy
+
+Applies to `.js .ts .tsx .py .dart .html .css .scss`:
+
+| Threshold | Action |
+|-----------|--------|
+| Under 100 LOC | Target — ideal file size |
+| 150 LOC | Warning at commit (hook warns, does not block) |
+| 200 LOC | Hard block — commit and AI edits rejected |
+
+Near limits: extract modules, separate orchestration from implementation logic.
+
+## First-Line Description
+
+Every code file must start with a one-line description comment. New files without it are blocked by `pre-edit.py`.
+
+| Language | Format |
+|----------|--------|
+| Python / YAML / TOML | `# Short description` |
+| JS / TS / Dart | `// Short description` |
+| CSS / SCSS | `/* Short description */` |
+| HTML | `<!-- Short description -->` |
+| LaTeX | `% Short description` |
+| Markdown | `# Title` (heading is the description) |
+
+One sentence, no period, ≤80 chars. Describe *what*, not *how*.
+
+## Project File Structure
+
+Each project MUST have:
+- `CONTEXT.md` — routing + architecture entry point
+- `README.md` — human-facing project overview
+
+Each project CAN have:
+- `SPECS.md` — architecture decisions and design rationale (WHY, not WHAT)
+- `ROADMAP.md` — pending milestones with agent-ready technical context
+- `SETUP.md` — dev environment setup from scratch
+- `HISTORY.md` — archive of completed milestones (moved from ROADMAP.md)
+- `KNOWN-BUGS.md` — tracked bugs with reproduction steps
+
+Skeletons for all files: [`_templates/`](_templates/)
+
 ## Facade Pattern
 
 Every folder with source files exposes a **facade** — the single entry point through which all external consumers import. Nothing imports internal files from another module directly.

@@ -1,5 +1,5 @@
 # [Project Name]
-> [One-line description — REQUIRED on line 2; auto-extracted for parent routing table.]
+> Project scaffolding templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skeletons
 
 <!-- What: workspace routing and agent entry point for this project.
      Not here: feature list (→README.md), architecture decisions (→SPECS.md), setup steps (→SETUP.md).
