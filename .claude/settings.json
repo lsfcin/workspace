@@ -5,7 +5,11 @@
       "Bash(git -C * diff *)",
       "Bash(git -C * status)",
       "Bash(git -C * show *)",
-      "Bash(git -C * branch *)"
+      "Bash(git -C * branch *)",
+      "mcp__codegraph__codegraph_explore",
+      "mcp__codegraph__codegraph_search",
+      "mcp__codegraph__codegraph_callers",
+      "mcp__codegraph__codegraph_node"
     ]
   },
   "hooks": {
