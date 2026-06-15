@@ -8,6 +8,7 @@
 # OS / Windows artifacts
 $RECYCLE.BIN/
 System Volume Information/
+.fuse_hidden*
 
 # Downloads
 Downloads/
