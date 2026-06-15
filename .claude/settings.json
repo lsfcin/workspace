@@ -20,6 +20,10 @@
           {
             "type": "command",
             "command": "python3 /mnt/workspace/.hooks/facade-scan.py"
+          },
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/.hooks/facade-gate.py"
           }
         ]
       },
@@ -40,6 +44,15 @@
           {
             "type": "command",
             "command": "bash /mnt/workspace/.hooks/post-edit.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/.hooks/facade-tracker.py"
           }
         ]
       }
