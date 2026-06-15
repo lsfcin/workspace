@@ -1,11 +1,5 @@
----
-name: dataset-relativistic-raytracer
-description: Benchmark render images and timing CSV for the relativistic raytracer paper (Cavalcanti & Figueiredo 2026)
-metadata:
-  type: reference
----
-
 # Dataset: Relativistic Raytracer Benchmark
+> GPU benchmark renders and timing CSV — Unity vs Vulkan, 6 scenes, 4 integrators
 
 **Download:** https://zenodo.org/records/20240662
 
