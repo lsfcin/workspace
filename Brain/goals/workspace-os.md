@@ -33,25 +33,26 @@ fallback · iterate — MVP can always be extended*
 > [ ] [courses-import] bring course materials into workspace — define folder structure and import strategy  
 > [ ] [todo-accountability] design accountability layer for TODO.md — calendar reminders, daily review, or notification hook so tasks don't silently expire  
 > [ ] [gcal-link] link workspace to Google Calendar — deadlines and events visible in context  
-> [ ] [gmail-link] link workspace to Gmail — surface relevant emails as context for goals and tasks  
+> [x] [gmail-link] link workspace to Gmail — surface relevant emails as context for goals and tasks  
 > [ ] [whatsapp-link] connect workspace notifications or reminders to WhatsApp  
 > [ ] [telegram-link] connect workspace to Telegram — bot or channel for daily nudges  
 
 ## done
 
 <!-- done:start -->
+> [x] [gmail-link] `Core/tools/gmail` + `Core/skills/gmail-triage.md` — read-only Gmail across 3 accounts, routes to INBOX/TODO/goals/drafts/attachments. Pending: Google Cloud OAuth setup by Lucas.
 <!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-05-25  ·  trend: advancing
+last-touch: 2026-05-26  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       4 |
-| trimester   |       4 |
-| semester    |       4 |
-| year        |       4 |
-| 2-year      |       4 |
-| 4-year      |       4 |
+| month       |       5 |
+| trimester   |       5 |
+| semester    |       5 |
+| year        |       5 |
+| 2-year      |       5 |
+| 4-year      |       5 |
 <!-- stats:end -->

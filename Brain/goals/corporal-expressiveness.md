@@ -32,14 +32,14 @@ Pick one video about body language or presence — practical, not academic. A TE
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-05-25  ·  trend: advancing
+last-touch: 2026-05-26  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       4 |
-| trimester   |       4 |
-| semester    |       4 |
-| year        |       4 |
-| 2-year      |       4 |
-| 4-year      |       4 |
+| month       |       5 |
+| trimester   |       5 |
+| semester    |       5 |
+| year        |       5 |
+| 2-year      |       5 |
+| 4-year      |       5 |
 <!-- stats:end -->

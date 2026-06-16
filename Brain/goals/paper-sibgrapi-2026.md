@@ -46,14 +46,14 @@ Message Artur now and ask for the corrected dataset link. That's the only blocke
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-05-25  ·  trend: advancing
+last-touch: 2026-05-26  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       3 |
-| trimester   |       3 |
-| semester    |       3 |
-| year        |       3 |
-| 2-year      |       3 |
-| 4-year      |       3 |
+| month       |       4 |
+| trimester   |       4 |
+| semester    |       4 |
+| year        |       4 |
+| 2-year      |       4 |
+| 4-year      |       4 |
 <!-- stats:end -->

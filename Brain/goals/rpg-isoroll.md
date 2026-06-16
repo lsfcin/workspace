@@ -44,14 +44,14 @@ Open the recovered files. Don't try to run anything. Just read — what workflow
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-05-25  ·  trend: advancing
+last-touch: 2026-05-26  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       2 |
-| trimester   |       2 |
-| semester    |       2 |
-| year        |       2 |
-| 2-year      |       2 |
-| 4-year      |       2 |
+| month       |       3 |
+| trimester   |       3 |
+| semester    |       3 |
+| year        |       3 |
+| 2-year      |       3 |
+| 4-year      |       3 |
 <!-- stats:end -->

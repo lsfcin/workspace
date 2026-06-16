@@ -10,7 +10,16 @@
 <!-- add entries below, newest first -->
 
 
+marcar banca de artur
+responder megatruth
+
+responder a aluna sobre o estágio dela
+
+still, about the foreground tiles, thinking of it now, do we still have to have a checkbox on the iso tab for that? I mean, what is the relevance of it on our design right now?
+
+
 ajudar Paulo (coordenador) a montar o PPC, ele criou uma lista de ementas que temos que atualizar o formato. fazer isso com ajuda da IA.
+
 
 pedir pro claude me chamar de lucas a cada prompt
 
@@ -19,11 +28,14 @@ tirar o token do overleaf do voxar do repositorio publico do workspace
 pedir pra mudar a data de pagamento do aluguel do dia 5 pro dia 10
 
 potenciais ferramentas de IA pra olhar
+claude council
 ECC
 airLLM + Qwen3.6 médio (14B-20B) e/ou Laguna XS.2; LFM2.5
 odysseus - pewdiepipe
 hermes agent
 kimi 2.6
+kimi 2.7
+GLM-5.2
 moonshot AI
 qwen code
 turbovec google compressions 31b -> 4b

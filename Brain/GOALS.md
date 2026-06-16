@@ -3,66 +3,66 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-05-26 00:51
+last-updated: 2026-06-16 13:10
 
 >**areas** — last 14 days  
 ```
-health       █████░░░░░   26 touches
+health       ░░░░░░░░░░   0 touches
 career       ░░░░░░░░░░   0 touches
-finances     █░░░░░░░░░   6 touches
-fun          ██████████   46 touches
-spiritual    ███░░░░░░░   14 touches
+finances     ░░░░░░░░░░   0 touches
+fun          ░░░░░░░░░░   0 touches
+spiritual    ░░░░░░░░░░   0 touches
 ```
 
 >**goals** — last 14 days  
 ```
-corporal-expressiveness  ███░░░░░░░   4 touches
-dance-bachata            ███░░░░░░░   4 touches
-dance-cavalo-marinho     ███░░░░░░░   4 touches
-dance-forro              ███░░░░░░░   4 touches
-dance-frevo              ███░░░░░░░   4 touches
-dance-salsa              ███░░░░░░░   4 touches
-dance-samba              ███░░░░░░░   4 touches
-exercise                 ███░░░░░░░   4 touches
-finances                 ███░░░░░░░   4 touches
-guitar                   ███░░░░░░░   4 touches
-home-casinhas            █░░░░░░░░░   2 touches
-instituto                ███░░░░░░░   4 touches
-lih-dd                   ███░░░░░░░   4 touches
-local-ai                 ███░░░░░░░   4 touches
-magic-places             ███░░░░░░░   4 touches
-make-in-time             ██░░░░░░░░   3 touches
-pandeiro                 ███░░░░░░░   4 touches
-paper-jarbinhas          ██░░░░░░░░   3 touches
-paper-megatruth          ██░░░░░░░░   3 touches
-paper-scattercode        █░░░░░░░░░   2 touches
-paper-sibgrapi-2026      ██░░░░░░░░   3 touches
-reading                  ███░░░░░░░   4 touches
-rpg-isoroll              █░░░░░░░░░   2 touches
-sleep-regularity         ██████████   11 touches
-smartphone-addiction     ███░░░░░░░   4 touches
-startapps-apptime        ███░░░░░░░   4 touches
-startapps-arede          ███░░░░░░░   4 touches
-startapps-batituque      ███░░░░░░░   4 touches
-startapps-come-bem       ███░░░░░░░   4 touches
-startapps-cuida          ███░░░░░░░   4 touches
-startapps-da-feirinha    ███░░░░░░░   4 touches
-startapps-gira           ███░░░░░░░   4 touches
-startapps-laplata        ███░░░░░░░   4 touches
-startapps-marcapramim    ███░░░░░░░   4 touches
-startapps-permuta        ███░░░░░░░   4 touches
-startapps-polilinhas     ██░░░░░░░░   3 touches
-startapps-realgorithm    ███░░░░░░░   4 touches
-startapps-todolado       ███░░░░░░░   4 touches
-startapps-ux-guidelines-ai ███░░░░░░░   4 touches
-startapps-voti           ███░░░░░░░   4 touches
-startapps-xacomigo       ███░░░░░░░   4 touches
-surf                     ███░░░░░░░   4 touches
-teaching-materials       ░░░░░░░░░░   1 touches
-vipassana                ███░░░░░░░   4 touches
-voice                    █░░░░░░░░░   2 touches
-workspace-os             ███░░░░░░░   4 touches
-yoga                     ███░░░░░░░   4 touches
+corporal-expressiveness  ░░░░░░░░░░   0 touches
+dance-bachata            ░░░░░░░░░░   0 touches
+dance-cavalo-marinho     ░░░░░░░░░░   0 touches
+dance-forro              ░░░░░░░░░░   0 touches
+dance-frevo              ░░░░░░░░░░   0 touches
+dance-salsa              ░░░░░░░░░░   0 touches
+dance-samba              ░░░░░░░░░░   0 touches
+exercise                 ░░░░░░░░░░   0 touches
+finances                 ░░░░░░░░░░   0 touches
+guitar                   ░░░░░░░░░░   0 touches
+home-casinhas            ░░░░░░░░░░   0 touches
+instituto                ░░░░░░░░░░   0 touches
+lih-dd                   ░░░░░░░░░░   0 touches
+local-ai                 ░░░░░░░░░░   0 touches
+magic-places             ░░░░░░░░░░   0 touches
+make-in-time             ░░░░░░░░░░   0 touches
+pandeiro                 ░░░░░░░░░░   0 touches
+paper-jarbinhas          ░░░░░░░░░░   0 touches
+paper-megatruth          ░░░░░░░░░░   0 touches
+paper-scattercode        ░░░░░░░░░░   0 touches
+paper-sibgrapi-2026      ░░░░░░░░░░   0 touches
+reading                  ░░░░░░░░░░   0 touches
+rpg-isoroll              ░░░░░░░░░░   0 touches
+sleep-regularity         ░░░░░░░░░░   0 touches
+smartphone-addiction     ░░░░░░░░░░   0 touches
+startapps-apptime        ░░░░░░░░░░   0 touches
+startapps-arede          ░░░░░░░░░░   0 touches
+startapps-batituque      ░░░░░░░░░░   0 touches
+startapps-come-bem       ░░░░░░░░░░   0 touches
+startapps-cuida          ░░░░░░░░░░   0 touches
+startapps-da-feirinha    ░░░░░░░░░░   0 touches
+startapps-gira           ░░░░░░░░░░   0 touches
+startapps-laplata        ░░░░░░░░░░   0 touches
+startapps-marcapramim    ░░░░░░░░░░   0 touches
+startapps-permuta        ░░░░░░░░░░   0 touches
+startapps-polilinhas     ░░░░░░░░░░   0 touches
+startapps-realgorithm    ░░░░░░░░░░   0 touches
+startapps-todolado       ░░░░░░░░░░   0 touches
+startapps-ux-guidelines-ai ░░░░░░░░░░   0 touches
+startapps-voti           ░░░░░░░░░░   0 touches
+startapps-xacomigo       ░░░░░░░░░░   0 touches
+surf                     ░░░░░░░░░░   0 touches
+teaching-materials       ░░░░░░░░░░   0 touches
+vipassana                ░░░░░░░░░░   0 touches
+voice                    ░░░░░░░░░░   0 touches
+workspace-os             ░░░░░░░░░░   0 touches
+yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
 
