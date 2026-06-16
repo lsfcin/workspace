@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 EDIT_HINTS = ("edit", "write", "create", "replace", "insert", "delete", "patch", "apply")
+READ_HINTS = ("read", "open", "view", "inspect", "search")
 PATH_KEYS = (
     "filePath",
     "file_path",
@@ -130,6 +131,13 @@ def main() -> int:
     tool_input = data.get("tool_input") if isinstance(data.get("tool_input"), dict) else {}
     tool_name_lower = tool_name.lower()
     paths = collect_paths(workspace_root, tool_input)
+
+    # facade-tracker: record facade reads for facade-gate session state
+    if any(hint in tool_name_lower for hint in READ_HINTS) and paths:
+        for file_path in paths:
+            run_script(workspace_root / ".hooks" / "facade-tracker.py", {"file_path": file_path}, tool_name, workspace_root)
+        emit_allow()
+        return 0
 
     if not any(hint in tool_name_lower for hint in EDIT_HINTS) or not paths:
         emit_allow()

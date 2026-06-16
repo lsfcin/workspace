@@ -148,7 +148,23 @@ def main() -> int:
         canonical_tool_name = "Write" if write_like else "Edit"
         for file_path in paths:
             payload = build_payload(file_path, tool_input)
+            # size / description enforcement
             result = run_script(workspace_root / ".hooks" / "pre-edit.py", payload, canonical_tool_name, workspace_root)
+            if result.stdout.strip():
+                messages.append(result.stdout.strip())
+            if result.returncode == 2:
+                if result.stdout:
+                    sys.stdout.write(result.stdout)
+                if result.stderr:
+                    sys.stderr.write(result.stderr)
+                return 2
+            # facade-scan: inform about existing facade exports before creating new file
+            if write_like:
+                result = run_script(workspace_root / ".hooks" / "facade-scan.py", payload, canonical_tool_name, workspace_root)
+                if result.stdout.strip():
+                    messages.append(result.stdout.strip())
+            # facade-gate: block Code/ module edits until facade read this session
+            result = run_script(workspace_root / ".hooks" / "facade-gate.py", payload, canonical_tool_name, workspace_root)
             if result.stdout.strip():
                 messages.append(result.stdout.strip())
             if result.returncode == 2:

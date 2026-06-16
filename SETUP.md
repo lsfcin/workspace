@@ -56,6 +56,41 @@ Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
 
 For codegraph setup and bash tool reference, see [`Code/SETUP.md`](Code/SETUP.md#codegraph).
 
+### Agent Hook Coverage
+
+All canonical enforcement lives in `.hooks/`. Each agent needs a shim that calls them.
+
+| Hook | Git | Claude Code | Copilot | Other agents |
+|------|-----|-------------|---------|--------------|
+| Pre-read (interface redirect) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
+| Pre-edit (size / description) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
+| Pre-edit facade-scan (new files) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
+| Pre-edit facade-gate (Code/ edits) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
+| Post-edit (stubs / context sync / codegraph) | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | needs shim |
+| Post-read facade-tracker | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | needs shim |
+| Size / facade import / stub gen / context sync | `pre-commit` ✅ | — | — | automatic (git) |
+
+**Wiring a new agent — three hook points:**
+
+```
+PreTool (Read)  → bash /mnt/workspace/.hooks/pre-read.sh
+PreTool (Edit)  → python3 /mnt/workspace/.hooks/pre-edit.py
+                  python3 /mnt/workspace/.hooks/facade-scan.py  (write/create only)
+                  python3 /mnt/workspace/.hooks/facade-gate.py
+PostTool (Edit) → bash /mnt/workspace/.hooks/post-edit.sh
+PostTool (Read) → python3 /mnt/workspace/.hooks/facade-tracker.py
+```
+
+Each canonical hook expects:
+- `file_path` — absolute path to the file being read/edited
+- `CLAUDE_TOOL_NAME` env var — `"Read"`, `"Edit"`, or `"Write"`
+- Pre-hooks: JSON payload on **stdin**
+- Post-hooks: JSON payload in **`CLAUDE_TOOL_INPUT`** env var
+
+Return code `2` = hard block; stdout = message shown to agent. See `copilot-pre-tool.py` and `copilot-post-tool.py` for a complete shim implementation.
+
+**Session isolation caveat**: `facade-gate` and `facade-tracker` use Claude Code's process PID to isolate parallel sessions. Other agents must adapt `get_session_id()` in those scripts to use their own session identifier.
+
 ### CONTEXT.md Auto-Sync (`.hooks/context_synchronizer.py`)
 Runs on every Claude edit (via `post-edit.sh` — also re-syncs parent dir) and every git commit (via `pre-commit`). Keeps each project's `## Routing` block accurate without manual maintenance:
 
