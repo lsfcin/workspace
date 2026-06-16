@@ -54,7 +54,7 @@ Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
 | `.hooks/facade-gate.py` | PreToolUse: Edit, Write (`Code/` files) | **Hard-blocks** edits to any `Code/` module file until the nearest facade has been Read this session |
 | `.hooks/facade-tracker.py` | PostToolUse: Read | Records facade reads to `/tmp/claude_facades_<pid>.txt`; consumed by `facade-gate.py` |
 
-For codegraph setup and MCP tool reference, see [`Code/SETUP.md`](Code/SETUP.md#codegraph).
+For codegraph setup and bash tool reference, see [`Code/SETUP.md`](Code/SETUP.md#codegraph).
 
 ### CONTEXT.md Auto-Sync (`.hooks/context_synchronizer.py`)
 Runs on every Claude edit (via `post-edit.sh` — also re-syncs parent dir) and every git commit (via `pre-commit`). Keeps each project's `## Routing` block accurate without manual maintenance:

@@ -32,4 +32,28 @@ else
 	exit 2
 fi
 
+# ── codegraph nudge — one-time per project per session ───────────────────────
+if [[ "$file" == /mnt/workspace/Code/* ]]; then
+	case "$file" in
+		*.pyi|*.d.ts|*.dart.api|*.texif|*.csvif) : ;;  # generated — skip
+		*.py|*.js|*.ts|*.tsx|*.dart|*.jsx)
+			cg_root=""; cg_dir=$(dirname "$file")
+			while [ "$cg_dir" != "/" ]; do
+				[ -d "$cg_dir/.codegraph" ] && cg_root="$cg_dir" && break
+				cg_dir=$(dirname "$cg_dir")
+			done
+			if [ -n "$cg_root" ]; then
+				claude_pid=$(ps -o ppid= -p $PPID 2>/dev/null | tr -d ' ')
+				nudge_file="/tmp/claude_cg_nudged_${claude_pid}.txt"
+				if ! grep -qF "$cg_root" "$nudge_file" 2>/dev/null; then
+					printf "💡 codegraph indexed — explore before reading source:\n"
+					printf "   codegraph explore \"<question>\" %s\n" "$cg_root"
+					printf "   codegraph query \"<symbol>\" %s\n" "$cg_root"
+					echo "$cg_root" >> "$nudge_file"
+				fi
+			fi
+			;;
+	esac
+fi
+
 exit 0

@@ -7,11 +7,12 @@
 3. Read the facade (`index.ts` / `__init__.py`) of every module you'll touch — `facade-gate` will block edits until you do.
 4. Language/pattern rules and file templates: [SPECS.md](SPECS.md).
 
-**codegraph tools** (available when `.mcp.json` exists in project root):
-- `codegraph_explore` — architecture questions, flows, "how does X connect to Y"
-- `codegraph_search` — find a symbol by name across the project
-- `codegraph_callers` — every call site of a function
-- `codegraph_node` — one symbol's full source + callers
+**codegraph** (all projects indexed — call via Bash, no MCP needed):
+- `codegraph explore "<question>" <project-path>` — architecture, flows, "how does X connect to Y"
+- `codegraph query "<symbol>" <project-path>` — find symbol by name
+- `codegraph callers "<fn>" <project-path>` — all call sites
+- `codegraph node "<symbol>" <project-path>` — source + call trail
+- Index auto-syncs after every edit via post-edit hook.
 
 **Hooks enforce automatically** (no need to re-check):
 - File size: warn at 150 LOC, hard block at 200 LOC

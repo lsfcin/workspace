@@ -76,7 +76,6 @@ Each project under `Code/` must have:
 - `CONTEXT.md` — line 2 is `> Short description`
 - `README.md` — user-facing overview
 - Facade (`index.ts` / `__init__.py` / `index.dart`) at every folder with source files
-- `.mcp.json` — loads codegraph MCP when working in this project (see below)
 - `.gitignore` entry for `.codegraph/`
 
 Optional but recommended:
@@ -92,9 +91,8 @@ Pre-indexed knowledge graph (tree-sitter + SQLite). Lets you query architecture,
 ### Init a new project
 
 ```bash
-cd /mnt/workspace/Code/<project>
-codegraph init          # indexes all source files → .codegraph/
-codegraph status        # verify: nodes, edges, files, DB size
+codegraph init /mnt/workspace/Code/<project>   # indexes all source files → .codegraph/
+codegraph status /mnt/workspace/Code/<project> # verify: nodes, edges, files, DB size
 ```
 
 Add to project `.gitignore`:
@@ -103,35 +101,26 @@ Add to project `.gitignore`:
 .codegraph/
 ```
 
-Create `.mcp.json` at project root (MCP server loads only when Claude Code opens this directory):
-```json
-{
-  "mcpServers": {
-    "codegraph": {
-      "type": "stdio",
-      "command": "codegraph",
-      "args": ["serve", "--mcp"]
-    }
-  }
-}
-```
+No MCP setup needed — index is queried via bash. Index auto-syncs after every file edit via `post-edit.sh`.
 
 ### Keep index fresh
 
-Index auto-syncs via inotify while `codegraph serve --mcp` runs. No manual update needed during a session. To force a full reindex:
+`post-edit.sh` runs `codegraph sync <project-root>` after every source edit automatically. To force full reindex:
 
 ```bash
-cd /mnt/workspace/Code/<project> && codegraph init
+codegraph init /mnt/workspace/Code/<project>
 ```
 
-### MCP tools (available in sessions opened from project directory)
+### Bash tools (available in any session, no MCP required)
 
-| Tool | Use |
-|------|-----|
-| `codegraph_explore` | Architecture questions, "how does X connect to Y" |
-| `codegraph_search` | Find a symbol by name across the project |
-| `codegraph_callers` | Every call site of a function |
-| `codegraph_node` | One symbol's full source + callers |
+| Command | Use |
+|---------|-----|
+| `codegraph explore "<question>" <path>` | Architecture questions, "how does X connect to Y" |
+| `codegraph query "<symbol>" <path>` | Find a symbol by name |
+| `codegraph callers "<fn>" <path>` | All call sites of a function |
+| `codegraph node "<symbol>" <path>` | One symbol's source + call trail |
+| `codegraph sync <path>` | Incremental index update |
+| `codegraph status <path>` | Index health check |
 
 ### Projects with codegraph
 
