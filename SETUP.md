@@ -51,6 +51,10 @@ Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
 | `.hooks/facade-scan.py` | PreToolUse: Write (new files in `Code/`) | **Informs** — prints exports already declared in the target module's facade before a new file is created. Warns if exports list is empty (facade needs updating). Not a block. |
 | `.hooks/post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts` / `.dart.api`; auto-scaffolds `jsconfig.json`/`tsconfig.json` if missing; reminds about missing first-line comment; runs `context_synchronizer.py` |
 | `.hooks/pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading source file when interface is current (timestamp check); warns when interface is stale |
+| `.hooks/facade-gate.py` | PreToolUse: Edit, Write (`Code/` files) | **Hard-blocks** edits to any `Code/` module file until the nearest facade has been Read this session |
+| `.hooks/facade-tracker.py` | PostToolUse: Read | Records facade reads to `/tmp/claude_facades_<pid>.txt`; consumed by `facade-gate.py` |
+
+For codegraph setup and MCP tool reference, see [`Code/SETUP.md`](Code/SETUP.md#codegraph).
 
 ### CONTEXT.md Auto-Sync (`.hooks/context_synchronizer.py`)
 Runs on every Claude edit (via `post-edit.sh` — also re-syncs parent dir) and every git commit (via `pre-commit`). Keeps each project's `## Routing` block accurate without manual maintenance:

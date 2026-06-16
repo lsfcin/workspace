@@ -76,10 +76,66 @@ Each project under `Code/` must have:
 - `CONTEXT.md` — line 2 is `> Short description`
 - `README.md` — user-facing overview
 - Facade (`index.ts` / `__init__.py` / `index.dart`) at every folder with source files
+- `.mcp.json` — loads codegraph MCP when working in this project (see below)
+- `.gitignore` entry for `.codegraph/`
 
 Optional but recommended:
 - `SPECS.md` — architecture decisions and design rationale
 - `ROADMAP.md` — planned work
+
+---
+
+## codegraph
+
+Pre-indexed knowledge graph (tree-sitter + SQLite). Lets you query architecture, find callers, and explore flows without reading raw source. Per-project — each project has its own index.
+
+### Init a new project
+
+```bash
+cd /mnt/workspace/Code/<project>
+codegraph init          # indexes all source files → .codegraph/
+codegraph status        # verify: nodes, edges, files, DB size
+```
+
+Add to project `.gitignore`:
+```
+# codegraph knowledge graph index
+.codegraph/
+```
+
+Create `.mcp.json` at project root (MCP server loads only when Claude Code opens this directory):
+```json
+{
+  "mcpServers": {
+    "codegraph": {
+      "type": "stdio",
+      "command": "codegraph",
+      "args": ["serve", "--mcp"]
+    }
+  }
+}
+```
+
+### Keep index fresh
+
+Index auto-syncs via inotify while `codegraph serve --mcp` runs. No manual update needed during a session. To force a full reindex:
+
+```bash
+cd /mnt/workspace/Code/<project> && codegraph init
+```
+
+### MCP tools (available in sessions opened from project directory)
+
+| Tool | Use |
+|------|-----|
+| `codegraph_explore` | Architecture questions, "how does X connect to Y" |
+| `codegraph_search` | Find a symbol by name across the project |
+| `codegraph_callers` | Every call site of a function |
+| `codegraph_node` | One symbol's full source + callers |
+
+### Projects with codegraph
+
+All current projects are indexed: `isoroll-module`, `flows`, `apptime`, `voti`, `shortvid`, `corpora`, `futebots`, `ppc`.
 
 ---
 
