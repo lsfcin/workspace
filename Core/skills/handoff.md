@@ -27,8 +27,8 @@ Run these commands:
 # What project files exist?
 find . -maxdepth 3 \( \
   -name "ROADMAP.md" -o -name "KNOWN-BUGS.md" -o -name "HISTORY.md" \
-  -o -name "CHANGELOG.md" -o -name "TODO.md" -o -name "CLAUDE.md" \
-  -o -name "TASKS.md" -o -name "BACKLOG.md" \
+  -o -name "CHANGELOG.md" -o -name "TODO.md" -o -name "WORKSPACE.md" \
+  -o -name "TASKS.md" -o -name "BACKLOG.md" -o -name "INPUT.md" \
 \) 2>/dev/null | sort
 
 # Recent git activity (skip if no git)
