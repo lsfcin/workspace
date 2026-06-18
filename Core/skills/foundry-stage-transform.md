@@ -1,3 +1,9 @@
+---
+name: foundry-stage-transform
+description: >
+  Foundry VTT v14 — isometric stage transform, background counter-transform, GridConfig preview counter-transform.
+---
+
 Foundry VTT v14 — isometric stage transform, background counter-transform, GridConfig preview counter-transform.
 
 ---

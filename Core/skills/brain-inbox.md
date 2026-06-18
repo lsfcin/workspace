@@ -1,3 +1,9 @@
+---
+name: brain-inbox
+description: >
+  Triage Brain/INBOX.md — route each entry to a goal file, TODO list, writing draft, or delete.
+---
+
 Triage Brain/INBOX.md — route each entry to a goal file, TODO list, writing draft, or delete.
 
 Arguments: $ARGUMENTS

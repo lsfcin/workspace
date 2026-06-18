@@ -1,1 +1,1 @@
-Workspace policy lives in WORKSPACE.md — injected at session start via `.hooks/copilot-session-start.py`.
+Workspace policy lives in AGENTS.md — injected at session start via `.hooks/copilot-session-start.py`.

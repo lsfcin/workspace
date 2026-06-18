@@ -1,3 +1,9 @@
+---
+name: research
+description: >
+  Execute a research workflow from the workspace Core research system.
+---
+
 Execute a research workflow from the workspace Core research system.
 
 Arguments: $ARGUMENTS

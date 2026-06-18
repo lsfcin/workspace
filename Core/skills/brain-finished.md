@@ -1,3 +1,9 @@
+---
+name: brain-finished
+description: >
+  Mark an achievement done, advance to the next selected achievement, write a new ease-start.
+---
+
 Mark an achievement done, advance to the next selected achievement, write a new ease-start.
 
 Arguments: $ARGUMENTS

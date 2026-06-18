@@ -1,3 +1,9 @@
+---
+name: gmail
+description: >
+  Triage Gmail across all configured accounts — classify, confirm routes, write to Brain/INBOX.md.
+---
+
 Triage Gmail across all configured accounts — classify, confirm routes, write to Brain/INBOX.md.
 
 Arguments: $ARGUMENTS

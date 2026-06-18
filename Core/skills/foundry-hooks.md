@@ -1,3 +1,9 @@
+---
+name: foundry-hooks
+description: >
+  Foundry VTT v14 — hooks reference table, key patterns, gridSize detection.
+---
+
 Foundry VTT v14 — hooks reference table, key patterns, gridSize detection.
 
 ---

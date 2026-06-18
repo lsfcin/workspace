@@ -5,7 +5,7 @@ Design principle: **the file system is the source of truth**. No config lives on
 
 ## Parity And Enforcement Model
 
-Canonical behavior lives in neutral files under `.hooks/` and `WORKSPACE.md`. Company-specific files act as shims, discovery points, or startup wiring for Claude, Copilot, VS Code.
+Canonical behavior lives in neutral files under `.hooks/` and `AGENTS.md`. Company-specific files act as shims, discovery points, or startup wiring for Claude, Copilot, VS Code.
 
 Hook can block read/edit/commit → **ENFORCED**. File only injects guidance → **INDUCED**. Present only for compatibility, no enforcement effect → **SKIPPED**.
 
@@ -13,7 +13,7 @@ Hook can block read/edit/commit → **ENFORCED**. File only injects guidance →
 
 | Task | Canonical files | Claude files | Copilot / VS Code files | Behavior |
 |------|-----------------|--------------|--------------------------|----------|
-| Add workspace parity config and wrapper scripts | `WORKSPACE.md`, `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/post-edit.sh`, `.hooks/start-session.sh`, `.hooks/start-session.ps1` | `CLAUDE.md`, `.claude/settings.json` | `.agentrc.json`, `.hooks/copilot-agent.sh`, `.github/copilot-instructions.md` | **ENFORCED** |
+| Add workspace parity config and wrapper scripts | `AGENTS.md`, `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/post-edit.sh`, `.hooks/start-session.sh`, `.hooks/start-session.ps1` | `CLAUDE.md`, `.claude/settings.json` | `.agentrc.json`, `.hooks/copilot-agent.sh`, `.github/copilot-instructions.md` | **ENFORCED** |
 | Wire Copilot wrapper to call pre-read / pre-edit / post-edit hooks | `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/post-edit.sh`, `.hooks/copilot-session-start.py`, `.hooks/copilot-pre-tool.py`, `.hooks/copilot-post-tool.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json`, `.vscode/settings.json` | **ENFORCED** |
 | Integrate `context_synchronizer.py` and interface generation into wrapper | `.hooks/post-edit.sh`, `.hooks/pre-read.sh`, `.hooks/pre-edit.py`, `.hooks/context_synchronizer.py` | `.claude/settings.json` | `.github/hooks/workspace-policy.json` | **ENFORCED** |
 | Add VS Code tasks / settings to run session-start checks | `.hooks/start-session.sh`, `.hooks/start-session.ps1`, `.hooks/copilot-session-start.py` | `CLAUDE.md` | `.vscode/tasks.json`, `.vscode/settings.json`, `.github/copilot-instructions.md` | **INDUCED** |
@@ -23,8 +23,8 @@ Hook can block read/edit/commit → **ENFORCED**. File only injects guidance →
 
 | File | Why it exists | Behavior |
 |------|---------------|----------|
-| `WORKSPACE.md` | Canonical workspace policy + startup anchor for every agent | **INDUCED** |
-| `.github/copilot-instructions.md` | One-line Copilot shim pointing to `WORKSPACE.md` | **INDUCED** |
+| `AGENTS.md` | Canonical workspace policy + startup anchor for every agent | **INDUCED** |
+| `.github/copilot-instructions.md` | One-line Copilot shim pointing to `AGENTS.md` | **INDUCED** |
 | `.github/hooks/workspace-policy.json` | VS Code hook registration for Copilot lifecycle events | **ENFORCED** |
 | `.vscode/settings.json` | Limits hook-file discovery so Copilot loads workspace hook path, not user-level `.claude` hooks | **INDUCED** |
 
@@ -349,19 +349,19 @@ All infrastructure lives in workspace git repo:
   paper-scaffold.py       ← paper directory initializer: `new <name>` creates full layout; `adapt <path>` fills missing files
   copilot-pre-tool.py     ← Copilot PreToolUse shim: dispatches to pre-read.sh / pre-edit.py
   copilot-post-tool.py    ← Copilot PostToolUse shim: dispatches to post-edit.sh
-  copilot-session-start.py← Copilot SessionStart shim: injects WORKSPACE.md excerpt as context
+  copilot-session-start.py← Copilot SessionStart shim: injects AGENTS.md excerpt as context
   copilot-agent.sh        ← Copilot agent launcher: reads .agentrc.json and runs start-session.sh
-  start-session.sh        ← neutral session-start: prints WORKSPACE.md header (Linux/macOS)
-  start-session.ps1       ← neutral session-start: prints WORKSPACE.md header (Windows/PowerShell)
+  start-session.sh        ← neutral session-start: prints AGENTS.md header (Linux/macOS)
+  start-session.ps1       ← neutral session-start: prints AGENTS.md header (Windows/PowerShell)
 .claude/
   settings.json           ← Claude Code hook wiring (calls neutral pre-edit/post-edit/pre-read) + permissions
 .github/
-  copilot-instructions.md ← Copilot shim: one line pointing to WORKSPACE.md
+  copilot-instructions.md ← Copilot shim: one line pointing to AGENTS.md
   hooks/workspace-policy.json ← Copilot hook registration: SessionStart, PreToolUse, PostToolUse
 .agentrc.json             ← Copilot agent config: start_session path + declarative capability flags
 SETUP.md                  ← this file: replication instructions
 CLAUDE.md                 ← workspace behavioral instructions for Claude
-WORKSPACE.md              ← canonical workspace entrypoint read by all agents at session start
+AGENTS.md                 ← canonical workspace entrypoint read by all agents at session start
 Code/CONTEXT.md           ← engineering principles: file size, modularization, interface conventions
 Core/                     ← provider-agnostic research system (agents, flows, tools)
   Core/agents/            ← agent role definitions (lead, researcher, reviewer, verifier, writer)

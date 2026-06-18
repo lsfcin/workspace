@@ -17,9 +17,9 @@ def load_input() -> dict:
 
 
 def read_workspace_excerpt(workspace_root: Path, max_lines: int = 120) -> str:
-    workspace_file = workspace_root / "WORKSPACE.md"
+    workspace_file = workspace_root / "AGENTS.md"
     if not workspace_file.exists():
-        return "WORKSPACE.md was not found in the workspace root."
+        return "AGENTS.md was not found in the workspace root."
 
     lines: list[str] = []
     with workspace_file.open("r", encoding="utf-8") as handle:

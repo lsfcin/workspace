@@ -1,3 +1,9 @@
+---
+name: foundry-undo
+description: >
+  Foundry VTT v14 — undo/history system: suppression, manual push, dual-stack ordering.
+---
+
 Foundry VTT v14 — undo/history system: suppression, manual push, dual-stack ordering.
 
 ---

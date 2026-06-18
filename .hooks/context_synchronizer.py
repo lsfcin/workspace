@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Sync the Routing block in CONTEXT.md (or WORKSPACE.md at workspace root).
+# Sync the Routing block in CONTEXT.md (or AGENTS.md at workspace root).
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
@@ -88,7 +88,7 @@ def sync(target: Path):
     ctx = directory / 'CONTEXT.md'
     workspace_mode = False
     if not ctx.exists():
-        w = directory / 'WORKSPACE.md'
+        w = directory / 'AGENTS.md'
         if w.exists():
             ctx = w
             workspace_mode = True

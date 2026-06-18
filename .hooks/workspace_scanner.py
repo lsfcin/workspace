@@ -36,19 +36,34 @@ def _exec_description(path: Path) -> str:
     return ''
 
 def _frontmatter_description(path: Path) -> str:
-    """Read 'description:' from YAML frontmatter (files that start with ---)."""
+    """Read 'description:' from YAML frontmatter (files that start with ---).
+    Handles inline values and block scalars (> and |)."""
     try:
         lines = path.read_text(encoding='utf-8', errors='ignore').splitlines()
     except OSError:
         return ''
     if not lines or lines[0].strip() != '---':
         return ''
-    for line in lines[1:20]:
+    block_mode = False
+    block_lines: list = []
+    for line in lines[1:30]:
         if line.strip() in ('---', '...'):
             break
-        m = re.match(r'^description:\s*["\']?(.+?)["\']?\s*$', line)
-        if m:
-            return m.group(1).strip()
+        if block_mode:
+            if line.startswith((' ', '\t')):
+                block_lines.append(line.strip())
+            else:
+                break
+        else:
+            m = re.match(r'^description:\s*(.+?)\s*$', line)
+            if m:
+                val = m.group(1).strip().strip('"\'')
+                if val in ('>', '|', '>-', '|-'):
+                    block_mode = True
+                else:
+                    return val
+    if block_lines:
+        return ' '.join(block_lines)
     return ''
 
 def file_description(path: Path) -> str:
@@ -111,7 +126,7 @@ def _is_exec_script(path: Path) -> bool:
 def code_files(directory: Path) -> list:
     return sorted(p for p in directory.iterdir()
                   if p.is_file()
-                  and p.name not in ('CONTEXT.md', 'WORKSPACE.md')
+                  and p.name not in ('CONTEXT.md', 'WORKSPACE.md', 'AGENTS.md')
                   and not p.name.endswith(('.d.ts', '.pyi'))
                   and (p.suffix in ALL_EXTS or _is_exec_script(p)))
 

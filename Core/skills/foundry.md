@@ -1,3 +1,9 @@
+---
+name: foundry
+description: >
+  Foundry VTT v14 module dev reference — router. Load relevant subfiles before working.
+---
+
 Foundry VTT v14 module dev reference — router. Load relevant subfiles before working.
 
 Arguments: $ARGUMENTS

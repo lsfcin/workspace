@@ -1,3 +1,9 @@
+---
+name: foundry-coords
+description: >
+  Foundry VTT v14 — coordinate systems: canvas space, screen space, HUD CSS space, canvas.dimensions, tile/token document coords.
+---
+
 Foundry VTT v14 — coordinate systems: canvas space, screen space, HUD CSS space, canvas.dimensions, tile/token document coords.
 
 ---

@@ -1,3 +1,9 @@
+---
+name: foundry-hud
+description: >
+  Foundry VTT v14 — HUD positioning in isometric mode: TokenHUD, TileHUD, Ruler waypoint labels.
+---
+
 Foundry VTT v14 — HUD positioning in isometric mode: TokenHUD, TileHUD, Ruler waypoint labels.
 
 ---

@@ -1,3 +1,9 @@
+---
+name: foundry-canvas
+description: >
+  Foundry VTT v14 — PIXI canvas structure: component hierarchy, depth sort, native handle suppression.
+---
+
 Foundry VTT v14 — PIXI canvas structure: component hierarchy, depth sort, native handle suppression.
 
 ---

@@ -1,3 +1,9 @@
+---
+name: foundry-appv2
+description: >
+  Foundry VTT v14 — AppV2 sheet customization: tab injection, stale tabGroups bug, partial re-render nav-wipe bug.
+---
+
 Foundry VTT v14 — AppV2 sheet customization: tab injection, stale tabGroups bug, partial re-render nav-wipe bug.
 
 ---

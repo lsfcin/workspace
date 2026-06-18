@@ -1,13 +1,11 @@
 ---
 name: handoff
 description: >
-  End current session cleanly: archive completed work (moves done ROADMAP items and fixed bugs
-  to HISTORY.md), then produce a copy-pasteable resume prompt for the next session.
+  End current session cleanly: archive completed work (moves done ROADMAP items and fixed bugs to HISTORY.md), route session knowledge to durable files, then produce a copy-pasteable resume prompt for the next session.
   Invoke with /handoff [focus for next session].
 ---
 
 # Handoff skill
-End current session cleanly: archive completed work, then produce a copy-pasteable resume prompt for the next session.
 
 Arguments: $ARGUMENTS
 
@@ -15,155 +13,135 @@ Arguments: $ARGUMENTS
 
 ## Execution protocol
 
-Execute all phases in order. Do not skip phases. Do not ask for confirmation mid-skill unless a destructive ambiguity arises.
+Execute all phases in order. Write directly to files. Ask only if conflict or destructive ambiguity arises.
 
 ---
 
 ## Phase 1 — Discover project files
 
-Run these commands:
-
 ```bash
-# What project files exist?
 find . -maxdepth 3 \( \
   -name "ROADMAP.md" -o -name "KNOWN-BUGS.md" -o -name "HISTORY.md" \
-  -o -name "CHANGELOG.md" -o -name "TODO.md" -o -name "WORKSPACE.md" \
+  -o -name "CHANGELOG.md" -o -name "TODO.md" -o -name "AGENTS.md" \
   -o -name "TASKS.md" -o -name "BACKLOG.md" -o -name "INPUT.md" \
 \) 2>/dev/null | sort
 
-# Recent git activity (skip if no git)
-git log --oneline -15 2>/dev/null || echo "no git"
+git log --oneline -10 2>/dev/null || echo "no git"
 git status --short 2>/dev/null || echo "no git status"
 ```
 
-Read every file found above before proceeding. Do not summarize — read the full content. These files define what is ALREADY captured and must not be duplicated in the resume prompt.
+Read every file found above **except HISTORY.md** before proceeding.
 
 ---
 
-## Phase 2 — Cleanup pass
+## Phase 2 — Archive completed work
 
 ### ROADMAP cleanup
 
-If `ROADMAP.md` (or equivalent) exists:
+If `ROADMAP.md` exists:
 
-1. Identify completed items — any of:
-   - Checkbox syntax: `- [x]`
-   - Explicit status: "done", "shipped", "released", "merged", "complete", "✅"
-2. For each completed item, append to `HISTORY.md` under `## Completed — YYYY-MM-DD`:
-   ```
-   - [item text] *(from ROADMAP)*
-   ```
-3. Remove completed items from `ROADMAP.md`. Leave only active, pending, and in-progress items.
-4. If nothing is completed, skip — do not modify `ROADMAP.md`.
+1. Identify completed items (`- [x]`, "done", "shipped", "merged", "✅").
+2. Append to `HISTORY.md` under `## Completed — YYYY-MM-DD`.
+3. Remove completed items from `ROADMAP.md`.
+4. Nothing completed → skip, do not modify.
 
 ### KNOWN-BUGS cleanup
 
-If `KNOWN-BUGS.md` (or equivalent) exists:
+If `KNOWN-BUGS.md` exists:
 
-1. Identify resolved items — any of:
-   - Checkbox: `- [x]`
-   - Explicit status: "fixed", "resolved", "closed", "no longer reproducible"
-2. Append to `HISTORY.md` under `## Resolved Bugs — YYYY-MM-DD`:
-   ```
-   - [bug description] *(resolved)*
-   ```
-3. Remove resolved items from `KNOWN-BUGS.md`. Leave only active known bugs.
-4. If nothing is resolved, skip.
+1. Identify resolved items (`- [x]`, "fixed", "resolved", "closed").
+2. Append to `HISTORY.md` under `## Resolved Bugs — YYYY-MM-DD`.
+3. Remove resolved items from `KNOWN-BUGS.md`.
+4. Nothing resolved → skip.
 
 ### HISTORY.md
 
-If it doesn't exist yet, create it with a minimal header:
+Create only if content to add:
 ```markdown
 # History
 
 Archive of completed work and resolved issues.
 ```
 
-Only create/modify `HISTORY.md` if there is actual content to add. Do not create an empty file.
+---
+
+## Phase 3 — Route session knowledge to durable files
+
+Identify all knowledge from session. Route each piece using table below. Write directly. Conflict with existing content → ask before writing.
+
+### Routing table
+
+| Knowledge type | Target |
+|---|---|
+| Non-obvious design decision + rationale | `SPECS.md` → Architecture Decisions |
+| Discovered convention / coding rule | `SPECS.md` → Conventions |
+| Bug found, not fixed | `KNOWN-BUGS.md` |
+| New technical work item (project has `ROADMAP.md`) | `ROADMAP.md` |
+| Personal / admin / life / teaching task — or project task with hard deadline | `Brain/TODO.md` (right horizon: today / week / month / backlog) |
+| Insight about specific life or career goal | `Brain/goals/[goal].md` (achievement, backlog item, or obstacle) |
+| Skill workflow improvement | Skill file directly |
+| Workspace-wide rule across all projects | `AGENTS.md` |
+| Critical quick-reference fact or constant needed at session start | `CONTEXT.md` — see exclusions |
+| Doesn't fit cleanly | `Brain/INBOX.md` — triage later with `/brain-inbox` |
+
+### TODO vs ROADMAP
+
+**ROADMAP**: project has `ROADMAP.md` AND item is technical milestone with agent-ready context.
+
+**TODO**: personal / admin / life / teaching task; OR project has no `ROADMAP.md`; OR project task with hard external deadline needing time-horizon tracking.
+
+Unclear → INBOX.
+
+### CONTEXT.md — explicit exclusions
+
+- Routing block changes → ignore. Hooks auto-sync on edit/commit.
+- Behavioral cues ("be careful with X", "prefer Y") → `SPECS.md` Conventions or `AGENTS.md`, not `CONTEXT.md`.
+- Decisions + rationale → `SPECS.md` Architecture Decisions, not `CONTEXT.md`.
+
+Write to `CONTEXT.md` only if: critical constant, invariant, or quick-start command needed at next session start — and doesn't fit `SPECS.md`.
+
+### Memory
+
+Do not write to memory unless knowledge is homeless across all files above. Filesystem is source of truth.
 
 ---
 
-## Phase 3 — Capture session-only knowledge
+## Phase 4 — Output resume prompt
 
-This phase captures ONLY what exists in this conversation and is NOT already written in any project file. Apply the non-duplication rule strictly: if it is already in ROADMAP.md, CLAUDE.md, KNOWN-BUGS.md, or any other file you read — do not repeat it. Reference the file by path instead.
+Captures only what is **not already in project files**. Do not repeat content written in Phase 3 — reference the file instead.
 
-Identify and record:
-
-**A. Decisions made in this session**
-Choices made in this conversation that have not yet been written to any file. Include the reasoning and tradeoffs — not just the conclusion. This is the highest-value content of the handoff.
-
-**B. User constraints established**
-Explicit rules given by the user in this conversation ("do not X", "always use Y", "never change Z"). These are the most likely to be lost and the most dangerous if forgotten.
-
-**C. Files modified**
-From `git status` output or tool calls made during this session.
-
-**D. What was worked on**
-Specific tasks, not the general project description. Focus on the last 30 minutes first — recency matters.
-
-**E. Open questions / unresolved threads**
-Things discussed but not resolved. Includes dead ends — what was tried and why it did not work.
-
-**F. Next action**
-If `$ARGUMENTS` was provided: use it as the next session's directive.
-If no arguments: propose the single most strategic next step based on ROADMAP and current state.
-
----
-
-## Phase 4 — Output the resume prompt
-
-Print the following block between the two `---` markers. It must be fully self-contained — a fresh Claude instance with no prior context should be able to resume from it alone.
+Print block between `---` markers:
 
 ---
 
 ```
 ## Session Resume — [PROJECT] — [DATE]
 
-### 1. Read these files first (do not skip)
-[List every project file found in Phase 1, with one-line description of what each contains.
-Example:
-- `CLAUDE.md` — project context, conventions, constraints
-- `ROADMAP.md` — active priorities and upcoming work
-- `KNOWN-BUGS.md` — active known issues
-Omit files that have no bearing on next session's work.]
+### Start
+Read `AGENTS.md`, then load relevant `CONTEXT.md` for active subtree.
+[Files written/modified in Phase 3 relevant to next session:]
+- `path/to/file` — one-line reason it matters
 
-### 2. Recent git activity
-[Paste last 5-10 git log lines, or "no git".]
+### Git state
+[Last 5 log lines + uncommitted changes from `git status`.]
 
-### 3. What was just worked on
-[Section D from Phase 3. Specific, recent. Not a project overview.]
+### What was worked on
+Specific tasks, not project overview. Last 30 minutes first.
 
-### 4. Decisions made (not yet in any file)
-[Section A from Phase 3. Include reasoning. If empty, say "none — all decisions are reflected in project files."]
+### Open questions / unresolved threads
+Discussed but not resolved. Include dead ends and what was tried.
+[If none: "none."]
 
-### 5. Constraints to preserve
-[Section B from Phase 3. If empty, say "none established this session beyond what is in CLAUDE.md."]
-
-### 6. Open questions
-[Section E from Phase 3. If none, say "none."]
-
-### 7. Do not
-- Do not refactor or rename anything not directly related to the next action.
-- Do not re-litigate decisions already made (see section 4).
-- Do not recreate files that already exist — read them first.
-[Add any session-specific prohibitions here.]
-
-### 8. Next action
-[Section F from Phase 3. One clear directive. If no $ARGUMENTS: "Analyze project state from the files above, propose the single most strategic next step with brief reasoning, and wait for confirmation before proceeding."]
-
-### 9. Confidence
-- Files read: ✅ verified this session
-- Git state: ✅ verified
-- Decisions (section 4): ✅ direct from this conversation
-- Open questions: ✅ direct from this conversation
-[Flag anything that is inferred rather than directly known as ⚠️]
+### Next action
+[If $ARGUMENTS: use as directive. Otherwise: single most strategic next step from ROADMAP + current state.]
 ```
 
 ---
 
-After printing the resume prompt, say:
+After printing, say:
 
-> Handoff complete. Copy the block above and paste it as your first message in the new session.
-> [If HISTORY.md was updated]: HISTORY.md updated with [N] completed items.
-> [If files were cleaned]: ROADMAP.md / KNOWN-BUGS.md trimmed.
-> Start a new session with `/clear` or open a fresh Claude Code window.
+> Handoff complete. Copy block above, paste as first message in new session.
+> [If HISTORY.md updated]: HISTORY.md updated with [N] items.
+> [If files trimmed]: ROADMAP.md / KNOWN-BUGS.md trimmed.
+> [List every file written in Phase 3, one line each.]
+> Start new session with `/clear` or open fresh Claude Code window.

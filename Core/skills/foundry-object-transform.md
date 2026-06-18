@@ -1,3 +1,9 @@
+---
+name: foundry-object-transform
+description: >
+  Foundry VTT v14 — per-object (token/tile) mesh counter-transform, refresh flag semantics, PIXI mutation guards.
+---
+
 Foundry VTT v14 — per-object (token/tile) mesh counter-transform, refresh flag semantics, PIXI mutation guards.
 
 ---

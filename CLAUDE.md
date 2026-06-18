@@ -1,3 +1,3 @@
 # Workspace Instructions
 
-@WORKSPACE.md
+@AGENTS.md

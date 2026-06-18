@@ -1,3 +1,9 @@
+---
+name: brain-compass
+description: >
+  Run a compass review of Brain: surface what has good wind, update diagnostics, write ease-starts for stalled goals.
+---
+
 Run a compass review of Brain: surface what has good wind, update diagnostics, write ease-starts for stalled goals.
 
 Arguments: $ARGUMENTS
