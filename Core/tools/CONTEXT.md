@@ -43,13 +43,18 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`annotate`](annotate) | — | — | persistent paper annotation store keyed by arXiv ID, DOI, or URL; returns JSON |
+| [`calendar`](calendar) | — | — | Google Calendar read-only CLI for workspace OS — commands: auth, upcoming, range, calendars |
+| [`calendar_fetch.py`](calendar_fetch.py) | — | `get_service`, `list_calendars`, `upcoming_events`, `events_in_range`, `fmt_events` | !/mnt/workspace/.venv/bin/python3 |
 | [`code`](code) | — | — | browse and search GitHub repository files; returns JSON or raw text |
 | [`code-search`](code-search) | — | — | search code examples and technical documentation via Exa (default) or GitHub code search (--gh); returns JSON |
+| [`drive`](drive) | — | — | Google Drive read-only CLI for workspace OS — commands: auth, recent, list, search, download |
+| [`drive_fetch.py`](drive_fetch.py) | — | `get_service`, `list_files`, `search_files`, `recent_files`, `download_file` | !/mnt/workspace/.venv/bin/python3 |
 | [`fetch`](fetch) | — | — | fetch a URL and return readable plain text; falls back to raw for non-HTML |
 | [`gmail`](gmail) | — | — | read-only Gmail integration for workspace OS |
-| [`gmail_attachments.py`](gmail_attachments.py) | — | `download` | !/mnt/workspace/.venv/bin/python3 |
-| [`gmail_fetch.py`](gmail_fetch.py) | — | `auth`, `get_service`, `fetch`, `fetch_all` | !/mnt/workspace/.venv/bin/python3 |
-| [`gmail_triage.py`](gmail_triage.py) | — | `classify` | !/mnt/workspace/.venv/bin/python3 |
+| [`gmail_attachments.py`](gmail_attachments.py) | [`gmail_attachments.pyi`](gmail_attachments.pyi) | `download` | !/mnt/workspace/.venv/bin/python3 |
+| [`gmail_fetch.py`](gmail_fetch.py) | [`gmail_fetch.pyi`](gmail_fetch.pyi) | `auth`, `get_service`, `fetch`, `fetch_all` | !/mnt/workspace/.venv/bin/python3 |
+| [`gmail_triage.py`](gmail_triage.py) | [`gmail_triage.pyi`](gmail_triage.pyi) | `classify` | !/mnt/workspace/.venv/bin/python3 |
+| [`google_auth.py`](google_auth.py) | — | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `auth` | !/mnt/workspace/.venv/bin/python3 |
 | [`hf`](hf) | — | — | query HuggingFace Hub metadata and file contents; returns JSON |
 | [`inspect`](inspect) | — | — | generate or update .imgif/.csvif interface file |
 | [`inspect-batch`](inspect-batch) | — | — | generate .pngif/.csvif stubs for all assets missing interfaces |

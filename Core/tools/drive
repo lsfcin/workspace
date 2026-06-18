@@ -1,0 +1,91 @@
+#!/mnt/workspace/.venv/bin/python3
+# drive — Google Drive read-only CLI for workspace OS — commands: auth, recent, list, search, download
+import sys, json, pathlib, argparse
+
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+import drive_fetch, google_auth
+
+DOWNLOAD_DIR = pathlib.Path.home() / "Downloads" / "workspace-drive"
+
+
+def _print_files(files: list, alias: str) -> None:
+    if not files:
+        print("  (nenhum arquivo)")
+        return
+    for f in files:
+        size = f.get("size", "")
+        size_str = f" [{int(size)//1024}KB]" if size else ""
+        mod = f.get("modifiedTime", "")[:10]
+        print(f"  [{alias}] {f['name']}{size_str}  ({mod})  id:{f['id']}")
+        if f.get("webViewLink"):
+            print(f"    {f['webViewLink']}")
+
+
+def cmd_auth(alias: str) -> None:
+    primary = google_auth.resolve_alias(alias)
+    print(f"Opening browser for OAuth — Drive ({primary})...")
+    drive_fetch.get_service(primary)
+    print(f"Done. Token saved: {google_auth.config_dir('drive')}/{primary}.token.json")
+
+
+def cmd_recent(account: str, limit: int) -> None:
+    aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
+    for alias in aliases:
+        print(f"\n── Recent files ({alias}) ──")
+        _print_files(drive_fetch.recent_files(alias, limit), alias)
+
+
+def cmd_list(account: str, folder_id: str) -> None:
+    aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
+    for alias in aliases:
+        print(f"\n── {folder_id} ({alias}) ──")
+        _print_files(drive_fetch.list_files(alias, folder_id), alias)
+
+
+def cmd_search(account: str, query: str) -> None:
+    aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
+    for alias in aliases:
+        print(f"\n── Search: '{query}' ({alias}) ──")
+        _print_files(drive_fetch.search_files(alias, query), alias)
+
+
+def cmd_download(account: str, file_id: str) -> None:
+    alias = google_auth.resolve_alias(account)
+    print(f"Downloading {file_id} from {alias}...")
+    path = drive_fetch.download_file(alias, file_id, DOWNLOAD_DIR)
+    print(f"Saved: {path}")
+
+
+def main():
+    p = argparse.ArgumentParser(prog="drive")
+    sub = p.add_subparsers(dest="cmd")
+
+    pa = sub.add_parser("auth"); pa.add_argument("alias")
+
+    pr = sub.add_parser("recent")
+    pr.add_argument("--account", default="all")
+    pr.add_argument("--limit", type=int, default=20)
+
+    pl = sub.add_parser("list")
+    pl.add_argument("--account", default="all")
+    pl.add_argument("--folder", default="root")
+
+    ps = sub.add_parser("search")
+    ps.add_argument("--account", default="all")
+    ps.add_argument("query")
+
+    pd = sub.add_parser("download")
+    pd.add_argument("--account", required=True)
+    pd.add_argument("file_id")
+
+    args = p.parse_args()
+    if   args.cmd == "auth":     cmd_auth(args.alias)
+    elif args.cmd == "recent":   cmd_recent(args.account, args.limit)
+    elif args.cmd == "list":     cmd_list(args.account, args.folder)
+    elif args.cmd == "search":   cmd_search(args.account, args.query)
+    elif args.cmd == "download": cmd_download(args.account, args.file_id)
+    else:                        p.print_help()
+
+
+if __name__ == "__main__":
+    main()
