@@ -36,9 +36,12 @@ def cmd_port(alias: str, presentation_id: str, out: pathlib.Path) -> None:
     primary = google_auth.resolve_alias(alias)
     print(f"Fetching {presentation_id} from {primary}...")
     pres = slides_fetch.get_presentation(primary, presentation_id)
-    md = slides_port.convert(pres)
+    assets_dir = out.parent / "assets"
+    md = slides_port.convert(pres, assets_dir=assets_dir)
     out.write_text(md)
+    n_imgs = len(list(assets_dir.glob("img_*"))) if assets_dir.exists() else 0
     print(f"Written {len(pres.get('slides', []))} slides → {out}")
+    print(f"Downloaded {n_imgs} images → {assets_dir}/")
 
 
 def cmd_list(alias: str) -> None:
