@@ -16,7 +16,12 @@ def _extract_text(text_obj: dict) -> list[str]:
                 current = []
             is_bullet = "bullet" in el["paragraphMarker"]
         elif "textRun" in el:
-            current.append(el["textRun"].get("content", "").replace("\n", ""))
+            content = el["textRun"].get("content", "").replace("\n", "")
+            if content and current:
+                prev = "".join(current)
+                if prev and prev[-1].isalnum() and content[0].isalnum():
+                    content = " " + content
+            current.append(content)
     if current:
         line = "".join(current).rstrip()
         if line:
