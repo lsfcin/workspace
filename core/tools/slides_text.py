@@ -25,9 +25,13 @@ def _run_html(run: dict) -> str:
     if fg and fg != "rgb(0,0,0)":
         css.append(f"color:{fg}")
 
-    ff = st.get("weightedFontFamily", {}).get("fontFamily", "")
+    wff = st.get("weightedFontFamily", {})
+    ff  = wff.get("fontFamily", "")
+    fw  = wff.get("weight", 400) or 400
     if ff:
         css.append(f"font-family:'{ff}'")
+    if fw != 400:
+        css.append(f"font-weight:{fw}")
 
     mag = st.get("fontSize", {}).get("magnitude")
     if mag:
@@ -107,7 +111,7 @@ def text_html(text_obj: dict, is_title: bool = False,
             is_bullet = "bullet" in pm
             nesting   = pm.get("bullet", {}).get("nestingLevel", 0) if is_bullet else 0
             ps        = pm.get("style", {})
-            para_css  = []
+            para_css  = ["margin:0"]
             al = _ALIGN.get(ps.get("alignment", ""))
             if al:
                 para_css.append(f"text-align:{al}")

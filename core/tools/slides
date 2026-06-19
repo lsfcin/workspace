@@ -40,11 +40,14 @@ def _make_style_css(md: str) -> str:
     imports = ""
     if fonts:
         fam = "&family=".join(
-            f.replace(" ", "+") + ":ital,wght@0,400;0,600;0,700;1,400;1,700"
+            f.replace(" ", "+") + ":ital,wght@0,300;0,400;0,600;0,700;1,300;1,400"
             for f in fonts
         )
         imports = f'@import url("https://fonts.googleapis.com/css2?family={fam}&display=swap");\n'
-    return imports + ".slidev-slide p { margin: 0; }\n"
+    return (imports
+            + ".slidev-slide p { margin: 0; }\n"
+            + ".slidev-slide h1, .slidev-slide h2, .slidev-slide h3 { margin: 0; }\n"
+            + ".slidev-slide td { padding: 0; }\n")
 
 
 def cmd_port(alias: str, presentation_id: str, out: pathlib.Path) -> None:

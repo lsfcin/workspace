@@ -24,13 +24,17 @@ def _render_shape(el: dict, l: float, t: float, w: float, h: float,
     shape = el["shape"]
     sp    = shape.get("shapeProperties", {})
 
-    bg = sp.get("shapeBackgroundFill", {})
-    if bg.get("propertyState") == "NOT_RENDERED":
+    bg  = sp.get("shapeBackgroundFill", {})
+    bps = bg.get("propertyState", "")
+    if bps == "NOT_RENDERED":
         if not is_master:
             esx, esy = eff_scale(el.get("transform", {}))
             if esy < 0.4 or esx < 0.4:
                 return None
         fc = None
+    elif bps == "INHERIT":
+        # Theme default fill — use ACCENT1 (matches most Google Slides defaults)
+        fc = _fill_color({"color": {"themeColor": "ACCENT1"}})
     else:
         solid = bg.get("solidFill"); grad = bg.get("gradientFill")
         fc = _fill_color(solid) if solid else (_gradient_css(grad) if grad else None)
@@ -73,7 +77,12 @@ _PX_W, _PX_H = 960, 540  # canonical slide px (Google Slides EMU at 96 dpi)
 
 def _render_line(el: dict, slide_w: float, slide_h: float) -> str | None:
     lp  = el.get("line", {}).get("lineProperties", {})
-    color = _fill_color(lp.get("lineFill", {}).get("solidFill", {})) or "rgb(0,0,0)"
+    lf  = lp.get("lineFill", {})
+    if lf.get("propertyState") == "NOT_RENDERED":
+        return None
+    color = _fill_color(lf.get("solidFill", {}))
+    if color is None:
+        return None  # no explicit fill → inherited/transparent connector, skip
     wt_px = round(lp.get("weight", {}).get("magnitude", 9525) / 12700 * 1.333, 1)
     ea  = lp.get("endArrow", "NONE"); sa = lp.get("startArrow", "NONE")
     tf  = el.get("transform", {}); sz = el.get("size", {})
@@ -109,11 +118,15 @@ def _render_table(el: dict, l: float, t: float, w: float, h: float) -> str:
     tbl  = el.get("table", {})
     rows = []
     for row in tbl.get("tableRows", []):
-        cells = "".join(f"<td>{text_html(c.get('text', {}))}</td>" for c in row.get("tableCells", []))
+        cells = "".join(
+            f'<td style="padding:0;vertical-align:middle">{text_html(c.get("text", {}))}</td>'
+            for c in row.get("tableCells", [])
+        )
         rows.append(f"<tr>{cells}</tr>")
-    rcs  = _rot_css(el)
+    rcs   = _rot_css(el)
     style = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%;overflow:visible{rcs}"
-    return f'<div class="absolute" style="{style}"><table><tbody>{"".join(rows)}</tbody></table></div>'
+    tbl_s = 'style="width:100%;height:100%;border-collapse:collapse"'
+    return f'<div class="absolute" style="{style}"><table {tbl_s}><tbody>{"".join(rows)}</tbody></table></div>'
 
 
 def render_element(el: dict, slide_w: float, slide_h: float,
