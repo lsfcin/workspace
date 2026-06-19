@@ -29,6 +29,49 @@
 - [ ] standardize workspace folder names to lowercase — update on Ubuntu and Windows
 - [ ] fix downloads folder — some programs bypassing workspace path, still writing to ~/Downloads by default
 
+## drive migration (cin → local workspace)
+
+> scaffold done. download each folder, then triage loose/Unorganized items.
+
+### academy/
+- [ ] cv/ ← Professional/Curriculo/
+- [ ] talks/ ← Professional/Geral/Talks/
+- [ ] classes/programacao-1/_material ← UFRPE/Disciplinas/P1/
+- [ ] classes/programacao-2/_material ← UFRPE/Disciplinas/P2/
+- [ ] classes/projeto-interdisciplinar-1/_material ← UFRPE/Disciplinas/PI1/
+- [ ] classes/projeto-interdisciplinar-2/_material ← UFRPE/Disciplinas/PI2/
+- [ ] classes/projeto-interdisciplinar-3/_material ← UFRPE/Disciplinas/PI3/
+- [ ] classes/inteligencia-artificial/_material ← UFRPE/Disciplinas/IA/
+- [ ] classes/computacao-grafica/_material ← UFRPE/Disciplinas/Computacao Grafica/
+- [ ] classes/motores-graficos/_material ← UFRPE/Disciplinas/Motores Graficos/
+- [ ] classes/gerencia-de-projetos/_material ← UFRPE/Disciplinas/PGP/
+- [ ] classes/ai4good/_material ← UFRPE/Disciplinas/AI4Good/
+- [ ] classes/tecnologias-na-educacao/_material ← UFRPE/Disciplinas/Tec. na Educacao/
+- [ ] classes/intro-informatica/_material ← UFRPE/Disciplinas/Intro a Informatica/
+- [ ] students/active/ + students/past/ ← Professional/Alunos/ (classify first)
+- [ ] lab/neoeduc/ ← UFRPE/Projetos/NeoEduc/
+- [ ] lab/ai-dungeon-master/ ← UFRPE/Projetos/AI Dungeon Master/
+- [ ] lab/bancas/ ← 3 loose Banca PDFs in UFRPE/ (Antonio, AIDungeonMaster, NeoEduc)
+- [ ] administration/comissoes/ ← UFRPE/Comissoes/
+- [ ] administration/coordenacao-lc/ ← UFRPE/Coordenacao de LC/ (Drive side)
+- [ ] administration/pe-de-meia/ ← UFRPE/Pe de Meia/
+- [ ] administration/cpesq/ ← UFRPE/CPESQ/
+- [ ] administration/burocracia/ ← UFRPE/Burocracia/ + loose UFRPE docs (regulamentos, PPC, planos)
+
+### branches/
+- [ ] health/ ← Personal/Saude/
+- [ ] music/ ← Personal/Musicas/
+- [ ] rpg/ ← Personal/RPG/
+- [ ] bureaucracy/ ← Personal/Bureaucracy/
+- [ ] writing/drafts/ ← Personal/Escritos/
+- [ ] writing/notes/ ← Personal/Notes/
+
+### triage (do last)
+- [ ] Unorganized/ folder — route each item to correct local destination
+- [ ] loose root files — pessoas.csv, figuras pptx, old 2016 docs, recovery codes
+
+---
+
 ## backlog
 
 - [x] [slides] setup Slidev + Vue locally — Slidev 52.16.0, Node 24.16.0 ✓
