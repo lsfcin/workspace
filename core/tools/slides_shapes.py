@@ -19,15 +19,17 @@ def _rot_css(el: dict) -> str:
     return f";transform-origin:0 0;transform:rotate({rot:.2f}deg)" if abs(rot) > 0.1 else ""
 
 
-def _render_shape(el: dict, l: float, t: float, w: float, h: float) -> str | None:
+def _render_shape(el: dict, l: float, t: float, w: float, h: float,
+                  ph_sizes: dict[str, int] = {}, is_master: bool = False) -> str | None:
     shape = el["shape"]
     sp    = shape.get("shapeProperties", {})
 
     bg = sp.get("shapeBackgroundFill", {})
     if bg.get("propertyState") == "NOT_RENDERED":
-        esx, esy = eff_scale(el.get("transform", {}))
-        if esy < 0.4 or esx < 0.4:
-            return None
+        if not is_master:
+            esx, esy = eff_scale(el.get("transform", {}))
+            if esy < 0.4 or esx < 0.4:
+                return None
         fc = None
     else:
         solid = bg.get("solidFill"); grad = bg.get("gradientFill")
@@ -42,7 +44,8 @@ def _render_shape(el: dict, l: float, t: float, w: float, h: float) -> str | Non
             sc, sw = _sc, round(_sw / 12700, 1)
 
     ph      = shape.get("placeholder", {}).get("type", "")
-    inner   = text_html(shape.get("text", {}), is_title=ph in {"TITLE", "CENTERED_TITLE"})
+    inner   = text_html(shape.get("text", {}), is_title=ph in {"TITLE", "CENTERED_TITLE"},
+                        default_font_size=ph_sizes.get(ph))
     stype   = shape.get("shapeType", "")
     rcs     = _rot_css(el)
     base    = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%{rcs}"
@@ -64,34 +67,41 @@ def _render_shape(el: dict, l: float, t: float, w: float, h: float) -> str | Non
     return f'<div class="absolute overflow-hidden" style="{style}">{inner if has_content(inner) else ""}</div>'
 
 
-def _render_line(el: dict, l: float, t: float, w: float, h: float) -> str:
-    lp    = el.get("line", {}).get("lineProperties", {})
+_PX_W, _PX_H = 960, 540  # canonical slide px (Google Slides EMU at 96 dpi)
+
+
+def _render_line(el: dict, slide_w: float, slide_h: float) -> str | None:
+    lp  = el.get("line", {}).get("lineProperties", {})
     color = _fill_color(lp.get("lineFill", {}).get("solidFill", {})) or "rgb(0,0,0)"
-    wt    = round(lp.get("weight", {}).get("magnitude", 9525) / 12700, 1)
-    ea    = lp.get("endArrow",   "NONE")
-    sa    = lp.get("startArrow", "NONE")
-
-    ratio = h / w if w > 0.01 else 999
-    if ratio < 0.05:
-        x1, y1, x2, y2 = "0", "50", "100", "50"
-    elif ratio > 20:
-        x1, y1, x2, y2 = "50", "0", "50", "100"
-    else:
-        x1, y1, x2, y2 = "0", "0", "100", "100"
-
-    oid  = el.get("objectId", "x")[-6:]
+    wt_px = round(lp.get("weight", {}).get("magnitude", 9525) / 12700 * 1.333, 1)
+    ea  = lp.get("endArrow", "NONE"); sa = lp.get("startArrow", "NONE")
+    tf  = el.get("transform", {}); sz = el.get("size", {})
+    sw_e = sz.get("width",  {}).get("magnitude", 0)
+    sh_e = sz.get("height", {}).get("magnitude", 0)
+    sx  = tf.get("scaleX")  or 0.0; sy  = tf.get("scaleY")  or 0.0
+    shx = tf.get("shearX")  or 0.0; shy = tf.get("shearY")  or 0.0
+    tx  = tf.get("translateX", 0) or 0; ty = tf.get("translateY", 0) or 0
+    x1 = tx/slide_w*_PX_W; y1 = ty/slide_h*_PX_H
+    x2 = (tx + sx*sw_e + shx*sh_e)/slide_w*_PX_W
+    y2 = (ty + shy*sw_e + sy*sh_e)/slide_h*_PX_H
+    if abs(x2-x1) < 0.5 and abs(y2-y1) < 0.5: return None
+    ms_px = max(8, int(wt_px * 6))
+    oid = el.get("objectId", "x")[-6:]
     defs, me, ms = "", "", ""
     if ea != "NONE":
-        defs += f'<defs><marker id="e{oid}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="{color}"/></marker></defs>'
+        defs += (f'<defs><marker id="e{oid}" viewBox="0 0 10 10" refX="9" refY="5"'
+                 f' markerWidth="{ms_px}" markerHeight="{ms_px}" markerUnits="userSpaceOnUse" orient="auto">'
+                 f'<path d="M0,0 L10,5 L0,10z" fill="{color}"/></marker></defs>')
         me = f' marker-end="url(#e{oid})"'
     if sa != "NONE":
-        defs += f'<defs><marker id="s{oid}" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10z" fill="{color}"/></marker></defs>'
+        defs += (f'<defs><marker id="s{oid}" viewBox="0 0 10 10" refX="1" refY="5"'
+                 f' markerWidth="{ms_px}" markerHeight="{ms_px}" markerUnits="userSpaceOnUse" orient="auto-start-reverse">'
+                 f'<path d="M0,0 L10,5 L0,10z" fill="{color}"/></marker></defs>')
         ms = f' marker-start="url(#s{oid})"'
-
-    style = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%;overflow:visible"
-    return (f'<svg class="absolute" style="{style}" viewBox="0 0 100 100" preserveAspectRatio="none">'
-            f'{defs}<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" '
-            f'stroke="{color}" stroke-width="{wt}"{me}{ms}/></svg>')
+    style = "position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible"
+    return (f'<svg style="{style}" viewBox="0 0 {_PX_W} {_PX_H}">'
+            f'{defs}<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" '
+            f'stroke="{color}" stroke-width="{wt_px}"{me}{ms}/></svg>')
 
 
 def _render_table(el: dict, l: float, t: float, w: float, h: float) -> str:
@@ -101,12 +111,13 @@ def _render_table(el: dict, l: float, t: float, w: float, h: float) -> str:
         cells = "".join(f"<td>{text_html(c.get('text', {}))}</td>" for c in row.get("tableCells", []))
         rows.append(f"<tr>{cells}</tr>")
     rcs  = _rot_css(el)
-    style = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%;overflow:auto{rcs}"
+    style = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%;overflow:hidden{rcs}"
     return f'<div class="absolute" style="{style}"><table><tbody>{"".join(rows)}</tbody></table></div>'
 
 
 def render_element(el: dict, slide_w: float, slide_h: float,
-                   assets_dir: pathlib.Path | None, img_n: list[int]) -> str | None:
+                   assets_dir: pathlib.Path | None, img_n: list[int],
+                   ph_sizes: dict[str, int] = {}, is_master: bool = False) -> str | None:
     """Render any page element to HTML. Returns None if element has no visual output."""
     if "elementGroup" in el:
         pt    = el.get("transform", {})
@@ -114,10 +125,13 @@ def render_element(el: dict, slide_w: float, slide_h: float,
         for child in el["elementGroup"].get("children", []):
             child = dict(child)
             child["transform"] = compose_transforms(pt, child.get("transform", {}))
-            block = render_element(child, slide_w, slide_h, assets_dir, img_n)
+            block = render_element(child, slide_w, slide_h, assets_dir, img_n,
+                                   ph_sizes, is_master)
             if block:
                 parts.append(block)
         return "\n".join(parts) or None
+
+    if "line" in el: return _render_line(el, slide_w, slide_h)
 
     l, t, w, h = _bounds(el, slide_w, slide_h)
 
@@ -143,7 +157,6 @@ def render_element(el: dict, slide_w: float, slide_h: float,
         style = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%{rcs}"
         return f'<img src="{ref}" class="absolute" style="{style}" />'
 
-    if "line"  in el: return _render_line(el, l, t, w, h)
-    if "shape" in el: return _render_shape(el, l, t, w, h)
+    if "shape" in el: return _render_shape(el, l, t, w, h, ph_sizes, is_master)
     if "table" in el: return _render_table(el, l, t, w, h)
     return None

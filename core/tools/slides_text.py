@@ -67,7 +67,8 @@ def _join_runs(runs: list[dict]) -> str:
 _ALIGN = {"CENTER": "center", "END": "right", "JUSTIFIED": "justify"}
 
 
-def text_html(text_obj: dict, is_title: bool = False) -> str:
+def text_html(text_obj: dict, is_title: bool = False,
+              default_font_size: int | None = None) -> str:
     """Render a Slides text object as HTML preserving bullets, paragraphs, styles."""
     parts: list[str] = []
     runs:  list[dict] = []
@@ -118,7 +119,10 @@ def text_html(text_obj: dict, is_title: bool = False) -> str:
     _flush()
     if in_list:
         parts.append("</ul>")
-    return "\n".join(parts)
+    result = "\n".join(parts)
+    if default_font_size and result:
+        return f'<div style="font-size:{default_font_size}pt">{result}</div>'
+    return result
 
 
 def has_content(html_str: str) -> bool:
