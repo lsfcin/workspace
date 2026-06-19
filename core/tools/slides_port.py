@@ -1,7 +1,9 @@
 #!/mnt/workspace/.venv/bin/python3
-# slides_port.py — Convert Google Slides API JSON to Slidev markdown
+# slides_port.py — Convert Google Slides API JSON to Slidev markdown (position-aware, full styling)
 
-import pathlib, urllib.request
+import html as _html, pathlib, re, urllib.request
+
+_TAGS = re.compile(r"<[^>]+>")
 
 _SOFT_BREAK = "\x0b"  # Google Slides Shift+Enter (vertical tab)
 
@@ -10,51 +12,101 @@ def _clean(s: str) -> str:
     return s.replace("\r\n", "\n").replace("\r", "\n").replace(_SOFT_BREAK, "\n")
 
 
-def _extract_text(text_obj: dict) -> list[str]:
-    """Extract lines from a Slides text object. Handles bullets and soft breaks."""
-    lines: list[str] = []
-    current: list[str] = []
+def _run_html(run: dict) -> str:
+    """Render a textRun as styled HTML (color, size, bold, italic)."""
+    text = _clean(run.get("content", "")).rstrip("\n")
+    if not text:
+        return ""
+    st  = run.get("style", {})
+    css: list[str] = []
+
+    fg = st.get("foregroundColor", {}).get("opaqueColor", {}).get("rgbColor", {})
+    if fg:
+        r, g, b = (round(fg.get(k, 0) * 255) for k in ("red", "green", "blue"))
+        if (r, g, b) != (0, 0, 0):
+            css.append(f"color:rgb({r},{g},{b})")
+
+    mag = st.get("fontSize", {}).get("magnitude")
+    if mag:
+        css.append(f"font-size:{mag}pt")
+
+    text = _html.escape(text).replace("\n", "<br>")
+    if css:
+        text = f'<span style="{";".join(css)}">{text}</span>'
+    if st.get("bold"):
+        text = f"<strong>{text}</strong>"
+    if st.get("italic"):
+        text = f"<em>{text}</em>"
+    return text
+
+
+def _join_runs(runs: list[dict]) -> str:
+    """Concatenate textRun HTML, injecting spaces at word-adjacent run boundaries."""
+    out, prev_raw = "", ""
+    for run in runs:
+        raw = _clean(run.get("content", ""))
+        rh  = _run_html(run)
+        if not rh:
+            continue
+        if prev_raw and raw:
+            pr = prev_raw.rstrip("\n")
+            if pr and pr[-1].isalnum() and raw[0].isalnum():
+                out += " "
+        out += rh
+        prev_raw = raw
+    return out
+
+
+def _text_html(text_obj: dict, is_title: bool = False) -> str:
+    """Render a Slides text object as HTML preserving bullets, paragraphs, and styles."""
+    parts: list[str] = []
+    runs:  list[dict] = []
     is_bullet = False
+    in_list   = False
 
     def _flush():
-        if not current:
+        nonlocal in_list
+        content = _join_runs(runs).strip()
+        runs.clear()
+        if not content:
             return
-        for sub in "".join(current).rstrip().split("\n"):
-            sub = sub.rstrip()
-            if sub:
-                lines.append(f"- {sub}" if is_bullet else sub)
-        current.clear()
+        if is_title:
+            parts.append(f"<h1>{content}</h1>")
+        elif is_bullet:
+            if not in_list:
+                parts.append("<ul>")
+                in_list = True
+            parts.append(f"<li>{content}</li>")
+        else:
+            if in_list:
+                parts.append("</ul>")
+                in_list = False
+            parts.append(f"<p>{content}</p>")
 
     for el in text_obj.get("textElements", []):
         if "paragraphMarker" in el:
             _flush()
             is_bullet = "bullet" in el["paragraphMarker"]
         elif "textRun" in el:
-            c = _clean(el["textRun"].get("content", ""))
-            if c and current:
-                prev = "".join(current)
-                if prev and prev[-1].isalnum() and c[0].isalnum():
-                    c = " " + c
-            current.append(c)
+            runs.append(el["textRun"])
+
     _flush()
-    return lines
+    if in_list:
+        parts.append("</ul>")
+    return "\n".join(parts)
 
 
 def _bounds(el: dict, slide_w: float, slide_h: float) -> tuple[float, float, float, float]:
     """Return (left%, top%, width%, height%) from element transform+size."""
-    t = el.get("transform", {})
-    s = el.get("size", {})
-    x  = t.get("translateX", 0)
-    y  = t.get("translateY", 0)
+    t  = el.get("transform", {})
+    s  = el.get("size", {})
     sx = t.get("scaleX", 1.0)
     sy = t.get("scaleY", 1.0)
-    w  = s.get("width",  {}).get("magnitude", 0) * sx
-    h  = s.get("height", {}).get("magnitude", 0) * sy
     return (
-        round(x / slide_w * 100, 2),
-        round(y / slide_h * 100, 2),
-        round(w / slide_w * 100, 2),
-        round(h / slide_h * 100, 2),
+        round(t.get("translateX", 0)                          / slide_w * 100, 2),
+        round(t.get("translateY", 0)                          / slide_h * 100, 2),
+        round(s.get("width",  {}).get("magnitude", 0) * sx   / slide_w * 100, 2),
+        round(s.get("height", {}).get("magnitude", 0) * sy   / slide_h * 100, 2),
     )
 
 
@@ -94,43 +146,45 @@ def _convert_slide(slide: dict, slide_w: float, slide_h: float,
             )
 
         elif "shape" in el:
-            lines = _extract_text(el["shape"].get("text", {}))
-            if not lines:
-                continue
             ph_type  = el["shape"].get("placeholder", {}).get("type", "")
             is_title = ph_type in {"TITLE", "CENTERED_TITLE"}
-            content  = "\n".join(f"# {ln}" if is_title else ln for ln in lines)
+            inner    = _text_html(el["shape"].get("text", {}), is_title=is_title)
+            # skip empty or whitespace-only placeholders (e.g. slide number boxes)
+            if not inner or not _TAGS.sub("", inner).strip():
+                continue
             blocks.append(
-                f'<div class="absolute overflow-hidden" style="{style}">\n\n{content}\n\n</div>'
+                f'<div class="absolute overflow-hidden" style="{style}">{inner}</div>'
             )
 
-    return "\n\n".join(blocks)
+    return "\n".join(blocks)
 
 
 def convert(presentation: dict, assets_dir: pathlib.Path | None = None) -> str:
     """Convert Google Slides presentation JSON to Slidev markdown."""
-    title  = presentation.get("title", "Untitled")
-    ps     = presentation.get("pageSize", {})
+    title   = presentation.get("title", "Untitled")
+    ps      = presentation.get("pageSize", {})
     slide_w = ps.get("width",  {}).get("magnitude", 9144000)
     slide_h = ps.get("height", {}).get("magnitude", 5143500)
 
     if assets_dir:
         assets_dir.mkdir(parents=True, exist_ok=True)
 
-    img_n: list[int] = [0]
-    slide_bodies: list[str] = []
+    img_n:  list[int] = [0]
+    bodies: list[str] = []
 
     for slide in presentation.get("slides", []):
         body = _convert_slide(slide, slide_w, slide_h, assets_dir, img_n)
+
         notes_page = slide.get("slideProperties", {}).get("notesPage", {})
         for nel in notes_page.get("pageElements", []):
             ns = nel.get("shape", {})
             if ns.get("placeholder", {}).get("type") == "BODY":
-                nl = _extract_text(ns.get("text", {}))
+                nl = _text_html(ns.get("text", {}))
                 if nl:
-                    body += "\n\n::notes::\n" + "\n".join(nl)
+                    body += f"\n\n::notes::\n{nl}"
                 break
-        slide_bodies.append(body)
+
+        bodies.append(body)
 
     header = f'---\ntheme: default\ntitle: "{title}"\nlayout: none\n---\n\n'
-    return header + "\n\n---\n\n".join(slide_bodies)
+    return header + "\n\n---\n\n".join(bodies)
