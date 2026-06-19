@@ -45,7 +45,8 @@ def _render_shape(el: dict, l: float, t: float, w: float, h: float,
 
     ph      = shape.get("placeholder", {}).get("type", "")
     inner   = text_html(shape.get("text", {}), is_title=ph in {"TITLE", "CENTERED_TITLE"},
-                        default_font_size=ph_sizes.get(ph))
+                        default_font_size=ph_sizes.get(ph),
+                        default_align="center" if ph == "CENTERED_TITLE" else "")
     stype   = shape.get("shapeType", "")
     rcs     = _rot_css(el)
     base    = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%{rcs}"
@@ -111,7 +112,7 @@ def _render_table(el: dict, l: float, t: float, w: float, h: float) -> str:
         cells = "".join(f"<td>{text_html(c.get('text', {}))}</td>" for c in row.get("tableCells", []))
         rows.append(f"<tr>{cells}</tr>")
     rcs  = _rot_css(el)
-    style = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%;overflow:hidden{rcs}"
+    style = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%;overflow:visible{rcs}"
     return f'<div class="absolute" style="{style}"><table><tbody>{"".join(rows)}</tbody></table></div>'
 
 

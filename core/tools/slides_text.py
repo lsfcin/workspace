@@ -68,7 +68,8 @@ _ALIGN = {"CENTER": "center", "END": "right", "JUSTIFIED": "justify"}
 
 
 def text_html(text_obj: dict, is_title: bool = False,
-              default_font_size: int | None = None) -> str:
+              default_font_size: int | None = None,
+              default_align: str = "") -> str:
     """Render a Slides text object as HTML preserving bullets, paragraphs, styles."""
     parts: list[str] = []
     runs:  list[dict] = []
@@ -120,8 +121,11 @@ def text_html(text_obj: dict, is_title: bool = False,
     if in_list:
         parts.append("</ul>")
     result = "\n".join(parts)
-    if default_font_size and result:
-        return f'<div style="font-size:{default_font_size}pt">{result}</div>'
+    wrap_css: list[str] = []
+    if default_font_size: wrap_css.append(f"font-size:{default_font_size}pt")
+    if default_align:     wrap_css.append(f"text-align:{default_align}")
+    if wrap_css and result:
+        return f'<div style="{";".join(wrap_css)}">{result}</div>'
     return result
 
 

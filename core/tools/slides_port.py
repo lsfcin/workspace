@@ -106,5 +106,5 @@ def convert(presentation: dict, assets_dir: pathlib.Path | None = None) -> str:
                            master_els, layout_sizes)
         )
 
-    header = f'---\ntheme: default\ntitle: "{title}"\nlayout: none\n---\n\n'
+    header = f'---\ntheme: default\ntitle: "{title}"\nlayout: none\nmouseWheel: true\n---\n\n'
     return header + "\n\n---\n\n".join(bodies)

@@ -1,6 +1,6 @@
 #!/mnt/workspace/.venv/bin/python3
 # Usage: Core/tools/slides <cmd> [args] — Slidev presentation CLI: auth, new, serve, build, port
-import sys, pathlib, argparse, subprocess
+import sys, pathlib, argparse, subprocess, re
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import slides_fetch, slides_port, google_auth
@@ -32,6 +32,21 @@ def cmd_build(slide_file: pathlib.Path, out_dir: pathlib.Path) -> None:
     subprocess.run(["slidev", "build", str(slide_file), "--out", str(out_dir)], check=True)
 
 
+_SYSTEM_FONTS = {"Arial", "Times New Roman", "Georgia", "Courier New", "Verdana",
+                  "Helvetica", "Tahoma", "Trebuchet MS", "Impact"}
+
+def _make_style_css(md: str) -> str:
+    fonts = sorted(set(re.findall(r"font-family:'([^']+)'", md)) - _SYSTEM_FONTS)
+    imports = ""
+    if fonts:
+        fam = "&family=".join(
+            f.replace(" ", "+") + ":ital,wght@0,400;0,600;0,700;1,400;1,700"
+            for f in fonts
+        )
+        imports = f'@import url("https://fonts.googleapis.com/css2?family={fam}&display=swap");\n'
+    return imports + ".slidev-slide p { margin: 0; }\n"
+
+
 def cmd_port(alias: str, presentation_id: str, out: pathlib.Path) -> None:
     primary = google_auth.resolve_alias(alias)
     print(f"Fetching {presentation_id} from {primary}...")
@@ -39,8 +54,11 @@ def cmd_port(alias: str, presentation_id: str, out: pathlib.Path) -> None:
     assets_dir = out.parent / "assets"
     md = slides_port.convert(pres, assets_dir=assets_dir)
     out.write_text(md)
+    style_path = out.parent / "style.css"
+    style_path.write_text(_make_style_css(md))
     n_imgs = len(list(assets_dir.glob("img_*"))) if assets_dir.exists() else 0
     print(f"Written {len(pres.get('slides', []))} slides → {out}")
+    print(f"Written style.css ({len(style_path.read_text().splitlines())} lines) → {style_path}")
     print(f"Downloaded {n_imgs} images → {assets_dir}/")
 
 
