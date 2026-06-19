@@ -31,4 +31,12 @@
 
 ## backlog
 
-- 
+- [x] [slides] setup Slidev + Vue locally — Slidev 52.16.0, Node 24.16.0 ✓
+- [x] [slides] build `Core/tools/slides` CLI (new, serve, build, port from Google Slides JSON)
+- [x] [slides] conversor Google Slides API JSON → Slidev `.md` — `Core/tools/slides_port.py`
+- [ ] [slides] templates base: aula, talk acadêmico, projeto
+- [ ] [workspace-os] habilitar Google Slides API no GCP project 1048141740528 (mesmo projeto drive/calendar)
+- [ ] [workspace-os] symlinks `.claude/commands/drive.md` e `calendar.md` — commit ainda pendente
+- [ ] [sipac] assinar 2 documentos no SIPAC Portal Admin → Protocolo → Assinar Documento (pendente desde 11/06)
+- [ ] [docusign] assinar contrato de estágio Natalie Santos / Netcon Americas
+- [ ] [sbc-cotas] checar isenção e prazos — email andreza.leite@ufrpe.br

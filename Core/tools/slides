@@ -1,0 +1,91 @@
+#!/mnt/workspace/.venv/bin/python3
+# Usage: Core/tools/slides <cmd> [args] — Slidev presentation CLI: auth, new, serve, build, port
+import sys, pathlib, argparse, subprocess
+
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+import slides_fetch, slides_port, google_auth
+
+
+def cmd_auth(alias: str) -> None:
+    primary = google_auth.resolve_alias(alias)
+    print(f"Opening browser for OAuth — Slides ({primary})...")
+    slides_fetch.get_service(primary)
+    print(f"Done. Token saved: {google_auth.config_dir('slides')}/{primary}.token.json")
+
+
+def cmd_new(name: str, dest: pathlib.Path) -> None:
+    out = dest / name
+    out.mkdir(parents=True, exist_ok=True)
+    md = out / "slides.md"
+    md.write_text(
+        f"---\ntheme: default\ntitle: {name}\n---\n\n# {name}\n\n---\n\n# Slide 2\n\nContent here.\n"
+    )
+    print(f"Created: {md}")
+    print(f"Serve:   Core/tools/slides serve {md}")
+
+
+def cmd_serve(slide_file: pathlib.Path) -> None:
+    subprocess.run(["slidev", str(slide_file)], check=True)
+
+
+def cmd_build(slide_file: pathlib.Path, out_dir: pathlib.Path) -> None:
+    subprocess.run(["slidev", "build", str(slide_file), "--out", str(out_dir)], check=True)
+
+
+def cmd_port(alias: str, presentation_id: str, out: pathlib.Path) -> None:
+    primary = google_auth.resolve_alias(alias)
+    print(f"Fetching {presentation_id} from {primary}...")
+    pres = slides_fetch.get_presentation(primary, presentation_id)
+    md = slides_port.convert(pres)
+    out.write_text(md)
+    print(f"Written {len(pres.get('slides', []))} slides → {out}")
+
+
+def cmd_list(alias: str) -> None:
+    aliases = google_auth.primary_aliases() if alias == "all" else [google_auth.resolve_alias(alias)]
+    for a in aliases:
+        print(f"\n── Presentations ({a}) ──")
+        for f in slides_fetch.list_presentations(a):
+            mod = f.get("modifiedTime", "")[:10]
+            print(f"  {f['name']}  ({mod})  id:{f['id']}")
+            if f.get("webViewLink"):
+                print(f"    {f['webViewLink']}")
+
+
+def main():
+    p = argparse.ArgumentParser(prog="slides")
+    sub = p.add_subparsers(dest="cmd")
+
+    pa = sub.add_parser("auth"); pa.add_argument("alias")
+
+    pn = sub.add_parser("new")
+    pn.add_argument("name")
+    pn.add_argument("--dest", type=pathlib.Path, default=pathlib.Path.cwd())
+
+    ps = sub.add_parser("serve")
+    ps.add_argument("file", type=pathlib.Path)
+
+    pb = sub.add_parser("build")
+    pb.add_argument("file", type=pathlib.Path)
+    pb.add_argument("--out", type=pathlib.Path, default=pathlib.Path("dist"))
+
+    pp = sub.add_parser("port")
+    pp.add_argument("--account", required=True)
+    pp.add_argument("presentation_id")
+    pp.add_argument("--out", type=pathlib.Path, default=pathlib.Path("slides.md"))
+
+    pl = sub.add_parser("list")
+    pl.add_argument("--account", default="all")
+
+    args = p.parse_args()
+    if   args.cmd == "auth":   cmd_auth(args.alias)
+    elif args.cmd == "new":    cmd_new(args.name, args.dest)
+    elif args.cmd == "serve":  cmd_serve(args.file)
+    elif args.cmd == "build":  cmd_build(args.file, args.out)
+    elif args.cmd == "port":   cmd_port(args.account, args.presentation_id, args.out)
+    elif args.cmd == "list":   cmd_list(args.account)
+    else:                      p.print_help()
+
+
+if __name__ == "__main__":
+    main()

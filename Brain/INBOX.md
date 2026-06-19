@@ -9,6 +9,13 @@
 
 <!-- add entries below, newest first -->
 
+averbação do terreno
+
+vipassana de 1 a 12 de agosto
+mover férias
+
+submeter pra chamada UNIVERSAL até 3 do 08
+https://www.gov.br/cnpq/pt-br/assuntos/noticias/cnpq-em-acao/chamada-universal-vai-financiar-r-300-milhoes-em-projetos-de-pesquisa-em-todo-pais-inscricoes-vao-ate-03-08
 
 marcar banca de artur
 responder megatruth
