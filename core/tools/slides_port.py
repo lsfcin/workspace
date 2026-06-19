@@ -1,31 +1,43 @@
 #!/mnt/workspace/.venv/bin/python3
 # slides_port.py — Convert Google Slides API JSON to Slidev markdown
 
+_SOFT_BREAK = ""  # Google Slides Shift+Enter within a paragraph
+
+
+def _clean(s: str) -> str:
+    """Normalize line endings; replace soft breaks with \n for later splitting."""
+    return s.replace("\r\n", "\n").replace("\r", "\n").replace(_SOFT_BREAK, "\n")
+
 
 def _extract_text(text_obj: dict) -> list[str]:
-    """Extract paragraph lines from a Slides text object. Detects bullet list items."""
+    """Extract lines from a Slides text object. Handles bullets and soft line breaks."""
     lines = []
     current: list[str] = []
     is_bullet = False
+
+    def _flush():
+        if not current:
+            return
+        joined = "".join(current).rstrip()
+        for subline in joined.split("\n"):
+            subline = subline.rstrip()
+            if subline:
+                lines.append(f"- {subline}" if is_bullet else subline)
+        current.clear()
+
     for el in text_obj.get("textElements", []):
         if "paragraphMarker" in el:
-            if current:
-                line = "".join(current).rstrip()
-                if line:
-                    lines.append(f"- {line}" if is_bullet else line)
-                current = []
+            _flush()
             is_bullet = "bullet" in el["paragraphMarker"]
         elif "textRun" in el:
-            content = el["textRun"].get("content", "").replace("\n", "")
+            content = _clean(el["textRun"].get("content", ""))
             if content and current:
                 prev = "".join(current)
                 if prev and prev[-1].isalnum() and content[0].isalnum():
                     content = " " + content
             current.append(content)
-    if current:
-        line = "".join(current).rstrip()
-        if line:
-            lines.append(f"- {line}" if is_bullet else line)
+
+    _flush()
     return lines
 
 
