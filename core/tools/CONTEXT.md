@@ -65,6 +65,7 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`slides_fetch.py`](slides_fetch.py) | [`slides_fetch.pyi`](slides_fetch.pyi) | `get_service`, `get_presentation`, `list_presentations` | !/mnt/workspace/.venv/bin/python3 |
 | [`slides_port.py`](slides_port.py) | [`slides_port.pyi`](slides_port.pyi) | `convert` | !/mnt/workspace/.venv/bin/python3 |
 | [`slides_shapes.py`](slides_shapes.py) | [`slides_shapes.pyi`](slides_shapes.pyi) | `render_element` | !/mnt/workspace/.venv/bin/python3 |
+| [`slides_style.py`](slides_style.py) | — | `rotation_deg`, `eff_scale`, `compose_transforms` | !/mnt/workspace/.venv/bin/python3 |
 | [`slides_text.py`](slides_text.py) | [`slides_text.pyi`](slides_text.pyi) | `text_html`, `has_content` | !/mnt/workspace/.venv/bin/python3 |
 | [`terms`](terms) | — | — | scan .tex files for terminology inconsistencies defined in terms.yaml |
 <!-- routing:end -->
