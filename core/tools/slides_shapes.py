@@ -29,12 +29,15 @@ def _fill_color(solid_fill: dict) -> str | None:
 def _bounds(el: dict, slide_w: float, slide_h: float) -> tuple[float, float, float, float]:
     t  = el.get("transform", {})
     s  = el.get("size", {})
-    sx = t.get("scaleX", 1.0);  sy = t.get("scaleY", 1.0)
+    sx = t.get("scaleX",  1.0) or 1.0
+    sy = t.get("scaleY",  1.0) or 1.0
+    tx = t.get("translateX", 0) or 0
+    ty = t.get("translateY", 0) or 0
     return (
-        round(t.get("translateX", 0)                          / slide_w * 100, 2),
-        round(t.get("translateY", 0)                          / slide_h * 100, 2),
-        round(s.get("width",  {}).get("magnitude", 0) * sx   / slide_w * 100, 2),
-        round(s.get("height", {}).get("magnitude", 0) * sy   / slide_h * 100, 2),
+        round(tx                                            / slide_w * 100, 2),
+        round(ty                                            / slide_h * 100, 2),
+        round(s.get("width",  {}).get("magnitude", 0) * sx / slide_w * 100, 2),
+        round(s.get("height", {}).get("magnitude", 0) * sy / slide_h * 100, 2),
     )
 
 
@@ -55,10 +58,18 @@ def _render_shape(el: dict, l: float, t: float, w: float, h: float) -> str | Non
     sp    = shape.get("shapeProperties", {})
     css: list[str] = []
 
-    solid = sp.get("shapeBackgroundFill", {}).get("solidFill", {})
-    fc = _fill_color(solid)
-    if fc:
-        css.append(f"background:{fc}")
+    bg = sp.get("shapeBackgroundFill", {})
+    # Skip animation ghost elements: transparent fill + abnormal scale (scaleY < 0.4)
+    if bg.get("propertyState") == "NOT_RENDERED":
+        tr = el.get("transform", {})
+        sy = tr.get("scaleY", 1.0) or 1.0
+        sx = tr.get("scaleX", 1.0) or 1.0
+        if sy < 0.4 or sx < 0.4:
+            return None
+    else:
+        fc = _fill_color(bg.get("solidFill", {}))
+        if fc:
+            css.append(f"background:{fc}")
 
     outline = sp.get("outline", {})
     if outline.get("propertyState") != "NOT_RENDERED":
@@ -122,7 +133,7 @@ def _render_table(el: dict, l: float, t: float, w: float, h: float) -> str:
                         for c in row.get("tableCells", []))
         rows.append(f"<tr>{cells}</tr>")
     style = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%;overflow:auto"
-    return f'<div class="absolute" style="{style}"><table>{"".join(rows)}</table></div>'
+    return f'<div class="absolute" style="{style}"><table><tbody>{"".join(rows)}</tbody></table></div>'
 
 
 def render_element(el: dict, slide_w: float, slide_h: float,

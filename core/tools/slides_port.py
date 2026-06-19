@@ -48,7 +48,9 @@ def _convert_slide(slide: dict, slide_w: float, slide_h: float,
         b = render_element(el, slide_w, slide_h, assets_dir, img_n)
         if b:
             blocks.append(b)
-    body = "\n".join(blocks)
+    inner = "\n".join(blocks)
+    # Clip all elements to slide bounds (lines/groups can overflow otherwise)
+    body = f'<div style="position:absolute;inset:0;overflow:hidden">\n{inner}\n</div>'
     notes = _slide_notes(slide)
     if notes:
         body += f"\n\n::notes::\n{notes}"
