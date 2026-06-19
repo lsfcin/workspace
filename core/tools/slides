@@ -44,11 +44,11 @@ def cmd_port(alias: str, presentation_id: str, out: pathlib.Path) -> None:
     print(f"Downloaded {n_imgs} images → {assets_dir}/")
 
 
-def cmd_list(alias: str) -> None:
+def cmd_list(alias: str, name: str = "") -> None:
     aliases = google_auth.primary_aliases() if alias == "all" else [google_auth.resolve_alias(alias)]
     for a in aliases:
         print(f"\n── Presentations ({a}) ──")
-        for f in slides_fetch.list_presentations(a):
+        for f in slides_fetch.list_presentations(a, name=name):
             mod = f.get("modifiedTime", "")[:10]
             print(f"  {f['name']}  ({mod})  id:{f['id']}")
             if f.get("webViewLink"):
@@ -79,6 +79,7 @@ def main():
 
     pl = sub.add_parser("list")
     pl.add_argument("--account", default="all")
+    pl.add_argument("--name", default="", help="filter by name substring")
 
     args = p.parse_args()
     if   args.cmd == "auth":   cmd_auth(args.alias)
@@ -86,7 +87,7 @@ def main():
     elif args.cmd == "serve":  cmd_serve(args.file)
     elif args.cmd == "build":  cmd_build(args.file, args.out)
     elif args.cmd == "port":   cmd_port(args.account, args.presentation_id, args.out)
-    elif args.cmd == "list":   cmd_list(args.account)
+    elif args.cmd == "list":   cmd_list(args.account, args.name)
     else:                      p.print_help()
 
 
