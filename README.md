@@ -6,12 +6,12 @@ Personal workspace root. Organizes projects, research, skills, and generated art
 
 | Folder | Purpose |
 |--------|---------|
-| `Code/` | Software projects |
-| `Academy/` | Research, teaching, and academic management |
-| `Branches/` | Personal life management (health, finances, home) |
-| `Models/` | Local AI models and checkpoints |
+| `code/` | Software projects |
+| `academy/` | Research, teaching, and academic management |
+| `branches/` | Personal life management (health, finances, home) |
+| `models/` | Local AI models and checkpoints |
 | `Outputs/` | Generated artifacts |
-| `Core/` | Reusable skills and cross-domain resources |
+| `core/` | Reusable skills and cross-domain resources |
 
 ## Context System
 
@@ -23,6 +23,6 @@ New machine or reinstall → see [SETUP.md](SETUP.md).
 
 ## What's tracked
 
-- `Core/` — fully tracked
-- `Code/`, `Academy/`, `Models/`, `Outputs/` — first-level `.md` files only
+- `core/` — fully tracked
+- `code/`, `academy/`, `models/`, `Outputs/` — first-level `.md` files only
 - `.vscode/settings.json` — workspace editor config

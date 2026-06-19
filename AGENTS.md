@@ -13,11 +13,11 @@ See [SETUP.md](SETUP.md) for hooks, stubgen, tsc, caveman, and toolchain setup.
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`Academy/`](Academy/CONTEXT.md) | Research, teaching, academic work |
-| [`Brain/`](Brain/CONTEXT.md) | Personal OS: goals, attention, ideas, life. Agent collaborates here. |
-| [`Branches/`](Branches/CONTEXT.md) | Personal life management — health, finances, and home construction |
-| [`Code/`](Code/CONTEXT.md) | Software projects developed under this workspace |
-| [`Core/`](Core/CONTEXT.md) | Agent library: skills, agents, prompts, flows, tools. Provider-agnostic. |
-| [`Datasets/`](Datasets/CONTEXT.md) | — |
-| [`Models/`](Models/CONTEXT.md) | Local model checkpoints and weights used across research and code projects |
+| [`academy/`](academy/CONTEXT.md) | Research, teaching, academic work |
+| [`brain/`](brain/CONTEXT.md) | Personal OS: goals, attention, ideas, life. Agent collaborates here. |
+| [`branches/`](branches/CONTEXT.md) | Personal life management — health, finances, and home construction |
+| [`code/`](code/CONTEXT.md) | Software projects developed under this workspace |
+| [`core/`](core/CONTEXT.md) | Agent library: skills, agents, prompts, flows, tools. Provider-agnostic. |
+| [`datasets/`](datasets/CONTEXT.md) | — |
+| [`models/`](models/CONTEXT.md) | Local model checkpoints and weights used across research and code projects |
 <!-- routing:end -->

@@ -85,7 +85,7 @@ EOF
 		fi
 		;;
 	*.csv|*.tsv)
-		python3 /mnt/workspace/Core/tools/inspect "$file" 2>/dev/null \
+		python3 /mnt/workspace/core/tools/inspect "$file" 2>/dev/null \
 			&& printf "✓ .csvif: %sif\n" "$file"
 		;;
 	*.dart)
@@ -98,8 +98,8 @@ EOF
 		while [ "$paper_root" != "/" ] && [ ! -f "$paper_root/terms.yaml" ]; do
 			paper_root=$(dirname "$paper_root")
 		done
-		if [ -f "$paper_root/terms.yaml" ] && [ -x "/mnt/workspace/Core/tools/terms" ]; then
-			/mnt/workspace/Core/tools/terms "$paper_root" 2>/dev/null | grep -E "^[[:space:]]|^⚠" || true
+		if [ -f "$paper_root/terms.yaml" ] && [ -x "/mnt/workspace/core/tools/terms" ]; then
+			/mnt/workspace/core/tools/terms "$paper_root" 2>/dev/null | grep -E "^[[:space:]]|^⚠" || true
 		fi
 		;;
 	*.bib)
@@ -152,7 +152,7 @@ fi
     && python3 /mnt/workspace/.hooks/context_synchronizer.py "$dir" 2>/dev/null
 
 # ── codegraph sync — keep index fresh after every source edit ─────────────────
-if [[ "$file" == /mnt/workspace/Code/* ]]; then
+if [[ "$file" == /mnt/workspace/code/* ]]; then
 	case "$file" in
 		*.pyi|*.d.ts|*.dart.api|*.texif|*.csvif) : ;;  # generated — skip
 		*.py|*.js|*.ts|*.tsx|*.dart|*.jsx)
@@ -164,7 +164,7 @@ if [[ "$file" == /mnt/workspace/Code/* ]]; then
 			if [ -n "$cg_root" ]; then
 				codegraph sync "$cg_root" 2>&1 | head -1
 			else
-				proj_root=$(echo "$file" | grep -oP '^/mnt/workspace/Code/[^/]+')
+				proj_root=$(echo "$file" | grep -oP '^/mnt/workspace/code/[^/]+')
 				[ -n "$proj_root" ] && printf "⚠️  no codegraph index — run: codegraph init %s\n" "$proj_root"
 			fi
 			;;

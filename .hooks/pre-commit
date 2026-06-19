@@ -68,7 +68,7 @@ if [ -n "$TEX_STAGED" ]; then
     done
   done | sort -u)
   if [ -n "$PAPER_ROOTS" ]; then
-    TERMS_TOOL="/mnt/workspace/Core/tools/terms"
+    TERMS_TOOL="/mnt/workspace/core/tools/terms"
     while IFS= read -r paper_root; do
       if [ -x "$TERMS_TOOL" ]; then
         if ! "$TERMS_TOOL" "$paper_root" >/tmp/terms-check.$$ 2>&1; then

@@ -2,7 +2,7 @@
 # paper-scaffold.py: Initialize or adapt a paper directory to workspace standards.
 #
 # Usage:
-#   paper-scaffold.py new <name>     — create Academy/papers/<name>/ from template
+#   paper-scaffold.py new <name>     — create academy/papers/<name>/ from template
 #   paper-scaffold.py adapt <path>   — add missing scaffold files to existing paper
 #
 # Both modes are safe: existing files are never overwritten (skipped with ~).
@@ -12,7 +12,7 @@ import re
 import sys
 from pathlib import Path
 
-PAPERS = Path(__file__).parent.parent / 'Academy' / 'papers'
+PAPERS = Path(__file__).parent.parent / 'academy' / 'papers'
 _slug_to_name = lambda s: re.sub(r'^\d{4}-[^-]+-', '', s).replace('_', ' ').title()
 RS, RE = '<!-- routing:start -->', '<!-- routing:end -->'
 ROUTE = f'{RS}\n## Routing\n\n{RE}\n'
@@ -84,7 +84,7 @@ TODO: brief summary — contribution, target venue, status.
 ## Build
 
 ```bash
-cd /mnt/workspace/Academy/papers/{slug}
+cd /mnt/workspace/academy/papers/{slug}
 latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
 ```
 

@@ -48,13 +48,13 @@ Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
 | Script | Trigger | Behavior |
 |--------|---------|----------|
 | `.hooks/pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits pushing code file past 200 lines; **hard-blocks Write of new files missing first-line description comment** |
-| `.hooks/facade-scan.py` | PreToolUse: Write (new files in `Code/`) | **Informs** — prints exports already declared in the target module's facade before a new file is created. Warns if exports list is empty (facade needs updating). Not a block. |
+| `.hooks/facade-scan.py` | PreToolUse: Write (new files in `code/`) | **Informs** — prints exports already declared in the target module's facade before a new file is created. Warns if exports list is empty (facade needs updating). Not a block. |
 | `.hooks/post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts` / `.dart.api`; auto-scaffolds `jsconfig.json`/`tsconfig.json` if missing; reminds about missing first-line comment; runs `context_synchronizer.py` |
 | `.hooks/pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading source file when interface is current (timestamp check); warns when interface is stale |
-| `.hooks/facade-gate.py` | PreToolUse: Edit, Write (`Code/` files) | **Hard-blocks** edits to any `Code/` module file until the nearest facade has been Read this session |
+| `.hooks/facade-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Hard-blocks** edits to any `code/` module file until the nearest facade has been Read this session |
 | `.hooks/facade-tracker.py` | PostToolUse: Read | Records facade reads to `/tmp/claude_facades_<pid>.txt`; consumed by `facade-gate.py` |
 
-For codegraph setup and bash tool reference, see [`Code/SETUP.md`](Code/SETUP.md#codegraph).
+For codegraph setup and bash tool reference, see [`code/SETUP.md`](code/SETUP.md#codegraph).
 
 ### Agent Hook Coverage
 
@@ -65,7 +65,7 @@ All canonical enforcement lives in `.hooks/`. Each agent needs a shim that calls
 | Pre-read (interface redirect) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
 | Pre-edit (size / description) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
 | Pre-edit facade-scan (new files) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
-| Pre-edit facade-gate (Code/ edits) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
+| Pre-edit facade-gate (code/ edits) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
 | Post-edit (stubs / context sync / codegraph) | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | needs shim |
 | Post-read facade-tracker | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | needs shim |
 | Size / facade import / stub gen / context sync | `pre-commit` ✅ | — | — | automatic (git) |
@@ -131,7 +131,7 @@ Every save of supported source file unconditionally produces interface file. Gen
 **To bypass size gate temporarily**: edit `BLOCK_LINES` in `.hooks/line-limits.env`, perform operation, revert. Both `pre-edit.py` and `check-line-counts.sh` pick up new value immediately.
 
 ### Engineering Policies
-See [Code/CONTEXT.md](Code/CONTEXT.md) for full file size policy, modularization strategy, and interface conventions Claude follows during coding sessions.
+See [code/CONTEXT.md](code/CONTEXT.md) for full file size policy, modularization strategy, and interface conventions Claude follows during coding sessions.
 
 ---
 
@@ -276,9 +276,9 @@ When adding new agent: if it supports session-start hooks or context injection, 
 Run `caveman-compress <file>` on CONTEXT.md files periodically to cut input tokens.
 Responses use caveman compression by default. Deactivate for a session: say "stop caveman" or "normal mode". To change the default, see `SETUP.md §6`.
 
-### 8. Local LaTeX Toolchain (for `Academy/papers/`)
+### 8. Local LaTeX Toolchain (for `academy/papers/`)
 
-See [Academy/SETUP.md](Academy/SETUP.md).
+See [academy/SETUP.md](academy/SETUP.md).
 
 ---
 
@@ -362,11 +362,11 @@ All infrastructure lives in workspace git repo:
 SETUP.md                  ← this file: replication instructions
 CLAUDE.md                 ← workspace behavioral instructions for Claude
 AGENTS.md                 ← canonical workspace entrypoint read by all agents at session start
-Code/CONTEXT.md           ← engineering principles: file size, modularization, interface conventions
-Core/                     ← provider-agnostic research system (agents, flows, tools)
-  Core/agents/            ← agent role definitions (lead, researcher, reviewer, verifier, writer)
-  Core/flows/             ← workflow protocols (lit, deepresearch, review, draft, …)
-  Core/tools/             ← executable CLI research tools (search, papers, fetch, parse, …)
+code/CONTEXT.md           ← engineering principles: file size, modularization, interface conventions
+core/                     ← provider-agnostic research system (agents, flows, tools)
+  core/agents/            ← agent role definitions (lead, researcher, reviewer, verifier, writer)
+  core/flows/             ← workflow protocols (lit, deepresearch, review, draft, …)
+  core/tools/             ← executable CLI research tools (search, papers, fetch, parse, …)
 .claude/commands/         ← Claude Code slash commands (e.g. /research dispatcher)
 ```
 
@@ -378,7 +378,7 @@ Only steps that can't be versioned: global git config command + external tool in
 
 ### Per-project SETUP.md (pattern)
 
-Projects under `Code/` — and any other workspace subdirectory with non-trivial environment requirements — may include their own `SETUP.md`. This file covers what the workspace-level `SETUP.md` cannot: third-party tool installs, model downloads, platform-specific paths, extension dependencies. The workspace-level file delegates per-project setup to these files; the quick-start table above links to them. When adding a project with environment setup that can't be inferred from the code, create `<project>/SETUP.md` and add a row to the table.
+Projects under `code/` — and any other workspace subdirectory with non-trivial environment requirements — may include their own `SETUP.md`. This file covers what the workspace-level `SETUP.md` cannot: third-party tool installs, model downloads, platform-specific paths, extension dependencies. The workspace-level file delegates per-project setup to these files; the quick-start table above links to them. When adding a project with environment setup that can't be inferred from the code, create `<project>/SETUP.md` and add a row to the table.
 
 ### Line-limit rule (canonicalized)
 
@@ -393,6 +393,6 @@ Projects under `Code/` — and any other workspace subdirectory with non-trivial
 
 ## Per-Project Quick Start
 
-See [Code/SETUP.md](Code/SETUP.md) for Code project quick-start commands and per-project setup.
+See [code/SETUP.md](code/SETUP.md) for Code project quick-start commands and per-project setup.
 
-See [Academy/SETUP.md](Academy/SETUP.md) for LaTeX toolchain and papers compilation.
+See [academy/SETUP.md](academy/SETUP.md) for LaTeX toolchain and papers compilation.
