@@ -60,15 +60,20 @@ For codegraph setup and bash tool reference, see [`code/SETUP.md`](code/SETUP.md
 
 All canonical enforcement lives in `.hooks/`. Each agent needs a shim that calls them.
 
-| Hook | Git | Claude Code | Copilot | Other agents |
-|------|-----|-------------|---------|--------------|
-| Pre-read (interface redirect) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
-| Pre-edit (size / description) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
-| Pre-edit facade-scan (new files) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
-| Pre-edit facade-gate (code/ edits) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | needs shim |
-| Post-edit (stubs / context sync / codegraph) | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | needs shim |
-| Post-read facade-tracker | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | needs shim |
+| Hook | Git | Claude Code | Copilot | opencode |
+|------|-----|-------------|---------|----------|
+| Pre-read (interface redirect) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
+| Pre-edit (size / description) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
+| Pre-edit facade-scan (new files) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
+| Pre-edit facade-gate (code/ edits) | — | `.claude/settings.json` | `copilot-pre-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
+| Post-edit (stubs / context sync / codegraph) | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
+| Post-read facade-tracker | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
 | Size / facade import / stub gen / context sync | `pre-commit` ✅ | — | — | automatic (git) |
+
+**Existing shims:**
+- **Claude Code** — `.claude/settings.json` (PreToolUse/PostToolUse matchers).
+- **Copilot** — `.hooks/copilot-pre-tool.py` + `.hooks/copilot-post-tool.py` (translate Copilot's tool events to the Claude stdin-JSON + `CLAUDE_TOOL_NAME` env schema).
+- **opencode** — `.opencode/plugins/workspace-policy.js` (translates opencode's `tool.execute.before`/`after` events to the same schema; maps Claude exit-2 → opencode `throw`). Helpers in `.opencode/wp-helpers.js`, re-exported through `.opencode/index.js` facade. See [`.opencode/CONTEXT.md`](.opencode/CONTEXT.md) for the full event → script mapping.
 
 **Wiring a new agent — three hook points:**
 
@@ -87,7 +92,7 @@ Each canonical hook expects:
 - Pre-hooks: JSON payload on **stdin**
 - Post-hooks: JSON payload in **`CLAUDE_TOOL_INPUT`** env var
 
-Return code `2` = hard block; stdout = message shown to agent. See `copilot-pre-tool.py` and `copilot-post-tool.py` for a complete shim implementation.
+Return code `2` = hard block; stdout = message shown to agent. See `copilot-pre-tool.py` and `copilot-post-tool.py` for a complete Python shim implementation, or `.opencode/plugins/workspace-policy.js` for a JS/opencode-plugin shim that maps exit-2 to opencode's `throw`-from-`tool.execute.before` block convention.
 
 **Session isolation caveat**: `facade-gate` and `facade-tracker` use Claude Code's process PID to isolate parallel sessions. Other agents must adapt `get_session_id()` in those scripts to use their own session identifier.
 
@@ -192,10 +197,15 @@ Verify: `tsc --version` or `~/.local/bin/tsc --version`
 ### 5. Claude Code Hooks
 No action needed. `.claude/settings.json` versioned in this repo; Claude Code reads it automatically when workspace opened. Hooks in `.hooks/` activate immediately.
 
-### 6. Codeburn
+### 6. opencode Workspace Policy Plugin
+No action needed. `.opencode/plugins/workspace-policy.js` is a project-level plugin; opencode auto-loads it on startup when run from `/mnt/workspace`. It mirrors the Claude Code hooks in `.claude/settings.json` — same `.hooks/*` scripts, same policies (first-line comment, line-count limits, facade-first reads, interface-first source reads, interface regeneration). Translation helpers in `.opencode/wp-helpers.js` (outside `plugins/` so opencode does not auto-load them as a plugin), re-exported through `.opencode/index.js` facade. See [`.opencode/CONTEXT.md`](.opencode/CONTEXT.md) for the event → script mapping and the warning-surfacing limitation (opencode has no inline-tool-warning API on `tool.execute.before`; pre-hook warnings go to `client.app.log` + `client.tui.showToast`, post-hook output is appended to `output.output`).
+
+Verify: `node --input-type=module -e "import('/mnt/workspace/.opencode/plugins/workspace-policy.js').then(m=>console.log(typeof m.WorkspacePolicy))"` → `function`.
+
+### 7. Codeburn
 Run `codeburn optimize` periodically to audit token waste.
 
-### 7. Caveman (Claude Code output compression)
+### 8. Caveman (Claude Code output compression)
 
 Installs caveman as Claude Code skill (~65% output token savings). Requires Node ≥18. Safe to re-run.
 
@@ -276,7 +286,7 @@ When adding new agent: if it supports session-start hooks or context injection, 
 Run `caveman-compress <file>` on CONTEXT.md files periodically to cut input tokens.
 Responses use caveman compression by default. Deactivate for a session: say "stop caveman" or "normal mode". To change the default, see `SETUP.md §6`.
 
-### 8. Local LaTeX Toolchain (for `academy/papers/`)
+### 9. Local LaTeX Toolchain (for `academy/papers/`)
 
 See [academy/SETUP.md](academy/SETUP.md).
 
@@ -308,6 +318,10 @@ tsc --version
 # 4. Claude Code hooks are configured
 grep -c "hooks" /mnt/workspace/.claude/settings.json
 # Expected: > 0
+
+# 4b. opencode workspace-policy plugin parses
+node --input-type=module -e "import('/mnt/workspace/.opencode/plugins/workspace-policy.js').then(m=>console.log(typeof m.WorkspacePolicy))"
+# Expected: function
 
 # 5. Hook scripts are executable
 ls -la /mnt/workspace/.hooks/post-edit.sh /mnt/workspace/.hooks/pre-read.sh /mnt/workspace/.hooks/pre-commit /mnt/workspace/.hooks/check-line-counts.sh
@@ -355,6 +369,13 @@ All infrastructure lives in workspace git repo:
   start-session.ps1       ← neutral session-start: prints AGENTS.md header (Windows/PowerShell)
 .claude/
   settings.json           ← Claude Code hook wiring (calls neutral pre-edit/post-edit/pre-read) + permissions
+.opencode/
+  CONTEXT.md              ← opencode config docs: event → script mapping, stdin-vs-env schema, warning surfacing
+  index.js                ← opencode config facade — re-exports wp-helpers.js (consumed by plugins/workspace-policy.js)
+  wp-helpers.js           ← opencode workspace-policy translation layer: spawn, schema mapping, warning surfacing
+  plugins/
+    workspace-policy.js   ← opencode workspace policy plugin: tool.execute.before/after → .hooks/* scripts
+  package.json            ← "type": "module" + @opencode-ai/plugin dependency (gitignored — opencode Bun-managed)
 .github/
   copilot-instructions.md ← Copilot shim: one line pointing to AGENTS.md
   hooks/workspace-policy.json ← Copilot hook registration: SessionStart, PreToolUse, PostToolUse

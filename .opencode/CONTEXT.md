@@ -1,6 +1,10 @@
 # opencode
 > opencode configuration, plugins, and skills for this workspace.
 
+See [SETUP.md §6](../SETUP.md#6-opencode-workspace-policy-plugin) for setup
+verification and the agent hook coverage table. This file documents the
+plugin internals; SETUP.md documents how it fits the workspace parity model.
+
 ## Workspace policy plugin
 
 `.opencode/plugins/workspace-policy.js` mirrors the workspace behavioral hooks
