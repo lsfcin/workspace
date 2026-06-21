@@ -2,9 +2,11 @@
 # Usage: core/tools/sync-skills [--check] — regenerate skill mirrors from core/skills/*.md
 #
 # Source of truth:  /mnt/workspace/core/skills/<name>.md
-# Mirrors (symlinks <name>/SKILL.md -> source):
+# Symlink mirrors (<name>/SKILL.md -> source):
 #   /mnt/workspace/.opencode/skills/<name>/SKILL.md   (opencode)
 #   /mnt/workspace/.claude/skills/<name>/SKILL.md     (Claude Code)
+# Command file copies (<name>.md — full copy of source, enables /<name> slash command):
+#   /mnt/workspace/.claude/commands/<name>.md         (Claude Code slash commands)
 #
 # Excluded from mirroring: _template.md, *.original.md, CONTEXT.md
 #
@@ -12,8 +14,8 @@
 # Never use `Core` in symlink targets.
 #
 # Usage:
-#   core/tools/sync-skills            # sync both mirrors
-#   core/tools/sync-skills --check    # exit 1 if mirrors are stale/broken
+#   core/tools/sync-skills            # sync all mirrors + command files
+#   core/tools/sync-skills --check    # exit 1 if mirrors/command files are stale/broken/missing
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -23,6 +25,7 @@ MIRRORS=(
   "$WORKSPACE/.opencode/skills"
   "$WORKSPACE/.claude/skills"
 )
+COMMANDS_DIR="$WORKSPACE/.claude/commands"
 
 # Skill name is the basename without .md, excluding non-skill files.
 is_skill() {
@@ -34,6 +37,17 @@ is_skill() {
   esac
 }
 
+# A command (slash command) is a top-level skill — NOT a sub-skill.
+# Sub-skills have names like "foundry-canvas" where "foundry" is also a skill;
+# they're reference docs loaded by the parent router, not invocable commands.
+is_command() {
+  local name="$1" prefix
+  [[ "$name" == *-* ]] || return 0
+  prefix="${name%%-*}"
+  is_skill "$prefix" && [[ -f "$SRC/$prefix.md" ]] && return 1
+  return 0
+}
+
 list_skills() {
   local f name
   for f in "$SRC"/*.md; do
@@ -42,6 +56,13 @@ list_skills() {
       printf '%s\n' "$name"
     fi
   done
+}
+
+list_commands() {
+  local name
+  while IFS= read -r name; do
+    is_command "$name" && printf '%s\n' "$name"
+  done < <(list_skills)
 }
 
 sync_mirror() {
@@ -76,16 +97,40 @@ check_mirror() {
   return $rc
 }
 
+sync_commands() {
+  mkdir -p "$COMMANDS_DIR"
+  local name
+  while IFS= read -r name; do
+    cp "$SRC/$name.md" "$COMMANDS_DIR/$name.md"
+  done < <(list_commands)
+}
+
+check_commands() {
+  local rc=0 name cmd src
+  while IFS= read -r name; do
+    cmd="$COMMANDS_DIR/$name.md"
+    src="$SRC/$name.md"
+    if [[ ! -f "$cmd" ]]; then
+      echo "MISSING command: $cmd"; rc=1
+    elif ! diff -q "$src" "$cmd" >/dev/null 2>&1; then
+      echo "STALE command: $cmd (differs from $src)"; rc=1
+    fi
+  done < <(list_commands)
+  return $rc
+}
+
 case "${1:-sync}" in
   --check)
     rc=0
     for m in "${MIRRORS[@]}"; do check_mirror "$m" || rc=1; done
-    if [[ $rc -eq 0 ]]; then echo "OK: all mirrors in sync"; fi
+    check_commands || rc=1
+    if [[ $rc -eq 0 ]]; then echo "OK: all mirrors and command files in sync"; fi
     exit $rc
     ;;
   sync|"")
     for m in "${MIRRORS[@]}"; do sync_mirror "$m"; done
-    echo "Synced $(list_skills | wc -l) skills to ${#MIRRORS[@]} mirrors."
+    sync_commands
+    echo "Synced $(list_skills | wc -l) skills to ${#MIRRORS[@]} mirrors + command files."
     ;;
   *)
     echo "Usage: $0 [--check]" >&2
