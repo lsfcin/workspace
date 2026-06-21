@@ -67,5 +67,6 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`slides_shapes.py`](slides_shapes.py) | [`slides_shapes.pyi`](slides_shapes.pyi) | `render_element` | !/mnt/workspace/.venv/bin/python3 |
 | [`slides_style.py`](slides_style.py) | [`slides_style.pyi`](slides_style.pyi) | `rotation_deg`, `eff_scale`, `compose_transforms` | !/mnt/workspace/.venv/bin/python3 |
 | [`slides_text.py`](slides_text.py) | [`slides_text.pyi`](slides_text.pyi) | `text_html`, `has_content` | !/mnt/workspace/.venv/bin/python3 |
+| [`sync-skills`](sync-skills) | — | — | regenerate skill mirrors from core/skills/*.md |
 | [`terms`](terms) | — | — | scan .tex files for terminology inconsistencies defined in terms.yaml |
 <!-- routing:end -->

@@ -33,8 +33,7 @@ def _render_shape(el: dict, l: float, t: float, w: float, h: float,
                 return None
         fc = None
     elif bps == "INHERIT":
-        # Theme default fill — use ACCENT1 (matches most Google Slides defaults)
-        fc = _fill_color({"color": {"themeColor": "ACCENT1"}})
+        fc = None  # transparent; ACCENT1 applied below only if shape has no other content
     else:
         solid = bg.get("solidFill"); grad = bg.get("gradientFill")
         fc = _fill_color(solid) if solid else (_gradient_css(grad) if grad else None)
@@ -52,6 +51,9 @@ def _render_shape(el: dict, l: float, t: float, w: float, h: float,
                         default_font_size=ph_sizes.get(ph),
                         default_align="center" if ph == "CENTERED_TITLE" else "")
     stype   = shape.get("shapeType", "")
+    # INHERIT fill: use theme ACCENT1 only when shape carries no other visible content
+    if bps == "INHERIT" and not has_content(inner) and not sc:
+        fc = _fill_color({"color": {"themeColor": "ACCENT1"}})
     rcs     = _rot_css(el)
     base    = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%{rcs}"
 

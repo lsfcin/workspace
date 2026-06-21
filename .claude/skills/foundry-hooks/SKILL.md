@@ -1,0 +1,1 @@
+/mnt/workspace/core/skills/foundry-hooks.md

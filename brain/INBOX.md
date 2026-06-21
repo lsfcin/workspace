@@ -9,6 +9,37 @@
 
 <!-- add entries below, newest first -->
 
+
+apptime design (claude design)
+https://claude.ai/design/p/f36c59b8-604c-4b84-a235-6d0af90986dd?file=AppTime+-+Overlay+Explorations.html
+
+testar weft, ver se tem como usar os princípios ou até mesmo a própria linguagem
+https://github.com/WeaveMindAI/weft
+https://weavemind.ai/docs/nodes
+
+openjarvis
+https://github.com/open-jarvis/OpenJarvis
+
+salvar documentação de jake van clief
+https://www.skool.com/cliefnotes/classroom/036893d9?md=2b4a8ab7461c4f6d828e21c0eb196a6a 
+https://www.skool.com/cliefnotes/new-video-how-i-structure-folders-to-replace-ai-agents
+
+animações com claude code + remotion
+https://www.skool.com/cliefnotes/classroom/d3907117?md=f7a33a9888604a08a7e48bb876682691
+
+estudar o paper de jake van clief
+https://arxiv.org/pdf/2603.16021
+
+claudecode design space
+https://arxiv.org/pdf/2604.14228
+
+graphs + context folding pra agentes
+https://arxiv.org/pdf/2601.10112
+https://arxiv.org/pdf/2602.11988
+https://openreview.net/pdf?id=91jL62CQF1
+https://openreview.net/pdf?id=JaLXQnA2wi
+
+
 averbação do terreno
 
 vipassana de 1 a 12 de agosto
@@ -17,16 +48,11 @@ mover férias
 submeter pra chamada UNIVERSAL até 3 do 08
 https://www.gov.br/cnpq/pt-br/assuntos/noticias/cnpq-em-acao/chamada-universal-vai-financiar-r-300-milhoes-em-projetos-de-pesquisa-em-todo-pais-inscricoes-vao-ate-03-08
 
-marcar banca de artur
 responder megatruth
-
-responder a aluna sobre o estágio dela
 
 still, about the foreground tiles, thinking of it now, do we still have to have a checkbox on the iso tab for that? I mean, what is the relevance of it on our design right now?
 
-
 ajudar Paulo (coordenador) a montar o PPC, ele criou uma lista de ementas que temos que atualizar o formato. fazer isso com ajuda da IA.
-
 
 pedir pro claude me chamar de lucas a cada prompt
 

@@ -3,16 +3,11 @@
 
 **Before editing any file:**
 1. Read the target project's CONTEXT.md.
-2. For architecture/flow questions, use `codegraph_explore` or `codegraph_search` before reading raw files (projects with `.mcp.json` have a graph; others don't).
+2. For architecture/flow questions, use `codegraph` (via Bash) before reading raw source — projects with a `.codegraph/` index are indexed; see [SETUP.md](SETUP.md#codegraph).
 3. Read the facade (`index.ts` / `__init__.py`) of every module you'll touch — `facade-gate` will block edits until you do.
 4. Language/pattern rules and file templates: [SPECS.md](SPECS.md).
 
-**codegraph** (all projects indexed — call via Bash, no MCP needed):
-- `codegraph explore "<question>" <project-path>` — architecture, flows, "how does X connect to Y"
-- `codegraph query "<symbol>" <project-path>` — find symbol by name
-- `codegraph callers "<fn>" <project-path>` — all call sites
-- `codegraph node "<symbol>" <project-path>` — source + call trail
-- Index auto-syncs after every edit via post-edit hook.
+**codegraph** — most projects indexed; call via Bash (no MCP). Index auto-syncs after every edit via post-edit hook. Command reference: [SETUP.md](SETUP.md#codegraph).
 
 **Hooks enforce automatically** (no need to re-check):
 - File size: warn at 150 LOC, hard block at 200 LOC
@@ -21,7 +16,9 @@
 - Interface stubs (`.d.ts`, `.pyi`, `.dart.api`) regenerated at commit
 
 **You enforce** (hooks cannot catch these):
-- One responsibility per file — never copy-paste, extract a function instead
+- REUSE always
+- NEVER copy-paste, instead, REFACTOR, extract a function, create base class, etc.
+- ONE responsibility per file - SMALL IS BETTER
 - After each prompt: code cleaner or messier? If messier, redo before continuing
 - Names must be guessable without opening the file
 

@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+# Usage: core/tools/sync-skills [--check] — regenerate skill mirrors from core/skills/*.md
+#
+# Source of truth:  /mnt/workspace/core/skills/<name>.md
+# Mirrors (symlinks <name>/SKILL.md -> source):
+#   /mnt/workspace/.opencode/skills/<name>/SKILL.md   (opencode)
+#   /mnt/workspace/.claude/skills/<name>/SKILL.md     (Claude Code)
+#
+# Excluded from mirroring: _template.md, *.original.md, CONTEXT.md
+#
+# Linux is case-sensitive — the source dir is `core` (lowercase).
+# Never use `Core` in symlink targets.
+#
+# Usage:
+#   core/tools/sync-skills            # sync both mirrors
+#   core/tools/sync-skills --check    # exit 1 if mirrors are stale/broken
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORKSPACE="$(cd "$SCRIPT_DIR/../.." && pwd)"
+SRC="$WORKSPACE/core/skills"
+MIRRORS=(
+  "$WORKSPACE/.opencode/skills"
+  "$WORKSPACE/.claude/skills"
+)
+
+# Skill name is the basename without .md, excluding non-skill files.
+is_skill() {
+  local name="$1"
+  case "$name" in
+    _template|CONTEXT) return 1 ;;
+    *.original)        return 1 ;;
+    *)                 return 0 ;;
+  esac
+}
+
+list_skills() {
+  local f name
+  for f in "$SRC"/*.md; do
+    name="$(basename "$f" .md)"
+    if is_skill "$name"; then
+      printf '%s\n' "$name"
+    fi
+  done
+}
+
+sync_mirror() {
+  local mirror="$1"
+  mkdir -p "$mirror"
+  local name target link
+  while IFS= read -r name; do
+    target="$WORKSPACE/core/skills/$name.md"
+    mkdir -p "$mirror/$name"
+    link="$mirror/$name/SKILL.md"
+    ln -sfn "$target" "$link"
+  done < <(list_skills)
+}
+
+check_mirror() {
+  local mirror="$1" rc=0 name link target existing
+  while IFS= read -r name; do
+    target="$WORKSPACE/core/skills/$name.md"
+    link="$mirror/$name/SKILL.md"
+    if [[ ! -L "$link" ]]; then
+      echo "MISSING link: $link"; rc=1
+    else
+      existing="$(readlink "$link")"
+      if [[ "$existing" != "$target" ]]; then
+        echo "STALE link: $link -> $existing (want $target)"; rc=1
+      fi
+      if [[ ! -e "$link" ]]; then
+        echo "BROKEN link (dangling): $link"; rc=1
+      fi
+    fi
+  done < <(list_skills)
+  return $rc
+}
+
+case "${1:-sync}" in
+  --check)
+    rc=0
+    for m in "${MIRRORS[@]}"; do check_mirror "$m" || rc=1; done
+    if [[ $rc -eq 0 ]]; then echo "OK: all mirrors in sync"; fi
+    exit $rc
+    ;;
+  sync|"")
+    for m in "${MIRRORS[@]}"; do sync_mirror "$m"; done
+    echo "Synced $(list_skills | wc -l) skills to ${#MIRRORS[@]} mirrors."
+    ;;
+  *)
+    echo "Usage: $0 [--check]" >&2
+    exit 64
+    ;;
+esac
