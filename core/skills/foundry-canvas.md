@@ -55,7 +55,7 @@ Clones in this external layer share texture handles with originals in canvas.pri
 | `VisibilityFilter` on `canvas.primary` | Hard-clips sprite pixels to footprint bounding box | Only children of canvas.primary |
 | `canvas.visibility` | Darkens pixels outside vision polygon (fog of war) | Entire canvas.stage |
 
-Phase 3 (IsoSpriteLayer) solves VisibilityFilter clip. Phase 4 handles canvas.visibility darkening on overflow pixels.
+**`IsoSpriteLayer`** is isoroll's external container added to `canvas.stage` — it escapes the VisibilityFilter clip. A separate fog compositing pass (`canvas.visibility`) handles the darkening of overflow pixels on this layer.
 
 ## Depth Sort
 

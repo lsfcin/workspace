@@ -40,7 +40,7 @@ def _make_style_css(md: str) -> str:
     imports = ""
     if fonts:
         fam = "&family=".join(
-            f.replace(" ", "+") + ":ital,wght@0,300;0,400;0,600;0,700;1,300;1,400"
+            f.replace(" ", "+") + ":ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400"
             for f in fonts
         )
         imports = f'@import url("https://fonts.googleapis.com/css2?family={fam}&display=swap");\n'
