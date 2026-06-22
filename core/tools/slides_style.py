@@ -3,13 +3,23 @@
 
 import math, pathlib, urllib.request
 
-_THEME = {
+_THEME: dict[str, tuple[int, int, int]] = {
     "DARK1": (0,0,0), "DARK2": (32,18,77), "TEXT1": (0,0,0), "TEXT2": (32,18,77),
     "LIGHT1": (255,255,255), "LIGHT2": (232,232,232),
     "BACKGROUND1": (255,255,255), "BACKGROUND2": (232,232,232),
     "ACCENT1": (103,78,167), "ACCENT2": (213,166,189), "ACCENT3": (100,180,100),
     "ACCENT4": (200,150,50), "ACCENT5": (50,150,200), "ACCENT6": (200,100,50),
 }
+
+
+def set_theme_colors(color_scheme: list[dict]) -> None:
+    """Update module-level theme color map from presentation colorScheme colors list."""
+    for c in color_scheme:
+        rgb = c.get("color", {})
+        r = round(rgb.get("red",   0) * 255)
+        g = round(rgb.get("green", 0) * 255)
+        b = round(rgb.get("blue",  0) * 255)
+        _THEME[c["type"]] = (r, g, b)
 
 
 def _rgb(color: dict, alpha: float = 1.0) -> str | None:

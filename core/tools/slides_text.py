@@ -68,12 +68,15 @@ def _join_runs(runs: list[dict]) -> str:
     return out
 
 
-_ALIGN = {"CENTER": "center", "END": "right", "JUSTIFIED": "justify"}
+_ALIGN = {"CENTER": "center", "END": "right", "JUSTIFIED": "justify", "START": "left"}
 
 
 def text_html(text_obj: dict, is_title: bool = False,
               default_font_size: int | None = None,
-              default_align: str = "") -> str:
+              default_align: str = "",
+              default_font_weight: int | None = None,
+              default_font_color: str | None = None,
+              default_font_family: str | None = None) -> str:
     """Render a Slides text object as HTML preserving bullets, paragraphs, styles."""
     parts: list[str] = []
     runs:  list[dict] = []
@@ -126,8 +129,11 @@ def text_html(text_obj: dict, is_title: bool = False,
         parts.append("</ul>")
     result = "\n".join(parts)
     wrap_css: list[str] = []
-    if default_font_size: wrap_css.append(f"font-size:{default_font_size}pt")
-    if default_align:     wrap_css.append(f"text-align:{default_align}")
+    if default_font_size:   wrap_css.append(f"font-size:{default_font_size}pt")
+    if default_align:       wrap_css.append(f"text-align:{default_align}")
+    if default_font_weight: wrap_css.append(f"font-weight:{default_font_weight}")
+    if default_font_color:  wrap_css.append(f"color:{default_font_color}")
+    if default_font_family: wrap_css.append(f"font-family:'{default_font_family}'")
     if wrap_css and result:
         return f'<div style="{";".join(wrap_css)}">{result}</div>'
     return result

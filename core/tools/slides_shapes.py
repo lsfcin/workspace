@@ -20,7 +20,11 @@ def _rot_css(el: dict) -> str:
 
 
 def _render_shape(el: dict, l: float, t: float, w: float, h: float,
-                  ph_sizes: dict[str, int] = {}, is_master: bool = False) -> str | None:
+                  ph_sizes: dict[str, int] = {}, is_master: bool = False,
+                  ph_valign: dict[str, str] = {},
+                  ph_weight: dict[str, int] = {},
+                  ph_color: dict[str, str] = {},
+                  ph_family: dict[str, str] = {}) -> str | None:
     shape = el["shape"]
     sp    = shape.get("shapeProperties", {})
 
@@ -33,7 +37,7 @@ def _render_shape(el: dict, l: float, t: float, w: float, h: float,
                 return None
         fc = None
     elif bps == "INHERIT":
-        fc = None  # transparent; ACCENT1 applied below only if shape has no other content
+        fc = None
     else:
         solid = bg.get("solidFill"); grad = bg.get("gradientFill")
         fc = _fill_color(solid) if solid else (_gradient_css(grad) if grad else None)
@@ -49,10 +53,13 @@ def _render_shape(el: dict, l: float, t: float, w: float, h: float,
     ph      = shape.get("placeholder", {}).get("type", "")
     inner   = text_html(shape.get("text", {}), is_title=ph in {"TITLE", "CENTERED_TITLE"},
                         default_font_size=ph_sizes.get(ph),
-                        default_align="center" if ph == "CENTERED_TITLE" else "")
+                        default_font_weight=ph_weight.get(ph),
+                        default_font_color=ph_color.get(ph),
+                        default_font_family=ph_family.get(ph))
     stype   = shape.get("shapeType", "")
-    # INHERIT fill: use theme ACCENT1 only when shape carries no other visible content
-    if bps == "INHERIT" and not has_content(inner) and not sc:
+    # Slide-level INHERIT-fill shapes with no other visible content → render as ACCENT1 (theme default)
+    # Exclude master elements: their INHERIT-fill decorations should remain transparent
+    if bps == "INHERIT" and not is_master and not has_content(inner) and not sc:
         fc = _fill_color({"color": {"themeColor": "ACCENT1"}})
     rcs     = _rot_css(el)
     base    = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%{rcs}"
@@ -68,6 +75,11 @@ def _render_shape(el: dict, l: float, t: float, w: float, h: float,
     if stype == "ELLIPSE":            css.append("border-radius:50%")
     elif "ROUND" in stype:            css.append("border-radius:6px")
     elif stype == "FLOW_CHART_DELAY": css.append("border-radius:0 50% 50% 0 / 0 50% 50% 0")
+    ca = sp.get("contentAlignment") or ph_valign.get(ph, "")
+    if ca == "MIDDLE":
+        css.append("display:flex;flex-direction:column;justify-content:center")
+    elif ca == "BOTTOM":
+        css.append("display:flex;flex-direction:column;justify-content:flex-end")
     if not has_content(inner) and not css:
         return None
     style = base + (";" + ";".join(css) if css else "")
@@ -133,7 +145,9 @@ def _render_table(el: dict, l: float, t: float, w: float, h: float) -> str:
 
 def render_element(el: dict, slide_w: float, slide_h: float,
                    assets_dir: pathlib.Path | None, img_n: list[int],
-                   ph_sizes: dict[str, int] = {}, is_master: bool = False) -> str | None:
+                   ph_sizes: dict[str, int] = {}, ph_valign: dict[str, str] = {},
+                   ph_weight: dict[str, int] = {}, ph_color: dict[str, str] = {},
+                   ph_family: dict[str, str] = {}, is_master: bool = False) -> str | None:
     """Render any page element to HTML. Returns None if element has no visual output."""
     if "elementGroup" in el:
         pt    = el.get("transform", {})
@@ -142,7 +156,7 @@ def render_element(el: dict, slide_w: float, slide_h: float,
             child = dict(child)
             child["transform"] = compose_transforms(pt, child.get("transform", {}))
             block = render_element(child, slide_w, slide_h, assets_dir, img_n,
-                                   ph_sizes, is_master)
+                                   ph_sizes, ph_valign, ph_weight, ph_color, ph_family, is_master)
             if block:
                 parts.append(block)
         return "\n".join(parts) or None
@@ -173,6 +187,6 @@ def render_element(el: dict, slide_w: float, slide_h: float,
         style = f"left:{l}%;top:{t}%;width:{w}%;height:{h}%{rcs}"
         return f'<img src="{ref}" class="absolute" style="{style}" />'
 
-    if "shape" in el: return _render_shape(el, l, t, w, h, ph_sizes, is_master)
+    if "shape" in el: return _render_shape(el, l, t, w, h, ph_sizes, is_master, ph_valign, ph_weight, ph_color, ph_family)
     if "table" in el: return _render_table(el, l, t, w, h)
     return None
