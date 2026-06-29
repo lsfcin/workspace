@@ -12,6 +12,8 @@ What hooks block vs what you must self-enforce:
 | `post-edit.sh` | Any Edit/Write | Regenerates `.d.ts`/`.pyi`/`.dart.api`; syncs `CONTEXT.md` routing block |
 | `pre-read.sh` | Any Read | Redirects source reads to interface file (`.d.ts`/`.pyi`) when interface is current |
 | `pre-commit` | git commit | LOC check, facade boundary check, first-line comment, stub generation, CONTEXT.md sync |
+| `pre-commit` (§10) | git commit | **Hard-blocks** commit if staged `.ts`/`.tsx` under `code/` has ESLint R1-R6 violations |
+| `post-edit.sh` (ESLint) | Any Edit/Write to `code/**/*.ts` | Prettier auto-formats in-place; ESLint R1-R6 violations printed as warnings (non-blocking) |
 
 Full wiring details: [`/SETUP.md`](/SETUP.md#claude-code-hooks-claudesettingsjson)
 
@@ -24,6 +26,27 @@ These are enforced by code review, not hooks. Violation = redo before continuing
 - **Names must be guessable** — file, class, function, variable names without opening the file
 - **Flat over deep** — prefer sub-modules over nested directories beyond 2 levels
 - **After each prompt** — is the code cleaner or messier than before? If messier, redo
+
+## Style Rules (R1-R6)
+
+Enforced for TypeScript projects via ESLint (`code/eslint.shared.js` + project `eslint.config.js`). Python/other languages: induced via this doc.
+
+| Rule | Description | ESLint enforcement |
+|------|-------------|-------------------|
+| **R1** | One statement per line — no semicolon-separated statements | `max-statements-per-line` + `curly` |
+| **R2** | One function/method call per statement — no nested calls `foo(bar())`, no method chaining `arr.filter().map()`. Use intermediate variables | `local/one-call-per-statement` |
+| **R3** | Single return per function — use if/else to collect result in variable | `local/single-return` |
+| **R4** | No untyped casts — no `as any` in TS, no `# type: ignore` in Python without explanation | `@typescript-eslint/no-explicit-any` |
+| **R5** | Max 40 lines per function/method (blank lines and comments excluded) | `max-lines-per-function` |
+| **R6** | Max 2 property accesses from root — `a.b.c` is the limit; `a.b.c.d` must be split: `const x = a.b.c; x.d` | `local/max-chain-depth` |
+
+**Canonical shared config:** `code/eslint.shared.js` — exports `localPlugin` (3 custom rules) and `sharedRules`. Each TS project imports both.
+
+**Enforcement hooks:**
+- `post-edit.sh` — runs Prettier (auto-format) and surfaces ESLint violations after every edit (non-blocking)
+- `pre-commit` — hard-blocks commit if any staged TS file under `code/` has ESLint errors
+
+**Why these rules?** Dense compressed lines force agent to rebuild context before proposing fixes. Each nested call or chained method adds AST depth that must be unwound. Single-return and intermediate variables keep every expression flat and independently debuggable. The effect is shorter debugging sessions and fewer context-limit hits.
 
 ## File Size Policy
 

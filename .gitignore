@@ -30,6 +30,7 @@ code/*
 !code/CONTEXT.md
 !code/SETUP.md
 !code/SPECS.md
+!code/eslint.shared.js
 !code/_templates/
 code/_templates/*
 !code/_templates/*.md

@@ -69,6 +69,8 @@ All canonical enforcement lives in `.hooks/`. Each agent needs a shim that calls
 | Post-edit (stubs / context sync / codegraph) | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
 | Post-read facade-tracker | — | `.claude/settings.json` | `copilot-post-tool.py` ✅ | `.opencode/plugins/workspace-policy.js` ✅ |
 | Size / facade import / stub gen / context sync | `pre-commit` ✅ | — | — | automatic (git) |
+| ESLint R1-R6 (TS projects under `code/`) | `pre-commit` ✅ hard-block | `post-edit.sh` ✅ warn | ❌ gap | ❌ gap |
+| Prettier auto-format (TS projects under `code/`) | — | `post-edit.sh` ✅ | ❌ gap | ❌ gap |
 
 **Existing shims:**
 - **Claude Code** — `.claude/settings.json` (PreToolUse/PostToolUse matchers).
@@ -286,6 +288,27 @@ When adding new agent: if it supports session-start hooks or context injection, 
 Run `caveman-compress <file>` on CONTEXT.md files periodically to cut input tokens.
 Responses use caveman compression by default. Deactivate for a session: say "stop caveman" or "normal mode". To change the default, see `SETUP.md §6`.
 
+### 10. ESLint + Prettier for TypeScript Projects under `code/`
+
+Install project-local ESLint and Prettier in every TS project that has an `eslint.config.js`:
+
+```bash
+cd /mnt/workspace/code/isoroll-module && npm install
+cd /mnt/workspace/code/voti && npm install
+```
+
+Each project imports rules from the shared config at `code/eslint.shared.js`. ESLint is run from the project root using `node_modules/.bin/eslint` — no global install needed.
+
+Verify:
+```bash
+# Confirm ESLint binary present
+ls /mnt/workspace/code/isoroll-module/node_modules/.bin/eslint
+ls /mnt/workspace/code/voti/node_modules/.bin/eslint
+
+# Run lint manually
+cd /mnt/workspace/code/isoroll-module && npm run lint
+```
+
 ### 9. Local LaTeX Toolchain (for `academy/papers/`)
 
 See [academy/SETUP.md](academy/SETUP.md).
@@ -325,6 +348,22 @@ node --input-type=module -e "import('/mnt/workspace/.opencode/plugins/workspace-
 
 # 5. Hook scripts are executable
 ls -la /mnt/workspace/.hooks/post-edit.sh /mnt/workspace/.hooks/pre-read.sh /mnt/workspace/.hooks/pre-commit /mnt/workspace/.hooks/check-line-counts.sh
+```
+
+ESLint / Prettier verification:
+```bash
+# ESLint binary present
+ls /mnt/workspace/code/isoroll-module/node_modules/.bin/eslint
+
+# Full lint pass on isoroll-module
+cd /mnt/workspace/code/isoroll-module && npm run lint
+
+# Write a bad TS file and confirm violation detected
+echo '// test\nconst x = foo(bar());' > /tmp/test-lint.ts
+cd /mnt/workspace/code/isoroll-module && node_modules/.bin/eslint /tmp/test-lint.ts
+# Expected: "2 calls in one statement" error
+
+# Attempt commit with violation — should be blocked by pre-commit §10
 ```
 
 Behavioral verification (inside Claude Code session):
@@ -384,6 +423,8 @@ SETUP.md                  ← this file: replication instructions
 CLAUDE.md                 ← workspace behavioral instructions for Claude
 AGENTS.md                 ← canonical workspace entrypoint read by all agents at session start
 code/CONTEXT.md           ← engineering principles: file size, modularization, interface conventions
+code/SPECS.md             ← style rules R1-R6, hook enforcement reference, file size policy
+code/eslint.shared.js     ← shared ESLint config: 3 custom rules (single-return, one-call-per-statement, max-chain-depth) + built-in R1-R6 rules; imported by all TS projects
 core/                     ← provider-agnostic research system (agents, flows, tools)
   core/agents/            ← agent role definitions (lead, researcher, reviewer, verifier, writer)
   core/flows/             ← workflow protocols (lit, deepresearch, review, draft, …)
