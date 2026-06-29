@@ -129,6 +129,7 @@ export const sharedRules = {
   "local/one-call-per-statement": "error",
   "local/single-return": "error",
   "@typescript-eslint/no-explicit-any": "error",
+  "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
   "max-lines-per-function": ["error", { max: 40, skipBlankLines: true, skipComments: true }],
   "local/max-chain-depth": "error",
 };
