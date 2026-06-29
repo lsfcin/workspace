@@ -8,7 +8,8 @@ EXEMPT_RE = re.compile(
     r'(?:^|/)[^/]*\.(?:test|spec)\.[tj]sx?$'           # TS/JS: *.test.ts, *.spec.ts
     r'|(?:^|/)(?:test_[^/]*|[^/]*_test)\.(?:py|dart)$'  # Python/Dart: test_*.py, *_test.dart
     r'|(?:^|/)(?:__init__\.py|index\.(?:[tj]sx?|dart))$' # facade files themselves
-    r'|(?:^|/)(?:generated|vendor|node_modules)/',
+    r'|(?:^|/)(?:generated|vendor|node_modules)/'
+    r'|(?:^|/)[^/]*\.config\.[tj]sx?$',                 # config files (eslint.config.js etc.)
     re.IGNORECASE,
 )
 
