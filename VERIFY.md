@@ -91,7 +91,7 @@ Workspace-wide. New hooks in `.hooks/`, registered in `.claude/settings.json` + 
 
 ---
 
-## Phase W2 — Duplication + LOC Gates 🔲
+## Phase W2 — Duplication + LOC Gates ✅ 2026-07-02
 
 ### `pre-edit.py` message rewrite
 Replace "Create a new module file and write there instead" (line ~86) with:
@@ -191,6 +191,7 @@ W3 makes it portable.
 |------|-------|
 | 2026-07-02 | Plan written. All phases 🔲. |
 | 2026-07-02 | W1 done: context-gate/tracker/bash-gate/precompact-wipe/session-prune hooks live; legacy hooks migrated to shared parser (`hook_input.py`), session_id markers, nested+flat schema; fixed dead `Code`→`code` check in facade-gate/scan. 12/12 piped-JSON tests pass. NOTE: new hooks activate on next session start (hook config snapshots at startup). |
+| 2026-07-02 | W2 done: jscpd gate in global pre-commit (`check-duplication.py`, blocks clones involving staged files, 75 tokens/10 lines); pre-edit SIZE GATE message now instructs extract-and-import, warns copies blocked at commit. Legacy scan: isoroll src has ZERO clones at threshold (refactor phases + B32 fix already unified them) — no dedup burst needed. |
 
 ## Open Items
 

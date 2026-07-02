@@ -86,7 +86,8 @@ else:
 
 if is_code and new_lines >= BLOCK_LINES:
 	print(f"⛔ SIZE GATE — {file_path} would reach {new_lines} lines (limit: {BLOCK_LINES}).")
-	print(f"   Create a new module file and write there instead.")
+	print(f"   Extract shared logic into a new module and import it from existing callers.")
+	print(f"   Do NOT copy existing functions into a new file — copies are blocked at commit.")
 	sys.exit(2)
 
 sys.exit(0)
