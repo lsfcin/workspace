@@ -32,7 +32,14 @@ esac
 if [ "$file" -nt "$iface" ]; then
 	printf "⚠️  INTERFACE STALE: %s\n   Source was modified after interface was generated.\n   Reading source directly — save the file to regenerate the interface.\n" "$iface"
 else
-	printf "⛔ READ INTERFACE FIRST — %s\n   Interface is current. Read it instead of the source:\n   %s\n   It has all public signatures without implementation noise.\n" "$file" "$iface"
+	# Interface already read this session → source read allowed (editing needs implementation).
+	sid="${session_id:-$(ps -o ppid= -p $PPID 2>/dev/null | tr -d ' ')}"
+	iface_marker="/tmp/claude_iface_seen_${sid}.txt"
+	iface_real=$(readlink -f "$iface" 2>/dev/null || echo "$iface")
+	if grep -qxF "$iface_real" "$iface_marker" 2>/dev/null || grep -qxF "$iface" "$iface_marker" 2>/dev/null; then
+		exit 0
+	fi
+	printf "⛔ READ INTERFACE FIRST — %s\n   Interface is current. Read it instead of the source:\n   %s\n   It has all public signatures without implementation noise.\n   (Reading the interface unlocks the source for this session.)\n" "$file" "$iface" >&2
 	exit 2
 fi
 

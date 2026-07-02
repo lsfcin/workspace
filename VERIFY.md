@@ -128,7 +128,7 @@ candidates, agent reviews) — deferred to W3+.
 - **Verify gate lands in global pre-commit here:** project declaring `verify:fast` → red
   blocks commit. Project without contract → warn (promote to block once templates exist).
 
-## Phase I2 — isoroll Headless Harness 🔲 (core deliverable)
+## Phase I2 — isoroll Headless Harness ✅ 2026-07-02 (core deliverable)
 
 - **Launcher script (committed, `test/`):** start Foundry server
   (`node ~/FoundryVTT/resources/app/main.js --dataPath=~/foundrydata-v14`), health-check,
@@ -170,6 +170,27 @@ candidates, agent reviews) — deferred to W3+.
 - `/handoff` skill: runs `verify:full`, result recorded in handoff notes.
 - `/dedup` semantic audit skill (see W2 note).
 
+## Phase I4 — isoroll Unit Coverage Expansion 🔲
+
+I1 covers the pure-math core only (iso-tile-depth, iso-tile-geom, coord-map). Expand T1 to
+every module that is pure or cheaply fakeable; leave PIXI/DOM/hook-lifecycle behavior to T2
+(unit-mocking Foundry there tests the mocks, not the code).
+
+Unit-testable targets (pure / fake-with-TileMeshCoord-style stubs):
+- `walls/wall-coords.ts` — anchor↔canvas roundtrips, elevation/imageOffset factoring
+- `render/iso-geometry.ts` — footprint + volume-box vertex math (elevation, boundHeight)
+- `core/util.ts` — elevToCanvas, screenToCanvas, gridDistance
+- `render/fog-state.ts` — VISIBLE/EXPLORED/UNSEEN classification given stubbed point tests
+- `preset/preset-upsert.ts` — key derivation, upsert/merge decisions
+- `transform/constants.ts` — projection preset invariants (counterFactor = √10/4 etc.)
+- `walls/wall-crud.ts` — generateBaseWallDefs geometry (defs only, no documents)
+- shadows — `draw/shadow.ts` shadowAlpha/shadowTexture params
+
+T2-only (do NOT unit-mock): UI/HUD injection, gizmo drag handlers, sprite clones,
+layer z-order at runtime, occluder fades, linked-wall document sync, undo stacks.
+
+Also: wire `vitest --coverage` into `verify:fast` reporting (not gating) so gaps stay visible.
+
 ## Phase A1 — apptime Adoption 🔲 (deferred)
 
 After isoroll road. Contract + T1 first; T2 adapter designed against apptime's actual stack then.
@@ -193,6 +214,7 @@ W3 makes it portable.
 | 2026-07-02 | W1 done: context-gate/tracker/bash-gate/precompact-wipe/session-prune hooks live; legacy hooks migrated to shared parser (`hook_input.py`), session_id markers, nested+flat schema; fixed dead `Code`→`code` check in facade-gate/scan. 12/12 piped-JSON tests pass. NOTE: new hooks activate on next session start (hook config snapshots at startup). |
 | 2026-07-02 | W2 done: jscpd gate in global pre-commit (`check-duplication.py`, blocks clones involving staged files, 75 tokens/10 lines); pre-edit SIZE GATE message now instructs extract-and-import, warns copies blocked at commit. Legacy scan: isoroll src has ZERO clones at threshold (refactor phases + B32 fix already unified them) — no dedup burst needed. Known legacy clones: copilot-pre/post-tool.py pair (91 lines) — forced clean on next touch. |
 | 2026-07-02 | I1 done (isoroll `feature/verify-harness` 7a49bcf): vitest+fast-check, 17 tests — frontier walk, B32 overhang clamp, depthZIndex ordering, tileSortBand no-ties, cut invariants, cell coverage, coord roundtrips, cross-tile zIndex oracle. `verify:fast` (lint+unit) + pre-commit contract gate live (1a). Fixed 3 pre-existing lint errors; split wall-keys/wall-paste out of wall-manager (line gate). tsc --noEmit NOT gated — pre-existing Foundry global type gaps (open item). |
+| 2026-07-02 | I2 done (isoroll c6e59b9): Playwright headless harness against live Foundry — `dumpZOrderJSON()` live-path oracle on `globalThis.isoroll`; GM force-join (held seats are client-disabled only); fx-* fixture scenes with keeper-scene cleanup; XFAIL runner. Results: **b32-junction PASS (first mechanical verification of the B32 fix)**; b33-unhide XFAIL (confirmed open); b2-rescale PASS on direct scene.update — B2's GridConfig repro still uncovered, stays OPEN. `verify:full` = fast+build+e2e (~40s). known-bugs-gate.py live (FIXED flip requires test/**/b<N>-* spec). pre-read.sh gap fixed: reading the interface unlocks the source for the session (edit-intent deadlock). |
 
 ## Open Items
 
