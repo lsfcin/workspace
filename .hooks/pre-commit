@@ -48,6 +48,22 @@ if [ -n "$NEW_CODE" ]; then
   done <<< "$NEW_CODE"
 fi
 
+# ── 1a. Verification contract gate — projects declaring verify:fast must be green ──
+if [ -f "package.json" ] && grep -q '"verify:fast"' package.json; then
+  CODE_STAGED=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx)$' | grep -v '\.d\.ts$' || true)
+  if [ -n "$CODE_STAGED" ]; then
+    printf "→ verify:fast…\n"
+    if ! npm run --silent verify:fast >/tmp/verify-fast.$$ 2>&1; then
+      tail -30 /tmp/verify-fast.$$
+      rm -f /tmp/verify-fast.$$
+      printf "⛔ verify:fast is red — fix before committing. Full output: npm run verify:fast\n"
+      exit 1
+    fi
+    rm -f /tmp/verify-fast.$$
+    printf "✓ verify:fast green\n"
+  fi
+fi
+
 # ── 1b. Duplication gate (jscpd) — blocks clones involving staged files ───────
 DUP_FILES=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|py|dart)$' | grep -vE '\.(d\.ts|pyi|min\.js)$' || true)
 if [ -n "$DUP_FILES" ]; then

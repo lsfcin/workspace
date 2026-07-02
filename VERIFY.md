@@ -115,7 +115,7 @@ candidates, agent reviews) — deferred to W3+.
 
 ---
 
-## Phase I1 — isoroll Unit Foundation 🔲
+## Phase I1 — isoroll Unit Foundation ✅ 2026-07-02
 
 - vitest + fast-check into isoroll-module (Vite already in stack).
 - Targets: `src/render/iso-tile-depth.ts`, `src/render/iso-tile-geom.ts`, `src/transform/coord-map.ts`.
@@ -191,7 +191,8 @@ W3 makes it portable.
 |------|-------|
 | 2026-07-02 | Plan written. All phases 🔲. |
 | 2026-07-02 | W1 done: context-gate/tracker/bash-gate/precompact-wipe/session-prune hooks live; legacy hooks migrated to shared parser (`hook_input.py`), session_id markers, nested+flat schema; fixed dead `Code`→`code` check in facade-gate/scan. 12/12 piped-JSON tests pass. NOTE: new hooks activate on next session start (hook config snapshots at startup). |
-| 2026-07-02 | W2 done: jscpd gate in global pre-commit (`check-duplication.py`, blocks clones involving staged files, 75 tokens/10 lines); pre-edit SIZE GATE message now instructs extract-and-import, warns copies blocked at commit. Legacy scan: isoroll src has ZERO clones at threshold (refactor phases + B32 fix already unified them) — no dedup burst needed. |
+| 2026-07-02 | W2 done: jscpd gate in global pre-commit (`check-duplication.py`, blocks clones involving staged files, 75 tokens/10 lines); pre-edit SIZE GATE message now instructs extract-and-import, warns copies blocked at commit. Legacy scan: isoroll src has ZERO clones at threshold (refactor phases + B32 fix already unified them) — no dedup burst needed. Known legacy clones: copilot-pre/post-tool.py pair (91 lines) — forced clean on next touch. |
+| 2026-07-02 | I1 done (isoroll `feature/verify-harness` 7a49bcf): vitest+fast-check, 17 tests — frontier walk, B32 overhang clamp, depthZIndex ordering, tileSortBand no-ties, cut invariants, cell coverage, coord roundtrips, cross-tile zIndex oracle. `verify:fast` (lint+unit) + pre-commit contract gate live (1a). Fixed 3 pre-existing lint errors; split wall-keys/wall-paste out of wall-manager (line gate). tsc --noEmit NOT gated — pre-existing Foundry global type gaps (open item). |
 
 ## Open Items
 
