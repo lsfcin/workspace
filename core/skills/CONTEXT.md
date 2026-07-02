@@ -42,6 +42,9 @@ The `caveman*` / `cavecrew` skills live in `~/.agents/skills/` and are mirrored 
 | [`brain-compass.md`](brain-compass.md) | — | — | Run a compass review of Brain: surface what has good wind, update diagnostics, write ease-starts for stalled goals. |
 | [`brain-finished.md`](brain-finished.md) | — | — | Mark an achievement done, advance to the next selected achievement, write a new ease-start. |
 | [`brain-inbox.md`](brain-inbox.md) | — | — | Triage brain/INBOX.md — route each entry to a goal file, TODO list, writing draft, or delete. |
+| [`calendar.md`](calendar.md) | — | — | List upcoming events and query date ranges from Google Calendar across all configured accounts (personal, cin, ufrpe). Invoke with /calendar [intent]. |
+| [`dedup.md`](dedup.md) | — | — | Semantic duplication audit for a code project: finds regenerated near-duplicate logic that the jscpd pre-commit gate (verbatim clones) misses, using codegraph + targeted reading. Invoke with /dedup [project path, defaults to cwd project]. |
+| [`drive.md`](drive.md) | — | — | List, search, and download files from Google Drive across all configured accounts (personal, cin, ufrpe). Invoke with /drive [intent]. |
 | [`foundry-appv2.md`](foundry-appv2.md) | — | — | Foundry VTT v14 — AppV2 sheet customization: tab injection, stale tabGroups bug, partial re-render nav-wipe bug. |
 | [`foundry-canvas.md`](foundry-canvas.md) | — | — | Foundry VTT v14 — PIXI canvas structure: component hierarchy, depth sort, native handle suppression. |
 | [`foundry-coords.md`](foundry-coords.md) | — | — | Foundry VTT v14 — coordinate systems: canvas space, screen space, HUD CSS space, canvas.dimensions, tile/token document coords. |

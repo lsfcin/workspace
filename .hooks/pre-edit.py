@@ -29,7 +29,7 @@ FIRST_LINE_COMMENT = {
 	'.tsx': r'^\s*//', '.dart': r'^\s*//', '.css':  r'^\s*/\*',
 	'.scss': r'^\s*/\*', '.html': r'^\s*<!--',
 	'.yaml': r'^\s*#', '.yml':  r'^\s*#', '.toml': r'^\s*#',
-	'.tex': r'^\s*%',  '.md':   r'^\s*#',
+	'.tex': r'^\s*%',  '.md':   r'^\s*(#|---\s*$)',  # md: title or YAML frontmatter (skills)
 }
 
 EXAMPLE_COMMENT = {

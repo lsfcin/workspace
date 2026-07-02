@@ -49,6 +49,17 @@ python start.py
 python -m pytest
 ```
 
+## Verification Contract
+<!-- Required for all code projects — see workspace VERIFY.md + core/tools/verify/CONTEXT.md.
+     verify:fast (static + unit, seconds) is enforced by the global pre-commit gate: red blocks commits.
+     verify:full (headless functional + goldens) runs pre-merge and at /handoff.
+     Regression specs: test/**/b<N>-*.* — KNOWN-BUGS.md FIXED flips are hook-gated on these. -->
+
+```bash
+npm run verify:fast   # or make verify-fast
+npm run verify:full   # or make verify-full
+```
+
 ## Release
 <!-- Optional. How to cut a release, create a tag, or deploy.
      Link to CI config if the process is automated. -->

@@ -9,12 +9,17 @@
 <!-- Optional. 2–3 sentences: what this project is, its current state, key constraints.
      Skip if README.md already covers it well and this project has no agent-specific context to add. -->
 
+<!-- ↑ Auto-managed by context_synchronizer.py. Do NOT edit the routing block manually.
+     Add subdirectories via the filesystem; the sync script updates this table. -->
+
 <!-- routing:start -->
 ## Routing
 
-| Subdirectory | Description |
-|--------------|-------------|
-
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`KNOWN-BUGS.md`](KNOWN-BUGS.md) | — | — | [Project Name] — Known Bugs |
+| [`README.md`](README.md) | — | — | [Project Name] |
+| [`ROADMAP.md`](ROADMAP.md) | — | — | [Project Name] — Roadmap |
+| [`SETUP.md`](SETUP.md) | — | — | [Project Name] — Dev Setup |
+| [`SPECS.md`](SPECS.md) | — | — | [Project Name] — Specs |
 <!-- routing:end -->
-<!-- ↑ Auto-managed by context_synchronizer.py. Do NOT edit the routing block manually.
-     Add subdirectories via the filesystem; the sync script updates this table. -->

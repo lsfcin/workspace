@@ -152,7 +152,7 @@ candidates, agent reviews) — deferred to W3+.
 - **KNOWN-BUGS gate lands here:** pre-edit hook on `KNOWN-BUGS.md` — flipping a bug to
   FIXED blocked unless matching `test/regressions/b<N>-*` exists.
 
-## Phase I3 — isoroll Visual Layer 🔲
+## Phase I3 — isoroll Visual Layer ✅ 2026-07-02
 
 - Deterministic render config for fixtures: animations off, fixed viewport + zoom,
   wait-for-render-idle, pixelmatch tolerance threshold.
@@ -160,7 +160,7 @@ candidates, agent reviews) — deferred to W3+.
 - New-feature flow: harness produces screenshot set → human approves ONCE → golden-locked.
   Human role shifts from per-prompt camera to per-feature approver.
 
-## Phase W3 — Extract + Generalize 🔲
+## Phase W3 — Extract + Generalize ✅ 2026-07-02
 
 - Generic pieces → `core/tools/verify/`: Playwright launcher helpers, golden runner with
   `approve`/`update` CLI, dump-oracle pattern doc (the contract any project's adapter implements).
@@ -214,12 +214,22 @@ W3 makes it portable.
 | 2026-07-02 | W1 done: context-gate/tracker/bash-gate/precompact-wipe/session-prune hooks live; legacy hooks migrated to shared parser (`hook_input.py`), session_id markers, nested+flat schema; fixed dead `Code`→`code` check in facade-gate/scan. 12/12 piped-JSON tests pass. NOTE: new hooks activate on next session start (hook config snapshots at startup). |
 | 2026-07-02 | W2 done: jscpd gate in global pre-commit (`check-duplication.py`, blocks clones involving staged files, 75 tokens/10 lines); pre-edit SIZE GATE message now instructs extract-and-import, warns copies blocked at commit. Legacy scan: isoroll src has ZERO clones at threshold (refactor phases + B32 fix already unified them) — no dedup burst needed. Known legacy clones: copilot-pre/post-tool.py pair (91 lines) — forced clean on next touch. |
 | 2026-07-02 | I1 done (isoroll `feature/verify-harness` 7a49bcf): vitest+fast-check, 17 tests — frontier walk, B32 overhang clamp, depthZIndex ordering, tileSortBand no-ties, cut invariants, cell coverage, coord roundtrips, cross-tile zIndex oracle. `verify:fast` (lint+unit) + pre-commit contract gate live (1a). Fixed 3 pre-existing lint errors; split wall-keys/wall-paste out of wall-manager (line gate). tsc --noEmit NOT gated — pre-existing Foundry global type gaps (open item). |
+| 2026-07-02 | W3 done: SETUP.md hook rows + agent-coverage table updated (opencode gaps marked with wiring instructions); Copilot shims rewired — copilot_shared.py extraction (dup gate cleared), context-gate/bash-gate/known-bugs-gate/trackers wired, stable `copilot<pid>` session ids, verified via piped events; code/CONTEXT.md enforce list updated; _templates KNOWN-BUGS.md + SETUP.md verification contract; core/tools/verify/CONTEXT.md pattern doc (code extraction deferred to first second consumer, A1); /dedup skill created + /handoff gained verification gate; pre-edit md rule now accepts YAML frontmatter; skills synced. VERIFY.md endstate: keep until A1 (apptime) completes, then delete per lifecycle note. |
+| 2026-07-02 | I3 done (isoroll d858033): golden layer — UI-hidden fixed-camera viewport captures, pixelmatch 0.5% budget, junction golden committed (approval = commit), determinism verified across runs. Diff artifacts → test/e2e/output/ (gitignored, agent-readable). Note: e2e slows ~4x when a second GM client is connected. |
 | 2026-07-02 | I2 done (isoroll c6e59b9): Playwright headless harness against live Foundry — `dumpZOrderJSON()` live-path oracle on `globalThis.isoroll`; GM force-join (held seats are client-disabled only); fx-* fixture scenes with keeper-scene cleanup; XFAIL runner. Results: **b32-junction PASS (first mechanical verification of the B32 fix)**; b33-unhide XFAIL (confirmed open); b2-rescale PASS on direct scene.update — B2's GridConfig repro still uncovered, stays OPEN. `verify:full` = fast+build+e2e (~40s). known-bugs-gate.py live (FIXED flip requires test/**/b<N>-* spec). pre-read.sh gap fixed: reading the interface unlocks the source for the session (edit-intent deadlock). |
 
 ## Open Items
 
 - Test subagent marker inheritance in practice (same `session_id` assumption).
-- Decide permission-deny belt for `cat|head|tail` after W1 field testing.
-- jscpd threshold tuning during the legacy dedup session.
-- Verify B32 fix in Foundry (branch `fix/b32-slice-zorder-collision`) — becomes first
-  regression spec either way.
+- Decide permission-deny belt for `cat|head|tail` after field testing.
+- opencode shim gaps: wire context-gate/bash-gate/trackers/known-bugs-gate into
+  `.opencode/plugins/workspace-policy.js` (instructions in SETUP.md coverage table).
+- tsc --noEmit as T0 gate: blocked by pre-existing Foundry global type gaps in isoroll
+  (`Tile`/`TileDocument` names) — fix types, then add to verify:fast.
+- B2 GridConfig-path spec variant (direct-path spec passes; dialog path unreproduced).
+- Phase I4 (unit coverage expansion) + merge decision for isoroll `feature/verify-harness`
+  (contains B32 fix branch history) — Lucas reviews.
+- Human verification pass: Lucas confirms B32 visually in Foundry once, closing the loop
+  between oracle and eyes.
+- code/SETUP.md + code/SPECS.md: fold verification contract mention (only _templates and
+  root SETUP.md updated so far).

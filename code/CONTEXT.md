@@ -13,10 +13,13 @@ You are a SENIOR software architect, your code WILL be evaluated!
 **codegraph** — most projects indexed; call via Bash (no MCP). Index auto-syncs after every edit via post-edit hook. Command reference: [SETUP.md](SETUP.md#codegraph).
 
 **Hooks enforce automatically** (no need to re-check):
+- CONTEXT.md chain of the target subtree must be Read before any file access (context-gate)
 - File size: warn at 150 LOC, hard block at 200 LOC
 - Cross-folder imports only through `index` / `__init__` (facade boundary)
 - New files require first-line description comment
 - Interface stubs (`.d.ts`, `.pyi`, `.dart.api`) regenerated at commit
+- Duplicated blocks involving staged files block the commit (jscpd) — extract, never copy
+- Projects declaring `verify:fast` must be green to commit; KNOWN-BUGS FIXED flips require a `test/**/b<N>-*` regression spec (see workspace [VERIFY.md](../VERIFY.md))
 
 **You enforce** (hooks cannot catch these):
 - REUSE always
@@ -52,7 +55,7 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for experimenting with LC/UFRPE curriculum redesign |
 | [`prog1/`](prog1/CONTEXT.md) | — |
 | [`prog1_novo/`](prog1_novo/CONTEXT.md) | — |
-| [`programacao1/`](programacao1/CONTEXT.md) | — |
+| [`programacao1/`](programacao1/CONTEXT.md) | Simulador de sociedade em Python puro. Duas camadas: (1) terminal CRUD de pessoa |
 | [`shortvid/`](shortvid/CONTEXT.md) | Desktop video editor for short-form content — chroma-key, timeline, WebM export |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records |
 

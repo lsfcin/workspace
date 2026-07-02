@@ -32,6 +32,13 @@ git status --short 2>/dev/null || echo "no git status"
 
 Read every file found above **except HISTORY.md** before proceeding.
 
+### Verification gate
+
+If the project's `package.json` declares `verify:full`, run it now (`npm run verify:full`)
+and record the result (green / red + failing specs) in the resume prompt. A session must
+not hand off claiming working state without this proof. `verify:fast`-only projects: run
+that instead. No contract: note "no verification contract" in the resume prompt.
+
 ---
 
 ## Phase 2 — Archive completed work

@@ -50,9 +50,22 @@ Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
 | `.hooks/pre-edit.py` | PreToolUse: Edit, Write | **Hard-blocks** edits pushing code file past 200 lines; **hard-blocks Write of new files missing first-line description comment** |
 | `.hooks/facade-scan.py` | PreToolUse: Write (new files in `code/`) | **Informs** — prints exports already declared in the target module's facade before a new file is created. Warns if exports list is empty (facade needs updating). Not a block. |
 | `.hooks/post-edit.sh` | PostToolUse: Edit, Write | Regenerates `.pyi` / `.d.ts` / `.dart.api`; auto-scaffolds `jsconfig.json`/`tsconfig.json` if missing; reminds about missing first-line comment; runs `context_synchronizer.py` |
-| `.hooks/pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading source file when interface is current (timestamp check); warns when interface is stale |
+| `.hooks/pre-read.sh` | PreToolUse: Read | **Hard-blocks** reading source file when interface is current (timestamp check); warns when interface is stale. Reading the interface unlocks the source for the session |
 | `.hooks/facade-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Hard-blocks** edits to any `code/` module file until the nearest facade has been Read this session |
-| `.hooks/facade-tracker.py` | PostToolUse: Read | Records facade reads to `/tmp/claude_facades_<pid>.txt`; consumed by `facade-gate.py` |
+| `.hooks/facade-tracker.py` | PostToolUse: Read | Records facade reads to `/tmp/claude_facades_<session_id>.txt`; consumed by `facade-gate.py` |
+| `.hooks/context-gate.py` | PreToolUse: Read, Edit, Write, Grep, NotebookEdit | **Hard-blocks** file access until the target subtree's CONTEXT.md chain was Read this session (whole workspace; session-deduped; CONTEXT.md/AGENTS.md targets exempt) |
+| `.hooks/bash-context-gate.py` | PreToolUse: Bash | **Hard-blocks** Bash commands naming workspace files in subtrees whose CONTEXT.md chain is unread (closes the cat/grep bypass) |
+| `.hooks/context-tracker.py` | PostToolUse: Read | Records CONTEXT.md reads (context-gate state) and interface reads (pre-read source unlock) |
+| `.hooks/known-bugs-gate.py` | PreToolUse: Edit, Write (`KNOWN-BUGS.md`) | **Hard-blocks** flipping a bug to FIXED unless a matching `test/**/b<N>-*` regression spec exists |
+| `.hooks/precompact-wipe.sh` | PreCompact | Wipes context seen-markers — CONTEXT chain is re-read after compaction |
+| `.hooks/session-prune.sh` | SessionStart | Prunes stale session marker files (>2 days) |
+
+### Git Pre-Commit additions (see VERIFY.md)
+
+| Gate | Behavior |
+|------|----------|
+| `verify:fast` contract (1a) | Projects whose package.json declares `verify:fast` must be green — **hard-blocks** commit |
+| `.hooks/check-duplication.py` (1b) | jscpd over the committing repo — **hard-blocks** clones involving staged files (75 tokens / 10 lines) |
 
 For codegraph setup and bash tool reference, see [`code/SETUP.md`](code/SETUP.md#codegraph).
 
@@ -71,6 +84,14 @@ All canonical enforcement lives in `.hooks/`. Each agent needs a shim that calls
 | Size / facade import / stub gen / context sync | `pre-commit` ✅ | — | — | automatic (git) |
 | ESLint R1-R6 (TS projects under `code/`) | `pre-commit` ✅ hard-block | `post-edit.sh` ✅ warn | ❌ gap | ❌ gap |
 | Prettier auto-format (TS projects under `code/`) | — | `post-edit.sh` ✅ | ❌ gap | ❌ gap |
+| Context-gate (CONTEXT.md chain) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | ❌ gap — wire `context-gate.py` into `workspace-policy.js` before/read+edit |
+| Bash context-gate (cat/grep bypass) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ (terminal hints) | ❌ gap — same script, terminal events |
+| Context/interface read tracker | — | `.claude/settings.json` ✅ | `copilot-post-tool.py` ✅ | ❌ gap — call `context-tracker.py` after reads |
+| KNOWN-BUGS gate (FIXED needs spec) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | ❌ gap |
+| Duplication gate (jscpd) | `pre-commit` ✅ hard-block | — | — | automatic (git) |
+| verify:fast contract gate | `pre-commit` ✅ hard-block | — | — | automatic (git) |
+
+**Session id note:** Claude Code hooks get `session_id` from stdin JSON; the Copilot shims derive a stable `copilot<host-pid>` id. Any new shim must pass a session-stable id in the payload or markers will never dedupe.
 
 **Existing shims:**
 - **Claude Code** — `.claude/settings.json` (PreToolUse/PostToolUse matchers).
