@@ -3,9 +3,13 @@
 # If interface is newer-or-equal: hard block (exit 2), must read interface first.
 # If source is newer: interface is stale, warn and allow.
 
+stdin_json="$(cat)"
 file=$(python3 -c \
-	"import sys,json; d=json.load(sys.stdin); print(d.get('file_path',''))" 2>/dev/null \
-	<<< "$(cat)")
+	"import sys,json; d=json.load(sys.stdin); ti=d.get('tool_input'); ti=ti if isinstance(ti,dict) else d; print(ti.get('file_path',''))" 2>/dev/null \
+	<<< "$stdin_json")
+session_id=$(python3 -c \
+	"import sys,json; print(json.load(sys.stdin).get('session_id',''))" 2>/dev/null \
+	<<< "$stdin_json")
 
 # Facade files are already minimal interfaces — reading source directly is correct.
 case "$(basename "$file")" in
@@ -43,8 +47,8 @@ if [[ "$file" == /mnt/workspace/code/* ]]; then
 				cg_dir=$(dirname "$cg_dir")
 			done
 			if [ -n "$cg_root" ]; then
-				claude_pid=$(ps -o ppid= -p $PPID 2>/dev/null | tr -d ' ')
-				nudge_file="/tmp/claude_cg_nudged_${claude_pid}.txt"
+				sid="${session_id:-$(ps -o ppid= -p $PPID 2>/dev/null | tr -d ' ')}"
+				nudge_file="/tmp/claude_cg_nudged_${sid}.txt"
 				if ! grep -qF "$cg_root" "$nudge_file" 2>/dev/null; then
 					printf "💡 codegraph indexed — explore before reading source:\n"
 					printf "   codegraph explore \"<question>\" %s\n" "$cg_root"

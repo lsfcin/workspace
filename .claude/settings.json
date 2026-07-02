@@ -17,6 +17,24 @@
   "hooks": {
     "PreToolUse": [
       {
+        "matcher": "Read|Edit|Write|Grep|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/.hooks/context-gate.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/.hooks/bash-context-gate.py"
+          }
+        ]
+      },
+      {
         "matcher": "Edit|Write",
         "hooks": [
           {
@@ -59,6 +77,30 @@
           {
             "type": "command",
             "command": "python3 /mnt/workspace/.hooks/facade-tracker.py"
+          },
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/.hooks/context-tracker.py"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /mnt/workspace/.hooks/precompact-wipe.sh"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /mnt/workspace/.hooks/session-prune.sh"
           }
         ]
       }

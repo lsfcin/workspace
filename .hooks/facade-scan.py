@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # Pre-Write hook: list existing facade exports before creating a new file in the same module.
-import json, os, re, sys
+import re, sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from hook_input import parse_stdin
 
 WORKSPACE = Path('/mnt/workspace')
 FACADE_FOR = {
@@ -11,14 +14,14 @@ FACADE_FOR = {
     '.dart': 'index.dart',
 }
 
-data = json.load(sys.stdin)
-if os.environ.get('CLAUDE_TOOL_NAME', '') != 'Write':
+_, tool, data, _, _ = parse_stdin()
+if tool != 'Write':
     sys.exit(0)
 
 file_path = Path(data.get('file_path', ''))
 
-# Only new files under Code/
-if file_path.exists() or 'Code' not in file_path.parts:
+# Only new files under code/
+if file_path.exists() or 'code' not in file_path.parts:
     sys.exit(0)
 
 facade_name = FACADE_FOR.get(file_path.suffix)

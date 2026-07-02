@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # PostToolUse: Edit, Write — regenerates interfaces, checks first-line comment, syncs CONTEXT.md
 
-file=$(echo "$CLAUDE_TOOL_INPUT" | python3 -c \
-	"import sys,json; d=json.load(sys.stdin); print(d.get('file_path',''))" 2>/dev/null)
+input_json="${CLAUDE_TOOL_INPUT:-$(cat)}"
+file=$(echo "$input_json" | python3 -c \
+	"import sys,json; d=json.load(sys.stdin); ti=d.get('tool_input'); ti=ti if isinstance(ti,dict) else d; print(ti.get('file_path',''))" 2>/dev/null)
 
 [ -z "$file" ] || [ ! -f "$file" ] && exit 0
 

@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 
 WORKSPACE: Incomplete
 FACADE_FOR: Incomplete
+_: Incomplete
+tool: Incomplete
 data: Incomplete
 file_path: Incomplete
 facade_name: Incomplete

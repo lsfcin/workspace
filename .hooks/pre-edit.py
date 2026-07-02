@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
-import json, os, re, sys
+# PreToolUse: Edit|Write — size gate (200-line block), first-line comment, CONTEXT.md description.
+import os, re, sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from hook_input import parse_stdin
 
 CODE_EXTS    = {'.js', '.ts', '.tsx', '.py', '.dart', '.html', '.css', '.scss', '.tex'}
 CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml'}
@@ -38,8 +42,7 @@ EXAMPLE_COMMENT = {
 	'.md': '# Title of this document',
 }
 
-data      = json.load(sys.stdin)
-tool      = os.environ.get('CLAUDE_TOOL_NAME', '')
+_, tool, data, _, _ = parse_stdin()
 file_path = data.get('file_path', '')
 basename  = os.path.basename(file_path)
 
