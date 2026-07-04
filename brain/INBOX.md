@@ -9,6 +9,23 @@
 
 <!-- add entries below, newest first -->
 
+dobra deveria permitir a visualização das árvores de contexto se dobrando
+
+usar insights do leak do fable 5 pro nosso context-folding dobra
+https://github.com/elder-plinius/CL4R1T4S/
+https://memeburn.com/claude-fable-5-system-prompt-leak-shakes-ai-industry/
+https://www.ayautomate.com/blog/claude-fable-5-system-prompt-leak
+
+a todo list deveria ter associado a cada tarefa qual o modelo ou pelo menos o tier de modelo indicado
+
+não tem como eu não crer que o futuro é context folding + slms. não sei se consigo contribuir nisso mas estou com muita vontade de investir nesse caminho
+
+no isoroll considerando fazer o multiview ser 4 + 1 para tiles ao invés de 8 + 1. nano banana tem muita dificuldade de acertar as vistas N, S, E, W
+
+no isoroll mostrar bússola? ajudaria bastante
+
+features gigantes do isoroll agora são o multiview, o multistate para tokens, portas e suas animações, definitivamente a parte de content generation, e uma que seria incrível mas é muito difícil é um tilemap, tem também a de vertical sight, shadow
+
 fechar procedimentos da banca de artur
 
 número de imports. assess import graph
@@ -21,34 +38,33 @@ file-trees talvez seja o melhor que eu possa fazer
 pegar pesado no context folding
 
 apptime design (claude design)
-https://claude.ai/design/p/f36c59b8-604c-4b84-a235-6d0af90986dd?file=AppTime+-+Overlay+Explorations.html
+<https://claude.ai/design/p/f36c59b8-604c-4b84-a235-6d0af90986dd?file=AppTime+-+Overlay+Explorations.html>
 
 testar weft, ver se tem como usar os princípios ou até mesmo a própria linguagem
-https://github.com/WeaveMindAI/weft
-https://weavemind.ai/docs/nodes
+<https://github.com/WeaveMindAI/weft>
+<https://weavemind.ai/docs/nodes>
 
 openjarvis
-https://github.com/open-jarvis/OpenJarvis
+<https://github.com/open-jarvis/OpenJarvis>
 
 salvar documentação de jake van clief
-https://www.skool.com/cliefnotes/classroom/036893d9?md=2b4a8ab7461c4f6d828e21c0eb196a6a 
-https://www.skool.com/cliefnotes/new-video-how-i-structure-folders-to-replace-ai-agents
+<https://www.skool.com/cliefnotes/classroom/036893d9?md=2b4a8ab7461c4f6d828e21c0eb196a6a> 
+<https://www.skool.com/cliefnotes/new-video-how-i-structure-folders-to-replace-ai-agents>
 
 animações com claude code + remotion
-https://www.skool.com/cliefnotes/classroom/d3907117?md=f7a33a9888604a08a7e48bb876682691
+<https://www.skool.com/cliefnotes/classroom/d3907117?md=f7a33a9888604a08a7e48bb876682691>
 
 estudar o paper de jake van clief
-https://arxiv.org/pdf/2603.16021
+<https://arxiv.org/pdf/2603.16021>
 
 claudecode design space
-https://arxiv.org/pdf/2604.14228
+<https://arxiv.org/pdf/2604.14228>
 
 graphs + context folding pra agentes
-https://arxiv.org/pdf/2601.10112
-https://arxiv.org/pdf/2602.11988
-https://openreview.net/pdf?id=91jL62CQF1
-https://openreview.net/pdf?id=JaLXQnA2wi
-
+<https://arxiv.org/pdf/2601.10112>
+<https://arxiv.org/pdf/2602.11988>
+<https://openreview.net/pdf?id=91jL62CQF1>
+<https://openreview.net/pdf?id=JaLXQnA2wi>
 
 averbação do terreno
 
@@ -56,7 +72,7 @@ vipassana de 1 a 12 de agosto
 mover férias
 
 submeter pra chamada UNIVERSAL até 3 do 08
-https://www.gov.br/cnpq/pt-br/assuntos/noticias/cnpq-em-acao/chamada-universal-vai-financiar-r-300-milhoes-em-projetos-de-pesquisa-em-todo-pais-inscricoes-vao-ate-03-08
+<https://www.gov.br/cnpq/pt-br/assuntos/noticias/cnpq-em-acao/chamada-universal-vai-financiar-r-300-milhoes-em-projetos-de-pesquisa-em-todo-pais-inscricoes-vao-ate-03-08>
 
 responder megatruth
 
@@ -96,17 +112,15 @@ uma prática que está se tornando comum no uso do claude code dentro do workspa
 
 ideia, triggers pós janela de limites do claude pra deixar ele always on aproveitando todas as oportunidades pra andar com tarefas e usar de forma otimizada os limites diário e semanal
 
-
-
 para o isoroll
 perfect vision, wall height shadows
-https://github.com/dev7355608/perfect-vision
-https://github.com/caewok/fvtt-elevated-vision
+<https://github.com/dev7355608/perfect-vision>
+<https://github.com/caewok/fvtt-elevated-vision>
 
 iso 8-view
-https://docs.google.com/presentation/d/1gMtzhJyCbby1u3wifh2LB1C6ko6bSotU8Iyq8sH7AmI/edit?slide=id.g3e868e308a5_0_1#slide=id.g3e868e308a5_0_1
-https://chatgpt.com/g/g-p-69eab8451d048191865fb2df468a21bc-isometric-foundry-vtt/c/6a1f1cd5-e6cc-83e9-89eb-b64e548819a6
-https://chatgpt.com/g/g-p-69eab8451d048191865fb2df468a21bc-isometric-foundry-vtt/c/6a2127d0-4128-83e9-b472-19702fba90bc
-https://github.com/tencent-hunyuan/hunyuan3d-2.1
-https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0
-https://github.com/Tencent-Hunyuan/HY-World-2.0/tree/main
+<https://docs.google.com/presentation/d/1gMtzhJyCbby1u3wifh2LB1C6ko6bSotU8Iyq8sH7AmI/edit?slide=id.g3e868e308a5_0_1#slide=id.g3e868e308a5_0_1>
+<https://chatgpt.com/g/g-p-69eab8451d048191865fb2df468a21bc-isometric-foundry-vtt/c/6a1f1cd5-e6cc-83e9-89eb-b64e548819a6>
+<https://chatgpt.com/g/g-p-69eab8451d048191865fb2df468a21bc-isometric-foundry-vtt/c/6a2127d0-4128-83e9-b472-19702fba90bc>
+<https://github.com/tencent-hunyuan/hunyuan3d-2.1>
+<https://github.com/Tencent-Hunyuan/HunyuanWorld-1.0>
+<https://github.com/Tencent-Hunyuan/HY-World-2.0/tree/main>

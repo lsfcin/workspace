@@ -40,6 +40,10 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 <!-- routing:start -->
 ## Routing
 
+| Subdirectory | Description |
+|--------------|-------------|
+| [`verify/`](verify/CONTEXT.md) | Verification contract + patterns for all code projects: tiers T0-T3, script name |
+
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | Slides Pipeline — Specs & Architecture Decisions |
@@ -50,6 +54,8 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`code-search`](code-search) | — | — | search code examples and technical documentation via Exa (default) or GitHub code search (--gh); returns JSON |
 | [`drive`](drive) | — | — | Google Drive read-only CLI for workspace OS — commands: auth, recent, list, search, download |
 | [`drive_fetch.py`](drive_fetch.py) | [`drive_fetch.pyi`](drive_fetch.pyi) | `get_service`, `list_files`, `search_files`, `recent_files`, `download_file` | !/mnt/workspace/.venv/bin/python3 |
+| [`drive_migrate.py`](drive_migrate.py) | [`drive_migrate.pyi`](drive_migrate.pyi) | `migrate_recursive`, `run` | !/usr/bin/env python3 |
+| [`drive_migrate_core.py`](drive_migrate_core.py) | [`drive_migrate_core.pyi`](drive_migrate_core.pyi) | `get_cin_service`, `get_personal_service`, `list_folder`, `find_or_create_folder`, `copy_file` | !/usr/bin/env python3 |
 | [`fetch`](fetch) | — | — | fetch a URL and return readable plain text; falls back to raw for non-HTML |
 | [`gmail`](gmail) | — | — | read-only Gmail integration for workspace OS |
 | [`gmail_attachments.py`](gmail_attachments.py) | [`gmail_attachments.pyi`](gmail_attachments.pyi) | `download` | !/mnt/workspace/.venv/bin/python3 |
