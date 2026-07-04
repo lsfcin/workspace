@@ -16,6 +16,12 @@
 - [ ] [sibgrapi / sib-05–06] adjust figures
 - [ ] [sibgrapi / sib-05–06] manual review → give Artur ok to submit
 
+## programacao1 — simulador social
+
+- [ ] criar repo GitHub `lsfcin/programacao1-simulador` (novo, separado de `programming-101`)
+- [ ] `git init` em `code/programacao1/` + git flow (main → develop)
+- [ ] começar coding: `src/setup.py` + `src/qualidade.py` (Milestone 1 no ROADMAP.md)
+
 ## week
 
 - [ ] [pandeiro / show-up] confirm Pandeirada time, show up Saturday

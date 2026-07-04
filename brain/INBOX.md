@@ -9,6 +9,16 @@
 
 <!-- add entries below, newest first -->
 
+fechar procedimentos da banca de artur
+
+número de imports. assess import graph
+
+manutenção e extensão de código estão virando um pandemonio
+uma possibilidade é essa de que estou inserindo muito contexto
+talvez melhorar a skill the handoff
+sobre SPECS.md, KNOWN-BUGS.md e ROADMAP.md devessem ser file-trees e não um arquivo único
+file-trees talvez seja o melhor que eu possa fazer
+pegar pesado no context folding
 
 apptime design (claude design)
 https://claude.ai/design/p/f36c59b8-604c-4b84-a235-6d0af90986dd?file=AppTime+-+Overlay+Explorations.html

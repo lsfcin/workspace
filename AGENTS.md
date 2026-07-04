@@ -2,8 +2,8 @@
 > Canonical workspace entrypoint. Read before any task.
 
 - Filesystem = source of truth. No memory, no assumptions.
-- Always load the CONTEXT.md of the active subtree before work.
-- Uncertain about APIs, library versions, any factual claim — search web first.
+- DON'T ASSUME, interview user if in doubt about his idea or intent.
+- If uncertain about APIs, library versions, any factual claim — search web first.
 - Workspace repo commits only structural files (`AGENTS.md`, `CONTEXT.md`, domain docs). Internal projects use their own git repos.
 
 See [SETUP.md](SETUP.md) for hooks, stubgen, tsc, caveman, and toolchain setup.
