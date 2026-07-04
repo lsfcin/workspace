@@ -16,7 +16,7 @@ Arguments: $ARGUMENTS
 
 The pre-commit jscpd gate blocks verbatim/near-verbatim clones. Agents rarely paste —
 they REGENERATE similar logic with new names. Token-based tools miss that. This audit
-finds semantic duplicates on a cadence (run at handoff or weekly).
+finds semantic duplicates on a cadence (run at roundup or weekly).
 
 ## Protocol
 

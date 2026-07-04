@@ -3,7 +3,7 @@
 #
 # Usage:
 #   tex-interface-gen.py <file.tex>             — generate <stem>.texif + regenerate LABELS.md
-#   tex-interface-gen.py --bib-check <file.bib> — warn about missing reviews/*.yaml files
+#   tex-interface-gen.py --bib-check <file.bib> — warn about missing refs/*.yaml files
 
 from __future__ import annotations
 import re, sys
@@ -67,19 +67,19 @@ def write_interface(tex_path: Path, data: dict, paper_root: Path | None) -> Path
 
 
 def check_relationships(data: dict, paper_root: Path) -> None:
-    if not data['citations'] or not (paper_root / 'reviews').exists():
+    if not data['citations'] or not (paper_root / 'refs').exists():
         return
     missing = []
     for key in sorted(data['citations']):
-        yp = paper_root / 'reviews' / f'{key}.yaml'
+        yp = paper_root / 'refs' / f'{key}.yaml'
         if yp.exists():
             txt = yp.read_text(encoding='utf-8', errors='ignore')
             if not re.search(r'relevance:\s*".{5,}"', txt):
                 missing.append(key)
     if missing:
-        print(f'💬 RELEVANCE: add/update relevance field in {len(missing)} review(s):')
+        print(f'💬 RELEVANCE: add/update relevance field in {len(missing)} ref(s):')
         for k in missing:
-            print(f'   reviews/{k}.yaml → relevance: "..."')
+            print(f'   refs/{k}.yaml → relevance: "..."')
 
 
 def regenerate_labels(paper_root: Path) -> None:
@@ -123,17 +123,17 @@ def bib_check(bib_path: Path) -> None:
     root = find_paper_root(bib_path)
     if not root:
         return
-    reviews_dir = root / 'reviews'
-    if not reviews_dir.exists():
-        print(f'💬 REVIEWS: reviews/ directory missing at {reviews_dir}')
+    refs_dir = root / 'refs'
+    if not refs_dir.exists():
+        print(f'💬 REFS: refs/ directory missing at {refs_dir}')
         return
-    missing = [k for k in keys if not (reviews_dir / f'{k}.yaml').exists()]
+    missing = [k for k in keys if not (refs_dir / f'{k}.yaml').exists()]
     if missing:
-        print(f'💬 REVIEWS MISSING ({len(missing)}) — create review files:')
+        print(f'💬 REFS MISSING ({len(missing)}) — create ref files:')
         for k in missing:
-            print(f'   {k}  →  reviews/{k}.yaml')
+            print(f'   {k}  →  refs/{k}.yaml')
     else:
-        print(f'✓ reviews: all {len(keys)} bib entries have review files')
+        print(f'✓ refs: all {len(keys)} bib entries have ref files')
 
 
 def main() -> int:
@@ -159,8 +159,8 @@ def main() -> int:
         print(f'⚠ tex-interface-gen: {tex_path}: {e}', file=sys.stderr)
         return 1
     if root:
-        if not (root / 'reviews' / 'CONTEXT.md').exists():
-            print(f'💬 SCAFFOLD: reviews/CONTEXT.md missing — run:')
+        if not (root / 'refs' / 'CONTEXT.md').exists():
+            print(f'💬 SCAFFOLD: refs/CONTEXT.md missing — run:')
             print(f'   python3 {Path(__file__).parent}/paper-scaffold.py adapt {root}')
         try:
             regenerate_labels(root)

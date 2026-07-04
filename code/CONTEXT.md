@@ -19,7 +19,7 @@ You are a SENIOR software architect, your code WILL be evaluated!
 - New files require first-line description comment
 - Interface stubs (`.d.ts`, `.pyi`, `.dart.api`) regenerated at commit
 - Duplicated blocks involving staged files block the commit (jscpd) — extract, never copy
-- Projects declaring `verify:fast` must be green to commit; KNOWN-BUGS FIXED flips require a `test/**/b<N>-*` regression spec (see workspace [VERIFY.md](../VERIFY.md))
+- Projects declaring `verify:fast` must be green to commit; KNOWN-BUGS FIXED flips require a `test/**/b<N>-*` regression spec (see [VERIFY.md](VERIFY.md))
 
 **You enforce** (hooks cannot catch these):
 - REUSE always
@@ -47,6 +47,7 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`_templates/`](_templates/CONTEXT.md) | Project scaffolding templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skel |
 | [`apptime/`](apptime/CONTEXT.md) | Android app to reduce phone addiction through awareness, without blocking |
 | [`corpora/`](corpora/CONTEXT.md) | Real-time 3D computer vision pipeline — depth, pose, segmentation from webcam |
+| [`dobra/`](dobra/CONTEXT.md) | Context folding + small local models: task-tree runner where SLMs do leaf work u |
 | [`flows/`](flows/CONTEXT.md) | Graph-based workflow engine — typed slots, YAML-defined flows, pluggable agents |
 | [`futebots/`](futebots/CONTEXT.md) | Multi-agent football simulation with genetic algorithm agent evolution |
 | [`isometric-perspective/`](isometric-perspective/CONTEXT.md) | Legacy Foundry VTT isometric perspective fork — v0.7.7, JS, pre-isoroll-module |
@@ -54,7 +55,6 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`isoroll-module/`](isoroll-module/CONTEXT.md) | Foundry VTT v14 isometric projection module — TypeScript + Vite + SCSS. |
 | [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for experimenting with LC/UFRPE curriculum redesign |
 | [`prog1/`](prog1/CONTEXT.md) | — |
-| [`prog1_novo/`](prog1_novo/CONTEXT.md) | — |
 | [`programacao1/`](programacao1/CONTEXT.md) | Simulador de sociedade em Python puro. Duas camadas: (1) terminal CRUD de pessoa |
 | [`shortvid/`](shortvid/CONTEXT.md) | Desktop video editor for short-form content — chroma-key, timeline, WebM export |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records |
@@ -63,5 +63,6 @@ You are a SENIOR software architect, your code WILL be evaluated!
 |------|-----------|-----|-------------|
 | [`SETUP.md`](SETUP.md) | — | — | Code Setup |
 | [`SPECS.md`](SPECS.md) | — | — | Code — Specs |
+| [`VERIFY.md`](VERIFY.md) | — | — | VERIFY — Agent Verification & Enforcement Roadmap |
 | [`eslint.shared.js`](eslint.shared.js) | — | `localPlugin`, `sharedRules`, `countCallsInSubtree`, `getChainDepth` | Shared ESLint rules for all TypeScript/JavaScript projects under code/ — R1-R6 style enforcement. |
 <!-- routing:end -->

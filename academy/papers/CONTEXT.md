@@ -18,7 +18,7 @@ Use for both `paper-scaffold.py new` and manual creation.
 python3 /mnt/workspace/.hooks/paper-scaffold.py new <paper-name>
 ```
 
-Creates `academy/papers/<name>/` with full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `CONTEXT.md`, `LABELS.md`, subdirectory `CONTEXT.md` files for `sections/`, `reviews/`, `lib/`, `images/`, `tables/`, `outputs/`. `reviews/CONTEXT.md` pre-filled with tag schema and workflow.
+Creates `academy/papers/<name>/` with full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `CONTEXT.md`, `LABELS.md`, subdirectory `CONTEXT.md` files for `sections/`, `refs/`, `lib/`, `images/`, `tables/`, `outputs/`. `refs/CONTEXT.md` pre-filled with tag schema and workflow.
 
 Add missing scaffold files to **existing** paper without overwriting:
 
@@ -26,7 +26,7 @@ Add missing scaffold files to **existing** paper without overwriting:
 python3 /mnt/workspace/.hooks/paper-scaffold.py adapt <path-to-paper>
 ```
 
-`post-edit` hook warns with adapt command if `reviews/CONTEXT.md` missing when `.tex` file saved.
+`post-edit` hook warns with adapt command if `refs/CONTEXT.md` missing when `.tex` file saved.
 
 ## Behavioral Cues
 
@@ -82,9 +82,9 @@ Every `.tex` file gets `.texif` sibling on save. **Read `.texif` before source**
 
 `LABELS.md` at paper root: all `\label{}` definitions and dangling `\ref{}` warnings. Check before adding cross-references.
 
-## Reference Reviews (`reviews/`)
+## Reference Reviews (`refs/`)
 
-Each bib entry gets `reviews/<key>.yaml` — create or update when adding `\cite{key}`. `post-edit` hook warns when `.bib` edited. Read review before making claims about paper.
+Each bib entry gets `refs/<key>.yaml` (tier-2 promoted reference) — create or update when adding `\cite{key}`. `post-edit` hook warns when `.bib` edited. Read the ref before making claims about a paper. Raw/unpromoted captures collect in `refs/REFS.md` (tier-1 — see `/brain-inbox` refs convention).
 
 **YAML schema:**
 ```yaml
@@ -144,6 +144,7 @@ See [core/tools/CONTEXT.md](../../core/tools/CONTEXT.md) for all tools and [core
 |--------------|-------------|
 | [`2026-JBCS-relativistic_raytracer/`](2026-JBCS-relativistic_raytracer/CONTEXT.md) | JBCS special issue paper on relativistic raytracing benchmarking for SVR 2026 |
 | [`2026-SIBGRAPI-relativistic_raytracer/`](2026-SIBGRAPI-relativistic_raytracer/CONTEXT.md) | SIBGRAPI 2026 paper on relativistic raytracing benchmarking |
+| [`2027-ICLR-dobra/`](2027-ICLR-dobra/CONTEXT.md) | Context folding + SLMs on consumer hardware — research twin of `code/dobra`. Tar |
 | [`megatruth/`](megatruth/CONTEXT.md) | Hybrid intelligence paper — crowd truth aggregation via mechanism design |
 
 | File | Interface | API | Description |

@@ -105,6 +105,10 @@
           {
             "type": "command",
             "command": "bash /mnt/workspace/.hooks/session-prune.sh"
+          },
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/.hooks/inbox-nudge.py"
           }
         ]
       }

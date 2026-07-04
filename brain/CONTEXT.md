@@ -33,14 +33,22 @@ Agent is first-class collaborator, not just reader.
 Goal file format, section specs, signals/dynamics/timing fields → [SPECS.md](SPECS.md).
 Philosophical foundations → [FOUNDATIONS.md](FOUNDATIONS.md).
 
+<!-- routing:start -->
 ## Routing
 
-| Subdirectory / File | Description |
-|---------------------|-------------|
-| [GOALS.md](GOALS.md) | Dashboard and goal router |
-| [goals/](goals/) | Individual goal files |
-| [INBOX.md](INBOX.md) | Capture inbox |
-| [ARCHIVE.md](ARCHIVE.md) | Closed and abandoned goals |
-| [.log/done.md](.log/done.md) | Achieved items archived from goal files |
-| [FOUNDATIONS.md](FOUNDATIONS.md) | Design rationale and research basis |
-| [SPECS.md](SPECS.md) | Goal file format, section specs, signals, dynamics, timing |
+| Subdirectory | Description |
+|--------------|-------------|
+| [`attachments/`](attachments/CONTEXT.md) | — |
+| [`goals/`](goals/CONTEXT.md) | — |
+
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`ARCHIVE.md`](ARCHIVE.md) | — | — | Archive |
+| [`FOUNDATIONS.md`](FOUNDATIONS.md) | — | — | Foundations |
+| [`GOALS.md`](GOALS.md) | — | — | goals |
+| [`INBOX.md`](INBOX.md) | — | — | inbox |
+| [`SPECS.md`](SPECS.md) | — | — | Brain — Specs |
+| [`TODO.md`](TODO.md) | — | — | to do |
+| [`USER.md`](USER.md) | — | — | User Profile |
+| [`drafts/context-folding-report.md`](drafts/context-folding-report.md) | — | — | Context Folding: A Graph-Based Architecture for Infinite-Horizon AI Agent Memory |
+<!-- routing:end -->

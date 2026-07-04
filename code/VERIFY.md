@@ -1,11 +1,18 @@
 # VERIFY — Agent Verification & Enforcement Roadmap
-> Workspace-wide plan: make agents verify their own results (no human eye per prompt) and enforce code centralization. Pilot: isoroll-module. Second: apptime.
+> Testing-discipline rollout for `code/` projects: make agents verify their own results (no human eye per prompt) and enforce code centralization. Pilot: isoroll-module. Second: apptime.
 
-**Lifecycle: transient initiative doc** (REFACTOR.md species) — NOT workspace structure; not
-linked from AGENTS.md/SETUP.md on purpose. Endstate at W3: surviving rules migrate to SETUP.md
-(ENFORCED rows), `code/_templates/`, `core/tools/verify/`; verification contract to SETUP.md;
-then this file is deleted (git keeps it). Principles below are hypotheses until the isoroll
-pilot validates them — do not copy them into lifetime docs before W3.
+**Lifecycle: transient initiative doc** (REFACTOR.md species, one level up — lives beside
+`code/CONTEXT.md` instead of inside one project) — NOT workspace structure. Linked from root
+`SETUP.md` and `code/CONTEXT.md` on purpose (this is where the verify:fast contract those files
+enforce is tracked). Endstate: once every `code/` project has a real contract and A1 (apptime)
+completes, surviving durable rules stay in `core/tools/verify/CONTEXT.md` (already done at W3)
+and this file is deleted (git keeps it).
+
+**Scope note:** this doc originally tracked workspace-wide hook infra too (context-gate,
+bash-gate — see Phase W1 below). That part is done and lives canonically in root `SETUP.md`'s
+hook table now; W1 is kept here only as a compressed historical pointer. This doc's live scope
+from W2 onward is `code/` testing-pyramid rollout specifically — brain/academy don't have a
+`verify:fast` concept.
 
 Origin: assessment session 2026-07-02. Diagnosis: workspace over-invests in context transfer
 (docs, skills, codegraph, facades), zero in behavior verification. No test suite anywhere.
@@ -51,43 +58,17 @@ ties → PIXI insertion order) unresolvable without a mechanical oracle.
 | T3 | deterministic screenshots + pixelmatch goldens; diff PNG artifact on failure (agent-readable) | render bugs invisible to state dumps | s/scene |
 
 Contract script names (all code projects): **`verify:fast`** = T0+T1 (runs per commit),
-**`verify:full`** = T2+T3 (pre-merge / on demand / handoff).
+**`verify:full`** = T2+T3 (pre-merge / on demand / roundup).
 
 ---
 
-## Phase W1 — Context Gate + Bypass Hardening ✅ 2026-07-02
+## Phase W1 — Context Gate + Bypass Hardening ✅ 2026-07-02 (workspace-wide, moved out)
 
-Workspace-wide. New hooks in `.hooks/`, registered in `.claude/settings.json` + Copilot shims (SETUP.md parity).
-
-### `context-gate.py` — PreToolUse: `Read|Edit|Write|Grep|NotebookEdit`
-- From target path, walk directories up to `/mnt/workspace`; collect every `CONTEXT.md` on the chain.
-- Root `AGENTS.md` exempt (auto-loaded via CLAUDE.md).
-- Targets named `CONTEXT.md` / `AGENTS.md` exempt from gating (deadlock guard — always freely readable).
-- All chain files in seen-markers → exit 0 silent. Any unread → exit 2, message lists ALL
-  unread paths: "Read these CONTEXT.md first (one batch), then retry."
-- Grep included because content-output mode leaks file bodies; uses its `path` param. Glob harmless (names only).
-
-### `context-tracker.py` — PostToolUse: Read
-- Records reads of any `CONTEXT.md` into marker file.
-- Marker: `/tmp/claude_ctx_seen_<session_id>.txt`, one absolute path per line.
-  `session_id` from hook stdin JSON — NOT `$PPID` (breaks with subagents/multi-window).
-
-### `bash-context-gate.py` — PreToolUse: Bash
-- Regex-extract workspace paths from command string; resolve; same chain check; exit 2 with
-  "unread CONTEXT.md in chain — use Read tool first: <paths>".
-- Known residual hole: dynamically constructed paths (`for f in $(find …)`) escape. Accepted.
-- Optional belt (decide during testing): permission deny rules for `cat|head|tail` on workspace paths.
-
-### Lifecycle
-- **PreCompact hook:** wipe `/tmp/claude_ctx_seen_<session_id>.txt`.
-- **SessionStart:** prune marker files older than 2 days.
-- **Migration:** `facade-tracker.py` + codegraph nudge in `pre-read.sh` move from `$PPID` → `session_id`.
-
-### Acceptance
-- Fresh session: first Read of `code/isoroll-module/src/render/x.ts` blocks listing 3–4 CONTEXT.mds; after batch-reading them, retry passes; second file in same subtree passes silently.
-- Subagent spawned mid-session: no block on same subtree.
-- After compaction: block fires again.
-- `cat src/render/x.ts` via Bash: blocked with same message.
+Workspace-wide hooks (`context-gate.py`, `context-tracker.py`, `bash-context-gate.py` +
+PreCompact/SessionStart lifecycle) — not `code/`-specific, so their canonical documentation
+lives in root [`SETUP.md`](../SETUP.md#claude-code-hooks-claudesettingsjson)'s hook table, not
+here. Kept as a one-line record: shipped 2026-07-02, forces the CONTEXT.md chain to be Read
+before any file access anywhere in the workspace.
 
 ---
 
@@ -167,7 +148,7 @@ candidates, agent reviews) — deferred to W3+.
 - `code/_templates/` update: vitest scaffold, `test/` layout, jscpd config, `verify:fast`/`verify:full`
   stubs, KNOWN-BUGS.md template carrying the regression rule. New projects born compliant.
 - SETUP.md: add all new rows as **ENFORCED**; audit existing INDUCED rows — promote or delete.
-- `/handoff` skill: runs `verify:full`, result recorded in handoff notes.
+- `/roundup` skill: runs `verify:full`, result recorded in the resume prompt.
 - `/dedup` semantic audit skill (see W2 note).
 
 ## Phase I4 — isoroll Unit Coverage Expansion 🔲

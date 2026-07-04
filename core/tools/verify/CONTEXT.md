@@ -6,7 +6,7 @@
 | Script | Tier | Content | When it runs |
 |--------|------|---------|--------------|
 | `verify:fast` | T0+T1 | static checks + unit/property tests, seconds | every commit — enforced by global pre-commit (blocks red) |
-| `verify:full` | T2+T3 | headless functional + visual goldens | pre-merge, on demand, `/handoff` |
+| `verify:full` | T2+T3 | headless functional + visual goldens | pre-merge, on demand, `/roundup` |
 
 Declare both in `package.json` scripts (TS) or Makefile targets (other stacks). The
 pre-commit gate discovers `verify:fast` by convention — no per-project wiring.
@@ -37,7 +37,7 @@ pre-commit gate discovers `verify:fast` by convention — no per-project wiring.
 `code/isoroll-module/`: `test/unit/` (vitest+fast-check, stubs in setup.ts),
 `test/e2e/` (Playwright vs live Foundry: helpers.mjs login/fixtures/oracles, run.mjs
 XFAIL runner, golden.mjs pixelmatch layer). Copy and adapt; extract shared code here
-only when a second consumer exists (planned: apptime, VERIFY.md A1).
+only when a second consumer exists (planned: apptime, `code/VERIFY.md` A1).
 
 <!-- routing:start -->
 ## Routing

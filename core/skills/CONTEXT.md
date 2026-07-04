@@ -41,7 +41,7 @@ The `caveman*` / `cavecrew` skills live in `~/.agents/skills/` and are mirrored 
 | [`_template.md`](_template.md) | — | — | One-line summary of what this skill does and when to invoke it. Invoke with /skill-name [optional args]. |
 | [`brain-compass.md`](brain-compass.md) | — | — | Run a compass review of Brain: surface what has good wind, update diagnostics, write ease-starts for stalled goals. |
 | [`brain-finished.md`](brain-finished.md) | — | — | Mark an achievement done, advance to the next selected achievement, write a new ease-start. |
-| [`brain-inbox.md`](brain-inbox.md) | — | — | Triage brain/INBOX.md — route each entry to a goal file, TODO list, writing draft, or delete. |
+| [`brain-inbox.md`](brain-inbox.md) | — | — | Triage brain/INBOX.md — route each entry to a goal, task, reference, project doc, writing draft, or delete. Cross-domain front door: reaches into code ROADMAP/KNOWN-BUGS and domain refs/, not just brain/. |
 | [`calendar.md`](calendar.md) | — | — | List upcoming events and query date ranges from Google Calendar across all configured accounts (personal, cin, ufrpe). Invoke with /calendar [intent]. |
 | [`dedup.md`](dedup.md) | — | — | Semantic duplication audit for a code project: finds regenerated near-duplicate logic that the jscpd pre-commit gate (verbatim clones) misses, using codegraph + targeted reading. Invoke with /dedup [project path, defaults to cwd project]. |
 | [`drive.md`](drive.md) | — | — | List, search, and download files from Google Drive across all configured accounts (personal, cin, ufrpe). Invoke with /drive [intent]. |
@@ -55,6 +55,7 @@ The `caveman*` / `cavecrew` skills live in `~/.agents/skills/` and are mirrored 
 | [`foundry-undo.md`](foundry-undo.md) | — | — | Foundry VTT v14 — undo/history system: suppression, manual push, dual-stack ordering. |
 | [`foundry.md`](foundry.md) | — | — | Foundry VTT v14 module dev reference — router. Load relevant subfiles before working. |
 | [`gmail.md`](gmail.md) | — | — | Triage Gmail across all configured accounts — classify, confirm routes, write to brain/INBOX.md. |
-| [`handoff.md`](handoff.md) | — | — | End current session cleanly: archive completed work (moves done ROADMAP items and fixed bugs to HISTORY.md), route session knowledge to durable files, then produce a copy-pasteable resume prompt for the next session. Invoke with /handoff [focus for next session]. |
+| [`handoff.md`](handoff.md) | — | — | Emit a copy-pasteable resume prompt for the next session — the narrow last step only. For the full session-close ritual (archive done work + route knowledge + drain INBOX + verify, then hand off), use /roundup, which calls this. Invoke with /handoff [focus]. |
 | [`research.md`](research.md) | — | — | Execute a research workflow from the workspace Core research system. |
+| [`roundup.md`](roundup.md) | — | — | Full session-close ritual: archive completed work to HISTORY, route session knowledge to durable files, drain the INBOX, run the verification gate, then emit the resume prompt via /handoff. Use at session end. Invoke with /roundup [focus for next session]. |
 <!-- routing:end -->

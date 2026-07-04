@@ -48,15 +48,37 @@ if [ -n "$NEW_CODE" ]; then
   done <<< "$NEW_CODE"
 fi
 
-# ── 1a. Verification contract gate — projects declaring verify:fast must be green ──
-if [ -f "package.json" ] && grep -q '"verify:fast"' package.json; then
-  CODE_STAGED=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx)$' | grep -v '\.d\.ts$' || true)
-  if [ -n "$CODE_STAGED" ]; then
+# ── 1a. Verification contract gate — every code/ project must declare + pass verify:fast ──
+# Discovery is stack-agnostic: npm script (package.json) or Makefile target — either
+# satisfies the contract. code/ projects with neither are hard-blocked (code/VERIFY.md G2);
+# a passing stub is enough until real coverage lands (code/VERIFY.md G5).
+TOPLEVEL=$(git rev-parse --show-toplevel 2>/dev/null || true)
+HAS_NPM_CONTRACT=0
+HAS_MAKE_CONTRACT=0
+[ -f "package.json" ] && grep -q '"verify:fast"' package.json && HAS_NPM_CONTRACT=1
+[ -f "Makefile" ] && grep -qE '^verify-fast:' Makefile && HAS_MAKE_CONTRACT=1
+
+CODE_STAGED=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|py|dart)$' | grep -v '\.d\.ts$' || true)
+
+if [ -n "$CODE_STAGED" ]; then
+  case "$TOPLEVEL" in
+    /mnt/workspace/code/*)
+      if [ "$HAS_NPM_CONTRACT" != "1" ] && [ "$HAS_MAKE_CONTRACT" != "1" ]; then
+        printf "⛔ No verify:fast contract found — every code/ project needs one.\n"
+        printf "   Declare package.json \"verify:fast\" (npm) or a Makefile \"verify-fast:\" target (any stack).\n"
+        printf "   No real tests yet? A passing stub is enough — see code/VERIFY.md G5.\n"
+        exit 1
+      fi
+      ;;
+  esac
+
+  if [ "$HAS_NPM_CONTRACT" = "1" ] || [ "$HAS_MAKE_CONTRACT" = "1" ]; then
     printf "→ verify:fast…\n"
-    if ! npm run --silent verify:fast >/tmp/verify-fast.$$ 2>&1; then
+    if [ "$HAS_NPM_CONTRACT" = "1" ]; then RUN_CMD="npm run --silent verify:fast"; else RUN_CMD="make verify-fast"; fi
+    if ! $RUN_CMD >/tmp/verify-fast.$$ 2>&1; then
       tail -30 /tmp/verify-fast.$$
       rm -f /tmp/verify-fast.$$
-      printf "⛔ verify:fast is red — fix before committing. Full output: npm run verify:fast\n"
+      printf "⛔ verify:fast is red — fix before committing. Full output: %s\n" "$RUN_CMD"
       exit 1
     fi
     rm -f /tmp/verify-fast.$$

@@ -3,7 +3,8 @@
     "**/.git": true,
     "**/.*": true,
     "$RECYCLE.BIN": true,
-    "System Volume Information": true
+    "System Volume Information": true,
+    "Downloads": true
   },
   "chat.hookFilesLocations": {
     ".github/hooks": true,

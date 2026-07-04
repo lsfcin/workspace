@@ -60,7 +60,7 @@ Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
 | `.hooks/precompact-wipe.sh` | PreCompact | Wipes context seen-markers — CONTEXT chain is re-read after compaction |
 | `.hooks/session-prune.sh` | SessionStart | Prunes stale session marker files (>2 days) |
 
-### Git Pre-Commit additions (see VERIFY.md)
+### Git Pre-Commit additions (see [code/VERIFY.md](code/VERIFY.md))
 
 | Gate | Behavior |
 |------|----------|
