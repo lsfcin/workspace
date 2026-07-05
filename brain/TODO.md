@@ -24,6 +24,10 @@
 
 ## week
 
+- [ ] [banca] fechar procedimentos da banca de Artur
+- [ ] responder megatruth
+- [ ] [finances] pedir mudança da data de pagamento do aluguel: dia 5 → dia 10
+- [ ] [ufrpe] PDA — plano de desenvolvimento (Lenina cobrou); é simples, fazer logo
 - [ ] [pandeiro / show-up] confirm Pandeirada time, show up Saturday
 - [ ] [sleep / streak-3] 3 consecutive nights in bed by 00:30
 - [ ] [brain] set up mobile inbox access for Android — recover 2 app options from prior Claude conversation, pick one for Xiaomi Redmi Note 10 Pro
@@ -32,6 +36,10 @@
 
 ## month
 
+- [ ] [cnpq] submeter proposta chamada UNIVERSAL — **deadline 03/08** (https://www.gov.br/cnpq/pt-br/assuntos/noticias/cnpq-em-acao/chamada-universal-vai-financiar-r-300-milhoes-em-projetos-de-pesquisa-em-todo-pais-inscricoes-vao-ate-03-08)
+- [ ] [casinhas] averbação do terreno
+- [ ] [vipassana] retiro 1–12 agosto; mover férias (ver goal vipassana)
+- [ ] [ufrpe] ajudar Paulo (coordenador) a montar o PPC — atualizar formato da lista de ementas, com IA
 - [ ] [slides / portas-logicas] OR gate body still missing — see KNOWN-BUGS.md; investigate `CUSTOM` shape type in slide 23 group, then decide if worth further debugging
 - [ ] standardize workspace folder names to lowercase — update on Ubuntu and Windows
 - [ ] fix downloads folder — some programs bypassing workspace path, still writing to ~/Downloads by default
@@ -81,6 +89,17 @@
 
 ## backlog
 
+- [ ] [workspace-os] TODO: anotar modelo/tier recomendado por tarefa + rastrear datas de criação/atribuição p/ flagrar tarefas paradas
+- [ ] [workspace-os] SPECS.md / KNOWN-BUGS.md / ROADMAP.md como file-trees em vez de arquivo único
+- [ ] [workspace-os] fix stubgen p/ TODOS os projetos — `.py` criados fora de Edit/Write não geram `.pyi` (pre-commit sweep?) — INBOX
+- [ ] [workspace-os] detecção de alto acoplamento / import-graph — pilotar em isoroll → política workspace-wide (discutir antes)
+- [ ] [workspace-os] policy: conectar CONTEXT.md de cada projeto ao seu goal file — formato `> goal: [slug](../../brain/goals/<slug>.md)` na linha 3; backfill ~15 projetos PRIMEIRO, depois enforce via post-edit hook (warn→block); dobra não tem goal (criar ou `> goal: none`); reverse link `> project:` no goal file opcional
+- [ ] [workspace-os] context_synchronizer: pular CONTEXT.md com `## Routing` manual sem sentinelas — hoje ANEXA um bloco duplicado (bug); fix robusto protege CONTEXT hand-curados. brain/CONTEXT.md já convertido p/ markers nesta sessão
+- [ ] [workspace-os] triggers pós-janela de limites do Claude — always-on aproveitando limites diário/semanal
+- [ ] [workspace-os] monitor de tamanho de sessão (hook avisa ~40%/50% p/ avaliar handoff) — roundup + inbox-nudge já feitos; falta o %-monitor; 80% propenso a descartar — discutir
+- [ ] [workspace-os] detecção de drift de contexto — recall-probe objetivo (plantar fato verificável cedo, re-checar periodicamente) + amarrar ao %-monitor. Ideia do "canary me-chama-de-Lucas" é proxy fraco/confundido (caveman suprime, sinal baixo, auto-reportado) — manter só como tell passivo grátis, não construir infra em cima
+- [ ] [code] novo projeto: gerador de animações (claude-code + remotion) — separado do shortvid
+- [ ] [workspace-os] integrações: whatsapp + telegram (gmail/drive já têm skills) — adiantaria vários fluxos (nota do PDA)
 - [x] [slides] setup Slidev + Vue locally — Slidev 52.16.0, Node 24.16.0 ✓
 - [x] [slides] build `core/tools/slides` CLI (new, serve, build, port from Google Slides JSON)
 - [x] [slides] conversor Google Slides API JSON → Slidev `.md` — `core/tools/slides_port.py`

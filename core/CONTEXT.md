@@ -19,6 +19,11 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 |--------------|-------------|
 | [`agents/`](agents/CONTEXT.md) | Agent definitions; load as system prompt to spawn a specialist worker. |
 | [`flows/`](flows/CONTEXT.md) | Workflow protocols; each names the agents and steps to execute. |
-| [`skills/`](skills/CONTEXT.md) | Slash command skills — invoke via `/skill-name` in any session. |
+| [`skills/`](skills/CONTEXT.md) | Agent skills — provider-agnostic workflows invoked as slash commands or by instr |
 | [`tools/`](tools/CONTEXT.md) | CLI research tools callable via bash; routing block auto-synced on save. |
+
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`SPECS.md`](SPECS.md) | — | — | Core SPECS |
+| [`WATCHLIST.md`](WATCHLIST.md) | — | — | Watchlist |
 <!-- routing:end -->

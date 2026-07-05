@@ -84,10 +84,10 @@ All canonical enforcement lives in `.hooks/`. Each agent needs a shim that calls
 | Size / facade import / stub gen / context sync | `pre-commit` ✅ | — | — | automatic (git) |
 | ESLint R1-R6 (TS projects under `code/`) | `pre-commit` ✅ hard-block | `post-edit.sh` ✅ warn | ❌ gap | ❌ gap |
 | Prettier auto-format (TS projects under `code/`) | — | `post-edit.sh` ✅ | ❌ gap | ❌ gap |
-| Context-gate (CONTEXT.md chain) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | ❌ gap — wire `context-gate.py` into `workspace-policy.js` before/read+edit |
-| Bash context-gate (cat/grep bypass) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ (terminal hints) | ❌ gap — same script, terminal events |
-| Context/interface read tracker | — | `.claude/settings.json` ✅ | `copilot-post-tool.py` ✅ | ❌ gap — call `context-tracker.py` after reads |
-| KNOWN-BUGS gate (FIXED needs spec) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | ❌ gap |
+| Context-gate (CONTEXT.md chain) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | `workspace-policy.js` ✅ |
+| Bash context-gate (cat/grep bypass) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ (terminal hints) | `workspace-policy.js` ✅ (bash tool) |
+| Context/interface read tracker | — | `.claude/settings.json` ✅ | `copilot-post-tool.py` ✅ | `workspace-policy.js` ✅ |
+| KNOWN-BUGS gate (FIXED needs spec) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | `workspace-policy.js` ✅ |
 | Duplication gate (jscpd) | `pre-commit` ✅ hard-block | — | — | automatic (git) |
 | verify:fast contract gate | `pre-commit` ✅ hard-block | — | — | automatic (git) |
 

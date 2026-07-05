@@ -204,10 +204,24 @@ W3 makes it portable.
 
 - Test subagent marker inheritance in practice (same `session_id` assumption).
 - Decide permission-deny belt for `cat|head|tail` after field testing.
-- opencode shim gaps: wire context-gate/bash-gate/trackers/known-bugs-gate into
-  `.opencode/plugins/workspace-policy.js` (instructions in SETUP.md coverage table).
-- tsc --noEmit as T0 gate: blocked by pre-existing Foundry global type gaps in isoroll
-  (`Tile`/`TileDocument` names) — fix types, then add to verify:fast.
+- ~~opencode shim gaps~~ DONE (G6): context-gate/bash-gate/trackers/known-bugs-gate wired
+  into `.opencode/plugins/workspace-policy.js`, verified via synthetic-client smoke test
+  (block-then-allow on CONTEXT chain for Read and Bash, known-bugs-gate blocks a FIXED
+  flip with no spec). Coverage table in root SETUP.md updated.
+- tsc --noEmit as T0 gate (G7) — **bigger than scoped, not landed yet.** Root cause of the
+  `Tile`/`TileDocument`/`canvas`/`Token`/`Hooks`/`PIXI`/`JQuery`/`game` "cannot find name"
+  errors (606 of 645 lines) was `tsconfig.json`'s `typeRoots` pointing at
+  `foundry-vtt-types/src` directly instead of letting normal package resolution find its
+  `index.d.mts`, combined with `"types": []` disabling auto-inclusion entirely — fixed by
+  replacing both with `"types": ["@league-of-foundry-developers/foundry-vtt-types"]`. That
+  fix is landed (real, low-risk, worth keeping regardless). But it unmasks **304 genuine
+  strict-mode errors** (TS18048 `possibly undefined` on `canvas`/etc., TS2345, TS2353, …) —
+  real Foundry-nullability and type-mismatch issues needing per-call-site judgment, not a
+  config fix. Adding `tsc --noEmit` to `verify:fast` now would hard-block every isoroll
+  commit on 304 pre-existing errors — too large to absorb into this rollout session.
+  Needs its own dedicated type-debt pass (triage by file, likely several sessions) before
+  the gate can land. `code/_templates` already defaults new projects to a clean
+  `tsc --noEmit` from day one, so this debt doesn't recur elsewhere.
 - B2 GridConfig-path spec variant (direct-path spec passes; dialog path unreproduced).
 - Phase I4 (unit coverage expansion) + merge decision for isoroll `feature/verify-harness`
   (contains B32 fix branch history) — Lucas reviews.

@@ -39,7 +39,7 @@ Philosophical foundations → [FOUNDATIONS.md](FOUNDATIONS.md).
 | Subdirectory | Description |
 |--------------|-------------|
 | [`attachments/`](attachments/CONTEXT.md) | — |
-| [`goals/`](goals/CONTEXT.md) | — |
+| [`goals/`](goals/CONTEXT.md) | One file per goal — organic growth from seed to full. Dashboard + router: [GOALS |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|

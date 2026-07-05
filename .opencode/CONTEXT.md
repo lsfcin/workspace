@@ -28,12 +28,23 @@ problem for a non-Claude agent. Field-name lists (`PATH_KEYS`,
 
 | opencode event + tool name | Claude matcher | Script | Block via |
 |---|---|---|---|
+| `tool.execute.before`, `read` | PreToolUse `Read` | `.hooks/context-gate.py` | exit 2 → throw |
 | `tool.execute.before`, `read` | PreToolUse `Read` | `.hooks/pre-read.sh` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `.hooks/context-gate.py` | exit 2 → throw |
 | `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `.hooks/pre-edit.py` | exit 2 → throw |
 | `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `.hooks/facade-scan.py` | (warn only; never exits 2) |
 | `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/facade-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/known-bugs-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `bash` | PreToolUse `Bash` | `.hooks/bash-context-gate.py` | exit 2 → throw |
 | `tool.execute.after`, `read` | PostToolUse `Read` | `.hooks/facade-tracker.py` | n/a (no block) |
+| `tool.execute.after`, `read` | PostToolUse `Read` | `.hooks/context-tracker.py` | n/a (no block) |
 | `tool.execute.after`, `edit`/`write`/`apply_patch` | PostToolUse `Edit\|Write` | `.hooks/post-edit.sh` | n/a (no block) |
+
+`bash` is not in `TOOL_MAP` (its payload is a command string, not a file path) —
+handled by a dedicated branch in `tool.execute.before` that extracts
+`args.command`/`args.cmd` and calls `bash-context-gate.py` directly, mirroring
+`copilot-pre-tool.py`'s `TERMINAL_HINTS` branch. No post-hook for `bash` (same
+as Copilot — nothing to track after a terminal command).
 
 ### Tool-name mapping (opencode → Claude canonical env value)
 
@@ -83,10 +94,16 @@ Syntax + export check:
 `node --input-type=module -e "import('/mnt/workspace/.opencode/plugins/workspace-policy.js').then(m=>console.log(typeof m.WorkspacePolicy))"`
 
 End-to-end smoke test (synthetic client, no opencode process needed): see the
-test harness in the session that created this file — it covers all seven
+test harness in the session that created this file — it covers seven original
 scenarios: read-block-with-pyi, read-allow-no-pyi, write-block-no-comment,
 write-block-oversized, write-allow-small, edit-allow-then-post-regenerates-pyi,
-read-facade-allow-then-tracker-silent.
+read-facade-allow-then-tracker-silent. G6 (context-gate/bash-context-gate/
+context-tracker/known-bugs-gate) added three more, verified the same way:
+read/bash blocked on an unread CONTEXT.md chain then allowed after the chain
+is marked seen via the after-hook, and an edit flipping a KNOWN-BUGS.md entry
+to FIXED without a matching `test/**/b<N>-*` spec blocked once the chain is
+seen (context-gate has to pass first to reach known-bugs-gate, same ordering
+as `copilot-pre-tool.py`'s `gate()` chain).
 
 To validate inside a real opencode session, start opencode in `/mnt/workspace`
 and run the test plan from the resume prompt: try to read a `.py` with a current
