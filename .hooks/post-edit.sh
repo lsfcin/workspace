@@ -148,6 +148,13 @@ if [ "$(basename "$file")" = "CONTEXT.md" ]; then
 		|| printf "💬 CONTEXT.md DESCRIPTION MISSING: %s\n   Add '> One-line description' as line 2.\n" "$file"
 fi
 
+# ── CONTEXT.md project-goal-link reminder — code/<proj>/CONTEXT.md only ───────
+if [ "$(basename "$file")" = "CONTEXT.md" ] && [ "$(dirname "$dir")" = "/mnt/workspace/code" ]; then
+	line3=$(sed -n '3p' "$file" 2>/dev/null)
+	printf '%s' "$line3" | grep -qE '^>\s*goal:\s*(\[[^]]+\]\([^)]+\)|none)\s*$' \
+		|| printf "💬 CONTEXT.md GOAL LINK MISSING: %s\n   Add '> goal: [slug](../../brain/goals/<slug>.md)' or '> goal: none' as line 3.\n" "$file"
+fi
+
 # ── Sync CONTEXT.md Routing block — leaf dir only ─────────────────────────────
 [ -f "$dir/CONTEXT.md" ] \
     && python3 /mnt/workspace/.hooks/context_synchronizer.py "$dir" 2>/dev/null

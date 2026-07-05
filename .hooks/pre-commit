@@ -86,6 +86,20 @@ if [ -n "$CODE_STAGED" ]; then
   fi
 fi
 
+# ── 1c. CONTEXT.md project-goal-link gate — code/<proj>/CONTEXT.md line 3 ─────
+case "$TOPLEVEL" in
+  /mnt/workspace/code/*)
+    if echo "$STAGED" | grep -qx 'CONTEXT.md'; then
+      GOAL_LINE3=$(sed -n '3p' "CONTEXT.md" 2>/dev/null)
+      if ! printf '%s' "$GOAL_LINE3" | grep -qE '^>\s*goal:\s*(\[[^]]+\]\([^)]+\)|none)\s*$'; then
+        printf "⛔ %s/CONTEXT.md missing '> goal:' link on line 3.\n" "$(basename "$TOPLEVEL")"
+        printf "   Add '> goal: [slug](../../brain/goals/<slug>.md)' or '> goal: none'.\n"
+        exit 1
+      fi
+    fi
+    ;;
+esac
+
 # ── 1b. Duplication gate (jscpd) — blocks clones involving staged files ───────
 DUP_FILES=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|py|dart)$' | grep -vE '\.(d\.ts|pyi|min\.js)$' || true)
 if [ -n "$DUP_FILES" ]; then
