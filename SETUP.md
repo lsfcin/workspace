@@ -334,6 +334,58 @@ cd /mnt/workspace/code/isoroll-module && npm run lint
 
 See [academy/SETUP.md](academy/SETUP.md).
 
+### 11. RTK (token-optimized CLI proxy, all agents)
+
+[rtk-ai/rtk](https://github.com/rtk-ai/rtk) — Rust CLI proxy that filters/compresses dev-command output (git, test runners, docker, etc.) before it reaches an agent's context: 60-90% token savings, complementary to caveman (which compresses the agent's own output, not tool output). Apache 2.0, single static binary, no deps.
+
+**Install the binary** (per machine, not versioned):
+```bash
+curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/master/install.sh | sh
+```
+Installs to `~/.local/bin/rtk`. Verify: `rtk --version`.
+
+**Claude Code** — dual-wired:
+- Project-scoped hook already versioned in `/mnt/workspace/.claude/settings.json` (`"Bash"` matcher runs `rtk hook claude` alongside `bash-context-gate.py`) — works immediately after clone, no action needed.
+- Global patch, for Claude Code sessions outside this workspace:
+  ```bash
+  rtk init --global --auto-patch
+  ```
+  Additive — only inserts a `PreToolUse`/`Bash` block into `~/.claude/settings.json`; does not touch existing `SessionStart`/`UserPromptSubmit`/`statusLine` keys (e.g. caveman hooks). Takes an automatic `.bak` backup. Verify: `rtk init --show`.
+
+**OpenCode** (global plugin — no project-scoped variant exists for rtk):
+```bash
+rtk init --global --opencode
+```
+Writes `~/.config/opencode/plugins/rtk.ts` (`tool.execute.before` hook). Coexists with this workspace's own project-local `.opencode/plugins/workspace-policy.js` — separate files, both auto-load.
+
+**Pi** (global extension) — **requires a manual peer-dependency fix**, rtk's generated extension doesn't work out of the box:
+```bash
+rtk init --agent pi --global
+mkdir -p ~/.pi/agent/extensions   # if rtk didn't already create it
+cd ~/.pi/agent/extensions
+echo '{"name":"pi-extensions-peer-deps","private":true}' > package.json
+npm install @earendil-works/pi-coding-agent
+```
+Why: the generated `~/.pi/agent/extensions/rtk.ts` does `import type { ExtensionAPI } from "@earendil-works/pi-coding-agent"`, but Pi's extension loader resolves it as a real `require()` (type-erasure doesn't happen), and Node resolves `node_modules` relative to the extension file's own directory — not from wherever `pi` itself is installed. Without the local `node_modules`, loading fails with `Cannot find module '@earendil-works/pi-coding-agent'`, even if that package is installed globally. Verify: `pi -e ~/.pi/agent/extensions/rtk.ts --no-session` — no output/exit 0 = loaded; an `Error: Failed to load extension` line means the peer-dep step above is missing.
+
+**Feynman** (research agent, [feynman.is](https://www.feynman.is/) / [companion-inc/feynman](https://github.com/companion-inc/feynman)) — not in rtk's official supported-agent list, but Feynman is built directly on Pi (same `ExtensionAPI`/`tool_call` event model, ships its own `PI_CODING_AGENT_DIR` env override pointing Pi's loader at `~/.feynman/agent` instead of `~/.pi/agent`). Wired by parity, same peer-dep gotcha applies:
+```bash
+mkdir -p ~/.feynman/agent/extensions
+cp ~/.pi/agent/extensions/rtk.ts ~/.feynman/agent/extensions/rtk.ts
+cd ~/.feynman/agent/extensions
+echo '{"name":"feynman-extensions-peer-deps","private":true}' > package.json
+npm install @earendil-works/pi-coding-agent
+```
+**Unverified**: Feynman has no `-e`/dry-run flag to confirm extension load non-interactively (unlike raw `pi`). First real Feynman session should be checked for a `[rtk] rtk binary not found` or `Failed to load extension` warning on startup; absence of either is the confirmation signal.
+
+**GitHub Copilot** — already versioned, dormant until Copilot itself is installed on a machine:
+- `.github/hooks/rtk-rewrite.json` (hook config, `rtk hook copilot`)
+- `<!-- rtk-instructions -->` block appended to `.github/copilot-instructions.md`
+
+No action needed after clone; both are inert config files until Copilot (VS Code extension or CLI) is present. Not independently verified end-to-end on this machine — Copilot isn't installed here.
+
+**Uninstall** (any target): `rtk init --uninstall [--global] [--copilot|--opencode|--agent pi]`.
+
 ---
 
 ## Per-Project: Interface Generation Notes
@@ -428,7 +480,7 @@ All infrastructure lives in workspace git repo:
   start-session.sh        ← neutral session-start: prints AGENTS.md header (Linux/macOS)
   start-session.ps1       ← neutral session-start: prints AGENTS.md header (Windows/PowerShell)
 .claude/
-  settings.json           ← Claude Code hook wiring (calls neutral pre-edit/post-edit/pre-read) + permissions
+  settings.json           ← Claude Code hook wiring (calls neutral pre-edit/post-edit/pre-read) + permissions; Bash matcher also runs `rtk hook claude` (see SETUP.md §11)
 .opencode/
   CONTEXT.md              ← opencode config docs: event → script mapping, stdin-vs-env schema, warning surfacing
   index.js                ← opencode config facade — re-exports wp-helpers.js (consumed by plugins/workspace-policy.js)
@@ -437,8 +489,9 @@ All infrastructure lives in workspace git repo:
     workspace-policy.js   ← opencode workspace policy plugin: tool.execute.before/after → .hooks/* scripts
   package.json            ← "type": "module" + @opencode-ai/plugin dependency (gitignored — opencode Bun-managed)
 .github/
-  copilot-instructions.md ← Copilot shim: one line pointing to AGENTS.md
+  copilot-instructions.md ← Copilot shim: one line pointing to AGENTS.md + rtk usage block (SETUP.md §11)
   hooks/workspace-policy.json ← Copilot hook registration: SessionStart, PreToolUse, PostToolUse
+  hooks/rtk-rewrite.json ← rtk Copilot hook registration: PreToolUse → `rtk hook copilot` (SETUP.md §11)
 .agentrc.json             ← Copilot agent config: start_session path + declarative capability flags
 SETUP.md                  ← this file: replication instructions
 CLAUDE.md                 ← workspace behavioral instructions for Claude
