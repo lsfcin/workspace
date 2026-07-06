@@ -1,1 +1,0 @@
-/mnt/workspace/core/skills/foundry-stage-transform.md

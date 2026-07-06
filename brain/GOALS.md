@@ -80,6 +80,8 @@ yoga                     ░░░░░░░░░░   0 touches
 ---
 
 <!-- goals:start -->
+| prompt-opt-automation | career | now | auto | seed Research prompt routing / optimization state of the art | [file](goals/prompt-opt-automation.md) |
+
 ## active goals
 
 | goal | area | horizon | timing | selected achievement | file |

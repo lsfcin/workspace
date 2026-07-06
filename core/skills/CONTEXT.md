@@ -36,8 +36,14 @@ The `caveman*` / `cavecrew` skills live in `~/.agents/skills/` and are mirrored 
 <!-- routing:start -->
 ## Routing
 
+| Subdirectory | Description |
+|--------------|-------------|
+| [`foundry/`](foundry/CONTEXT.md) | Foundry VTT v14 module dev reference — skill suite. |
+| [`prepare/`](prepare/CONTEXT.md) | Prepare a raw prompt for Claude Code: optimize, contextualize, and recommend mod |
+
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`MIGRATION-STATUS.md`](MIGRATION-STATUS.md) | — | — | Skill Suite Migration Status (AD-07) |
 | [`_template.md`](_template.md) | — | — | One-line summary of what this skill does and when to invoke it. Invoke with /skill-name [optional args]. |
 | [`brain-compass.md`](brain-compass.md) | — | — | Run a compass review of Brain: surface what has good wind, update diagnostics, write ease-starts for stalled goals. |
 | [`brain-finished.md`](brain-finished.md) | — | — | Mark an achievement done, advance to the next selected achievement, write a new ease-start. |
@@ -45,17 +51,10 @@ The `caveman*` / `cavecrew` skills live in `~/.agents/skills/` and are mirrored 
 | [`calendar.md`](calendar.md) | — | — | List upcoming events and query date ranges from Google Calendar across all configured accounts (personal, cin, ufrpe). Invoke with /calendar [intent]. |
 | [`dedup.md`](dedup.md) | — | — | Semantic duplication audit for a code project: finds regenerated near-duplicate logic that the jscpd pre-commit gate (verbatim clones) misses, using codegraph + targeted reading. Invoke with /dedup [project path, defaults to cwd project]. |
 | [`drive.md`](drive.md) | — | — | List, search, and download files from Google Drive across all configured accounts (personal, cin, ufrpe). Invoke with /drive [intent]. |
-| [`foundry-appv2.md`](foundry-appv2.md) | — | — | Foundry VTT v14 — AppV2 sheet customization: tab injection, stale tabGroups bug, partial re-render nav-wipe bug. |
-| [`foundry-canvas.md`](foundry-canvas.md) | — | — | Foundry VTT v14 — PIXI canvas structure: component hierarchy, depth sort, native handle suppression. |
-| [`foundry-coords.md`](foundry-coords.md) | — | — | Foundry VTT v14 — coordinate systems: canvas space, screen space, HUD CSS space, canvas.dimensions, tile/token document coords. |
-| [`foundry-hooks.md`](foundry-hooks.md) | — | — | Foundry VTT v14 — hooks reference table, key patterns, gridSize detection. |
-| [`foundry-hud.md`](foundry-hud.md) | — | — | Foundry VTT v14 — HUD positioning in isometric mode: TokenHUD, TileHUD, Ruler waypoint labels. |
-| [`foundry-object-transform.md`](foundry-object-transform.md) | — | — | Foundry VTT v14 — per-object (token/tile) mesh counter-transform, refresh flag semantics, PIXI mutation guards. |
-| [`foundry-stage-transform.md`](foundry-stage-transform.md) | — | — | Foundry VTT v14 — isometric stage transform, background counter-transform, GridConfig preview counter-transform. |
-| [`foundry-undo.md`](foundry-undo.md) | — | — | Foundry VTT v14 — undo/history system: suppression, manual push, dual-stack ordering. |
-| [`foundry.md`](foundry.md) | — | — | Foundry VTT v14 module dev reference — router. Load relevant subfiles before working. |
+| [`foundry.md`](foundry.md) | — | — | Foundry VTT v14 module dev reference — router. Load relevant subfiles before working. Invoke with /foundry [topic] |
 | [`gmail.md`](gmail.md) | — | — | Triage Gmail across all configured accounts — classify, confirm routes, write to brain/INBOX.md. |
 | [`handoff.md`](handoff.md) | — | — | Emit a copy-pasteable resume prompt for the next session — the narrow last step only. For the full session-close ritual (archive done work + route knowledge + drain INBOX + verify, then hand off), use /roundup, which calls this. Invoke with /handoff [focus]. |
+| [`prepare.md`](prepare.md) | — | — | Prepare a raw prompt for Claude Code: interview, contextualize, plan, and recommend model/effort. The skill first interviews the user to clarify intent, then classifies the task, produces a plan, and outputs the optimized prompt ready for copy-paste. Invoke with /prepare [your raw task] |
 | [`research.md`](research.md) | — | — | Execute a research workflow from the workspace Core research system. |
 | [`roundup.md`](roundup.md) | — | — | Full session-close ritual: archive completed work to HISTORY, route session knowledge to durable files, drain the INBOX, run the verification gate, then emit the resume prompt via /handoff. Use at session end. Invoke with /roundup [focus for next session]. |
 <!-- routing:end -->

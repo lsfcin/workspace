@@ -28,6 +28,7 @@
 | [`paper-megatruth.md`](paper-megatruth.md) | — | — | [ craft | research | near ] paper megatruth |
 | [`paper-scattercode.md`](paper-scattercode.md) | — | — | [ craft | research | near ] paper scattercode |
 | [`paper-sibgrapi-2026.md`](paper-sibgrapi-2026.md) | — | — | [ craft | research | now ] paper sibgrapi 2026 |
+| [`prompt-opt-automation.md`](prompt-opt-automation.md) | — | — | [ career | now ] prompt optimization automation |
 | [`reading.md`](reading.md) | — | — | [ fun | learning | near ] reading |
 | [`rpg-isoroll.md`](rpg-isoroll.md) | — | — | [ fun | rpg | near ] isoroll |
 | [`sleep-regularity.md`](sleep-regularity.md) | — | — | [ health | body | near ] sleep regularity |
