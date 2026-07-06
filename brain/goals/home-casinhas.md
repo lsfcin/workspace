@@ -6,31 +6,33 @@ Construir o projeto das casinhas. Pasta existe em branches/casinhas/. Move from 
 transformative · essential · motivated
 
 ## selected next achievement
-    [project-map] open branches/casinhas/ — map what exists: plans, decisions, open questions
+    [unstall-bureaucracy] pagar DAM 8027360726 (Licença Ambiental parada) + registro da demarcação no 7º Cartório RGI com painho — ver branches/casinhas/burocracia/BUROCRACIA.md
 
 **ease-start**  
-Open branches/casinhas/ and spend 15 minutes reading through what's there. Note what's decided, what's still open, and what the next concrete action is.
+Abrir o WhatsApp do Marcelo, achar o boleto "DAM_8027360726_1" (29/06) e pagar no app do banco. 5 minutos, destrava a Licença Ambiental hoje.
 
 >**timing**  
-*target · project map complete within 1 week  
-anchor · none external  
+*target · DAM pago hoje; cartório resolvido esta semana  
+anchor · Marcelo cobrou em 06/07 — processo parado até pagar  
 closure · casinhas built, functional, fulfilling what they were designed for  
 tolerance · long project — any clarity now helps  
 fallback · even a partial map beats starting from zero again*
 
 ## backlog
 
-> [ ] [project-map] open branches/casinhas/ — map what exists: plans, decisions, open questions  
-> [ ] [stages-map] document all project stages and their sequence  
-> [ ] [land-registry] handle land registration bureaucracy at cartório de registro de imóveis  
-> [ ] [contractor-quotes] meet all contractors to compare quotes — call rubão  
+> [ ] [unstall-bureaucracy] pagar DAM 8027360726 + 7º Cartório RGI (registro demarcação + firmas no Memorial) — BUROCRACIA.md itens 🔴1–2  
+> [ ] [obra-system] executar S2..S7 do plano (branches/casinhas/ROADMAP.md): burocracia completa + nudge, CLI `obra`, EAP+orçamento SINAPI, comparação de cotações, slides destilados, sync de gastos  
+> [ ] [contractor-quotes] 3 cotações capturadas (analítica ~R$1,30mi; Pedra Verde/Rubão R$896k tijolo ecológico; SPS R$385k só-MO) — falta normalizar (S5) e ligar de volta com callsheets  
 > [ ] [indie-team] research independent, cheaper construction team as alternative  
-> [ ] [create-project] create the architectural project design  
-> [ ] [cad-to-ifc] convert architectural CAD project to IFC using Bonsai (Blender extension) — bring output into branches/casinhas/ so all project files live in the workspace, agent-accessible as part of the workflow  
+> [ ] [cad-to-ifc] gerar IFC por script parametrizado (ifcopenshell) a partir das plantas V03 + Bonsai como visualizador (S8–S9)  
+> [ ] [complementares] rascunhar estrutural/hidráulico/elétrico com guias IA no Bonsai; engenheiro valida/assina (S12+)  
 
 ## done
 
 <!-- done:start -->
+- [x] 2026-07-06 [project-map] branches/casinhas/ mapeado e estruturado: CONTEXT.md (cockpit) + PROJETO.md + material todo ingerido (plantas V03, docs burocráticos, conversa Marcelo, 3 cotações)
+- [x] 2026-07-06 [stages-map] BUROCRACIA.md: timeline completa de 15 etapas com status/fonte, extraída da conversa com Marcelo
+- [x] 2026-07-06 [create-project] projeto arquitetônico (Marcelo) aprovado na prefeitura em 15/04/2026; terreno aprovado 09/04/2026
 <!-- done:end -->
 
 ## stats

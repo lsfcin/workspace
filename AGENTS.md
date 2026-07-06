@@ -5,6 +5,7 @@
 - DON'T ASSUME, interview user if in doubt about his idea or intent.
 - If uncertain about APIs, library versions, any factual claim — search web first.
 - Workspace repo commits only structural files (`AGENTS.md`, `CONTEXT.md`, domain docs). Internal projects use their own git repos.
+- PLANS LIVE IN ROADMAPS: any approved work plan (plan mode or otherwise) must be persisted in the target project's `ROADMAP.md` — either inline or as a sub-roadmap file referenced from it. `~/.claude/plans/*` is a scratch copy, never the canonical home.
 
 See [SETUP.md](SETUP.md) for hooks, stubgen, tsc, caveman, and toolchain setup.
 
