@@ -1,5 +1,7 @@
 # [ craft | startapps | year ] arede
 
+Promovido a núcleo 5 do instituto (2026-07-07): [branches/instituto/nucleo-arede.md](../../branches/instituto/nucleo-arede.md) — agentes LLM derrubaram o custo de manutenção do scoring (a causa-mortis clássica); prioridade menor, depende do circuito pra oferta local.
+
 arede — "compra certo." Connect and organize conscious consumption on the left. Orchestrated consumption: monitor companies across dimensions (trash news involvement, money growth and concentration, employee quality of life, animal testing). Suggest alternatives, transparent about trade-offs.
 
 >**signals**  

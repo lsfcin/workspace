@@ -24,6 +24,7 @@
 
 ## week
 
+- [ ] falar com Paulo e Maigan sobre as férias (amarrado ao retiro vipassana 1–12 ago)
 - [ ] [banca] fechar procedimentos da banca de Artur
 - [ ] responder megatruth
 - [ ] [finances] pedir mudança da data de pagamento do aluguel: dia 5 → dia 10

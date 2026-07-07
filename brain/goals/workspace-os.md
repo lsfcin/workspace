@@ -36,6 +36,8 @@ fallback · iterate — MVP can always be extended*
 > [x] [gmail-link] link workspace to Gmail — surface relevant emails as context for goals and tasks  
 > [ ] [whatsapp-link] connect workspace notifications or reminders to WhatsApp  
 > [ ] [telegram-link] connect workspace to Telegram — bot or channel for daily nudges  
+> [ ] [entry-point] entry-point principle: workspace must ease communication/entry — never require Lucas to remember what exists (discoverability via skills, nudges, routing)  
+> [ ] [provider-fallback] mitigar instabilidade do opencode via configs do workspace — skills/hooks/.md provider-agnostic + chaveamento de provider (openrouter → chave nvidia quando créditos acabarem)  
 
 ## done
 

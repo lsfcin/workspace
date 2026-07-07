@@ -7,7 +7,9 @@
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`ARCHETYPE.md`](ARCHETYPE.md) | — | — | ← add first-line comment |
+| [`career-ufrpe.md`](career-ufrpe.md) | — | — | [ career | ufrpe | near ] carreira UFRPE — progressão e renda |
 | [`corporal-expressiveness.md`](corporal-expressiveness.md) | — | — | [ spiritual | body | dream ] corporal expressiveness |
+| [`cria.md`](cria.md) | — | — | [ craft | research | now ] cria — ideação híbrida como mechanism design |
 | [`dance-bachata.md`](dance-bachata.md) | — | — | [ fun | dance | year ] bachata |
 | [`dance-cavalo-marinho.md`](dance-cavalo-marinho.md) | — | — | [ fun | dance | dream ] cavalo marinho |
 | [`dance-forro.md`](dance-forro.md) | — | — | [ fun | dance | year ] forró |
@@ -21,6 +23,7 @@
 | [`instituto.md`](instituto.md) | — | — | [ craft | innovation | dream ] instituto |
 | [`lih-dd.md`](lih-dd.md) | — | — | [ craft | research | year ] LIH.DD — research lab |
 | [`local-ai.md`](local-ai.md) | — | — | [ craft | research | year ] always-on autonomous local AI |
+| [`loop-engineering.md`](loop-engineering.md) | — | — | [ career | ai | now ] loop engineering |
 | [`magic-places.md`](magic-places.md) | — | — | [ fun | travel | dream ] magic places |
 | [`make-in-time.md`](make-in-time.md) | — | — | [ health | mind | now ] make in time |
 | [`pandeiro.md`](pandeiro.md) | — | — | [ fun | music | near ] pandeiro |
@@ -47,6 +50,7 @@
 | [`startapps-realgorithm.md`](startapps-realgorithm.md) | — | — | [ craft | startapps | year ] realgorithm |
 | [`startapps-todolado.md`](startapps-todolado.md) | — | — | [ craft | startapps | year ] todolado |
 | [`startapps-ux-guidelines-ai.md`](startapps-ux-guidelines-ai.md) | — | — | [ craft | startapps | year ] UX guidelines for AI agents |
+| [`startapps-virada.md`](startapps-virada.md) | — | — | [ craft | startapps | year ] virada |
 | [`startapps-voti.md`](startapps-voti.md) | — | — | [ craft | startapps | year ] voti |
 | [`startapps-xacomigo.md`](startapps-xacomigo.md) | — | — | [ craft | startapps | year ] xacomigo |
 | [`surf.md`](surf.md) | — | — | [ fun | sports | year ] surf |

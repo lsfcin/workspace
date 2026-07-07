@@ -29,11 +29,12 @@ Write 3 sentences: what LIH.DD is, why it matters, what it produces. No referenc
 ## backlog
 
 > [ ] [research-statement] write a 3-sentence research statement for LIH.DD  
-> [ ] [first-paper] identify the first paper topic — what contribution fits this moment?  
+> [ ] [first-paper] → definido: cria (ideação híbrida como mechanism design) — ver `brain/goals/cria.md` + `academy/papers/2027-CHI-cria/ROADMAP.md`  
 > [ ] [recruit-ic] recruit 1 undergrad for scientific initiation (PIBIC or similar)  
 > [ ] [postgrad-check] check DC/UFRPE postgrad program: next admission window and requirements  
 > [ ] [lab-page] create a minimal public page for LIH.DD  
 > [ ] [paper-submit] submit first paper  
+> [ ] [mechanism-search] avaliar o motor de ideação do instituto como flagship metodológico do lab — paper em [academy/papers/mechanism-search/](../../academy/papers/mechanism-search/DRAFT.md), pipeline em [branches/instituto/MOTOR.md](../../branches/instituto/MOTOR.md); alvo EAAMO  
 
 ## done
 

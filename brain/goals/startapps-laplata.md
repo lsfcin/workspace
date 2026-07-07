@@ -1,5 +1,7 @@
 # [ craft | startapps | dream ] laplata
 
+Promovido a núcleo 4 e infraestrutura do instituto (2026-07-07): dossiê em [branches/instituto/nucleo-laplata.md](../../branches/instituto/nucleo-laplata.md); pipeline M1 em [code/laplata](../../code/laplata/ROADMAP.md); números-semente em [RALOS.md](../../branches/instituto/RALOS.md).
+
 Map the logic of money. Visualize flows. Heavy data visualization. Understand society's movement: where people spend, how money circulates, where it drains, what's paying more, which demands are suppressed or abundant. Anticipate markets.
 
 >**signals**  

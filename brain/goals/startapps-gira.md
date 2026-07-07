@@ -1,5 +1,7 @@
 # [ craft | startapps | dream ] gira
 
+Promovido a núcleo 2 do instituto (2026-07-07): dossiê com ciladas, matching por IA e test-to-kill em [branches/instituto/nucleo-circuito.md](../../branches/instituto/nucleo-circuito.md); código embrião em [code/gira](../../code/gira/README.md).
+
 Fomentar uma economia paralela. How to have a community and local circuit routine — not depending on concentrated billionaire resources, high rents, etc. Important caveat from the original idea: don't inadvertently strengthen capitalism by economizing on exploitations (e.g., saving on food might just raise rents as disposable income increases). This awareness is design-level, not just political.
 
 >**signals**  

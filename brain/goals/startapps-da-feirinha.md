@@ -1,5 +1,7 @@
 # [ craft | startapps | year ] da feirinha
 
+Primeira vertical do núcleo 2 do instituto (2026-07-07): [branches/instituto/nucleo-circuito.md](../../branches/instituto/nucleo-circuito.md) — o test-to-kill do circuito começa na feira, e [map-producers] continua sendo o próximo passo.
+
 iFoood for agroecology. Massify buying local, quality, pesticide-free food. Fair delivery. Humanized transactions: real names, direct contact between farmer, delivery person, and consumer. R$1/transaction donation to cozinhas solidárias. Educational content: health and local economy. Community creation. Transparent. Human.
 
 >**signals**  

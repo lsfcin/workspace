@@ -42,6 +42,9 @@ fallback · if full institute is too much, a simpler form (collective, project, 
 > [ ] [coffee-3] expand to 3 conversations from the board list  
 > [ ] [first-project] name one concrete project that could be a first embodiment  
 > [ ] [legal-form] research what legal form makes sense (associação, OSCIP, etc.)  
+> [ ] [estrategias-fable] run Fable session (`core/prompts/fable-instituto.md`) — 3 legal/economic strategies for the 16h-week full-salary model ("empregar amigos hackeando o capitalismo")  
+> [ ] [estrategias-review] ler e reagir a [instituto-estrategias.md](../attachments/instituto-estrategias.md) — 3 estratégias + ranking (C: instituto+PD&I via bolsas) + primeiro passo micro-escala ligado ao coffee-1  
+> [ ] [cockpit-review] ler o cockpit do programa em [branches/instituto/](../../branches/instituto/CONTEXT.md) — 5 núcleos (virada, circuito, cívica, laplata, arede) + motor de ideação + funding; roadmap M0 = coffee-1 com pauta  
 
 ## done
 

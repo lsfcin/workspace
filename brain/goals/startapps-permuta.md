@@ -1,5 +1,7 @@
 # [ craft | startapps | year ] permuta
 
+Segunda vertical do núcleo 2 do instituto (2026-07-07): [branches/instituto/nucleo-circuito.md](../../branches/instituto/nucleo-circuito.md) — o medo central (responsabilidade pela qualidade) vira design: transparência + mediação de disputa por IA, não garantia.
+
 Match between wants and offers — anything. Service market. Health and well-being network. Human connection. Sectored showcase: massages, reiki, financial and legal consulting, psychotherapy, dance classes. Points system based on time + quality bonus. Time measured with photo at start and end. AI triaging and recommendations. Fear: being responsible for other people's time.
 
 >**signals**  
