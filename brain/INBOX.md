@@ -8,3 +8,5 @@
 ---
 
 <!-- add entries below, newest first -->
+
+a pasta Models/ (com M maiúscula) ressucitou. eu tenho a suspeita que isso foi uma sessão que usou o ComfyUI. lembrando que queremos ficar somente com a models/ (m minúscula), sem duplicatas

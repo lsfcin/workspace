@@ -1,6 +1,6 @@
 # [ fun | rpg | near ] isoroll
 
-Foundry extension for isometric perspective — hades-like look — with automated content generation using local GPU (ComfyUI + local models). Was advancing well on the content generation side. Then PC caught a virus, formatted, recovered files, but setup was lost. Lost the pace. Goal now: rebuild setup, document it, and get back into the flow.
+Foundry extension for isometric perspective — hades-like look — with automated content generation. UPDATE 2026-07-09: the May framing (rebuild ComfyUI) is obsolete — NB (Gemini image) is the primary generator, ComfyUI is utility-rail only (rembg/upscale/SAM2/LaMa, symlinks fixed by env-utility-repair loop). Module is mature (slicing, depth sort, walls, fog). The program now: SCENE CREATION — kit assembly + in-Foundry painter + 8+1 views. Canonical spec: `code/isoroll-content/SCENE-CREATION.md` (P0–P9 program, approved plan 2026-07-09).
 
 >**signals**  
 transformative · expected · thrilled
@@ -18,24 +18,26 @@ how · avoiding the rebuild because it feels like repetition, not progress*
 Stalled by a concrete obstacle — not motivation, not clarity, just a missing environment. The rebuild is the gate. Documenting the setup this time is the real lesson: this shouldn't be able to happen twice. Get ComfyUI running, document the workflow, then return to where the code was.
 
 ## selected next achievement
-    [setup-rebuild] recover ComfyUI + local model setup — document it this time so another format doesn't kill it
+    [scene-seam] close the generate→play seam (program P2): manifest export from content + import into module — gray l-room loaded and playable in live Foundry
 
 **ease-start**  
-Open the recovered files. Don't try to run anything. Just read — what workflows existed, what models were in use, what was the last working state. Make a list. 30 minutes max.
+Nothing to set up — the seam pilot runs via `/loops export-manifest` in `code/isoroll-content` (Fable session 2026-07-09 orchestrates). Your part is the checkpoint after: open Foundry, eyeball the l-room, walls should block vision.
 
 ## backlog
 
-> [ ] [setup-rebuild] recover ComfyUI + local model setup — document it this time  
-> [ ] [face-detailer] integrate FaceDetailer via YOLO — install Impact Subpack, verify UltralyticsDetectorProvider, test character_quality_yolo.json  
-> [ ] [hand-detailer] separate hand detailer pass after face works — needs bbox model  
-> [ ] [alpha-pipeline] solve background transparency — SAM segmentation or chroma key, never resolved  
-> [ ] [8dir-sprites] generate 8-direction views per character  
+> [ ] [scene-seam] = program P2 (export-manifest + module-walls-import + e2e Foundry)  
+> [ ] [scene-painter] in-Foundry grid painter MVP = program P7 (needs P4 assembler + P6 floor/fog spike)  
+> [ ] [kit-paint] NB paints the dimetric kit = program P5 (Lucas runs NB batches; ☐ checkpoint)  
+> [ ] [multiview-8+1] view switching, dimetric remap + cardinal batch = program P8 (DECIDED 8+1, 2026-07-09)  
+> [ ] [alpha-pipeline] background transparency — largely resolved for tiles (per-cell rembg, S0-E6-fix5); still open for characters  
+> [ ] [8dir-sprites] 8-direction views per character — after tiles ship (NB cardinal weakness returns for tokens)  
 > [ ] [anim-pipeline] animate characters: idle, attack, defend, hurt, cast, crouch  
-> [ ] [tile-generation] generate tiles with 8 viewpoints from prompt  
-> [ ] [sprite-atlas] sprite atlas packing for Foundry export  
-> [ ] [foundry-review] review Foundry extension code — understand current state  
-> [ ] [iso-prototype] get isometric perspective rendering working in Foundry again  
-> [ ] [content-gen-reconnect] reconnect content generation pipeline to Foundry extension  
+> [ ] [sprite-atlas] atlas packing for Foundry export  
+> ~~[setup-rebuild]~~ superseded 2026-07: ComfyUI = utility rail only, symlinks fixed (env-utility-repair); NB is primary  
+> ~~[face-detailer] [hand-detailer]~~ superseded: local SD generation dead (kill-log) — revisit only if a character lane needs local refinement  
+> ~~[tile-generation]~~ absorbed into S0/SCENE-CREATION (kit batches)  
+> ~~[foundry-review] [iso-prototype]~~ done long since: isoroll-module is mature (slicing, depth sort, walls, fog, gizmos)  
+> ~~[content-gen-reconnect]~~ = [scene-seam] above  
 
 ## done
 

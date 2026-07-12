@@ -13,9 +13,16 @@ Escolher a menor feature pendente do isoroll-content e rodar `/loops <feature>`.
 
 ## backlog
 
-> [ ] [pilot] pilotar o flow numa feature real pequena (isoroll-content) via /loops, com Sonnet executando  
+> [ ] [pilot] pilotar o flow numa feature real pequena (isoroll-content) via /loops, com Sonnet executando → EM EXECUÇÃO 2026-07-09: seam pilot P2 do programa scene-creation (`export-manifest` → `module-walls-import`), Fable orquestra; spec `code/isoroll-content/SCENE-CREATION.md`  
 > [ ] [iterate] ajustar flags de retorno e tabela de roteamento após 3 usos reais  
 > [ ] [opencode-reliability] investigar se drift (idioma, contexto, reasoning louco mesmo em Kimi 2.6) é do opencode ou do modelo — testar mesmo modelo via claude code/openrouter; decidir: ajustar opencode OU trocar de ferramenta pros loops não-Claude  
+> [ ] [verify-step] etapa de verificação (verify) explícita no flow — usar /verify no loop 5 (user-test)  
+> [ ] [skills-scan] etapa no flow: revisar melhores skills disponíveis online antes de executar  
+> [ ] [research-loops] variante de pesquisa do flow de loops (falta) — integrar core/flows/deepresearch|lit|autoresearch ao padrão .loop/  
+> [ ] [visual-semantics] skills que traduzem semântica espacial/visual ↔ texto (geom-text, iso-text, image-text, 3D-text, UI-text) — agentes fracos em visual/geometria; UI-text cruza [[startapps-ux-guidelines-ai]] → PRIMEIRO ARTEFATO 2026-07-09: `core/skills/iso-visual.md` (convenções isoroll + failure modes + regra "geometria via manifests/QC, nunca pixels")  
+> [ ] [pipeline-step-review] adicionar etapa de pipeline dedicada (visual/usabilidade) + revisá-la  
+> [ ] [arch-algo-vs-lib] etapa de arquitetura: decidir algoritmo ANTES de escolher biblioteca  
+> [ ] [simplicity-gap] investigar por que agente (mesmo Fable) produz soluções mais complexas/tortuosas que o design humano — ex. tinyglade-like no isoroll (etapas humanas eram simples/didáticas); motiva etapas arquitetura+review  
 
 ## seed (INBOX 2026-07 — insumo da sessão Fable)
 

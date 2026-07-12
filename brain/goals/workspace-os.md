@@ -37,6 +37,9 @@ fallback · iterate — MVP can always be extended*
 > [ ] [whatsapp-link] connect workspace notifications or reminders to WhatsApp  
 > [ ] [telegram-link] connect workspace to Telegram — bot or channel for daily nudges  
 > [ ] [entry-point] entry-point principle: workspace must ease communication/entry — never require Lucas to remember what exists (discoverability via skills, nudges, routing)  
+> [ ] [roadmap-entrypoint] cada projeto = 1 único entrypoint de roadmap; auditar padrões (workspace cresceu)  
+> [ ] [enforce-standards] enforcement não-ignorável: nomes/pastas/repos/gitflow, wiring de hooks + wiring paper↔code, uso de skills, fluxo inbox→todo→goals, anti-scattering  
+> [ ] [goals-sync] GOALS.md não é atualizado por /brain-inbox nem pelos commits — dashboard/stats fica stale; automatizar refresh (hook ou passo na skill)  
 > [ ] [provider-fallback] mitigar instabilidade do opencode via configs do workspace — skills/hooks/.md provider-agnostic + chaveamento de provider (openrouter → chave nvidia quando créditos acabarem)  
 
 ## done

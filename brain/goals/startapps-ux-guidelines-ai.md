@@ -18,6 +18,7 @@ Write 3 UX principles for AI-generated interfaces — the things an agent needs 
 > [ ] [markup-guide-v1] write a first markup guide — CSS conventions an agent should follow  
 > [ ] [test-workflow] define the automated test workflow — what runs on each change?  
 > [ ] [validate] use on a real project — does it reduce manual QA?  
+> [ ] [usability-skills] skills que fazem o agente antecipar padrões de interação + requisitos de usabilidade  
 
 ## done
 

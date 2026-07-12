@@ -35,6 +35,7 @@ Write 3 sentences: what LIH.DD is, why it matters, what it produces. No referenc
 > [ ] [lab-page] create a minimal public page for LIH.DD  
 > [ ] [paper-submit] submit first paper  
 > [ ] [mechanism-search] avaliar o motor de ideação do instituto como flagship metodológico do lab — paper em [academy/papers/mechanism-search/](../../academy/papers/mechanism-search/DRAFT.md), pipeline em [branches/instituto/MOTOR.md](../../branches/instituto/MOTOR.md); alvo EAAMO  
+> [ ] [foresight] incorporar foresight (Institute for the Future, Jane McGonigal) + design especulativo na agenda do lab (feed cria)  
 
 ## done
 
