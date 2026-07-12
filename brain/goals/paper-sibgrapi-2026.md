@@ -6,7 +6,8 @@ Paper going to SIBGRAPI 2026 (deadline May 30). Originally aimed at JBCS. Co-aut
 meaningful · essential · indifferent
 
 >**dynamics**  
-avoidant mode · stalled motion · external source
+resolved mode · submitted motion · external source  
+✅ 2026-07-11 compass: Lucas confirms SIBGRAPI submission happened successfully. The block around "I can't publish interesting work" got broken in practice — the identity fear predicted in the analysis below did not stop the submission. Goal is done; move to ARCHIVE on next /brain-finished pass. Note for future goals: the avoidant pattern was real but overcome, evidence against the self-story.
 
 >**fears**  
 *what · submitting confirms whether "I can publish interesting work" — making it real makes it judgeable  
@@ -32,28 +33,29 @@ Message Artur now and ask for the corrected dataset link. That's the only blocke
 
 ## backlog
 
-> [ ] [sib-01] download updated dataset from Artur  
-> [ ] [sib-02] rerun PSNR and SSIM metrics  
-> [ ] [sib-03] update paper text with new results  
-> [ ] [sib-04] update figures in paper  
-> [ ] [sib-05] full manual review  
-> [ ] [sib-06] give ok to Artur to submit  
+> [x] [sib-01] download updated dataset from Artur  
+> [x] [sib-02] rerun PSNR and SSIM metrics  
+> [x] [sib-03] update paper text with new results  
+> [x] [sib-04] update figures in paper  
+> [x] [sib-05] full manual review  
+> [x] [sib-06] give ok to Artur to submit  
 
 ## done
 
 <!-- done:start -->
+> [x] 2026-07-11 [sib-submitted] SIBGRAPI 2026 submission completed successfully (confirmed by Lucas). Full chain sib-01→sib-06 done; identity block broken in practice.
 <!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-05-26  ·  trend: advancing
+last-touch: 2026-06-18  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       4 |
-| trimester   |       4 |
-| semester    |       4 |
-| year        |       4 |
-| 2-year      |       4 |
-| 4-year      |       4 |
+| month       |       1 |
+| trimester   |       1 |
+| semester    |       1 |
+| year        |       1 |
+| 2-year      |       1 |
+| 4-year      |       1 |
 <!-- stats:end -->

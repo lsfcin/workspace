@@ -5,11 +5,15 @@ Construir o projeto das casinhas. Pasta existe em branches/casinhas/. Move from 
 >**signals**  
 transformative · essential · motivated
 
+>**dynamics**  
+engaged mode · advancing motion · external source  
+2026-07-11 compass: DAM 8027360726 PAGO ✅ (Licença Ambiental destravada). Novo gargalo = averbação do terreno no 7º Cartório RGI — anotar a construção/demarcação na matrícula. É ação de cartório com painho, não é boleto: precisa reunir docs (memorial/planta aprovada, ART, comprovantes) e ir ao cartório. Ainda é o goal de maior alavancagem por destravar tudo a jusante.
+
 ## selected next achievement
-    [unstall-bureaucracy] pagar DAM 8027360726 (Licença Ambiental parada) + registro da demarcação no 7º Cartório RGI com painho — ver branches/casinhas/burocracia/BUROCRACIA.md
+    [averbacao-terreno] fazer averbação do terreno na matrícula (7º Cartório RGI) com painho — ver branches/casinhas/burocracia/BUROCRACIA.md
 
 **ease-start**  
-Abrir o WhatsApp do Marcelo, achar o boleto "DAM_8027360726_1" (29/06) e pagar no app do banco. 5 minutos, destrava a Licença Ambiental hoje.
+Ligar pro 7º Cartório RGI (ou WhatsApp) e perguntar UMA coisa: "quais documentos preciso pra averbar a construção na matrícula?". Não levar nada ainda — só pegar a lista. 5 minutos, define o próximo passo concreto.
 
 >**timing**  
 *target · DAM pago hoje; cartório resolvido esta semana  
@@ -20,7 +24,8 @@ fallback · even a partial map beats starting from zero again*
 
 ## backlog
 
-> [ ] [unstall-bureaucracy] pagar DAM 8027360726 + 7º Cartório RGI (registro demarcação + firmas no Memorial) — BUROCRACIA.md itens 🔴1–2  
+> [x] [pagar-dam] DAM 8027360726 pago — Licença Ambiental destravada  
+> [ ] [averbacao-terreno] averbação da construção na matrícula (7º Cartório RGI) + firmas no Memorial, com painho — BUROCRACIA.md item 🔴  
 > [ ] [obra-system] executar S2..S7 do plano (branches/casinhas/ROADMAP.md): burocracia completa + nudge, CLI `obra`, EAP+orçamento SINAPI, comparação de cotações, slides destilados, sync de gastos  
 > [ ] [contractor-quotes] 3 cotações capturadas (analítica ~R$1,30mi; Pedra Verde/Rubão R$896k tijolo ecológico; SPS R$385k só-MO) — falta normalizar (S5) e ligar de volta com callsheets  
 > [ ] [indie-team] research independent, cheaper construction team as alternative  
@@ -37,14 +42,14 @@ fallback · even a partial map beats starting from zero again*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-05-26  ·  trend: advancing
+last-touch: 2026-07-06  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       3 |
-| trimester   |       3 |
-| semester    |       3 |
-| year        |       3 |
-| 2-year      |       3 |
-| 4-year      |       3 |
+| month       |       2 |
+| trimester   |       2 |
+| semester    |       2 |
+| year        |       2 |
+| 2-year      |       2 |
+| 4-year      |       2 |
 <!-- stats:end -->

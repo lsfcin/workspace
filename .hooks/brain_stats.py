@@ -8,7 +8,7 @@ from pathlib import Path
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 
-BRAIN      = Path("Brain")
+BRAIN      = Path("brain")
 GOALS_FILE = BRAIN / "GOALS.md"
 DONE_LOG   = BRAIN / ".log" / "done.md"
 GOALS_DIR  = BRAIN / "goals"
@@ -178,7 +178,8 @@ def parse_goal_file(path):
     result  = {}
 
     for line in lines:
-        m = re.match(r'^# \[ *(\w+) *\| *(\w+) *\] *(.+)', line)
+        # Header may be 2-field [ area | horizon ] or 3-field [ area | subarea | horizon ]
+        m = re.match(r'^# \[ *(\w+)(?: *\| *\w+)* *\| *(\w+) *\] *(.+)', line)
         if m:
             result['area']    = m.group(1).lower()
             result['horizon'] = m.group(2).lower()

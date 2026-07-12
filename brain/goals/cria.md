@@ -5,6 +5,10 @@ Workflow (e futura ferramenta) de geração de ideias colaborativa humano-IA: mo
 >**signals**  
 transformative · essential · thrilled
 
+>**dynamics**  
+immersed mode · advancing motion · intrinsic source  
+2026-07-11 compass: best wind in Brain. Fable foundation session (07/07) shipped SOTA research, paper v1 compiling, dossiês v0, experiment design, 2 Overleaf repos. Feeds three goals at once (lih-dd first-paper, instituto motor, AI4Good 2026.2). Gargalo is CEP: 2026.2 starts ~August and CEP approval takes weeks, so submitting the protocol is the calendar-critical move — effectively a <3-week clock even without a hard date.
+
 ## selected next achievement
     [cep] submeter protocolo ao CEP — é o gargalo de calendário do experimento 2026.2
 
@@ -30,4 +34,14 @@ Abrir a Plataforma Brasil e só olhar o formulário de novo protocolo — 10 min
 
 ## stats
 <!-- stats:start -->
+last-touch: 2026-07-07  ·  trend: advancing
+
+| period      | touches |
+|-------------|----------|
+| month       |       1 |
+| trimester   |       1 |
+| semester    |       1 |
+| year        |       1 |
+| 2-year      |       1 |
+| 4-year      |       1 |
 <!-- stats:end -->

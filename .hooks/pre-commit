@@ -8,8 +8,8 @@ STAGED=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null)
 
 # ── 0. Brain stats (update goal stats, stage changes into this commit) ─────────
 # Only runs when Brain/goals/ files are staged — avoids polluting unrelated commits
-if [ -f "Brain/GOALS.md" ]; then
-  echo "$STAGED" | grep -q '^Brain/goals/' && python3 .hooks/brain_stats.py
+if [ -f "brain/GOALS.md" ]; then
+  echo "$STAGED" | grep -q '^brain/goals/' && python3 .hooks/brain_stats.py
 fi
 
 BLOCKED=0

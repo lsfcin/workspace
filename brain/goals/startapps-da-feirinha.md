@@ -29,14 +29,14 @@ Start with people you know or markets you already go to. Feira da Várzea? Feira
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-05-26  ·  trend: advancing
+last-touch: 2026-07-07  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       5 |
-| trimester   |       5 |
-| semester    |       5 |
-| year        |       5 |
-| 2-year      |       5 |
-| 4-year      |       5 |
+| month       |       2 |
+| trimester   |       2 |
+| semester    |       2 |
+| year        |       2 |
+| 2-year      |       2 |
+| 4-year      |       2 |
 <!-- stats:end -->

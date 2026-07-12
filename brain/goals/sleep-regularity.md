@@ -46,14 +46,14 @@ fallback · if consistency fails, investigate whether day autonomy is the real g
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-05-26  ·  trend: advancing
+last-touch: 2026-06-18  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      12 |
-| trimester   |      12 |
-| semester    |      12 |
-| year        |      12 |
-| 2-year      |      12 |
-| 4-year      |      12 |
+| month       |       1 |
+| trimester   |       1 |
+| semester    |       1 |
+| year        |       1 |
+| 2-year      |       1 |
+| 4-year      |       1 |
 <!-- stats:end -->

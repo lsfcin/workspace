@@ -34,12 +34,16 @@ fallback · iterate — MVP can always be extended*
 > [ ] [todo-accountability] design accountability layer for TODO.md — calendar reminders, daily review, or notification hook so tasks don't silently expire  
 > [ ] [gcal-link] link workspace to Google Calendar — deadlines and events visible in context  
 > [x] [gmail-link] link workspace to Gmail — surface relevant emails as context for goals and tasks  
-> [ ] [whatsapp-link] connect workspace notifications or reminders to WhatsApp  
-> [ ] [telegram-link] connect workspace to Telegram — bot or channel for daily nudges  
+> [ ] [whatsapp-inbox-bot] WhatsApp bot as continuous-capture front door: forward a msg/photo/audio/PDF → bot appends (or lightly pre-triages) it into brain/INBOX.md, so life-updates flow in without a dedicated session. Path: WhatsApp Cloud API (Meta) or self-host (Baileys/whatsapp-web.js) → webhook → writes to INBOX. Voice notes = biggest win (transcribe). Supersedes/absorbs [whatsapp-link].  
+> [ ] [telegram-link] connect workspace to Telegram — bot or channel for daily nudges (easier bot API than WhatsApp; fallback if WhatsApp Cloud API friction too high)  
+> [ ] [skill-collapse] collapse brain skills to just /inbox + /compass — fold brain-finished into /compass (mark-done + advance is a compass move). Two verbs, fits entry-point principle.  
+> [ ] [inbox-refresh-goals] /inbox runs the goals-sync refresh (brain_stats.py) as its last step, not only on commit — dashboard never goes stale between commits.  
+> [ ] [compass-on-inbox] /inbox offers to run /compass, but only when it detects a trigger (an anchor crossed <3 weeks, or a goal flipped to stalled) — cheap capture stays cheap; compass fires on signal, never auto every call.  
+> [ ] [goal-routing-populate] populate the new per-goal `>**routing**` tier·effort field (spec in brain/SPECS.md, vocab shared with core/skills/prepare.md) and wire the router/prepare to read it.  
 > [ ] [entry-point] entry-point principle: workspace must ease communication/entry — never require Lucas to remember what exists (discoverability via skills, nudges, routing)  
 > [ ] [roadmap-entrypoint] cada projeto = 1 único entrypoint de roadmap; auditar padrões (workspace cresceu)  
 > [ ] [enforce-standards] enforcement não-ignorável: nomes/pastas/repos/gitflow, wiring de hooks + wiring paper↔code, uso de skills, fluxo inbox→todo→goals, anti-scattering  
-> [ ] [goals-sync] GOALS.md não é atualizado por /brain-inbox nem pelos commits — dashboard/stats fica stale; automatizar refresh (hook ou passo na skill)  
+> [x] [goals-sync] FIXED 2026-07-11 — .hooks/brain_stats.py existia mas quebrado: `Path("Brain")` + hook grep `^Brain/goals/` vs dir real `brain/` (case mismatch Linux) → nunca rodava; + parser de título só aceitava header 2-campos, ignorando os 3-campos canônicos → tabela active-goals mostrava 1 de 50. Ambos corrigidos, dashboard atualiza. Falta: wiring no /inbox (ver [inbox-refresh-goals]).  
 > [ ] [provider-fallback] mitigar instabilidade do opencode via configs do workspace — skills/hooks/.md provider-agnostic + chaveamento de provider (openrouter → chave nvidia quando créditos acabarem)  
 
 ## done
@@ -50,14 +54,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-05-26  ·  trend: advancing
+last-touch: 2026-07-11  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       5 |
-| trimester   |       5 |
-| semester    |       5 |
-| year        |       5 |
-| 2-year      |       5 |
-| 4-year      |       5 |
+| month       |       3 |
+| trimester   |       3 |
+| semester    |       3 |
+| year        |       3 |
+| 2-year      |       3 |
+| 4-year      |       3 |
 <!-- stats:end -->

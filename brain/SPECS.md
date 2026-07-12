@@ -97,3 +97,23 @@ steps to proceed afterwards
 ```
 
 Ease-start always filled, never blank.
+
+### Ease-start quality bar (agent-written)
+
+An ease-start is a **do-it-now launcher**, not a vague nudge. Lucas's rule: *don't tell him to "go look" — hand him the thing already loaded.* Every ease-start must carry, when they exist:
+
+- **the exact link/handle** — the real URL, phone number, WhatsApp contact, file path, app name (not "open the portal" but "open `plataformabrasil.saude.gov.br` → Novo Projeto").
+- **numbered steps** — the concrete click-path from cold start to first real action.
+- **the content pre-staged** — if there's a form/message/doc to produce, drop the draft text or point to where the draft already lives (`academy/.../outputs/...`), so it's copy-paste not create-from-zero.
+- **a 5–10 min ceiling** — the first action must fit one sitting; if it can't, the ease-start is too big.
+
+When the compass/inbox skill lacks a real link or path, it must **go fetch or ask for it** before writing the ease-start — never ship a placeholder. A generic ease-start is a bug.
+
+## Model Routing (agent-filled)
+
+Optional per-goal hints so a session on this goal starts at the right power/cost. Vocabulary is shared with `core/skills/prepare.md` — provider-agnostic (function in the name, model as data):
+
+- **tier**: `low` / `medium` / `high` / `max` — capability class (e.g. haiku / sonnet / opus / fable). Maps to Lucas's "decide → write → execute" split: `max`/`high` decides & writes, `medium`/`low` executes.
+- **effort**: `low` / `medium` / `high` / `max` — reasoning depth / thoroughness for the run.
+
+Placed as a `>**routing**` block near `>**signals**`. Example: `>**routing**  \nhigh · high` for a research goal like cria; `low · low` for a startapp stub. The router (or `/prepare`) reads it to pick the actual model. Never write a model/provider name in the field itself.

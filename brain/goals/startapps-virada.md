@@ -32,7 +32,7 @@ Manda mensagem pra um conhecido do direito: "posso sortear um prêmio entre pess
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-07  ·  trend: seed
+last-touch: 2026-07-07  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|

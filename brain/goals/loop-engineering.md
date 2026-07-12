@@ -44,4 +44,14 @@ Escolher a menor feature pendente do isoroll-content e rodar `/loops <feature>`.
 
 ## stats
 <!-- stats:start -->
+last-touch: 2026-07-11  ·  trend: advancing
+
+| period      | touches |
+|-------------|----------|
+| month       |       2 |
+| trimester   |       2 |
+| semester    |       2 |
+| year        |       2 |
+| 2-year      |       2 |
+| 4-year      |       2 |
 <!-- stats:end -->
