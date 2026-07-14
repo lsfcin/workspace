@@ -1,6 +1,6 @@
 # [ fun | rpg | near ] isoroll
 
-Foundry extension for isometric perspective — hades-like look — with automated content generation. UPDATE 2026-07-09: the May framing (rebuild ComfyUI) is obsolete — NB (Gemini image) is the primary generator, ComfyUI is utility-rail only (rembg/upscale/SAM2/LaMa, symlinks fixed by env-utility-repair loop). Module is mature (slicing, depth sort, walls, fog). The program now: SCENE CREATION — kit assembly + in-Foundry painter + 8+1 views. Canonical spec: `code/isoroll-content/SCENE-CREATION.md` (P0–P9 program, approved plan 2026-07-09).
+Foundry extension for isometric perspective — hades-like look — with automated content generation. UPDATE 2026-07-13: **painter grammar FROZEN** @ feel-rig v16.2 (19 design rounds; per-voxel scene, sloped groups roofs+stairs, opening voxels) — P6.5 ✅. P5 strategy pivoted to render→restyle lane (flat-shaded render → NB whole-sheet restyle; test-to-kill pre-registered). Now executing post-freeze plan: DSL v2 parsers (Python+TS twins) → P7 painter MVP ×2 loops → P5 arms test (Lucas web-app NB) → P8/P9. Canonical spec: `code/isoroll-content/SCENE-CREATION.md`; grammar log: `design/PAINTER-UX.md`.
 
 >**signals**  
 transformative · expected · thrilled
@@ -50,10 +50,10 @@ last-touch: 2026-07-11  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       2 |
-| trimester   |       2 |
-| semester    |       2 |
-| year        |       2 |
-| 2-year      |       2 |
-| 4-year      |       2 |
+| month       |       3 |
+| trimester   |       3 |
+| semester    |       3 |
+| year        |       3 |
+| 2-year      |       3 |
+| 4-year      |       3 |
 <!-- stats:end -->

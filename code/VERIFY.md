@@ -229,3 +229,8 @@ W3 makes it portable.
   between oracle and eyes.
 - code/SETUP.md + code/SPECS.md: fold verification contract mention (only _templates and
   root SETUP.md updated so far).
+- 200-LOC file-size hook: scope the .frag/.txt exemption by PATH, not extension — exempt
+  design/** prototype/artifact dirs, gate everything under src/ regardless of extension.
+  Rationale (2026-07-14 isoroll session, Lucas-raised): rig.frag exemption is correct
+  (single-file Artifact constraint, frozen design reference, no product future) but a
+  blanket extension exemption is a loophole for dodging the gate in product code.

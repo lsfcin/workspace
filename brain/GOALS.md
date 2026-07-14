@@ -3,71 +3,72 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-11 21:55
+last-updated: 2026-07-14 17:10
 
 >**areas** — last 14 days  
 ```
-health       ████░░░░░░   2 touches
-career       ██████████   5 touches
-finances     ██░░░░░░░░   1 touches
-fun          ██░░░░░░░░   1 touches
-spiritual    ░░░░░░░░░░   0 touches
+health       █████░░░░░   7 touches
+career       █████░░░░░   7 touches
+finances     ██░░░░░░░░   3 touches
+fun          ██████████   13 touches
+spiritual    ███░░░░░░░   4 touches
 ```
 
 >**goals** — last 14 days  
 ```
-career-ufrpe             █████░░░░░   1 touches
-corporal-expressiveness  ░░░░░░░░░░   0 touches
-cria                     █████░░░░░   1 touches
-dance-bachata            ░░░░░░░░░░   0 touches
-dance-cavalo-marinho     ░░░░░░░░░░   0 touches
-dance-forro              ░░░░░░░░░░   0 touches
-dance-frevo              ░░░░░░░░░░   0 touches
-dance-salsa              ░░░░░░░░░░   0 touches
-dance-samba              ░░░░░░░░░░   0 touches
-exercise                 ░░░░░░░░░░   0 touches
-finances                 ░░░░░░░░░░   0 touches
-guitar                   ░░░░░░░░░░   0 touches
-home-casinhas            █████░░░░░   1 touches
-instituto                █████░░░░░   1 touches
-lih-dd                   ██████████   2 touches
-local-ai                 ░░░░░░░░░░   0 touches
-loop-engineering         ██████████   2 touches
-magic-places             ░░░░░░░░░░   0 touches
-make-in-time             ░░░░░░░░░░   0 touches
-pandeiro                 ░░░░░░░░░░   0 touches
-paper-jarbinhas          ░░░░░░░░░░   0 touches
-paper-megatruth          ░░░░░░░░░░   0 touches
-paper-scattercode        ░░░░░░░░░░   0 touches
-paper-sibgrapi-2026      ░░░░░░░░░░   0 touches
-prompt-opt-automation    ██████████   2 touches
-reading                  ░░░░░░░░░░   0 touches
-rpg-isoroll              █████░░░░░   1 touches
-sleep-regularity         ░░░░░░░░░░   0 touches
-smartphone-addiction     ░░░░░░░░░░   0 touches
-startapps-apptime        ░░░░░░░░░░   0 touches
-startapps-arede          █████░░░░░   1 touches
-startapps-batituque      ░░░░░░░░░░   0 touches
-startapps-come-bem       ░░░░░░░░░░   0 touches
-startapps-cuida          ░░░░░░░░░░   0 touches
-startapps-da-feirinha    █████░░░░░   1 touches
-startapps-gira           █████░░░░░   1 touches
-startapps-laplata        █████░░░░░   1 touches
-startapps-marcapramim    ░░░░░░░░░░   0 touches
-startapps-permuta        █████░░░░░   1 touches
-startapps-polilinhas     ░░░░░░░░░░   0 touches
-startapps-realgorithm    ░░░░░░░░░░   0 touches
-startapps-todolado       ░░░░░░░░░░   0 touches
-startapps-ux-guidelines-ai █████░░░░░   1 touches
-startapps-virada         █████░░░░░   1 touches
-startapps-voti           ░░░░░░░░░░   0 touches
-startapps-xacomigo       ░░░░░░░░░░   0 touches
-surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ░░░░░░░░░░   0 touches
-vipassana                ░░░░░░░░░░   0 touches
-voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   2 touches
-yoga                     ░░░░░░░░░░   0 touches
+career-ufrpe             ██████░░░░   2 touches
+corporal-expressiveness  ███░░░░░░░   1 touches
+cria                     ██████░░░░   2 touches
+dance-bachata            ███░░░░░░░   1 touches
+dance-cavalo-marinho     ███░░░░░░░   1 touches
+dance-forro              ███░░░░░░░   1 touches
+dance-frevo              ███░░░░░░░   1 touches
+dance-salsa              ███░░░░░░░   1 touches
+dance-samba              ███░░░░░░░   1 touches
+exercise                 ███░░░░░░░   1 touches
+finances                 ███░░░░░░░   1 touches
+guitar                   ███░░░░░░░   1 touches
+home-casinhas            ██████░░░░   2 touches
+instituto                ██████░░░░   2 touches
+lih-dd                   ██████████   3 touches
+local-ai                 ███░░░░░░░   1 touches
+loop-engineering         ██████████   3 touches
+magic-places             ███░░░░░░░   1 touches
+make-in-time             ███░░░░░░░   1 touches
+pandeiro                 ███░░░░░░░   1 touches
+paper-jarbinhas          ███░░░░░░░   1 touches
+paper-megatruth          ███░░░░░░░   1 touches
+paper-scattercode        ███░░░░░░░   1 touches
+paper-sibgrapi-2026      ███░░░░░░░   1 touches
+prompt-opt-automation    ██████░░░░   2 touches
+reading                  ███░░░░░░░   1 touches
+rpg-isoroll              ██████░░░░   2 touches
+sleep-regularity         ███░░░░░░░   1 touches
+smartphone-addiction     ███░░░░░░░   1 touches
+spacemantics             ░░░░░░░░░░   0 touches
+startapps-apptime        ███░░░░░░░   1 touches
+startapps-arede          ██████░░░░   2 touches
+startapps-batituque      ███░░░░░░░   1 touches
+startapps-come-bem       ███░░░░░░░   1 touches
+startapps-cuida          ███░░░░░░░   1 touches
+startapps-da-feirinha    ██████░░░░   2 touches
+startapps-gira           ██████░░░░   2 touches
+startapps-laplata        ██████░░░░   2 touches
+startapps-marcapramim    ███░░░░░░░   1 touches
+startapps-permuta        ██████░░░░   2 touches
+startapps-polilinhas     ███░░░░░░░   1 touches
+startapps-realgorithm    ███░░░░░░░   1 touches
+startapps-todolado       ███░░░░░░░   1 touches
+startapps-ux-guidelines-ai ██████░░░░   2 touches
+startapps-virada         ██████░░░░   2 touches
+startapps-voti           ███░░░░░░░   1 touches
+startapps-xacomigo       ███░░░░░░░   1 touches
+surf                     ███░░░░░░░   1 touches
+teaching-materials       ███░░░░░░░   1 touches
+vipassana                ███░░░░░░░   1 touches
+voice                    ███░░░░░░░   1 touches
+workspace-os             ██████████   3 touches
+yoga                     ███░░░░░░░   1 touches
 ```
 <!-- data:end -->
 
@@ -119,6 +120,7 @@ yoga                     ░░░░░░░░░░   0 touches
 | isoroll | fun | near | — | [scene-seam] close the generate→play seam (program P2):… | [→](goals/rpg-isoroll.md) |
 | sleep regularity | health | near | none external | [streak-3] 3 consecutive days on target — in bed by 00:… | [→](goals/sleep-regularity.md) |
 | smartphone addiction | health | near | none external | [map-usage] track phone pickups for 3 days without chan… | [→](goals/smartphone-addiction.md) |
+| spacemantics — capacidade espacial/visual verificável para agentes | craft | now | — | [m1-slice] fatia vertical 2.5D end-to-end (texpace DSL … | [→](goals/spacemantics.md) |
 | apptime | craft | near | none external | [pre-launch-list] open the current design and list the … | [→](goals/startapps-apptime.md) |
 | arede | craft | year | — | [criteria] define what makes a brand "bad" — 3 criteria… | [→](goals/startapps-arede.md) |
 | batituque | craft | year | — | [matrix-prototype] prototype one rhythm matrix in any t… | [→](goals/startapps-batituque.md) |

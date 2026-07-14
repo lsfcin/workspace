@@ -19,7 +19,7 @@ Escolher a menor feature pendente do isoroll-content e rodar `/loops <feature>`.
 > [ ] [verify-step] etapa de verificação (verify) explícita no flow — usar /verify no loop 5 (user-test)  
 > [ ] [skills-scan] etapa no flow: revisar melhores skills disponíveis online antes de executar  
 > [ ] [research-loops] variante de pesquisa do flow de loops (falta) — integrar core/flows/deepresearch|lit|autoresearch ao padrão .loop/  
-> [ ] [visual-semantics] skills que traduzem semântica espacial/visual ↔ texto (geom-text, iso-text, image-text, 3D-text, UI-text) — agentes fracos em visual/geometria; UI-text cruza [[startapps-ux-guidelines-ai]] → PRIMEIRO ARTEFATO 2026-07-09: `core/skills/iso-visual.md` (convenções isoroll + failure modes + regra "geometria via manifests/QC, nunca pixels")  
+> [x] [visual-semantics] → PROMOVIDO 2026-07-12 a projeto próprio: goal [[spacemantics]] (4 casas: code/spacemantics, academy/papers/spacemantics, core/skills/spacemantics, +core/tools). Semente era: skills que traduzem semântica espacial/visual ↔ texto; 1º artefato `core/skills/iso-visual.md`  
 > [ ] [pipeline-step-review] adicionar etapa de pipeline dedicada (visual/usabilidade) + revisá-la  
 > [ ] [arch-algo-vs-lib] etapa de arquitetura: decidir algoritmo ANTES de escolher biblioteca  
 > [ ] [simplicity-gap] investigar por que agente (mesmo Fable) produz soluções mais complexas/tortuosas que o design humano — ex. tinyglade-like no isoroll (etapas humanas eram simples/didáticas); motiva etapas arquitetura+review  
@@ -48,10 +48,10 @@ last-touch: 2026-07-11  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       2 |
-| trimester   |       2 |
-| semester    |       2 |
-| year        |       2 |
-| 2-year      |       2 |
-| 4-year      |       2 |
+| month       |       3 |
+| trimester   |       3 |
+| semester    |       3 |
+| year        |       3 |
+| 2-year      |       3 |
+| 4-year      |       3 |
 <!-- stats:end -->

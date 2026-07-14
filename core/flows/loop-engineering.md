@@ -294,3 +294,12 @@ leftovers: <follow-ups routed to ROADMAP/INBOX, or none>
 - The orchestrator context must stay near-empty: verdict lines only. If you find yourself pasting loop file contents into the orchestrator, the flow is being run wrong.
 
 Never end a loop with planning-only chat. Never claim the flow is complete unless `6-ship.md` exists on disk with a commit hash.
+
+## Orchestrator Field Notes (2026-07-14, isoroll post-freeze run — 4 chains, 3 shipped same-day)
+
+- **Loop 0 inline when context is hot.** If the orchestrator session already holds the user's decisions (approved plan, fresh interview), author `0-clarify.md` directly instead of spawning — the interview is the one thing executors can't do, and delegation would launder context through a lossy retelling.
+- **Pin the branch base in the spawn prompt** when repo lineage is non-obvious (e.g., docs/spec live on an unmerged branch, `develop` lacks them). A wrong base costs a full plan re-ground. Correction pattern: append-only `## Plan Correction (orchestrator)` section; instruct the next loop that it overrides.
+- **Dirty-tree fence.** Pre-existing uncommitted changes in the target repo: name the contaminated paths in every spawn prompt from 4b on, and make Loop 6 list them under `extras: pre-existing-dirty` instead of flagging. Never let an executor "helpfully" commit or revert them.
+- **RETURN into a high-tier loop lands on max = the orchestrator.** Don't spawn; rule inline (append `## Amendment` to the target loop file with the ruling + sharpened seams + re-entry route). Distinguish design-wrong from seam-gap: if the architecture already specifies the missing behavior, don't redesign — sharpen seams so 4a must cover it, re-run 4a→4b at default tiers.
+- **Executor death mid-4b (session limit) is cheap to recover**: fresh executor reads 4a + partial 4b, re-runs test-cmd for ground truth, continues append-only. Budget hint: 4b is the expensive loop (~150–260k tokens); near a quota boundary, hand off at the 4a→4b seam rather than starting it.
+- **Two loops, one repo = worktree fight.** Same-repo loops run sequentially (branch checkouts collide); cross-repo loops parallelize freely.
