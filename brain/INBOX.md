@@ -1,6 +1,6 @@
 # inbox
 > zero friction. thoughts. no taxonomy. no formating. handle duplications.
-> triage with `/brain-inbox`: each entry routed to a goal, task, ref, project doc, draft — or deleted.
+> triage with `/inbox`: each entry routed to a goal, task, ref, project doc, draft — or deleted.
 >
 > signal the route preemptively (optional — agent infers if omitted):
 > `goal` · `task: today`/`week`/`month`/`backlog` · `ref` · `proj: <name>` · `draft` · `delete`
@@ -8,6 +8,10 @@
 ---
 
 <!-- add entries below, newest first -->
+
+create INFORMED IMAGE FORMAT (IIF, *.iif)
+a complete DSL able to describe images, with base on our work on spacemantics and texpace. use it for whenever an AI open an image it is bound to either read or create the DSL description.
+
 shared Downloads folder between my smartphone and both computers
 
 there is some apps and/or configs that still point to our old Downloads folder, I wanted it unified to make it all point to /mnt/workspace/Downloads/
@@ -25,3 +29,4 @@ proj: workspace — finding (2026-07-11 compass): `.hooks/brain_stats.py` tem 39
 proj: workspace — finding (2026-07-11): mesmo bug de case do `Models/` atingiu o Brain. `brain_stats.py` usava `Path("Brain")` e o pre-commit grepava `^Brain/goals/`, mas o dir é `brain/` → hook de stats do Brain NUNCA rodava (dashboard congelado desde 16/06). Corrigido. Suspeita: algum tool/sessão recria dirs capital-case (mesmo padrão do Models/). Vale um gate anti-capital-case em nomes de dir de topo.
 
 a pasta Models/ (com M maiúscula) ressucitou. eu tenho a suspeita que isso foi uma sessão que usou o ComfyUI. lembrando que queremos ficar somente com a models/ (m minúscula), sem duplicatas
+proj: isoroll-content — finding (2026-07-14): batch de render 2026-05-27 produziu 32 frames 100% pretos em `assets/chars/rogue/stances/neutral-idle/` (11.4 MB) + 2 sheet slices pretos — ficaram meses no repo sem detecção. Deletados hoje. Ideia: QC automático de brightness (opaque-mean < 10 → flag) no fim de qualquer batch de render/split do pipeline; barato (PIL), pegaria isso na hora.

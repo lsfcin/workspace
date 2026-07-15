@@ -51,7 +51,7 @@ def main():
     lines = []
     lines.append(f'INBOX-NUDGE [{level}]: brain/INBOX.md holds {n} untriaged entries '
                  f'(threshold {WARN_AT}; last touched {age_days:.0f}d ago).')
-    lines.append('Tell Lucas at the start of your reply and offer to run /brain-inbox, '
+    lines.append('Tell Lucas at the start of your reply and offer to run /inbox, '
                  'or fold a drain into /roundup at session end.')
     sys.stdout.write('\n'.join(lines) + '\n')
     return 0

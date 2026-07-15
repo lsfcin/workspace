@@ -84,7 +84,7 @@ Every `.tex` file gets `.texif` sibling on save. **Read `.texif` before source**
 
 ## Reference Reviews (`refs/`)
 
-Each bib entry gets `refs/<key>.yaml` (tier-2 promoted reference) — create or update when adding `\cite{key}`. `post-edit` hook warns when `.bib` edited. Read the ref before making claims about a paper. Raw/unpromoted captures collect in `refs/REFS.md` (tier-1 — see `/brain-inbox` refs convention).
+Each bib entry gets `refs/<key>.yaml` (tier-2 promoted reference) — create or update when adding `\cite{key}`. `post-edit` hook warns when `.bib` edited. Read the ref before making claims about a paper. Raw/unpromoted captures collect in `refs/REFS.md` (tier-1 — see `/inbox` refs convention).
 
 **YAML schema:**
 ```yaml
@@ -144,8 +144,14 @@ See [core/tools/CONTEXT.md](../../core/tools/CONTEXT.md) for all tools and [core
 |--------------|-------------|
 | [`2026-JBCS-relativistic_raytracer/`](2026-JBCS-relativistic_raytracer/CONTEXT.md) | JBCS special issue paper on relativistic raytracing benchmarking for SVR 2026 |
 | [`2026-SIBGRAPI-relativistic_raytracer/`](2026-SIBGRAPI-relativistic_raytracer/CONTEXT.md) | SIBGRAPI 2026 paper on relativistic raytracing benchmarking |
+| [`2027-CHI-cria/`](2027-CHI-cria/CONTEXT.md) | Hybrid human-AI ideation as mechanism design — classroom study. Targets: LBW CHI |
 | [`2027-ICLR-dobra/`](2027-ICLR-dobra/CONTEXT.md) | Context folding + SLMs on consumer hardware — research twin of `code/dobra`. Tar |
+| [`ai4good/`](ai4good/CONTEXT.md) | Visão + sistema + piloto: o papel moral da IA — da captura de atenção e da guerr |
+| [`mechanism-search/`](mechanism-search/CONTEXT.md) | Paper embrião: busca de mecanismos sociais com LLMs ancorada em dados de fluxo f |
 | [`megatruth/`](megatruth/CONTEXT.md) | Hybrid intelligence paper — crowd truth aggregation via mechanism design |
+| [`mutual-credit-ai/`](mutual-credit-ai/CONTEXT.md) | Paper embrião: agentes de IA resolvendo a iliquidez de moedas complementares — c |
+| [`pls-pix/`](pls-pix/CONTEXT.md) | Paper embrião: prize-linked savings via Pix contra o dreno das bets no Brasil —  |
+| [`spacemantics/`](spacemantics/CONTEXT.md) | Benchmark+method paper: a verifiable spatial DSL lifts LLM spatial capability ac |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|

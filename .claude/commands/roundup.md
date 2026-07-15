@@ -73,7 +73,7 @@ Identify all knowledge from the session. Route each piece using the table below.
 | Discovered convention / coding rule | `SPECS.md` → Conventions |
 | Bug found, not fixed | `KNOWN-BUGS.md` |
 | New technical work item (project has `ROADMAP.md`) | `ROADMAP.md` |
-| Reference / link / paper / tool worth keeping | domain `refs/REFS.md` (route-by-domain — see `/brain-inbox`) |
+| Reference / link / paper / tool worth keeping | domain `refs/REFS.md` (route-by-domain — see `/inbox`) |
 | Personal / admin / life / teaching task — or project task with hard deadline | `brain/TODO.md` (right horizon: today / week / month / backlog) |
 | Insight about a specific life or career goal | `brain/goals/[goal].md` (achievement, backlog item, or obstacle) |
 | Skill workflow improvement | the skill file directly |
@@ -100,7 +100,7 @@ Do not write to memory unless the knowledge is homeless across all files above. 
 
 ## Phase 4 — Drain the INBOX
 
-If `brain/INBOX.md` has entries, triage them now via the `/brain-inbox` routes (goal / task / ref / project / draft / delete): propose routes, get confirmation, act; leave unconfirmed entries. This is the session-end sweep that keeps INBOX from silently growing (paired with the `inbox-nudge` SessionStart warning).
+If `brain/INBOX.md` has entries, triage them now via the `/inbox` routes (goal / task / ref / project / draft / delete): propose routes, get confirmation, act; leave unconfirmed entries. This is the session-end sweep that keeps INBOX from silently growing (paired with the `inbox-nudge` SessionStart warning).
 
 ---
 

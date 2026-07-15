@@ -27,7 +27,7 @@ When creating or updating a `refs/` folder for any skill:
 1. **Create the folder at the same level as the skill file** (e.g. `core/skills/<name>/refs/`).
 2. **Use `.yaml`** for structured references (papers, datasets, configs with schema).
 3. **Use `.md`** for reading notes, quick links, and informal summaries.
-4. **Use `REFS.md`** for one-line link captures (tier-1), as per the `brain-inbox` protocol.
+4. **Use `REFS.md`** for one-line link captures (tier-1), as per the `inbox` protocol.
 5. **Never** create `refs/` inside `.opencode/skills/` or `.claude/skills/` — these are mirrors.
 
 ## Next steps flagged by user

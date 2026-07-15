@@ -21,7 +21,7 @@ ROUTE = f'{RS}\n## Routing\n\n{RE}\n'
 def _refs_ctx(name: str) -> str:
     return f"""# References
 > Curated reference analyses for {name} — one YAML per bib entry in lib/refs.bib.
-> Tier-2 promoted refs (structured). Tier-1 raw capture goes in REFS.md — see /brain-inbox refs convention.
+> Tier-2 promoted refs (structured). Tier-1 raw capture goes in REFS.md — see /inbox refs convention.
 
 ## Schema
 

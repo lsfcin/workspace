@@ -89,7 +89,7 @@ For each confirmed email:
 ### Step 5 — Offer Chain
 
 After all writes:
-> "N entries added to brain/INBOX.md. Run /brain-inbox to route them now?"
+> "N entries added to brain/INBOX.md. Run /inbox to route them now?"
 
 Lucas can confirm or handle later.
 

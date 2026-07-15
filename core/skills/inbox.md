@@ -1,5 +1,5 @@
 ---
-name: brain-inbox
+name: inbox
 description: >
   Triage brain/INBOX.md — route each entry to a goal, task, reference, project doc, writing draft, or delete. Cross-domain front door: reaches into code ROADMAP/KNOWN-BUGS and domain refs/, not just brain/.
 ---
@@ -47,7 +47,7 @@ A `ref` goes to the **nearest owning subtree's** `refs/REFS.md` — never a cent
 ### refs/ two-tier convention
 
 - **Tier 1 — capture (default, zero-friction):** append one line to `refs/REFS.md`:
-  `- [what it is](url) — one-phrase why it matters`. This is **all** `/brain-inbox` ever does for a ref.
+  `- [what it is](url) — one-phrase why it matters`. This is **all** `/inbox` ever does for a ref.
 - **Tier 2 — promote (manual, deliberate):** when a ref earns real study or citation, a human promotes it to `refs/<slug>.yaml` (schema = `academy/papers/*/refs/CONTEXT.md`). Triage NEVER auto-creates a yaml.
 - **Lazy creation:** the first ref routed to a domain births `refs/REFS.md` (and a minimal `refs/CONTEXT.md`: line 2 = `> Captured references for <domain>.`). Do NOT pre-seed empty `refs/` folders across projects.
 

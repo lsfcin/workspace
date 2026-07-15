@@ -20,6 +20,5 @@ See [SETUP.md](SETUP.md) for hooks, stubgen, tsc, caveman, and toolchain setup.
 | [`branches/`](branches/CONTEXT.md) | Personal life management — health, finances, and home construction |
 | [`code/`](code/CONTEXT.md) | Software projects developed under this workspace |
 | [`core/`](core/CONTEXT.md) | Agent library: skills, agents, prompts, flows, tools. Provider-agnostic. |
-| [`datasets/`](datasets/CONTEXT.md) | — |
 | [`models/`](models/CONTEXT.md) | Local model checkpoints and weights used across research and code projects |
 <!-- routing:end -->

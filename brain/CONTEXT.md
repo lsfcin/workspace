@@ -28,7 +28,7 @@ Agent is first-class collaborator, not just reader.
 
 - `/brain-compass` — compass review: surface what has good wind, update diagnostics
 - `/brain-finished [id]` — mark achievement done, advance to next, write ease-start
-- `/brain-inbox` — triage INBOX.md entries
+- `/inbox` — triage INBOX.md entries
 
 Goal file format, section specs, signals/dynamics/timing fields → [SPECS.md](SPECS.md).
 Philosophical foundations → [FOUNDATIONS.md](FOUNDATIONS.md).

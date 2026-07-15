@@ -47,16 +47,20 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`_templates/`](_templates/CONTEXT.md) | Project scaffolding templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skel |
 | [`apptime/`](apptime/CONTEXT.md) | Android app to reduce phone addiction through awareness, without blocking |
 | [`corpora/`](corpora/CONTEXT.md) | Real-time 3D computer vision pipeline — depth, pose, segmentation from webcam |
+| [`cria/`](cria/CONTEXT.md) | Workflow executável de ideação híbrida (motores de criatividade + score de front |
 | [`dobra/`](dobra/CONTEXT.md) | Context folding + small local models: task-tree runner where SLMs do leaf work u |
 | [`flows/`](flows/CONTEXT.md) | Graph-based workflow engine — typed slots, YAML-defined flows, pluggable agents |
 | [`futebots/`](futebots/CONTEXT.md) | Multi-agent football simulation with genetic algorithm agent evolution |
+| [`gira/`](gira/CONTEXT.md) | Protocolo + plataforma de crédito mútuo local com matching por agentes de IA — m |
 | [`isometric-perspective/`](isometric-perspective/CONTEXT.md) | Legacy Foundry VTT isometric perspective fork — v0.7.7, JS, pre-isoroll-module |
 | [`isoroll-content/`](isoroll-content/CONTEXT.md) | Offline asset generation pipeline for the isoroll Foundry VTT module |
 | [`isoroll-module/`](isoroll-module/CONTEXT.md) | Foundry VTT v14 isometric projection module — TypeScript + Vite + SCSS. |
+| [`laplata/`](laplata/CONTEXT.md) | Mapa vivo dos fluxos de dinheiro no Brasil — pipeline de dados abertos (BCB, IBG |
 | [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for experimenting with LC/UFRPE curriculum redesign |
 | [`prog1/`](prog1/CONTEXT.md) | — |
 | [`programacao1/`](programacao1/CONTEXT.md) | Simulador de sociedade em Python puro. Duas camadas: (1) terminal CRUD de pessoa |
 | [`shortvid/`](shortvid/CONTEXT.md) | Desktop video editor for short-form content — chroma-key, timeline, WebM export |
+| [`spacemantics/`](spacemantics/CONTEXT.md) | Verifiable spatial DSL + deterministic checker that lift LLM spatial capability  |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records |
 
 | File | Interface | API | Description |
