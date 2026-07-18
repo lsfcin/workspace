@@ -391,36 +391,52 @@ No action needed after clone; both are inert config files until Copilot (VS Code
 
 ---
 
-### 12. ddgr web-search CLI (all agents)
+### 12. Unified web-search CLI (all agents)
 
-`ddgr` (DuckDuckGo from the terminal) — zero-API-key web search callable from any agent's bash. Wrapped by [`core/tools/web`](core/tools/web) as the default search fallback. When an Exa key is configured at `~/.feynman/web-search.json`, [`core/tools/search`](core/tools/search) is the upgrade (semantic/neural ranking, domain filtering, date filters, full-content mode).
+[`core/tools/search`](core/tools/search) is the single entrypoint for web search — callable from any agent's bash, no MCP, no per-agent wiring. Backend resolution is internal:
 
-**Why both:** `web` always works (no key, no quota). `search` gives better ranking when configured. Canonical guidance in [`AGENTS.md`](AGENTS.md) — every agent reads it at session start, no per-agent wiring.
+| Backend | When used | Setup |
+|---------|-----------|-------|
+| **Exa** (default when configured) | `~/.feynman/web-search.json` contains `exaApiKey` | key from your [Exa dashboard](https://exa.ai) saved as `{"exaApiKey": "..."}` (Feynman already does this on install) |
+| **ddgr** (zero-key fallback) | Exa key missing, OR Exa errors out (bad key, quota, network) | `sudo apt install -y ddgr` (or `pipx install ddgr` on non-Debian) |
+| ddgr also engages on `--backend ddgr` (forced) | when you explicitly want DDG | — |
 
-**Install** (per machine, not versioned — it's a system package):
+Both backends return the same normalized JSON shape: `[{title, url, abstract, score?}]`.
+
+**Why one tool:** the agent never picks the backend — the script does, by key presence + error fallback. Picking "which search CLI" is a maintenance burden that belongs inside one script, not in every agent's prompt.
+
+**Install** (per machine, not versioned):
 ```bash
-sudo apt install -y ddgr
+sudo apt install -y ddgr          # required for the fallback path; harmless if Exa is configured
 ```
-(Optionally `pipx` for non-Debian: `sudo apt install -y pipx && pipx install ddgr`.)
+
+(Exa needs no system install — just the key file at `~/.feynman/web-search.json`.)
 
 **Verify:**
 ```bash
 ddgr --version                          # expected: 2.2 or later
-core/tools/web "test query" --n 3       # expected: JSON array of results
+core/tools/search "test query" --n 3    # expected: JSON array; auto-picks Exa if key present, else ddgr
+core/tools/search "test query" --backend ddgr    # force DDG path
+core/tools/search "test query" --backend exa     # force Exa (errors propagate, no fallback)
 ```
 
 **Usage from any agent (bash):**
 ```bash
-core/tools/web "<query>"                       # JSON, 10 results, region us-en
-core/tools/web "<query>" --n 5                 # fewer results
-core/tools/web "<query>" --region de-de        # other region (DDG region codes: duckduckgo.com/params)
-core/tools/web "<query>" --text                # text mode (intermittent HTTP 202 from DDG in piped use — JSON is the reliable default)
-WEB_RETRIES=8 WEB_REGION=uk-en core/tools/web "<query>"   # tuning via env
+core/tools/search "<query>"                                # auto backend, 10 results
+core/tools/search "<query>" --n 5                          # fewer results
+core/tools/search "<query>" --type keyword                 # Exa only: keyword (vs neural default)
+core/tools/search "<query>" --since 2026-01-01             # Exa only: date floor
+core/tools/search "<query>" --domains arxiv.org,github.com # Exa only: domain whitelist
+core/tools/search "<query>" --content                      # Exa only: include full page text in `abstract`
+core/tools/search "<query>" --region de-de                # ddgr only: DDG region (default us-en)
+WEB_RETRIES=8 WEB_REGION=uk-en core/tools/search "<query>" # tuning via env
 ```
 
-**Quirk — DDG HTTP 202:** DuckDuckGo intermittently returns HTTP 202 (Accepted, empty body) for non-interactive / piped requests, especially after a burst of calls from the same IP. `core/tools/web` retries with exponential backoff (`WEB_RETRIES`, default 5) and emits `[]` on final failure so callers can branch. If `web` consistently returns `[]`, wait 30–60s and retry, or fall back to `core/tools/fetch <url>` with a specific URL.
+Exa-only flags are silently ignored when the ddgr backend is in use (fallback or forced).
 
-**Per-agent wiring:** none. Every agent's existing bash hook (Claude Code, opencode, Copilot, Feynman) already passes bash commands through to the system shell — `core/tools/web` works the moment `ddgr` is installed. Add a one-line note in any new agent's system prompt pointing at [`AGENTS.md`](AGENTS.md) so the search guidance is discoverable.
+**Quirk — DDG HTTP 202:** DuckDuckGo intermittently returns HTTP 202 (Accepted, empty body) for non-interactive / piped requests, especially after a burst of calls from the same IP. The ddgr fallback retries with exponential backoff (`WEB_RETRIES`, default 5). If both backends ultimately fail, the script exits non-zero with `{"error": "all backends failed", ...}` on stderr — callers can branch on that.
+
+**Per-agent wiring:** none. Every agent's existing bash hook (Claude Code, opencode, Copilot, Feynman) already passes bash commands through to the system shell — `core/tools/search` works the moment `ddgr` is installed (and even earlier if only the Exa path is used). New agents just need their system prompt to point at [`AGENTS.md`](AGENTS.md) for the discovery rule.
 
 ---
 

@@ -67,7 +67,7 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`inspect-batch`](inspect-batch) | — | — | generate .pngif/.csvif stubs for all assets missing interfaces |
 | [`papers`](papers) | — | — | search academic papers via arXiv (default) or Semantic Scholar (--ss); returns JSON |
 | [`parse`](parse) | — | — | extract readable text from PDF, DOCX, PPTX, or plain text files; returns raw text |
-| [`search`](search) | — | — | web search via Exa; returns JSON results array |
+| [`search`](search) | — | — | unified web search; Exa (keyed) by default, ddgr (no-key) fallback; returns normalized JSON array [{title, url, abstract, score?}] |
 | [`slides`](slides) | — | — | Slidev presentation CLI: auth, new, serve, build, port |
 | [`slides_fetch.py`](slides_fetch.py) | [`slides_fetch.pyi`](slides_fetch.pyi) | `get_service`, `get_presentation`, `list_presentations` | !/mnt/workspace/.venv/bin/python3 |
 | [`slides_port.py`](slides_port.py) | [`slides_port.pyi`](slides_port.pyi) | `convert` | !/mnt/workspace/.venv/bin/python3 |
@@ -78,5 +78,4 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`spec-scan`](spec-scan) | — | — | ledger of module SPEC.md status (locked|draft|optout|none) |
 | [`sync-skills`](sync-skills) | — | — | regenerate skill mirrors from core/skills/*.md |
 | [`terms`](terms) | — | — | scan .tex files for terminology inconsistencies defined in terms.yaml |
-| [`web`](web) | — | — | web search via ddgr (DuckDuckGo, no API key); prints JSON (default) or text |
 <!-- routing:end -->
