@@ -100,6 +100,7 @@ core/*
 !core/MIGRATION-STATUS.md
 !core/agents/
 !core/flows/
+!core/flows/audit.md
 !core/skills/
 !core/tools/
 

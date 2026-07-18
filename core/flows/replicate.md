@@ -1,6 +1,9 @@
 ---
 description: Plan or execute a replication workflow for a paper, claim, or benchmark.
 args: <paper>
+type: research-brief
+confirm: plan
+agents: researcher
 ---
 ## Tool Discipline (Read First)
 
@@ -12,6 +15,17 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 - If a tool returns `Tool not found`, map to the canonical visible tool or record the capability as blocked.
 
 Design a replication plan for: $@
+
+Derive a short slug from the target (lowercase, hyphens, no filler words, ≤5 words). Use it for all files in this run.
+
+## Required Artifacts
+
+Every run must leave these on disk:
+- `outputs/.plans/<slug>-replication.md` — always (the plan)
+- on execution: results/scripts in a reproducible layout + `outputs/<slug>-replication.provenance.md`
+- `CHANGELOG.md` entries for multi-step or resumable runs
+
+`confirm: plan` — this flow blocks for the execution-environment choice (Step 4) before running anything. Once execution starts, never end with chat-only output. Do not call the outcome replicated unless the planned checks passed; mark unverified steps `blocked`.
 
 ## Workflow
 

@@ -1,6 +1,9 @@
 ---
 description: Run a thorough, source-heavy investigation on a topic and produce a durable research brief with inline citations.
 args: <topic>
+type: research-brief
+confirm: plan
+agents: researcher, verifier, reviewer
 ---
 ## Tool Discipline (Read First)
 

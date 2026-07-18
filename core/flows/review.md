@@ -1,6 +1,9 @@
 ---
 description: Simulate an AI research peer review with likely objections, severity, and a concrete revision plan.
 args: <artifact>
+type: research-brief
+confirm: none
+agents: researcher, reviewer
 ---
 ## Tool Discipline (Read First)
 
@@ -23,6 +26,7 @@ Required artifacts:
 - Plan: `outputs/.plans/<slug>-review-plan.md`
 - Evidence notes: `outputs/.drafts/<slug>-review-evidence.md`
 - Final review: `outputs/<slug>-review.md`
+- Provenance: `outputs/<slug>-review.provenance.md`
 
 Workflow:
 1. Create `outputs/.plans`, `outputs/.drafts`, and `outputs`.
@@ -49,6 +53,6 @@ Workflow:
    - Recommendation
    - Sources
 8. If the artifact cannot be parsed or critical evidence is unavailable, still write `outputs/<slug>-review.md`. Mark the affected sections with `Verification: BLOCKED`, explain exactly what failed, and distinguish blocked checks from actual paper weaknesses.
-9. Before responding, verify on disk that `outputs/<slug>-review.md` exists. If it does not exist, create it immediately as a blocked review artifact with the failure reason.
+9. Write `outputs/<slug>-review.provenance.md` (date, artifact identifier, sources inspected vs accepted vs rejected, verification status). Before responding, verify on disk that both `outputs/<slug>-review.md` and its provenance sidecar exist. If the review is missing, create it immediately as a blocked review artifact with the failure reason.
 
 Never end with planning-only chat. Never ask what to do next. Never claim the review is complete unless `outputs/<slug>-review.md` exists.

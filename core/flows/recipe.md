@@ -1,6 +1,9 @@
 ---
 description: Find ranked, implementable ML training recipes backed by papers, datasets, docs, and code.
 args: <task-or-paper>
+type: research-brief
+confirm: none
+agents: researcher
 ---
 ## Tool Discipline (Read First)
 

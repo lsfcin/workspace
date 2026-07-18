@@ -1,6 +1,9 @@
 ---
 description: Run a literature review on a topic using paper search and primary-source synthesis.
 args: <topic>
+type: research-brief
+confirm: none
+agents: researcher, verifier, reviewer
 ---
 ## Tool Discipline (Read First)
 
@@ -15,6 +18,16 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 Investigate the following topic as a literature review: $@
 
 Derive a short slug from the topic (lowercase, hyphens, no filler words, ≤5 words). Use this slug for all files in this run.
+
+## Required Artifacts
+
+Every run must leave these on disk:
+- `outputs/.plans/<slug>.md`
+- `outputs/.drafts/<slug>-research-*.md`
+- `outputs/<slug>.md`
+- `outputs/<slug>.provenance.md`
+
+Once evidence gathering starts, never end with chat-only output. If a capability fails, continue in degraded mode and still write a partial review plus provenance with `Verification: BLOCKED`.
 
 ## Workflow
 

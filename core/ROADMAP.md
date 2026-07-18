@@ -27,10 +27,13 @@ Reference implementation = `flows/deepresearch.md` (the validator's oracle; neve
       carrying `tier:`; extract loop-engineering's tier→model map to `core/tier-map.json`; add a
       generator that emits `.claude/agents/loop-*.md` with `model:` resolved. Removes the last
       provider-name-in-source violation (`model: haiku`). Symmetric with the skills mirror.
-- [ ] **Flow sweep.** Back-port disciplines per `type` to the remaining flows using deepresearch +
-      compare as references: research-brief (lit, review, recipe, audit, replicate, draft),
-      utility (watch, autoresearch, summarize). Add `type:`/`confirm:` frontmatter to each; resolve
-      the plan-confirmation contradiction by declaring `confirm:` explicitly everywhere.
+- [x] **Flow sweep — research-brief tier (2026-07-18).** All 8 research-brief flows now declare
+      `type:`/`confirm:` and carry the required-artifacts + provenance + scale-gate + integrity
+      disciplines: deepresearch (oracle, frontmatter only), compare, lit, review, recipe, audit,
+      replicate (`confirm: plan`), draft. Plan-confirmation contradiction resolved by declaration.
+- [ ] **Flow sweep — utility + domain tier.** Remaining: utility (watch, autoresearch, summarize —
+      need `type: utility` + tool-discipline/integrity only) and domain (mechanism-search — normalize
+      per below). Add `type:`/`confirm:` frontmatter to each.
 - [ ] **mechanism-search normalize** (user chose normalize, not exempt): add frontmatter
       (`type: domain`), Tool-Discipline block, artifacts contract; keep its human-in-loop Habermas
       steps and `branches/instituto/` output target.
