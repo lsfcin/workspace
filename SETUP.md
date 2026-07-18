@@ -57,6 +57,7 @@ Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
 | `.hooks/bash-context-gate.py` | PreToolUse: Bash | **Hard-blocks** Bash commands naming workspace files in subtrees whose CONTEXT.md chain is unread (closes the cat/grep bypass) |
 | `.hooks/context-tracker.py` | PostToolUse: Read | Records CONTEXT.md reads (context-gate state) and interface reads (pre-read source unlock) |
 | `.hooks/known-bugs-gate.py` | PreToolUse: Edit, Write (`KNOWN-BUGS.md`) | **Hard-blocks** flipping a bug to FIXED unless a matching `test/**/b<N>-*` regression spec exists |
+| `.hooks/spec-read-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Hard-blocks** editing a spec-locked module's files (CONTEXT.md `> spec:` + SPEC.md `status: locked`) until its `SPEC.md` was Read this session; nudges on new files in spec-less `code/` modules (SDD — [code/SPEC-DRIVE.md](code/SPEC-DRIVE.md)) |
 | `.hooks/precompact-wipe.sh` | PreCompact | Wipes context seen-markers — CONTEXT chain is re-read after compaction |
 | `.hooks/session-prune.sh` | SessionStart | Prunes stale session marker files (>2 days) |
 
@@ -66,6 +67,7 @@ Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
 |------|----------|
 | `verify:fast` contract (1a) | Projects whose package.json declares `verify:fast` must be green — **hard-blocks** commit |
 | `.hooks/check-duplication.py` (1b) | jscpd over the committing repo — **hard-blocks** clones involving staged files (75 tokens / 10 lines) |
+| Spec-driven module gate (1d) | New module `CONTEXT.md` under `code/` must declare `> spec: <file>` (existing) or `> spec: none` — **hard-blocks** commit otherwise (ratchet; existing modules grandfathered) |
 
 For codegraph setup and bash tool reference, see [`code/SETUP.md`](code/SETUP.md#codegraph).
 
@@ -88,6 +90,8 @@ All canonical enforcement lives in `.hooks/`. Each agent needs a shim that calls
 | Bash context-gate (cat/grep bypass) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ (terminal hints) | `workspace-policy.js` ✅ (bash tool) |
 | Context/interface read tracker | — | `.claude/settings.json` ✅ | `copilot-post-tool.py` ✅ | `workspace-policy.js` ✅ |
 | KNOWN-BUGS gate (FIXED needs spec) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | `workspace-policy.js` ✅ |
+| Spec-read-gate (spec-locked module edits) | — | `.claude/settings.json` ✅ | `copilot-pre-tool.py` ✅ | `workspace-policy.js` ✅ |
+| Spec-driven new-module gate (1d) | `pre-commit` ✅ hard-block | — | — | automatic (git) |
 | Duplication gate (jscpd) | `pre-commit` ✅ hard-block | — | — | automatic (git) |
 | verify:fast contract gate | `pre-commit` ✅ hard-block | — | — | automatic (git) |
 
@@ -337,7 +341,6 @@ See [academy/SETUP.md](academy/SETUP.md).
 ### 11. RTK (token-optimized CLI proxy, all agents)
 
 [rtk-ai/rtk](https://github.com/rtk-ai/rtk) — Rust CLI proxy that filters/compresses dev-command output (git, test runners, docker, etc.) before it reaches an agent's context: 60-90% token savings, complementary to caveman (which compresses the agent's own output, not tool output). Apache 2.0, single static binary, no deps.
-
 **Install the binary** (per machine, not versioned):
 ```bash
 curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/master/install.sh | sh
@@ -385,6 +388,39 @@ npm install @earendil-works/pi-coding-agent
 No action needed after clone; both are inert config files until Copilot (VS Code extension or CLI) is present. Not independently verified end-to-end on this machine — Copilot isn't installed here.
 
 **Uninstall** (any target): `rtk init --uninstall [--global] [--copilot|--opencode|--agent pi]`.
+
+---
+
+### 12. ddgr web-search CLI (all agents)
+
+`ddgr` (DuckDuckGo from the terminal) — zero-API-key web search callable from any agent's bash. Wrapped by [`core/tools/web`](core/tools/web) as the default search fallback. When an Exa key is configured at `~/.feynman/web-search.json`, [`core/tools/search`](core/tools/search) is the upgrade (semantic/neural ranking, domain filtering, date filters, full-content mode).
+
+**Why both:** `web` always works (no key, no quota). `search` gives better ranking when configured. Canonical guidance in [`AGENTS.md`](AGENTS.md) — every agent reads it at session start, no per-agent wiring.
+
+**Install** (per machine, not versioned — it's a system package):
+```bash
+sudo apt install -y ddgr
+```
+(Optionally `pipx` for non-Debian: `sudo apt install -y pipx && pipx install ddgr`.)
+
+**Verify:**
+```bash
+ddgr --version                          # expected: 2.2 or later
+core/tools/web "test query" --n 3       # expected: JSON array of results
+```
+
+**Usage from any agent (bash):**
+```bash
+core/tools/web "<query>"                       # JSON, 10 results, region us-en
+core/tools/web "<query>" --n 5                 # fewer results
+core/tools/web "<query>" --region de-de        # other region (DDG region codes: duckduckgo.com/params)
+core/tools/web "<query>" --text                # text mode (intermittent HTTP 202 from DDG in piped use — JSON is the reliable default)
+WEB_RETRIES=8 WEB_REGION=uk-en core/tools/web "<query>"   # tuning via env
+```
+
+**Quirk — DDG HTTP 202:** DuckDuckGo intermittently returns HTTP 202 (Accepted, empty body) for non-interactive / piped requests, especially after a burst of calls from the same IP. `core/tools/web` retries with exponential backoff (`WEB_RETRIES`, default 5) and emits `[]` on final failure so callers can branch. If `web` consistently returns `[]`, wait 30–60s and retry, or fall back to `core/tools/fetch <url>` with a specific URL.
+
+**Per-agent wiring:** none. Every agent's existing bash hook (Claude Code, opencode, Copilot, Feynman) already passes bash commands through to the system shell — `core/tools/web` works the moment `ddgr` is installed. Add a one-line note in any new agent's system prompt pointing at [`AGENTS.md`](AGENTS.md) so the search guidance is discoverable.
 
 ---
 

@@ -16,7 +16,7 @@ Operating rules:
 - When a claim depends on recent literature or unstable facts, use tools before answering.
 - When discussing papers, cite title, year, and identifier or URL when possible.
 - Use available paper-search tools or the `alpha` CLI for academic paper search, reading, Q&A, repository inspection, and persistent annotations.
-- Use `web_search`, `fetch_content`, and `get_search_content` first for current topics: products, companies, markets, regulations, software releases, model availability, model pricing, benchmarks, docs, or anything phrased as latest/current/recent/today.
+- Use `web_search`, `fetch_content`, and `get_search_content` first for current topics: products, companies, markets, regulations, software releases, model availability, model pricing, benchmarks, docs, or anything phrased as latest/current/recent/today. If those native tools aren't wired (or you're running as a subagent with only `bash`), call `core/tools/web "<query>"` from bash for zero-key DuckDuckGo search, or `core/tools/search "<query>"` if the Exa key is configured at `~/.feynman/web-search.json`. See [SETUP.md §12](SETUP.md#12-ddgr-web-search-cli-all-agents).
 - Tool names are literal. Use only tool names visible in the current tool set. Do not call aliases or invented tool names.
 - To ask the user a question, write plain chat text and wait for the next user message. Do not call question tools.
 - For mixed topics, combine both: use web sources for current reality and paper sources for background literature.

@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+# Usage: core/tools/web <query> [--n N] [--text] [--region REG] — web search via ddgr (DuckDuckGo, no API key); prints JSON (default) or text
+# Fallback for core/tools/search when Exa key missing or quota exhausted. Region: us-en (override WEB_REGION env).
+# Default output is JSON because ddgr's text mode intermittently hits DDG HTTP 202 in non-interactive (piped) use.
+# Flags may appear before, after, or interleaved with the query words.
+# Examples:
+#   core/tools/web "tiger vs lion fight"
+#   core/tools/web "rust async runtime internals" --n 5
+#   core/tools/web --text "cuda graph capture"
+set -euo pipefail
+
+n=10
+text=0
+region="${WEB_REGION:-us-en}"
+query=()
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --n)
+            n="$2"; shift 2 ;;
+        --text)
+            text=1; shift ;;
+        --region)
+            region="$2"; shift 2 ;;
+        -h|--help)
+            sed -n '2p' "$0" | sed 's/^# //'
+            exit 0 ;;
+        --)
+            shift; query+=("$@"); set -- ;;
+        *)
+            query+=("$1"); shift ;;
+    esac
+done
+
+if [[ ${#query[@]} -eq 0 ]]; then
+    echo "Usage: core/tools/web <query> [--n N] [--text] [--region REG]" >&2
+    exit 1
+fi
+
+if ! command -v ddgr >/dev/null 2>&1; then
+    echo "error: ddgr not installed. Install with: sudo apt install -y ddgr (see SETUP.md §12)" >&2
+    exit 1
+fi
+
+args=(ddgr --np -n "$n" -r "$region")
+if [[ "$text" -eq 0 ]]; then
+    args+=(--json)
+fi
+
+# Retry on DDG HTTP 202 (intermittent throttle on non-interactive / piped use).
+max="${WEB_RETRIES:-5}"
+out=""
+for attempt in $(seq 1 "$max"); do
+    out="$("${args[@]}" "${query[@]}" 2>&1 || true)"
+    if [[ "$out" != *"[ERROR] HTTP Error 202"* ]] && [[ -n "$out" ]]; then
+        break
+    fi
+    backoff=$((attempt * 3))
+    sleep "$backoff"
+done
+
+if [[ "$text" -eq 0 ]]; then
+    # JSON mode: if all retries failed, emit empty array so callers can branch.
+    if [[ "$out" == *"[ERROR]"* ]] || [[ -z "$out" ]]; then
+        echo "ddgr: failed after $max attempts. Last line: $(echo "$out" | tail -1)" >&2
+        echo "[]"
+        exit 1
+    fi
+    echo "$out"
+else
+    echo "$out"
+    if [[ "$out" == *"[ERROR]"* ]]; then
+        exit 1
+    fi
+fi
