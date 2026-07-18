@@ -19,11 +19,15 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 |--------------|-------------|
 | [`agents/`](agents/CONTEXT.md) | Agent definitions; load as system prompt to spawn a specialist worker. |
 | [`flows/`](flows/CONTEXT.md) | Workflow protocols; each names the agents and steps to execute. |
+| [`prompts/`](prompts/CONTEXT.md) | Prepared session prompts — copy-paste into parallel agent sessions. Each file no |
 | [`skills/`](skills/CONTEXT.md) | Agent skills — provider-agnostic workflows invoked as slash commands or by instr |
 | [`tools/`](tools/CONTEXT.md) | CLI research tools callable via bash; routing block auto-synced on save. |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`MIGRATION-STATUS.md`](MIGRATION-STATUS.md) | — | — | Skill Suite Migration Status (AD-07) |
+| [`ROADMAP.md`](ROADMAP.md) | — | — | Core Library Roadmap |
+| [`SCHEMA.md`](SCHEMA.md) | — | — | Core Library Schema |
 | [`SPECS.md`](SPECS.md) | — | — | Core SPECS |
 | [`WATCHLIST.md`](WATCHLIST.md) | — | — | Watchlist |
 <!-- routing:end -->

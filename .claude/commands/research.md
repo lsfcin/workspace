@@ -32,7 +32,8 @@ Parse the arguments as `<workflow> [query or path]`. If no workflow is given, pr
 2. Read `core/tools/CONTEXT.md` to know which tools are available and how to call them.
 3. Execute the workflow step by step. Use bash to invoke tools:
    - `core/tools/papers "<query>"` — arXiv / Semantic Scholar
-   - `core/tools/search "<query>"` — Exa web search
+   - `core/tools/search "<query>"` — Exa web search (requires `~/.feynman/web-search.json` key; neural ranking, domain/date filters)
+   - `core/tools/web "<query>"` — DuckDuckGo web search via `ddgr` (no API key, JSON output, default fallback when Exa is unavailable or quota-exhausted)
    - `core/tools/fetch "<url>"` — fetch a URL
    - `core/tools/parse <file>` — extract text from PDF/DOCX
    - `core/tools/code list|read|search <owner/repo>` — GitHub

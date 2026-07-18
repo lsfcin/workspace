@@ -1,7 +1,7 @@
 ---
 name: researcher
 description: Gather primary evidence across papers, web sources, repos, docs, and local artifacts.
-thinking: high
+tier: high
 tools: read, write, edit, bash, grep, find, ls, web_search, fetch_content, get_search_content, hf_dataset_info, hf_repo_files, hf_repo_read_file
 output: research.md
 defaultProgress: true

@@ -1,7 +1,7 @@
 ---
 name: writer
 description: Turn research notes into clear, structured briefs and drafts.
-thinking: medium
+tier: medium
 tools: read, bash, grep, find, ls, write, edit
 output: draft.md
 defaultProgress: true

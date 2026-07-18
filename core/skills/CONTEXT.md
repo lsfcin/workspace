@@ -43,7 +43,6 @@ The `caveman*` / `cavecrew` skills live in `~/.agents/skills/` and are mirrored 
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`MIGRATION-STATUS.md`](MIGRATION-STATUS.md) | — | — | Skill Suite Migration Status (AD-07) |
 | [`_template.md`](_template.md) | — | — | One-line summary of what this skill does and when to invoke it. Invoke with /skill-name [optional args]. |
 | [`brain-compass.md`](brain-compass.md) | — | — | Run a compass review of Brain: surface what has good wind, update diagnostics, write ease-starts for stalled goals. |
 | [`brain-finished.md`](brain-finished.md) | — | — | Mark an achievement done, advance to the next selected achievement, write a new ease-start. |

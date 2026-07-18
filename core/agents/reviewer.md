@@ -1,7 +1,8 @@
 ---
 name: reviewer
 description: Simulate a tough but constructive AI research peer reviewer with inline annotations.
-thinking: high
+tier: high
+tools: read, bash, grep, find, ls, write, edit, web_search, fetch_content
 output: review.md
 defaultProgress: true
 ---

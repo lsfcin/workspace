@@ -95,6 +95,9 @@ branches/writing/drafts/*
 
 core/*
 !core/CONTEXT.md
+!core/SCHEMA.md
+!core/ROADMAP.md
+!core/MIGRATION-STATUS.md
 !core/agents/
 !core/flows/
 !core/skills/

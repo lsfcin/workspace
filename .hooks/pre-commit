@@ -100,6 +100,41 @@ case "$TOPLEVEL" in
     ;;
 esac
 
+# ── 1d. Spec-driven module gate — new module CONTEXT.md must declare '> spec:' ──
+# Ratchet/boy-scout: fires ONLY for newly-added CONTEXT.md under code/ (existing modules
+# are grandfathered). '> spec: <file>' must point to an existing SPEC.md; '> spec: none'
+# opts out. Mirrors the 1c goal-link convention. See code/SPEC-DRIVE.md.
+case "$TOPLEVEL" in
+  /mnt/workspace/code/*)
+    NEW_CONTEXTS=$(git diff --cached --name-only --diff-filter=A 2>/dev/null | grep -E '(^|/)CONTEXT\.md$' || true)
+    if [ -n "$NEW_CONTEXTS" ]; then
+      while IFS= read -r ctx; do
+        [ -f "$ctx" ] || continue
+        SPEC_DECL=$(grep -m1 -E '^>\s*spec:\s*\S' "$ctx" 2>/dev/null | sed -E 's/^>[[:space:]]*spec:[[:space:]]*//' | tr -d '\r' | xargs)
+        if [ -z "$SPEC_DECL" ]; then
+          printf "⛔ %s missing '> spec:' declaration (new module under code/).\n" "$ctx"
+          printf "   Add '> spec: SPEC.md' (author it from code/_templates/module.SPEC.md),\n"
+          printf "   or '> spec: none' to opt out. See code/SPEC-DRIVE.md.\n"
+          exit 1
+        fi
+        if [ "$SPEC_DECL" != "none" ]; then
+          CTX_DIR=$(dirname "$ctx")
+          if [ ! -f "$CTX_DIR/$SPEC_DECL" ]; then
+            printf "⛔ %s declares '> spec: %s' but %s/%s is missing.\n" "$ctx" "$SPEC_DECL" "$CTX_DIR" "$SPEC_DECL"
+            printf "   Create it from code/_templates/module.SPEC.md, or use '> spec: none'.\n"
+            exit 1
+          fi
+        fi
+      done <<< "$NEW_CONTEXTS"
+    fi
+    ;;
+esac
+
+# ── 1e. Git Flow branch gate (code/ repos) ────────────────────────────────────
+if [ -x /mnt/workspace/.hooks/gitflow-gate.sh ]; then
+  /mnt/workspace/.hooks/gitflow-gate.sh || exit 1
+fi
+
 # ── 1b. Duplication gate (jscpd) — blocks clones involving staged files ───────
 DUP_FILES=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|py|dart)$' | grep -vE '\.(d\.ts|pyi|min\.js)$' || true)
 if [ -n "$DUP_FILES" ]; then
@@ -283,6 +318,27 @@ if [ -n "$DART_FILES" ]; then
       printf "⚠  dart-api-extract failed for $f — .dart.api not staged\n\n"
     fi
   done <<< "$DART_FILES"
+fi
+
+# ── 10a. Skill library sync + frontmatter validation ──────────────────────────
+# When a skill source changes, regenerate mirrors (prunes orphans, the failure that
+# dangles symlinks and breaks opencode startup) and validate frontmatter. See core/SCHEMA.md.
+SKILL_SRC_STAGED=$(echo "$STAGED" | grep -E '^core/skills/.*\.md$' || true)
+if [ -n "$SKILL_SRC_STAGED" ]; then
+  printf "→ sync-skills…\n"
+  if ! /mnt/workspace/core/tools/sync-skills >/tmp/sync-skills.$$ 2>&1; then
+    cat /tmp/sync-skills.$$; rm -f /tmp/sync-skills.$$
+    printf "⛔ sync-skills failed — invalid skill frontmatter (see core/SCHEMA.md). Fix before committing.\n"
+    exit 1
+  fi
+  cat /tmp/sync-skills.$$; rm -f /tmp/sync-skills.$$
+  git add -A /mnt/workspace/.claude/skills /mnt/workspace/.claude/commands /mnt/workspace/.opencode/skills 2>/dev/null || true
+  if ! /mnt/workspace/core/tools/sync-skills --check >/tmp/sync-check.$$ 2>&1; then
+    cat /tmp/sync-check.$$; rm -f /tmp/sync-check.$$
+    printf "⛔ skill mirrors out of sync after regeneration.\n"; exit 1
+  fi
+  rm -f /tmp/sync-check.$$
+  printf "✓ skills synced + validated\n"
 fi
 
 # ── 10. ESLint hard block — TypeScript projects under code/ with eslint.config.js ──
