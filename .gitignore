@@ -97,6 +97,7 @@ core/*
 !core/CONTEXT.md
 !core/SCHEMA.md
 !core/ROADMAP.md
+!core/HISTORY.md
 !core/MIGRATION-STATUS.md
 !core/agents/
 !core/flows/
