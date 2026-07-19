@@ -90,6 +90,29 @@ Each project CAN have:
 
 Skeletons for all files: [`_templates/`](_templates/)
 
+## Module Spec Contract (Spec-Driven Development)
+
+Rollout tracked in [`SPEC-DRIVE.md`](SPEC-DRIVE.md). Goal: the spec is the contract — a module's
+verifiable inputs/outputs/invariants precede and govern its code.
+
+A **module** = a directory under `code/<project>/` that has a `CONTEXT.md`. A module is **spec-locked**
+when its `CONTEXT.md` carries a `> spec: <path>` line (mirroring the `> goal:` line convention) and the
+referenced `SPEC.md` has header `status: locked`. Skeleton: [`_templates/module.SPEC.md`](_templates/module.SPEC.md).
+
+| SPEC.md header | Meaning |
+|----------------|---------|
+| `status: draft` | Spec exists; read-gate NOT armed; conformance not wired |
+| `status: locked` | Read-gate armed — editing this module's files requires reading its SPEC.md first (enforced by `spec-read-gate`) |
+| `verify: none` | `## Examples` checked by eye only |
+| `verify: make verify-fast` / `npm run verify:fast` | `## Examples` run inside the project's existing verify:fast — a broken example blocks the commit |
+
+**Enforcement (ratchet / boy-scout, not big-bang):**
+- New module dir (new `CONTEXT.md` under `code/`) → must ship a `SPEC.md` or an explicit `> spec: none` opt-out (`pre-commit` block).
+- Editing a spec-locked module's files without reading its SPEC.md this session → hard-blocked (`spec-read-gate`, clone of `context-gate`).
+- Editing a legacy module with no spec → non-blocking nudge only. Coverage grows as modules are touched.
+
+Pilot: [`spacemantics/dsl/SPEC.md`](spacemantics/dsl/SPEC.md) (`status: locked`, `verify: make verify-fast`).
+
 ## Facade Pattern
 
 Every folder with source files exposes a **facade** — the single entry point through which all external consumers import. Nothing imports internal files from another module directly.
@@ -134,3 +157,5 @@ All projects under `code/` follow Git Flow:
 - Feature branches: short-lived, one concern each
 - Merge via PR — no direct pushes to `develop` or `main`
 - Tag `main` on every release: `v<semver>`
+
+**Enforcement.** `.hooks/gitflow-gate.sh` (pre-commit block 1e) **hard-blocks** in `code/` repos: any commit on `main`/`master`/`develop`, or on a branch not matching `feature/*`/`release/*`/`hotfix/*`. Emergency bypass: `git commit --no-verify`. The **merge-only-via-PR** rule is *not* locally enforceable — set it up as GitHub branch protection on `main` and `develop` per repo (require PR + passing checks). Migration note: a project still committing to `main`/`master` directly must create `develop` and switch to `feature/*` before its next commit, or the gate blocks it.

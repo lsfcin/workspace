@@ -7,6 +7,7 @@
 //   - facade-scan.py      : list facade exports before writing a new Code/ file
 //   - facade-gate.py      : block Code/ module edits until the module facade is read
 //   - known-bugs-gate.py  : KNOWN-BUGS.md FIXED flips require a regression spec
+//   - spec-read-gate.py   : spec-locked module edits require its SPEC.md read first
 //   - pre-read.sh         : block source reads when a current interface file exists
 //   - post-edit.sh        : regenerate interfaces, terms check, context_synchronizer
 //   - facade-tracker      : record facade reads for facade-gate session state
@@ -92,6 +93,10 @@ export const WorkspacePolicy = async ({ client }) => {
         const k = run(`${HOOKS}/known-bugs-gate.py`, p, m.canonical, { stdin: true })
         if (k.status === 2) throw new Error(blockMsg(k, "KNOWN-BUGS GATE"))
         if (k.stdout && k.stdout.trim()) await warn(client, k.stdout)
+        // 6. spec-read-gate.py — spec-locked module edits need its SPEC.md read first.
+        const s = run(`${HOOKS}/spec-read-gate.py`, p, m.canonical, { stdin: true })
+        if (s.status === 2) throw new Error(blockMsg(s, "SPEC GATE"))
+        if (s.stdout && s.stdout.trim()) await warn(client, s.stdout)
       }
     },
 

@@ -84,6 +84,8 @@ def main() -> int:
                 return 2
             if gate("known-bugs-gate.py", payload, canonical, workspace_root, messages):
                 return 2
+            if gate("spec-read-gate.py", payload, canonical, workspace_root, messages):
+                return 2
         emit_allow("\n\n".join(messages))
         return 0
 

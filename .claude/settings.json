@@ -56,6 +56,10 @@
           {
             "type": "command",
             "command": "python3 /mnt/workspace/.hooks/known-bugs-gate.py"
+          },
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/.hooks/spec-read-gate.py"
           }
         ]
       },

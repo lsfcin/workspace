@@ -1,0 +1,15 @@
+from _typeshed import Incomplete
+from pathlib import Path
+
+WORKSPACE: Incomplete
+CODE_ROOT: Incomplete
+GATED_TOOLS: Incomplete
+EXEMPT_NAMES: Incomplete
+SKIP_PARTS: Incomplete
+SPEC_LINE_RE: Incomplete
+STATUS_RE: Incomplete
+
+def find_spec_module(target: Path): ...
+def block(module_dir: Path, spec_path: Path) -> int: ...
+def nudge() -> None: ...
+def main() -> int: ...

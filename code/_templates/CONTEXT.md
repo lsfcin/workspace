@@ -1,5 +1,10 @@
 # [Project Name]
 > Project scaffolding templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skeletons
+> goal: none
+> spec: none
+<!-- goal: [slug](../../brain/goals/<slug>.md) — required on line 3 by pre-commit 1c, or 'none'.
+     spec: flip to 'SPEC.md' once this module has a contract (author from _templates/module.SPEC.md);
+     'none' opts out. New modules under code/ MUST declare a spec — see code/SPEC-DRIVE.md. -->
 
 <!-- What: workspace routing and agent entry point for this project.
      Not here: feature list (→README.md), architecture decisions (→SPECS.md), setup steps (→SETUP.md).
@@ -22,4 +27,5 @@
 | [`ROADMAP.md`](ROADMAP.md) | — | — | [Project Name] — Roadmap |
 | [`SETUP.md`](SETUP.md) | — | — | [Project Name] — Dev Setup |
 | [`SPECS.md`](SPECS.md) | — | — | [Project Name] — Specs |
+| [`module.SPEC.md`](module.SPEC.md) | — | — | SPEC: [module name] |
 <!-- routing:end -->
