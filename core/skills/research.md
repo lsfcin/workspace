@@ -2,6 +2,7 @@
 name: research
 description: >
   Execute a research workflow from the workspace Core research system.
+flow: lit, deepresearch, review, draft, compare, audit, replicate, recipe, summarize, autoresearch, watch
 ---
 
 Execute a research workflow from the workspace Core research system.

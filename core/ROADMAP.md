@@ -12,8 +12,9 @@ Reference implementation = `flows/deepresearch.md` (the validator's oracle; neve
       provider-name-in-source violation (`model: haiku`). Symmetric with the skills mirror.
       **BLOCKED:** `loop-*` + `loop-engineering.md` are actively owned by a parallel session; resume
       once that work commits and the files go clean. See [[feedback-parallel-sessions]].
-- [ ] **Skill `flow:` field.** For THIN skills (loops, research), record the dispatched flow slug in
-      frontmatter per SCHEMA, so the skill→flow edge is data, not prose.
+- [ ] **Skill `flow:` field — loops.md.** research.md done (`flow:` comma list, router shape).
+      loops.md needs `flow: loop-engineering` (or the router slug once the loop tree lands).
+      **BLOCKED:** same contention as 2b — `core/skills/loops.md` owned by the parallel session.
 
 ## Notes
 

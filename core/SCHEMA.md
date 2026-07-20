@@ -28,7 +28,7 @@ The graph is a **sparse typed DAG**, one direction. Skills do not point to skill
 |-------|-----|-------|
 | `name` | ✅ | kebab-case, matches filename |
 | `description` | ✅ | actionable; drives the menu. End with "Invoke with /name [args]." |
-| `flow` | — | slug of the flow this skill dispatches to (THIN skills only) |
+| `flow` | — | slug of the flow this skill dispatches to (THIN skills only); routers list all dispatchable flows as a comma list, same shape as a flow's `agents:` |
 
 No `model`, `tier`, `tools`, or `subagents` on a skill — those are execution detail, pushed down.
 A skill is THIN (dispatches to a flow) or FAT (self-contained protocol); both are valid. Any
