@@ -20,6 +20,7 @@ Abrir `academy/papers/spacemantics/outputs/texpace-foundations.md` §6 (princíp
 ## backlog
 
 > [ ] [m1-slice] fatia vertical 2.5D + skeleton do paper (intro/método/related work a partir das fontes já coletadas)  
+> [ ] [iif-format] INFORMED IMAGE FORMAT (*.iif) — DSL para descrever imagens (builds on spacemantics + texpace); toda imagem aberta/criada pelo agente vem acoplada à sua descrição IIF (read-or-write bound)
 > [ ] [m2-widen] ampliar pra 2D + 3D + 4D; sweep completo de modelos; go/no-go do CV-grounding por dimensão; escolher venue  
 > [ ] [m3-dogfood] fiar as skills em isoroll + casinhas build_ifc.py + skill de slides/animação  
 > [ ] [cv-go-nogo] quais primitivas CV sobrevivem (detecção/segmentação 2D, profundidade 2.5D/3D, tracking 4D) ou fica synthetic-only
@@ -33,14 +34,14 @@ Abrir `academy/papers/spacemantics/outputs/texpace-foundations.md` §6 (princíp
 
 ## stats
 <!-- stats:start -->
-last-touch: —  ·  trend: new
+last-touch: 2026-07-14  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       0 |
-| trimester   |       0 |
-| semester    |       0 |
-| year        |       0 |
-| 2-year      |       0 |
-| 4-year      |       0 |
+| month       |       1 |
+| trimester   |       1 |
+| semester    |       1 |
+| year        |       1 |
+| 2-year      |       1 |
+| 4-year      |       1 |
 <!-- stats:end -->

@@ -25,14 +25,14 @@ Answer: which appointment do you most dread scheduling? That's the first vertica
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-11  ·  trend: advancing
+last-touch: 2026-07-14  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
 | month       |       2 |
-| trimester   |       2 |
-| semester    |       2 |
-| year        |       2 |
-| 2-year      |       2 |
-| 4-year      |       2 |
+| trimester   |       3 |
+| semester    |       3 |
+| year        |       3 |
+| 2-year      |       3 |
+| 4-year      |       3 |
 <!-- stats:end -->

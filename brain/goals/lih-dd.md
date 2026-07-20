@@ -44,14 +44,14 @@ Write 3 sentences: what LIH.DD is, why it matters, what it produces. No referenc
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-11  ·  trend: advancing
+last-touch: 2026-07-14  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
 | month       |       4 |
-| trimester   |       4 |
-| semester    |       4 |
-| year        |       4 |
-| 2-year      |       4 |
-| 4-year      |       4 |
+| trimester   |       5 |
+| semester    |       5 |
+| year        |       5 |
+| 2-year      |       5 |
+| 4-year      |       5 |
 <!-- stats:end -->

@@ -37,6 +37,7 @@
 | [`sleep-regularity.md`](sleep-regularity.md) | — | — | [ health | body | near ] sleep regularity |
 | [`smartphone-addiction.md`](smartphone-addiction.md) | — | — | [ health | mental | near ] smartphone addiction |
 | [`spacemantics.md`](spacemantics.md) | — | — | [ craft | research | now ] spacemantics — capacidade espacial/visual verificável para agentes |
+| [`spec-driven-development.md`](spec-driven-development.md) | — | — | [ craft | engineering | now ] spec-driven development |
 | [`startapps-apptime.md`](startapps-apptime.md) | — | — | [ craft | startapps | near ] apptime |
 | [`startapps-arede.md`](startapps-arede.md) | — | — | [ craft | startapps | year ] arede |
 | [`startapps-batituque.md`](startapps-batituque.md) | — | — | [ craft | startapps | year ] batituque |

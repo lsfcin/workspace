@@ -45,6 +45,10 @@ fallback · iterate — MVP can always be extended*
 > [ ] [enforce-standards] enforcement não-ignorável: nomes/pastas/repos/gitflow, wiring de hooks + wiring paper↔code, uso de skills, fluxo inbox→todo→goals, anti-scattering  
 > [x] [goals-sync] FIXED 2026-07-11 — .hooks/brain_stats.py existia mas quebrado: `Path("Brain")` + hook grep `^Brain/goals/` vs dir real `brain/` (case mismatch Linux) → nunca rodava; + parser de título só aceitava header 2-campos, ignorando os 3-campos canônicos → tabela active-goals mostrava 1 de 50. Ambos corrigidos, dashboard atualiza. Falta: wiring no /inbox (ver [inbox-refresh-goals]).  
 > [ ] [provider-fallback] mitigar instabilidade do opencode via configs do workspace — skills/hooks/.md provider-agnostic + chaveamento de provider (openrouter → chave nvidia quando créditos acabarem)  
+> [ ] [nested-gitlink-gate] pre-commit gate que BLOQUEIA gitlinks (mode 160000) não declarados em .gitmodules — `git add -A` no workspace repo embutiu 10 projetos com .git próprio (academy/papers/*, branches/*, code/*) como gitlinks quebrados; exigiu git rm --cached + amend pre-push (2026-07-11)  
+> [ ] [stats-split-or-exempt] .hooks/brain_stats.py tem 392 linhas (> BLOCK_LINES=200 do pre-edit gate) → Edit recusa net-zero edits, só Bash contorna. Decidir: splitar em parse/stats/dashboard/done-log OU isentar .hooks/ do gate (2026-07-11 compass)  
+> [ ] [anti-capital-case] gate anti-capital-case em nomes de dir de topo (mesmo padrão Models/ ressurgindo; ComfyUI suspeito); suspeita de sessão que recria dirs capital-case (2026-07-11)  
+> [ ] [pre-edit-silent-fail] pre-edit.py falha SILENCIOSA ("No stderr output") em Write de arquivos novos em certos paths (scratchpad .html, test/*.py novo em isoroll-content) — bloqueia Write sem dizer por quê; workaround = heredoc via Bash. Investigar crash do hook (provável exceção não tratada em path fora do esperado) (2026-07-16)  
 
 ## done
 
@@ -54,14 +58,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-11  ·  trend: advancing
+last-touch: 2026-07-14  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
 | month       |       4 |
-| trimester   |       4 |
-| semester    |       4 |
-| year        |       4 |
-| 2-year      |       4 |
-| 4-year      |       4 |
+| trimester   |       5 |
+| semester    |       5 |
+| year        |       5 |
+| 2-year      |       5 |
+| 4-year      |       5 |
 <!-- stats:end -->
