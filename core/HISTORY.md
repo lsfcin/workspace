@@ -39,3 +39,7 @@ Flow sweep closed (utility + domain tiers) and flow/agent validation turned on.
   (+ description/args present) and agent `tier` enum + `model:`/`thinking:` ban + worker `tools:`/`output:`.
   `loop-*` cluster + `LOOP-TREE.md` exempt per SCHEMA (engineering protocol). Negative-tested in a fake
   workspace tree: all violation classes caught, exemptions honored. SCHEMA Enforcement section updated.
+- **Gitignore `**/*audit.md` removed** — audit reports live under `outputs/` (already ignored), so the
+  broad pattern only hid real docs (the class of bug that kept `core/flows/audit.md` untracked).
+  Dropped it plus the now-redundant `!core/flows/audit.md` negation; verified nothing newly ignored
+  or surfaced.

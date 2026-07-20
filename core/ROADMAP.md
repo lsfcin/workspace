@@ -14,9 +14,6 @@ Reference implementation = `flows/deepresearch.md` (the validator's oracle; neve
       once that work commits and the files go clean. See [[feedback-parallel-sessions]].
 - [ ] **Skill `flow:` field.** For THIN skills (loops, research), record the dispatched flow slug in
       frontmatter per SCHEMA, so the skill→flow edge is data, not prose.
-- [ ] **Narrow the `**/*audit.md` gitignore pattern.** It still hides any `*audit.md` anywhere; only
-      `core/flows/audit.md` is negated. Scope it to its intended target (likely generated audit
-      reports) or convert to per-path, so no other real doc goes silently untracked.
 
 ## Notes
 

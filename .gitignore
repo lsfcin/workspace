@@ -17,7 +17,6 @@ Downloads/
 # These are session-local artefacts and must not be versioned here;
 # paper-level outputs live inside each project's own repo.
 outputs/
-**/*audit.md
 **/iq-fix-roadmap.md
 HANDOFF.md
 ROADMAP.md
@@ -101,7 +100,6 @@ core/*
 !core/MIGRATION-STATUS.md
 !core/agents/
 !core/flows/
-!core/flows/audit.md
 !core/skills/
 !core/tools/
 
