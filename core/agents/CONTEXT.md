@@ -16,6 +16,7 @@ Each file is a complete operating context for one agent role. In Claude Code, sp
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`_template.md`](_template.md) | — | — | One line — what evidence or output this worker produces. |
 | [`lead.md`](lead.md) | — | — | Orchestrates research workflows; plans tasks, delegates to worker agents, synthesizes results. |
 | [`researcher.md`](researcher.md) | — | — | Gather primary evidence across papers, web sources, repos, docs, and local artifacts. |
 | [`reviewer.md`](reviewer.md) | — | — | Simulate a tough but constructive AI research peer reviewer with inline annotations. |

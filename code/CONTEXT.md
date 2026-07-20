@@ -60,12 +60,13 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`prog1/`](prog1/CONTEXT.md) | — |
 | [`programacao1/`](programacao1/CONTEXT.md) | Simulador de sociedade em Python puro. Duas camadas: (1) terminal CRUD de pessoa |
 | [`shortvid/`](shortvid/CONTEXT.md) | Desktop video editor for short-form content — chroma-key, timeline, WebM export |
-| [`spacemantics/`](spacemantics/CONTEXT.md) | Verifiable spatial DSL + deterministic checker that lift LLM spatial capability  |
+| [`spacemantics/`](spacemantics/CONTEXT.md) | Verifiable spatial DSL (texpace) + deterministic checker that lift LLM spatial c |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`SETUP.md`](SETUP.md) | — | — | Code Setup |
+| [`SPEC-DRIVE.md`](SPEC-DRIVE.md) | — | — | SPEC-DRIVE — Spec-Driven Development Rollout |
 | [`SPECS.md`](SPECS.md) | — | — | Code — Specs |
 | [`VERIFY.md`](VERIFY.md) | — | — | VERIFY — Agent Verification & Enforcement Roadmap |
 | [`eslint.shared.js`](eslint.shared.js) | — | `localPlugin`, `sharedRules`, `countCallsInSubtree`, `getChainDepth` | Shared ESLint rules for all TypeScript/JavaScript projects under code/ — R1-R6 style enforcement. |

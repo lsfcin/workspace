@@ -35,6 +35,7 @@ problem for a non-Claude agent. Field-name lists (`PATH_KEYS`,
 | `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `.hooks/facade-scan.py` | (warn only; never exits 2) |
 | `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/facade-gate.py` | exit 2 → throw |
 | `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/known-bugs-gate.py` | exit 2 → throw |
+| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `.hooks/spec-read-gate.py` | exit 2 → throw |
 | `tool.execute.before`, `bash` | PreToolUse `Bash` | `.hooks/bash-context-gate.py` | exit 2 → throw |
 | `tool.execute.after`, `read` | PostToolUse `Read` | `.hooks/facade-tracker.py` | n/a (no block) |
 | `tool.execute.after`, `read` | PostToolUse `Read` | `.hooks/context-tracker.py` | n/a (no block) |
@@ -124,11 +125,14 @@ block), edit a `.py` past `BLOCK_LINES` (expect block), edit a `.py` (expect
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`skills/`](skills/CONTEXT.md) | — |
+| [`skills/`](skills/CONTEXT.md) | OpenCode skills for this workspace. |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`index.js`](index.js) | — | — | **facade** — opencode config facade — public surface consumed by plugins/workspace-policy.js. |
+| [`agents/loop-high.md`](agents/loop-high.md) | — | — | Loop-engineering executor, high tier — planning, plan review, architecture, escalated coding. Spawned by the loop-engineering flow with a single loop file as input. |
+| [`agents/loop-low.md`](agents/loop-low.md) | — | — | Loop-engineering executor, low tier — mechanical steps (grounding, branch, ship). Spawned by the loop-engineering flow with a single loop file as input. |
+| [`agents/loop-medium.md`](agents/loop-medium.md) | — | — | Loop-engineering executor, medium tier — tests-first, code-until-green, user test. Spawned by the loop-engineering flow with a single loop file as input. |
 | [`plugins/workspace-policy.js`](plugins/workspace-policy.js) | — | `WorkspacePolicy`, `blockMsg` | Workspace policy plugin for opencode. |
 | [`wp-helpers.js`](wp-helpers.js) | — | `buildPayloads`, `run`, `warn`, `WORKSPACE`, `HOOKS` | Helpers for the workspace-policy opencode plugin. |
 <!-- routing:end -->

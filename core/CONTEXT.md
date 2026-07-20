@@ -25,6 +25,7 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`HISTORY.md`](HISTORY.md) | — | — | Core Library History |
 | [`MIGRATION-STATUS.md`](MIGRATION-STATUS.md) | — | — | Skill Suite Migration Status (AD-07) |
 | [`ROADMAP.md`](ROADMAP.md) | — | — | Core Library Roadmap |
 | [`SCHEMA.md`](SCHEMA.md) | — | — | Core Library Schema |
