@@ -9,24 +9,6 @@
 
 <!-- add entries below, newest first -->
 
-create INFORMED IMAGE FORMAT (IIF, *.iif)
-a complete DSL able to describe images, with base on our work on spacemantics and texpace. use it for whenever an AI open an image it is bound to either read or create the DSL description.
+gostaria muito de engatilhar tarefas aqui no claudecode de forma que assim que o limite de tempo fosse liberado o agente continuasse. será que é possível?
 
-shared Downloads folder between my smartphone and both computers
-
-there is some apps and/or configs that still point to our old Downloads folder, I wanted it unified to make it all point to /mnt/workspace/Downloads/
-
-prompt-dsl, usar DSLs como contratos entre agentes, cada agente especializado em um tipo de tarefa terá a sua DSL e só repassaremos o prompt pra ele se o parsing da DSL for perfeito. isso permite garantir uma comunicação específica e nos moldes que desejarmos, com completudes de todos os termos pra não existir ambiguidade ou espaço pra decisões equivocadas. uma preocupação é se LLMs são boas com DSLs. elas são boas com linguagens de programação mas provavelmente por conta do treinamento exaustivo. não tenho certeza se com uma gramática nova elas se adaptam bem. então como acoplar ferramentas às LLMs pra facilitar essa interação com DSLs?
-
-gary stevenson, ler e entender, incluir as obras dele no nosso workspace onde for pertinente
-
-ruth bregnam e moral ambition, ler e entender, incluir as obras dele no nosso workspace onde for pertinente
-
-proj: workspace — finding (2026-07-11): `git add -A` no repo workspace engoliu 10 projetos com `.git` próprio (academy/papers/*, branches/*, code/*) como gitlinks embedded quebrados. Tive que `git rm --cached` + amend antes do push. O .gitignore un-ignora o dir do projeto (pra pegar o CONTEXT.md) mas isso deixa o `add -A` embutir o repo aninhado. Vale um pre-commit gate que BLOQUEIA gitlinks (mode 160000) não declarados em .gitmodules.
-
-proj: workspace — finding (2026-07-11 compass): `.hooks/brain_stats.py` tem 392 linhas, acima do BLOCK_LINES=200 do pre-edit gate → o Edit tool RECUSA qualquer edição (mesmo net-zero), tive que patchar via Bash/python. Débito real: ou splitar em módulos (parse / stats / dashboard / done-log), ou o gate isentar `.hooks/`. Enquanto não resolver, edições nesse arquivo são fricção.
-
-proj: workspace — finding (2026-07-11): mesmo bug de case do `Models/` atingiu o Brain. `brain_stats.py` usava `Path("Brain")` e o pre-commit grepava `^Brain/goals/`, mas o dir é `brain/` → hook de stats do Brain NUNCA rodava (dashboard congelado desde 16/06). Corrigido. Suspeita: algum tool/sessão recria dirs capital-case (mesmo padrão do Models/). Vale um gate anti-capital-case em nomes de dir de topo.
-
-a pasta Models/ (com M maiúscula) ressucitou. eu tenho a suspeita que isso foi uma sessão que usou o ComfyUI. lembrando que queremos ficar somente com a models/ (m minúscula), sem duplicatas
-proj: isoroll-content — finding (2026-07-14): batch de render 2026-05-27 produziu 32 frames 100% pretos em `assets/chars/rogue/stances/neutral-idle/` (11.4 MB) + 2 sheet slices pretos — ficaram meses no repo sem detecção. Deletados hoje. Ideia: QC automático de brightness (opaque-mean < 10 → flag) no fim de qualquer batch de render/split do pipeline; barato (PIL), pegaria isso na hora.
+proj: workspace — finding (2026-07-11): `git add -A` na raiz engoliu 10 projetos com `.git` próprio (academy/papers/*, branches/*, code/*) como gitlinks embedded quebrados; precisei `git rm --cached` + amend antes do push. O .gitignore un-ignora o dir do projeto (pra pegar CONTEXT.md) mas isso deixa o `add -A` embutir o repo aninhado. Fix durável: pre-commit gate que BLOQUEIA gitlinks (mode 160000) não declarados em .gitmodules. → rota: workspace-os backlog.

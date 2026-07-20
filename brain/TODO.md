@@ -44,6 +44,8 @@
 - [ ] [slides / portas-logicas] OR gate body still missing — see KNOWN-BUGS.md; investigate `CUSTOM` shape type in slide 23 group, then decide if worth further debugging
 - [ ] standardize workspace folder names to lowercase — update on Ubuntu and Windows
 - [ ] fix downloads folder — some programs bypassing workspace path, still writing to ~/Downloads by default
+- [ ] set up shared Downloads folder across smartphone + both computers, unify all apps/configs to /mnt/workspace/Downloads/
+- [ ] [workspace] remove duplicate Models/ dir (capital-M); keep only models/ lowercase
 
 ## drive migration (cin → local workspace)
 
