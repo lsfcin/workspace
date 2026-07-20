@@ -1,10 +1,14 @@
 ---
 description: Autonomous experiment loop — try ideas, measure results, keep what works, discard what doesn't, repeat.
 args: <idea>
+type: utility
+confirm: plan
 ---
 ## Tool Discipline (Read First)
 
 Tool names are literal. Use only tools visible in the current tool set. See `core/tools/` for runtime-specific mappings.
+
+- If a tool returns `Tool not found`, map to the canonical visible tool or record the capability as blocked.
 
 Start an autoresearch optimization loop for: $@
 
@@ -49,5 +53,7 @@ Ask the user to confirm. Do not start the loop without explicit approval.
 Initialize the session: create `autoresearch.md`, run the baseline, and start looping.
 
 Each iteration: edit → run benchmark → record result → keep or revert → repeat. Do not stop unless interrupted or `maxIterations` is reached.
+
+Record every metric exactly as the benchmark reported it — never invent, extrapolate, or smooth numbers. A failed or crashed run is recorded as a failure with its error output, not skipped.
 
 After the baseline and after meaningful iteration milestones, append a concise entry to `CHANGELOG.md` summarizing what changed, what metric result was observed, what failed, and the next step.

@@ -1,6 +1,8 @@
 ---
 description: Set up a recurring or deferred research watch on a topic, company, paper area, or product surface.
 args: <topic>
+type: utility
+confirm: none
 ---
 ## Tool Discipline (Read First)
 
@@ -21,3 +23,4 @@ Requirements:
 - Use available scheduling tools to create the recurring or delayed follow-up instead of merely promising to check later.
 - Save exactly one baseline artifact to `outputs/<slug>-baseline.md`.
 - End with a `Sources` section containing direct URLs for every source used.
+- Never invent sources or findings: every claim in the baseline must trace to a fetched source. If scheduling or a fetch fails, report the failure honestly and record the capability as blocked — do not pretend the watch is armed.

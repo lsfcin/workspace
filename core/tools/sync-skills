@@ -136,6 +136,66 @@ validate_skills() {
   return $rc
 }
 
+# Flow layer (core/SCHEMA.md): every flow carries description, args, type ∈ enum, confirm ∈ enum.
+# Exempt: CONTEXT.md, the loop-* engineering cluster + LOOP-TREE.md (its own protocol per SCHEMA).
+validate_flows() {
+  local rc=0 f name fm type confirm
+  for f in "$WORKSPACE/core/flows"/*.md; do
+    name="$(basename "$f" .md)"
+    case "$name" in
+      CONTEXT|LOOP-TREE|loop-*) continue ;;
+    esac
+    if [[ "$(head -1 "$f")" != "---" ]]; then
+      echo "INVALID flow (no YAML frontmatter): $f"; rc=1; continue
+    fi
+    fm="$(awk 'NR==1&&/^---[[:space:]]*$/{f=1;next} f&&/^---[[:space:]]*$/{exit} f{print}' "$f")"
+    grep -qE '^description:[[:space:]]*\S' <<<"$fm" || { echo "INVALID flow (missing description:): $f"; rc=1; }
+    grep -qE '^args:[[:space:]]*\S'        <<<"$fm" || { echo "INVALID flow (missing args:): $f"; rc=1; }
+    type="$(sed -nE 's/^type:[[:space:]]*(\S+).*/\1/p' <<<"$fm")"
+    confirm="$(sed -nE 's/^confirm:[[:space:]]*(\S+).*/\1/p' <<<"$fm")"
+    case "$type" in
+      research-brief|utility|domain) ;;
+      *) echo "INVALID flow (type must be research-brief|utility|domain, got '${type:-<missing>}'): $f"; rc=1 ;;
+    esac
+    case "$confirm" in
+      plan|none) ;;
+      *) echo "INVALID flow (confirm must be plan|none, got '${confirm:-<missing>}'): $f"; rc=1 ;;
+    esac
+  done
+  return $rc
+}
+
+# Agent layer (core/SCHEMA.md): name, description, tier ∈ enum; workers also need tools + output.
+# `lead` is the one orchestrator (tier-only). _template excluded like skills.
+validate_agents() {
+  local rc=0 f name fm tier
+  for f in "$WORKSPACE/core/agents"/*.md; do
+    name="$(basename "$f" .md)"
+    case "$name" in
+      CONTEXT|_template) continue ;;
+    esac
+    if [[ "$(head -1 "$f")" != "---" ]]; then
+      echo "INVALID agent (no YAML frontmatter): $f"; rc=1; continue
+    fi
+    fm="$(awk 'NR==1&&/^---[[:space:]]*$/{f=1;next} f&&/^---[[:space:]]*$/{exit} f{print}' "$f")"
+    grep -qE '^name:[[:space:]]*\S'        <<<"$fm" || { echo "INVALID agent (missing name:): $f"; rc=1; }
+    grep -qE '^description:[[:space:]]*\S' <<<"$fm" || { echo "INVALID agent (missing description:): $f"; rc=1; }
+    tier="$(sed -nE 's/^tier:[[:space:]]*(\S+).*/\1/p' <<<"$fm")"
+    case "$tier" in
+      low|medium|high|max) ;;
+      *) echo "INVALID agent (tier must be low|medium|high|max, got '${tier:-<missing>}'): $f"; rc=1 ;;
+    esac
+    if grep -qE '^(model|thinking):' <<<"$fm"; then
+      echo "INVALID agent (model:/thinking: forbidden in core source — use tier:): $f"; rc=1
+    fi
+    if [[ "$name" != lead ]]; then
+      grep -qE '^tools:[[:space:]]*\S'  <<<"$fm" || { echo "INVALID agent (worker missing tools:): $f"; rc=1; }
+      grep -qE '^output:[[:space:]]*\S' <<<"$fm" || { echo "INVALID agent (worker missing output:): $f"; rc=1; }
+    fi
+  done
+  return $rc
+}
+
 # A mirror dir or command file with no corresponding source skill is an orphan.
 # Orphans are the failure that dangles symlinks and breaks opencode startup.
 orphans() {
@@ -166,6 +226,8 @@ case "${1:-sync}" in
   --check)
     rc=0
     validate_skills || rc=1
+    validate_flows  || rc=1
+    validate_agents || rc=1
     orphans check || rc=1
     for m in "${MIRRORS[@]}"; do check_mirror "$m" || rc=1; done
     check_commands || rc=1

@@ -88,10 +88,14 @@ Flow-type assignments:
 - **research-brief:** deepresearch, lit, review, recipe, compare, audit, replicate, draft
 - **utility:** watch, autoresearch, summarize
 - **domain:** mechanism-search
-- **engineering:** loop-engineering is its own protocol (declares tier routing directly); exempt from this table.
+- **engineering:** the `loop-*` cluster (loop-engineering + subtree flows + `LOOP-TREE.md` index) is its own protocol (declares tier routing directly); exempt from this table and from flow-layer validation.
 
 ## Enforcement
 
 `core/tools/sync-skills --check` parses frontmatter and fails on violations; it is wired into
-`.hooks/pre-commit`. Skill-layer validation (frontmatter present, non-skills rejected) is live.
-Flow/agent-layer field validation turns on once the cluster sweep completes (see `core/ROADMAP.md`).
+`.hooks/pre-commit`. All three layers are live:
+- **skill:** frontmatter present, `name:` + `description:`, non-skills rejected.
+- **flow:** `description:` + `args:` present, `type ∈ {research-brief, utility, domain}`,
+  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `LOOP-TREE.md`, `loop-*` (engineering cluster).
+- **agent:** `name:` + `description:` present, `tier ∈ {low, medium, high, max}`, `model:`/`thinking:`
+  forbidden in source, workers (everyone but `lead`) must carry `tools:` + `output:`.

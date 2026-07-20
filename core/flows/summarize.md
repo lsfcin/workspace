@@ -1,6 +1,9 @@
 ---
 description: Summarize any URL, local file, or PDF using the RLM pattern — source stored on disk, never injected raw into context.
 args: <source> [--window-size <chars>] [--overlap <chars>] [--tier1-threshold <chars>] [--tier2-threshold <chars>]
+type: utility
+confirm: none
+agents: researcher
 ---
 ## Tool Discipline (Read First)
 
@@ -96,5 +99,7 @@ All tiers produce the same artifact at `outputs/<slug>-summary.md`:
 ## Coverage gaps *(Tier 3 only)*
 [Missing chunk indices]
 ```
+
+Every claim in the summary must trace to the source text actually read. Never fill in content for unread or failed windows — report them under Coverage gaps instead.
 
 Before you stop, verify on disk that `outputs/<slug>-summary.md` exists.

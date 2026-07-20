@@ -13,7 +13,7 @@
 | [`draft.md`](draft.md) | — | — | Turn research findings into a polished paper-style draft with equations, sections, and explicit claims. |
 | [`lit.md`](lit.md) | — | — | Run a literature review on a topic using paper search and primary-source synthesis. |
 | [`loop-engineering.md`](loop-engineering.md) | — | — | Looped engineering flow — development in file-relayed loops with model autorouting; each loop runs in a fresh, cheap session that reads exactly one file. |
-| [`mechanism-search.md`](mechanism-search.md) | — | — | mechanism-search |
+| [`mechanism-search.md`](mechanism-search.md) | — | — | Busca sistemática de mecanismos sociais (motivo individual → efeito coletivo) para um ralo quantificado — geração com diversidade forçada, filtro humano deliberativo, saída pronta para piloto test-to-kill. |
 | [`recipe.md`](recipe.md) | — | — | Find ranked, implementable ML training recipes backed by papers, datasets, docs, and code. |
 | [`replicate.md`](replicate.md) | — | — | Plan or execute a replication workflow for a paper, claim, or benchmark. |
 | [`review.md`](review.md) | — | — | Simulate an AI research peer review with likely objections, severity, and a concrete revision plan. |
