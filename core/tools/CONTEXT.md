@@ -10,6 +10,21 @@ core/tools/parse paper.pdf --pages 1-5
 core/tools/hf dataset allenai/c4
 ```
 
+## Google services auth (Drive / Gmail / Calendar)
+
+Tokens são por `(service, alias)` em `~/.config/workspace-<service>/<alias>.token.json`.
+Se um `core/tools/drive|gmail|calendar` falhar com **`RefreshError` / `invalid_grant`
+(Token has been expired or revoked)**, o token está morto e o refresh não se recupera
+sozinho. Recupere re-consentindo (abre o navegador — precisa de sessão interativa):
+
+```bash
+core/tools/drive auth <alias> --reauth            # token de leitura
+core/tools/drive auth <alias> --write --reauth    # token de escrita (drive-write)
+```
+
+`--reauth` apaga o token stale antes do consentimento. Escrita em Drive (`mkdir`, `put`,
+`put --gdoc`) usa o token `drive-write` separado; leitura usa `drive`.
+
 ## Subagent tool
 
 The `subagent` capability is runtime-specific and has no CLI wrapper:
@@ -53,10 +68,10 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`calendar_fetch.py`](calendar_fetch.py) | [`calendar_fetch.pyi`](calendar_fetch.pyi) | `get_service`, `list_calendars`, `upcoming_events`, `events_in_range`, `fmt_events` | !/mnt/workspace/.venv/bin/python3 |
 | [`code`](code) | — | — | browse and search GitHub repository files; returns JSON or raw text |
 | [`code-search`](code-search) | — | — | search code examples and technical documentation via Exa (default) or GitHub code search (--gh); returns JSON |
-| [`drive`](drive) | — | — | Google Drive read-only CLI for workspace OS — commands: auth, recent, list, search, download |
-| [`drive_fetch.py`](drive_fetch.py) | [`drive_fetch.pyi`](drive_fetch.pyi) | `get_service`, `list_files`, `search_files`, `recent_files`, `download_file` | !/mnt/workspace/.venv/bin/python3 |
+| [`drive`](drive) | — | — | Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put |
+| [`drive_core.py`](drive_core.py) | [`drive_core.pyi`](drive_core.pyi) | `get_service`, `list_files`, `search_files`, `recent_files`, `download_file` | !/mnt/workspace/.venv/bin/python3 |
 | [`drive_migrate.py`](drive_migrate.py) | [`drive_migrate.pyi`](drive_migrate.pyi) | `migrate_recursive`, `run` | !/usr/bin/env python3 |
-| [`drive_migrate_core.py`](drive_migrate_core.py) | [`drive_migrate_core.pyi`](drive_migrate_core.pyi) | `get_cin_service`, `get_personal_service`, `list_folder`, `find_or_create_folder`, `copy_file` | !/usr/bin/env python3 |
+| [`drive_migrate_core.py`](drive_migrate_core.py) | [`drive_migrate_core.pyi`](drive_migrate_core.pyi) | `get_cin_service`, `get_personal_service` | !/usr/bin/env python3 |
 | [`fetch`](fetch) | — | — | fetch a URL and return readable plain text; falls back to raw for non-HTML |
 | [`gmail`](gmail) | — | — | read-only Gmail integration for workspace OS |
 | [`gmail_attachments.py`](gmail_attachments.py) | [`gmail_attachments.pyi`](gmail_attachments.pyi) | `download` | !/mnt/workspace/.venv/bin/python3 |
