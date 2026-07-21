@@ -48,6 +48,7 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | Slides Pipeline — Specs & Architecture Decisions |
 | [`annotate`](annotate) | — | — | persistent paper annotation store keyed by arXiv ID, DOI, or URL; returns JSON |
+| [`attachments_util.py`](attachments_util.py) | [`attachments_util.pyi`](attachments_util.pyi) | `safe_name`, `month_dir`, `unique_path` | !/mnt/workspace/.venv/bin/python3 |
 | [`calendar`](calendar) | — | — | Google Calendar read-only CLI for workspace OS — commands: auth, upcoming, range, calendars |
 | [`calendar_fetch.py`](calendar_fetch.py) | [`calendar_fetch.pyi`](calendar_fetch.pyi) | `get_service`, `list_calendars`, `upcoming_events`, `events_in_range`, `fmt_events` | !/mnt/workspace/.venv/bin/python3 |
 | [`code`](code) | — | — | browse and search GitHub repository files; returns JSON or raw text |
@@ -77,5 +78,8 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`spec-contract-check`](spec-contract-check) | — | — | verify every spec-locked module has a complete SPEC.md contract (Inputs/Outputs/Invariants filled); optionally type-check declared edges. Exit 1 on any gap. See code/SPEC-DRIVE.md. |
 | [`spec-scan`](spec-scan) | — | — | ledger of module SPEC.md status (locked|draft|optout|none) |
 | [`sync-skills`](sync-skills) | — | — | regenerate skill mirrors from core/skills/*.md |
+| [`telegram`](telegram) | — | — | Telegram bot CLI for workspace OS — commands: init, send, status |
+| [`telegram_config.py`](telegram_config.py) | [`telegram_config.pyi`](telegram_config.pyi) | `config_dir`, `load_config`, `save_config`, `bot_token`, `allowed_chat_id` | !/mnt/workspace/.venv/bin/python3 |
+| [`telegram_daemon.py`](telegram_daemon.py) | [`telegram_daemon.pyi`](telegram_daemon.pyi) | `main` | !/mnt/workspace/.venv/bin/python3 |
 | [`terms`](terms) | — | — | scan .tex files for terminology inconsistencies defined in terms.yaml |
 <!-- routing:end -->

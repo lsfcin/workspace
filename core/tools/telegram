@@ -1,0 +1,117 @@
+#!/mnt/workspace/.venv/bin/python3
+# telegram — Telegram bot CLI for workspace OS — commands: init, send, status, resume
+import json, os, pathlib, shutil, sys, argparse, asyncio, subprocess
+from telegram import Bot
+
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+import telegram_config
+
+_SERVICE = "workspace-telegram-bot"
+
+
+def _claude_bin() -> str:
+    override = shutil.which("claude")
+    if override:
+        return override
+    candidates = sorted(pathlib.Path.home().glob(
+        ".vscode/extensions/anthropic.claude-code-*/resources/native-binary/claude"))
+    if not candidates:
+        raise RuntimeError("claude binary not found (checked PATH and VSCode extension dir)")
+    return str(candidates[-1])
+
+
+async def _wait_for_pairing_update(bot: Bot, timeout_s: int) -> int:
+    """Poll getUpdates until a message arrives, return its chat id."""
+    waited = 0
+    while waited < timeout_s:
+        updates = await bot.get_updates(timeout=5)
+        for u in updates:
+            if u.message is not None:
+                return u.message.chat_id
+        waited += 5
+    raise TimeoutError("No message received — send any message to the bot and retry.")
+
+
+async def _cmd_init(token: str | None) -> None:
+    if token:
+        telegram_config.save_config(bot_token=token)
+    bot = Bot(token=telegram_config.bot_token())
+    me = await bot.get_me()
+    print(f"Bot: @{me.username}")
+    print(f"Send any message (e.g. /start) to @{me.username} now — waiting up to 5 min...")
+    chat_id = await _wait_for_pairing_update(bot, timeout_s=300)
+    telegram_config.save_config(allowed_chat_id=chat_id)
+    await bot.send_message(chat_id=chat_id, text="workspace-os paired. Nudges and captures are now live.")
+    print(f"Paired. allowed_chat_id={chat_id} saved to {telegram_config.config_dir()}/config.json")
+
+
+async def _cmd_send(text: str) -> None:
+    bot = Bot(token=telegram_config.bot_token())
+    await bot.send_message(chat_id=telegram_config.allowed_chat_id(), text=text)
+    print("Sent.")
+
+
+def _cmd_status() -> None:
+    cfg = telegram_config.load_config()
+    print(f"config: {telegram_config.config_dir()}/config.json")
+    print(f"  bot_token: {'set' if cfg.get('bot_token') else 'MISSING'}")
+    print(f"  allowed_chat_id: {cfg.get('allowed_chat_id', 'MISSING')}")
+    result = subprocess.run(
+        ["systemctl", "--user", "status", _SERVICE, "--no-pager", "-n", "0"],
+        capture_output=True, text=True,
+    )
+    print(f"\n{result.stdout or result.stderr}")
+
+
+def _cmd_resume() -> None:
+    # Attaching/resuming is a local, zero-cost operation — no API call happens until you
+    # actually type a message in the reopened session. Same cost model as any other turn.
+    sid = telegram_config.load_config().get("claude_focused_session")
+    if not sid:
+        print("Nenhuma sessão focada no bot — nada pra retomar. Manda algo pelo Telegram primeiro.")
+        sys.exit(1)
+
+    result = subprocess.run([_claude_bin(), "agents", "--json", "--all"], capture_output=True, text=True)
+    try:
+        agents = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        agents = []
+    match = next((a for a in agents if a.get("sessionId") == sid), None)
+
+    if match and match.get("kind") == "interactive":
+        print(f"Sessão {sid[:8]} está ao vivo em outro lugar agora (pid={match.get('pid')}, cwd={match.get('cwd')}).")
+        print("Anexar por aqui provavelmente falha ou conflita — saia de lá primeiro, ou espere ela ficar livre.")
+        sys.exit(1)
+
+    claude_bin = _claude_bin()
+    if match and match.get("kind") == "background" and match.get("id"):
+        print(f"Anexando à sessão em background {match['id']}...")
+        os.execvp(claude_bin, [claude_bin, "attach", match["id"]])
+    else:
+        print(f"Retomando sessão {sid[:8]} (histórico — sem processo em background)...")
+        os.execvp(claude_bin, [claude_bin, "--resume", sid])
+
+
+def main():
+    p = argparse.ArgumentParser(prog="telegram")
+    sub = p.add_subparsers(dest="cmd")
+
+    pi = sub.add_parser("init")
+    pi.add_argument("--token", default=None)
+
+    ps = sub.add_parser("send")
+    ps.add_argument("text")
+
+    sub.add_parser("status")
+    sub.add_parser("resume")
+
+    args = p.parse_args()
+    if   args.cmd == "init":   asyncio.run(_cmd_init(args.token))
+    elif args.cmd == "send":   asyncio.run(_cmd_send(args.text))
+    elif args.cmd == "status": _cmd_status()
+    elif args.cmd == "resume": _cmd_resume()
+    else:                      p.print_help()
+
+
+if __name__ == "__main__":
+    main()
