@@ -1,11 +1,11 @@
 #!/mnt/workspace/.venv/bin/python3
-# drive — Google Drive read-only CLI for workspace OS — commands: auth, recent, list, search, download
-import sys, json, pathlib, argparse
+# drive — Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put
+import sys, pathlib, argparse
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-import drive_fetch, google_auth
+import drive_core, google_auth
 
-DOWNLOAD_DIR = pathlib.Path.home() / "Downloads" / "workspace-drive"
+DOWNLOAD_DIR = pathlib.Path("/mnt/workspace/Downloads/workspace-drive")
 
 
 def _print_files(files: list, alias: str) -> None:
@@ -21,46 +21,71 @@ def _print_files(files: list, alias: str) -> None:
             print(f"    {f['webViewLink']}")
 
 
-def cmd_auth(alias: str) -> None:
+def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
     primary = google_auth.resolve_alias(alias)
-    print(f"Opening browser for OAuth — Drive ({primary})...")
-    drive_fetch.get_service(primary)
-    print(f"Done. Token saved: {google_auth.config_dir('drive')}/{primary}.token.json")
+    kind = "drive-write" if write else "drive"
+    token = google_auth.config_dir(kind) / f"{primary}.token.json"
+    if reauth and token.exists():
+        # drop the stale token so a revoked/expired one can't dead-end on refresh
+        token.unlink()
+        print(f"Removed stale token: {token}")
+    print(f"Opening browser for OAuth — {kind} ({primary})...")
+    drive_core.get_service(primary, write=write)
+    print(f"Done. Token saved: {token}")
 
 
 def cmd_recent(account: str, limit: int) -> None:
     aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
     for alias in aliases:
         print(f"\n── Recent files ({alias}) ──")
-        _print_files(drive_fetch.recent_files(alias, limit), alias)
+        _print_files(drive_core.recent_files(alias, limit), alias)
 
 
 def cmd_list(account: str, folder_id: str) -> None:
     aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
     for alias in aliases:
         print(f"\n── {folder_id} ({alias}) ──")
-        _print_files(drive_fetch.list_files(alias, folder_id), alias)
+        _print_files(drive_core.list_files(alias, folder_id), alias)
 
 
 def cmd_search(account: str, query: str) -> None:
     aliases = google_auth.primary_aliases() if account == "all" else [google_auth.resolve_alias(account)]
     for alias in aliases:
         print(f"\n── Search: '{query}' ({alias}) ──")
-        _print_files(drive_fetch.search_files(alias, query), alias)
+        _print_files(drive_core.search_files(alias, query), alias)
 
 
 def cmd_download(account: str, file_id: str) -> None:
     alias = google_auth.resolve_alias(account)
     print(f"Downloading {file_id} from {alias}...")
-    path = drive_fetch.download_file(alias, file_id, DOWNLOAD_DIR)
+    path = drive_core.download_file(alias, file_id, DOWNLOAD_DIR)
     print(f"Saved: {path}")
+
+
+def cmd_mkdir(account: str, name: str, parent_id: str) -> None:
+    alias = google_auth.resolve_alias(account)
+    svc = drive_core.get_service(alias, write=True)
+    fid = drive_core.find_or_create_folder(svc, name, parent_id)
+    print(f"Folder '{name}' ({alias})  id:{fid}")
+
+
+def cmd_put(account: str, path: str, parent_id: str, as_gdoc: bool, name: str) -> None:
+    alias = google_auth.resolve_alias(account)
+    svc = drive_core.get_service(alias, write=True)
+    res = drive_core.upload_local(svc, path, parent_id, as_gdoc=as_gdoc, name=name)
+    kind = "Google Doc" if as_gdoc else "file"
+    print(f"Uploaded {kind} '{res['name']}' ({alias})  id:{res['id']}")
+    print(f"  {res.get('webViewLink', '')}")
 
 
 def main():
     p = argparse.ArgumentParser(prog="drive")
     sub = p.add_subparsers(dest="cmd")
 
-    pa = sub.add_parser("auth"); pa.add_argument("alias")
+    pa = sub.add_parser("auth")
+    pa.add_argument("alias")
+    pa.add_argument("--write", action="store_true", help="request write scope (drive-write token)")
+    pa.add_argument("--reauth", action="store_true", help="drop the existing token and re-consent (fixes revoked/expired)")
 
     pr = sub.add_parser("recent")
     pr.add_argument("--account", default="all")
@@ -78,12 +103,26 @@ def main():
     pd.add_argument("--account", required=True)
     pd.add_argument("file_id")
 
+    pm = sub.add_parser("mkdir")
+    pm.add_argument("--account", required=True)
+    pm.add_argument("--parent", default="root")
+    pm.add_argument("name")
+
+    pp = sub.add_parser("put")
+    pp.add_argument("--account", required=True)
+    pp.add_argument("--parent", default="root")
+    pp.add_argument("--gdoc", action="store_true", help="convert to Google Doc on upload")
+    pp.add_argument("--name", default=None, help="override the uploaded file name")
+    pp.add_argument("path")
+
     args = p.parse_args()
-    if   args.cmd == "auth":     cmd_auth(args.alias)
+    if   args.cmd == "auth":     cmd_auth(args.alias, args.write, args.reauth)
     elif args.cmd == "recent":   cmd_recent(args.account, args.limit)
     elif args.cmd == "list":     cmd_list(args.account, args.folder)
     elif args.cmd == "search":   cmd_search(args.account, args.query)
     elif args.cmd == "download": cmd_download(args.account, args.file_id)
+    elif args.cmd == "mkdir":    cmd_mkdir(args.account, args.name, args.parent)
+    elif args.cmd == "put":      cmd_put(args.account, args.path, args.parent, args.gdoc, args.name)
     else:                        p.print_help()
 
 
