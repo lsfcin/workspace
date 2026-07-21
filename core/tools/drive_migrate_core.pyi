@@ -1,16 +1,12 @@
 from _typeshed import Incomplete
+from drive_core import SCOPES_READ as SCOPES_READ, SCOPES_WRITE as SCOPES_WRITE, copy_file as copy_file, find_or_create_folder as find_or_create_folder, list_folder as list_folder
 from googleapiclient.errors import HttpError as HttpError
 
 CIN_DISCIPLINAS_ID: str
 SLIDE_MIMETYPES: Incomplete
 FOLDER_MAP: Incomplete
-SCOPES_READ: Incomplete
-SCOPES_WRITE: Incomplete
 STATE_FILE: Incomplete
 MAP_FILE: Incomplete
 
 def get_cin_service(): ...
 def get_personal_service(): ...
-def list_folder(svc, folder_id: str) -> list: ...
-def find_or_create_folder(svc, name: str, parent_id: str, dry_run: bool) -> str: ...
-def copy_file(personal_svc, cin_file_id: str, name: str, parent_id: str) -> dict: ...
