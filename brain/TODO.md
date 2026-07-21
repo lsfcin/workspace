@@ -24,6 +24,7 @@
 
 ## week
 
+- [ ] revisar artigo do svr — prazo ~25/07
 - [ ] falar com Paulo e Maigan sobre as férias (amarrado ao retiro vipassana 1–12 ago)
 - [ ] [banca] fechar procedimentos da banca de Artur
 - [ ] responder megatruth
@@ -46,6 +47,7 @@
 - [ ] fix downloads folder — some programs bypassing workspace path, still writing to ~/Downloads by default
 - [ ] set up shared Downloads folder across smartphone + both computers, unify all apps/configs to /mnt/workspace/Downloads/
 - [ ] [workspace] remove duplicate Models/ dir (capital-M); keep only models/ lowercase
+- [ ] [workspace-os] split large `.md` files into smaller ones — SETUP.md flagged as example (INBOX 2026-07-20, via telegram); related to existing file-trees backlog item above but distinct scope (splitting big docs vs. converting specific docs to trees)
 
 ## drive migration (cin → local workspace)
 
@@ -98,11 +100,11 @@
 - [ ] [workspace-os] detecção de alto acoplamento / import-graph — pilotar em isoroll → política workspace-wide (discutir antes)
 - [ ] [workspace-os] policy: conectar CONTEXT.md de cada projeto ao seu goal file — formato `> goal: [slug](../../brain/goals/<slug>.md)` na linha 3; backfill ~15 projetos PRIMEIRO, depois enforce via post-edit hook (warn→block); dobra não tem goal (criar ou `> goal: none`); reverse link `> project:` no goal file opcional
 - [ ] [workspace-os] context_synchronizer: pular CONTEXT.md com `## Routing` manual sem sentinelas — hoje ANEXA um bloco duplicado (bug); fix robusto protege CONTEXT hand-curados. brain/CONTEXT.md já convertido p/ markers nesta sessão
-- [ ] [workspace-os] triggers pós-janela de limites do Claude — always-on aproveitando limites diário/semanal
+- [ ] [workspace-os] triggers pós-janela de limites do Claude — always-on aproveitando limites diário/semanal. `ScheduleWakeup` (dynamic /loop) já cobre parcialmente dentro de uma sessão viva — falta o caso "sessão morreu, limite renovou, ninguém acorda o agente"
 - [ ] [workspace-os] monitor de tamanho de sessão (hook avisa ~40%/50% p/ avaliar handoff) — roundup + inbox-nudge já feitos; falta o %-monitor; 80% propenso a descartar — discutir
 - [ ] [workspace-os] detecção de drift de contexto — recall-probe objetivo (plantar fato verificável cedo, re-checar periodicamente) + amarrar ao %-monitor. Ideia do "canary me-chama-de-Lucas" é proxy fraco/confundido (caveman suprime, sinal baixo, auto-reportado) — manter só como tell passivo grátis, não construir infra em cima
 - [ ] [code] novo projeto: gerador de animações (claude-code + remotion) — separado do shortvid
-- [ ] [workspace-os] integrações: whatsapp + telegram (gmail/drive já têm skills) — adiantaria vários fluxos (nota do PDA)
+- [x] [workspace-os] integrações: telegram — DONE 2026-07-20, `core/tools/telegram` + `telegram_daemon.py`, ver workspace-os.md. Whatsapp superseded por telegram (não faz mais sentido separado)
 - [x] [slides] setup Slidev + Vue locally — Slidev 52.16.0, Node 24.16.0 ✓
 - [x] [slides] build `core/tools/slides` CLI (new, serve, build, port from Google Slides JSON)
 - [x] [slides] conversor Google Slides API JSON → Slidev `.md` — `core/tools/slides_port.py`

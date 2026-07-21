@@ -53,14 +53,14 @@ fallback · if full institute is too much, a simpler form (collective, project, 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-14  ·  trend: advancing
+last-touch: 2026-07-20  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       3 |
-| trimester   |       4 |
-| semester    |       4 |
-| year        |       4 |
-| 2-year      |       4 |
-| 4-year      |       4 |
+| month       |       4 |
+| trimester   |       5 |
+| semester    |       5 |
+| year        |       5 |
+| 2-year      |       5 |
+| 4-year      |       5 |
 <!-- stats:end -->

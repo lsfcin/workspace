@@ -57,14 +57,14 @@ Abrir `core/flows/loop-engineering.md` `## Field Practice` (7 runs auditados, A1
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-14  ·  trend: advancing
+last-touch: 2026-07-20  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       4 |
-| trimester   |       4 |
-| semester    |       4 |
-| year        |       4 |
-| 2-year      |       4 |
-| 4-year      |       4 |
+| month       |       5 |
+| trimester   |       5 |
+| semester    |       5 |
+| year        |       5 |
+| 2-year      |       5 |
+| 4-year      |       5 |
 <!-- stats:end -->
