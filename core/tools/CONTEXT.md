@@ -78,7 +78,7 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`spec-contract-check`](spec-contract-check) | — | — | verify every spec-locked module has a complete SPEC.md contract (Inputs/Outputs/Invariants filled); optionally type-check declared edges. Exit 1 on any gap. See code/SPEC-DRIVE.md. |
 | [`spec-scan`](spec-scan) | — | — | ledger of module SPEC.md status (locked|draft|optout|none) |
 | [`sync-skills`](sync-skills) | — | — | regenerate skill mirrors from core/skills/*.md |
-| [`telegram`](telegram) | — | — | Telegram bot CLI for workspace OS — commands: init, send, status |
+| [`telegram`](telegram) | — | — | Telegram bot CLI for workspace OS — commands: init, send, status, resume |
 | [`telegram_config.py`](telegram_config.py) | [`telegram_config.pyi`](telegram_config.pyi) | `config_dir`, `load_config`, `save_config`, `bot_token`, `allowed_chat_id` | !/mnt/workspace/.venv/bin/python3 |
 | [`telegram_daemon.py`](telegram_daemon.py) | [`telegram_daemon.pyi`](telegram_daemon.pyi) | `main` | !/mnt/workspace/.venv/bin/python3 |
 | [`terms`](terms) | — | — | scan .tex files for terminology inconsistencies defined in terms.yaml |

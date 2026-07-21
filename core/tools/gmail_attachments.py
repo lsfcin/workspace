@@ -1,31 +1,10 @@
 #!/mnt/workspace/.venv/bin/python3
 # gmail_attachments.py — download and summarize Gmail attachments for Core/tools/gmail
-import base64, pathlib, subprocess, re
-from datetime import datetime
+import base64, pathlib, subprocess
 import anthropic
+import attachments_util
 
 BRAIN_ATTACHMENTS = pathlib.Path("/mnt/workspace/brain/attachments")
-
-
-def _safe_name(filename: str) -> str:
-    return re.sub(r"[^\w\-.]", "-", filename).lower()
-
-
-def _month_dir() -> pathlib.Path:
-    d = BRAIN_ATTACHMENTS / datetime.now().strftime("%Y-%m")
-    d.mkdir(parents=True, exist_ok=True)
-    return d
-
-
-def _unique_path(base: pathlib.Path) -> pathlib.Path:
-    if not base.exists():
-        return base
-    i = 1
-    while True:
-        candidate = base.parent / f"{base.stem}-{i}{base.suffix}"
-        if not candidate.exists():
-            return candidate
-        i += 1
 
 
 def _extract_text(filepath: pathlib.Path) -> str:
@@ -85,7 +64,8 @@ def download(service, alias: str, email_id: str, attachment: dict, email_meta: d
         print(f"  Failed to download {attachment['filename']}: {e}")
         return None
 
-    filepath = _unique_path(_month_dir() / _safe_name(attachment["filename"]))
+    month_dir = attachments_util.month_dir(BRAIN_ATTACHMENTS)
+    filepath = attachments_util.unique_path(month_dir / attachments_util.safe_name(attachment["filename"]))
     filepath.write_bytes(data)
 
     summary = _summarize(filepath, {**email_meta, "alias": alias})

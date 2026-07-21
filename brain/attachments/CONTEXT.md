@@ -1,5 +1,5 @@
 # brain/attachments
-Email attachments downloaded from Gmail. Organized by month (YYYY-MM/). Each file has a companion .summary.md with AI-generated metadata and content summary.
+Attachments captured from Gmail and Telegram. Organized by month (YYYY-MM/). Gmail files have a companion .summary.md with AI-generated metadata and content summary; Telegram files (photo/voice/document) are saved raw, no summary yet.
 
 <!-- routing:start -->
 ## Routing
