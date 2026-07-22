@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 
 YTDLP: Incomplete
 ATTACH: Incomplete
+COOKIES: Incomplete
 
 def source_of(url): ...
 def probe(url, runner=None): ...

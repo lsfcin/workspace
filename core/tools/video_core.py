@@ -7,14 +7,19 @@ _ROOT = pathlib.Path(__file__).resolve().parents[2]
 _VENV_YTDLP = _ROOT / ".venv" / "bin" / "yt-dlp"
 YTDLP = str(_VENV_YTDLP) if _VENV_YTDLP.exists() else (shutil.which("yt-dlp") or "yt-dlp")
 ATTACH = _ROOT / "brain" / "attachments"
+COOKIES = pathlib.Path.home() / ".config" / "workspace-video" / "cookies.txt"
 
 _TS = re.compile(r"^\d{2}:\d{2}:\d{2}[.,]\d{3}\s*-->")
 _TAG = re.compile(r"<[^>]+>")
 
 
+def _cookie_args():
+    return ["--cookies", str(COOKIES)] if COOKIES.exists() else []
+
+
 def _run(args, runner=None):
     runner = runner or (lambda a: subprocess.run(a, capture_output=True, text=True, timeout=180))
-    return runner([YTDLP, *args])
+    return runner([YTDLP, *_cookie_args(), *args])
 
 
 def source_of(url):
@@ -97,7 +102,7 @@ def _join(parts):
 
 def assemble(url, level="auto", save=False, base=None,
              _probe=None, _captions=None, _media=None):
-    """Escalate L0->L1->L2->L3, stopping once text is found (auto); explicit
+    """Escalate L0->L1->L2->L3->L4, stopping once text is found (auto); explicit
     levels force a layer. Returns a text bundle."""
     meta = (_probe or probe)(url)
     ok = bool(meta.get("ok"))
@@ -123,12 +128,21 @@ def assemble(url, level="auto", save=False, base=None,
             parts.append(spoken)
             methods.append("speech")
 
-    if ok and (level in ("ocr", "full") or (level == "auto" and not _join(parts))):
+    video = None
+    if ok and (level in ("ocr", "visual", "full") or (level == "auto" and not _join(parts))):
         video = media().download_video(url)
+
+    if ok and (level in ("ocr", "full") or (level == "auto" and not _join(parts))):
         screen = media().ocr_frames(video) if video else ""
         if screen:
             parts.append(screen)
             methods.append("ocr")
+
+    if ok and (level in ("visual", "full") or (level == "auto" and not _join(parts))):
+        caption = media().caption_frames(video) if video else ""
+        if caption:
+            parts.append(caption)
+            methods.append("visual")
 
     bundle = {"url": url, "source": source_of(url), "ok": ok,
               "title": meta.get("title"), "uploader": meta.get("uploader"),
