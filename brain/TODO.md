@@ -41,10 +41,10 @@
 - [ ] [cnpq] submeter proposta chamada UNIVERSAL — **deadline 03/08** (https://www.gov.br/cnpq/pt-br/assuntos/noticias/cnpq-em-acao/chamada-universal-vai-financiar-r-300-milhoes-em-projetos-de-pesquisa-em-todo-pais-inscricoes-vao-ate-03-08)
 - [ ] [casinhas] averbação do terreno
 - [ ] [vipassana] retiro 1–12 agosto; mover férias (ver goal vipassana)
-- [ ] [ufrpe] ajudar Paulo (coordenador) a montar o PPC — atualizar formato da lista de ementas, com IA
+- [ ] [ufrpe] PPC ementas: 41/44 já reformatadas p/ modelo SIGAA e subidas no Drive (`[MODELO-SIGAA] <nome>`, pasta EMENTAS/OBRIGATORIAS+NOVAS) — 2026-07-21. Falta: pedir a Paulo o conteúdo (EMENTA/CONTEÚDO) de 3 disciplinas sem fonte em lugar nenhum — FUNDAMENTOS DA EDUCAÇÃO, PROJETO INTEGRADOR EM DESENVOLVIMENTO DE ARTEFATOS EDUCACIONAIS, PROJETO INTEGRADOR EM EDUCAÇÃO EM COMPUTAÇÃO (ver `academy/administration/coordenacao-lc/novo-ppc-bcc/ementas/gaps.md`)
 - [ ] [slides / portas-logicas] OR gate body still missing — see KNOWN-BUGS.md; investigate `CUSTOM` shape type in slide 23 group, then decide if worth further debugging
 - [ ] standardize workspace folder names to lowercase — update on Ubuntu and Windows
-- [ ] fix downloads folder — some programs bypassing workspace path, still writing to ~/Downloads by default
+- [ ] fix downloads folder — some programs bypassing workspace path, still writing to ~/Downloads by default (partial: `ementas/port.py` + `filler.py` hardcode fixed 2026-07-21; other scripts may still have the same hardcode, not swept)
 - [ ] set up shared Downloads folder across smartphone + both computers, unify all apps/configs to /mnt/workspace/Downloads/
 - [ ] [workspace] remove duplicate Models/ dir (capital-M); keep only models/ lowercase
 - [ ] [workspace-os] split large `.md` files into smaller ones — SETUP.md flagged as example (INBOX 2026-07-20, via telegram); related to existing file-trees backlog item above but distinct scope (splitting big docs vs. converting specific docs to trees)
@@ -114,3 +114,8 @@
 - [ ] [sipac] assinar 2 documentos no SIPAC Portal Admin → Protocolo → Assinar Documento (pendente desde 11/06)
 - [ ] [docusign] assinar contrato de estágio Natalie Santos / Netcon Americas
 - [ ] [sbc-cotas] checar isenção e prazos — email andreza.leite@ufrpe.br
+- [ ] [workspace-os] considerar 200LOC limit também pra arquivos `.md` — ROADMAPS crescendo demais (INBOX 2026-07-21)
+- [ ] [workspace-os] considerar enforcement pros nomes de arquivos `.md` (INBOX 2026-07-21)
+- [ ] [workspace-os] padronização do workspace como necessidade recorrente — cogitar skill dedicada pra isso (INBOX 2026-07-21)
+- [ ] [brain] reabilitar "english learning mode" — anotar erros de inglês cometidos por Lucas ao longo do uso, acumular num doc com exemplo + explicação + correção (INBOX 2026-07-21)
+- [ ] procurar ferramenta pra transformar vídeos do YouTube/Instagram em texto navegável/acessível pra IAs (INBOX 2026-07-21)
