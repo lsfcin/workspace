@@ -27,14 +27,14 @@ Write 3 UX principles for AI-generated interfaces — the things an agent needs 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-20  ·  trend: advancing
+last-touch: 2026-07-21  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       4 |
-| trimester   |       5 |
-| semester    |       5 |
-| year        |       5 |
-| 2-year      |       5 |
-| 4-year      |       5 |
+| month       |       5 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

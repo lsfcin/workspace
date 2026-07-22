@@ -14,10 +14,12 @@ immersed mode · advancing motion · intrinsic source
 **ease-start**  
 Write a list: what does the workspace do well today, and what still breaks — where does friction appear that the system should be absorbing but isn't. 10 minutes, no structure needed.
 
-**findings so far (2026-07-20, from freewrite via INBOX)** — 2 of the 3 gaps:
-1. overengineering smell somewhere in the workspace — not yet localized, needs a pass to find where
-2. workspace/git feels messy — suspected redundant/conflicting `.md` files scattered around. Overlaps with existing [enforce-standards] backlog item but is a distinct *feeling* worth chasing concretely (which files, where)
-3rd gap still open.
+**findings — ALL 3 GAPS LOCALIZED (2026-07-21, filesystem sweep):**
+1. **overengineering → the `.hooks/` layer.** ~40 files, 3068 LOC, several near-duplicate families (`facade-*`×5, `copilot-*`×6, `context-*`×4; every `.py` mirrored by a `.pyi`). `brain_stats.py`=393 LOC (over its own 200 gate → [stats-split]). 2nd hotspot: `telegram_daemon.py`=814 LOC (→ aiwbot rebuild). Enforcement machinery grew faster than what it enforces.
+2. **messy → workspace-root garbage, not real doc sprawl.** `.Trash-1000/`=6.6 GB / 2216 `.md` living *inside* the tree; `.venv/`=7.6 GB / 9335 `.md` at root. 14.2 GB cruft inflates every find/grep/scan. Real curated docs = only 617 `.md`. So the "mess" is *uncollected garbage*, not too many docs. Loose: 6 orphan `*.original.md`, dup `Modelo de Projeto (1)(2)(3)` in Downloads.
+3. **(NEW) no follow-through / accountability axis.** System is strong at capture (inbox/gmail/telegram/goals) + form-enforcement (40 hooks), zero at chasing outcomes: TODO tasks expire silently, `.loop` chains stall invisibly (`floor-fog-spike`, `painter-mvp-1` dead, no STATUS.md → [A3]), goal anchors slip unalarmed, `mvp-validate` never run. The asymmetry IS the gap.
+
+**Root read**: gap 3 is the root; 1&2 are shadows — cruft (2) accumulates because nothing GCs (3); hook sprawl (1) enforces form but never follow-through (3). → achievement complete; ready for /brain-finished.
 
 >**timing**  
 *target · first validated version in ~6 months (around November 2026)  
@@ -89,10 +91,10 @@ last-touch: 2026-07-21  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       7 |
+| trimester   |       8 |
+| semester    |       8 |
+| year        |       8 |
+| 2-year      |       8 |
+| 4-year      |       8 |
 <!-- stats:end -->

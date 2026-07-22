@@ -24,14 +24,14 @@ Achar no SIGEPE ou no contracheque a data da última progressão e anotar aqui. 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-20  ·  trend: advancing
+last-touch: 2026-07-21  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       4 |
-| trimester   |       4 |
-| semester    |       4 |
-| year        |       4 |
-| 2-year      |       4 |
-| 4-year      |       4 |
+| month       |       5 |
+| trimester   |       5 |
+| semester    |       5 |
+| year        |       5 |
+| 2-year      |       5 |
+| 4-year      |       5 |
 <!-- stats:end -->
