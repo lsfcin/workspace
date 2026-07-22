@@ -91,24 +91,51 @@ def _save(bundle, base=None):
     return str(path)
 
 
-def assemble(url, level="auto", save=False, base=None, _probe=None, _captions=None):
-    """Escalate L0 -> L1, stopping at the first sufficient level. Returns a text bundle."""
+def _join(parts):
+    return "\n\n".join(p for p in parts if p).strip()
+
+
+def assemble(url, level="auto", save=False, base=None,
+             _probe=None, _captions=None, _media=None):
+    """Escalate L0->L1->L2->L3, stopping once text is found (auto); explicit
+    levels force a layer. Returns a text bundle."""
     meta = (_probe or probe)(url)
-    bundle = {"url": url, "source": source_of(url), "ok": meta.get("ok"),
-              "title": meta.get("title"), "uploader": meta.get("uploader"),
-              "description": meta.get("description") or ""}
-    parts = [meta["description"]] if meta.get("description") else []
-    method = "metadata"
-    if level in ("auto", "captions") and meta.get("ok") and (
+    ok = bool(meta.get("ok"))
+    parts, methods = [], []
+    if meta.get("description"):
+        parts.append(meta["description"])
+        methods.append("metadata")
+
+    def media():
+        return _media or __import__("video_media")
+
+    if ok and level in ("auto", "captions", "full") and (
             meta.get("subtitles") or meta.get("auto_captions")):
         caps = (_captions or get_captions)(url)
         if caps:
             parts.append(caps)
-            method = "captions"
-    if not meta.get("ok"):
+            methods.append("captions")
+
+    if ok and (level in ("speech", "full") or (level == "auto" and not _join(parts))):
+        audio = media().download_audio(url)
+        spoken = media().transcribe(audio) if audio else ""
+        if spoken:
+            parts.append(spoken)
+            methods.append("speech")
+
+    if ok and (level in ("ocr", "full") or (level == "auto" and not _join(parts))):
+        video = media().download_video(url)
+        screen = media().ocr_frames(video) if video else ""
+        if screen:
+            parts.append(screen)
+            methods.append("ocr")
+
+    bundle = {"url": url, "source": source_of(url), "ok": ok,
+              "title": meta.get("title"), "uploader": meta.get("uploader"),
+              "description": meta.get("description") or "",
+              "text": _join(parts), "method": "+".join(methods) or "none"}
+    if not ok:
         bundle["error"] = meta.get("error")
-    bundle["text"] = "\n\n".join(p for p in parts if p).strip()
-    bundle["method"] = method
     if save:
         bundle["saved_path"] = _save(bundle, base)
     return bundle

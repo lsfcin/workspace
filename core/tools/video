@@ -1,10 +1,10 @@
-#!/usr/bin/env python3
-# Usage: core/tools/video <url> [--level auto|meta|captions] [--save] [--json] — extract navigable text (metadata/captions/transcript) from a video or image link
+#!/mnt/workspace/.venv/bin/python3
+# Usage: core/tools/video <url> [--level auto|meta|captions|speech|ocr|full] [--save] [--json] — extract navigable text (metadata/captions/transcript/OCR) from a video or image link
 import sys, json, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from video_core import assemble
 
-USAGE = "Usage: core/tools/video <url> [--level auto|meta|captions] [--save] [--json]"
+USAGE = "Usage: core/tools/video <url> [--level auto|meta|captions|speech|ocr|full] [--save] [--json]"
 
 
 def main():

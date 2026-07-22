@@ -1,5 +1,6 @@
 # test_video_core.py — T0/T1 unit tests for video_core (no network; fixtures + injected runners)
-import pathlib, subprocess, sys
+import pathlib, shutil, subprocess, sys
+import pytest
 import video_core as vc
 
 FIX = pathlib.Path(__file__).parent / "fixtures"
@@ -8,6 +9,26 @@ FIX = pathlib.Path(__file__).parent / "fixtures"
 class FakeProc:
     def __init__(self, stdout="", stderr=""):
         self.stdout, self.stderr = stdout, stderr
+
+
+class FakeMedia:
+    """Stand-in for video_media — records calls, returns canned text."""
+    def __init__(self, spoken="", screen=""):
+        self.spoken, self.screen, self.calls = spoken, screen, []
+
+    def download_audio(self, url):
+        self.calls.append("dl_audio")
+        return "a.m4a" if self.spoken else None
+
+    def transcribe(self, path):
+        return self.spoken
+
+    def download_video(self, url):
+        self.calls.append("dl_video")
+        return "v.mp4" if self.screen else None
+
+    def ocr_frames(self, path):
+        return self.screen
 
 
 def test_probe_parses_dump():
@@ -45,8 +66,55 @@ def test_assemble_uses_captions():
     meta = {"ok": True, "title": "T", "uploader": "U",
             "description": "desc", "subtitles": [], "auto_captions": ["en"]}
     b = vc.assemble("http://x", _probe=lambda u: meta, _captions=lambda u: "spoken words")
-    assert b["method"] == "captions"
+    assert "captions" in b["method"]
     assert "spoken words" in b["text"] and "desc" in b["text"]
+
+
+def test_assemble_speech_forced():
+    meta = {"ok": True, "title": "T", "uploader": "U",
+            "description": "", "subtitles": [], "auto_captions": []}
+    fm = FakeMedia(spoken="the spoken line")
+    b = vc.assemble("http://x", level="speech", _probe=lambda u: meta, _media=fm)
+    assert "speech" in b["method"]
+    assert "the spoken line" in b["text"]
+
+
+def test_assemble_auto_escalates_to_speech_then_ocr():
+    meta = {"ok": True, "title": "T", "uploader": "U",
+            "description": "", "subtitles": [], "auto_captions": []}
+    fm = FakeMedia(spoken="", screen="text on the screen")
+    b = vc.assemble("http://x", _probe=lambda u: meta, _media=fm)
+    assert fm.calls == ["dl_audio", "dl_video"]  # tried speech, empty, escalated to ocr
+    assert "ocr" in b["method"] and "text on the screen" in b["text"]
+
+
+def test_assemble_auto_skips_heavy_when_metadata_suffices():
+    meta = {"ok": True, "title": "T", "uploader": "U",
+            "description": "already enough", "subtitles": [], "auto_captions": []}
+    fm = FakeMedia(spoken="nope")
+    b = vc.assemble("http://x", _probe=lambda u: meta, _media=fm)
+    assert fm.calls == []  # no download when L0 already has text
+    assert b["method"] == "metadata"
+
+
+def test_transcribe_joins_segments():
+    import video_media as vm
+
+    class Seg:
+        def __init__(self, t):
+            self.text = t
+
+    class FakeModel:
+        def transcribe(self, path, language=None):
+            return ([Seg(" hi "), Seg("there")], None)
+
+    assert vm.transcribe("x", _model=FakeModel()) == "hi there"
+
+
+@pytest.mark.skipif(not shutil.which("tesseract"), reason="tesseract not installed")
+def test_ocr_image_reads_fixture():
+    import video_media as vm
+    assert "HELLO OCR" in vm.ocr_image(FIX / "text_on_image.png", lang="eng")
 
 
 def test_source_of():
