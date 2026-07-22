@@ -99,7 +99,7 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`terms`](terms) | — | — | scan .tex files for terminology inconsistencies defined in terms.yaml |
 | [`test/conftest.py`](test/conftest.py) | [`test/conftest.pyi`](test/conftest.pyi) | `pytest_configure` | conftest.py — put core/tools on sys.path and register the network marker for video tests |
 | [`test/test_video_core.py`](test/test_video_core.py) | [`test/test_video_core.pyi`](test/test_video_core.pyi) | `FakeProc`, `FakeMedia`, `test_probe_parses_dump`, `test_probe_failure_no_crash`, `test_clean_vtt` | test_video_core.py — T0/T1 unit tests for video_core (no network; fixtures + injected runners) |
-| [`video`](video) | — | — | extract navigable text (metadata/captions/transcript/OCR) from a video or image link |
+| [`video`](video) | — | — | extract navigable text (metadata/captions/transcript/OCR/VLM caption) from a video or image link |
 | [`video.SETUP.md`](video.SETUP.md) | — | — | video tool — setup |
 | [`video_core.py`](video_core.py) | [`video_core.pyi`](video_core.pyi) | `source_of`, `probe`, `clean_vtt`, `get_captions`, `assemble` | !/mnt/workspace/.venv/bin/python3 |
 | [`video_media.py`](video_media.py) | [`video_media.pyi`](video_media.pyi) | `download_audio`, `download_video`, `transcribe`, `ocr_image`, `sample_frames` | !/mnt/workspace/.venv/bin/python3 |
