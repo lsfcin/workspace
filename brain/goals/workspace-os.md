@@ -6,20 +6,21 @@ A centralized personal operating system: all thoughts, projects, demands, full-l
 transformative · essential · thrilled
 
 >**dynamics**  
-immersed mode · advancing motion · intrinsic source
+immersed mode · advancing motion · intrinsic source  
+2026-07-22 compass: highest wind + in-flow this session — mvp-gaps localized then closed, gitflow enforced, gitlinks killed, `/compass` shipped. Lucas ordered it #1: make v1 strong (gaps 1&2 cleanup) + finish aiwbot.
 
 ## selected next achievement
-    [mvp-gaps] identify the 3 most important gaps still missing from the current workspace
+    [v1-strong] make the first core version really strong — reclaim the 14 GB workspace-root cruft (gap 2), de-overengineer the hooks / `telegram_daemon` (gap 1), and finish aiwbot as the away-from-PC front door
 
 **ease-start**  
-Write a list: what does the workspace do well today, and what still breaks — where does friction appear that the system should be absorbing but isn't. 10 minutes, no structure needed.
+Start with the safest visible win — reclaiming space. Open a terminal and run `du -sh .Trash-1000 .venv` to confirm the two fat dirs (~6.6 GB + ~7.6 GB). Then decide the safe move for each: empty `.Trash-1000` (system trash, irreversible — confirm first), keep or relocate the live `.venv`. 5 min, pure inspection — nothing deleted yet.
 
 **findings — ALL 3 GAPS LOCALIZED (2026-07-21, filesystem sweep):**
 1. **overengineering → the `.hooks/` layer.** ~40 files, 3068 LOC, several near-duplicate families (`facade-*`×5, `copilot-*`×6, `context-*`×4; every `.py` mirrored by a `.pyi`). `brain_stats.py`=393 LOC (over its own 200 gate → [stats-split]). 2nd hotspot: `telegram_daemon.py`=814 LOC (→ aiwbot rebuild). Enforcement machinery grew faster than what it enforces.
 2. **messy → workspace-root garbage, not real doc sprawl.** `.Trash-1000/`=6.6 GB / 2216 `.md` living *inside* the tree; `.venv/`=7.6 GB / 9335 `.md` at root. 14.2 GB cruft inflates every find/grep/scan. Real curated docs = only 617 `.md`. So the "mess" is *uncollected garbage*, not too many docs. Loose: 6 orphan `*.original.md`, dup `Modelo de Projeto (1)(2)(3)` in Downloads.
 3. **(NEW, reframed 2026-07-22) the gentle-resurfacing rhythm is missing.** Strong at *capture* (inbox/gmail/telegram/goals) but the instrument that gently resurfaces the *inspiring work waiting* — `/compass` ("good wind, not behind"; ease-start in hand; timing negotiated) — only runs when manually invoked, so inspiring work and the occasional gentle deadline quietly don't resurface. **Not** an accountability/chase gap — that anxious tone is the *opposite* of the workspace's purpose (see [FOUNDATIONS.md](../FOUNDATIONS.md)). The fix is a soft rhythm + motivation-ordering + timing/ditch moves for `/compass`, never nagging. → **SHIPPED this session** (compass fold + `/compass-nudge`).
 
-**Root read**: 1&2 are "too much" (machinery, cruft); 3 was "too little" — but the answer was never to *chase*, it was to let the gentle partner (`/compass`) resurface good wind on a soft rhythm. Ordering by motivation wins over deadline pressure. → mvp-gaps identification complete; close via `/compass` (dogfood the new skill).
+**Root read**: 1&2 are "too much" (machinery, cruft); 3 was "too little" — but the answer was never to *chase*, it was to let the gentle partner (`/compass`) resurface good wind on a soft rhythm. Ordering by motivation wins over deadline pressure. → **[mvp-gaps] CLOSED 2026-07-22** via `/compass` (first dogfood). Next: **[v1-strong]** — reclaim gap-2 cruft, de-overengineer gap-1 hooks, finish aiwbot.
 
 >**timing**  
 *target · first validated version in ~6 months (around November 2026)  
@@ -30,7 +31,7 @@ fallback · iterate — MVP can always be extended*
 
 ## backlog
 
-> [ ] [mvp-gaps] identify the 3 most important gaps still missing from the current workspace  
+> [ ] [v1-strong] make the first core version really strong — GC 14 GB workspace-root cruft (gap 2) + de-overengineer hooks/`telegram_daemon` (gap 1) + finish aiwbot (away-from-PC front door)  
 > [ ] [todo-integration] establish TODO.md as consistent daily practice  
 > [x] [compass-cadence] DONE 2026-07-22 — soft SessionStart line (`.hooks/compass-nudge.py`, wired in settings.json) gently offers `/compass` when it's been >14d. Ignorable, in-session only, no phone. Mirrors inbox-nudge.  
 > [ ] [brain-full-files] all GOALS.md stubs have actual goal files  
@@ -81,20 +82,21 @@ Build + verify in the order above, live-testing each numbered step via the paire
 ## done
 
 <!-- done:start -->
+> [x] [mvp-gaps] DONE 2026-07-22 — all 3 gaps localized with hard numbers (see findings above): (1) `.hooks` overengineering (~40 files / 3068 LOC), (2) 14 GB workspace-root cruft (`.Trash-1000` + root `.venv`), (3) reframed to the missing gentle-resurfacing rhythm → shipped as the `/compass` fold. Closed via `/compass`, first dogfood of the new skill.
 > [x] [gmail-link] `core/tools/gmail` + `core/skills/gmail-triage.md` — read-only Gmail across 3 accounts, routes to INBOX/TODO/goals/drafts/attachments. Pending: Google Cloud OAuth setup by Lucas.
 > [x] [telegram-link] `core/tools/telegram` (CLI: init/send/status) + `core/tools/telegram_daemon.py` (systemd --user service `workspace-telegram-bot`, auto-restart) — bot @lsfaiwbot. Outbound: `telegram send <text>` for nudges (content/cadence still to design — this ships the transport). Inbound: text/photo/voice/document from the paired chat_id append directly to brain/INBOX.md (no confirmation gate — single trusted sender, unlike gmail's AI-triage flow); attachments saved to brain/attachments/YYYY-MM/. Voice notes saved untranscribed for now (2026-07-20).
 <!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-21  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       8 |
-| trimester   |       9 |
-| semester    |       9 |
-| year        |       9 |
-| 2-year      |       9 |
-| 4-year      |       9 |
+| month       |       9 |
+| trimester   |      10 |
+| semester    |      10 |
+| year        |      10 |
+| 2-year      |      10 |
+| 4-year      |      10 |
 <!-- stats:end -->

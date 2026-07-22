@@ -46,14 +46,14 @@ Nothing to set up — the seam pilot runs via `/loops export-manifest` in `code/
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-21  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       6 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       7 |
+| trimester   |       8 |
+| semester    |       8 |
+| year        |       8 |
+| 2-year      |       8 |
+| 4-year      |       8 |
 <!-- stats:end -->

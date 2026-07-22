@@ -3,83 +3,82 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-22 11:50
+last-updated: 2026-07-22 12:07
 
 >**areas** — last 14 days  
 ```
-health       ████░░░░░░   27 touches
-career       █░░░░░░░░░   12 touches
-finances     █░░░░░░░░░   10 touches
-fun          ██████████   61 touches
-spiritual    ███░░░░░░░   20 touches
+health       ████░░░░░░   32 touches
+career       █░░░░░░░░░   14 touches
+finances     █░░░░░░░░░   12 touches
+fun          ██████████   73 touches
+spiritual    ███░░░░░░░   24 touches
 ```
 
 >**goals** — last 14 days  
 ```
-career-ufrpe             ███████░░░   5 touches
-corporal-expressiveness  ███████░░░   5 touches
-cria                     ███████░░░   5 touches
-dance-bachata            ███████░░░   5 touches
-dance-cavalo-marinho     ███████░░░   5 touches
-dance-forro              ███████░░░   5 touches
-dance-frevo              ███████░░░   5 touches
-dance-salsa              ███████░░░   5 touches
-dance-samba              ███████░░░   5 touches
-exercise                 ███████░░░   5 touches
-finances                 ███████░░░   5 touches
-guitar                   ███████░░░   5 touches
-home-casinhas            ███████░░░   5 touches
-instituto                ███████░░░   5 touches
-lih-dd                   ████████░░   6 touches
-local-ai                 ███████░░░   5 touches
-loop-engineering         ████████░░   6 touches
-magic-places             ███████░░░   5 touches
-make-in-time             ███████░░░   5 touches
-pandeiro                 ███████░░░   5 touches
-paper-jarbinhas          ███████░░░   5 touches
-paper-megatruth          ███████░░░   5 touches
-paper-scattercode        ███████░░░   5 touches
-paper-sibgrapi-2026      ███████░░░   5 touches
+career-ufrpe             ███████░░░   6 touches
+corporal-expressiveness  ███████░░░   6 touches
+cria                     ███████░░░   6 touches
+dance-bachata            ███████░░░   6 touches
+dance-cavalo-marinho     ███████░░░   6 touches
+dance-forro              ███████░░░   6 touches
+dance-frevo              ███████░░░   6 touches
+dance-salsa              ███████░░░   6 touches
+dance-samba              ███████░░░   6 touches
+exercise                 ███████░░░   6 touches
+finances                 ███████░░░   6 touches
+guitar                   ███████░░░   6 touches
+home-casinhas            ███████░░░   6 touches
+instituto                ███████░░░   6 touches
+lih-dd                   ████████░░   7 touches
+local-ai                 ███████░░░   6 touches
+loop-engineering         ████████░░   7 touches
+magic-places             ███████░░░   6 touches
+make-in-time             ███████░░░   6 touches
+pandeiro                 ███████░░░   6 touches
+paper-jarbinhas          ███████░░░   6 touches
+paper-megatruth          ███████░░░   6 touches
+paper-scattercode        ███████░░░   6 touches
+paper-sibgrapi-2026      ███████░░░   6 touches
 prompt-opt-automation    █░░░░░░░░░   1 touches
-reading                  ███████░░░   5 touches
-rpg-isoroll              ████████░░   6 touches
-sleep-regularity         ███████░░░   5 touches
-smartphone-addiction     ███████░░░   5 touches
-spacemantics             █████░░░░░   4 touches
-spec-driven-development  ████░░░░░░   3 touches
-startapps-apptime        ███████░░░   5 touches
-startapps-arede          ███████░░░   5 touches
-startapps-batituque      ███████░░░   5 touches
-startapps-come-bem       ███████░░░   5 touches
-startapps-cuida          ███████░░░   5 touches
-startapps-da-feirinha    ███████░░░   5 touches
-startapps-gira           ███████░░░   5 touches
-startapps-laplata        ███████░░░   5 touches
-startapps-marcapramim    ███████░░░   5 touches
-startapps-permuta        ███████░░░   5 touches
-startapps-polilinhas     ███████░░░   5 touches
-startapps-realgorithm    ███████░░░   5 touches
-startapps-todolado       ███████░░░   5 touches
-startapps-ux-guidelines-ai ████████░░   6 touches
-startapps-virada         ███████░░░   5 touches
-startapps-voti           ███████░░░   5 touches
-startapps-xacomigo       ███████░░░   5 touches
-surf                     ███████░░░   5 touches
-teaching-materials       ███████░░░   5 touches
-vipassana                ███████░░░   5 touches
-voice                    ███████░░░   5 touches
-workspace-os             ██████████   7 touches
-yoga                     ███████░░░   5 touches
+reading                  ███████░░░   6 touches
+rpg-isoroll              ████████░░   7 touches
+sleep-regularity         ███████░░░   6 touches
+smartphone-addiction     ███████░░░   6 touches
+spacemantics             ██████░░░░   5 touches
+spec-driven-development  █████░░░░░   4 touches
+startapps-apptime        ███████░░░   6 touches
+startapps-arede          ███████░░░   6 touches
+startapps-batituque      ███████░░░   6 touches
+startapps-come-bem       ███████░░░   6 touches
+startapps-cuida          ███████░░░   6 touches
+startapps-da-feirinha    ███████░░░   6 touches
+startapps-gira           ███████░░░   6 touches
+startapps-laplata        ███████░░░   6 touches
+startapps-marcapramim    ███████░░░   6 touches
+startapps-permuta        ███████░░░   6 touches
+startapps-polilinhas     ███████░░░   6 touches
+startapps-realgorithm    ███████░░░   6 touches
+startapps-todolado       ███████░░░   6 touches
+startapps-ux-guidelines-ai ████████░░   7 touches
+startapps-virada         ███████░░░   6 touches
+startapps-voti           ███████░░░   6 touches
+startapps-xacomigo       ███████░░░   6 touches
+surf                     ███████░░░   6 touches
+teaching-materials       ███████░░░   6 touches
+vipassana                ███████░░░   6 touches
+voice                    ███████░░░   6 touches
+workspace-os             ██████████   8 touches
+yoga                     ███████░░░   6 touches
 ```
 <!-- data:end -->
 
->**pareto** _(2026-07-11 compass)_  
-**cria** — best wind in Brain: thrilled × transformative × essential, Fable foundation session 07/07 shipped paper v1 + dossiês + experiment design. Feeds three goals at once (lih-dd first-paper, instituto motor, AI4Good 2026.2). Bottleneck is CEP — calendar-critical for a 2026.2 experiment.  
-**workspace-os** — thrilled × transformative × immersed/advancing; the infrastructure everything else runs on; every compass review and ease-start lives here.  
-**home-casinhas** — transformative × essential. DAM boleto pago ✅; new blocker is averbação do terreno (7º Cartório RGI, com painho). Still highest leverage — unblocks everything downstream.
+>**pareto** _(2026-07-22 compass — order by Lucas's live motivation)_  
+**workspace-os** _(#1, his call)_ — thrilled × transformative × immersed/advancing; in-flow this session (mvp-gaps closed, gitflow + gitlink gates, `/compass` shipped). Next = make v1 strong: reclaim 14 GB cruft (gap 2), de-overengineer hooks (gap 1), finish aiwbot as the away-from-PC front door.  
+**cria** _(#2)_ — best wind in Brain: thrilled × transformative × essential; paper v1 + dossiês + experiment design all staged. Feeds lih-dd first-paper, instituto motor, AI4Good 2026.2. The one gentle clock: CEP submission is calendar-critical for a 2026.2 experiment.  
+**home-casinhas** _(#3)_ — transformative × essential. DAM pago ✅; blocker is averbação do terreno (7º Cartório RGI, com painho). Highest leverage — one phone call to advance.
 
->**gap** _(2026-07-11 compass)_  
-**paper-sibgrapi-2026** — ✅ RESOLVED: submitted successfully (confirmed 2026-07-11). Identity block broken in practice; archive on next /brain-finished.  
+>**gap** _(2026-07-22 compass)_  
 **paper-megatruth** — avoidant × stalled × external; team morale dropping, advisor absence compounds — gap type: fear/avoidance (identity threat around research leadership). Still 0 touches.  
 **body/movement cluster** — all dance goals + exercise + yoga + surf + pandeiro at 0 touches; pandeiro (old pareto pick) never got its Saturday. Gap type: whole embodiment area parked while research/infra absorbs energy.  
 **instituto** — coffee-1 (the fear-gated first text to one board member) still not sent, despite full cockpit build-out in branches/instituto. Gap type: fear/avoidance — build the structure instead of making the one relational move.
@@ -144,6 +143,6 @@ yoga                     ███████░░░   5 touches
 | teaching materials paradigm | craft | near | — | [research-tools] research best current teaching tools —… | [→](goals/teaching-materials.md) |
 | vipassana | spiritual | year | none external | [sit-5] sit in silence for 5 minutes — no guidance, no … | [→](goals/vipassana.md) |
 | voice | spiritual | near | — | [voice-map] identify one scenario where not being heard… | [→](goals/voice.md) |
-| workspace OS | health | year | none external | [mvp-gaps] identify the 3 most important gaps still mis… | [→](goals/workspace-os.md) |
+| workspace OS | health | year | none external | [v1-strong] make the first core version really strong —… | [→](goals/workspace-os.md) |
 | yoga | spiritual | year | none external | [mat-today] practice once this week with no goal — just… | [→](goals/yoga.md) |
 <!-- goals:end -->

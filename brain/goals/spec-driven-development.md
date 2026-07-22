@@ -34,14 +34,14 @@ Rodar `core/tools/spec-scan` (vê a catraca: 1/88 locked hoje). Abrir `code/isor
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-21  ·  trend: advancing
+last-touch: 2026-07-22  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       3 |
-| trimester   |       3 |
-| semester    |       3 |
-| year        |       3 |
-| 2-year      |       3 |
-| 4-year      |       3 |
+| month       |       4 |
+| trimester   |       4 |
+| semester    |       4 |
+| year        |       4 |
+| 2-year      |       4 |
+| 4-year      |       4 |
 <!-- stats:end -->
