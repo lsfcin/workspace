@@ -129,4 +129,19 @@ brain/attachments/*
 !brain/goals/
 brain/goals/*
 !brain/goals/*.md
+
+# Nested project repos — each has its own git repo (AGENTS.md: internal projects use
+# their own repos). They must NOT be embedded as gitlinks in the workspace: a fresh
+# clone can't fetch them, and every internal commit flags a spurious "M". Git can't
+# track individual files (e.g. CONTEXT.md) inside a nested repo anyway — routing reads
+# them off-disk. So ignore each repo dir wholesale. Enforced by .hooks/nested-gitlink-gate.sh.
 academy/papers/2027-CHI-cria
+academy/papers/ai4good
+academy/papers/mechanism-search
+academy/papers/mutual-credit-ai
+academy/papers/pls-pix
+branches/casinhas
+branches/instituto
+code/cria
+code/gira
+code/laplata

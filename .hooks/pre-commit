@@ -135,6 +135,11 @@ if [ -x /mnt/workspace/.hooks/gitflow-gate.sh ]; then
   /mnt/workspace/.hooks/gitflow-gate.sh || exit 1
 fi
 
+# ── 1f. Nested-gitlink gate (workspace repo) ──────────────────────────────────
+if [ -x /mnt/workspace/.hooks/nested-gitlink-gate.sh ]; then
+  /mnt/workspace/.hooks/nested-gitlink-gate.sh || exit 1
+fi
+
 # ── 1b. Duplication gate (jscpd) — blocks clones involving staged files ───────
 DUP_FILES=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|py|dart)$' | grep -vE '\.(d\.ts|pyi|min\.js)$' || true)
 if [ -n "$DUP_FILES" ]; then
