@@ -29,6 +29,7 @@
 - [ ] [banca] fechar procedimentos da banca de Artur
 - [ ] responder megatruth
 - [ ] [finances] pedir mudança da data de pagamento do aluguel: dia 5 → dia 10
+- [ ] [finances] transferir pra painho o valor do terreno/chão do santuário jatobá (INBOX 2026-07-22)
 - [ ] [ufrpe] PDA — plano de desenvolvimento (Lenina cobrou); é simples, fazer logo
 - [ ] [pandeiro / show-up] confirm Pandeirada time, show up Saturday
 - [ ] [sleep / streak-3] 3 consecutive nights in bed by 00:30
@@ -118,4 +119,7 @@
 - [ ] [workspace-os] considerar enforcement pros nomes de arquivos `.md` (INBOX 2026-07-21)
 - [ ] [workspace-os] padronização do workspace como necessidade recorrente — cogitar skill dedicada pra isso (INBOX 2026-07-21)
 - [ ] [brain] reabilitar "english learning mode" — anotar erros de inglês cometidos por Lucas ao longo do uso, acumular num doc com exemplo + explicação + correção (INBOX 2026-07-21)
-- [ ] procurar ferramenta pra transformar vídeos do YouTube/Instagram em texto navegável/acessível pra IAs (INBOX 2026-07-21)
+- [x] procurar ferramenta pra transformar vídeos do YouTube/Instagram em texto navegável/acessível pra IAs — RESOLVIDO construindo `core/tools/video` (L0 metadata + L1 captions + L2 whisper + L3 OCR), branch feature/video-tool. Falta M4 (VLM visual-puro + auto-route no /inbox + cookies IG) — sessão separada (INBOX 2026-07-21, feito 2026-07-22)
+- [ ] [workspace-os] telegram_daemon.py passou de 200 LOC — corrigir o arquivo E identificar a falha que deixou passar do limite (por que o size-gate não pegou?) (INBOX 2026-07-22)
+- [ ] [workspace-os / M4-video] `core/tools/video` M4: VLM local p/ visual puro (moondream/models/) + relevance embeddings vs GOALS.md + integração auto-route no /inbox + config de cookies IG (`--cookies-from-browser`/cookies.txt gitignored). Amarra ao goal local-ai
+- [ ] [workspace-os] wiring verify:fast em core/tools/ — adicionar runner descobrível (Makefile `verify:fast` → pytest -m "not network") p/ o pre-commit gate rodar os testes da `video` automaticamente; hoje só rodam manual
