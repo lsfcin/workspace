@@ -14,6 +14,18 @@ EXPORT_MIME = {
     "application/vnd.google-apps.presentation": "application/pdf",
 }
 
+# (gdoc mimeType, requested format) -> export mimeType, for callers that need
+# an editable format instead of the PDF default (e.g. reading tables verbatim).
+EXPORT_MIME_OVERRIDES = {
+    ("application/vnd.google-apps.document", "docx"): "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+}
+
+EXPORT_EXT = {
+    "application/pdf": ".pdf",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": ".xlsx",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ".docx",
+}
+
 FILE_FIELDS = "id,name,mimeType,modifiedTime,size,parents,webViewLink"
 
 GDOC_MIME = "application/vnd.google-apps.document"
@@ -54,8 +66,9 @@ def recent_files(alias: str, page_size: int = 30) -> list:
     return res.get("files", [])
 
 
-def download_file(alias: str, file_id: str, dest_dir: pathlib.Path) -> pathlib.Path:
-    """Download or export file. Returns saved path."""
+def download_file(alias: str, file_id: str, dest_dir: pathlib.Path, export_as: str = None) -> pathlib.Path:
+    """Download or export file. `export_as` (e.g. "docx") overrides the default
+    export mimeType for Google-native files. Returns saved path."""
     svc = get_service(alias)
     meta = svc.files().get(fileId=file_id, fields="name,mimeType").execute()
     name, mime = meta["name"], meta["mimeType"]
@@ -63,8 +76,8 @@ def download_file(alias: str, file_id: str, dest_dir: pathlib.Path) -> pathlib.P
     dest_dir.mkdir(parents=True, exist_ok=True)
 
     if mime in EXPORT_MIME:
-        export_mime = EXPORT_MIME[mime]
-        ext = ".pdf" if "pdf" in export_mime else ".xlsx"
+        export_mime = EXPORT_MIME_OVERRIDES.get((mime, export_as), EXPORT_MIME[mime])
+        ext = EXPORT_EXT.get(export_mime, "")
         req = svc.files().export_media(fileId=file_id, mimeType=export_mime)
         name = name + ext
     else:

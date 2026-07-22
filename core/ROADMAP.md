@@ -6,6 +6,10 @@ Reference implementation = `flows/deepresearch.md` (the validator's oracle; neve
 
 ## Open
 
+- [ ] **pypandoc as a real dependency.** `pip install pypandoc-binary` was done ad hoc in `.venv`
+      this session to unblock `core/tools/parse` on `.docx` (previously `FileNotFoundError: pandoc`).
+      Make it durable: add `pypandoc-binary` to the venv's declared deps (or a SETUP.md step) so a
+      fresh workspace clone doesn't silently lose `.docx` parsing.
 - [ ] **2b — loop-agent tier source + generator.** Create `core/agents/loop-{low,medium,high}.md`
       carrying `tier:`; extract loop-engineering's tier→model map to `core/tier-map.json`; add a
       generator that emits `.claude/agents/loop-*.md` with `model:` resolved. Removes the last

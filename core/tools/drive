@@ -55,10 +55,10 @@ def cmd_search(account: str, query: str) -> None:
         _print_files(drive_core.search_files(alias, query), alias)
 
 
-def cmd_download(account: str, file_id: str) -> None:
+def cmd_download(account: str, file_id: str, export_as: str) -> None:
     alias = google_auth.resolve_alias(account)
     print(f"Downloading {file_id} from {alias}...")
-    path = drive_core.download_file(alias, file_id, DOWNLOAD_DIR)
+    path = drive_core.download_file(alias, file_id, DOWNLOAD_DIR, export_as=export_as)
     print(f"Saved: {path}")
 
 
@@ -101,6 +101,7 @@ def main():
 
     pd = sub.add_parser("download")
     pd.add_argument("--account", required=True)
+    pd.add_argument("--as", dest="export_as", default=None, help="export format override for Google-native files (e.g. docx)")
     pd.add_argument("file_id")
 
     pm = sub.add_parser("mkdir")
@@ -120,7 +121,7 @@ def main():
     elif args.cmd == "recent":   cmd_recent(args.account, args.limit)
     elif args.cmd == "list":     cmd_list(args.account, args.folder)
     elif args.cmd == "search":   cmd_search(args.account, args.query)
-    elif args.cmd == "download": cmd_download(args.account, args.file_id)
+    elif args.cmd == "download": cmd_download(args.account, args.file_id, args.export_as)
     elif args.cmd == "mkdir":    cmd_mkdir(args.account, args.name, args.parent)
     elif args.cmd == "put":      cmd_put(args.account, args.path, args.parent, args.gdoc, args.name)
     else:                        p.print_help()
