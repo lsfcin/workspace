@@ -97,4 +97,9 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`telegram_config.py`](telegram_config.py) | [`telegram_config.pyi`](telegram_config.pyi) | `config_dir`, `load_config`, `save_config`, `bot_token`, `allowed_chat_id` | !/mnt/workspace/.venv/bin/python3 |
 | [`telegram_daemon.py`](telegram_daemon.py) | [`telegram_daemon.pyi`](telegram_daemon.pyi) | `main` | !/mnt/workspace/.venv/bin/python3 |
 | [`terms`](terms) | — | — | scan .tex files for terminology inconsistencies defined in terms.yaml |
+| [`test/conftest.py`](test/conftest.py) | [`test/conftest.pyi`](test/conftest.pyi) | `pytest_configure` | conftest.py — put core/tools on sys.path and register the network marker for video tests |
+| [`test/test_video_core.py`](test/test_video_core.py) | [`test/test_video_core.pyi`](test/test_video_core.pyi) | `FakeProc`, `test_probe_parses_dump`, `test_probe_failure_no_crash`, `test_clean_vtt`, `test_assemble_stops_at_metadata` | test_video_core.py — T0/T1 unit tests for video_core (no network; fixtures + injected runners) |
+| [`video`](video) | — | — | extract navigable text (metadata/captions/transcript) from a video or image link |
+| [`video.SETUP.md`](video.SETUP.md) | — | — | video tool — setup |
+| [`video_core.py`](video_core.py) | [`video_core.pyi`](video_core.pyi) | `source_of`, `probe`, `clean_vtt`, `get_captions`, `assemble` | !/mnt/workspace/.venv/bin/python3 |
 <!-- routing:end -->

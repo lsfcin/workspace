@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+# Usage: core/tools/video <url> [--level auto|meta|captions] [--save] [--json] — extract navigable text (metadata/captions/transcript) from a video or image link
+import sys, json, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from video_core import assemble
+
+USAGE = "Usage: core/tools/video <url> [--level auto|meta|captions] [--save] [--json]"
+
+
+def main():
+    args = sys.argv[1:]
+    if not args or args[0] in ("-h", "--help"):
+        print(USAGE, file=sys.stderr)
+        sys.exit(1)
+    url = args[0]
+    level, save, as_json = "auto", False, False
+    i = 1
+    while i < len(args):
+        a = args[i]
+        if a == "--level" and i + 1 < len(args):
+            level = args[i + 1]
+            i += 2
+            continue
+        if a == "--save":
+            save = True
+        elif a == "--json":
+            as_json = True
+        i += 1
+    if level == "meta":
+        level = "metadata"
+    b = assemble(url, level=level, save=save)
+    if as_json:
+        print(json.dumps(b, ensure_ascii=False, indent=2))
+        return
+    print(f"# {b.get('title') or b['source']}  ({b['method']})")
+    if b.get("uploader"):
+        print(f"by {b['uploader']}")
+    if not b.get("ok"):
+        print(f"[incomplete: {b.get('error')}]", file=sys.stderr)
+    print()
+    print(b.get("text") or "(no text extracted)")
+    if b.get("saved_path"):
+        print(f"\n[saved: {b['saved_path']}]", file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()
