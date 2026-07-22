@@ -21,6 +21,7 @@ Lucas may write in pt-br (inbox, conversation). Agent always writes Brain files 
 - Long-term, horizon, dream, to have a clear light to follow
 - Small consistent wins over milestone sprints
 - Right question asked, not task list given
+- Permission to ditch or defer freely — dropping what no longer makes sense is a strategic win, not a failure. Ordering by live motivation comes *before* any deadline; deadlines are a gentle secondary signal (`/compass` is built on this).
 
 ## Patterns to Know
 

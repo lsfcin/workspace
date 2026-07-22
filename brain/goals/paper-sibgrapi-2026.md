@@ -7,7 +7,7 @@ meaningful · essential · indifferent
 
 >**dynamics**  
 resolved mode · submitted motion · external source  
-✅ 2026-07-11 compass: Lucas confirms SIBGRAPI submission happened successfully. The block around "I can't publish interesting work" got broken in practice — the identity fear predicted in the analysis below did not stop the submission. Goal is done; move to ARCHIVE on next /brain-finished pass. Note for future goals: the avoidant pattern was real but overcome, evidence against the self-story.
+✅ 2026-07-11 compass: Lucas confirms SIBGRAPI submission happened successfully. The block around "I can't publish interesting work" got broken in practice — the identity fear predicted in the analysis below did not stop the submission. Goal is done; move to ARCHIVE on next /compass pass. Note for future goals: the avoidant pattern was real but overcome, evidence against the self-story.
 
 >**fears**  
 *what · submitting confirms whether "I can publish interesting work" — making it real makes it judgeable  
@@ -52,10 +52,10 @@ last-touch: 2026-07-21  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       4 |
-| trimester   |       5 |
-| semester    |       5 |
-| year        |       5 |
-| 2-year      |       5 |
-| 4-year      |       5 |
+| month       |       5 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

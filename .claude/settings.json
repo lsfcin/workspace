@@ -117,6 +117,10 @@
           {
             "type": "command",
             "command": "python3 /mnt/workspace/.hooks/inbox-nudge.py"
+          },
+          {
+            "type": "command",
+            "command": "python3 /mnt/workspace/.hooks/compass-nudge.py"
           }
         ]
       }

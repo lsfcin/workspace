@@ -44,9 +44,8 @@ The `caveman*` / `cavecrew` skills live in `~/.agents/skills/` and are mirrored 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`_template.md`](_template.md) | — | — | One-line summary of what this skill does and when to invoke it. Invoke with /skill-name [optional args]. |
-| [`brain-compass.md`](brain-compass.md) | — | — | Run a compass review of Brain: surface what has good wind, update diagnostics, write ease-starts for stalled goals. |
-| [`brain-finished.md`](brain-finished.md) | — | — | Mark an achievement done, advance to the next selected achievement, write a new ease-start. |
 | [`calendar.md`](calendar.md) | — | — | List upcoming events and query date ranges from Google Calendar across all configured accounts (personal, cin, ufrpe). Invoke with /calendar [intent]. |
+| [`compass.md`](compass.md) | — | — | Gentle strategic review of Brain: surface what has good wind, reorder energy by motivation, negotiate timing, offer guilt-free ditching, close wins, and hand you the next easy start. Invoke with /compass [optional goal or focus]. |
 | [`dedup.md`](dedup.md) | — | — | Semantic duplication audit for a code project: finds regenerated near-duplicate logic that the jscpd pre-commit gate (verbatim clones) misses, using codegraph + targeted reading. Invoke with /dedup [project path, defaults to cwd project]. |
 | [`drive.md`](drive.md) | — | — | List, search, and download files from Google Drive across all configured accounts (personal, cin, ufrpe). Invoke with /drive [intent]. |
 | [`foundry.md`](foundry.md) | — | — | Foundry VTT v14 module dev reference — router. Load relevant subfiles before working. Invoke with /foundry [topic] |

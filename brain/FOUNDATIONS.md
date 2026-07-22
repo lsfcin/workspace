@@ -9,3 +9,6 @@
 - **Small consistent progress is self-reinforcing**: wins → satisfaction → importance → expectancy → more wins (Strand et al. 2025). Celebrate `[x]` achievements, not just final delivery.
 - **Fear made workable, not eliminated**, reduces its behavioral grip (ACT — Wolitzky-Taylor 2015, d~1.0). The `fears` block is not therapy — it's intelligence.
 - **External timing supplements internal motivation** without replacing it (Ariely & Wertenbroch 2002). `anchor` dates are chosen, not imposed.
+- **Ordering by motivation beats deadline pressure**. Energy follows what has wind, not the clock (Deci & Ryan SDT). A review orders goals by live motivation first; deadlines surface only gently and second — never as the organizing axis.
+- **Ditching and deferring are strategic moves, not failures**. A satisficer releases cleanly rather than dragging every open loop (Parker 2007); dropping what no longer makes sense protects energy for what he believes in. The compass offers the drop as a valid option, never a verdict.
+- **Timing is negotiated, not imposed**. "Is this the right moment, or is there better timing?" — pushing a chosen `target` is alignment, not slippage (extends Ariely & Wertenbroch: the anchor is his to move).

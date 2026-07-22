@@ -1,0 +1,1 @@
+/mnt/workspace/core/skills/compass.md

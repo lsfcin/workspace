@@ -63,11 +63,28 @@ Synthesis on top of fears:
 ## Backlog Ordering Policy
 
 - Selected achievement = always first unchecked `[ ]` item in backlog
-- Remaining unchecked = ordered by Lucas's judgment
+- Remaining unchecked = ordered by Lucas's judgment — **by live motivation first, deadlines second**
+  (ordering wins over pressure; see FOUNDATIONS). Deadlines are a gentle nudge, never the organizing axis.
 - Done items = move to `## done` section
 - Achievement format: `[short-id] description` — short-id is 2–4 word kebab-case slug
 - Optional inline timing: `> [ ] [id] description — Jun 01`
-- On check-off: use `/brain-finished [id]`
+- On check-off: use `/compass` (the "close a win" move — folds the retired `/brain-finished`)
+
+## Compass Interview — outputs & moves
+
+`/compass` is a gentle strategic *interview*, not a report. Beyond diagnostics it writes back what
+Lucas decides, using these moves:
+
+- **almost-there** — a goal a step from a milestone/mvp/finish. No dedicated field: inferred from
+  backlog `[x]`/`[ ]` ratio + `motion: advancing` + recent git touches + `closure` proximity. Compass
+  surfaces its ease-start ("a step from done").
+- **timing negotiation** — "is this the right moment, or better timing?" → if later, push the goal's
+  `target` (chosen, not slipped).
+- **ditch** — dropping a goal that no longer makes sense: move the whole goal file's entry to
+  `brain/ARCHIVE.md` with a one-line reason. A valid move, never a failure.
+- **defer** — keep the goal, push its `target` forward. Distinct from ditch.
+- **close a win** — flip `[ ]`→`[x]`, move to the `done` block, advance the selected achievement, write
+  a fresh ease-start, set `motion: advancing`, acknowledge the win (the folded `/brain-finished`).
 
 **Backlog item format:**
 ```

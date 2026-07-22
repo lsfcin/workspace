@@ -17,9 +17,9 @@ Write a list: what does the workspace do well today, and what still breaks — w
 **findings — ALL 3 GAPS LOCALIZED (2026-07-21, filesystem sweep):**
 1. **overengineering → the `.hooks/` layer.** ~40 files, 3068 LOC, several near-duplicate families (`facade-*`×5, `copilot-*`×6, `context-*`×4; every `.py` mirrored by a `.pyi`). `brain_stats.py`=393 LOC (over its own 200 gate → [stats-split]). 2nd hotspot: `telegram_daemon.py`=814 LOC (→ aiwbot rebuild). Enforcement machinery grew faster than what it enforces.
 2. **messy → workspace-root garbage, not real doc sprawl.** `.Trash-1000/`=6.6 GB / 2216 `.md` living *inside* the tree; `.venv/`=7.6 GB / 9335 `.md` at root. 14.2 GB cruft inflates every find/grep/scan. Real curated docs = only 617 `.md`. So the "mess" is *uncollected garbage*, not too many docs. Loose: 6 orphan `*.original.md`, dup `Modelo de Projeto (1)(2)(3)` in Downloads.
-3. **(NEW) no follow-through / accountability axis.** System is strong at capture (inbox/gmail/telegram/goals) + form-enforcement (40 hooks), zero at chasing outcomes: TODO tasks expire silently, `.loop` chains stall invisibly (`floor-fog-spike`, `painter-mvp-1` dead, no STATUS.md → [A3]), goal anchors slip unalarmed, `mvp-validate` never run. The asymmetry IS the gap.
+3. **(NEW, reframed 2026-07-22) the gentle-resurfacing rhythm is missing.** Strong at *capture* (inbox/gmail/telegram/goals) but the instrument that gently resurfaces the *inspiring work waiting* — `/compass` ("good wind, not behind"; ease-start in hand; timing negotiated) — only runs when manually invoked, so inspiring work and the occasional gentle deadline quietly don't resurface. **Not** an accountability/chase gap — that anxious tone is the *opposite* of the workspace's purpose (see [FOUNDATIONS.md](../FOUNDATIONS.md)). The fix is a soft rhythm + motivation-ordering + timing/ditch moves for `/compass`, never nagging. → **SHIPPED this session** (compass fold + `/compass-nudge`).
 
-**Root read**: gap 3 is the root; 1&2 are shadows — cruft (2) accumulates because nothing GCs (3); hook sprawl (1) enforces form but never follow-through (3). → achievement complete; ready for /brain-finished.
+**Root read**: 1&2 are "too much" (machinery, cruft); 3 was "too little" — but the answer was never to *chase*, it was to let the gentle partner (`/compass`) resurface good wind on a soft rhythm. Ordering by motivation wins over deadline pressure. → mvp-gaps identification complete; close via `/compass` (dogfood the new skill).
 
 >**timing**  
 *target · first validated version in ~6 months (around November 2026)  
@@ -32,7 +32,7 @@ fallback · iterate — MVP can always be extended*
 
 > [ ] [mvp-gaps] identify the 3 most important gaps still missing from the current workspace  
 > [ ] [todo-integration] establish TODO.md as consistent daily practice  
-> [ ] [compass-cadence] run compass review on a regular rhythm — at least 2x/month  
+> [x] [compass-cadence] DONE 2026-07-22 — soft SessionStart line (`.hooks/compass-nudge.py`, wired in settings.json) gently offers `/compass` when it's been >14d. Ignorable, in-session only, no phone. Mirrors inbox-nudge.  
 > [ ] [brain-full-files] all GOALS.md stubs have actual goal files  
 > [ ] [branches-coverage] branches/ covers all active life domains  
 > [ ] [mvp-validate] use system daily for 30 days, assess: does it reduce mental load?  
@@ -64,7 +64,7 @@ fallback · iterate — MVP can always be extended*
 12. **Full PT-BR pass** on everything remaining (`/new`, `/select`, `/notify`, `/stop`, `/help`, `unknown command`, `error:`, `⏳ working…` → `⏳ trabalhando…`) — do last so earlier steps don't need re-touching strings twice.
 
 Build + verify in the order above, live-testing each numbered step via the paired phone before moving to the next — bot has no test harness, manual smoke test is the verification contract per [remote-session-control].  
-> [ ] [skill-collapse] collapse brain skills to just /inbox + /compass — fold brain-finished into /compass (mark-done + advance is a compass move). Two verbs, fits entry-point principle.  
+> [x] [skill-collapse] DONE 2026-07-22 — brain collapsed to two verbs: `/inbox` + `/compass`. `brain-compass`→`compass` (invocable `/compass` on Claude Code + opencode); `/brain-finished` folded into `/compass` as the "close a win" move (flip→advance→ease-start→acknowledge) and retired. `/compass` also gained the reframed Gap-3 moves: assisted ordering by motivation, timing negotiation, guilt-free ditch/defer.  
 > [ ] [inbox-refresh-goals] /inbox runs the goals-sync refresh (brain_stats.py) as its last step, not only on commit — dashboard never goes stale between commits.  
 > [ ] [compass-on-inbox] /inbox offers to run /compass, but only when it detects a trigger (an anchor crossed <3 weeks, or a goal flipped to stalled) — cheap capture stays cheap; compass fires on signal, never auto every call.  
 > [ ] [goal-routing-populate] populate the new per-goal `>**routing**` tier·effort field (spec in brain/SPECS.md, vocab shared with core/skills/prepare.md) and wire the router/prepare to read it.  
@@ -73,7 +73,7 @@ Build + verify in the order above, live-testing each numbered step via the paire
 > [ ] [enforce-standards] enforcement não-ignorável: nomes/pastas/repos/gitflow, wiring de hooks + wiring paper↔code, uso de skills, fluxo inbox→todo→goals, anti-scattering  
 > [x] [goals-sync] FIXED 2026-07-11 — .hooks/brain_stats.py existia mas quebrado: `Path("Brain")` + hook grep `^Brain/goals/` vs dir real `brain/` (case mismatch Linux) → nunca rodava; + parser de título só aceitava header 2-campos, ignorando os 3-campos canônicos → tabela active-goals mostrava 1 de 50. Ambos corrigidos, dashboard atualiza. Falta: wiring no /inbox (ver [inbox-refresh-goals]).  
 > [ ] [provider-fallback] mitigar instabilidade do opencode via configs do workspace — skills/hooks/.md provider-agnostic + chaveamento de provider (openrouter → chave nvidia quando créditos acabarem)  
-> [ ] [nested-gitlink-gate] pre-commit gate que BLOQUEIA gitlinks (mode 160000) não declarados em .gitmodules — `git add -A` no workspace repo embutiu 10 projetos com .git próprio (academy/papers/*, branches/*, code/*) como gitlinks quebrados; exigiu git rm --cached + amend pre-push (2026-07-11)  
+> [x] [nested-gitlink-gate] DONE 2026-07-22 — untracked all 10 undeclared gitlinks (`git rm --cached`, files intact) + gitignored the nested-repo dirs + new `.hooks/nested-gitlink-gate.sh` (pre-commit 1f) blocks any future undeclared gitlink (verified: forced test gitlink rejected). The recurring workspace "M" is dead. Also extended `.hooks/gitflow-gate.sh` to enforce the workspace repo (papers exempt) + allow sanctioned merges.  
 > [ ] [stats-split-or-exempt] .hooks/brain_stats.py tem 392 linhas (> BLOCK_LINES=200 do pre-edit gate) → Edit recusa net-zero edits, só Bash contorna. Decidir: splitar em parse/stats/dashboard/done-log OU isentar .hooks/ do gate (2026-07-11 compass)  
 > [ ] [anti-capital-case] gate anti-capital-case em nomes de dir de topo (mesmo padrão Models/ ressurgindo; ComfyUI suspeito); suspeita de sessão que recria dirs capital-case (2026-07-11)  
 > [ ] [pre-edit-silent-fail] pre-edit.py falha SILENCIOSA ("No stderr output") em Write de arquivos novos em certos paths (scratchpad .html, test/*.py novo em isoroll-content) — bloqueia Write sem dizer por quê; workaround = heredoc via Bash. Investigar crash do hook (provável exceção não tratada em path fora do esperado) (2026-07-16)  
@@ -91,10 +91,10 @@ last-touch: 2026-07-21  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |       8 |
+| trimester   |       9 |
+| semester    |       9 |
+| year        |       9 |
+| 2-year      |       9 |
+| 4-year      |       9 |
 <!-- stats:end -->

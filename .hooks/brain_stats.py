@@ -377,14 +377,14 @@ def main():
 def check_compass_reminder():
     compass_log = BRAIN / ".log" / "compass-last.txt"
     if not compass_log.exists():
-        print("[Brain] ⚠ compass review never run — try /brain-compass")
+        print("[Brain] ⚠ compass review never run — try /compass")
         return
     try:
         from datetime import timedelta
         last    = date.fromisoformat(compass_log.read_text().strip())
         days    = (date.today() - last).days
         if days >= 30:
-            print(f"[Brain] ⚠ no compass review in {days} days — run /brain-compass")
+            print(f"[Brain] ⚠ no compass review in {days} days — run /compass")
     except Exception:
         pass
 

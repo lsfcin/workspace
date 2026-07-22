@@ -26,8 +26,7 @@ Agent is first-class collaborator, not just reader.
 
 ## Skills
 
-- `/brain-compass` — compass review: surface what has good wind, update diagnostics
-- `/brain-finished [id]` — mark achievement done, advance to next, write ease-start
+- `/compass` — gentle strategic review: good wind, reorder by motivation, negotiate timing, ditch freely, close wins, next easy start
 - `/inbox` — triage INBOX.md entries
 
 Goal file format, section specs, signals/dynamics/timing fields → [SPECS.md](SPECS.md).
