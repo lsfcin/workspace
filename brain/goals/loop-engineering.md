@@ -23,6 +23,7 @@ Abrir `core/flows/loop-engineering.md` `## Field Practice` (7 runs auditados, A1
 > [ ] [B3] extrair `export-manifest` integration-gap catch num `## Case Study` no flow file — feito neste commit
 > [ ] [C1] research-loops: variante do flow para `core/flows/{deepresearch,lit,autoresearch}` — mesmo mecanismo Carry; onde a parallel fan-out dobra é a extensão natural (Voyager continua: skill library + auto-curriculum)
 > [ ] [C2] testar o flow: um tagged-fixture repo synth em `core/flows/__loop-fixture__/` + assertion que 8 loop files aparecem com executor tags corretos pós dry-run; CI-runnable
+> [ ] [loop-anchors] contra-métricas e âncoras duras pro próprio flow de loops — tese de um carrossel que estava travado no INBOX desde 20/07 ("loop engineering is dead, o pessoal está migrando pra um *grafo* de loops"): loop único falha estruturalmente, não por acidente (lei de Goodhart, cegueira a alvos ruins, conflito entre loops, decaimento da medição). O remédio que ML de produção já usa: métricas pareadas, hierarquia sobre alvos, arbitragem explícita, e loops de auditoria que o otimizador nunca vê. **A pegadinha que interessa aqui**: um grafo totalmente cabeado ainda pode ser circular — consistente, tudo verde, e desconectado da realidade — a menos que algo nele seja âncora dura. Aplicar ao `/loops`: quais números o otimizador NÃO pode tocar? Hoje o Loop 6 dá verdict sem contra-métrica nenhuma; [B1] second-opinion verifier é meio caminho, mas verificador ≠ contra-métrica. Fonte: https://www.instagram.com/p/DbBDnp6DcKV/ (INBOX 2026-07-23)  
 > [ ] [tier-briefing] padrão "three-lane": modelo barato lê TUDO (emails, docs, transcripts) e comprime num briefing curto; modelo caro só toca o briefing. É o mesmo princípio do autorouting do `/loops` (loop-low/medium/high) aplicado à *ingestão* em vez da execução — hoje o roteamento decide quem executa, não quem lê. Casa com `/gmail` triage e com o dreno do INBOX. Ref em `core/WATCHLIST.md` (INBOX 2026-07-23)  
 > [ ] [C-C] Loop 6.5 Skill Extraction (Voyager skill-library primitive) — spec no flow file; pilot em 1 chain real com `keep-trail: yes`
 > [ ] [D1] `last-reviewed: 2026-07` + `next-review-by: 2026-10` na tabela volátil de modelos — feito neste commit
@@ -58,14 +59,14 @@ Abrir `core/flows/loop-engineering.md` `## Field Practice` (7 runs auditados, A1
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       9 |
-| trimester   |       9 |
-| semester    |       9 |
-| year        |       9 |
-| 2-year      |       9 |
-| 4-year      |       9 |
+| month       |      10 |
+| trimester   |      10 |
+| semester    |      10 |
+| year        |      10 |
+| 2-year      |      10 |
+| 4-year      |      10 |
 <!-- stats:end -->

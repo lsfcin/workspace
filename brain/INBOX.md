@@ -8,6 +8,3 @@
 ---
 
 <!-- add entries below, newest first -->
-
-https://www.instagram.com/p/DbBDnp6DcKV/
-— via telegram · 2026-07-20 · BLOQUEADO por lacuna do tool, não por login: cookies funcionam, mas é post `/p/` de carrossel de imagens e o `core/tools/video` só tem caminho de vídeo. Fica aqui até o caminho de imagem existir — ver `brain/TODO.md` [M4-video] (2026-07-23)

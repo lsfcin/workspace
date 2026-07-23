@@ -66,6 +66,28 @@ Measured on RTX 3050 6GB Laptop: ~4.3GB VRAM peak, fp16, ~1.7s/frame after model
 (first load downloads ~4GB weights, cached after in `~/.cache/huggingface`). Model is
 config data (`model_id` param), swap freely.
 
+## Image posts / carousels — the gallery-dl path
+`video_images.py`. yt-dlp is a *video* downloader: an Instagram `/p/` carousel probes as a hard
+failure ("No video formats found" per sub-item), which read like an auth problem for days but
+never was. `assemble()` now retries through **gallery-dl** whenever the yt-dlp probe fails, so the
+fallback costs nothing on video links and needs no flag.
+
+gallery-dl carries its own metadata (`-j`): description, uploader, image count — so image posts
+get a real L0 and `--level auto` usually stops there, free. Deeper levels download the images
+(capped at `MAX_IMAGES = 10`) and run the same OCR (L3) and VLM captioning (L4) the video path
+uses, one pass per image, each line tagged `[n/total]` so a slide deck stays ordered.
+
+Same cookie jar as yt-dlp (`~/.config/workspace-video/cookies.txt`), attached the same way.
+
+```bash
+.venv/bin/pip install gallery-dl
+core/tools/video "https://www.instagram.com/p/<id>/"              # description, free
+core/tools/video "https://www.instagram.com/p/<id>/" --level ocr  # + slide text per image
+```
+
+Verified 2026-07-23 on `DbBDnp6DcKV`, the post that sat blocked in INBOX since 07-20: full caption
+at `auto`, and seven slides transcribed at `--level ocr`.
+
 ## Rejected — automatic goal relevance (built, measured, deleted 2026-07-23)
 An embedding ranker (`video_relevance.py`, `--goals` flag, multilingual e5) scored the extracted
 text against every `brain/goals/*.md` to suggest a route. **Built, dogfooded over ten real INBOX

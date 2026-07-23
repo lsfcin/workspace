@@ -96,8 +96,10 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`terms`](terms) | — | — | scan .tex files for terminology inconsistencies defined in terms.yaml |
 | [`test/conftest.py`](test/conftest.py) | [`test/conftest.pyi`](test/conftest.pyi) | `pytest_configure` | conftest.py — put core/tools on sys.path and register the network marker for video tests |
 | [`test/test_video_core.py`](test/test_video_core.py) | [`test/test_video_core.pyi`](test/test_video_core.pyi) | `FakeProc`, `FakeMedia`, `test_probe_parses_dump`, `test_probe_failure_no_crash`, `test_clean_vtt` | test_video_core.py — T0/T1 unit tests for video_core (no network; fixtures + injected runners) |
+| [`test/test_video_images.py`](test/test_video_images.py) | [`test/test_video_images.pyi`](test/test_video_images.pyi) | `FakeProc`, `FakeMedia`, `test_probe_parses_gallery_dl_dump`, `test_probe_empty_output_is_not_ok`, `test_probe_unparseable_output_no_crash` | test_video_images.py — T1 unit tests for the image-post path (no network, injected runners) |
 | [`video`](video) | — | — | extract navigable text (metadata/captions/transcript/OCR/VLM caption) from a video or image link |
 | [`video.SETUP.md`](video.SETUP.md) | — | — | video tool — setup |
 | [`video_core.py`](video_core.py) | [`video_core.pyi`](video_core.pyi) | `source_of`, `probe`, `clean_vtt`, `get_captions`, `assemble` | video_core.py — extract navigable text (metadata, captions, transcript) from video/image URLs; whisper/OCR backends are config data |
+| [`video_images.py`](video_images.py) | [`video_images.pyi`](video_images.pyi) | `probe`, `download_images`, `gather` | video_images.py — image-post path (Instagram carousels etc): gallery-dl metadata + image download, then OCR/VLM per image. yt-dlp reads video only and returns nothing for these. |
 | [`video_media.py`](video_media.py) | [`video_media.pyi`](video_media.pyi) | `download_audio`, `download_video`, `transcribe`, `ocr_image`, `sample_frames` | video_media.py — heavy layers for the video tool: audio download + local transcription (L2), frame OCR (L3). Whisper model + tesseract langs are config data, not names. |
 <!-- routing:end -->
