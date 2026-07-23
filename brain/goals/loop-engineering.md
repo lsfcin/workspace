@@ -5,6 +5,18 @@ Levar a sério e aplicar loop engineering: desenvolvimento em loops explícitos 
 >**signals**  
 transformative · essential · thrilled
 
+> **[DECIDIDO 2026-07-23] este goal vira `craft-flows`.** "Loop" foi aposentado como palavra pra
+> agentes conectados — o termo canônico é **flow**. Motivo (do Lucas): loop virou buzzword, e *flow*
+> é mais preciso — um loop vai do fim ao começo sem ramificação e com uma saída só; nossos
+> procedimentos ramificam, escapam e **compõem**. Loop segue válido só pra um repeat de verdade.
+> Renomeações decididas: `loop-engineering`→**`craft`**, `loop-router`→**`route`**,
+> `loop-architecture`→**`architect`**, `LOOP-TREE.md`→**`TREE.md`**; este arquivo →
+> `brain/goals/craft-flows.md`. Modelo: flows compõem flows (`uses:`), grafo de composição
+> **acíclico** (DAG), e ciclo só em **execução**, com teto de iterações. Racional completo em
+> [`core/SCHEMA.md`](../../core/SCHEMA.md) § *Composition and cycles*; plano de execução (8 passos)
+> em [`core/ROADMAP.md`](../../core/ROADMAP.md) § *craft-flows*. **A renomeação ainda não foi feita** —
+> ela toca ~14 arquivos em `brain/`, então roda numa sessão que já esteja mexendo nesses goals.
+
 ## selected next achievement
     [opencode-reliability] (A2) executar UM chain completo no opencode (menor feature isoroll) com MESMO modelo via openrouter em paralelo com uma run Claude Code; comparar verdicts/files; decidir: ajustar plugin OU trocar provider OU scope /loops ao Claude Code só
 
@@ -15,6 +27,7 @@ Abrir `core/flows/loop-engineering.md` `## Field Practice` (7 runs auditados, A1
 
 > [x] [iterate] ajustar flags de retorno e tabela de roteamento após 7 usos reais — DONE 2026-07-16 (A1; ver [A1] em `## done`)
 > [x] [skill-tree] montar árvore de loops pessoais — DONE 2026-07-18: loop tree = router (`core/flows/loop-router.md`) + 4 subtrees (padaria/feature/research/architecture); mapa em `core/flows/LOOP-TREE.md`. Feature subtree = SDD contract-first (painel de permissão no Loop 0, Loop 3.5 Contract Layout, revisão de simetria de conceitos no Loop 3).  
+> [ ] [craft-flows] executar a renomeação loop→flow + `flows/craft/` + goal→`craft-flows.md` — 8 passos detalhados em `core/ROADMAP.md` § craft-flows (decidido 2026-07-23, só falta build). Casa com [loop-anchors] (grafo de loops) e [prompt-dsl] (contrato tipado na aresta entre flows)  
 > [ ] [prompt-dsl] DSLs como contratos entre agentes: cada agente especializado usa uma DSL própria; prompt só é repassado se o parsing é perfeito (sem ambiguidade). Questão aberta: LLMs lidam bem com gramáticas novas? Avaliar acoplar tools à LLM pra facilitar parse DSL (ver [C-C] skill-library; spacemantics texpace é o caso-teste concreto)  
 > [ ] [A2] [opencode-reliability] executar UM chain completo no opencode (menor feature isoroll) com MESMO modelo via openrouter em paralelo com uma run Claude Code; comparar verdicts/files; decidir: ajustar plugin OU trocar provider OU scope /loops ao Claude Code só. Dados: NENHUMA run `.loop/` em opencode hoje (todos os executor: tags são loop-low/medium/high/claude-fable-5 via Claude Code)  
 > [ ] [A3] adicionar `.loop/<slug>/STATUS.md` por chain (active | blocked-flag-pending-user | abandoned | shipped) — Loop 0 cria, Loop 6 muta; `/loops --status` = `cat code/*/.loop/*/STATUS.md`. Motivação: `isoroll-module/.loop/floor-fog-spike` e `.loop/painter-mvp-1` pararam sem 6-ship e sem status visível
@@ -32,7 +45,7 @@ Abrir `core/flows/loop-engineering.md` `## Field Practice` (7 runs auditados, A1
 > [ ] [opencode-reliability] investigar se drift (idioma, contexto, reasoning louco mesmo em Kimi 2.6) é do opencode ou do modelo — testar mesmo modelo via claude code/openrouter; decidir: ajustar opencode OU trocar de ferramenta pros loops não-Claude → ver [A2] acima
 > [ ] [verify-step] etapa de verificação (verify) explícita no flow — usar /verify no loop 5 (user-test) → coberto por [B1] second-opinion verifier
 > [ ] [skills-scan] etapa no flow: revisar melhores skills disponíveis online antes de executar
-> [ ] [research-loops] variante de pesquisa do flow de loops (falta) — integrar core/flows/research/{deep,lit,auto} ao padrão .loop/ → ver [C1] acima
+> [ ] [research-loops] variante de pesquisa do flow de loops (falta) — integrar core/flows/research/{deep,literature,explore} ao padrão .loop/ → ver [C1] acima
 > [ ] [pipeline-step-review] adicionar etapa de pipeline dedicada (visual/usabilidade) + revisá-la
 > [ ] [arch-algo-vs-lib] etapa de arquitetura: decidir algoritmo ANTES de escolher biblioteca
 > [ ] [simplicity-gap] investigar por que agente (mesmo Fable) produz soluções mais complexas/tortuosas que o design humano — ex. tinyglade-like no isoroll (etapas humanas eram simples/didáticas); motiva etapas arquitetura+review  
@@ -63,10 +76,10 @@ last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      11 |
-| trimester   |      11 |
-| semester    |      11 |
-| year        |      11 |
-| 2-year      |      11 |
-| 4-year      |      11 |
+| month       |      12 |
+| trimester   |      12 |
+| semester    |      12 |
+| year        |      12 |
+| 2-year      |      12 |
+| 4-year      |      12 |
 <!-- stats:end -->

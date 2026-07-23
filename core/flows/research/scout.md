@@ -29,7 +29,7 @@ venues, tiers, or results.
 
 ## When to use this vs. a plain research flow
 
-`deep` / `lit` produce a **research brief** — knowledge for its own sake.
+`deep` / `literature` produce a **research brief** — knowledge for its own sake.
 `scout` produces an **action plan for our own workspace/project** — it always ends by asking
 "so what should *we* change, and how?". Use `scout` when the topic exists to inform a decision
 about the system you are working in. If the user just wants to understand a topic, use
