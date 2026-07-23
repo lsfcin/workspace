@@ -29,7 +29,7 @@ Abrir `core/flows/craft/craft.md` `## Field Practice` (7 runs auditados, A1 DONE
 
 > [x] [iterate] ajustar flags de retorno e tabela de roteamento após 7 usos reais — DONE 2026-07-16 (A1; ver [A1] em `## done`)
 > [x] [skill-tree] montar árvore de loops pessoais — DONE 2026-07-18: craft tree = router (`core/flows/craft/route.md`) + 4 subtrees (padaria/feature/research/architecture); mapa em `core/flows/craft/TREE.md`. Feature subtree = SDD contract-first (painel de permissão no Loop 0, Loop 3.5 Contract Layout, revisão de simetria de conceitos no Loop 3).  
-> [ ] [craft-flows] executar os 8 passos de `core/ROADMAP.md` § craft-flows — DONE 2026-07-23: passos 1–6 (renomeação loop→flow + `flows/craft/` + goal→`craft-flows.md`; `sota` redefinido; `scout uses: sota`; template canônico; guarda de DAG no `validate_flows`). FALTAM 7 (split do monolito `craft.md` por frequência de carga) e 8 (`skills/caveman/`). Casa com [loop-anchors] (grafo de flows) e [prompt-dsl] (contrato tipado na aresta entre flows)  
+> [x] [craft-flows] executar os 8 passos de `core/ROADMAP.md` § craft-flows — DONE 2026-07-23: passos 1–6 (renomeação loop→flow + `flows/craft/` + goal→`craft-flows.md`; `sota` redefinido; `scout uses: sota`; template canônico; guarda de DAG no `validate_flows`). passo 7 (split do monolito `craft.md` em craft/routing/runtimes/prior-art) e passo 8 (suite caveman trazida pra dentro do workspace em `core/skills/caveman/`, links globais via `core/tools/sync-global-skills`). Casa com [loop-anchors] (grafo de flows) e [prompt-dsl] (contrato tipado na aresta entre flows)  
 > [ ] [prompt-dsl] DSLs como contratos entre agentes: cada agente especializado usa uma DSL própria; prompt só é repassado se o parsing é perfeito (sem ambiguidade). Questão aberta: LLMs lidam bem com gramáticas novas? Avaliar acoplar tools à LLM pra facilitar parse DSL (ver [C-C] skill-library; spacemantics texpace é o caso-teste concreto)  
 > [ ] [A2] [opencode-reliability] executar UM chain completo no opencode (menor feature isoroll) com MESMO modelo via openrouter em paralelo com uma run Claude Code; comparar verdicts/files; decidir: ajustar plugin OU trocar provider OU scope /loops ao Claude Code só. Dados: NENHUMA run `.loop/` em opencode hoje (todos os executor: tags são craft-low/medium/high/claude-fable-5 via Claude Code)  
 > [ ] [A3] adicionar `.loop/<slug>/STATUS.md` por chain (active | blocked-flag-pending-user | abandoned | shipped) — Loop 0 cria, Loop 6 muta; `/loops --status` = `cat code/*/.loop/*/STATUS.md`. Motivação: `isoroll-module/.loop/floor-fog-spike` e `.loop/painter-mvp-1` pararam sem 6-ship e sem status visível
@@ -74,14 +74,14 @@ Abrir `core/flows/craft/craft.md` `## Field Practice` (7 runs auditados, A1 DONE
 
 ## stats
 <!-- stats:start -->
-last-touch: —  ·  trend: new
+last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       0 |
-| trimester   |       0 |
-| semester    |       0 |
-| year        |       0 |
-| 2-year      |       0 |
-| 4-year      |       0 |
+| month       |       1 |
+| trimester   |       1 |
+| semester    |       1 |
+| year        |       1 |
+| 2-year      |       1 |
+| 4-year      |       1 |
 <!-- stats:end -->

@@ -3,12 +3,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-23 18:28
+last-updated: 2026-07-23 18:47
 
 >**areas** — last 14 days  
 ```
-health       ████░░░░░░   40 touches
-career       ░░░░░░░░░░   8 touches
+health       ████░░░░░░   41 touches
+career       █░░░░░░░░░   9 touches
 finances     █░░░░░░░░░   14 touches
 fun          ██████████   86 touches
 spiritual    ███░░░░░░░   28 touches
@@ -18,7 +18,7 @@ spiritual    ███░░░░░░░   28 touches
 ```
 career-ufrpe             █████░░░░░   7 touches
 corporal-expressiveness  █████░░░░░   7 touches
-craft-flows              ░░░░░░░░░░   0 touches
+craft-flows              ░░░░░░░░░░   1 touches
 cria                     █████░░░░░   7 touches
 dance-bachata            █████░░░░░   7 touches
 dance-cavalo-marinho     █████░░░░░   7 touches
@@ -42,11 +42,11 @@ paper-scattercode        █████░░░░░   7 touches
 paper-sibgrapi-2026      █████░░░░░   7 touches
 prompt-opt-automation    ░░░░░░░░░░   1 touches
 reading                  █████░░░░░   7 touches
-rpg-isoroll              ███████░░░   9 touches
+rpg-isoroll              ██████░░░░   9 touches
 sleep-regularity         █████░░░░░   7 touches
 smartphone-addiction     █████░░░░░   7 touches
-spacemantics             █████░░░░░   6 touches
-spec-driven-development  ████░░░░░░   5 touches
+spacemantics             █████░░░░░   7 touches
+spec-driven-development  ████░░░░░░   6 touches
 startapps-apptime        █████░░░░░   7 touches
 startapps-arede          █████░░░░░   7 touches
 startapps-batituque      █████░░░░░   7 touches
@@ -68,7 +68,7 @@ surf                     █████░░░░░   7 touches
 teaching-materials       ██████░░░░   8 touches
 vipassana                █████░░░░░   7 touches
 voice                    █████░░░░░   7 touches
-workspace-os             ██████████   12 touches
+workspace-os             ██████████   13 touches
 yoga                     █████░░░░░   7 touches
 ```
 <!-- data:end -->
