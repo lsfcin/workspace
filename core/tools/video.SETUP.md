@@ -66,12 +66,43 @@ Measured on RTX 3050 6GB Laptop: ~4.3GB VRAM peak, fp16, ~1.7s/frame after model
 (first load downloads ~4GB weights, cached after in `~/.cache/huggingface`). Model is
 config data (`model_id` param), swap freely.
 
-## Deferred (M4 remaining)
-- relevance() — local sentence-transformers embeddings vs brain/GOALS.md.
+## M4 — relevance() against brain goals
+`video_relevance.py`; `core/tools/video <url> --goals [N]`. Embeds the extracted text and
+every `brain/goals/*.md` locally, ranks by cosine similarity. Importable by `/inbox`.
+
+Model: `intfloat/multilingual-e5-base`. Multilingual is non-negotiable — goal files are
+PT-BR, video text is usually EN, and a monolingual encoder scores cross-language pairs near
+zero regardless of topic. e5 needs the `query:` / `passage:` prefixes; they are applied
+inside `relevance()` so callers can't forget them.
+
+**Report `margin`, not `score`.** e5 similarities sit in a narrow high band (~0.75-0.90), so
+an absolute threshold is brittle. `margin` = score minus the mean over all goals, which is
+stable across inputs.
+
+**-base over -small, measured 2026-07-23** on a reel whose ground truth (Lucas's own INBOX
+note) is `rpg-isoroll`. `--goals` on the short metadata caption vs. the richer text a
+`--level full` run produces:
+
+| model | short caption (L0) | full extraction (L4) |
+|---|---|---|
+| e5-small | ❌ smartphone-addiction (isoroll #2) | ✓ isoroll +0.037 |
+| e5-base  | ✓ isoroll +0.038 | ✓ isoroll +0.046, spacemantics #2 |
+
+So: `-small` only recovers with long text; `-base` is right either way and separates better.
+`-base` is ~1.1GB vs ~470MB — cheap next to the 4GB VLM already in the chain.
+
+Known noise: `smartphone-addiction` shows up as a weak background attractor (~+0.03) on
+almost any screen/phone-adjacent clip. Treat the top hit as a suggestion, never an auto-file.
+
+```bash
+.venv/bin/pip install sentence-transformers
+```
+
+## Deferred
 - /inbox auto-route on video links.
 
 ## Test
 ```bash
-.venv/bin/pytest core/tools/test/ -m "not network"   # T0+T1, no network (verify:fast)
+make verify-fast                                     # T0+T1, no network — what pre-commit runs
 .venv/bin/pytest core/tools/test/ -m network         # T2, real URLs (on-demand)
 ```

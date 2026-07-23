@@ -99,8 +99,10 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`terms`](terms) | — | — | scan .tex files for terminology inconsistencies defined in terms.yaml |
 | [`test/conftest.py`](test/conftest.py) | [`test/conftest.pyi`](test/conftest.pyi) | `pytest_configure` | conftest.py — put core/tools on sys.path and register the network marker for video tests |
 | [`test/test_video_core.py`](test/test_video_core.py) | [`test/test_video_core.pyi`](test/test_video_core.pyi) | `FakeProc`, `FakeMedia`, `test_probe_parses_dump`, `test_probe_failure_no_crash`, `test_clean_vtt` | test_video_core.py — T0/T1 unit tests for video_core (no network; fixtures + injected runners) |
+| [`test/test_video_relevance.py`](test/test_video_relevance.py) | [`test/test_video_relevance.pyi`](test/test_video_relevance.pyi) | `test_load_goals_parses_header`, `test_load_goals_strips_auto_blocks_and_urls`, `test_load_goals_skips_non_goal_files`, `test_load_goals_missing_dir_is_empty`, `FakeEncoder` | test_video_relevance.py — T1 unit tests for video_relevance (no model download, no network) |
 | [`video`](video) | — | — | extract navigable text (metadata/captions/transcript/OCR/VLM caption) from a video or image link |
 | [`video.SETUP.md`](video.SETUP.md) | — | — | video tool — setup |
 | [`video_core.py`](video_core.py) | [`video_core.pyi`](video_core.pyi) | `source_of`, `probe`, `clean_vtt`, `get_captions`, `assemble` | !/mnt/workspace/.venv/bin/python3 |
 | [`video_media.py`](video_media.py) | [`video_media.pyi`](video_media.pyi) | `download_audio`, `download_video`, `transcribe`, `ocr_image`, `sample_frames` | !/mnt/workspace/.venv/bin/python3 |
+| [`video_relevance.py`](video_relevance.py) | [`video_relevance.pyi`](video_relevance.pyi) | `load_goals`, `default_encoder`, `relevance`, `format_matches` | !/mnt/workspace/.venv/bin/python3 |
 <!-- routing:end -->
