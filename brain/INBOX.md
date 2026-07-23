@@ -11,7 +11,7 @@
 
 me pergunto se o fable, dado que tenho 100 dólares de crédito pra gastar até setembro, ainda assim consome do meu limite por turno / semanal
 
-tenho usado bastante o opus, com dificuldade de confiar no sonnet para as coisas que tenho feito...
+tenho usado bastante o opus, com dificuldade de confiar no sonnet para as coisas que tenho feito... talvez preparar melhor o terreno pro sonnet. é por que tem tarefas que tenho feito que muitas vezes são dependentes de decisões que exigem discussão e pesquisa. triar o que ele pode fazer sem tanta 
 
 git graph no vscode não mostra grafo dos subrepositórios, me pergunto se tem um jeito fácil de resolver isso
 

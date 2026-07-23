@@ -59,13 +59,24 @@ for skill in "${GLOBAL_SKILLS[@]}"; do
   # Hooks are referenced by absolute path from settings.json, so the link name keeps
   # the flat `<skill>-<hook>` spelling the settings file already uses.
   if [[ -d "$src/hooks" ]]; then
-    # Only executables get linked. The workspace stubgen hook drops .d.ts/jsconfig.json
-    # siblings next to any .js; those are editor aids, not hooks, and must not be
-    # published into ~/.claude/hooks.
-    for hook in "$src/hooks"/*.js "$src/hooks"/*.sh; do
-      [[ -f "$hook" ]] || continue
-      link "$hook" "$CLAUDE_DIR/hooks/$skill-$(basename "$hook")"
-    done
+    # Link entrypoints only — the files settings.json actually names. Helper modules
+    # are reached by relative require through the link's realpath, and generated
+    # .d.ts/jsconfig.json siblings are editor aids, not hooks. An optional
+    # hooks/ENTRYPOINTS file declares the list; without it, every .js/.sh is linked.
+    if [[ -d "$src/hooks" ]]; then
+      entries=()
+      if [[ -f "$src/hooks/ENTRYPOINTS" ]]; then
+        while IFS= read -r name; do
+          [[ -n "$name" && "$name" != \#* ]] && entries+=("$src/hooks/$name")
+        done < "$src/hooks/ENTRYPOINTS"
+      else
+        entries=("$src/hooks"/*.js "$src/hooks"/*.sh)
+      fi
+      for hook in "${entries[@]}"; do
+        [[ -f "$hook" ]] || { echo "MISSING entrypoint: $hook" >&2; rc=1; continue; }
+        link "$hook" "$CLAUDE_DIR/hooks/$skill-$(basename "$hook")"
+      done
+    fi
   fi
 done
 

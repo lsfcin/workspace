@@ -9,21 +9,6 @@ file=$(echo "$input_json" | python3 -c \
 
 dir=$(dirname "$file")
 
-# Vendored third-party code (a `.vendor` marker in the dir or an ancestor) gets no
-# generated interfaces: the stubs are noise we would have to re-diff on every upstream
-# update, and stubgen mangles the layout for package-shaped vendored code. Same marker
-# the size gate reads (.hooks/check-line-counts.sh, .hooks/pre-edit.py).
-is_vendored() {
-	local d; d=$(cd "$1" 2>/dev/null && pwd) || return 1
-	while [ -n "$d" ] && [ "$d" != "/" ]; do
-		[ -f "$d/.vendor" ] && return 0
-		{ [ -f "$d/.git" ] || [ -d "$d/.git" ]; } && return 1
-		d=$(dirname "$d")
-	done
-	return 1
-}
-VENDORED=0; is_vendored "$dir" && VENDORED=1
-
 # Locate tsc (PATH or ~/.local/bin fallback)
 TSC=""; command -v tsc &>/dev/null && TSC="tsc"
 [ -z "$TSC" ] && [ -x "$HOME/.local/bin/tsc" ] && TSC="$HOME/.local/bin/tsc"
@@ -38,8 +23,8 @@ find_tsconfig() {
 	done
 }
 
-# ── Interface regeneration (skipped entirely for vendored code) ─────────────────
-[ "$VENDORED" = 1 ] || case "$file" in
+# ── Interface regeneration ──────────────────────────────────────────────────────
+case "$file" in
 	*.py)
 		STUBGEN="/mnt/workspace/.venv/bin/stubgen"
 		[ -x "$STUBGEN" ] && "$STUBGEN" "$file" -o "$dir" --quiet 2>/dev/null \
