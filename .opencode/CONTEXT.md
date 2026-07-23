@@ -130,9 +130,9 @@ block), edit a `.py` past `BLOCK_LINES` (expect block), edit a `.py` (expect
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`index.js`](index.js) | — | — | **facade** — opencode config facade — public surface consumed by plugins/workspace-policy.js. |
-| [`agents/loop-high.md`](agents/loop-high.md) | — | — | Loop-engineering executor, high tier — planning, plan review, architecture, escalated coding. Spawned by the loop-engineering flow with a single loop file as input. |
-| [`agents/loop-low.md`](agents/loop-low.md) | — | — | Loop-engineering executor, low tier — mechanical steps (grounding, branch, ship). Spawned by the loop-engineering flow with a single loop file as input. |
-| [`agents/loop-medium.md`](agents/loop-medium.md) | — | — | Loop-engineering executor, medium tier — tests-first, code-until-green, user test. Spawned by the loop-engineering flow with a single loop file as input. |
+| [`agents/craft-high.md`](agents/craft-high.md) | — | — | Craft-flow executor, high tier — planning, plan review, architecture, escalated coding. Spawned by the craft flow with a single loop file as input. |
+| [`agents/craft-low.md`](agents/craft-low.md) | — | — | Craft-flow executor, low tier — mechanical steps (grounding, branch, ship). Spawned by the craft flow with a single loop file as input. |
+| [`agents/craft-medium.md`](agents/craft-medium.md) | — | — | Craft-flow executor, medium tier — tests-first, code-until-green, user test. Spawned by the craft flow with a single loop file as input. |
 | [`plugins/workspace-policy.js`](plugins/workspace-policy.js) | — | `WorkspacePolicy`, `blockMsg` | Workspace policy plugin for opencode. |
 | [`wp-helpers.js`](wp-helpers.js) | — | `buildPayloads`, `run`, `warn`, `WORKSPACE`, `HOOKS` | Helpers for the workspace-policy opencode plugin. |
 <!-- routing:end -->

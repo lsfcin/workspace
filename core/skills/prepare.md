@@ -35,7 +35,7 @@ Produce the final structured response:
 - `interview`: leave opened the space for interviews if the agent needs 
 
 ### Flow routing
-If the task is a multi-file coding feature (new behavior, not a trivial fix), recommend running it through `/loops` (the loop-engineering flow, `core/flows/loop-engineering.md`) instead of a single optimized prompt — it handles clarify/plan/TDD/ship with per-task model routing.
+If the task is a multi-file coding feature (new behavior, not a trivial fix), recommend running it through `/loops` (the craft flow, `core/flows/craft/craft.md`) instead of a single optimized prompt — it handles clarify/plan/TDD/ship with per-task model routing.
 
 ### Tier guide
 - `low` / e.g., `haiku`: trivial fixes, one-liners, simple searches

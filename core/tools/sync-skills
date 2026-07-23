@@ -137,14 +137,18 @@ validate_skills() {
 }
 
 # Flow layer (core/SCHEMA.md): every flow carries description, args, type ∈ enum, confirm ∈ enum.
-# Exempt: CONTEXT.md, the loop-* engineering cluster + LOOP-TREE.md (its own protocol per SCHEMA).
+# Exempt: CONTEXT.md and everything under flows/craft/ — the engineering cluster is its own
+# protocol (declares tier routing directly) and has no `type` in the current enum. See SCHEMA.
 # Recursive: flows owned by a dispatcher skill live in core/flows/<skill>/ (e.g. research/).
 validate_flows() {
   local rc=0 f name fm type confirm
   while IFS= read -r f; do
     name="$(basename "$f" .md)"
+    case "$f" in
+      */flows/craft/*) continue ;;
+    esac
     case "$name" in
-      CONTEXT|LOOP-TREE|loop-*) continue ;;
+      CONTEXT) continue ;;
     esac
     if [[ "$(head -1 "$f")" != "---" ]]; then
       echo "INVALID flow (no YAML frontmatter): $f"; rc=1; continue
@@ -176,7 +180,7 @@ validate_flow_dag() {
   while IFS= read -r f; do
     name="$(basename "$f" .md)"
     case "$name" in
-      CONTEXT|LOOP-TREE) continue ;;
+      CONTEXT|TREE) continue ;;
     esac
     KNOWN["$name"]=1
     [[ "$(head -1 "$f")" == "---" ]] || continue

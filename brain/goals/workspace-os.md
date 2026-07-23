@@ -22,7 +22,7 @@ Start with the safest visible win — reclaiming space. Open a terminal and run 
      - **Real bug fixed: attention dashboard was measuring noise.** `pre_commit()` force-`git add`ed *all* 54 goal files every commit → `touch_count(14d)` flat at ~6-9 for every goal (dormant `guitar`/`surf` = actively-worked `cria`). Now only user-*staged* goal files get decorated/staged (`staged_goal_files()`); dashboard still aggregates live git for all. Self-heals as the 14-day window rolls. Tested: staging 1 file → targets = that 1, not 54; full hook exit 0.
      - **Removed `.hooks/.fuse_hidden0002f7f…`** — 190-LOC FUSE orphan, a stale pre-lowercase copy of `pre-commit`. No process held it.
      - **NEW finding — two line-gates disagree on scope:** `pre-edit.py` (edit-time) enforces the 200-line block on `.hooks/*`; `check-line-counts.sh` (commit-time) *exempts* `.hooks/*`. Reconcile (pick one policy). The edit-gate is what actually forced the split.
-     - **NEW finding — the "bloated families" overcounted:** `copilot-*` is LIVE (wired to `loops.md` + `.agentrc.json`, the loop-engineering flow) and the `.pyi` mirrors are LIVE (the interface-first read-gate `pre-read.sh` requires them). Not dead weight → left intact. Genuine removable cruft was only the fuse orphan.
+     - **NEW finding — the "bloated families" overcounted:** `copilot-*` is LIVE (wired to `loops.md` + `.agentrc.json`, the craft flow) and the `.pyi` mirrors are LIVE (the interface-first read-gate `pre-read.sh` requires them). Not dead weight → left intact. Genuine removable cruft was only the fuse orphan.
 2. **messy → workspace-root garbage, not real doc sprawl.** `.Trash-1000/`=6.6 GB / 2216 `.md` living *inside* the tree; `.venv/`=7.6 GB / 9335 `.md` at root. 14.2 GB cruft inflates every find/grep/scan. Real curated docs = only 617 `.md`. So the "mess" is *uncollected garbage*, not too many docs. Loose: 6 orphan `*.original.md`, dup `Modelo de Projeto (1)(2)(3)` in Downloads.
    → **PARTIAL CLOSE 2026-07-22:** emptied `.Trash-1000` (6.6 GB) + `.mypy_cache` (11 MB) = **~6.6 GB reclaimed** (workspace 65→59 GB, 142 GB free). Landmine surfaced first: 5.8 GB of that trash = `datasets/relativistic_raytracer` (16,590 renders + `Benchmark.csv`), the **sole surviving copy** — Zenodo record 20240662 is DELETED (HTTP 410, reason "personal-data", 2026-05-24), and the paper/scripts/render-code are all gone from the live tree too. Coordinated teardown; Lucas confirmed full purge. **Convention gap:** `datasets/*/CONTEXT.md` promises "re-download from Zenodo link" but a link can 410 — a dataset with no live copy + dead link = unrecoverable. `.venv` (7.6 GB) is LIVE, left intact. `Downloads` 17 GB / `models` 33 GB = not cruft, out of scope.
 3. **(NEW, reframed 2026-07-22) the gentle-resurfacing rhythm is missing.** Strong at *capture* (inbox/gmail/telegram/goals) but the instrument that gently resurfaces the *inspiring work waiting* — `/compass` ("good wind, not behind"; ease-start in hand; timing negotiated) — only runs when manually invoked, so inspiring work and the occasional gentle deadline quietly don't resurface. **Not** an accountability/chase gap — that anxious tone is the *opposite* of the workspace's purpose (see [FOUNDATIONS.md](../FOUNDATIONS.md)). The fix is a soft rhythm + motivation-ordering + timing/ditch moves for `/compass`, never nagging. → **SHIPPED this session** (compass fold + `/compass-nudge`).
@@ -102,10 +102,10 @@ last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      12 |
-| trimester   |      13 |
-| semester    |      13 |
-| year        |      13 |
-| 2-year      |      13 |
-| 4-year      |      13 |
+| month       |      13 |
+| trimester   |      14 |
+| semester    |      14 |
+| year        |      14 |
+| 2-year      |      14 |
+| 4-year      |      14 |
 <!-- stats:end -->

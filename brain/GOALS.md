@@ -3,12 +3,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-23 17:55
+last-updated: 2026-07-23 18:28
 
 >**areas** — last 14 days  
 ```
 health       ████░░░░░░   40 touches
-career       ██░░░░░░░░   20 touches
+career       ░░░░░░░░░░   8 touches
 finances     █░░░░░░░░░   14 touches
 fun          ██████████   86 touches
 spiritual    ███░░░░░░░   28 touches
@@ -18,6 +18,7 @@ spiritual    ███░░░░░░░   28 touches
 ```
 career-ufrpe             █████░░░░░   7 touches
 corporal-expressiveness  █████░░░░░   7 touches
+craft-flows              ░░░░░░░░░░   0 touches
 cria                     █████░░░░░   7 touches
 dance-bachata            █████░░░░░   7 touches
 dance-cavalo-marinho     █████░░░░░   7 touches
@@ -32,7 +33,6 @@ home-casinhas            █████░░░░░   7 touches
 instituto                █████░░░░░   7 touches
 lih-dd                   ██████░░░░   8 touches
 local-ai                 ██████░░░░   8 touches
-loop-engineering         ██████████   12 touches
 magic-places             █████░░░░░   7 touches
 make-in-time             █████░░░░░   7 touches
 pandeiro                 █████░░░░░   7 touches
@@ -93,6 +93,7 @@ yoga                     █████░░░░░   7 touches
 |------|------|---------|--------|---------------------|------|
 | carreira UFRPE — progressão e renda | career | near | — | [progressao-map] mapear regras e calendário de progress… | [→](goals/career-ufrpe.md) |
 | corporal expressiveness | spiritual | dream | — | [body-awareness] read or watch something about body lan… | [→](goals/corporal-expressiveness.md) |
+| craft flows | career | now | — | [opencode-reliability] (A2) executar UM chain completo … | [→](goals/craft-flows.md) |
 | cria — ideação híbrida como mechanism design | craft | now | — | [cep] submeter protocolo ao CEP — é o gargalo de calend… | [→](goals/cria.md) |
 | bachata | fun | year | — | [find-class] find a bachata class in Recife | [→](goals/dance-bachata.md) |
 | cavalo marinho | fun | dream | — | [understand-it] watch a cavalo marinho performance — un… | [→](goals/dance-cavalo-marinho.md) |
@@ -107,7 +108,6 @@ yoga                     █████░░░░░   7 touches
 | instituto | craft | dream | none external — th… | [coffee-1] text one trusted person from the board list … | [→](goals/instituto.md) |
 | LIH.DD — research lab | craft | year | DC/UFRPE postgrad … | [research-statement] write a 3-sentence research statem… | [→](goals/lih-dd.md) |
 | always-on autonomous local AI | craft | year | — | [read-weft] read the weft implementation paper and repo… | [→](goals/local-ai.md) |
-| loop engineering | career | now | — | [opencode-reliability] (A2) executar UM chain completo … | [→](goals/loop-engineering.md) |
 | magic places | fun | dream | — | [name-3] name 3 places that genuinely call you — gut le… | [→](goals/magic-places.md) |
 | make in time | health | now | — | [mit-01] identify 3 recurring late scenarios and map th… | [→](goals/make-in-time.md) |
 | pandeiro | fun | near | Pandeirada classes… | [show-up] go to Pandeirada next Saturday | [→](goals/pandeiro.md) |

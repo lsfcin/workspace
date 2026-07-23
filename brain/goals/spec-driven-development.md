@@ -1,6 +1,6 @@
 # [ craft | engineering | now ] spec-driven development
 
-Transicionar o workspace inteiro pra SPEC-DRIVE DEVELOPMENT — todo módulo tem entradas/saídas bem definidas e verificáveis, e a spec é o contrato. Specs viram a fonte da verdade; código sem spec é dívida. Aplica a `code/`, a `core/flows`, e à árvore de loops (ver [[loop-engineering]] [[prompt-dsl]] em loop-engineering). Precede o código, não documenta depois.
+Transicionar o workspace inteiro pra SPEC-DRIVE DEVELOPMENT — todo módulo tem entradas/saídas bem definidas e verificáveis, e a spec é o contrato. Specs viram a fonte da verdade; código sem spec é dívida. Aplica a `code/`, a `core/flows`, e à árvore de loops (ver [[craft-flows]] e [[prompt-dsl]]). Precede o código, não documenta depois.
 
 > **linked work** — the `core/` agent-library pilot of this idea shipped 2026-07-18: an enforced
 > per-layer frontmatter contract ([core/SCHEMA.md](../../core/SCHEMA.md)), tier unified, pilot flow
@@ -19,10 +19,10 @@ Rodar `core/tools/spec-scan` (vê a catraca: 1/88 locked hoje). Abrir `code/isor
 ## backlog
 
 > [x] [protocol-v0] SPEC v0 — formato mínimo (nome/in/out/invariantes/exemplos) + 1 piloto — DONE 2026-07-17 (ver `code/SPEC-DRIVE.md` P0)  
-> [x] [loop-integration] cada etapa do loop produz/consome uma spec parseável (ver [[loop-engineering]]) — DONE 2026-07-17 (Loop 0 lê / Loop 6 promove; SPEC-DRIVE P3)  
+> [x] [loop-integration] cada etapa do loop produz/consome uma spec parseável (ver [[craft-flows]]) — DONE 2026-07-17 (Loop 0 lê / Loop 6 promove; SPEC-DRIVE P3)  
 > [x] [tree-map] mapear árvore de módulos do workspace — onde falta spec — DONE 2026-07-17 (`core/tools/spec-scan`; SPEC-DRIVE P4)  
 > [~] [verify-from-spec] checker que valida "saída real matche spec" por módulo — PARCIAL: conformance monta na verify:fast (modo referência); extrator de exemplos embutidos adiado até 1º consumidor (SPEC-DRIVE P2)  
-> [ ] [prompt-dsl-bridge] spec como contrato entre agentes (ver [[prompt-dsl]] em loop-engineering) — dsl/ piloto já exercita a tese; próximo = checker executável  
+> [ ] [prompt-dsl-bridge] spec como contrato entre agentes (ver [[prompt-dsl]] em [[craft-flows]]) — dsl/ piloto já exercita a tese; próximo = checker executável  
 > [ ] [lock-isoroll-content] travar 2º módulo (isoroll-content) — sai a catraca 1→2  
 > [ ] [roundup-ledger] rodar `core/tools/spec-scan` no /roundup pra coverage ficar visível toda sessão  
 
@@ -38,10 +38,10 @@ last-touch: 2026-07-22  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       4 |
-| trimester   |       4 |
-| semester    |       4 |
-| year        |       4 |
-| 2-year      |       4 |
-| 4-year      |       4 |
+| month       |       5 |
+| trimester   |       5 |
+| semester    |       5 |
+| year        |       5 |
+| 2-year      |       5 |
+| 4-year      |       5 |
 <!-- stats:end -->

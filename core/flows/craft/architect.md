@@ -1,5 +1,5 @@
 ---
-description: Architecture-decision subtree of the loop tree — turn a design/technology choice into a recorded decision (problem → options → trade-offs → decision → ADR). Produces a durable decision record, not code.
+description: Architecture-decision subtree of the craft tree — turn a design/technology choice into a recorded decision (problem → options → trade-offs → decision → ADR). Produces a durable decision record, not code.
 args: <the decision to make>
 ---
 ## Tool Discipline (Read First)
@@ -8,7 +8,7 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Decide: $@
 
-This is an execution request. Produce a recorded decision, not a discussion. Reached via [`loop-router.md`](loop-router.md) with `subtree: architecture`; see [`LOOP-TREE.md`](LOOP-TREE.md).
+This is an execution request. Produce a recorded decision, not a discussion. Reached via [`route.md`](route.md) with `subtree: architecture`; see [`TREE.md`](TREE.md).
 
 ## When this subtree runs
 

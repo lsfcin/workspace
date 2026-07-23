@@ -2,14 +2,14 @@
 
 LLMs são fracos em tarefas espaciais/visuais (posição, camadas, pontos de vista, oclusão, coordenadas 2D/2.5D/3D/4D). Tese: não é incapacidade intrínseca, é falta de **interface** — uma **DSL espacial verificável** chamada **texpace** (text+space; relações espaciais E temporais entre qualquer conteúdo, múltiplos sistemas de âncora: world/group/locale), **skills** com convenções + guardas de failure-mode, e um **checker de código** que é o dono da verdade geométrica (o "olho do modelo nunca afirma geometria"). Move do prepose (DSL de gestos + análise Z3) generalizado da pose corporal pra cognição espacial de agentes, e estendido a **4D (tempo)** → animação/vídeo. Entregável primeiro: **paper benchmark + método** provando o ganho cross-dimensional (2D/2.5D/3D/4D) e cross-model (Haiku/Sonnet/Opus/Fable + GLM/DeepSeek via opencode). Investiga também **CV como ponte visuais→semântica** (segmentação, profundidade, detecção, classificação, tracking) — reusa `code/corpora/`.
 
-Casas: `code/spacemantics/` (engine: dsl + checker + perception + tasks + bench, ROADMAP M0-M3), `academy/papers/spacemantics/` (paper twin benchmark+método), `core/skills/spacemantics/` (skills geom-text/iso-text/spatial-3d-text/motion-text, crescem de `core/skills/iso-visual.md`), e talvez `core/tools/` (wrapper `spatial-check`). Origem: item `[visual-semantics]` em [[loop-engineering]]. Dogfood futuro (M3): isoroll (layout DSL / DepthSorter), casinhas `build_ifc.py`, slides/animação. Ramo UI cruza [[startapps-ux-guidelines-ai]]. Precedente estrutural: [[cria]] (um goal, casa em code/ + paper twin).
+Casas: `code/spacemantics/` (engine: dsl + checker + perception + tasks + bench, ROADMAP M0-M3), `academy/papers/spacemantics/` (paper twin benchmark+método), `core/skills/spacemantics/` (skills geom-text/iso-text/spatial-3d-text/motion-text, crescem de `core/skills/iso-visual.md`), e talvez `core/tools/` (wrapper `spatial-check`). Origem: item `[visual-semantics]` em [[craft-flows]]. Dogfood futuro (M3): isoroll (layout DSL / DepthSorter), casinhas `build_ifc.py`, slides/animação. Ramo UI cruza [[startapps-ux-guidelines-ai]]. Precedente estrutural: [[cria]] (um goal, casa em code/ + paper twin).
 
 >**signals**  
 transformative · essential · thrilled
 
 >**dynamics**  
 immersed mode · emerging motion · intrinsic source  
-2026-07-12 compass: promovido de semente `[visual-semantics]` (loop-engineering:22) pra projeto de 4 casas após sessão de scoping. Landscape confirmado (VLMs quase-aleatórios em perspectiva/rotação; gap de benchmark de *construção* geométrica — GeoGramBench; direção DSL+checker validada mas single-domain — SpatialGrammar/HDSL/SceneCraft). Diferencial: cross-dimensional (inclui 4D-tempo) + cross-model + ablado + checker opcionalmente CV-grounded.
+2026-07-12 compass: promovido de semente `[visual-semantics]` (craft-flows:22) pra projeto de 4 casas após sessão de scoping. Landscape confirmado (VLMs quase-aleatórios em perspectiva/rotação; gap de benchmark de *construção* geométrica — GeoGramBench; direção DSL+checker validada mas single-domain — SpatialGrammar/HDSL/SceneCraft). Diferencial: cross-dimensional (inclui 4D-tempo) + cross-model + ablado + checker opcionalmente CV-grounded.
 
 ## selected next achievement
     [m1-slice] fatia vertical 2.5D end-to-end (texpace DSL profile + checker + 1 família de tasks + runner cross-model) → primeiros números de lift C0→C3
@@ -38,10 +38,10 @@ last-touch: 2026-07-22  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       5 |
-| trimester   |       5 |
-| semester    |       5 |
-| year        |       5 |
-| 2-year      |       5 |
-| 4-year      |       5 |
+| month       |       6 |
+| trimester   |       6 |
+| semester    |       6 |
+| year        |       6 |
+| 2-year      |       6 |
+| 4-year      |       6 |
 <!-- stats:end -->

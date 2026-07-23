@@ -9,7 +9,7 @@ description: >
 
 # /iso-visual
 
-> First `[visual-semantics]` artifact (goal: brain/goals/loop-engineering.md). Spec twin: `code/isoroll-content/SCENE-CREATION.md`.
+> First `[visual-semantics]` artifact (goal: brain/goals/craft-flows.md). Spec twin: `code/isoroll-content/SCENE-CREATION.md`.
 
 ## THE HARD RULE
 

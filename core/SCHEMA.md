@@ -45,7 +45,7 @@ rejects a file with no `name`/`description` frontmatter.
 |-------|-----|-------|
 | `name` | ✅ | matches filename |
 | `description` | ✅ | one line: what evidence/output this worker produces |
-| `tier` | ✅ | `low` \| `medium` \| `high` \| `max` — the provider-agnostic effort ladder (same as loop-engineering) |
+| `tier` | ✅ | `low` \| `medium` \| `high` \| `max` — the provider-agnostic effort ladder (same as the craft flow) |
 | `tools` | ▲ | comma list; required for **worker** agents (locked-down allowlist) |
 | `output` | ▲ | default artifact filename; required for workers |
 | `defaultProgress` | — | `true` for long workers |
@@ -64,8 +64,9 @@ rejects a file with no `name`/`description` frontmatter.
 **Location rule.** A flow owned by a dispatcher skill lives in `core/flows/<skill>/` and its
 **filename equals the command tail** — `core/flows/research/scout.md` ⟺ `research scout`. Flows not
 owned by any dispatcher skill stay flat at `core/flows/`. Validation is recursive (`sync-skills`
-`validate_flows` walks subfolders); a `<skill>/CONTEXT.md` is exempt like the root one. The `loop-*`
-cluster is the current flat exception (its own engineering protocol; see below).
+`validate_flows` walks subfolders); a `<skill>/CONTEXT.md` is exempt like the root one. The
+engineering cluster owned by the `loops` skill lives in [`flows/craft/`](flows/craft/) —
+`craft` · `route` · `architect` (+ the `TREE.md` map) — and is exempt from the table below.
 
 | field | req | value |
 |-------|-----|-------|
@@ -101,7 +102,11 @@ Flow-type assignments:
 - **research-brief:** sota, literature, review, recipe, compare, audit, replicate, draft (in `flows/research/`)
 - **utility:** watch, explore, summarize (in `flows/research/`)
 - **domain:** mechanism-search
-- **engineering:** the `loop-*` cluster (→ `craft`/`route`/`architect`, pending) is its own protocol (declares tier routing directly); exempt from this table and from flow-layer validation.
+- **engineering:** `craft` · `route` · `architect` (in `flows/craft/`) — its own protocol, declares
+  tier routing directly; exempt from this table and from flow-layer validation. **Known asymmetry:**
+  `engineering` is not in the `type` enum, so the cluster is exempted by path rather than typed. The
+  symmetric fix (add `engineering` to the enum, give the three flows real frontmatter, delete the
+  exemption) is a schema change and is queued in [ROADMAP.md](ROADMAP.md), not taken silently here.
 
 ## Composition and cycles
 
@@ -140,7 +145,7 @@ state does not change is not iteration — it is a hang.
 `.hooks/pre-commit`. All three layers are live:
 - **skill:** frontmatter present, `name:` + `description:`, non-skills rejected.
 - **flow:** `description:` + `args:` present, `type ∈ {research-brief, utility, domain}`,
-  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `LOOP-TREE.md`, `loop-*` (engineering cluster).
+  `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `TREE.md`, `loop-*` (engineering cluster).
   Validation is **recursive** — it walks `flows/<skill>/` subfolders, not just the flat root.
 - **composition:** every `uses:` target resolves to a real flow, and the `uses:` graph is a **DAG**
   (three-colour DFS; a path returning to its own start fails the check). The exemption list does

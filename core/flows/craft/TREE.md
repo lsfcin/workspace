@@ -1,25 +1,25 @@
-# The Loop Tree
-> Canonical map of `/loops`: a router classifies each task and dispatches to a subtree whose step-sequence fits the work. Goals: [loop-engineering](../../brain/goals/loop-engineering.md), [spec-driven-development](../../brain/goals/spec-driven-development.md).
+# The Craft Tree
+> Canonical map of `/loops`: a router classifies each task and dispatches to a subtree whose step-sequence fits the work. Goals: [craft-flows](../../brain/goals/craft-flows.md), [spec-driven-development](../../brain/goals/spec-driven-development.md).
 
-`/loops` is not one pipeline — it is a **tree**. Different task *types* need different step *sequences*, so the trunk ([`loop-router.md`](loop-router.md)) classifies the task and hands off to the right subtree. This file is the map.
+`/loops` is not one pipeline — it is a **tree**. Different task *types* need different step *sequences*, so the trunk ([`route.md`](route.md)) classifies the task and hands off to the right subtree. This file is the map.
 
 ```
 /loops <task>
-   └── loop-router.md  ── classify by TYPE + criticality ──►
-         ├── padaria       tiny, revertible change            → loop-engineering.md § Padaria shortcut
-         ├── feature        build/change a module              → loop-engineering.md  (contract-first SDD)
+   └── route.md  ── classify by TYPE + criticality ──►
+         ├── padaria       tiny, revertible change            → craft.md § Padaria shortcut
+         ├── feature        build/change a module              → craft.md  (contract-first SDD)
          ├── research       investigate / gather / synthesize  → research/sota · research/literature · research/explore · research/compare · … (research/* flows)
-         └── architecture   choose between designs             → loop-architecture.md  (→ ADR record)
+         └── architecture   choose between designs             → architect.md  (→ ADR record)
 ```
 
 ## Subtrees
 
 | Subtree | Distinct shape (why it's its own branch) | Flow | Durable output |
 |---|---|---|---|
-| **padaria** | no ceremony — one session plans+codes+ships | `loop-engineering.md` § Padaria | commit |
-| **feature** | contract-first: panel → contracts before code → TDD → ship | `loop-engineering.md` | shipped code + module `SPEC.md` |
+| **padaria** | no ceremony — one session plans+codes+ships | `craft.md` § Padaria | commit |
+| **feature** | contract-first: panel → contracts before code → TDD → ship | `craft.md` | shipped code + module `SPEC.md` |
 | **research** | plan→scale→gather→draft→cite→review→deliver | `core/flows/research/*` flows | research brief + provenance |
-| **architecture** | problem→options→trade-offs→decision→record | `loop-architecture.md` | ADR entry in `SPECS.md` |
+| **architecture** | problem→options→trade-offs→decision→record | `architect.md` | ADR entry in `SPECS.md` |
 
 **Chaining:** "decide then build" = `architecture` → `feature` (ADR feeds the contract layout). "research then build" = `research` → `feature`. Never merge two shapes into one run.
 
@@ -44,4 +44,4 @@ A new subtree is justified only when a task type needs a genuinely different *st
 
 ## Provenance
 
-Designed 2026-07-18 (session extending the SDD enforcement rollout). The tree unifies work previously tracked as `[skill-tree]` and `[research-loops]` in the loop-engineering goal. Prior art for the pipeline lineage (Reflexion/LATM/Voyager) is in `loop-engineering.md` § Prior Art; the industry parallel for the feature subtree is GitHub Spec Kit / Kiro (spec → clarify → plan → tasks → implement).
+Designed 2026-07-18 (session extending the SDD enforcement rollout). The tree unifies work previously tracked as `[skill-tree]` and `[research-loops]` in the craft-flows goal. Prior art for the pipeline lineage (Reflexion/LATM/Voyager) is in `craft.md` § Prior Art; the industry parallel for the feature subtree is GitHub Spec Kit / Kiro (spec → clarify → plan → tasks → implement).

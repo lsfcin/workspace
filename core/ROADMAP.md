@@ -14,15 +14,14 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       AES-CBC decrypt error that reads like wrong credentials, cost a session to diagnose), and
       `gallery-dl` (`core/tools/video` image/carousel path). Fix the class, not the instances:
       a declared dep list or a SETUP.md step the whole `core/tools/` surface is checked against.
-- [ ] **2b — loop-agent tier source + generator.** Create `core/agents/loop-{low,medium,high}.md`
-      carrying `tier:`; extract loop-engineering's tier→model map to `core/tier-map.json`; add a
-      generator that emits `.claude/agents/loop-*.md` with `model:` resolved. Removes the last
+- [ ] **2b — craft-agent tier source + generator.** Create `core/agents/craft-{low,medium,high}.md`
+      carrying `tier:`; extract the craft flow's tier→model map to `core/tier-map.json`; add a
+      generator that emits `.claude/agents/craft-*.md` with `model:` resolved. Removes the last
       provider-name-in-source violation (`model: haiku`). Symmetric with the skills mirror.
-      **BLOCKED:** `loop-*` + `loop-engineering.md` are actively owned by a parallel session; resume
-      once that work commits and the files go clean. See [[feedback-parallel-sessions]].
+      *Unblocked 2026-07-23* — the parallel session's work is committed and the agent mirrors were
+      renamed `loop-*`→`craft-*` in craft-flows step 1; only the `core/` source + generator is left.
 - [ ] **Skill `flow:` field — loops.md.** research.md done (`flow:` comma list, router shape).
-      loops.md needs `flow: loop-engineering` (or the router slug once the loop tree lands).
-      **BLOCKED:** same contention as 2b — `core/skills/loops.md` owned by the parallel session.
+      loops.md needs `flow: craft` (or the router slug). *Unblocked 2026-07-23*, same as 2b.
 
 - [ ] **Survey outside skills, decide what to import.** Lucas's ask (INBOX 2026-07-23): take skills
       seriously as a category and study whether any are worth importing into `core/skills/`. Two
@@ -41,6 +40,20 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       2026-07-23 research: keep CONTEXT.md *local/granular* (it is what makes weak models work, per
       [P] 2607.17598), cap *chain depth* not file count. Do the audit there; this line is the pointer.
 
+- [ ] **`engineering` is exempted by path, not typed — a privileged special case.** `flows/craft/`
+      is skipped by `validate_flows` because the `type` enum has no `engineering` value, so the one
+      cluster that is not schema-checked is exactly the one that does the most work. Symmetric fix:
+      add `engineering` to the enum, give `craft`/`route`/`architect` real frontmatter (`type`,
+      `confirm`, `agents`), delete the path exemption in `sync-skills`. Found while executing
+      craft-flows step 1 (2026-07-23) and written down rather than taken silently — it is a schema
+      change, and the 8 decided steps did not include it. Note the `uses:` DAG check already covers
+      the cluster, so only the type layer is unguarded.
+- [ ] **Skill name `loops` vs flow name `craft` — the rename stopped at the skill boundary.**
+      `/loops` still dispatches to `flows/craft/craft.md`. Step 1 deliberately listed only the flow
+      files, so the skill kept its name; the result is one concept with two words at two layers,
+      which the location rule (`flows/<skill>/` ⟺ dispatcher skill name) would otherwise make
+      `flows/loops/`. Decide: rename the skill to `craft`, or keep `loops` and record why.
+
 ## craft-flows — the execution item (decided 2026-07-23, not yet built)
 
 All of the below was **decided in discussion with Lucas on 2026-07-23** and needs an execution
@@ -50,7 +63,7 @@ first. Nothing here is open for re-litigation — it is build work.
 **The decision in one line:** "loop" is retired as the word for connected agents; **flow** is
 canonical; flows compose into a DAG; loops live only at execution time, bounded.
 
-- [ ] **1. Retire the `loop-*` vocabulary — rename + fold into `flows/craft/`.**
+- [x] **1. Retire the `loop-*` vocabulary — rename + fold into `flows/craft/`.**
       `loop-engineering`→**`craft`**, `loop-router`→**`route`**, `loop-architecture`→**`architect`**,
       `LOOP-TREE.md`→**`TREE.md`**. Single-word filenames (Lucas's convention: prefer the full word
       over a truncation — this is why `architect` beat `arch` and `literature` beat `lit`). They move
@@ -60,11 +73,11 @@ canonical; flows compose into a DAG; loops live only at execution time, bounded.
       files**, per the parallel-session partition rule. Update the `loop-*` exemptions in
       `SCHEMA.md` § Enforcement and in `sync-skills validate_flows` (they match on the `loop-` prefix).
 
-- [ ] **2. Rename the goal + concept to `craft-flows`.** `brain/goals/loop-engineering.md` →
+- [x] **2. Rename the goal + concept to `craft-flows`.** `brain/goals/loop-engineering.md` →
       `brain/goals/craft-flows.md`, and the concept "loop engineering" → "craft flows" **wherever it
       appears** (Lucas's call: option (c), applied broadly — not just the flow files). Includes
       `brain/GOALS.md`, `brain/goals/CONTEXT.md`, and the goal cross-refs in `spacemantics.md`,
-      `spec-driven-development.md`, `workspace-os.md`. The `[[loop-engineering]]` wiki-links must be
+      `spec-driven-development.md`, `workspace-os.md`. The `[[craft-flows]]` wiki-links must be
       repointed or they dangle.
 
 - [x] **3. `deep` → `sota`, and redefine what it produces.** Not a rename — a **redefinition**, which
@@ -100,7 +113,7 @@ canonical; flows compose into a DAG; loops live only at execution time, bounded.
       which is what makes step-level retry edges safe. (a) forbids cycles; (b) *permits* them,
       bounded. Applying (a) to retry edges would wrongly kill the useful loops.
 
-- [ ] **7. Decompose the `craft` monolith by load-frequency.** `loop-engineering.md` is ~52 KB and
+- [ ] **7. Decompose the `craft` monolith by load-frequency.** `craft.md` is ~52 KB and
       mixes three levels: general rules that apply to *all* flows, the one specific build flow, and
       heavy reference material (field practice, case studies, prior art). Split by **access pattern**,
       not arbitrarily — this is what resolves the tension with our own finding that blind .md

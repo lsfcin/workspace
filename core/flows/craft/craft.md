@@ -13,7 +13,7 @@ Engineer this task in loops: $@
 
 This is an execution request, not a request to explain the workflow. Derive a feature slug (lowercase, hyphens, ≤5 words). Do not ask for confirmation beyond the Loop 0 interview.
 
-> **This is the `feature` subtree of the loop tree** ([`loop-router.md`](loop-router.md), [`LOOP-TREE.md`](LOOP-TREE.md)). Reach it via the router, which pins `subtree: feature`. It is **contract-first**: Loop 0 sets a supervision panel, Loop 3.5 lays out every module/step I/O contract before any code, Loop 3 runs a recurrent concept-symmetry review. Research and architecture-decision tasks belong to other subtrees.
+> **This is the `feature` subtree of the craft tree** ([`route.md`](route.md), [`TREE.md`](TREE.md)). Reach it via the router, which pins `subtree: feature`. It is **contract-first**: Loop 0 sets a supervision panel, Loop 3.5 lays out every module/step I/O contract before any code, Loop 3 runs a recurrent concept-symmetry review. Research and architecture-decision tasks belong to other subtrees.
 
 ## Core Principle — Files, Not Conversation
 
@@ -177,10 +177,10 @@ FLAG: RETURN loop=<N> reason=<slug> evidence=<one line>
 
 The orchestrator (lead session) holds only: slug, current loop number, verdicts, flags, and **the provider + tier-map resolved in Loop 0**.
 
-**Routing is structural, not discretionary:** spawn via the pinned executor agent types `loop-low` / `loop-medium` / `loop-high` (Claude Code: `.claude/agents/loop-*.md`; opencode: `.opencode/agents/loop-*.md`). The pinned executors pin **one model per runtime**, set in frontmatter (so routing cannot drift inside that runtime). For runtimes that support per-spawn model override (opencode's `task`/`subagent` literal-a-models), the orchestrator passes the tier's model **from the active provider's row** of the `Tier → provider → model` table, NOT the frontmatter default — the frontmatter default is just the fallback when the orchestrator doesn't resolve a provider. Spawn each loop with this prompt — nothing more:
+**Routing is structural, not discretionary:** spawn via the pinned executor agent types `craft-low` / `craft-medium` / `craft-high` (Claude Code: `.claude/agents/loop-*.md`; opencode: `.opencode/agents/loop-*.md`). The pinned executors pin **one model per runtime**, set in frontmatter (so routing cannot drift inside that runtime). For runtimes that support per-spawn model override (opencode's `task`/`subagent` literal-a-models), the orchestrator passes the tier's model **from the active provider's row** of the `Tier → provider → model` table, NOT the frontmatter default — the frontmatter default is just the fallback when the orchestrator doesn't resolve a provider. Spawn each loop with this prompt — nothing more:
 
 ```
-Read core/flows/loop-engineering.md, section "Loop <N>" plus "Core Principle",
+Read core/flows/craft/craft.md, section "Loop <N>" plus "Core Principle",
 "Autorouting", "Return Flags", "Tier → provider → model mapping". Then read
 <project>/.loop/<slug>/<input-file>. Execute Loop <N>. Append your output to
 <project>/.loop/<slug>/<output-file> following the embedded template. End your
@@ -207,7 +207,7 @@ opencode run \
   --agent "loop-$TIER" \
   --auto \
   --dir "$PROJECT_ROOT" \
-  "Read core/flows/loop-engineering.md, section 'Loop $N' plus 'Core Principle',
+  "Read core/flows/craft/craft.md, section 'Loop $N' plus 'Core Principle',
    'Autorouting', 'Tier → provider → model mapping', 'Return Flags'. Then read
    $PROJECT_ROOT/.loop/$SLUG/$INFILE. Execute Loop $N. Append your output to
    $PROJECT_ROOT/.loop/$SLUG/$OUTFILE following the embedded template. End your
@@ -222,12 +222,12 @@ Notes a fresh orchestrator must read:
 - Loops are strictly serial — `wait` for each subprocess before spawning the next (each loop reads the previous loop's output file).
 - `--auto` auto-approves non-denied permissions; the executor needs `read`, `edit`, `bash`, `glob`, `grep`. Without `--auto` the subprocess hangs on the first permission prompt and you cannot answer it from the orchestrator's session.
 - Special case: `padaria` chains skip tier routing by design (one medium session does plan+code+ship). For padaria the in-session `task` tool is fine — no per-tier model mix needed, same model throughout.
-- The executors are pinned agent types `loop-low` / `loop-medium` / `loop-high` defined in `.opencode/agents/loop-*.md`; **their frontmatter does NOT carry a `model:` line** (stripped per the agnostic principle — see `## Research provenance`). The `-m <RESOLVED>` passed to `opencode run` selects the executor's model; the `--agent loop-<tier>` selects the role.
+- The executors are pinned agent types `craft-low` / `craft-medium` / `craft-high` defined in `.opencode/agents/loop-*.md`; **their frontmatter does NOT carry a `model:` line** (stripped per the agnostic principle — see `## Research provenance`). The `-m <RESOLVED>` passed to `opencode run` selects the executor's model; the `--agent loop-<tier>` selects the role.
 - If `opencode run` is unavailable in a degraded environment, fall back to manual mode: the user opens a fresh opencode TUI session per loop, sets the model with `/model <RESOLVED>`, runs `@loop-<tier> "<spawn-prompt>"`. The flow is unchanged.
 
 **Claude Code** (Agent tool per loop):
 
-Spawn via the native `Agent` tool with `subagent_type: 'loop-low'|'loop-medium'|'loop-high'` and the spawn-prompt body above. The agent's frontmatter `model: haiku|sonnet|opus` IS the tier alias Claude Code resolves to the latest low/medium/high-tier slug — Anthropic's own dogfood pattern (see `## Research provenance`, source s8). No subprocess shelling; no `-m` needed.
+Spawn via the native `Agent` tool with `subagent_type: 'craft-low'|'craft-medium'|'craft-high'` and the spawn-prompt body above. The agent's frontmatter `model: haiku|sonnet|opus` IS the tier alias Claude Code resolves to the latest low/medium/high-tier slug — Anthropic's own dogfood pattern (see `## Research provenance`, source s8). No subprocess shelling; no `-m` needed.
 
 **Copilot CLI / anything else**: the user opens a fresh session per loop with the spawn-prompt and picks the model from the active provider's tier-map. Recipe status — copy the executor bodies, adjust the frontmatter for the runtime.
 
@@ -532,7 +532,7 @@ Canonical artifacts (read before changing the routing):
 This flow is a production realization of three 2023 academic primitives. Citing them here so the next reader (human or AI assistant) recognizes the lineage:
 
 - **Reflexion** (Shinn et al., 2023 — <https://arxiv.org/abs/2303.11366>): "language agents verbally reflect on task feedback signals, then maintain their own reflective text in an episodic memory buffer to induce better decision-making in subsequent trials." /loops instantiates this as the **append-only loop file** with attempt logs (4b `attempt 1:` / `attempt 2:`) and `FLAG: RETURN ... evidence=<one line>` self-reflection — but durable on disk, so it survives crashes and is `grep`-auditable post-hoc; Reflexion's memory is in-context only.
-- **LATM (Large Language Models as Tool Makers)** (Cai et al., 2023 — <https://arxiv.org/abs/2305.17126>): "tool-making → powerful resource-intensive model; tool-using → lightweight model. Once-off cost spread over multiple instances, significantly reducing average costs while maintaining strong performance." This **is** the Autorouting table (`loop-engineering.md:51-62`) — generalized from tool-making/tool-using to loop-roles: Loop 1+3 (high, Opus) make the plan + architecture; Loops 4a/4b/5 (medium, Sonnet) use them; Loop 6 (low, Haiku) ships. The Carry block (`:32-46`) is LATM's *functional cache of decisions rather than responses*.
+- **LATM (Large Language Models as Tool Makers)** (Cai et al., 2023 — <https://arxiv.org/abs/2305.17126>): "tool-making → powerful resource-intensive model; tool-using → lightweight model. Once-off cost spread over multiple instances, significantly reducing average costs while maintaining strong performance." This **is** the Autorouting table (`craft.md:51-62`) — generalized from tool-making/tool-using to loop-roles: Loop 1+3 (high, Opus) make the plan + architecture; Loops 4a/4b/5 (medium, Sonnet) use them; Loop 6 (low, Haiku) ships. The Carry block (`:32-46`) is LATM's *functional cache of decisions rather than responses*.
 - **Voyager** (Wang et al., 2023 — <https://arxiv.org/abs/2305.16291>): "an iterative prompting mechanism that incorporates environment feedback, execution errors, and self-verification for program improvement," plus "an ever-growing skill library of executable code." /loops has environment feedback (Loop 4b green/red) and execution errors (attempt logs); its **two gaps vs. Voyager** = (a) *separate-context* self-verification (currently Loop 5 is same-model re-running e2e — see `## Field Practice` B1') and (b) cross-run **skill library** — patterns die with their `.loop/<slug>/` file. Closing both is the `## Status` extension (see Loop 6.5 below).
 
 Open industry-frontier references: Anthropic — "Best practices for Claude Code" (<https://www.anthropic.com/engineering/claude-code-best-practices>); Cognition — "Don't Build Multi-Agents" (Yan, 2025 — <https://cognition.ai/blog/dont-build-multi-agents>); LangChain — "The rise of context engineering" (Chase, 2025 — <https://blog.langchain.com/the-rise-of-context-engineering>). Cognition's two principles — *share context across actions* and *actions carry implicit decisions* — are exactly what the Carry block + file-relay enforce; the loops flow was authored **before** that essay and is its structural implementation.
@@ -549,7 +549,7 @@ The five bullets below were observed in the `isoroll` post-freeze run (2026-07) 
 
 | Bullet (below) | Overrides Autorouting row | Effect |
 |---|---|---|
-| Loop 0 inline when hot | Loop 0 — clarify (high) | Orchestrator can author `0-clarify.md` directly at `max` instead of spawning a loop-high session for the interview |
+| Loop 0 inline when hot | Loop 0 — clarify (high) | Orchestrator can author `0-clarify.md` directly at `max` instead of spawning a craft-high session for the interview |
 | Pin branch base in spawn prompt | Loop 2 — branch (implicit, low) | Orchestrator names `base:` non-discretionally when lineage is non-obvious; saves a full plan re-ground |
 | Dirty-tree fence | Loop 6 — diff scope | Pre-existing dirty paths listed under `extras: pre-existing-dirty`, not flagged as `RETURN loop=4b reason=dirty-tree` |
 | RETURN into high-tier → orchestrator-max inline | Escalation rules + max-gate | RETURN to a high-eligible loop → orchestrator amends target file at `max` inline instead of spawning a max executor; only sanctioned structural relaxation |
