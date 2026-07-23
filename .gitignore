@@ -98,6 +98,8 @@ core/*
 !core/ROADMAP.md
 !core/HISTORY.md
 !core/MIGRATION-STATUS.md
+!core/SPECS.md
+!core/WATCHLIST.md
 !core/agents/
 !core/flows/
 !core/refs/
