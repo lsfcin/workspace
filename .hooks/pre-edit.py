@@ -55,8 +55,21 @@ if basename == 'CONTEXT.md' and tool == 'Write' and not os.path.exists(file_path
 		print(f"   Line 2 must be: > Short description of this directory")
 		sys.exit(2)
 
+def is_vendored(path: str) -> bool:
+	"""Third-party code tracked verbatim, declared by a `.vendor` marker in the file's
+	directory or any ancestor. Splitting it would fork it from upstream, so the size
+	gate does not apply. Same marker the commit-time checker reads."""
+	d = os.path.dirname(os.path.abspath(path))
+	while d and d != '/':
+		if os.path.isfile(os.path.join(d, '.vendor')):
+			return True
+		if os.path.isdir(os.path.join(d, '.git')):
+			return False
+		d = os.path.dirname(d)
+	return False
+
 _, ext = os.path.splitext(file_path)
-is_code    = ext in CODE_EXTS and not file_path.endswith('.d.ts')
+is_code    = ext in CODE_EXTS and not file_path.endswith('.d.ts') and not is_vendored(file_path)
 is_content = ext in CONTENT_EXTS and basename != 'CONTEXT.md'
 
 if not is_code and not is_content:

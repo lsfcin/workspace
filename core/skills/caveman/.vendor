@@ -1,0 +1,11 @@
+Third-party code, tracked verbatim.
+
+Upstream: https://github.com/JuliusBrussee/caveman
+Vendored: 2026-07-23
+
+This directory is exempt from the workspace size gate (.hooks/check-line-counts.sh and
+.hooks/pre-edit.py both read this marker). Splitting these files to satisfy a 200-line
+limit would fork them from upstream and make the next update impossible to diff.
+
+Local adaptations are deliberate and documented in CONTEXT.md — keep them small and
+listed there so a future re-sync with upstream stays tractable.

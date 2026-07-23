@@ -41,6 +41,7 @@ Applied globally via `core.hooksPath`. Fires on every `git commit` across all re
 - Auto-generates `.pyi` stubs for Python files (via `stubgen`), stages them
 - Auto-generates `.d.ts` declarations for JS/TS files (via `tsc`) and `.dart.api` stubs for Dart files (via `dart-api-extract.py`), stages them
 - Shares staged-file line-count enforcement with `.hooks/check-line-counts.sh`, which can also run manually for workspace-wide audit
+- **Vendored third-party code is exempt from the size gate**, declared by a `.vendor` marker file in the directory (applies to that directory and everything under it; the walk stops at a repo root). Both `check-line-counts.sh` and `pre-edit.py` read it. Rationale: splitting vendored files to fit 200 lines forks them from upstream and makes the next update impossible to diff. The marker file must say what the upstream is and when it was vendored — see `core/skills/caveman/.vendor`. Use it only for code tracked verbatim, never to excuse our own sprawl.
 
 ### Claude Code Hooks (`.claude/settings.json`)
 Fires on every `Edit`, `Write`, `Read` tool call during Claude Code sessions.
@@ -234,18 +235,21 @@ Run `codeburn optimize` periodically to audit token waste.
 
 ### 8. Caveman (Claude Code output compression)
 
-Installs caveman as Claude Code skill (~65% output token savings). Requires Node ≥18. Safe to re-run.
+Caveman (~65% output token savings) is **vendored into this workspace** as of 2026-07-23 —
+source of truth is [`core/skills/caveman/`](core/skills/caveman/CONTEXT.md), upstream credit is
+[JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman). Do **not** run the upstream
+installer any more; it would overwrite the links with copies and re-fork the two installs.
 
-**Linux / macOS:**
+Requires Node ≥18. On a fresh clone (new machine), one command wires the whole suite:
+
 ```bash
-curl -fsSL https://raw.githubusercontent.com/JuliusBrussee/caveman/main/install.sh | bash
+core/tools/sync-global-skills            # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
+core/tools/sync-global-skills --check    # verify
 ```
 
-**Windows (PowerShell — run as normal user, not admin):**
-```powershell
-irm https://raw.githubusercontent.com/JuliusBrussee/caveman/main/src/hooks/install.ps1 | iex
-```
-If execution policy blocks: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` first.
+Then add the hook entries to `~/.claude/settings.json` (`SessionStart` → `caveman-activate.js`,
+`UserPromptSubmit` → `caveman-mode-tracker.js`, `statusLine` → `caveman-statusline.sh`) if that
+file is not already carried over.
 
 **Set default mode** via caveman's config:
 
@@ -272,7 +276,7 @@ cat >> ~/.bashrc << 'EOF'
 caveman-compress() {
   local CLAUDE_BIN
   CLAUDE_BIN="$(dirname "$CLAUDE_CODE_EXECPATH")"
-  (cd ~/.claude/skills/caveman-compress && PATH="$CLAUDE_BIN:$PATH" python3 -m scripts "$1")
+  (cd /mnt/workspace/core/skills/caveman && PATH="$CLAUDE_BIN:$PATH" python3 -m scripts "$1")
 }
 EOF
 source ~/.bashrc
@@ -286,7 +290,7 @@ Add-Content $PROFILE @'
 function caveman-compress {
     param([string]$File)
     $claudeBin = Split-Path $env:CLAUDE_CODE_EXECPATH
-    Push-Location "$env:USERPROFILE\.claude\skills\caveman-compress"
+    Push-Location "$env:USERPROFILE\.claude\skills\caveman"
     $env:PATH = "$claudeBin;$env:PATH"
     python3 -m scripts $File
     Pop-Location
@@ -294,7 +298,7 @@ function caveman-compress {
 '@
 ```
 
-Run `/caveman-compress <file>` on CONTEXT.md files periodically to cut input tokens.
+Run `/caveman compress <file>` on CONTEXT.md files periodically to cut input tokens (the old `/caveman-compress` spelling still resolves).
 
 **Verify:** open Claude Code session — `[CAVEMAN] ⛏` badge should appear in statusline.
 
@@ -303,14 +307,13 @@ Every agent in this workspace should activate caveman via one of two mechanisms:
 
 | Mechanism | Agent | How |
 |-----------|-------|-----|
-| **Installed** | Claude Code | `SessionStart` + `UserPromptSubmit` hooks in `~/.claude/settings.json` call `caveman-activate.js`. Auto-activates every session. |
+| **Installed** | Claude Code | `SessionStart` + `UserPromptSubmit` hooks in `~/.claude/settings.json` call `caveman-activate.js` (a link into `core/skills/caveman/hooks/`). Auto-activates every session. |
 | **Induced** | Copilot | `copilot-session-start.py` reads `~/.config/caveman/config.json` and injects rules as `additionalContext` at session start. |
 
 When adding new agent: if it supports session-start hooks or context injection, add caveman injection there following induced pattern in `.hooks/copilot-session-start.py`. Both mechanisms read same config file — one toggle controls all agents.
 
-> **New agent checklist:** consult [caveman INSTALL.md](https://github.com/JuliusBrussee/caveman/blob/main/INSTALL.md) for target agent (e.g. OpenCode → `npx -y github:JuliusBrussee/caveman -- --only opencode --with-init` generates `.opencode/AGENTS.md` and `AGENTS.md`). Cross-check against induced pattern here to avoid duplicating rule injection.
+> **New agent checklist:** the suite is vendored, so wire a new agent by hand rather than re-running an upstream installer — follow the induced pattern in `.hooks/copilot-session-start.py` and point it at `core/skills/caveman/`. Upstream's [INSTALL.md](https://github.com/JuliusBrussee/caveman/blob/main/INSTALL.md) is still the reference for what a given agent needs, but do not let its generator write into this workspace.
 
-Run `caveman-compress <file>` on CONTEXT.md files periodically to cut input tokens.
 Responses use caveman compression by default. Deactivate for a session: say "stop caveman" or "normal mode". To change the default, see `SETUP.md §6`.
 
 ### 10. ESLint + Prettier for TypeScript Projects under `code/`

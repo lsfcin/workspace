@@ -29,15 +29,29 @@ Linux is **case-sensitive**. The source dir is `core` (lowercase). Never write `
 
 `_template.md`, `*.original.md` (caveman-compress backups), and `CONTEXT.md` are not skills — `sync-skills` skips them.
 
-## Global skills (outside the workspace)
+## Global skills — folder-shaped, linked out instead of mirrored in
 
-The `caveman*` / `cavecrew` skills live in `~/.agents/skills/` and are mirrored via `~/.claude/skills/`. They are installed system-wide and not synced by `core/tools/sync-skills`.
+A skill that must work in **every** project (not just this workspace) lives here as a directory
+containing its own `SKILL.md`, subfiles, hooks, and scripts — `caveman/` is the case. `sync-skills`
+globs flat `core/skills/*.md`, so a directory is invisible to it by construction; exposure is by
+symlink instead:
+
+```bash
+core/tools/sync-global-skills            # link ~/.agents/skills + ~/.claude/hooks -> here
+core/tools/sync-global-skills --check    # verify (exit 1 if stale/broken/missing)
+```
+
+Run it after a fresh clone on a new machine. `$HOME` holds links, never copies — editing
+`~/.claude/hooks/caveman-*` means editing `core/skills/caveman/hooks/`. Do **not** also give a
+global skill a flat `core/skills/<name>.md`: that would register the same name twice (project +
+user scope). Details and upstream attribution: [`caveman/CONTEXT.md`](caveman/CONTEXT.md).
 
 <!-- routing:start -->
 ## Routing
 
 | Subdirectory | Description |
 |--------------|-------------|
+| [`caveman/`](caveman/CONTEXT.md) | Ultra-compressed communication mode — vendored suite: router skill, mode subfile |
 | [`foundry/`](foundry/CONTEXT.md) | Foundry VTT v14 module dev reference — skill suite. |
 | [`prepare/`](prepare/CONTEXT.md) | Prepare a raw prompt for Claude Code: optimize, contextualize, and recommend mod |
 

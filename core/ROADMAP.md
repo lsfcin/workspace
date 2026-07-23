@@ -125,7 +125,7 @@ canonical; flows compose into a DAG; loops live only at execution time, bounded.
       `/caveman-compress` **plus** an Opus pass that compresses *content* (redundancy, prose→table,
       outright cuts), not just wording.
 
-- [ ] **8. Fold multi-mode skills into folders.** `skills/caveman*` (lite/full/ultra/wenyan variants,
+- [x] **8. Fold multi-mode skills into folders.** `skills/caveman*` (lite/full/ultra/wenyan variants,
       plus `caveman-commit`/`-review`/`-compress`/`-help`/`cavecrew`) → `skills/caveman/` with a
       router on top and one subfile per mode — same `skills/foundry/` pattern, same reasoning as
       item 7. Note these live in `~/.agents/skills/` (global, outside the workspace) and are **not**

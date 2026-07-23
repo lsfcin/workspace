@@ -16,6 +16,9 @@ file_path: Incomplete
 basename: Incomplete
 lines: Incomplete
 line2: Incomplete
+
+def is_vendored(path: str) -> bool: ...
+
 ext: Incomplete
 is_code: Incomplete
 is_content: Incomplete

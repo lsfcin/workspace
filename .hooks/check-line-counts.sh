@@ -8,6 +8,20 @@ source "$SCRIPT_DIR/line-limits.env"
 : "${WARN_LINES:=150}"
 : "${BLOCK_LINES:=200}"
 
+# Third-party code tracked verbatim is exempt: splitting it would fork it from
+# upstream and make the next update impossible to diff. Declared per directory by
+# a `.vendor` marker file, which applies to that directory and everything under it.
+is_vendored() {
+  local dir
+  dir="$(cd "$(dirname "$1")" 2>/dev/null && pwd)" || return 1
+  while [ -n "$dir" ] && [ "$dir" != "/" ]; do
+    [ -f "$dir/.vendor" ] && return 0
+    [ -d "$dir/.git" ] && return 1     # stop at a repo root
+    dir="$(dirname "$dir")"
+  done
+  return 1
+}
+
 check_file() {
   local f="$1"
   [ -f "$f" ] || return 0
@@ -15,6 +29,8 @@ check_file() {
   case "$f" in
     *.d.ts) return 0 ;;
   esac
+
+  is_vendored "$f" && return 0
 
   if ! printf '%s\n' "$f" | grep -Eq '\.(js|ts|tsx|py|dart|html|css|scss|tex)$'; then
     return 0

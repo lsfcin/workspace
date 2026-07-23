@@ -9,7 +9,16 @@
 
 <!-- add entries below, newest first -->
 
-sobre emojis nas mensagens, tipo ampulhetas, luzes verde/amarela/vermelha... acho com frequência
+me pergunto se o fable, dado que tenho 100 dólares de crédito pra gastar até setembro, ainda assim consome do meu limite por turno / semanal
+
+tenho usado bastante o opus, com dificuldade de confiar no sonnet para as coisas que tenho feito...
+
+git graph no vscode não mostra grafo dos subrepositórios, me pergunto se tem um jeito fácil de resolver isso
+
+tabelas e bold continuam sem funcionar no bot.
+— via aiwbot · 2026-07-23
+
+sobre emojis nas mensagens, tipo ampulhetas, luzes verde/amarela/vermelha... acho com frequência os emojis escolhidos meio bregas. prefiro emojis simples, se tiverem, por exemplo, a luz vermelha pode ser sem efeitos, sem gradiente, só uma bolha vermelha. a ampulheta poderia ser preta e branca. enfim, é só um gosto visual, longe de ser algo crítico, mas seria legal ter um design mais estiloso e minimalista
 
 usar nas minhas aulas, provavelmente em ai4good
 https://www.instagram.com/p/DbGep4CDGtk/?utm_source=ig_web_copy_link
