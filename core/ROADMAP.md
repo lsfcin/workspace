@@ -40,6 +40,17 @@ Reference implementation = `flows/deepresearch.md` (the validator's oracle; neve
       2026-07-23 research: keep CONTEXT.md *local/granular* (it is what makes weak models work, per
       [P] 2607.17598), cap *chain depth* not file count. Do the audit there; this line is the pointer.
 
+- [ ] **Design symmetry across the skill/flow surface — decide the naming grammar.** Lucas's ask
+      (2026-07-23): we now have `deepresearch` (a flow) and `/research scout` (a flow under the
+      `research` skill). Is the surface symmetric? Should `deepresearch` become `research deep` so
+      every research workflow is `research <verb>` and nothing is a top-level twin? Open questions:
+      (1) which flows deserve to be top-level skills vs. sub-workflows of a parent skill; (2) is
+      there a rule — e.g. "a workflow that composes other flows lives under a parent skill; a
+      primitive is top-level"; (3) does renaming `deepresearch`→`research deep` break the
+      `flow:` DAG or muscle memory enough to not be worth it. This is a soundness/symmetry
+      question in the same family as the per-layer frontmatter contract — belongs here. Discuss
+      before renaming anything; a rename touches the mirrors + every reference.
+
 ## Notes
 
 - `.claude/` + `.opencode/` are generated mirrors (tracked). Never hand-edit; run `sync-skills`.
