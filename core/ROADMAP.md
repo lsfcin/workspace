@@ -41,17 +41,6 @@ validator's oracle" status of `deepresearch` was retired 2026-07-23; see [SCHEMA
       2026-07-23 research: keep CONTEXT.md *local/granular* (it is what makes weak models work, per
       [P] 2607.17598), cap *chain depth* not file count. Do the audit there; this line is the pointer.
 
-- [x] **Design symmetry across the skill/flow surface — naming grammar decided (2026-07-23).**
-      Decision: a flow **owned by a dispatcher skill** lives in `core/flows/<skill>/` and its
-      **filename equals the command tail** (`research <verb>` ⟺ `flows/research/<verb>.md`); flows
-      not owned by any dispatcher stay flat. The axis is *invocation independence*, not composition
-      (`scout` composes `deep`/`literature` yet stays a sub-flow). Rule written into
-      [SCHEMA.md](SCHEMA.md) (flow-layer Location rule). **Done:** the 12 research flows moved to
-      `flows/research/`; renamed `deepresearch`→`deep`, `autoresearch`→`explore`, `lit`→`literature`;
-      `sync-skills validate_flows` made recursive; `research.md`/`loop-router.md`/`LOOP-TREE.md`/
-      `SCHEMA.md` repathed; back-compat aliases kept in the dispatcher. Verified working on all three
-      runtimes (CLI, VSCode extension, opencode).
-
 ## craft-flows — the execution item (decided 2026-07-23, not yet built)
 
 All of the below was **decided in discussion with Lucas on 2026-07-23** and needs an execution
