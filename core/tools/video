@@ -1,5 +1,5 @@
 #!/mnt/workspace/.venv/bin/python3
-# Usage: core/tools/video <url> [--level auto|meta|captions|speech|ocr|visual|full] [--save] [--json] [--goals [N]] — extract navigable text (metadata/captions/transcript/OCR/VLM caption) from a video or image link
+# Usage: core/tools/video <url> [--level auto|meta|captions|speech|ocr|visual|full] [--save] [--json] [--goals [N]] — extract navigable text (metadata/captions/transcript/OCR/VLM caption) from a video or image link; --goals also ranks brain/goals by relevance to what was extracted
 import sys, json, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from video_core import assemble

@@ -1,5 +1,5 @@
 #!/mnt/workspace/.venv/bin/python3
-# video_relevance.py — score extracted text against brain/goals via local multilingual embeddings
+# video_relevance.py — rank brain/goals against ANY text (not just video) via local multilingual embeddings; import relevance() from anywhere
 import functools, pathlib, re
 
 _ROOT = pathlib.Path(__file__).resolve().parents[2]
