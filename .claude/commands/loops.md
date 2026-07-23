@@ -16,7 +16,7 @@ Arguments: $ARGUMENTS
 
 0. **Route first (the loop tree).** `/loops` is a tree, not one pipeline. Read [`core/flows/loop-router.md`](../flows/loop-router.md) and classify the task into a subtree — `padaria` · `feature` · `research` · `architecture` (map + rationale: [`core/flows/LOOP-TREE.md`](../flows/LOOP-TREE.md)). Record `subtree:` in the Carry block / STATUS. Then run that subtree's flow:
    - `feature` / `padaria` → the loop-engineering flow below (feature is contract-first: Step 0 permission panel → Loop 3.5 Contract Layout → Loop 3 concept-symmetry review → TDD → ship).
-   - `research` → the matching `core/flows/{deepresearch,lit,autoresearch,compare,recipe,replicate,review,summarize,watch,audit,mechanism-search}.md`.
+   - `research` → the matching `core/flows/research/{deep,literature,explore,compare,recipe,replicate,review,summarize,watch,audit}.md` or `core/flows/mechanism-search.md`.
    - `architecture` → [`core/flows/loop-architecture.md`](../flows/loop-architecture.md) (emits an ADR; chain into `feature` if it needs building).
 
    The steps below are the **feature/padaria** subtree. For research/architecture, hand off and stop.

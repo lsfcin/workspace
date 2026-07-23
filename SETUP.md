@@ -587,7 +587,8 @@ code/SPECS.md             ← style rules R1-R6, hook enforcement reference, fil
 code/eslint.shared.js     ← shared ESLint config: 3 custom rules (single-return, one-call-per-statement, max-chain-depth) + built-in R1-R6 rules; imported by all TS projects
 core/                     ← provider-agnostic research system (agents, flows, tools)
   core/agents/            ← agent role definitions (lead, researcher, reviewer, verifier, writer)
-  core/flows/             ← workflow protocols (lit, deepresearch, review, draft, …)
+  core/flows/             ← workflow protocols; flows owned by a dispatcher skill nest under it
+  core/flows/research/    ← the `research` skill's flows (literature, deep, scout, explore, …)
   core/tools/             ← executable CLI research tools (search, papers, fetch, parse, …)
 .claude/commands/         ← Claude Code slash commands (e.g. /research dispatcher)
 ```

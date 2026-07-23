@@ -34,7 +34,7 @@ Abrir `core/flows/loop-engineering.md` `## Field Practice` (7 runs auditados, A1
 > [ ] [B1] second-opinion verifier em Loop 3 + Loop 6 (sessão fresh haiku, retorna `OK crit-covered:` | `GAP <id>`). Fecha o gap vs. Voyager (Wang 2023) e vs. Anthropic best-practices ("fresh subagent context... not the reasoning that produced the change"). ESPEC em `core/flows/loop-engineering.md` `## Second-opinion verifier`
 > [ ] [B2] separar `## Field Practice` das field notes (LOAD-BEARING) — feito neste commit (nova seção com tabela de overrides)
 > [ ] [B3] extrair `export-manifest` integration-gap catch num `## Case Study` no flow file — feito neste commit
-> [ ] [C1] research-loops: variante do flow para `core/flows/{deepresearch,lit,autoresearch}` — mesmo mecanismo Carry; onde a parallel fan-out dobra é a extensão natural (Voyager continua: skill library + auto-curriculum)
+> [ ] [C1] research-loops: variante do flow para `core/flows/research/{deep,literature,explore}` — mesmo mecanismo Carry; onde a parallel fan-out dobra é a extensão natural (Voyager continua: skill library + auto-curriculum)
 > [ ] [C2] testar o flow: um tagged-fixture repo synth em `core/flows/__loop-fixture__/` + assertion que 8 loop files aparecem com executor tags corretos pós dry-run; CI-runnable
 > [ ] [loop-anchors] contra-métricas e âncoras duras pro próprio flow de loops — tese de um carrossel que estava travado no INBOX desde 20/07 ("loop engineering is dead, o pessoal está migrando pra um *grafo* de loops"): loop único falha estruturalmente, não por acidente (lei de Goodhart, cegueira a alvos ruins, conflito entre loops, decaimento da medição). O remédio que ML de produção já usa: métricas pareadas, hierarquia sobre alvos, arbitragem explícita, e loops de auditoria que o otimizador nunca vê. **A pegadinha que interessa aqui**: um grafo totalmente cabeado ainda pode ser circular — consistente, tudo verde, e desconectado da realidade — a menos que algo nele seja âncora dura. Aplicar ao `/loops`: quais números o otimizador NÃO pode tocar? Hoje o Loop 6 dá verdict sem contra-métrica nenhuma; [B1] second-opinion verifier é meio caminho, mas verificador ≠ contra-métrica. Fonte: https://www.instagram.com/p/DbBDnp6DcKV/ (INBOX 2026-07-23)  
 > [ ] [tier-briefing] padrão "three-lane": modelo barato lê TUDO (emails, docs, transcripts) e comprime num briefing curto; modelo caro só toca o briefing. É o mesmo princípio do autorouting do `/loops` (loop-low/medium/high) aplicado à *ingestão* em vez da execução — hoje o roteamento decide quem executa, não quem lê. Casa com `/gmail` triage e com o dreno do INBOX. Ref em `core/WATCHLIST.md` (INBOX 2026-07-23)  
@@ -76,10 +76,10 @@ last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      12 |
-| trimester   |      12 |
-| semester    |      12 |
-| year        |      12 |
-| 2-year      |      12 |
-| 4-year      |      12 |
+| month       |      13 |
+| trimester   |      13 |
+| semester    |      13 |
+| year        |      13 |
+| 2-year      |      13 |
+| 4-year      |      13 |
 <!-- stats:end -->
