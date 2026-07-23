@@ -1,6 +1,29 @@
 # Core Library History
 > Archive of completed work. Open work lives in [ROADMAP.md](ROADMAP.md).
 
+## Completed — 2026-07-23
+
+**Design symmetry across the skill/flow surface — naming grammar decided + shipped.**
+Trigger was the apparent asymmetry `deepresearch` (flow) vs `/research scout` (sub-flow); it turned
+out to be purely lexical (both were already sub-flows of the `research` skill), but it exposed a
+missing ownership rule. Decision: a flow **owned by a dispatcher skill** lives in
+`core/flows/<skill>/` and its **filename equals the command tail** (`research <verb>` ⟺
+`flows/research/<verb>.md`); unowned flows stay flat. The axis is *invocation independence*, not
+composition — `scout` composes `deep`/`literature` yet stays a sub-flow. Rule in
+[SCHEMA.md](SCHEMA.md) (flow-layer Location rule) + [SPECS.md](SPECS.md) AD-08.
+
+Shipped: the 12 research flows moved into `flows/research/`; renamed `deepresearch`→`deep`,
+`autoresearch`→`explore`, `lit`→`literature`; `sync-skills validate_flows` made **recursive** (the
+flat glob would have let nested flows escape schema validation silently); `research.md`,
+`loop-router.md`, `LOOP-TREE.md`, `SCHEMA.md`, `SETUP.md`, `loops.md` repathed; back-compat aliases
+kept in the dispatcher. Verified working on all three runtimes (CLI, VSCode extension, opencode).
+Also retired the "reference implementation / validator's oracle" status of `deepresearch` — no flow
+is privileged; the exemplar is `flows/_template.md`.
+Commits: `9d8687f` (fold + recursive validator), `3a7a630` (craft-flows decision), `bbdff54` (stale-ref sweep).
+
+Open follow-up: the **craft-flows** execution item (8 steps) in [ROADMAP.md](ROADMAP.md) — decided
+this session, not yet built.
+
 ## Completed — 2026-07-18
 
 Pilot: enforced per-layer frontmatter contract — SPEC-v0 of [[spec-driven-development]], `core/` side.
