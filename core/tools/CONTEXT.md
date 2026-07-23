@@ -81,7 +81,7 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`hf`](hf) | — | — | query HuggingFace Hub metadata and file contents; returns JSON |
 | [`inspect`](inspect) | — | — | generate or update .imgif/.csvif interface file |
 | [`inspect-batch`](inspect-batch) | — | — | generate .pngif/.csvif stubs for all assets missing interfaces |
-| [`papers`](papers) | — | — | search academic papers via arXiv (default) or Semantic Scholar (--ss); returns JSON |
+| [`papers`](papers) | — | — | search academic papers via arXiv (default) or Semantic Scholar (--ss, reports venue + peer_reviewed); returns JSON |
 | [`parse`](parse) | — | — | extract readable text from PDF, DOCX, PPTX, or plain text files; returns raw text |
 | [`search`](search) | — | — | unified web search; Exa (keyed) by default, ddgr (no-key) fallback; returns normalized JSON array [{title, url, abstract, score?}] |
 | [`slides`](slides) | — | — | Slidev presentation CLI: auth, new, serve, build, port |

@@ -2,7 +2,7 @@
 name: research
 description: >
   Execute a research workflow from the workspace Core research system.
-flow: lit, deepresearch, review, draft, compare, audit, replicate, recipe, summarize, autoresearch, watch
+flow: lit, deepresearch, scout, review, draft, compare, audit, replicate, recipe, summarize, autoresearch, watch
 ---
 
 Execute a research workflow from the workspace Core research system.
@@ -17,6 +17,7 @@ Parse the arguments as `<workflow> [query or path]`. If no workflow is given, pr
 |---------|-----------|----------|
 | `lit` | `core/flows/lit.md` | literature review on a topic |
 | `deepresearch` | `core/flows/deepresearch.md` | full multi-source research brief |
+| `scout` | `core/flows/scout.md` | research a topic in rounds, then write a model-tiered, impact-flagged action plan into the target ROADMAP (use when the research serves a decision about our own system) |
 | `review` | `core/flows/review.md` | peer-review simulation of a document or claim |
 | `draft` | `core/flows/draft.md` | draft a section or document from evidence |
 | `compare` | `core/flows/compare.md` | compare two papers or approaches |
@@ -38,9 +39,15 @@ Parse the arguments as `<workflow> [query or path]`. If no workflow is given, pr
    - `core/tools/parse <file>` — extract text from PDF/DOCX
    - `core/tools/code list|read|search <owner/repo>` — GitHub
    - `core/tools/annotate set|get|list <id> [note]` — annotation store
-4. For steps that require specialist agents, spawn workers using:
+4. **Source discipline** — arXiv is the easiest surface to search, so an unguarded pass
+   returns almost only preprints, which are *not peer reviewed*. Every round must also hit
+   published venues (ACL/EMNLP anthology, ACM DL, IEEE, OpenReview with an accepted venue).
+   `core/tools/papers --ss` reports `venue` + `peer_reviewed` per hit; `--reviewed` drops
+   preprints, `--min-cit N` drops noise. Tag every delivered reference with its tier and
+   record it in the relevant `refs/REFS.md`. Tier table + full rule: [`core/refs/CONTEXT.md`](../refs/CONTEXT.md).
+5. For steps that require specialist agents, spawn workers using:
    - `core/agents/researcher.md` — evidence gathering
    - `core/agents/reviewer.md` — peer review
    - `core/agents/verifier.md` — citation verification
    - `core/agents/writer.md` — synthesis and drafting
-5. Deliver the output in the format the flow specifies.
+6. Deliver the output in the format the flow specifies.

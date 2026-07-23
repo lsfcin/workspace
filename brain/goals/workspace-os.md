@@ -38,6 +38,7 @@ fallback · iterate — MVP can always be extended*
 
 ## backlog
 
+> **[v1-robustness] plan → [ROADMAP.md](../../ROADMAP.md)** (workspace root). 7 frentes from the 2026-07-23 research sweep (context engineering, memory-poisoning, progressive-disclosure-for-SLMs, doc-decay), each with per-step model tier + switch mechanism + impact flags. Evidence captured in [core/refs/REFS.md](../../core/refs/REFS.md) with peer-review tiers. Frentes 1/3/4/5 open with a 🔴 decide-first step — discuss before coding.
 > [ ] [v1-strong] make the first core version really strong — ~~GC workspace-root cruft (gap 2)~~ **6.6 GB reclaimed 2026-07-22** (`.venv` 7.6 GB is LIVE, not reclaimable) + de-overengineer hooks/`telegram_daemon` (gap 1) + finish aiwbot (away-from-PC front door)  
 > [ ] [todo-integration] establish TODO.md as consistent daily practice  
 > [x] [compass-cadence] DONE 2026-07-22 — soft SessionStart line (`.hooks/compass-nudge.py`, wired in settings.json) gently offers `/compass` when it's been >14d. Ignorable, in-session only, no phone. Mirrors inbox-nudge.  
@@ -97,14 +98,14 @@ Build + verify in the order above, live-testing each numbered step via the paire
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: advancing
+last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      11 |
-| trimester   |      12 |
-| semester    |      12 |
-| year        |      12 |
-| 2-year      |      12 |
-| 4-year      |      12 |
+| month       |      12 |
+| trimester   |      13 |
+| semester    |      13 |
+| year        |      13 |
+| 2-year      |      13 |
+| 4-year      |      13 |
 <!-- stats:end -->
