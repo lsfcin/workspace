@@ -9,7 +9,7 @@
 
 <!-- add entries below, newest first -->
 
-sobre emojis
+sobre emojis nas mensagens, tipo ampulhetas, luzes verde/amarela/vermelha... acho com frequência
 
 usar nas minhas aulas, provavelmente em ai4good
 https://www.instagram.com/p/DbGep4CDGtk/?utm_source=ig_web_copy_link
