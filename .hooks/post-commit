@@ -1,5 +1,29 @@
 #!/usr/bin/env bash
-# Workspace post-commit hook — no-op
-# Attention log removed: Brain/goals/ touch history is queryable via
-#   git log --format="%ci %h" --name-only -- Brain/goals/
+# Workspace post-commit hook — auto-push feature/* so work survives a dead session
+# and reaches the other machine. main/develop are never auto-pushed: promoting them
+# is a conscious gitflow merge, done in /roundup after the verification gate.
+# Never blocks: post-commit exit status is ignored by git, and every failure is a warning.
+
+GITDIR=$(git rev-parse --git-dir 2>/dev/null) || exit 0
+
+# Mid-rebase / mid-cherry-pick: pushing per replayed commit is noise and often rejected.
+if [ -d "$GITDIR/rebase-merge" ] || [ -d "$GITDIR/rebase-apply" ]; then
+  exit 0
+fi
+
+BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
+case "$BRANCH" in
+  feature/*) : ;;
+  *) exit 0 ;;
+esac
+
+git remote get-url origin >/dev/null 2>&1 || exit 0
+
+if timeout 25 git push -q --set-upstream origin "$BRANCH" 2>/dev/null; then
+  printf "↑ auto-pushed %s\n" "$BRANCH"
+else
+  printf "⚠ auto-push failed for %s — offline, or history diverged (force-push needed).\n" "$BRANCH"
+  printf "  Push manually before switching machines.\n"
+fi
+
 exit 0

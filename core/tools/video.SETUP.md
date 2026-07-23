@@ -18,12 +18,29 @@ sudo apt-get install -y ffmpeg tesseract-ocr tesseract-ocr-por
 `~/.config/workspace-video/cookies.txt` (Netscape format, outside repo — never gitignore
 needed since it's outside `/mnt/workspace`). No file → tool behaves exactly as before.
 
-To populate: export cookies from a logged-in IG session via a browser extension
-("Get cookies.txt LOCALLY" or similar), save to that path. Consider a burner account —
-this is a manual step, can't be automated headlessly.
+To populate — **no browser extension needed**, yt-dlp reads the browser profile directly
+(Lucas is logged into Instagram in Brave, not Firefox):
 
-Verified failure mode without cookies (2026-07-22): `DbBDnp6DcKV` — "Instagram sent an
-empty media response" (login-gated). Retest same URL once cookies.txt exists.
+```bash
+.venv/bin/yt-dlp --cookies-from-browser brave \
+  --cookies ~/.config/workspace-video/cookies.txt \
+  --skip-download --print id "<any public IG url>"
+chmod 600 ~/.config/workspace-video/cookies.txt
+```
+
+Rerun that command when the session expires. The file holds live session credentials in
+plaintext — keep it at mode `600` and outside the repo.
+
+**Hard prerequisite, cost a full session to find (2026-07-23):** `secretstorage` must be
+installed in the venv. Chromium-family browsers on Linux encrypt the cookie DB against the
+system keyring; without the module yt-dlp fails with
+`ERROR: secretstorage not available` + `failed to decrypt cookie (AES-CBC) ... Possibly the
+key is wrong?` — which reads like a wrong-password bug, not a missing dependency.
+Fix: `.venv/bin/pip install secretstorage`.
+
+Verified (2026-07-23): auth works end-to-end, `DZLABeVx3qk` returns metadata + description.
+Note `DbBDnp6DcKV` is an **image carousel** — yt-dlp reports "No video formats found" per
+sub-item; that is not an auth failure, it needs the L3 OCR / L4 VLM image path.
 
 ## M4 — L4 visual captioning (pure-visual content, no speech/on-screen text)
 `caption_frames()` in `video_media.py`, wired as the `visual` level in `assemble()`

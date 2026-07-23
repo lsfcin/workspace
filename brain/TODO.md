@@ -7,14 +7,15 @@
 ## today
 
 - [x] [workspace-os / mvp-gaps] 10-min freewrite: what works, what still breaks
+- [ ] [cnpq] checar ELEGIBILIDADE na chamada UNIVERSAL — porta de entrada, antes de qualquer escrita (2026-07-23)
 - [ ] sleep by 00:30 — streak-3 starts tonight
 
 ## tomorrow
 
 - [x] [sibgrapi / sib-01] message Artur → get corrected dataset link
 - [x] [sibgrapi / sib-02–04] rerun metrics, update paper text + figures
-- [ ] [sibgrapi / sib-05–06] adjust figures
-- [ ] [sibgrapi / sib-05–06] manual review → give Artur ok to submit
+- [x] [sibgrapi / sib-05–06] adjust figures
+- [x] [sibgrapi / sib-05–06] manual review → give Artur ok to submit — artigo SUBMETIDO, sibgrapi fechado (2026-07-23)
 
 ## programacao1 — simulador social
 
@@ -24,22 +25,22 @@
 
 ## week
 
-- [ ] revisar artigo do svr — prazo ~25/07
-- [ ] falar com Paulo e Maigan sobre as férias (amarrado ao retiro vipassana 1–12 ago)
-- [ ] [banca] fechar procedimentos da banca de Artur
+- [ ] revisar artigo do svr — prazo ~25/07 (fazer nos próximos 2 dias, confirmado 23/07)
+- [x] falar com Paulo e Maigan sobre as férias — falado com Paulo, suficiente (2026-07-23)
+- [x] [banca] fechar procedimentos da banca de Artur
 - [ ] responder megatruth
 - [ ] [finances] pedir mudança da data de pagamento do aluguel: dia 5 → dia 10
 - [ ] [finances] transferir pra painho o valor do terreno/chão do santuário jatobá (INBOX 2026-07-22)
-- [ ] [ufrpe] PDA — plano de desenvolvimento (Lenina cobrou); é simples, fazer logo
+- [x] [ufrpe] PDA — plano de desenvolvimento (Lenina cobrou)
 - [ ] [pandeiro / show-up] confirm Pandeirada time, show up Saturday
 - [ ] [sleep / streak-3] 3 consecutive nights in bed by 00:30
 - [ ] [brain] set up mobile inbox access for Android — recover 2 app options from prior Claude conversation, pick one for Xiaomi Redmi Note 10 Pro
-- [ ] check IC scholarship deadline at UFRPE — recent edital closing soon, open application if still open
+- [ ] [ic-ufrpe] bolsa IC — NÃO submetido. Bloqueado por 2 pré-requisitos: (1) projeto de pesquisa aprovado no CTA, (2) nomes dos alunos candidatos. Só faz sentido mexer depois disso (2026-07-23)
 - [ ] [workspace-os / todo-accountability] design TODO accountability layer — what would make you actually check it daily?
 
 ## month
 
-- [ ] [cnpq] submeter proposta chamada UNIVERSAL — **deadline 03/08** (https://www.gov.br/cnpq/pt-br/assuntos/noticias/cnpq-em-acao/chamada-universal-vai-financiar-r-300-milhoes-em-projetos-de-pesquisa-em-todo-pais-inscricoes-vao-ate-03-08)
+- [ ] [cnpq] submeter proposta chamada UNIVERSAL — deadline oficial 03/08, mas **deadline real = 31/07** (retiro vipassana 1–12 ago = offline no dia 03). Passo 1 = checar elegibilidade (ver `today`) (https://www.gov.br/cnpq/pt-br/assuntos/noticias/cnpq-em-acao/chamada-universal-vai-financiar-r-300-milhoes-em-projetos-de-pesquisa-em-todo-pais-inscricoes-vao-ate-03-08)
 - [ ] [casinhas] averbação do terreno
 - [ ] [vipassana] retiro 1–12 agosto; mover férias (ver goal vipassana)
 - [ ] [ufrpe] PPC ementas: 41/44 já reformatadas p/ modelo SIGAA e subidas no Drive (`[MODELO-SIGAA] <nome>`, pasta EMENTAS/OBRIGATORIAS+NOVAS) — 2026-07-21. Falta: pedir a Paulo o conteúdo (EMENTA/CONTEÚDO) de 3 disciplinas sem fonte em lugar nenhum — FUNDAMENTOS DA EDUCAÇÃO, PROJETO INTEGRADOR EM DESENVOLVIMENTO DE ARTEFATOS EDUCACIONAIS, PROJETO INTEGRADOR EM EDUCAÇÃO EM COMPUTAÇÃO (ver `academy/administration/coordenacao-lc/novo-ppc-bcc/ementas/gaps.md`)
@@ -112,14 +113,14 @@
 - [ ] [slides] templates base: aula, talk acadêmico, projeto
 - [ ] [workspace-os] habilitar Google Slides API no GCP project 1048141740528 (mesmo projeto drive/calendar)
 - [ ] [workspace-os] symlinks `.claude/commands/drive.md` e `calendar.md` — commit ainda pendente
-- [ ] [sipac] assinar 2 documentos no SIPAC Portal Admin → Protocolo → Assinar Documento (pendente desde 11/06)
-- [ ] [docusign] assinar contrato de estágio Natalie Santos / Netcon Americas
+- [x] [docusign] assinar contrato de estágio Natalie Santos / Netcon Americas
 - [ ] [sbc-cotas] checar isenção e prazos — email andreza.leite@ufrpe.br
 - [ ] [workspace-os] considerar 200LOC limit também pra arquivos `.md` — ROADMAPS crescendo demais (INBOX 2026-07-21)
 - [ ] [workspace-os] considerar enforcement pros nomes de arquivos `.md` (INBOX 2026-07-21)
 - [ ] [workspace-os] padronização do workspace como necessidade recorrente — cogitar skill dedicada pra isso (INBOX 2026-07-21)
 - [ ] [brain] reabilitar "english learning mode" — anotar erros de inglês cometidos por Lucas ao longo do uso, acumular num doc com exemplo + explicação + correção (INBOX 2026-07-21)
-- [x] procurar ferramenta pra transformar vídeos do YouTube/Instagram em texto navegável/acessível pra IAs — RESOLVIDO construindo `core/tools/video` (L0 metadata + L1 captions + L2 whisper + L3 OCR), branch feature/video-tool. Falta M4 (VLM visual-puro + auto-route no /inbox + cookies IG) — sessão separada (INBOX 2026-07-21, feito 2026-07-22)
-- [ ] [workspace-os] telegram_daemon.py passou de 200 LOC — corrigir o arquivo E identificar a falha que deixou passar do limite (por que o size-gate não pegou?) (INBOX 2026-07-22)
-- [ ] [workspace-os / M4-video] `core/tools/video` M4: VLM local p/ visual puro (moondream/models/) + relevance embeddings vs GOALS.md + integração auto-route no /inbox + config de cookies IG (`--cookies-from-browser`/cookies.txt gitignored). Amarra ao goal local-ai
+- [x] procurar ferramenta pra transformar vídeos do YouTube/Instagram em texto navegável/acessível pra IAs — RESOLVIDO construindo `core/tools/video` (L0 metadata + L1 captions + L2 whisper + L3 OCR), branch feature/video-tool. M4 cookies IG + VLM visual-puro shipped 2026-07-22 (2ª sessão, merged main+develop @851e7b4); resta relevance embeddings + auto-route /inbox, ver [M4-video] (INBOX 2026-07-21, feito 2026-07-22)
+- [ ] [workspace-os] telegram_daemon.py 814 LOC (4× o limite 200) — decidir: split agora ou esperar `code/aiwbot` substituir. **Investigado 2026-07-23: o gate NÃO falhou.** Commit `468ad0e` usou `--no-verify` deliberado, justificativa na própria mensagem ("about to be decomposed in the aiwbot rebuild"). Gate testado, bloqueia certo (exit 1). Depende do estado do aiwbot (INBOX 2026-07-22)
+- [ ] [workspace-os] ledger de dívida `--no-verify` — bypasses não deixam rastro fora da mensagem de commit; nada re-flagra o arquivo depois. Ideia: varredura (verify ou hook) que lista arquivos rastreados acima do BLOCK_LINES, com o commit que os introduziu. Achado da sessão 2026-07-23
+- [ ] [workspace-os / M4-video] `core/tools/video` M4 remaining: relevance() — embeddings locais (sentence-transformers) do texto extraído vs `brain/GOALS.md` — + integração auto-route no `/inbox` pra links de vídeo. **DONE 2026-07-22**: cookies IG (`~/.config/workspace-video/cookies.txt`, auto-anexado se existir; Lucas ainda precisa logar/exportar — logado no Brave, não Firefox) + L4 VLM local (`Qwen/Qwen3-VL-2B-Instruct`, ~4.3GB VRAM na RTX 3050, escolhido sobre moondream2 por não depender de `trust_remote_code` — ver `core/tools/video.SETUP.md`). Amarra ao goal local-ai
 - [ ] [workspace-os] wiring verify:fast em core/tools/ — adicionar runner descobrível (Makefile `verify:fast` → pytest -m "not network") p/ o pre-commit gate rodar os testes da `video` automaticamente; hoje só rodam manual
