@@ -8,3 +8,5 @@
 ---
 
 <!-- add entries below, newest first -->
+
+GOALS.md não parece estar monitorando corretamente. 
