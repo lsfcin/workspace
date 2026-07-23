@@ -10,11 +10,11 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 - If a tool returns `Tool not found`, map to the canonical visible tool or record the capability as blocked.
 
-Start an autoresearch optimization loop for: $@
+Start an explore optimization loop for: $@
 
 ## Step 1: Gather
 
-If `autoresearch.md` and `autoresearch.jsonl` already exist, ask the user if they want to resume or start fresh.
+If `explore.md` and `explore.jsonl` already exist, ask the user if they want to resume or start fresh.
 If `CHANGELOG.md` exists, read the most recent relevant entries before resuming.
 
 Otherwise, collect the following from the user before doing anything else:
@@ -50,7 +50,7 @@ Ask the user to confirm. Do not start the loop without explicit approval.
 
 ## Step 4: Run
 
-Initialize the session: create `autoresearch.md`, run the baseline, and start looping.
+Initialize the session: create `explore.md`, run the baseline, and start looping.
 
 Each iteration: edit → run benchmark → record result → keep or revert → repeat. Do not stop unless interrupted or `maxIterations` is reached.
 

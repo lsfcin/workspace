@@ -2,7 +2,7 @@
 name: research
 description: >
   Execute a research workflow from the workspace Core research system.
-flow: lit, deepresearch, scout, review, draft, compare, audit, replicate, recipe, summarize, autoresearch, watch
+flow: lit, deep, scout, review, draft, compare, audit, replicate, recipe, summarize, auto, watch
 ---
 
 Execute a research workflow from the workspace Core research system.
@@ -10,27 +10,30 @@ Execute a research workflow from the workspace Core research system.
 Arguments: $ARGUMENTS
 
 Parse the arguments as `<workflow> [query or path]`. If no workflow is given, print the menu below and stop.
+The flow filename is the command tail: `research <workflow>` → `core/flows/research/<workflow>.md`.
+Back-compat aliases: `deepresearch`→`deep`, `autoresearch`/`auto`→`explore`, `lit`→`literature`
+(resolve to the canonical command).
 
 ## Workflows
 
 | Command | Flow file | Use when |
 |---------|-----------|----------|
-| `lit` | `core/flows/lit.md` | literature review on a topic |
-| `deepresearch` | `core/flows/deepresearch.md` | full multi-source research brief |
-| `scout` | `core/flows/scout.md` | research a topic in rounds, then write a model-tiered, impact-flagged action plan into the target ROADMAP (use when the research serves a decision about our own system) |
-| `review` | `core/flows/review.md` | peer-review simulation of a document or claim |
-| `draft` | `core/flows/draft.md` | draft a section or document from evidence |
-| `compare` | `core/flows/compare.md` | compare two papers or approaches |
-| `audit` | `core/flows/audit.md` | source and citation audit |
-| `replicate` | `core/flows/replicate.md` | attempt to replicate a method |
-| `recipe` | `core/flows/recipe.md` | step-by-step research recipe |
-| `summarize` | `core/flows/summarize.md` | summarize a document |
-| `autoresearch` | `core/flows/autoresearch.md` | autonomous multi-turn research loop |
-| `watch` | `core/flows/watch.md` | monitor a topic for new developments |
+| `literature` | `core/flows/research/literature.md` | literature review on a topic (alias: `lit`) |
+| `deep` | `core/flows/research/deep.md` | full multi-source research brief (alias: `deepresearch`) |
+| `scout` | `core/flows/research/scout.md` | research a topic in rounds, then write a model-tiered, impact-flagged action plan into the target ROADMAP (use when the research serves a decision about our own system) |
+| `review` | `core/flows/research/review.md` | peer-review simulation of a document or claim |
+| `draft` | `core/flows/research/draft.md` | draft a section or document from evidence |
+| `compare` | `core/flows/research/compare.md` | compare two papers or approaches |
+| `audit` | `core/flows/research/audit.md` | source and citation audit |
+| `replicate` | `core/flows/research/replicate.md` | attempt to replicate a method |
+| `recipe` | `core/flows/research/recipe.md` | step-by-step research recipe |
+| `summarize` | `core/flows/research/summarize.md` | summarize a document |
+| `explore` | `core/flows/research/explore.md` | autonomous try-ideas loop — run, measure, keep winners (aliases: `auto`, `autoresearch`) |
+| `watch` | `core/flows/research/watch.md` | monitor a topic for new developments |
 
 ## Execution protocol
 
-1. Read the flow file for the requested workflow (`core/flows/<workflow>.md`).
+1. Read the flow file for the requested workflow (`core/flows/research/<workflow>.md`; resolve aliases `deepresearch`→`deep`, `autoresearch`/`auto`→`explore`, `lit`→`literature` first).
 2. Read `core/tools/CONTEXT.md` to know which tools are available and how to call them.
 3. Execute the workflow step by step. Use bash to invoke tools:
    - `core/tools/papers "<query>"` — arXiv / Semantic Scholar

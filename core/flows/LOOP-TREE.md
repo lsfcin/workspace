@@ -8,7 +8,7 @@
    └── loop-router.md  ── classify by TYPE + criticality ──►
          ├── padaria       tiny, revertible change            → loop-engineering.md § Padaria shortcut
          ├── feature        build/change a module              → loop-engineering.md  (contract-first SDD)
-         ├── research       investigate / gather / synthesize  → deepresearch · lit · autoresearch · compare · … (existing flows)
+         ├── research       investigate / gather / synthesize  → research/deep · research/literature · research/explore · research/compare · … (research/* flows)
          └── architecture   choose between designs             → loop-architecture.md  (→ ADR record)
 ```
 
@@ -18,7 +18,7 @@
 |---|---|---|---|
 | **padaria** | no ceremony — one session plans+codes+ships | `loop-engineering.md` § Padaria | commit |
 | **feature** | contract-first: panel → contracts before code → TDD → ship | `loop-engineering.md` | shipped code + module `SPEC.md` |
-| **research** | plan→scale→gather→draft→cite→review→deliver | existing `core/flows/*` research flows | research brief + provenance |
+| **research** | plan→scale→gather→draft→cite→review→deliver | `core/flows/research/*` flows | research brief + provenance |
 | **architecture** | problem→options→trade-offs→decision→record | `loop-architecture.md` | ADR entry in `SPECS.md` |
 
 **Chaining:** "decide then build" = `architecture` → `feature` (ADR feeds the contract layout). "research then build" = `research` → `feature`. Never merge two shapes into one run.

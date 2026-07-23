@@ -29,11 +29,11 @@ venues, tiers, or results.
 
 ## When to use this vs. a plain research flow
 
-`deepresearch` / `lit` produce a **research brief** — knowledge for its own sake.
+`deep` / `literature` produce a **research brief** — knowledge for its own sake.
 `scout` produces an **action plan for our own workspace/project** — it always ends by asking
 "so what should *we* change, and how?". Use `scout` when the topic exists to inform a decision
 about the system you are working in. If the user just wants to understand a topic, use
-`deepresearch` instead.
+`deep` instead.
 
 The gathering half of this flow **reuses** the research machinery; the distinctive part is the
 back half (map-to-system → tiered plan). Do not reimplement search here — delegate.
@@ -52,7 +52,7 @@ blogs + labs + companies), **repos** (`core/tools/code-search`), **academia**
 (`core/tools/papers`). For a large topic, delegate surfaces to `researcher` subagents; for a
 narrow one, search directly.
 
-**Source-tier discipline is mandatory** (full rule: [`core/refs/CONTEXT.md`](../refs/CONTEXT.md)).
+**Source-tier discipline is mandatory** (full rule: [`core/refs/CONTEXT.md`](../../refs/CONTEXT.md)).
 arXiv is the easiest surface, so an unguarded pass returns almost only preprints, which are
 **not peer reviewed**. Every round must also reach published venues (ACL/EMNLP anthology, ACM
 DL, IEEE, OpenReview with an accepted venue). `core/tools/papers --ss` reports `venue` +
