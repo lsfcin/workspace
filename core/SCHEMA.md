@@ -3,8 +3,12 @@
 
 Companion to the code-side spec-drive convention (the `> spec:` module gate in `.hooks/pre-commit`,
 tracked under the [[spec-driven-development]] goal): that governs `code/` modules, this governs the
-`core/` agent library. `deepresearch` is the reference implementation — the validator is calibrated
-against it, so it is the one flow you never "fix".
+`core/` agent library.
+
+**No flow is privileged.** The exemplar is [`flows/_template.md`](flows/_template.md) — a template,
+nothing more. There is no "reference implementation" whose behaviour defines correctness (that dual
+role coupled one flow's evolution to the schema; retired 2026-07-23). Realism is guaranteed by
+`validate_flows` running over *every* flow, including the template, not by anointing one.
 
 ## The one rule
 
@@ -55,7 +59,13 @@ rejects a file with no `name`/`description` frontmatter.
 [`tier-map.json`](tier-map.json) when a runtime needs a concrete model (Claude Code's `.claude/agents/`).
 **No `thinking:` and no `model:` in `core/agents/` source** — that was the old two-convention drift.
 
-## Layer: flow — `core/flows/<name>.md`
+## Layer: flow — `core/flows/[<skill>/]<name>.md`
+
+**Location rule.** A flow owned by a dispatcher skill lives in `core/flows/<skill>/` and its
+**filename equals the command tail** — `core/flows/research/scout.md` ⟺ `research scout`. Flows not
+owned by any dispatcher skill stay flat at `core/flows/`. Validation is recursive (`sync-skills`
+`validate_flows` walks subfolders); a `<skill>/CONTEXT.md` is exempt like the root one. The `loop-*`
+cluster is the current flat exception (its own engineering protocol; see below).
 
 | field | req | value |
 |-------|-----|-------|
@@ -80,15 +90,49 @@ Legend: ✅ required · ~ recommended · — not required
 | **scale-gate** — explicit direct vs decomposed rule ("narrow explainer → no subagents") | ✅ | ~ | ~ |
 | **integrity** — read-before-summarize, honest status, no invented sources/results | ✅ | ✅ | ✅ |
 
-The canonical wording for each discipline is in [`deepresearch.md`](flows/deepresearch.md); copy from
-there. Symmetry is required **within a type**, not flattened across all flows — a scheduler
-(`utility`) is not forced to emit a provenance sidecar.
+The canonical wording for each discipline **belongs in** [`flows/_template.md`](flows/_template.md),
+annotated by which `type` requires it — copy from there. (Migration pending: the wording currently
+still sits in `flows/research/deep.md`; moving it is a step of the craft-flows execution item in
+[ROADMAP.md](ROADMAP.md). Until then read it there, but `deep` holds no special status.) Symmetry is
+required **within a type**, not flattened across all flows — a scheduler (`utility`) is not forced to
+emit a provenance sidecar.
 
 Flow-type assignments:
-- **research-brief:** deepresearch, lit, review, recipe, compare, audit, replicate, draft
-- **utility:** watch, autoresearch, summarize
+- **research-brief:** deep (→ `sota`, pending), literature, review, recipe, compare, audit, replicate, draft (in `flows/research/`)
+- **utility:** watch, explore, summarize (in `flows/research/`)
 - **domain:** mechanism-search
-- **engineering:** the `loop-*` cluster (loop-engineering + subtree flows + `LOOP-TREE.md` index) is its own protocol (declares tier routing directly); exempt from this table and from flow-layer validation.
+- **engineering:** the `loop-*` cluster (→ `craft`/`route`/`architect`, pending) is its own protocol (declares tier routing directly); exempt from this table and from flow-layer validation.
+
+## Composition and cycles
+
+> Decided 2026-07-23. Vocabulary: **"flow" is the canonical term.** "Loop" is retired for the
+> orchestration/connected-agents sense — a real, tight repeat may still be called a loop, but the
+> thing that connects agents is a *flow*. "Flow" is also the more accurate word: a loop runs end→start
+> with no branching and one exit; our procedures branch, escape, and compose.
+
+**Flows compose.** A flow may invoke another flow, declared as `uses: <flow>, <flow>`. Composite
+versus leaf is **not a type** — it is merely whether a flow happens to invoke others. There is no
+separate "orchestrator" layer in the schema.
+
+**Two kinds of cycle. They live in different places, and only one is legal.**
+
+| | Definitional cycle | Execution cycle |
+|---|---|---|
+| What | flow A is *built from* B, B is *built from* A | one flow runs step 3, decides "not good enough", returns to step 2 |
+| Graph | the `uses:` graph (definition time) | the runtime trace (execution time) |
+| Verdict | **forbidden** | **allowed** |
+| Why | never bottoms out — expanding it is infinite | it is *iteration*: state changes each pass, it makes progress |
+| Guard | static check: walk `uses:` links, error if any path returns to its start (the `uses:` graph must be a **DAG** — directed acyclic graph: arrows only point at what a flow is built from, and no path leads back to where it began) | runtime **iteration cap** (max N retries) plus an explicit exit condition |
+
+**Why a runtime trace may revisit a flow without breaking the DAG.** An orchestrator `A` that uses
+`B` and `C` produces the trace `A → B → C → A → B → C → …`. That is legal: the `uses:` graph holds
+only `A → B` and `A → C`. `B` and `C` never call `A` — the back-arrow in the trace is *`A`'s own
+bounded execution loop* deciding to go around again. Composition points **downward** through layers;
+only the top layer repeats, and it repeats under a cap. Structure is acyclic; the trace need not be.
+
+This mirrors how effective agent loops (ReAct, Reflexion, Voyager) avoid running forever: an exit
+condition, a hard iteration cap as backstop, and **state that changes each pass**. A cycle whose
+state does not change is not iteration — it is a hang.
 
 ## Enforcement
 
@@ -97,5 +141,7 @@ Flow-type assignments:
 - **skill:** frontmatter present, `name:` + `description:`, non-skills rejected.
 - **flow:** `description:` + `args:` present, `type ∈ {research-brief, utility, domain}`,
   `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `LOOP-TREE.md`, `loop-*` (engineering cluster).
+  Validation is **recursive** — it walks `flows/<skill>/` subfolders, not just the flat root.
+  *Not yet enforced (ROADMAP):* `uses:` acyclicity (the DAG check) and the runtime iteration cap.
 - **agent:** `name:` + `description:` present, `tier ∈ {low, medium, high, max}`, `model:`/`thinking:`
   forbidden in source, workers (everyone but `lead`) must carry `tools:` + `output:`.
