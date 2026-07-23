@@ -97,6 +97,7 @@
 
 ## backlog
 
+- [ ] [workspace-os] live-smoke `core/tools/papers --ss --reviewed --min-cit` — validado só offline em 2026-07-23 (Semantic Scholar em HTTP 429 o dia todo); parser correto em 4 casos sintéticos, falta rodar contra a API viva
 - [ ] [workspace-os] TODO: anotar modelo/tier recomendado por tarefa + rastrear datas de criação/atribuição p/ flagrar tarefas paradas
 - [ ] [workspace-os] SPECS.md / KNOWN-BUGS.md / ROADMAP.md como file-trees em vez de arquivo único
 - [ ] [workspace-os] fix stubgen p/ TODOS os projetos — `.py` criados fora de Edit/Write não geram `.pyi` (pre-commit sweep?) — INBOX
