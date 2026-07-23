@@ -138,9 +138,10 @@ validate_skills() {
 
 # Flow layer (core/SCHEMA.md): every flow carries description, args, type ∈ enum, confirm ∈ enum.
 # Exempt: CONTEXT.md, the loop-* engineering cluster + LOOP-TREE.md (its own protocol per SCHEMA).
+# Recursive: flows owned by a dispatcher skill live in core/flows/<skill>/ (e.g. research/).
 validate_flows() {
   local rc=0 f name fm type confirm
-  for f in "$WORKSPACE/core/flows"/*.md; do
+  while IFS= read -r f; do
     name="$(basename "$f" .md)"
     case "$name" in
       CONTEXT|LOOP-TREE|loop-*) continue ;;
@@ -161,7 +162,7 @@ validate_flows() {
       plan|none) ;;
       *) echo "INVALID flow (confirm must be plan|none, got '${confirm:-<missing>}'): $f"; rc=1 ;;
     esac
-  done
+  done < <(find "$WORKSPACE/core/flows" -name '*.md')
   return $rc
 }
 

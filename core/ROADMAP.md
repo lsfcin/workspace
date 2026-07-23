@@ -2,7 +2,7 @@
 > Making the agent library sound: one enforced frontmatter contract per layer, symmetric within layer/type. Contract in [SCHEMA.md](SCHEMA.md). Completed work archived in [HISTORY.md](HISTORY.md).
 
 Goal: [[spec-driven-development]] — SPEC-v0 pilot on the `core/` agent library.
-Reference implementation = `flows/deepresearch.md` (the validator's oracle; never "fixed").
+Reference implementation = `flows/research/deep.md` (the validator's oracle; never "fixed").
 
 ## Open
 
@@ -40,16 +40,23 @@ Reference implementation = `flows/deepresearch.md` (the validator's oracle; neve
       2026-07-23 research: keep CONTEXT.md *local/granular* (it is what makes weak models work, per
       [P] 2607.17598), cap *chain depth* not file count. Do the audit there; this line is the pointer.
 
-- [ ] **Design symmetry across the skill/flow surface — decide the naming grammar.** Lucas's ask
-      (2026-07-23): we now have `deepresearch` (a flow) and `/research scout` (a flow under the
-      `research` skill). Is the surface symmetric? Should `deepresearch` become `research deep` so
-      every research workflow is `research <verb>` and nothing is a top-level twin? Open questions:
-      (1) which flows deserve to be top-level skills vs. sub-workflows of a parent skill; (2) is
-      there a rule — e.g. "a workflow that composes other flows lives under a parent skill; a
-      primitive is top-level"; (3) does renaming `deepresearch`→`research deep` break the
-      `flow:` DAG or muscle memory enough to not be worth it. This is a soundness/symmetry
-      question in the same family as the per-layer frontmatter contract — belongs here. Discuss
-      before renaming anything; a rename touches the mirrors + every reference.
+- [x] **Design symmetry across the skill/flow surface — naming grammar decided (2026-07-23).**
+      Decision: a flow **owned by a dispatcher skill** lives in `core/flows/<skill>/` and its
+      **filename equals the command tail** (`research <verb>` ⟺ `flows/research/<verb>.md`); flows
+      not owned by any dispatcher stay flat. The axis is *invocation independence*, not composition
+      (`scout` composes `deep`/`lit` yet stays a sub-flow). Rule written into [SCHEMA.md](SCHEMA.md)
+      (flow-layer Location rule). **Done:** the 12 research flows moved to `flows/research/`, the two
+      stutterers renamed `deepresearch`→`deep` and `autoresearch`→`auto`, `sync-skills validate_flows`
+      made recursive, `research.md`/`loop-router.md`/`LOOP-TREE.md`/`SCHEMA.md` repathed, back-compat
+      aliases kept in the dispatcher. **Deferred (own item below):** `flows/loops/` — same treatment
+      for the `loop-*` cluster, held because its refs reach ~14 `brain/` files (goals + GOALS.md);
+      do it from a session already in those files, per the parallel-session partition rule.
+
+- [ ] **Finish the pool reorg: `flows/loops/`.** Move the `loop-*` cluster (loop-engineering,
+      loop-architecture, loop-router) + `LOOP-TREE.md` into `core/flows/loops/` so the pool is fully
+      foldered-by-owner (no half-foldered asymmetry). Blast radius is cross-domain (~14 `brain/`
+      files reference `loop-engineering` by path) — schedule it when a session is already editing
+      those goal files; do not churn `brain/` from a `core/`-only session.
 
 ## Notes
 

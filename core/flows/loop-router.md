@@ -24,7 +24,7 @@ Ask the user only what you cannot infer. Assign exactly one subtree:
 |---|---|---|---|
 | `padaria` | ≤2 files, existing pattern in the repo covers it, fully revertible, criticality low/normal | no ceremony — one session does plan+code+ship | `loop-engineering.md` § Padaria shortcut |
 | `feature` | build or change a module/feature | contract-first: I/O laid out before code, TDD, ship | [`loop-engineering.md`](loop-engineering.md) (feature subtree) |
-| `research` | investigate, gather, synthesize, review literature/sources | plan→scale→gather→draft→cite→review→deliver | existing `core/flows/{deepresearch,lit,autoresearch,compare,recipe,replicate,review,summarize,watch,audit,mechanism-search}.md` — pick the closest |
+| `research` | investigate, gather, synthesize, review literature/sources | plan→scale→gather→draft→cite→review→deliver | `core/flows/research/{deep,lit,auto,compare,recipe,replicate,review,summarize,watch,audit}.md` + `core/flows/mechanism-search.md` — pick the closest |
 | `architecture` | choose between designs/patterns/technologies; a decision needing a record | problem→options→trade-offs→decision→ADR | [`loop-architecture.md`](loop-architecture.md) |
 
 **Ambiguity rule:** if a task is "decide, then build," run `architecture` first (it emits an ADR), then `feature` consuming that decision. If it's "research, then build," run `research` then `feature`. Chain subtrees; never merge their shapes into one run.

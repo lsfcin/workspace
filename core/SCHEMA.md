@@ -3,8 +3,8 @@
 
 Companion to the code-side spec-drive convention (the `> spec:` module gate in `.hooks/pre-commit`,
 tracked under the [[spec-driven-development]] goal): that governs `code/` modules, this governs the
-`core/` agent library. `deepresearch` is the reference implementation — the validator is calibrated
-against it, so it is the one flow you never "fix".
+`core/` agent library. `research/deep` (formerly `deepresearch`) is the reference implementation — the
+validator is calibrated against it, so it is the one flow you never "fix".
 
 ## The one rule
 
@@ -55,7 +55,13 @@ rejects a file with no `name`/`description` frontmatter.
 [`tier-map.json`](tier-map.json) when a runtime needs a concrete model (Claude Code's `.claude/agents/`).
 **No `thinking:` and no `model:` in `core/agents/` source** — that was the old two-convention drift.
 
-## Layer: flow — `core/flows/<name>.md`
+## Layer: flow — `core/flows/[<skill>/]<name>.md`
+
+**Location rule.** A flow owned by a dispatcher skill lives in `core/flows/<skill>/` and its
+**filename equals the command tail** — `core/flows/research/scout.md` ⟺ `research scout`. Flows not
+owned by any dispatcher skill stay flat at `core/flows/`. Validation is recursive (`sync-skills`
+`validate_flows` walks subfolders); a `<skill>/CONTEXT.md` is exempt like the root one. The `loop-*`
+cluster is the current flat exception (its own engineering protocol; see below).
 
 | field | req | value |
 |-------|-----|-------|
@@ -80,13 +86,13 @@ Legend: ✅ required · ~ recommended · — not required
 | **scale-gate** — explicit direct vs decomposed rule ("narrow explainer → no subagents") | ✅ | ~ | ~ |
 | **integrity** — read-before-summarize, honest status, no invented sources/results | ✅ | ✅ | ✅ |
 
-The canonical wording for each discipline is in [`deepresearch.md`](flows/deepresearch.md); copy from
+The canonical wording for each discipline is in [`research/deep.md`](flows/research/deep.md); copy from
 there. Symmetry is required **within a type**, not flattened across all flows — a scheduler
 (`utility`) is not forced to emit a provenance sidecar.
 
 Flow-type assignments:
-- **research-brief:** deepresearch, lit, review, recipe, compare, audit, replicate, draft
-- **utility:** watch, autoresearch, summarize
+- **research-brief:** deep, lit, review, recipe, compare, audit, replicate, draft (in `flows/research/`)
+- **utility:** watch, auto, summarize (in `flows/research/`)
 - **domain:** mechanism-search
 - **engineering:** the `loop-*` cluster (loop-engineering + subtree flows + `LOOP-TREE.md` index) is its own protocol (declares tier routing directly); exempt from this table and from flow-layer validation.
 

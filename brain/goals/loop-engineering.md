@@ -32,7 +32,7 @@ Abrir `core/flows/loop-engineering.md` `## Field Practice` (7 runs auditados, A1
 > [ ] [opencode-reliability] investigar se drift (idioma, contexto, reasoning louco mesmo em Kimi 2.6) é do opencode ou do modelo — testar mesmo modelo via claude code/openrouter; decidir: ajustar opencode OU trocar de ferramenta pros loops não-Claude → ver [A2] acima
 > [ ] [verify-step] etapa de verificação (verify) explícita no flow — usar /verify no loop 5 (user-test) → coberto por [B1] second-opinion verifier
 > [ ] [skills-scan] etapa no flow: revisar melhores skills disponíveis online antes de executar
-> [ ] [research-loops] variante de pesquisa do flow de loops (falta) — integrar core/flows/deepresearch|lit|autoresearch ao padrão .loop/ → ver [C1] acima
+> [ ] [research-loops] variante de pesquisa do flow de loops (falta) — integrar core/flows/research/{deep,lit,auto} ao padrão .loop/ → ver [C1] acima
 > [ ] [pipeline-step-review] adicionar etapa de pipeline dedicada (visual/usabilidade) + revisá-la
 > [ ] [arch-algo-vs-lib] etapa de arquitetura: decidir algoritmo ANTES de escolher biblioteca
 > [ ] [simplicity-gap] investigar por que agente (mesmo Fable) produz soluções mais complexas/tortuosas que o design humano — ex. tinyglade-like no isoroll (etapas humanas eram simples/didáticas); motiva etapas arquitetura+review  
@@ -63,10 +63,10 @@ last-touch: 2026-07-23  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      10 |
-| trimester   |      10 |
-| semester    |      10 |
-| year        |      10 |
-| 2-year      |      10 |
-| 4-year      |      10 |
+| month       |      11 |
+| trimester   |      11 |
+| semester    |      11 |
+| year        |      11 |
+| 2-year      |      11 |
+| 4-year      |      11 |
 <!-- stats:end -->
