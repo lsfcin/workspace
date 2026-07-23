@@ -66,51 +66,27 @@ Measured on RTX 3050 6GB Laptop: ~4.3GB VRAM peak, fp16, ~1.7s/frame after model
 (first load downloads ~4GB weights, cached after in `~/.cache/huggingface`). Model is
 config data (`model_id` param), swap freely.
 
-## M4 — relevance() against brain goals
-`video_relevance.py`; `core/tools/video <url> --goals [N]`. Embeds the extracted text and
-every `brain/goals/*.md` locally, ranks by cosine similarity. Importable by `/inbox`.
+## Rejected — automatic goal relevance (built, measured, deleted 2026-07-23)
+An embedding ranker (`video_relevance.py`, `--goals` flag, multilingual e5) scored the extracted
+text against every `brain/goals/*.md` to suggest a route. **Built, dogfooded over ten real INBOX
+links, then deleted the same day.** Recorded here only so nobody rebuilds it.
 
-Model: `intfloat/multilingual-e5-base`. Multilingual is non-negotiable — goal files are
-PT-BR, video text is usually EN, and a monolingual encoder scores cross-language pairs near
-zero regardless of topic. e5 needs the `query:` / `passage:` prefixes; they are applied
-inside `relevance()` so callers can't forget them.
+Why it failed: two goals acted as false attractors — `rpg-isoroll` took #1 for nearly any
+technical clip (PDF parsing, compiler tuning) because its file is long and vocabulary-diverse,
+and `smartphone-addiction` surfaced on anything screen-adjacent. Swapping e5-small→e5-base and
+lengthening the input helped a little; neither fixed it. A hubness correction (subtracting each
+goal's mean similarity to the others) was tested and made one case worse. Truncating goal text to
+title-plus-first-paragraph also ranked badly.
 
-**Report `margin`, not `score`.** e5 similarities sit in a narrow high band (~0.75-0.90), so
-an absolute threshold is brittle. `margin` = score minus the mean over all goals, which is
-stable across inputs.
+The deeper reason it can't be patched: an agent reading the extracted text routes correctly and
+is already in the loop for every `/inbox` run, so the ranker duplicated a job something else does
+better while adding a confident-looking wrong answer. Its only non-duplicated use would be
+tagging a capture with **no agent present** (aiwbot on the phone, where capture is deliberately
+$0). If that need ever appears, start from this note — not from the assumption that embeddings
+over whole goal files will work.
 
-**-base over -small, measured 2026-07-23** on a reel whose ground truth (Lucas's own INBOX
-note) is `rpg-isoroll`. `--goals` on the short metadata caption vs. the richer text a
-`--level full` run produces:
-
-| model | short caption (L0) | full extraction (L4) |
-|---|---|---|
-| e5-small | ❌ smartphone-addiction (isoroll #2) | ✓ isoroll +0.037 |
-| e5-base  | ✓ isoroll +0.038 | ✓ isoroll +0.046, spacemantics #2 |
-
-So: `-small` only recovers with long text; `-base` is right either way and separates better.
-`-base` is ~1.1GB vs ~470MB — cheap next to the 4GB VLM already in the chain.
-
-**Measured limits (2026-07-23, ten real INBOX links).** The signal is weak. Two goals act as
-false attractors: `rpg-isoroll` takes #1 for nearly any technical clip (PDF parsing, compiler
-tuning) because its file is long and vocabulary-diverse, and `smartphone-addiction` surfaces on
-anything screen-adjacent. Only the `workspace-os` / `local-ai` cluster ranks reliably. An agent
-reading the extracted text routes better than this ranking does — so `/inbox` routes on the text
-and uses the ranking as a tie-breaker only.
-
-Rejected fix: hubness correction (subtract each goal's mean similarity to all other goals).
-Tested, does not help — `rpg-isoroll` stays #1 across the board and the 1-bit-quantization clip
-gets *worse* (`smartphone-addiction` promoted to #1). Not shipped.
-
-Likely real fix, not yet built: score against a short hand-written descriptor per goal instead of
-the whole file, removing the length/diversity artifact. Tracked in `brain/TODO.md`.
-
-```bash
-.venv/bin/pip install sentence-transformers
-```
-
-## Deferred
-- /inbox auto-route on video links.
+Code: workspace commit `a9cadd5`. `sentence-transformers` and the cached e5 weights were removed
+with it.
 
 ## Test
 ```bash

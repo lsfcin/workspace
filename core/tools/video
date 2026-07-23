@@ -1,11 +1,11 @@
 #!/mnt/workspace/.venv/bin/python3
-# Usage: core/tools/video <url> [--level auto|meta|captions|speech|ocr|visual|full] [--save] [--json] [--goals [N]] — extract navigable text (metadata/captions/transcript/OCR/VLM caption) from a video or image link; --goals also ranks brain/goals by relevance to what was extracted
+# Usage: core/tools/video <url> [--level auto|meta|captions|speech|ocr|visual|full] [--save] [--json] — extract navigable text (metadata/captions/transcript/OCR/VLM caption) from a video or image link
 import sys, json, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from video_core import assemble
 
 USAGE = ("Usage: core/tools/video <url> [--level auto|meta|captions|speech|ocr|visual|full] "
-         "[--save] [--json] [--goals [N]]")
+         "[--save] [--json]")
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
         print(USAGE, file=sys.stderr)
         sys.exit(1)
     url = args[0]
-    level, save, as_json, goals_n = "auto", False, False, 0
+    level, save, as_json = "auto", False, False
     i = 1
     while i < len(args):
         a = args[i]
@@ -22,13 +22,7 @@ def main():
             level = args[i + 1]
             i += 2
             continue
-        if a == "--goals":
-            goals_n = 5
-            if i + 1 < len(args) and args[i + 1].isdigit():
-                goals_n = int(args[i + 1])
-                i += 2
-                continue
-        elif a == "--save":
+        if a == "--save":
             save = True
         elif a == "--json":
             as_json = True
@@ -36,9 +30,6 @@ def main():
     if level == "meta":
         level = "metadata"
     b = assemble(url, level=level, save=save)
-    if goals_n:
-        from video_relevance import relevance
-        b["goals"] = relevance(b.get("text") or b.get("description") or "", top_n=goals_n)
     if as_json:
         print(json.dumps(b, ensure_ascii=False, indent=2))
         return
@@ -49,10 +40,6 @@ def main():
         print(f"[incomplete: {b.get('error')}]", file=sys.stderr)
     print()
     print(b.get("text") or "(no text extracted)")
-    if b.get("goals"):
-        from video_relevance import format_matches
-        print("\n## goal relevance  (margin over mean)")
-        print(format_matches(b["goals"]))
     if b.get("saved_path"):
         print(f"\n[saved: {b['saved_path']}]", file=sys.stderr)
 
