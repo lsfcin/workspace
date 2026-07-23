@@ -58,11 +58,37 @@ A `ref` goes to the **nearest owning subtree's** `refs/REFS.md` — never a cent
 - Code projects are their **own git repos**. Write the file, leave it **staged/uncommitted** — do NOT commit. Report which repo(s) were touched so Lucas commits deliberately.
 - Never write project ideas into `code/<proj>/CONTEXT.md`.
 
+## Video / image links — extract before routing
+
+A bare Instagram or YouTube link is unroutable: the URL carries no topic. **Do not guess from
+the URL, and never route a link you have not extracted.** Run the tool first:
+
+```bash
+core/tools/video "<url>" --goals 5          # add --level full when metadata alone is thin
+```
+
+It prints the extracted text (metadata → captions → speech → OCR → VLM caption, escalating
+until something is found) plus the goals ranked by semantic relevance. Use both:
+
+- **Extracted text** → what the entry actually is. This is what you route on.
+- **Goal ranking** → a *suggestion* for which goal or project owns it. Rank by `margin`.
+
+Rules:
+- The ranking is a hint, never an auto-file. Present it, let Lucas confirm — same as any route.
+- `smartphone-addiction` is a known false attractor on screen/phone-adjacent clips. Discount it
+  unless the extracted text really is about phone use.
+- Lucas's own note next to the link outranks the model every time ("útil pro isoroll content"
+  *is* the route).
+- Extraction failed (login-gated, dead link)? Say so, leave the entry, move on. Instagram needs
+  `~/.config/workspace-video/cookies.txt` — see `core/tools/video.SETUP.md`.
+- Several links at once: extract them all in one batch before proposing any route.
+
 ## Protocol
 
 Read `brain/INBOX.md`. If empty, say so and stop.
 
 For each entry:
+0. Entry contains a video/image link → extract it first (above). Route on the text, not the URL.
 1. Detect signal if present; otherwise infer intent from content.
 2. Propose route:
    - **goal (new)** → suggest `# [ area | subarea | horizon ] title` + first backlog item + ease-start
