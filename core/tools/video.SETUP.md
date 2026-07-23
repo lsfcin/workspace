@@ -91,8 +91,19 @@ note) is `rpg-isoroll`. `--goals` on the short metadata caption vs. the richer t
 So: `-small` only recovers with long text; `-base` is right either way and separates better.
 `-base` is ~1.1GB vs ~470MB — cheap next to the 4GB VLM already in the chain.
 
-Known noise: `smartphone-addiction` shows up as a weak background attractor (~+0.03) on
-almost any screen/phone-adjacent clip. Treat the top hit as a suggestion, never an auto-file.
+**Measured limits (2026-07-23, ten real INBOX links).** The signal is weak. Two goals act as
+false attractors: `rpg-isoroll` takes #1 for nearly any technical clip (PDF parsing, compiler
+tuning) because its file is long and vocabulary-diverse, and `smartphone-addiction` surfaces on
+anything screen-adjacent. Only the `workspace-os` / `local-ai` cluster ranks reliably. An agent
+reading the extracted text routes better than this ranking does — so `/inbox` routes on the text
+and uses the ranking as a tie-breaker only.
+
+Rejected fix: hubness correction (subtract each goal's mean similarity to all other goals).
+Tested, does not help — `rpg-isoroll` stays #1 across the board and the 1-bit-quantization clip
+gets *worse* (`smartphone-addiction` promoted to #1). Not shipped.
+
+Likely real fix, not yet built: score against a short hand-written descriptor per goal instead of
+the whole file, removing the length/diversity artifact. Tracked in `brain/TODO.md`.
 
 ```bash
 .venv/bin/pip install sentence-transformers

@@ -74,9 +74,14 @@ until something is found) plus the goals ranked by semantic relevance. Use both:
 - **Goal ranking** → a *suggestion* for which goal or project owns it. Rank by `margin`.
 
 Rules:
+- **Route on the text; use the ranking only as a tie-breaker.** Measured 2026-07-23 over ten real
+  INBOX links: reading the extracted text routes correctly, the embedding ranking often does not.
+- Two known false attractors: **`rpg-isoroll`** (long, vocabulary-diverse goal file — surfaces #1
+  for almost any technical clip, including PDF parsing and compiler tuning) and
+  **`smartphone-addiction`** (any screen/phone-adjacent clip). Discount both unless the extracted
+  text genuinely matches. The ranking is directionally useful only for the
+  `workspace-os` / `local-ai` cluster.
 - The ranking is a hint, never an auto-file. Present it, let Lucas confirm — same as any route.
-- `smartphone-addiction` is a known false attractor on screen/phone-adjacent clips. Discount it
-  unless the extracted text really is about phone use.
 - Lucas's own note next to the link outranks the model every time ("útil pro isoroll content"
   *is* the route).
 - Extraction failed (login-gated, dead link)? Say so, leave the entry, move on. Instagram needs
