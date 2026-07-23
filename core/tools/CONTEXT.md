@@ -63,21 +63,21 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | Slides Pipeline — Specs & Architecture Decisions |
 | [`annotate`](annotate) | — | — | persistent paper annotation store keyed by arXiv ID, DOI, or URL; returns JSON |
-| [`attachments_util.py`](attachments_util.py) | [`attachments_util.pyi`](attachments_util.pyi) | `safe_name`, `month_dir`, `unique_path` | !/mnt/workspace/.venv/bin/python3 |
+| [`attachments_util.py`](attachments_util.py) | [`attachments_util.pyi`](attachments_util.pyi) | `safe_name`, `month_dir`, `unique_path` | attachments_util.py — shared filename/dir helpers for Core/tools attachment downloaders (gmail, telegram) |
 | [`calendar`](calendar) | — | — | Google Calendar read-only CLI for workspace OS — commands: auth, upcoming, range, calendars |
-| [`calendar_fetch.py`](calendar_fetch.py) | [`calendar_fetch.pyi`](calendar_fetch.pyi) | `get_service`, `list_calendars`, `upcoming_events`, `events_in_range`, `fmt_events` | !/mnt/workspace/.venv/bin/python3 |
+| [`calendar_fetch.py`](calendar_fetch.py) | [`calendar_fetch.pyi`](calendar_fetch.pyi) | `get_service`, `list_calendars`, `upcoming_events`, `events_in_range`, `fmt_events` | calendar_fetch.py — Google Calendar API auth and event fetch for Core/tools/calendar |
 | [`code`](code) | — | — | browse and search GitHub repository files; returns JSON or raw text |
 | [`code-search`](code-search) | — | — | search code examples and technical documentation via Exa (default) or GitHub code search (--gh); returns JSON |
 | [`drive`](drive) | — | — | Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put |
-| [`drive_core.py`](drive_core.py) | [`drive_core.pyi`](drive_core.pyi) | `get_service`, `list_files`, `search_files`, `recent_files`, `download_file` | !/mnt/workspace/.venv/bin/python3 |
+| [`drive_core.py`](drive_core.py) | [`drive_core.pyi`](drive_core.pyi) | `get_service`, `list_files`, `search_files`, `recent_files`, `download_file` | drive_core.py — Google Drive read+write seam (account-agnostic) for Core/tools/drive |
 | [`drive_migrate.py`](drive_migrate.py) | [`drive_migrate.pyi`](drive_migrate.pyi) | `migrate_recursive`, `run` | !/usr/bin/env python3 |
 | [`drive_migrate_core.py`](drive_migrate_core.py) | [`drive_migrate_core.pyi`](drive_migrate_core.pyi) | `get_cin_service`, `get_personal_service` | !/usr/bin/env python3 |
 | [`fetch`](fetch) | — | — | fetch a URL and return readable plain text; falls back to raw for non-HTML |
 | [`gmail`](gmail) | — | — | read-only Gmail integration for workspace OS |
-| [`gmail_attachments.py`](gmail_attachments.py) | [`gmail_attachments.pyi`](gmail_attachments.pyi) | `download` | !/mnt/workspace/.venv/bin/python3 |
-| [`gmail_fetch.py`](gmail_fetch.py) | [`gmail_fetch.pyi`](gmail_fetch.pyi) | `auth`, `get_service`, `fetch`, `fetch_all` | !/mnt/workspace/.venv/bin/python3 |
-| [`gmail_triage.py`](gmail_triage.py) | [`gmail_triage.pyi`](gmail_triage.pyi) | `classify` | !/mnt/workspace/.venv/bin/python3 |
-| [`google_auth.py`](google_auth.py) | [`google_auth.pyi`](google_auth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `auth` | !/mnt/workspace/.venv/bin/python3 |
+| [`gmail_attachments.py`](gmail_attachments.py) | [`gmail_attachments.pyi`](gmail_attachments.pyi) | `download` | gmail_attachments.py — download and summarize Gmail attachments for Core/tools/gmail |
+| [`gmail_fetch.py`](gmail_fetch.py) | [`gmail_fetch.pyi`](gmail_fetch.pyi) | `auth`, `get_service`, `fetch`, `fetch_all` | gmail_fetch.py — Gmail API auth, fetch, and MIME parse for Core/tools/gmail |
+| [`gmail_triage.py`](gmail_triage.py) | [`gmail_triage.pyi`](gmail_triage.pyi) | `classify` | gmail_triage.py — Claude API email classification for Core/tools/gmail |
+| [`google_auth.py`](google_auth.py) | [`google_auth.pyi`](google_auth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `auth` | google_auth.py — Shared OAuth2 auth for workspace Google services (drive, calendar, gmail) |
 | [`hf`](hf) | — | — | query HuggingFace Hub metadata and file contents; returns JSON |
 | [`inspect`](inspect) | — | — | generate or update .imgif/.csvif interface file |
 | [`inspect-batch`](inspect-batch) | — | — | generate .pngif/.csvif stubs for all assets missing interfaces |
@@ -85,11 +85,11 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`parse`](parse) | — | — | extract readable text from PDF, DOCX, PPTX, or plain text files; returns raw text |
 | [`search`](search) | — | — | unified web search; Exa (keyed) by default, ddgr (no-key) fallback; returns normalized JSON array [{title, url, abstract, score?}] |
 | [`slides`](slides) | — | — | Slidev presentation CLI: auth, new, serve, build, port |
-| [`slides_fetch.py`](slides_fetch.py) | [`slides_fetch.pyi`](slides_fetch.pyi) | `get_service`, `get_presentation`, `list_presentations` | !/mnt/workspace/.venv/bin/python3 |
-| [`slides_port.py`](slides_port.py) | [`slides_port.pyi`](slides_port.pyi) | `convert` | !/mnt/workspace/.venv/bin/python3 |
-| [`slides_shapes.py`](slides_shapes.py) | [`slides_shapes.pyi`](slides_shapes.pyi) | `render_element` | !/mnt/workspace/.venv/bin/python3 |
-| [`slides_style.py`](slides_style.py) | [`slides_style.pyi`](slides_style.pyi) | `set_theme_colors`, `rotation_deg`, `eff_scale`, `compose_transforms` | !/mnt/workspace/.venv/bin/python3 |
-| [`slides_text.py`](slides_text.py) | [`slides_text.pyi`](slides_text.pyi) | `text_html`, `has_content` | !/mnt/workspace/.venv/bin/python3 |
+| [`slides_fetch.py`](slides_fetch.py) | [`slides_fetch.pyi`](slides_fetch.pyi) | `get_service`, `get_presentation`, `list_presentations` | slides_fetch.py — Google Slides API read-only for workspace OS |
+| [`slides_port.py`](slides_port.py) | [`slides_port.pyi`](slides_port.pyi) | `convert` | slides_port.py — Convert Google Slides API JSON to Slidev markdown |
+| [`slides_shapes.py`](slides_shapes.py) | [`slides_shapes.pyi`](slides_shapes.pyi) | `render_element` | slides_shapes.py — Element rendering (shapes, lines, tables, images, groups) for slides_port |
+| [`slides_style.py`](slides_style.py) | [`slides_style.pyi`](slides_style.pyi) | `set_theme_colors`, `rotation_deg`, `eff_scale`, `compose_transforms` | slides_style.py — CSS helpers: colors, gradients, rotation, geometry, download |
+| [`slides_text.py`](slides_text.py) | [`slides_text.pyi`](slides_text.pyi) | `text_html`, `has_content` | slides_text.py — Text extraction + HTML rendering for Google Slides elements |
 | [`spec-contract-check`](spec-contract-check) | — | — | verify every spec-locked module has a complete SPEC.md contract (Inputs/Outputs/Invariants filled); optionally type-check declared edges. Exit 1 on any gap. See code/SPEC-DRIVE.md. |
 | [`spec-scan`](spec-scan) | — | — | ledger of module SPEC.md status (locked|draft|optout|none) |
 | [`sync-skills`](sync-skills) | — | — | regenerate skill mirrors from core/skills/*.md |
@@ -99,7 +99,7 @@ Thresholds: `.hooks/line-limits.env`. The `pre-commit` hook runs it automaticall
 | [`test/test_video_relevance.py`](test/test_video_relevance.py) | [`test/test_video_relevance.pyi`](test/test_video_relevance.pyi) | `test_load_goals_parses_header`, `test_load_goals_strips_auto_blocks_and_urls`, `test_load_goals_skips_non_goal_files`, `test_load_goals_missing_dir_is_empty`, `FakeEncoder` | test_video_relevance.py — T1 unit tests for video_relevance (no model download, no network) |
 | [`video`](video) | — | — | extract navigable text (metadata/captions/transcript/OCR/VLM caption) from a video or image link; --goals also ranks brain/goals by relevance to what was extracted |
 | [`video.SETUP.md`](video.SETUP.md) | — | — | video tool — setup |
-| [`video_core.py`](video_core.py) | [`video_core.pyi`](video_core.pyi) | `source_of`, `probe`, `clean_vtt`, `get_captions`, `assemble` | !/mnt/workspace/.venv/bin/python3 |
-| [`video_media.py`](video_media.py) | [`video_media.pyi`](video_media.pyi) | `download_audio`, `download_video`, `transcribe`, `ocr_image`, `sample_frames` | !/mnt/workspace/.venv/bin/python3 |
-| [`video_relevance.py`](video_relevance.py) | [`video_relevance.pyi`](video_relevance.pyi) | `load_goals`, `default_encoder`, `relevance`, `format_matches` | !/mnt/workspace/.venv/bin/python3 |
+| [`video_core.py`](video_core.py) | [`video_core.pyi`](video_core.pyi) | `source_of`, `probe`, `clean_vtt`, `get_captions`, `assemble` | video_core.py — extract navigable text (metadata, captions, transcript) from video/image URLs; whisper/OCR backends are config data |
+| [`video_media.py`](video_media.py) | [`video_media.pyi`](video_media.pyi) | `download_audio`, `download_video`, `transcribe`, `ocr_image`, `sample_frames` | video_media.py — heavy layers for the video tool: audio download + local transcription (L2), frame OCR (L3). Whisper model + tesseract langs are config data, not names. |
+| [`video_relevance.py`](video_relevance.py) | [`video_relevance.pyi`](video_relevance.pyi) | `load_goals`, `default_encoder`, `relevance`, `format_matches` | video_relevance.py — rank brain/goals against ANY text (not just video) via local multilingual embeddings; import relevance() from anywhere |
 <!-- routing:end -->
