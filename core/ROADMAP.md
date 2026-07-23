@@ -36,6 +36,9 @@ Reference implementation = `flows/deepresearch.md` (the validator's oracle; neve
       and whether it has grown past its worth. Includes: consider trimming `MEMORY.md`, and inspect
       what is being stored unannounced under the `~/.claude/` folders. Pairs with the session-size
       monitor and context-drift items already in `brain/TODO.md`.
+      → **Now Frente 3.2 of [/ROADMAP.md](../ROADMAP.md)** (workspace-os robustness). Reframed by the
+      2026-07-23 research: keep CONTEXT.md *local/granular* (it is what makes weak models work, per
+      [P] 2607.17598), cap *chain depth* not file count. Do the audit there; this line is the pointer.
 
 ## Notes
 

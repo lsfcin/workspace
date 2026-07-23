@@ -3,12 +3,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-07-23 05:44
+last-updated: 2026-07-23 14:48
 
 >**areas** — last 14 days  
 ```
 health       ████░░░░░░   39 touches
-career       █░░░░░░░░░   17 touches
+career       ██░░░░░░░░   18 touches
 finances     █░░░░░░░░░   14 touches
 fun          ██████████   86 touches
 spiritual    ███░░░░░░░   28 touches
@@ -32,7 +32,7 @@ home-casinhas            ██████░░░░   7 touches
 instituto                ██████░░░░   7 touches
 lih-dd                   ███████░░░   8 touches
 local-ai                 ███████░░░   8 touches
-loop-engineering         ████████░░   9 touches
+loop-engineering         █████████░   10 touches
 magic-places             ██████░░░░   7 touches
 make-in-time             ██████░░░░   7 touches
 pandeiro                 ██████░░░░   7 touches
