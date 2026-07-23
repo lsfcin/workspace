@@ -4,7 +4,8 @@ import sys, json, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from video_core import assemble
 
-USAGE = "Usage: core/tools/video <url> [--level auto|meta|captions|speech|ocr|visual|full] [--save] [--json]"
+USAGE = ("Usage: core/tools/video <url> [--level auto|meta|captions|speech|ocr|visual|full] "
+         "[--save] [--json]")
 
 
 def main():

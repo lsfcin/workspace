@@ -440,37 +440,37 @@ Exa-only flags are silently ignored when the ddgr backend is in use (fallback or
 
 ---
 
-### 13. Telegram bot (workspace-os nudges + INBOX capture)
+### 13. Telegram bot (INBOX capture + remote agent control) — now `code/aiwbot`
 
-[`core/tools/telegram`](core/tools/telegram) (CLI) + [`core/tools/telegram_daemon.py`](core/tools/telegram_daemon.py) (long-running poller, systemd `--user` service `workspace-telegram-bot`) — bidirectional bridge to a personal Telegram bot (`@lsfaiwbot`).
+The workspace Telegram bridge lives in [`code/aiwbot`](code/aiwbot/CONTEXT.md), running as the
+systemd `--user` service `aiwbot`. It captures text/photo/voice/document into `brain/INBOX.md` and
+drives coding agents remotely over the provider-agnostic `AgentBackend` seam.
 
-- **Outbound:** `core/tools/telegram send "<text>"` — one-shot nudge to the paired chat. Content/cadence (daily digest, goal reminders) is not built yet — this ships only the transport primitive.
-- **Inbound:** text/photo/voice/document sent to the bot from the paired chat appends directly to `brain/INBOX.md` (no confirmation gate — single trusted sender, unlike the AI-triaged gmail flow). Media saved to `brain/attachments/YYYY-MM/` via the shared `core/tools/attachments_util.py` helpers (also used by `gmail_attachments.py`).
+**Retired 2026-07-23:** the original `core/tools/telegram` CLI + `telegram_daemon.py` (814 LOC,
+service `workspace-telegram-bot`) were deleted. aiwbot reached parity — capture, sessions, resume,
+plan/build — decomposed into modules under the 200-line gate, with its own bot token and config dir.
+Both services had been running side by side for days with only aiwbot actually in use. History is in
+git (last state at `468ad0e`); the disabled unit file is still at
+`~/.config/systemd/user/workspace-telegram-bot.service` if it ever needs reviving.
+
+Conventions the old bot established, still in force in aiwbot:
+
 - **Security:** every incoming update is checked against a single `allowed_chat_id` captured during pairing — bot tokens are guessable/searchable by username, so this allowlist is the only thing standing between a stranger and writes into `brain/INBOX.md`.
-- **Secrets:** `~/.config/workspace-telegram/config.json` (`bot_token`, `allowed_chat_id`), dir chmod 700 / file chmod 600 — same `~/.config/workspace-<service>/` convention gmail/calendar/drive already use for credentials.
+- **Secrets:** `~/.config/workspace-<service>/config.json` (`bot_token`, `allowed_chat_id`), dir chmod 700 / file chmod 600 — same convention gmail/calendar/drive use.
+- **Media:** attachments saved to `brain/attachments/YYYY-MM/` via the shared [`core/tools/attachments_util.py`](core/tools/attachments_util.py) helpers (also used by `gmail_attachments.py`).
 
-**First-time pairing** (per machine, per bot):
+**Daemon lifecycle** — the pattern for any long-running workspace process:
 ```bash
-# 1. Create the bot once via @BotFather in Telegram (/newbot), copy the token it returns.
-core/tools/telegram init --token <TOKEN>   # then send /start to the bot from your phone — captures chat_id
-core/tools/telegram send "test"            # confirm delivery
-```
-
-**Daemon lifecycle** — first long-running process in the workspace (every other `core/tools/*` integration is one-shot CLI). Pattern for any future daemon:
-```bash
-# unit lives outside the repo, at ~/.config/systemd/user/workspace-telegram-bot.service
+# unit lives outside the repo, at ~/.config/systemd/user/aiwbot.service
 systemctl --user daemon-reload
-systemctl --user enable --now workspace-telegram-bot
-systemctl --user status workspace-telegram-bot --no-pager
-journalctl --user -u workspace-telegram-bot --no-pager -n 50   # logs
+systemctl --user enable --now aiwbot
+systemctl --user status aiwbot --no-pager
+journalctl --user -u aiwbot --no-pager -n 50   # logs
 ```
-`Restart=on-failure` in the unit means transient crashes (e.g. a network timeout on boot) self-heal — confirmed in practice, not just configured.
+`Restart=on-failure` in the unit means transient crashes (e.g. a network timeout on boot) self-heal.
 
-**Verify:**
-```bash
-core/tools/telegram status                 # config + systemd summary
-```
-Send a text/photo/voice/document to the bot from the paired chat → confirm a matching entry lands in `brain/INBOX.md`.
+**Verify:** send a text/photo/voice/document to the bot from the paired chat → confirm a matching
+entry lands in `brain/INBOX.md`.
 
 ---
 

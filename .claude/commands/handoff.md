@@ -18,9 +18,16 @@ Arguments: $ARGUMENTS  (focus for next session)
 git branch --show-current 2>/dev/null
 git rev-parse --short HEAD 2>/dev/null
 git status --short 2>/dev/null | wc -l
+git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads 2>/dev/null
+git log --oneline main..develop 2>/dev/null | wc -l
 ```
 
 If a fresh verification result exists from this session, cite it. If not run this session, say "not run".
+
+**Report sync divergence, never fix it.** `/handoff` can be invoked mid-session, so merging here risks
+promoting unverified work. Just state what is unpushed or unpromoted (`[ahead N]` on any branch, or
+`develop` ahead of `main`) so a session resumed on another machine knows what it is missing.
+Promotion is `/roundup` Phase 5 — point there if anything is behind.
 
 ## Output
 
@@ -42,6 +49,7 @@ Print the block between the `---` markers:
 
 ### State
 branch@sha · N uncommitted · verify: green / red / not-run
+sync: all pushed / [branch ahead N unpushed] / develop N ahead of main
 [Files worth reading first — one line each, only if not obvious from ROADMAP.]
 ```
 

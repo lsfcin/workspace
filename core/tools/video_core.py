@@ -100,13 +100,34 @@ def _join(parts):
     return "\n\n".join(p for p in parts if p).strip()
 
 
+def _bundle(url, meta, parts, methods, ok, save, base):
+    b = {"url": url, "source": source_of(url), "ok": ok,
+         "title": meta.get("title"), "uploader": meta.get("uploader"),
+         "description": meta.get("description") or "",
+         "text": _join(parts), "method": "+".join(methods) or "none"}
+    if not ok:
+        b["error"] = meta.get("error")
+    if save:
+        b["saved_path"] = _save(b, base)
+    return b
+
+
 def assemble(url, level="auto", save=False, base=None,
-             _probe=None, _captions=None, _media=None):
+             _probe=None, _captions=None, _media=None, _images=None):
     """Escalate L0->L1->L2->L3->L4, stopping once text is found (auto); explicit
     levels force a layer. Returns a text bundle."""
     meta = (_probe or probe)(url)
     ok = bool(meta.get("ok"))
     parts, methods = [], []
+
+    # yt-dlp reads video only; an image post (Instagram carousel) probes as a failure.
+    # Retry through gallery-dl before giving up — the text is in the images, not a stream.
+    if not ok:
+        images = _images or __import__("video_images")
+        imeta, iparts, imethods = images.gather(url, level=level)
+        if imeta.get("ok"):
+            return _bundle(url, imeta, iparts, imethods, True, save, base)
+
     if meta.get("description"):
         parts.append(meta["description"])
         methods.append("metadata")
@@ -144,12 +165,4 @@ def assemble(url, level="auto", save=False, base=None,
             parts.append(caption)
             methods.append("visual")
 
-    bundle = {"url": url, "source": source_of(url), "ok": ok,
-              "title": meta.get("title"), "uploader": meta.get("uploader"),
-              "description": meta.get("description") or "",
-              "text": _join(parts), "method": "+".join(methods) or "none"}
-    if not ok:
-        bundle["error"] = meta.get("error")
-    if save:
-        bundle["saved_path"] = _save(bundle, base)
-    return bundle
+    return _bundle(url, meta, parts, methods, ok, save, base)
