@@ -3,8 +3,9 @@
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
+from workspace_meta import CODE_EXTS
 from workspace_scanner import (
-    CODE_EXTS, SPLIT_THRESHOLD,
+    SPLIT_THRESHOLD,
     code_files, has_code_content, subdir_scan,
     parse_preserved_files, parse_preserved_subs,
     build_sub_rows, build_file_rows, build_routing_block,
