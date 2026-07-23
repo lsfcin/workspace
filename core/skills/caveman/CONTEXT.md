@@ -30,6 +30,22 @@ which is how it worked before and what it is for. One registration, no project/u
 | `scripts/` | the `caveman compress` Python package (`python3 -m scripts <file>`) |
 | `hooks/` | `activate.js` (SessionStart) · `mode-tracker.js` (UserPromptSubmit) · `stats.js` · `config.js` · `statusline.sh` |
 
+## Local adaptations (keep this list short — it is the re-sync cost)
+
+1. **Seven skills folded into one.** `caveman-commit/-review/-compress/-help/-stats` and `cavecrew`
+   became subfiles here; their frontmatter was stripped (a subfile is not a skill).
+2. **`hooks/mode-tracker.js`** — added `/caveman <sub>` dispatch and a legacy map so the old
+   per-command spellings still resolve; `crew`/`help` are one-shot and never write the flag.
+3. **`hooks/activate.js`** — resolves `SKILL.md` one level up (vendored layout) with the old plugin
+   path as fallback; strips the router table + `$ARGUMENTS` from the SessionStart injection; pulls
+   the worked examples from `modes.md` so a session loads one level instead of six.
+4. **Hook filenames** lost their `caveman-` prefix (`activate.js`, not `caveman-activate.js`) — the
+   directory already says caveman. The `$HOME` links keep the prefixed names `settings.json` expects.
+5. **`scripts/benchmark.py` glob mode is dead** and was left alone. It resolves
+   `parents[3]/tests/caveman-compress`, a path from the upstream repo layout that exists in neither
+   the old global install nor here. Explicit-pair mode (`benchmark_pair(orig, comp)`) works. Fix it
+   upstream, not locally, or the next re-sync conflicts.
+
 ## Commands
 
 `/caveman [lite|full|ultra|wenyan-lite|wenyan|wenyan-ultra]` sets the level; `/caveman commit`,
@@ -56,7 +72,7 @@ directory — they are links, not copies.
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`scripts/`](scripts/CONTEXT.md) | — |
+| [`scripts/`](scripts/CONTEXT.md) | Compression CLI behind `/caveman compress <file>` — detect file type, call the m |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
@@ -64,9 +80,9 @@ directory — they are links, not copies.
 | [`cavecrew.md`](cavecrew.md) | — | — | Cavecrew — Delegating to Caveman Subagents |
 | [`commit.md`](commit.md) | — | — | Caveman — Commit Messages |
 | [`compress.md`](compress.md) | — | — | Caveman — Compress a Prose File |
-| [`hooks/activate.js`](hooks/activate.js) | [`hooks/activate.d.ts`](hooks/activate.d.ts) | — | caveman — Claude Code SessionStart activation hook |
-| [`hooks/config.js`](hooks/config.js) | [`hooks/config.d.ts`](hooks/config.d.ts) | `getConfigDir`, `getConfigPath`, `getDefaultMode`, `safeWriteFlag`, `readFlag` | caveman — shared configuration resolver |
-| [`hooks/mode-tracker.js`](hooks/mode-tracker.js) | [`hooks/mode-tracker.d.ts`](hooks/mode-tracker.d.ts) | — | caveman — UserPromptSubmit hook to track which caveman mode is active |
+| [`hooks/activate.js`](hooks/activate.js) | — | — | caveman — Claude Code SessionStart activation hook |
+| [`hooks/config.js`](hooks/config.js) | — | `getConfigDir`, `getConfigPath`, `getDefaultMode`, `safeWriteFlag`, `readFlag` | caveman — shared configuration resolver |
+| [`hooks/mode-tracker.js`](hooks/mode-tracker.js) | — | — | caveman — UserPromptSubmit hook to track which caveman mode is active |
 | [`hooks/stats.js`](hooks/stats.js) | — | `priceForModel`, `formatUsd`, `findRecentSession`, `parseSession`, `findCompressedPairs` | caveman-stats — read the active Claude Code session log, print real token |
 | [`modes.md`](modes.md) | — | — | Caveman — intensity levels, worked |
 | [`review.md`](review.md) | — | — | Caveman — Code Review Comments |
