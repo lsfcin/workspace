@@ -27,7 +27,7 @@ Nothing to set up — the seam pilot runs via `/loops export-manifest` in `code/
 
 > [ ] [scene-seam] = program P2 (export-manifest + module-walls-import + e2e Foundry)  
 > [ ] [scene-painter] in-Foundry grid painter MVP = program P7 (needs P4 assembler + P6 floor/fog spike)  
-> [ ] [kit-paint] NB paints the dimetric kit = program P5 (Lucas runs NB batches; ☐ checkpoint)  
+> [ ] [kit-paint] NB paints the dimetric kit = program P5 (Lucas runs NB batches; ☐ checkpoint) — before the batches, read the two technique refs captured 2026-07-23 in `code/isoroll-content/refs/REFS.md` § Technique: seamless tileable painting (the exact failure mode of tile-sized pieces) and normal maps on 2D sprites (dynamic light without 3D)  
 > [ ] [multiview-8+1] view switching, dimetric remap + cardinal batch = program P8 (DECIDED 8+1, 2026-07-09)  
 > [ ] [alpha-pipeline] background transparency — largely resolved for tiles (per-cell rembg, S0-E6-fix5); still open for characters  
 > [ ] [8dir-sprites] 8-direction views per character — after tiles ship (NB cardinal weakness returns for tokens)  
@@ -50,10 +50,10 @@ last-touch: 2026-07-22  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |       8 |
+| trimester   |       9 |
+| semester    |       9 |
+| year        |       9 |
+| 2-year      |       9 |
+| 4-year      |       9 |
 <!-- stats:end -->

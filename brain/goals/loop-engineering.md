@@ -23,6 +23,7 @@ Abrir `core/flows/loop-engineering.md` `## Field Practice` (7 runs auditados, A1
 > [ ] [B3] extrair `export-manifest` integration-gap catch num `## Case Study` no flow file — feito neste commit
 > [ ] [C1] research-loops: variante do flow para `core/flows/{deepresearch,lit,autoresearch}` — mesmo mecanismo Carry; onde a parallel fan-out dobra é a extensão natural (Voyager continua: skill library + auto-curriculum)
 > [ ] [C2] testar o flow: um tagged-fixture repo synth em `core/flows/__loop-fixture__/` + assertion que 8 loop files aparecem com executor tags corretos pós dry-run; CI-runnable
+> [ ] [tier-briefing] padrão "three-lane": modelo barato lê TUDO (emails, docs, transcripts) e comprime num briefing curto; modelo caro só toca o briefing. É o mesmo princípio do autorouting do `/loops` (loop-low/medium/high) aplicado à *ingestão* em vez da execução — hoje o roteamento decide quem executa, não quem lê. Casa com `/gmail` triage e com o dreno do INBOX. Ref em `core/WATCHLIST.md` (INBOX 2026-07-23)  
 > [ ] [C-C] Loop 6.5 Skill Extraction (Voyager skill-library primitive) — spec no flow file; pilot em 1 chain real com `keep-trail: yes`
 > [ ] [D1] `last-reviewed: 2026-07` + `next-review-by: 2026-10` na tabela volátil de modelos — feito neste commit
 > [ ] [D2] cross-ref dobra ↔ loops: kinship Voyager/LATM; "artifact is the memory" thesis compartilhada — feito neste commit (`code/dobra/CONTEXT.md` Overview)
@@ -61,10 +62,10 @@ last-touch: 2026-07-22  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       8 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |       9 |
+| trimester   |       9 |
+| semester    |       9 |
+| year        |       9 |
+| 2-year      |       9 |
+| 4-year      |       9 |
 <!-- stats:end -->
