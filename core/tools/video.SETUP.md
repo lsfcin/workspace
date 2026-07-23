@@ -18,12 +18,29 @@ sudo apt-get install -y ffmpeg tesseract-ocr tesseract-ocr-por
 `~/.config/workspace-video/cookies.txt` (Netscape format, outside repo — never gitignore
 needed since it's outside `/mnt/workspace`). No file → tool behaves exactly as before.
 
-To populate: export cookies from a logged-in IG session via a browser extension
-("Get cookies.txt LOCALLY" or similar), save to that path. Consider a burner account —
-this is a manual step, can't be automated headlessly.
+To populate — **no browser extension needed**, yt-dlp reads the browser profile directly
+(Lucas is logged into Instagram in Brave, not Firefox):
 
-Verified failure mode without cookies (2026-07-22): `DbBDnp6DcKV` — "Instagram sent an
-empty media response" (login-gated). Retest same URL once cookies.txt exists.
+```bash
+.venv/bin/yt-dlp --cookies-from-browser brave \
+  --cookies ~/.config/workspace-video/cookies.txt \
+  --skip-download --print id "<any public IG url>"
+chmod 600 ~/.config/workspace-video/cookies.txt
+```
+
+Rerun that command when the session expires. The file holds live session credentials in
+plaintext — keep it at mode `600` and outside the repo.
+
+**Hard prerequisite, cost a full session to find (2026-07-23):** `secretstorage` must be
+installed in the venv. Chromium-family browsers on Linux encrypt the cookie DB against the
+system keyring; without the module yt-dlp fails with
+`ERROR: secretstorage not available` + `failed to decrypt cookie (AES-CBC) ... Possibly the
+key is wrong?` — which reads like a wrong-password bug, not a missing dependency.
+Fix: `.venv/bin/pip install secretstorage`.
+
+Verified (2026-07-23): auth works end-to-end, `DZLABeVx3qk` returns metadata + description.
+Note `DbBDnp6DcKV` is an **image carousel** — yt-dlp reports "No video formats found" per
+sub-item; that is not an auth failure, it needs the L3 OCR / L4 VLM image path.
 
 ## M4 — L4 visual captioning (pure-visual content, no speech/on-screen text)
 `caption_frames()` in `video_media.py`, wired as the `visual` level in `assemble()`
@@ -49,12 +66,52 @@ Measured on RTX 3050 6GB Laptop: ~4.3GB VRAM peak, fp16, ~1.7s/frame after model
 (first load downloads ~4GB weights, cached after in `~/.cache/huggingface`). Model is
 config data (`model_id` param), swap freely.
 
-## Deferred (M4 remaining)
-- relevance() — local sentence-transformers embeddings vs brain/GOALS.md.
-- /inbox auto-route on video links.
+## Image posts / carousels — the gallery-dl path
+`video_images.py`. yt-dlp is a *video* downloader: an Instagram `/p/` carousel probes as a hard
+failure ("No video formats found" per sub-item), which read like an auth problem for days but
+never was. `assemble()` now retries through **gallery-dl** whenever the yt-dlp probe fails, so the
+fallback costs nothing on video links and needs no flag.
+
+gallery-dl carries its own metadata (`-j`): description, uploader, image count — so image posts
+get a real L0 and `--level auto` usually stops there, free. Deeper levels download the images
+(capped at `MAX_IMAGES = 10`) and run the same OCR (L3) and VLM captioning (L4) the video path
+uses, one pass per image, each line tagged `[n/total]` so a slide deck stays ordered.
+
+Same cookie jar as yt-dlp (`~/.config/workspace-video/cookies.txt`), attached the same way.
+
+```bash
+.venv/bin/pip install gallery-dl
+core/tools/video "https://www.instagram.com/p/<id>/"              # description, free
+core/tools/video "https://www.instagram.com/p/<id>/" --level ocr  # + slide text per image
+```
+
+Verified 2026-07-23 on `DbBDnp6DcKV`, the post that sat blocked in INBOX since 07-20: full caption
+at `auto`, and seven slides transcribed at `--level ocr`.
+
+## Rejected — automatic goal relevance (built, measured, deleted 2026-07-23)
+An embedding ranker (`video_relevance.py`, `--goals` flag, multilingual e5) scored the extracted
+text against every `brain/goals/*.md` to suggest a route. **Built, dogfooded over ten real INBOX
+links, then deleted the same day.** Recorded here only so nobody rebuilds it.
+
+Why it failed: two goals acted as false attractors — `rpg-isoroll` took #1 for nearly any
+technical clip (PDF parsing, compiler tuning) because its file is long and vocabulary-diverse,
+and `smartphone-addiction` surfaced on anything screen-adjacent. Swapping e5-small→e5-base and
+lengthening the input helped a little; neither fixed it. A hubness correction (subtracting each
+goal's mean similarity to the others) was tested and made one case worse. Truncating goal text to
+title-plus-first-paragraph also ranked badly.
+
+The deeper reason it can't be patched: an agent reading the extracted text routes correctly and
+is already in the loop for every `/inbox` run, so the ranker duplicated a job something else does
+better while adding a confident-looking wrong answer. Its only non-duplicated use would be
+tagging a capture with **no agent present** (aiwbot on the phone, where capture is deliberately
+$0). If that need ever appears, start from this note — not from the assumption that embeddings
+over whole goal files will work.
+
+Code: workspace commit `a9cadd5`. `sentence-transformers` and the cached e5 weights were removed
+with it.
 
 ## Test
 ```bash
-.venv/bin/pytest core/tools/test/ -m "not network"   # T0+T1, no network (verify:fast)
+make verify-fast                                     # T0+T1, no network — what pre-commit runs
 .venv/bin/pytest core/tools/test/ -m network         # T2, real URLs (on-demand)
 ```

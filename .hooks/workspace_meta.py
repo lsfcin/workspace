@@ -74,7 +74,13 @@ def file_description(path: Path) -> str:
             return fm
     patterns = COMMENT_RE.get(path.suffix, [])
     try:
-        first = path.read_text(encoding='utf-8', errors='ignore').splitlines()[0]
+        lines = path.read_text(encoding='utf-8', errors='ignore').splitlines()
+        # A shebang is a comment to the regex but not a description — every executable
+        # module was advertising its interpreter path in the routing table. Take the
+        # real first-line comment, which the pre-edit gate already requires below it.
+        if lines and lines[0].startswith('#!'):
+            lines = lines[1:]
+        first = lines[0]
     except (IndexError, OSError):
         return ''
     for pat in patterns:

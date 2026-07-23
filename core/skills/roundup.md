@@ -104,7 +104,35 @@ If `brain/INBOX.md` has entries, triage them now via the `/inbox` routes (goal /
 
 ---
 
-## Phase 5 — Hand off
+## Phase 5 — Sync branches (gitflow promotion)
+
+The session end is the **only** reliable moment to promote work. `feature/*` is already safe — the
+`post-commit` hook auto-pushes it. This phase moves work up so the other machine sees it on `main`.
+
+Applies to the workspace repo and `code/*` repos (same scope as `.hooks/gitflow-gate.sh`).
+Other repos (`academy/papers/*`, `branches/*`): push the current branch, skip the merges.
+
+```bash
+git branch --show-current
+git status --short
+git log --oneline origin/develop..develop 2>/dev/null | wc -l   # develop unpushed
+git log --oneline main..develop 2>/dev/null | wc -l             # main behind develop
+```
+
+1. **Uncommitted work** → commit it on the feature branch first (auto-push carries it out).
+2. **Verification gate red or not-run** (Phase 1) → **stop here**. Do not merge. Report that the
+   feature branch is pushed but unpromoted, and why. A red merge into `main` breaks the other machine.
+3. **Feature complete** (its milestone shipped this session) → merge `feature/*` → `develop`, push
+   `develop`. Feature still in progress → leave it; auto-push already preserved it.
+4. **`develop` ahead of `main`** → merge `develop` → `main`, push `main`.
+5. **Merge conflict** → abort (`git merge --abort`), leave branches untouched, report it as an open
+   thread for the handoff. Never resolve conflicts unattended at session close.
+
+Report each branch's final state (pushed / unpromoted + reason) — it flows into the resume prompt.
+
+---
+
+## Phase 6 — Hand off
 
 Run `/handoff $ARGUMENTS` to emit the resume prompt. Then report:
 

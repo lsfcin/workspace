@@ -46,6 +46,7 @@ fallback · iterate — MVP can always be extended*
 > [ ] [mvp-validate] use system daily for 30 days, assess: does it reduce mental load?  
 > [ ] [gdrive-integration] define strategy to bring Google Drive into workspace — link, sync, or selective copy  
 > [ ] [courses-import] bring course materials into workspace — define folder structure and import strategy  
+> [ ] [offline-resilience] workspace que sobrevive a um mundo sem internet — o filesystem já é a fonte da verdade, então a lacuna é (a) rede: [Reticulum](https://github.com/markqvist/Reticulum), stack E2E que funciona sem infraestrutura, e (b) corpus offline: o "projeto NOMAD" que Lucas lembrou é quase certamente **Kiwix** (Wikipedia inteira offline). Amarra em [courses-import]: material de aula local já é metade disso. Refs em `core/WATCHLIST.md` (INBOX 2026-07-23)  
 > [ ] [todo-accountability] design accountability layer for TODO.md — calendar reminders, daily review, or notification hook so tasks don't silently expire  
 > [ ] [gcal-link] link workspace to Google Calendar — deadlines and events visible in context  
 > [x] [gmail-link] link workspace to Gmail — surface relevant emails as context for goals and tasks  
@@ -100,10 +101,10 @@ last-touch: 2026-07-22  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      10 |
-| trimester   |      11 |
-| semester    |      11 |
-| year        |      11 |
-| 2-year      |      11 |
-| 4-year      |      11 |
+| month       |      11 |
+| trimester   |      12 |
+| semester    |      12 |
+| year        |      12 |
+| 2-year      |      12 |
+| 4-year      |      12 |
 <!-- stats:end -->

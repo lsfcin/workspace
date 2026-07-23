@@ -9,6 +9,8 @@
 
 <!-- add entries below, newest first -->
 
-https://www.instagram.com/p/DbBDnp6DcKV/?utm_source=ig_web_copy_link
-— via telegram · 2026-07-20 · (login-gated — `core/tools/video` não leu sem cookies; aguarda config de cookies M4-video)
+GOALS.md não parece estar monitorando corretamente. aparecem vários "touches" em frentes que não fiz nada.
 
+o TODO.md me parece pouco funcional. não sei bem como melhorar. acho que ele poderia talvez ser mais mutável. e outra coisa também é remover as atividades já feitas, jogar em outro canto ou simplesmente deletar.
+
+criar ementas das tr
