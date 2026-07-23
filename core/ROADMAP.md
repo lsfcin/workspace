@@ -113,7 +113,7 @@ canonical; flows compose into a DAG; loops live only at execution time, bounded.
       which is what makes step-level retry edges safe. (a) forbids cycles; (b) *permits* them,
       bounded. Applying (a) to retry edges would wrongly kill the useful loops.
 
-- [ ] **7. Decompose the `craft` monolith by load-frequency.** `craft.md` is ~52 KB and
+- [x] **7. Decompose the `craft` monolith by load-frequency.** `craft.md` is ~52 KB and
       mixes three levels: general rules that apply to *all* flows, the one specific build flow, and
       heavy reference material (field practice, case studies, prior art). Split by **access pattern**,
       not arbitrarily — this is what resolves the tension with our own finding that blind .md
