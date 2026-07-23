@@ -166,6 +166,60 @@ validate_flows() {
   return $rc
 }
 
+# Composition layer (core/SCHEMA.md § Composition and cycles): the `uses:` graph must be a DAG.
+# A definitional cycle never bottoms out — expanding it is infinite. This is the *definition-time*
+# guard only; execution loops (a flow retrying its own step) are legal and are bounded by the
+# runtime iteration cap declared in the flow, never by this check.
+validate_flow_dag() {
+  local rc=0 f name fm uses u
+  declare -A USES=() KNOWN=() COLOR=()
+  while IFS= read -r f; do
+    name="$(basename "$f" .md)"
+    case "$name" in
+      CONTEXT|LOOP-TREE) continue ;;
+    esac
+    KNOWN["$name"]=1
+    [[ "$(head -1 "$f")" == "---" ]] || continue
+    fm="$(awk 'NR==1&&/^---[[:space:]]*$/{f=1;next} f&&/^---[[:space:]]*$/{exit} f{print}' "$f")"
+    uses="$(sed -nE 's/^uses:[[:space:]]*(.*)$/\1/p' <<<"$fm" | tr ',' ' ')"
+    USES["$name"]="$uses"
+  done < <(find "$WORKSPACE/core/flows" -name '*.md')
+
+  for name in "${!USES[@]}"; do
+    for u in ${USES[$name]}; do
+      [[ -n "${KNOWN[$u]:-}" ]] || { echo "INVALID flow ($name uses unknown flow '$u'): core/flows/**/$name.md"; rc=1; }
+    done
+  done
+
+  # Iterative DFS with a three-colour walk: 0 unvisited, 1 on the current path, 2 done.
+  # Hitting a colour-1 node means the path returned to itself.
+  local start stack node
+  for start in "${!USES[@]}"; do
+    [[ "${COLOR[$start]:-0}" == 0 ]] || continue
+    stack=("$start")
+    while ((${#stack[@]})); do
+      node="${stack[-1]}"
+      case "${COLOR[$node]:-0}" in
+        0)
+          COLOR["$node"]=1
+          for u in ${USES[$node]:-}; do
+            [[ -n "${KNOWN[$u]:-}" ]] || continue
+            case "${COLOR[$u]:-0}" in
+              1) echo "INVALID flow (uses: cycle — '$node' uses '$u', which leads back to '$node'): the uses: graph must be a DAG, see core/SCHEMA.md"; rc=1 ;;
+              0) stack+=("$u") ;;
+            esac
+          done
+          ;;
+        *)
+          COLOR["$node"]=2
+          unset 'stack[-1]'
+          ;;
+      esac
+    done
+  done
+  return $rc
+}
+
 # Agent layer (core/SCHEMA.md): name, description, tier ∈ enum; workers also need tools + output.
 # `lead` is the one orchestrator (tier-only). _template excluded like skills.
 validate_agents() {
@@ -227,8 +281,9 @@ case "${1:-sync}" in
   --check)
     rc=0
     validate_skills || rc=1
-    validate_flows  || rc=1
-    validate_agents || rc=1
+    validate_flows    || rc=1
+    validate_flow_dag || rc=1
+    validate_agents   || rc=1
     orphans check || rc=1
     for m in "${MIRRORS[@]}"; do check_mirror "$m" || rc=1; done
     check_commands || rc=1

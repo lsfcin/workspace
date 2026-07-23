@@ -67,7 +67,7 @@ canonical; flows compose into a DAG; loops live only at execution time, bounded.
       `spec-driven-development.md`, `workspace-os.md`. The `[[loop-engineering]]` wiki-links must be
       repointed or they dangle.
 
-- [ ] **3. `deep` → `sota`, and redefine what it produces.** Not a rename — a **redefinition**, which
+- [x] **3. `deep` → `sota`, and redefine what it produces.** Not a rename — a **redefinition**, which
       is why it was deliberately *not* done in the 2026-07-23 session (a `sota.md` still holding
       deepresearch content would be worse than leaving it). New contract:
       fill the relevant `refs/REFS.md` **plus per-paper `*.yaml`** files following the existing
@@ -78,13 +78,13 @@ canonical; flows compose into a DAG; loops live only at execution time, bounded.
       anything" to "map the state of the art of a field" — accepted, it makes a vague flow crisp.
       Name is `sota` (the field-standard acronym) — **not** `soat`, which reads as a typo of it.
 
-- [ ] **4. Make `scout` compose `sota` (the first real DAG edge).** `scout` and `sota` share the
+- [x] **4. Make `scout` compose `sota` (the first real DAG edge).** `scout` and `sota` share the
       entire gathering half; today `scout.md` only *asks in prose* not to reimplement search. Make it
       a declared edge — `uses: sota` — so `scout = sota + map-to-our-system + write tiered plan into a
       ROADMAP`. Keep **both** entrypoints: `sota` alone when you want the field map and no plan;
       `scout` when you want the plan too. This is the dogfood case for the composition model.
 
-- [ ] **5. Consolidate the template; the oracle is already retired.** `SCHEMA.md` no longer anoints a
+- [x] **5. Consolidate the template; the oracle is already retired.** `SCHEMA.md` no longer anoints a
       reference implementation (retired 2026-07-23 — Lucas: *"sota should not be special… a template
       should be a template"*; the dual role coupled one flow's evolution to the schema). **Remaining
       work:** physically move the canonical discipline wording (tool-discipline, required-artifacts,
@@ -92,7 +92,7 @@ canonical; flows compose into a DAG; loops live only at execution time, bounded.
       annotated by which `type` requires each block, then repoint SCHEMA's "copy from there" pointer.
       SCHEMA currently carries an explicit *migration pending* note — delete it when done.
 
-- [ ] **6. Build the cycle guard (two mechanisms, do not merge them).**
+- [x] **6. Build the cycle guard (two mechanisms, do not merge them).**
       (a) **Static DAG check** in `sync-skills validate_flows`: parse `uses:` from flow frontmatter,
       walk the graph, fail with a clear message if any path returns to its start. This is definition
       time, offline, cheap — and `validate_flows` is already recursive, so it is the natural home.

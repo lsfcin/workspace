@@ -74,6 +74,7 @@ cluster is the current flat exception (its own engineering protocol; see below).
 | `type` | ✅ | `research-brief` \| `utility` \| `domain` |
 | `confirm` | ✅ | `plan` (stop for explicit "yes" before work) \| `none` (summarize plan, continue) |
 | `agents` | — | comma list of worker agents the flow may spawn |
+| `uses` | — | comma list of other flows this flow invokes; empty/absent = leaf. The `uses:` graph must be a **DAG** (see *Composition and cycles*), enforced by `validate_flows` |
 
 `confirm` exists to kill the old contradiction where some flows blocked for approval and others
 didn't, with no way for a caller to know which. Now it is declared and readable.
@@ -90,15 +91,14 @@ Legend: ✅ required · ~ recommended · — not required
 | **scale-gate** — explicit direct vs decomposed rule ("narrow explainer → no subagents") | ✅ | ~ | ~ |
 | **integrity** — read-before-summarize, honest status, no invented sources/results | ✅ | ✅ | ✅ |
 
-The canonical wording for each discipline **belongs in** [`flows/_template.md`](flows/_template.md),
-annotated by which `type` requires it — copy from there. (Migration pending: the wording currently
-still sits in `flows/research/deep.md`; moving it is a step of the craft-flows execution item in
-[ROADMAP.md](ROADMAP.md). Until then read it there, but `deep` holds no special status.) Symmetry is
-required **within a type**, not flattened across all flows — a scheduler (`utility`) is not forced to
-emit a provenance sidecar.
+The canonical wording for each discipline lives in [`flows/_template.md`](flows/_template.md), each
+block annotated with the types that require it — **copy from there**. Symmetry is required **within
+a type**, not flattened across all flows: a scheduler (`utility`) is not forced to emit a provenance
+sidecar. Holding the wording is the template's only privilege; it is still just a template, not a
+reference implementation.
 
 Flow-type assignments:
-- **research-brief:** deep (→ `sota`, pending), literature, review, recipe, compare, audit, replicate, draft (in `flows/research/`)
+- **research-brief:** sota, literature, review, recipe, compare, audit, replicate, draft (in `flows/research/`)
 - **utility:** watch, explore, summarize (in `flows/research/`)
 - **domain:** mechanism-search
 - **engineering:** the `loop-*` cluster (→ `craft`/`route`/`architect`, pending) is its own protocol (declares tier routing directly); exempt from this table and from flow-layer validation.
@@ -142,6 +142,12 @@ state does not change is not iteration — it is a hang.
 - **flow:** `description:` + `args:` present, `type ∈ {research-brief, utility, domain}`,
   `confirm ∈ {plan, none}`. Exempt: `CONTEXT.md`, `LOOP-TREE.md`, `loop-*` (engineering cluster).
   Validation is **recursive** — it walks `flows/<skill>/` subfolders, not just the flat root.
-  *Not yet enforced (ROADMAP):* `uses:` acyclicity (the DAG check) and the runtime iteration cap.
+- **composition:** every `uses:` target resolves to a real flow, and the `uses:` graph is a **DAG**
+  (three-colour DFS; a path returning to its own start fails the check). The exemption list does
+  *not* apply here — every flow file is a node, so an engineering flow cannot smuggle in a cycle.
+  The **runtime iteration cap** is the other half of this guard and is *not* statically checkable:
+  any flow with an execution loop must declare a numeric cap plus an exit condition in prose
+  (wording in [`flows/_template.md`](flows/_template.md) § Execution Loops). Do not try to enforce
+  it with the DAG check — that check forbids cycles; the cap is what *permits* them, bounded.
 - **agent:** `name:` + `description:` present, `tier ∈ {low, medium, high, max}`, `model:`/`thinking:`
   forbidden in source, workers (everyone but `lead`) must carry `tools:` + `output:`.

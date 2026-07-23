@@ -8,7 +8,7 @@
    └── loop-router.md  ── classify by TYPE + criticality ──►
          ├── padaria       tiny, revertible change            → loop-engineering.md § Padaria shortcut
          ├── feature        build/change a module              → loop-engineering.md  (contract-first SDD)
-         ├── research       investigate / gather / synthesize  → research/deep · research/literature · research/explore · research/compare · … (research/* flows)
+         ├── research       investigate / gather / synthesize  → research/sota · research/literature · research/explore · research/compare · … (research/* flows)
          └── architecture   choose between designs             → loop-architecture.md  (→ ADR record)
 ```
 

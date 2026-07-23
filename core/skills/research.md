@@ -2,7 +2,7 @@
 name: research
 description: >
   Execute a research workflow from the workspace Core research system.
-flow: lit, deep, scout, review, draft, compare, audit, replicate, recipe, summarize, auto, watch
+flow: literature, sota, scout, review, draft, compare, audit, replicate, recipe, summarize, explore, watch
 ---
 
 Execute a research workflow from the workspace Core research system.
@@ -11,7 +11,7 @@ Arguments: $ARGUMENTS
 
 Parse the arguments as `<workflow> [query or path]`. If no workflow is given, print the menu below and stop.
 The flow filename is the command tail: `research <workflow>` → `core/flows/research/<workflow>.md`.
-Back-compat aliases: `deepresearch`→`deep`, `autoresearch`/`auto`→`explore`, `lit`→`literature`
+Back-compat aliases: `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`explore`, `lit`→`literature`
 (resolve to the canonical command).
 
 ## Workflows
@@ -19,8 +19,8 @@ Back-compat aliases: `deepresearch`→`deep`, `autoresearch`/`auto`→`explore`,
 | Command | Flow file | Use when |
 |---------|-----------|----------|
 | `literature` | `core/flows/research/literature.md` | literature review on a topic (alias: `lit`) |
-| `deep` | `core/flows/research/deep.md` | full multi-source research brief (alias: `deepresearch`) |
-| `scout` | `core/flows/research/scout.md` | research a topic in rounds, then write a model-tiered, impact-flagged action plan into the target ROADMAP (use when the research serves a decision about our own system) |
+| `sota` | `core/flows/research/sota.md` | map the state of the art of a **field**: fill `refs/REFS.md` + one review yaml per kept paper, emit a ≤200-line decision summary (aliases: `deep`, `deepresearch`) |
+| `scout` | `core/flows/research/scout.md` | `sota` **plus** a plan: research a topic in rounds, then write a model-tiered, impact-flagged action plan into the target ROADMAP (use when the research serves a decision about our own system) |
 | `review` | `core/flows/research/review.md` | peer-review simulation of a document or claim |
 | `draft` | `core/flows/research/draft.md` | draft a section or document from evidence |
 | `compare` | `core/flows/research/compare.md` | compare two papers or approaches |
@@ -33,7 +33,7 @@ Back-compat aliases: `deepresearch`→`deep`, `autoresearch`/`auto`→`explore`,
 
 ## Execution protocol
 
-1. Read the flow file for the requested workflow (`core/flows/research/<workflow>.md`; resolve aliases `deepresearch`→`deep`, `autoresearch`/`auto`→`explore`, `lit`→`literature` first).
+1. Read the flow file for the requested workflow (`core/flows/research/<workflow>.md`; resolve aliases `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`explore`, `lit`→`literature` first).
 2. Read `core/tools/CONTEXT.md` to know which tools are available and how to call them.
 3. Execute the workflow step by step. Use bash to invoke tools:
    - `core/tools/papers "<query>"` — arXiv / Semantic Scholar
