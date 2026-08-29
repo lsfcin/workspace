@@ -250,3 +250,14 @@ porque o git dita os dois primeiros nomes, então eram exatamente os três que n
 teste; o alvo do Makefile continua estreito.
 — sessão permissões + push · 2026-08-28
 
+três ferramentas mentem caladas nesta máquina, e as três me custaram tempo real numa sessão só.
+(1) o Git Bash converte argumento que parece path POSIX absoluto: `git grep '/mnt/workspace'` devolve
+zero num tree que tem 126 ocorrências — use `MSYS_NO_PATHCONV=1` ou a tool Grep. (2) o
+`Measure-Object -Line` do PowerShell não conta linhas em branco, subestima ~20%, e fez a S2 prometer
+um corte que não existia — use `wc -l`. (3) **a tool Grep normaliza separador de path DENTRO do
+conteúdo casado**, não só no prefixo: ela me mostrou `'core\hooks\pre-commit'` num arquivo que
+contém `'core/hooks/pre-commit'`, e eu quase "consertei" um bug inexistente. **confirme com Read
+antes de agir sobre um path visto via Grep.** as três merecem um lar versionado — o handoff é
+`outputs/`, que é gitignored, então tudo que mora só lá morre com a máquina.
+— sessão port do caminho de commit · 2026-08-28
+

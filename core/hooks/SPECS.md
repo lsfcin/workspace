@@ -41,7 +41,7 @@ workspace.
 - Hard-blocks cross-module imports that bypass the facade, via `facade/check-facade-imports.py`.
 - Auto-syncs the `CONTEXT.md` routing block for every directory with staged files, and stages it.
 - Auto-generates and stages `.pyi` (stubgen), `.d.ts` (tsc), `.dart.api`.
-- Runs `checks/check-line-counts.sh` over staged files — the same script that runs standalone for a
+- Runs `checks/line_counts.py` over staged files — the same module that runs standalone for a
   workspace-wide audit.
 - `verify:fast` contract: a project declaring that script must be green, or the commit is blocked.
 - `checks/check-duplication.py`: jscpd over the committing repo, blocking clones that involve staged
@@ -106,6 +106,13 @@ harness expands `${CLAUDE_PROJECT_DIR}`, and `run` picks `.venv/bin/python3` or
 and no install step rewrites it. It is also the only file besides `platform_law.py` allowed to know
 both venv layouts, and `test_corpus_ratchet.py` exempts it by name for that reason.
 
+`run --python` **prints** that interpreter instead of running a gate, and it exists so the exemption
+stays an exemption. A bash tool that must spawn Python — a heredoc script, anything outside
+`core/hooks/` — otherwise spells a venv path itself, which is how `python3` reached twenty places.
+`run` also exports `PYTHONIOENCODING=utf-8`, because every gate prints ⛔ ✓ ⚠ and a Python encoding
+stdout as the console codepage dies *inside its own message*, showing a traceback where a verdict
+belonged.
+
 **Why the bare word `python3` is banned here.** On Windows it reaches a Microsoft Store execution
 alias that prints an advert and exits 9009: the gate never runs, and the caller reads the advert as
 the gate's own output. Every hook in this workspace was spelled that way until 2026-08-28, so on a
@@ -169,7 +176,7 @@ per-project config.
 | LaTeX | `.texif` | `stubgen/tex-interface-gen.py` | structure, full equations, floats, citations, TODOs, section opening sentences. Also regenerates `labels.md`; a `.bib` edit warns about missing `reviews/<key>.yaml` |
 
 **To bypass the size gate temporarily**, edit `BLOCK_LINES` in [`limits.env`](limits.env), do the
-operation, revert. Both `checks/pre-edit.py` and `checks/check-line-counts.sh` read it immediately.
+operation, revert. Both `checks/pre-edit.py` and `checks/line_counts.py` read it immediately.
 
 ### A file a tool writes is not a file anyone authored
 
