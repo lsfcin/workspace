@@ -159,6 +159,14 @@ is the honest end state; it is not the fixed one.
 have it. Either it becomes a declared dependency — `platform_law.package_install` already knows how
 to install one per platform — or the workspace's contract stops being a Makefile target. Undecided.
 
+**It has already cost one true statement.** `core/tools/wos/roundup` shells `make verify-fast`, so at
+the 2026-08-28 close it exited before writing either generated block — and the § Verification block
+below therefore still reads **`2026-08-27 · green (572 passed)`** while the suite measures
+`516 passed · 78 failed`. A stale generated block is not neutral: that one asserts the workspace is
+green, which is the single claim this ledger exists to keep honest. **Nothing may hand-edit it back
+into truth** — the block is the script's to write, so the fix is making the script able to run here,
+and until then the number below is known-false and is the first thing S4 corrects.
+
 <!-- entropy:start -->
 ## Entropy
 
