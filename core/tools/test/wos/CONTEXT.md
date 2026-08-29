@@ -35,4 +35,5 @@ workspace.
 | [`test_features_wiring.py`](test_features_wiring.py) | [`test_features_wiring.pyi`](test_features_wiring.pyi) | T0 the feature registry's honesty half (core/SPECS.md § AD-14): a row claiming a switch must really have one, and throwing the switch must move the observable. |
 | [`test_flow_loops.py`](test_flow_loops.py) | [`test_flow_loops.pyi`](test_flow_loops.pyi) | T0 the flow layer's loop bound (core/flows/CONTEXT.md § Rules that hold for every flow): a step that declares a loop must declare its numeric cap. Zero-token, no network. |
 | [`test_norms.py`](test_norms.py) | [`test_norms.pyi`](test_norms.pyi) | T0 the norms layer (core/SCHEMA-layers.md § Layer: norm): the always-loaded rule block is generated, and generating it is what makes a rule switchable. |
+| [`test_permissions.py`](test_permissions.py) | [`test_permissions.pyi`](test_permissions.pyi) | T0/T1 the permission registry and its renderer: every level is fully declared, and the rendered config is a function of the declaration rather than of whatever the last session clicked. |
 <!-- routing:end -->

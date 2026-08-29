@@ -12,7 +12,7 @@ import subprocess
 
 import feature_law as law
 from conftest import WORKSPACE_ROOT
-from platform_law import interpreter
+from platform_law import interpreter, posix
 
 SKILL_MIRROR = 'core/tools/wos/skills/mirror.sh'
 NORMS_GENERATOR = 'core/hooks/routing/norms.py'
@@ -29,9 +29,12 @@ GROUP_PUBLISHERS = {SKILL_MIRROR, NORMS_GENERATOR}
 def _published_skills(off: str = '') -> set:
     """What the mirror would publish — the skills group's one observable. Sourced, not imported:
     the dispatcher is a shell fragment, and these are the variables `sync-skills` supplies."""
-    script = (f'WORKSPACE={WORKSPACE_ROOT}; SRC=$WORKSPACE/core/skills; '
+    # posix(), not str(): both become TEXT inside a bash command, where a backslash escapes
+    # the next character. The Windows spelling arrived with every separator eaten, so bash
+    # reported the fragment missing and the probe read as the mirror publishing nothing.
+    script = (f'WORKSPACE={posix(WORKSPACE_ROOT)}; SRC=$WORKSPACE/core/skills; '
               f'COMMANDS_DIR=$WORKSPACE/.claude/commands; MIRRORS=(); '
-              f'source {WORKSPACE_ROOT / SKILL_MIRROR}; list_skills')
+              f'source {posix(WORKSPACE_ROOT / SKILL_MIRROR)}; list_skills')
     env = {**os.environ, law.OFF_ENV: off} if off else os.environ
     out = subprocess.run(['bash', '-c', script], capture_output=True, text=True, env=env)
     assert out.returncode == 0, out.stderr
@@ -173,7 +176,7 @@ def test_a_switched_off_tool_refuses_to_run():
             # above. AD-14 exactly — the wiring point decides how a row is probed.
             if target == SKILL_MIRROR or not target.startswith('core/tools/'):
                 continue
-            out = subprocess.run([str(WORKSPACE_ROOT / target)], capture_output=True, text=True,
+            out = subprocess.run([interpreter(), str(WORKSPACE_ROOT / target)], capture_output=True, text=True,
                                  cwd=WORKSPACE_ROOT,
                                  env={**os.environ, law.OFF_ENV: row['slug']})
             assert out.returncode == tool_law.OFF_EXIT, (

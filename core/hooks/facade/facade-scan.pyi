@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 
-WORKSPACE: Incomplete
 FACADE_FOR: Incomplete
 _: Incomplete
 tool: Incomplete

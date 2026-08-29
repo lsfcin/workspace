@@ -10,7 +10,18 @@
 # enforced by declaration instead — core/SCHEMA.md § Retired tokens, checked by
 # entropy_ledger.py. A truncation becomes catchable the moment someone retires it.
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from platform_law import posix  # noqa: E402
+
+# A finding is TEXT: it lands in ISSUES.md and is matched against baselines spelled with `/`.
+# Spelled by the seam so the same file produces the same finding on every machine — a `\` here
+# silently un-baselined every waiver and reported reviewed exceptions as new violations.
+def _head(path) -> str:
+    return posix(path)
+
 
 AUTHORED = {'.md', '.py', '.ts', '.tsx', '.js', '.jsx', '.sh', '.dart',
             '.yaml', '.yml', '.json', '.css', '.scss', '.tex'}
@@ -44,7 +55,7 @@ def check_shape(path: Path, allowed: set) -> str | None:
         return None
     name = path.name
     if UNTYPEABLE.search(name):
-        return (f'{path}: filename carries a space or a non-ASCII character.\n'
+        return (f'{_head(path)}: filename carries a space or a non-ASCII character.\n'
                 f'   Authored files are kebab-case ASCII — they get typed, quoted and\n'
                 f'   grepped constantly, and a space breaks all three.')
     if UPPERCASE_MD.match(name):
@@ -57,7 +68,7 @@ def check_shape(path: Path, allowed: set) -> str | None:
         return None
     if STEM_OK.match(stem):
         return None
-    return (f"{path}: '{name}' is neither a lowercase instance nor a known type.\n"
+    return (f"{_head(path)}: '{name}' is neither a lowercase instance nor a known type.\n"
             f'   Lowercase instances are kebab-case (snake_case for Python modules);\n'
             f'   a type is UPPERCASE.md, optionally TYPE-<slug>.md. The mixed\n'
             f'   <slug>.TYPE.md shape is retired (core/SCHEMA.md § The `.md` type system).')
@@ -93,10 +104,10 @@ def check_placement(path: Path, scopes: dict, root: Path) -> str | None:
     parent = path.resolve().parent
     if scope == 'root':
         if parent != root.resolve():
-            return (f'{path}: {path.name} is declared root-only in core/SCHEMA.md.\n'
+            return (f'{_head(path)}: {path.name} is declared root-only in core/SCHEMA.md.\n'
                     f'   A second one competes with the first for the same authority.')
     elif scope == 'repo-root' and not (parent / '.git').exists():
-        return (f'{path}: {path.name} is declared repo-root-only in core/SCHEMA.md.\n'
+        return (f'{_head(path)}: {path.name} is declared repo-root-only in core/SCHEMA.md.\n'
                 f'   It answers "I just cloned this" — a directory nobody clones does\n'
                 f'   not get one; describe it in CONTEXT.md instead.')
     return None

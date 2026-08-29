@@ -6,7 +6,9 @@ import re
 import sys
 from pathlib import Path
 
-WORKSPACE = Path('/mnt/workspace')
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'hooks'))
+from platform_law import WORKSPACE_ROOT as WORKSPACE  # noqa: E402
+
 SPEC_LINE_RE = re.compile(r'^>\s*spec:\s*(\S.*?)\s*$', re.MULTILINE)
 STATUS_RE = re.compile(r'^status:\s*(\w+)', re.MULTILINE)
 SKIP = {'.git', 'node_modules', 'dist', '.codegraph', '__pycache__', '.venv', '.craft'}

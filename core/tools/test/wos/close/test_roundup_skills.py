@@ -77,13 +77,23 @@ def test_the_template_has_no_placeholder_to_fill():
     assert 'Omit the whole section' in template
 
 
+def _state_labels() -> list:
+    """The close's state labels, in order, read out of the one place that declares them.
+
+    Read from the script rather than restated here for the same reason the skills may not name
+    them: a second copy of this list rots without failing anything.
+    """
+    declared = re.search(r'^STATE = \(([^)]*)\)', TOOL, re.MULTILINE)
+    return re.findall(r"'([a-z]+)'", declared.group(1)) if declared else []
+
+
 def test_the_state_block_is_whatever_the_tool_printed():
     """Re-deriving the facts costs a second round of git at the most expensive turn, and lets the
     two disagree. Naming the lines is the same defect one level up: both skills promised three
     (`verify:`/`entropy:`/`sync:`) while the script printed six, and nothing failed. So the skills
     name none, and this asserts they name none — the label list lives only in the script."""
-    printed = set(re.findall(r"printf '([a-z]+): ", TOOL))
-    assert printed, 'core/tools/wos/roundup no longer prints a labelled state line'
+    printed = set(_state_labels())
+    assert printed, 'core/tools/wos/roundup no longer declares its state labels'
     state = _template().split('### State')[-1]
     assert 'verbatim' in state
     for skill, text in (('roundup.md', ROUNDUP_SKILL), ('handoff.md', HANDOFF_SKILL)):
@@ -97,15 +107,7 @@ def test_what_the_session_cost_prints_before_the_state():
     """Ruled 2026-08-25: the cost line printed fifth and was read last, though it is the fact that
     opened the whole cost frente. What the session spent and whether the workspace shrank lead;
     verify/sync/entropy follow, because those are for the next session rather than for Lucas."""
-    printed = []
-    for line in TOOL.splitlines():
-        if 'printf' not in line:
-            continue
-        labelled = re.search(r"printf '([a-z]+): ", line)
-        if labelled:
-            printed.append(labelled.group(1))
-        elif re.search(r"printf '%s\\n' \"\$(COST|SIZE)\"", line):
-            printed.append(re.search(r'\$(COST|SIZE)', line).group(1).lower())
+    printed = _state_labels()
     assert printed[:2] == ['cost', 'size'], f'the close no longer leads with what it cost: {printed}'
     assert printed[2:4] == ['verify', 'sync'], printed
 

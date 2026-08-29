@@ -8,18 +8,19 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from hook_input import load_seen, mark_seen, parse_stdin
+from platform_law import session_state  # noqa: E402
 
 IFACE_SUFFIXES = ('.d.ts', '.pyi', '.dart.api', '.texif', '.csvif')
 
 
 def _record_iface(session_id: str, path: str) -> None:
-	marker = Path(f'/tmp/claude_iface_seen_{session_id}.txt')
+	marker = session_state(f'claude_iface_seen_{session_id}.txt')
 	try:
 		seen = set(marker.read_text(encoding='utf-8').splitlines()) if marker.exists() else set()
 	except OSError:
 		seen = set()
 	if path not in seen:
-		with marker.open('a') as f:
+		with marker.open('a', encoding='utf-8') as f:
 			f.write(path + '\n')
 
 

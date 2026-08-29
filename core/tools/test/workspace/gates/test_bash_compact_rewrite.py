@@ -10,19 +10,20 @@
 # own logic rather than the binary's rewrite table.
 import json
 import os
+import shutil
 import subprocess
 
 import pytest
 
 from conftest import WORKSPACE_ROOT
-from platform_law import interpreter
+from platform_law import install_command, interpreter
 
 SHIM = WORKSPACE_ROOT / 'core/hooks/compact/bash-compact-rewrite.py'
 
 # Mimics the real binary: reads the FIRST line only, and declines when that line is not its business.
-STUB = '''#!/usr/bin/env python3
-import json, sys
-from platform_law import interpreter
+# No shebang: install_command owns how a command becomes runnable, which is not the same mechanism
+# on every machine, and the stub has no business knowing which one it got.
+STUB = '''import json, sys
 HANDLED = {'git', 'ls', 'grep'}
 payload = json.load(sys.stdin)
 command = payload.get('tool_input', {}).get('command', '')
@@ -47,16 +48,17 @@ def _path_without_rtk() -> str:
 @pytest.fixture
 def rtk_path(tmp_path):
 	"""A PATH whose only `rtk` is the stub above."""
-	fake = tmp_path / 'rtk'
-	fake.write_text(STUB, encoding='utf-8')
-	fake.chmod(0o755)
+	install_command(tmp_path, 'rtk', STUB)
 	return f'{tmp_path}{os.pathsep}{_path_without_rtk()}'
 
 
 def _run(command: str, path: str, tool: str = 'Bash', counter: str = '') -> str:
 	payload = {'session_id': 'test', 'cwd': str(WORKSPACE_ROOT), 'tool_name': tool,
 	           'tool_input': {'command': command, 'description': 'd'}}
-	env = {'PATH': path}
+	# PATH is overridden, the rest of the environment is INHERITED. Replacing it outright is a
+	# POSIX habit: on Windows a bare env has no PATHEXT (so `which` cannot tell what is runnable)
+	# and no COMSPEC (so nothing can launch what it finds), and the shim then reports rtk absent.
+	env = {**os.environ, 'PATH': path}
 	if counter:
 		env['RTK_COMPACT_DIR'] = counter
 	done = subprocess.run([interpreter(), str(SHIM)], input=json.dumps(payload),
@@ -96,8 +98,10 @@ def test_shell_it_cannot_read_is_left_exactly_as_written(command, rtk_path) -> N
 
 def _rewritten_by_stub_alone(command: str, path: str) -> str | None:
 	payload = {'tool_name': 'Bash', 'tool_input': {'command': command, 'description': 'd'}}
-	done = subprocess.run(['rtk', 'hook', 'claude'], input=json.dumps(payload),
-	                      capture_output=True, text=True, env={'PATH': path})
+	env = {**os.environ, 'PATH': path}
+	done = subprocess.run([shutil.which('rtk', path=path), 'hook', 'claude'],
+	                      input=json.dumps(payload),
+	                      capture_output=True, text=True, env=env)
 	if not done.stdout.strip():
 		return None
 	return json.loads(done.stdout)['hookSpecificOutput']['updatedInput']['command']

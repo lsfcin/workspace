@@ -14,6 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law
 from hook_input import parse_stdin
+from platform_law import session_state  # noqa: E402
 
 # Bound the subprocess fan-out: one rtk call per line, so a huge payload delegates instead.
 MAX_LINES = 30
@@ -30,9 +31,15 @@ def ask_rtk(command: str) -> str | None:
 		'tool_name': 'Bash',
 		'tool_input': {'command': command},
 	})
+	# RESOLVED, NEVER THE BARE WORD. `which` honours PATHEXT, so it finds rtk however this machine
+	# spells an executable; handing the bare name to subprocess does not — CreateProcess resolves
+	# only against .exe, so anything else on PATH is invisible and reads as "rtk declined".
+	found = shutil.which('rtk')
+	if not found:
+		return None
 	try:
 		done = subprocess.run(
-			['rtk', 'hook', 'claude'], input=payload,
+			[found, 'hook', 'claude'], input=payload,
 			capture_output=True, text=True, timeout=10,
 		)
 	except (OSError, subprocess.SubprocessError):
@@ -73,11 +80,13 @@ def record(session_id: str, verdict: str, lines: int) -> None:
 	Ephemeral on purpose; the trend belongs in core/experiments/, not in a file that churns git."""
 	if not session_id:
 		return
-	# Overridable so the suite can assert on an isolated dir instead of the shared /tmp path,
+	# Overridable so the suite can assert on an isolated dir instead of the shared temp path,
 	# and so a harness that owns its own state directory can point this at it.
-	directory = os.environ.get('RTK_COMPACT_DIR', '/tmp')
+	name = f'claude_rtk_compact_{session_id}.tsv'
+	override = os.environ.get('RTK_COMPACT_DIR')
+	target = Path(override) / name if override else session_state(name)
 	try:
-		with open(f'{directory}/claude_rtk_compact_{session_id}.tsv', 'a', encoding='utf-8') as handle:
+		with open(target, 'a', encoding='utf-8') as handle:
 			handle.write(f'{verdict}\t{lines}\n')
 	except OSError:
 		pass  # counting must never be able to break the command being counted

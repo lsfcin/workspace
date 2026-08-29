@@ -11,9 +11,17 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+# The verification contract lives with the verify docs, not with the hooks — one definition, two
+# consumers. Bound to a distinct name so it cannot be confused with a project's own `contract.py`.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'tools/verify'))
+import contract as contract_law  # noqa: E402
 import feature_law  # noqa: E402
 from pre_commit import Blocked, git, spawn  # noqa: E402
 
+# NARROWER THAN file_law.is_code_file ON PURPOSE, and named as its own population in
+# test_file_law.NOT_THE_CODE_LAW: this asks which languages a project runs a SUITE for, not what
+# the workspace calls code. Staging a .tex, .css or .sh does not oblige a project to declare
+# verify:fast. Importing the file law here would widen the gate without anyone deciding to.
 CODE_SUFFIX = ('.js', '.jsx', '.ts', '.tsx', '.py', '.dart')
 GOAL_LINE = r'^>\s*goal:\s*(\[[^]]+\]\([^)]+\)|none)\s*$'
 
@@ -31,22 +39,15 @@ def _under_code(commit) -> bool:
         return False
 
 
-def _contract(commit) -> str:
+def _contract(commit) -> list:
     """Which verify:fast contract this project declares, if any.
 
-    Discovery is stack-agnostic on purpose: an npm script or a Makefile target, either satisfies it.
-    A new project opts in by naming a script rather than by wiring anything.
+    Asked of core/tools/verify/contract.py, which is the one definition of what counts as declared —
+    shared with core/tools/wos/roundup, which asks the same question one tier up. Two copies of an
+    ordered discovery list is exactly how the gate and the close would come to disagree about
+    whether a project has a contract at all.
     """
-    package = commit.toplevel / 'package.json'
-    if package.is_file() and '"verify:fast"' in package.read_text(encoding='utf-8',
-                                                                 errors='replace'):
-        return 'npm run --silent verify:fast'
-    makefile = commit.toplevel / 'Makefile'
-    if makefile.is_file() and any(line.startswith('verify-fast:') for line in
-                                  makefile.read_text(encoding='utf-8',
-                                                     errors='replace').splitlines()):
-        return 'make verify-fast'
-    return ''
+    return contract_law.discover(commit.toplevel, 'fast')
 
 
 def project_contract(commit):
@@ -95,21 +96,22 @@ def _run_suite(commit, contract):
     reporting that as "verify:fast is red — fix before committing" tells the operator their tests
     failed when nothing ran. That is precisely the shape this pipeline was ported to remove, so the
     missing runner warns and names its install instead of blocking on a result nobody produced.
+
+    RESOLVED, AND NEVER THROUGH A SHELL. `which` honours PATHEXT, so `npm` is found however this
+    machine spells it; a bare name handed to subprocess is resolved only against .exe, and
+    `shell=True` on a string made the quoting of an interpreter path the caller's problem.
     """
-    import subprocess
-    from shutil import which
-    runner = contract.split()[0]
-    if not which(runner):
-        print(f'⚠  {runner} not found — verify:fast not run for {commit.toplevel.name}.')
-        print(f'   Install it, or declare a contract this machine can run. SETUP.md § {runner}.\n')
-        return
+    label = contract[0]
     print('→ verify:fast…')
-    done = subprocess.run(contract, shell=True, cwd=commit.toplevel, capture_output=True,
-                          text=True, encoding='utf-8', errors='replace')
-    if done.returncode != 0:
-        tail = '\n'.join((done.stdout + done.stderr).splitlines()[-30:])
+    code, log = contract_law.run(commit.toplevel, contract)
+    if code is None:
+        print(f'⚠  {contract[1]} not found — verify:fast not run for {commit.toplevel.name}.')
+        print(f'   Install it, or declare a contract this machine can run. SETUP.md § {label}.\n')
+        return
+    if code != 0:
+        tail = '\n'.join(log.splitlines()[-30:])
         raise Blocked(f'{tail}\n⛔ verify:fast is red — fix before committing. '
-                      f'Full output: {contract}')
+                      f'Full output: {label}')
     print('✓ verify:fast green')
 
 

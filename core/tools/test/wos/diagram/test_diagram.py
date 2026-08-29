@@ -6,6 +6,7 @@
 # dropped, so the drawing looks complete while a subtree is missing, and an inferred edge drawn
 # like a declared one. Both are checked here. A drawing nobody can trust is worse than none,
 # because it is believed.
+import os
 import subprocess
 
 import diagram_data as data
@@ -17,13 +18,16 @@ import diagram_treemap as mass_form
 import feature_law as law
 import tool_law
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
 TOOL = WORKSPACE_ROOT / 'core/tools/wos/diagram/architecture'
 
 
 def _run(*args, off=''):
-    env = {'PATH': '/usr/bin:/bin', law.OFF_ENV: off} if off else None
-    return subprocess.run([str(TOOL), *args], capture_output=True, text=True,
+    # Inherited, with only the switch overridden: a replaced environment loses the variables the
+    # interpreter needs to start on some systems, which reads as the feature switch failing.
+    env = {**os.environ, law.OFF_ENV: off} if off else None
+    return subprocess.run([interpreter(), str(TOOL), *args], capture_output=True, text=True,
                           cwd=WORKSPACE_ROOT, env=env)
 
 
@@ -68,11 +72,18 @@ def test_coverage_names_a_block_it_could_not_read(tmp_path):
     assert ('', 'sub') in edges
 
 
-def test_the_inferred_edges_are_labelled_as_inferred(tmp_path):
-    """No machine-readable hook-trigger registry exists yet, so the firing moment is a convention
-    and the page must say so. The day the registry lands this test changes with it."""
+def test_nothing_on_the_page_is_guessed_at(tmp_path):
+    """The registry landed, and this is the change its predecessor asked for by name.
+
+    *When a hook fires* was the page's last inferred edge, guessed from directory convention until
+    trigger_law.py began reading it out of the registrations — so the assertion flips: the firing
+    moment is now READ, and what the registrations cannot place is counted as a gap rather than
+    guessed at. The page still carries the word, because the footer states what it inferred, and
+    stating "nothing" is the honest form of that claim.
+    """
     when, inferred = data.trigger_of('core/hooks/checks')
-    assert inferred and when != 'unknown'
+    assert not inferred and when != 'unknown', (
+        'a firing moment is being guessed again — trigger_law.py reads it from the registrations')
     html, _out = _page(tmp_path)
     assert 'inferred' in html
 

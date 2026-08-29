@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from pathlib import Path
 
-WORKSPACE: Incomplete
 CODE_ROOT: Incomplete
 GATED_TOOLS: Incomplete
 EXEMPT_NAMES: Incomplete

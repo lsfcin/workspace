@@ -18,6 +18,7 @@ from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 
 from file_law import (CODE_EXTS, allowed_extensionless,  # noqa: E402
                       is_code_file, is_vendored, load_limits)
+from platform_law import posix  # noqa: E402
 
 HOOKS = WORKSPACE_ROOT / 'core/hooks'
 
@@ -94,7 +95,10 @@ def test_the_vendored_waiver_reaches_the_edit_gate() -> None:
     depth = int(re.search(r'WORKSPACE_ROOT = Path\(__file__\)\.resolve\(\)\.parents\[(\d+)\]',
                           gate.read_text(encoding='utf-8')).group(1))
     root = gate.resolve().parents[depth]
-    vendored = WORKSPACE_ROOT / 'code/corpora/depth_anything_v2/_vit_helpers.py'
+    # A vendored file this repo TRACKS. The fixture was code/corpora/depth_anything_v2/, which
+    # lives in a NESTED repo — so on any clone that has not also cloned it, this failed for a
+    # reason the workspace cannot fix, and blamed a fixture that had not moved.
+    vendored = WORKSPACE_ROOT / 'academy/administration/pda/template_extracted/word/document.xml'
     assert vendored.exists(), 'fixture moved — pick another path listed in vendored.txt'
     assert is_vendored(vendored, root)
 
@@ -135,6 +139,9 @@ NOT_THE_CODE_LAW = {
     'entropy/entropy_naming.py':      'AUTHORED — the files our naming rules apply to',
     'facade/check-facade-imports.py': 'per-language import syntax, not file-ness',
     'facade/facade-scan.py':          'extension -> facade filename',
+    'commit/gates_project.py':        'TESTED — languages a code/ project runs a suite for, which '
+                                      'is narrower than "code": staging a .tex or .css does not '
+                                      'oblige a project to declare verify:fast',
 }
 
 
@@ -147,15 +154,19 @@ def test_no_checker_carries_its_own_extension_list() -> None:
     """
     offenders = []
     for path in sorted(HOOKS.rglob('*')):
-        rel = path.relative_to(HOOKS)
-        if any(part.startswith(('.', '_')) for part in rel.parts):
+        relative = path.relative_to(HOOKS)
+        if any(part.startswith(('.', '_')) for part in relative.parts):
             continue
-        if not path.is_file() or not is_code_file(path) or str(rel) in NOT_THE_CODE_LAW:
+        # posix(), not str(): the keys below are spelled with `/`, and on a clone where a path
+        # stringifies with `\` not one exemption matched — so four reviewed populations were
+        # reported as offenders and the real ones were invisible in the noise.
+        name = posix(relative)
+        if not path.is_file() or not is_code_file(path) or name in NOT_THE_CODE_LAW:
             continue
         source = path.read_text(encoding='utf-8', errors='ignore')
         restates = ("'.py'" in source and "'.ts'" in source) or 'js|ts|tsx|py' in source
         if restates and 'file_law' not in source:
-            offenders.append(str(rel))
+            offenders.append(name)
     assert not offenders, (
         f'these restate the code-file law instead of importing file_law: {offenders}. '
         f'If the set is a different population, add it to NOT_THE_CODE_LAW with the reason.')

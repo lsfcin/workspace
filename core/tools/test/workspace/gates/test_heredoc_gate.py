@@ -13,9 +13,13 @@ import subprocess
 import pytest
 
 from conftest import WORKSPACE_ROOT
-from platform_law import interpreter
+from platform_law import interpreter, posix
 
 GATE = WORKSPACE_ROOT / 'core/hooks/checks/heredoc-gate.py'
+# The cases below need this clone's root spelled INSIDE a shell command, which is the seam's
+# `posix` case exactly. They were literal `/mnt/workspace`, so on any other clone the gate
+# correctly found no workspace file and the test read as a gate that had stopped firing.
+WS = posix(WORKSPACE_ROOT)
 
 
 def run(command: str, tool: str = 'Bash') -> str:
@@ -31,10 +35,10 @@ def run(command: str, tool: str = 'Bash') -> str:
 
 
 @pytest.mark.parametrize('command', [
-	"cat > /mnt/workspace/brain/INBOX.md << 'EOF'\nx\nEOF",
-	"cat >> /mnt/workspace/HISTORY.md <<'EOF'\nx\nEOF",
-	"tee /mnt/workspace/notes.md <<'EOF'\nx\nEOF",
-	"tee -a /mnt/workspace/notes.md <<'EOF'\nx\nEOF",
+	f"cat > {WS}/brain/INBOX.md << 'EOF'\nx\nEOF",
+	f"cat >> {WS}/HISTORY.md <<'EOF'\nx\nEOF",
+	f"tee {WS}/notes.md <<'EOF'\nx\nEOF",
+	f"tee -a {WS}/notes.md <<'EOF'\nx\nEOF",
 	"cat > notes.md <<'EOF'\nx\nEOF",
 ])
 def test_a_heredoc_that_writes_a_workspace_file_is_named(command):
@@ -47,9 +51,9 @@ def test_a_heredoc_that_writes_a_workspace_file_is_named(command):
 	"python3 - 2>/dev/null <<'EOF'\nprint(1)\nEOF",
 	"bash <<'EOF'\nls\nEOF",
 	"cat <<'EOF'\njust printing\nEOF",
-	"grep x <<< '/mnt/workspace/a.md'",
+	f"grep x <<< '{WS}/a.md'",
 	'echo hi',
-	'cat /mnt/workspace/README.md',
+	f'cat {WS}/README.md',
 ])
 def test_analysis_and_ordinary_shell_stay_silent(command):
 	"""Nothing here writes a workspace file, and a false fire is what kills a warn-only gate."""
@@ -63,16 +67,16 @@ def test_a_write_outside_the_workspace_is_not_this_gate_s_business():
 
 def test_a_redirect_inside_the_heredoc_body_is_text_not_shell():
 	"""The body is data. Parsing it would fire on any script that merely mentions a path."""
-	assert run("python3 - <<'EOF'\nopen('> /mnt/workspace/z.md', 'w')\nEOF") == ''
+	assert run(f"python3 - <<'EOF'\nopen('> {WS}/z.md', 'w')\nEOF") == ''
 
 
 def test_the_message_names_one_action():
 	"""AGENTS.md: agent-facing text names one flow. Two suggestions is a decision to improvise on."""
-	message = run("cat > /mnt/workspace/x.md <<'EOF'\nx\nEOF")
+	message = run(f"cat > {WS}/x.md <<'EOF'\nx\nEOF")
 	assert 'Write tool' in message
 	assert message.count('Use ') == 1
 
 
 def test_a_non_bash_tool_is_not_touched():
 	"""Registered on Bash, but a shim may hand it anything; Edit and Write have their own gates."""
-	assert run("cat > /mnt/workspace/x.md <<'EOF'\nx\nEOF", tool='Write') == ''
+	assert run(f"cat > {WS}/x.md <<'EOF'\nx\nEOF", tool='Write') == ''

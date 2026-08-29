@@ -18,7 +18,7 @@ from pathlib import Path
 import pytest
 
 from conftest import WORKSPACE_ROOT
-from platform_law import interpreter
+from platform_law import interpreter, rel
 
 PRE_EDIT = WORKSPACE_ROOT / "core/hooks/checks/pre-edit.py"
 # Any file under a subtree carrying a CONTEXT.md chain; its content is irrelevant.
@@ -73,7 +73,7 @@ def _blocking_case(gate: str, tmp_path: Path):
             "content": "## B99 — a bug — FIXED\n"}}, "ISSUES GATE"
     elif name == "bash-context-gate.py":
         yield {"tool_name": "Bash",
-               "tool_input": {"command": f"wc -l {DEEP_FILE}"}}, "CONTEXT GATE"
+               "tool_input": {"command": f"wc -l {rel(DEEP_FILE)}"}}, "CONTEXT GATE"
     elif name == "context-gate.py":
         yield {"tool_name": "Read",
                "tool_input": {"file_path": str(DEEP_FILE)}}, "CONTEXT GATE"
@@ -86,8 +86,7 @@ def _blocking_case(gate: str, tmp_path: Path):
             "file_path": str(mod / "a.py"),
             "old_string": "1", "new_string": "2"}}, "READ FACADE FIRST"
     else:
-        # spec-read-gate.py hardcodes /mnt/workspace/code, so the probe module must really
-        # live there. code/* is gitignored, and the tree is restored however the test ends.
+        # The gate walks up to the workspace root, so the probe must really live under code/.
         mod = WORKSPACE_ROOT / "code" / f"_spec_gate_probe_{uuid.uuid4().hex[:8]}"
         mod.mkdir(parents=True)
         try:

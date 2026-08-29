@@ -10,7 +10,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'core' / 'hooks'))
 
+sys.path.insert(0, str(ROOT / 'core' / 'tools'))
 import feature_law as law  # noqa: E402  — path is set above, which is the house pattern
+import tool_law  # noqa: E402
 
 REGISTRY = ROOT / 'core' / 'permissions.txt'
 PROFILE = ROOT / 'core' / 'profile.txt'
@@ -150,10 +152,10 @@ def _listing() -> int:
 
 
 def main() -> int:
-    if not law.is_enabled('permissions'):
-        print('permissions is switched off in core/profile.txt — nothing is rendered',
-              file=sys.stderr)
-        return 1
+    # Through the shared guard, not a hand-rolled one. This refused with exit 1, which is what
+    # every real error here also exits with — so an ablation arm could not tell "switched off"
+    # from "ran and failed", the one distinction OFF_EXIT exists to carry (core/SPECS.md § AD-14).
+    tool_law.require('permissions')
     ap = argparse.ArgumentParser(add_help=True)
     ap.add_argument('--set', dest='tier')
     ap.add_argument('--check', action='store_true')

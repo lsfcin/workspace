@@ -4,16 +4,21 @@ import base64, pathlib, subprocess
 import anthropic
 import sys as _sys, pathlib as _pathlib
 _sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[1]))  # tools root
+_sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[2] / 'hooks'))
 import attachments_util
+from platform_law import WORKSPACE_ROOT, interpreter
 
-BRAIN_ATTACHMENTS = pathlib.Path("/mnt/workspace/brain/attachments")
+BRAIN_ATTACHMENTS = WORKSPACE_ROOT / "brain/attachments"
 
 
 def _extract_text(filepath: pathlib.Path) -> str:
     """Try to extract text from file using Core/tools/parse."""
     try:
+        # Spawned through interpreter(), never by its own path: `parse` is an extensionless script
+        # whose shebang only means anything on POSIX, so naming it alone fails with WinError 193
+        # here -- and this arm swallows every exception, so the summary would just come back empty.
         result = subprocess.run(
-            ["/mnt/workspace/core/tools/paper/parse", str(filepath)],
+            [interpreter(), str(WORKSPACE_ROOT / "core/tools/paper/parse"), str(filepath)],
             capture_output=True, text=True, timeout=30,
         )
         return result.stdout[:3000] if result.returncode == 0 else ""

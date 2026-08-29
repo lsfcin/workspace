@@ -3,7 +3,11 @@
 # checks forbid. Split from entropy_ledger.py 2026-07-30 at the 150-line warn: enumerating
 # the corpus is a different job from asserting things about it.
 import subprocess
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from platform_law import posix  # noqa: E402
 
 SCANNED = {'.md', '.py', '.ts', '.tsx', '.js', '.jsx', '.sh', '.dart',
            '.yaml', '.yml', '.json', '.css', '.scss', '.tex', ''}
@@ -74,7 +78,11 @@ MIRRORS = ('.claude/', '.opencode/', '.github/', '.zcode/skills/')
 
 
 def is_generated_mirror(path: Path) -> bool:
-    return any(part in str(path) for part in MIRRORS)
+    # Matched against the SEAM's spelling, never str(). These markers carry `/`, so on a clone
+    # where a path stringifies with `\` not one of them matched and every mirror was judged as
+    # authored prose — findings against files nobody can edit, in the report that exists to list
+    # only what someone can act on.
+    return any(part in posix(path) for part in MIRRORS)
 
 
 # The law, the check that enforces it, that check's tests, and the report that quotes the

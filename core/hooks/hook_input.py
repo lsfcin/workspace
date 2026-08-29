@@ -3,7 +3,11 @@ import json
 import os
 import subprocess
 import sys
+from pathlib import Path
 from typing import Any
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from platform_law import session_state  # noqa: E402
 
 
 def _ppid_session() -> str:
@@ -58,7 +62,7 @@ def is_subagent(raw: dict[str, Any]) -> bool:
 
 
 def seen_file(session_id: str) -> str:
-	return f'/tmp/claude_ctx_seen_{session_id}.txt'
+	return str(session_state(f'claude_ctx_seen_{session_id}.txt'))
 
 
 def load_seen(session_id: str) -> set[str]:

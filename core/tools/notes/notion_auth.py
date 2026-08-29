@@ -1,6 +1,9 @@
 #!/mnt/workspace/.venv/bin/python3
 # notion_auth.py — Notion's integration-token store, and the instructions a failure prints
-import json, pathlib
+import json, pathlib, sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / 'hooks'))
+from platform_law import secure_dir, secure_file
 
 SERVICE = "notion"
 INTEGRATIONS = "https://www.notion.so/my-integrations"
@@ -18,7 +21,10 @@ class NotShared(RuntimeError):
 def config_dir() -> pathlib.Path:
     d = pathlib.Path.home() / ".config" / f"workspace-{SERVICE}"
     d.mkdir(parents=True, exist_ok=True)
-    d.chmod(0o700)
+    # Asked of the seam, never chmod'd here. On Windows chmod(0o700) accepts the number, returns
+    # cleanly and changes nothing about who may enter — a false green on a directory holding a
+    # secret, which is worse than no call at all because the caller is told it is protected.
+    secure_dir(d)
     return d
 
 
@@ -30,7 +36,7 @@ def save_token(alias: str, token: str) -> pathlib.Path:
     """Store the secret readable by nobody else. This file is the only copy we keep."""
     path = token_path(alias)
     path.write_text(json.dumps({"token": token.strip()}, indent=2) + "\n", encoding='utf-8')
-    path.chmod(0o600)
+    secure_file(path)
     return path
 
 

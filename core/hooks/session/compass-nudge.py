@@ -10,8 +10,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
+from platform_law import WORKSPACE_ROOT  # noqa: E402
 
-COMPASS_LOG = '/mnt/workspace/brain/.log/compass-last.txt'
+COMPASS_LOG = WORKSPACE_ROOT / 'brain/.log/compass-last.txt'
 STALE_DAYS = 14  # ~2x/month rhythm; below this, stay silent
 
 

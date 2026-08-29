@@ -14,6 +14,7 @@ import diagram_health as health
 import diagram_overview as overview_form
 import feature_law as law
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
 TOOL = WORKSPACE_ROOT / 'core/tools/wos/diagram/architecture'
 
@@ -127,7 +128,7 @@ def test_the_summary_needs_no_click(tmp_path):
     screen before any interaction — the fan-in shapes especially, since Lucas cuts two of the three
     by looking at them and a shape behind a click does not get looked at."""
     out = tmp_path / 'ARCHITECTURE.html'
-    result = subprocess.run([str(TOOL), '--out', str(out)], capture_output=True, text=True,
+    result = subprocess.run([interpreter(), str(TOOL), '--out', str(out)], capture_output=True, text=True,
                             cwd=WORKSPACE_ROOT)
     assert result.returncode == 0, result.stdout + result.stderr
     html = out.read_text(encoding='utf-8')

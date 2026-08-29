@@ -3,6 +3,7 @@
 # Both cases here are bugs the tool shipped with and quoted as authority for weeks. It summed
 # transcript *records* rather than API responses — 1.97x over the real project — and it treated
 # thinking as thread content, which it never is, inflating the self-authored share from 12% to 75%.
+import os
 import json
 import subprocess
 import sys
@@ -121,9 +122,14 @@ def test_a_thinking_heavy_session_does_not_read_as_self_authored(tmp_path):
 	records = [response(10_000 * n, 5_000, [thinking(), text('ok')], f'r{n}')
 	           for n in range(1, 11)]
 	(root / 's1.jsonl').write_text('\n'.join(json.dumps(r) for r in records) + '\n', encoding='utf-8')
+	# INHERIT, then override home under BOTH names. Replacing the environment outright is a POSIX
+	# habit: a bare env has no USERPROFILE, and Path.home() reads USERPROFILE rather than HOME on
+	# Windows — so the tool crashed resolving home. Setting both names redirects it on either
+	# system with no branch, and inheriting the rest keeps the interpreter able to start at all.
+	# Redirection is the point: without it this reads Lucas's real transcripts.
+	home = {'HOME': str(tmp_path), 'USERPROFILE': str(tmp_path)}
 	out = subprocess.run([sys.executable, str(USAGE), '--project', 'proj'],
-	                     capture_output=True, text=True, env={'HOME': str(tmp_path),
-	                                                          'PATH': '/usr/bin:/bin'})
+	                     capture_output=True, text=True, env={**os.environ, **home})
 	assert out.returncode == 0, out.stderr
 	printed = ' '.join(out.stdout.split())
 	assert '10 turns' in printed

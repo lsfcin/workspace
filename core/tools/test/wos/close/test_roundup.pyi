@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
 
-ROUNDUP: Incomplete
-MAKEFILE: Incomplete
-RED_MAKEFILE: Incomplete
+DASHBOARD: Incomplete
+GREEN: Incomplete
+RED: Incomplete
 SEEDED_ISSUES: str
+PARTS: Incomplete
 
 def test_dirty_stop_prints_the_paths_and_asks_whose(tmp_path) -> None: ...
 def test_dirty_stop_does_not_assert_whose_work_it_is(tmp_path) -> None: ...

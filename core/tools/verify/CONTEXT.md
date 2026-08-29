@@ -31,9 +31,24 @@ the two scripts every `code/` project declares. The pre-commit gate blocks a mis
 
 `code/isoroll-module/test/` — `unit/` (T1, vitest+fast-check) and `e2e/` (T2, Playwright vs live
 Foundry) are the working shapes to copy; its own `CONTEXT.md` lays out the runner and the rules
-as this project applies them. Extraction here waits on a second consumer (`code/ROADMAP-verify.md` A1).
+as this project applies them.
+
+## How a repo declares it
+
+[`contract.py`](contract.py) is the one definition of *what counts as declared* and *how to run it*:
+a root `verify.py`, an npm `verify:<level>` script, or a `Makefile` target, in that order. Two
+consumers now share it — the pre-commit gate and `core/tools/wos/roundup` — which is the second
+consumer this section used to be waiting for.
+
+**`verify.py` leads because it is the only form that can ask which interpreter to use.** The other
+two name a program that must already be installed and already spelled right for this machine: the
+workspace declared `make verify-fast`, the gate discovered it, and on a machine without `make`
+nothing ran while the gate stayed green.
 
 <!-- routing:start -->
 ## Routing
 
+| File | API | Description |
+|------|-----|-------------|
+| [`contract.py`](contract.py) | `discover`, `run` | How a repo declares its verification, and how to run what it declared. One definition. |
 <!-- routing:end -->

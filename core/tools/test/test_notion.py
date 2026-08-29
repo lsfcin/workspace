@@ -6,7 +6,7 @@ import subprocess
 import pytest
 
 import notion_auth, notion_core, notion_outline
-from platform_law import interpreter
+from platform_law import interpreter, is_owner_only
 
 TOOLS_ROOT = pathlib.Path(__file__).resolve().parents[1]
 WORKSPACE_ROOT = TOOLS_ROOT.parents[1]
@@ -90,7 +90,7 @@ def test_reading_a_page_does_not_drag_in_every_sub_page(monkeypatch):
 
 
 def test_a_missing_token_names_the_one_command_that_stores_one(monkeypatch, tmp_path):
-    monkeypatch.setenv("HOME", str(tmp_path))
+    monkeypatch.setattr(notion_auth, "config_dir", lambda: tmp_path)
     with pytest.raises(notion_auth.AuthMissing) as failure:
         notion_auth.load_token("personal")
     text = str(failure.value)
@@ -100,7 +100,7 @@ def test_a_missing_token_names_the_one_command_that_stores_one(monkeypatch, tmp_
 
 def test_the_recovery_text_names_a_tool_that_exists(monkeypatch, tmp_path):
     """The instruction is only runnable while its path is real. Renames rot it silently."""
-    monkeypatch.setenv("HOME", str(tmp_path))
+    monkeypatch.setattr(notion_auth, "config_dir", lambda: tmp_path)
     for text in (notion_auth.setup_text("personal"), notion_auth.revoked_text("personal"),
                  notion_auth.not_shared_text("personal", "the class page")):
         named = [word for line in text.splitlines() for word in line.split()
@@ -116,7 +116,7 @@ def test_lucas_is_only_ever_asked_for_what_happens_inside_notion(monkeypatch, tm
     Minting a secret and connecting a page are Notion-side clicks nobody else can make. Storing
     the result is not — so no CLI path may appear above the AGENT line.
     """
-    monkeypatch.setenv("HOME", str(tmp_path))
+    monkeypatch.setattr(notion_auth, "config_dir", lambda: tmp_path)
     for text in (notion_auth.setup_text("personal"), notion_auth.revoked_text("personal")):
         his_half, _, agents_half = text.partition("AGENT:")
         assert "core/tools/" not in his_half, f"handed Lucas a command to type:\n{his_half}"
@@ -125,7 +125,7 @@ def test_lucas_is_only_ever_asked_for_what_happens_inside_notion(monkeypatch, tm
 
 def test_the_secret_is_never_stored_through_a_command_argument(monkeypatch, tmp_path):
     """argv is readable by any process of this user, and survives in shell history."""
-    monkeypatch.setenv("HOME", str(tmp_path))
+    monkeypatch.setattr(notion_auth, "config_dir", lambda: tmp_path)
     text = notion_auth.setup_text("personal")
     assert "printf" in text and "| core/tools/notes/notion auth" in text
 
@@ -138,9 +138,9 @@ def test_a_404_blames_the_connection_before_it_blames_the_id():
 
 
 def test_the_stored_secret_is_not_readable_by_anyone_else(monkeypatch, tmp_path):
-    monkeypatch.setenv("HOME", str(tmp_path))
+    monkeypatch.setattr(notion_auth, "config_dir", lambda: tmp_path)
     path = notion_auth.save_token("personal", "ntn_secret")
-    assert path.stat().st_mode & 0o077 == 0, "token file is group/world readable"
+    assert is_owner_only(path), "token file is readable by someone other than its owner"
     assert notion_auth.load_token("personal") == "ntn_secret"
 
 

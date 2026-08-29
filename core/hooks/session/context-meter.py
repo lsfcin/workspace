@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from file_law import load_limits  # noqa: E402
 from hook_input import parse_stdin  # noqa: E402
+from platform_law import session_state  # noqa: E402
 
 TAIL_BYTES = 512 * 1024
 
@@ -24,7 +25,7 @@ TAIL_BYTES = 512 * 1024
 
 
 def state_file(session_id: str) -> str:
-	return f'/tmp/claude_ctx_meter_{session_id}.txt'
+	return str(session_state(f'claude_ctx_meter_{session_id}.txt'))
 
 
 def announced(session_id: str) -> int:

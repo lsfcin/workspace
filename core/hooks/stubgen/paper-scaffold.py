@@ -81,7 +81,7 @@ TODO: brief summary — contribution, target venue, status.
 ## Build
 
 ```bash
-cd /mnt/workspace/academy/papers/{slug}
+cd academy/papers/{slug}
 latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
 ```
 

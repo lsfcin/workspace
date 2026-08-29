@@ -10,9 +10,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from hook_input import load_seen, parse_stdin
+from platform_law import WORKSPACE_ROOT  # noqa: E402
 
-WORKSPACE = Path('/mnt/workspace')
-CODE_ROOT = WORKSPACE / 'code'
+CODE_ROOT = WORKSPACE_ROOT / 'code'
 GATED_TOOLS = {'Edit', 'Write'}
 EXEMPT_NAMES = {'CONTEXT.md', 'AGENTS.md', 'CLAUDE.md', 'MEMORY.md', 'README.md'}
 SKIP_PARTS = {'.git', 'node_modules', 'dist', '.codegraph', '__pycache__', '.vscode'}
@@ -26,7 +26,7 @@ def find_spec_module(target: Path):
 	start = target if target.is_dir() else target.parent
 	current = start
 	result = None
-	while current != WORKSPACE and current != current.parent:
+	while current != WORKSPACE_ROOT and current != current.parent:
 		ctx = current / 'CONTEXT.md'
 		if ctx.is_file():
 			match = SPEC_LINE_RE.search(ctx.read_text(errors='ignore', encoding='utf-8'))
@@ -76,7 +76,7 @@ def main() -> int:
 				target = None
 		else:
 			target = None
-		in_code = target is not None and str(target).startswith(str(CODE_ROOT) + '/')
+		in_code = target is not None and target.is_relative_to(CODE_ROOT)
 		gated = in_code and target.name not in EXEMPT_NAMES and not SKIP_PARTS.intersection(target.parts)
 		if gated:
 			found = find_spec_module(target)

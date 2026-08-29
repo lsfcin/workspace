@@ -13,6 +13,7 @@
 import subprocess
 
 from conftest import WORKSPACE_ROOT
+from platform_law import posix
 
 VALIDATOR = WORKSPACE_ROOT / 'core/tools/wos/skills/validate.sh'
 
@@ -45,7 +46,10 @@ def _validate(tmp_path, files: dict) -> subprocess.CompletedProcess:
     flows.mkdir(parents=True)
     for name, body in files.items():
         (flows / name).write_text(body, encoding='utf-8')
-    script = f'WORKSPACE={tmp_path}; source {VALIDATOR}; validate_flow_loops'
+    # posix(), not str(): both paths become TEXT inside a bash command, where a backslash is an
+    # escape. The Windows spelling arrived with every separator eaten, so bash reported the
+    # validator missing and the case read as the rule having stopped firing.
+    script = f'WORKSPACE={posix(tmp_path)}; source {posix(VALIDATOR)}; validate_flow_loops'
     return subprocess.run(['bash', '-c', script], capture_output=True, text=True)
 
 
@@ -81,6 +85,6 @@ def test_the_files_that_state_the_rule_are_not_judged_by_it(tmp_path):
 def test_the_real_flow_corpus_is_clean():
     """The rule is in force, so core/flows must satisfy it. This is the row that turns the check
     from a capability into a fact about the workspace."""
-    script = f'WORKSPACE={WORKSPACE_ROOT}; source {VALIDATOR}; validate_flow_loops'
+    script = f'WORKSPACE={posix(WORKSPACE_ROOT)}; source {posix(VALIDATOR)}; validate_flow_loops'
     out = subprocess.run(['bash', '-c', script], capture_output=True, text=True)
     assert out.returncode == 0, out.stdout + out.stderr

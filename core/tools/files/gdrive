@@ -6,9 +6,11 @@ _HERE = pathlib.Path(__file__).resolve().parent
 # Seams sit beside the CLI; gauth is its own family, shared by every provider tool.
 sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
+sys.path.insert(0, str(_HERE.parents[1] / 'hooks'))
 import drive_core, gauth
+from platform_law import WORKSPACE_ROOT
 
-DOWNLOAD_DIR = pathlib.Path("/mnt/workspace/Downloads/workspace-drive")
+DOWNLOAD_DIR = WORKSPACE_ROOT / "Downloads/workspace-drive"
 
 
 def _print_files(files: list, alias: str) -> None:

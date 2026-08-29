@@ -7,8 +7,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
-from chain import EXEMPT_NAMES, SKIP_PARTS, WORKSPACE, context_chain
+from chain import EXEMPT_NAMES, SKIP_PARTS, context_chain
 from hook_input import is_subagent, load_seen, parse_stdin
+from platform_law import WORKSPACE_ROOT  # noqa: E402
 
 GATED_TOOLS = {'Read', 'Edit', 'Write', 'Grep', 'NotebookEdit'}
 
@@ -42,7 +43,7 @@ def main() -> int:
 		target = target.resolve()
 	except OSError:
 		return 0
-	if not str(target).startswith(str(WORKSPACE) + '/'):
+	if not target.is_relative_to(WORKSPACE_ROOT):
 		return 0
 	if target.name in EXEMPT_NAMES:
 		return 0

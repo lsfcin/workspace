@@ -10,7 +10,7 @@
   Corollary: **a rule only a careful reader applies is one the corpus outruns.**
 - **A finding older than a week is a hypothesis — re-run it before spending a decision on it**
   (2026-08-14). **A ledger keeps the command that produced a finding, never the list.**
-- **`make entropy` verifies a rename; `git grep` only finds where to start** (2026-08-17), because
+- **The entropy dashboard verifies a rename; `git grep` only finds where to start** (2026-08-17), because
   `git grep` reads *this* repo and every project under `code/` is a separate one. Corollary: **an
   incomplete rename is indistinguishable from entropy in the leaves, and is fixable only in the
   generator.**

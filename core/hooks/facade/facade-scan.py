@@ -17,8 +17,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from hook_input import parse_stdin
+from platform_law import WORKSPACE_ROOT  # noqa: E402
 
-WORKSPACE = Path('/mnt/workspace')
 FACADE_FOR = {
     '.ts': 'index.ts', '.tsx': 'index.tsx',
     '.js': 'index.js', '.jsx': 'index.jsx',
@@ -72,7 +72,7 @@ else:
 exports = sorted(set(e for e in exports if e and re.match(r'^\w+$', e)))
 
 try:
-    rel = facade.relative_to(WORKSPACE)
+    rel = facade.relative_to(WORKSPACE_ROOT)
 except ValueError:
     rel = facade
 

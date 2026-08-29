@@ -111,6 +111,6 @@ with it.
 
 ## Test
 ```bash
-make verify-fast                                     # T0+T1, no network — what pre-commit runs
-.venv/bin/pytest core/tools/test/ -m network         # T2, real URLs (on-demand)
+verify.py fast     # T0+T1, no network — the contract the pre-commit gate discovers and runs
+verify.py full     # adds the network-marked cases: live yt-dlp against real URLs
 ```

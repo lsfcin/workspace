@@ -7,6 +7,8 @@
 import sys
 from pathlib import Path
 
+import pytest
+
 _DIAGRAM = Path(__file__).resolve().parents[4] / 'tools/wos/diagram'
 sys.path.insert(0, str(_DIAGRAM))
 sys.path.insert(0, str(_DIAGRAM / 'views'))
@@ -18,6 +20,10 @@ import diagram_repo as repo  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[4].parent
 REPOS = sorted(p for p in (ROOT / 'code').iterdir() if (p / '.git').exists())
+# A clone that has not also cloned the code/ projects has no repo to draw, and the two
+# cases below indexed REPOS[0] unconditionally: they died with IndexError and read as the
+# per-repo picture being broken, on every workspace but the one that wrote them.
+needs_repo = pytest.mark.skipif(not REPOS, reason='no code/ repos cloned here')
 
 
 def test_every_code_repo_has_a_picture() -> None:
@@ -25,6 +31,7 @@ def test_every_code_repo_has_a_picture() -> None:
         assert (root / repo.OUTPUT).exists(), f'{root.name} has no ARCHITECTURE.html'
 
 
+@needs_repo
 def test_a_repo_page_carries_only_the_drawings_it_has_a_source_for() -> None:
     """The named type-break: matrix, summary, lifecycle and fan-in all read core/features.txt."""
     html, _ = repo.build(REPOS[0])
@@ -56,6 +63,7 @@ def test_a_repo_with_no_ledger_says_so_instead_of_guessing(tmp_path) -> None:
     assert total is None and rows == []
 
 
+@needs_repo
 def test_the_picture_is_deterministic() -> None:
     """No timestamp, no sha — which is the only thing that makes --check mean anything."""
     first, _ = repo.build(REPOS[0])

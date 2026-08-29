@@ -10,7 +10,7 @@ the checks it runs* — so the split cost no new idea, only the hop.
 answer. A check that moved in here would become invisible to the commit gate, which imports the
 checks directly and never touches the dashboard.
 
-Run it with `make entropy`; the report is the `entropy:` block inside
+`core/tools/wos/roundup` runs it at every session close; the report is the `entropy:` block inside
 [`ISSUES.md`](../../../../ISSUES.md) at the workspace root, beside the hand-written issues and the
 `verify:` block `core/tools/wos/roundup` writes. **This directory owns the block, never the file** —
 it reads what is there, swaps its own markers, and writes the rest back untouched.

@@ -23,6 +23,7 @@
 import os
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
@@ -42,6 +43,46 @@ def interpreter() -> str:
     it needs no PATH to be right.
     """
     return sys.executable
+
+
+def session_state(name: str) -> Path:
+    """A session-scoped scratch file — the markers a gate writes in one hook and reads in the next.
+
+    WHY THIS IS A SEAM QUESTION AND NOT A CONSTANT. Six hooks spelled `/tmp/claude_<x>_<sid>.txt`
+    by hand. `/tmp` is not a directory Windows has: Python anchors a leading slash to the current
+    drive, so every one of those writes aimed at `C:\\tmp`, which does not exist. The write raised
+    inside a PostToolUse hook, whose exit status nothing reads, and the matching read then found
+    nothing — so the context gate could never be satisfied by reading anything, and no message
+    anywhere said why. A gate that can only ever block is the mirror of one that can only ever
+    pass, and it cost this session a deadlock against its own enforcement layer to find.
+
+    `tempfile.gettempdir()` is the same directory `/tmp` names on POSIX, so the markers do not move
+    there, and it is what Git Bash already maps `/tmp` to here -- which is what keeps the shell
+    halves that still spell `/tmp` (read/pre-read.sh, session/precompact-wipe.sh) agreeing with
+    these until they are ported.
+    """
+    return Path(tempfile.gettempdir()) / name
+
+
+def install_command(directory, name: str, source: str) -> None:
+    """Put python `source` in `directory` so the bare word `name` runs it once that dir is on PATH.
+
+    WHY THIS IS THE SEAM'S AND NOT THE CALLER'S. Faking a binary is POSIX muscle memory — write a
+    file, give it a shebang, chmod +x — and none of the three mechanisms exists on Windows: the
+    execute bit is not a permission there, a shebang is inert, and CreateProcess resolves a bare
+    name only through PATHEXT, so an extensionless file is not findable at all. The caller does not
+    want a shebang; it wants `name` to run. That is one question with two mechanisms, which is
+    exactly what this module is for.
+    """
+    directory = Path(directory)
+    if not _WINDOWS:
+        target = directory / name
+        target.write_text(f'#!{sys.executable}\n{source}', encoding='utf-8')
+        target.chmod(0o755)
+        return
+    (directory / f'{name}.py').write_text(source, encoding='utf-8')
+    (directory / f'{name}.cmd').write_text(
+        f'@echo off\r\n"{sys.executable}" "%~dp0{name}.py" %*\r\n', encoding='utf-8')
 
 
 def package_install(name: str) -> list:
@@ -120,6 +161,29 @@ def _restrict(path: Path, posix_mode: int, windows_grant: str) -> None:
     if done.returncode != 0:
         raise OSError(f'could not restrict {path} to {user}: '
                       f'{done.stderr.strip() or done.stdout.strip()}')
+
+
+def is_owner_only(path) -> bool:
+    """Whether `path` is really readable by its owner alone — asked, not assumed.
+
+    `st_mode & 0o077 == 0` is a POSIX question. On Windows st_mode is synthesised from the
+    read-only attribute, so it answers the same for a file one user may read and for one the whole
+    machine may — and a check that cannot fail is the worst thing to point at a secret. Read the
+    ACL back instead.
+    """
+    path = Path(path)
+    if not _WINDOWS:
+        return path.stat().st_mode & 0o077 == 0
+    done = subprocess.run(['icacls', str(path)], capture_output=True, text=True)
+    if done.returncode != 0:
+        return False
+    user = (os.environ.get('USERNAME') or Path.home().name).lower()
+    granted = set()
+    for line in done.stdout.splitlines():   # "<path> PRINCIPAL:(perms)", then "  PRINCIPAL:(perms)"
+        entry = line.replace(str(path), '', 1).strip()
+        if entry and ':' in entry:
+            granted.add(entry.rsplit(':', 1)[0].strip().split('\\')[-1].lower())
+    return bool(granted) and granted <= {user}
 
 
 def secure_dir(path) -> None:

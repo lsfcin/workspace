@@ -9,6 +9,12 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+# NAMED, NEVER INHERITED (core/SCHEMA.md AD-9). This report prints `→`, and a piped stdout takes
+# the console codepage — cp1252 here, where that character raises and the tool dies mid-report
+# after doing all the work. The gates get this from core/hooks/run; a tool invoked directly has
+# no such wrapper yet, so it says so itself.
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from session_cost import COMPONENTS
 from session_turns import turns

@@ -12,10 +12,11 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'hooks'))
 from session_log import attribute, median, spread, walk
+from platform_law import WORKSPACE_ROOT as WORKSPACE  # noqa: E402
 
 ROOT = Path.home() / '.claude' / 'projects'
-WORKSPACE = Path('/mnt/workspace')
 PROSE_RATE = 3.8  # chars/token for ordinary prose and code — the yardstick, not a measurement
 
 # Injected into the system prompt, invisible to the transcript, paid by every session in the tree.

@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 
 GATE: Incomplete
+WS: Incomplete
 
 def run(command: str, tool: str = 'Bash') -> str: ...
 def test_a_heredoc_that_writes_a_workspace_file_is_named(command) -> None: ...

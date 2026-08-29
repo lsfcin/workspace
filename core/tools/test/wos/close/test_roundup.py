@@ -5,47 +5,49 @@
 # was work *this* session forgot to commit, and asked for a commit that would have swept a parallel
 # session's half-finished goal merge into main. Dirt has two possible owners and the script cannot
 # tell them apart, so it names both and lets --leave-dirty answer.
-import os
 import shutil
 import subprocess
 
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
-ROUNDUP = WORKSPACE_ROOT / 'core/tools/wos/roundup'
-
-# The fake entropy target writes a BLOCK through the real writer, exactly as the dashboard does.
-# A target that clobbered the file would pass while hiding the thing worth guarding: roundup writes
-# the verify block first, so an entropy regen that does not preserve its neighbours destroys it.
-# The header is the REAL dashboard shape, trend and all: the fake used to write
-# "**7 findings**", and that difference is exactly what hid a pattern matching nothing.
+# The fake dashboard writes a BLOCK through the real writer, exactly as the real one does: a target
+# that clobbered the file would pass while hiding the thing worth guarding — roundup writes the
+# verify block first, so an entropy regen that does not preserve its neighbours destroys it. The
+# header is the REAL shape, trend and all; a fake reading "**7 findings**" is what hid a pattern
+# matching nothing. GREEN/RED are contracts declared as verify.py, the form roundup discovers first.
 _HEAD = '**7 findings here** (2026-08-24: 9 · -2 over 1 days)'
-_REGEN = f'@echo "{_HEAD}" | python3 core/hooks/routing/blocks.py ISSUES.md entropy'
-MAKEFILE = f'verify-fast:\n\t@echo "3 passed"\n\nentropy:\n\t{_REGEN}\n'
-RED_MAKEFILE = f'verify-fast:\n\t@exit 1\n\nentropy:\n\t{_REGEN}\n'
+DASHBOARD = ('import sys; sys.path.insert(0, "core/hooks/routing")\n'
+             'from pathlib import Path\nfrom blocks import markers, replace_block\n'
+             f'start, end = markers("entropy")\nbody = "\\n".join((start, {_HEAD!r}, end))\n'
+             'page = Path("ISSUES.md")\npage.write_text(replace_block('
+             'page.read_text(encoding="utf-8"), body, start, end), encoding="utf-8")\n')
+GREEN, RED = 'print("3 passed")\n', 'raise SystemExit(1)\n'
 
 SEEDED_ISSUES = ('# Issues\n\n## B1 — a hand-written issue the generators must not touch\n\n'
                  '<!-- entropy:start -->\n**9 findings**\n<!-- entropy:end -->\n')
+
+# Every real file the script reaches for — what they do to the tree is the subject of these cases.
+PARTS = ('core/tools/wos/roundup', 'core/tools/wos/close/artifacts.py',
+         'core/tools/wos/close/branches.py', 'core/tools/verify/contract.py',
+         'core/hooks/platform_law.py', 'core/hooks/routing/blocks.py')
 
 
 def _git(repo, *args):
     return subprocess.run(('git',) + args, cwd=repo, capture_output=True, text=True)
 
 
-def _workspace(tmp_path, makefile=MAKEFILE):
+def _workspace(tmp_path, verify=GREEN):
     """A fake workspace: the real script at its real relative path, so ROOT == WORKSPACE and the
     gitflow and entropy branches of the code are reachable. main == develop, feature one ahead."""
     ws = tmp_path / 'ws'
-    (ws / 'core/tools/wos').mkdir(parents=True)
-    (ws / 'core/hooks/routing').mkdir(parents=True)
-    (ws / 'core/tools/wos/close').mkdir(parents=True)
-    dest = ws / 'core/tools/wos/roundup'
-    shutil.copy(ROUNDUP, dest)
-    os.chmod(dest, 0o755)
-    # The fragment it sources and the block writer that fragment calls: both are the real files,
-    # because what they do to the tree is the subject of these cases.
-    shutil.copy(ROUNDUP.parent / 'close/artifacts.sh', ws / 'core/tools/wos/close')
-    shutil.copy(WORKSPACE_ROOT / 'core/hooks/routing/blocks.py', ws / 'core/hooks/routing')
-    (ws / 'Makefile').write_text(makefile, encoding='utf-8')
+    for part in PARTS:
+        (ws / part).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(WORKSPACE_ROOT / part, ws / part)
+    dashboard = ws / 'core/hooks/entropy/dashboard/entropy-dashboard.py'
+    dashboard.parent.mkdir(parents=True)
+    dashboard.write_text(DASHBOARD, encoding='utf-8')
+    (ws / 'verify.py').write_text(verify, encoding='utf-8')
     (ws / 'ISSUES.md').write_text(SEEDED_ISSUES, encoding='utf-8')
 
     _git(ws, 'init', '-q', '-b', 'main')
@@ -68,7 +70,7 @@ def _workspace(tmp_path, makefile=MAKEFILE):
 
 
 def _run(ws, *args):
-    return subprocess.run([str(ws / 'core/tools/wos/roundup'), *args],
+    return subprocess.run([interpreter(), str(ws / 'core/tools/wos/roundup'), *args],
                           cwd=ws, capture_output=True, text=True)
 
 
@@ -149,7 +151,7 @@ def test_the_two_blocks_and_the_hand_written_issues_coexist(tmp_path):
 
 def test_a_red_suite_reports_itself_in_the_verify_block(tmp_path):
     """A red run still writes the block — that is the whole point of recording the last result."""
-    ws = _workspace(tmp_path, makefile=RED_MAKEFILE)
+    ws = _workspace(tmp_path, verify=RED)
     _run(ws)
     assert '**red**' in (ws / 'ISSUES.md').read_text(encoding='utf-8')
 
@@ -171,7 +173,7 @@ def test_a_real_merge_is_refused_while_the_tree_is_not_ours(tmp_path):
 
 
 def test_red_verify_blocks_promotion(tmp_path):
-    ws = _workspace(tmp_path, makefile=RED_MAKEFILE)
+    ws = _workspace(tmp_path, verify=RED)
     r = _run(ws)
     assert r.returncode == 1
     assert 'verify: red' in r.stdout and 'not promoted' in r.stdout

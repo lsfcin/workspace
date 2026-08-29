@@ -7,8 +7,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law
 from hook_input import parse_stdin
+from platform_law import WORKSPACE_ROOT, session_state  # noqa: E402
 
-WORKSPACE    = Path('/mnt/workspace')
 FACADE_NAMES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
 # NOT the file_law code set: this is "languages that have a facade convention", a genuinely
 # narrower question than "is this code". Named apart so the two never get conflated again.
@@ -17,7 +17,7 @@ TEST_RE      = re.compile(r'(?:^|/)(?:test_[^/]+|[^/]+_test|[^/]+\.(?:test|spec)
 
 
 def facades_read(session_id: str) -> set[str]:
-	sf = Path(f'/tmp/claude_facades_{session_id}.txt')
+	sf = session_state(f'claude_facades_{session_id}.txt')
 	return set(sf.read_text(encoding='utf-8').splitlines()) if sf.exists() else set()
 
 
@@ -61,8 +61,8 @@ def main() -> int:
 		return 0
 
 	try:
-		rel_f = facade.relative_to(WORKSPACE)
-		rel_p = file_path.relative_to(WORKSPACE)
+		rel_f = facade.relative_to(WORKSPACE_ROOT)
+		rel_p = file_path.relative_to(WORKSPACE_ROOT)
 	except ValueError:
 		rel_f, rel_p = facade, file_path
 	print(f"⛔ READ FACADE FIRST — {rel_p}", file=sys.stderr)

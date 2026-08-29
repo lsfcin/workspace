@@ -55,6 +55,11 @@ BASELINE = {
     # `workspace_scanner`) against writes into it (`blocks`, `context_synchronizer`, `norms`,
     # `shard_table`). Same verdict as `core/hooks/entropy/` for the same reason, in its CONTEXT.md.
     'core/hooks/routing',
+    # The OS-agnostic port put the ninth file here: `platform_law.py` joined the three law modules
+    # the root is supposed to hold. Retired by the port finishing rather than by a split — the root
+    # also carries `post-edit.sh`, and porting the post-edit stages to Python removes it. If the
+    # count has not fallen once the last shell hook is gone, this row becomes a real split.
+    'core/hooks',
 }
 
 

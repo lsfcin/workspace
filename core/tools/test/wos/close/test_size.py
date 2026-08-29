@@ -10,6 +10,7 @@ import shutil
 import subprocess
 
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
 SIZE = WORKSPACE_ROOT / 'core/tools/wos/size'
 LAW = WORKSPACE_ROOT / 'core/hooks'
@@ -27,7 +28,8 @@ def _repo(tmp_path):
     dest = ws / 'core/tools/wos/size'
     shutil.copy(SIZE, dest)
     os.chmod(dest, 0o755)
-    for name in ('file_law.py', 'feature_law.py', 'vendored.txt', 'generated.txt', 'limits.env'):
+    for name in ('file_law.py', 'feature_law.py', 'platform_law.py',
+                 'vendored.txt', 'generated.txt', 'limits.env'):
         shutil.copy(LAW / name, ws / 'core/hooks' / name)
     # The switch travels with the tool: a fixture without it would let a row claiming a switch
     # pass while the tool never asks (core/SPECS.md § AD-14).
@@ -49,8 +51,11 @@ def _commit(ws, msg='c'):
 
 
 def _run(ws, *args):
-    return subprocess.run([str(ws / 'core/tools/wos/size'), *args],
-                          cwd=ws, capture_output=True, text=True)
+    # The READ side names the encoding too (core/SCHEMA.md AD-9). `size` prints `·`, and decoding
+    # its stdout with whatever the console codepage happens to be turns that into mojibake — which
+    # only shows up when a caller has set the child's output encoding, as the pre-commit gate does.
+    return subprocess.run([interpreter(), str(ws / 'core/tools/wos/size'), *args],
+                          cwd=ws, capture_output=True, text=True, encoding='utf-8')
 
 
 def test_a_session_that_only_deleted_reports_a_negative_net(tmp_path):

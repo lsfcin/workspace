@@ -24,12 +24,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from chain import context_chain, paths_in, summary_of
+from platform_law import WORKSPACE_ROOT, rel, session_state  # noqa: E402
 
 MAX_LINES = 12  # a briefing, not a corpus
 
 
 def blob_file(prompt_id: str) -> Path:
-	return Path(f'/tmp/claude_agent_ctx_{prompt_id or "none"}.txt')
+	return session_state(f'claude_agent_ctx_{prompt_id or "none"}.txt')
 
 
 def collect(data: dict) -> int:
@@ -37,11 +38,14 @@ def collect(data: dict) -> int:
 	tool_input = data.get('tool_input') or {}
 	text = f"{tool_input.get('prompt', '')}\n{tool_input.get('description', '')}"
 	lines: list[str] = []
-	for path in sorted(paths_in(text, str(data.get('cwd') or '/mnt/workspace'))):
+	for path in sorted(paths_in(text, str(data.get('cwd') or WORKSPACE_ROOT))):
 		for ctx in context_chain(path):
 			summary = summary_of(ctx)
-			rel = str(ctx).replace('/mnt/workspace/', '')
-			entry = f'- {rel} — {summary}' if summary else f'- {rel}'
+			# The briefing is TEXT a worker reads, so the path is spelled by the seam rather than
+			# stripped by hand: a str().replace() of one machine's prefix left the whole absolute
+			# path in place on every other clone, and this line is the one the worker actually sees.
+			shown = rel(ctx)
+			entry = f'- {shown} — {summary}' if summary else f'- {shown}'
 			if entry not in lines:
 				lines.append(entry)
 	if not lines:
@@ -50,7 +54,11 @@ def collect(data: dict) -> int:
 	existing = target.read_text(encoding='utf-8').splitlines() if target.exists() else []
 	fresh = [line for line in lines if line not in existing]
 	if fresh:
-		with target.open('a') as handle:
+		# NAMED, NEVER INHERITED (core/SCHEMA.md AD-9). The briefing carries an em dash, and a
+		# bare open() encodes with the machine's codepage: written cp1252, read back as utf-8,
+		# byte 0x97 raised and the WHOLE hook died -- so a worker got no briefing and the
+		# orchestrator was never told. The read side below already named utf-8; only one half did.
+		with target.open('a', encoding='utf-8') as handle:
 			handle.write('\n'.join(fresh) + '\n')
 	return 0
 

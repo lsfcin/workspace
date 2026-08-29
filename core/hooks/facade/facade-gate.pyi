@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from pathlib import Path
 
-WORKSPACE: Incomplete
 FACADE_NAMES: Incomplete
 FACADE_EXTS: Incomplete
 TEST_RE: Incomplete

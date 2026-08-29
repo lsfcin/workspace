@@ -8,6 +8,8 @@ import re
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[5] / 'hooks/entropy/dashboard'))
 
 from entropy_scatter import ledger_repos, owner, partition  # noqa: E402
@@ -34,6 +36,10 @@ def test_every_nested_repo_has_its_own_ledger() -> None:
 
 def test_the_root_total_equals_the_sum_of_the_local_ledgers() -> None:
     repos = ledger_repos(ROOT)
+    if not repos:
+        # A clone with no nested repos has nothing to sum, and the dashboard writes no collected
+        # row for it. Asserting anyway read as the scatter being broken on every fresh clone.
+        pytest.skip('no nested repos in this clone — the scatter has nothing to sum')
     root_text = (ROOT / 'ISSUES.md').read_text(encoding='utf-8')
     here = int(HEADER.search(root_text).group('here'))
     collected = int(COLLECTED.search(root_text).group('collected'))
@@ -59,8 +65,12 @@ def test_the_innermost_repo_wins_when_one_nests_inside_another() -> None:
 
 def test_papers_and_branches_own_their_findings() -> None:
     """Ruled 2026-08-25: having a .git is the declaration, not sitting under code/. Until then these
-    charged the root for findings no reader there could act on."""
-    repos = ledger_repos(ROOT)
+    charged the root for findings no reader there could act on.
+
+    Declared repos, like both tests above: reading ledger_repos() here made the RULING contingent on
+    which repos this clone happens to have. A workspace cloned without them proved nothing and
+    reported it as the rule being broken."""
+    repos = ['academy/papers/wos-ablation', 'branches/casinhas']
     assert owner('academy/papers/wos-ablation/PLAN.md: finding', ROOT, repos) == 'academy/papers/wos-ablation'
     assert owner('branches/casinhas/PROJETO.md: finding', ROOT, repos) == 'branches/casinhas'
 
