@@ -8,13 +8,17 @@
 # blocks a source read only while the stub beside it is current.
 if python3 /mnt/workspace/core/hooks/feature_law.py --enabled interface-stubs; then
 
-# shellcheck source=/dev/null
-source /mnt/workspace/core/hooks/stubgen/stub_one.sh
+# The stub generators live in Python now (stubgen/stubs.py), which is the ONE copy of every
+# stubgen and tsc invocation -- the reason the sourced fragment existed at all. These two shims keep
+# this file's call sites unchanged while that copy stays single; both resolve the interpreter
+# through `run`, so no venv layout is named here.
+STUB_HOOKS="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+emit_pyi() { sh "$STUB_HOOKS/run" stubgen/stubs.py "$1"; }
+emit_dts() { TSC="$2" sh "$STUB_HOOKS/run" stubgen/stubs.py "$1"; }
 
 # ── Interface regeneration ──────────────────────────────────────────────────────
 case "$file" in
 	*.py)
-		STUBGEN="/mnt/workspace/.venv/bin/stubgen"
 		emit_pyi "$file" && printf "✓ .pyi: ${file%.py}.pyi\n"
 		;;
 	*.js)

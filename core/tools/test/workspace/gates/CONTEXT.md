@@ -19,6 +19,7 @@ Why each one exists, and the one place a test reads source instead of running it
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | Why each hook test exists, and the one structural exception to running the real hook. |
 | [`test_agent_context.py`](test_agent_context.py) | [`test_agent_context.pyi`](test_agent_context.pyi) | `prompt_id` | T0 the agent-context briefing (core/hooks/SPECS.md): the orchestrator's duty, done by a hook. |
+| [`test_auto_push.py`](test_auto_push.py) | [`test_auto_push.pyi`](test_auto_push.pyi) | — | T0 the auto-push hook's diagnosis. core/hooks/post-commit is the only place most sessions ever learn that pushing failed, so what it names as the cause is the whole of what the operator knows. |
 | [`test_bash_compact_rewrite.py`](test_bash_compact_rewrite.py) | [`test_bash_compact_rewrite.pyi`](test_bash_compact_rewrite.pyi) | `rtk_path` | T0 the multi-line rtk shim: it must reach lines 2+, and must never reshape shell it cannot read. |
 | [`test_bash_context_gate.py`](test_bash_context_gate.py) | [`test_bash_context_gate.pyi`](test_bash_context_gate.pyi) | — | T0 the bash context gate reads the COMMAND, never the text the command carries. Zero-token, runs in verify-fast. |
 | [`test_branch_debt.py`](test_branch_debt.py) | [`test_branch_debt.pyi`](test_branch_debt.pyi) | `git`, `commit`, `repo`, `cloned` | T0 the unmerged-branch signal: a repo is a finding when its branch is ahead of the branch it promotes into, and never otherwise. Zero-token, runs in verify-fast. |

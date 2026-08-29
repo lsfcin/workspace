@@ -138,7 +138,7 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/git/branch-marker.sh record"
+              "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run git/branch_marker.py record"
             },
             {
               "type": "command",

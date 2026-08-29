@@ -1,7 +1,7 @@
 # Git Flow
 > Which branches exist, what may be committed where, and when work is pushed.
 > governs: every repo under code/, and the workspace repo itself
-> enforced-by: core/hooks/git/gitflow-gate.sh, core/hooks/post-commit
+> enforced-by: core/hooks/git/gitflow_gate.py, core/hooks/post-commit
 
 ## Git Branching (Git Flow)
 
@@ -22,7 +22,7 @@ All projects under `code/` follow Git Flow:
 - Merge via PR — no direct pushes to `develop` or `main`
 - Tag `main` on every release: `v<semver>`
 
-**Enforcement.** `core/hooks/git/gitflow-gate.sh` (pre-commit block 1e) **hard-blocks** in `code/`
+**Enforcement.** `core/hooks/git/gitflow_gate.py` (pre-commit block 1e) **hard-blocks** in `code/`
 repos: any commit on `main`/`master`/`develop`, or on a branch not matching
 `feature/*`/`release/*`/`hotfix/*`. Emergency bypass: `git commit --no-verify`. The
 **merge-only-via-PR** rule is *not* locally enforceable — set it up as GitHub branch protection on

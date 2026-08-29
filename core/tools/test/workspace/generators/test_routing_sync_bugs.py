@@ -66,19 +66,19 @@ def test_hoisted_row_points_into_the_child(tmp_path: Path) -> None:
 # ── (b) a directory that LOSES a file must re-sync ────────────────────────────────────
 
 def test_delete_only_commit_still_runs_the_hook() -> None:
-    """The dispatcher used to `exit 0` on an empty $STAGED, and a delete-only commit has
+    """The dispatcher used to return early on an empty staged list, and a delete-only commit has
     exactly that — so nothing re-synced the table that just went stale."""
-    body = (WORKSPACE_ROOT / "core/hooks/pre-commit").read_text(encoding="utf-8")
-    assert "STAGED_DELETED=" in body, "deletions are not collected by the dispatcher"
-    assert '[ -z "$STAGED" ] && exit 0' not in body, (
+    body = (WORKSPACE_ROOT / "core/hooks/commit/pre_commit.py").read_text(encoding="utf-8")
+    assert "--diff-filter=D" in body, "deletions are not collected by the dispatcher"
+    assert "if not commit.staged and not commit.deleted:" in body, (
         "the early exit ignores deletions again — a delete-only commit skips every stage"
     )
 
 
 def test_routing_generator_consumes_the_deleted_list() -> None:
-    body = (WORKSPACE_ROOT / "core/hooks/generators/routing.sh").read_text(encoding="utf-8")
+    body = (WORKSPACE_ROOT / "core/hooks/commit/generators.py").read_text(encoding="utf-8")
     code = "\n".join(l for l in body.splitlines() if not l.lstrip().startswith("#"))
-    assert "$STAGED_DELETED" in code
+    assert "commit.deleted" in code
 
 
 def test_subdir_rows_are_not_reported_as_removed_files(capsys, tmp_path: Path) -> None:

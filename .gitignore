@@ -171,7 +171,7 @@ brain/memory/*
 # their own repos). They must NOT be embedded as gitlinks in the workspace: a fresh
 # clone can't fetch them, and every internal commit flags a spurious "M". Git can't
 # track individual files (e.g. CONTEXT.md) inside a nested repo anyway — routing reads
-# them off-disk. So ignore each repo dir wholesale. Enforced by core/hooks/git/nested-gitlink-gate.sh.
+# them off-disk. So ignore each repo dir wholesale. Enforced by core/hooks/git/gitlink_gate.py.
 academy/papers/2027-CHI-cria
 academy/papers/ai4good
 academy/papers/mechanism-search

@@ -37,7 +37,7 @@ _WOS_OFF=
 _WOS_OFF_LOADED=
 skill_disabled() {
   if [[ -z "$_WOS_OFF_LOADED" ]]; then
-    _WOS_OFF="$(python3 "$WORKSPACE/core/hooks/feature_law.py" --disabled 2>/dev/null)"
+    _WOS_OFF="$("$(sh "$WORKSPACE/core/hooks/run" --python)" "$WORKSPACE/core/hooks/feature_law.py" --disabled 2>/dev/null)"
     _WOS_OFF_LOADED=1
   fi
   [[ -n "$_WOS_OFF" ]] && grep -qxF "$1" <<<"$_WOS_OFF"
@@ -108,7 +108,9 @@ check_mirror() {
 # (found 2026-07-30). Rewrite them against the source dir on the way out; the
 # staleness check compares the same rendered form, or every file reads as stale.
 render_command() {
-  python3 - "$1" "$SRC" "$COMMANDS_DIR" <<'PY'
+  # PYTHONIOENCODING for the same reason core/hooks/run exports it: this script prints "→",
+  # and a Python encoding stdout as the console codepage dies on it mid-message.
+  PYTHONIOENCODING=utf-8 "$(sh "$WORKSPACE/core/hooks/run" --python)" - "$1" "$SRC" "$COMMANDS_DIR" <<'PY'
 import os, re, sys
 
 src_file, src_dir, dst_dir = sys.argv[1:4]

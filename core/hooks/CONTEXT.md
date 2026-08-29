@@ -54,12 +54,11 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 |--------------|-------------|
 | [`brain/`](brain/CONTEXT.md) | brain/ attention stats and the GOALS.md dashboard. |
 | [`checks/`](checks/CONTEXT.md) | Standalone blocking checks the commit and edit hooks run. |
+| [`commit/`](commit/CONTEXT.md) | The git pre-commit and post-commit pipeline: what runs on every commit, in what order, and the one place a commit is refused. |
 | [`compact/`](compact/CONTEXT.md) | Shrink tool output before it reaches the context — the input-side twin of caveman. |
 | [`copilot/`](copilot/CONTEXT.md) | Provider shim: translates Copilot hook payloads onto the canonical gates. |
 | [`entropy/`](entropy/CONTEXT.md) | The Tier 0 checks that count what the tree has drifted into. One question each. |
 | [`facade/`](facade/CONTEXT.md) | The facade discipline: read the facade before editing, never import around it. |
-| [`gates/`](gates/CONTEXT.md) | Sourced pre-commit stages that may reject the commit. |
-| [`generators/`](generators/CONTEXT.md) | Sourced pre-commit stages that write artifacts and stage them. |
 | [`git/`](git/CONTEXT.md) | Gates and self-heals about git state itself: branch shape, gitlinks, .gitignore. |
 | [`postedit/`](postedit/CONTEXT.md) | Sourced post-edit stages: regenerate interfaces, remind, sync, lint. |
 | [`read/`](read/CONTEXT.md) | Who must read what before touching a subtree — and who gets handed it instead. |
@@ -79,9 +78,11 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 | [`gitignore-exceptions.txt`](gitignore-exceptions.txt) | — | — | One "<domain>/<dir>" per line: a CONTEXT.md-bearing subdir Lucas deliberately wants left out of the .gitignore allowlist (reviewed, not an oversight). gitignore-self-heal.sh skips any name listed here instead of re-adding its `!<domain>/<dir>/` line. |
 | [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `is_subagent`, `seen_file`, `load_seen`, `mark_seen` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |
 | [`limits.env`](limits.env) | — | — | Every numeric limit in the workspace, in one file. Read by core/hooks/file_law.py (Python) and sourced directly by check-line-counts.sh (shell) — same file, one law. |
-| [`post-commit`](post-commit) | — | — | auto-push feature/* so work survives a dead session and reaches the other machine. main/develop are never auto-pushed: promoting them is a conscious gitflow merge, done in /roundup after the verification gate. Never blocks: post-commit exit status is ignored by git, and every failure is a warning. |
+| [`platform_law.py`](platform_law.py) | [`platform_law.pyi`](platform_law.pyi) | `interpreter`, `package_install`, `posix`, `rel`, `secure_dir` | The platform seam: the one file in this workspace allowed to know what an operating system is. |
+| [`post-commit`](post-commit) | — | — | auto-push feature/*. Same handoff as pre-commit beside it. Never blocks: git ignores a post-commit's exit status, and every failure here is a warning. |
 | [`post-edit.sh`](post-edit.sh) | — | — | PostToolUse: Edit, Write — regenerates interfaces, checks first-line comment, syncs CONTEXT.md |
-| [`pre-commit`](pre-commit) | — | — | the dispatcher. Applied via: git config --global core.hooksPath /mnt/workspace/core/hooks |
+| [`pre-commit`](pre-commit) | — | — | Workspace pre-commit hook. Applied globally: git config --global core.hooksPath <this directory> |
+| [`run`](run) | — | — | The one command a harness shim names: find this clone's interpreter, then run a gate with it. |
 | [`schema_law.py`](schema_law.py) | [`schema_law.pyi`](schema_law.pyi) | `load_law`, `load_scopes`, `load_retired` | The law parser. Every Tier 0 check reads core/SCHEMA.md through this module, and none of them restates it — a second copy of the law inside a checker is the exact drift the checks exist to catch. |
 | [`vendored.txt`](vendored.txt) | — | — | Third-party files we did not author. Excluded from the line cap, the fanout signal and the size dashboard — holding someone else's code to our authoring rules produces findings nobody can act on. |
 <!-- routing:end -->

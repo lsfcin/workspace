@@ -15,6 +15,7 @@ import subprocess
 import pytest
 
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
 SHIM = WORKSPACE_ROOT / 'core/hooks/compact/bash-compact-rewrite.py'
 

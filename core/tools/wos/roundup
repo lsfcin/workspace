@@ -43,7 +43,7 @@ if [ "$DIRTY" -gt 0 ] && [ -z "$LEAVE_DIRTY" ]; then
 fi
 
 # ── Verification gate. Contract discovery is the convention from
-#    core/hooks/gates/project-contract.sh § 1a, one tier up: full if declared, else fast.
+#    core/hooks/commit/gates_project.py § 1a, one tier up: full if declared, else fast.
 VERIFY_CMD=""
 if   [ -f package.json ] && grep -q '"verify:full"' package.json; then VERIFY_CMD="npm run --silent verify:full"
 elif [ -f Makefile ]     && grep -qE '^verify-full:' Makefile;     then VERIFY_CMD="make verify-full"
@@ -101,7 +101,7 @@ if [ "$ROOT" = "$WORKSPACE" ]; then
   DIAGRAM="$DIAGRAM$(settle ARCHITECTURE.html "$WAS_CLEAN" "chore(diagram): regenerate at session close")"
 fi
 
-# ── Branch promotion. Same scope as core/hooks/git/gitflow-gate.sh: the workspace repo and
+# ── Branch promotion. Same scope as core/hooks/git/gitflow_gate.py: the workspace repo and
 #    code/* project repos promote; every other nested repo just pushes its current branch.
 case "$ROOT" in
   "$WORKSPACE"|"$WORKSPACE"/code/*) GITFLOW=1 ;;

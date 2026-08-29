@@ -13,7 +13,7 @@
       "label": "Workspace: Hook Smoke Test",
       "type": "shell",
       "command": "bash",
-      "args": ["-lc", "bash -n core/hooks/read/pre-read.sh core/hooks/post-edit.sh core/hooks/session/start-session.sh core/hooks/copilot/copilot-agent.sh core/hooks/pre-commit core/hooks/checks/check-line-counts.sh && python3 -m py_compile core/hooks/checks/pre-edit.py core/hooks/routing/context_synchronizer.py core/hooks/routing/workspace_scanner.py core/hooks/stubgen/dart-api-extract.py core/hooks/copilot/copilot-session-start.py core/hooks/copilot/copilot-pre-tool.py core/hooks/copilot/copilot-post-tool.py"],
+      "args": ["-lc", "bash -n core/hooks/read/pre-read.sh core/hooks/post-edit.sh core/hooks/session/start-session.sh core/hooks/copilot/copilot-agent.sh core/hooks/pre-commit && python3 -m py_compile core/hooks/checks/line_counts.py core/hooks/checks/pre-edit.py core/hooks/routing/context_synchronizer.py core/hooks/routing/workspace_scanner.py core/hooks/stubgen/dart-api-extract.py core/hooks/copilot/copilot-session-start.py core/hooks/copilot/copilot-pre-tool.py core/hooks/copilot/copilot-post-tool.py"],
       "group": "test",
       "problemMatcher": []
     }

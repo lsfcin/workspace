@@ -1,43 +1,4 @@
-#!/usr/bin/env bash
-# Workspace post-commit hook — auto-push feature/* so work survives a dead session
-# and reaches the other machine. main/develop are never auto-pushed: promoting them
-# is a conscious gitflow merge, done in /roundup after the verification gate.
-# Never blocks: post-commit exit status is ignored by git, and every failure is a warning.
-
-GITDIR=$(git rev-parse --git-dir 2>/dev/null) || exit 0
-
-# The switch, read through feature_law rather than a second reading of the registry — same law,
-# one parser, same seam as core/hooks/git/gitflow-gate.sh. Off means the commit simply stays local.
-sh "$(dirname "$0")/run" feature_law.py --enabled auto-push || exit 0
-
-# Mid-rebase / mid-cherry-pick: pushing per replayed commit is noise and often rejected.
-if [ -d "$GITDIR/rebase-merge" ] || [ -d "$GITDIR/rebase-apply" ]; then
-  exit 0
-fi
-
-BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
-case "$BRANCH" in
-  feature/*) : ;;
-  *) exit 0 ;;
-esac
-
-git remote get-url origin >/dev/null 2>&1 || exit 0
-
-# The failure branch names ONE cause, and it has to be the right one. It used to print "offline, or
-# history diverged" for everything -- two causes, and on a machine with no credential neither was
-# the one. Worse, an unauthenticated push does not fail: it blocks on a device-code prompt until the
-# timeout kills it, so the slowest failure got the least accurate message. Authentication is checked
-# first because it is the only cause the reader cannot infer from the push output they never saw.
-PUSH_ERR=$(timeout 25 git push -q --set-upstream origin "$BRANCH" 2>&1)
-if [ $? -eq 0 ]; then
-  printf "↑ auto-pushed %s\n" "$BRANCH"
-elif ! gh auth status >/dev/null 2>&1; then
-  printf "⚠ auto-push failed for %s — this machine is not authenticated with GitHub.\n" "$BRANCH"
-  printf "  Run 'gh auth login', then 'gh auth setup-git'. SETUP.md § GitHub account.\n"
-else
-  printf "⚠ auto-push failed for %s — offline, or history diverged (force-push needed).\n" "$BRANCH"
-  printf "  Push manually before switching machines. git said:\n"
-  printf "%s\n" "$PUSH_ERR" | sed 's/^/    /'
-fi
-
-exit 0
+#!/bin/sh
+# Workspace post-commit hook — auto-push feature/*. Same handoff as pre-commit beside it.
+# Never blocks: git ignores a post-commit's exit status, and every failure here is a warning.
+exec sh "$(dirname "$0")/run" commit/post_commit.py "$@"

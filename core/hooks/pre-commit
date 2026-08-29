@@ -1,40 +1,7 @@
-#!/usr/bin/env bash
-# Workspace pre-commit hook — the dispatcher.
-# Applied via: git config --global core.hooksPath /mnt/workspace/core/hooks
+#!/bin/sh
+# Workspace pre-commit hook. Applied globally: git config --global core.hooksPath <this directory>
 #
-# Was 385 lines of 21 numbered sections that had drifted out of execution order
-# (1, 2, 1a, 1c, 1d, 1e, 1g, 1f, 1b, 2b, 3, 4 …). Split 2026-07-31 by responsibility:
-# a GATE may reject the commit, a GENERATOR writes artifacts and stages them.
-#
-# The parts are SOURCED, not executed: they share $STAGED and reject by calling `exit`.
-# Running them as subprocesses would silently break both. Order below is the original
-# execution order, preserved exactly — in particular `gates/lint.sh` stays last because
-# ESLint needs the .d.ts files `generators/interfaces.sh` writes.
-
-HOOKS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-STAGED=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null)
-
-# Deletions are tracked separately and $STAGED stays ACM on purpose: every gate below reads
-# a file's CONTENT, which a deleted path does not have. But a delete-only commit had an
-# empty $STAGED and exited here before any stage ran — and losing a file is exactly when a
-# routing table starts naming something that is gone. Only generators/routing.sh consumes
-# this; the other fragments all guard on `[ -n ... ]` and no-op on an empty $STAGED.
-STAGED_DELETED=$(git diff --cached --name-only --diff-filter=D 2>/dev/null)
-[ -z "$STAGED" ] && [ -z "$STAGED_DELETED" ] && exit 0
-
-for part in \
-  generators/prepare \
-  gates/source-quality \
-  gates/project-contract \
-  gates/duplication-and-terms \
-  generators/routing \
-  generators/interfaces \
-  generators/skills \
-  gates/lint
-do
-  # shellcheck source=/dev/null
-  source "$HOOKS_DIR/$part.sh"
-done
-
-exit 0
+# git dictates this filename, and a hooks config is data read before any of our code runs, so this
+# one file cannot be Python -- it is the handoff from git's world into ours. `run` answers the only
+# question left, which venv layout this clone has, and everything after it is os-agnostic.
+exec sh "$(dirname "$0")/run" commit/pre_commit.py "$@"

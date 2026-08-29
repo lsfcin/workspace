@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+# Generate the interface for ONE file: the single copy of every stub-generator invocation.
+#
+# Two paths need this and both are real triggers -- commit/generators.py stages the stub into the
+# commit and sweeps stubless siblings, postedit/interfaces.sh keeps it current inside the session,
+# which read/pre-read.sh depends on because it blocks a source read only while the stub beside it is
+# current. What must never be duplicated is the INVOCATION: there were two copies of the stubgen
+# call and four near-identical tsc calls, drifting one flag at a time.
+#
+# Each function is silent and returns success; the caller owns what to print and whether to
+# `git add`, because that is the one thing the two paths really do differently.
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from platform_law import interpreter  # noqa: E402
+
+
+def stub_out_dir(path) -> Path:
+    """Where a generated .pyi must be written.
+
+    stubgen mirrors PACKAGE structure under -o, so for a file inside a package it writes
+    `<out>/<pkg>/<name>.pyi`, not `<out>/<name>.pyi`. Passing the file's own directory as -o
+    therefore produced a mirror of the path inside itself -- `scripts/scripts/*.pyi`,
+    `engine/tests/unit/<subject>/unit/<subject>/*.pyi` -- one per package directory, all untracked,
+    deleted by hand three times before the cause was named. The output root has to be the directory
+    ABOVE the package root; only then does the mirror land where the source is. A non-package
+    directory walks zero times and keeps the old behaviour.
+    """
+    directory = Path(path).resolve().parent
+    while (directory / '__init__.py').is_file():
+        directory = directory.parent
+    return directory
+
+
+def _run(command) -> bool:
+    """A generator's own verdict, with its noise swallowed. Missing tool is False, never a raise."""
+    try:
+        return subprocess.run(command, capture_output=True, text=True,
+                              encoding='utf-8', errors='replace').returncode == 0
+    except (FileNotFoundError, OSError):
+        return False
+
+
+def find_stubgen():
+    """The stubgen belonging to the interpreter that is running, falling back to PATH.
+
+    NOT `-m mypy.stubgen`, which reads as the portable spelling and is not: mypy ships compiled on
+    this machine (`mypy/__init__.cp312-win_amd64.pyd`), so the module has no code object and the
+    call fails for every file while looking exactly like a stubgen that ran and found nothing.
+    Derived from sys.executable rather than from a venv layout, so neither `bin` nor `Scripts` is
+    named here -- platform_law.py owns that difference, and this only has to sit beside its Python.
+    """
+    from shutil import which
+    beside = str(Path(interpreter()).parent)
+    return which('stubgen', path=beside) or which('stubgen')
+
+
+def emit_pyi(path) -> bool:
+    """mypy stubgen, into the output root above."""
+    stubgen = os.environ.get('STUBGEN') or find_stubgen()
+    if not stubgen:
+        return False
+    return _run([stubgen, str(path), '-o', str(stub_out_dir(path)), '--quiet'])
+
+
+def emit_dts(path, tsc) -> bool:
+    """TypeScript declarations BESIDE the source, one file at a time.
+
+    Per file, never a tsc PROJECT build. That path was silently emitting nothing for years and
+    needed two independent fixes to emit once: jsconfig.json implies noEmit:true (it is an editor
+    aid), and "outDir": "." lands in tsc's default exclude list, so the config excluded its own
+    directory. Forced past both it then hit TS5055 on every module with a sibling .d.ts -- our
+    declarations sit beside their sources, so a project build reads its own previous output as an
+    input. The per-file call has none of that and is idempotent.
+
+    The .js arm differs by exactly two flags, which is why this is one function and not two: a
+    second copy is how the four calls drifted apart in the first place.
+    """
+    path = Path(path)
+    extra = (['--allowJs', '--checkJs', 'false'] if path.suffix == '.js' else ['--skipLibCheck'])
+    return _run([tsc, *extra, '--declaration', '--emitDeclarationOnly',
+                 '--declarationDir', str(path.parent), '--target', 'ES2020', str(path)])
+
+
+def find_tsc():
+    """The tsc this machine has, or None. `.cmd` on Windows, bare elsewhere -- asked of the
+    filesystem through shutil, which already knows the difference, rather than of the OS."""
+    from shutil import which
+    return which('tsc') or which('tsc', path=str(Path.home() / '.local/bin'))
+
+
+def main() -> int:
+    """`stubs.py <file>` -- emit the interface for one file. The entry point postedit uses."""
+    if len(sys.argv) != 2:
+        print('stubs.py: names one file', file=sys.stderr)
+        return 2
+    source = Path(sys.argv[1])
+    if source.suffix == '.py':
+        return 0 if emit_pyi(source) else 1
+    tsc = os.environ.get('TSC') or find_tsc()
+    if not tsc:
+        return 127
+    return 0 if emit_dts(source, tsc) else 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())

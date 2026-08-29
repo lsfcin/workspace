@@ -45,7 +45,7 @@ These are enforced by code review, not hooks. Violation = redo before continuing
 
 | Shard | Description | Governs | Enforced by |
 |-------|-------------|---------|-------------|
-| [`SPECS-git.md`](SPECS-git.md) | Which branches exist, what may be committed where, and when work is pushed. | every repo under code/, and the workspace repo itself | core/hooks/git/gitflow-gate.sh, core/hooks/post-commit |
+| [`SPECS-git.md`](SPECS-git.md) | Which branches exist, what may be committed where, and when work is pushed. | every repo under code/, and the workspace repo itself | core/hooks/git/gitflow_gate.py, core/hooks/post-commit |
 | [`SPECS-structure.md`](SPECS-structure.md) | How a project is laid out: its files, its module specs, and its facade. | code/<project>/ | core/hooks/facade/, core/tools/wos/spec-scan |
 | [`SPECS-style.md`](SPECS-style.md) | How a file is written, how big it may get, and when a directory splits. | every file under code/ | core/hooks/checks/, eslint.shared.js |
 <!-- routing:end -->

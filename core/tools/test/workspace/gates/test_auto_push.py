@@ -12,7 +12,7 @@
 # diverged (force-push needed)". Two causes named, and on a fresh clone neither was the one.
 from conftest import WORKSPACE_ROOT
 
-HOOK = WORKSPACE_ROOT / 'core/hooks/post-commit'
+HOOK = WORKSPACE_ROOT / 'core/hooks/commit/post_commit.py'
 
 
 def _body() -> str:
@@ -21,7 +21,7 @@ def _body() -> str:
 
 def test_the_failure_names_authentication_as_its_own_cause():
     body = _body()
-    assert 'gh auth status' in body, (
+    assert "'gh', 'auth', 'status'" in body, (
         'post-commit cannot tell an unauthenticated machine from an offline one, so the first '
         'push on a fresh clone is diagnosed as a network problem')
     assert 'not authenticated' in body
@@ -38,7 +38,7 @@ def test_the_operator_is_shown_what_git_actually_said():
     """The old hook sent stderr to /dev/null, so the one authoritative message was discarded
     before anybody could read it -- which is what left the hook guessing in the first place."""
     body = _body()
-    assert 'git push -q --set-upstream origin "$BRANCH" 2>&1' in body, \
+    assert 'capture_output=True' in body and '(done.stderr or done.stdout)' in body, \
         'the push output is being discarded again'
 
 

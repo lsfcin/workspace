@@ -23,6 +23,7 @@ prepare-commit-msg
 # other external tools
 Makefile
 .gitignore
+.gitattributes
 .claudeignore
 .latexmkrc
 .hidden

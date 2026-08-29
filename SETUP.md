@@ -223,7 +223,7 @@ need no bit.
 **Install** — idempotent by nature:
 ```bash
 chmod +x core/hooks/post-edit.sh core/hooks/read/pre-read.sh core/hooks/pre-commit \
-         core/hooks/checks/check-line-counts.sh core/hooks/copilot/copilot-agent.sh \
+         core/hooks/post-commit core/hooks/copilot/copilot-agent.sh \
          core/hooks/session/start-session.sh core/tools/wos/deps
 ```
 

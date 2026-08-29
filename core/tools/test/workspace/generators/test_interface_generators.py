@@ -9,10 +9,11 @@ from pathlib import Path
 from conftest import WORKSPACE_ROOT
 
 POSTEDIT = WORKSPACE_ROOT / "core/hooks/postedit/interfaces.sh"
-PRECOMMIT = WORKSPACE_ROOT / "core/hooks/generators/interfaces.sh"
-# The one place the stubgen and tsc invocations live since 2026-08-20. Both fragments above
-# source it; asking either of them for the flags now asks the wrong file.
-SHARED = WORKSPACE_ROOT / "core/hooks/stubgen/stub_one.sh"
+PRECOMMIT = WORKSPACE_ROOT / "core/hooks/commit/generators.py"
+# The one place the stubgen and tsc invocations live since 2026-08-20, in Python since the
+# os-agnostic port. Both callers above reach it; asking either of them for the flags asks the
+# wrong file.
+SHARED = WORKSPACE_ROOT / "core/hooks/stubgen/stubs.py"
 
 # Keys tsc silently ignores in a file NAMED jsconfig.json: the name implies noEmit:true.
 # Carrying them is how the workspace convinced itself declarations were being generated.
@@ -97,7 +98,9 @@ def test_neither_hook_re_inlines_the_call_it_shares() -> None:
     for script in (POSTEDIT, PRECOMMIT):
         code = "\n".join(l for l in script.read_text(encoding="utf-8").splitlines()
                           if not l.lstrip().startswith("#"))
-        assert "stub_one.sh" in code, f"{script.name} no longer sources the shared fragment"
+        assert "stubs.py" in code or "stubs." in code, (
+            f"{script.name} no longer reaches the shared emitters"
+        )
         # `--declarationDir` is the PER-FILE call's signature, and only that one was
         # duplicated. The pre-commit TypeScript step's `tsc -p <cfg> --incremental` is a
         # different shape — once per project, not once per file — and stays where it is.
@@ -110,11 +113,14 @@ def test_neither_hook_re_inlines_the_call_it_shares() -> None:
 
 
 def _stub_out_dir(path: str, cwd: Path) -> str:
-    return subprocess.run(
-        ["bash", "-c",
-         f'source "{WORKSPACE_ROOT}/core/hooks/stubgen/stub_paths.sh"; stub_out_dir "{path}"'],
-        cwd=cwd, capture_output=True, text=True, check=True,
-    ).stdout.strip()
+    """The shared helper's answer, relative to `cwd` — asked of the module, not of a shell.
+
+    It returns an absolute path now that it is Python; the relative form is what the two cases
+    below are actually about, so the comparison is made here rather than by changing what the
+    helper returns to suit a test.
+    """
+    import stubs
+    return stubs.stub_out_dir(cwd / path).relative_to(cwd.resolve()).as_posix()
 
 
 def test_stub_output_root_climbs_out_of_the_package(tmp_path: Path) -> None:

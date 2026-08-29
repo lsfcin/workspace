@@ -22,13 +22,26 @@
 # that exists wins.
 set -e
 
+# Every gate here prints ⛔ ✓ ⚠ ↑, and Python otherwise encodes stdout with the console codepage --
+# cp1252 on a Windows clone, where those characters raise UnicodeEncodeError. A gate then dies
+# inside its own message, so the caller sees a traceback where a verdict belonged. Named once here
+# rather than in each gate, for the same reason the interpreter is.
+PYTHONIOENCODING=utf-8
+export PYTHONIOENCODING
+
 root=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 gate=$1
 [ -n "$gate" ] || { echo "core/hooks/run: names no gate" >&2; exit 1; }
 shift
 
+# `run --python` PRINTS the interpreter instead of running a gate, and that arm is why this file
+# stays the only one besides platform_law.py allowed to know both layouts. A bash tool that must
+# spawn Python -- a heredoc script, a tool outside core/hooks -- otherwise has to spell a venv path
+# itself, which is how the workspace ended up with `python3` in twenty places: the bare word reaches
+# a Microsoft Store alias on Windows that prints an advert and exits 9009. One question, one answer.
 for py in "$root/.venv/bin/python3" "$root/.venv/Scripts/python.exe"; do
     [ -x "$py" ] || continue
+    [ "$gate" = "--python" ] && { echo "$py"; exit 0; }
     exec "$py" "$root/core/hooks/$gate" "$@"
 done
 

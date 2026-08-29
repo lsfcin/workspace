@@ -4,8 +4,9 @@ import subprocess
 from pathlib import Path
 
 from conftest import WORKSPACE_ROOT
+from platform_law import interpreter
 
-SCRIPT = WORKSPACE_ROOT / "core/hooks/git" / "gitignore-self-heal.sh"
+SCRIPT = WORKSPACE_ROOT / "core/hooks/git" / "gitignore_heal.py"
 
 
 def _make_fixture(tmp_path: Path) -> Path:
@@ -29,7 +30,7 @@ def _make_fixture(tmp_path: Path) -> Path:
 
 
 def _run(tmp_path: Path) -> str:
-    subprocess.run(["bash", str(SCRIPT), str(tmp_path)], check=True)
+    subprocess.run([interpreter(), str(SCRIPT), str(tmp_path)], check=True)
     return (tmp_path / ".gitignore").read_text(encoding="utf-8")
 
 
@@ -49,7 +50,7 @@ def _make_repo_fixture(tmp_path: Path) -> Path:
 
 def _heal(fixture: Path) -> subprocess.CompletedProcess:
     return subprocess.run(
-        ["bash", str(SCRIPT), str(fixture)], capture_output=True, text=True, check=False
+        [interpreter(), str(SCRIPT), str(fixture)], capture_output=True, text=True, check=False
     )
 
 

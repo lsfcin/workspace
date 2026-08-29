@@ -49,7 +49,7 @@ The `feature` subtree is the spec-driven pipeline. Its distinctive spine:
 - **Spec gates** ([code/ROADMAP-spec-drive.md](../../../code/ROADMAP-spec-drive.md)): `spec-read-gate` (can't edit a
   spec-locked module without reading its SPEC), pre-commit `1d` (new module needs a `> spec:`), `spec-scan` ledger. The
   feature subtree is what *produces* the specs these guard.
-- **Git Flow gate** (`core/hooks/git/gitflow-gate.sh`): no direct commits to `main`/`master`/`develop`;
+- **Git Flow gate** (`core/hooks/git/gitflow_gate.py`): no direct commits to `main`/`master`/`develop`;
   `feature|release|hotfix/*` names only, in `code/` repos.
 - **verify:fast** (pre-commit `1a`): tests must be green to commit.
 
