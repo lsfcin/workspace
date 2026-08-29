@@ -30,7 +30,14 @@ def check(commit):
     if gitdir and (commit.toplevel / gitdir / 'MERGE_HEAD').is_file():
         return
 
-    branch = git('rev-parse', '--abbrev-ref', 'HEAD', cwd=commit.toplevel)
+    # `--show-current`, not `rev-parse --abbrev-ref`: on a branch with no commit yet the latter
+    # answers nothing, and the gate then refused `feature/probe` as a branch named ''. The bash had
+    # the same hole -- the first commit into a fresh project repo was blocked by a message naming a
+    # branch the operator could see was right. `--show-current` names an unborn branch, and prints
+    # nothing on a detached HEAD, which is the case the next line was already written for.
+    branch = git('branch', '--show-current', cwd=commit.toplevel)
+    if not branch:
+        return
     if branch in SHARED:
         raise Blocked(
             f"⛔ Git Flow: direct commits to '{branch}' are not allowed.\n"
