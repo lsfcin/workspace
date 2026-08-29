@@ -101,7 +101,7 @@ def test_the_ceilings_are_not_stale():
 # test pretending to check it would be the weaker kind this workspace names. AD-9's law (no text
 # read or write inheriting the OS encoding) is owed: the corpus is clean, but an exact check needs
 # the ast walk the codemod used, and that belongs with the pre-commit pipeline being ported next.
-MACHINE_PATH_CEILING = 126        # `mnt/workspace` hardcoded in a versioned file; S5 drives it to 0
+MACHINE_PATH_CEILING = 105        # `mnt/workspace` hardcoded in a versioned file; S5 drives it to 0
 VENV_POSIX_CEILING = 72           # `.venv/bin`, which is `.venv/Scripts` elsewhere; S4 drives it to 0
 
 SEAM = 'core/hooks/platform_law.py'
