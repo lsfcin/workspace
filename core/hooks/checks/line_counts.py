@@ -34,6 +34,13 @@ def report(paths, root=None) -> tuple:
         target = root / path
         if not target.is_file() or not file_law.is_code_file(Path(path)):
             continue
+        # A tool wrote it, so no authoring rule applies — the third answer file_law holds, and the
+        # one this gate never asked for. `generated.txt` promises the cap is waived and the entropy
+        # dashboard honours that; this did not, so the session close regenerated ARCHITECTURE.html
+        # and was then refused permission to commit it. A generator that cannot settle its own
+        # output leaves the artifact dirty on every close.
+        if file_law.is_generated_artifact(target, root):
+            continue
         count = len(target.read_text(encoding='utf-8', errors='replace').splitlines())
         if count >= block:
             lines.append(f'🚨 BLOCK: {path} ({count} lines)')
