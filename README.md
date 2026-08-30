@@ -88,9 +88,13 @@ vendor changes a leaf and never a family: `mail/gmail`, `calendar/gcalendar`, `f
 
 ## Agent support
 
-Claude Code, GitHub Copilot and opencode all run the same canonical hooks through a thin shim.
-Adding a fourth means implementing three hook points against a documented stdin/exit-code contract
+Claude Code, GitHub Copilot, opencode and Codex all run the same canonical hooks through a thin
+shim. Adding another means implementing the documented stdin/exit-code contract
 — see [`core/hooks/SPECS.md`](core/hooks/SPECS.md) § The contract a new agent's shim must satisfy.
+
+In Codex, open `/hooks` once to review and trust the project hooks. If workspace records must stay
+strictly in Git rather than Codex local memory, turn that chat's memory read/write off with
+`/memories`; durable decisions and handoffs still belong in the workspace either way.
 
 ## Cloning it for yourself
 

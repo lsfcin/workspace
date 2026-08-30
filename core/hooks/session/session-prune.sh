@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # SessionStart — prune stale session marker files (context seen-markers, facade reads,
 # codegraph nudges) older than 2 days. See code/ROADMAP-verify.md W1.
-find /tmp -maxdepth 1 \( -name 'claude_ctx_seen_*' -o -name 'claude_facades_*' -o -name 'claude_cg_nudged_*' -o -name 'claude_branch_*' \) -mmin +2880 -delete 2>/dev/null
+find /tmp -maxdepth 1 \( -name 'claude_ctx_seen_*' -o -name 'claude_facades_*' -o -name 'claude_cg_nudged_*' -o -name 'claude_branch_*' -o -name 'wos_codex_hook_*' \) -mmin +2880 -delete 2>/dev/null
 exit 0

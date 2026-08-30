@@ -41,12 +41,28 @@ for an install step; they are not steps and have no probes.
 |---|---|
 | Claude Code hooks | `.claude/settings.json` is in the repo; Claude Code reads it when the workspace is opened, and `core/hooks/` activates immediately |
 | ZCode hooks | `.zcode/config.json` is in the repo and ZCode reads it at every session start — but project-scope hooks stay **inert until the workspace is trusted in the client** (one-time, per machine; `agent: no` — open the workspace in ZCode and accept the trust prompt). Until then zcode enforces nothing at edit time; the git gates still fire |
+| Codex hooks and craft roles | `.codex/hooks.json` and `.codex/agents/` are versioned; Codex discovers them in a trusted project. The adapter translates `apply_patch` into the canonical hooks rather than copying policy into the harness |
 | opencode policy plugin | `.opencode/plugins/workspace-policy.js` is a project-level plugin, auto-loaded from the workspace root. Helpers live in `.opencode/wp-helpers.js`, outside `plugins/` so opencode does not load them as a second plugin |
 | Copilot hook registration | `.github/hooks/workspace-policy.json` and `.github/hooks/rtk-rewrite.json` are inert config files until Copilot itself is installed |
 | The feature registry | `core/features.txt` and `core/profile.txt` are versioned, and `core/hooks/feature_law.py` reads them where they sit |
 
 The one exception is rtk for Claude Code: its code is versioned but its registration is not, which
 is why § RTK — Claude Code registration is a step.
+
+## Codex trust and local memory
+> feature: `codex-hooks` · agent: no
+
+Codex reads this repository's `AGENTS.md` without extra configuration. Its project hooks remain
+inert until the user reviews and trusts them, which is intentional: the adapter can block a write.
+The workspace remains the durable record; use `/memories` in Codex to disable this chat's local
+memory read/write when that privacy boundary is wanted.
+
+**Needs Lucas:** open the cloned workspace in Codex, run `/hooks`, review the project hooks and
+trust them. Then run `/memories` and choose not to use or create local memories for WOS work.
+
+**Precondition / Verify:** `/hooks` lists the trusted project hooks; edit a harmless tracked file
+and confirm the Codex hook reports the canonical workspace policy. `make verify-fast` also proves
+that the adapter paths and payload translation remain valid.
 
 **Before running the steps, read your profile** — it decides which of them you need, and
 `core/features.txt` says what each feature buys, so a step is judged before it is run.

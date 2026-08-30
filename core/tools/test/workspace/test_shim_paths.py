@@ -42,6 +42,10 @@ SHIMS = {
         [WORKSPACE_ROOT / '.zcode/config.json'],
         re.compile(r'/mnt/workspace/core/hooks/([A-Za-z0-9_./-]+\.(?:py|sh))'),
     ),
+    'codex': (
+        [HOOKS / 'codex/codex-policy.py'],
+        re.compile(r'"((?:read|checks|facade)/[A-Za-z0-9_./-]+\.(?:py|sh))"'),
+    ),
 }
 
 
@@ -77,3 +81,8 @@ def test_copilot_spawns_only_scripts_that_exist():
 def test_zcode_spawns_only_scripts_that_exist():
     dead = sorted(p for p in _spawned('zcode') if not (HOOKS / p).exists())
     assert not dead, f'zcode shim spawns paths that do not resolve: {dead}'
+
+
+def test_codex_spawns_only_scripts_that_exist():
+    dead = sorted(p for p in _spawned('codex') if not (HOOKS / p).exists())
+    assert not dead, f'codex shim spawns paths that do not resolve: {dead}'
