@@ -14,8 +14,8 @@ na prefeitura tramita como REFORMA.
 **Why:** projeto de longo prazo multi-frente (burocracia, orçamento, 3D/5D, design, gastos); o usuário declarou que
 burocracia é ponto fraco dele e teme partes desconexas.
 
-**How to apply:** toda sessão da obra começa lendo `branches/casinhas/CONTEXT.md` (cockpit) + `PROJETO.md` — hooks
+**How to apply:** toda sessão da obra começa lendo `branches/casinhas/CONTEXT.md` (cockpit) + `projeto.md` — hooks
 forçam. Roadmap de execução S2..S12 em `branches/casinhas/ROADMAP.md` (S1 feito 2026-07-06: estrutura + ingestão +
-BUROCRACIA.md). Burocracia primeiro: sempre checar itens 🔴 em `burocracia/BUROCRACIA.md` e empurrar a "próxima ação
+etapas.md). Burocracia primeiro: sempre checar itens 🔴 em `burocracia/etapas.md` e empurrar a "próxima ação
 mínima". Aritmética nunca pelo modelo — CLI `obra` (code/obra, a partir de S3). Gastos: planilha Google é master (pai
 usa). Relacionado: [[fable-quota-strategy]].

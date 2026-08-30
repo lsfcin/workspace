@@ -148,6 +148,33 @@ def copy_file(svc, file_id: str, name: str, parent_id: str) -> dict:
     ).execute()
 
 
+def list_permissions(svc, file_id: str) -> list:
+    """Who can reach this file, and how. Read before copying anything someone else edits —
+    a copy starts private, so the other person silently loses the file unless this is replayed."""
+    res = svc.permissions().list(
+        fileId=file_id, fields="permissions(id, type, role, emailAddress, domain)").execute()
+    return res.get("permissions", [])
+
+
+def grant_permission(svc, file_id: str, email: str = None, role: str = "writer",
+                     kind: str = "user", notify: bool = False) -> dict:
+    """`notify=False` on purpose: the point is to keep access someone already had, and a mail
+    saying a file was shared with them is confusing when nothing changed for them.
+    `kind="anyone"` restores link access — the thing a CSV export URL depends on, and the one
+    permission a copy silently drops."""
+    body = {"type": kind, "role": role}
+    if kind == "user":
+        body["emailAddress"] = email
+    return svc.permissions().create(
+        fileId=file_id, sendNotificationEmail=notify, body=body, fields="id").execute()
+
+
+def trash_file(svc, file_id: str) -> dict:
+    """Trash, never `files().delete()`. The bin is recoverable for 30 days and a permanent delete
+    of someone else's live document has no undo at all."""
+    return svc.files().update(fileId=file_id, body={"trashed": True}, fields="id, name").execute()
+
+
 def upload_local(svc, path: pathlib.Path, parent_id: str, as_gdoc: bool = False,
                  name: str = None) -> dict:
     """Upload a local file to parent_id. When as_gdoc, the target mimeType is a

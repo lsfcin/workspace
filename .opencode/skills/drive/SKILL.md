@@ -13,7 +13,9 @@ Arguments: $ARGUMENTS
 
 ## Overview
 
-Access Google Drive (read-only) across 3 accounts via `core/tools/files/gdrive`.
+Access Google Drive across 3 accounts via `core/tools/files/gdrive` — read *and* write. Reads use the
+`drive` token, `mkdir`/`put` use a separate `drive-write` one, so a read re-consent leaves the write
+token dead: `gdrive auth <alias> --write --reauth` is a different command.
 
 ## Commands
 
@@ -22,6 +24,8 @@ core/run tools/files/gdrive recent [--account all|personal|cin|ufrpe] [--limit 2
 core/run tools/files/gdrive list   [--account ...] [--folder <id>]
 core/run tools/files/gdrive search [--account ...] <query>
 core/run tools/files/gdrive download --account <alias> <file_id>
+core/run tools/files/gdrive mkdir   --account <alias> [--parent <id>] <name>
+core/run tools/files/gdrive put     --account <alias> [--parent <id>] [--gdoc] <path>
 core/run tools/files/gdrive auth <alias>   # first-time per account
 ```
 

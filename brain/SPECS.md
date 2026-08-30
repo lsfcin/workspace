@@ -65,7 +65,9 @@ Synthesis on top of fears:
 - Selected achievement = always first unchecked `[ ]` item in backlog
 - Remaining unchecked = ordered by Lucas's judgment — **by live motivation first, deadlines second**
   (ordering wins over pressure; see § Rationale below). Deadlines are a gentle nudge, never the organizing axis.
-- Done items = move to `## done` section
+- Done items = move to `## done` section, **no topo do bloco**: `compress_done` mantém as três
+  primeiras linhas e descarta o resto no próximo commit, sem avisar. Uma conquista escrita no fim do
+  bloco desaparece silenciosamente — foi o que aconteceu em 2026-08-28. O bloco é mais-novo-primeiro.
 - Achievement format: `[short-id] description` — short-id is 2–4 word kebab-case slug
 - Optional inline timing: `> [ ] [id] description — Jun 01`
 - On check-off: use `/compass` (the "close a win" move — folds the retired `/brain-finished`)

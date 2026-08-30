@@ -136,6 +136,7 @@ mail-triage	tools	on-demand	-	none	lucas	core/tools/mail/gmail	Reads a mailbox a
 notes-notion	tools	on-demand	-	none	lucas	core/tools/notes/notion	Pages and note databases read as navigable text
 latex	hooks+tools	automatic	latex	blocks	general	core/hooks/commit/gates.py,core/tools/paper/papers	Everything this workspace does with a paper: search and text extraction, the .texif scaffolding, and the term-consistency check that blocks a paper commit whose vocabulary drifted
 video-text	tools	on-demand	-	none	general	core/tools/video/video	Turns a media link into navigable text through metadata, captions, transcript, OCR and visual captioning, which is what makes a link in the INBOX drainable
+wazip	tools	on-demand	-	none	general	core/tools/chat/wazip	Turns an exported chat into navigable text with the voice notes transcribed inline, which is what makes WhatsApp — where the obra, a feirinha and the instituto actually happen — readable by a session at all
 asset-inspect	tools	on-demand	-	none	general	core/tools/assets/inspect	Interface stubs for non-code assets, so an image or a CSV is readable without opening it
 caveman	skills	automatic	caveman	none	lucas	core/skills/caveman/hooks/config.js	Compresses the agent's own prose by roughly 65% without touching technical content, and goes off with a sentence when precision matters
 craft	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time
@@ -154,6 +155,7 @@ foundry	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	Foundry VT
 iso-visual	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	The isoroll visual-semantics reference: image-to-text conventions and known model failure modes
 filesystem	norms	automatic	-	advises	general	core/hooks/routing/norms.py	An agent answers from the tree in front of it instead of from what it remembers, which is what makes a stale belief impossible to act on
 storage	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Nothing that matters is written into a vendor directory, so the workspace stays portable across harnesses instead of hostage to one
+secrets	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A credential or someone else's personal data never reaches a remote, because a repo that leaks one is not fixable by deleting the line
 improve	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A session that notices a defect either fixes it or files it, so a finding never dies with the session that found it
 interview	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Doubt about intent costs one question instead of a session of work in the wrong direction
 acronyms	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A reader is never left decoding, which is what keeps a durable file readable by the next session rather than only by its author
@@ -162,4 +164,4 @@ cap	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A file over th
 symmetry	norms	automatic	-	advises	general	core/hooks/routing/norms.py	An asymmetry that is written down gets fixed; one that is merely noticed becomes the next category error
 deletion	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A ledger holds only what is still open, so its length is a real measure of remaining work
 dogfood	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Our own tools get used and therefore get good, instead of decaying beside a hand-rolled alternative
-one-action	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Agent-facing text names the one action to take, because it is read mid-thread and every extra noun is a decision the agent may improvise against
+reduce	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Cada sessão devolve o workspace menor do que achou, então crescer vira uma decisão do Lucas em vez de um efeito colateral

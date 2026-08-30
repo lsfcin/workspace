@@ -66,6 +66,7 @@ toggle	forms	on
 toggle	mail-triage	on
 toggle	notes-notion	on
 toggle	video-text	on
+toggle	wazip	on
 toggle	asset-inspect	on
 toggle	latex	on
 toggle	caveman	on
@@ -87,6 +88,7 @@ toggle	foundry	on
 toggle	iso-visual	on
 toggle	filesystem	on
 toggle	storage	on
+toggle	secrets	on
 toggle	improve	on
 toggle	interview	on
 toggle	acronyms	on
@@ -95,4 +97,4 @@ toggle	cap	on
 toggle	symmetry	on
 toggle	deletion	on
 toggle	dogfood	on
-toggle	one-action	on
+toggle	reduce	on

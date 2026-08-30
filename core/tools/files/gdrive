@@ -1,4 +1,4 @@
-# gdrive — Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put
+# gdrive — Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put, copy, perms, share, rm
 import sys, pathlib, argparse
 
 _HERE = pathlib.Path(__file__).resolve().parent
@@ -82,6 +82,37 @@ def cmd_put(account: str, path: str, parent_id: str, as_gdoc: bool, name: str) -
     print(f"  {res.get('webViewLink', '')}")
 
 
+def cmd_copy(account: str, file_id: str, name: str, parent_id: str) -> None:
+    alias = gauth.resolve_alias(account)
+    svc = drive_core.get_service(alias, write=True)
+    res = drive_core.copy_file(svc, file_id, name, parent_id)
+    print(f"Copied to '{name}' ({alias})  id:{res['id']}")
+    print(f"  {res.get('webViewLink', '')}")
+
+
+def cmd_perms(account: str, file_id: str) -> None:
+    alias = gauth.resolve_alias(account)
+    for perm in drive_core.list_permissions(drive_core.get_service(alias), file_id):
+        who = perm.get("emailAddress") or perm.get("domain") or perm["type"]
+        print(f"  {perm['role']:<8} {who}")
+
+
+def cmd_share(account: str, file_id: str, email: str, role: str) -> None:
+    alias = gauth.resolve_alias(account)
+    svc = drive_core.get_service(alias, write=True)
+    kind = "anyone" if email == "anyone" else "user"
+    drive_core.grant_permission(svc, file_id, email, role=role, kind=kind)
+    print(f"Shared {file_id} with {email} as {role} ({alias})")
+
+
+def cmd_rm(account: str, file_ids: list) -> None:
+    alias = gauth.resolve_alias(account)
+    svc = drive_core.get_service(alias, write=True)
+    for file_id in file_ids:
+        res = drive_core.trash_file(svc, file_id)
+        print(f"Trashed '{res.get('name', file_id)}' ({alias})  id:{res['id']}")
+
+
 def main():
     p = argparse.ArgumentParser(prog="gdrive")
     sub = p.add_subparsers(dest="cmd")
@@ -120,6 +151,26 @@ def main():
     pp.add_argument("--name", default=None, help="override the uploaded file name")
     pp.add_argument("path")
 
+    pc = sub.add_parser("copy")
+    pc.add_argument("--account", required=True)
+    pc.add_argument("--parent", default="root")
+    pc.add_argument("--name", required=True, help="name the copy carries")
+    pc.add_argument("file_id")
+
+    pe = sub.add_parser("perms")
+    pe.add_argument("--account", required=True)
+    pe.add_argument("file_id")
+
+    psh = sub.add_parser("share")
+    psh.add_argument("--account", required=True)
+    psh.add_argument("--role", default="writer", choices=["reader", "commenter", "writer"])
+    psh.add_argument("file_id")
+    psh.add_argument("email")
+
+    prm = sub.add_parser("rm")
+    prm.add_argument("--account", required=True)
+    prm.add_argument("file_ids", nargs="+", help="moved to the bin, recoverable for 30 days")
+
     args = p.parse_args()
     if   args.cmd == "auth":     cmd_auth(args.alias, args.write, args.reauth)
     elif args.cmd == "recent":   cmd_recent(args.account, args.limit)
@@ -128,6 +179,10 @@ def main():
     elif args.cmd == "download": cmd_download(args.account, args.file_id, args.export_as)
     elif args.cmd == "mkdir":    cmd_mkdir(args.account, args.name, args.parent)
     elif args.cmd == "put":      cmd_put(args.account, args.path, args.parent, args.gdoc, args.name)
+    elif args.cmd == "copy":     cmd_copy(args.account, args.file_id, args.name, args.parent)
+    elif args.cmd == "perms":    cmd_perms(args.account, args.file_id)
+    elif args.cmd == "share":    cmd_share(args.account, args.file_id, args.email, args.role)
+    elif args.cmd == "rm":       cmd_rm(args.account, args.file_ids)
     else:                        p.print_help()
 
 

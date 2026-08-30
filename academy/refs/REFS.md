@@ -39,6 +39,24 @@
   reel actually argues is unknown; the caption suggests a frontier-pace / regulation angle worth one look before it
   earns class time.
 
+- [eluna.ai — Yann LeCun reel](https://www.instagram.com/reel/Dbd8XDWSM1A/) — [src: web:instagram.com] LeCun spent
+  decades on neural networks while the field held they would not work; now argues for AI that models how the world
+  works rather than predicting the next word (credits: Pioneer Works). Lucas: *"colocar em alguma das minhas aulas de
+  ai4good"* (INBOX 2026-08-24) — paired task in `brain/goals/teaching-materials.md` `[ai4good-lecun]`.
+
+- [theaifield — books scanned for training data](https://www.instagram.com/p/DcQ1847jA8l/) — [src: web:instagram.com]
+  says physical books are prime training data because they are edited human writing from before generated text, and
+  names Anthropic's reported *"Project Panama"* — books bought, unbound, scanned, recycled — against non-destructive
+  scanning (Treventus ScanRobot 2.0), destructive winning on speed and cost. Same case as the book-burning ref above;
+  both feed `[ai4good-book-burning]`. **A post, not a source** — confirm the case before it is taught.
+
+- [LJ — 10 solarpunk games](https://www.instagram.com/p/Db8TS-UFC8N/) — [src: web:instagram.com] games about restoring
+  ecosystems and building sustainable communities (Terra Nil, Loddlenaut). Lucas: *"solarpunk é a vibe de ai4good"*
+  (INBOX 2026-08-24) — positioning for the course, not a task.
+- [ria — indigenous knowledge leads solarpunk](https://www.instagram.com/reel/DY2wj1svR_m/) — [src: web:instagram.com]
+  argues indigenous ecological knowledge is best placed to lead the movement. Same solarpunk cluster; captured without
+  a note.
+
 ## IA e aprendizagem — o eixo novo de Tecnologias na Educação (2026-08-19)
 
 Lidos e usados na aula 02; todos com número citável em sala.

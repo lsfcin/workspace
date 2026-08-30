@@ -56,7 +56,11 @@ o formato.
 
 > [ ] [metodologia-tecedu] semana-padrão (quarta e sexta com papéis fixos, uma pergunta e um produto por encontro), as 9
 > etapas mapeadas nos 34 encontros reais (números em `academy/teaching/tecnologias-na-educacao/CONTEXT.md`), avaliação
-> nova, dashboard que substitui as duas planilhas Google, e o padrão MODELO+EXEMPLO em toda entrega  
+> nova, dashboard que substitui as duas planilhas Google, e o padrão MODELO+EXEMPLO em toda entrega. Inclui **como cada
+> encontro abre e como cada conteúdo é mostrado** — a metodologia é dita antes do conteúdo (INBOX 2026-08-27)  
+> [ ] [fecho-de-aula] fechar toda aula com dois blocos: (1) **vocabulário** — que palavras a turma passou a ter, o que
+> expandiu no conhecimento da área; (2) **verificação** — um teste curto que o aluno usa para conferir sozinho que
+> aprendeu, possivelmente respondido em sala como formulário que contabiliza nota (INBOX 2026-08-27)  
 > [ ] [pesquisa-que-falta] gamificação séria (sem infantilizar), specs/contract grading, mecanismos de avaliação por
 > pares com propriedades verificáveis, e venues de publicação alcançáveis por graduandos em um semestre  
 
@@ -80,7 +84,12 @@ o formato.
 > de teste e apagar a resposta; depois da aula, ler com `core/tools/forms/gforms responses --account personal <form_id>`
 > e decidir o formato das sextas  
 > [ ] [ai4good-book-burning] investigar o caso por trás do reel "this feels like a book burning" e decidir se entra nas
-> aulas de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-07-28)  
+> aulas de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-07-28). Um segundo post (@theaifield, INBOX 2026-08-21)
+> dá nome ao caso — a "Project Panama" atribuída à Anthropic, livros comprados, descosturados, escaneados e reciclados —
+> e o contraponto técnico, o ScanRobot 2.0 da Treventus, que digitaliza sem destruir; conferir na fonte antes de usar  
+> [ ] [ai4good-lecun] decidir se o reel do LeCun entra numa aula de ai4good — décadas em redes neurais quando a aposta
+> era tida como morta, hoje em world models e não em prever a próxima palavra; ref em `academy/refs/REFS.md` (INBOX
+> 2026-08-24)  
 > [ ] [ai4good-pacing-frontier] assistir o reel "pacing the frontier" e decidir se entra nas aulas — ref em
 > `academy/refs/REFS.md`; a extração só trouxe a legenda, então o conteúdo ainda é desconhecido (INBOX 2026-08-17)  
 > [ ] [arxiv-visuals] achar e testar o arXiv Visuals (paper → explainer animado; link é comment-gated, então achar por
@@ -108,14 +117,14 @@ o formato.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-26  ·  trend: advancing
+last-touch: 2026-08-28  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      31 |
-| trimester   |      47 |
-| semester    |      47 |
-| year        |      47 |
-| 2-year      |      47 |
-| 4-year      |      47 |
+| month       |      34 |
+| trimester   |      50 |
+| semester    |      50 |
+| year        |      50 |
+| 2-year      |      50 |
+| 4-year      |      50 |
 <!-- stats:end -->

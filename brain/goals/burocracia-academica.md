@@ -38,6 +38,10 @@ Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e es
 > `academy/administration/coordenacao-lc/novo-ppc-bcc/ementas/gaps.md`) — depois, criar as 3 ementas no formato novo
 > (INBOX 2026-07-24)
 > [ ] [sbc-cotas] checar isenção e prazos de cotas SBC — email andreza.leite@ufrpe.br
+> [ ] [admin-automatizada] desenhar como a administração vira trabalho do agente e não do Lucas: demandas que chegam
+> por WhatsApp e email, respostas e resoluções, instruções normativas e leis, e as ações no SIGAA/SIPAC/SIGRH. Desenho
+> antes de ferramenta — decidir o que o agente pode fazer sozinho, o que ele prepara para o Lucas aprovar, e o que nem
+> deve tentar. Depende da sincronia do Drive ([[google-migration]] `[drive-sync-method]`) (INBOX 2026-08-27)
 
 ## done
 
@@ -46,14 +50,14 @@ Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e es
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: advancing
+last-touch: 2026-08-25  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      14 |
-| trimester   |      14 |
-| semester    |      14 |
-| year        |      14 |
-| 2-year      |      14 |
-| 4-year      |      14 |
+| month       |      17 |
+| trimester   |      18 |
+| semester    |      18 |
+| year        |      18 |
+| 2-year      |      18 |
+| 4-year      |      18 |
 <!-- stats:end -->

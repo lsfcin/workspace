@@ -21,6 +21,10 @@ producers whose food you already trust.
 ## backlog
 
 > [ ] [map-producers] map 3 agroecological producers in Recife/PE who could be early partners  
+> [ ] [quintal-vizinho] olhar o app **Quintal** (@gcarvalhoof, INBOX 2026-08-27) — nasceu de dar destino ao que sobrava
+> no quintal dela e virou "conectar o que sobra aqui com quem pode querer ali", que é a feirinha um passo antes do
+> produtor. Ver o que já existe: o fluxo, quem paga (se alguém paga), e se o excedente doméstico é uma vertical nossa
+> ou o começo da mesma  
 > [ ] [map-kitchens] find 2-3 cozinhas solidárias in Recife for the donation destination  
 > [ ] [concept-doc] write a 1-page concept: what makes this different from iFood  
 > [ ] [user-research] talk to 3 potential consumers — what friction do they have buying local food?  
@@ -34,14 +38,14 @@ producers whose food you already trust.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: stalled
+last-touch: 2026-08-24  ·  trend: decelerating
 
 | period      | touches |
 |-------------|----------|
-| month       |       0 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       1 |
+| trimester   |       8 |
+| semester    |       8 |
+| year        |       8 |
+| 2-year      |       8 |
+| 4-year      |       8 |
 <!-- stats:end -->

@@ -92,6 +92,12 @@ with a tier marker; kill the rest by deleting the line.
 
 ### Agents / tools
 - claude council · ECC · odysseus (pewdiepie) · hermes agent · higgsfield mcp
+- [five repos that gained 20k stars in a week](https://www.instagram.com/p/DcURStsG5o8/) — [src:
+  web:instagram.com] as claimed by the post, unverified: **diagram-design** (Claude Code skill, 39
+  editorial diagram types), **omarchy** (DHH), **Cactus Compute** (14MB tool-calling model, runs on a
+  Pi), **ByteDance OpenViking** (context database an agent browses like a filesystem; claims Claude
+  Code recall 57% → 80%), **NVIDIA Switchyard** (routes easy agent calls to cheap models, −74% task
+  cost in their own eval). The last two touch fronts we own — memory, and cheap-tier routing
 
 ### Shipping an agent-written app
 - `[C]` [20 things to have Claude do before launching your

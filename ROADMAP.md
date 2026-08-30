@@ -28,7 +28,8 @@ Four families are done — `SCHEMA` five files → two, `SPECS` five → one, `c
 runtime parses it, and nothing parses a `SPECS` file, so all five merged. **A merged index lands over
 the cap** — 223, 267, 331 — because what survives such a cut is rulings and tables. Same on `SETUP`.
 *Why* — the norm that produced this mass now says cut, and nothing has been cut yet. A `.md` line in
-this tree is re-read by every session that touches the subtree.
+this tree is re-read by every session that touches the subtree. Lucas wants the norm backed by a gate
+(2026-08-27): growing the total asks him first, with a case that reducing was impossible — 🔴 his design.
 *Done when* — both numbers are met with `verify-fast` green. **Check before cutting any `.md`
 whether code parses it**: `core/SCHEMA.md`, `core/norms/*.md` and `ROADMAP*.md` are data, not prose.
 
@@ -71,7 +72,8 @@ routing cannot beat, so check the ceiling before spending on this.
 **🟡 anything the agent needs Lucas to physically do is said where he never sees it**
 *What* — one channel reaching him at the *end* of a response.
 *Why* — the close offer and every auth-consent request land in agent-facing prose at prompt-submit
-time; a consent request once sat unclicked through four exchanges.
+time; a consent request once sat unclicked through four exchanges. The context-window warning rides
+the same channel, and he asked for it at the *end* of each response (2026-08-27).
 *Done when* — both reach him without interrupting the thread, and the channel's token cost was
 measured before wiring rather than assumed free.
 
@@ -88,7 +90,8 @@ No behaviour change before the number exists: a wrong budget degrades the answer
 *Why* — 71 features are on and none has a scoreboard, so every cut is a guess and every kept rule is
 paid on faith. `core/hooks/hook_input.py` is the point they all pass through.
 *Done when* — after two weeks of ordinary use a feature × fired × blocked table exists.
-**Ruled 2026-08-25: nothing is deleted before it does.**
+**Ruled 2026-08-25: nothing is deleted before it does.** It also settles Lucas's open question (2026-08-27): is an agent
+better told up front what will block it, or better left to meet the hook live?
 
 **🟡 the ablation — the scaffold has never been measured against its own absence**
 *What* — variants of the public scaffold, one feature off in each, against one synthetic task suite.
@@ -96,6 +99,8 @@ paid on faith. `core/hooks/hook_input.py` is the point they all pass through.
 compensation; a rule that outlives its failure is pure cost.
 *Done when* — a **per-feature** verdict is readable, not only an aggregate. Needs the public repo and
 a clean per-feature switch. Runs outside this workspace; design belongs to `academy/papers/wos-ablation/`.
+One variant Lucas named (2026-08-27) is the extreme: **everything off for opus** — a claim going
+around (@nocodealex) says Anthropic cut ~80% of Claude Code's own prompt with no eval loss.
 
 **🔴 the agent is confidently wrong and nothing catches it**
 *What* — two halves Lucas postponed on purpose: what a knowledge store is and what earns a row in it,
@@ -163,11 +168,16 @@ not a decision.
 *Why* — an earlier block re-allows them, a later wholesale entry wins, so none is tracked and the
 first block is inert while reading as if it works — which is how the fifth repo will copy it.
 *Done when* — the contradiction is gone. Reordering changes what the Tier 0 corpus holds, so decide.
+Same file, second contradiction, found 2026-08-27: `branches/` is private by default — its dirs are
+allowed one `CONTEXT.md` each — while the self-heal allows a new one whole. Both are defensible; only
+one can be the rule, and today it depends on who wrote the line.
 
 **🟡 the public scaffold repo his students clone**
 *What* — a separate public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping
 the research-and-paper-writing subset with `brain/` as empty structure.
-*Why* — students have asked for it, and it is a hard precondition of the ablation.
+*Why* — students have asked for it, and it is a hard precondition of the ablation. It is now a live
+dependency, not a want: the "com o WOS" track of `academy/lab/CHECKPOINTS.md` is written and inert
+until it exists, so LOOP A's one-month deadline rests on a tool the student cannot get.
 *Done when* — a student clones it and gets a working workspace, and the general/Lucas line is a
 reviewable diff rather than a trusted script.
 
@@ -193,7 +203,9 @@ what they say. If the warning is built: warn, never block, or it trains empty go
 
 - **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — they wait until the v1 scaffold is tight.
   Nothing is spent on them, including the trial that would judge them: flows ran twice, agents remain
-  wholly untried, so no ruling on that layer is available yet.
+  wholly untried, so no ruling on that layer is available yet. An outside ranking Lucas found
+  plausible — hooks > skills > agents > flows/loops (@kem_glitch via INBOX 2026-08-25) — orders the
+  layer the same way, but a reel is not evidence and does not shorten the wait.
 - **Anything a nested repo owns** — each keeps its own `ISSUES.md` and fixes its own findings. The
   fanout hard-block, the `.d.ts` stub gap, the last two `ROADMAP-<slug>` renames and the
   first-line-comment queue all live there now.

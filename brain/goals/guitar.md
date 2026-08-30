@@ -30,6 +30,9 @@ notes you like, let your hands move without a plan. The point is contact, not pe
 > [ ] [free-play] pick up guitar and improvise for 10 minutes — no songs, no chords, just explore  
 > [ ] [electric-setup] change electric guitar strings and set it up to play  
 > [ ] [record-1] record a 1-minute improvisation — no editing, just capture  
+> [ ] [misterio-do-planeta] aprender "Mistério do Planeta" (Novos Baianos) — introdução, acordes e levada; aula do
+> @marcoslimaviolao em <https://www.instagram.com/reel/Dcbm_z0REi5/> (a cifra completa é comment-gated) (INBOX
+> 2026-08-24)  
 > [ ] [rhythm-test] play with a metronome for 10 minutes — test the rhythm belief  
 > [ ] [play-with-someone] play alongside one other musician — even informally  
 > [ ] [create-release] create and release something — anything  
@@ -41,14 +44,14 @@ notes you like, let your hands move without a plan. The point is contact, not pe
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: stalled
+last-touch: 2026-08-24  ·  trend: decelerating
 
 | period      | touches |
 |-------------|----------|
-| month       |       0 |
-| trimester   |       6 |
-| semester    |       6 |
-| year        |       6 |
-| 2-year      |       6 |
-| 4-year      |       6 |
+| month       |       1 |
+| trimester   |       7 |
+| semester    |       7 |
+| year        |       7 |
+| 2-year      |       7 |
+| 4-year      |       7 |
 <!-- stats:end -->

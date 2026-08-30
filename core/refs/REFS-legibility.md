@@ -13,6 +13,14 @@
 - `[P]` [CCISolver: End-to-End Detection and Repair of Method-Level Code-Comment
   Inconsistency](https://arxiv.org/abs/2506.20558) (2025).
 
+- `[C]` [nocodealex — "your CLAUDE.md is making Claude worse"](https://www.instagram.com/reel/DcQfL4Zty0L/) — [src:
+  web:instagram.com] claims Anthropic cut over 80% of Claude Code's own system prompt for the Claude 5 generation with
+  no measured coding-eval loss, calling what it had become *over-constraining*, and reports transcripts where one
+  request carried contradicting instructions. Its named symptoms — slower answers, simple rules ignored once rules
+  conflict, hallucination under long prescriptive blocks — describe this corpus. ⚠ a reel, no study linked; it also
+  warns that the repo-specific rules are the load-bearing ones. Lucas asked whether to go the whole way for opus
+  (INBOX 2026-08-21) — that variant is named in `/ROADMAP.md`'s ablation item, which is what settles it.
+
 ## Standards & practitioner specs
 
 - `[C]` [AGENTS.md](https://agents.md/) · [openai/agents.md](https://github.com/openai/agents.md) —

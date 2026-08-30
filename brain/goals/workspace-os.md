@@ -57,6 +57,10 @@ live in goal files (AGENTS.md).
 > writing it here is what made the roadmaps long and stale at once. And *"LLMs are good at writing
 > even when it isn't useful"*, so length is never evidence of care.
 >
+> **How the work gets pulled, Lucas 2026-08-27:** *"a partir de cada demanda da vida resolver não somente a demanda mas
+> toda a infraestrutura relacionada a ela e assim seguimos progredindo no micro e no macro."* A real demand is what
+> opens a session; the scaffold it touches is fixed in the same pass. Nothing here is worked for its own sake.
+>
 > **Two things he ruled are NOT on the table**, both because they cut capability rather than fat:
 > deleting a harness (multi-harness is essential — optimise the copy, never the function) and cutting
 > any hook before a scoreboard of what it actually blocked exists.
@@ -140,14 +144,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-25  ·  trend: advancing
+last-touch: 2026-08-28  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     297 |
-| trimester   |     388 |
-| semester    |     408 |
-| year        |     408 |
-| 2-year      |     408 |
-| 4-year      |     408 |
+| month       |     314 |
+| trimester   |     408 |
+| semester    |     428 |
+| year        |     428 |
+| 2-year      |     428 |
+| 4-year      |     428 |
 <!-- stats:end -->

@@ -42,7 +42,13 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 > git com commits automatizados?"*. Checar a viabilidade: o cliente sincroniza estado, não histórico, então a pergunta
 > real é se o versionamento nativo do Drive basta ou se a pasta precisa ser um repo de verdade. É a decisão que a fila
 > de download em `branches/google-migration/ROADMAP.md` está esperando, que hoje pressupõe download manual (INBOX
-> 2026-08-18)  
+> 2026-08-18). **`academy/` primeiro** — teaching e administration só ficam úteis de verdade depois que a sincronia for
+> sólida (INBOX 2026-08-27). O caminho que o Lucas quer testar está em
+> <https://askubuntu.com/questions/1368874/can-google-drive-desktop-be-used-on-ubuntu>, e junto vem a pergunta
+> conceitual: como fica o "versionamento híbrido" entre WOS, subpastas, git e Drive  
+> [ ] [apagar-sondas] apagar duas sondas no Drive pessoal, criadas por engano: o deck `__probe_delete_me` (INBOX
+> 2026-08-24) e o doc "probe-formato-checkpoints" (INBOX 2026-08-26). Nenhuma das duas CLIs apaga — é na mão, na
+> lixeira do Drive  
 > [ ] [ensino-mapa] mapear a parte de ensino da vida dentro do WOS e migrá-la inteira para lsf.cin@gmail.com — **o mapa
 > vem antes da migração**: hoje o ensino está espalhado entre `academy/classes/`, a fila de download e a conta do cin.
 > Decidir onde ensino mora no WOS, depois mover; senão a migração só reproduz o espalhamento numa conta nova. Colide com
@@ -69,10 +75,10 @@ last-touch: 2026-08-26  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       7 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       8 |
+| trimester   |       8 |
+| semester    |       8 |
+| year        |       8 |
+| 2-year      |       8 |
+| 4-year      |       8 |
 <!-- stats:end -->

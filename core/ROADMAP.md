@@ -55,6 +55,11 @@ page (⋯ → Connections), `list` returns content, and the write path takes Not
 rather than a DSL. Intent and ordering live in
 [`brain/goals/teaching-materials.md`](../brain/goals/teaching-materials.md); this line owns the build.
 
+**🟢 nothing we build on Drive can be thrown away by the thing that built it**
+*What* — a `trash` command on `gdocs` and `gdrive`. *Why* — both write (`new`, `push`, `mkdir`,
+`put`) and neither deletes, so every probe an agent creates is cleanup Lucas does by hand; two are
+waiting on him now. *Done when* — a file created by the CLI can be trashed by it, on the write token.
+
 ## Blocked — waiting on a trigger
 
 **🟢 the `video/` family name describes less than the family delivers** — it gained a page fallback,

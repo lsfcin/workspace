@@ -30,7 +30,8 @@ every session's prompt rather than merely marking it inactive.
 | [`filesystem.md`](filesystem.md) | The filesystem is the source of truth; nothing is answered from memory or assumption. |
 | [`improve.md`](improve.md) | Every session leaves the workspace better than it found it, and files what it could not fix. |
 | [`interview.md`](interview.md) | Doubt about intent is resolved by asking Lucas, never by guessing. |
-| [`one-action.md`](one-action.md) | Agent-facing text names exactly one action, because it is read mid-thread and not studied. |
+| [`reduce.md`](reduce.md) | Increasing workspace size is only allowed by Lucas, reducing is the way even when improving/extending. |
+| [`secrets.md`](secrets.md) | A credential or someone else's personal data never enters a versioned file; it lives in a gitignored segredos.env and the text carries the label. |
 | [`storage.md`](storage.md) | The workspace owns its state; nothing that matters is written to a vendor's private directory. |
 | [`symmetry.md`](symmetry.md) | Semantic and structural symmetry is a value, and every asymmetry found gets written down. |
 <!-- routing:end -->
