@@ -127,6 +127,6 @@ block), edit a `.py` past `BLOCK_LINES` (expect block), edit a `.py` (expect
 | [`agents/craft-high.md`](agents/craft-high.md) | — | — | Craft-flow executor, high tier — planning, plan review, architecture, escalated coding. Spawned by the craft flow with a single loop file as input. |
 | [`agents/craft-low.md`](agents/craft-low.md) | — | — | Craft-flow executor, low tier — mechanical steps (grounding, branch, ship). Spawned by the craft flow with a single loop file as input. |
 | [`agents/craft-medium.md`](agents/craft-medium.md) | — | — | Craft-flow executor, medium tier — tests-first, code-until-green, user test. Spawned by the craft flow with a single loop file as input. |
-| [`plugins/workspace-policy.js`](plugins/workspace-policy.js) | [`plugins/workspace-policy.d.ts`](plugins/workspace-policy.d.ts) | `WorkspacePolicy`, `blockMsg` | Workspace policy plugin for opencode. |
+| [`plugins/workspace-policy.js`](plugins/workspace-policy.js) | [`plugins\workspace-policy.d.ts`](plugins\workspace-policy.d.ts) | `WorkspacePolicy`, `blockMsg` | Workspace policy plugin for opencode. |
 | [`wp-helpers.js`](wp-helpers.js) | [`wp-helpers.d.ts`](wp-helpers.d.ts) | `buildPayloads`, `run`, `warn`, `WORKSPACE`, `HOOKS` | Helpers for the workspace-policy opencode plugin. |
 <!-- routing:end -->

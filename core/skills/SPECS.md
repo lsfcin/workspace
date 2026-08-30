@@ -7,20 +7,36 @@
 2. Fill the YAML frontmatter: `name`, `description` — `description` is the menu text an agent sees,
    so keep it actionable. `sync-skills` validates both and reports whichever is missing.
 3. Write the body: terse, prescriptive instructions the model follows when the skill fires.
-4. Run `core/tools/wos/sync-skills` to regenerate the mirrors — symlinks at
-   `.opencode/skills/<name>/SKILL.md` and `.claude/skills/<name>/SKILL.md`, both pointing at the
-   source file, plus the `.claude/commands/<name>.md` slash-command copy — then
-   `core/tools/wos/sync-skills --check` to confirm nothing is stale.
+4. Nothing. Saving the file regenerates the mirrors — `core/hooks/postedit/sync.sh` runs the sync on
+   any write under `core/skills/`. To do it by hand anyway: `sh core/tools/wos/sync-skills`, then
+   `sh core/tools/wos/sync-skills --check` to confirm nothing is stale. (`sh …`, not `core/run …`:
+   the launcher execs its target with Python, and this is one of the two bash tools.)
 
-After sync the skill is invocable in both programs: `/skill-name [args]`, or by natural-language
+After sync the skill is invocable in every program: `/skill-name [args]`, or by natural-language
 trigger matching `description`.
 
 ## Editing an existing skill
 
-Edit `core/skills/<name>.md`, then re-run `core/tools/wos/sync-skills`. The mirrors are symlinks to
-that one file, so there is no second copy to update — and nothing to edit *through*: most editors
-replace a symlink on write rather than writing through it, which silently turns the mirror into its
-own file and orphans it from the source.
+Edit `core/skills/<name>.md`. That is the whole procedure — the save regenerates.
+
+**The mirrors are generated copies and git does not track them** (`.gitignore`, ISSUES.md B8). One
+source, four published copies, because every harness looks in its own directory. Never edit a
+mirror: the next sync overwrites it, and `--check` compares by content, so the edit is reported as
+`STALE` against the source rather than kept.
+
+### What regeneration actually covers, and the one gap
+
+| Moment | Covered by | Immediate? |
+|--------|-----------|------------|
+| install / fresh clone | `SETUP.md` § Skill mirrors | yes |
+| edit a skill | `core/hooks/postedit/sync.sh` | yes |
+| create a skill | `core/hooks/postedit/sync.sh` | yes |
+| **delete a skill** | `orphans prune`, inside the pre-commit generator | **no — one commit behind** |
+
+Delete is the gap and it is structural, not an oversight: PostToolUse fires on Edit and Write, and
+removing a skill is an `rm`, which no hook observes. So a deleted skill's copies survive in the
+mirrors until the next commit prunes them, and until then the harness still lists a skill whose
+source is gone. If that matters in the moment, run the sync by hand.
 
 ## Case-sensitivity
 

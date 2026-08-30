@@ -139,20 +139,20 @@ video-text	tools	on-demand	-	none	general	core/tools/video/video	Turns a media l
 wazip	tools	on-demand	-	none	general	core/tools/chat/wazip	Turns an exported chat into navigable text with the voice notes transcribed inline, which is what makes WhatsApp — where the obra, a feirinha and the instituto actually happen — readable by a session at all
 asset-inspect	tools	on-demand	-	none	general	core/tools/assets/inspect	Interface stubs for non-code assets, so an image or a CSV is readable without opening it
 caveman	skills	automatic	caveman	none	lucas	core/skills/caveman/hooks/config.js	Compresses the agent's own prose by roughly 65% without touching technical content, and goes off with a sentence when precision matters
-craft	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time
-roundup	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Drains the session's ledgers into durable files and promotes the branch, so a session's knowledge survives it and no repo idles on an open branch
-handoff	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Writes the next session's opening prompt, and refuses when there is nothing open
-inbox	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	Routes every INBOX entry to a goal, task, reference or project doc, which is what makes capture free without making the queue permanent
-compass	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	The strategic review: what has wind, what to reorder, what to ditch guilt-free
-research	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	The research workflow, from scouting sources to a written synthesis
-prepare	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Turns a raw task into an optimised agent prompt, recommending model and effort
-dedup	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Semantic duplication audit for a code project: the near-duplicate logic the verbatim-clone gate misses
-install	skills	on-demand	-	none	general	core/tools/wos/skills/mirror.sh	Probes every step in SETUP.md on this machine, reports what is missing and executes it
-gmail	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	Triages Gmail across every configured account and writes the routes into brain/INBOX.md
-calendar	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	Lists upcoming events and queries date ranges across every configured calendar account
-drive	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	Lists, searches and downloads files from Google Drive across every configured account
-foundry	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	Foundry VTT module development reference, loaded only when that work is in front of us
-iso-visual	skills	on-demand	-	none	lucas	core/tools/wos/skills/mirror.sh	The isoroll visual-semantics reference: image-to-text conventions and known model failure modes
+craft	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.sh	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time
+roundup	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.sh	Drains the session's ledgers into durable files and promotes the branch, so a session's knowledge survives it and no repo idles on an open branch
+handoff	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.sh	Writes the next session's opening prompt, and refuses when there is nothing open
+inbox	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.sh	Routes every INBOX entry to a goal, task, reference or project doc, which is what makes capture free without making the queue permanent
+compass	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.sh	The strategic review: what has wind, what to reorder, what to ditch guilt-free
+research	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.sh	The research workflow, from scouting sources to a written synthesis
+prepare	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.sh	Turns a raw task into an optimised agent prompt, recommending model and effort
+dedup	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.sh	Semantic duplication audit for a code project: the near-duplicate logic the verbatim-clone gate misses
+install	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.sh	Probes every step in SETUP.md on this machine, reports what is missing and executes it
+gmail	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.sh	Triages Gmail across every configured account and writes the routes into brain/INBOX.md
+calendar	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.sh	Lists upcoming events and queries date ranges across every configured calendar account
+drive	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.sh	Lists, searches and downloads files from Google Drive across every configured account
+foundry	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.sh	Foundry VTT module development reference, loaded only when that work is in front of us
+iso-visual	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.sh	The isoroll visual-semantics reference: image-to-text conventions and known model failure modes
 filesystem	norms	automatic	-	advises	general	core/hooks/routing/norms.py	An agent answers from the tree in front of it instead of from what it remembers, which is what makes a stale belief impossible to act on
 storage	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Nothing that matters is written into a vendor directory, so the workspace stays portable across harnesses instead of hostage to one
 secrets	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A credential or someone else's personal data never reaches a remote, because a repo that leaks one is not fixable by deleting the line

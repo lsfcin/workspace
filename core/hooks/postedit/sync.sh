@@ -9,6 +9,27 @@
 # at all, since the root's routing block lives in AGENTS.md.
 sh "$RUN" hooks/routing/context_synchronizer.py "$file" 2>/dev/null
 
+# ── Sync the skill mirrors: the same job, one directory over ──────────────────
+# A skill mirror IS a generated index, so it belongs in this stage rather than a fifth fragment.
+#
+# THIS IS THE GUARANTEE THAT LETS THE MIRRORS LEAVE GIT (ISSUES.md B8). They are copies of
+# core/skills/*.md published where each harness looks, and Lucas's ruling is that generated content
+# may be untracked *provided regeneration is automatic*. Until this line existed, a skill edit
+# reached the mirrors only at commit time, so an agent that edited a skill and then used it in the
+# same session read the OLD body.
+#
+# WHAT THIS DOES NOT COVER, and it is not a hedge: PostToolUse fires on Edit and Write. Deleting a
+# skill is an `rm`, which no hook sees, so a deleted skill's mirrors are pruned at commit by
+# `orphans prune` inside sync-skills -- not at the moment of deletion. Install, edit and create are
+# immediate; delete is one commit behind. Stated in core/skills/SPECS.md rather than left implied.
+case "$file" in
+	"$WORKSPACE_ROOT"/core/skills/*.md)
+		sh "$WORKSPACE_ROOT/core/tools/wos/sync-skills" >/dev/null 2>&1 \
+			&& printf '✓ skill mirrors synced\n' \
+			|| printf '⚠️  sync-skills failed — run `sh core/tools/wos/sync-skills` to see why\n'
+		;;
+esac
+
 # ── codegraph sync — keep index fresh after every source edit ─────────────────
 if [[ "$file" == "$WORKSPACE_ROOT"/code/* ]]; then
 	case "$file" in

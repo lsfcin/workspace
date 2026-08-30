@@ -1,8 +1,9 @@
 # skills
 > Agent skills — provider-agnostic workflows invoked as slash commands or by instruction.
 
-`core/skills/<name>.md` is the only place to edit a skill — the `.opencode/skills/` and
-`.claude/skills/` mirrors are generated symlinks.
+`core/skills/<name>.md` is the only place to edit a skill — the `.opencode/skills/`,
+`.claude/skills/`, `.zcode/skills/` and `.claude/commands/` mirrors are generated copies that git
+does not track.
 
 How to create or edit a skill, the sync commands, the case-sensitivity hazard, what's excluded from
 mirroring, and the folder-shaped global-skill pattern (`caveman/`): [`SPECS.md`](SPECS.md).

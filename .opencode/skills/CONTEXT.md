@@ -1,5 +1,5 @@
 # skills
-> OpenCode skills for this workspace.
+> OpenCode's discovery point for the skill library: generated copies of core/skills, not tracked.
 
 <!-- routing:start -->
 ## Routing

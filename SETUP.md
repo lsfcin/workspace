@@ -222,6 +222,33 @@ chmod +x core/hooks/post-edit.sh core/hooks/read/pre-read.sh core/hooks/pre-comm
 **Verify** `find core/hooks -type f -name "*.sh" ! -perm -u+x` — no output. Any line is a file
 that will fail to run.
 
+## Skill mirrors
+> feature: `skill-mirrors` · agent: yes
+
+Every harness looks for skills in its own directory, so `core/skills/<name>.md` is published as a
+copy into `.claude/skills/`, `.opencode/skills/`, `.zcode/skills/` and `.claude/commands/`. **Those
+copies are generated and git does not track them**, which is why this step is not optional: a fresh
+clone has the sources and none of the copies, so every `/<skill>` is missing until it runs.
+
+They were symlinks until 2026-08-29. `ln -s` under Git Bash silently copies unless
+`MSYS=winsymlinks:nativestrict`, which needs Developer Mode — a machine-level privilege out of
+proportion to what this workspace is. Copying removes the per-OS axis instead of adding an arm for
+it, and what the symlink bought was freshness, which is now regeneration at the moments that change
+a skill: this step, the post-edit hook, and the pre-commit generator.
+
+**Precondition** `sh core/tools/wos/sync-skills --check`
+
+`sh …`, not `core/run …`: the launcher execs its target with **Python**, and these two tools are the
+workspace's only bash ones. Everything else under `core/tools/` is spelled `core/run tools/…`.
+
+**Install** — idempotent; it also prunes mirrors whose source skill is gone or switched off:
+```bash
+sh core/tools/wos/sync-skills
+```
+
+**Verify** `sh core/tools/wos/sync-skills --check` — prints `OK: all mirrors and command files in
+sync`. Any `MISSING` / `STALE` / `ORPHAN` line names the file and the source it disagrees with.
+
 ## Python interfaces — stubgen
 > feature: `interface-stubs` · agent: yes
 
@@ -379,11 +406,11 @@ Output compression, ~65% of the agent's own output. **Vendored** since 2026-07-2
 [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman). **Do not run the upstream
 installer**: it replaces the links with copies and re-forks both installs. Needs Node ≥ 18.
 
-**Precondition** `core/run tools/wos/sync-global-skills --check`
+**Precondition** `sh core/tools/wos/sync-global-skills --check`
 
 **Install** — the links, then the config every agent reads:
 ```bash
-core/run tools/wos/sync-global-skills            # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
+sh core/tools/wos/sync-global-skills             # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
 mkdir -p ~/.config/caveman && echo '{"defaultMode": "full"}' > ~/.config/caveman/config.json
 ```
 ```powershell

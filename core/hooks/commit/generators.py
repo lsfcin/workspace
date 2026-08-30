@@ -162,9 +162,17 @@ def interfaces(commit):
 def skills(commit):
     """Regenerate the skill-library mirrors, then validate their frontmatter.
 
-    Regeneration prunes orphans -- the failure that dangles symlinks and breaks opencode startup.
+    Regeneration prunes orphans, which is the only thing that removes a DELETED skill's copies:
+    `rm` is not an Edit, so no post-edit hook sees it and this stage is where that case lands.
     The --check re-run is not belt-and-braces: it is what catches a sync that reported success and
     left the mirrors disagreeing anyway.
+
+    THIS STAGE NO LONGER STAGES ANYTHING. It used to `git add -A` the four mirror trees, because
+    the copies were tracked. Since 2026-08-29 they are gitignored generated content (ISSUES.md B8),
+    so that loop could only ever add nothing -- and it restated the four mirror paths that
+    sync-skills already owns in its MIRRORS array, a second copy of a list with one home. What is
+    left is regenerate-and-validate, and correctness now lives at the moment of the edit
+    (core/hooks/postedit/sync.sh) rather than at commit time.
     """
     if not any(p.startswith('core/skills/') and p.endswith('.md') for p in commit.staged):
         return
@@ -176,8 +184,6 @@ def skills(commit):
     if done.returncode != 0:
         raise Blocked('⛔ sync-skills failed — invalid skill frontmatter (see core/SCHEMA.md). '
                       'Fix before committing.')
-    for mirror in ('.claude/skills', '.claude/commands', '.opencode/skills', '.zcode/skills'):
-        git('add', '-A', str(commit.root / mirror), cwd=commit.toplevel)
     if subprocess.run(['sh', str(sync), '--check'], capture_output=True, text=True,
                       cwd=commit.toplevel).returncode != 0:
         raise Blocked('⛔ skill mirrors out of sync after regeneration.')

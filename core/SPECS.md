@@ -67,7 +67,7 @@ API facts: `core/tools/slides/SPECS.md`.
 ### AD-06 — A skill's `refs/` folder sits beside the skill (2026-07-05)
 Any skill accumulating external references keeps `refs/` at the **same level as the skill file**,
 never inside the generated `.opencode/` or `.claude/` mirrors, and it is **excluded from the sync** —
-`sync-skills` copies `<name>.md` and generates the symlink, never touching subfolders. Reading notes
+`sync-skills` copies `<name>.md` into each mirror, never touching subfolders. Reading notes
 go in `*.md`; references a skill will parse go in `*.yaml`.
 
 ### AD-07 — Sub-skills group into a suite folder (2026-07-05)

@@ -19,11 +19,13 @@
 ARCHITECTURE.html
 */ARCHITECTURE.html
 
-# The skill mirrors are deliberately NOT here. Half of them are symlinks, and every pattern in this
-# file is matched against a RESOLVED path, so `.claude/skills/inbox/SKILL.md` arrives as
-# `core/skills/inbox.md` and no glob written here could ever match it. The predicate that works on
-# the unresolved path is entropy_corpus.is_generated_mirror, which three checks already use, and
-# the size signal now uses it too.
+# The skill mirrors are deliberately NOT here, and since 2026-08-29 they no longer need to be:
+# git does not track them at all (.gitignore § the published units). The reason a glob here could
+# never have worked still holds and is worth keeping — every pattern in this file is matched against
+# a RESOLVED path, so while they were symlinks `.claude/skills/inbox/SKILL.md` arrived as
+# `core/skills/inbox.md` and no glob written here could match it. The predicate that works on the
+# unresolved path is entropy_corpus.is_generated_mirror, which three checks already use, and the
+# size signal now uses it too.
 
 # Research artifacts — core/flows/research/*, every one of which declares `outputs/<slug>-*.md`
 # as the file it writes. A peer review, an audit or a provenance record is the flow's product, and
