@@ -18,7 +18,7 @@ Arguments: $ARGUMENTS  (focus for next session)
 
 **If the work is finished and there is no next action, do not emit a resume prompt.** Writing one
 *manufactures* a next action at the last turn before a `/clear` — the output rule
-([`roundup.md`](../../core/skills/roundup.md) § The output rule) applied to the hand-off itself. That is not a rare
+([`roundup.md`](..\..\core\skills\roundup.md) § The output rule) applied to the hand-off itself. That is not a rare
 edge case; it is how a session that closed properly ends.
 
 Skipping is one command and one line:
@@ -39,7 +39,7 @@ one read; a thread dropped silently costs the session that re-derives it.
 
 ## Gather state
 
-**If [`core/tools/wos/roundup`](../../core/tools/wos/roundup) ran this session, every line it printed *is*
+**If [`core/tools/wos/roundup`](..\..\core\tools\wos\roundup) ran this session, every line it printed *is*
 the State block — copy them verbatim and gather nothing.** They are the same facts, already
 paid for. Re-deriving them costs a second round of git at the session's most expensive turn, and
 lets the two disagree. Which lines it prints is the script's business, never this file's: naming
@@ -67,18 +67,18 @@ Promotion is `/roundup` Phase 4 — point there if anything is behind.
 **Write the block to `outputs/handoff.md`, then print it.** The file is the deliverable; the
 print is a convenience. A path is what survives a `/clear` — the next session opens by reading
 it, with no block to carry across by hand, which is why
-[`core/hooks/session/context-meter.py`](../../core/hooks/session/context-meter.py) names this same path
+[`core/hooks/session/context-meter.py`](..\..\core\hooks\session\context-meter.py) names this same path
 at `CTX_LOUD`. Overwrite it: the newest hand-off is the only one worth resuming, and `outputs/`
 is gitignored, so nothing durable is lost.
 
-**Never spawn a successor session.** Decided 2026-08-13 ([`core/SPECS.md`](../../core/SPECS.md) § AD-09):
+**Never spawn a successor session.** Decided 2026-08-13 ([`core/SPECS.md`](..\..\core\SPECS.md) § AD-09):
 `claude --bg`
 can start a fresh-context agent but cannot move the terminal Lucas types into, so a spawned
 successor would work the same branch *unattended, in parallel with the live session*. Prepare
 the artifact; let Lucas move his own attention.
 
 **Every section earns its place or is omitted** — the same rule as the phases in
-[`roundup.md`](../../core/skills/roundup.md). A section with nothing behind it is deleted, header and all; there is
+[`roundup.md`](..\..\core\skills\roundup.md). A section with nothing behind it is deleted, header and all; there is
 no "none.", no placeholder, no shape to fill. Last session's block ran 48 lines and 3 of its 5
 open threads were already written in `ROADMAP.md` — that is what these caps exist to stop.
 

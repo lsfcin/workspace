@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/video/video <url>... | --from <file> [--level auto|meta|captions|speech|ocr|visual|full] [--save] [--json] — extract navigable text (metadata/captions/transcript/OCR/VLM caption) from video/image links; a link with no media falls back to core/tools/web/fetch
 #
 # Takes MANY urls on purpose. One link per invocation made a link-heavy INBOX drain N

@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/wos/spec-contract-check <project-dir> [--edges <file>] — verify every spec-locked module has a complete SPEC.md contract (Inputs/Outputs/Invariants filled); optionally type-check declared edges. Exit 1 on any gap. See code/ROADMAP-spec-drive.md.
 import re
 import sys

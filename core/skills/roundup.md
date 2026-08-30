@@ -105,7 +105,7 @@ Commit the session's work first — the script stops on a dirty tree, because a 
 judgment and everything below assumes a clean one. Then, once:
 
 ```bash
-core/tools/wos/roundup
+core/run tools/wos/roundup
 ```
 
 It runs the verification contract, writes both generated blocks of the root `ISSUES.md` — the

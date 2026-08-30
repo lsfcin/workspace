@@ -37,7 +37,7 @@ _WOS_OFF=
 _WOS_OFF_LOADED=
 skill_disabled() {
   if [[ -z "$_WOS_OFF_LOADED" ]]; then
-    _WOS_OFF="$("$(sh "$WORKSPACE/core/hooks/run" --python)" "$WORKSPACE/core/hooks/feature_law.py" --disabled 2>/dev/null)"
+    _WOS_OFF="$("$(sh "$WORKSPACE/core/run" --python)" "$WORKSPACE/core/hooks/feature_law.py" --disabled 2>/dev/null)"
     _WOS_OFF_LOADED=1
   fi
   [[ -n "$_WOS_OFF" ]] && grep -qxF "$1" <<<"$_WOS_OFF"
@@ -60,42 +60,40 @@ list_commands() {
   done < <(list_skills)
 }
 
-# The link is RELATIVE, and that is the whole point of this function rather than a style choice:
-# a symlink is committed by its text, so an absolute one carries THIS machine's path into every
-# clone. Until 2026-08-25 all 42 mirrors read `/mnt/workspace/core/skills/<name>.md`, so a student
-# cloning anywhere else got 42 dangling links and no skills in any of the three harnesses — while
-# the workspace claimed criterion 4, clonable by a student, as met. Relative, the same committed
-# text resolves in every checkout.
-link_target() {
-  realpath --relative-to="$(dirname "$1")" "$WORKSPACE/core/skills/$2.md"
-}
-
+# A MIRROR IS A COPY, AND THE CHECK ASKS ABOUT ITS CONTENT.
+#
+# These were symlinks, and `ln -s` under Git Bash silently COPIES unless MSYS=winsymlinks:
+# nativestrict, which needs Developer Mode. So the writer produced files, the checker demanded
+# links, and every mirror reported `MISSING link` — the skills stage of the pre-commit pipeline
+# then refused every commit that touched a skill. It is the only gate in the workspace that can
+# refuse a commit for a reason the commit did not cause, and S4 had to stash a skill to land at
+# all. Worse, git had already materialised the tracked mirrors as ordinary files holding their
+# target's PATH TEXT, eleven characters where a skill body belonged, so the library was dark in
+# this clone while every file was present and every link check that could run said nothing.
+#
+# Copying removes the per-OS axis instead of adding an arm for it — the port's own thesis, and
+# ISSUES.md B8's decision. What a symlink bought was freshness, and freshness is now a
+# regeneration at the moments that change a skill (core/hooks/commit/generators.py at commit),
+# not a property of the file kind.
 sync_mirror() {
   local mirror="$1"
   mkdir -p "$mirror"
-  local name link
+  local name
   while IFS= read -r name; do
     mkdir -p "$mirror/$name"
-    link="$mirror/$name/SKILL.md"
-    ln -sfn "$(link_target "$link" "$name")" "$link"
+    cp -f "$WORKSPACE/core/skills/$name.md" "$mirror/$name/SKILL.md"
   done < <(list_skills)
 }
 
 check_mirror() {
-  local mirror="$1" rc=0 name link target existing
+  local mirror="$1" rc=0 name copy source
   while IFS= read -r name; do
-    link="$mirror/$name/SKILL.md"
-    target="$(link_target "$link" "$name")"
-    if [[ ! -L "$link" ]]; then
-      echo "MISSING link: $link"; rc=1
-    else
-      existing="$(readlink "$link")"
-      if [[ "$existing" != "$target" ]]; then
-        echo "STALE link: $link -> $existing (want $target)"; rc=1
-      fi
-      if [[ ! -e "$link" ]]; then
-        echo "BROKEN link (dangling): $link"; rc=1
-      fi
+    copy="$mirror/$name/SKILL.md"
+    source="$WORKSPACE/core/skills/$name.md"
+    if [[ ! -f "$copy" ]]; then
+      echo "MISSING mirror: $copy"; rc=1
+    elif ! cmp -s "$copy" "$source"; then
+      echo "STALE mirror: $copy (differs from $source)"; rc=1
     fi
   done < <(list_skills)
   return $rc
@@ -108,9 +106,9 @@ check_mirror() {
 # (found 2026-07-30). Rewrite them against the source dir on the way out; the
 # staleness check compares the same rendered form, or every file reads as stale.
 render_command() {
-  # PYTHONIOENCODING for the same reason core/hooks/run exports it: this script prints "→",
+  # PYTHONIOENCODING for the same reason core/run exports it: this script prints "→",
   # and a Python encoding stdout as the console codepage dies on it mid-message.
-  PYTHONIOENCODING=utf-8 "$(sh "$WORKSPACE/core/hooks/run" --python)" - "$1" "$SRC" "$COMMANDS_DIR" <<'PY'
+  PYTHONIOENCODING=utf-8 "$(sh "$WORKSPACE/core/run" --python)" - "$1" "$SRC" "$COMMANDS_DIR" <<'PY'
 import os, re, sys
 
 src_file, src_dir, dst_dir = sys.argv[1:4]

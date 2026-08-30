@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # notion_write.py — the three writes the Notion API has, planned in full before any one is sent
 import json, pathlib, sys
 

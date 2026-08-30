@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: Core/tools/assets/inspect <file> [--desc "description text"] — generate or update .imgif/.csvif interface file
 from __future__ import annotations
 import argparse, csv, json, os, sys

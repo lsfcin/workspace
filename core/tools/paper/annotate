@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: Core/tools/paper/annotate set <id> <note> | get <id> | list | search <query> | delete <id> — persistent paper annotation store keyed by arXiv ID, DOI, or URL; returns JSON
 import sys, json, pathlib, argparse, datetime
 

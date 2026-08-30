@@ -44,6 +44,20 @@ for _dir in [*_tree(HOOKS), *_tree(TOOLS)]:
     sys.path.insert(0, str(_dir))
 
 
+def git_lines(*args) -> list:
+    """Lines of a git query against the workspace, minus the ratchet files themselves.
+
+    Shared because a ratchet necessarily NAMES what it forbids: a test asserting nobody spells
+    `/mnt/workspace` has to spell it to search for it, and would otherwise be its own only
+    finding. Any path containing `_ratchet` is dropped for that reason — the rule is the file
+    kind, not a list of filenames, so splitting the ratchets into a second file cannot silently
+    make one of them count itself.
+    """
+    import subprocess
+    done = subprocess.run(['git', *args], cwd=WORKSPACE_ROOT, capture_output=True, text=True)
+    return [line for line in done.stdout.splitlines() if line and '_ratchet' not in line]
+
+
 def pytest_configure(config):
     config.addinivalue_line(
         "markers", "network: hits real network/models; excluded from verify:fast")

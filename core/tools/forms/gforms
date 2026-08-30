@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/forms/gforms <cmd> [args] — Google Forms CLI: auth, new, read, apply, responses
 import sys, json, pathlib, argparse
 

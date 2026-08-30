@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # attachments_util.py — shared filename/dir helpers for Core/tools attachment downloaders (gmail, telegram)
 import pathlib, re
 from datetime import datetime

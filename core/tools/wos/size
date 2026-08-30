@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # how big the authored .md corpus is, and how much of it this session added or removed, and where.
 # Zero-token, no network. Called by core/tools/wos/roundup at every close (ROADMAP.md § Cost:
 # "every session reports whether the workspace got smaller"), and runnable alone any time.

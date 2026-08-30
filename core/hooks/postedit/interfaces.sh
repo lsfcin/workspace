@@ -6,15 +6,14 @@
 # keeps the stub current WITHIN a session; generators/interfaces.sh is what stages it into
 # the commit. Switch off only one and read/pre-read.sh silently stops enforcing, because it
 # blocks a source read only while the stub beside it is current.
-if python3 /mnt/workspace/core/hooks/feature_law.py --enabled interface-stubs; then
+if sh "$RUN" hooks/feature_law.py --enabled interface-stubs; then
 
 # The stub generators live in Python now (stubgen/stubs.py), which is the ONE copy of every
 # stubgen and tsc invocation -- the reason the sourced fragment existed at all. These two shims keep
 # this file's call sites unchanged while that copy stays single; both resolve the interpreter
 # through `run`, so no venv layout is named here.
-STUB_HOOKS="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-emit_pyi() { sh "$STUB_HOOKS/run" stubgen/stubs.py "$1"; }
-emit_dts() { TSC="$2" sh "$STUB_HOOKS/run" stubgen/stubs.py "$1"; }
+emit_pyi() { sh "$RUN" hooks/stubgen/stubs.py "$1"; }
+emit_dts() { TSC="$2" sh "$RUN" hooks/stubgen/stubs.py "$1"; }
 
 # ── Interface regeneration ──────────────────────────────────────────────────────
 case "$file" in
@@ -77,25 +76,28 @@ EOF
 		fi
 		;;
 	*.csv|*.tsv)
-		python3 /mnt/workspace/core/tools/assets/inspect "$file" 2>/dev/null \
+		sh "$RUN" tools/assets/inspect "$file" 2>/dev/null \
 			&& printf "✓ .csvif: %sif\n" "$file"
 		;;
 	*.dart)
-		python3 /mnt/workspace/core/hooks/stubgen/dart-api-extract.py "$file" 2>/dev/null
+		sh "$RUN" hooks/stubgen/dart-api-extract.py "$file" 2>/dev/null
 		;;
 	*.tex)
-		python3 /mnt/workspace/core/hooks/stubgen/tex-interface-gen.py "$file" 2>/dev/null
+		sh "$RUN" hooks/stubgen/tex-interface-gen.py "$file" 2>/dev/null
 		# Term consistency check (warn-only; requires terms.yaml in paper root)
 		paper_root="$dir"
 		while [ "$paper_root" != "/" ] && [ ! -f "$paper_root/terms.yaml" ]; do
 			paper_root=$(dirname "$paper_root")
 		done
-		if [ -f "$paper_root/terms.yaml" ] && [ -x "/mnt/workspace/core/tools/paper/terms" ]; then
-			/mnt/workspace/core/tools/paper/terms "$paper_root" 2>/dev/null | grep -E "^[[:space:]]|^⚠" || true
+		# No `-x` test any more: the tool lost its execute bit with its shebang, and asking
+		# whether a Python file is executable is the POSIX habit that made all 33 of them
+		# unrunnable here. Ask whether it EXISTS; `run` answers how to start it.
+		if [ -f "$paper_root/terms.yaml" ] && [ -f "$WORKSPACE_ROOT/core/tools/paper/terms" ]; then
+			sh "$RUN" tools/paper/terms "$paper_root" 2>/dev/null | grep -E "^[[:space:]]|^⚠" || true
 		fi
 		;;
 	*.bib)
-		python3 /mnt/workspace/core/hooks/stubgen/tex-interface-gen.py --bib-check "$file" 2>/dev/null
+		sh "$RUN" hooks/stubgen/tex-interface-gen.py --bib-check "$file" 2>/dev/null
 		;;
 esac
 

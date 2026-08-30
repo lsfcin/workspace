@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # notion_auth.py — Notion's integration-token store, and the instructions a failure prints
 import json, pathlib, sys
 

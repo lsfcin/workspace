@@ -4,4 +4,4 @@
 # git dictates this filename, and a hooks config is data read before any of our code runs, so this
 # one file cannot be Python -- it is the handoff from git's world into ours. `run` answers the only
 # question left, which venv layout this clone has, and everything after it is os-agnostic.
-exec sh "$(dirname "$0")/run" commit/pre_commit.py "$@"
+exec sh "$(dirname "$0")/../run" hooks/commit/pre_commit.py "$@"

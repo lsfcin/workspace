@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: Core/tools/paper/terms <paper-path> [--fix] [--strict] — scan .tex files for terminology inconsistencies defined in terms.yaml
 from __future__ import annotations
 import argparse, re, sys

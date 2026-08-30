@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: Core/tools/paper/parse <file> [--pages N-M] — extract readable text from PDF, DOCX, PPTX, or plain text files; returns raw text
 import sys, json, pathlib, subprocess, argparse
 

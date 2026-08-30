@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/wos/permissions [--set <tier>] [--check] — print the permission levels declared in core/permissions.txt with the one this machine answered in core/profile.txt; --set switches level and re-renders every harness config; --check exits 1 when a rendered config no longer matches the answer
 from __future__ import annotations
 

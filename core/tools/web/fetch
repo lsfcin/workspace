@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: Core/tools/web/fetch <url> — fetch a URL and return readable plain text; falls back to raw for non-HTML
 import sys, urllib.request, html.parser, re, json
 

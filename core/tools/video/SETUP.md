@@ -81,8 +81,8 @@ Same cookie jar as yt-dlp (`~/.config/workspace-video/cookies.txt`), attached th
 
 ```bash
 .venv/bin/pip install gallery-dl
-core/tools/video/video "https://www.instagram.com/p/<id>/"              # description, free
-core/tools/video/video "https://www.instagram.com/p/<id>/" --level ocr  # + slide text per image
+core/run tools/video/video "https://www.instagram.com/p/<id>/"              # description, free
+core/run tools/video/video "https://www.instagram.com/p/<id>/" --level ocr  # + slide text per image
 ```
 
 A carousel post returns its full caption at `auto` and one OCR block per slide at `--level ocr`.

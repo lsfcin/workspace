@@ -44,11 +44,18 @@ EXAMPLE_COMMENT = {
 }
 
 
-def is_code_file(path: Path) -> bool:
-    """One definition. Extension, or an extensionless file carrying a shebang.
+def is_tool_entrypoint(path: Path) -> bool:
+    """An extensionless CLI under core/tools/, by SHAPE — not by the shebang that named one
+    machine's venv and made all 33 unrunnable elsewhere. `core/run` starts them now."""
+    return not path.suffix and '/core/tools/' in f'/{path.as_posix()}'
 
-    The shebang arm is what closes the old blind spot: `core/hooks/pre-commit` and the
-    core/tools CLIs are real code whose names are dictated by git or by ergonomics.
+
+def is_code_file(path: Path) -> bool:
+    """One definition. An extension, a core/tools CLI, or a shebang.
+
+    The last two arms close the old blind spot: pre-commit and the core/tools CLIs are real
+    code, named by git or by our own convention. Dropping those shebangs took 31 files out
+    of the line cap and the fanout signal in one edit.
     """
     if path.name.endswith(GENERATED):
         return False
@@ -57,7 +64,7 @@ def is_code_file(path: Path) -> bool:
     if path.suffix:
         return False
     try:
-        return path.open('rb').read(2) == b'#!'
+        return is_tool_entrypoint(path) or path.open('rb').read(2) == b'#!'
     except OSError:
         return False
 

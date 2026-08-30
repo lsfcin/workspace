@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/notes/notion <cmd> [args] — Notion CLI: auth, whoami, list, search, read, apply, text
 import sys, json, getpass, pathlib, argparse
 

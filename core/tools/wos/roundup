@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/wos/roundup [--no-promote <reason>] [--leave-dirty] — the deterministic half of
 # the /roundup ritual. Verification gate, entropy regen, branch promotion. Prints the state facts
 # /handoff copies and anything that needs a decision; nothing else.

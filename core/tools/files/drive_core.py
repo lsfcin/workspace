@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # drive_core.py — Google Drive read+write seam (account-agnostic) for Core/tools/files/gdrive
 import pathlib
 from googleapiclient.discovery import build

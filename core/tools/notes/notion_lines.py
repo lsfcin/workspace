@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # notion_lines.py — compact text (**bold**, [label](url)) to the rich_text runs Notion stores
 import re
 

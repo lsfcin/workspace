@@ -37,9 +37,9 @@ apresentação. As cópias velhas estão na lixeira do Drive, não deletadas.
 Questionários são specs versionados, aplicados por [`gforms`](../../../core/tools/forms/CONTEXT.md):
 
 ```bash
-core/tools/forms/gforms new --account personal \
+core/run tools/forms/gforms new --account personal \
   --folder 1uM6P5Zkj9iBh4StAzI2IcI8P9nldUdXf academy/teaching/ai4good/<spec>.json
-core/tools/forms/gforms responses --account personal <form_id>
+core/run tools/forms/gforms responses --account personal <form_id>
 ```
 
 `1uM6P5Zkj9iBh4StAzI2IcI8P9nldUdXf` é a pasta desta disciplina no Drive pessoal — cada turma tem a

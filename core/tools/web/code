@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: Core/tools/web/code list|read|search <owner/repo> [path|query] [--ref BRANCH] — browse and search GitHub repository files; returns JSON or raw text
 import sys, json, urllib.request, urllib.parse, argparse, base64, os
 

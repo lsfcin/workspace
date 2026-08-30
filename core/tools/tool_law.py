@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls
 #
 # Shares the tools root with attachments_util.py for the same reason: more than one family

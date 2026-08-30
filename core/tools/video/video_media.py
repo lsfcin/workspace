@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # video_media.py — heavy layers for the video tool: audio download + local transcription (L2), frame OCR (L3). Whisper model + tesseract langs are config data, not names.
 import pathlib, subprocess, tempfile
 from video_core import _run

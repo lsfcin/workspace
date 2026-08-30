@@ -19,7 +19,7 @@ Pull recent unread emails, classify via AI, present to Lucas for confirmation, t
 
 Run:
 ```
-core/tools/mail/gmail sync [--since 7] [--account all]
+core/run tools/mail/gmail sync [--since 7] [--account all]
 ```
 
 Output will show emails grouped by route. Read it carefully before presenting.
@@ -64,7 +64,7 @@ For each confirmed email:
 1. **Write INBOX entry** — prepend to `brain/INBOX.md` after the header block, before existing entries
 2. **Attachments** — if `has_attachment`, run:
    ```
-   core/tools/mail/gmail attachments --id <message_id>
+   core/run tools/mail/gmail attachments --id <message_id>
    ```
    Then update the INBOX entry to include the `attachment:` line with the saved path.
 3. **Draft reply** — if route is `draft` or `needs_reply` is true and Lucas wants to draft, create:

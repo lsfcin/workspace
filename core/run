@@ -1,13 +1,21 @@
 #!/bin/sh
-# The one command a harness shim names: find this clone's interpreter, then run a gate with it.
+# The one command that runs anything in core/: find this clone's interpreter, then exec with it.
 #
-# WHY A SHIM CANNOT JUST NAME THE INTERPRETER. A hooks config is data, read before any of our code
+# WHY A CALLER CANNOT JUST NAME THE INTERPRETER. A hooks config is data, read before any of our code
 # runs, so it cannot ask platform_law.py which Python to use -- the answer would have to be spelled
 # in the config, and the spelling differs per machine: `.venv/bin/python3` on POSIX,
 # `.venv/Scripts/python.exe` on Windows. A config carrying a per-machine value has to be rewritten
 # by an install step, and then a tracked file is dirty on every clone that is not the author's.
 # This file moves that one unknown behind a stable name, so every shim in the workspace can be
 # versioned verbatim and no install step touches them.
+#
+# WHY IT SITS IN core/ AND NOT core/hooks/. A shebang cannot resolve a relative path, so the 33
+# tools under core/tools/ carried an absolute one -- `#!/mnt/workspace/.venv/bin/python3` -- plus an
+# install step that rewrote it per clone. That is the same per-machine value in a versioned file
+# this file exists to remove, so core/tools/SPECS.md § The interpreter and core/hooks/SPECS.md
+# directly contradicted each other and only one could be right. A tool is now spawned the way a
+# gate is: `core/run tools/video/video`. The argument is relative to core/, and SETUP.md's
+# § Workspace path -- a `sed -i` over tracked files -- died with the asymmetry.
 #
 # WHY THE BARE WORD `python3` IS NOT AN OPTION, and what it cost: on Windows that name reaches a
 # Microsoft Store execution alias which prints an advert and exits 9009. The gate never runs and the
@@ -29,23 +37,24 @@ set -e
 PYTHONIOENCODING=utf-8
 export PYTHONIOENCODING
 
-root=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-gate=$1
-[ -n "$gate" ] || { echo "core/hooks/run: names no gate" >&2; exit 1; }
+root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+target=$1
+[ -n "$target" ] || { echo "core/run: names nothing to run" >&2; exit 1; }
 shift
 
-# `run --python` PRINTS the interpreter instead of running a gate, and that arm is why this file
-# stays the only one besides platform_law.py allowed to know both layouts. A bash tool that must
-# spawn Python -- a heredoc script, a tool outside core/hooks -- otherwise has to spell a venv path
-# itself, which is how the workspace ended up with `python3` in twenty places: the bare word reaches
-# a Microsoft Store alias on Windows that prints an advert and exits 9009. One question, one answer.
+# `run --python` PRINTS the interpreter instead of running anything, and that arm is why this file
+# stays the only one besides platform_law.py allowed to know both layouts. A shell script that must
+# spawn Python inline -- a `-c` one-liner, a heredoc -- cannot pass through the arm above, and
+# otherwise has to spell a venv path itself. That is how the workspace ended up with bare `python3`
+# in twenty places: the word reaches a Microsoft Store alias on Windows that prints an advert and
+# exits 9009, and every one of those sites swallowed it. One question, one answer.
 for py in "$root/.venv/bin/python3" "$root/.venv/Scripts/python.exe"; do
     [ -x "$py" ] || continue
-    [ "$gate" = "--python" ] && { echo "$py"; exit 0; }
-    exec "$py" "$root/core/hooks/$gate" "$@"
+    [ "$target" = "--python" ] && { echo "$py"; exit 0; }
+    exec "$py" "$root/core/$target" "$@"
 done
 
 # Exit 1, never 2: a missing interpreter is this workspace being half-installed, not the tool call
 # being wrong, and a PreToolUse hook that exits 2 blocks the call it was only meant to observe.
-echo "core/hooks/run: no interpreter under $root/.venv -- run /install" >&2
+echo "core/run: no interpreter under $root/.venv -- run /install" >&2
 exit 1

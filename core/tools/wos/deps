@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/wos/deps [--check] [--feature <slug>] — probe every dependency declared in core/tools/deps.txt, reporting what each miss breaks; --check exits 1 on any miss
 from __future__ import annotations
 

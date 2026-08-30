@@ -6,6 +6,10 @@
 # test_entropy_context.py own whether each check fires correctly, this owns whether the
 # backlog is shrinking. Same split as test_pointer_integrity.py beside it.
 #
+# The OS-port invariants were here too until 2026-08-29 and are now test_port_ratchet.py. Being
+# whole-tree is what puts both in this directory; it is not what makes them one file. The shared
+# `_git` moved to conftest.py as git_lines() rather than being copied.
+#
 # Every ceiling only ever goes down. Each is paired with a staleness test, because a ratchet
 # nobody lowers is just a baseline, and a baseline is where drift hides.
 #
@@ -90,78 +94,3 @@ def test_the_ceilings_are_not_stale():
         f'placeholders are down to {undescribed} — lower UNDESCRIBED_CEILING to match')
     assert MISPLACED_CEILING - misplaced <= MISPLACED_SLACK, (
         f'misplaced is down to {misplaced} — lower MISPLACED_CEILING to match')
-
-
-# ---------------------------------------------------------------------------------------------
-# The OS-agnostic port's invariants (AD-0). They live here rather than in a file of their own for
-# the reason this file already gives: they assert something about the WHOLE TREE, and a ratchet
-# whose ceiling is zero IS an assert. One ceiling per defect, never one shared.
-#
-# I5 -- one branch, one codebase -- is deliberately absent. It is not a property of any file, and a
-# test pretending to check it would be the weaker kind this workspace names. AD-9's law (no text
-# read or write inheriting the OS encoding) is owed: the corpus is clean, but an exact check needs
-# the ast walk the codemod used, and that belongs with the pre-commit pipeline being ported next.
-MACHINE_PATH_CEILING = 105        # `mnt/workspace` hardcoded in a versioned file; S5 drives it to 0
-VENV_POSIX_CEILING = 72           # `.venv/bin`, which is `.venv/Scripts` elsewhere; S4 drives it to 0
-
-SEAM = 'core/hooks/platform_law.py'
-
-# The venv seam, and exempt from the venv ceiling for the reason platform_law.py is exempt from the
-# sys.platform one: naming both layouts is this file's entire job. A hooks config is data, read
-# before any of our code runs, so it cannot ask a Python function which interpreter to use -- the
-# launcher is where that question gets answered once for every harness shim in the tree.
-LAUNCHER = 'core/hooks/run'
-
-
-def _git(*args) -> list:
-    """Lines of a git query, minus this file -- a ratchet necessarily names what it forbids."""
-    import subprocess
-    done = subprocess.run(['git', *args], cwd=WORKSPACE_ROOT, capture_output=True, text=True)
-    return [line for line in done.stdout.splitlines()
-            if line and 'test_corpus_ratchet' not in line]
-
-
-def test_no_per_os_script_sits_beside_the_python():                                          # I1
-    forks = _git('ls-files', '*.ps1', '*.bat', '*.cmd')
-    assert not forks, (
-        f'per-OS script forks are back: {forks}. Porting bash to Python removes the per-OS axis, '
-        'it does not add a Windows arm -- all three forks this workspace ever had were broken by '
-        f'the time the port found them. A platform difference goes in {SEAM}')
-
-
-def test_only_the_seam_knows_what_an_os_is():                                                # I2
-    knowing = sorted({f for f in _git('grep', '-lF', 'sys.platform', '--')
-                      + _git('grep', '-lF', 'platform.system', '--') if f != SEAM})
-    assert not knowing, (
-        f'these name an operating system outside the seam: {knowing}. Ask {SEAM} instead, and '
-        'add the answer there if it does not have one yet')
-
-
-def test_a_path_that_becomes_data_is_spelled_by_the_seam():                                  # AD-8
-    hand_rolled = sorted({f for f in _git('grep', '-l', 'str(.*relative_to', '--')
-                          if f != SEAM})
-    assert not hand_rolled, (
-        f'these spell a relative path by hand: {hand_rolled}. str() of a relative_to hands back a '
-        f'backslash on one machine and a slash on another; {SEAM} rel() is the one spelling')
-
-
-def test_no_setup_shard_is_named_for_an_operating_system():                                  # I3
-    shards = [f for f in _git('ls-files', 'SETUP-*.md')
-              if any(name in f.lower() for name in ('windows', 'linux', 'macos', 'darwin'))]
-    assert not shards, (
-        f'SETUP shards are per FEATURE, never per OS: {shards}. A shard named for a system '
-        'declares that system the exception and another the default')
-
-
-def test_a_machine_path_does_not_spread():                                                   # I6
-    live = len(_git('grep', '-lF', 'mnt/workspace', '--'))
-    assert live <= MACHINE_PATH_CEILING, (
-        f'{live} versioned files hardcode one machine path, up from {MACHINE_PATH_CEILING}. '
-        'Resolve the root at run time -- every tool here already does')
-
-
-def test_a_posix_only_venv_path_does_not_spread():                                           # I6
-    live = len([f for f in _git('grep', '-lF', '.venv/bin', '--') if f != LAUNCHER])
-    assert live <= VENV_POSIX_CEILING, (
-        f'{live} versioned files name .venv/bin, up from {VENV_POSIX_CEILING}. That directory is '
-        f'.venv/Scripts on Windows, and {SEAM} owns the difference')

@@ -59,9 +59,8 @@ printf '%s\n' '<secret>' | core/tools/<family>/<tool> auth <alias>
 3. Give a family its own `CONTEXT.md` only once it holds more than one file. A one-tool family folds
    into the parent's routing table: one path hop, zero extra rows. Declaring itself early costs the
    reader a routing table that says nothing — `auth/` is the live example of the cheap side.
-4. Add `# Usage: core/tools/<family>/<name> <args> — <description>` as the first comment line, after
-   the shebang.
-5. Give it the **venv shebang**, `#!/mnt/workspace/.venv/bin/python3` — see § The interpreter below.
+4. Add `# Usage: core/run tools/<family>/<name> <args> — <description>` as the **first line**.
+5. Give it **no shebang and no execute bit** — `core/run` starts it. See § The interpreter below.
 6. Declare any new third-party dependency in [`deps.txt`](deps.txt) — see § Declared dependencies.
 7. Save — the routing block regenerates automatically.
 
@@ -91,11 +90,21 @@ carried `#!/usr/bin/env python3` and worked only because sessions happened to st
 active — `core/tools/paper/terms` imports `yaml`, and the pre-commit term gate that calls it would
 have skipped silently on a clean machine.
 
-The path is absolute because **a shebang cannot resolve a relative one**. That is a real cost: it
-hardcodes `/mnt/workspace`, so a clone living anywhere else needs the shebangs rewritten. That
-rewrite is a step in [`SETUP.md`](../../SETUP.md) § Workspace path rather than a caveat in prose —
-it is idempotent, it has a probe, and an agent performs it. The test asserts the *absence of the
-system shebang*, so it keeps passing on a relocated clone.
+**A tool is spawned as `core/run tools/<family>/<leaf>`, and carries no shebang at all.** The
+launcher asks the filesystem which venv layout is present — `.venv/bin/python3` or
+`.venv/Scripts/python.exe` — so the interpreter is answered once, for gates and tools alike.
+
+**A shebang here would be a per-machine value in a versioned file**, since a shebang cannot
+resolve a relative path and would have to name this clone's venv absolutely. That is the defect
+[`core/hooks/SPECS.md`](../hooks/SPECS.md) says `run` exists to remove, so a tool carrying one puts
+the two specs in direct contradiction — the state this workspace was in until the port reached
+these files.
+
+**A check whose evidence is the defect cannot report it.** While the shebang was the convention,
+`is_code_file` read it as proof a file was live code and the extensionless law read it as proof the
+name was deliberate — so all 33 tools were unrunnable on any clone but one, and every check that
+looked at them passed. Both laws ask about shape now; `file_law.is_tool_entrypoint` is the one
+definition.
 
 ## A step an agent must never skip has to cost one call
 

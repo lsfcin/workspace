@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: Core/tools/web/code-search <query> [--n N] [--lang LANG] [--gh] — search code examples and technical documentation via Exa (default) or GitHub code search (--gh); returns JSON
 import argparse, json, sys, urllib.request, urllib.parse, pathlib, os
 

@@ -94,11 +94,15 @@ record the deviations so a future re-sync knows what it is merging against.
 ## Agent lifecycle gates
 
 Bound from `.claude/settings.json`, and by the equivalent registration in each other provider's
-shim. Every one of them spawns through [`run`](run), which is the shim contract in one line:
+shim. Every one of them spawns through [`../run`](../run), which is the shim contract in one line:
 
 ```
-sh ${CLAUDE_PROJECT_DIR}/core/hooks/run <gate-relative-to-core/hooks> [args]
+sh ${CLAUDE_PROJECT_DIR}/core/run <path-relative-to-core/> [args]
 ```
+
+The path is relative to `core/`, not to this directory, since 2026-08-29: the launcher moved up so
+a tool could be spawned the same way a gate is — `core/run tools/video/video`. See
+[`core/tools/SPECS.md`](../tools/SPECS.md) § The interpreter for what that replaced.
 
 **A shim carries no machine-specific string, and that is the whole reason `run` exists.** The
 harness expands `${CLAUDE_PROJECT_DIR}`, and `run` picks `.venv/bin/python3` or
@@ -106,9 +110,14 @@ harness expands `${CLAUDE_PROJECT_DIR}`, and `run` picks `.venv/bin/python3` or
 and no install step rewrites it. It is also the only file besides `platform_law.py` allowed to know
 both venv layouts, and `test_corpus_ratchet.py` exempts it by name for that reason.
 
-`run --python` **prints** that interpreter instead of running a gate, and it exists so the exemption
-stays an exemption. A bash tool that must spawn Python — a heredoc script, anything outside
-`core/hooks/` — otherwise spells a venv path itself, which is how `python3` reached twenty places.
+`run --python` **prints** that interpreter instead of running anything, and it exists so the
+exemption stays an exemption. A shell script that must spawn Python *inline* — a `-c` one-liner, a
+heredoc — cannot pass through the arm above and otherwise spells a venv path itself, which is how
+the bare word `python3` reached fourteen shell sites. Every one of them swallowed the Store alias's
+advert with `2>/dev/null` or `|| exit 0`, so `post-edit.sh` and its four stages, `pre-read.sh` and
+`precompact-wipe.sh` had **never run** on a Windows clone while reading as green. Held at zero by
+`test_no_shell_hook_spawns_the_bare_word_python3`, which is a floor and not a ceiling because a
+hook that can only ever pass is indistinguishable from one that works.
 `run` also exports `PYTHONIOENCODING=utf-8`, because every gate prints ⛔ ✓ ⚠ and a Python encoding
 stdout as the console codepage dies *inside its own message*, showing a traceback where a verdict
 belonged.
@@ -275,12 +284,12 @@ below reads ✅ until a post-trust probe run earns it.
 Three hook points cover the whole surface:
 
 ```
-PreTool (Read)  → bash    core/hooks/read/pre-read.sh
-PreTool (Edit)  → python3 core/hooks/checks/pre-edit.py
-                  python3 core/hooks/facade/facade-scan.py   (write/create only)
-                  python3 core/hooks/facade/facade-gate.py
-PostTool (Edit) → bash    core/hooks/post-edit.sh
-PostTool (Read) → python3 core/hooks/facade/facade-tracker.py
+PreTool (Read)  → bash core/hooks/read/pre-read.sh
+PreTool (Edit)  → sh   core/run hooks/checks/pre-edit.py
+                  sh   core/run hooks/facade/facade-scan.py   (write/create only)
+                  sh   core/run hooks/facade/facade-gate.py
+PostTool (Edit) → bash core/hooks/post-edit.sh
+PostTool (Read) → sh   core/run hooks/facade/facade-tracker.py
 ```
 
 Every canonical hook expects `file_path` (absolute), the `CLAUDE_TOOL_NAME` env var (`"Read"`,

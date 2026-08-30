@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # calendar_fetch.py — Google Calendar API auth and event fetch for Core/tools/calendar/gcalendar
 from datetime import datetime, timezone, timedelta
 from googleapiclient.discovery import build

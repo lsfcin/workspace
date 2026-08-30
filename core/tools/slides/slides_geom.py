@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # slides_geom.py — Google Slides transform algebra: rotation, effective scale, composition, bounds
 import math
 

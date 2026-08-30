@@ -65,9 +65,9 @@ foi removido da página do Notion e de toda menção aqui — se um dia fizer fa
 Questionários são specs versionados, aplicados por [`gforms`](../../../core/tools/forms/CONTEXT.md):
 
 ```bash
-core/tools/forms/gforms new --account personal \
+core/run tools/forms/gforms new --account personal \
   --folder 10tmlq_os3ltiS-UzdEMG8mj45ni5t45O academy/teaching/tecnologias-na-educacao/<spec>.json
-core/tools/forms/gforms responses --account personal <form_id>
+core/run tools/forms/gforms responses --account personal <form_id>
 ```
 
 `10tmlq_os3ltiS-UzdEMG8mj45ni5t45O` é a pasta desta disciplina no Drive pessoal — cada turma tem a

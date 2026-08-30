@@ -7,10 +7,10 @@
 # synchronizer derives the directory itself, and a shard's index is found from the shard's own
 # name. Passing "$dir" behind a CONTEXT.md test also meant a workspace-root .md never synced
 # at all, since the root's routing block lives in AGENTS.md.
-python3 /mnt/workspace/core/hooks/routing/context_synchronizer.py "$file" 2>/dev/null
+sh "$RUN" hooks/routing/context_synchronizer.py "$file" 2>/dev/null
 
 # ── codegraph sync — keep index fresh after every source edit ─────────────────
-if [[ "$file" == /mnt/workspace/code/* ]]; then
+if [[ "$file" == "$WORKSPACE_ROOT"/code/* ]]; then
 	case "$file" in
 		*.pyi|*.d.ts|*.dart.api|*.texif|*.csvif) : ;;  # generated — skip
 		*.py|*.js|*.ts|*.tsx|*.dart|*.jsx)
@@ -22,7 +22,7 @@ if [[ "$file" == /mnt/workspace/code/* ]]; then
 			if [ -n "$cg_root" ]; then
 				codegraph sync "$cg_root" 2>&1 | head -1
 			else
-				proj_root=$(echo "$file" | grep -oP '^/mnt/workspace/code/[^/]+')
+				proj_root=$(echo "$file" | grep -oP "^${WORKSPACE_ROOT}/code/[^/]+")
 				[ -n "$proj_root" ] && printf "⚠️  no codegraph index — run: codegraph init %s\n" "$proj_root"
 			fi
 			;;

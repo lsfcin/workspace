@@ -21,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/context-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/context-gate.py"
           }
         ]
       },
@@ -30,11 +30,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/bash-context-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/bash-context-gate.py"
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run checks/heredoc-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/checks/heredoc-gate.py"
           }
         ]
       },
@@ -43,23 +43,23 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run checks/pre-edit.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/checks/pre-edit.py"
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run facade/facade-scan.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/facade/facade-scan.py"
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run facade/facade-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/facade/facade-gate.py"
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run checks/issues-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/checks/issues-gate.py"
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/spec-read-gate.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/spec-read-gate.py"
           }
         ]
       },
@@ -77,7 +77,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/agent-context.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/agent-context.py"
           }
         ]
       }
@@ -97,11 +97,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run facade/facade-tracker.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/facade/facade-tracker.py"
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/context-tracker.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/context-tracker.py"
           }
         ]
       }
@@ -111,7 +111,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run session/context-meter.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/context-meter.py"
           }
         ]
       }
@@ -135,15 +135,15 @@
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run git/branch_marker.py record"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/git/branch_marker.py record"
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run session/inbox-nudge.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/inbox-nudge.py"
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run session/compass-nudge.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/compass-nudge.py"
           }
         ]
       }
@@ -154,7 +154,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/hooks/run read/agent-context.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/agent-context.py"
           }
         ]
       }

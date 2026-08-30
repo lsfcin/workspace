@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/paper/papers <query> [--n N] [--cat CATEGORY] [--id ARXIV_ID] [--ss] [--min-cit N] [--reviewed] — search academic papers via arXiv (default) or Semantic Scholar (--ss, reports venue + peer_reviewed); returns JSON
 import argparse, json, pathlib, sys, urllib.request, urllib.parse, xml.etree.ElementTree as ET
 

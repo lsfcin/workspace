@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/docs/gdocs <cmd> [args] — Google Docs CLI: auth, list, read, new, push, apply, text, replace, comments
 import sys, json, pathlib, argparse
 

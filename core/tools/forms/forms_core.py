@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # forms_core.py — Google Forms read+write seam (account-agnostic) for Core/tools/forms/gforms
 import pathlib
 import sys

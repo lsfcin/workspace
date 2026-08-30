@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # gmail_fetch.py — Gmail API auth, fetch, and MIME parse for Core/tools/mail/gmail
 import json, pathlib, base64
 from google.oauth2.credentials import Credentials

@@ -10,7 +10,7 @@ if [ ! -f "$cfg" ]; then
   exit 1
 fi
 
-start_session=$(python3 - <<PY
+start_session=$("$(sh "$workspace_root/core/run" --python)" - <<PY
 import json
 cfg=json.load(open('.agentrc.json'))
 print(cfg.get('start_session',''))

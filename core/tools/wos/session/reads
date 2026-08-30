@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/wos/session/reads [--project <slug>] [--session <id>] [--top N] — which files a
 # session reads, how often, and how much each re-read cost. Reads the local transcripts; no network.
 #

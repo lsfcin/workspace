@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/wos/diagram/architecture [--out <path>] [--check] [--repos] — draw the workspace as it is (enforcement matrix, routing spine, folder mass) into one self-contained ARCHITECTURE.html; --repos draws every code repo into its own; --check exits 1 when a committed file is stale
 #
 # Zero-token and deterministic: no model runs, and the output carries no timestamp and no commit

@@ -2,13 +2,13 @@
 > Long-form documents, read and edited in place. Provider leaf: `gdocs` (Google Docs API).
 
 ```bash
-core/tools/docs/gdocs list     --account personal --name "ementa"
-core/tools/docs/gdocs read     --account personal <document_id>            # the doc as markdown
-core/tools/docs/gdocs read     --account personal --outline <document_id>  # body indices to edit by
-core/tools/docs/gdocs new      --account personal "Ata" --from draft.md
-core/tools/docs/gdocs push     --account personal <document_id> draft.md   # replace the whole body
-core/tools/docs/gdocs apply    --account personal <document_id> requests.json
-core/tools/docs/gdocs comments --account personal <document_id>
+core/run tools/docs/gdocs list     --account personal --name "ementa"
+core/run tools/docs/gdocs read     --account personal <document_id>            # the doc as markdown
+core/run tools/docs/gdocs read     --account personal --outline <document_id>  # body indices to edit by
+core/run tools/docs/gdocs new      --account personal "Ata" --from draft.md
+core/run tools/docs/gdocs push     --account personal <document_id> draft.md   # replace the whole body
+core/run tools/docs/gdocs apply    --account personal <document_id> requests.json
+core/run tools/docs/gdocs comments --account personal <document_id>
 ```
 
 **Two ways in, and the choice is whole-document versus surgical.** `read`/`push` carry Markdown, so a
@@ -34,5 +34,4 @@ two auth grants (the same split as [`../files/`](../files/CONTEXT.md)): [`SPECS.
 | [`docs_core.py`](docs_core.py) | [`docs_core.pyi`](docs_core.pyi) | `IndexOrderError`, `get_service`, `get_document`, `create`, `request_index` | docs_core.py — Google Docs read+write seam (account-agnostic) for Core/tools/docs/gdocs |
 | [`docs_drive.py`](docs_drive.py) | [`docs_drive.pyi`](docs_drive.pyi) | `list_documents`, `export_md`, `push_md`, `create_from_md`, `comments` | docs_drive.py — the half of a Google Doc that the Docs API cannot reach: listing, markdown, comments |
 | [`docs_outline.py`](docs_outline.py) | [`docs_outline.pyi`](docs_outline.pyi) | `paragraph_text`, `style`, `outline` | docs_outline.py — a document as navigable text: body indices, structure, and the words on them |
-| [`gdocs`](gdocs) | — | — | Google Docs CLI: auth, list, read, new, push, apply, text, replace, comments |
 <!-- routing:end -->

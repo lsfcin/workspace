@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: core/tools/slides/gslides <cmd> [args] — Google Slides CLI: auth, list, read, new, add, text, apply
 import sys, json, pathlib, argparse
 

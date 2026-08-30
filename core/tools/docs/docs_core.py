@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # docs_core.py — Google Docs read+write seam (account-agnostic) for Core/tools/docs/gdocs
 import pathlib, sys
 

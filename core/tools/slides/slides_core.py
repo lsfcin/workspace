@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # slides_core.py — Google Slides read+write seam (account-agnostic) for Core/tools/slides/gslides
 import pathlib, sys
 

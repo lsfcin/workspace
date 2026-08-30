@@ -2,13 +2,13 @@
 > Pages and note databases, read as navigable text. Provider leaf: `notion` (Notion REST API).
 
 ```bash
-core/tools/notes/notion auth personal                    # prompts for the secret, stores it 600
-core/tools/notes/notion whoami --account personal        # proves the token is alive
-core/tools/notes/notion list --account personal --name "Computação"
-core/tools/notes/notion read --account personal <page-id-or-pasted-URL>
-core/tools/notes/notion search --account personal "aula 3"
-core/tools/notes/notion apply --account personal ops.json          # update / append / delete
-core/tools/notes/notion text --account personal <block-id> mes.md  # rewrite one block's text
+core/run tools/notes/notion auth personal                    # prompts for the secret, stores it 600
+core/run tools/notes/notion whoami --account personal        # proves the token is alive
+core/run tools/notes/notion list --account personal --name "Computação"
+core/run tools/notes/notion read --account personal <page-id-or-pasted-URL>
+core/run tools/notes/notion search --account personal "aula 3"
+core/run tools/notes/notion apply --account personal ops.json          # update / append / delete
+core/run tools/notes/notion text --account personal <block-id> mes.md  # rewrite one block's text
 ```
 
 **`apply` is the seam; `text` is the convenience over it** — the same split as
@@ -50,7 +50,6 @@ bump can change the shape of a database response.
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | Notion API gotchas and the auth mechanics specific to this tool. |
-| [`notion`](notion) | — | — | Notion CLI: auth, whoami, list, search, read, apply, text |
 | [`notion_auth.py`](notion_auth.py) | [`notion_auth.pyi`](notion_auth.pyi) | `AuthMissing`, `NotShared`, `config_dir`, `token_path`, `save_token` | notion_auth.py — Notion's integration-token store, and the instructions a failure prints |
 | [`notion_core.py`](notion_core.py) | [`notion_core.pyi`](notion_core.pyi) | `ApiRefused`, `normalize_id`, `url`, `request`, `paged` | notion_core.py — Notion REST seam (workspace-agnostic) for Core/tools/notes/notion |
 | [`notion_lines.py`](notion_lines.py) | [`notion_lines.pyi`](notion_lines.pyi) | `run`, `runs`, `paragraph` | notion_lines.py — compact text (**bold**, [label](url)) to the rich_text runs Notion stores |

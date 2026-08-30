@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: Core/tools/assets/inspect-batch <paper-path> [--check] — generate .pngif/.csvif stubs for all assets missing interfaces
 from __future__ import annotations
 import subprocess, sys

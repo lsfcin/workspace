@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # gdrive — Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put
 import sys, pathlib, argparse
 

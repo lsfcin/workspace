@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # rewrap authored .md prose to the column cap; --apply writes, default reports, --check exits 1
 #
 # The cap itself is core/hooks/limits.env BLOCK_COLS and the question "is this line over" is

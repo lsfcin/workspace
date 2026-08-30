@@ -20,8 +20,8 @@ follows; the global symlinks keep the reach.
 `~/.agents/skills/caveman` means editing this directory — they are links, not copies.
 
 ```bash
-core/tools/wos/sync-global-skills            # link
-core/tools/wos/sync-global-skills --check    # verify (exit 1 if stale/broken/missing)
+core/run tools/wos/sync-global-skills            # link
+core/run tools/wos/sync-global-skills --check    # verify (exit 1 if stale/broken/missing)
 ```
 
 Which files get linked, and what triggers each hook: [`hooks/CONTEXT.md`](hooks/CONTEXT.md).

@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # video_images.py — image-post path (Instagram carousels etc): gallery-dl metadata + image download, then OCR/VLM per image. yt-dlp reads video only and returns nothing for these.
 import json, pathlib, shutil, subprocess, tempfile
 from video_core import COOKIES

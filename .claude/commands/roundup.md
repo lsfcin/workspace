@@ -8,7 +8,7 @@ description: Full session-close ritual: drain the ledgers, route session knowled
 End the session cleanly: three judgment phases, one script, one hand-off.
 
 Everything with a single right answer — the verification gate, the entropy dashboard, branch
-promotion — is [`core/tools/wos/roundup`](../../core/tools/wos/roundup), run once in Phase 4. It carries
+promotion — is [`core/tools/wos/roundup`](..\..\core\tools\wos\roundup), run once in Phase 4. It carries
 this skill's name because it is the same ritual, one layer down. **Do not do its work by hand:**
 this skill fires at the session's maximum context, so every command reasoned about here is paid at
 the most expensive turns the session will ever have.
@@ -37,12 +37,12 @@ git log --oneline -10
 Read what the session touched. Then:
 
 **Done work is deleted. Git is the history.** There is no `HISTORY.md`, no `ARCHIVE.md`, no done-log
-— see [`core/SCHEMA.md`](../../core/SCHEMA.md) § No archive types. A
+— see [`core/SCHEMA.md`](..\..\core\SCHEMA.md) § No archive types. A
 completed item's record is its commit; re-writing it into an archive file only grows a doc nobody
 opens. So: delete completed `ROADMAP.md` items (`- [x]`, "done", "shipped", "merged", "✅") and
 resolved `ISSUES.md` items (`- [x]`, "fixed", "resolved", "closed"). For a bug, the regression spec
 (`test/**/b<N>-*`) is the durable proof it is dead — that is what
-[`core/hooks/checks/issues-gate.py`](../../core/hooks/checks/issues-gate.py) enforces, and it outlives any prose.
+[`core/hooks/checks/issues-gate.py`](..\..\core\hooks\checks\issues-gate.py) enforces, and it outlives any prose.
 
 **The one thing that must not be deleted.** An approach the session **tried and rejected** was never
 committed, so git cannot hold it. Write **one line** under `## Rejected` in the relevant
@@ -105,7 +105,7 @@ Commit the session's work first — the script stops on a dirty tree, because a 
 judgment and everything below assumes a clean one. Then, once:
 
 ```bash
-core/tools/wos/roundup
+core/run tools/wos/roundup
 ```
 
 It runs the verification contract, writes both generated blocks of the root `ISSUES.md` — the
@@ -140,4 +140,4 @@ declines. Then report, in this order, **omitting every line with nothing behind 
 Nothing else. No session summary, no next steps: `/handoff` just emitted those, and repeating them
 is the padding this skill exists to not produce. Close with one instruction — start the next
 session with `Read outputs/handoff.md and plan what you'll do in this session.` — **plan, never
-"continue"**; the rationale is in [`handoff.md`](../../core/skills/handoff.md). Or, if `/handoff` skipped, nothing.
+"continue"**; the rationale is in [`handoff.md`](..\..\core\skills\handoff.md). Or, if `/handoff` skipped, nothing.

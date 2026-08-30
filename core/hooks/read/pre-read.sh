@@ -4,12 +4,18 @@
 # If source is newer: interface is stale, warn and allow.
 
 HOOKS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+RUN="$HOOKS_DIR/../run"
+
+# Asked, not spelled -- see the same note in post-edit.sh. Both `python3` here resolved to the
+# Microsoft Store alias on this clone, so `$file` and `$session_id` were empty and every branch
+# below fell through to `exit 0`: the interface-first gate could not fire, and read as passing.
+PY="$(sh "$RUN" --python)" || exit 0
 
 stdin_json="$(cat)"
-file=$(python3 -c \
+file=$("$PY" -c \
 	"import sys,json; d=json.load(sys.stdin); ti=d.get('tool_input'); ti=ti if isinstance(ti,dict) else d; print(ti.get('file_path',''))" 2>/dev/null \
 	<<< "$stdin_json")
-session_id=$(python3 -c \
+session_id=$("$PY" -c \
 	"import sys,json; print(json.load(sys.stdin).get('session_id',''))" 2>/dev/null \
 	<<< "$stdin_json")
 
@@ -35,17 +41,21 @@ if [ "$file" -nt "$iface" ]; then
 	printf "⚠️  INTERFACE STALE: %s\n   Source was modified after interface was generated.\n   Reading source directly — save the file to regenerate the interface.\n" "$iface"
 else
 	# Interface already read this session → source read allowed (editing needs implementation).
+	#
+	# ASKED OF THE MODULE THAT WRITES THE MARKER, never matched as text here. This was three
+	# `grep -qxF` against three spellings of one path -- the writer's `C:\...`, the payload's
+	# `c:\...` and a `readlink -f` `c:/...` -- so nothing ever matched and the gate below blocked
+	# every source read with a message promising that reading the interface would unlock it. It
+	# could not. See read/context-tracker.py was_read().
 	sid="${session_id:-$(ps -o ppid= -p $PPID 2>/dev/null | tr -d ' ')}"
-	iface_marker="/tmp/claude_iface_seen_${sid}.txt"
-	iface_real=$(readlink -f "$iface" 2>/dev/null || echo "$iface")
-	if grep -qxF "$iface_real" "$iface_marker" 2>/dev/null || grep -qxF "$iface" "$iface_marker" 2>/dev/null; then
+	if sh "$RUN" hooks/read/context-tracker.py --seen "$sid" "$iface"; then
 		exit 0
 	fi
 	# interface-first-reads, one of the four features the ablation names. The law is consulted
 	# on the branch that is about to block, not at the top of the script: this hook fires on
 	# every Read, so a check up there would spend a subprocess per read to answer a question
 	# that only matters on the rare read a block would stop.
-	if ! python3 "$HOOKS_DIR/feature_law.py" --enabled interface-first-reads; then
+	if ! sh "$RUN" hooks/feature_law.py --enabled interface-first-reads; then
 		exit 0
 	fi
 	printf "⛔ READ INTERFACE FIRST — %s\n   Interface is current. Read it instead of the source:\n   %s\n   It has all public signatures without implementation noise.\n   (Reading the interface unlocks the source for this session.)\n" "$file" "$iface" >&2

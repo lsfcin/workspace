@@ -36,5 +36,7 @@ Ported from Feynman (https://github.com/companion-inc/feynman), adapted for prov
 | [`SCHEMA.md`](SCHEMA.md) | The law about `.md` documents: which types exist, where a file belongs, how one that outgrew the cap is cut, and which words are canonical. The **tables here are load-bearing** — [`schema_law.py`](hooks/schema_law.py) parses them and no checker restates them. Drift is a bug. |
 | [`SPECS.md`](SPECS.md) | Architecture decisions and conventions for the Core agent library. |
 | [`features.txt`](features.txt) | Every toggleable feature this workspace has, declared: what group it belongs to, how hard it enforces, whether it is general or Lucas-specific, and whether it can actually be switched off. Read by core/hooks/feature_law.py; the answers live in core/profile.txt. |
+| [`permissions.txt`](permissions.txt) | What an agent may do on this machine without asking, declared as three named levels. Read by core/tools/wos/permissions, which renders each harness's own config from it. The answer for THIS machine is one line in core/profile.txt, like every other answer. |
 | [`profile.txt`](profile.txt) | Which features are switched on for THIS machine, and the settings that are not switches. The registry is core/features.txt; this file holds only the answers. Read by core/hooks/feature_law.py, edited through `core/tools/wos/features --on|--off <slug>`. |
+| [`run`](run) | The one command that runs anything in core/: find this clone's interpreter, then exec with it. |
 <!-- routing:end -->

@@ -35,10 +35,15 @@ What never changes is that the human receives **one action, not an investigation
 leaves someone reading documentation to work out what to do has not been installed; it has been
 delegated. Everything else, run without asking.
 
-Two steps are `substrate`, and the distinction is the ablation's, not bookkeeping (2026-08-17):
-switching off the interpreter the switch itself runs on produces no signal, and a shebang a clone
-rewrites once is repair, not a toggle. Third-party machine state this workspace does not author is
-a step here plus a `core/tools/deps.txt` line, never a feature.
+`substrate` marks a step that installs no feature, and the distinction is the ablation's rather
+than bookkeeping (2026-08-17): switching off the interpreter the switch itself runs on produces no
+signal. Third-party machine state this workspace does not author is a step here plus a
+`core/tools/deps.txt` line, never a feature.
+
+There used to be a second substrate step, § Workspace path, which rewrote an absolute venv shebang
+into all 33 tools on every clone. It is gone (2026-08-29): a per-machine value in a versioned file
+is the defect `core/run` exists to remove, and an install step that repairs it every time is the
+symptom, not the cure.
 
 **Sections are named, never numbered** — a number is a pointer that goes stale the first time a
 step is added, and two of them already had. Everything here is per-machine state git cannot carry;
@@ -64,8 +69,8 @@ is why § RTK — Claude Code registration is a step.
 `core/features.txt` says what each feature buys, so a step is judged before it is run.
 
 ```bash
-core/tools/wos/features                 # every feature, grouped, with your answer
-core/tools/wos/features --off <slug>    # one you do not want; its install step is then moot
+core/run tools/wos/features                 # every feature, grouped, with your answer
+core/run tools/wos/features --off <slug>    # one you do not want; its install step is then moot
 ```
 
 <!-- steps:start -->
@@ -85,43 +90,25 @@ this file becomes a second copy that disagrees with the first.
 
 **Precondition**
 ```bash
-core/tools/wos/permissions --check     # exit 0 = a level is answered and rendered
+core/run tools/wos/permissions --check     # exit 0 = a level is answered and rendered
 ```
 
 **Install** — idempotent. It installs the safest level **without asking**, so a clone with nobody
 watching still ends up configured, and only then offers the choice:
 ```bash
-core/tools/wos/permissions --set guarded    # safe default, no question asked
-core/tools/wos/permissions                  # print the levels; offer to raise it
+core/run tools/wos/permissions --set guarded    # safe default, no question asked
+core/run tools/wos/permissions                  # print the levels; offer to raise it
 ```
 
 **Verify**
 ```bash
-core/tools/wos/permissions --check
+core/run tools/wos/permissions --check
 ```
 
 The policy is versioned; the rendered config is not. `core/permissions.txt` is in git so a reviewer
 can read what this workspace permits, while `.claude/settings.local.json` is git-ignored because it
 is an answer about one machine — a versioned `bypassPermissions` would arrive switched on for
 whoever cloned next.
-
-## Workspace path
-> substrate: yes · agent: yes
-
-Every tool under `core/tools/` carries an absolute venv shebang, because a shebang cannot resolve a
-relative path — so a clone living anywhere but `/mnt/workspace` must rewrite it. **Run this step
-first**: every later probe calls a tool. Substitute your real path in every command below, too.
-
-**Precondition** `test "$PWD" = /mnt/workspace && echo "already correct"` — permanent when it prints.
-
-**Install** — idempotent: re-running rewrites the same line to the same value.
-```bash
-grep -rl '^#!.*/\.venv/bin/python3$' core/tools | \
-  xargs sed -i "1s|^#!.*/\.venv/bin/python3$|#!$PWD/.venv/bin/python3|"
-```
-
-**Verify** `for f in $(find core/tools -type f ! -name "*.*"); do head -1 "$f"; done | sort -u` —
-only `#!/usr/bin/env bash` and `#!$PWD/.venv/bin/python3` may appear.
 
 ## The venv
 > substrate: yes · agent: yes
@@ -148,13 +135,13 @@ dependencies.
 
 **Precondition** — also the install plan, in one command:
 ```bash
-core/tools/wos/deps            # every dep, ok/MISSING, with the install line for each miss
+core/run tools/wos/deps            # every dep, ok/MISSING, with the install line for each miss
 ```
 
 **Install** — run what it printed. Rows marked `apt` need `sudo`; if you cannot get it, hand that
 row to Lucas, naming the package and the `breaks` line printed beside it.
 
-**Verify** `core/tools/wos/deps --check` — exit 0 means nothing is missing.
+**Verify** `core/run tools/wos/deps --check` — exit 0 means nothing is missing.
 
 ## GitHub account
 > feature: `github-auth` · agent: no
@@ -172,7 +159,7 @@ gh auth status                     # a logged-in host means this step is done
 **Install** — the agent installs the CLI, and **`gh auth login` is the one part it cannot do**: the
 device flow needs a terminal it can type into. There is nothing to choose and nothing to paste back.
 ```bash
-core/tools/wos/deps --feature github-auth    # prints the install line for THIS machine's manager
+core/run tools/wos/deps --feature github-auth    # prints the install line for THIS machine's manager
 ```
 
 **Needs you:** one command, in your own terminal, and nothing else — hand over exactly this:
@@ -191,7 +178,7 @@ gh auth status
 git push --dry-run origin HEAD
 ```
 
-`gh` is a declared dependency, so its absence is reported by `core/tools/wos/deps` like any other,
+`gh` is a declared dependency, so its absence is reported by `core/run tools/wos/deps` like any other,
 and its probe is `gh auth status` rather than `gh --version` on purpose: a CLI installed but not
 logged in breaks every line of the `breaks` column just as completely as one that is missing.
 
@@ -215,8 +202,13 @@ the path must resolve to a dispatcher, not just be a string.
 > feature: `git-hooks` · agent: yes
 
 Git carries the execute bit, so a normal clone arrives correct. This step is for an archive export,
-a filesystem that drops modes, a `umask` that strips it. The `.py` hooks run through `python3` and
-need no bit.
+a filesystem that drops modes, a `umask` that strips it.
+
+**Only the shell entrypoints git or a harness starts by path need a bit.** Nothing under
+`core/tools/` does: those are spawned as `core/run tools/<family>/<leaf>`, so the interpreter is
+named by the launcher and the bit is not consulted. This step used to `chmod +x` them and verify
+that every extensionless file under `core/tools` carried one — a check that could only ever pass
+on the machine it was written on, since the execute bit is not a permission Windows has.
 
 **Precondition** `test -x core/hooks/pre-commit && test -x core/hooks/post-edit.sh && echo "set"`
 
@@ -224,11 +216,11 @@ need no bit.
 ```bash
 chmod +x core/hooks/post-edit.sh core/hooks/read/pre-read.sh core/hooks/pre-commit \
          core/hooks/post-commit core/hooks/copilot/copilot-agent.sh \
-         core/hooks/session/start-session.sh core/tools/wos/deps
+         core/hooks/session/start-session.sh
 ```
 
-**Verify** `find core/hooks core/tools -type f \( -name "*.sh" -o ! -name "*.*" \) ! -perm -u+x` —
-no output. Any line is a file that will fail to run.
+**Verify** `find core/hooks -type f -name "*.sh" ! -perm -u+x` — no output. Any line is a file
+that will fail to run.
 
 ## Python interfaces — stubgen
 > feature: `interface-stubs` · agent: yes
@@ -350,7 +342,7 @@ file that rule.
 ```bash
 printf '%s' '{"hook_event_name":"PreToolUse","tool_name":"Bash","session_id":"probe",
 "tool_input":{"command":"cd core\ngit status\nls -la"}}' \
-  | python3 core/hooks/compact/bash-compact-rewrite.py
+  | sh core/run hooks/compact/bash-compact-rewrite.py
 # expect: cd core / rtk git status / rtk ls -la  — lines 2 and 3 are what raw rtk drops
 ```
 
@@ -387,11 +379,11 @@ Output compression, ~65% of the agent's own output. **Vendored** since 2026-07-2
 [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman). **Do not run the upstream
 installer**: it replaces the links with copies and re-forks both installs. Needs Node ≥ 18.
 
-**Precondition** `core/tools/wos/sync-global-skills --check`
+**Precondition** `core/run tools/wos/sync-global-skills --check`
 
 **Install** — the links, then the config every agent reads:
 ```bash
-core/tools/wos/sync-global-skills            # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
+core/run tools/wos/sync-global-skills            # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
 mkdir -p ~/.config/caveman && echo '{"defaultMode": "full"}' > ~/.config/caveman/config.json
 ```
 ```powershell
@@ -459,7 +451,7 @@ backoff (`WEB_RETRIES`, default 5) and exits non-zero with `all backends failed`
 sudo apt install -y ddgr                           # or: pipx install ddgr
 ```
 
-**Verify** `core/tools/web/search "test query" --backend ddgr --n 3`
+**Verify** `core/run tools/web/search "test query" --backend ddgr --n 3`
 
 ## Exa API key
 > feature: `web-search` · agent: no
@@ -475,7 +467,7 @@ mkdir -p ~/.feynman
 printf '{"exaApiKey": "%s"}\n' "$KEY" > ~/.feynman/web-search.json    # key via env, never argv
 ```
 
-**Verify** `core/tools/web/search "test query" --n 3` — auto-picks Exa when the key is present.
+**Verify** `core/run tools/web/search "test query" --n 3` — auto-picks Exa when the key is present.
 
 ## Google account access
 > feature: `google-auth` · agent: no
@@ -493,7 +485,7 @@ install, hand him the URL it prints, ask for the code it returns. Everything eit
 
 **Install**
 ```bash
-core/tools/mail/gmail sync --since 1               # prompts the consent flow on first run
+core/run tools/mail/gmail sync --since 1               # prompts the consent flow on first run
 ```
 
 **Verify** `core/tools/mail/gmail sync --since 1 && core/tools/calendar/gcalendar upcoming --days 7`
@@ -518,7 +510,7 @@ test user), create an **OAuth client → Desktop app**, download its JSON. A 403
 
 **Install**
 ```bash
-core/tools/forms/gforms auth personal --write        # prompts the consent flow on first run
+core/run tools/forms/gforms auth personal --write        # prompts the consent flow on first run
 ```
 
 **Verify** `core/tools/forms/gforms new --account personal <spec.json>`
@@ -553,7 +545,7 @@ systemctl --user enable --now aiwbot
 Does the install work? This is the whole-install probe; each step's own Verify is above.
 
 ```bash
-core/tools/wos/deps --check                           # every declared dependency present
+core/run tools/wos/deps --check                           # every declared dependency present
 git config --global core.hooksPath                    # the global gate is wired
 .venv/bin/stubgen --version && tsc --version          # interface generators are reachable
 node --input-type=module -e "import('$PWD/.opencode/plugins/workspace-policy.js').then(m=>console.log(typeof m.WorkspacePolicy))"

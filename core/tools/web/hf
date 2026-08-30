@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: Core/tools/web/hf dataset <id> | files <repo> [--type model|dataset|space] | read <repo> <path> — query HuggingFace Hub metadata and file contents; returns JSON
 import sys, json, urllib.request
 

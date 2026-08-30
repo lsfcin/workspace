@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # Usage: Core/tools/mail/gmail <command> [options] — read-only Gmail integration for workspace OS
 # Commands: auth <alias> [--reauth], fetch [--since N] [--account A], triage, sync, attachments [--id ID]
 import sys, json, pathlib, argparse

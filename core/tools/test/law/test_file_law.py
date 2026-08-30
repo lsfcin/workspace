@@ -16,8 +16,8 @@ from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 # sys.path for the enforcement layer is set once, by conftest.py — a second copy
 # here would go stale the next time core/hooks is split.
 
-from file_law import (CODE_EXTS, allowed_extensionless,  # noqa: E402
-                      is_code_file, is_vendored, load_limits)
+from file_law import (CODE_EXTS, allowed_extensionless, is_code_file,  # noqa: E402
+                      is_tool_entrypoint, is_vendored, load_limits)
 from platform_law import posix  # noqa: E402
 
 HOOKS = WORKSPACE_ROOT / 'core/hooks'
@@ -104,11 +104,13 @@ def test_the_vendored_waiver_reaches_the_edit_gate() -> None:
 
 
 def test_every_extensionless_tracked_file_is_explained() -> None:
-    """Extensionless is allowed but never accidental: shebang, or a tool-mandated name.
+    """Extensionless is allowed but never accidental: an outside name, a tool, or a shebang.
 
-    This is the check that answers "can we require extensions everywhere?" — no, because
-    git names its own hooks and make names its own file. Making the exemption a named list
-    is what stops extensionless files being a blind spot again.
+    Git names its own hooks, make names its own file, and core/tools names a tool for the
+    provider it wraps. Each exemption is a NAMED category, which is what stops extensionless
+    files being a blind spot again. The shebang arm used to cover the 33 tools and covered
+    them wrongly — the line they carried named one machine's venv, so it was evidence of the
+    port defect rather than of anything being runnable. is_entrypoint is the honest answer.
     """
     mandated = allowed_extensionless()
     out = subprocess.run(['git', 'ls-files'], cwd=WORKSPACE_ROOT,
@@ -118,7 +120,7 @@ def test_every_extensionless_tracked_file_is_explained() -> None:
         path = WORKSPACE_ROOT / rel
         if Path(rel).suffix or not path.is_file() or path.name in mandated:
             continue
-        if is_vendored(path, WORKSPACE_ROOT):
+        if is_vendored(path, WORKSPACE_ROOT) or is_tool_entrypoint(path):
             continue
         try:
             if path.open('rb').read(2) != b'#!':
@@ -126,8 +128,8 @@ def test_every_extensionless_tracked_file_is_explained() -> None:
         except OSError:
             continue
     assert not unexplained, (
-        f'extensionless files that are neither executable, vendored, nor listed in '
-        f'core/hooks/extensionless.txt: {unexplained}')
+        f'extensionless files that are neither a core/tools entrypoint, vendored, executable, '
+        f'nor listed in core/hooks/extensionless.txt: {unexplained}')
 
 
 # Extension sets in the hook tree that are deliberately NOT "a code file". Each names a

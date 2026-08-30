@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 # gcalendar — Google Calendar read-only CLI for workspace OS — commands: auth, upcoming, range, calendars
 import sys, pathlib, argparse
 from datetime import datetime, timezone, timedelta

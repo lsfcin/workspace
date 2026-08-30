@@ -18,10 +18,10 @@ Access Google Calendar (read-only) across 3 accounts via `core/tools/calendar/gc
 ## Commands
 
 ```bash
-core/tools/calendar/gcalendar upcoming  [--account all|personal|cin|ufrpe] [--days 7]
-core/tools/calendar/gcalendar range     [--account ...] <from_date> <to_date>   # YYYY-MM-DD
-core/tools/calendar/gcalendar calendars [--account ...]
-core/tools/calendar/gcalendar auth <alias>   # first-time per account
+core/run tools/calendar/gcalendar upcoming  [--account all|personal|cin|ufrpe] [--days 7]
+core/run tools/calendar/gcalendar range     [--account ...] <from_date> <to_date>   # YYYY-MM-DD
+core/run tools/calendar/gcalendar calendars [--account ...]
+core/run tools/calendar/gcalendar auth <alias>   # first-time per account
 ```
 
 ## Auth (first-time setup)
@@ -29,9 +29,9 @@ core/tools/calendar/gcalendar auth <alias>   # first-time per account
 Tokens stored at `~/.config/workspace-calendar/{alias}.token.json`. Run once per account:
 
 ```bash
-core/tools/calendar/gcalendar auth personal
-core/tools/calendar/gcalendar auth cin
-core/tools/calendar/gcalendar auth ufrpe
+core/run tools/calendar/gcalendar auth personal
+core/run tools/calendar/gcalendar auth cin
+core/run tools/calendar/gcalendar auth ufrpe
 ```
 
 ## Workflow

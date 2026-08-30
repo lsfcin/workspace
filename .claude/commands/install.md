@@ -17,7 +17,7 @@ Arguments: $ARGUMENTS — a feature slug to install just one feature, or empty f
 installer would have to be ported to every harness, while the newcomer's own agent works on
 whichever harness they already opened. That is you.
 
-**This skill is a door, not a copy.** The procedure is [`SETUP.md`](../../SETUP.md) at the
+**This skill is a door, not a copy.** The procedure is [`SETUP.md`](..\..\SETUP.md) at the
 workspace root, and it stands alone — a stranger on another agent has no skill loaded and installs
 from that file directly. Never restate a command from it here or in your reply; read it and run it.
 If you catch yourself explaining a step, you are drifting into a second copy that will disagree
@@ -35,9 +35,9 @@ with the first one.
 
    | Step | Feature | Status |
    |---|---|---|
-   | … | … | `installed` · `missing` · `needs-Lucas` |
+   | … | … | `installed` · `missing` · `needs-you` |
 
-   `needs-Lucas` is any step marked `agent: no`. Do not attempt those and do not skip them silently.
+   `needs-you` is any step marked `agent: no`. Do not attempt those and do not skip them silently.
 
 3. **Ask which missing steps to run** — default to all of the `agent: yes` ones. If `$ARGUMENTS`
    named a feature slug, filter to steps declaring it and say what you filtered out.
@@ -47,7 +47,7 @@ with the first one.
    because a wiring that read as correct was silently dropping every multi-line call for weeks.
    If a probe fails, stop that step, show the probe's real output, and move to the next step.
 
-5. **Hand over the rest.** For each `needs-Lucas` step, quote the one thing it says to ask for — an
+5. **Hand over the rest.** For each `needs-you` step, quote the one thing it says to ask for — an
    API key, a consent-screen click, a device pairing. Ask for the secret itself and write the config
    yourself; never hand Lucas a command to run. A pasted secret goes into a file through a pipe or
    an environment variable, never on a command line.
