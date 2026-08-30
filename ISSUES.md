@@ -254,7 +254,7 @@ Clean.
 
 - .craft/commands-mirror-cost/0-clarify.md — 2 line(s) over the 120-column cap (first at line 9)
 - AGENTS.md — 2 line(s) over the 120-column cap (first at line 6)
-- ROADMAP.md — 220 lines, over the 200 cap; introduced by feeca22 lsfcin
+- ROADMAP.md — 222 lines, over the 200 cap; introduced by feeca22 lsfcin
 - SETUP.md — 566 lines, over the 200 cap; introduced by 3e575bb lsfcin
 - academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md — 48 line(s) over the 120-column cap (first at line 3)
 - academy/refs/REFS.md — 1 line(s) over the 120-column cap (first at line 117)
@@ -346,7 +346,7 @@ Clean.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/os-agnostic-port is 11 ahead of main
+- . — feature/os-agnostic-port is 13 ahead of main
 
 ### Remote branches already merged into their base
 
