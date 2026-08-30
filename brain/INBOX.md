@@ -9,6 +9,8 @@
 
 <!-- add entries below, newest first -->
 
+verify.py n deveria ficar em algum lugar melhor do WOS?
+
 LINHA DE BASE do port, medida hoje em Windows sem bash nenhum: 433 passam, 138 falham, 1 skip de 572.
 E a categoria das falhas mudou meu entendimento do trabalho: só 96 são exec/shebang (OSError +
 FileNotFoundError, esperadas). As outras 150 são AssertionError de UM padrão só — o código emite
