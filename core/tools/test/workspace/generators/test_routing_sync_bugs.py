@@ -153,3 +153,35 @@ def test_no_tracked_context_has_a_doubled_facade_prefix() -> None:
         if p and "**facade** — **facade** —" in (WORKSPACE_ROOT / p).read_text(encoding="utf-8")
     ]
     assert not offenders, f"facade prefix accumulated in: {offenders}"
+
+
+def test_every_extensionless_tool_keeps_its_routing_row() -> None:
+    """A tool that lost its shebang must not lose its row — the port's silent regression.
+
+    `is_scanned` carried its own `_is_exec_script`: extensionless AND starts with `#!`. That
+    is a second copy of a question `file_law.is_code_file` already answers, and when S5 taught
+    the law module the shape rule (`is_tool_entrypoint`) because the port stripped the
+    shebangs, this copy never heard. All 33 `core/tools` CLIs dropped out of their own routing
+    tables, and the generator rewrote each table without them — so the loss left no diff to
+    notice and no error to read. Found 2026-08-29 only because a merge added a *new* tool and
+    its row vanished on save while a human was watching.
+
+    Whole-tree, not a fixture: the fixture version passes against a scanner that reads the
+    right law for the wrong reason. This asks the live tables.
+    """
+    tools = [
+        p for p in subprocess.run(
+            ["git", "ls-files", "-z", "core/tools/*"],
+            cwd=WORKSPACE_ROOT, capture_output=True, text=True, check=True,
+        ).stdout.split("\0")
+        if p and "." not in Path(p).name and "/test/" not in p
+    ]
+    assert tools, "found no extensionless core/tools CLI — the query is wrong, not the tree"
+    missing = [
+        p for p in tools
+        if f"[`{Path(p).name}`](" not in
+        (WORKSPACE_ROOT / Path(p).parent / "CONTEXT.md").read_text(encoding="utf-8")
+    ]
+    assert not missing, (
+        f"these tools have no routing row: {missing}. `is_scanned` must ask "
+        "file_law.is_code_file about an extensionless file, never re-derive it from a shebang")

@@ -15,6 +15,6 @@ contract every runtime owes: [`SPECS.md`](../SPECS.md).
 
 | File | Description |
 |------|-------------|
-| [`probe.sh`](probe.sh) | Dumps what a ZCode hook event delivers (stdin, filtered env, cwd, ppid) to /tmp/zcode_probe/. Temporary instrument — kept for the post-trust re-run. |
-| [`probe-deny.sh`](probe-deny.sh) | Exit-2 fidelity probe: plain-text stdout + block, registered on a sacrificial matcher. Temporary instrument. |
+| [`probe-deny.sh`](probe-deny.sh) | Exit-2 fidelity probe: block with a PLAIN-TEXT stdout reason, to learn whether ZCode shows a non-JSON block reason to the agent (the canonical core/hooks gates emit plain text on exit 2). Registered only on a matcher for a sacrificial tool. Temporary — see probe.sh. |
+| [`probe.sh`](probe.sh) | ZCode hook-protocol probe: dump what a ZCode hook event delivers (stdin payload, filtered env, cwd, ppid) into /tmp/zcode_probe/, so the shim is designed on measured fact rather than documentation. Analysis lands in core/experiments/zcode-hook-protocol.md. Temporary — deleted once the shim replaces it. |
 <!-- routing:end -->

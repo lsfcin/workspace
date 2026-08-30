@@ -22,4 +22,5 @@ because the answers are read per turma, never pooled.
 | [`SPECS.md`](SPECS.md) | — | — | The spec format a form is written in, the two grants it authenticates with, and the failure that reads like a permission bug and is not one. |
 | [`forms_core.py`](forms_core.py) | [`forms_core.pyi`](forms_core.pyi) | `get_service`, `get_drive`, `edit_url`, `create`, `get_form` | forms_core.py — Google Forms read+write seam (account-agnostic) for Core/tools/forms/gforms |
 | [`forms_spec.py`](forms_spec.py) | [`forms_spec.pyi`](forms_spec.pyi) | `requests` | forms_spec.py — a form written as JSON: compact spec → Forms API batchUpdate requests |
+| [`gforms`](gforms) | — | — | Google Forms CLI: auth, new, read, apply, responses |
 <!-- routing:end -->

@@ -57,6 +57,7 @@ timestamp, no commit sha, so the file changes only when the workspace did.
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`architecture`](architecture) | — | — | draw the workspace as it is (enforcement matrix, routing spine, folder mass) into one self-contained ARCHITECTURE.html; --repos draws every code repo into its own; --check exits 1 when a committed file is stale |
 | [`diagram_data.py`](diagram_data.py) | [`diagram_data.pyi`](diagram_data.pyi) | `area_of`, `trigger_of`, `lifecycle`, `features`, `matrix` | The canonical data behind ARCHITECTURE.html: what the workspace declares, what contains what, and how much of it there is. |
 | [`diagram_footer.py`](diagram_footer.py) | [`diagram_footer.pyi`](diagram_footer.pyi) | `render` | The page's honesty block: what this picture covered, what it inferred, and where to change it. |
 | [`diagram_health.py`](diagram_health.py) | [`diagram_health.pyi`](diagram_health.pyi) | `harness_owned`, `orphans`, `by_layer`, `findings`, `detail` | What the workspace's declarations say about its HEALTH, as opposed to its contents. |

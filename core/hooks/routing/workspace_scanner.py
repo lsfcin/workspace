@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from file_law import load_limits  # noqa: E402
+from file_law import is_code_file, load_limits  # noqa: E402
 from hoist import hoist, md_blurb  # noqa: E402
 from shard_table import EMPTY_CELL, render_table  # noqa: E402
 from workspace_meta import (  # noqa: E402
@@ -17,26 +17,25 @@ SPLIT_THRESHOLD = load_limits()['WARN_FILES']
 _SKIP_DIRS   = {'node_modules', '__pycache__', '.git', 'dist', 'build', '.venv', 'venv'}
 FACADE_NAMES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
 
-def _is_exec_script(path: Path) -> bool:
-    """True for extensionless files that start with a shebang."""
-    if path.suffix or not path.is_file():
-        return False
-    try:
-        return path.open('rb').read(2) == b'#!'
-    except OSError:
-        return False
-
 def is_scanned(path: Path) -> bool:
     """True if this file gets a row in its directory's routing table.
 
     The commit-time description gate asks this before demanding a first-line comment, so
     the gate and the generator can never disagree about who owes one — that disagreement
     is what put a placeholder inside the enforcement directory itself.
+
+    THE EXTENSIONLESS ARM IS ASKED, NEVER RE-DERIVED. This file carried its own
+    `_is_exec_script` — "extensionless AND starts with a shebang" — a second copy of a
+    question `file_law.is_code_file` already answers. S5 taught that module the shape rule
+    (`is_tool_entrypoint`) when the port stripped the shebangs; this copy never heard, so
+    all 33 core/tools CLIs silently lost their routing row, and the loss was invisible
+    because the generator simply rewrote each table without them. Caught 2026-08-29 when
+    the merge added `core/tools/chat/wazip` and watched its row disappear on save.
     """
     return (path.is_file()
             and path.name not in ('CONTEXT.md', 'WORKSPACE.md', 'AGENTS.md')
             and not path.name.endswith(('.d.ts', '.pyi'))
-            and (path.suffix in ALL_EXTS or _is_exec_script(path)))
+            and (path.suffix in ALL_EXTS or is_code_file(path)))
 
 def code_files(directory: Path) -> list:
     return sorted(p for p in directory.iterdir() if is_scanned(p))

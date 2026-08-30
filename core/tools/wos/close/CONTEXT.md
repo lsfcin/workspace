@@ -18,8 +18,8 @@ this directory's `settle` exists to make unrepeatable.
 <!-- routing:start -->
 ## Routing
 
-| File | API | Description |
-|------|-----|-------------|
-| [`artifacts.py`](artifacts.py) | `git`, `spawn`, `settle`, `write_block`, `verify_block` | The generated artifacts a session close regenerates, and what happens to each one afterwards. |
-| [`branches.py`](branches.py) | `promote`, `promoted_line` | Branch promotion at session close: feature → develop → main, and what to say when it did not run. |
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`artifacts.py`](artifacts.py) | [`artifacts.pyi`](artifacts.pyi) | `git`, `spawn`, `settle`, `write_block`, `verify_block` | The generated artifacts a session close regenerates, and what happens to each one afterwards. |
+| [`branches.py`](branches.py) | [`branches.pyi`](branches.pyi) | `promote`, `promoted_line` | Branch promotion at session close: feature → develop → main, and what to say when it did not run. |
 <!-- routing:end -->

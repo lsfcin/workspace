@@ -50,6 +50,7 @@ bump can change the shape of a database response.
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | Notion API gotchas and the auth mechanics specific to this tool. |
+| [`notion`](notion) | — | — | Notion CLI: auth, whoami, list, search, read, apply, text |
 | [`notion_auth.py`](notion_auth.py) | [`notion_auth.pyi`](notion_auth.pyi) | `AuthMissing`, `NotShared`, `config_dir`, `token_path`, `save_token` | notion_auth.py — Notion's integration-token store, and the instructions a failure prints |
 | [`notion_core.py`](notion_core.py) | [`notion_core.pyi`](notion_core.pyi) | `ApiRefused`, `normalize_id`, `url`, `request`, `paged` | notion_core.py — Notion REST seam (workspace-agnostic) for Core/tools/notes/notion |
 | [`notion_lines.py`](notion_lines.py) | [`notion_lines.pyi`](notion_lines.pyi) | `run`, `runs`, `paragraph` | notion_lines.py — compact text (**bold**, [label](url)) to the rich_text runs Notion stores |

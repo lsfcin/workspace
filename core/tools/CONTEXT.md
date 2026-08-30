@@ -30,7 +30,9 @@ The `subagent` feature is runtime-specific and has no CLI wrapper:
 | Subdirectory | Description |
 |--------------|-------------|
 | [`assets/`](assets/CONTEXT.md) | Interface stubs for non-code assets (.imgif / .csvif), one file or a whole paper. |
+| [`audio/`](audio/CONTEXT.md) | Speech to text. Backend leaf: `faster-whisper large-v3-turbo`, local, no network. |
 | [`calendar/`](calendar/CONTEXT.md) | Read what is scheduled. Provider leaf: `gcalendar`. Auth: [`../auth/gauth.py`](calendar/../auth/gauth.py). |
+| [`chat/`](chat/CONTEXT.md) | Exported conversation to navigable text — voice notes transcribed inline, bot noise dropped, secrets redacted. Provider leaf: `wazip` (WhatsApp). |
 | [`docs/`](docs/CONTEXT.md) | Long-form documents, read and edited in place. Provider leaf: `gdocs` (Google Docs API). |
 | [`files/`](files/CONTEXT.md) | Remote file storage: list, search, download, upload. Provider leaf: `gdrive`. |
 | [`forms/`](forms/CONTEXT.md) | Surveys and their answers: a form written as a versioned spec, applied in one call. Provider leaf: `gforms`. |
