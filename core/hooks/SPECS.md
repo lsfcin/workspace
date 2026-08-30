@@ -91,6 +91,20 @@ the same gates as our own. A `.vendor` marker that switched them off was rejecte
 exceptions is quite dangerous"*). Vendoring means adopting and adapting: split what is too big, and
 record the deviations so a future re-sync knows what it is merging against.
 
+## A marker is asked about, never string-matched across the shell/Python boundary
+
+**Whichever side WRITES a session marker answers questions about it.** A gate that records a path
+in one hook and reads it in the next must not compare that path as text from the other language:
+Python's `Path.resolve()` yields `C:\Users\…`, a hook payload arrives as `c:\Users\…`, and
+`readlink -f` between them gives `c:/Users/…`. Three spellings of one file, and `grep -qxF` matches
+none — so the gate blocks every read while the message promises that reading the interface unlocks
+it. **A gate that can only block is the mirror of one that can only pass**, and both read as
+working.
+
+The CONTEXT.md chain gate never had this defect because both of its ends are Python calling the
+same normalisation. So the rule is not "spell the path more carefully"; it is that the module owning
+the marker exposes the question — `read/context-tracker.py --seen <session> <path>` is the shape.
+
 ## Agent lifecycle gates
 
 Bound from `.claude/settings.json`, and by the equivalent registration in each other provider's

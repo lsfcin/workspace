@@ -130,6 +130,25 @@ what changed but never the option space that was rejected.
 
 ## Portability — would this work on a machine that is not Lucas's
 
+**🟢 drive the two port ceilings to zero**
+*What* — 45 versioned files still hardcode `mnt/workspace`, and 18 still name `.venv/bin`. The
+largest remaining cluster is `core/tools/deps.txt`, whose probe column spells `.venv/bin/python3`
+per row and whose install hints are raw `apt`/`pip` strings rather than
+`platform_law.package_install`.
+*Why* — a probe that cannot run on a clone reports the dependency missing, which is the same false
+answer the `make verify-fast` gate gave. The registry's own rule is that a dependency has **one**
+name; a per-machine spelling per row breaks it.
+*Done when* — `MACHINE_PATH_CEILING` and `VENV_POSIX_CEILING` in
+`core/tools/test/workspace/test_port_ratchet.py` both read 0, and `core/run tools/wos/deps --check`
+is meaningful on this machine.
+
+**🟡 ten tools are over the line-count warn threshold, newly visible**
+*What* — `gdocs` 183, `permissions` 170, `video_core.py` 169, `session/context` 169, `notion` 153
+and five more now warn at commit.
+*Why* — they were invisible to `is_code_file` for as long as it recognised code by shebang, and the
+shebang strip is what surfaced them. None is over the 200 cap; this is a backlog, not a block.
+*Done when* — the warn list is empty, or a row is deliberately exempted with a reason.
+
 **🟢 absorb `code/aiwbot` into this repo**
 *What* — aiwbot versioned here, its standalone repo deleted, `telegram-capture` wired.
 *Why* — it is part of WOS and deeply entangled, and it is the last feature that cannot be switched

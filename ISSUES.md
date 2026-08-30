@@ -119,35 +119,56 @@ not this one pointer.
 the fix is extending the gate, giving bugs durable slugs, or forbidding the citation is undecided —
 Lucas's call, and it belongs in `core/SCHEMA.md` § Boundaries where types nearly touch.
 
-## B8 — the skill mirrors are symlinks, and on Windows that blocks every commit touching a skill
+## B8 — 60 generated mirror files are still tracked, and nothing regenerates them on edit
 
-**Symptom:** `core/tools/wos/sync-skills --check` reports `MISSING link` for most mirrors, so the
-`skills` stage of the pre-commit pipeline raises and the commit is refused. Found 2026-08-28 porting
-the commit path: `core/skills/inbox.md` had to be stashed to land the port at all.
+**What is true now:** a mirror is a **copy**, written and checked by content
+(`core/tools/wos/skills/mirror.sh`). The symlink half is gone, so the skills stage no longer refuses
+a commit and the skill library reads in this clone.
 
-**Root cause, confirmed twice:** `git config core.symlinks` is `false` on this clone, so git
-materialised the tracked mirrors as ordinary files holding their target's path — which is also why
-`test_no_committed_symlink_carries_an_absolute_path` dies with `WinError 4390`, *not a reparse
-point*. And `mirror.sh` regenerates them with `ln -s`, which under Git Bash **copies** unless
-`MSYS=winsymlinks:nativestrict`. Neither half fails loudly; the mirrors simply are not links.
+**What is still untrue:** the copies are **in git**. Every skill edit churns 60 tracked files, which
+is the maintenance Lucas's ruling exists to delete.
 
-**Worse than a broken mirror, twice over.** It is the only gate in the workspace that can refuse a
-commit for a reason the operator cannot fix by editing anything they wrote — and the mirrors being
-files rather than links means **the skill library is off on this clone**: the harness opens
-`.claude/skills/<name>/SKILL.md` and reads the eleven characters of a relative path as the skill
-body. A stash is the workaround for the first half, and a stash is state a session loses.
+**The ruling (2026-08-29, Lucas), and it is not "make symlinks work":** a native symlink on Windows
+needs Developer Mode, a machine-level privilege out of proportion to what WOS is — *"WOS doesn't
+tweak the machine's hardware and nothing near that"*. The mirrors become generated copies git does
+not track: `.gitignore` covers all four mirror trees, and `/install`, the post-edit hook and the
+pre-commit generator materialise them. *"Auto-generated content is totally fine given it is not
+versioned; the copies that worry me are the ones we do by hand and have to maintain."*
 
-**Ruled 2026-08-29 (Lucas), and it is not "make symlinks work":** a native symlink on Windows needs
-Developer Mode, which is a machine-level privilege out of proportion to what WOS is — *"WOS doesn't
-tweak the machine's hardware and nothing near that"*. The mirrors become **generated copies that git
-does not track**: `.gitignore` covers all four mirror trees, and `/install`, the post-edit hook and
-the pre-commit generator materialise them. *"Auto-generated content is totally fine given it is not
-versioned; the copies that worry me are the ones we do by hand and have to maintain."* Nothing
-per-OS reaches git, no install needs a privilege, and 60 tracked files are deleted.
+**The condition attached, still not met:** regeneration must be automatic on install, on edit, on
+create and on delete. `post-edit.sh` syncs the routing table and the codegraph and has never synced
+skills, so a skill edit reaches the mirrors only at commit time. Untracking before that guarantee
+exists would leave the workspace depending on a step that does not run. **Both halves in one pass.**
 
-**The condition attached, and it is not met yet:** regeneration must be automatic on install, on
-edit, on create and on delete. `post-edit.sh` syncs the routing table and the codegraph and has
-never synced skills, so today a skill edit reaches the mirrors only at commit time.
+## B9 — a verification run rewrites ISSUES.md, so it is not a verification
+
+**Symptom:** `test_features_wiring` probes every registered hook, and one of them is the entropy
+dashboard, which **writes**. Running the suite therefore modifies the working tree.
+
+**Why it matters twice.** A check with a side effect cannot be trusted to report on the thing it
+changed — the rule the deleted `Makefile` stated in its own comment. And it is what blocks the
+cheapest available speedup: `pytest -n auto` is unsafe while any test writes to a shared file, and
+the suite's ~110s is the standing cost of every commit.
+
+**Where to look:** the probe should call the dashboard with a temp output path, or the dashboard
+should grow a `--dry-run` that reports without writing.
+
+## B10 — a stash holds 71 files of already-landed work, and the handoff called it one file
+
+**Symptom:** `stash@{0}` is described in `outputs/handoff.md` as holding only `core/skills/inbox.md`,
+awaiting a `git stash pop` once B8 cleared. It actually holds the whole S4 de-bash port as WIP at
+`aa17d3a` — `gates.py`, `pre_commit.py`, `stubs.py`, `line_counts.py` and 67 more, all since landed
+in different form. **Popping it would have conflicted against every one of them.**
+
+**Already handled:** the one genuinely unlanded line — a pointer to the deleted
+`core/hooks/generators/prepare.sh` — was applied by hand to `core/skills/inbox.md`.
+
+**The decision owed:** whether to drop the stash. It is Lucas's call because dropping is not
+trivially reversible, and nothing else in it is wanted.
+
+**The lesson worth more than the stash:** a hand-off recorded what a session *believed* was in a
+stash rather than what `git stash show --stat` says. A stash is opaque state that outlives the
+session that made it, and this one was one command away from being popped blind.
 
 <!-- entropy:start -->
 ## Entropy
