@@ -2,7 +2,9 @@
 import json, pathlib, sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / 'hooks'))
 import tool_law  # noqa: E402
+from platform_law import secure_dir, secure_file  # noqa: E402
 
 # Guarded at IMPORT, not in a main(): this is a library with no entrypoint of its own, and
 # the feature is the shared OAuth2 itself. Every Google-backed tool — mail, calendar, files,
@@ -36,6 +38,7 @@ _REAUTH_CMD = {
 def config_dir(service: str) -> pathlib.Path:
     d = pathlib.Path.home() / ".config" / f"workspace-{service}"
     d.mkdir(parents=True, exist_ok=True)
+    secure_dir(d)
     return d
 
 
@@ -140,5 +143,6 @@ def auth(alias: str, service: str, scopes: list) -> Credentials:
             )
             creds = flow.run_local_server(port=0)
         token_path.write_text(creds.to_json(), encoding='utf-8')
+        secure_file(token_path)
 
     return creds

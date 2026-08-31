@@ -16,9 +16,7 @@ import entropy_naming  # noqa: E402
 import schema_law  # noqa: E402
 
 # Inherited violations, each with the item that retires it. Nothing else may join.
-BASELINE = {
-    'code/_templates/module.SPEC.md',   # SPEC.md -> SPECS.md, pending
-}
+BASELINE = set()
 
 
 def _live_violations():
