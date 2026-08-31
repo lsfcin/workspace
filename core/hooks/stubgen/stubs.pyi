@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from pathlib import Path
 
 STUB_FOR: Incomplete
+FACADES: Incomplete
 
 def interface_for(path): ...
 def stub_out_dir(path) -> Path: ...

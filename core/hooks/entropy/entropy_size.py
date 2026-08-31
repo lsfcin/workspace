@@ -20,7 +20,7 @@ from platform_law import rel  # noqa: E402
 from schema_law import WORKSPACE_ROOT  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'stubgen'))
-from stubs import STUB_FOR, interface_for  # noqa: E402
+from stubs import FACADES, STUB_FOR, interface_for  # noqa: E402
 
 
 def _rel(path) -> str:
@@ -82,7 +82,7 @@ def stub_signals(files: list) -> list:
         if not stub or is_vendored(path, WORKSPACE_ROOT) or \
                 is_generated_artifact(path, WORKSPACE_ROOT):
             continue
-        if path.name.endswith('.d.ts') or '__pycache__' in path.parts:
+        if path.name.endswith('.d.ts') or '__pycache__' in path.parts or path.name in FACADES:
             continue
         if not stub.exists():
             signals.append(f'{_rel(path)} — no {STUB_FOR[path.suffix]}')

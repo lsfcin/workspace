@@ -139,3 +139,15 @@ def test_the_counter_names_the_interface_the_source_actually_wants(tmp_path):
 
     assert [s.rsplit('—', 1)[1].strip() for s in signals] == ['no .d.ts', 'no .pyi']
     assert not any('c.py' in s for s in signals), 'a stubbed source is not a finding'
+
+
+def test_a_facade_is_not_a_finding(tmp_path):
+    """The counter and the gate must agree on what a facade is.
+
+    pre-read.sh exempts them ("already minimal interfaces") and code/CONTEXT.md tells agents to
+    read them — so 41 of the 200 findings asked for a stub the gate would never consult.
+    """
+    for name in ('__init__.py', 'index.ts'):
+        (tmp_path / name).write_text('')
+
+    assert stub_signals([tmp_path / '__init__.py', tmp_path / 'index.ts']) == []
