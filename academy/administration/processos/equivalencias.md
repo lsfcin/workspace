@@ -34,20 +34,31 @@
 
 ---
 
-## 3. Protocolo de Ação no SIPAC para Docentes
+## 3. Protocolo Operacional no SIPAC para Emissão de Parecer
 
-Quando notificado pela Secretaria (`SEC-DC`) ou pelo SIPAC:
+Quando demandado pela Secretaria (`SEC-DC`) ou notificado pelo SIPAC:
 
-1. **Localização**:
-   - Acessar o **SIPAC** $\rightarrow$ **Mesa Virtual** / **Processos** $\rightarrow$ **Processos em Tramitação** $\rightarrow$ Filtrar por Grupo `DOCENTES.DC` ou buscar pelo número do processo (ex.: `23082.011945/2026-37`).
+1. **Acesso e Navegação**:
+   - Acessar o **SIPAC UFRPE** ([sigs.ufrpe.br/sipac](https://sigs.ufrpe.br/sipac)).
+   - No topo superior direito, clicar no botão **Mesa Virtual**.
+   - No seletor suspenso superior da tabela, alterar para **GRUPO DE TRABALHO**.
+   - No painel lateral esquerdo (*Grupos Ativos*), selecionar o grupo de destino (ex.: **`DOCENTES.DC`**, **`CTA.DC`**).
+   - Localizar o processo pelo número (ex.: `23082.011945/2026-37`) e clicar no link do processo.
+
 2. **Inclusão do Parecer**:
-   - Abrir o processo $\rightarrow$ Clicar em **Incluir Documento**.
-   - **Tipo do Documento**: `PARECER`.
-   - **Natureza**: `Ostensivo`.
-   - **Assunto Detalhado**: `Parecer de Dispensa de Disciplina - [Nome da Disciplina]`.
-   - **Destinatário**: `Coordenação do Curso` ou `Departamento de Computação`.
-3. **Redação e Assinatura**:
-   - Inserir o texto padronizado (ver [`modelos.md`](modelos.md)).
-   - Clicar em **Assinar Documento** $\rightarrow$ Confirmar senha/token de assinatura digital.
+   - Na barra de navegação lateral esquerda do processo, clicar em **Documentos**.
+   - No menu de ações do processo (topo direito), clicar em **Adicionar Documento** $\rightarrow$ **Adicionar Novo Documento**.
+   - Preencher os campos básicos:
+     - **Tipo do Documento**: `PARECER`
+     - **Natureza**: `Ostensivo` *(não é necessário especificar destinatário)*.
+   - Inserir/colar o texto padronizado do parecer no editor (ver [`modelos.md`](modelos.md)).
+   - Clicar no botão **Adicionar Documento**.
+
+3. **Assinatura e Finalização**:
+   - Na lista de *Documentos do Processo*, selecionar o parecer adicionado (estará no topo da lista).
+   - Clicar no botão **Adicionar Assinante \| Minha Assinatura**.
+   - Clicar em **Assinar** (informando a senha/token institucional).
+   - Clicar em **Finalizar**.
+
 4. **Notificação de Conclusão**:
-   - Informar à Secretaria (`SEC-DC`) que o documento foi assinado para que o processo possa ser pautado na reunião seguinte do CTA.
+   - Informar à Secretaria (`SEC-DC` / Stéphane) que o parecer foi assinado para que o processo possa ser pautado na reunião seguinte do CTA.
