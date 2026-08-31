@@ -108,6 +108,21 @@ def test_antigravity_spawns_only_scripts_that_exist():
     assert not dead, f'antigravity shim spawns paths that do not resolve: {dead}'
 
 
+def test_opencode_shim_never_spawns_the_bare_word_python3():
+    """The bare word is the spelling that silently switches the whole opencode plugin
+    off on a Windows clone: the Store alias prints an advert, exits 9009, the feature
+    probe reads as 'off' and no gate registers. The interpreter is asked from
+    `core/run --python` -- the platform seam -- never spelled."""
+    for source in SHIMS['opencode'][0]:
+        text = source.read_text(encoding='utf-8')
+        assert not re.search(r'spawnSync\(\s*[\'"]python3[\'"]', text), (
+            f'{source.name} spawns python3 directly -- ask core/run --python instead'
+        )
+        assert 'core/run' in text and '--python' in text, (
+            f'{source.name} no longer resolves the interpreter through the platform seam'
+        )
+
+
 def test_the_launcher_every_shim_goes_through_is_there():
     """Both direct shims name `core/run` before naming a gate, so its absence would break
     every gate at once while each individual path above still resolved."""

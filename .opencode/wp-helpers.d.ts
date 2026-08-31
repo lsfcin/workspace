@@ -1,13 +1,29 @@
-export function buildPayloads(args: any, toolName: any): {
-    file_path: any;
-    content: string;
-    old_string: string;
-    new_string: string;
-}[];
-export function run(script: any, payload: any, canonical: any, { stdin }?: {}): any;
+export function python(): any;
+/**
+ * @param {Record<string, any>} args opencode tool args
+ * @param {string} toolName opencode tool name
+ * @returns {Array<Record<string, any>>}
+ */
+export function buildPayloads(args: Record<string, any>, toolName: string): Array<Record<string, any>>;
+/**
+ * @param {Record<string, any>} args opencode grep args
+ * @returns {Record<string, any> | null}
+ */
+export function buildGrepPayload(args: Record<string, any>): Record<string, any> | null;
+/**
+ * @param {string} script absolute path to the hook script
+ * @param {Record<string, any>} payload Claude-shape hook payload
+ * @param {string} canonical value for the CLAUDE_TOOL_NAME env var
+ * @param {{stdin?: boolean}} [opts] stdin true = pre-hook (stdin JSON), false = post-hook (env JSON)
+ * @returns {import("node:child_process").SpawnSyncReturns<string>}
+ */
+export function run(script: string, payload: Record<string, any>, canonical: string, { stdin }?: {
+    stdin?: boolean;
+}): any;
 export function warn(client: any, msg: any): Promise<void>;
-export const WORKSPACE: string;
+export const WORKSPACE: any;
 export const HOOKS: string;
+export const SESSION_ID: string;
 export namespace TOOL_MAP {
     namespace read {
         let canonical: string;

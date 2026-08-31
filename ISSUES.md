@@ -12,23 +12,6 @@ copied count is the drift these checks exist to catch. The FIXED gate governs th
 only, and it is satisfied the same way here as in every project: a bug flips to FIXED when a
 matching regression spec exists and passes.
 
-## B1 — `.opencode/wp-helpers.d.ts` is stale, and it switches the read gate off silently
-
-**Symptom:** `tsc` fails on the stub with `Property 'stdin' does not exist on type '{}'`, so
-`core/hooks/postedit/interfaces.sh` never regenerates it and the stub beside the source stays old.
-
-**Why it is worse than a stale file:** `core/hooks/read/pre-read.sh` blocks a source read *only
-while the stub beside it is current*. A stub that cannot be regenerated therefore does not merely
-go out of date — it turns the interface-first discipline off for that file, and nothing says so.
-That is the same failure shape the entropy dashboard's § Source files with no interface stub was
-built to count, arriving through a different door.
-
-**Repro:** run the stub generation over `.opencode/wp-helpers.js` and read the `tsc` output.
-
-**Root cause:** unknown. The typed shape of the opencode plugin's helper argument is inferred as
-`{}`, so every property access on it is an error; whether the fix is a JSDoc annotation on the
-source or a `tsconfig` lib change is unestablished.
-
 ## B3 — a mixed carousel is read as a video, so every slide after the first is never opened
 
 **Symptom:** `core/tools/video/video` on an Instagram carousel whose **first slide is a video**
@@ -305,7 +288,7 @@ Clean.
 - .craft/commands-mirror-cost/0-clarify.md — 2 line(s) over the 120-column cap (first at line 9)
 - AGENTS.md — 3 line(s) over the 120-column cap (first at line 6)
 - ROADMAP.md — 220 lines, over the 200 cap; introduced by feeca22 lsfcin
-- SETUP.md — 604 lines, over the 200 cap; introduced by 3e575bb lsfcin
+- SETUP.md — 605 lines, over the 200 cap; introduced by 3e575bb lsfcin
 - academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md — 48 line(s) over the 120-column cap (first at line 3)
 - academy/administration/organograma.md — 1 line(s) over the 120-column cap (first at line 2)
 - academy/administration/plantel.md — 4 line(s) over the 120-column cap (first at line 2)
@@ -324,7 +307,7 @@ Clean.
 - brain/memory/user_profile.md — 1 line(s) over the 120-column cap (first at line 16)
 - core/SCHEMA.md — 223 lines, over the 200 cap; introduced by 5c22650 lsfcin
 - core/SPECS.md — 266 lines, over the 200 cap; introduced by 4c3d952 lsfcin
-- core/hooks/SPECS.md — 358 lines, over the 200 cap; introduced by 0237832 lsfcin
+- core/hooks/SPECS.md — 361 lines, over the 200 cap; introduced by 0237832 lsfcin
 - core/norms/reduce.md — 1 line(s) over the 120-column cap (first at line 6)
 - core/norms/secrets.md — 1 line(s) over the 120-column cap (first at line 6)
 - core/refs/REFS-context.md — 1 line(s) over the 120-column cap (first at line 36)

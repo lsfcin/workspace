@@ -19,6 +19,27 @@ import { fileURLToPath } from "node:url"
 export const WORKSPACE = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 export const HOOKS = `${WORKSPACE}/core/hooks`
 
+// Session-stable id, the Copilot `copilot<host-pid>` pattern (core/hooks/SPECS.md § The contract
+// a new agent's shim must satisfy). This module is imported in-process, so process.pid IS the
+// opencode host process: unique per session, stable for its whole life. Without it the markers
+// dedupe on hook_input.py's ppid fallback — the terminal, shared by every session the terminal
+// ever ran — and the CONTEXT.md chain leaks "already seen" across sessions.
+export const SESSION_ID = `opencode${process.pid}`
+
+// The interpreter, asked never spelled. The bare word `python3` is the one spelling this
+// workspace bans (core/run header): on a Windows clone it reaches the Microsoft Store alias,
+// which prints an advert and exits 9009 — every gate after it dies while the plugin reads as
+// green. `core/run --python` prints this clone's venv interpreter; cached once per process.
+// Empty string means no venv is installed, and the plugin registers no hooks (there is
+// nothing for them to run).
+let _python = null
+export function python() {
+  if (_python !== null) return _python
+  const r = spawnSync("sh", [`${WORKSPACE}/core/run`, "--python"], { encoding: "utf8" })
+  _python = r.status === 0 ? r.stdout.trim() : ""
+  return _python
+}
+
 // opencode tool names -> Claude canonical env value + matcher group.
 //   read             -> Read  (pre-read.sh, facade-tracker)
 //   edit, apply_patch-> Edit  (pre-edit + facade-scan + facade-gate, post-edit.sh)
@@ -53,13 +74,20 @@ function normalizePath(raw) {
 
 // Build the Claude-shape payload(s) from opencode's args. For apply_patch
 // there is no filePath; paths are embedded in patchText markers — extract them
-// and return one payload per path (caller iterates).
+// and return one payload per path (caller iterates). Every payload carries the
+// session-stable id (SESSION_ID) so the canonical scripts dedupe their markers.
+/**
+ * @param {Record<string, any>} args opencode tool args
+ * @param {string} toolName opencode tool name
+ * @returns {Array<Record<string, any>>}
+ */
 export function buildPayloads(args, toolName) {
   if (toolName === "apply_patch") {
     const patchText = args.patchText || ""
     const paths = [...patchText.matchAll(APPLY_PATCH_RE)].map(m => normalizePath(m[1].trim()))
     return paths.filter(Boolean).map(p => ({
       file_path: p, content: "", old_string: "", new_string: "",
+      session_id: SESSION_ID,
     }))
   }
   const fp = normalizePath(firstString(args, PATH_KEYS))
@@ -69,30 +97,47 @@ export function buildPayloads(args, toolName) {
     content:    firstString(args, CONTENT_KEYS),
     old_string: firstString(args, OLD_KEYS),
     new_string: firstString(args, NEW_KEYS),
+    session_id: SESSION_ID,
   }]
 }
 
-// python3 <script>  OR  bash <script>. Hooks read JSON from stdin (pre) or
-// CLAUDE_TOOL_INPUT env (post) — never as a CLI arg — so argv is just the
-// interpreter + script path.
-function argvFor(script) {
-  return script.endsWith(".sh") ? ["bash", script] : ["python3", script]
+// Grep is gated by context-gate.py only (Claude parity: matcher Grep sits on the context gate,
+// never on pre-read.sh). Its target is a `path` key, not `file_path` — context-gate.py's
+// target_path() reads `path` when CLAUDE_TOOL_NAME is "Grep".
+/**
+ * @param {Record<string, any>} args opencode grep args
+ * @returns {Record<string, any> | null}
+ */
+export function buildGrepPayload(args) {
+  const raw = firstString(args, PATH_KEYS)
+  if (!raw) return null
+  return { path: normalizePath(raw), session_id: SESSION_ID }
 }
 
 // Spawn a hook script with the Claude Code stdin-JSON + env schema.
 // `stdin:true`  -> pre-hook: feed JSON on stdin.
 // `stdin:false` -> post-hook: feed JSON via CLAUDE_TOOL_INPUT env var.
-// Always sets CLAUDE_TOOL_NAME = canonical ("Edit"/"Write"/"Read").
+// Always sets CLAUDE_TOOL_NAME = canonical ("Read"/"Edit"/"Write"/"Grep"/"Bash").
+/**
+ * @param {string} script absolute path to the hook script
+ * @param {Record<string, any>} payload Claude-shape hook payload
+ * @param {string} canonical value for the CLAUDE_TOOL_NAME env var
+ * @param {{stdin?: boolean}} [opts] stdin true = pre-hook (stdin JSON), false = post-hook (env JSON)
+ * @returns {import("node:child_process").SpawnSyncReturns<string>}
+ */
 export function run(script, payload, canonical, { stdin } = {}) {
   const env = { ...process.env, CLAUDE_TOOL_NAME: canonical }
   const json = JSON.stringify(payload)
+  const py = python()
+  if (!py) return { status: 1, stdout: "", stderr: "workspace-policy: no venv interpreter — run /install" }
+  const argv = script.endsWith(".sh") ? ["bash", script] : [py, script]
   if (stdin) {
-    return spawnSync(argvFor(script)[0], argvFor(script).slice(1), {
+    return spawnSync(argv[0], argv.slice(1), {
       input: json, env, cwd: WORKSPACE, encoding: "utf8",
     })
   }
   env.CLAUDE_TOOL_INPUT = json
-  return spawnSync(argvFor(script)[0], argvFor(script).slice(1), {
+  return spawnSync(argv[0], argv.slice(1), {
     env, cwd: WORKSPACE, encoding: "utf8",
   })
 }

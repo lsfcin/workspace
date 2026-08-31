@@ -243,17 +243,18 @@ proportion to what this workspace is. Copying removes the per-OS axis instead of
 it, and what the symlink bought was freshness, which is now regeneration at the moments that change
 a skill: this step, the post-edit hook, and the pre-commit generator.
 
-**Precondition** `sh core/tools/wos/sync-skills --check`
+**Precondition** `bash core/tools/wos/sync-skills --check`
 
-`sh …`, not `core/run …`: the launcher execs its target with **Python**, and these two tools are the
-workspace's only bash ones. Everything else under `core/tools/` is spelled `core/run tools/…`.
+`bash …`, not `core/run …` and not `sh …`: the launcher execs its target with **Python**, and these
+two tools are the workspace's only bash ones — while on POSIX `sh` is dash, which has no arrays and
+dies on their first line. Everything else under `core/tools/` is spelled `core/run tools/…`.
 
 **Install** — idempotent; it also prunes mirrors whose source skill is gone or switched off:
 ```bash
-sh core/tools/wos/sync-skills
+bash core/tools/wos/sync-skills
 ```
 
-**Verify** `sh core/tools/wos/sync-skills --check` — prints `OK: all mirrors and command files in
+**Verify** `bash core/tools/wos/sync-skills --check` — prints `OK: all mirrors and command files in
 sync`. Any `MISSING` / `STALE` / `ORPHAN` line names the file and the source it disagrees with.
 
 ## Python interfaces — stubgen
@@ -416,11 +417,11 @@ Output compression, ~65% of the agent's own output. **Vendored** since 2026-07-2
 [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman). **Do not run the upstream
 installer**: it replaces the links with copies and re-forks both installs. Needs Node ≥ 18.
 
-**Precondition** `sh core/tools/wos/sync-global-skills --check`
+**Precondition** `bash core/tools/wos/sync-global-skills --check`
 
 **Install** — the links, then the config every agent reads:
 ```bash
-sh core/tools/wos/sync-global-skills             # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
+bash core/tools/wos/sync-global-skills           # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
 mkdir -p ~/.config/caveman && echo '{"defaultMode": "full"}' > ~/.config/caveman/config.json
 ```
 ```powershell
