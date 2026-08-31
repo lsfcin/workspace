@@ -35,23 +35,7 @@
 | [`smartphone-addiction.md`](smartphone-addiction.md) | [ health | mental | near ] smartphone addiction |
 | [`spacemantics.md`](spacemantics.md) | [ craft | research | now ] spacemantics — capacidade espacial/visual verificável para agentes |
 | [`spec-driven-development.md`](spec-driven-development.md) | [ craft | engineering | now ] spec-driven development |
-| [`startapps-apptime.md`](startapps-apptime.md) | [ craft | startapps | near ] apptime |
-| [`startapps-arede.md`](startapps-arede.md) | [ craft | startapps | year ] arede |
-| [`startapps-batituque.md`](startapps-batituque.md) | [ craft | startapps | year ] batituque |
-| [`startapps-come-bem.md`](startapps-come-bem.md) | [ craft | startapps | year ] come bem |
-| [`startapps-cuida.md`](startapps-cuida.md) | [ craft | startapps | year ] cuida |
-| [`startapps-da-feirinha.md`](startapps-da-feirinha.md) | [ craft | startapps | year ] da feirinha |
-| [`startapps-gira.md`](startapps-gira.md) | [ craft | startapps | dream ] gira |
-| [`startapps-laplata.md`](startapps-laplata.md) | [ craft | startapps | dream ] laplata |
-| [`startapps-marcapramim.md`](startapps-marcapramim.md) | [ craft | startapps | year ] marcapramim |
-| [`startapps-permuta.md`](startapps-permuta.md) | [ craft | startapps | year ] permuta |
-| [`startapps-polilinhas.md`](startapps-polilinhas.md) | [ craft | startapps | dream ] polilinhas |
-| [`startapps-realgorithm.md`](startapps-realgorithm.md) | [ craft | startapps | year ] realgorithm |
-| [`startapps-todolado.md`](startapps-todolado.md) | [ craft | startapps | year ] todolado |
-| [`startapps-ux-guidelines-ai.md`](startapps-ux-guidelines-ai.md) | [ craft | startapps | year ] UX guidelines for AI agents |
-| [`startapps-virada.md`](startapps-virada.md) | [ craft | startapps | year ] virada |
-| [`startapps-voti.md`](startapps-voti.md) | [ craft | startapps | year ] voti |
-| [`startapps-xacomigo.md`](startapps-xacomigo.md) | [ craft | startapps | year ] xacomigo |
+| [`startapps.md`](startapps.md) | [ craft | startapps | near ] startapps |
 | [`surf.md`](surf.md) | [ fun | sports | year ] surf |
 | [`teaching-materials.md`](teaching-materials.md) | [ craft | teaching | near ] teaching materials paradigm |
 | [`travel.md`](travel.md) | [ fun | travel | near ] travel |

@@ -5,35 +5,14 @@
 - [Feedback: bug tracking](feedback_bug_tracking.md) — isoroll bugs go in code/isoroll-module/ISSUES.md, not memory
 - [Feedback: parallel sessions](feedback_parallel_sessions.md) — partition workspace by subtree across concurrent
   sessions; check git status AND the current branch right before committing; stage explicitly, commit often
-- [Core library schema](project_core_schema.md) — core/ agent library soundness: enforced per-layer frontmatter
-  (core/SCHEMA.md), tier unified, sweep in core/ROADMAP.md
 - [Feedback: visual eyeball gate](feedback_visual_eyeball_gate.md) — image-producing steps need Lucas's visual OK
   (artifact board) before advancing; shortest path to visible content
-- [Verify Roadmap](project_verify_roadmap.md) — workspace verification/enforcement plan at code/ROADMAP-verify.md; read
-  its status log before .hooks/tests/verification work
 - [Fable Quota Strategy](fable_quota_strategy.md) — "Fable decides, Opus writes, Sonnet executes"; multiview is
   consumed, its F1 spine lives on develop; instituto prompt is in its final window
 - [Feedback: provider-agnostic naming](feedback_provider_agnostic_naming.md) — nunca nome de provider/modelo em
   arquivos/verbos/dirs; função no nome, provider como dado
-- [Project Dobra](project_dobra.md) — context folding + SLM runner (code/dobra) + paper twin
-  (academy/papers/2027-ICLR-dobra); read code/dobra/CONTEXT.md before any dobra session
-- [Project cria](project_hybrid_ideation.md) — ideação híbrida como mechanism design; casas code/cria (workflow+M1) e
-  academy/papers/2027-CHI-cria (ler CONTEXT+ROADMAP antes); manifesto em papers/ai4good; = estágios 2-4 do motor do
-  instituto; gargalo = CEP
-- [Project Casinhas](project_casinhas.md) — obra 7 casas+3 salas (Várzea, c/ pai); home branches/casinhas (cockpit
-  CONTEXT.md), plano S2..S12 no plan file; burocracia = ponto fraco do usuário, checar itens 🔴 sempre
-- [Project Instituto](project_instituto.md) — programa do instituto: cockpit branches/instituto/ (5 núcleos de fluxo de
-  dinheiro + motor de ideação); ler cockpit antes de sessão do tema; achados com fonte vão pra RALOS.md/núcleos
-- [Project isoroll-scene](project_isoroll_scene.md) — voxel-model painter, frozen renderer seam + MVP-first replan
-  2026-07-29; live plan = isoroll-content/ROADMAP.md
-- [Project spacemantics](project_spacemantics.md) — verifiable spatial DSL giving LLMs spatial capability
-  (2D/2.5D/3D/4D); 4 houses (goal+code/spacemantics+paper+skills); promoted from [visual-semantics] seed; M1 = 2.5D
-  slice
 - [Feedback: background bash reliability](feedback_background_bash_reliability.md) — backgrounded Bash chains can die
   silently across a ScheduleWakeup pause; prefer foreground or unchained calls for sweeps the user is waiting on
-- [Project aiwbot](project_aiwbot.md) — provider-agnostic bot driving swappable coding agents (claude/opencode/copilot)
-  via one AgentBackend seam; code/aiwbot, Phase A proven; official Remote Control/Channels rejected as Claude-Code
-  lock-in
 - [Feedback: delete weak features](feedback_delete_weak_features.md) — sinal fraco = deletar por completo (código, docs,
   deps, menções), deixando só uma nota curta de rejeição; nunca manter rebaixado a "dica"
 - [Feedback: material de aula é aditivo](feedback_additive_course_material.md) — em deck do Lucas, intercalar e refinar
@@ -48,8 +27,6 @@
   assessment task, never land ref-only; policy in core/skills/inbox.md
 - [Reference: texpace = spacemantics](reference_texpace_is_spacemantics.md) — route "texpace" captures to
   code/spacemantics
-- [WOS fanout split](project_wos_fanout_split.md) — every core/tools CLI path changed 2026-07-31 (search → web/search);
-  a fanout split only counts once each new dir has its own CONTEXT.md
 - [Feedback: agent runs auth](feedback_agent_runs_auth.md) — agent runs every auth command itself; ask Lucas only for
   provider-UI clicks, consent screens, minting a secret; pasted secrets go in via builtin pipe, never argv
 - [Feedback: contexto na pergunta](feedback_question_context.md) — toda escolha oferecida ao Lucas explica contexto,
@@ -58,7 +35,5 @@
   one word; language IS the system when the reader is an LLM; say what a session decided alone
 - [Feedback: concise WOS](feedback_concise_wos.md) — cada sessão deve deixar MENOS linhas do que
   achou; feature nova paga com o corte que a financia; nunca resumir uma lei até ela deixar de valer
-- [WOS: zerar o roadmap](project_wos_zero_roadmap.md) — trabalho vivo se realoca, a PROSA em volta se
-  corta (corrigido 2026-08-25); drain strategy = gastar opus só nas linhas só-opus
 - [Feedback: multiharness essencial](feedback_multiharness_essential.md) — nunca excluir um harness (otimizar a cópia,
   não a função); e nenhum hook morre sem placar de disparos

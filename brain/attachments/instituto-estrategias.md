@@ -18,7 +18,7 @@ O regime de Dedicação Exclusiva (Lei 12.772/2012, art. 20 §2º) veda "outra a
    não opere o dia a dia. ([parecer
    jurídico](https://pt.linkedin.com/pulse/parecer-jur%C3%ADdico-regime-dos-docentes-em-dedica%C3%A7%C3%A3o-exclusiva-),
    [ConJur 2024](https://www.conjur.com.br/2024-nov-30/dedicacao-exclusiva-cuidados-praticos-e-analise-critica/),
-   [Sintietfal](https://www.sintietfal.org.br/blog/notas-sobre-o-regime-do-regime-juridico-dos-docentes-que-trabalham-com-dedicacao-exclusiva-administracao-federal/))
+   [Sintietfal](https://www.sintietfal.org.br/))
 2. **Exceções do art. 21 da Lei 12.772** (ampliadas pela Lei 13.243/2016): bolsas de
    ensino/pesquisa/extensão/**inovação** pagas por agências oficiais ou **fundações de apoio credenciadas**; retribuição
    pecuniária por **colaboração esporádica** de natureza científica/tecnológica na especialidade do docente, autorizada
@@ -30,18 +30,18 @@ O regime de Dedicação Exclusiva (Lei 12.772/2012, art. 20 §2º) veda "outra a
 3. **Lei de Inovação (13.243/2016)**: pesquisador público em DE pode exercer atividade remunerada de PD&I em ICT ou em
    empresa, **em projetos aprovados e com autorização da instituição de origem**, assegurada a continuidade das
    atividades de ensino/pesquisa. Fundação de apoio é o veículo operacional para bolsas e captação. ([Jusbrasil — marco
-   legal](https://www.jusbrasil.com.br/artigos/estimulos-ao-professor-ou-pesquisador-no-marco-legal-da-inovacao-tecnologica-a-fundacao-de-apoio-como-ferramenta-facilitadora-de-estimulos/1248375242))
+   legal](https://www.jusbrasil.com.br/artigos/1248375242))
 4. **Dirigente de associação sem fins lucrativos**: a vedação do art. 117 se aplica a função **remunerada** de direção;
    direção **não remunerada** de associação civil é aceita na prática administrativa, mas: (a) para **OSCIP** há
    restrição específica a servidor dirigente (risco de perda da qualificação — evitar OSCIP); (b) prudência manda
    formalizar consulta à comissão de ética/PROGEPE antes de assumir presidência. Alternativa segura: Lucas em **conselho
    consultivo** (não diretoria executiva). ([MPPR — servidor em cargo diretivo de
-   OSC](https://mppr.mp.br/Noticia/Informativo-n-28-Ocupacao-de-cargo-diretivo-de-Organizacao-do-Terceiro-Setor-por-servidor),
+   OSC](https://mppr.mp.br/Noticia/Informativo-n-28),
    [Migalhas — remuneração de
    dirigentes](https://www.migalhas.com.br/depeso/367376/remuneracao-dos-dirigentes-das-entidades-sem-fins-lucrativos))
 5. **CGU fiscaliza ativamente**: 930 docentes federais investigados por burlar DE (2024). Tudo aqui precisa ser feito às
    claras, com autorização formal quando exigida.
-   ([Metrópoles](https://www.metropoles.com/brasil/cgu-investiga-930-professores-de-instituicoes-federais-por-driblar-dedicacao-exclusiva))
+   ([Metrópoles](https://www.metropoles.com/brasil/cgu-investiga-930-professores-de-instituicoes-federais))
 
 **Tradução prática para o Lucas:** ele pode (i) ser dono de capital e receber lucros, (ii) receber bolsas de inovação e
 direitos autorais, (iii) orientar intelectualmente como colaboração esporádica autorizada (≤8h/sem), (iv) sentar em

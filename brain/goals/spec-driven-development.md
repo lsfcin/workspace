@@ -43,19 +43,22 @@ contract + `SPECS.md` § Current Workflow Contract — já são spec-shaped. Cop
 ## done
 
 <!-- done:start -->
-> [x] [enforcement-rollout] SDD virou catraca aplicada, não convenção — DONE 2026-07-17. Espinha = gate-or-injection (Princípio 1 do VERIFY). Entregue: SPEC v0 (`code/_templates/module.SPEC.md`); piloto `spacemantics/dsl` locked (verify green, 39 tests); `spec-read-gate.py` (bloqueia editar módulo spec-locked sem ler o SPEC) + pre-commit bloco 1d (novo módulo sob code/ exige `> spec:`) — testados nos 3 runtimes (Claude/opencode/copilot); Loop 0 lê spec / Loop 6 promove; `core/tools/wos/spec-scan` ledger (baseline 1/88). Roadmap canônico: `code/ROADMAP-spec-drive.md`.
+> [x] [enforcement-rollout] SDD virou catraca aplicada, não convenção — DONE 2026-07-17. Espinha = gate-or-injection
+>   (Princípio 1 do VERIFY). Entregue: SPEC v0 (`code/_templates/module.SPEC.md`); piloto `spacemantics/dsl` locked
+>   (verify green, 39 tests); `spec-read-gate.py` + pre-commit bloco 1d; Loop 0 lê spec / Loop 6 promove;
+>   `core/tools/wos/spec-scan` ledger (baseline 1/88). Roadmap canônico: `code/ROADMAP-spec-drive.md`.
 <!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-20  ·  trend: advancing
+last-touch: 2026-08-29  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       8 |
-| trimester   |      15 |
-| semester    |      15 |
-| year        |      15 |
-| 2-year      |      15 |
-| 4-year      |      15 |
+| month       |       9 |
+| trimester   |      18 |
+| semester    |      18 |
+| year        |      18 |
+| 2-year      |      18 |
+| 4-year      |      18 |
 <!-- stats:end -->

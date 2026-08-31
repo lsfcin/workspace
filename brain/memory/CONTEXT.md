@@ -16,13 +16,9 @@ What cannot be controlled is the agent *deciding* to write one. That is fine —
 | `<slug>.md` | One fact each, with `name` / `description` / `metadata.type` frontmatter. |
 | `user_profile.md` | A symlink to [`../USER.md`](../USER.md) — the profile is workspace content first and a memory second. |
 
-Types are `user` · `feedback` · `project` · `reference`. Bodies link to each other with `[[name]]`,
+Types are `user` · `feedback` · `reference`. Bodies link to each other with `[[name]]`,
 and a `[[name]]` with no matching file is allowed on purpose: it marks a memory worth writing.
 That is why `test_pointer_integrity` gates `](path)` links here but **not** `[[slug]]` ones.
-
-**Known asymmetry, not yet fixed:** six `name:` fields use snake_case where the rest use kebab, and
-`project_hybrid_ideation.md` declares `name: project-cria`, matching no filename. Harmless while
-`[[slug]]` is ungated; it is what would have to be settled first to gate it.
 
 **Cost, measured rather than assumed:** the index is ~1,198 tok of a ~27.6k session start, less than
 half the skill listing. The long-standing suspicion that this store duplicates `USER.md` + `goals/`
@@ -51,18 +47,6 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`feedback_provider_agnostic_naming.md`](feedback_provider_agnostic_naming.md) | Never put provider/model names (NB, Gemini, etc.) in file names, verbs, or dirs — workspace is provider-agnostic |
 | [`feedback_question_context.md`](feedback_question_context.md) | toda pergunta de escolha ao Lucas carrega contexto, problema e tradeoffs na própria pergunta e em cada opção |
 | [`feedback_visual_eyeball_gate.md`](feedback_visual_eyeball_gate.md) | Every image-producing pipeline step needs Lucas's visual review (artifact board) before advancing — loops passing their own tests is not enough for visual work |
-| [`project_aiwbot.md`](project_aiwbot.md) | provider-agnostic bot to drive swappable coding agents (claude/opencode/copilot) from chat — code/aiwbot, live; next is audio in+out |
-| [`project_casinhas.md`](project_casinhas.md) | Obra das casinhas (7 casas + 3 salas, Várzea/Recife, com o pai) — home em branches/casinhas, cockpit obrigatório, plano de sessões S2..S12 |
-| [`project_core_schema.md`](project_core_schema.md) | core/ agent-library soundness work — enforced frontmatter contract, tier unification, deferred sweep |
-| [`project_dobra.md`](project_dobra.md) | Dobra — context folding + SLM runner project (code/dobra) with paper twin (academy/papers/2027-ICLR-dobra); founded 2026-07-03 |
-| [`project_freeai.md`](project_freeai.md) | freeai project — docs-only repo público, PT-BR: tabelas comparativas de opções gratuitas de IA para codar (harnesses, IDE, provedores, modelos) |
-| [`project_hybrid_ideation.md`](project_hybrid_ideation.md) | cria — workflow de ideação híbrida humano-IA como mechanism design; AI4Good 2026.2, eletiva, 1º paper LIH.DD (CHI) |
-| [`project_instituto.md`](project_instituto.md) | Programa do instituto tem cockpit em branches/instituto/ — 5 núcleos de fluxo de dinheiro + motor de ideação; ler o cockpit antes de qualquer sessão do tema |
-| [`project_isoroll_scene.md`](project_isoroll_scene.md) | isoroll scene-creation program state — frozen renderer seam, MVP-first milestones, where the live plan lives |
-| [`project_spacemantics.md`](project_spacemantics.md) | spacemantics project — verifiable spatial DSL giving LLMs spatial capability; 4 houses (goal+code+paper+skills); read code+paper CONTEXT before any session |
-| [`project_verify_roadmap.md`](project_verify_roadmap.md) | Workspace verification/enforcement roadmap lives at code/ROADMAP-verify.md — check status there before verification/testing/hooks work |
-| [`project_wos_fanout_split.md`](project_wos_fanout_split.md) | core/hooks and core/tools split into families 2026-07-31 (every CLI path changed); a fanout split only counts once each new dir has its own CONTEXT.md |
-| [`project_wos_zero_roadmap.md`](project_wos_zero_roadmap.md) | Zerar o ROADMAP do WOS = shippar o trabalho, mas a PROSA em volta se corta — regra corrigida por Lucas em 2026-08-25 |
 | [`reference_linuz90_bot.md`](reference_linuz90_bot.md) | linuz90/claude-telegram-bot source read — the reference design for aiwbot; how it does session lineage + its UX feature set |
 | [`reference_texpace_is_spacemantics.md`](reference_texpace_is_spacemantics.md) | texpace" routes to the spacemantics project — same thing for /inbox routing |
 | [`user_profile.md`](user_profile.md) | Lucas — read before any Brain task. |

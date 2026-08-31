@@ -118,20 +118,26 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 
 <!-- done:start -->
 
-> [x] [loop-tree] DONE 2026-07-18: `/craft` virou árvore. Router (`core/flows/craft/route.md`) classifica task→subtree (padaria/feature/research/architecture); mapa canônico `core/flows/craft/TREE.md`. Feature subtree = SDD contract-first: painel de permissão (Loop 0, default permissivo), Loop 3.5 Contract Layout (SPEC.md + stubs + grafo de conexões type-checado por `core/tools/wos/spec-contract-check` ANTES do código), revisão de simetria de conceitos (Loop 3, checklist + codegraph + /dedup). Novo subtree de decisão arquitetural `core/flows/craft/architect.md` (→ ADR). Gitflow enforced (`core/hooks/git/gitflow-gate.sh`, pre-commit 1e). craft skill roteia primeiro. Fecha [skill-tree]; cobre parte de [research-loops]/[arch-algo-vs-lib].
-> [x] [A1] ajustar tabela de roteamento + flag protocol após 7 usos reais (DONE 2026-07-16, sessão de avaliação /craft): `core/flows/craft/craft.md` recebeu `## Field Practice` com tabela de overrides, `## Status` em Loop 6, `## Second-opinion verifier` em Loop 3+6, `## Loop 6.5 Skill Extraction`, `last-reviewed` na tabela volátil. /craft skill ganhou pointer de prior art. dobra cross-ref noun.
-> [x] [fable-spec] sessão Fable paralela (2026-07-06) → `core/flows/craft/craft.md` + skill `/craft` + agents craft-low/medium/high  <!-- done:end -->
+> [x] [loop-tree] DONE 2026-07-18: `/craft` virou árvore. Router (`core/flows/craft/route.md`) classifica
+>   task→subtree; mapa `core/flows/craft/TREE.md`. Feature subtree = SDD contract-first: painel de permissão,
+>   Loop 3.5 Contract Layout (SPEC.md + stubs), revisão de simetria (Loop 3). Novo subtree `architect.md`.
+>   Gitflow enforced (`core/hooks/git/gitflow_gate.py`). craft skill roteia primeiro.
+> [x] [A1] ajustar tabela de roteamento + flag protocol após 7 usos reais (DONE 2026-07-16):
+>   `core/flows/craft/craft.md` recebeu `## Field Practice` com overrides, `## Status` em Loop 6,
+>   `## Second-opinion verifier` em Loop 3+6, `## Loop 6.5 Skill Extraction`.
+> [x] [fable-spec] sessão Fable paralela (2026-07-06) → `core/flows/craft/craft.md` + skill `/craft` +
+>   agents craft-low/medium/high  <!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-28  ·  trend: advancing
+last-touch: 2026-08-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      31 |
-| trimester   |      52 |
-| semester    |      88 |
-| year        |      88 |
-| 2-year      |      88 |
-| 4-year      |      88 |
+| month       |      35 |
+| trimester   |      56 |
+| semester    |      92 |
+| year        |      92 |
+| 2-year      |      92 |
+| 4-year      |      92 |
 <!-- stats:end -->

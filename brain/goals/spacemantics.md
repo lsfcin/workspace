@@ -14,7 +14,7 @@ Casas: `code/spacemantics/` (engine: dsl + checker + perception + tasks + bench,
 `academy/papers/spacemantics/` (paper twin benchmark+método), `core/skills/spacemantics/` (skills
 geom-text/iso-text/spatial-3d-text/motion-text, crescem de `core/skills/iso-visual.md`), e talvez `core/tools/` (wrapper
 `spatial-check`). Origem: item `[visual-semantics]` em [[craft-flows]]. Dogfood futuro (M3): isoroll (layout DSL /
-DepthSorter), casinhas `build_ifc.py`, slides/animação. Ramo UI cruza [[startapps-ux-guidelines-ai]]. Precedente
+DepthSorter), casinhas `build_ifc.py`, slides/animação. Ramo UI cruza [[startapps]]. Precedente
 estrutural: [[cria]] (um goal, casa em code/ + paper twin).
 
 >**signals**  
@@ -54,20 +54,23 @@ profile 2.5D (mais reuso do isoroll). 10 min relendo §6 antes de escrever a gra
 ## done
 
 <!-- done:start -->
-> [x] [m0-scaffold] 2026-07-12: 4 casas criadas (goal, code/spacemantics, academy/papers/spacemantics, +core/skills planejado M1), routing sincronizado, semente [visual-semantics] promovida; DSL nomeada **texpace**  
-> [x] [m05-research] 2026-07-12: deepresearch (5 subagentes Q1-Q5) → `outputs/texpace-foundations.md` + provenance; veredito: aposta SUSTENTADA (ganho vem do checker/loop, não da sintaxe); texpace core destilado `{DIR(frame),DIST,TOP,PATH}×{AT|OVER}+{SEQ,PAR,ALT}+{REPEAT,HOLD}`; 28 refs verificadas em refs/  
+> [x] [m0-scaffold] 2026-07-12: 4 casas criadas (goal, code/spacemantics, academy/papers/spacemantics,
+>   +core/skills planejado M1), routing sincronizado, semente [visual-semantics] promovida; DSL nomeada **texpace**  
+> [x] [m05-research] 2026-07-12: deepresearch (5 subagentes Q1-Q5) → `outputs/texpace-foundations.md` + provenance;
+>   veredito: aposta SUSTENTADA; texpace core: `{DIR(frame),DIST,TOP,PATH}×{AT|OVER}+{SEQ,PAR,ALT}+{REPEAT,HOLD}`;
+>   28 refs verificadas em refs/  
 <!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-20  ·  trend: steady
+last-touch: 2026-08-31  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |      11 |
-| trimester   |      30 |
-| semester    |      30 |
-| year        |      30 |
-| 2-year      |      30 |
-| 4-year      |      30 |
+| month       |      12 |
+| trimester   |      36 |
+| semester    |      36 |
+| year        |      36 |
+| 2-year      |      36 |
+| 4-year      |      36 |
 <!-- stats:end -->

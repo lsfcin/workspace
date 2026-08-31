@@ -138,9 +138,12 @@ fallback · iterate — MVP can always be extended*
 
 <!-- done:start -->
 
-> [x] [mvp-gaps] DONE 2026-07-22 — all 3 gaps localized with hard numbers (see findings above): (1) `core/hooks` overengineering (~40 files / 3068 LOC), (2) 14 GB workspace-root cruft (`.Trash-1000` + root `.venv`), (3) reframed to the missing gentle-resurfacing rhythm → shipped as the `/compass` fold. Closed via `/compass`, first dogfood of the new skill.
-> [x] [v1-strong] DONE 2026-07-29 — superseded by the explicit [v1] gate. Its three parts each landed or moved: cruft reclaimed (6.6 GB, gap 2), hooks de-overengineered (gap 1, and the diagnosis partly reversed — most "duplicate families" were live), telegram_daemon retired into `code/aiwbot`. What remained became later roadmap work.
-> [x] [roadmap-entrypoint] DONE 2026-07-29 — wos work collapsed from four overlapping ledgers (~94 items, 789 lines, four of them already false) into one: `/ROADMAP.md`. Goal file = why, `brain/TODO.md` = life, `core/ROADMAP.md` = library. Deletion policy set: hard delete, git is the history. Discipline now tracked as ROADMAP § The ledger discipline.<!-- done:end -->
+> [x] [mvp-gaps] DONE 2026-07-22 — all 3 gaps localized with hard numbers: (1) `core/hooks` (~40 files),
+>   (2) workspace-root cruft, (3) gentle-resurfacing rhythm → shipped as `/compass`. Closed via `/compass`.
+> [x] [v1-strong] DONE 2026-07-29 — superseded by explicit [v1] gate. Cruft reclaimed (6.6 GB), hooks
+>   de-overengineered, telegram_daemon retired into `code/aiwbot`.
+> [x] [roadmap-entrypoint] DONE 2026-07-29 — wos work collapsed from four overlapping ledgers into one: `/ROADMAP.md`.
+>   Deletion policy set: hard delete, git is the history.<!-- done:end -->
 
 ## stats
 <!-- stats:start -->
@@ -148,10 +151,10 @@ last-touch: 2026-08-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     322 |
-| trimester   |     454 |
-| semester    |     474 |
-| year        |     474 |
-| 2-year      |     474 |
-| 4-year      |     474 |
+| month       |     332 |
+| trimester   |     464 |
+| semester    |     484 |
+| year        |     484 |
+| 2-year      |     484 |
+| 4-year      |     484 |
 <!-- stats:end -->

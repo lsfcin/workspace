@@ -4,35 +4,35 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-31 19:31
+last-updated: 2026-08-31 20:26
 
 >**areas** — last 14 days  
 ```
-health       ██████████   179 touches
-career       █░░░░░░░░░   29 touches
-finances     ░░░░░░░░░░   10 touches
-fun          █░░░░░░░░░   19 touches
+health       ██████████   187 touches
+career       █░░░░░░░░░   36 touches
+finances     ░░░░░░░░░░   11 touches
+fun          █░░░░░░░░░   25 touches
 spiritual    ░░░░░░░░░░   1 touches
 ```
 
 >**goals** — last 14 days  
 ```
 CONTEXT                  ░░░░░░░░░░   3 touches
-burocracia-academica     ░░░░░░░░░░   11 touches
+burocracia-academica     ░░░░░░░░░░   14 touches
 career-ufrpe             ░░░░░░░░░░   3 touches
 corporal-expressiveness  ░░░░░░░░░░   1 touches
-craft-flows              ░░░░░░░░░░   15 touches
-cria                     ░░░░░░░░░░   3 touches
+craft-flows              █░░░░░░░░░   19 touches
+cria                     ░░░░░░░░░░   9 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   4 touches
 exercise                 ░░░░░░░░░░   1 touches
 finances                 ░░░░░░░░░░   3 touches
 google-migration         ░░░░░░░░░░   9 touches
 guitar                   ░░░░░░░░░░   3 touches
-home-casinhas            ░░░░░░░░░░   7 touches
-instituto                ░░░░░░░░░░   1 touches
-lih-dd                   ░░░░░░░░░░   2 touches
-local-ai                 ░░░░░░░░░░   8 touches
+home-casinhas            ░░░░░░░░░░   8 touches
+instituto                ░░░░░░░░░░   3 touches
+lih-dd                   ░░░░░░░░░░   4 touches
+local-ai                 ░░░░░░░░░░   17 touches
 magic-places             ░░░░░░░░░░   1 touches
 make-in-time             ░░░░░░░░░░   1 touches
 pandeiro                 ░░░░░░░░░░   1 touches
@@ -41,34 +41,18 @@ paper-megatruth          ░░░░░░░░░░   2 touches
 paper-scattercode        ░░░░░░░░░░   1 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
 reading                  ░░░░░░░░░░   1 touches
-rpg-isoroll              ░░░░░░░░░░   17 touches
+rpg-isoroll              █░░░░░░░░░   23 touches
 sleep-regularity         ░░░░░░░░░░   1 touches
 smartphone-addiction     ░░░░░░░░░░   1 touches
-spacemantics             ░░░░░░░░░░   2 touches
+spacemantics             ░░░░░░░░░░   7 touches
 spec-driven-development  ░░░░░░░░░░   4 touches
-startapps-apptime        ░░░░░░░░░░   2 touches
-startapps-arede          ░░░░░░░░░░   1 touches
-startapps-batituque      ░░░░░░░░░░   1 touches
-startapps-come-bem       ░░░░░░░░░░   1 touches
-startapps-cuida          ░░░░░░░░░░   1 touches
-startapps-da-feirinha    ░░░░░░░░░░   2 touches
-startapps-gira           ░░░░░░░░░░   1 touches
-startapps-laplata        ░░░░░░░░░░   1 touches
-startapps-marcapramim    ░░░░░░░░░░   1 touches
-startapps-permuta        ░░░░░░░░░░   1 touches
-startapps-polilinhas     ░░░░░░░░░░   1 touches
-startapps-realgorithm    ░░░░░░░░░░   1 touches
-startapps-todolado       ░░░░░░░░░░   1 touches
-startapps-ux-guidelines-ai ░░░░░░░░░░   1 touches
-startapps-virada         ░░░░░░░░░░   1 touches
-startapps-voti           ░░░░░░░░░░   1 touches
-startapps-xacomigo       ░░░░░░░░░░   1 touches
+startapps                ░░░░░░░░░░   11 touches
 surf                     ░░░░░░░░░░   1 touches
-teaching-materials       █░░░░░░░░░   26 touches
+teaching-materials       █░░░░░░░░░   27 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   1 touches
-workspace-os             ██████████   179 touches
+workspace-os             ██████████   187 touches
 yoga                     ░░░░░░░░░░   1 touches
 ```
 <!-- data:end -->
@@ -140,23 +124,7 @@ to INBOX.
 | smartphone addiction | health | near | none external | [map-usage] track phone pickups for 3 days without chan… | [→](goals/smartphone-addiction.md) |
 | spacemantics — capacidade espacial/visual verificável para agentes | craft | now | — | [m1-slice] fatia vertical 2.5D end-to-end (texpace DSL … | [→](goals/spacemantics.md) |
 | spec-driven development | craft | now | — | [lock-isoroll-content] travar o 2º módulo — `code/isoro… | [→](goals/spec-driven-development.md) |
-| apptime | craft | near | none external | [pre-launch-list] open the current design and list the … | [→](goals/startapps-apptime.md) |
-| arede | craft | year | — | [criteria] define what makes a brand "bad" — 3 criteria… | [→](goals/startapps-arede.md) |
-| batituque | craft | year | — | [matrix-prototype] prototype one rhythm matrix in any t… | [→](goals/startapps-batituque.md) |
-| come bem | craft | year | — | [self-profile] test the profile questionnaire on yourse… | [→](goals/startapps-come-bem.md) |
-| cuida | craft | year | — | [define-directed] define what "directed" means — what d… | [→](goals/startapps-cuida.md) |
-| da feirinha | craft | year | — | [map-producers] map 3 agroecological producers in Recif… | [→](goals/startapps-da-feirinha.md) |
-| gira | craft | dream | — | [timebanking-research] read about existing time-banking… | [→](goals/startapps-gira.md) |
-| laplata | craft | dream | — | [data-hunt] find one public dataset of financial flows … | [→](goals/startapps-laplata.md) |
-| marcapramim | craft | year | — | [vertical-choice] define the target vertical — medical?… | [→](goals/startapps-marcapramim.md) |
-| permuta | craft | year | — | [reputation-sketch] sketch the reputation system on pap… | [→](goals/startapps-permuta.md) |
-| polilinhas | craft | dream | — | [poli-01] define MVP scope — politician timeline vs. fu… | [→](goals/startapps-polilinhas.md) |
-| realgorithm | craft | year | — | [ab-test] run a small A/B test — same content posted wi… | [→](goals/startapps-realgorithm.md) |
-| todolado | craft | year | — | [collect-quotes] collect 20 quotes — 5 from Jesus, 5 po… | [→](goals/startapps-todolado.md) |
-| UX guidelines for AI agents | craft | year | — | [three-principles] write 3 core UX principles that matt… | [→](goals/startapps-ux-guidelines-ai.md) |
-| virada | craft | year | — | [parecer-informal] conversar com 1 advogado (ou pesquis… | [→](goals/startapps-virada.md) |
-| voti | craft | year | — | [data-research] research available open data: Câmara do… | [→](goals/startapps-voti.md) |
-| xacomigo | craft | year | — | [value-prop] write the core value proposition in 2 sent… | [→](goals/startapps-xacomigo.md) |
+| startapps | craft | near | nenhum externo | [pre-launch-list] abrir o design atual do apptime e lis… | [→](goals/startapps.md) |
 | surf | fun | year | — | [find-school] find a surf school in Recife — Boa Viagem… | [→](goals/surf.md) |
 | teaching materials paradigm | craft | near | — | [metodologia-tecedu] desenhar a metodologia completa de… | [→](goals/teaching-materials.md) |
 | travel | fun | near | — | [one-trip] escolher UMA viagem para os próximos 12 mese… | [→](goals/travel.md) |
@@ -186,3 +154,8 @@ to INBOX.
   dropped, *collapsed*. Six files, zero touches each, all carrying the same sentence ("find a class in Recife"). One
   intention was wearing six names and charging six times the guilt. Merged into [`dance.md`](goals/dance.md), which asks
   one question instead — pick a rhythm — and keeps every ritmo in a table.
+- **startapps-apptime · startapps-arede · startapps-batituque · startapps-come-bem · startapps-cuida ·
+  startapps-da-feirinha · startapps-gira · startapps-laplata · startapps-marcapramim · startapps-permuta ·
+  startapps-polilinhas · startapps-realgorithm · startapps-todolado · startapps-ux-guidelines-ai · startapps-virada ·
+  startapps-voti · startapps-xacomigo** — 2026-08-31: not dropped, *collapsed*. Dezessete sementes de micro-produtos
+  consolidadas em [`startapps.md`](goals/startapps.md) como catálogo estruturado único.

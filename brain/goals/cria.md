@@ -62,19 +62,20 @@ próximo passo.
 ## done
 
 <!-- done:start -->
-> [x] [fundacao] sessão Fable 2026-07-07: pesquisa SOTA, paper v1 compilando, dossiês v0, workflow v0, desenho do experimento, 2 repos Overleaf  
+> [x] [fundacao] sessão Fable 2026-07-07: pesquisa SOTA, paper v1 compilando, dossiês v0, workflow v0,
+>   desenho do experimento, 2 repos Overleaf  
 <!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: steady
+last-touch: 2026-08-31  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |      13 |
-| trimester   |      29 |
-| semester    |      29 |
-| year        |      29 |
-| 2-year      |      29 |
-| 4-year      |      29 |
+| month       |      12 |
+| trimester   |      36 |
+| semester    |      36 |
+| year        |      36 |
+| 2-year      |      36 |
+| 4-year      |      36 |
 <!-- stats:end -->

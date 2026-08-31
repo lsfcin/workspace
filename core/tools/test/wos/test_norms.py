@@ -65,7 +65,7 @@ def test_the_always_loaded_block_matches_its_sources():
     text = AGENTS.read_text(encoding='utf-8')
     head, _, rest = text.partition(norms.START)
     body, _, _ = rest.partition(norms.END)
-    live = [ln[2:] for ln in body.strip().splitlines() if ln.startswith('- ')]
+    live = [b.strip() for b in ('\n' + body.strip()).split('\n- ')[1:]]
     assert live == [text for _, text in norms.published()], (
         'AGENTS.md and core/norms/ disagree — run core/hooks/routing/norms.py')
     assert norms.START in text and norms.END in text

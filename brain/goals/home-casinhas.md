@@ -65,21 +65,24 @@ fallback · even a partial map beats starting from zero again*
 <!-- done:start -->
 
 
-- [x] 2026-08-28 [averbacao-terreno] processo 45.992 no 7º RGI (titularidade → demarcação) protocolado 22/07 e em exame; emolumentos R$ 5.803,08 pagos; exigência da certidão de endereço paga 28/08
-- [x] 2026-08-28 [gastos-catalogar] finanças catalogadas: R$ 15.699,06 somados por script, com os 4 pagamentos que faltavam na planilha em gastos-pendentes.csv
-- [x] 2026-07-06 [project-map] branches/casinhas/ mapeado e estruturado: CONTEXT.md (cockpit) + projeto.md + material todo ingerido (plantas V03, docs burocráticos, conversa Marcelo, 3 cotações)
+- [x] 2026-08-28 [averbacao-terreno] processo 45.992 no 7º RGI (titularidade → demarcação) protocolado 22/07
+  e em exame; emolumentos R$ 5.803,08 pagos; exigência da certidão de endereço paga 28/08
+- [x] 2026-08-28 [gastos-catalogar] finanças catalogadas: R$ 15.699,06 somados por script, com os 4 pagamentos
+  que faltavam na planilha em gastos-pendentes.csv
+- [x] 2026-07-06 [project-map] branches/casinhas/ mapeado e estruturado: CONTEXT.md (cockpit) + projeto.md +
+  material todo ingerido (plantas V03, docs burocráticos, conversa Marcelo, 3 cotações)
 <!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-28  ·  trend: advancing
+last-touch: 2026-08-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      15 |
-| trimester   |      30 |
-| semester    |      30 |
-| year        |      30 |
-| 2-year      |      30 |
-| 4-year      |      30 |
+| month       |      16 |
+| trimester   |      32 |
+| semester    |      32 |
+| year        |      32 |
+| 2-year      |      32 |
+| 4-year      |      32 |
 <!-- stats:end -->
