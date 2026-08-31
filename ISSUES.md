@@ -32,6 +32,10 @@ frame — the sampler re-describing slide 1 while seven slides sit unread.
 entry, so this silently converts *routable* entries into ones triaged on a caption alone. Nothing
 reports a slide count, so the loss is invisible at the call site.
 
+**Second sighting, 2026-08-31:** an image post (`instagram.com/p/DcMf6TuFIYS/`) returned *no text at
+all*, at `--level full` too — same dispatch gap, one step further: not a thin block, an empty one. The
+entry was routed on Lucas's own note alone, which is the fallback, not the design.
+
 **Lucas, 2026-08-20:** *"toda a triagem de INBOX deveria automaticamente decifrar imagens e vídeos,
 incluindo OCR mas não somente isso, e sempre que possível usando zero-tokens."* The capability is
 already there and already zero-token — tesseract plus a local VLM. It is the dispatch that is wrong,
@@ -118,7 +122,9 @@ should grow a `--dry-run` that reports without writing.
 **Cost measured 2026-08-30:** it blocked a merge twice in one session. Every commit's verify run
 dirties `ISSUES.md`, and `git merge` refuses to start with a modified tracked file, so pulling a
 parallel session's work meant discarding the rewrite first — a manual step in the middle of the one
-operation where losing track of local changes is most expensive.
+operation where losing track of local changes is most expensive. And on 2026-08-28 it did the damage
+it threatens: a test run on the second machine rewrote the generated block of `ISSUES.md` with that
+machine's partial scan (B19), and the rewrite had to be reverted by hand.
 
 ## B12 — `core/run` says it runs anything in `core/`, and it only runs Python
 
@@ -154,6 +160,11 @@ one and not the other fails silently in the direction that leaves stale mirrors 
 **Root cause:** it predates the registry. Same shape as the defect fixed 2026-08-30 in
 `platform_law.py`, which branched on data it never published.
 
+**Third instance, 2026-08-28:** `test_shim_paths.py` guarded opencode, copilot and zcode and never
+`.claude/settings.json` — the one shim it existed to guard was the one it did not read, which is how
+twenty dead commands survived there (B16). It is added now. The lesson is not the missing file: the
+shim table was written by hand and nobody compared it against an `ls` of the configs that exist.
+
 ## B11 — every Google OAuth token on this machine is world-readable
 
 **Symptom:** `~/.config/workspace-{drive,drive-write,gmail,docs,forms}/` are `775` and the
@@ -167,6 +178,99 @@ every new provider directory inherits the umask and the exposure grows with the 
 **Root cause:** the token writers create files with default permissions and no check asserts on the
 mode. The fix is `700`/`600` plus a writer that sets the mode itself; it was left undone because
 tightening could break another local user running the tools, which is Lucas's call to make.
+
+## B14 — a path becomes text and the separator follows the operating system
+
+**Symptom:** on the Windows machine (measured 2026-08-27) the largest single group of test failures
+is one pattern: the code emits `C:\Users\lucas\workspace\academy\papers` where the test expects
+`academy/papers`. `pathlib` resolved the **filesystem** and never resolved the **vocabulary**.
+
+**Where it bites:** every place a path stops being a handle and becomes data — a routing-table row, a
+registry key, a line in `ISSUES.md`, a comparison against `core/features.txt`.
+
+**The fix, and why it is not a concession:** forward slash always, for every path that is *data* —
+`.as_posix()` at the boundary, `Path` only to touch disk. Git has done exactly this internally for
+twenty years. It makes the routing tables and the entropy dashboard byte-identical between machines,
+which is what `test_the_output_is_deterministic` already asks for and cannot get today.
+
+## B15 — the gates run on the second machine and block nothing, and half a fix makes it worse
+
+**Symptom:** the shim was repaired (`core/hooks/run` finds the interpreter and the workspace root),
+so the gates now execute there. They still pass everything: `context-gate.py:45` compares paths as
+text — `str(target).startswith(str(WORKSPACE) + '/')` — and a Windows target carries `\` against a
+`/` prefix, so nothing ever matches and every access returns 0 early. Three sites: `chain.py:53`,
+`context-gate.py:45`, `spec-read-gate.py:79`.
+
+**Why it cannot be fixed alone:** the session markers live in a literal `/tmp`, in fifteen files.
+Native Python reads `/tmp` as `C:\tmp`, which does not exist; Git Bash reads the MINGW one. So
+`pre-read.sh` (shell) reads markers `context-tracker.py` (Python) never wrote. Fix the comparison by
+itself and the gate starts blocking with no way to satisfy it — the workspace becomes unusable there.
+
+**Both halves land together, and together they are the de-bash migration.** Silent-pass is the same
+failure mode as the Store alias: a check that reports success by never running.
+
+## B16 — the versioned configuration assumes one machine, and says the opposite
+
+**Symptom:** `SETUP.md` states the hooks activate on their own after a clone. They do not.
+`.claude/settings.json` and `.zcode/config.json` are versioned with `/mnt/workspace/…` hardcoded in
+~20 commands, and the "Workspace path" step only rewrites shebangs under `core/tools`. In any clone
+outside that path the whole enforcement layer is dead in silence — the exact failure `deps.txt`
+exists to eliminate. Same class: `permissions.allow` is entirely `Bash(git -C * log *)`, so on a
+machine whose agent calls a PowerShell tool nothing matches and Lucas is prompted for everything.
+
+**The three per-OS forks are all broken, and that is the argument, not a coincidence:**
+`start-session.ps1` prints `WORKSPACE.md`, a file that does not exist — the real one is `AGENTS.md`,
+which the `.sh` prints while calling itself a *"neutral session-start entrypoint"*; `.agentrc.json`
+points `start_session_windows` at that broken `.ps1`; `caveman/hooks/activate.js` selects
+`caveman-statusline.ps1`, which is not in the repo. **The fix is to delete the `.ps1` files**, not to
+repair them: one entrypoint that runs on both.
+
+**Still shell-only, so still absent there:** `core/tools/wos/roundup`, which is why one close was done
+by hand; and the `bash -n` check globs by extension, which is how `pre-commit`, `post-commit` and
+`run` — the three shell files with the widest blast radius, none of them allowed an extension — were
+the three nothing checked. That last one now has a test. `caveman` is called vendored by the port
+plan and is not in `core/hooks/vendored.txt`: either it is listed, or it stops being called vendored.
+
+## B17 — text is read and written in whatever encoding the operating system prefers
+
+**Symptom:** file reads and writes now declare `encoding='utf-8'` — the port fixed those after six
+`UnicodeDecodeError` failures on a Brazilian Windows install (cp1252). `sys.stdout` still inherits the
+console's: `permissions --check` printed `permissions: open <?> rendered config matches`.
+
+**Why the default is never the answer:** every `.md` in this workspace is UTF-8, so the OS default is
+wrong everywhere — including Linux, where it happens to work by accident of locale.
+
+## B18 — a declared dependency can be installed, importable, and useless, and the probe reads green
+
+**Symptom:** `secretstorage` is declared in `core/tools/deps.txt` with an import probe. On Windows
+(2026-08-27) `pip install secretstorage` exits 0 and `import secretstorage` exits 0, so the probe is
+**green** — while the Secret Service it talks to is D-Bus and exists only on Linux.
+
+**Why a false green is worse than a false red:** the `breaks` column promises to say when a feature
+goes away, and here it stays quiet. Two things are missing: `kind` has no ceiling saying which systems
+a dependency applies to, and the probe measures an import where it should measure the function.
+
+**Adjacent and unmigrated:** the four `apt` rows (poppler-utils, ffmpeg, tesseract-ocr, ddgr) still
+print `sudo apt-get` on a machine with no apt. The build is on `/ROADMAP.md` § Portability.
+
+## B19 — four instruments report smaller, cleaner, or different, and none of them says so
+
+**Symptom, all found in single sessions on the second machine (2026-08-28):**
+
+- Git Bash rewrites an argument that looks like an absolute POSIX path, so `git grep '/mnt/workspace'`
+  returns nothing in a tree holding it in over a hundred places — MSYS turned the pattern into
+  `C:/Program Files/Git/mnt/…`. Use `MSYS_NO_PATHCONV=1`, or the Grep tool.
+- PowerShell's `Measure-Object -Line` does not count blank lines, underreports by about a fifth, and
+  made one session promise a reduction that did not exist. Use `wc -l`.
+- **The Grep tool normalises the path separator inside the matched content**, not only in the path
+  prefix: it showed `'core\hooks\pre-commit'` in a file that contains `'core/hooks/pre-commit'`, and a
+  bug that did not exist was nearly "fixed". **Confirm with Read before acting on a path seen in Grep.**
+- The entropy dashboard scans a much smaller tree there — hundreds of files against thousands, with
+  most nested repos missing — and reports the partial picture in the same shape as a full one.
+
+**What they have in common:** each answers confidently and none carries its own caveat, so the reader
+cannot tell a measurement from a shrug. The dashboard is the one we own: a scan that sees less has to
+say it saw less.
 
 <!-- entropy:start -->
 ## Entropy
@@ -287,14 +391,14 @@ Clean.
 
 - .craft/commands-mirror-cost/0-clarify.md — 2 line(s) over the 120-column cap (first at line 9)
 - AGENTS.md — 3 line(s) over the 120-column cap (first at line 6)
-- ROADMAP.md — 220 lines, over the 200 cap; introduced by feeca22 lsfcin
+- ROADMAP.md — 239 lines, over the 200 cap; introduced by feeca22 lsfcin
 - SETUP.md — 605 lines, over the 200 cap; introduced by 3e575bb lsfcin
 - academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md — 48 line(s) over the 120-column cap (first at line 3)
 - academy/administration/organograma.md — 1 line(s) over the 120-column cap (first at line 2)
 - academy/administration/plantel.md — 4 line(s) over the 120-column cap (first at line 2)
 - academy/administration/processos/equivalencias.md — 8 line(s) over the 120-column cap (first at line 2)
 - academy/administration/processos/normas.md — 3 line(s) over the 120-column cap (first at line 6)
-- academy/refs/REFS.md — 1 line(s) over the 120-column cap (first at line 135)
+- academy/refs/REFS.md — 1 line(s) over the 120-column cap (first at line 147)
 - brain/INBOX.md — 2 line(s) over the 120-column cap (first at line 18)
 - brain/USER.md — 1 line(s) over the 120-column cap (first at line 16)
 - brain/attachments/instituto-estrategias.md — 4 line(s) over the 120-column cap (first at line 21)
@@ -383,13 +487,13 @@ Clean.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/opencode-wiring-review is 1 ahead of main
+- . — feature/inbox-drain is 2 ahead of main
 
 ### Remote branches already merged into their base
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 1 merged into main: git -C . push origin --delete feature/os-agnostic-port
+- . — 2 merged into main: git -C . push origin --delete feature/opencode-wiring-review feature/os-agnostic-port
 
 <!-- entropy:end -->
 

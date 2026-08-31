@@ -589,7 +589,7 @@ git config --global core.hooksPath                    # the global gate is wired
 "$(sh core/run --script stubgen)" --version && tsc --version   # interface generators are reachable
 node --input-type=module -e "import('$PWD/.opencode/plugins/workspace-policy.js').then(m=>console.log(typeof m.WorkspacePolicy))"
 # Expected: function
-make verify-fast                                      # the workspace's own suite
+./verify.py fast                                      # the workspace's own suite
 ```
 
 Whether each *gate* then behaves as promised is a different question, answered by

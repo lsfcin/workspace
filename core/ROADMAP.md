@@ -55,6 +55,15 @@ page (⋯ → Connections), `list` returns content, and the write path takes Not
 rather than a DSL. Intent and ordering live in
 [`brain/goals/teaching-materials.md`](../brain/goals/teaching-materials.md); this line owns the build.
 
+**🟢 `main` accepts commits from anywhere and Git Flow says it should not**
+*What* — `gitflow_gate.py` refusing a merge into `main` whose other parent is not `develop` (or a
+`release/*`/`hotfix/*`), and `code/SPECS-git.md` stating that rule where it states the rest.
+*Why* — Lucas asked for it (INBOX 2026-08-28). Today the gate only blocks hand-typed commits on the
+protected branches; a merge exits early on `MERGE_HEAD`, and the push policy calls `main` the sync
+point between two machines, so a feature branch can land there and nothing says a word.
+*Done when* — a merge into `main` from anything but `develop` is refused, and the spec and the gate
+say the same thing.
+
 **🟢 nothing we build on Drive can be thrown away by the thing that built it**
 *What* — a `trash` command on `gdocs` and `gdrive`. *Why* — both write (`new`, `push`, `mkdir`,
 `put`) and neither deletes, so every probe an agent creates is cleanup Lucas does by hand; two are

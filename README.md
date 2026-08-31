@@ -11,9 +11,9 @@ file, and it is versioned.
 ## Running it
 
 ```bash
-make verify-fast     # every Tier 0 check + unit tests, ~5s. The global pre-commit gate runs this.
-make entropy         # the drift report over this repo and its nested ones → ISSUES.md
-make verify-full     # adds the network-marked tests
+./verify.py fast     # every Tier 0 check + unit tests. The global pre-commit gate runs this.
+./verify.py full     # adds the network-marked tests
+core/run hooks/entropy/dashboard/entropy-dashboard.py   # the drift report → ISSUES.md
 ```
 
 Setting up a fresh machine is a separate question, answered by [`SETUP.md`](SETUP.md). What each
@@ -106,7 +106,8 @@ Dependencies are declared in [`core/tools/deps.txt`](core/tools/deps.txt), with 
 absence *looks like* — the expensive ones do not announce themselves as missing, they just return a
 worse answer. `core/tools/wos/deps` probes them all.
 
-Still open, and honestly so: installing only a **subset**. Every step names the feature it installs,
-but the registry that would let you switch one off is unbuilt — [`ROADMAP.md`](ROADMAP.md)
-§ Portability & clonability. Today it is all or nothing minus whatever you skip by hand. What
-crosses into a public copy, and what stays private, is the same open work.
+Installing only a **subset** works: every feature is declared in
+[`core/features.txt`](core/features.txt), the answers for this machine live in
+[`core/profile.txt`](core/profile.txt), and `core/tools/wos/features --on|--off <slug>` is how one is
+switched. Still open: what crosses into a public copy, and what stays private —
+[`ROADMAP.md`](ROADMAP.md) § Portability.

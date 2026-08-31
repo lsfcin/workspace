@@ -28,6 +28,10 @@ fallback · even a rough estimate is better than no map*
 > [ ] [spending-audit] review last month's actual spending — where did it go?  
 > [ ] [budget-rhythm] establish a monthly budget review rhythm — even 30 minutes/month  
 > [ ] [aluguel-dia-10] pedir mudança da data de pagamento do aluguel: dia 5 → dia 10  
+> [ ] [investimento-alinhado] definir o critério de "um modelo de investimentos em que eu acredito" e
+> migrar para ele — o post que motivou a captura
+> (<https://www.instagram.com/p/DcMf6TuFIYS/>) não devolveu texto nenhum na extração, nem em
+> `--level full`, então reabrir a fonte antes de decidir (INBOX 2026-08-31)  
 
 ## done
 
@@ -36,14 +40,14 @@ fallback · even a rough estimate is better than no map*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: decelerating
+last-touch: 2026-08-24  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |       1 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       2 |
+| trimester   |       8 |
+| semester    |       8 |
+| year        |       8 |
+| 2-year      |       8 |
+| 4-year      |       8 |
 <!-- stats:end -->

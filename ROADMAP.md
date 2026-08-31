@@ -22,11 +22,8 @@
 conclusions only; `ISSUES.md`'s hand-written half fits a screen; each top-level skill reaches ~45
 lines; `brain/` sheds 19 MB of bot attachments, its project-state memories and most of its 54 goal
 files. `core/flows/` and `core/agents/` **wait** — out of scope, so the number to drive is 237 / 14,141.
-Four families are done — `SCHEMA` five files → two, `SPECS` five → one, `core/hooks`' four → one,
-`SETUP` six → one.
-**A seam has to be a second parser, not a heavy section**: `SCHEMA-layers.md` survives because a
-runtime parses it, and nothing parses a `SPECS` file, so all five merged. **A merged index lands over
-the cap** — 223, 267, 331 — because what survives such a cut is rulings and tables. Same on `SETUP`.
+**A seam has to be a second parser, not a heavy section**, and **a merged index lands over the cap**,
+because what survives such a cut is rulings and tables.
 *Why* — the norm that produced this mass now says cut, and nothing has been cut yet. A `.md` line in
 this tree is re-read by every session that touches the subtree. Lucas wants the norm backed by a gate
 (2026-08-27): growing the total asks him first, with a case that reducing was impossible — 🔴 his design.
@@ -63,6 +60,13 @@ an index pointing at nothing. The allowlist was hand-patched and it happened aga
 *Why* — the measured split is opus-heavy and some of that is typing, not thinking.
 *Done when* — the split moves and the work still lands. Context size is a 4.2x multiplier that
 routing cannot beat, so check the ceiling before spending on this.
+
+**🟡 what our own tools print has never been measured, and it is read by an agent**
+*What* — a number for what the tools' output costs per session, then the cuts it justifies.
+*Why* — Lucas captured it twice in a fortnight (INBOX 2026-08-31), with a pytest failure that reprints
+the assertion, the short summary and the run line for two failures. Output enters the context whether
+it is read or not, and `core/hooks/compact/` exists — a threshold question, not a new build.
+*Done when* — the ten loudest tools are ranked by bytes returned and each one's floor is a decision.
 
 **🟡 the meter shows two thresholds; the ask is the trend between them**
 *What* — context growth visible continuously, most likely a statusline.
@@ -118,7 +122,9 @@ self-description and confident-wrongness are one problem or three.
 *Why* — the feature registry, the group rename and the vocabulary sweep were all downstream attempts
 at a legibility problem nobody had named, which is why each only helped for a while.
 *Done when* — survivors are defined in `core/SCHEMA.md` and the rest replaced across the
-corpus. The most precise word wins, simpler breaks the tie, and the fix is subtraction.
+corpus. The most precise word wins, simpler breaks the tie, and the fix is subtraction. One candidate
+vocabulary to judge here rather than adopt on a reel: **STE**, aerospace controlled English — one
+meaning per word, one word per meaning (@kem_glitch via INBOX 2026-08-28, ref in `core/refs/REFS-unjudged.md`).
 
 **🟡 the health picture: keep what Lucas reads at a glance, cut the rest**
 *What* — one page answering *is this well tied, and what is missing* — not an inventory.
@@ -142,6 +148,18 @@ and five more now warn at commit.
 shebang strip is what surfaced them. None is over the 200 cap; this is a backlog, not a block.
 *Done when* — the warn list is empty, or a row is deliberately exempted with a reason.
 
+**🔴 the platform seam owes three answers, and one of them is a secret**
+*What* — `secure_dir()` / `secure_file()` beside `interpreter()` and `package_install()`; a ceiling in
+`core/tools/deps.txt` saying which systems a dep applies to; and a package name per manager for the
+four `apt` rows still POSIX-only.
+*Why* — the secret convention has no equivalent where permission is an ACL and not a mode, and a
+secret written loose is not made safe later — Lucas's call, they are his machines. The other two are
+what the Windows measurement exposed: a dep can install, import and still be useless, and `wos/deps`
+prints `sudo apt-get` on a machine with no apt.
+*Done when* — the seam writes a secret tight on every system and no probe reads green for a feature
+the system cannot have. One probe per `apt` row; migrating unprobed asserts portability nobody
+measured. **A caller can be a spawn site, not an import** — that hid `interpreter()` until the port ran.
+
 **🟢 absorb `code/aiwbot` into this repo**
 *What* — aiwbot versioned here, its standalone repo deleted, `telegram-capture` wired.
 *Why* — it is part of WOS and deeply entangled, and it is the last feature that cannot be switched
@@ -156,7 +174,9 @@ first block is inert while reading as if it works — which is how the fifth rep
 *Done when* — the contradiction is gone. Reordering changes what the Tier 0 corpus holds, so decide.
 Same file, second contradiction, found 2026-08-27: `branches/` is private by default — its dirs are
 allowed one `CONTEXT.md` each — while the self-heal allows a new one whole. Both are defensible; only
-one can be the rule, and today it depends on who wrote the line.
+one can be the rule, and today it depends on who wrote the line. Third sighting 2026-08-28: the
+allowlist never named `.venv/`, so a venv rode into a `git add -A` — 6207 files — before anyone saw
+it. The line is in now; an allowlist that does not name the environment directories catches the next one.
 
 **🟡 the public scaffold repo his students clone**
 *What* — a separate public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping
@@ -211,10 +231,9 @@ what they say. If the warning is built: warn, never block, or it trains empty go
 - **A global terseness rule, and `effort` as a *length* lever** — a wrong token budget degrades the
   answer. Effort as a *cost* lever stays open above.
 - **A second compaction shim for copilot** — no copilot session has ever run here.
-- **Raising `BLOCK_LINES` to 300 for every format** — weighed 2026-08-25 when the merged `SCHEMA.md`
-  would not fit 200. Nothing in the tree sits between 201 and 306, and ~30 files are parked at
-  190-200: that is a queue at the light, not a distribution. A higher cap moves the queue to 290-300
-  and buys +3000 lines of headroom in the work whose whole point is losing 4776. The one file that
-  genuinely needed room needed a **seam**, not a taller ceiling.
+- **Raising `BLOCK_LINES` to 300 for every format** — weighed 2026-08-25. ~30 files park at 190-200
+  and none sits above: a queue at the light, not a distribution, so a higher cap only moves the queue
+  and buys headroom in the work whose point is losing lines. The file that needed room needed a
+  **seam**, not a taller ceiling.
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS, and between them they hold
   no hand-written bug at all.

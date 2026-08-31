@@ -9,7 +9,7 @@ validated version expected in ~6 months.
 transformative · essential · thrilled
 
 >**owns**  
-`core` · `ROADMAP.md` · `SETUP.md` · `AGENTS.md` · `Makefile` · `ISSUES.md`
+`core` · `ROADMAP.md` · `SETUP.md` · `AGENTS.md` · `verify.py` · `ISSUES.md`
 
 >**dynamics**  
 immersed mode · advancing motion · intrinsic source  
@@ -144,14 +144,14 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-28  ·  trend: advancing
+last-touch: 2026-08-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     314 |
-| trimester   |     408 |
-| semester    |     428 |
-| year        |     428 |
-| 2-year      |     428 |
-| 4-year      |     428 |
+| month       |     313 |
+| trimester   |     445 |
+| semester    |     465 |
+| year        |     465 |
+| 2-year      |     465 |
+| 4-year      |     465 |
 <!-- stats:end -->

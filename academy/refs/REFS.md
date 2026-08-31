@@ -50,6 +50,18 @@
   scanning (Treventus ScanRobot 2.0), destructive winning on speed and cost. Same case as the book-burning ref above;
   both feed `[ai4good-book-burning]`. **A post, not a source** — confirm the case before it is taught.
 
+- [Asha Zimmerman — "we are pro integration" reel](https://www.instagram.com/reel/DcOxARouQxF/) — [src:
+  web:instagram.com] argues frontier labs chase replacement because their growth promises to investors demand constant
+  revenue, and positions AI as a tool to iterate faster instead: *"we think replacement is a horrible idea for AI, but
+  we are pro integration"*. Ends on local models and a hardware pitch, so the founder is selling something. Lucas:
+  *"essa é a mentalidade de AI4good, talvez encaixe em algum lugar"* (INBOX 2026-08-28) — paired task in
+  `brain/goals/teaching-materials.md` `[ai4good-integracao]`.
+
+- [Joseph Gordon-Levitt — optimism reel](https://www.instagram.com/reel/DcRMN_hM537/) — [src: web:instagram.com] asks
+  whether optimism is naive or necessary, and holds that the challenges of AI and democracy can be named without
+  concluding nothing can be done. Lucas: *"adicionar nas minhas aulas"* (INBOX 2026-08-28) — paired task in
+  `brain/goals/teaching-materials.md` `[ai4good-otimismo]`.
+
 - [LJ — 10 solarpunk games](https://www.instagram.com/p/Db8TS-UFC8N/) — [src: web:instagram.com] games about restoring
   ecosystems and building sustainable communities (Terra Nil, Loddlenaut). Lucas: *"solarpunk é a vibe de ai4good"*
   (INBOX 2026-08-24) — positioning for the course, not a task.

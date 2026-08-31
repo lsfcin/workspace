@@ -87,6 +87,11 @@ o formato.
 > aulas de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-07-28). Um segundo post (@theaifield, INBOX 2026-08-21)
 > dá nome ao caso — a "Project Panama" atribuída à Anthropic, livros comprados, descosturados, escaneados e reciclados —
 > e o contraponto técnico, o ScanRobot 2.0 da Treventus, que digitaliza sem destruir; conferir na fonte antes de usar  
+> [ ] [ai4good-integracao] decidir se o argumento "integração, não substituição" entra numa aula de
+> ai4good — ref em `academy/refs/REFS.md`; a fundadora vende hardware no fim do reel, então o
+> argumento vale sem a fonte (INBOX 2026-08-28)  
+> [ ] [ai4good-otimismo] decidir se o reel do Gordon-Levitt (otimismo é ingênuo ou necessário?) abre
+> uma aula de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-08-28)  
 > [ ] [ai4good-lecun] decidir se o reel do LeCun entra numa aula de ai4good — décadas em redes neurais quando a aposta
 > era tida como morta, hoje em world models e não em prever a próxima palavra; ref em `academy/refs/REFS.md` (INBOX
 > 2026-08-24)  
@@ -117,14 +122,14 @@ o formato.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-28  ·  trend: advancing
+last-touch: 2026-08-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      34 |
-| trimester   |      50 |
-| semester    |      50 |
-| year        |      50 |
-| 2-year      |      50 |
-| 4-year      |      50 |
+| month       |      36 |
+| trimester   |      56 |
+| semester    |      56 |
+| year        |      56 |
+| 2-year      |      56 |
+| 4-year      |      56 |
 <!-- stats:end -->

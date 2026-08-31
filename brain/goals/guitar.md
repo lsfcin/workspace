@@ -33,6 +33,15 @@ notes you like, let your hands move without a plan. The point is contact, not pe
 > [ ] [misterio-do-planeta] aprender "Mistério do Planeta" (Novos Baianos) — introdução, acordes e levada; aula do
 > @marcoslimaviolao em <https://www.instagram.com/reel/Dcbm_z0REi5/> (a cifra completa é comment-gated) (INBOX
 > 2026-08-24)  
+> [ ] [lamento-sertanejo] aprender "Lamento Sertanejo" (Gilberto Gil) — trecho do documentário Tempo
+> Rei (1996); aula do @nathanfaroribeiro em <https://www.instagram.com/reel/DcouwIwTBX1/> (INBOX
+> 2026-08-31)  
+> [ ] [formato-musica] um jeito simples e correto de registrar uma música — harmonia, melodia,
+> levada, compasso — legível no PC e no celular, texto puro serve se for fácil de interpretar.
+> Comparar antes de construir: ChordPro (acordes sobre a letra, viewers de celular prontos), ABC
+> notation (melodia em texto, renderiza em partitura), MusicXML (completo e pesado), e uma grade de
+> levada própria para o que nenhum dos três registra. Vira projeto em `code/` só depois do veredito;
+> a levada interessa também a [[pandeiro]] (INBOX 2026-08-31)  
 > [ ] [rhythm-test] play with a metronome for 10 minutes — test the rhythm belief  
 > [ ] [play-with-someone] play alongside one other musician — even informally  
 > [ ] [create-release] create and release something — anything  
@@ -44,14 +53,14 @@ notes you like, let your hands move without a plan. The point is contact, not pe
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: decelerating
+last-touch: 2026-08-28  ·  trend: steady
 
 | period      | touches |
 |-------------|----------|
-| month       |       1 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+| month       |       2 |
+| trimester   |       8 |
+| semester    |       8 |
+| year        |       8 |
+| 2-year      |       8 |
+| 4-year      |       8 |
 <!-- stats:end -->

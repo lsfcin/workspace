@@ -9,6 +9,13 @@ cited or used to justify a decision. Promote a winner by moving its line up into
 with a tier marker; kill the rest by deleting the line.
 
 ### Frameworks / methods
+- [Kem / GlitchCatClub — Standard Technical English (STE)](https://www.instagram.com/reel/DclKZARteCP/) — [src:
+  web:instagram.com] claims a way to "implement STE better than everyone else"; STE itself is the aerospace
+  controlled-English standard — one meaning per word, one word per meaning, restricted grammar, which is the shape of
+  the vocabulary problem this workspace already has. Lucas: *"será que vale a pena implantar no wos?"* (INBOX
+  2026-08-28). **The reel is a teaser** — the guide sits behind an Instagram broadcast channel — so judge STE from its
+  own standard, never from this link; the assessment rides the legibility sitting on `/ROADMAP.md`, which already owns
+  the vocabulary question.
 - [arXiv 2608.15089](https://arxiv.org/pdf/2608.15089) — **captured twice** (INBOX 2026-08-21 and
   again 2026-08-24), which is itself the signal. Lucas's two notes together: *"adicionar aos refs e
   testar"* and *"paper que pode ser importante pra gente, pra trazer um setup alternativo gratuito"*.
