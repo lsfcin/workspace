@@ -40,12 +40,14 @@ never edit it by hand.
 | [`cria/`](cria/CONTEXT.md) | Workflow executável de ideação híbrida (motores de criatividade + score de fronteira semântica + kill-tests). Twin de pesquisa: `academy/papers/2027-CHI-cria/`. |
 | [`dobra/`](dobra/CONTEXT.md) | Context folding + small local models: task-tree runner where SLMs do leaf work under folded context. Paper twin: `academy/papers/2027-ICLR-dobra`. |
 | [`flows/`](flows/CONTEXT.md) | Graph-based workflow engine — typed slots, YAML-defined flows, pluggable agents |
+| [`freeai/`](freeai/CONTEXT.md) | Mapa das opções gratuitas para codar com IA — harnesses de CLI e IDE, provedores com free tier e modelos open-weights, em tabelas comparativas com limites reais e links oficiais. |
 | [`gira/`](gira/CONTEXT.md) | Protocolo + plataforma de crédito mútuo local com matching por agentes de IA — motor do núcleo circuito do instituto (Sardex×Mumbuca com clearing multi-hop). Primeira vertical: feira agroecológica (da-feirinha). |
 | [`isoroll-content/`](isoroll-content/CONTEXT.md) | Offline asset generation pipeline for the isoroll Foundry VTT module |
 | [`isoroll-module/`](isoroll-module/CONTEXT.md) | Foundry VTT v14 isometric projection module — TypeScript + Vite + SCSS. |
 | [`laplata/`](laplata/CONTEXT.md) | Mapa vivo dos fluxos de dinheiro no Brasil — pipeline de dados abertos (BCB, IBGE) + visualizações que revelam ralos. Infraestrutura do programa instituto (núcleo 4) e estágio 1 do motor de ideação. |
 | [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for experimenting with LC/UFRPE curriculum redesign |
 | [`spacemantics/`](spacemantics/CONTEXT.md) | Verifiable spatial DSL (texpace) + deterministic checker that lift LLM spatial capability across 2D/2.5D/3D/4D |
+| [`statem/`](statem/CONTEXT.md) | CLI runbook for agent long runs — state machine with explicit transitions, checks, and resume semantics. |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records — ARCHIVED as a spec |
 
 | File | API | Description |

@@ -54,6 +54,9 @@ code/gira/*
 !code/cria/
 code/cria/*
 !code/cria/CONTEXT.md
+!code/freeai/
+code/freeai/*
+!code/freeai/CONTEXT.md
 !code/_templates/
 code/_templates/*
 !code/_templates/*.md
@@ -187,6 +190,7 @@ code/corpora
 code/cria
 code/dobra
 code/flows
+code/freeai
 code/futebots
 code/gira
 code/isometric-perspective
