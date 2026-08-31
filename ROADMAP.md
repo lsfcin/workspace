@@ -1,34 +1,25 @@
 # Workspace roadmap
 
 > Everything still open in the workspace scaffold, in one file. **Cap: 200 lines.** A finished item
-> is deleted — git is the history. A killed one gets a line under § Rejected so it cannot come back
-> looking new.
+> is deleted — git is the history. A killed one gets a line under § Rejected so it cannot come back looking new.
 >
 > **Three fields per item, no fourth.** *What* will exist · *Why* it is worth building · *Done when*,
 > the observable that ends it. **HOW is the job of the session that takes the item** — a roadmap
 > carrying its own implementation goes stale the day the code disagrees with it. Rules live in the
-> `SPECS.md` that owns them; numbers live in `core/experiments/` and `ISSUES.md`. Re-run an
-> instrument, never quote it into this file.
+> `SPECS.md` that owns them; numbers live in `core/experiments/` and `ISSUES.md`. Re-run an instrument.
 >
 > 🔴 Lucas decides · 🟡 an agent can rule alone · 🟢 mechanical. Items are named, never numbered: a
-> number points at nothing the day the item lands. All four v1 criteria were met by 2026-08-16, so
-> an item that cannot state its *why* belongs under § Rejected rather than in the list.
+> number points at nothing the day the item lands. All four v1 criteria were met by 2026-08-16.
 
 ## Shape — does the tree still look like what we say it does
 
 **🟢 the scaffold is still most of a lean workspace away from lean**
 *What* — root + `core/` + `brain/` at **≤170 `.md` files and ≤10,000 lines**, from 273 and 17,074.
-`core/refs`' six shards fold into `REFS.md` and `core/experiments/` keeps
-conclusions only; `ISSUES.md`'s hand-written half fits a screen; each top-level skill reaches ~45
-lines; `brain/` sheds 19 MB of bot attachments, its project-state memories and most of its 54 goal
-files. `core/flows/` and `core/agents/` **wait** — out of scope, so the number to drive is 237 / 14,141.
-**A seam has to be a second parser, not a heavy section**, and **a merged index lands over the cap**,
-because what survives such a cut is rulings and tables.
-*Why* — the norm that produced this mass now says cut, and nothing has been cut yet. A `.md` line in
-this tree is re-read by every session that touches the subtree. Lucas wants the norm backed by a gate
-(2026-08-27): growing the total asks him first, with a case that reducing was impossible — 🔴 his design.
-*Done when* — both numbers are met with `verify-fast` green. **Check before cutting any `.md`
-whether code parses it**: `core/SCHEMA.md`, `core/norms/*.md` and `ROADMAP*.md` are data, not prose.
+`core/refs`' six shards fold into `REFS.md` and `core/experiments/` keeps conclusions only; `ISSUES.md`'s
+hand-written half fits a screen; each top-level skill reaches ~45 lines; `brain/` sheds attachments,
+project-state memories and most goal files. `core/flows/` and `core/agents/` **wait** (out of scope).
+*Why* — the norm that produced this mass now says cut. A `.md` line in this tree is re-read by every session.
+*Done when* — both numbers are met with `verify-fast` green. Check code parsers before cutting any `.md`.
 
 **🟢 the corpus is half Portuguese and the rule is English**
 *What* — one language across the durable `.md` corpus, with Lucas's quoted words left as he said them.
@@ -37,35 +28,24 @@ whether code parses it**: `core/SCHEMA.md`, `core/norms/*.md` and `ROADMAP*.md` 
 
 **🟡 the line cap and the column cap contradict each other, and `AGENTS.md` satisfies neither**
 *What* — one rule for which cap wins, and an `AGENTS.md` not permanently in violation.
-*Why* — wrapping to the column cap pushed a file past the line cap, so the two trade finding for
-finding; and `test_norms` reads the rule block line by line, so a wrapped norm loses its continuation.
+*Why* — wrapping to column cap pushes files past line caps, trading finding for finding.
 *Done when* — a file near both caps has one legal way out and `AGENTS.md` carries zero findings.
 
 **🟢 a type's sibling files can be gitignored and nothing notices**
 *What* — a Tier 0 check that a file passing `entropy_naming.TYPE_SLUG` is tracked.
-*Why* — eight `core/SCHEMA-*.md` / `SPECS-*.md` sat untracked with three checks green, so a clone got
-an index pointing at nothing. The allowlist was hand-patched and it happened again 2026-08-27:
-`academy/lab/CONTEXT.md` links `CHECKPOINTS.md`, which `academy/lab/*` keeps out of git.
+*Why* — untracked `core/SCHEMA-*.md` / `SPECS-*.md` sat with checks green, pointing clones at nothing.
 *Done when* — the check fails on an ignored sibling and passes on this tree.
-
-**🟢 the `SPEC.md` → `SPECS.md` retyping**
-*What* — the singular spelling gone from `code/_templates/module.SPEC.md` and the repos that copied it.
-*Why* — one meaning with two spellings, leaked into five enforcement points.
-*Done when* — one reviewed change lands template-first and `SPEC.md` earns its § Retired tokens row.
 
 ## Cost — what a session costs, and which of it is avoidable
 
 **🟢 cheaper models where the work is mechanical**
 *What* — mechanical work routed off the most expensive tier.
 *Why* — the measured split is opus-heavy and some of that is typing, not thinking.
-*Done when* — the split moves and the work still lands. Context size is a 4.2x multiplier that
-routing cannot beat, so check the ceiling before spending on this.
+*Done when* — the split moves and work still lands. Context size is a 4.2x multiplier routing cannot beat.
 
 **🟡 what our own tools print has never been measured, and it is read by an agent**
 *What* — a number for what the tools' output costs per session, then the cuts it justifies.
-*Why* — Lucas captured it twice in a fortnight (INBOX 2026-08-31), with a pytest failure that reprints
-the assertion, the short summary and the run line for two failures. Output enters the context whether
-it is read or not, and `core/hooks/compact/` exists — a threshold question, not a new build.
+*Why* — output enters the context whether read or not; `core/hooks/compact/` exists as a threshold question.
 *Done when* — the ten loudest tools are ranked by bytes returned and each one's floor is a decision.
 
 **🟡 the meter shows two thresholds; the ask is the trend between them**
@@ -75,165 +55,100 @@ it is read or not, and `core/hooks/compact/` exists — a threshold question, no
 
 **🟡 anything the agent needs Lucas to physically do is said where he never sees it**
 *What* — one channel reaching him at the *end* of a response.
-*Why* — the close offer and every auth-consent request land in agent-facing prose at prompt-submit
-time; a consent request once sat unclicked through four exchanges. The context-window warning rides
-the same channel, and he asked for it at the *end* of each response (2026-08-27).
-*Done when* — both reach him without interrupting the thread, and the channel's token cost was
-measured before wiring rather than assumed free.
+*Why* — close offer and auth-consent requests land in agent-facing prose at prompt-submit time.
+*Done when* — both reach him without interrupting the thread, with measured token cost.
 
 **🟡 thinking is 65% of billed output and no instrument here can see it**
 *What* — a number for what thinking effort costs and whether lowering it breaks the work.
-*Why* — it is the largest slice of billed output; every composition figure we hold describes the other 35%.
+*Why* — it is the largest slice of billed output; every composition figure describes the other 35%.
 *Done when* — one task has run at two effort levels with billed output *and* correctness compared.
-No behaviour change before the number exists: a wrong budget degrades the answer.
 
 ## Measurement — does any of this earn its keep
 
 **🟡 no hook has ever been measured, so no hook can be cut on evidence**
 *What* — a count per feature of how often it fired and how often it blocked something real.
-*Why* — 71 features are on and none has a scoreboard, so every cut is a guess and every kept rule is
-paid on faith. `core/hooks/hook_input.py` is the point they all pass through.
+*Why* — 71 features are on and none has a scoreboard, so every cut is a guess and kept rules paid on faith.
 *Done when* — after two weeks of ordinary use a feature × fired × blocked table exists.
-**Ruled 2026-08-25: nothing is deleted before it does.** It also settles Lucas's open question (2026-08-27): is an agent
-better told up front what will block it, or better left to meet the hook live?
 
 **🟡 the ablation — the scaffold has never been measured against its own absence**
 *What* — variants of the public scaffold, one feature off in each, against one synthetic task suite.
-*Why* — this workspace compensates for model failures and a stronger model may not need the
-compensation; a rule that outlives its failure is pure cost.
-*Done when* — a **per-feature** verdict is readable, not only an aggregate. Needs the public repo and
-a clean per-feature switch. Runs outside this workspace; design belongs to `academy/papers/wos-ablation/`.
-One variant Lucas named (2026-08-27) is the extreme: **everything off for opus** — a claim going
-around (@nocodealex) says Anthropic cut ~80% of Claude Code's own prompt with no eval loss.
+*Why* — this workspace compensates for model failures; a rule that outlives its failure is pure cost.
+*Done when* — a **per-feature** verdict is readable. Runs outside this workspace (`academy/papers/wos-ablation/`).
 
 **🔴 the agent is confidently wrong and nothing catches it**
-*What* — two halves Lucas postponed on purpose: what a knowledge store is and what earns a row in it,
-and a mechanism that notices a decision is being taken and grounds both sides before it hardens.
-*Why* — a plan built by agreeing with its own premise is the costliest version, because the whole
-session sits on it; and a third store would be the scatter this workspace forbids.
-*Done when* — research has run and Lucas has ruled, in a session about this and nothing else.
-**Not with a prompt rule** — induced doubt is already thick here and prevented neither known failure.
+*What* — define knowledge store criteria, and a mechanism grounding decisions before they harden.
+*Why* — a plan agreeing with its own premise is the costliest failure mode; a third store is forbidden scatter.
+*Done when* — research has run and Lucas has ruled in a dedicated session. Enforced, not prompt-induced.
 
 ## Legibility — can Lucas still read what he owns
 
 **🔴 the legibility sitting: the jargon audit and the one-root test**
-*What* — a plain-word replacement per surviving term, and a verdict on whether legibility,
-self-description and confident-wrongness are one problem or three.
-*Why* — the feature registry, the group rename and the vocabulary sweep were all downstream attempts
-at a legibility problem nobody had named, which is why each only helped for a while.
-*Done when* — survivors are defined in `core/SCHEMA.md` and the rest replaced across the
-corpus. The most precise word wins, simpler breaks the tie, and the fix is subtraction. One candidate
-vocabulary to judge here rather than adopt on a reel: **STE**, aerospace controlled English — one
-meaning per word, one word per meaning (@kem_glitch via INBOX 2026-08-28, ref in `core/refs/REFS-unjudged.md`).
+*What* — plain-word replacement per surviving term; verdict on legibility/self-description/confident-wrongness.
+*Why* — previous sweeps were downstream attempts at an unnamed legibility problem.
+*Done when* — survivors defined in `core/SCHEMA.md` and rest replaced. Precise word wins, simpler breaks ties.
 
 **🟡 the health picture: keep what Lucas reads at a glance, cut the rest**
 *What* — one page answering *is this well tied, and what is missing* — not an inventory.
-*Why* — three drawings were built and none landed, because all three answered *what is there*.
-*Done when* — he reads it at a glance and every shape that failed that test is deleted. The lifecycle
-sequence passed and is what the others are judged against.
+*Why* — three drawings answered *what is there*; he needs a glanceable health picture.
+*Done when* — he reads it at a glance and failing shapes are deleted.
 
 **🟡 a session must not decide things quietly**
-*What* — the hand-off naming what this session decided *without asking*, plus a Context / Decision /
-Consequences record for anything with lasting blast radius.
-*Why* — *"decisions I didn't recall making"* is the complaint under this whole front, and git holds
-what changed but never the option space that was rejected.
-*Done when* — a decision that cannot be stated in one line is visibly one that was too big to take alone.
+*What* — hand-off naming unasked decisions, plus Context/Decision/Consequences for lasting blast radius.
+*Why* — git holds what changed but never the rejected option space.
+*Done when* — decisions too big to take alone are visibly surfaced.
 
 ## Portability — would this work on a machine that is not Lucas's
 
 **🟡 ten tools are over the line-count warn threshold, newly visible**
-*What* — `gdocs` 183, `permissions` 170, `video_core.py` 169, `session/context` 169, `notion` 153
-and five more now warn at commit.
-*Why* — they were invisible to `is_code_file` for as long as it recognised code by shebang, and the
-shebang strip is what surfaced them. None is over the 200 cap; this is a backlog, not a block.
-*Done when* — the warn list is empty, or a row is deliberately exempted with a reason.
+*What* — `gdocs` 183, `permissions` 170, `video_core.py` 169, `session/context` 169, `notion` 153.
+*Why* — they were invisible before shebang stripping. None exceeds the 200 cap; backlog, not block.
+*Done when* — warn list is empty or rows are deliberately exempted with reasons.
 
 **🔴 the platform seam owes three answers, and one of them is a secret**
-*What* — `secure_dir()` / `secure_file()` beside `interpreter()` and `package_install()`; a ceiling in
-`core/tools/deps.txt` saying which systems a dep applies to; and a package name per manager for the
-four `apt` rows still POSIX-only.
-*Why* — the secret convention has no equivalent where permission is an ACL and not a mode, and a
-secret written loose is not made safe later — Lucas's call, they are his machines. The other two are
-what the Windows measurement exposed: a dep can install, import and still be useless, and `wos/deps`
-prints `sudo apt-get` on a machine with no apt.
-*Done when* — the seam writes a secret tight on every system and no probe reads green for a feature
-the system cannot have. One probe per `apt` row; migrating unprobed asserts portability nobody
-measured. **A caller can be a spawn site, not an import** — that hid `interpreter()` until the port ran.
+*What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.
+*Why* — secret convention needs ACL equivalence; dep probes must verify function, not bare import.
+*Done when* — seam writes secrets tight on all systems and no probe falsely greens.
 
 **🟢 absorb `code/aiwbot` into this repo**
 *What* — aiwbot versioned here, its standalone repo deleted, `telegram-capture` wired.
-*Why* — it is part of WOS and deeply entangled, and it is the last feature that cannot be switched
-off: any wiring available today makes this repo's Tier 0 test assert on a nested repo's content.
-*Done when* — `core/tools/wos/features --findings` reads zero. **Ruled 2026-08-24: absorb.** A build,
-not a decision.
+*Why* — it is part of WOS and the last feature that cannot be switched off.
+*Done when* — `core/tools/wos/features --findings` reads zero.
 
 **🟡 `.gitignore` says both things about a nested repo's `CONTEXT.md`**
-*What* — one answer on whether those four files are tracked.
-*Why* — an earlier block re-allows them, a later wholesale entry wins, so none is tracked and the
-first block is inert while reading as if it works — which is how the fifth repo will copy it.
-*Done when* — the contradiction is gone. Reordering changes what the Tier 0 corpus holds, so decide.
-Same file, second contradiction, found 2026-08-27: `branches/` is private by default — its dirs are
-allowed one `CONTEXT.md` each — while the self-heal allows a new one whole. Both are defensible; only
-one can be the rule, and today it depends on who wrote the line. Third sighting 2026-08-28: the
-allowlist never named `.venv/`, so a venv rode into a `git add -A` — 6207 files — before anyone saw
-it. The line is in now; an allowlist that does not name the environment directories catches the next one.
+*What* — one answer on whether those four files are tracked, reconciling contradictions.
+*Why* — allowlist vs wholesale ignore blocks conflict silently.
+*Done when* — contradiction is eliminated and environment directories are explicitly guarded.
 
 **🟡 the public scaffold repo his students clone**
-*What* — a separate public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping
-the research-and-paper-writing subset with `brain/` as empty structure.
-*Why* — students have asked for it, and it is a hard precondition of the ablation. It is now a live
-dependency, not a want: the "com o WOS" track of `academy/lab/CHECKPOINTS.md` is written and inert
-until it exists, so LOOP A's one-month deadline rests on a tool the student cannot get.
-*Done when* — a student clones it and gets a working workspace, and the general/Lucas line is a
-reviewable diff rather than a trusted script.
+*What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
+*Why* — students asked for it; hard precondition for ablation study.
+*Done when* — a student clones it and gets a working workspace.
 
 ## Brain — the part that serves Lucas rather than the code
 
 **🟡 the attention dashboard counts edits to goal files, not work on goals**
-*What* — a counter over commits touching each goal's declared paths, in whichever repo owns them.
-*Why* — `workspace-os` rendered as one touch in a fortnight when 29 of 29 commits were its work, so
-any goal whose work lands in `code/` reads as dead and `/compass` is hand-corrected every cycle.
-*Done when* — a bar reflects work done, the instrument ignores its own reviews, and area bars union
-rather than sum. Started 2026-08-14 and unfinished; `brain_dashboard.py` shrinks, never grows.
+*What* — counter over commits touching each goal's declared paths across repos.
+*Why* — `workspace-os` showed 1 touch when 29/29 commits were its work; `/compass` had to be hand-corrected.
+*Done when* — bar reflects work done, ignores own reviews, and area bars union rather than sum.
 
 **🟡 measure which `UPPERCASE.md` files are read, then decide what to do about goal files**
-*What* — a per-type rollup of reads and read cost over time; then, and only then, the goal↔roadmap
-warning and the goal-format audit.
-*Why* — Lucas suspects goal files are dead weight and roadmaps are heavily read. If that is true,
-redesigning goal fields and strengthening links to them are both the wrong move — so the ordering is
-the item, not a caveat.
-*Done when* — the numbers are in `core/experiments/`, and each downstream half is built or dropped on
-what they say. If the warning is built: warn, never block, or it trains empty goal updates.
+*What* — per-type rollup of reads and cost; then goal↔roadmap warning and goal-format audit.
+*Why* — verify whether goal files are dead weight before redesigning fields.
+*Done when* — numbers are in `core/experiments/` and downstream steps decide based on data.
 
 ## Deferred — real work, deliberately not now
 
-- **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — they wait until the v1 scaffold is tight.
-  Nothing is spent on them, including the trial that would judge them: flows ran twice, agents remain
-  wholly untried, so no ruling on that layer is available yet. An outside ranking Lucas found
-  plausible — hooks > skills > agents > flows/loops (@kem_glitch via INBOX 2026-08-25) — orders the
-  layer the same way, but a reel is not evidence and does not shorten the wait.
-- **Anything a nested repo owns** — each keeps its own `ISSUES.md` and fixes its own findings. The
-  fanout hard-block, the `.d.ts` stub gap, the last two `ROADMAP-<slug>` renames and the
-  first-line-comment queue all live there now.
-- **`[gdrive-integration]`, `[offline-resilience]`, serious OCR** — content and infrastructure, not
-  scaffold. OCR belongs where the image-only PDFs are.
+- **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 scaffold is tight.
+- **Anything a nested repo owns** — each keeps its own `ISSUES.md` and fixes its own findings.
+- **`[gdrive-integration]`, `[offline-resilience]`, serious OCR** — content/infrastructure, not scaffold.
 
 ## Rejected
 
-- **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing, no file-relayed
-  carry. Its trigger was imported instead.
-- **Curing confident wrongness with a prompt rule** — induced loses to enforced, and this corpus is
-  the evidence.
-- **A preliminary cut of features before the ablation** — declined by Lucas 2026-08-21: cutting on a
-  hostile blog post and a hunch is the guess the instrument exists to replace.
-- **An ensemble router** — spend is driven by context size, so several models over the same large
-  context pay the multiplier several times.
-- **A global terseness rule, and `effort` as a *length* lever** — a wrong token budget degrades the
-  answer. Effort as a *cost* lever stays open above.
+- **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
+- **Curing confident wrongness with a prompt rule** — induced loses to enforced; corpus is evidence.
+- **A preliminary cut of features before the ablation** — declined 2026-08-21: cutting on hunches is a guess.
+- **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
+- **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
 - **A second compaction shim for copilot** — no copilot session has ever run here.
-- **Raising `BLOCK_LINES` to 300 for every format** — weighed 2026-08-25. ~30 files park at 190-200
-  and none sits above: a queue at the light, not a distribution, so a higher cap only moves the queue
-  and buys headroom in the work whose point is losing lines. The file that needed room needed a
-  **seam**, not a taller ceiling.
-- **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS, and between them they hold
-  no hand-written bug at all.
+- **Raising `BLOCK_LINES` to 300** — moves the queue; files needing room need a seam, not higher ceilings.
+- **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
