@@ -12,6 +12,7 @@
 # hand-carried. A collected number that any repo could write into is precisely the copied-count
 # drift these checks exist to catch, so one pass by one writer produces both halves or neither.
 from pathlib import Path
+import subprocess
 
 from blocks import replace_block
 from entropy_corpus import nested_repos
@@ -55,12 +56,39 @@ def partition(findings: dict, root: Path, repos: list) -> tuple:
     return mine, per_repo
 
 
+def _commit_ledger(repo_path: Path) -> None:
+    """Commit the ledger just written — the writer owns its artifact (B5).
+
+    An uncommitted ledger is not a ledger: invisible to clones, to history, and to anyone who did
+    not run the dashboard locally. A PATHSPEC commit, so whatever else is staged in that repo
+    stays staged — the ledger rides alone. A repo mid-operation is left untouched, and a ledger
+    that cannot commit prints why instead of failing the scan that wrote it.
+    """
+    gitdir = repo_path / '.git'
+    if not gitdir.exists() or any((gitdir / m).exists()
+                                  for m in ('MERGE_HEAD', 'rebase-merge', 'rebase-apply')):
+        return
+    dirty = subprocess.run(['git', '-C', str(repo_path), 'status', '--porcelain', '--', 'ISSUES.md'],
+                           capture_output=True, text=True)
+    if dirty.returncode != 0 or not dirty.stdout.strip():
+        return
+    subprocess.run(['git', '-C', str(repo_path), 'add', '--', 'ISSUES.md'],
+                   capture_output=True, text=True)
+    commit = subprocess.run(['git', '-C', str(repo_path), 'commit', '--no-verify', '-m',
+                             'chore(issues): regenerate the entropy ledger', '--', 'ISSUES.md'],
+                            capture_output=True, text=True)
+    if commit.returncode != 0:
+        why = (commit.stderr or commit.stdout).strip().splitlines()
+        print(f'⚠  {repo_path.name}: ledger not committed ({why[-1] if why else "git commit failed"})')
+
+
 def write_local(repo: str, root: Path, findings: dict, scanned: int) -> int:
-    """Write one repo's own entropy block into its own ISSUES.md. Returns its finding count."""
+    """Write one repo's own entropy block into its own ISSUES.md, then commit it. Returns count."""
     ledger = root / repo / 'ISSUES.md'
     text = ledger.read_text(encoding='utf-8') if ledger.exists() else local_seed(repo)
     block = render(findings, scanned, root / repo, name=repo)
     ledger.write_text(replace_block(text, block, START, END, at_end=True), encoding='utf-8')
+    _commit_ledger(root / repo)
     return sum(len(items) for items in findings.values())
 
 

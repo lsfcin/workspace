@@ -1,6 +1,3 @@
-from _typeshed import Incomplete
-
-GATE: Incomplete
 SECTION: str
 B1_SECTION: str
 

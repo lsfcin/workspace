@@ -19,7 +19,8 @@ trigger matching `description`.
 
 Edit `core/skills/<name>.md`. That is the whole procedure — the save regenerates.
 
-**The mirrors are generated copies and git does not track them** (`.gitignore`, ISSUES.md B8). One
+**The mirrors are generated copies and git does not track them** (the `.gitignore` mirror block
+holds the 2026-08-29 ruling, and the guarantee it rides on is the post-edit sync below). One
 source, four published copies, because every harness looks in its own directory. Never edit a
 mirror: the next sync overwrites it, and `--check` compares by content, so the edit is reported as
 `STALE` against the source rather than kept.

@@ -172,6 +172,9 @@ times. And **the table names the marker in words, not the emoji.**
 skill and `core/flows/craft/`; **Front** is a top-level workstream in `ROADMAP.md`. **A Front number is
 not a citable identifier:** closed items are deleted, so `Front 4.1` is a dead pointer the day the work
 lands. Numbering is legal only inside `ROADMAP.md` / `ROADMAP-<slug>.md`, and in commit messages.
+**A bug id is never reused** (ruled 2026-08-31): new ids in an `ISSUES.md` are durable slugs,
+`b<YYYYMMDD>-<slug>`; a numeric id dies with its fix, so citing a bug outside its ledger names the
+slug, never the number.
 
 ### Terms with one meaning
 

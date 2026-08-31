@@ -13,17 +13,17 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from hook_input import parse_stdin
 
-BUG_RE = re.compile(r'^##\s*B(\d+)\b', re.MULTILINE)
-FIXED_RE = re.compile(r'##\s*B(\d+)\b[^\n]*\bFIXED\b', re.IGNORECASE)
+BUG_ID_RE = re.compile(r'^##\s+(b[\w-]+)', re.IGNORECASE | re.MULTILINE)
+FIXED_RE = re.compile(r'^##\s+b[\w-]+\b[^\n]*\bFIXED\b', re.IGNORECASE | re.MULTILINE)
 SKIP_DIRS = {'.venv', 'node_modules', '__pycache__'}
 
 
 def bug_ids(text: str) -> set[str]:
-	return set(BUG_RE.findall(text or ''))
+	return {i.lower() for i in BUG_ID_RE.findall(text or '')}
 
 
 def fixed_ids(text: str) -> set[str]:
-	return set(FIXED_RE.findall(text or ''))
+	return {i.lower() for i in FIXED_RE.findall(text or '')}
 
 
 def repo_root(path: Path) -> Path | None:
@@ -37,13 +37,16 @@ def repo_root(path: Path) -> Path | None:
 
 
 def has_spec(root: Path, bug_id: str) -> bool:
-	"""A regression spec is any file named *b<N>[_-]* under a test/ directory.
+	"""A regression spec is any file named *<bug_id>* under a test/ directory.
 
-	`b1` must not match `test_b19_x.py` — the id ends at the boundary. Tests live at
-	core/tools/test here and at each repo's own layout, so the walk accepts any directory
-	named test and skips the heavy non-test trees.
+	The id ends at a non-alphanumeric boundary, so `b1` does not borrow `test_b19_x.py`, and
+	hyphen (ids) and underscore (module names) stand in for each other: `b20260831-the-bug`
+	matches `test_b20260831_the_bug.py`. Tests live at core/tools/test here and at each repo's
+	own layout, so the walk accepts any directory named test and skips the heavy non-test trees.
 	"""
-	pat = re.compile(rf'(?:^|[/_-])b{re.escape(bug_id)}(?:[._-]|$)')
+	parts = re.split('[-_]', bug_id.lower())
+	pat = re.compile(rf'(?<![a-z0-9]){"[._-]".join(re.escape(p) for p in parts)}(?![a-z0-9])',
+	                 re.IGNORECASE)
 	for base, dirs, files in os.walk(root):
 		dirs[:] = [d for d in dirs if d != '.git' and d not in SKIP_DIRS]
 		rel = Path(base).relative_to(root)
@@ -88,7 +91,7 @@ def main() -> int:
 
 	print('ISSUES GATE - leaving the ledger needs executable proof.', file=sys.stderr)
 	for b in missing:
-		print(f'   B{b}: no regression spec found (expected a *b{b}[_-]* file under a test/ directory).', file=sys.stderr)
+		print(f'   {b}: no regression spec found (expected a test/ file naming the id, e.g. test_{b.replace("-", "_")}_*.py).', file=sys.stderr)
 	print('   Write the regression spec first, verify it passes, then flip or delete the section.', file=sys.stderr)
 	return 2
 

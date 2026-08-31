@@ -6,7 +6,7 @@ The scope is the **workspace itself** — the enforcement layer, the tools, the 
 project under `code/` belongs to that project's own `ISSUES.md`, and the entropy block below counts
 every repo precisely so nothing goes dark while the ownership stays split.
 
-Two rules, both from [`core/SCHEMA.md`](core/SCHEMA.md) § Boundaries where types nearly touch:
+Two rules, both from [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary:
 **never hand-edit inside a generated block**, and **never write a measured number outside one** — a
 copied count is the drift these checks exist to catch. The FIXED gate governs the hand-written half
 only, and it is satisfied the same way here as in every project: a bug flips to FIXED when a
@@ -27,57 +27,6 @@ of investigation per occurrence, which is the same silent-failure shape
 **Root cause:** unknown. Which path exits quietly is unestablished; the size gate is not it.
 Restored 2026-08-31: a session deleted this section without a fix or a regression spec, which the
 FIXED gate forbids — deletion is a status flip like any other.
-
-## B5 — the scatter writes 26 local ledgers and nobody has ever committed one
-
-**Symptom:** every nested repo carries an untracked `ISSUES.md` (and often `ARCHITECTURE.html`).
-`git -C code/voti status` shows both as `??`, and the same holds across all 26. Found 2026-08-25
-while checking what `make entropy` had dirtied; the files predate this session.
-
-**Why it matters:** the scatter's whole premise is that *each repo keeps its own ledger and fixes its
-own findings* — the reason the root header stopped charging itself for 571 findings it cannot act on.
-An untracked ledger is not a ledger: it is invisible to that repo's clones, to its own history, and
-to anyone who did not run the dashboard locally. So the 571 findings are addressed to readers who
-cannot see them, and the design reads as working because the generator rewrites the files each run.
-
-**Repro:** `for r in $(find . -name .git -maxdepth 4); do git -C ${r%/.git} status --short; done`.
-
-**Root cause:** the dashboard writes the local ledgers but nothing stages or commits them, and each
-one is a commit this repo may not make. Whether the fix is the scatter committing in each repo, a
-`/roundup` step, or one sweep is undecided.
-
-## B6 — half the Google tool families have a skill and half do not, on no stated rule
-
-**Symptom:** `mail/gmail`, `calendar/gcalendar` and `files/gdrive` each have a `core/skills/<n>.md`
-wrapping them. `slides/gslides`, `forms/gforms` and now `docs/gdocs` have none — they are reached
-only through their `CONTEXT.md`. Found 2026-08-25 while building the docs family, which had to pick
-a side with nothing to pick it on.
-
-**Why it matters:** the split is not along capability, cost or how often the tool is used, so
-neither answer can be justified when the next family lands — and the question gets re-litigated
-every time. It also cuts both ways: if a skill genuinely helps an agent reach a tool, three families
-are underserved; if `CONTEXT.md` is sufficient, three skills are lines the workspace re-reads every
-session for nothing.
-
-**Root cause:** never decided. The skills predate the routing table being enforced-read, so the
-older families kept a wrapper the newer ones never needed. **Lucas's call**, and it should end as
-one sentence in `core/tools/SPECS.md` § Adding a tool, so the next family reads the answer instead
-of guessing.
-
-## B7 — a bug id is cited across the tree and nothing stops it going stale
-
-**Symptom:** `core/hooks/SPECS-shim.md` cited *"ISSUES.md B6"* for the ZCode trust gate. B6 is now
-the Google-skills split — the zcode bug closed and its id was reused, so the pointer resolved to a
-file that exists and a bug that is not the one meant. Found 2026-08-27 merging the hooks SPECS.
-
-**Why it matters:** this is exactly the failure `checks/citation-gate.py` exists to stop, and it
-only guards `Front <n>`. A `ROADMAP.md` item number is uncitable while an `ISSUES.md` id is cited
-freely from prose and code comments — the same shape, half-enforced. **The asymmetry is the bug**,
-not this one pointer.
-
-**Root cause:** ids here are positional and completion is deletion, so every close renumbers. Whether
-the fix is extending the gate, giving bugs durable slugs, or forbidding the citation is undecided —
-Lucas's call, and it belongs in `core/SCHEMA.md` § Boundaries where types nearly touch.
 
 <!-- entropy:start -->
 ## Entropy

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from pathlib import Path
 
-BUG_RE: Incomplete
+BUG_ID_RE: Incomplete
 FIXED_RE: Incomplete
 SKIP_DIRS: Incomplete
 
