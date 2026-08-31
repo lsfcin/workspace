@@ -120,12 +120,12 @@ fallback · iterate — MVP can always be extended*
 > fecha pedindo *plan*, não *continue*  
 > [ ] [security-gates] decidir quais dos 20 itens da checklist pré-lançamento viram gate de verdade para os projetos que
 > vão pro ar (gira, voti, ppc) — vários já cobertos (secret-scan no pre-commit, skill `security-review`); o que sobra é
-> auth server-side, RLS, rate-limit e headers, que nenhum gate nosso vê. Ref em `core/refs/REFS-unjudged.md` § Shipping
+> auth server-side, RLS, rate-limit e headers, que nenhum gate nosso vê. Ref em `core/refs/REFS.md` § Shipping
 > an agent-written app (INBOX 2026-08-13)  
 > [ ] [jcode-custo] averiguar o JCode — reimplementação em Rust do harness do Claude Code, com multi-agente no mesmo
 > projeto; duas perguntas separadas, e a segunda vale mais: (1) a ferramenta presta? (2) é mesmo o harness que deixa
 > tudo caro, ou o custo é do modelo? — a (2) dá pra medir aqui sem instalar nada, comparando tokens de scaffolding vs
-> tokens de conteúdo numa sessão nossa. Ref em `core/refs/REFS-tooling.md` § Comparable systems (INBOX 2026-07-31)  
+> tokens de conteúdo numa sessão nossa. Ref em `core/refs/REFS.md` § Tooling (INBOX 2026-07-31)  
 > [ ] [zcode-trust] aceitar o trust do workspace no ZCode (Settings, ou o prompt ao abrir /mnt/workspace) — **só o Lucas
 > pode**; sem isso os hooks do shim ficam inertes. Depois abrir sessão nova e re-rodar a sonda de
 > `core/experiments/zcode-hook-protocol.md`, que decide se o registro direto fica ou vira adaptador (INBOX 2026-08-21)  
@@ -148,10 +148,10 @@ last-touch: 2026-08-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |     313 |
-| trimester   |     445 |
-| semester    |     465 |
-| year        |     465 |
-| 2-year      |     465 |
-| 4-year      |     465 |
+| month       |     322 |
+| trimester   |     454 |
+| semester    |     474 |
+| year        |     474 |
+| 2-year      |     474 |
+| 4-year      |     474 |
 <!-- stats:end -->

@@ -2,7 +2,7 @@
 #
 # A grid rather than a node-link graph, and that is a measured choice rather than a taste: past a
 # few dozen nodes a matrix beats a node-link drawing on every readability task except path
-# following (core/refs/REFS-tooling.md § Workspace visualization). This workspace declares 67 features
+# following (core/refs/REFS.md § Tooling). This workspace declares 67 features
 # across 23 sites, which is well past the crossover — a graph of it is a hairball.
 from html import escape
 

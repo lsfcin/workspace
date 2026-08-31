@@ -35,10 +35,10 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 > [ ] [map-landscape] map the 7 cited papers — what problem does each solve, how they connect  
 > [ ] [local-setup] set up a local model environment (Ollama or equivalent) compatible with Claude Code  
 > [ ] [tiny-quant] avaliar quantização extrema como caminho pro setup local — Qwen3.6-27B rebuildado em 1-bit (3.9GB) /
-> ternário (5.9GB), arquitetura intacta, cabe até em celular (ref em `core/refs/REFS-unjudged.md`). Amarra direto em
+> ternário (5.9GB), arquitetura intacta, cabe até em celular (ref em `core/refs/REFS.md`). Amarra direto em
 > [local-setup]: decide se a RTX 3050 6GB roda um 27B em vez de um 7B (INBOX 2026-07-23)  
 > [ ] [tts-local] KittenTTS <25MB em CPU — checar suporte a pt-BR ANTES de qualquer integração; sem pt-BR não serve pra
-> nada aqui (ref em `core/refs/REFS-unjudged.md`, INBOX 2026-07-23)  
+> nada aqui (ref em `core/refs/REFS.md`, INBOX 2026-07-23)  
 > [ ] [cpu-inference-engine] investigar o claim de rodar modelos grandes sem GPU — "Kimi K3nc", motor em C99 de 176KB
 > que alegadamente roda modelos de 2T de parâmetros em laptop com 8GB RAM e sem GPU
 > ([reel](https://www.instagram.com/reel/Db92TZauDGF/), INBOX 2026-08-16, Lucas: *"várias relevantes, especialmente essa
@@ -65,7 +65,7 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 > Definir escopo seguro ANTES; sem isso, não roda (INBOX 2026-07-23)  
 > [ ] [finetune-libs] avaliar as 10 libs de fine-tuning local (Unsloth, LLaMA-Factory, PEFT, Axolotl, TRL, torchtune,
 > LitGPT, SWIFT, DeepSpeed, AutoTrain) — quais servem ao runner de SLM do dobra na RTX 3050 6GB? ref em
-> `core/refs/REFS-tooling.md` (INBOX 2026-07-27)  
+> `core/refs/REFS.md` (INBOX 2026-07-27)  
 
 ## done
 
@@ -74,14 +74,14 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: steady
+last-touch: 2026-08-28  ·  trend: decelerating
 
 | period      | touches |
 |-------------|----------|
-| month       |      65 |
-| trimester   |     134 |
-| semester    |     134 |
-| year        |     134 |
-| 2-year      |     134 |
-| 4-year      |     134 |
+| month       |      15 |
+| trimester   |     136 |
+| semester    |     136 |
+| year        |     136 |
+| 2-year      |     136 |
+| 4-year      |     136 |
 <!-- stats:end -->

@@ -65,7 +65,7 @@ o formato.
 > pares com propriedades verificáveis, e venues de publicação alcançáveis por graduandos em um semestre  
 
 > [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from
-> the animation entries in `core/refs/REFS-unjudged.md` (claude-code+remotion, Claude Code UI-animation skills).
+> the animation entries in `core/refs/REFS.md` (claude-code+remotion, Claude Code UI-animation skills).
 > **Reescopado 2026-08-14:** o WOS agora lê e edita os decks direto no Google Slides (`core/tools/slides/gslides`), e
 > Slidev foi deletado — a pergunta aberta não é mais qual formato local adotar, é quanto de animação dá pra autorar como
 > sequência de slides gerada (inclui a ideia de um gerador de animações próprio)  
@@ -126,10 +126,10 @@ last-touch: 2026-08-31  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      36 |
-| trimester   |      56 |
-| semester    |      56 |
-| year        |      56 |
-| 2-year      |      56 |
-| 4-year      |      56 |
+| month       |      37 |
+| trimester   |      57 |
+| semester    |      57 |
+| year        |      57 |
+| 2-year      |      57 |
+| 4-year      |      57 |
 <!-- stats:end -->

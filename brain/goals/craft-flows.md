@@ -76,7 +76,7 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 > [ ] [tier-briefing] padrão "three-lane": modelo barato lê TUDO (emails, docs, transcripts) e comprime num briefing
 > curto; modelo caro só toca o briefing. É o mesmo princípio do autorouting do `/craft` (craft-low/medium/high) aplicado
 > à *ingestão* em vez da execução — hoje o roteamento decide quem executa, não quem lê. Casa com `/gmail` triage e com o
-> dreno do INBOX. Ref em `core/refs/REFS-unjudged.md` (INBOX 2026-07-23)  
+> dreno do INBOX. Ref em `core/refs/REFS.md` (INBOX 2026-07-23)  
 > [ ] [C-C] Loop 6.5 Skill Extraction (Voyager skill-library primitive) — spec no flow file; pilot em 1 chain real com
 > `keep-trail: yes`
 > [ ] [D1] `last-reviewed: 2026-07` + `next-review-by: 2026-10` na tabela volátil de modelos — feito neste commit
@@ -98,7 +98,7 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 > humano — ex. tinyglade-like no isoroll (etapas humanas eram simples/didáticas); motiva etapas arquitetura+review  
 > [ ] [graph-native] avaliar a orquestração graph-native de agentes do Claude Code contra o que `code/flows` já faz — e
 > checar se o tal "Graph Engineering" (Microsoft/Stanford/Anthropic) existe de fato; o próprio post diz que só um dos
-> dois é real (ref em `core/refs/REFS-tooling.md`, INBOX 2026-07-29)  
+> dois é real (ref em `core/refs/REFS.md`, INBOX 2026-07-29)  
 
 ## seed (INBOX 2026-07 — insumo da sessão Fable)
 
@@ -124,14 +124,14 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: advancing
+last-touch: 2026-08-28  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |      39 |
-| trimester   |      47 |
-| semester    |      83 |
-| year        |      83 |
-| 2-year      |      83 |
-| 4-year      |      83 |
+| month       |      31 |
+| trimester   |      52 |
+| semester    |      88 |
+| year        |      88 |
+| 2-year      |      88 |
+| 4-year      |      88 |
 <!-- stats:end -->

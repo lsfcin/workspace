@@ -58,8 +58,8 @@ A `ref` goes to the **nearest owning subtree's** `refs/REFS.md` — never a cent
 | apptime design | `code/apptime/refs/REFS.md` |
 | research paper for a specific manuscript | that paper's `academy/papers/<paper>/refs/` (promote to yaml) |
 | general research paper (no target manuscript) | `academy/refs/REFS.md` |
-| AI / agent / model tooling to evaluate | `core/refs/REFS-unjudged.md` |
-| no clear owner yet | `core/refs/REFS-unjudged.md` (if tooling) — else ask Lucas |
+| AI / agent / model tooling to evaluate | `core/refs/REFS.md` |
+| no clear owner yet | `core/refs/REFS.md` (if tooling) — else ask Lucas |
 
 ### refs/ two-tier convention
 

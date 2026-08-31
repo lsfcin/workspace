@@ -24,9 +24,9 @@ sh "$RUN" hooks/routing/context_synchronizer.py "$file" 2>/dev/null
 # immediate; delete is one commit behind. Stated in core/skills/SPECS.md rather than left implied.
 case "$file" in
 	"$WORKSPACE_ROOT"/core/skills/*.md)
-		sh "$WORKSPACE_ROOT/core/tools/wos/sync-skills" >/dev/null 2>&1 \
+		bash "$WORKSPACE_ROOT/core/tools/wos/sync-skills" >/dev/null 2>&1 \
 			&& printf '✓ skill mirrors synced\n' \
-			|| printf '⚠️  sync-skills failed — run `sh core/tools/wos/sync-skills` to see why\n'
+			|| printf '⚠️  sync-skills failed — run `bash core/tools/wos/sync-skills` to see why\n'
 		;;
 esac
 

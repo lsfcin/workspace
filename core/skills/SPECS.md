@@ -8,9 +8,9 @@
    so keep it actionable. `sync-skills` validates both and reports whichever is missing.
 3. Write the body: terse, prescriptive instructions the model follows when the skill fires.
 4. Nothing. Saving the file regenerates the mirrors — `core/hooks/postedit/sync.sh` runs the sync on
-   any write under `core/skills/`. To do it by hand anyway: `sh core/tools/wos/sync-skills`, then
-   `sh core/tools/wos/sync-skills --check` to confirm nothing is stale. (`sh …`, not `core/run …`:
-   the launcher execs its target with Python, and this is one of the two bash tools.)
+   any write under `core/skills/`. To do it by hand anyway: `core/run tools/wos/sync-skills`, then
+   `core/run tools/wos/sync-skills --check` to confirm nothing is stale. (The launcher dispatches
+   on the shebang, so the bash tools run as bash.)
 
 After sync the skill is invocable in every program: `/skill-name [args]`, or by natural-language
 trigger matching `description`.

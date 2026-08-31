@@ -4,14 +4,14 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-08-31 17:11
+last-updated: 2026-08-31 19:31
 
 >**areas** — last 14 days  
 ```
-health       ██████████   178 touches
+health       ██████████   179 touches
 career       █░░░░░░░░░   29 touches
-finances     ░░░░░░░░░░   9 touches
-fun          █░░░░░░░░░   18 touches
+finances     ░░░░░░░░░░   10 touches
+fun          █░░░░░░░░░   19 touches
 spiritual    ░░░░░░░░░░   1 touches
 ```
 
@@ -26,9 +26,9 @@ cria                     ░░░░░░░░░░   3 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   4 touches
 exercise                 ░░░░░░░░░░   1 touches
-finances                 ░░░░░░░░░░   2 touches
+finances                 ░░░░░░░░░░   3 touches
 google-migration         ░░░░░░░░░░   9 touches
-guitar                   ░░░░░░░░░░   2 touches
+guitar                   ░░░░░░░░░░   3 touches
 home-casinhas            ░░░░░░░░░░   7 touches
 instituto                ░░░░░░░░░░   1 touches
 lih-dd                   ░░░░░░░░░░   2 touches
@@ -64,11 +64,11 @@ startapps-virada         ░░░░░░░░░░   1 touches
 startapps-voti           ░░░░░░░░░░   1 touches
 startapps-xacomigo       ░░░░░░░░░░   1 touches
 surf                     ░░░░░░░░░░   1 touches
-teaching-materials       █░░░░░░░░░   27 touches
+teaching-materials       █░░░░░░░░░   26 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   1 touches
-workspace-os             ██████████   178 touches
+workspace-os             ██████████   179 touches
 yoga                     ░░░░░░░░░░   1 touches
 ```
 <!-- data:end -->

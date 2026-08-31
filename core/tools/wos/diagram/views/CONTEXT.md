@@ -16,8 +16,7 @@ two `render_*` names instead of one, because Lucas asked on 2026-08-18 to see ev
 real scale before cutting. Two of the three go when he picks, and this paragraph with them.
 
 **Encoding is an evidence question, not a taste one.** Position and length beat area, which beats
-colour and density ([`core/refs/REFS-tooling.md`](../../../../refs/REFS-tooling.md) § The health
-shelf), so a view rendering a quantity as glyphs to be counted has picked the weakest channel and
+colour and density ([`core/refs/REFS.md`](../../../../refs/REFS.md) § Tooling), so a view rendering a quantity as glyphs to be counted has picked the weakest channel and
 needs a reason.
 
 <!-- routing:start -->

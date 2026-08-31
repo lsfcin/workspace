@@ -55,7 +55,7 @@ def render_graph(points: list, dangling: list) -> str:
     """SHAPE 1 — converging node-link. Every feature is a line, so the load is a visual mass.
 
     Node count stays inside what node-link drawings are good for: four hubs, one collapsed tail and
-    one loose end, against Ghoniem's ~20-node ceiling (core/refs/REFS-tooling.md § Workspace visualization).
+    one loose end, against Ghoniem's ~20-node ceiling (core/refs/REFS.md § Tooling).
     The 107-node routing spine is far past it, which is why that one reads as wallpaper and this
     one does not.
     """

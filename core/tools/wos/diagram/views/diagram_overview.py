@@ -11,8 +11,8 @@
 # and never built is a row of dots nobody has to hunt for.
 #
 # It wins that DESPITE the encoding hierarchy rather than because of it — colour and density are
-# the weakest channels for judging quantity (Cleveland & McGill, core/refs/REFS-tooling.md § The health
-# shelf), which is why every cell also carries its number. Density gets the eye to the region;
+# the weakest channels for judging quantity (Cleveland & McGill, core/refs/REFS.md § Tooling),
+# which is why every cell also carries its number. Density gets the eye to the region;
 # the numeral answers once it is there.
 from html import escape
 

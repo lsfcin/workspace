@@ -178,13 +178,13 @@ def skills(commit):
         return
     print('→ sync-skills…')
     sync = commit.root / 'core/tools/wos/sync-skills'
-    done = subprocess.run(['sh', str(sync)], capture_output=True, text=True,
+    done = subprocess.run(['bash', str(sync)], capture_output=True, text=True,
                           cwd=commit.toplevel, encoding='utf-8', errors='replace')
     print(done.stdout + done.stderr)
     if done.returncode != 0:
         raise Blocked('⛔ sync-skills failed — invalid skill frontmatter (see core/SCHEMA.md). '
                       'Fix before committing.')
-    if subprocess.run(['sh', str(sync), '--check'], capture_output=True, text=True,
+    if subprocess.run(['bash', str(sync), '--check'], capture_output=True, text=True,
                       cwd=commit.toplevel).returncode != 0:
         raise Blocked('⛔ skill mirrors out of sync after regeneration.')
     print('✓ skills synced + validated')
