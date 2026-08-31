@@ -7,8 +7,5 @@
 | Subdirectory | Description |
 |--------------|-------------|
 | [`coordenacao-lc/`](coordenacao-lc/CONTEXT.md) | Coordenação da Licenciatura em Computação (UFRPE) — curriculum redesign work, currently the new BCC PPC. |
-
-| File | Interface | Description |
-|------|-----------|-------------|
-| [`pda/pda_2026.tex`](pda/pda_2026.tex) | [`pda/pda_2026.texif`](pda/pda_2026.texif) | ← add first-line comment |
+| [`pda/`](pda/CONTEXT.md) | Planos Docentes de Atividades (PDA) e requerimentos institucionais para a comissão CAPR/DC (UFRPE). |
 <!-- routing:end -->
