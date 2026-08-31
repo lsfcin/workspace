@@ -3,7 +3,7 @@
 > goal: none
 > spec: none
 <!-- goal: [slug](../../brain/goals/<slug>.md) — required on line 3 by pre-commit 1c, or 'none'.
-     spec: flip to 'SPEC.md' once this module has a contract (author from _templates/module.SPEC.md);
+     spec: flip to 'SPECS.md' once this module has a contract (author from _templates/SPECS-module.md);
      'none' opts out. New modules under code/ MUST declare a spec — see code/ROADMAP-spec-drive.md. -->
 
 <!-- What: workspace routing and agent entry point for this project.
@@ -27,5 +27,5 @@
 | [`ROADMAP.md`](ROADMAP.md) | [Project Name] — Roadmap |
 | [`SETUP.md`](SETUP.md) | Everything needed to run this project locally from scratch. |
 | [`SPECS.md`](SPECS.md) | Design decisions, algorithms, conventions, and architecture rationale. |
-| [`module.SPEC.md`](module.SPEC.md) | SPEC: [module name] |
+| [`SPECS-module.md`](SPECS-module.md) | SPEC: [module name] |
 <!-- routing:end -->

@@ -29,8 +29,8 @@ induction.** So the spine is a hard-blocking hook, not a convention doc.
 
 ## The contract (SPEC v0)
 
-`code/<project>/<module>/SPEC.md`, machine-parseable header + five sections. Skeleton:
-[`_templates/module.SPEC.md`](_templates/module.SPEC.md). Documented in
+`code/<project>/<module>/SPECS.md`, machine-parseable header + five sections. Skeleton:
+[`_templates/SPECS-module.md`](_templates/SPECS-module.md). Documented in
 [`SPECS.md`](SPECS.md#module-spec-contract-spec-driven-development).
 
 | Header key | Values | Effect |

@@ -56,8 +56,8 @@ def block(module_dir: Path, spec_path: Path) -> int:
 
 
 def nudge() -> None:
-	print('SPEC NUDGE - this code/ module has no SPEC.md.', file=sys.stderr)
-	print('   Author one (code/_templates/module.SPEC.md) and add `> spec: SPEC.md` to its', file=sys.stderr)
+	print('SPEC NUDGE - this code/ module has no SPECS.md.', file=sys.stderr)
+	print('   Author one (code/_templates/SPECS-module.md) and add `> spec: SPECS.md` to its', file=sys.stderr)
 	print('   CONTEXT.md to spec-lock it. Non-blocking — coverage grows as modules are touched.', file=sys.stderr)
 
 

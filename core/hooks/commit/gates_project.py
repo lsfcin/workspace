@@ -144,11 +144,11 @@ def _spec_declaration(commit):
         declared = found.group(1).strip() if found else ''
         if not declared:
             raise Blocked(f"⛔ {path} missing '> spec:' declaration (new module under code/).\n"
-                          "   Add '> spec: SPEC.md' (author it from code/_templates/"
-                          "module.SPEC.md),\n"
+                          "   Add '> spec: SPECS.md' (author it from code/_templates/"
+                          "SPECS-module.md),\n"
                           "   or '> spec: none' to opt out. See code/ROADMAP-spec-drive.md.")
         if declared != 'none' and not (commit.toplevel / Path(path).parent / declared).is_file():
             raise Blocked(f"⛔ {path} declares '> spec: {declared}' but "
                           f'{Path(path).parent}/{declared} is missing.\n'
-                          '   Create it from code/_templates/module.SPEC.md, '
+                          '   Create it from code/_templates/SPECS-module.md, '
                           "or use '> spec: none'.")
