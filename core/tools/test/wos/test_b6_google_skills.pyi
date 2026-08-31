@@ -1,0 +1,6 @@
+from _typeshed import Incomplete
+
+FAMILIES: Incomplete
+
+def test_every_google_family_has_a_skill() -> None: ...
+def test_the_rule_is_stated_where_the_next_family_reads_it() -> None: ...

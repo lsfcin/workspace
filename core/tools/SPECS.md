@@ -62,7 +62,9 @@ printf '%s\n' '<secret>' | core/tools/<family>/<tool> auth <alias>
 4. Add `# Usage: core/run tools/<family>/<name> <args> — <description>` as the **first line**.
 5. Give it **no shebang and no execute bit** — `core/run` starts it. See § The interpreter below.
 6. Declare any new third-party dependency in [`deps.txt`](deps.txt) — see § Declared dependencies.
-7. Save — the routing block regenerates automatically.
+7. Every Google-backed family gets a skill wrapper in `core/skills/` (ruled 2026-08-31, Lucas: add
+   where missing, never half) — `gmail`, `gcalendar`, `gdrive`, `gslides`, `gforms`, `gdocs` set.
+8. Save — the routing block regenerates automatically.
 
 ## Declared dependencies
 
