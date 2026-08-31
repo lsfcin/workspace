@@ -3,9 +3,8 @@
 
 <!-- norms:start -->
 - FILESYSTEM = source of truth. No memory, no assumptions.
-- **PROVIDER-AGNOSTIC STORAGE**: the workspace owns its state, never a harness, if it insists, symlink that path into WIS.
-- **SECRETS STAY OUT OF GIT**: a password, token, CPF/CNPJ or account number goes in a gitignored `<subtree>/segredos.env`
-and the versioned text names only the label — redact when transcribing, never drop the fact.
+- **PROVIDER-AGNOSTIC STORAGE**: the workspace owns its state, never a harness; if it insists, symlink the path into WIS.
+- **SECRETS STAY OUT OF GIT**: passwords, tokens, CPF/CNPJ go in a gitignored `<subtree>/segredos.env`; the text keeps the label.
 - IMPROVE WOS, after finishing MICRO (particular task), take a step back and review and refine MACRO (structure). if it ain't feasible to do it on this session, WRITE ISSUES DOWN at the end of INBOX.md
 - DON'T ASSUME, interview user if in doubt about his idea or intent.
 - EXPAND ACRONYMS on first use. Aliases: [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary.
@@ -16,8 +15,7 @@ never justifies a file over the line cap — the way out is cutting, not reflowi
 - SYMMETRY IS A CORE VALUE, semantic and structural. When you find an asymmetry, write it down.
 - **DONE WORK IS DELETED. GIT IS THE HISTORY.** No strikethrough, no annotated corpses.
 - USE OUR TOOLS: we want those to be useful and perfected.
-- REDUCING IS THE WAY, increasing workspace size is a pitfall, improve/extend structure reducing size, if needed ask
-Lucas.
+- REDUCING IS THE WAY: improve/extend by cutting size; growing the workspace takes Lucas's OK first.
 <!-- norms:end -->
 
 Git Flow, the branch gate's scope, the `--no-verify` protocol, and the push policy:
