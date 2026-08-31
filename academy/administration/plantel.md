@@ -1,5 +1,6 @@
 # Plantel Administrativo e Acadêmico
-> Roster de pessoas, secretarias, docentes e papéis na governança acadêmica da UFRPE (DC, Colegiados, Órgãos Deliberativos).
+> Roster de pessoas, secretarias, docentes e papéis na governança acadêmica da UFRPE (DC, Colegiados, Órgãos
+> Deliberativos).
 
 ## Secretarias e Apoio Administrativo
 
@@ -25,7 +26,10 @@
 
 ## Grupos de Trabalho e Instâncias Deliberativas no SIPAC
 
-- **`DOCENTES.DC`**: Caixa de distribuição departamental para docentes pareceristas emitirem análises e pareceres em processos.
-- **`CTA.DC`**: Conselho Técnico-Administrativo do DC. Colegiado deliberativo que homologa pareceres, PDA, afastamentos e recursos.
-- **`CCBCC-CGCG` / `CCLC`**: Coordenações de Curso de Graduação (BCC e LC). Autuam e lançam decisões acadêmicas no SIGAA.
+- **`DOCENTES.DC`**: Caixa de distribuição departamental para docentes pareceristas emitirem análises e pareceres em
+  processos.
+- **`CTA.DC`**: Conselho Técnico-Administrativo do DC. Colegiado deliberativo que homologa pareceres, PDA, afastamentos
+  e recursos.
+- **`CCBCC-CGCG` / `CCLC`**: Coordenações de Curso de Graduação (BCC e LC). Autuam e lançam decisões acadêmicas no
+  SIGAA.
 - **`CAPR/DC`**: Comissão de Avaliação de Planos e Relatórios Docentes (acompanhamento de PDA e RAD).

@@ -3,10 +3,13 @@
 
 ## 1. Resolução CEPE/UFRPE nº 744, de 22 de Agosto de 2024
 
-Regulamenta o ensino de graduação na UFRPE, estabelecendo diretrizes curriculares, regime de acompanhamento acadêmico e processos de aproveitamento de estudos.
+Regulamenta o ensino de graduação na UFRPE, estabelecendo diretrizes curriculares, regime de acompanhamento acadêmico e
+processos de aproveitamento de estudos.
 
-- **Equivalência Curricular**: Reconhecimento formal de que componentes cursados previamente atendem aos objetivos formativos do curso de destino.
-- **Competência Deliberativa**: Parecer emitido pelo docente da área e homologado pelo Conselho Técnico-Administrativo (CTA) ou Colegiado de Curso.
+- **Equivalência Curricular**: Reconhecimento formal de que componentes cursados previamente atendem aos objetivos
+  formativos do curso de destino.
+- **Competência Deliberativa**: Parecer emitido pelo docente da área e homologado pelo Conselho Técnico-Administrativo
+  (CTA) ou Colegiado de Curso.
 
 ---
 

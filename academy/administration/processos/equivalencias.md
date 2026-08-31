@@ -1,5 +1,6 @@
 # Fluxo de Aproveitamento de Estudos e Dispensa de Disciplinas
-> Procedimento operacional padrão para análise de requerimentos de equivalência curricular e emissão de pareceres docentes na UFRPE.
+> Procedimento operacional padrão para análise de requerimentos de equivalência curricular e emissão de pareceres
+> docentes na UFRPE.
 
 ## 1. Ciclo de Vida do Processo
 
@@ -22,15 +23,20 @@
 ## 2. Critérios Normativos de Avaliação (Res. CEPE 744/2024 & RGG Art. 282-286)
 
 1. **Carga Horária (CH)**:
-   - A carga horária da(s) disciplina(s) de origem deve ser **igual ou superior** à carga horária do componente curricular na UFRPE ($\ge 100\%$).
-   - É permitida a **combinação de duas ou mais disciplinas cursadas** para integralizar a carga horária de uma única disciplina da UFRPE.
+   - A carga horária da(s) disciplina(s) de origem deve ser **igual ou superior** à carga horária do componente
+     curricular na UFRPE ($\ge 100\%$).
+   - É permitida a **combinação de duas ou mais disciplinas cursadas** para integralizar a carga horária de uma única
+     disciplina da UFRPE.
 
 2. **Compatibilidade de Conteúdo Programático**:
-   - A equivalência conceitual e temática deve atingir **no mínimo 80%** dos tópicos e competências previstos na ementa da UFRPE.
-   - Em disciplinas de **Tópicos Avançados / Eletivas**, a compatibilidade avalia a relevância e profundidade temática no domínio da computação.
+   - A equivalência conceitual e temática deve atingir **no mínimo 80%** dos tópicos e competências previstos na ementa
+     da UFRPE.
+   - Em disciplinas de **Tópicos Avançados / Eletivas**, a compatibilidade avalia a relevância e profundidade temática
+     no domínio da computação.
 
 3. **Validade e Autenticidade**:
-   - Documento comprobatório deve conter histórico oficial com situação de **Aprovado** e ementas/programas autenticados pela Instituição de Ensino Superior (IES) de origem credenciada pelo MEC.
+   - Documento comprobatório deve conter histórico oficial com situação de **Aprovado** e ementas/programas autenticados
+     pela Instituição de Ensino Superior (IES) de origem credenciada pelo MEC.
 
 ---
 
@@ -47,7 +53,8 @@ Quando demandado pela Secretaria (`SEC-DC`) ou notificado pelo SIPAC:
 
 2. **Inclusão do Parecer**:
    - Na barra de navegação lateral esquerda do processo, clicar em **Documentos**.
-   - No menu de ações do processo (topo direito), clicar em **Adicionar Documento** $\rightarrow$ **Adicionar Novo Documento**.
+   - No menu de ações do processo (topo direito), clicar em **Adicionar Documento** $\rightarrow$ **Adicionar Novo
+     Documento**.
    - Preencher os campos básicos:
      - **Tipo do Documento**: `PARECER`
      - **Natureza**: `Ostensivo` *(não é necessário especificar destinatário)*.
@@ -61,4 +68,5 @@ Quando demandado pela Secretaria (`SEC-DC`) ou notificado pelo SIPAC:
    - Clicar em **Finalizar**.
 
 4. **Notificação de Conclusão**:
-   - Informar à Secretaria (`SEC-DC` / Stéphane) que o parecer foi assinado para que o processo possa ser pautado na reunião seguinte do CTA.
+   - Informar à Secretaria (`SEC-DC` / Stéphane) que o parecer foi assinado para que o processo possa ser pautado na
+     reunião seguinte do CTA.

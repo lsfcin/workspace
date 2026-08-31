@@ -3,7 +3,8 @@
 > One line per ref, carrying tier markers `[A] [B] [P] [V] [C]`. Citation discipline: [CONTEXT.md](CONTEXT.md).
 
 ## Context engineering & progressive disclosure
-- `[V]` [Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+- `[V]` [Effective context
+  engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
   (Anthropic, 2025-09) — attention budget, context rot, JIT retrieval via file paths, compaction.
 - `[V]` [Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
   (Anthropic) — SKILL.md spec, always-loaded description + on-demand body.
@@ -20,7 +21,8 @@
 - `[P]` [Agentic Context Engineering (ACE)](https://arxiv.org/abs/2510.04618)
   (Stanford/SambaNova, 2026-03) — contexts as evolving playbooks updated by incremental deltas.
 - `[P]` [Self-Improvements in Modern Agentic Systems](https://arxiv.org/abs/2607.13104)
-  (KAUST, 2026-07) — agent = model + scaffold (prompts, memory, tools, control logic); self-improvement updates scaffold.
+  (KAUST, 2026-07) — agent = model + scaffold (prompts, memory, tools, control logic); self-improvement updates
+  scaffold.
 - `[A]` [Voyager](https://arxiv.org/abs/2305.16291)
   (TMLR 2023) — lifelong skill library persisted outside model weights.
 - `[A]` [Lost in the Middle](https://aclanthology.org/2024.tacl-1.9/)
@@ -47,13 +49,15 @@
   — term selection prioritizes semantic clarity; one canonical glossary (`core/SCHEMA.md`).
 - `[C]` [ADR Pattern](https://adr.github.io/) (Nygard)
   — immutable record per decision (Status/Context/Decision/Consequences); superseding over editing history.
-- `[C]` [Deterministic Enforcement in LLM Systems](https://medium.com/neuralnotions/deterministic-enforcement-in-probabilistic-llm-systems-the-engineering-case-for-claude-code-hooks-64a4196c7d32)
+- `[C]` [Deterministic Enforcement in LLM
+  Systems](https://medium.com/neuralnotions/deterministic-enforcement-in-probabilistic-llm-systems-the-engineering-case-for-claude-code-hooks-64a4196c7d32)
   — case for deterministic hook gates.
 
 ## Agent memory & security
 - `[A]` [How Memory Management Impacts LLM Agents](https://arxiv.org/abs/2505.16067)
   (ACL 2025) — memory management policy dominates agent performance over raw capacity.
-- `[P]` [MemGPT](https://arxiv.org/abs/2310.08560) · [MemOS](https://arxiv.org/abs/2505.22101) · [AIOS](https://arxiv.org/abs/2403.16971)
+- `[P]` [MemGPT](https://arxiv.org/abs/2310.08560) · [MemOS](https://arxiv.org/abs/2505.22101) ·
+  [AIOS](https://arxiv.org/abs/2403.16971)
   — operating system primitives for agent memory.
 - `[P]` [Memory Poisoning in LLM Agents](https://arxiv.org/abs/2606.04329)
   (arXiv 2606.04329, 2026-06) — untrusted inputs persist across sessions via compaction channels.
@@ -71,7 +75,8 @@
   (Holten, 2006) — visual bundling of cross-tree dependencies.
 - `[A]` [Software Systems as Cities](https://si.usi.ch/assets/publications/conf/icse/icse2011/WettelLR11.pdf)
   (ICSE 2011) — overview visualizations yield +24% correctness in system spread/impact questions.
-- `[A]` [Graphical Perception](https://notes.billmill.org/images/Cleveland%20and%20McGill%201985%20-%20Graphical%20Perception%20and%20Graphical%20Methods%20for%20Analyzing%20Scientific%20Data.pdf)
+- `[A]` [Graphical
+  Perception](https://notes.billmill.org/images/Cleveland%20and%20McGill%201985%20-%20Graphical%20Perception%20and%20Graphical%20Methods%20for%20Analyzing%20Scientific%20Data.pdf)
   (Cleveland & McGill, 1985) — position/magnitude beats color/glyphs.
 - `[C]` [Mermaid](https://mermaid.js.org/) + `git log --numstat`
   — zero-binary self-contained dependency & evolution diagram generation.
@@ -91,5 +96,6 @@
 - [opendataloader-pdf](https://github.com/opendataloader-project/opendataloader-pdf)
   — high-speed CPU PDF parser candidate for `core/tools/paper/parse`.
 - [KittenTTS](https://github.com/KittenML/KittenTTS) — compact CPU TTS model.
-- [ByteDance OpenViking](https://github.com/ByteDance/OpenViking) · [NVIDIA Switchyard](https://github.com/NVIDIA/Switchyard)
+- [ByteDance OpenViking](https://github.com/ByteDance/OpenViking) · [NVIDIA
+  Switchyard](https://github.com/NVIDIA/Switchyard)
   — context browsing and cheap-tier model routing.

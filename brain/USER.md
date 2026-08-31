@@ -13,7 +13,8 @@ Creative, fuzzy thinker. Strong starter; struggles to finish.
 
 ## Language
 
-Lucas may write in pt-br (inbox, conversation). **`brain/INBOX.md` is pt-br whoever writes it** — it is his diary, not an agent surface (ruled 2026-08-28). Agent writes everything else in brain/, core/, code/ and academy/ in en-us.
+Lucas may write in pt-br (inbox, conversation). **`brain/INBOX.md` is pt-br whoever writes it** — it is his diary, not
+an agent surface (ruled 2026-08-28). Agent writes everything else in brain/, core/, code/ and academy/ in en-us.
 
 ## What Helps
 

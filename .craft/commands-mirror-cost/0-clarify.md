@@ -6,7 +6,8 @@ provider: anthropic | chain-deleg: none
 tier-map: anthropic | verified-on: 2026-08-20
 test-cmd: `core/tools/wos/session/context` (instrument sanity only) | e2e-cmd: none
 criticality: low | verdict: padaria
-subtree: research-shaped, run as padaria (see Routing note) | supervision: io-signoff=no arch-review=none arch-review-supervised=no
+subtree: research-shaped, run as padaria (see Routing note) | supervision: io-signoff=no arch-review=none
+arch-review-supervised=no
 criteria:
   C1 — a turn-1 token number for `.claude/commands/` produced by a probe someone else can re-run
   C2 — the probe separates "the listing" from "the 52 KB of bodies", or says it cannot
@@ -61,4 +62,5 @@ Loop 2's Git Flow step (`branch MUST be feature/<slug>` off develop) is **not ru
 session owns the working tree, and a checkout would collide. Staying on `feature/roundup-md-cap`
 with explicit staging is the orchestrator's instruction and overrides Loop 2 here.
 
-executor: orchestrator (inline, Field Practice "Loop 0 inline when context is hot") model=anthropic/claude-opus-5 tier=max deleg=none
+executor: orchestrator (inline, Field Practice "Loop 0 inline when context is hot") model=anthropic/claude-opus-5
+tier=max deleg=none

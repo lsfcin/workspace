@@ -1,5 +1,6 @@
 # Organograma e Estrutura Institucional (DC / UFRPE)
-> Mapa visual e estrutural das unidades, secretarias, comissões deliberativas e atores acadêmicos do Departamento de Computação.
+> Mapa visual e estrutural das unidades, secretarias, comissões deliberativas e atores acadêmicos do Departamento de
+> Computação.
 
 ## 1. Mapa de Governança e Relações Institucionais
 
