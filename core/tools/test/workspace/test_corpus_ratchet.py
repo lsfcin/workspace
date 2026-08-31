@@ -43,7 +43,7 @@ MISPLACED_SLACK = 5
 
 
 def _files() -> list:
-    return entropy_ledger.tracked_files(WORKSPACE_ROOT, nested=True)
+    return entropy_ledger.tracked_files(WORKSPACE_ROOT)
 
 
 def _finished() -> int:

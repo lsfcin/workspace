@@ -88,8 +88,8 @@ vendor changes a leaf and never a family: `mail/gmail`, `calendar/gcalendar`, `f
 
 ## Agent support
 
-Claude Code, GitHub Copilot and opencode all run the same canonical hooks through a thin shim.
-Adding a fourth means implementing three hook points against a documented stdin/exit-code contract
+Claude Code, GitHub Copilot, opencode, and Antigravity all run the same canonical hooks through a thin shim.
+Adding another means implementing three hook points against a documented stdin/exit-code contract
 — see [`core/hooks/SPECS.md`](core/hooks/SPECS.md) § The contract a new agent's shim must satisfy.
 
 ## Cloning it for yourself

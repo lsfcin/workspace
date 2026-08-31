@@ -128,6 +128,7 @@ core/*
 !core/SPECS-*.md
 !core/features.txt
 !core/profile.txt
+!core/permissions.txt
 !core/agents/
 !core/experiments/
 !core/flows/
@@ -230,6 +231,7 @@ code/statem
 .claude/commands/*.md
 .opencode/skills/*/
 .zcode/skills/*/
+.agents/skills/*/
 !branches/google-migration/
 !branches/shoplist/
 !branches/tips/
@@ -237,3 +239,12 @@ code/statem
 
 # The workspace venv. Local to one machine, never versioned.
 .venv/
+
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz

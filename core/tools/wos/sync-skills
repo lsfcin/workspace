@@ -24,6 +24,7 @@ MIRRORS=(
   "$WORKSPACE/.opencode/skills"
   "$WORKSPACE/.claude/skills"
   "$WORKSPACE/.zcode/skills"
+  "$WORKSPACE/.agents/skills"
 )
 COMMANDS_DIR="$WORKSPACE/.claude/commands"
 

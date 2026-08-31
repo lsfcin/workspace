@@ -60,6 +60,11 @@ BASELINE = {
     # also carries `post-edit.sh`, and porting the post-edit stages to Python removes it. If the
     # count has not fallen once the last shell hook is gone, this row becomes a real split.
     'core/hooks',
+    # The Antigravity integration put the eighth file here: `test_antigravity_shim.py` joined the
+    # seven workspace-invariant tests. Costed against the hop: a split saving one table row does not
+    # pay for the CONTEXT.md. Retired when provider shim tests split into a dedicated directory once
+    # Codex and other runtimes gain behavioral suites.
+    'core/tools/test/workspace',
 }
 
 

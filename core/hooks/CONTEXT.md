@@ -52,6 +52,7 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 
 | Subdirectory | Description |
 |--------------|-------------|
+| [`antigravity/`](antigravity/CONTEXT.md) | Provider shim: translates Antigravity lifecycle events to canonical WOS gates. |
 | [`brain/`](brain/CONTEXT.md) | brain/ attention stats and the GOALS.md dashboard. |
 | [`checks/`](checks/CONTEXT.md) | Standalone blocking checks the commit and edit hooks run. |
 | [`commit/`](commit/CONTEXT.md) | The git pre-commit and post-commit pipeline: what runs on every commit, in what order, and the one place a commit is refused. |

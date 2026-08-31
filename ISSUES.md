@@ -119,27 +119,6 @@ not this one pointer.
 the fix is extending the gate, giving bugs durable slugs, or forbidding the citation is undecided —
 Lucas's call, and it belongs in `core/SCHEMA.md` § Boundaries where types nearly touch.
 
-## B8 — 60 generated mirror files are still tracked, and nothing regenerates them on edit
-
-**What is true now:** a mirror is a **copy**, written and checked by content
-(`core/tools/wos/skills/mirror.sh`). The symlink half is gone, so the skills stage no longer refuses
-a commit and the skill library reads in this clone.
-
-**What is still untrue:** the copies are **in git**. Every skill edit churns 60 tracked files, which
-is the maintenance Lucas's ruling exists to delete.
-
-**The ruling (2026-08-29, Lucas), and it is not "make symlinks work":** a native symlink on Windows
-needs Developer Mode, a machine-level privilege out of proportion to what WOS is — *"WOS doesn't
-tweak the machine's hardware and nothing near that"*. The mirrors become generated copies git does
-not track: `.gitignore` covers all four mirror trees, and `/install`, the post-edit hook and the
-pre-commit generator materialise them. *"Auto-generated content is totally fine given it is not
-versioned; the copies that worry me are the ones we do by hand and have to maintain."*
-
-**The condition attached, still not met:** regeneration must be automatic on install, on edit, on
-create and on delete. `post-edit.sh` syncs the routing table and the codegraph and has never synced
-skills, so a skill edit reaches the mirrors only at commit time. Untracking before that guarantee
-exists would leave the workspace depending on a step that does not run. **Both halves in one pass.**
-
 ## B9 — a verification run rewrites ISSUES.md, so it is not a verification
 
 **Symptom:** `test_features_wiring` probes every registered hook, and one of them is the entropy
@@ -152,23 +131,6 @@ the suite's ~110s is the standing cost of every commit.
 
 **Where to look:** the probe should call the dashboard with a temp output path, or the dashboard
 should grow a `--dry-run` that reports without writing.
-
-## B10 — a stash holds 71 files of already-landed work, and the handoff called it one file
-
-**Symptom:** `stash@{0}` is described in `outputs/handoff.md` as holding only `core/skills/inbox.md`,
-awaiting a `git stash pop` once B8 cleared. It actually holds the whole S4 de-bash port as WIP at
-`aa17d3a` — `gates.py`, `pre_commit.py`, `stubs.py`, `line_counts.py` and 67 more, all since landed
-in different form. **Popping it would have conflicted against every one of them.**
-
-**Already handled:** the one genuinely unlanded line — a pointer to the deleted
-`core/hooks/generators/prepare.sh` — was applied by hand to `core/skills/inbox.md`.
-
-**The decision owed:** whether to drop the stash. It is Lucas's call because dropping is not
-trivially reversible, and nothing else in it is wanted.
-
-**The lesson worth more than the stash:** a hand-off recorded what a session *believed* was in a
-stash rather than what `git stash show --stat` says. A stash is opaque state that outlives the
-session that made it, and this one was one command away from being popped blind.
 
 ## B11 — every Google OAuth token on this machine is world-readable
 
@@ -201,18 +163,53 @@ tightening could break another local user running the tools, which is Lucas's ca
 | Retired tokens still alive | 0 |
 | Roadmap item numbers cited outside a roadmap | 0 |
 | Items claimed by two ledgers | 0 |
-| Size signals | 24 |
+| Size signals | 25 |
 | Source files with no interface stub | 2 |
-| Directories holding too many files | 9 |
+| Directories holding too many files | 10 |
 | Prose describing finished work | 0 |
-| Unanswered scaffold placeholders | 2 |
+| Unanswered scaffold placeholders | 1 |
 | Doubt stores missing their own discipline | 0 |
 | Ledgers naming a model where they mean a tier | 0 |
 | Header fields naming code that is not there | 0 |
 | Truncated routing descriptions | 0 |
 | Constraints trapped in a CONTEXT.md head | 1 |
 | Repos on an unmerged feature branch | 1 |
-| Remote branches already merged into their base | 1 |
+| Remote branches already merged into their base | 0 |
+
+### Findings per code repo
+
+*Each repo keeps its own `ISSUES.md` and fixes its own findings; this table only says which one to open next.*
+
+| Repo | Findings |
+|------|----------|
+| [`academy/papers/2026-JBCS-relativistic_raytracer`](academy/papers/2026-JBCS-relativistic_raytracer/ISSUES.md) | 11 |
+| [`academy/papers/2026-SIBGRAPI-relativistic_raytracer`](academy/papers/2026-SIBGRAPI-relativistic_raytracer/ISSUES.md) | 4 |
+| [`academy/papers/2027-CHI-cria`](academy/papers/2027-CHI-cria/ISSUES.md) | 8 |
+| [`academy/papers/2027-ICLR-dobra`](academy/papers/2027-ICLR-dobra/ISSUES.md) | 7 |
+| [`academy/papers/ai4good`](academy/papers/ai4good/ISSUES.md) | 5 |
+| [`academy/papers/mechanism-search`](academy/papers/mechanism-search/ISSUES.md) | 2 |
+| [`academy/papers/mutual-credit-ai`](academy/papers/mutual-credit-ai/ISSUES.md) | 2 |
+| [`academy/papers/pls-pix`](academy/papers/pls-pix/ISSUES.md) | 2 |
+| [`academy/papers/spacemantics`](academy/papers/spacemantics/ISSUES.md) | 4 |
+| [`academy/papers/wos-ablation`](academy/papers/wos-ablation/ISSUES.md) | 4 |
+| [`branches/casinhas`](branches/casinhas/ISSUES.md) | 6 |
+| [`branches/instituto`](branches/instituto/ISSUES.md) | 14 |
+| [`code/aiwbot`](code/aiwbot/ISSUES.md) | 122 |
+| [`code/apptime`](code/apptime/ISSUES.md) | 21 |
+| [`code/corpora`](code/corpora/ISSUES.md) | 12 |
+| [`code/cria`](code/cria/ISSUES.md) | 6 |
+| [`code/dobra`](code/dobra/ISSUES.md) | 15 |
+| [`code/flows`](code/flows/ISSUES.md) | 90 |
+| [`code/freeai`](code/freeai/ISSUES.md) | 8 |
+| [`code/gira`](code/gira/ISSUES.md) | 5 |
+| [`code/isoroll-content`](code/isoroll-content/ISSUES.md) | 45 |
+| [`code/isoroll-module`](code/isoroll-module/ISSUES.md) | 97 |
+| [`code/laplata`](code/laplata/ISSUES.md) | 4 |
+| [`code/obra`](code/obra/ISSUES.md) | 0 |
+| [`code/ppc`](code/ppc/ISSUES.md) | 6 |
+| [`code/spacemantics`](code/spacemantics/ISSUES.md) | 58 |
+| [`code/voti`](code/voti/ISSUES.md) | 2 |
+| **collected** | **601** |
 
 ### Off-allowlist `.md` types
 
@@ -281,9 +278,10 @@ Clean.
 - brain/goals/spacemantics.md — 2 line(s) over the 120-column cap (first at line 57)
 - brain/goals/spec-driven-development.md — 1 line(s) over the 120-column cap (first at line 46)
 - brain/goals/workspace-os.md — 3 line(s) over the 120-column cap (first at line 141)
+- brain/memory/user_profile.md — 1 line(s) over the 120-column cap (first at line 16)
 - core/SCHEMA.md — 223 lines, over the 200 cap; introduced by 5c22650 lsfcin
 - core/SPECS.md — 266 lines, over the 200 cap; introduced by 4c3d952 lsfcin
-- core/hooks/SPECS.md — 355 lines, over the 200 cap; introduced by 0237832 lsfcin
+- core/hooks/SPECS.md — 358 lines, over the 200 cap; introduced by 0237832 lsfcin
 - core/norms/reduce.md — 1 line(s) over the 120-column cap (first at line 6)
 - core/norms/secrets.md — 1 line(s) over the 120-column cap (first at line 6)
 - core/refs/REFS-context.md — 1 line(s) over the 120-column cap (first at line 36)
@@ -309,6 +307,7 @@ Clean.
 - core/skills/caveman/hooks — 10 code files in one directory, over the WARN_FILES signal; split by responsibility if the split removes more table than the hop adds
 - core/skills/caveman/scripts — 10 code files in one directory, over the WARN_FILES signal; split by responsibility if the split removes more table than the hop adds
 - core/tools/test/law/entropy — 10 code files in one directory, over the WARN_FILES signal; split by responsibility if the split removes more table than the hop adds
+- core/tools/test/workspace — 8 code files in one directory, over the WARN_FILES signal; split by responsibility if the split removes more table than the hop adds
 - core/tools/test/workspace/gates — 9 code files in one directory, over the WARN_FILES signal; split by responsibility if the split removes more table than the hop adds
 - core/tools/wos — 10 code files in one directory, over the WARN_FILES signal; split by responsibility if the split removes more table than the hop adds
 
@@ -322,7 +321,6 @@ Clean.
 
 *a generator asked a question — answer it at the source, never by cutting the marker*
 
-- academy/administration/CONTEXT.md:13: 1 unanswered placeholder(s).
 - academy/administration/coordenacao-lc/novo-ppc-bcc/CONTEXT.md:14: 1 unanswered placeholder(s).
 
 ### Doubt stores missing their own discipline
@@ -374,5 +372,5 @@ Clean.
 
 > Generated by `core/tools/wos/roundup` at session close. The suite is the authority; this is its last result, never a claim that it is still true.
 
-2026-08-29 · `verify.py full` · **green (593 passed, 4 skipped in 114.08s (0:01:54))**
+2026-08-30 · `verify.py full` · **green (617 passed in 60.41s (0:01:00))**
 <!-- verify:end -->

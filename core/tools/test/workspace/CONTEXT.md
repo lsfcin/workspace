@@ -19,6 +19,7 @@ are one word apart: [`gates/`](gates/CONTEXT.md) and [`generators/`](generators/
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`test_antigravity_shim.py`](test_antigravity_shim.py) | [`test_antigravity_shim.pyi`](test_antigravity_shim.pyi) | — | T0: Antigravity provider shim unit test suite. |
 | [`test_brain_attention.py`](test_brain_attention.py) | [`test_brain_attention.pyi`](test_brain_attention.pyi) | — | T0 the goal-file `>**owns**` block: a field ends where its block ends. Zero-token, verify-fast. |
 | [`test_corpus_ratchet.py`](test_corpus_ratchet.py) | [`test_corpus_ratchet.pyi`](test_corpus_ratchet.pyi) | — | T0 corpus ratchets (core/SCHEMA.md § Placement): the .md corpus may not accumulate more of the three defects no link-checker can see. Zero-token, runs in verify-fast. |
 | [`test_gitignore_self_heal.py`](test_gitignore_self_heal.py) | [`test_gitignore_self_heal.pyi`](test_gitignore_self_heal.pyi) | — | T0 self-healing .gitignore allowlist check (core/hooks/SPECS.md): a new domain subdir with a CONTEXT.md must get its `!<domain>/<dir>/` allow line added automatically, no human action. |

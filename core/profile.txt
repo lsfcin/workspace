@@ -49,6 +49,7 @@ toggle	auto-push	on
 toggle	lint-typescript	on
 toggle	declared-deps	on
 toggle	opencode-plugin	on
+toggle	antigravity-hooks	on
 toggle	brain-dashboard	on
 toggle	brain-attention	on
 toggle	inbox-nudge	on

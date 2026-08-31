@@ -57,6 +57,10 @@ SHIMS = {
         [WORKSPACE_ROOT / '.zcode/config.json'],
         re.compile(r'\$\{CLAUDE_PROJECT_DIR\}/core/run ([A-Za-z0-9_./-]+\.(?:py|sh))'),
     ),
+    'antigravity': (
+        [HOOKS / 'antigravity/antigravity_policy.py'],
+        re.compile(r'["\']((?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\.(?:py|sh))["\']'),
+    ),
 }
 
 
@@ -97,6 +101,11 @@ def test_zcode_spawns_only_scripts_that_exist():
 def test_claude_spawns_only_scripts_that_exist():
     dead = sorted(p for p in _spawned('claude') if not (CORE / p).exists())
     assert not dead, f'claude shim spawns paths that do not resolve: {dead}'
+
+
+def test_antigravity_spawns_only_scripts_that_exist():
+    dead = sorted(p for p in _spawned('antigravity') if not (HOOKS / p).exists())
+    assert not dead, f'antigravity shim spawns paths that do not resolve: {dead}'
 
 
 def test_the_launcher_every_shim_goes_through_is_there():
