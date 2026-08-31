@@ -86,9 +86,10 @@ def test_lowercase_instance_is_never_checked(tmp_path):
 
 def test_harness_mandated_name_is_exempt(tmp_path):
     allowed, exempt = type_gate.load_law(SCHEMA)
-    target = tmp_path / 'CLAUDE.md'
-    target.write_text('# c\n', encoding='utf-8')
-    assert type_gate.check_name(target, allowed, exempt) is None
+    for name in ('CLAUDE.md', 'GEMINI.md'):
+        target = tmp_path / name
+        target.write_text('# harness\n', encoding='utf-8')
+        assert type_gate.check_name(target, allowed, exempt) is None
 
 
 def test_prose_describing_finished_work_blocks_a_file_the_commit_adds(tmp_path):

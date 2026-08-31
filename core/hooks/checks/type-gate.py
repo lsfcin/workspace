@@ -33,8 +33,8 @@ from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E40
 from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
 from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes  # noqa: E402
 
-# CLAUDE.md is mandated by the harness, not chosen by us; a gate cannot un-invent it.
-HARNESS_MANDATED = {'CLAUDE.md'}
+# CLAUDE.md and GEMINI.md are mandated by their respective harnesses, not chosen by us; a gate cannot un-invent them.
+HARNESS_MANDATED = {'CLAUDE.md', 'GEMINI.md'}
 
 UPPERCASE_MD = re.compile(r'^[A-Z][A-Z0-9_.-]*\.md$')
 

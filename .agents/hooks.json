@@ -1,0 +1,39 @@
+{
+  "workspace-policy": {
+    "PreToolUse": [
+      {
+        "matcher": "view_file|replace_file_content|write_to_file|run_command|grep_search|invoke_subagent",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh core/run hooks/antigravity/antigravity_policy.py PreToolUse",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "view_file|replace_file_content|write_to_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh core/run hooks/antigravity/antigravity_policy.py PostToolUse",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreInvocation": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh core/run hooks/antigravity/antigravity_policy.py PreInvocation",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
