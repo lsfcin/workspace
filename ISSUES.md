@@ -179,6 +179,22 @@ every new provider directory inherits the umask and the exposure grows with the 
 mode. The fix is `700`/`600` plus a writer that sets the mode itself; it was left undone because
 tightening could break another local user running the tools, which is Lucas's call to make.
 
+## B20 — two sessions share one checkout and only the branch is guarded
+
+**Symptom:** on 2026-08-31, minutes after six issues (B14-B19) were committed here, another live
+session in the same working tree wrote its own older copy of `ISSUES.md` back over them — 93 lines
+deleted, nothing inserted. They were recovered from the commit; had the drain not committed first,
+they were gone with nothing to notice the loss.
+
+**Why the existing guard misses it:** `core/hooks/git/branch_marker.py` warns when **HEAD** moves
+under a session, and it fired correctly today. Nothing watches a **file** read early and written
+late, which is the shape a long session has by default — and the workspace's own convention for
+parallel work (partition by subtree) is prose, obeyed by whoever remembers it.
+
+**Where to look:** the durable files every session touches at close — `ISSUES.md`, `ROADMAP.md`,
+`brain/INBOX.md` — are the whole exposure. A hook that compares a write against the file's mtime
+since the session's own last read would catch it; whether that is worth a gate is Lucas's call.
+
 ## B14 — a path becomes text and the separator follows the operating system
 
 **Symptom:** on the Windows machine (measured 2026-08-27) the largest single group of test failures
