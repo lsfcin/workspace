@@ -121,13 +121,23 @@ def assemble(url, level="auto", save=False, base=None,
     ok = bool(meta.get("ok"))
     parts, methods = [], []
 
-    # yt-dlp reads video only; an image post (Instagram carousel) probes as a failure.
-    # Retry through gallery-dl before giving up — the text is in the images, not a stream.
+    # yt-dlp reads video only; an image post probes as a failure.
+    # A mixed carousel (video slide 1 + images) probes ok from yt-dlp, but misses later slides.
+    # For Instagram or failed video probe, gather image slides through gallery-dl.
+    images = _images or __import__("video_images")
     if not ok:
-        images = _images or __import__("video_images")
         imeta, iparts, imethods = images.gather(url, level=level)
         if imeta.get("ok"):
             return _bundle(url, imeta, iparts, imethods, True, save, base)
+    elif source_of(url) == "instagram" and level in ("ocr", "visual", "full", "auto"):
+        imeta, iparts, imethods = images.gather(url, level=level)
+        if imeta.get("ok") and (imeta.get("count", 1) or 1) > 1:
+            for p in iparts:
+                if p not in parts:
+                    parts.append(p)
+            for m in imethods:
+                if m not in methods:
+                    methods.append(m)
 
     if meta.get("description"):
         parts.append(meta["description"])

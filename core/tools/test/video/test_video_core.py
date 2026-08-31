@@ -13,8 +13,8 @@ class FakeProc:
 
 class FakeMedia:
     """Stand-in for video_media — records calls, returns canned text."""
-    def __init__(self, spoken="", screen=""):
-        self.spoken, self.screen, self.calls = spoken, screen, []
+    def __init__(self, spoken="", screen="", caption=""):
+        self.spoken, self.screen, self.caption, self.calls = spoken, screen, caption, []
 
     def download_audio(self, url):
         self.calls.append("dl_audio")
@@ -25,10 +25,14 @@ class FakeMedia:
 
     def download_video(self, url):
         self.calls.append("dl_video")
-        return "v.mp4" if self.screen else None
+        return "v.mp4" if (self.screen or self.caption) else None
 
     def ocr_frames(self, path):
         return self.screen
+
+    def caption_frames(self, path):
+        return self.caption
+
 
 
 def test_probe_parses_dump():
@@ -174,3 +178,22 @@ def test_no_audio_stream_does_not_reach_transcribe():
                                         "description": "", "subtitles": [], "auto_captions": []},
                       _media=media)
     assert "speech" not in out["method"]
+
+
+def test_mixed_instagram_carousel_gathers_images():
+    """B3 regression: Instagram carousel whose slide 1 is a video probes ok under yt-dlp,
+    and must still gather subsequent image slides via gallery-dl."""
+    class FakeImages:
+        def gather(self, url, level="auto"):
+            return {"ok": True, "title": "mixed", "count": 3}, ["[2/3] slide 2 text", "[3/3] slide 3 text"], ["ocr"]
+
+    out = vc.assemble("https://instagram.com/p/x", level="full",
+                      _probe=lambda u: {"ok": True, "title": "video slide 1", "uploader": "U",
+                                        "description": "caption", "subtitles": [], "auto_captions": []},
+                      _media=FakeMedia(spoken="audio slide 1", screen="screen slide 1"),
+                      _images=FakeImages())
+    assert out["ok"]
+    assert "caption" in out["text"]
+    assert "slide 2 text" in out["text"]
+    assert "slide 3 text" in out["text"]
+
