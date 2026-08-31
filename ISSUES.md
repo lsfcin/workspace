@@ -406,7 +406,7 @@ Clean.
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 1 merged into main: git -C . push origin --delete feature/os-agnostic-port
+- . — 2 merged into main: git -C . push origin --delete feature/opencode-wiring-review feature/os-agnostic-port
 
 <!-- entropy:end -->
 
