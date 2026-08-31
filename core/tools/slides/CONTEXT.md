@@ -6,6 +6,7 @@ core/run tools/slides/gslides list  --account personal --name "AI4Good"
 core/run tools/slides/gslides read  --account personal <presentation_id>     # deck as navigable text
 core/run tools/slides/gslides new   --account personal "Aula 3"
 core/run tools/slides/gslides text  --account personal --slide <slide_id> <presentation_id> "título"
+core/run tools/slides/gslides preview --account personal <presentation_id>   # download slide PNGs for visual inspection
 core/run tools/slides/gslides apply --account personal <presentation_id> requests.json
 ```
 

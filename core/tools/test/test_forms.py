@@ -6,7 +6,7 @@ from conftest import WORKSPACE_ROOT
 
 import forms_spec
 
-SPECS = sorted((WORKSPACE_ROOT / 'academy/teaching').glob('*/*.json'))
+SPECS = [p for p in sorted((WORKSPACE_ROOT / 'academy/teaching').glob('*/*.json')) if not p.name.startswith('.') and p.name != 'drive_sync.json']
 
 
 def test_a_section_is_a_page_break_and_never_a_question():

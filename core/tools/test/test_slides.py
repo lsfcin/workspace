@@ -82,3 +82,24 @@ def test_a_textbox_request_places_the_box_where_it_was_asked_to():
     assert transform["translateX"] == slides_core.SLIDE_W * 0.5
     assert transform["translateY"] == slides_core.SLIDE_H * 0.25
     assert requests[1]["insertText"]["text"] == "oi"
+
+
+def test_get_thumbnail_url_calls_pages_get_thumbnail(monkeypatch):
+    class FakePages:
+        def getThumbnail(self, presentationId, pageObjectId, thumbnailProperties_mimeType, thumbnailProperties_thumbnailSize):
+            class Req:
+                def execute(self):
+                    return {"contentUrl": f"https://thumbnail.test/{presentationId}/{pageObjectId}"}
+            return Req()
+
+    class FakeService:
+        def presentations(self):
+            class Pres:
+                def pages(self):
+                    return FakePages()
+            return Pres()
+
+    monkeypatch.setattr(slides_core, "get_service", lambda alias: FakeService())
+    url = slides_core.get_thumbnail_url("personal", "deck123", "slide01")
+    assert url == "https://thumbnail.test/deck123/slide01"
+

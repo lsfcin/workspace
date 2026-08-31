@@ -106,3 +106,17 @@ def move(object_id: str, x: float, y: float) -> dict:
         "transform": {"scaleX": 1, "scaleY": 1, "unit": "EMU",
                       "translateX": SLIDE_W * x, "translateY": SLIDE_H * y},
     }}
+
+
+def get_thumbnail_url(alias: str, presentation_id: str, page_object_id: str,
+                      size: str = "LARGE") -> str:
+    """Fetch the temporary URL for a slide thumbnail (PNG) via the Slides API."""
+    svc = get_service(alias)
+    res = svc.presentations().pages().getThumbnail(
+        presentationId=presentation_id,
+        pageObjectId=page_object_id,
+        thumbnailProperties_mimeType="PNG",
+        thumbnailProperties_thumbnailSize=size,
+    ).execute()
+    return res.get("contentUrl", "")
+

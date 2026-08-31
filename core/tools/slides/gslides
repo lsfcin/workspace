@@ -67,6 +67,26 @@ def cmd_apply(account: str, presentation_id: str, path: str) -> None:
     print(f"  {slides_core.url(presentation_id)}")
 
 
+def cmd_preview(account: str, presentation_id: str, out_dir: str) -> None:
+    """Download PNG thumbnails for every slide to empower visual inspection."""
+    import urllib.request
+    alias = gauth.resolve_alias(account)
+    deck = slides_core.get_presentation(alias, presentation_id)
+    slides = deck.get("slides", [])
+    target = pathlib.Path(out_dir) if out_dir else pathlib.Path.cwd() / f"previews_{presentation_id}"
+    target.mkdir(parents=True, exist_ok=True)
+    print(f"Generating previews for {len(slides)} slides into {target}...")
+    for idx, s in enumerate(slides, 1):
+        sid = s["objectId"]
+        url = slides_core.get_thumbnail_url(alias, presentation_id, sid)
+        if url:
+            dest = target / f"slide_{idx:02d}_{sid}.png"
+            urllib.request.urlretrieve(url, dest)
+            print(f"  [{idx:02d}/{len(slides):02d}] {dest.name}")
+    print(f"Done. Saved to: {target}")
+
+
+
 def main():
     p = argparse.ArgumentParser(prog="gslides")
     sub = p.add_subparsers(dest="cmd")
@@ -110,16 +130,23 @@ def main():
     pap.add_argument("presentation_id")
     pap.add_argument("requests_json", help="file holding a JSON array of Slides API requests")
 
+    ppr = sub.add_parser("preview")
+    ppr.add_argument("--account", required=True)
+    ppr.add_argument("--out", dest="out_dir", default="", help="destination directory for PNGs")
+    ppr.add_argument("presentation_id")
+
     args = p.parse_args()
-    if   args.cmd == "auth":  cmd_auth(args.alias, args.write, args.reauth)
-    elif args.cmd == "list":  cmd_list(args.account, args.name)
-    elif args.cmd == "read":  cmd_read(args.account, args.presentation_id, args.as_json, args.verbose)
-    elif args.cmd == "new":   cmd_new(args.account, args.title)
-    elif args.cmd == "add":   cmd_add(args.account, args.presentation_id, args.layout)
-    elif args.cmd == "text":  cmd_text(args.account, args.presentation_id, args.slide_id,
-                                       args.text, args.x, args.y, args.w, args.h)
-    elif args.cmd == "apply": cmd_apply(args.account, args.presentation_id, args.requests_json)
-    else:                     p.print_help()
+    if   args.cmd == "auth":    cmd_auth(args.alias, args.write, args.reauth)
+    elif args.cmd == "list":    cmd_list(args.account, args.name)
+    elif args.cmd == "read":    cmd_read(args.account, args.presentation_id, args.as_json, args.verbose)
+    elif args.cmd == "new":     cmd_new(args.account, args.title)
+    elif args.cmd == "add":     cmd_add(args.account, args.presentation_id, args.layout)
+    elif args.cmd == "text":    cmd_text(args.account, args.presentation_id, args.slide_id,
+                                         args.text, args.x, args.y, args.w, args.h)
+    elif args.cmd == "apply":   cmd_apply(args.account, args.presentation_id, args.requests_json)
+    elif args.cmd == "preview": cmd_preview(args.account, args.presentation_id, args.out_dir)
+    else:                       p.print_help()
+
 
 
 if __name__ == "__main__":

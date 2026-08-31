@@ -248,3 +248,7 @@ code/statem
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+
+# Google Drive hybrid sync local cache
+.drive-manifest-cache.json
+_material/previews/

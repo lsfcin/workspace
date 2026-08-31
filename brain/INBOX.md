@@ -9,6 +9,22 @@
 
 <!-- add entries below, newest first -->
 
+aparentemente nossas ferramentas estão verbose... ver se vale uma revisão disso. abaixo um exemplo:
+```text
+E AssertionError: index claims 40 findings, sum of ledgers is 560 E assert 40 == 560
+pytest failure: core/tools/test/law/entropy/dashboard/test_entropy_scatter.py:32: AssertionError =========================== short test summary info ============================ FAILED core/tools/test/law/entropy/dashboard/test_entropy_scatter.py::test_the_root_total_equals_the_sum_of_the_local_ledgers FAILED core/tools/test/law/entropy/dashboard/test_entropy_scatter.py::test_the_index_lists_every_repo_that_has_a_ledger 2 failed, 624 passed in 40.59s
+```
+
+pra cada .yaml que preenchemos ao pesquisar referências da literatura fazer duas coisas antes, baixar o .pdf e converter ele pra um arquivo de texto (talvez .md) com todo o conteúdo (inclusive tabelas e figuras) num formato acessível para as IAs, em texto (zero imagens, só as descrições delas)
+
+aprender essa
+https://www.instagram.com/reel/DcouwIwTBX1/?igsi=NTc4MTIwNjQ2YQ==
+— via aiwbot · 2026-08-31
+
+transicionar prum modelo de investimentos que eu acredito
+https://www.instagram.com/p/DcMf6TuFIYS/?utm_source=ig_web_copy_link
+— via aiwbot · 2026-08-31
+
 verify.py n deveria ficar em algum lugar melhor do WOS?
 
 LINHA DE BASE do port, medida hoje em Windows sem bash nenhum: 433 passam, 138 falham, 1 skip de 572.
