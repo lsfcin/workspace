@@ -2,5 +2,7 @@ from _typeshed import Incomplete
 
 STYLE: str
 TABS: Incomplete
+TITLE: str
+HEADING: str
 
-def render(panels: dict, coverage: dict, scope: dict, summary: str = '', sequence: str = '', fanin: str = '', title: str = 'workspace architecture', heading: str = 'the workspace as it is', whole: bool = True) -> str: ...
+def render(panels: dict, coverage: dict, scope: dict, summary: str = '', sequence: str = '', fanin: str = '') -> str: ...

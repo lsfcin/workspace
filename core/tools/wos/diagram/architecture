@@ -1,4 +1,4 @@
-# Usage: core/tools/wos/diagram/architecture [--out <path>] [--check] [--repos] — draw the workspace as it is (enforcement matrix, routing spine, folder mass) into one self-contained ARCHITECTURE.html; --repos draws every code repo into its own; --check exits 1 when a committed file is stale
+# Usage: core/tools/wos/diagram/architecture [--out <path>] [--check] — draw the workspace as it is (enforcement matrix, routing spine, folder mass) into one self-contained ARCHITECTURE.html; --check exits 1 when the committed file is stale
 #
 # Zero-token and deterministic: no model runs, and the output carries no timestamp and no commit
 # sha. That is what makes --check meaningful — the file changes when the WORKSPACE changed, and
@@ -17,7 +17,6 @@ import diagram_lifecycle as lifecycle_form
 import diagram_matrix as matrix_form
 import diagram_overview as overview_form
 import diagram_page as page
-import diagram_repo as repo_form
 import diagram_spine as spine_form
 import diagram_treemap as mass_form
 import tool_law
@@ -86,35 +85,25 @@ def report(coverage: dict, counts: dict) -> None:
         print('  those subtrees are missing from the spine — fix the routing block, then re-run.')
 
 
-def repos(check: bool) -> int:
-    """One picture per code repo, on the same scope line as its ISSUES.md.
-
-    Total and fail-loud like the workspace's own: every repo's coverage line is printed, including
-    the clean ones, so a subtree the routing blocks could not be read in is named rather than
-    quietly thinned.
-    """
-    stale = []
-    for root in sorted(p for p in (WORKSPACE_ROOT / 'code').iterdir() if (p / '.git').exists()):
-        html, coverage = repo_form.build(root)
-        out = root / repo_form.OUTPUT
-        if check:
-            if (out.read_text(encoding='utf-8') if out.exists() else '') != html:
-                stale.append(root.name)
-        else:
-            out.write_text(html, encoding='utf-8')
-        print(f'  {root.name}: parsed {coverage["parsed"]} of {coverage["total"]} routing blocks'
-              + (f' · {len(coverage["unparsed"])} UNPARSED' if coverage['unparsed'] else ''))
-    if stale:
-        print(f'  STALE: {", ".join(stale)} — run core/tools/wos/diagram/architecture --repos')
-    return 1 if stale else 0
+FLAGS = ('--out', '--check')
 
 
 def main() -> int:
     tool_law.require('diagram')  # before anything is read: off means no picture, not a stale one
 
     args = sys.argv[1:]
-    if '--repos' in args:
-        return repos('--check' in args)
+    # A flag this tool does not know is refused, never ignored. `--repos` was real until
+    # 2026-08-31, and silently falling through would have let a stale caller regenerate the root
+    # picture while believing it had written one per repo — the quiet-thinning failure the coverage
+    # line exists to prevent, one level up.
+    unknown = [a for i, a in enumerate(args)
+               if a.startswith('-') and a not in FLAGS
+               or not a.startswith('-') and (i == 0 or args[i - 1] != '--out')]
+    if unknown:
+        print(f'  unknown argument: {", ".join(unknown)}')
+        print(f'  this tool takes {" ".join(FLAGS)} — see core/tools/wos/diagram/CONTEXT.md')
+        return 2
+
     out = Path(args[args.index('--out') + 1]) if '--out' in args else OUTPUT
     html, coverage, counts = build()
 

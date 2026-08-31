@@ -24,5 +24,4 @@ believing the rest of it**, so the regression is pinned here rather than left to
 |------|-----------|-------------|
 | [`test_diagram.py`](test_diagram.py) | [`test_diagram.pyi`](test_diagram.pyi) | T1 the workspace picture: the generator behind ARCHITECTURE.html. Zero-token, no network, no browser. |
 | [`test_diagram_health.py`](test_diagram_health.py) | [`test_diagram_health.pyi`](test_diagram_health.pyi) | T1 the workspace's health reading: the findings behind the summary layer, and the grid that draws them. Zero-token, no network, no browser. |
-| [`test_diagram_repo.py`](test_diagram_repo.py) | [`test_diagram_repo.pyi`](test_diagram_repo.pyi) | T1 the per-repo picture (ROADMAP.md, ruled 2026-08-20): every code repo draws itself from the sources it actually has. Zero-token, no network, no browser. |
 <!-- routing:end -->
