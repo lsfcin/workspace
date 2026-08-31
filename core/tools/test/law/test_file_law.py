@@ -144,6 +144,9 @@ NOT_THE_CODE_LAW = {
     'commit/gates_project.py':        'TESTED — languages a code/ project runs a suite for, which '
                                       'is narrower than "code": staging a .tex or .css does not '
                                       'oblige a project to declare verify:fast',
+    'stubgen/stubs.py':               'STUBBED — types that have a generated interface, narrower '
+                                      'than "code": .sh and .css are code files nothing stubs, '
+                                      'and .dart is stubbed by dart-api-extract, not from here',
 }
 
 

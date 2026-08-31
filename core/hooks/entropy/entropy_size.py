@@ -19,7 +19,8 @@ from file_law import (is_authored, is_authored_prose,  # noqa: E402
 from platform_law import rel  # noqa: E402
 from schema_law import WORKSPACE_ROOT  # noqa: E402
 
-_STUB_FOR = {'.py': '.pyi', '.ts': '.d.ts', '.tsx': '.d.ts', '.js': '.d.ts'}
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'stubgen'))
+from stubs import STUB_FOR, interface_for  # noqa: E402
 
 
 def _rel(path) -> str:
@@ -77,12 +78,12 @@ def stub_signals(files: list) -> list:
     """
     signals = []
     for path in files:
-        stub = _STUB_FOR.get(path.suffix)
+        stub = interface_for(path)
         if not stub or is_vendored(path, WORKSPACE_ROOT) or \
                 is_generated_artifact(path, WORKSPACE_ROOT):
             continue
         if path.name.endswith('.d.ts') or '__pycache__' in path.parts:
             continue
-        if not path.with_name(path.stem + stub).exists():
-            signals.append(f'{_rel(path)} — no {stub}')
+        if not stub.exists():
+            signals.append(f'{_rel(path)} — no {STUB_FOR[path.suffix]}')
     return signals

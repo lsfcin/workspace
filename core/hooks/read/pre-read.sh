@@ -35,7 +35,26 @@ case "$file" in
 	*.csv|*.tsv) iface="${file}if" ;;  # results.csv → results.csvif
 esac
 
-[ -z "$iface" ] || [ ! -f "$iface" ] && exit 0
+# A type carrying no interface convention has nothing to say. Silent, and correctly so.
+[ -z "$iface" ] && exit 0
+
+# NAMED BUT ABSENT is the state this line used to exit 0 on in silence, and it is the worst of the
+# three: a current stub blocks, a stale one warns, and a missing one switched the gate OFF for that
+# file while the hook still read as passing. 200 files sat in it across the nested repos, and the
+# only thing that noticed was a counter written into an ISSUES.md no clone has ever had (B5).
+# Same shape as the `python3` alias and the marker-path mismatch above: a branch that cannot fire is
+# indistinguishable from one with no reason to. Allow the read -- blocking a reader because a
+# GENERATOR never ran punishes the wrong side -- but never in silence. Deduped per file per session
+# like the codegraph nudge below, so a loop over one file says this once.
+if [ ! -f "$iface" ]; then
+	sid="${session_id:-$(ps -o ppid= -p $PPID 2>/dev/null | tr -d ' ')}"
+	nudge_file="/tmp/claude_nostub_nudged_${sid}.txt"
+	if ! grep -qF "$file" "$nudge_file" 2>/dev/null; then
+		printf "ℹ️  NO INTERFACE — %s\n   Nothing generated a stub, so the interface-first gate is OFF for this file.\n   Generate: core/run hooks/stubgen/stubs.py %s\n" "$file" "$file"
+		echo "$file" >> "$nudge_file"
+	fi
+	exit 0
+fi
 
 if [ "$file" -nt "$iface" ]; then
 	printf "⚠️  INTERFACE STALE: %s\n   Source was modified after interface was generated.\n   Reading source directly — save the file to regenerate the interface.\n" "$iface"

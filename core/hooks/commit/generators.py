@@ -65,19 +65,25 @@ def routing(commit):
             print(f'⚠  tex-interface-gen failed for {source} — .texif not staged\n')
 
 
-def _python_sweep(commit, staged):
-    """Staged .py files, PLUS any stubless sibling in the same directories.
+def _sweep(commit, staged, pattern, exclude=()):
+    """Staged sources, PLUS any stubless sibling in the same directories.
 
-    A .py that entered the repo outside Edit/Write -- a bash heredoc, a bulk vendoring, a
+    A source that entered the repo outside Edit/Write -- a bash heredoc, a bulk vendoring, a
     --no-verify commit -- was never stubbed by anything, and nothing ever looked back: 182 files
     workspace-wide had no interface. Sweeping the touched directories catches the common shape (a
-    directory that gained files in one go) without paying a whole-tree scan on every commit. The
-    rest is counted in ISSUES.md § Entropy so the number is visible instead of merely absent.
+    directory that gained files in one go) without paying a whole-tree scan on every commit.
+
+    It was `.py` only until 2026-08-31, and the residue was booked as a number in ISSUES.md
+    § Entropy -- which B5 says no clone has ever been able to read. The number grew to 200, 31 of
+    them the .js of code/isoroll-module, which this arm could not reach at all.
     """
     found = set(staged)
     for directory in {Path(p).parent for p in staged}:
-        for sibling in (commit.toplevel / directory).glob('*.py'):
-            if not sibling.with_suffix('.pyi').is_file():
+        for sibling in (commit.toplevel / directory).glob(pattern):
+            if sibling.name.endswith(('.d.ts',) + exclude) or '__pycache__' in sibling.parts:
+                continue
+            interface = stubs.interface_for(sibling)
+            if interface and not interface.is_file():
                 found.add(rel(sibling, commit.toplevel))
     return sorted(found)
 
@@ -129,13 +135,14 @@ def interfaces(commit):
         return
 
     python = [p for p in commit.matching('.py') if '__pycache__' not in p]
-    for source in commit.existing(_python_sweep(commit, python)):
+    for source in commit.existing(_sweep(commit, python, '*.py')):
         if stubs.emit_pyi(commit.toplevel / source):
             _stage(commit, Path(source).with_suffix('.pyi'))
         else:
             print(f'⚠  stubgen failed for {source} — .pyi not staged\n')
 
-    javascript = commit.matching('.js', exclude=('.min.js', '.config.js'))
+    skip = ('.min.js', '.config.js')
+    javascript = _sweep(commit, commit.matching('.js', exclude=skip), '*.js', exclude=skip)
     if javascript:
         tsc = stubs.find_tsc()
         if not tsc:

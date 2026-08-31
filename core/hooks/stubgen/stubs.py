@@ -17,6 +17,23 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from platform_law import interpreter  # noqa: E402
 
+# Which interface belongs beside a source. Lived as a private _STUB_FOR inside
+# entropy/entropy_size.py, where only the COUNTER could reach it -- so the commit-time sweep meant
+# to prevent that count could not ask the same question and answered a narrower one, in Python
+# only. It sits here for the same reason the invocation does: one copy, and this file already
+# dispatches on suffix in main().
+#
+# These four and no more on purpose. Widening it would make stub_signals report file types nothing
+# has ever stubbed, inflating the count instead of draining it. pre-read.sh knows a wider set
+# (.dart, .tex, .csv) in shell; reconciling the two is filed in ISSUES.md, not done here.
+STUB_FOR = {'.py': '.pyi', '.ts': '.d.ts', '.tsx': '.d.ts', '.js': '.d.ts'}
+
+
+def interface_for(path):
+    """The interface file that belongs beside `path`, or None if its type has no convention."""
+    suffix = STUB_FOR.get(Path(path).suffix)
+    return Path(path).with_name(Path(path).stem + suffix) if suffix else None
+
 
 def stub_out_dir(path) -> Path:
     """Where a generated .pyi must be written.
