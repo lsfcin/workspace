@@ -63,6 +63,14 @@ for py in "$root/.venv/bin/python3" "$root/.venv/Scripts/python.exe"; do
         echo "core/run: no venv script named $1 -- see core/tools/deps.txt" >&2
         exit 1
     fi
+    target_path="$root/core/$target"
+    if [ -f "$target_path" ]; then
+        first_line=$(head -n 1 "$target_path" 2>/dev/null || true)
+        case "$first_line" in
+            *bash*) exec bash "$target_path" "$@" ;;
+            *sh*)   exec sh "$target_path" "$@" ;;
+        esac
+    fi
     exec "$py" "$root/core/$target" "$@"
 done
 
