@@ -20,13 +20,16 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 SRC="$WORKSPACE/core/skills"
-MIRRORS=(
-  "$WORKSPACE/.opencode/skills"
-  "$WORKSPACE/.claude/skills"
-  "$WORKSPACE/.zcode/skills"
-  "$WORKSPACE/.agents/skills"
-)
-COMMANDS_DIR="$WORKSPACE/.claude/commands"
+HARNESSES_FILE="$WORKSPACE/core/harnesses.txt"
+MIRRORS=()
+COMMANDS_DIRS=()
+while IFS=$'\t' read -r name sdir cdir; do
+  [[ -z "$name" || "$name" == \#* ]] && continue
+  MIRRORS+=("$WORKSPACE/$sdir")
+  [[ -n "$cdir" && "$cdir" != "-" ]] && COMMANDS_DIRS+=("$WORKSPACE/$cdir")
+done < "$HARNESSES_FILE"
+# One commands mirror today (the row that declares cdir); the column is the declaration.
+COMMANDS_DIR="${COMMANDS_DIRS[0]:-}"
 
 # Split 2026-07-31 at 341 lines (the cap is 200). The seam was already visible in the
 # behaviour: generating mirrors is a different job from validating frontmatter.

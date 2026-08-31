@@ -132,6 +132,7 @@ core/*
 !core/features.txt
 !core/profile.txt
 !core/permissions.txt
+!core/harnesses.txt
 !core/agents/
 !core/experiments/
 !core/flows/
