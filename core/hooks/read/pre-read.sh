@@ -46,7 +46,12 @@ esac
 # indistinguishable from one with no reason to. Allow the read -- blocking a reader because a
 # GENERATOR never ran punishes the wrong side -- but never in silence. Deduped per file per session
 # like the codegraph nudge below, so a loop over one file says this once.
-if [ ! -f "$iface" ]; then
+# An EMPTY stub is absent, not current. tsc emits a zero-byte .d.ts for a .js that exports nothing
+# -- code/ppc/partials/*.js build an HTML string and declare no API -- and treating that as an
+# interface is worse than having none: the gate below would block the source and hand the reader a
+# blank file in its place. Backfilling those three would have zeroed the counter and broken the
+# reading of all three, which is the shape of draining a ledger instead of a defect.
+if [ ! -s "$iface" ]; then
 	sid="${session_id:-$(ps -o ppid= -p $PPID 2>/dev/null | tr -d ' ')}"
 	nudge_file="/tmp/claude_nostub_nudged_${sid}.txt"
 	if ! grep -qF "$file" "$nudge_file" 2>/dev/null; then

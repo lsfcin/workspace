@@ -57,6 +57,22 @@ def test_the_announcement_is_made_once_per_file_per_session(tmp_path):
     assert again.stdout == '', f'the nudge repeated within one session:\n{again.stdout!r}'
 
 
+def test_an_empty_stub_counts_as_absent(tmp_path):
+    """tsc writes a zero-byte .d.ts for a .js that exports nothing.
+
+    Blocking on it would hand the reader a blank file instead of the source — so backfilling
+    code/ppc/partials/*.js would have zeroed three findings and broken the reading of three files.
+    """
+    source = tmp_path / 'partial.js'
+    source.write_text('MODALS.edit = `<dialog></dialog>`;\n')
+    (tmp_path / 'partial.d.ts').write_text('')
+
+    result = _read(source, 'empty-stub')
+
+    assert result.returncode == 0, 'an empty stub must never block a source read'
+    assert 'NO INTERFACE' in result.stdout, 'an empty stub is absent, and absence must speak'
+
+
 def test_a_type_with_no_interface_convention_stays_silent(tmp_path):
     """The other arm of the split line: no convention is not the same as a missing stub."""
     prose = tmp_path / 'notes.md'
