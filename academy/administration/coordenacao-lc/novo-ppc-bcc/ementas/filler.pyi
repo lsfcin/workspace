@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-MODELO: str
+MODELO: Incomplete
 INLINE: Incomplete
 BLOCK: Incomplete
 

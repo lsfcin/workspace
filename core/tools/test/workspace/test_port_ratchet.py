@@ -16,17 +16,35 @@
 # read or write inheriting the OS encoding) is owed: the corpus is clean, but an exact check needs
 # the ast walk the codemod used, and that belongs with the pre-commit pipeline being ported next.
 from conftest import git_lines as _git
-
-MACHINE_PATH_CEILING = 44         # `mnt/workspace` hardcoded in a versioned file; S6 drives it to 0
-VENV_POSIX_CEILING = 19           # `.venv/bin`, which is `.venv/Scripts` elsewhere; S6 drives it to 0
-
-# Neither reaches 0 by editing prose. What is left of the venv count is mostly SPECS text that
-# EXPLAINS the two layouts, plus core/tools/deps.txt spelling the directory once per probe row --
-# the one that is still a live defect. A ratchet that counts a sentence describing the defect the
-# same as the defect will be gamed by rewording, so lower these by removing call sites, and expect
-# a floor somewhere above zero made of the documents that have to name both spellings.
+from platform_law import AUTHORING_ROOT, POSIX_VENV_BIN
 
 SEAM = 'core/hooks/platform_law.py'
+
+# THE NEEDLES COME FROM THE SEAM, WHICH IS WHY THESE ARE NUMBERS AND NOT BUDGETS (2026-08-30).
+#
+# Both counts used to sit at 44 and 19 with a comment predicting "a floor somewhere above zero made
+# of the documents that have to name both spellings". That floor was not a fact about the problem,
+# it was the shape of the answer: platform_law.py branched on these two strings without EXPORTING
+# them, so every consumer re-spelled the literal -- deps.txt in 17 probe rows, wos/deps,
+# wos/permissions, and these tests. The ceilings were counting that duplication.
+#
+# The seam publishes its data now, the consumers ask, and what is left is one file each:
+MACHINE_PATH_CEILING = 1   # the seam, which names the authoring root so a checker can search for it
+VENV_POSIX_CEILING = 1     # core/run, below -- and it is a paradox, not an exemption
+
+# A ceiling of one with a named holder is a law; a ceiling of nineteen is an allowance a real defect
+# can hide inside. If either number has to rise, the thing to write down is WHY that file cannot
+# ask, not a bigger number.
+#
+# RECORDS ARE EXCLUDED BY RULE, ONCE. test_no_document_teaches_a_tool_call_that_cannot_run already
+# dropped core/experiments/ and .craft/ because "editing one to a spelling nobody used would falsify
+# the record rather than fix anything". Its two siblings did not, which made the same file a finding
+# for one question and exempt for another -- the asymmetry was the bug, not the paths.
+#
+# A record is anything whose value is that it says what WAS true: an experiment's log, a craft
+# loop file, a captured page, and brain/, which is Lucas's own capture and journal. `academy/**.html`
+# is a page saved from the university's site — not ours to rewrite at all.
+RECORDS = (':!core/experiments/**', ':!.craft/**', ':!*.log', ':!brain/**', ':!academy/**/*.html')
 
 # The venv seam, and exempt from the venv ceiling for the reason platform_law.py is exempt from the
 # sys.platform one: naming both layouts is this file's entire job. A hooks config is data, read
@@ -69,17 +87,34 @@ def test_no_setup_shard_is_named_for_an_operating_system():                     
 
 
 def test_a_machine_path_does_not_spread():                                                   # I6
-    live = len(_git('grep', '-lF', 'mnt/workspace', '--'))
-    assert live <= MACHINE_PATH_CEILING, (
-        f'{live} versioned files hardcode one machine path, up from {MACHINE_PATH_CEILING}. '
-        'Resolve the root at run time -- every tool here already does')
+    live = _git('grep', '-lF', AUTHORING_ROOT.lstrip('/'), '--', *RECORDS)
+    assert len(live) <= MACHINE_PATH_CEILING, (
+        f'{len(live)} versioned files hardcode the authoring machine\'s root, over '
+        f'{MACHINE_PATH_CEILING}: {live}. Resolve the root at run time -- every tool here already '
+        f'does -- or ask {SEAM} for the string if you must name it')
 
 
 def test_a_posix_only_venv_path_does_not_spread():                                           # I6
-    live = len([f for f in _git('grep', '-lF', '.venv/bin', '--') if f != LAUNCHER])
-    assert live <= VENV_POSIX_CEILING, (
-        f'{live} versioned files name .venv/bin, up from {VENV_POSIX_CEILING}. That directory is '
-        f'.venv/Scripts on Windows, and {SEAM} owns the difference')
+    live = [f for f in _git('grep', '-lF', POSIX_VENV_BIN, '--', *RECORDS) if f != SEAM]
+    assert len(live) <= VENV_POSIX_CEILING, (
+        f'{len(live)} versioned files name the POSIX venv bin directory, over '
+        f'{VENV_POSIX_CEILING}: {live}. It is {SEAM}\'s WINDOWS_VENV_BIN elsewhere -- ask '
+        '`venv_script(name)` for a console script, or the two constants if you need both names')
+
+
+def test_the_launcher_is_the_only_thing_that_cannot_ask():
+    """The one file left naming the venv layout, and why it can never be zero.
+
+    `core/run` is `sh`, and its whole job is to find the interpreter. It cannot import
+    platform_law to learn where the interpreter lives, because importing anything requires the
+    interpreter it exists to find. That is a bootstrap paradox, not an exemption granted to a file
+    somebody did not want to fix -- and it is worth one test of its own, because the honest floor
+    of a ratchet is a claim that should fail loudly if it stops being true.
+    """
+    live = [f for f in _git('grep', '-lF', POSIX_VENV_BIN, '--', *RECORDS) if f != SEAM]
+    assert live == [LAUNCHER], (
+        f'expected the launcher alone to name the venv layout, found {live}. If a NEW file needs '
+        f'it, it almost certainly wants {SEAM}.venv_script() instead')
 
 
 def test_no_shell_hook_spawns_the_bare_word_python3():                                       # I6

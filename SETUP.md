@@ -115,15 +115,21 @@ whoever cloned next.
 
 One virtualenv at the workspace root, shared by every tool and the suite. `code/*` repos own theirs.
 
-**Precondition** `.venv/bin/python3 --version`
+The venv keeps its executables in a directory whose name differs per machine, so nothing below
+spells it: `sh core/run --python` prints this clone's interpreter and exits non-zero when there
+isn't one, which makes it both the precondition and the path. Steps here used to name that
+directory outright and therefore could not run on a clone that was not the authoring machine.
 
-**Install**
+**Precondition** `sh core/run --python`
+
+**Install** — `python3` is the creating interpreter and comes from the system, not the venv:
 ```bash
 python3 -m venv .venv              # no-op if .venv already exists
-.venv/bin/pip install --upgrade pip
+"$(sh core/run --python)" -m pip install --upgrade pip
 ```
 
-**Verify** `.venv/bin/python3 -c "import sys; print(sys.prefix)"` — this `.venv`, not `/usr`.
+**Verify** `"$(sh core/run --python)" -c "import sys; print(sys.prefix)"` — this `.venv`, not the
+system prefix.
 
 ## Declared dependencies
 > feature: `declared-deps` · agent: yes
@@ -254,15 +260,18 @@ sync`. Any `MISSING` / `STALE` / `ORPHAN` line names the file and the source it 
 
 Generates the `.pyi` stubs the read gate hands an agent instead of a source file.
 
-**Precondition** `.venv/bin/stubgen --version`
+`stubgen` is a console script inside the venv and has no `-m` form, so it is located rather than
+spelled: `sh core/run --script stubgen` prints its path on any machine.
+
+**Precondition** `"$(sh core/run --script stubgen)" --version`
 
 **Install**
 ```bash
-.venv/bin/pip install mypy
+"$(sh core/run --python)" -m pip install mypy
 ```
 
-**Verify** `.venv/bin/stubgen -o /tmp/stubprobe core/hooks/file_law.py` — it must produce a stub,
-not merely answer `--version`.
+**Verify** `"$(sh core/run --script stubgen)" -o "$(mktemp -d)" core/hooks/file_law.py` — it must
+produce a stub, not merely answer `--version`.
 
 ## TypeScript interfaces — tsc
 > feature: `interface-stubs` · agent: yes
@@ -349,11 +358,11 @@ silently dropping multi-line compaction, and `rtk init --show` reports both wiri
 
 **Install** — idempotent; replaces any existing `Bash` entry rather than appending:
 ```bash
-python3 - <<'PATCH'
+"$(sh core/run --python)" - <<'PATCH'
 import json, pathlib
 p = pathlib.Path.home() / '.claude' / 'settings.json'
 d = json.loads(p.read_text())
-shim = 'python3 /mnt/workspace/core/hooks/compact/bash-compact-rewrite.py'
+shim = f'sh {pathlib.Path.cwd()}/core/run hooks/compact/bash-compact-rewrite.py'
 pre = d.setdefault('hooks', {}).setdefault('PreToolUse', [])
 entry = next((e for e in pre if e.get('matcher') == 'Bash'), None)
 if entry is None:
@@ -436,13 +445,14 @@ controls every agent. Follow the induced pattern by hand.
 
 **Install** — guarded by the precondition; appending twice defines the function twice.
 ```bash
-cat >> ~/.bashrc << 'EOF'
+cat >> ~/.bashrc << EOF
 
-# caveman-compress shortcut
+# caveman-compress shortcut. The root is baked in at install time because ~/.bashrc lives
+# outside the repo; the interpreter is asked for, never spelled `python3`.
 caveman-compress() {
   local CLAUDE_BIN
-  CLAUDE_BIN="$(dirname "$CLAUDE_CODE_EXECPATH")"
-  (cd /mnt/workspace/core/skills/caveman && PATH="$CLAUDE_BIN:$PATH" python3 -m scripts "$1")
+  CLAUDE_BIN="\$(dirname "\$CLAUDE_CODE_EXECPATH")"
+  (cd $PWD/core/skills/caveman && PATH="\$CLAUDE_BIN:\$PATH" "\$(sh $PWD/core/run --python)" -m scripts "\$1")
 }
 EOF
 source ~/.bashrc
@@ -574,7 +584,7 @@ Does the install work? This is the whole-install probe; each step's own Verify i
 ```bash
 core/run tools/wos/deps --check                           # every declared dependency present
 git config --global core.hooksPath                    # the global gate is wired
-.venv/bin/stubgen --version && tsc --version          # interface generators are reachable
+"$(sh core/run --script stubgen)" --version && tsc --version   # interface generators are reachable
 node --input-type=module -e "import('$PWD/.opencode/plugins/workspace-policy.js').then(m=>console.log(typeof m.WorkspacePolicy))"
 # Expected: function
 make verify-fast                                      # the workspace's own suite

@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 """Flag any token in a generated OBJETIVOS that doesn't appear in that same
 discipline's own EMENTA+CONTEÚDO -- a crude but automatable proxy for 'nothing
 new was invented'. Numbers/acronyms are the highest-risk case (dates, editions,

@@ -6,8 +6,8 @@ export function buildPayloads(args: any, toolName: any): {
 }[];
 export function run(script: any, payload: any, canonical: any, { stdin }?: {}): any;
 export function warn(client: any, msg: any): Promise<void>;
-export const WORKSPACE: "/mnt/workspace";
-export const HOOKS: "/mnt/workspace/core/hooks";
+export const WORKSPACE: string;
+export const HOOKS: string;
 export namespace TOOL_MAP {
     namespace read {
         let canonical: string;

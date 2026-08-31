@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 """Build every [MODELO-SIGAA] <nome>.docx into saida-docx/, from whichever
 source shape each discipline actually has (new-filled / new-blank+BCC-fallback
 / old-schema-remapped). Writes a per-discipline audit record for gaps.md and

@@ -91,7 +91,7 @@ active — `core/tools/paper/terms` imports `yaml`, and the pre-commit term gate
 have skipped silently on a clean machine.
 
 **A tool is spawned as `core/run tools/<family>/<leaf>`, and carries no shebang at all.** The
-launcher asks the filesystem which venv layout is present — `.venv/bin/python3` or
+launcher asks the filesystem which venv layout is present — the POSIX one or
 `.venv/Scripts/python.exe` — so the interpreter is answered once, for gates and tools alike.
 
 **A shebang here would be a per-machine value in a versioned file**, since a shebang cannot

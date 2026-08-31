@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 """Round-trip verification: re-read every built [MODELO-SIGAA] doc and diff its
 fields against what build.py wrote, for every field EXCEPT objetivos/conteudo
 (conteudo may be derived) and carga_breakdown_raw (reshaped by design).

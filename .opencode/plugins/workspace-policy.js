@@ -1,5 +1,5 @@
 // Workspace policy plugin for opencode.
-// Mirrors /mnt/workspace/.claude/settings.json PreToolUse/PostToolUse hooks so
+// Mirrors the workspace's .claude/settings.json PreToolUse/PostToolUse hooks so
 // opencode enforces the SAME workspace behavioral policies as Claude Code:
 //   - context-gate.py     : force CONTEXT.md chain read before Read/Edit/Write
 //   - bash-context-gate.py: same chain gate for Bash commands touching files

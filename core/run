@@ -10,7 +10,7 @@
 # versioned verbatim and no install step touches them.
 #
 # WHY IT SITS IN core/ AND NOT core/hooks/. A shebang cannot resolve a relative path, so the 33
-# tools under core/tools/ carried an absolute one -- `#!/mnt/workspace/.venv/bin/python3` -- plus an
+# tools under core/tools/ carried an absolute one, naming one machine's venv, plus an
 # install step that rewrote it per clone. That is the same per-machine value in a versioned file
 # this file exists to remove, so core/tools/SPECS.md § The interpreter and core/hooks/SPECS.md
 # directly contradicted each other and only one could be right. A tool is now spawned the way a
@@ -51,6 +51,18 @@ shift
 for py in "$root/.venv/bin/python3" "$root/.venv/Scripts/python.exe"; do
     [ -x "$py" ] || continue
     [ "$target" = "--python" ] && { echo "$py"; exit 0; }
+    # `run --script <name>` PRINTS the path of a console script installed INTO the venv -- stubgen,
+    # yt-dlp, pip. Same reason as --python, one step further: not every dependency is importable as
+    # `-m module` (stubgen has no __main__), so a shell caller that needs one would otherwise spell
+    # `.venv/bin/stubgen` and break on a Windows clone. platform_law.venv_script() is this answer
+    # for Python callers; this arm is it for shell, which cannot import anything yet.
+    if [ "$target" = "--script" ]; then
+        bin=$(dirname -- "$py")
+        [ -x "$bin/$1" ] && { echo "$bin/$1"; exit 0; }
+        [ -x "$bin/$1.exe" ] && { echo "$bin/$1.exe"; exit 0; }
+        echo "core/run: no venv script named $1 -- see core/tools/deps.txt" >&2
+        exit 1
+    fi
     exec "$py" "$root/core/$target" "$@"
 done
 

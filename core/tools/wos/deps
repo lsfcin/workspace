@@ -19,7 +19,7 @@ import tool_law  # noqa: E402
 # them blind would claim a portability nobody probed. A row moves to `system` when someone verifies
 # the same name resolves on all three managers, which is exactly what `gh` needed.
 INSTALL = {
-    'pip': '.venv/bin/pip install {name}',
+    'pip': '{pip} install {name}',
     'apt': 'sudo apt-get install -y {name}',
     'system': None,   # resolved per machine by platform_law — see _install_line
     'npm': 'npm install -g {name}',
@@ -36,7 +36,7 @@ def _install_line(row: dict) -> str:
     """
     if row['kind'] == 'system':
         return ' '.join(platform_law.package_install(row['name']))
-    return INSTALL[row['kind']].format(name=row['name'])
+    return INSTALL[row['kind']].format(name=row['name'], pip=platform_law.venv_script('pip'))
 
 
 def rows() -> list[dict]:
@@ -47,12 +47,31 @@ def rows() -> list[dict]:
     return [dict(zip(header, ln.split('\t'))) for ln in lines[1:]]
 
 
-def probe(cmd: str) -> bool:
-    """Present = the probe exits 0. Never trust config; run the thing."""
+def probe(spec: str) -> bool:
+    """Present = the probe exits 0. Never trust config; run the thing.
+
+    `spec` is `<verb>:<arg>` (core/tools/deps.txt § probe). The two venv-shaped verbs ask
+    platform_law where this clone keeps things, which is the whole point: the column used to spell
+    the POSIX venv bin directory per row, so on a Windows clone the probe could not run and every dep
+    reported MISSING -- a wrong answer that reads exactly like a real one.
+    """
+    verb, _, arg = spec.partition(':')
+    if verb == 'import':
+        cmd = [platform_law.interpreter(), '-c', f'import {arg}']
+    elif verb == 'venv-script':
+        script = platform_law.venv_script(arg)
+        if not script.exists():
+            return False
+        cmd = [str(script), '--version']
+    elif verb == 'cmd':
+        cmd = arg
+    else:
+        raise SystemExit(f'core/tools/deps.txt: unknown probe verb {verb!r} in {spec!r}')
     try:
-        r = subprocess.run(cmd, shell=True, cwd=ROOT, capture_output=True, timeout=60)
+        r = subprocess.run(cmd, shell=isinstance(cmd, str), cwd=ROOT,
+                           capture_output=True, timeout=60)
         return r.returncode == 0
-    except subprocess.TimeoutExpired:
+    except (subprocess.TimeoutExpired, OSError):
         return False
 
 

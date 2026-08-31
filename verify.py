@@ -5,7 +5,7 @@
 # WHY THIS IS NOT A MAKEFILE TARGET ANY MORE. The contract used to be `make verify-fast`, and on a
 # machine without `make` every commit printed a warning and ran nothing: the gate was fully green
 # and fully blind (ISSUES.md B9). Installing `make` would not have fixed it, and that is the part
-# worth keeping. The recipe named `.venv/bin/pytest` — which is `.venv/Scripts` on another machine —
+# worth keeping. The recipe named the POSIX venv bin directory, which is a different name on another machine —
 # and globbed `core/hooks/*/*.sh` through a shell that is not everywhere. **A Makefile cannot ask
 # platform_law.py anything**, so every per-machine answer inside one has to be spelled, and a
 # spelled answer is the defect this port exists to remove. A Python entrypoint can just ask.

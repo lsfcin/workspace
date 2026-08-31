@@ -42,7 +42,7 @@ def transcript(tmp_path):
 def test_a_blocking_gate_is_counted_from_the_failed_tool_result(transcript):
 	"""The bug that made gates read 1 of 131 sessions instead of 69: gates are not attachments."""
 	path = transcript([
-		turn(1000, [use('t1', 'Read', '/mnt/workspace/x/y.py')], 'r1'),
+		turn(1000, [use('t1', 'Read', '/ws/x/y.py')], 'r1'),
 		result('t1', 'CONTEXT GATE (Bash) - command touches files in a subtree', is_error=True),
 		turn(2000, [], 'r2'),
 	])
@@ -52,7 +52,7 @@ def test_a_blocking_gate_is_counted_from_the_failed_tool_result(transcript):
 def test_the_agent_quoting_the_gate_is_not_a_firing(transcript):
 	"""Only a *failed* result is a block; the same words in a successful one are just text."""
 	path = transcript([
-		turn(1000, [use('t1', 'Read', '/mnt/workspace/x/y.py')], 'r1'),
+		turn(1000, [use('t1', 'Read', '/ws/x/y.py')], 'r1'),
 		result('t1', 'the hook prints CONTEXT GATE when it blocks', is_error=False),
 		turn(2000, [], 'r2'),
 	])
@@ -61,9 +61,9 @@ def test_the_agent_quoting_the_gate_is_not_a_firing(transcript):
 
 def test_only_context_md_reads_count_as_chain_reads(transcript):
 	path = transcript([
-		turn(1000, [use('t1', 'Read', '/mnt/workspace/core/CONTEXT.md'),
-		            use('t2', 'Read', '/mnt/workspace/core/tools/CONTEXT.md'),
-		            use('t3', 'Read', '/mnt/workspace/core/tools/wos/roundup')], 'r1'),
+		turn(1000, [use('t1', 'Read', '/ws/core/CONTEXT.md'),
+		            use('t2', 'Read', '/ws/core/tools/CONTEXT.md'),
+		            use('t3', 'Read', '/ws/core/tools/wos/roundup')], 'r1'),
 		turn(2000, [], 'r2'),
 	])
 	assert walk(path)['reads'] == 2
@@ -94,7 +94,7 @@ def test_attribution_is_exact_in_aggregate(transcript):
 	path = transcript([
 		turn(1000, [use('t1', 'Bash', '')], 'r1'),
 		result('t1', 'x' * 400),
-		turn(1800, [use('t2', 'Read', '/mnt/workspace/a.py')], 'r2'),
+		turn(1800, [use('t2', 'Read', '/ws/a.py')], 'r2'),
 		result('t2', 'y' * 4000),
 		turn(6000, [], 'r3'),
 	])

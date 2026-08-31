@@ -1,8 +1,7 @@
-#!/mnt/workspace/.venv/bin/python3
 """Upload every built [MODELO-SIGAA] doc to the Drive subfolder matching its
 source discipline's period (or Novas Disciplinas), converting to Google Doc."""
 import json, pathlib, sys
-sys.path.insert(0, "/mnt/workspace/core/tools")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[5] / "core/tools"))
 import drive_core
 
 HERE = pathlib.Path(__file__).parent

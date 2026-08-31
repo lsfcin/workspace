@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Fill MODELO EMENTA SIGAA.docx into one per-discipline doc.
 Usage: filler.py <content.json> <out.docx>
 Preserves the SIGAA table template (nested in sdt); fills cells by label match.
@@ -9,7 +8,8 @@ from docx import Document
 from docx.oxml.ns import qn
 from docx.table import Table
 
-MODELO = "/mnt/workspace/Downloads/workspace-drive/MODELO EMENTA SIGAA.docx"
+MODELO = str(__import__("pathlib").Path(__file__).resolve().parents[5]
+              / "Downloads/workspace-drive/MODELO EMENTA SIGAA.docx")
 
 # inline: value appended as a run to the label paragraph (same line)
 INLINE = {

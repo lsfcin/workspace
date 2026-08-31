@@ -93,7 +93,7 @@ Estado dos tokens de escrita (`~/.config/workspace-drive-write/`):
 Objetivo: tirar a escrita de `drive_migrate` (script específico cin→personal) e criar um seam de Drive read+write, account-agnostic. Seguir `core/SCHEMA.md` + gerar `.pyi` (interface enforçada).
 
 **Estado atual (verificado nesta sessão):**
-- `core/tools/files/gdrive` (CLI) + `drive_fetch.py`: só leitura, scope `drive.readonly`. `DOWNLOAD_DIR = ~/Downloads/workspace-drive` (**bug**: deve cair sob `/mnt/workspace/Downloads` — item do Lucas no INBOX).
+- `core/tools/files/gdrive` (CLI) + `drive_fetch.py`: só leitura, scope `drive.readonly`. `DOWNLOAD_DIR = ~/Downloads/workspace-drive` (**bug**: deve cair sob `Downloads` — item do Lucas no INBOX).
 - `drive_migrate_core.py`: `SCOPES_WRITE=["…/auth/drive"]`, `get_cin_service`/`get_personal_service` (contas hardcoded), `find_or_create_folder`, `copy_file`. Auth via `gauth.auth(alias,'drive-write',SCOPES_WRITE)` → token em `~/.config/workspace-drive-write/<alias>.token.json`.
 - Token `drive-write` da **ufrpe** recém-criado pelo Lucas (validar liveness antes de usar).
 
@@ -157,7 +157,7 @@ Antes de fechar, rodar uma checagem completa e entregar ao Lucas:
 ---
 
 ## Efeito colateral desta run (registrar)
-- **pandoc instalado** (`pip install pypandoc-binary` no `.venv`; symlinks em `.venv/bin/pandoc` e `~/.local/bin/pandoc`). `core/tools/paper/parse` agora lê `.docx`. Melhoria durável — anotar no `brain/INBOX.md`.
+- **pandoc instalado** (`pip install pypandoc-binary` no `.venv`; symlinks no bin do venv e em `~/.local/bin/pandoc`). `core/tools/paper/parse` agora lê `.docx`. Melhoria durável — anotar no `brain/INBOX.md`.
 
 ---
 

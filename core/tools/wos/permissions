@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT / 'core' / 'hooks'))
 
 sys.path.insert(0, str(ROOT / 'core' / 'tools'))
 import feature_law as law  # noqa: E402  — path is set above, which is the house pattern
+import platform_law  # noqa: E402
 import tool_law  # noqa: E402
 
 REGISTRY = ROOT / 'core' / 'permissions.txt'
@@ -29,7 +30,11 @@ CLAUDE = {
     'edit-workspace': ['Edit(./**)', 'Write(./**)'],
     'run-readonly': ['Bash(git status:*)', 'Bash(git log:*)', 'Bash(git diff:*)',
                      'Bash(git show:*)', 'Bash(git branch:*)', 'Bash(ls:*)',
-                     'Bash(.venv/bin/pytest:*)', 'Bash(.venv/Scripts/pytest.exe:*)'],
+                     # BOTH spellings on purpose: the rendered config is versioned and serves two
+                     # machines, so this row cannot ask which one is running. It asks the seam for
+                     # the two names instead of spelling them — same data, one home.
+                     f'Bash({platform_law.POSIX_VENV_BIN}/pytest:*)',
+                     f'Bash({platform_law.WINDOWS_VENV_BIN}/pytest.exe:*)'],
     'run-any': ['Bash'],
     'delete': ['Bash(rm:*)', 'Bash(git clean:*)'],
     'push': ['Bash(git push:*)'],

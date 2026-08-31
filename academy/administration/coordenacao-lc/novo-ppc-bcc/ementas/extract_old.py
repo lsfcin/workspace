@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 """Extract SIGAA-shaped fields from an old-schema ('PROGRAMA DA DISCIPLINA') source doc.
 
 Flattens all table rows top-to-bottom and pattern-matches known section headers,

@@ -2,12 +2,12 @@
 > Dependencies for `core/tools/video/video` (link → navigable text). See goal workspace-os / TODO:121.
 
 ## Installed (M1 — L0 metadata + L1 captions)
-- `yt-dlp` — in workspace venv: `.venv/bin/pip install yt-dlp` ✓ (2026.07.04)
+- `yt-dlp` — in workspace venv: `"$(sh core/run --python)" -m pip install yt-dlp` ✓ (2026.07.04)
 
 ## Pending (M2 speech + M3 OCR) — need system installs (sudo)
 ```bash
 sudo apt-get install -y ffmpeg tesseract-ocr tesseract-ocr-por
-.venv/bin/pip install faster-whisper pytesseract
+"$(sh core/run --python)" -m pip install faster-whisper pytesseract
 ```
 - `ffmpeg` — audio extraction (M2) + frame sampling (M3)
 - `faster-whisper` — local transcription backend (model name is config data, default `base`)
@@ -16,13 +16,13 @@ sudo apt-get install -y ffmpeg tesseract-ocr tesseract-ocr-por
 ## M4 — Instagram cookies (login-gated posts)
 `video_core._run` auto-attaches `--cookies <path>` when a cookies file exists at
 `~/.config/workspace-video/cookies.txt` (Netscape format, outside repo — never gitignore
-needed since it's outside `/mnt/workspace`). No file → tool behaves exactly as before.
+needed since it's outside the workspace). No file → tool behaves exactly as before.
 
 To populate — **no browser extension needed**, yt-dlp reads the browser profile directly
 (Lucas is logged into Instagram in Brave, not Firefox):
 
 ```bash
-.venv/bin/yt-dlp --cookies-from-browser brave \
+"$(sh core/run --script yt-dlp)" --cookies-from-browser brave \
   --cookies ~/.config/workspace-video/cookies.txt \
   --skip-download --print id "<any public IG url>"
 chmod 600 ~/.config/workspace-video/cookies.txt
@@ -36,7 +36,7 @@ installed in the venv. Chromium-family browsers on Linux encrypt the cookie DB a
 system keyring; without the module yt-dlp fails with
 `ERROR: secretstorage not available` + `failed to decrypt cookie (AES-CBC) ... Possibly the
 key is wrong?` — which reads like a wrong-password bug, not a missing dependency.
-Fix: `.venv/bin/pip install secretstorage`.
+Fix: `"$(sh core/run --python)" -m pip install secretstorage`.
 
 Verified (2026-07-23): auth works end-to-end, `DZLABeVx3qk` returns metadata + description.
 Note `DbBDnp6DcKV` is an **image carousel** — yt-dlp reports "No video formats found" per
@@ -58,7 +58,7 @@ compat in a shared venv other tools also upgrade.
 
 Deps (already in venv as of 2026-07-22, only `accelerate`/`torchao` were missing):
 ```bash
-.venv/bin/pip install accelerate      # required for device_map=
+"$(sh core/run --python)" -m pip install accelerate      # required for device_map=
 ```
 `torch`, `transformers`, `pillow` already present (whisper/general deps).
 
@@ -80,7 +80,7 @@ uses, one pass per image, each line tagged `[n/total]` so a slide deck stays ord
 Same cookie jar as yt-dlp (`~/.config/workspace-video/cookies.txt`), attached the same way.
 
 ```bash
-.venv/bin/pip install gallery-dl
+"$(sh core/run --python)" -m pip install gallery-dl
 core/run tools/video/video "https://www.instagram.com/p/<id>/"              # description, free
 core/run tools/video/video "https://www.instagram.com/p/<id>/" --level ocr  # + slide text per image
 ```

@@ -45,16 +45,6 @@ spelled `Core/...` dangles — that was the root cause of a `Failed to parse ski
 startup. `sync-skills` computes every target path itself now, so the hazard survives only for a
 symlink built by hand outside the tool.
 
-## A mirror link is relative, and that is a clone requirement
-
-A symlink is committed by its **text**, so an absolute target names the machine that wrote it. All
-42 mirrors read `/mnt/workspace/core/skills/<name>.md` until 2026-08-25: a clone anywhere else got
-42 dangling links and no skills in any harness, while v1 criterion 4 read as met. `mirror.sh`
-computes the target relative to the link, and
-`test_no_committed_symlink_carries_an_absolute_path` fails the build on any absolute one — same
-family as the case-sensitivity hazard above, and the same fix: the tool computes the path, nobody
-writes one by hand.
-
 ## Excluded from mirroring
 
 `_template.md`, `*.original.md` (caveman-compress backups), and `CONTEXT.md` are excluded;

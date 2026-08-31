@@ -6,6 +6,7 @@
 
 | Subdirectory | Description |
 |--------------|-------------|
+| [`chat/`](chat/CONTEXT.md) | T1 coverage for the chat tool: what an audio line must keep, what noise must go, and what must never reach a versioned file. |
 | [`law/`](law/CONTEXT.md) | Tier 0: what a file is, what a name may be, and how big a session may get. |
 | [`video/`](video/CONTEXT.md) | T1 unit tests for the video tool. Fixtures live here; network-marked cases are excluded from verify-fast. |
 | [`workspace/`](workspace/CONTEXT.md) | Tier 0 workspace-wide invariants: pointers resolve, .gitignore self-heals, imports do not shadow. |

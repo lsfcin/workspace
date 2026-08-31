@@ -9,9 +9,14 @@
 // .claude/settings.json and core/hooks/copilot/copilot-pre-tool.py for the prior art).
 
 import { spawnSync } from "node:child_process"
-import { resolve } from "node:path"
+import { dirname, resolve } from "node:path"
+import { fileURLToPath } from "node:url"
 
-export const WORKSPACE = "/mnt/workspace"
+// Derived, never spelled. This was one machine's absolute path until 2026-08-30 — a directory only
+// the authoring machine has, so on any other clone every hook path this module builds pointed at
+// nothing and the whole opencode policy plugin was inert. The file sits at <root>/.opencode/, so
+// the root is two levels up from its own URL, which is true wherever the repo is cloned.
+export const WORKSPACE = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 export const HOOKS = `${WORKSPACE}/core/hooks`
 
 // opencode tool names -> Claude canonical env value + matcher group.

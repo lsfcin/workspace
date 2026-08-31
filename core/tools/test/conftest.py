@@ -47,11 +47,15 @@ for _dir in [*_tree(HOOKS), *_tree(TOOLS)]:
 def git_lines(*args) -> list:
     """Lines of a git query against the workspace, minus the ratchet files themselves.
 
-    Shared because a ratchet necessarily NAMES what it forbids: a test asserting nobody spells
-    `/mnt/workspace` has to spell it to search for it, and would otherwise be its own only
-    finding. Any path containing `_ratchet` is dropped for that reason — the rule is the file
-    kind, not a list of filenames, so splitting the ratchets into a second file cannot silently
-    make one of them count itself.
+    Shared because a ratchet necessarily NAMES what it forbids: a test asserting nobody spells the
+    authoring machine's absolute root has to spell it to search for it, and would otherwise be its
+    own only finding. Any path containing `_ratchet` is dropped for that reason — the rule is the
+    file kind, not a list of filenames, so splitting the ratchets into a second file cannot
+    silently make one of them count itself.
+
+    The ratchets get the needle itself from `platform_law.AUTHORING_ROOT` rather than spelling it,
+    so this docstring names it in words. That is not evasion of the count — it is the same rule
+    ROADMAP.md § Portability already follows for the same reason.
     """
     import subprocess
     done = subprocess.run(['git', *args], cwd=WORKSPACE_ROOT, capture_output=True, text=True)

@@ -1,25 +1,17 @@
 #!/usr/bin/env python3
 # The platform seam: the one file in this workspace allowed to know what an operating system is.
 #
-# Sibling of file_law.py / schema_law.py / feature_law.py, and the same shape as all three: one
-# module owns one question so the answer cannot drift. file_law says what a file IS, schema_law what
-# a name MAY BE, feature_law what is ON, and this one what the machine underneath is.
+# Sibling of file_law.py / schema_law.py / feature_law.py — one module owns one question so the
+# answer cannot drift. file_law says what a file IS, schema_law what a name MAY BE, feature_law
+# what is ON, this one what the machine underneath is.
 #
-# WHY A SEAM AND NOT A PER-OS FORK. Porting bash to Python is not adding a Windows implementation,
-# it is removing the per-OS axis. The workspace already ran the experiment: it holds exactly three
-# per-OS forks and all three are broken — start-session.ps1 prints a WORKSPACE.md that does not
-# exist, .agentrc.json points at that broken file, and caveman's activate.js names a statusline
-# script absent from the repo. Three of three is not luck, it is the failure mode. So the rule is
-# not "branch carefully", it is `sys.platform` appears HERE and nowhere else, and a ratchet in
-# core/tools/test/workspace/test_corpus_ratchet.py holds the count at zero everywhere else.
+# WHY A SEAM AND NOT A PER-OS FORK. Porting bash to Python removes the per-OS axis rather than
+# adding a Windows arm: all three per-OS forks this workspace ever had were broken by the time the
+# port found them. So `sys.platform` appears HERE and nowhere else, held at zero by
+# core/tools/test/workspace/test_port_ratchet.py.
 #
-# ONLY WHAT HAS A CALLER. `.venv/bin` vs `.venv/Scripts`, the package manager and the link strategy
-# belong to this seam and have no caller yet — they arrive with the de-bash work that needs them. An
-# API written before its call site is a guess that later readers mistake for a decision.
-#
-# `interpreter()` was cut on that rule and put back the same session, which is worth recording: its
-# ~20 callers are SPAWN sites, not imports, so a search for uses found none. A seam function can be
-# load-bearing without any module naming it.
+# ONLY WHAT HAS A CALLER — an API written before its call site is a guess later readers mistake for
+# a decision. Every name below is imported or spawned from outside this file.
 import os
 import subprocess
 import sys
@@ -31,6 +23,17 @@ WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 # The one place a platform question is answered by name. Every other module asks a function here.
 _WINDOWS = sys.platform == 'win32'
 _DARWIN = sys.platform == 'darwin'
+
+POSIX_VENV_BIN = '.venv/bin'         # the seam publishes its DATA, not only its behaviour: these
+WINDOWS_VENV_BIN = '.venv/Scripts'   # were re-spelled in 20 files, which is what the ceilings count
+AUTHORING_ROOT = '/mnt/workspace'    # named ONCE, so a checker can search without self-finding
+
+
+def venv_script(name: str) -> Path:
+    """A console script inside the venv — pytest, stubgen, yt-dlp, pip. Two differences in one
+    answer: the directory (bin vs Scripts) and the suffix; by hand, a probe misreports a present dep."""
+    return WORKSPACE_ROOT / (WINDOWS_VENV_BIN if _WINDOWS else POSIX_VENV_BIN) / (
+        f'{name}.exe' if _WINDOWS else name)
 
 
 def interpreter() -> str:

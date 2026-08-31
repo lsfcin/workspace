@@ -29,7 +29,7 @@ GOAL_LINE = r'^>\s*goal:\s*(\[[^]]+\]\([^)]+\)|none)\s*$'
 def _under_code(commit) -> bool:
     """Whether the repo committing is a project under code/ -- asked of the MACHINERY root.
 
-    The bash matched the string `/mnt/workspace/code/*`, which is the whole reason this pipeline
+    The bash matched an absolute `code/*` path on one machine, which is the whole reason this pipeline
     could not run on any other clone. `toplevel` is the repo being committed; `root` is where the
     workspace lives; the question is whether the first sits inside `code/` of the second.
     """

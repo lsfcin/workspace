@@ -63,7 +63,12 @@ else
 fi
 
 # ── codegraph nudge — one-time per project per session ───────────────────────
-if [[ "$file" == /mnt/workspace/code/* ]]; then
+# WORKSPACE_ROOT, not a spelled path. Until 2026-08-30 this condition matched one machine's
+# absolute code/ directory, which no other clone has -- so the nudge was unreachable everywhere
+# else and nothing said so. Same shape as the `python3` failures above: a branch that can only ever
+# be false is indistinguishable from one that never had a reason to fire.
+WORKSPACE_ROOT="$(cd "$HOOKS_DIR/.." && pwd)"
+if [[ "$file" == "$WORKSPACE_ROOT"/code/* ]]; then
 	case "$file" in
 		*.pyi|*.d.ts|*.dart.api|*.texif|*.csvif) : ;;  # generated — skip
 		*.py|*.js|*.ts|*.tsx|*.dart|*.jsx)

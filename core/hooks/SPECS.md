@@ -119,7 +119,7 @@ a tool could be spawned the same way a gate is — `core/run tools/video/video`.
 [`core/tools/SPECS.md`](../tools/SPECS.md) § The interpreter for what that replaced.
 
 **A shim carries no machine-specific string, and that is the whole reason `run` exists.** The
-harness expands `${CLAUDE_PROJECT_DIR}`, and `run` picks `.venv/bin/python3` or
+harness expands `${CLAUDE_PROJECT_DIR}`, and `run` picks whichever venv layout is present —
 `.venv/Scripts/python.exe` by asking the filesystem which is there — so a shim is versioned verbatim
 and no install step rewrites it. It is also the only file besides `platform_law.py` allowed to know
 both venv layouts, and `test_corpus_ratchet.py` exempts it by name for that reason.

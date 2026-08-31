@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 """Extract SIGAA fields from a standalone single-table new-schema doc (no
 name-matching needed -- the file holds exactly one discipline)."""
 import docx

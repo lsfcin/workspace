@@ -7,7 +7,7 @@
 ## Starting a new paper
 
 ```bash
-python3 /mnt/workspace/core/hooks/stubgen/paper-scaffold.py new <paper-name>
+sh core/run hooks/stubgen/paper-scaffold.py new <paper-name>
 ```
 
 Creates the full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `labels.md`, and a
@@ -17,7 +17,7 @@ with `refs/CONTEXT.md` pre-filled with the tag schema and workflow.
 Add missing scaffold files to an **existing** paper without overwriting:
 
 ```bash
-python3 /mnt/workspace/core/hooks/stubgen/paper-scaffold.py adapt <path-to-paper>
+sh core/run hooks/stubgen/paper-scaffold.py adapt <path-to-paper>
 ```
 
 The `post-edit` hook warns with the `adapt` command if `refs/CONTEXT.md` is missing when a `.tex`
@@ -26,7 +26,7 @@ file is saved.
 ## Building
 
 ```bash
-cd /mnt/workspace/academy/papers/<paper-folder>
+cd academy/papers/<paper-folder>          # from the workspace root
 latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
 latexmk -C && latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex  # clean rebuild
 ```

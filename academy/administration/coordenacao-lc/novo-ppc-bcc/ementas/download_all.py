@@ -1,7 +1,6 @@
-#!/mnt/workspace/.venv/bin/python3
 """Download every source in inventory.json into fonte/<periodo>__<nome>.docx (gdoc->docx export; no-op for real docx)."""
 import json, pathlib, sys
-sys.path.insert(0, "/mnt/workspace/core/tools")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parents[5] / "core/tools"))
 import drive_core
 
 HERE = pathlib.Path(__file__).parent

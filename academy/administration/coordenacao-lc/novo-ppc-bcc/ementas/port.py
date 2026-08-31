@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Port one discipline into a MODELO-SIGAA doc.
 
 VERBATIM: every existing field value is copied byte-for-byte from the source
@@ -14,7 +13,8 @@ from docx import Document
 from docx.oxml.ns import qn
 from docx.table import Table
 
-MODELO = "/mnt/workspace/Downloads/workspace-drive/MODELO EMENTA SIGAA.docx"
+MODELO = str(__import__("pathlib").Path(__file__).resolve().parents[5]
+              / "Downloads/workspace-drive/MODELO EMENTA SIGAA.docx")
 
 # label prefix -> field key. Order matters (longest/specific first not needed; exact prefixes).
 LABELS = [

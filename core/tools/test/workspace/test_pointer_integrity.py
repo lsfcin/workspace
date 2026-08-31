@@ -136,7 +136,7 @@ def test_no_committed_symlink_carries_an_absolute_path():
     """A symlink is committed by its TEXT, so an absolute one names this machine and no other.
 
     Found 2026-08-25: all 42 skill mirrors under .claude/, .opencode/ and .zcode/ read
-    `/mnt/workspace/core/skills/<name>.md`, so a student cloning anywhere else got 42 dangling
+    an absolute `core/skills/<name>.md`, so a student cloning anywhere else got 42 dangling
     links and no skills in any harness — while criterion 4, clonable by a student, read as met.
     Same class as a dangling `](path)`: a pointer that resolves only where it was written.
 

@@ -10,6 +10,7 @@
 # The bug, 2026-08-28: an unauthenticated push does not fail fast, it blocks on a device-code prompt
 # until `timeout 25` kills it, and every failure -- that one included -- printed "offline, or history
 # diverged (force-push needed)". Two causes named, and on a fresh clone neither was the one.
+from platform_law import AUTHORING_ROOT
 from conftest import WORKSPACE_ROOT
 
 HOOK = WORKSPACE_ROOT / 'core/hooks/commit/post_commit.py'
@@ -47,4 +48,4 @@ def test_the_hook_does_not_spawn_a_python_windows_does_not_have():
     switch this hook reads is silently answered by the advert instead of by feature_law."""
     body = _body()
     assert 'python3 ' not in body, 'post-commit spawns bare python3 again; go through core/hooks/run'
-    assert 'mnt/workspace' not in body, 'post-commit hardcodes one machine path again'
+    assert AUTHORING_ROOT.lstrip('/') not in body, 'post-commit hardcodes one machine path again'

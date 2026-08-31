@@ -8,7 +8,7 @@
 # second is an exception, so a stage is an ordinary function and the coupling is visible.
 #
 # WHY THE PORT WAS NOT OPTIONAL. Every path in those fragments was the literal string
-# /mnt/workspace. The hook is applied globally via core.hooksPath, so on any clone that is not
+# the workspace root. The hook is applied globally via core.hooksPath, so on any clone that is not
 # that one directory the dispatcher could not resolve a single tool it calls -- while both config
 # files read as correct. The enforcement layer had never once fired on a Windows clone.
 #

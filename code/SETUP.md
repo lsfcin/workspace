@@ -92,8 +92,8 @@ reading raw source. Per-project — each project has its own index.
 ### Init a new project
 
 ```bash
-codegraph init /mnt/workspace/code/<project>   # indexes all source files → .codegraph/
-codegraph status /mnt/workspace/code/<project> # verify: nodes, edges, files, DB size
+codegraph init code/<project>     # from the workspace root; indexes all source → .codegraph/
+codegraph status code/<project>   # verify: nodes, edges, files, DB size
 ```
 
 Add to project `.gitignore`:
@@ -109,7 +109,7 @@ No MCP setup needed — index is queried via bash. Index auto-syncs after every 
 `post-edit.sh` runs `codegraph sync <project-root>` after every source edit automatically. To force full reindex:
 
 ```bash
-codegraph init /mnt/workspace/code/<project>
+codegraph init code/<project>
 ```
 
 ### Bash tools (available in any session, no MCP required)

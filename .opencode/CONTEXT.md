@@ -93,7 +93,7 @@ Code hooks). No changes to global `~/.config/opencode/` are made.
 ### Verifying the plugin
 
 Syntax + export check:
-`node --input-type=module -e "import('/mnt/workspace/.opencode/plugins/workspace-policy.js').then(m=>console.log(typeof m.WorkspacePolicy))"`
+`node --input-type=module -e "import('./.opencode/plugins/workspace-policy.js').then(m=>console.log(typeof m.WorkspacePolicy))"` (from the workspace root)
 
 End-to-end smoke test (synthetic client, no opencode process needed): see the
 test harness in the session that created this file — it covers seven original
@@ -107,7 +107,7 @@ to FIXED without a matching `test/**/b<N>-*` spec blocked once the chain is
 seen (context-gate has to pass first to reach issues-gate, same ordering
 as `copilot-pre-tool.py`'s `gate()` chain).
 
-To validate inside a real opencode session, start opencode in `/mnt/workspace`
+To validate inside a real opencode session, start opencode at the workspace root
 and run the test plan from the resume prompt: try to read a `.py` with a current
 `.pyi` (expect block), write a new `.py` without a first-line comment (expect
 block), edit a `.py` past `BLOCK_LINES` (expect block), edit a `.py` (expect
@@ -119,7 +119,7 @@ block), edit a `.py` past `BLOCK_LINES` (expect block), edit a `.py` (expect
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`skills/`](skills/CONTEXT.md) | OpenCode skills for this workspace. |
+| [`skills/`](skills/CONTEXT.md) | OpenCode's discovery point for the skill library: generated copies of core/skills, not tracked. |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|

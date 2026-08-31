@@ -1,4 +1,3 @@
-#!/mnt/workspace/.venv/bin/python3
 """Classify each fonte/<periodo>__<nome>.docx as new-filled / new-blank / old-schema."""
 import json, pathlib
 import docx

@@ -17,7 +17,7 @@ from platform_law import interpreter, posix
 
 GATE = WORKSPACE_ROOT / 'core/hooks/checks/heredoc-gate.py'
 # The cases below need this clone's root spelled INSIDE a shell command, which is the seam's
-# `posix` case exactly. They were literal `/mnt/workspace`, so on any other clone the gate
+# `posix` case exactly. They were an absolute path on one machine, so on any other clone the gate
 # correctly found no workspace file and the test read as a gate that had stopped firing.
 WS = posix(WORKSPACE_ROOT)
 

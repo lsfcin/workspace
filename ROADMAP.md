@@ -135,20 +135,6 @@ what changed but never the option space that was rejected.
 
 ## Portability — would this work on a machine that is not Lucas's
 
-**🟢 drive the two port ceilings to zero**
-*What* — 45 versioned files still hardcode the authoring machine's workspace path, and 18 still name
-the POSIX-only venv bin directory. The largest remaining cluster is `core/tools/deps.txt`, which
-spells that directory once per row in its probe column and whose install hints are raw `apt`/`pip`
-strings rather than `platform_law.package_install`.
-*Note* — spelled in words here on purpose: the ratchet greps for the literal strings, so a ROADMAP
-item naming them becomes one of its own findings.
-*Why* — a probe that cannot run on a clone reports the dependency missing, which is the same false
-answer the `make verify-fast` gate gave. The registry's own rule is that a dependency has **one**
-name; a per-machine spelling per row breaks it.
-*Done when* — `MACHINE_PATH_CEILING` and `VENV_POSIX_CEILING` in
-`core/tools/test/workspace/test_port_ratchet.py` both read 0, and `core/run tools/wos/deps --check`
-is meaningful on this machine.
-
 **🟡 ten tools are over the line-count warn threshold, newly visible**
 *What* — `gdocs` 183, `permissions` 170, `video_core.py` 169, `session/context` 169, `notion` 153
 and five more now warn at commit.

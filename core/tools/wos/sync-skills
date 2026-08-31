@@ -1,22 +1,20 @@
 #!/usr/bin/env bash
 # Usage: core/tools/wos/sync-skills [--check] — regenerate skill mirrors from core/skills/*.md
 #
-# Source of truth:  /mnt/workspace/core/skills/<name>.md
-# Symlink mirrors (<name>/SKILL.md -> source):
-#   /mnt/workspace/.opencode/skills/<name>/SKILL.md   (opencode)
-#   /mnt/workspace/.claude/skills/<name>/SKILL.md     (Claude Code)
-#   /mnt/workspace/.zcode/skills/<name>/SKILL.md      (ZCode)
-# Command file copies (<name>.md — full copy of source, enables /<name> slash command):
-#   /mnt/workspace/.claude/commands/<name>.md         (Claude Code slash commands)
+# Source of truth:  core/skills/<name>.md   (paths below are workspace-relative)
+# Generated COPIES, git-ignored, regenerated on install / edit / create / commit:
+#   .opencode/skills/<name>/SKILL.md   (opencode)
+#   .claude/skills/<name>/SKILL.md     (Claude Code)
+#   .zcode/skills/<name>/SKILL.md      (ZCode)
+#   .claude/commands/<name>.md         (Claude Code slash commands, links rebased)
 #
 # Excluded from mirroring: _template.md, *.original.md, CONTEXT.md
 #
 # Linux is case-sensitive — the source dir is `core` (lowercase).
-# Never use `Core` in symlink targets.
 #
 # Usage:
-#   core/tools/wos/sync-skills            # sync all mirrors + command files
-#   core/tools/wos/sync-skills --check    # exit 1 if mirrors/command files are stale/broken/missing
+#   sh core/tools/wos/sync-skills         # sync all mirrors + command files
+#   sh core/tools/wos/sync-skills --check # exit 1 if mirrors/command files are stale/broken/missing
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

@@ -29,7 +29,7 @@ xelatex --version
 Use local-first compilation, Overleaf as sync/checkpoint:
 
 ```bash
-cd /mnt/workspace/academy/papers/<paper-folder>
+cd academy/papers/<paper-folder>          # from the workspace root
 latexmk -xelatex -halt-on-error -interaction=nonstopmode main.tex
 ```
 
