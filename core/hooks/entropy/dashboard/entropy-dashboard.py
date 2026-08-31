@@ -12,6 +12,7 @@
 # Crossing a threshold asks for a CUT, never for a summary — forced brevity is the trap, and
 # core/SCHEMA.md § A type that outgrows the cap is cut says what a cut may
 # not throw away.
+import os
 import sys
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
@@ -123,14 +124,16 @@ def collect(files: list) -> dict:
     return findings
 
 
-def main() -> int:
+def main(argv: list | None = None) -> int:
     if not feature_law.is_enabled('entropy-dashboard'):
         return 0  # switched off: no report is written, so the number stops existing rather than lying
+    args = argv if argv is not None else sys.argv[1:]
+    dry_run = '--dry-run' in args or bool(os.environ.get('LAW_PROBE')) or bool(os.environ.get('WOS_DRY_RUN'))
     files = tracked_files(WORKSPACE_ROOT, nested=True)
     findings = collect(files)
     # Every code repo's findings go to its own ledger first; what is left is this repo's own, and
     # the counts come back so the root can sum them in the same pass that wrote them.
-    mine, counts = scatter(findings, WORKSPACE_ROOT, files)
+    mine, counts = scatter(findings, WORKSPACE_ROOT, files, write=not dry_run)
     text = REPORT.read_text(encoding='utf-8') if REPORT.exists() else SEED
     here = sum(len(mine[k]) for k, _, _ in SECTIONS)
     collected = here + sum(counts.values())
@@ -141,8 +144,10 @@ def main() -> int:
     # (34 findings with a "+571 over 0 days" beside it, the first run after the header changed).
     trend = format_trend(here, baseline(WORKSPACE_ROOT))
     block = render(mine, len(files), WORKSPACE_ROOT, index=counts, trend=trend)
-    REPORT.write_text(replace_block(text, block, START, END), encoding="utf-8")
-    print(f'entropy dashboard → {_rel(REPORT)} ({collected} findings, '
+    if not dry_run:
+        REPORT.write_text(replace_block(text, block, START, END), encoding="utf-8")
+    status = '[dry-run] ' if dry_run else ''
+    print(f'entropy dashboard {status}→ {_rel(REPORT)} ({collected} findings, '
           f'{here} here, {len(counts)} local ledgers)')
     return 0
 

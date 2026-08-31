@@ -64,7 +64,7 @@ def write_local(repo: str, root: Path, findings: dict, scanned: int) -> int:
     return sum(len(items) for items in findings.values())
 
 
-def scatter(findings: dict, root: Path, files: list) -> tuple:
+def scatter(findings: dict, root: Path, files: list, write: bool = True) -> tuple:
     """Write every local ledger, and hand back (the root's own findings, count per repo).
 
     Each ledger reports the files scanned in ITS OWN repo. Handing every one of them the
@@ -77,5 +77,9 @@ def scatter(findings: dict, root: Path, files: list) -> tuple:
     for path in files:
         if repo := owner(str(path), root, repos):
             scanned[repo] += 1
-    counts = {repo: write_local(repo, root, per_repo[repo], scanned[repo]) for repo in repos}
+    if write:
+        counts = {repo: write_local(repo, root, per_repo[repo], scanned[repo]) for repo in repos}
+    else:
+        counts = {repo: sum(len(items) for items in per_repo[repo].values()) for repo in repos}
     return mine, counts
+

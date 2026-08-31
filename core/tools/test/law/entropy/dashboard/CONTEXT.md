@@ -18,6 +18,7 @@ these checks exist to catch.
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`test_b9_dry_run.py`](test_b9_dry_run.py) | [`test_b9_dry_run.pyi`](test_b9_dry_run.pyi) | — | B9 regression — a verification run is not a write. test_features_wiring probes every registered hook, and one of them is the entropy dashboard, which rewrote ISSUES.md (and every nested repo's local ledger) on each probe — measured 2026-08-30 blocking two merges in one session, because git refuses to start one over a dirty tracked file. The dashboard now reports without writing when it sees --dry-run, WOS_DRY_RUN, or the LAW_PROBE environment the wiring probe already exports. This spec holds that seam: a probe-shaped run must leave the working tree byte-identical. |
 | [`test_entropy_scatter.py`](test_entropy_scatter.py) | [`test_entropy_scatter.pyi`](test_entropy_scatter.pyi) | — | T0 the entropy scatter (ruled 2026-08-25): every nested repo keeps its own ledger and the root sums them. Zero-token, runs in verify-fast. |
 | [`test_entropy_trend.py`](test_entropy_trend.py) | [`test_entropy_trend.pyi`](test_entropy_trend.pyi) | `git`, `commit`, `repo` | T0 the entropy trend (core/hooks/entropy/dashboard/entropy_trend.py): a bare count let every session write "flat" while the real number climbed, so the header carries a baseline instead. Zero-token, runs in verify-fast. |
 <!-- routing:end -->
