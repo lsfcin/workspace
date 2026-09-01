@@ -192,7 +192,7 @@ Clean.
 - academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md — 274 lines, over the 200 cap; introduced by f05cac9 lsfcin
 - academy/refs/REFS.md — 1 line(s) over the 120-column cap (first at line 147)
 - brain/INBOX.md — 1 line(s) over the 120-column cap (first at line 19)
-- core/SCHEMA.md — 226 lines, over the 200 cap; introduced by 5c22650 lsfcin
+- core/SCHEMA.md — 220 lines, over the 200 cap; introduced by 5c22650 lsfcin
 - core/SPECS.md — 266 lines, over the 200 cap; introduced by 4c3d952 lsfcin
 - core/hooks/SPECS.md — 361 lines, over the 200 cap; introduced by 0237832 lsfcin
 - core/refs/REFS.md — 2 line(s) over the 120-column cap (first at line 53)
@@ -265,7 +265,7 @@ Clean.
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/codex-and-inbox-wip is 3 ahead of main
-- . — feature/roadmap-shape is 1 ahead of main
+- . — feature/roadmap-shape is 7 ahead of main
 
 ### Work that exists on this disk and nowhere else
 
