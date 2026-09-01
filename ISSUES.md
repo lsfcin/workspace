@@ -28,6 +28,25 @@ of investigation per occurrence, which is the same silent-failure shape
 Restored 2026-08-31: a session deleted this section without a fix or a regression spec, which the
 FIXED gate forbids — deletion is a status flip like any other.
 
+## b20260831-scattered-ledgers-never-push
+
+**Symptom:** committing in the workspace repo makes the ledger scatter write and **commit** a
+regenerated `ISSUES.md` into every nested repo it touched — 25 of them in one go on 2026-08-31 —
+and pushes none of them. The commits are correct; they simply stay on this disk.
+
+**Why it matters:** it manufactures exactly what
+[`code/SPECS-git.md`](code/SPECS-git.md) § Push policy forbids, at a rate of one commit per repo per
+workspace commit, and it does it *behind* the session rather than in front of it — nobody typed the
+commit, so nobody thinks to push it. The repo-wide audit that found it had to push 25 repos by hand
+after having already declared the tree clean twenty minutes earlier.
+
+**Root cause:** the scatter reuses the commit path and not the push path.
+[`core/hooks/post-commit`](core/hooks/post-commit) auto-pushes `feature/*` for the repo the hook
+fired in, and nothing carries that to the repos the scatter wrote into. Two candidate fixes, neither
+costed yet: push each scattered ledger from the same hook, or stop committing them there and let
+each repo's own next commit carry its ledger. The second is smaller and matches "one repo, one
+session, one commit"; the first keeps the ledger true the moment it is written.
+
 <!-- entropy:start -->
 ## Entropy
 
