@@ -34,7 +34,7 @@ def staged_added_files() -> list:
     where the definitions start to disagree.
     """
     out = subprocess.run(['git', 'diff', '--cached', '--name-only', '--diff-filter=AR'],
-                         capture_output=True, text=True).stdout
+                         capture_output=True, text=True, encoding='utf-8').stdout
     return [Path(line) for line in out.splitlines()]
 
 
@@ -49,7 +49,7 @@ def tracked_files(root: Path, nested: bool = False) -> list:
     files = []
     for repo in [root] + (sorted(nested_repos(root)) if nested else []):
         out = subprocess.run(['git', '-C', str(repo), 'ls-files'],
-                             capture_output=True, text=True).stdout
+                             capture_output=True, text=True, encoding='utf-8').stdout
         files += [repo / line for line in out.splitlines()
                   if Path(line).suffix.lower() in SCANNED]
     return files
@@ -66,7 +66,7 @@ def tracked_paths(root: Path, nested: bool = False) -> set:
     paths = set()
     for repo in [root] + (sorted(nested_repos(root)) if nested else []):
         out = subprocess.run(['git', '-C', str(repo), 'ls-files'],
-                             capture_output=True, text=True).stdout
+                             capture_output=True, text=True, encoding='utf-8').stdout
         paths |= {(repo / line).resolve() for line in out.splitlines()}
     return paths
 
@@ -99,9 +99,10 @@ def ignored_here(paths: list, root: Path) -> set:
     mine = [p for p in paths if owning_repo(p, root) == root.resolve()]
     if not mine:
         return set()
+    # posix(), not str(): --stdin is UNQUOTED, so backslashes reach git as escapes and never match.
     out = subprocess.run(['git', '-C', str(root), 'check-ignore', '--stdin'],
-                         input='\n'.join(str(p) for p in mine),
-                         capture_output=True, text=True).stdout
+                         input='\n'.join(posix(p) for p in mine),
+                         capture_output=True, text=True, encoding='utf-8').stdout
     return {Path(line).resolve() for line in out.splitlines()}
 
 

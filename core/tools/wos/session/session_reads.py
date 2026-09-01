@@ -12,10 +12,10 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from session_log import _result_chars, blocks
+from session_log import _result_chars, blocks, project_slug
 from session_turns import paths_for
 
-PROJECT = '-mnt-workspace'
+PROJECT = project_slug()
 STUB_SUFFIXES = ('.pyi', '.d.ts', '.dart.api', '.texif')
 
 
@@ -44,7 +44,7 @@ def file_reads(project: str = PROJECT, session: str = '') -> tuple:
 	sessions: set = set()
 	for path in paths_for(project, session):
 		target_of: dict = {}
-		for line in path.open(errors='replace'):
+		for line in path.open(errors='replace', encoding='utf-8'):
 			try:
 				event = json.loads(line)
 			except json.JSONDecodeError:

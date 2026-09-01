@@ -12,7 +12,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'hooks'))
-from session_log import attribute, median, spread, walk
+from session_log import attribute, median, project_slug, spread, walk
 from platform_law import WORKSPACE_ROOT as WORKSPACE  # noqa: E402
 
 ROOT = Path.home() / '.claude' / 'projects'
@@ -134,7 +134,7 @@ def report_subagents(found: dict) -> None:
 
 def main() -> None:
 	args = sys.argv[1:]
-	project = args[args.index('--project') + 1] if '--project' in args else '-mnt-workspace'
+	project = args[args.index('--project') + 1] if '--project' in args else project_slug()
 	top = int(args[args.index('--top') + 1]) if '--top' in args else 14
 	directory = ROOT / project
 	if not directory.is_dir():

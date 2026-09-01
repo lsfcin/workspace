@@ -16,6 +16,7 @@
 #   4. A blocking gate is a failed `tool_result`, never an attachment. Scanning only attachments
 #      found 1 CONTEXT GATE firing where there are 518.
 import json
+import re
 from collections import defaultdict
 from pathlib import Path
 
@@ -24,6 +25,21 @@ from session_cost import turn_cost
 # Attachments store their text in one of these; `hook_success` carries `content` AND `stdout`
 # holding the same bytes, so the first hit wins and the duplicate is never counted.
 TEXT_FIELDS = ('content', 'addedLines', 'stdout')
+
+PROJECTS = Path.home() / '.claude' / 'projects'
+
+
+def project_slug(root=None) -> str:
+	"""The transcript directory this workspace's sessions are logged into, DERIVED not spelled.
+
+	All three tools defaulted to the authoring machine's path in the harness's notation, so on any
+	other clone they read an empty directory and said "no such project" while the transcripts sat one
+	name over. The I6 ratchet missed it: it greps that path spelled with slashes, and this is the same
+	path spelled with dashes. The harness's rule is one substitution — every character outside
+	[A-Za-z0-9] becomes a dash — so a slash and a drive letter fall out of it alike, named nowhere.
+	"""
+	root = Path(root) if root else Path(__file__).resolve().parents[4]
+	return re.sub(r'[^A-Za-z0-9]', '-', str(root))
 
 
 def label(att: dict) -> str:
@@ -92,7 +108,7 @@ def walk(path: Path, sidechain: bool = False) -> dict:
 	reads = gates = prev = 0
 	spend = 0.0
 
-	for line in path.open(errors='replace'):
+	for line in path.open(errors='replace', encoding='utf-8'):
 		try:
 			event = json.loads(line)
 		except json.JSONDecodeError:

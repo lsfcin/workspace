@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-PROJECT: str
+PROJECT: Incomplete
 STUB_SUFFIXES: Incomplete
 
 def kind_of(path: str) -> str: ...
