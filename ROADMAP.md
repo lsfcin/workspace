@@ -92,11 +92,6 @@ where reaching 200 means deleting the coverage, shim and lifecycle tables. A sib
 *Why* — three drawings answered *what is there*; he needs a glanceable health picture.
 *Done when* — he reads it at a glance and failing shapes are deleted.
 
-**🟡 a session must not decide things quietly**
-*What* — hand-off naming unasked decisions, plus Context/Decision/Consequences for lasting blast radius.
-*Why* — git holds what changed but never the rejected option space.
-*Done when* — decisions too big to take alone are visibly surfaced.
-
 ## Portability — would this work on a machine that is not Lucas's
 
 **🟡 ten tools are over the line-count warn threshold, newly visible**

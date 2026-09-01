@@ -82,6 +82,13 @@ the artifact; let Lucas move his own attention.
 no "none.", no placeholder, no shape to fill. Last session's block ran 48 lines and 3 of its 5
 open threads were already written in `ROADMAP.md` — that is what these caps exist to stop.
 
+**Name what you decided alone.** git holds what changed and never the option that was rejected, so a
+choice a session made for Lucas without asking is invisible the moment it lands — and the longer it
+holds, the more expensive it is to reopen. List them; the point is that he can object cheaply, while
+the alternative is still live. The durable record is [`roundup.md`](roundup.md) Phase 2's job (a
+design decision goes to `SPECS.md` → Architecture Decisions, Context / Decision / Consequences);
+this section only makes sure he *sees* the ones nobody asked him about.
+
 **Say it once.** If a fact is already in a ledger — a `ROADMAP.md` item, a `ISSUES.md` entry, a
 `SPECS.md` decision — point at the file; do not restate it. The next session reads those anyway,
 and a hand-off that duplicates them is a second copy to keep in sync.
@@ -102,6 +109,10 @@ Print the block between the `---` markers:
 
 ### Open threads
 [Discussed but unresolved — dead ends and what was tried. Omit the whole section if there are none.]
+
+### Decided without asking
+[One line each: the choice, and the option not taken. Only choices Lucas could reasonably have made
+ differently — not every judgement call. Point at the SPECS.md AD if one was written. Omit if none.]
 
 ### State
 [Every line core/tools/wos/roundup printed this session, verbatim, in its order.
