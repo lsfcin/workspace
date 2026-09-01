@@ -243,19 +243,23 @@ proportion to what this workspace is. Copying removes the per-OS axis instead of
 it, and what the symlink bought was freshness, which is now regeneration at the moments that change
 a skill: this step, the post-edit hook, and the pre-commit generator.
 
-**Precondition** `bash core/tools/wos/sync-skills --check`
+**Precondition** `core/run tools/wos/sync-skills --check`
 
-`bash …`, not `core/run …` and not `sh …`: the launcher execs its target with **Python**, and these
-two tools are the workspace's only bash ones — while on POSIX `sh` is dash, which has no arrays and
-dies on their first line. Everything else under `core/tools/` is spelled `core/run tools/…`.
+One spelling, like every other tool. This step said `bash …` and gave the reason that the launcher
+execs its target with Python — true until B12 closed, since when `core/run` dispatches on the
+shebang and these two bash tools reach `bash` through it like any other target. Never bare `sh …`:
+on POSIX that is dash, which has no arrays and dies on their first line.
 
 **Install** — idempotent; it also prunes mirrors whose source skill is gone or switched off:
 ```bash
-bash core/tools/wos/sync-skills
+core/run tools/wos/sync-skills
 ```
 
-**Verify** `bash core/tools/wos/sync-skills --check` — prints `OK: all mirrors and command files in
+**Verify** `core/run tools/wos/sync-skills --check` — prints `OK: all mirrors and command files in
 sync`. Any `MISSING` / `STALE` / `ORPHAN` line names the file and the source it disagrees with.
+On a Windows clone this check costs ~22 s and a commit that touches a skill ~30 s, because both
+tools are bash and a fork there costs ~50x what it costs on Linux. Measured 2026-09-01; the port
+that ends it is in `ISSUES.md`.
 
 ## Python interfaces — stubgen
 > feature: `interface-stubs` · agent: yes
@@ -417,11 +421,11 @@ Output compression, ~65% of the agent's own output. **Vendored** since 2026-07-2
 [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman). **Do not run the upstream
 installer**: it replaces the links with copies and re-forks both installs. Needs Node ≥ 18.
 
-**Precondition** `bash core/tools/wos/sync-global-skills --check`
+**Precondition** `core/run tools/wos/sync-global-skills --check`
 
 **Install** — the links, then the config every agent reads:
 ```bash
-bash core/tools/wos/sync-global-skills           # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
+core/run tools/wos/sync-global-skills        # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
 mkdir -p ~/.config/caveman && echo '{"defaultMode": "full"}' > ~/.config/caveman/config.json
 ```
 ```powershell
