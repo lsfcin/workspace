@@ -51,14 +51,5 @@ contract + `SPECS.md` § Current Workflow Contract — já são spec-shaped. Cop
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-29  ·  trend: advancing
-
-| period      | touches |
-|-------------|----------|
-| month       |       9 |
-| trimester   |      18 |
-| semester    |      18 |
-| year        |      18 |
-| 2-year      |      18 |
-| 4-year      |      18 |
+last-touch: 2026-08-31  ·  trend: advancing  ·  touches: 10/19/19/19/19/19
 <!-- stats:end -->

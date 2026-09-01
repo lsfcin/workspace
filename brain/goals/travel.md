@@ -29,14 +29,5 @@ Abrir o calendário e marcar qual semana de 2027 poderia ser a viagem. Só a sem
 
 ## stats
 <!-- stats:start -->
-last-touch: —  ·  trend: new
-
-| period      | touches |
-|-------------|----------|
-| month       |       0 |
-| trimester   |       0 |
-| semester    |       0 |
-| year        |       0 |
-| 2-year      |       0 |
-| 4-year      |       0 |
+last-touch: 2026-08-16  ·  trend: advancing  ·  touches: 1/1/1/1/1/1
 <!-- stats:end -->

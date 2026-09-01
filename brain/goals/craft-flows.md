@@ -130,14 +130,5 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: advancing
-
-| period      | touches |
-|-------------|----------|
-| month       |      35 |
-| trimester   |      56 |
-| semester    |      92 |
-| year        |      92 |
-| 2-year      |      92 |
-| 4-year      |      92 |
+last-touch: 2026-08-31  ·  trend: advancing  ·  touches: 39/60/96/96/96/96
 <!-- stats:end -->

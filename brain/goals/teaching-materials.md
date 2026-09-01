@@ -122,14 +122,5 @@ o formato.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: advancing
-
-| period      | touches |
-|-------------|----------|
-| month       |      37 |
-| trimester   |      57 |
-| semester    |      57 |
-| year        |      57 |
-| 2-year      |      57 |
-| 4-year      |      57 |
+last-touch: 2026-08-31  ·  trend: advancing  ·  touches: 38/58/58/58/58/58
 <!-- stats:end -->

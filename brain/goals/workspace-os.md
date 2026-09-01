@@ -147,14 +147,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: advancing
-
-| period      | touches |
-|-------------|----------|
-| month       |     332 |
-| trimester   |     464 |
-| semester    |     484 |
-| year        |     484 |
-| 2-year      |     484 |
-| 4-year      |     484 |
+last-touch: 2026-09-01  ·  trend: advancing  ·  touches: 340/472/492/492/492/492
 <!-- stats:end -->

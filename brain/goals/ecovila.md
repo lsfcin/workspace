@@ -38,14 +38,5 @@ Precisa de OCR primeiro (PDF image-only). 15 min de leitura assim que o OCR sair
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: advancing
-
-| period      | touches |
-|-------------|----------|
-| month       |       7 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+last-touch: 2026-08-24  ·  trend: advancing  ·  touches: 7/9/9/9/9/9
 <!-- stats:end -->

@@ -63,14 +63,5 @@ lab's north star in text.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-14  ·  trend: steady
-
-| period      | touches |
-|-------------|----------|
-| month       |       5 |
-| trimester   |      14 |
-| semester    |      14 |
-| year        |      14 |
-| 2-year      |      14 |
-| 4-year      |      14 |
+last-touch: 2026-09-01  ·  trend: steady  ·  touches: 8/20/20/20/20/20
 <!-- stats:end -->

@@ -75,14 +75,5 @@ fallback · even a partial map beats starting from zero again*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: advancing
-
-| period      | touches |
-|-------------|----------|
-| month       |      16 |
-| trimester   |      32 |
-| semester    |      32 |
-| year        |      32 |
-| 2-year      |      32 |
-| 4-year      |      32 |
+last-touch: 2026-08-31  ·  trend: advancing  ·  touches: 18/34/34/34/34/34
 <!-- stats:end -->

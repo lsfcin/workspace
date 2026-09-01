@@ -75,14 +75,5 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-28  ·  trend: advancing
-
-| period      | touches |
-|-------------|----------|
-| month       |       9 |
-| trimester   |       9 |
-| semester    |       9 |
-| year        |       9 |
-| 2-year      |       9 |
-| 4-year      |       9 |
+last-touch: 2026-08-31  ·  trend: advancing  ·  touches: 10/10/10/10/10/10
 <!-- stats:end -->

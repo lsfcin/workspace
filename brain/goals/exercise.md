@@ -42,14 +42,5 @@ counts. Start from what was actually fun.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-17  ·  trend: steady
-
-| period      | touches |
-|-------------|----------|
-| month       |       3 |
-| trimester   |       9 |
-| semester    |       9 |
-| year        |       9 |
-| 2-year      |       9 |
-| 4-year      |       9 |
+last-touch: 2026-08-24  ·  trend: steady  ·  touches: 3/10/10/10/10/10
 <!-- stats:end -->

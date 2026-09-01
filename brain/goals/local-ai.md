@@ -74,14 +74,5 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-28  ·  trend: decelerating
-
-| period      | touches |
-|-------------|----------|
-| month       |      15 |
-| trimester   |     136 |
-| semester    |     136 |
-| year        |     136 |
-| 2-year      |     136 |
-| 4-year      |     136 |
+last-touch: 2026-08-31  ·  trend: steady  ·  touches: 32/153/153/153/153/153
 <!-- stats:end -->

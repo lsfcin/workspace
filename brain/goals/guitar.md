@@ -53,14 +53,5 @@ notes you like, let your hands move without a plan. The point is contact, not pe
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-28  ·  trend: steady
-
-| period      | touches |
-|-------------|----------|
-| month       |       2 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+last-touch: 2026-08-31  ·  trend: steady  ·  touches: 3/9/9/9/9/9
 <!-- stats:end -->

@@ -67,14 +67,5 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: steady
-
-| period      | touches |
-|-------------|----------|
-| month       |      13 |
-| trimester   |      35 |
-| semester    |      55 |
-| year        |      55 |
-| 2-year      |      61 |
-| 4-year      |      61 |
+last-touch: 2026-08-31  ·  trend: steady  ·  touches: 20/42/62/62/68/68
 <!-- stats:end -->

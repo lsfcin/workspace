@@ -64,14 +64,5 @@ the views. Walls, vision, fog and z-order must be right; the art is deliberately
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: decelerating
-
-| period      | touches |
-|-------------|----------|
-| month       |      51 |
-| trimester   |     600 |
-| semester    |     610 |
-| year        |     610 |
-| 2-year      |     610 |
-| 4-year      |     610 |
+last-touch: 2026-08-31  ·  trend: decelerating  ·  touches: 31/502/623/623/623/623
 <!-- stats:end -->

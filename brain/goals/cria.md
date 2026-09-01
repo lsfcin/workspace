@@ -68,14 +68,5 @@ próximo passo.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: steady
-
-| period      | touches |
-|-------------|----------|
-| month       |      12 |
-| trimester   |      36 |
-| semester    |      36 |
-| year        |      36 |
-| 2-year      |      36 |
-| 4-year      |      36 |
+last-touch: 2026-08-31  ·  trend: steady  ·  touches: 16/40/40/40/40/40
 <!-- stats:end -->

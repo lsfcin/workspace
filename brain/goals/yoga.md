@@ -48,14 +48,5 @@ fallback · even 5 minutes counts — depth over duration*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-07-22  ·  trend: stalled
-
-| period      | touches |
-|-------------|----------|
-| month       |       0 |
-| trimester   |       6 |
-| semester    |       6 |
-| year        |       6 |
-| 2-year      |       6 |
-| 4-year      |       6 |
+last-touch: 2026-08-24  ·  trend: decelerating  ·  touches: 1/7/7/7/7/7
 <!-- stats:end -->

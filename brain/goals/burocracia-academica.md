@@ -50,14 +50,5 @@ Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e es
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-25  ·  trend: advancing
-
-| period      | touches |
-|-------------|----------|
-| month       |      17 |
-| trimester   |      18 |
-| semester    |      18 |
-| year        |      18 |
-| 2-year      |      18 |
-| 4-year      |      18 |
+last-touch: 2026-08-31  ·  trend: advancing  ·  touches: 18/25/25/25/25/25
 <!-- stats:end -->

@@ -56,14 +56,5 @@ minutos.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-13  ·  trend: advancing
-
-| period      | touches |
-|-------------|----------|
-| month       |       1 |
-| trimester   |       1 |
-| semester    |       1 |
-| year        |       1 |
-| 2-year      |       1 |
-| 4-year      |       1 |
+last-touch: 2026-08-24  ·  trend: advancing  ·  touches: 2/2/2/2/2/2
 <!-- stats:end -->

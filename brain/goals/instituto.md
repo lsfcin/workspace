@@ -76,14 +76,5 @@ fallback · if full institute is too much, a simpler form (collective, project, 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-14  ·  trend: steady
-
-| period      | touches |
-|-------------|----------|
-| month       |       2 |
-| trimester   |      10 |
-| semester    |      10 |
-| year        |      10 |
-| 2-year      |      10 |
-| 4-year      |      10 |
+last-touch: 2026-08-31  ·  trend: steady  ·  touches: 6/15/15/15/15/15
 <!-- stats:end -->

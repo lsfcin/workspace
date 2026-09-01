@@ -38,14 +38,5 @@ Achar no SIGEPE ou no contracheque a data da última progressão e anotar aqui. 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: steady
-
-| period      | touches |
-|-------------|----------|
-| month       |       2 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+last-touch: 2026-08-24  ·  trend: steady  ·  touches: 3/9/9/9/9/9
 <!-- stats:end -->

@@ -63,14 +63,5 @@ profile 2.5D (mais reuso do isoroll). 10 min relendo §6 antes de escrever a gra
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: steady
-
-| period      | touches |
-|-------------|----------|
-| month       |      12 |
-| trimester   |      36 |
-| semester    |      36 |
-| year        |      36 |
-| 2-year      |      36 |
-| 4-year      |      36 |
+last-touch: 2026-08-31  ·  trend: steady  ·  touches: 19/43/43/43/43/43
 <!-- stats:end -->

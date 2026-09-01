@@ -48,14 +48,5 @@ to submission." Show up first, content second.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: decelerating
-
-| period      | touches |
-|-------------|----------|
-| month       |       1 |
-| trimester   |       7 |
-| semester    |       7 |
-| year        |       7 |
-| 2-year      |       7 |
-| 4-year      |       7 |
+last-touch: 2026-08-24  ·  trend: steady  ·  touches: 2/8/8/8/8/8
 <!-- stats:end -->
