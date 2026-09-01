@@ -21,6 +21,13 @@ project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of
 *Why* — the norm that produced this mass now says cut. A `.md` line in this tree is re-read by every session.
 *Done when* — both numbers are met with `verify-fast` green. Check code parsers before cutting any `.md`.
 
+**🟢 four law files sit over the 200-line cap and each needs its own sitting**
+*What* — `SETUP.md`, `core/hooks/SPECS.md`, `core/SPECS.md`, `core/SCHEMA.md` under the cap, cut not split.
+*Why* — they are the largest scaffold files and the cut pays twice, closing size findings and the item above.
+*Done when* — § Size signals lists none of them. **Not narration — every line is live law.** `SCHEMA.md`'s
+tables are parsed by `schema_law.py` and its transient-doc rows are live exemptions; `SETUP.md` answers to
+`test_setup_executable.py`. Cut prose around them, never a row, and read the parser before the file.
+
 **🟡 ten routing rows name a file this repo does not carry**
 *What* — the inherited backlog behind `ROUTING_CEILING` drained: each row tracked, or stopped being routed to.
 *Why* — a clone gets the table and not the file; the check that found them only stops the count rising.
