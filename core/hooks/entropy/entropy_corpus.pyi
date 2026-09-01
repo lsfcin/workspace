@@ -1,11 +1,13 @@
 from _typeshed import Incomplete
 from pathlib import Path
 
+LINK_RE: Incomplete
 SCANNED: Incomplete
 SKIP_DIRS: Incomplete
 
 def staged_added_files() -> list: ...
 def tracked_files(root: Path, nested: bool = False) -> list: ...
+def tracked_paths(root: Path, nested: bool = False) -> set: ...
 def nested_repos(root: Path, depth: int = 3) -> list: ...
 
 MIRRORS: Incomplete

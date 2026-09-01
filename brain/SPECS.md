@@ -25,7 +25,18 @@ Horizon: `now` / `near` / `year` / `dream`
 | `>**analysis**` | need strategic synthesis on fears or block |
 | `## selected next achievement` | always on once backlog exists — ease-start always filled |
 | `>**timing**` | external anchor or window worth naming |
-| `## stats` | refreshed by agent during compass review |
+| `## stats` | written by `core/hooks/brain/brain_stats.py` on every commit — never by hand |
+
+`## stats` reads `touches: a/b/c/d/e/f` — **month / trimester / semester / year / 2-year / 4-year**,
+the periods in `core/hooks/brain/brain_common.py`. Named here once rather than on every goal file:
+it was a six-row table in each of them until 2026-08-31, ~320 lines of the corpus that nothing read,
+while `GOALS.md` built its dashboard from git directly.
+
+**A goal file is written in whatever language Lucas thinks in.** The English rule for the durable
+`.md` corpus (`ROADMAP.md` § Shape) serves documents an agent re-reads every session; a goal file's
+reader is Lucas, and translating his own motivation into a second language costs him the thing that
+makes it work. Exempt, ruled 2026-08-31. `brain/goals/CONTEXT.md`'s routing table inherits the
+exemption — it is generated from these files' first lines.
 
 ## Signals
 

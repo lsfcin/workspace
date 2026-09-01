@@ -2,12 +2,19 @@
 # Which files the Tier 0 checks look at, and which of them are allowed to name what the
 # checks forbid. Split from entropy_ledger.py 2026-07-30 at the 150-line warn: enumerating
 # the corpus is a different job from asserting things about it.
+import re
 import subprocess
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from platform_law import posix  # noqa: E402
+
+# What a markdown link looks like, defined once. Two checks ask different questions of the same
+# syntax — core/tools/test/workspace/test_pointer_integrity.py asks whether a target EXISTS and
+# blocks, entropy_naming.untracked_routing_targets asks whether git CARRIES it and reports — and a
+# second copy of the pattern is where those two would start disagreeing about what a link is.
+LINK_RE = re.compile(r'!?\[[^\]]*\]\(([^)\s]+)\)')
 
 SCANNED = {'.md', '.py', '.ts', '.tsx', '.js', '.jsx', '.sh', '.dart',
            '.yaml', '.yml', '.json', '.css', '.scss', '.tex', ''}
@@ -46,6 +53,22 @@ def tracked_files(root: Path, nested: bool = False) -> list:
         files += [repo / line for line in out.splitlines()
                   if Path(line).suffix.lower() in SCANNED]
     return files
+
+
+def tracked_paths(root: Path, nested: bool = False) -> set:
+    """EVERY path git tracks, with no extension filter — the inventory, not the corpus.
+
+    `tracked_files` above answers "what may a check read", and drops anything outside SCANNED on
+    the way. Asking it "does git carry this?" gets the wrong answer for every tracked `.pyi`,
+    `.texif`, `.png` or `.tex`: 204 of them read as untracked the first time
+    entropy_naming.untracked_routing_targets was pointed at it. Two questions, two functions.
+    """
+    paths = set()
+    for repo in [root] + (sorted(nested_repos(root)) if nested else []):
+        out = subprocess.run(['git', '-C', str(repo), 'ls-files'],
+                             capture_output=True, text=True).stdout
+        paths |= {(repo / line).resolve() for line in out.splitlines()}
+    return paths
 
 
 def nested_repos(root: Path, depth: int = 3) -> list:

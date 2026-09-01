@@ -69,7 +69,13 @@ academy/classes/*
 !academy/classes/CONTEXT.md
 !academy/lab/
 academy/lab/*
-!academy/lab/CONTEXT.md
+# The same repair as academy/papers/*.md below, for the same reason: CHECKPOINTS.md is the law
+# academy/lab/CONTEXT.md routes to and calls "the law", and it was ignored and untracked, so it
+# had no history anywhere and a clone got the routing table without the file. Excepting the *.md
+# glob rather than one name at a time is what stops the gap reopening for the next type.
+# The dated snapshots stay out on purpose — CONTEXT.md declares them captured, not authored.
+!academy/lab/*.md
+academy/lab/*-backup-*.md
 !academy/papers/
 academy/papers/*
 # Domain-level .md files here are structural workspace types (CONTEXT, ROADMAP, SPECS,

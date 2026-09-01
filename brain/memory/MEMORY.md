@@ -9,16 +9,16 @@
   (artifact board) before advancing; shortest path to visible content
 - [Fable Quota Strategy](fable_quota_strategy.md) — "Fable decides, Opus writes, Sonnet executes"; multiview is
   consumed, its F1 spine lives on develop; instituto prompt is in its final window
-- [Feedback: provider-agnostic naming](feedback_provider_agnostic_naming.md) — nunca nome de provider/modelo em
-  arquivos/verbos/dirs; função no nome, provider como dado
+- [Feedback: provider-agnostic naming](feedback_provider_agnostic_naming.md) — never a provider or model name in
+  files, verbs or directories; the function is the name, the provider is data
 - [Feedback: background bash reliability](feedback_background_bash_reliability.md) — backgrounded Bash chains can die
   silently across a ScheduleWakeup pause; prefer foreground or unchained calls for sweeps the user is waiting on
-- [Feedback: delete weak features](feedback_delete_weak_features.md) — sinal fraco = deletar por completo (código, docs,
-  deps, menções), deixando só uma nota curta de rejeição; nunca manter rebaixado a "dica"
-- [Feedback: material de aula é aditivo](feedback_additive_course_material.md) — em deck do Lucas, intercalar e refinar
-  no lugar; nunca substituir, pular ou reordenar
-- [Feedback: explore before cutting](feedback_explore_before_cutting.md) — enquanto a decisão de design está aberta,
-  manter todas as variantes; cortar só depois do veredito de Lucas
+- [Feedback: delete weak features](feedback_delete_weak_features.md) — weak signal = delete outright (code, docs,
+  deps, mentions), leaving only a short rejection note; never keep it demoted to a "hint"
+- [Feedback: course material is additive](feedback_additive_course_material.md) — in Lucas's deck, interleave and
+  refine in place; never replace, skip or reorder
+- [Feedback: explore before cutting](feedback_explore_before_cutting.md) — while the design decision is open, keep
+  every variant; cut only after Lucas rules
 - [Reference linuz90 bot](reference_linuz90_bot.md) — linuz90/claude-telegram-bot source read: SDK plain-resume
   single-lineage design + UX feature set; the aiwbot reference
 - [Feedback: full-workflow thinking](feedback_full_workflow_thinking.md) — plan from the user workflow not artifacts;
@@ -29,11 +29,11 @@
   code/spacemantics
 - [Feedback: agent runs auth](feedback_agent_runs_auth.md) — agent runs every auth command itself; ask Lucas only for
   provider-UI clicks, consent screens, minting a secret; pasted secrets go in via builtin pipe, never argv
-- [Feedback: contexto na pergunta](feedback_question_context.md) — toda escolha oferecida ao Lucas explica contexto,
-  problema e tradeoffs na própria pergunta e em cada opção; ele "passa direto" no que não está ali
+- [Feedback: context in the question](feedback_question_context.md) — every choice put to Lucas explains context,
+  problem and tradeoffs in the question itself and in each option; he "passa direto" past what is not there
 - [Feedback: plain language](feedback_plain_language.md) — plain words over jargon (ledger/seam/probe are out); one idea
   one word; language IS the system when the reader is an LLM; say what a session decided alone
-- [Feedback: concise WOS](feedback_concise_wos.md) — cada sessão deve deixar MENOS linhas do que
-  achou; feature nova paga com o corte que a financia; nunca resumir uma lei até ela deixar de valer
-- [Feedback: multiharness essencial](feedback_multiharness_essential.md) — nunca excluir um harness (otimizar a cópia,
-  não a função); e nenhum hook morre sem placar de disparos
+- [Feedback: concise WOS](feedback_concise_wos.md) — every session must leave FEWER lines than it found; a new
+  feature pays with the cut that funds it; never summarize a law until it stops holding
+- [Feedback: multi-harness is essential](feedback_multiharness_essential.md) — never delete a harness (optimize the
+  copying, not the function); and no hook dies without a scoreboard of what it fired on

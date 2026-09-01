@@ -18,6 +18,7 @@
 # number moving. One ratchet per thing the report names.
 import entropy_context
 import entropy_ledger
+import entropy_naming
 from conftest import WORKSPACE_ROOT
 from file_law import load_limits
 
@@ -36,10 +37,18 @@ FINISHED_CEILING = 0
 UNDESCRIBED_CEILING = 3
 MISPLACED_CEILING = 1
 
+# Routing rows pointing at a file git does not carry — a clone gets the table and not the file.
+# Nobody was counting these until 2026-08-31: test_pointer_integrity strips the routing block
+# before it looks, and waives a gitignored target on the grounds that the prose cannot be edited
+# to fix it. True, and the fix is in .gitignore instead — so it is reported here rather than
+# silently allowed. The 10 left are one routing decision each and are not one session's call.
+ROUTING_CEILING = 10
+
 # The margin lets one cut land without forcing a test edit; a real drain pass trips it.
 FINISHED_SLACK = 10
 UNDESCRIBED_SLACK = 10
 MISPLACED_SLACK = 5
+ROUTING_SLACK = 5
 
 
 def _files() -> list:
@@ -54,6 +63,10 @@ def _finished() -> int:
 def _undescribed() -> int:
     return len(entropy_ledger.unanswered_placeholders(
         _files(), entropy_ledger.enforcement_paths(WORKSPACE_ROOT)))
+
+
+def _routing() -> int:
+    return len(entropy_naming.untracked_routing_targets(_files(), WORKSPACE_ROOT))
 
 
 def _misplaced() -> int:
@@ -77,6 +90,15 @@ def test_unanswered_placeholders_do_not_grow():
         f'first-line comment — never by deleting the marker (core/hooks/SPECS.md)')
 
 
+def test_routing_tables_pointing_at_untracked_files_do_not_grow():
+    live = _routing()
+    assert live <= ROUTING_CEILING, (
+        f'{live} routing rows name a file this repo does not track, up from '
+        f'{ROUTING_CEILING}. A clone gets the table and not the file — track the target, '
+        f'or stop routing to it (ISSUES.md § Routing tables pointing at files git does '
+        f'not carry)')
+
+
 def test_constraints_in_context_heads_do_not_grow():
     live = _misplaced()
     assert live <= MISPLACED_CEILING, (
@@ -94,3 +116,6 @@ def test_the_ceilings_are_not_stale():
         f'placeholders are down to {undescribed} — lower UNDESCRIBED_CEILING to match')
     assert MISPLACED_CEILING - misplaced <= MISPLACED_SLACK, (
         f'misplaced is down to {misplaced} — lower MISPLACED_CEILING to match')
+    routing = _routing()
+    assert ROUTING_CEILING - routing <= ROUTING_SLACK, (
+        f'untracked routing targets are down to {routing} — lower ROUTING_CEILING to match')

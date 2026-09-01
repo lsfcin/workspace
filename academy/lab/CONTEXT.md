@@ -4,7 +4,7 @@
 **The content lives in Google Docs; this directory holds the law.** Each student gets their own copy
 of the checkpoints document and fills it in over the whole research. A 700-line mirror of that
 document in the repo would break [`cap`](../../core/norms/cap.md) and nobody would read it, so
-[`CHECKPOINTS.md`](CHECKPOINTS.md) carries only what must stay true — the anatomy, the two loops,
+[`SPECS.md`](SPECS.md) carries only what must stay true — the anatomy, the two loops,
 the verification rules — and dated snapshots carry the text.
 
 **Master document** (Lucas's `personal` account, students copy it):
@@ -22,5 +22,5 @@ not authored.
 | File | Description |
 |------|-------------|
 | [`CHECKPOINTS-backup-2026-08-26.md`](CHECKPOINTS-backup-2026-08-26.md) | research checkpoints — snapshot taken before the 2026-08-26 rewrite |
-| [`CHECKPOINTS.md`](CHECKPOINTS.md) | What must stay true of the student-facing checkpoint document, whoever edits it next. |
+| [`SPECS.md`](SPECS.md) | What must stay true of the student-facing checkpoint document, whoever edits it next. |
 <!-- routing:end -->

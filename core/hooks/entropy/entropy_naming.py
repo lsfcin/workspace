@@ -14,7 +14,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from platform_law import posix  # noqa: E402
+from entropy_corpus import LINK_RE, is_generated_mirror, tracked_paths  # noqa: E402
+from entropy_context import ROUTING_END, ROUTING_START  # noqa: E402
+from platform_law import posix, rel  # noqa: E402
 
 # A finding is TEXT: it lands in ISSUES.md and is matched against baselines spelled with `/`.
 # Spelled by the seam so the same file produces the same finding on every machine — a `\` here
@@ -72,6 +74,63 @@ def check_shape(path: Path, allowed: set) -> str | None:
             f'   Lowercase instances are kebab-case (snake_case for Python modules);\n'
             f'   a type is UPPERCASE.md, optionally TYPE-<slug>.md. The mixed\n'
             f'   <slug>.TYPE.md shape is retired (core/SCHEMA.md § The `.md` type system).')
+
+
+def untracked_routing_targets(files: list, root: Path) -> list:
+    """A routing table pointing at a file git does not carry.
+
+    The general form of the TYPE_SLUG question above, and it sits here for that reason: the shape
+    law says a `TYPE-<slug>.md` is a real shard of its type, and this says the tree really has one.
+    A name that passes `check_shape` and a file a clone never receives are the same defect read
+    from two ends.
+
+    NOBODY WAS WATCHING THIS, and two gates each had a reason not to.
+    `test_pointer_integrity.check_pointers` strips the routing block before it looks, because a
+    stale generated table is a generator bug rather than an authoring one; and what it does see it
+    waives through `_deliberately_absent`, because a link into a gitignored path cannot be fixed by
+    editing the file that carries it. Both are right about blocking and wrong about silence: the
+    fix is real, it is just in `.gitignore` rather than in the prose. So this reports and never
+    blocks, which is what the dashboard is for.
+
+    Generated mirrors are not findings. `.opencode/` and `.zcode/` rebuild their skill trees from
+    `core/skills/` on every sync and git is meant to ignore them — 27 of the 40 links found the day
+    this was written. `is_generated_mirror` already knows them; a second list here is the drift
+    these checks exist to catch.
+    """
+    tracked = tracked_paths(root, nested=True)
+    findings = []
+    for path in files:
+        if path.name != 'CONTEXT.md' or is_generated_mirror(path):
+            continue
+        try:
+            text = path.read_text(encoding='utf-8')
+        except (OSError, UnicodeDecodeError):
+            continue
+        if ROUTING_START not in text or ROUTING_END not in text:
+            continue
+        block = text.split(ROUTING_START, 1)[1].split(ROUTING_END, 1)[0]
+        for link in sorted(set(LINK_RE.findall(block))):
+            if link.startswith(('http://', 'https://', 'mailto:')) or '<' in link:
+                continue
+            target = (path.parent / link.split('#', 1)[0]).resolve()
+            if is_generated_mirror(target) or target.resolve() in tracked:
+                continue
+            if not target.is_file() or _owning_repo(target, root) != root.resolve():
+                # A broken link, another repo's file, or a bare directory. The first is
+                # test_pointer_integrity's, the second is that repo's own ledger's, and git has
+                # no object for the third — none of them is a routing table carrying a lie.
+                continue
+            findings.append(
+                f'{_head(path)}: routes to {rel(target, root)}, which this repo does not\n'
+                f'   track. A clone gets the table and not the file, so the row points at\n'
+                f'   nothing. Track the target, or stop routing to it.')
+    return sorted(set(findings))
+
+
+def _owning_repo(path: Path, root: Path) -> Path:
+    """The repo a file really belongs to. A nested repo's file is tracked THERE, and charging it
+    to this one reports 27 papers and modules as untracked on every run."""
+    return next((d.resolve() for d in path.parents if (d / '.git').exists()), root.resolve())
 
 
 def check_dirs(path: Path, root: Path) -> str | None:

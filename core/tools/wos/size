@@ -25,19 +25,37 @@ def git(root, *args):
     return r.stdout if r.returncode == 0 else ''
 
 
-def authored_md(root):
+# The scaffold: the workspace describing itself, which is what ROADMAP.md § Shape sets a target
+# for. Content trees (academy/, branches/, code/, models/) grow because Lucas is doing his work and
+# are not the thing being held to a number. Named here rather than in the roadmap because a scope
+# is a definition and a target is a decision — the number stays in ROADMAP.md, where a reader who
+# disagrees with it can argue with it.
+SCOPES = {'scaffold': ('core/', 'brain/')}
+
+
+def in_scope(rel, scope):
+    """Root files plus the named prefixes. A root `.md` is scaffold by definition — there is
+    nothing else at the top of this tree."""
+    if not scope:
+        return True
+    return '/' not in rel or rel.startswith(SCOPES[scope])
+
+
+def authored_md(root, scope=''):
     """Tracked .md paths that a human wrote — the only ones a size number may claim."""
     out = []
     for rel in git(root, 'ls-files', '--', '*.md').splitlines():
         p = root / rel
         if file_law.is_vendored(p, root) or file_law.is_generated_artifact(p, root):
             continue
+        if not in_scope(rel, scope):
+            continue
         out.append(rel)
     return out
 
 
-def corpus(root):
-    files = authored_md(root)
+def corpus(root, scope=''):
+    files = authored_md(root, scope)
     lines = 0
     for rel in files:
         p = root / rel
@@ -93,6 +111,8 @@ def main():
     ap.add_argument('--session', help='session id; adds this session\'s +/- delta')
     ap.add_argument('--since', help='base commit for the delta, instead of --session')
     ap.add_argument('--root', default='.', help='repo to measure (default: cwd)')
+    ap.add_argument('--scope', choices=sorted(SCOPES),
+                    help='restrict to one part of the tree (scaffold: root + core/ + brain/)')
     args = ap.parse_args()
 
     root = Path(git(Path(args.root).resolve(), 'rev-parse', '--show-toplevel').strip() or '')
@@ -100,8 +120,11 @@ def main():
         print('not a git repo', file=sys.stderr)
         return 64
 
-    files, lines = corpus(root)
+    scope = args.scope or ''
+    files, lines = corpus(root, scope)
     parts = [f'{files:,} .md files', f'{lines:,} lines']
+    if scope:
+        parts.insert(0, scope)
 
     base = args.since or (base_commit(root, args.session) if args.session else '')
     if base:

@@ -37,7 +37,8 @@ from entropy_fields import field_hits  # noqa: E402
 from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
                             goal_vocabulary, retired_hits,
                             unanswered_placeholders, wiki_link_hits)
-from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
+from entropy_naming import (check_dirs, check_placement,  # noqa: E402
+                            check_shape, untracked_routing_targets)
 from entropy_size import size_signals, stub_signals  # noqa: E402
 from entropy_report import END, SECTIONS, SEED, START, render  # noqa: E402
 from entropy_scatter import scatter  # noqa: E402
@@ -109,6 +110,7 @@ def collect(files: list) -> dict:
         wiki_exempt_paths(WORKSPACE_ROOT))
     findings['duplicates'] = [f'`[{slug}]` claimed by {", ".join(sorted(claims))}'
                               for slug, claims in duplicate_slugs(LEDGERS).items()]
+    findings['routing'] = untracked_routing_targets(files, WORKSPACE_ROOT)
     findings['size'] = size_signals(files)
     findings['stubs'] = stub_signals(files)
     findings['fanout'] = fanout_signals(files, WORKSPACE_ROOT)

@@ -11,6 +11,7 @@ import subprocess
 from pathlib import Path, PurePosixPath
 
 from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
+from entropy_corpus import LINK_RE  # one definition of what a link is, not two
 from platform_law import rel
 
 # The auto-memory store lives IN the workspace as of 2026-08-15; the harness path
@@ -28,7 +29,6 @@ EXCLUDE_DIRS = {".git", "node_modules", ".venv", "__pycache__", ".craft"}
 EXCLUDE_PREFIXES = (".Trash",)
 STRUCTURAL_NAME = re.compile(r"^(CONTEXT|SCHEMA|AGENTS|ROADMAP|ROADMAP-.*)\.md$")
 
-LINK_RE = re.compile(r"!?\[[^\]]*\]\(([^)\s]+)\)")
 FENCE_RE = re.compile(r"^\s*```")
 INLINE_CODE_RE = re.compile(r"`[^`\n]+`")
 ROUTING_BLOCK_RE = re.compile(

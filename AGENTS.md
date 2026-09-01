@@ -3,9 +3,12 @@
 
 <!-- norms:start -->
 - FILESYSTEM = source of truth. No memory, no assumptions.
-- **PROVIDER-AGNOSTIC STORAGE**: the workspace owns its state, never a harness; if it insists, symlink the path into WIS.
-- **SECRETS STAY OUT OF GIT**: passwords, tokens, CPF/CNPJ go in a gitignored `<subtree>/segredos.env`; the text keeps the label.
-- IMPROVE WOS, after finishing MICRO (particular task), take a step back and review and refine MACRO (structure). if it ain't feasible to do it on this session, WRITE ISSUES DOWN at the end of INBOX.md
+- **PROVIDER-AGNOSTIC STORAGE**: the workspace owns its state, never a harness; if it insists,
+symlink the path into WIS.
+- **SECRETS STAY OUT OF GIT**: passwords, tokens, CPF/CNPJ go in a gitignored
+`<subtree>/segredos.env`; the text keeps the label.
+- IMPROVE WOS, after finishing MICRO (particular task), take a step back and review and refine MACRO
+(structure). if it ain't feasible to do it on this session, WRITE ISSUES DOWN at the end of INBOX.md
 - DON'T ASSUME, interview user if in doubt about his idea or intent.
 - EXPAND ACRONYMS on first use. Aliases: [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary.
 - EDIT > CREATE: refine / improve **wins over** creating new, except for prototyping. Avoid scattering.

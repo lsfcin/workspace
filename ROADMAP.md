@@ -14,27 +14,17 @@
 ## Shape — does the tree still look like what we say it does
 
 **🟢 the scaffold is still most of a lean workspace away from lean**
-*What* — root + `core/` + `brain/` at **≤170 `.md` files and ≤10,000 lines**, from 273 and 17,074.
-`core/refs`' six shards fold into `REFS.md` and `core/experiments/` keeps conclusions only; `ISSUES.md`'s
-hand-written half fits a screen; each top-level skill reaches ~45 lines; `brain/` sheds attachments,
-project-state memories and most goal files. `core/flows/` and `core/agents/` **wait** (out of scope).
+*What* — root + `core/` + `brain/` at **≤170 `.md` files and ≤10,000 lines**, read from
+`core/run tools/wos/size --scope scaffold`. `core/experiments/` keeps conclusions only; `ISSUES.md`'s
+hand-written half fits a screen; each top-level skill reaches ~45 lines; `brain/` sheds attachments and
+project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of scope) but still count.
 *Why* — the norm that produced this mass now says cut. A `.md` line in this tree is re-read by every session.
 *Done when* — both numbers are met with `verify-fast` green. Check code parsers before cutting any `.md`.
 
-**🟢 the corpus is half Portuguese and the rule is English**
-*What* — one language across the durable `.md` corpus, with Lucas's quoted words left as he said them.
-*Why* — two languages in one document costs tokens and readers; he ruled English for docs.
-*Done when* — no file mixes both outside a quote. Convert whole files, never half of one.
-
-**🟡 the line cap and the column cap contradict each other, and `AGENTS.md` satisfies neither**
-*What* — one rule for which cap wins, and an `AGENTS.md` not permanently in violation.
-*Why* — wrapping to column cap pushes files past line caps, trading finding for finding.
-*Done when* — a file near both caps has one legal way out and `AGENTS.md` carries zero findings.
-
-**🟢 a type's sibling files can be gitignored and nothing notices**
-*What* — a Tier 0 check that a file passing `entropy_naming.TYPE_SLUG` is tracked.
-*Why* — untracked `core/SCHEMA-*.md` / `SPECS-*.md` sat with checks green, pointing clones at nothing.
-*Done when* — the check fails on an ignored sibling and passes on this tree.
+**🟡 ten routing rows name a file this repo does not carry**
+*What* — the inherited backlog behind `ROUTING_CEILING` drained: each row tracked, or stopped being routed to.
+*Why* — a clone gets the table and not the file; the check that found them only stops the count rising.
+*Done when* — `ROUTING_CEILING` reads 0. One routing decision each, and `branches/` holds most of them.
 
 ## Cost — what a session costs, and which of it is avoidable
 

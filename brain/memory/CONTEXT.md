@@ -32,7 +32,7 @@ enough to be worth folding was tested and **rejected on the numbers** —
 |------|-------------|
 | [`MEMORY.md`](MEMORY.md) | Memory Index |
 | [`fable_quota_strategy.md`](fable_quota_strategy.md) | How Lucas spends remaining Fable 5 quota (won't renew) — Fable decides, Opus writes, Sonnet executes; multiview session DONE 2026-07-07 |
-| [`feedback_additive_course_material.md`](feedback_additive_course_material.md) | em material de aula do Lucas, contribuir é ADICIONAR e refinar no lugar — nunca substituir, pular ou reordenar o que ele já fez |
+| [`feedback_additive_course_material.md`](feedback_additive_course_material.md) | in Lucas's course material, contributing means ADDING and refining in place — never replacing, skipping or reordering what he made |
 | [`feedback_agent_runs_auth.md`](feedback_agent_runs_auth.md) | Agent runs every auth command itself; Lucas only does what has no command form (provider-UI clicks, consent screens, minting a secret) |
 | [`feedback_background_bash_reliability.md`](feedback_background_bash_reliability.md) | Backgrounded Bash tool calls (run_in_background) can die silently across a ScheduleWakeup boundary, with no completion notification and no error in the redirected log. |
 | [`feedback_bug_tracking.md`](feedback_bug_tracking.md) | isoroll-module bugs go in ISSUES.md, not memory |
@@ -41,11 +41,11 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`feedback_explore_before_cutting.md`](feedback_explore_before_cutting.md) | while a design question is still open, keep every variant; delete only after Lucas rules — the exploration-phase exception to delete-weak-features |
 | [`feedback_full_workflow_thinking.md`](feedback_full_workflow_thinking.md) | plan isoroll (and similar) work from the full user workflow, not from artifacts — loose ends are the recurring failure |
 | [`feedback_inbox_ref_task_pairing.md`](feedback_inbox_ref_task_pairing.md) | /inbox — an actionable ref must also spawn an assessment task, never land as ref-only |
-| [`feedback_multiharness_essential.md`](feedback_multiharness_essential.md) | Multi-harness é ESSENCIAL para Lucas — otimizar a cópia, nunca excluir um harness; e nenhum hook morre sem dado |
+| [`feedback_multiharness_essential.md`](feedback_multiharness_essential.md) | Multi-harness is ESSENTIAL to Lucas — optimize the copying, never delete a harness; and no hook dies without a scoreboard |
 | [`feedback_parallel_sessions.md`](feedback_parallel_sessions.md) | How to work safely when multiple Claude/opencode sessions edit /mnt/workspace at once |
 | [`feedback_plain_language.md`](feedback_plain_language.md) | Write WOS in plain words — Lucas loses the thread when jargon accumulates, and language IS the system when the reader is an LLM |
 | [`feedback_provider_agnostic_naming.md`](feedback_provider_agnostic_naming.md) | Never put provider/model names (NB, Gemini, etc.) in file names, verbs, or dirs — workspace is provider-agnostic |
-| [`feedback_question_context.md`](feedback_question_context.md) | toda pergunta de escolha ao Lucas carrega contexto, problema e tradeoffs na própria pergunta e em cada opção |
+| [`feedback_question_context.md`](feedback_question_context.md) | every choice put to Lucas carries the context, the problem and the tradeoffs in the question itself and in each option |
 | [`feedback_visual_eyeball_gate.md`](feedback_visual_eyeball_gate.md) | Every image-producing pipeline step needs Lucas's visual review (artifact board) before advancing — loops passing their own tests is not enough for visual work |
 | [`reference_linuz90_bot.md`](reference_linuz90_bot.md) | linuz90/claude-telegram-bot source read — the reference design for aiwbot; how it does session lineage + its UX feature set |
 | [`reference_texpace_is_spacemantics.md`](reference_texpace_is_spacemantics.md) | texpace" routes to the spacemantics project — same thing for /inbox routing |

@@ -5,7 +5,6 @@ MEMORY_DIR: Incomplete
 EXCLUDE_DIRS: Incomplete
 EXCLUDE_PREFIXES: Incomplete
 STRUCTURAL_NAME: Incomplete
-LINK_RE: Incomplete
 FENCE_RE: Incomplete
 INLINE_CODE_RE: Incomplete
 ROUTING_BLOCK_RE: Incomplete

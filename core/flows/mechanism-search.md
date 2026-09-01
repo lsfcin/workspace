@@ -1,5 +1,5 @@
 ---
-description: Busca sistemática de mecanismos sociais (motivo individual → efeito coletivo) para um ralo quantificado — geração com diversidade forçada, filtro humano deliberativo, saída pronta para piloto test-to-kill.
+description: Systematic search for social mechanisms (individual motive → collective effect) against a quantified ralo — forced-diversity generation, deliberative human filter, output ready for a test-to-kill pilot.
 args: <ralo>
 type: domain
 confirm: plan
@@ -16,63 +16,74 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 - If a tool returns `Tool not found`, map to the canonical visible tool or record the capability as blocked.
 
 # mechanism-search
-> Busca sistemática de mecanismos sociais (estilo Waze: motivo individual → efeito coletivo) pra um ralo de
-> dinheiro/atenção quantificado — geração com diversidade forçada, filtro humano deliberativo, saída pronta pra piloto
-> test-to-kill.
+> Systematic search for social mechanisms (Waze-style: individual motive → collective effect)
+> against a quantified drain of money or attention — forced-diversity generation, deliberative human
+> filter, output ready for a test-to-kill pilot.
 
-Programa-mãe: `branches/instituto/MOTOR.md` (ler antes — ciladas e fundamentos). Fundamentos: LLMs = novidade em volume,
-humanos = viabilidade, piloto = verdade (Si et al. 2024, arXiv 2409.04109; gap ideação-execução, arXiv 2506.20803).
+**`ralo`** — literally a drain — is the instituto program's word for a quantified flow of money or
+attention leaving the people who produce it. It is kept in Portuguese here because it names the
+program's own files (`branches/instituto/RALOS.md`) and its inventory of them.
 
-## Entrada
+Parent program: `branches/instituto/MOTOR.md` (read first — pitfalls and fundamentals). Fundamentals:
+LLMs = novelty at volume, humans = feasibility, pilot = truth (Si et al. 2024, arXiv 2409.04109;
+ideation-execution gap, arXiv 2506.20803).
 
-Um ralo quantificado (de `branches/instituto/RALOS.md` ou laplata): fluxo em R$/mês, quem perde, quem captura, mecanismo
-de captura.
+## Input
 
-## Artefatos obrigatórios
+One quantified `ralo` (from `branches/instituto/RALOS.md` or laplata): flow in R$/month, who loses,
+who captures, the capture mechanism.
 
-Derivar um slug curto do ralo (minúsculas, hífens, ≤5 palavras). Toda rodada deve deixar em disco:
+## Required artifacts
 
-- `outputs/.plans/<slug>.md` — plano + checagem da regra de fila
-- `outputs/.drafts/<slug>-gen-{1,2,3}.md` — candidatos por persona
-- `outputs/<slug>-familias.md` — famílias deduplicadas (material do filtro humano)
-- sobreviventes anexados a `branches/instituto/ROADMAP.md` (só após o filtro humano)
+Derive a short slug from the `ralo` (lowercase, hyphens, ≤5 words). Every round must leave on disk:
 
-Depois que a geração começa, nunca terminar só em chat. Se uma capacidade falhar, continuar em modo degradado e
-registrar o bloqueio no plano.
+- `outputs/.plans/<slug>.md` — plan plus the queue-rule check
+- `outputs/.drafts/<slug>-gen-{1,2,3}.md` — candidates per persona
+- `outputs/<slug>-familias.md` — deduplicated families (the human filter's material)
+- survivors appended to `branches/instituto/ROADMAP.md` (only after the human filter)
 
-## Plano (parar para confirmação)
+Once generation starts, never end chat-only. If a capability fails, continue in degraded mode and
+record the blockage in the plan.
 
-Antes de qualquer geração:
-1. **Regra de fila** — checar `branches/instituto/ROADMAP.md`: não gerar de novo enquanto 2 candidatos aguardam piloto.
-   Se a fila está cheia, parar e reportar.
-2. **Corpus check** (`researcher`) — recuperar do corpus (`academy/papers/mechanism-search/refs/`) os 5-8 precedentes
-   mais próximos do ralo. Se corpus vazio: rodar `/research lit` primeiro (estágio 0).
-3. Escrever `outputs/.plans/<slug>.md` (ralo, precedentes, personas escolhidas, ledger). Resumir e pedir confirmação
-   explícita antes de spawnar geradores.
+## Plan (stop for confirmation)
 
-## Agentes e sequência
+Before any generation:
+1. **Queue rule** — check `branches/instituto/ROADMAP.md`: do not generate again while 2 candidates
+   are waiting on a pilot. If the queue is full, stop and report.
+2. **Corpus check** (`researcher`) — retrieve the 5-8 precedents closest to the `ralo` from the
+   corpus (`academy/papers/mechanism-search/refs/`). If the corpus is empty: run `/research lit`
+   first (stage 0).
+3. Write `outputs/.plans/<slug>.md` (ralo, precedents, chosen personas, ledger). Summarize and ask
+   for explicit confirmation before spawning generators.
 
-1. **Geração divergente** (3× `researcher` em paralelo, personas antagônicas — ex.: economista comportamental,
-   organizadora comunitária, engenheira de incentivos cripto) — cada um gera 8-12 candidatos em
-   `outputs/.drafts/<slug>-gen-N.md`. Técnicas obrigatórias anti-colapso:
-   - mutação de precedente (pegar mecanismo do corpus, trocar 1 dimensão: população, gatilho, moeda, escala)
-   - analogia distante (biologia, jogos, religião, logística)
-   - cota de exploração pura: ≥20% sem precedente algum
-2. **Formato de candidato** (obrigatório, 6 linhas): ralo · motivo individual (por que a pessoa usa SEM altruísmo) ·
-   efeito coletivo · quem opera · por que ainda não existe · esboço de test-to-kill ≤3 meses.
-3. **Dedup e agrupamento** (`writer`) — fundir near-duplicates, agrupar por família de mecanismo em
-   `outputs/<slug>-familias.md`. NUNCA rankear por LLM como filtro final (auto-avaliação não confiável).
-4. **Filtro deliberativo humano** — formato Habermas: apresentar famílias ao grupo (board/turma), coletar posições
-   individuais, sintetizar declaração de grupo, iterar 1×. Saída: 2-3 sobreviventes com dono nomeado.
-5. **Handoff** — cada sobrevivente vira entrada no ROADMAP do programa com test-to-kill detalhado.
+## Agents and sequence
 
-## Integridade
+1. **Divergent generation** (3× `researcher` in parallel, antagonistic personas — e.g. behavioural
+   economist, community organizer, crypto incentive engineer) — each generates 8-12 candidates into
+   `outputs/.drafts/<slug>-gen-N.md`. Mandatory anti-collapse techniques:
+   - precedent mutation (take a mechanism from the corpus, swap 1 dimension: population, trigger,
+     currency, scale)
+   - distant analogy (biology, games, religion, logistics)
+   - pure-exploration quota: ≥20% with no precedent at all
+2. **Candidate format** (mandatory, 6 lines): ralo · individual motive (why a person uses it WITHOUT
+   altruism) · collective effect · who operates it · why it does not exist yet · test-to-kill sketch
+   ≤3 months.
+3. **Dedup and grouping** (`writer`) — merge near-duplicates, group by mechanism family into
+   `outputs/<slug>-familias.md`. NEVER rank by LLM as the final filter (self-evaluation is not
+   trustworthy).
+4. **Deliberative human filter** — Habermas format: present families to the group (board/class),
+   collect individual positions, synthesize a group statement, iterate 1×. Output: 2-3 survivors
+   with a named owner.
+5. **Handoff** — each survivor becomes an entry in the program's ROADMAP with a detailed
+   test-to-kill.
 
-- Precedente citado deve existir no corpus ou vir com URL de fonte — nunca inventar precedente, número de fluxo ou
-  resultado de piloto.
-- O filtro final é humano; a saída do LLM é sempre proposta, nunca decisão.
+## Integrity
 
-## Saída
+- A cited precedent must exist in the corpus or come with a source URL — never invent a precedent, a
+  flow figure or a pilot result.
+- The final filter is human; LLM output is always a proposal, never a decision.
 
-`branches/instituto/` — candidatos sobreviventes anexados ao ROADMAP.md; post-mortem de pilotos mortos vai pro arquivo
-do núcleo ou paper. Conhecimento novo com fonte → RALOS.md.
+## Output
+
+`branches/instituto/` — surviving candidates appended to ROADMAP.md; the post-mortem of a killed
+pilot goes to the cluster's archive or to a paper. New knowledge with a source → RALOS.md.

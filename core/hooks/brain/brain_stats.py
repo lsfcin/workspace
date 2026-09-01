@@ -37,22 +37,24 @@ def trend_label(counts):
 # ── Per-file stats block ───────────────────────────────────────────────────────
 
 def build_stats_block(slug, attention):
+    """One line, not a table.
+
+    This was a six-row `| period | touches |` table until 2026-08-31 — 9 lines in each of 36 goal
+    files, ~320 lines of the corpus, and NOTHING read them: GOALS.md builds its dashboard straight
+    from `brain_attention.harvest`, and no checker, tool or skill parses a goal file's stats. It was
+    36 copies of a number that already lives on the dashboard. Every count survives here; only the
+    table scaffolding went (ROADMAP.md § Shape — the corpus is a `.md` line every session re-reads).
+    """
     counts = {name: attention.count(slug, days) for name, days in PERIODS}
     lt     = attention.last_touch(slug)
-    trend  = trend_label(counts)
 
-    rows = "\n".join(
-        f"| {name:<11} | {counts[name]:>7} |"
-        for name, _ in PERIODS
-    )
-
+    # The six periods are named once, in brain/SPECS.md, instead of on 36 goal files. Spelling
+    # them here costs 43 characters a line and puts the row over the 120-column cap as soon as a
+    # count reaches three digits — and it is the same restatement the table was.
     return (
         "<!-- stats:start -->\n"
-        f"last-touch: {lt or '—'}  ·  trend: {trend}\n"
-        "\n"
-        "| period      | touches |\n"
-        "|-------------|----------|\n"
-        f"{rows}\n"
+        f"last-touch: {lt or '—'}  ·  trend: {trend_label(counts)}  ·  touches: "
+        + "/".join(str(counts[name]) for name, _ in PERIODS) + "\n"
         "<!-- stats:end -->"
     )
 

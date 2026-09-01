@@ -36,6 +36,8 @@ SECTIONS = (
     ('types', 'Off-allowlist `.md` types', 'route via core/SCHEMA.md § four disposal routes'),
     ('inventories', 'CONTEXT.md hand-written inventories', 'the routing block owns inventory'),
     ('naming', 'Naming and placement', 'kebab-case ASCII, types where their scope allows'),
+    ('routing', 'Routing tables pointing at files git does not carry',
+     'a clone gets the table and not the file — track the target, or stop routing to it'),
     ('goals', 'Projects not declaring their goal', 'line 3 of a code/ CONTEXT.md'),
     ('wiki', 'Wiki-links naming nothing', 'a [[slug]] is a goal file or an item in one'),
     ('retired', 'Retired tokens still alive', 'a rename is unfinished until these are zero'),

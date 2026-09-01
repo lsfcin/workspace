@@ -34,5 +34,5 @@ flow:
 | File | Description |
 |------|-------------|
 | [`_template.md`](_template.md) | One line — what durable artifact this flow produces. |
-| [`mechanism-search.md`](mechanism-search.md) | Busca sistemática de mecanismos sociais (motivo individual → efeito coletivo) para um ralo quantificado — geração com diversidade forçada, filtro humano deliberativo, saída pronta para piloto test-to-kill. |
+| [`mechanism-search.md`](mechanism-search.md) | Systematic search for social mechanisms (individual motive → collective effect) against a quantified ralo — forced-diversity generation, deliberative human filter, output ready for a test-to-kill pilot. |
 <!-- routing:end -->

@@ -56,19 +56,56 @@ def replace_block(text: str, new_block: str) -> str:
     return _replace(text, new_block, RS, RE, at_end=True)
 
 
+def _drop_block(text: str) -> str:
+    """Cut the routing block, markers and all — for an index whose last shard is gone."""
+    start, end = _line_pos(text, RS), _line_pos(text, RE)
+    if start == -1 or end == -1:
+        return text
+    return (text[:start].rstrip('\n') + '\n' + text[end + len(RE):].lstrip('\n')).rstrip('\n') + '\n'
+
+
 def sync_shards(target: Path) -> bool:
     """Rewrite the index table of the sharded type `target` belongs to; False when it is not one.
 
     Runs BESIDE the directory sync rather than instead of it: a shard is one of its type's files
     and one of its directory's, and both tables are meant to know about it.
+
+    An index is also reachable as `target` itself, and that arm is what stops a table outliving
+    its rows. `index_for` only ever answers for a SHARD, so the last shard's departure used to
+    leave the index holding a full table of files that were gone — nothing ever visited it again.
+    Found 2026-09-01 when academy/lab/CHECKPOINTS.md became SPECS.md and its one shard stopped
+    matching: the generator correctly reported zero shards and the stale table stayed on the page.
+    This arm REFRESHES a block the file already has and never creates one, so a type that was
+    never sharded stays exactly as it is.
     """
-    index = index_for(target)
+    index = index_for(target) or (target if _is_emptied_index(target) else None)
     if index is None:
         return False
-    block = build_routing_block('', build_shard_rows(shards_of(index)), RS, RE)
-    index.write_text(replace_block(index.read_text(encoding='utf-8'), block), encoding='utf-8')
-    print(f'✓ shard-sync: {index}')
+    text = index.read_text(encoding='utf-8')
+    rows = build_shard_rows(shards_of(index))
+    updated = (replace_block(text, build_routing_block('', rows, RS, RE)) if rows
+               else _drop_block(text))
+    if updated != text:
+        index.write_text(updated, encoding='utf-8')
+        print(f'✓ shard-sync: {index}')
     return True
+
+
+def _is_emptied_index(path: Path) -> bool:
+    """An index that still carries a shard table after losing its last shard.
+
+    `index_for` deliberately answers None once `shards_of` is empty, so nothing revisited the
+    index and the table outlived every file in it. Three conditions keep this from firing wider:
+    the name is an unsharded UPPERCASE type (`SPECS.md`, never `SPECS-layout.md`), the block is
+    already there (a type that never sharded is never given one), and it is not `CONTEXT.md` —
+    that one's routing block is the directory's, written by `sync` below, and dropping it here
+    would delete a table this function has no rows for.
+    """
+    if path.suffix != '.md' or path.name == 'CONTEXT.md' or '-' in path.stem:
+        return False
+    if not path.stem.isupper() or shards_of(path):
+        return False
+    return _line_pos(path.read_text(encoding='utf-8'), RS) != -1
 
 
 def sync(target: Path):
