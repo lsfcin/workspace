@@ -121,11 +121,6 @@ where reaching 200 means deleting the coverage, shim and lifecycle tables. A sib
 
 ## Brain — the part that serves Lucas rather than the code
 
-**🟡 the attention dashboard counts edits to goal files, not work on goals**
-*What* — counter over commits touching each goal's declared paths across repos.
-*Why* — `workspace-os` showed 1 touch when 29/29 commits were its work; `/compass` had to be hand-corrected.
-*Done when* — bar reflects work done, ignores own reviews, and area bars union rather than sum.
-
 **🟡 measure which `UPPERCASE.md` files are read, then decide what to do about goal files**
 *What* — per-type rollup of reads and cost; then goal↔roadmap warning and goal-format audit.
 *Why* — verify whether goal files are dead weight before redesigning fields.

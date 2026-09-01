@@ -83,10 +83,6 @@ more the morale problem it fears becomes the one it causes.
 **body/movement cluster** — still 0 touches across exercise, yoga, surf, pandeiro and dance. Structural response taken
 this cycle: six near-identical dance goals collapsed into one [`dance.md`](goals/dance.md), turning six standing
 reproaches into one 2-minute choice. Gap type: deliberate-park.  
-**⚠ the dashboard is measuring the wrong thing** — it renders `workspace-os ░░░░░░░░░░ 1 touch` in the same fortnight
-that goal absorbed 29 of 29 commits, because it counts edits to the *goal file*, not work on the *goal*. Every goal
-whose work lands in `code/` or `core/` reads as dead here. Fix belongs in `core/hooks/brain/brain_dashboard.py`; filed
-to INBOX.
 <!-- stats:end -->
 
 ---
