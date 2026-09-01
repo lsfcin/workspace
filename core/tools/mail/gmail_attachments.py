@@ -18,7 +18,7 @@ def _extract_text(filepath: pathlib.Path) -> str:
         # here -- and this arm swallows every exception, so the summary would just come back empty.
         result = subprocess.run(
             [interpreter(), str(WORKSPACE_ROOT / "core/tools/paper/parse"), str(filepath)],
-            capture_output=True, text=True, timeout=30,
+            capture_output=True, text=True, timeout=30, encoding='utf-8'
         )
         return result.stdout[:3000] if result.returncode == 0 else ""
     except Exception:
@@ -75,6 +75,6 @@ def download(service, alias: str, email_id: str, attachment: dict, email_meta: d
     filepath.write_bytes(data)
 
     summary = _summarize(filepath, {**email_meta, "alias": alias})
-    (filepath.parent / f"{filepath.stem}.summary.md").write_text(summary, encoding='utf-8')
+    (filepath.parent / f"{filepath.stem}.summary.md").write_text(summary, encoding='utf-8', newline='\n')
 
     return filepath

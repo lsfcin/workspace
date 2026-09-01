@@ -19,7 +19,7 @@ def _cookie_args():
 
 
 def _run(args, runner=None):
-    runner = runner or (lambda a: subprocess.run(a, capture_output=True, text=True, timeout=180))
+    runner = runner or (lambda a: subprocess.run(a, capture_output=True, text=True, timeout=180, encoding='utf-8'))
     return runner([YTDLP, *_cookie_args(), *args])
 
 
@@ -93,7 +93,7 @@ def _save(bundle, base=None):
     d = month_dir(pathlib.Path(base) if base else ATTACH)
     stem = safe_name(f"{bundle['source']}-{bundle.get('title') or 'video'}")[:60] or "video"
     path = unique_path(d / f"{stem}.md")
-    path.write_text(_render(bundle), encoding="utf-8")
+    path.write_text(_render(bundle), encoding="utf-8", newline='\n')
     return str(path)
 
 

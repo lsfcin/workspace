@@ -80,12 +80,12 @@ def install_command(directory, name: str, source: str) -> None:
     directory = Path(directory)
     if not _WINDOWS:
         target = directory / name
-        target.write_text(f'#!{sys.executable}\n{source}', encoding='utf-8')
+        target.write_text(f'#!{sys.executable}\n{source}', encoding='utf-8', newline='\n')
         target.chmod(0o755)
         return
-    (directory / f'{name}.py').write_text(source, encoding='utf-8')
+    (directory / f'{name}.py').write_text(source, encoding='utf-8', newline='\n')
     (directory / f'{name}.cmd').write_text(
-        f'@echo off\r\n"{sys.executable}" "%~dp0{name}.py" %*\r\n', encoding='utf-8')
+        f'@echo off\r\n"{sys.executable}" "%~dp0{name}.py" %*\r\n', encoding='utf-8', newline='\n')
 
 
 def package_install(name: str) -> list:
@@ -160,7 +160,7 @@ def _restrict(path: Path, posix_mode: int, windows_grant: str) -> None:
     user = os.environ.get('USERNAME') or Path.home().name
     done = subprocess.run(['icacls', str(path), '/inheritance:r',
                            '/grant:r', f'{user}:{windows_grant}', '/Q'],
-                          capture_output=True, text=True)
+                          capture_output=True, text=True, encoding='utf-8')
     if done.returncode != 0:
         raise OSError(f'could not restrict {path} to {user}: '
                       f'{done.stderr.strip() or done.stdout.strip()}')
@@ -177,7 +177,7 @@ def is_owner_only(path) -> bool:
     path = Path(path)
     if not _WINDOWS:
         return path.stat().st_mode & 0o077 == 0
-    done = subprocess.run(['icacls', str(path)], capture_output=True, text=True)
+    done = subprocess.run(['icacls', str(path)], capture_output=True, text=True, encoding='utf-8')
     if done.returncode != 0:
         return False
     user = (os.environ.get('USERNAME') or Path.home().name).lower()

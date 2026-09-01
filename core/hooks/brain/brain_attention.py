@@ -121,7 +121,7 @@ def harvest(repo):
     out = subprocess.run(
         ["git", "-C", str(repo), "log", f"--since={MAX_DAYS} days ago",
          "--no-merges", "--format=%x00%H %cI", "--name-only"],
-        capture_output=True, text=True,
+        capture_output=True, text=True, encoding='utf-8'
     )
     if out.returncode != 0:
         return {}

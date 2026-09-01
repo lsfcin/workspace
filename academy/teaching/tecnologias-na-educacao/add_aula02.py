@@ -43,6 +43,6 @@ def build():
 if __name__ == "__main__":
     out = sys.argv[1] if len(sys.argv) > 1 else "add.json"
     reqs, n = build()
-    json.dump(reqs, open(out, "w"), ensure_ascii=False, indent=1)
+    json.dump(reqs, open(out, "w", encoding='utf-8', newline='\n'), ensure_ascii=False, indent=1)
     print(f"{n} slides intercalados · {len(REFINOS)} refinados · "
           f"{len(reqs)} requests -> {out}")

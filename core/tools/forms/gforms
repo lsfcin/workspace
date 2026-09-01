@@ -30,7 +30,7 @@ def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
 def cmd_new(account: str, spec_path: str, folder: str) -> None:
     """A form is created, filled and filed in one call: the whole spec or nothing."""
     alias = gauth.resolve_alias(account)
-    spec = json.loads(pathlib.Path(spec_path).read_text())
+    spec = json.loads(pathlib.Path(spec_path).read_text(encoding='utf-8'))
     form = forms_core.create(alias, spec["title"], spec.get("documentTitle", ""))
     form_id = form["formId"]
     reqs = forms_spec.requests(spec)
@@ -64,7 +64,7 @@ def cmd_read(account: str, form_id: str, as_json: bool) -> None:
 def cmd_apply(account: str, form_id: str, path: str) -> None:
     """The general seam: a JSON array of Forms API requests, applied atomically."""
     alias = gauth.resolve_alias(account)
-    reqs = json.loads(pathlib.Path(path).read_text())
+    reqs = json.loads(pathlib.Path(path).read_text(encoding='utf-8'))
     forms_core.apply(alias, form_id, reqs)
     print(f"Applied {len(reqs)} request(s) to {form_id}")
     print(f"  {forms_core.edit_url(form_id)}")

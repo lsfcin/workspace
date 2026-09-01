@@ -49,7 +49,7 @@ def check_contracts(project: Path, problems: list[str]) -> int:
 	for ctx in sorted(project.rglob('CONTEXT.md')):
 		if SKIP.intersection(ctx.parts):
 			continue
-		match = SPEC_LINE_RE.search(ctx.read_text(errors='ignore'))
+		match = SPEC_LINE_RE.search(ctx.read_text(errors='ignore', encoding='utf-8'))
 		if not match:
 			continue
 		value = match.group(1).strip()
@@ -60,7 +60,7 @@ def check_contracts(project: Path, problems: list[str]) -> int:
 		if not spec.is_file():
 			problems.append(f'{ctx.parent}: declares `> spec: {value}` but the SPEC file is missing')
 			continue
-		text = spec.read_text(errors='ignore')
+		text = spec.read_text(errors='ignore', encoding='utf-8')
 		for section in REQUIRED:
 			body = section_body(text, section)
 			if body is None:
@@ -72,7 +72,7 @@ def check_contracts(project: Path, problems: list[str]) -> int:
 
 def check_edges(edges_file: Path, problems: list[str]) -> int:
 	count = 0
-	for raw in edges_file.read_text(errors='ignore').splitlines():
+	for raw in edges_file.read_text(errors='ignore', encoding='utf-8').splitlines():
 		line = raw.strip()
 		if not line or line.startswith('#'):
 			continue

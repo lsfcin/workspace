@@ -102,7 +102,7 @@ def _add_missing_lines(root, ignore) -> list:
             name = f'{domain}/{directory.name}'
             if name in excepted or f'!{name}/' in allowed:
                 continue
-            with ignore.open('a', encoding='utf-8') as handle:
+            with ignore.open('a', encoding='utf-8', newline='\n') as handle:
                 handle.write(f'!{name}/\n')
             git('add', str(ignore), cwd=root)
             healed.append(name)

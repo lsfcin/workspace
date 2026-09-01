@@ -19,7 +19,7 @@ def transcript(tmp_path: Path, records: list) -> Path:
     project = tmp_path / 'proj'
     project.mkdir()
     (project / 'abc123.jsonl').write_text(
-        '\n'.join(json.dumps(r) for r in records), encoding='utf-8')
+        '\n'.join(json.dumps(r) for r in records), encoding='utf-8', newline='\n')
     return project
 
 

@@ -38,7 +38,7 @@ def announced(session_id: str) -> int:
 
 def mark(session_id: str, threshold: int) -> None:
 	try:
-		with open(state_file(session_id), 'w', encoding='utf-8') as f:
+		with open(state_file(session_id), 'w', encoding='utf-8', newline='\n') as f:
 			f.write(str(threshold))
 	except OSError:
 		pass

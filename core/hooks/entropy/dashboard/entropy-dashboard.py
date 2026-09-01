@@ -50,6 +50,11 @@ from platform_law import rel  # noqa: E402
 from schema_law import (SCHEMA, WORKSPACE_ROOT, load_law,  # noqa: E402
                         load_retired, load_scopes)
 
+# NAMED, NEVER INHERITED — the law is core/tools/test/workspace/test_encoding_ratchet.py. The status
+# line here carries `→`. core/run exports PYTHONIOENCODING for what it spawns, which is every
+# production caller and not the suite: this was red under pytest and green through its own hook.
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 # The measurements sit under the hand-written issues, in their own block: an entropy finding and a
 # known bug answer the same question, and core/SCHEMA.md gives that question one file. This tool
 # owns the block, never the file.
@@ -150,7 +155,7 @@ def main(argv: list | None = None) -> int:
     trend = format_trend(here, baseline(WORKSPACE_ROOT))
     block = render(mine, len(files), WORKSPACE_ROOT, index=counts, trend=trend)
     if not dry_run:
-        REPORT.write_text(replace_block(text, block, START, END), encoding="utf-8")
+        REPORT.write_text(replace_block(text, block, START, END), encoding="utf-8", newline='\n')
     status = '[dry-run] ' if dry_run else ''
     print(f'entropy dashboard {status}→ {_rel(REPORT)} ({collected} findings, '
           f'{here} here, {len(counts)} local ledgers)')

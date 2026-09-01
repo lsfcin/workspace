@@ -101,7 +101,7 @@ def test_every_declared_feature_has_an_answer():
 def test_the_cli_agrees_with_this_file():
     """One parser, not two. If `features` drifts from the registry, the answers stop being real."""
     out = subprocess.run([sys.executable, str(WORKSPACE_ROOT / 'core/tools/wos/features'),
-                          '--check'], capture_output=True, text=True, cwd=WORKSPACE_ROOT)
+                          '--check'], capture_output=True, text=True, cwd=WORKSPACE_ROOT, encoding='utf-8')
     assert out.returncode == 0, out.stdout + out.stderr
 
 

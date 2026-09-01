@@ -33,9 +33,9 @@ BETA = """# Beta
 
 def _sharded(tmp_path, **shards) -> Path:
     index = tmp_path / 'ROADMAP.md'
-    index.write_text('# Index\n> Index only.\n', encoding='utf-8')
+    index.write_text('# Index\n> Index only.\n', encoding='utf-8', newline='\n')
     for name, body in shards.items():
-        (tmp_path / name).write_text(body, encoding='utf-8')
+        (tmp_path / name).write_text(body, encoding='utf-8', newline='\n')
     return index
 
 
@@ -56,10 +56,10 @@ def test_a_sentence_about_the_marker_is_not_a_marked_item(tmp_path) -> None:
     """Caught on the first real run: a bare count read 13 where the ledger holds 12, because one
     shard carries a sentence ABOUT the count with the marker inside it. Mark versus mention is
     exactly the confusion that made the hand-kept number wrong four times."""
-    (tmp_path / 'ROADMAP.md').write_text('# I\n> i.\n', encoding='utf-8')
+    (tmp_path / 'ROADMAP.md').write_text('# I\n> i.\n', encoding='utf-8', newline='\n')
     (tmp_path / 'ROADMAP-alpha.md').write_text(
         '# A\n> a.\n\ntwo items need Lucas while three were marked 🔴 — the count went stale.\n\n'
-        '1. 🔴 a real one.\n', encoding='utf-8')
+        '1. 🔴 a real one.\n', encoding='utf-8', newline='\n')
     assert shard_facts(tmp_path / 'ROADMAP-alpha.md')['needs-lucas'] == '1'
 
 
@@ -94,20 +94,20 @@ def test_the_marker_column_is_named_in_words(tmp_path) -> None:
 def test_only_a_roadmap_shard_is_counted_for_open_items(tmp_path) -> None:
     """A numbered list in prose looks exactly like a numbered item. Counting it read a SPECS shard
     as having 13 open items — a meaningless number is worse than an absent column."""
-    (tmp_path / 'SPECS.md').write_text('# S\n> s.\n', encoding='utf-8')
+    (tmp_path / 'SPECS.md').write_text('# S\n> s.\n', encoding='utf-8', newline='\n')
     (tmp_path / 'SPECS-alpha.md').write_text(
-        '# A\n> a.\n\n1. first rule.\n2. second rule.\n', encoding='utf-8')
+        '# A\n> a.\n\n1. first rule.\n2. second rule.\n', encoding='utf-8', newline='\n')
     assert 'open' not in shard_facts(tmp_path / 'SPECS-alpha.md')
 
 
 def test_a_type_with_shards_and_no_index_is_left_alone(tmp_path) -> None:
     """`code/` holds ROADMAP-verify.md and no ROADMAP.md. Writing one is a decision, not a save."""
-    (tmp_path / 'ROADMAP-verify.md').write_text('# V\n> v.\n', encoding='utf-8')
+    (tmp_path / 'ROADMAP-verify.md').write_text('# V\n> v.\n', encoding='utf-8', newline='\n')
     assert index_for(tmp_path / 'ROADMAP-verify.md') is None
 
 
 def test_an_unsharded_type_is_not_an_index(tmp_path) -> None:
-    (tmp_path / 'ROADMAP.md').write_text('# R\n> r.\n', encoding='utf-8')
+    (tmp_path / 'ROADMAP.md').write_text('# R\n> r.\n', encoding='utf-8', newline='\n')
     assert index_for(tmp_path / 'ROADMAP.md') is None
 
 
@@ -119,6 +119,6 @@ def test_the_index_is_found_from_the_shard_and_from_itself(tmp_path) -> None:
 
 def test_a_lowercase_instance_never_looks_like_a_shard(tmp_path) -> None:
     """`read-amplification.md` splits on the hyphen too; only an UPPERCASE stem is a type."""
-    (tmp_path / 'read.md').write_text('# r\n> r.\n', encoding='utf-8')
-    (tmp_path / 'read-amplification.md').write_text('# r\n> r.\n', encoding='utf-8')
+    (tmp_path / 'read.md').write_text('# r\n> r.\n', encoding='utf-8', newline='\n')
+    (tmp_path / 'read-amplification.md').write_text('# r\n> r.\n', encoding='utf-8', newline='\n')
     assert index_for(tmp_path / 'read-amplification.md') is None

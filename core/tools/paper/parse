@@ -5,7 +5,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 import tool_law  # noqa: E402
 
 def _run(cmd):
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
     return r.stdout if r.returncode == 0 else (None, r.stderr)
 
 def _pdf_ocr(path, pages):
@@ -15,7 +15,7 @@ def _pdf_ocr(path, pages):
             start, end = pages.split('-')
             cmd += ['-f', start, '-l', end]
         cmd += [str(path), f"{tmpdir}/page"]
-        r = subprocess.run(cmd, capture_output=True, text=True)
+        r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
         if r.returncode != 0:
             return None, r.stderr
         img_pages = sorted(pathlib.Path(tmpdir).glob("page-*.png"))
@@ -24,7 +24,7 @@ def _pdf_ocr(path, pages):
         text_parts = []
         for img in img_pages:
             ocr_res = subprocess.run(['tesseract', str(img), 'stdout', '-l', 'por+eng', '--oem', '1'],
-                                     capture_output=True, text=True)
+                                     capture_output=True, text=True, encoding='utf-8')
             if ocr_res.returncode == 0:
                 text_parts.append(ocr_res.stdout.strip())
         return "\n\n--- PAGE ---\n\n".join(text_parts), None
@@ -39,7 +39,7 @@ def _pdf(path, pages, force_ocr=False, layout=False):
         start, end = pages.split('-')
         cmd += ['-f', start, '-l', end]
     cmd += [str(path), '-']
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8')
     if r.returncode != 0:
         return None, r.stderr
     text = r.stdout
@@ -50,7 +50,7 @@ def _pdf(path, pages, force_ocr=False, layout=False):
     return text, None
 
 def _pandoc(path, fmt='plain'):
-    r = subprocess.run(['pandoc', '-t', fmt, str(path)], capture_output=True, text=True)
+    r = subprocess.run(['pandoc', '-t', fmt, str(path)], capture_output=True, text=True, encoding='utf-8')
     if r.returncode != 0:
         return None, r.stderr
     return r.stdout, None
@@ -77,7 +77,7 @@ def main():
     elif ext in ('.docx', '.doc', '.pptx', '.ppt', '.odt', '.rtf', '.html', '.htm'):
         text, err = _pandoc(path, fmt=fmt)
     elif ext in ('.txt', '.md', '.tex', '.csv', '.json', '.yaml', '.yml'):
-        text, err = path.read_text(errors='replace'), None
+        text, err = path.read_text(errors='replace', encoding='utf-8'), None
     else:
         print(json.dumps({'error': f'unsupported format: {ext}'}), file=sys.stderr)
         sys.exit(1)

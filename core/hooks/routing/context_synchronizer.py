@@ -86,7 +86,7 @@ def sync_shards(target: Path) -> bool:
     updated = (replace_block(text, build_routing_block('', rows, RS, RE)) if rows
                else _drop_block(text))
     if updated != text:
-        index.write_text(updated, encoding='utf-8')
+        index.write_text(updated, encoding='utf-8', newline='\n')
         print(f'✓ shard-sync: {index}')
     return True
 
@@ -158,7 +158,7 @@ def sync(target: Path):
     file_content = build_file_rows(all_files, preserved_files, directory) if all_files else ''
     new_block    = build_routing_block(sub_content, file_content, RS, RE)
 
-    ctx.write_text(replace_block(text, new_block), encoding='utf-8')
+    ctx.write_text(replace_block(text, new_block), encoding='utf-8', newline='\n')
     print(f'✓ routing-sync: {ctx}')
 
     removed = set(preserved_files) - {rel for _, rel in all_files}

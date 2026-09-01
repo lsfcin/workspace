@@ -15,7 +15,7 @@ REJECTED = "‹áudio não transcrito — baixa confiança›"
 def duration(path: pathlib.Path) -> float:
     """Seconds of audio, via ffprobe. 0.0 when the file is unreadable — it still gets tried."""
     out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
-                          "-of", "csv=p=0", str(path)], capture_output=True, text=True)
+                          "-of", "csv=p=0", str(path)], capture_output=True, text=True, encoding='utf-8')
     try:
         return float(out.stdout.strip())
     except ValueError:
@@ -51,7 +51,7 @@ def run(root: pathlib.Path, prompt: str, model=None) -> int:
     started, done_audio, written = time.time(), 0.0, 0
     for i, path in enumerate(todo, 1):
         text = stt.run(path, whisper, prompt)
-        sidecar(path).write_text(text or REJECTED, encoding="utf-8")
+        sidecar(path).write_text(text or REJECTED, encoding="utf-8", newline='\n')
         written += 1
         done_audio += lengths[path]
         elapsed = time.time() - started

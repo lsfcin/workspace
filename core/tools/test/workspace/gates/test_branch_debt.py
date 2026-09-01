@@ -18,11 +18,11 @@ from branch_debt import (merged_local_branches, merged_remote_branches, unmerged
 
 def git(repo: Path, *args):
 	subprocess.run(['git', '-C', str(repo), *args], check=True,
-	               capture_output=True, text=True)
+	               capture_output=True, text=True, encoding='utf-8')
 
 
 def commit(repo: Path, name: str):
-	(repo / name).write_text(name, encoding='utf-8')
+	(repo / name).write_text(name, encoding='utf-8', newline='\n')
 	git(repo, 'add', name)
 	git(repo, 'commit', '-qm', name, '--no-verify')
 

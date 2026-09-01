@@ -44,7 +44,7 @@ def turns(project: str, session: str = ''):
 	"""
 	for path in paths_for(project, session):
 		merged: dict = {}
-		with path.open(errors='replace') as handle:
+		with path.open(errors='replace', encoding='utf-8') as handle:
 			for line in handle:
 				if '"usage"' not in line:
 					continue

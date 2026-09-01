@@ -45,12 +45,12 @@ def _validate(tmp_path, files: dict) -> subprocess.CompletedProcess:
     flows = tmp_path / 'core' / 'flows'
     flows.mkdir(parents=True)
     for name, body in files.items():
-        (flows / name).write_text(body, encoding='utf-8')
+        (flows / name).write_text(body, encoding='utf-8', newline='\n')
     # posix(), not str(): both paths become TEXT inside a bash command, where a backslash is an
     # escape. The Windows spelling arrived with every separator eaten, so bash reported the
     # validator missing and the case read as the rule having stopped firing.
     script = f'WORKSPACE={posix(tmp_path)}; source {posix(VALIDATOR)}; validate_flow_loops'
-    return subprocess.run(['bash', '-c', script], capture_output=True, text=True)
+    return subprocess.run(['bash', '-c', script], capture_output=True, text=True, encoding='utf-8')
 
 
 def test_a_loop_with_a_numeric_cap_passes(tmp_path):
@@ -86,5 +86,5 @@ def test_the_real_flow_corpus_is_clean():
     """The rule is in force, so core/flows must satisfy it. This is the row that turns the check
     from a capability into a fact about the workspace."""
     script = f'WORKSPACE={posix(WORKSPACE_ROOT)}; source {posix(VALIDATOR)}; validate_flow_loops'
-    out = subprocess.run(['bash', '-c', script], capture_output=True, text=True)
+    out = subprocess.run(['bash', '-c', script], capture_output=True, text=True, encoding='utf-8')
     assert out.returncode == 0, out.stdout + out.stderr

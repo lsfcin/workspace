@@ -78,7 +78,7 @@ def staged_files() -> list:
     """Every file this commit touches, added or modified — not only what it adds."""
     out = subprocess.run(
         ['git', 'diff', '--cached', '--name-only', '--diff-filter=d'],
-        capture_output=True, text=True).stdout
+        capture_output=True, text=True, encoding='utf-8').stdout
     return [WORKSPACE_ROOT / line for line in out.splitlines()]
 
 

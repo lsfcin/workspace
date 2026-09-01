@@ -58,7 +58,7 @@ def test_every_shell_hook_parses_including_the_ones_with_no_extension():
     assert len(scripts) >= 4, f'found only {len(scripts)} shell scripts -- the scan stopped working'
     broken = []
     for script in scripts:
-        done = subprocess.run(['bash', '-n', str(script)], capture_output=True, text=True)
+        done = subprocess.run(['bash', '-n', str(script)], capture_output=True, text=True, encoding='utf-8')
         if done.returncode != 0:
             broken.append(f'{script.relative_to(WORKSPACE_ROOT).as_posix()}: {done.stderr.strip()}')
     assert not broken, 'shell scripts that will not parse:\n' + '\n'.join(broken)

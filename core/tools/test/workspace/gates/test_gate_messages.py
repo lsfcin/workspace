@@ -39,7 +39,7 @@ BLOCKING_GATES = (
 def _run(payload: dict) -> subprocess.CompletedProcess:
     return subprocess.run(
         [interpreter(), str(PRE_EDIT)], input=json.dumps(payload),
-        capture_output=True, text=True,
+        capture_output=True, text=True, encoding='utf-8'
     )
 
 
@@ -48,7 +48,7 @@ def _run_gate(gate: str, payload: dict) -> subprocess.CompletedProcess:
     payload.setdefault("cwd", str(WORKSPACE_ROOT))
     return subprocess.run(
         [interpreter(), str(WORKSPACE_ROOT / gate)], input=json.dumps(payload),
-        capture_output=True, text=True,
+        capture_output=True, text=True, encoding='utf-8'
     )
 
 
@@ -80,8 +80,8 @@ def _blocking_case(gate: str, tmp_path: Path):
     elif name == "facade-gate.py":
         mod = tmp_path / "code" / "proj" / "mod"
         mod.mkdir(parents=True)
-        (mod / "__init__.py").write_text("from .a import alpha\n", encoding="utf-8")
-        (mod / "a.py").write_text("# a\nalpha = 1\n", encoding="utf-8")
+        (mod / "__init__.py").write_text("from .a import alpha\n", encoding="utf-8", newline='\n')
+        (mod / "a.py").write_text("# a\nalpha = 1\n", encoding="utf-8", newline='\n')
         yield {"tool_name": "Edit", "tool_input": {
             "file_path": str(mod / "a.py"),
             "old_string": "1", "new_string": "2"}}, "READ FACADE FIRST"
@@ -92,10 +92,10 @@ def _blocking_case(gate: str, tmp_path: Path):
         try:
             (mod / "CONTEXT.md").write_text(
                 "# probe\n> probe module, deleted by the test that made it\n"
-                "> spec: SPECS.md\n", encoding="utf-8")
+                "> spec: SPECS.md\n", encoding="utf-8", newline='\n')
             (mod / "SPECS.md").write_text(
-                "# probe\n> probe spec\nstatus: locked\n", encoding="utf-8")
-            (mod / "a.py").write_text("# a\nx = 1\n", encoding="utf-8")
+                "# probe\n> probe spec\nstatus: locked\n", encoding="utf-8", newline='\n')
+            (mod / "a.py").write_text("# a\nx = 1\n", encoding="utf-8", newline='\n')
             yield {"tool_name": "Edit", "tool_input": {
                 "file_path": str(mod / "a.py"),
                 "old_string": "1", "new_string": "2"}}, "SPEC GATE"
@@ -143,13 +143,13 @@ def test_facade_scan_emits_valid_hook_json(tmp_path: Path) -> None:
     """Run it, do not read it: the defect was invisible in the source and obvious in the output."""
     module = tmp_path / "code" / "mod"
     module.mkdir(parents=True)
-    (module / "__init__.py").write_text("from .a import alpha, beta\n", encoding="utf-8")
+    (module / "__init__.py").write_text("from .a import alpha, beta\n", encoding="utf-8", newline='\n')
     result = subprocess.run(
         [interpreter(), str(WORKSPACE_ROOT / "core/hooks/facade/facade-scan.py")],
         input=json.dumps({"hook_event_name": "PreToolUse", "tool_name": "Write",
                           "tool_input": {"file_path": str(module / "new.py"),
                                          "content": "# new\n"}}),
-        capture_output=True, text=True)
+        capture_output=True, text=True, encoding='utf-8')
     assert result.returncode == 0
     payload = json.loads(result.stdout)["hookSpecificOutput"]
     assert payload["hookEventName"] == "PreToolUse"
@@ -192,7 +192,7 @@ def test_size_gate_rejection_lands_on_stderr(tmp_path: Path) -> None:
 
 def test_an_allowed_edit_is_silent_and_exits_zero(tmp_path: Path) -> None:
     ok = tmp_path / "ok.py"
-    ok.write_text("# ok\nx = 1\n", encoding="utf-8")
+    ok.write_text("# ok\nx = 1\n", encoding="utf-8", newline='\n')
     r = _run({"tool_name": "Edit",
               "tool_input": {"file_path": str(ok), "old_string": "x", "new_string": "y"}})
     assert r.returncode == 0

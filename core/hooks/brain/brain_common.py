@@ -44,7 +44,7 @@ AREAS = ["health", "career", "finances", "fun", "spiritual"]
 
 
 def git(*args):
-    r = subprocess.run(["git"] + list(args), capture_output=True, text=True)
+    r = subprocess.run(["git"] + list(args), capture_output=True, text=True, encoding='utf-8')
     return r.stdout.strip() if r.returncode == 0 else ""
 
 

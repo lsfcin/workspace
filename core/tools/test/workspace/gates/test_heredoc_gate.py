@@ -27,7 +27,7 @@ def run(command: str, tool: str = 'Bash') -> str:
 	payload = json.dumps({'tool_name': tool, 'cwd': str(WORKSPACE_ROOT),
 	                      'tool_input': {'command': command}})
 	done = subprocess.run([interpreter(), str(GATE)], input=payload,
-	                      capture_output=True, text=True)
+	                      capture_output=True, text=True, encoding='utf-8')
 	assert done.returncode == 0, f'the gate must never block: {done.stderr}'
 	if not done.stdout.strip():
 		return ''

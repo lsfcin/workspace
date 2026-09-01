@@ -27,7 +27,7 @@ def test_no_item_number_is_cited_outside_a_roadmap():
 
 def test_a_citation_in_source_is_a_hit(tmp_path):
     source = tmp_path / 'gate.py'
-    source.write_text('# Tier 0 gate (Front 4.1): the allowlist.\n', encoding='utf-8')
+    source.write_text('# Tier 0 gate (Front 4.1): the allowlist.\n', encoding='utf-8', newline='\n')
     hits = entropy_citations.citation_hits([source], set())
     assert len(hits) == 1
     assert "'Front 4.1'" in hits[0]
@@ -36,40 +36,40 @@ def test_a_citation_in_source_is_a_hit(tmp_path):
 def test_the_bare_form_is_a_hit(tmp_path):
     """`Front 9` outnumbered `Front 9.2` in the real corpus; a decimals-only pattern misses it."""
     source = tmp_path / 'notes.md'
-    source.write_text('The lesson Front 9 paid for twice.\n', encoding='utf-8')
+    source.write_text('The lesson Front 9 paid for twice.\n', encoding='utf-8', newline='\n')
     assert len(entropy_citations.citation_hits([source], set())) == 1
 
 
 def test_a_lettered_subitem_is_a_hit(tmp_path):
     source = tmp_path / 'notes.md'
-    source.write_text('downstream of Front 10.1b, which gates it\n', encoding='utf-8')
+    source.write_text('downstream of Front 10.1b, which gates it\n', encoding='utf-8', newline='\n')
     assert len(entropy_citations.citation_hits([source], set())) == 1
 
 
 def test_a_roadmap_may_number_its_own_items(tmp_path):
     ledger = tmp_path / 'ROADMAP.md'
-    ledger.write_text('See Front 4.1 above.\n', encoding='utf-8')
+    ledger.write_text('See Front 4.1 above.\n', encoding='utf-8', newline='\n')
     assert entropy_citations.citation_hits([ledger], set()) == []
 
 
 def test_a_scoped_roadmap_may_too(tmp_path):
     """ROADMAP-<slug>.md is the same type wearing a scope suffix, so it carries the same right."""
     ledger = tmp_path / 'ROADMAP-verify.md'
-    ledger.write_text('Advances Front 3.1.\n', encoding='utf-8')
+    ledger.write_text('Advances Front 3.1.\n', encoding='utf-8', newline='\n')
     assert entropy_citations.citation_hits([ledger], set()) == []
 
 
 def test_a_lookalike_name_is_not_a_roadmap(tmp_path):
     """Only the type and its suffix form are exempt — not any file starting with the word."""
     other = tmp_path / 'ROADMAPPING.md'
-    other.write_text('Front 4.1 is cited here.\n', encoding='utf-8')
+    other.write_text('Front 4.1 is cited here.\n', encoding='utf-8', newline='\n')
     assert len(entropy_citations.citation_hits([other], set())) == 1
 
 
 def test_the_retired_spelling_is_a_hit_even_in_a_roadmap(tmp_path):
     """The number exemption is for the current spelling only — a rename must reach everywhere."""
     ledger = tmp_path / 'ROADMAP.md'
-    ledger.write_text('See Frente 4.1 above.\n', encoding='utf-8')
+    ledger.write_text('See Frente 4.1 above.\n', encoding='utf-8', newline='\n')
     hits = entropy_citations.citation_hits([ledger], set())
     assert len(hits) == 1
     assert 'renamed to `Front`' in hits[0]
@@ -78,26 +78,26 @@ def test_the_retired_spelling_is_a_hit_even_in_a_roadmap(tmp_path):
 def test_the_retired_word_alone_is_legal_portuguese(tmp_path):
     """`frente` means a work front; branches/casinhas uses it that way. Only the shape is banned."""
     source = tmp_path / 'obra.md'
-    source.write_text('| Frente | Onde | Status |\n', encoding='utf-8')
+    source.write_text('| Frente | Onde | Status |\n', encoding='utf-8', newline='\n')
     assert entropy_citations.citation_hits([source], set()) == []
 
 
 def test_the_law_may_name_the_shape_it_forbids(tmp_path):
     law = tmp_path / 'SCHEMA.md'
-    law.write_text('Never cite `Front 4.1` from code.\n', encoding='utf-8')
+    law.write_text('Never cite `Front 4.1` from code.\n', encoding='utf-8', newline='\n')
     assert entropy_citations.citation_hits([law], {law}) == []
 
 
 def test_a_front_without_a_number_is_prose(tmp_path):
     """The word itself is legal English — only the numbered pointer is a dead reference."""
     source = tmp_path / 'notes.md'
-    source.write_text('progress on several fronts, and the Front holds\n', encoding='utf-8')
+    source.write_text('progress on several fronts, and the Front holds\n', encoding='utf-8', newline='\n')
     assert entropy_citations.citation_hits([source], set()) == []
 
 
 def test_a_longer_token_is_not_a_hit(tmp_path):
     source = tmp_path / 'notes.md'
-    source.write_text('Frontier 4 models and Fronting 9 requests\n', encoding='utf-8')
+    source.write_text('Frontier 4 models and Fronting 9 requests\n', encoding='utf-8', newline='\n')
     assert entropy_citations.citation_hits([source], set()) == []
 
 

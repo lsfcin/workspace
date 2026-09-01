@@ -77,7 +77,7 @@ def _named(root: Path, rel: str, names: tuple, cache: dict) -> list:
         return chain(rel, root)
     if rel not in cache:
         path = root / rel
-        cache[rel] = code(path.read_text('utf-8', 'replace')) if path.is_file() else ''
+        cache[rel] = code(path.read_text(encoding='utf-8', errors='replace')) if path.is_file() else ''
     text, (paths, stems) = cache[rel], names
     imported = set(re.findall(r'^\s*(?:from|import)\s+([\w.]+)', text, re.M))
     return sorted({target for token, target in paths.items() if token in text and target != rel}

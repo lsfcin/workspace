@@ -21,7 +21,7 @@ def _table(tmp_path, **sources) -> str:
     files = []
     for name, body in sources.items():
         p = tmp_path / name
-        p.write_text(body, encoding='utf-8')
+        p.write_text(body, encoding='utf-8', newline='\n')
         files.append((p, name))
     return build_file_rows(files, {}, tmp_path)
 
@@ -33,7 +33,7 @@ def test_an_all_empty_interface_column_is_dropped(tmp_path) -> None:
 
 
 def test_a_column_with_one_real_value_survives(tmp_path) -> None:
-    (tmp_path / 'a.pyi').write_text('def go() -> None: ...\n', encoding='utf-8')
+    (tmp_path / 'a.pyi').write_text('def go() -> None: ...\n', encoding='utf-8', newline='\n')
     table = _table(tmp_path, **{'a.py': '# alpha\ndef go():\n    pass\n', 'b.py': '# beta\n'})
     assert '| Interface |' in table
 
@@ -64,7 +64,7 @@ def test_every_scanned_extension_can_be_described() -> None:
 def test_a_shell_script_is_described_below_its_shebang(tmp_path) -> None:
     """The concrete case: a shebang is not the description, the comment under it is."""
     p = tmp_path / 'thing.sh'
-    p.write_text('#!/usr/bin/env bash\n# does the thing\n', encoding='utf-8')
+    p.write_text('#!/usr/bin/env bash\n# does the thing\n', encoding='utf-8', newline='\n')
     assert file_description(p) == 'does the thing'
 
 
@@ -107,7 +107,7 @@ def test_a_multiline_module_docstring_describes_the_module(tmp_path) -> None:
     docstring that opened on line 1 and closed three lines down read as undescribed."""
     p = tmp_path / 'a.py'
     p.write_text('#!/usr/bin/env python3\n"""Does the thing.\n\nAt length.\n"""\n',
-                 encoding='utf-8')
+                 encoding='utf-8', newline='\n')
     assert file_description(p) == 'Does the thing.'
 
 
@@ -115,7 +115,7 @@ def test_a_line_one_comment_outranks_the_docstring(tmp_path) -> None:
     """This workspace's convention is the `#` line, and the gate enforces it there. The
     docstring is a fallback — if it could outrank the comment, every row would move."""
     p = tmp_path / 'a.py'
-    p.write_text('# the convention\n"""The docstring.\n\nMore.\n"""\n', encoding='utf-8')
+    p.write_text('# the convention\n"""The docstring.\n\nMore.\n"""\n', encoding='utf-8', newline='\n')
     assert file_description(p) == 'the convention'
 
 
@@ -123,7 +123,7 @@ def test_a_folded_md_blurb_has_its_links_rebased(tmp_path) -> None:
     """A blurb from a folded subdirectory names files relative to ITS directory."""
     sub = tmp_path / 'sub'
     sub.mkdir()
-    (sub / 'a.md').write_text('# a\n> see [SPECS.md](SPECS.md)\n', encoding='utf-8')
+    (sub / 'a.md').write_text('# a\n> see [SPECS.md](SPECS.md)\n', encoding='utf-8', newline='\n')
     table = build_file_rows([(sub / 'a.md', 'sub/a.md')], {}, tmp_path)
     assert '(sub/SPECS.md)' in table
     assert '](SPECS.md)' not in table

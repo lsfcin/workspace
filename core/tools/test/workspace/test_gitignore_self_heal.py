@@ -12,20 +12,20 @@ SCRIPT = WORKSPACE_ROOT / "core/hooks/git" / "gitignore_heal.py"
 def _make_fixture(tmp_path: Path) -> Path:
     (tmp_path / ".gitignore").write_text(
         "core/*\n!core/CONTEXT.md\n!core/tools/\n", encoding="utf-8"
-    )
+    , newline='\n')
     (tmp_path / "core/hooks").mkdir(parents=True)
     (tmp_path / "core/hooks" / "gitignore-exceptions.txt").write_text(
         "core/excluded\n", encoding="utf-8"
-    )
+    , newline='\n')
     (tmp_path / "core" / "tools").mkdir(parents=True)
-    (tmp_path / "core" / "tools" / "CONTEXT.md").write_text("tools\n", encoding="utf-8")
+    (tmp_path / "core" / "tools" / "CONTEXT.md").write_text("tools\n", encoding="utf-8", newline='\n')
     (tmp_path / "core" / "newdir").mkdir()
-    (tmp_path / "core" / "newdir" / "CONTEXT.md").write_text("newdir\n", encoding="utf-8")
+    (tmp_path / "core" / "newdir" / "CONTEXT.md").write_text("newdir\n", encoding="utf-8", newline='\n')
     (tmp_path / "core" / "scratch").mkdir()  # no CONTEXT.md — correctly ignored
     (tmp_path / "core" / "excluded").mkdir()
-    (tmp_path / "core" / "excluded" / "CONTEXT.md").write_text("excluded\n", encoding="utf-8")
+    (tmp_path / "core" / "excluded" / "CONTEXT.md").write_text("excluded\n", encoding="utf-8", newline='\n')
     (tmp_path / "core" / "ownrepo" / ".git").mkdir(parents=True)
-    (tmp_path / "core" / "ownrepo" / "CONTEXT.md").write_text("ownrepo\n", encoding="utf-8")
+    (tmp_path / "core" / "ownrepo" / "CONTEXT.md").write_text("ownrepo\n", encoding="utf-8", newline='\n')
     return tmp_path
 
 
@@ -37,7 +37,7 @@ def _run(tmp_path: Path) -> str:
 def _git(fixture: Path, *args: str) -> subprocess.CompletedProcess:
     return subprocess.run(
         ["git", "-C", str(fixture), *args], capture_output=True, text=True, check=False
-    )
+    , encoding='utf-8')
 
 
 def _make_repo_fixture(tmp_path: Path) -> Path:
@@ -51,7 +51,7 @@ def _make_repo_fixture(tmp_path: Path) -> Path:
 def _heal(fixture: Path) -> subprocess.CompletedProcess:
     return subprocess.run(
         [interpreter(), str(SCRIPT), str(fixture)], capture_output=True, text=True, check=False
-    )
+    , encoding='utf-8')
 
 
 def test_new_context_bearing_subdir_gets_allowlisted(tmp_path):
@@ -88,7 +88,7 @@ def test_healing_a_hidden_subdir_stops_the_commit(tmp_path):
     # ignored at `git add` time and is not in the index. Committing anyway ships a CONTEXT.md
     # without the files it describes. Ruled 2026-08-19 (Lucas): heal, then fail loud.
     fixture = _make_repo_fixture(tmp_path)
-    (fixture / "core" / "newdir" / "payload.txt").write_text("data\n", encoding="utf-8")
+    (fixture / "core" / "newdir" / "payload.txt").write_text("data\n", encoding="utf-8", newline='\n')
     result = _heal(fixture)
     assert result.returncode != 0, "a heal that hid files must stop the commit"
     assert "core/newdir" in result.stderr, "the message must name the directory"
@@ -100,7 +100,7 @@ def test_the_stopped_commit_had_nothing_staged_behind_the_callers_back(tmp_path)
     # commit always sufficed. A commit hook that stages what the caller did not is worse than
     # the bug, so this asserts the index is untouched apart from .gitignore.
     fixture = _make_repo_fixture(tmp_path)
-    (fixture / "core" / "newdir" / "payload.txt").write_text("data\n", encoding="utf-8")
+    (fixture / "core" / "newdir" / "payload.txt").write_text("data\n", encoding="utf-8", newline='\n')
     _heal(fixture)
     staged = _git(fixture, "diff", "--cached", "--name-only").stdout.split()
     assert not [p for p in staged if p.startswith("core/newdir")]
@@ -108,7 +108,7 @@ def test_the_stopped_commit_had_nothing_staged_behind_the_callers_back(tmp_path)
 
 def test_rerunning_after_the_user_stages_lets_the_commit_through(tmp_path):
     fixture = _make_repo_fixture(tmp_path)
-    (fixture / "core" / "newdir" / "payload.txt").write_text("data\n", encoding="utf-8")
+    (fixture / "core" / "newdir" / "payload.txt").write_text("data\n", encoding="utf-8", newline='\n')
     _heal(fixture)
     _git(fixture, "add", "core/newdir")
     assert _heal(fixture).returncode == 0

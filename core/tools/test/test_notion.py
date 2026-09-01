@@ -162,8 +162,8 @@ def test_the_cli_routes_its_entrypoint_through_run(tmp_path):
         "def _rec(main_fn, *also):\n"
         "    pathlib.Path(os.environ['RUN_PROBE']).write_text('called')\n"
         "    raise SystemExit(0)\n"
-        "notion_core.run = _rec\n", encoding="utf-8")
+        "notion_core.run = _rec\n", encoding="utf-8", newline='\n')
     subprocess.run([interpreter(), str(TOOLS_ROOT / "notes" / "notion")],
                    capture_output=True, text=True, timeout=60,
-                   env={**os.environ, "PYTHONPATH": str(shim), "RUN_PROBE": str(probe)})
+                   env={**os.environ, "PYTHONPATH": str(shim), "RUN_PROBE": str(probe)}, encoding='utf-8')
     assert probe.exists(), "the notion CLI never reaches notion_core.run"

@@ -22,7 +22,7 @@ def run_gate(script: str, payload: dict[str, Any], tool: str, extra_args: list[s
     env = {**os.environ, "CLAUDE_TOOL_NAME": tool}
     data = json.dumps(payload)
     env["CLAUDE_TOOL_INPUT"] = data
-    proc = subprocess.run(cmd, input=data, text=True, capture_output=True, cwd=str(WORKSPACE_ROOT), env=env, check=False)
+    proc = subprocess.run(cmd, input=data, text=True, capture_output=True, cwd=str(WORKSPACE_ROOT), env=env, check=False, encoding='utf-8')
     msg = (proc.stderr or proc.stdout).strip()
     return proc.returncode, msg
 

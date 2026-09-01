@@ -62,7 +62,7 @@ def _run(command: str, path: str, tool: str = 'Bash', counter: str = '') -> str:
 	if counter:
 		env['RTK_COMPACT_DIR'] = counter
 	done = subprocess.run([interpreter(), str(SHIM)], input=json.dumps(payload),
-	                      capture_output=True, text=True, env=env)
+	                      capture_output=True, text=True, env=env, encoding='utf-8')
 	assert done.returncode == 0, done.stderr
 	return done.stdout.strip()
 
@@ -101,7 +101,7 @@ def _rewritten_by_stub_alone(command: str, path: str) -> str | None:
 	env = {**os.environ, 'PATH': path}
 	done = subprocess.run([shutil.which('rtk', path=path), 'hook', 'claude'],
 	                      input=json.dumps(payload),
-	                      capture_output=True, text=True, env=env)
+	                      capture_output=True, text=True, env=env, encoding='utf-8')
 	if not done.stdout.strip():
 		return None
 	return json.loads(done.stdout)['hookSpecificOutput']['updatedInput']['command']

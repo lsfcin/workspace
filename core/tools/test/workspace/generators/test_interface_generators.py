@@ -23,7 +23,7 @@ EMIT_KEYS = {"declaration", "emitDeclarationOnly", "outDir", "declarationDir"}
 def _tracked(*patterns: str) -> list[Path]:
     out = subprocess.run(
         ["git", "ls-files", "-z", *patterns],
-        cwd=WORKSPACE_ROOT, capture_output=True, text=True, check=True,
+        cwd=WORKSPACE_ROOT, capture_output=True, text=True, check=True, encoding='utf-8'
     ).stdout
     return [WORKSPACE_ROOT / p for p in out.split("\0") if p]
 
@@ -129,15 +129,15 @@ def test_stub_output_root_climbs_out_of_the_package(tmp_path: Path) -> None:
     pkg = tmp_path / "outer" / "pkg" / "sub"
     pkg.mkdir(parents=True)
     for d in (tmp_path / "outer" / "pkg", pkg):
-        (d / "__init__.py").write_text("", encoding="utf-8")
-    (pkg / "mod.py").write_text("# mod\n", encoding="utf-8")
+        (d / "__init__.py").write_text("", encoding="utf-8", newline='\n')
+    (pkg / "mod.py").write_text("# mod\n", encoding="utf-8", newline='\n')
     assert _stub_out_dir("outer/pkg/sub/mod.py", tmp_path) == "outer"
 
 
 def test_stub_output_root_is_unchanged_outside_a_package(tmp_path: Path) -> None:
     plain = tmp_path / "plain"
     plain.mkdir()
-    (plain / "mod.py").write_text("# mod\n", encoding="utf-8")
+    (plain / "mod.py").write_text("# mod\n", encoding="utf-8", newline='\n')
     assert _stub_out_dir("plain/mod.py", tmp_path) == "plain"
 
 

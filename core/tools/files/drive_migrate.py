@@ -79,7 +79,7 @@ def migrate_recursive(cin_svc, personal_svc, cin_folder_id: str, personal_parent
                         "url": copied.get("webViewLink", ""),
                     }
                     state.setdefault("copied", {})[cin_id] = entry
-                    STATE_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding='utf-8')
+                    STATE_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding='utf-8', newline='\n')
                     print(f" ✓")
                     results.append(entry)
                     time.sleep(0.3)  # stay under quota
@@ -132,7 +132,7 @@ def run(dry_run: bool) -> None:
             "files":              files,
         }
 
-    MAP_FILE.write_text(json.dumps(full_map, indent=2, ensure_ascii=False), encoding='utf-8')
+    MAP_FILE.write_text(json.dumps(full_map, indent=2, ensure_ascii=False), encoding='utf-8', newline='\n')
     tag = "DRY RUN — " if dry_run else ""
     print(f"\n{tag}Done. Map saved to {MAP_FILE}")
 

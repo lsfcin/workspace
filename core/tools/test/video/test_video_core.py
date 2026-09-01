@@ -139,7 +139,7 @@ def test_save_no_overwrite(tmp_path):
 
 def test_cli_usage_exits_1():
     cli = pathlib.Path(vc.__file__).with_name("video")
-    r = subprocess.run([sys.executable, str(cli)], capture_output=True, text=True)
+    r = subprocess.run([sys.executable, str(cli)], capture_output=True, text=True, encoding='utf-8')
     assert r.returncode == 1
     assert "Usage" in r.stderr
 

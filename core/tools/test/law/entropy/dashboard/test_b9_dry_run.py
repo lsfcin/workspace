@@ -24,7 +24,7 @@ def _snapshot():
 def _dashboard(*args, env_extra=None):
     env = {**os.environ, **(env_extra or {})}
     out = subprocess.run([sys.executable, str(DASHBOARD), *args], cwd=WORKSPACE_ROOT, env=env,
-                         stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=180)
+                         stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=180, encoding='utf-8')
     assert out.returncode == 0, out.stderr
     return out
 

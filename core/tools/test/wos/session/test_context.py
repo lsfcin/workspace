@@ -34,7 +34,7 @@ def use(tool_use_id: str, name: str, path: str = '') -> dict:
 def transcript(tmp_path):
 	def build(records):
 		path = tmp_path / 'session.jsonl'
-		path.write_text('\n'.join(json.dumps(r) for r in records) + '\n', encoding='utf-8')
+		path.write_text('\n'.join(json.dumps(r) for r in records) + '\n', encoding='utf-8', newline='\n')
 		return path
 	return build
 

@@ -30,7 +30,7 @@ def repo_root(path: Path) -> Path | None:
 	try:
 		out = subprocess.check_output(
 			['git', '-C', str(path.parent), 'rev-parse', '--show-toplevel'],
-			text=True, stderr=subprocess.DEVNULL).strip()
+			text=True, stderr=subprocess.DEVNULL, encoding='utf-8').strip()
 		return Path(out)
 	except Exception:
 		return None

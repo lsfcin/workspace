@@ -142,7 +142,7 @@ def auth(alias: str, service: str, scopes: list) -> Credentials:
                 str(_credentials_file(service)), scopes
             )
             creds = flow.run_local_server(port=0)
-        token_path.write_text(creds.to_json(), encoding='utf-8')
+        token_path.write_text(creds.to_json(), encoding='utf-8', newline='\n')
         secure_file(token_path)
 
     return creds

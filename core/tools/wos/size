@@ -21,7 +21,7 @@ import tool_law  # noqa: E402
 
 
 def git(root, *args):
-    r = subprocess.run(['git', *args], cwd=root, capture_output=True, text=True)
+    r = subprocess.run(['git', *args], cwd=root, capture_output=True, text=True, encoding='utf-8')
     return r.stdout if r.returncode == 0 else ''
 
 

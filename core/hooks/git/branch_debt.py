@@ -25,7 +25,7 @@ BASES = ('main', 'master', 'develop')
 
 def _git(repo: Path, *args) -> str:
     done = subprocess.run(['git', '-C', str(repo), *args],
-                          capture_output=True, text=True)
+                          capture_output=True, text=True, encoding='utf-8')
     return done.stdout.strip() if done.returncode == 0 else ''
 
 

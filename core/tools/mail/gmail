@@ -17,7 +17,7 @@ CACHE_FILE = CONFIG_DIR / "fetch_cache.json"
 
 def _load_accounts() -> list:
     f = CONFIG_DIR / "accounts.json"
-    return json.loads(f.read_text()).get("accounts", []) if f.exists() else []
+    return json.loads(f.read_text(encoding='utf-8')).get("accounts", []) if f.exists() else []
 
 
 def _resolve(alias: str) -> str:
@@ -34,11 +34,11 @@ def _accounts() -> list:
 
 
 def _cache_write(emails: list) -> None:
-    CACHE_FILE.write_text(json.dumps(emails, ensure_ascii=False, indent=2))
+    CACHE_FILE.write_text(json.dumps(emails, ensure_ascii=False, indent=2), encoding='utf-8', newline='\n')
 
 
 def _cache_read() -> list:
-    return json.loads(CACHE_FILE.read_text()) if CACHE_FILE.exists() else []
+    return json.loads(CACHE_FILE.read_text(encoding='utf-8')) if CACHE_FILE.exists() else []
 
 
 def cmd_auth(alias: str, reauth: bool) -> None:

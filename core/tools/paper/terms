@@ -20,7 +20,7 @@ def load_terms(paper: Path) -> dict[str, list[str]]:
     path = paper / TERMS_FILE
     if not path.exists():
         return {}
-    data = yaml.safe_load(path.read_text())
+    data = yaml.safe_load(path.read_text(encoding='utf-8'))
     if not isinstance(data, dict):
         return {}
     return data.get("canonical", {}) or {}
@@ -50,7 +50,7 @@ def _clean(line: str) -> str:
 def scan(paper: Path, terms: dict[str, list[str]], strict: bool) -> list[tuple[Path, int, str, str, str]]:
     hits: list[tuple[Path, int, str, str, str]] = []
     for tex in tex_files(paper):
-        lines = tex.read_text(errors="replace").splitlines()
+        lines = tex.read_text(errors="replace", encoding='utf-8').splitlines()
         for lineno, line in enumerate(lines, 1):
             stripped = line.lstrip()
             if stripped.startswith("%"):

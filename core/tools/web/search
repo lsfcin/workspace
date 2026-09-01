@@ -17,7 +17,7 @@ def _exa_key():
     if not EXA_CFG.exists():
         return None
     try:
-        return json.loads(EXA_CFG.read_text()).get('exaApiKey')
+        return json.loads(EXA_CFG.read_text(encoding='utf-8')).get('exaApiKey')
     except Exception:
         return None
 
@@ -61,7 +61,7 @@ def _ddgr(query, n, region):
         try:
             res = subprocess.run(
                 ['ddgr', '--np', '--json', '-n', str(n), '-r', region, query],
-                capture_output=True, text=True, timeout=60,
+                capture_output=True, text=True, timeout=60, encoding='utf-8'
             )
             out = res.stdout
             err = res.stderr

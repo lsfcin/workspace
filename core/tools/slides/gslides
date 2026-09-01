@@ -61,7 +61,7 @@ def cmd_text(account: str, presentation_id: str, slide_id: str, text: str,
 def cmd_apply(account: str, presentation_id: str, path: str) -> None:
     """The general seam: a JSON array of Slides API requests, applied atomically."""
     alias = gauth.resolve_alias(account)
-    requests = json.loads(pathlib.Path(path).read_text())
+    requests = json.loads(pathlib.Path(path).read_text(encoding='utf-8'))
     res = slides_core.apply(alias, presentation_id, requests)
     print(f"Applied {len(requests)} request(s); {len(res.get('replies', []))} replies")
     print(f"  {slides_core.url(presentation_id)}")

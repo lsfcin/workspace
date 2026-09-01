@@ -39,7 +39,7 @@ def main():
     if not src.exists():
         sys.exit(1)
     dst = src.parent / (src.stem + '.dart.api')
-    dst.write_text('\n'.join(extract(src)) + '\n', encoding='utf-8')
+    dst.write_text('\n'.join(extract(src)) + '\n', encoding='utf-8', newline='\n')
     print(f'✓ .dart.api: {dst}')
 
 if __name__ == '__main__':

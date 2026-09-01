@@ -7,11 +7,11 @@ import tool_law  # noqa: E402
 _STORE = pathlib.Path.home() / '.research' / 'annotations.json'
 
 def _load():
-    return json.loads(_STORE.read_text()) if _STORE.exists() else {}
+    return json.loads(_STORE.read_text(encoding='utf-8')) if _STORE.exists() else {}
 
 def _save(data):
     _STORE.parent.mkdir(parents=True, exist_ok=True)
-    _STORE.write_text(json.dumps(data, indent=2))
+    _STORE.write_text(json.dumps(data, indent=2), encoding='utf-8', newline='\n')
 
 def main():
     tool_law.require('latex')  # before argparse: off means off.

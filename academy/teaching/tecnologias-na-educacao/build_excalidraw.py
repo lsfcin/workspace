@@ -149,6 +149,6 @@ def build():
 if __name__ == "__main__":
     out = sys.argv[1] if len(sys.argv) > 1 else "aula02.excalidraw"
     doc = build()
-    with open(out, "w") as f:
+    with open(out, "w", encoding='utf-8', newline='\n') as f:
         json.dump(doc, f, ensure_ascii=False)
     print(f"{len(doc['elements'])} elementos · 1 exemplo + {N_EQUIPES} equipes -> {out}")

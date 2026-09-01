@@ -28,7 +28,7 @@ def _run(gate, payload: dict) -> subprocess.CompletedProcess:
 	payload.setdefault('session_id', f'test-{uuid.uuid4()}')
 	payload.setdefault('cwd', str(WORKSPACE_ROOT))
 	return subprocess.run([interpreter(), str(gate)], input=json.dumps(payload),
-	                      capture_output=True, text=True)
+	                      capture_output=True, text=True, encoding='utf-8')
 
 
 def _read_payload() -> dict:

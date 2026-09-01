@@ -73,7 +73,7 @@ def main() -> int:
     start, end = markers(name)
     body = '\n'.join((start, sys.stdin.read().strip(), end))
     text = target.read_text(encoding='utf-8') if target.exists() else ''
-    target.write_text(replace_block(text, body, start, end), encoding='utf-8')
+    target.write_text(replace_block(text, body, start, end), encoding='utf-8', newline='\n')
     return 0
 
 

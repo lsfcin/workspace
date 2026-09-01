@@ -98,7 +98,7 @@ def test_switching_a_norm_off_removes_it_from_the_prompt():
     both = {}
     for label, env in (('on', {}), ('off', {law.OFF_ENV: slug})):
         out = subprocess.run([sys.executable, '-c', script], capture_output=True, text=True,
-                             cwd=WORKSPACE_ROOT, env={**os.environ, **env})
+                             cwd=WORKSPACE_ROOT, env={**os.environ, **env}, encoding='utf-8')
         assert out.returncode == 0, out.stderr
         both[label] = out.stdout.strip().split(',')
     assert slug in both['on'], f'{slug} is not published even switched on'

@@ -69,14 +69,14 @@ def _commit_ledger(repo_path: Path) -> None:
                                   for m in ('MERGE_HEAD', 'rebase-merge', 'rebase-apply')):
         return
     dirty = subprocess.run(['git', '-C', str(repo_path), 'status', '--porcelain', '--', 'ISSUES.md'],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, encoding='utf-8')
     if dirty.returncode != 0 or not dirty.stdout.strip():
         return
     subprocess.run(['git', '-C', str(repo_path), 'add', '--', 'ISSUES.md'],
-                   capture_output=True, text=True)
+                   capture_output=True, text=True, encoding='utf-8')
     commit = subprocess.run(['git', '-C', str(repo_path), 'commit', '--no-verify', '-m',
                              'chore(issues): regenerate the entropy ledger', '--', 'ISSUES.md'],
-                            capture_output=True, text=True)
+                            capture_output=True, text=True, encoding='utf-8')
     if commit.returncode != 0:
         why = (commit.stderr or commit.stdout).strip().splitlines()
         print(f'⚠  {repo_path.name}: ledger not committed ({why[-1] if why else "git commit failed"})')
@@ -87,7 +87,7 @@ def write_local(repo: str, root: Path, findings: dict, scanned: int) -> int:
     ledger = root / repo / 'ISSUES.md'
     text = ledger.read_text(encoding='utf-8') if ledger.exists() else local_seed(repo)
     block = render(findings, scanned, root / repo, name=repo)
-    ledger.write_text(replace_block(text, block, START, END, at_end=True), encoding='utf-8')
+    ledger.write_text(replace_block(text, block, START, END, at_end=True), encoding='utf-8', newline='\n')
     _commit_ledger(root / repo)
     return sum(len(items) for items in findings.values())
 

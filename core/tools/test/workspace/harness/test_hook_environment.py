@@ -41,10 +41,10 @@ def test_a_fixture_write_cannot_reach_the_workspace_index(tmp_path: Path):
     its own .git still reports itself -- which is why this asserts on what got staged.
     """
     subprocess.run(['git', 'init', '-q'], cwd=tmp_path, check=True)
-    (tmp_path / 'CONTEXT.md').write_text('# fixture\n', encoding='utf-8')
+    (tmp_path / 'CONTEXT.md').write_text('# fixture\n', encoding='utf-8', newline='\n')
     subprocess.run(['git', 'add', '-A'], cwd=tmp_path, check=True)
 
     staged = subprocess.run(
-        ['git', 'ls-files'], cwd=tmp_path, capture_output=True, text=True, check=True,
+        ['git', 'ls-files'], cwd=tmp_path, capture_output=True, text=True, check=True, encoding='utf-8'
     ).stdout.split()
     assert staged == ['CONTEXT.md'], 'the fixture staged something that is not its own'

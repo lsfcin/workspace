@@ -88,7 +88,7 @@ def run(export: pathlib.Path, out: pathlib.Path, who: str | None = None) -> int:
     text = stitch(export, export.parent)
     count = text.count("    ↳ ")
     name = who or out.stem
-    out.write_text(f"{header(name, text, count)}\n\n{text}", encoding="utf-8")
+    out.write_text(f"{header(name, text, count)}\n\n{text}", encoding="utf-8", newline='\n')
     return count
 
 

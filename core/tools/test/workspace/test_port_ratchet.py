@@ -12,9 +12,13 @@
 # never one shared: a shared number lets one defect grow while another shrinks and reports calm.
 #
 # I5 -- one branch, one codebase -- is deliberately absent. It is not a property of any file, and a
-# test pretending to check it would be the weaker kind this workspace names. AD-9's law (no text
-# read or write inheriting the OS encoding) is owed: the corpus is clean, but an exact check needs
-# the ast walk the codemod used, and that belongs with the pre-commit pipeline being ported next.
+# test pretending to check it would be the weaker kind this workspace names.
+#
+# The encoding law is no longer owed: it is held next door by test_encoding_ratchet.py, which is
+# also where it is now WRITTEN, because the "AD-9" this file used to cite named no section that
+# existed. It was owed here with the guess "the corpus is clean". It was not -- the ast walk found
+# 304 inheriting call sites in 113 files the first time one was pointed at the tree, and two of them
+# were failing this suite on a Windows clone while reading as an unrelated TypeError.
 from conftest import git_lines as _git
 from platform_law import AUTHORING_ROOT, POSIX_VENV_BIN
 

@@ -33,7 +33,7 @@ def _experiment(tmp_path: Path, body: str, name: str = 'thing.md') -> list:
     target = tmp_path / 'core' / 'experiments'
     target.mkdir(parents=True, exist_ok=True)
     path = target / name
-    path.write_text(body, encoding='utf-8')
+    path.write_text(body, encoding='utf-8', newline='\n')
     return stores.experiment_hits([path])
 
 
@@ -71,7 +71,7 @@ def _refs(tmp_path: Path, body: str) -> list:
     target = tmp_path / 'core' / 'refs'
     target.mkdir(parents=True, exist_ok=True)
     path = target / 'REFS.md'
-    path.write_text(body, encoding='utf-8')
+    path.write_text(body, encoding='utf-8', newline='\n')
     return stores.ref_tier_hits([path])
 
 

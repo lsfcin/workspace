@@ -145,7 +145,7 @@ def scaffold(root: Path, name: str, slug: str, is_new: bool) -> None:
         if p.exists():
             skipped.append(rel)
         else:
-            p.write_text(content, encoding='utf-8')
+            p.write_text(content, encoding='utf-8', newline='\n')
             created.append(rel)
 
     if is_new:

@@ -18,7 +18,7 @@ def _workspace(tmp_path):
     (ws / 'code/proj').mkdir(parents=True)
     repo = ws / 'code/proj'
     subprocess.run(['git', 'init', '-q', str(repo)], check=True)
-    (repo / 'file.py').write_text('x = 1\n', encoding='utf-8')
+    (repo / 'file.py').write_text('x = 1\n', encoding='utf-8', newline='\n')
     env = {**os.environ, 'GIT_AUTHOR_NAME': 't', 'GIT_AUTHOR_EMAIL': 't@t',
            'GIT_COMMITTER_NAME': 't', 'GIT_COMMITTER_EMAIL': 't@t'}
     subprocess.run(['git', '-C', str(repo), 'add', '.'], check=True)
@@ -37,7 +37,7 @@ FILES = ['code/proj/file.py']
 
 
 def _git(repo, *args):
-    return subprocess.run(['git', '-C', str(repo), *args], capture_output=True, text=True)
+    return subprocess.run(['git', '-C', str(repo), *args], capture_output=True, text=True, encoding='utf-8')
 
 
 def test_the_ledger_the_scatter_writes_gets_committed(tmp_path):
@@ -58,7 +58,7 @@ def test_an_unchanged_ledger_is_not_committed_again(tmp_path):
 
 def test_a_repo_mid_operation_is_left_alone(tmp_path):
     ws, repo = _workspace(tmp_path)
-    (repo / '.git' / 'MERGE_HEAD').write_text('x', encoding='utf-8')
+    (repo / '.git' / 'MERGE_HEAD').write_text('x', encoding='utf-8', newline='\n')
     scatter(_findings(), ws, FILES)
     assert 'ISSUES.md' in _git(repo, 'status', '--porcelain').stdout, 'the ledger must be written'
     assert _git(repo, 'log', '--oneline', '--', 'ISSUES.md').stdout == '', 'mid-operation repo committed'
@@ -66,7 +66,7 @@ def test_a_repo_mid_operation_is_left_alone(tmp_path):
 
 def test_staged_work_in_the_repo_stays_staged(tmp_path):
     ws, repo = _workspace(tmp_path)
-    (repo / 'wip.py').write_text('y = 2\n', encoding='utf-8')
+    (repo / 'wip.py').write_text('y = 2\n', encoding='utf-8', newline='\n')
     _git(repo, 'add', 'wip.py')
     scatter(_findings(), ws, FILES)
     assert 'wip.py' in _git(repo, 'status', '--porcelain').stdout, 'the pathspec commit ate staged work'

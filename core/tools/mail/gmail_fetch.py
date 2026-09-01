@@ -26,7 +26,7 @@ def auth(alias: str) -> Credentials:
                 raise FileNotFoundError(f"credentials.json not found at {creds_file}")
             flow = InstalledAppFlow.from_client_secrets_file(str(creds_file), SCOPES)
             creds = flow.run_local_server(port=0)
-        token_path.write_text(creds.to_json(), encoding='utf-8')
+        token_path.write_text(creds.to_json(), encoding='utf-8', newline='\n')
 
     return creds
 

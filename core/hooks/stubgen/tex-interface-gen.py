@@ -64,7 +64,7 @@ def write_interface(tex_path: Path, data: dict, paper_root: Path | None) -> Path
     if data['todos']:
         lines += ['\n---', '\n## TODOs'] + [f'- [line {t["line"]}] {t["text"]}' for t in data['todos']]
 
-    out_path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
+    out_path.write_text('\n'.join(lines) + '\n', encoding='utf-8', newline='\n')
     return out_path
 
 
@@ -116,7 +116,7 @@ def regenerate_labels(paper_root: Path) -> None:
             out.append(f'{dr["ref"]:<40} {dr["file"]:<50} {dr["line"]}')
     else:
         out += ['## Dangling References (0 issues)', '', r'All \ref{} usages resolved.']
-    (paper_root / 'labels.md').write_text('\n'.join(out) + '\n', encoding='utf-8')
+    (paper_root / 'labels.md').write_text('\n'.join(out) + '\n', encoding='utf-8', newline='\n')
     print('✓ labels.md updated')
 
 

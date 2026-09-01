@@ -129,7 +129,7 @@ def test_the_summary_needs_no_click(tmp_path):
     by looking at them and a shape behind a click does not get looked at."""
     out = tmp_path / 'ARCHITECTURE.html'
     result = subprocess.run([interpreter(), str(TOOL), '--out', str(out)], capture_output=True, text=True,
-                            cwd=WORKSPACE_ROOT)
+                            cwd=WORKSPACE_ROOT, encoding='utf-8')
     assert result.returncode == 0, result.stdout + result.stderr
     html = out.read_text(encoding='utf-8')
     tabs = html.index('<div class="tabs">')

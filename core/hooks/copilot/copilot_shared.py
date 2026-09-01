@@ -121,7 +121,7 @@ def run_script(script: Path, payload: dict[str, Any], tool_name: str, workspace_
         capture_output=True,
         cwd=str(workspace_root),
         env=env,
-        check=False,
+        check=False, encoding='utf-8'
     )
 
 

@@ -107,7 +107,7 @@ def write_shims(tier: str) -> list:
     data = _load(path)
     data['permissions'] = render_claude(tier)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+    path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8', newline='\n')
     return [path]
 
 
@@ -125,7 +125,7 @@ def _set(tier: str) -> int:
     else:
         print('core/profile.txt has no `setting permissions` line to answer', file=sys.stderr)
         return 1
-    PROFILE.write_text(''.join(lines), encoding='utf-8')
+    PROFILE.write_text(''.join(lines), encoding='utf-8', newline='\n')
     for path in write_shims(tier):
         print(f'{tier} -> {path.relative_to(ROOT).as_posix()}')
     return 0

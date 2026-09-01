@@ -97,5 +97,5 @@ def test_every_tool_runs_under_the_workspace_venv():
 def test_the_probe_runner_agrees_with_this_file():
     """One parser, not two. If `deps` drifts from deps.txt, the install steps stop being checkable."""
     out = subprocess.run([sys.executable, str(WORKSPACE_ROOT / 'core/tools/wos/deps'), '--feature',
-                          'verify-suite'], capture_output=True, text=True, cwd=WORKSPACE_ROOT)
+                          'verify-suite'], capture_output=True, text=True, cwd=WORKSPACE_ROOT, encoding='utf-8')
     assert 'pytest' in out.stdout, out.stderr

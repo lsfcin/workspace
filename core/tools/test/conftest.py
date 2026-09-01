@@ -58,10 +58,16 @@ def git_lines(*args) -> list:
     ROADMAP.md § Portability already follows for the same reason.
     """
     import subprocess
-    done = subprocess.run(['git', *args], cwd=WORKSPACE_ROOT, capture_output=True, text=True)
+    done = subprocess.run(['git', *args], cwd=WORKSPACE_ROOT, capture_output=True, text=True, encoding='utf-8')
     return [line for line in done.stdout.splitlines() if line and '_ratchet' not in line]
 
 
 def pytest_configure(config):
     config.addinivalue_line(
         "markers", "network: hits real network/models; excluded from verify:fast")
+    # Every gate and tool this suite spawns is spawned through core/run in production, and core/run
+    # exports this. Declared once here rather than per spawn: a spec that runs a gate barer than the
+    # harness ever does is testing a gate that does not exist, and it fails as a TypeError about
+    # NoneType — the child writes a glyph, the parent cannot decode it, the reader thread dies and
+    # stdout comes back None. The law: core/tools/test/workspace/test_encoding_ratchet.py
+    os.environ['PYTHONIOENCODING'] = 'utf-8'

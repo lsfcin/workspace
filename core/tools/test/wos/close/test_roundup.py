@@ -34,7 +34,7 @@ PARTS = ('core/tools/wos/roundup', 'core/tools/wos/close/artifacts.py',
 
 
 def _git(repo, *args):
-    return subprocess.run(('git',) + args, cwd=repo, capture_output=True, text=True)
+    return subprocess.run(('git',) + args, cwd=repo, capture_output=True, text=True, encoding='utf-8')
 
 
 def _workspace(tmp_path, verify=GREEN):
@@ -46,9 +46,9 @@ def _workspace(tmp_path, verify=GREEN):
         shutil.copy(WORKSPACE_ROOT / part, ws / part)
     dashboard = ws / 'core/hooks/entropy/dashboard/entropy-dashboard.py'
     dashboard.parent.mkdir(parents=True)
-    dashboard.write_text(DASHBOARD, encoding='utf-8')
-    (ws / 'verify.py').write_text(verify, encoding='utf-8')
-    (ws / 'ISSUES.md').write_text(SEEDED_ISSUES, encoding='utf-8')
+    dashboard.write_text(DASHBOARD, encoding='utf-8', newline='\n')
+    (ws / 'verify.py').write_text(verify, encoding='utf-8', newline='\n')
+    (ws / 'ISSUES.md').write_text(SEEDED_ISSUES, encoding='utf-8', newline='\n')
 
     _git(ws, 'init', '-q', '-b', 'main')
     _git(ws, 'config', 'user.email', 'test@example.com')
@@ -62,7 +62,7 @@ def _workspace(tmp_path, verify=GREEN):
     _git(ws, 'remote', 'add', 'origin', str(origin))
     _git(ws, 'branch', 'develop')
     _git(ws, 'checkout', '-q', '-b', 'feature/x')
-    (ws / 'shipped.txt').write_text('work\n', encoding='utf-8')
+    (ws / 'shipped.txt').write_text('work\n', encoding='utf-8', newline='\n')
     _git(ws, 'add', '-A')
     _git(ws, 'commit', '-q', '--no-verify', '-m', 'feat: work')
     _git(ws, 'push', '-q', 'origin', 'main', 'develop', 'feature/x')
@@ -71,14 +71,14 @@ def _workspace(tmp_path, verify=GREEN):
 
 def _run(ws, *args):
     return subprocess.run([interpreter(), str(ws / 'core/tools/wos/roundup'), *args],
-                          cwd=ws, capture_output=True, text=True)
+                          cwd=ws, capture_output=True, text=True, encoding='utf-8')
 
 
 def _dirty(ws):
     """A parallel session's work in progress: one staged add, one unstaged edit."""
-    (ws / 'theirs.md').write_text('their draft\n', encoding='utf-8')
+    (ws / 'theirs.md').write_text('their draft\n', encoding='utf-8', newline='\n')
     _git(ws, 'add', 'theirs.md')
-    (ws / 'shipped.txt').write_text('their edit\n', encoding='utf-8')
+    (ws / 'shipped.txt').write_text('their edit\n', encoding='utf-8', newline='\n')
 
 
 def test_dirty_stop_prints_the_paths_and_asks_whose(tmp_path):
@@ -161,7 +161,7 @@ def test_a_real_merge_is_refused_while_the_tree_is_not_ours(tmp_path):
     --leave-dirty exists to avoid, so a diverged target is reported, never merged."""
     ws = _workspace(tmp_path)
     _git(ws, 'checkout', '-q', 'develop')
-    (ws / 'diverged.txt').write_text('elsewhere\n', encoding='utf-8')
+    (ws / 'diverged.txt').write_text('elsewhere\n', encoding='utf-8', newline='\n')
     _git(ws, 'add', '-A')
     _git(ws, 'commit', '-q', '--no-verify', '-m', 'chore: diverge')
     _git(ws, 'push', '-q', 'origin', 'develop')

@@ -34,7 +34,7 @@ def token_path(alias: str) -> pathlib.Path:
 def save_token(alias: str, token: str) -> pathlib.Path:
     """Store the secret readable by nobody else. This file is the only copy we keep."""
     path = token_path(alias)
-    path.write_text(json.dumps({"token": token.strip()}, indent=2) + "\n", encoding='utf-8')
+    path.write_text(json.dumps({"token": token.strip()}, indent=2) + "\n", encoding='utf-8', newline='\n')
     secure_file(path)
     return path
 

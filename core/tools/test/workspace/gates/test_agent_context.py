@@ -22,7 +22,7 @@ HOOK = WORKSPACE_ROOT / 'core/hooks/read/agent-context.py'
 
 def _run(payload: dict) -> subprocess.CompletedProcess:
 	return subprocess.run([interpreter(), str(HOOK)], input=json.dumps(payload),
-	                      capture_output=True, text=True)
+	                      capture_output=True, text=True, encoding='utf-8')
 
 
 @pytest.fixture

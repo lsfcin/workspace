@@ -82,12 +82,36 @@ def find_stubgen():
     return which('stubgen', path=beside) or which('stubgen')
 
 
+def _lf(path) -> None:
+    """The stub, ending its lines the way this workspace declares rather than the way the tool did.
+
+    stubgen and tsc write the file through their own runtime, so on a Windows clone every .pyi and
+    .d.ts lands CRLF while .gitattributes declares LF for every clone. Git normalises on commit, so
+    the REPOSITORY stays right and the WORKING TREE does not: each regenerated stub then shows as
+    modified with an empty diff — unreadable in `git status`, and the state that refuses to start a
+    merge (ISSUES.md B9). Measured 2026-09-01, five stubs deep, with the post-edit hook running
+    normally.
+
+    Here because neither generator takes a flag for it, and because this file is already the one
+    copy of both invocations — a caller fixing its own output is where the two would drift apart.
+    """
+    target = interface_for(path)
+    if not target or not target.is_file():
+        return
+    raw = target.read_bytes()
+    if b'\r\n' in raw:
+        target.write_bytes(raw.replace(b'\r\n', b'\n'))
+
+
 def emit_pyi(path) -> bool:
     """mypy stubgen, into the output root above."""
     stubgen = os.environ.get('STUBGEN') or find_stubgen()
     if not stubgen:
         return False
-    return _run([stubgen, str(path), '-o', str(stub_out_dir(path)), '--quiet'])
+    done = _run([stubgen, str(path), '-o', str(stub_out_dir(path)), '--quiet'])
+    if done:
+        _lf(path)
+    return done
 
 
 def emit_dts(path, tsc) -> bool:
@@ -105,8 +129,11 @@ def emit_dts(path, tsc) -> bool:
     """
     path = Path(path)
     extra = (['--allowJs', '--checkJs', 'false'] if path.suffix == '.js' else ['--skipLibCheck'])
-    return _run([tsc, *extra, '--declaration', '--emitDeclarationOnly',
+    done = _run([tsc, *extra, '--declaration', '--emitDeclarationOnly',
                  '--declarationDir', str(path.parent), '--target', 'ES2020', str(path)])
+    if done:
+        _lf(path)
+    return done
 
 
 def find_tsc():

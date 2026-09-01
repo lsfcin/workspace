@@ -65,7 +65,7 @@ def sync() -> int:
     _, _, tail = rest.partition(END)
     new = head + block() + tail
     if new != text:
-        AGENTS_FILE.write_text(new, encoding='utf-8')
+        AGENTS_FILE.write_text(new, encoding='utf-8', newline='\n')
         print(f'✓ norms-sync: {AGENTS_FILE.name} ({len(published())} rules)')
     return 0
 

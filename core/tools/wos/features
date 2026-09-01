@@ -26,7 +26,7 @@ def _write_toggle(slug: str, value: str) -> int:
         parts = line.rstrip('\n').split('\t')
         if len(parts) == 3 and parts[0] == 'toggle' and parts[1] == slug:
             lines[i] = f'toggle\t{slug}\t{value}\n'
-            PROFILE.write_text(''.join(lines), encoding='utf-8')
+            PROFILE.write_text(''.join(lines), encoding='utf-8', newline='\n')
             print(f'{slug} -> {value}')
             return 0
     print(f'{slug} is declared but has no answer in core/profile.txt', file=sys.stderr)

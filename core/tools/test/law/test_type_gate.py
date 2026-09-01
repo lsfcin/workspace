@@ -62,14 +62,14 @@ def test_scopes_come_from_schema():
 def test_allowlisted_name_passes(tmp_path):
     allowed, exempt = type_gate.load_law(SCHEMA)
     target = tmp_path / 'ROADMAP.md'
-    target.write_text('# r\n', encoding='utf-8')
+    target.write_text('# r\n', encoding='utf-8', newline='\n')
     assert type_gate.check_name(target, allowed, exempt) is None
 
 
 def test_invented_type_is_blocked(tmp_path):
     allowed, exempt = type_gate.load_law(SCHEMA)
     target = tmp_path / 'LEXICON.md'
-    target.write_text('# l\n', encoding='utf-8')
+    target.write_text('# l\n', encoding='utf-8', newline='\n')
     failure = type_gate.check_name(target, allowed, exempt)
     assert failure is not None
     assert 'LEXICON.md' in failure
@@ -80,7 +80,7 @@ def test_lowercase_instance_is_never_checked(tmp_path):
     allowed, exempt = type_gate.load_law(SCHEMA)
     for name in ('tree.md', 'labels.md', 'draft.md', 'some-notes.md'):
         target = tmp_path / name
-        target.write_text('# x\n', encoding='utf-8')
+        target.write_text('# x\n', encoding='utf-8', newline='\n')
         assert type_gate.check_name(target, allowed, exempt) is None
 
 
@@ -88,7 +88,7 @@ def test_harness_mandated_name_is_exempt(tmp_path):
     allowed, exempt = type_gate.load_law(SCHEMA)
     for name in ('CLAUDE.md', 'GEMINI.md'):
         target = tmp_path / name
-        target.write_text('# harness\n', encoding='utf-8')
+        target.write_text('# harness\n', encoding='utf-8', newline='\n')
         assert type_gate.check_name(target, allowed, exempt) is None
 
 
@@ -102,7 +102,7 @@ def test_prose_describing_finished_work_blocks_a_file_the_commit_adds(tmp_path):
     allowed, exempt = type_gate.load_law(SCHEMA)
     target = tmp_path / 'SPECS.md'
     target.write_text('# s\n> one line about it.\n\nThe old gate was ~~cut~~ and replaced.\n',
-                      encoding='utf-8')
+                      encoding='utf-8', newline='\n')
     failures = type_gate.failures_for(target, allowed, exempt, {}, set())
     assert any('finished work' in failure for failure in failures), failures
 
@@ -116,6 +116,6 @@ def test_present_tense_state_is_not_a_corpse(tmp_path):
     allowed, exempt = type_gate.load_law(SCHEMA)
     target = tmp_path / 'SPECS.md'
     target.write_text('# s\n> one line about it.\n\nThe gate blocks a staged clone.\n',
-                      encoding='utf-8')
+                      encoding='utf-8', newline='\n')
     failures = type_gate.failures_for(target, allowed, exempt, {}, set())
     assert not any('finished work' in failure for failure in failures), failures

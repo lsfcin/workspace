@@ -28,7 +28,7 @@ def _gitignore():
 
 def test_the_declaration_itself_is_tracked():
     listed = subprocess.run(['git', 'ls-files', '--cached', '--', 'core/harnesses.txt'],
-                            cwd=WORKSPACE_ROOT, capture_output=True, text=True).stdout.strip()
+                            cwd=WORKSPACE_ROOT, capture_output=True, text=True, encoding='utf-8').stdout.strip()
     assert listed, ('core/harnesses.txt is not in the index — the declaration must be versioned, '
                     'or a clone loses the mirror list silently.')
 

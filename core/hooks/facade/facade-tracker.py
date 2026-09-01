@@ -18,7 +18,7 @@ def main() -> int:
 	if Path(file_path).name not in FACADE_NAMES:
 		return 0
 	session_file = session_state(f'claude_facades_{session_id}.txt')
-	with session_file.open('a', encoding='utf-8') as f:
+	with session_file.open('a', encoding='utf-8', newline='\n') as f:
 		f.write(file_path + '\n')
 	return 0
 

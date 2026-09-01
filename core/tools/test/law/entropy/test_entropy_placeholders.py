@@ -12,7 +12,7 @@ import entropy_ledger  # noqa: E402
 
 def _context(directory, body):
     doc = directory / 'CONTEXT.md'
-    doc.write_text(body, encoding='utf-8')
+    doc.write_text(body, encoding='utf-8', newline='\n')
     return doc
 
 
@@ -38,7 +38,7 @@ def test_every_marker_variant_counts(tmp_path):
 def test_only_context_files_carry_the_marker(tmp_path):
     """The glyph is ordinary prose anywhere else; only the generator's own type is checked."""
     other = tmp_path / 'NOTES.md'
-    other.write_text('the arrow ← add first-line comment is quoted here\n', encoding='utf-8')
+    other.write_text('the arrow ← add first-line comment is quoted here\n', encoding='utf-8', newline='\n')
     assert entropy_ledger.unanswered_placeholders([other], set()) == []
 
 

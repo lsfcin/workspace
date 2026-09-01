@@ -143,7 +143,7 @@ def pre_commit():
         content, _ = compress_done(content, slug)
 
         if content != original:
-            path.write_text(content, encoding='utf-8')
+            path.write_text(content, encoding='utf-8', newline='\n')
             modified.append(str(path))
             print(f"[Brain] {slug}: updated")
 

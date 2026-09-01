@@ -26,7 +26,7 @@ _PATHS = ('ISSUES.md', 'entropy.md')
 
 
 def _git(root: Path, *args) -> str:
-    done = subprocess.run(['git', '-C', str(root), *args], capture_output=True, text=True)
+    done = subprocess.run(['git', '-C', str(root), *args], capture_output=True, text=True, encoding='utf-8')
     return done.stdout if done.returncode == 0 else ''
 
 

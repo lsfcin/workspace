@@ -14,7 +14,7 @@ from entropy_context import check_inventory
 
 def _context(tmp_path, body):
     target = tmp_path / 'CONTEXT.md'
-    target.write_text(body, encoding='utf-8')
+    target.write_text(body, encoding='utf-8', newline='\n')
     return target
 
 
@@ -22,7 +22,7 @@ def _with_files(tmp_path, *names):
     for name in names:
         target = tmp_path / name
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text('x\n', encoding='utf-8')
+        target.write_text('x\n', encoding='utf-8', newline='\n')
 
 
 def test_ascii_tree_is_flagged(tmp_path):
@@ -171,5 +171,5 @@ def test_clean_context_passes(tmp_path):
 def test_non_context_file_is_not_inventory_checked(tmp_path):
     target = tmp_path / 'ROADMAP.md'
     target.write_text('## File Map\n\n- `a.py` — a\n- `b.py` — b\n- `c.py` — c\n',
-                      encoding='utf-8')
+                      encoding='utf-8', newline='\n')
     assert check_inventory(target) is None

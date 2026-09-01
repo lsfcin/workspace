@@ -15,7 +15,7 @@ SKIP = {'.git', 'node_modules', 'dist', '.codegraph', '__pycache__', '.venv', '.
 
 def classify(ctx: Path) -> tuple[str, str]:
 	"""Return (status, detail) for a module's CONTEXT.md."""
-	text = ctx.read_text(errors='ignore')
+	text = ctx.read_text(errors='ignore', encoding='utf-8')
 	match = SPEC_LINE_RE.search(text)
 	if not match:
 		return ('none', '')
@@ -25,7 +25,7 @@ def classify(ctx: Path) -> tuple[str, str]:
 	spec_path = ctx.parent / value
 	if not spec_path.is_file():
 		return ('MISSING', value)
-	status_match = STATUS_RE.search(spec_path.read_text(errors='ignore'))
+	status_match = STATUS_RE.search(spec_path.read_text(errors='ignore', encoding='utf-8'))
 	status = status_match.group(1).lower() if status_match else 'draft'
 	return (status, value)
 

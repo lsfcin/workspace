@@ -8,14 +8,14 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-# NAMED, NEVER INHERITED (core/SCHEMA.md AD-9). This report prints `→`, and a piped stdout takes
-# the console codepage — cp1252 here, where that character raises and the tool dies mid-report
-# after doing all the work. The gates get this from core/run; a tool invoked directly has
-# no such wrapper yet, so it says so itself.
+# NAMED, NEVER INHERITED — the law is core/tools/test/workspace/test_encoding_ratchet.py. This
+# report prints `→`, and a console codepage cannot encode it: the tool dies mid-report, after doing
+# all the work. The gates get this from core/run; a tool invoked directly says it itself.
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from session_cost import COMPONENTS
+from session_log import project_slug
 from session_turns import turns
 
 BUCKETS = [50, 100, 150, 200, 250, 300, 400, 10 ** 6]
@@ -74,7 +74,7 @@ def brief(rows) -> None:
 
 def main() -> None:
 	args = sys.argv[1:]
-	project = args[args.index('--project') + 1] if '--project' in args else '-mnt-workspace'
+	project = args[args.index('--project') + 1] if '--project' in args else project_slug()
 	session = args[args.index('--session') + 1] if '--session' in args else ''
 	rows = list(turns(project, session))
 	if not rows:

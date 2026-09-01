@@ -19,7 +19,7 @@ GATE = 'core/hooks/checks/type-gate.py'
 def _doc(tmp_path: Path, header: str, name: str = 'SPECS-thing.md') -> list:
     path = tmp_path / name
     path.write_text(f'# A thing\n> What it is, in a sentence.\n{header}\n\n## Body\n',
-                    encoding='utf-8')
+                    encoding='utf-8', newline='\n')
     return fields.field_hits([path])
 
 
@@ -52,7 +52,7 @@ def test_the_description_is_not_glued_onto_the_first_field(tmp_path):
     continuation would make every description an unresolvable path."""
     path = tmp_path / 'SPECS-thing.md'
     path.write_text(f'# A thing\n> What it is.\n> A second line of description.\n'
-                    f'> enforced-by: {GATE}\n', encoding='utf-8')
+                    f'> enforced-by: {GATE}\n', encoding='utf-8', newline='\n')
     assert fields.field_hits([path]) == []
 
 
@@ -84,7 +84,7 @@ def test_the_commit_gate_does_not_read_governs(tmp_path):
     """`mixed=False` is what type-gate.py passes. A token misread inside a mixed list would stop a
     commit; the dashboard is where being wrong costs a reader ten seconds instead."""
     path = tmp_path / 'SPECS-thing.md'
-    path.write_text('# A thing\n> What it is.\n> governs: core/hooks/nowhere/\n', encoding='utf-8')
+    path.write_text('# A thing\n> What it is.\n> governs: core/hooks/nowhere/\n', encoding='utf-8', newline='\n')
     assert fields.field_hits([path], mixed=False) == []
     assert len(fields.field_hits([path], mixed=True)) == 1
 

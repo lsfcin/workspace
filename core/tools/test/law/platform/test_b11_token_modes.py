@@ -31,7 +31,7 @@ def test_secure_dir_leaves_a_directory_owner_only(tmp_path):
 @posix_only
 def test_secure_file_makes_an_existing_file_owner_only(tmp_path):
     f = tmp_path / 'token.json'
-    f.write_text('{}', encoding='utf-8')
+    f.write_text('{}', encoding='utf-8', newline='\n')
     os.chmod(f, 0o664)
     secure_file(f)
     assert stat.S_IMODE(f.stat().st_mode) == 0o600

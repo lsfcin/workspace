@@ -81,7 +81,7 @@ def _deliberately_absent(root: Path, targets: list) -> set:
     # some systems, so git received the carriage return as part of each filename, matched nothing,
     # and quoted the odd name back — the answer looked like "none of these are ignored".
     done = subprocess.run(['git', '-C', str(root), 'check-ignore', '-z', '--stdin'],
-                          input='\0'.join(targets), capture_output=True, text=True)
+                          input='\0'.join(targets), capture_output=True, text=True, encoding='utf-8')
     return {name for name in done.stdout.split('\0') if name}
 
 
@@ -120,15 +120,15 @@ def test_dangling_relative_link_is_detected(tmp_path):
     sub.mkdir()
     (sub / "CONTEXT.md").write_text(
         "attribution in [`../.vendor`](../.vendor).\n", encoding="utf-8"
-    )
+    , newline='\n')
     failures = check_pointers(tmp_path, tmp_path / "no-memory-here")
     assert len(failures) == 1
     assert "../.vendor" in failures[0]
 
 
 def test_clean_fixture_has_no_failures(tmp_path):
-    (tmp_path / "target.md").write_text("target\n", encoding="utf-8")
-    (tmp_path / "CONTEXT.md").write_text("see [target](target.md).\n", encoding="utf-8")
+    (tmp_path / "target.md").write_text("target\n", encoding="utf-8", newline='\n')
+    (tmp_path / "CONTEXT.md").write_text("see [target](target.md).\n", encoding="utf-8", newline='\n')
     assert check_pointers(tmp_path, tmp_path / "no-memory-here") == []
 
 
@@ -148,14 +148,14 @@ def test_no_committed_symlink_carries_an_absolute_path():
     """
     listing = subprocess.run(
         ["git", "-C", str(WORKSPACE_ROOT), "ls-files", "-s"],
-        capture_output=True, text=True, check=True).stdout
+        capture_output=True, text=True, check=True, encoding='utf-8').stdout
     absolute = []
     for line in listing.splitlines():
         mode, blob, _, path = line.split(maxsplit=3)
         if mode != "120000":
             continue
         target = subprocess.run(["git", "-C", str(WORKSPACE_ROOT), "cat-file", "blob", blob],
-                                capture_output=True, text=True, check=True).stdout.strip()
+                                capture_output=True, text=True, check=True, encoding='utf-8').stdout.strip()
         if PurePosixPath(target).is_absolute():
             absolute.append(f"{path} -> {target}")
     assert not absolute, "Committed symlinks with an absolute target:\n" + "\n".join(absolute)

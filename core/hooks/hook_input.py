@@ -15,7 +15,7 @@ def _ppid_session() -> str:
 	try:
 		result = subprocess.check_output(
 			['ps', '-o', 'ppid=', '-p', str(shell_pid)],
-			text=True, stderr=subprocess.DEVNULL,
+			text=True, stderr=subprocess.DEVNULL, encoding='utf-8'
 		).strip()
 		return result if result.isdigit() else str(shell_pid)
 	except Exception:
@@ -74,5 +74,5 @@ def load_seen(session_id: str) -> set[str]:
 
 
 def mark_seen(session_id: str, path: str) -> None:
-	with open(seen_file(session_id), 'a', encoding='utf-8') as f:
+	with open(seen_file(session_id), 'a', encoding='utf-8', newline='\n') as f:
 		f.write(path + '\n')

@@ -40,7 +40,7 @@ def ask_rtk(command: str) -> str | None:
 	try:
 		done = subprocess.run(
 			[found, 'hook', 'claude'], input=payload,
-			capture_output=True, text=True, timeout=10,
+			capture_output=True, text=True, timeout=10, encoding='utf-8'
 		)
 	except (OSError, subprocess.SubprocessError):
 		return None
@@ -86,7 +86,7 @@ def record(session_id: str, verdict: str, lines: int) -> None:
 	override = os.environ.get('RTK_COMPACT_DIR')
 	target = Path(override) / name if override else session_state(name)
 	try:
-		with open(target, 'a', encoding='utf-8') as handle:
+		with open(target, 'a', encoding='utf-8', newline='\n') as handle:
 			handle.write(f'{verdict}\t{lines}\n')
 	except OSError:
 		pass  # counting must never be able to break the command being counted

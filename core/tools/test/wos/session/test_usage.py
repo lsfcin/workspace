@@ -43,7 +43,7 @@ def project(tmp_path, monkeypatch):
 		(root / 'proj').mkdir(parents=True)
 		for stem, records in sessions.items():
 			(root / 'proj' / f'{stem}.jsonl').write_text(
-				'\n'.join(json.dumps(r) for r in records) + '\n', encoding='utf-8')
+				'\n'.join(json.dumps(r) for r in records) + '\n', encoding='utf-8', newline='\n')
 		monkeypatch.setattr(session_turns, 'ROOT', root)
 		return 'proj'
 	return build
@@ -121,7 +121,7 @@ def test_a_thinking_heavy_session_does_not_read_as_self_authored(tmp_path):
 	root.mkdir(parents=True)
 	records = [response(10_000 * n, 5_000, [thinking(), text('ok')], f'r{n}')
 	           for n in range(1, 11)]
-	(root / 's1.jsonl').write_text('\n'.join(json.dumps(r) for r in records) + '\n', encoding='utf-8')
+	(root / 's1.jsonl').write_text('\n'.join(json.dumps(r) for r in records) + '\n', encoding='utf-8', newline='\n')
 	# INHERIT, then override home under BOTH names. Replacing the environment outright is a POSIX
 	# habit: a bare env has no USERPROFILE, and Path.home() reads USERPROFILE rather than HOME on
 	# Windows — so the tool crashed resolving home. Setting both names redirects it on either
@@ -129,7 +129,7 @@ def test_a_thinking_heavy_session_does_not_read_as_self_authored(tmp_path):
 	# Redirection is the point: without it this reads Lucas's real transcripts.
 	home = {'HOME': str(tmp_path), 'USERPROFILE': str(tmp_path)}
 	out = subprocess.run([sys.executable, str(USAGE), '--project', 'proj'],
-	                     capture_output=True, text=True, env={**os.environ, **home})
+	                     capture_output=True, text=True, env={**os.environ, **home}, encoding='utf-8')
 	assert out.returncode == 0, out.stderr
 	printed = ' '.join(out.stdout.split())
 	assert '10 turns' in printed

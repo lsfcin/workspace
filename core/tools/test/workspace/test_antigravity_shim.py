@@ -17,7 +17,7 @@ def _run_shim(event: str, payload: dict, env: dict | None = None) -> dict:
         capture_output=True,
         text=True,
         cwd=str(WORKSPACE_ROOT),
-        env=env,
+        env=env, encoding='utf-8'
     )
     assert proc.returncode == 0, f"Shim failed: {proc.stderr}"
     return json.loads(proc.stdout) if proc.stdout.strip() else {}

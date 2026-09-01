@@ -14,7 +14,7 @@ def test_the_audio_filename_is_recovered_from_the_export_line():
 
 
 def test_a_transcribed_audio_keeps_its_line_and_gains_the_words(tmp_path):
-    (tmp_path / "PTT-20260706-WA0012.opus.txt").write_text("Boa noite, Severino.", encoding="utf-8")
+    (tmp_path / "PTT-20260706-WA0012.opus.txt").write_text("Boa noite, Severino.", encoding="utf-8", newline='\n')
     out = stitch.fold(LINE, tmp_path)
     assert out[0] == LINE
     assert out[1] == "    ↳ Boa noite, Severino."

@@ -101,7 +101,7 @@ def _typescript(commit, staged):
         ignore = project / '.gitignore'
         marker = '.tsbuildinfo-declarations'
         if marker not in (ignore.read_text(encoding='utf-8') if ignore.is_file() else ''):
-            with ignore.open('a', encoding='utf-8') as handle:
+            with ignore.open('a', encoding='utf-8', newline='\n') as handle:
                 handle.write(f'\n{marker}\n')
             _stage(commit, ignore)
         subprocess.run([tsc, '-p', str(config), '--emitDeclarationOnly', '--incremental',
@@ -192,6 +192,6 @@ def skills(commit):
         raise Blocked('⛔ sync-skills failed — invalid skill frontmatter (see core/SCHEMA.md). '
                       'Fix before committing.')
     if subprocess.run(['bash', str(sync), '--check'], capture_output=True, text=True,
-                      cwd=commit.toplevel).returncode != 0:
+                      cwd=commit.toplevel, encoding='utf-8').returncode != 0:
         raise Blocked('⛔ skill mirrors out of sync after regeneration.')
     print('✓ skills synced + validated')

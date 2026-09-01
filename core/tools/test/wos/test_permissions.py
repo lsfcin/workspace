@@ -65,7 +65,7 @@ def test_a_harness_pattern_never_appears_in_the_registry():
 def test_a_rendered_config_is_not_versioned():
     """git must not be able to see the rendered answer — see this file's head for why."""
     done = subprocess.run(['git', 'ls-files', '--error-unmatch', '.claude/settings.local.json'],
-                          cwd=WORKSPACE_ROOT, capture_output=True, text=True)
+                          cwd=WORKSPACE_ROOT, capture_output=True, text=True, encoding='utf-8')
     assert done.returncode != 0, \
         'the rendered permission config is tracked; a committed bypassPermissions arrives ' \
         'switched on for whoever clones next'
@@ -83,8 +83,8 @@ def test_check_notices_a_config_that_no_longer_matches(tmp_path):
     target = tmp_path / 'settings.local.json'
     module._target = lambda: target
 
-    target.write_text(json.dumps({'permissions': module.render_claude(declared)}), encoding='utf-8')
+    target.write_text(json.dumps({'permissions': module.render_claude(declared)}), encoding='utf-8', newline='\n')
     assert module._check() == 0
 
-    target.write_text(json.dumps({'permissions': module.render_claude(other)}), encoding='utf-8')
+    target.write_text(json.dumps({'permissions': module.render_claude(other)}), encoding='utf-8', newline='\n')
     assert module._check() == 1, '--check passed a config that does not match the answer'

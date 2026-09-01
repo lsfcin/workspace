@@ -10,7 +10,7 @@ MAX_IMAGES = 10
 
 
 def _run(args, runner=None):
-    runner = runner or (lambda a: subprocess.run(a, capture_output=True, text=True, timeout=300))
+    runner = runner or (lambda a: subprocess.run(a, capture_output=True, text=True, timeout=300, encoding='utf-8'))
     cookies = ["--cookies", str(COOKIES)] if COOKIES.exists() else []
     return runner([GALLERYDL, *cookies, *args])
 

@@ -6,6 +6,12 @@
 import sys
 from pathlib import Path
 
+# NAMED, NEVER INHERITED - the law is core/tools/test/workspace/test_encoding_ratchet.py. This tool
+# prints a status line carrying non-ascii, and a console codepage cannot encode it: the run dies
+# after drawing the whole page. core/run exports PYTHONIOENCODING for what it spawns, which is
+# /roundup and not the suite, so the tool says it itself rather than trusting who launched it.
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent / 'views'))
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -116,7 +122,7 @@ def main() -> int:
         print(f'  {out.name} is STALE — run core/tools/wos/diagram/architecture')
         return 1
 
-    out.write_text(html, encoding='utf-8')
+    out.write_text(html, encoding='utf-8', newline='\n')
     report(coverage, counts)
     print(f'  wrote {out.relative_to(WORKSPACE_ROOT) if out.is_relative_to(WORKSPACE_ROOT) else out}'
           f' ({len(html) // 1024} KB)')

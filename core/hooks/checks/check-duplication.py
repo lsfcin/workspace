@@ -29,7 +29,7 @@ def main() -> int:
 	if not staged:
 		return 0
 	repo_root = Path(subprocess.check_output(
-		['git', 'rev-parse', '--show-toplevel'], text=True).strip())
+		['git', 'rev-parse', '--show-toplevel'], text=True, encoding='utf-8').strip())
 	out_dir = Path(tempfile.mkdtemp(prefix='jscpd-'))
 	try:
 		result = subprocess.run(
@@ -37,7 +37,7 @@ def main() -> int:
 			 '--min-tokens', MIN_TOKENS, '--min-lines', MIN_LINES,
 			 '--format', FORMATS, '--ignore', IGNORE,
 			 '--reporters', 'json', '--output', str(out_dir), '--silent'],
-			capture_output=True, text=True, timeout=120)
+			capture_output=True, text=True, timeout=120, encoding='utf-8')
 		report_file = out_dir / 'jscpd-report.json'
 		if not report_file.exists():
 			print(f'⚠  jscpd produced no report — duplication check skipped.\n{result.stderr[-300:]}')

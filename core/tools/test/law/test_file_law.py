@@ -26,13 +26,13 @@ HOOKS = WORKSPACE_ROOT / 'core/hooks'
 def test_an_extensionless_executable_is_code(tmp_path) -> None:
     """The blind spot that let a 385-line pre-commit through, closed."""
     script = tmp_path / 'pre-commit'
-    script.write_text('#!/usr/bin/env bash\necho hi\n', encoding='utf-8')
+    script.write_text('#!/usr/bin/env bash\necho hi\n', encoding='utf-8', newline='\n')
     assert is_code_file(script)
 
 
 def test_an_extensionless_plain_file_is_not_code(tmp_path) -> None:
     plain = tmp_path / 'LICENSE'
-    plain.write_text('MIT\n', encoding='utf-8')
+    plain.write_text('MIT\n', encoding='utf-8', newline='\n')
     assert not is_code_file(plain)
 
 
@@ -114,7 +114,7 @@ def test_every_extensionless_tracked_file_is_explained() -> None:
     """
     mandated = allowed_extensionless()
     out = subprocess.run(['git', 'ls-files'], cwd=WORKSPACE_ROOT,
-                         capture_output=True, text=True).stdout
+                         capture_output=True, text=True, encoding='utf-8').stdout
     unexplained = []
     for rel in out.splitlines():
         path = WORKSPACE_ROOT / rel

@@ -17,7 +17,7 @@ LAW = WORKSPACE_ROOT / 'core/hooks'
 
 
 def _git(repo, *args):
-    return subprocess.run(('git',) + args, cwd=repo, capture_output=True, text=True)
+    return subprocess.run(('git',) + args, cwd=repo, capture_output=True, text=True, encoding='utf-8')
 
 
 def _repo(tmp_path):
@@ -51,7 +51,7 @@ def _commit(ws, msg='c'):
 
 
 def _run(ws, *args):
-    # BOTH ENDS NAME THE ENCODING (core/SCHEMA.md AD-9). `size` prints `·`; decoding its stdout as
+    # BOTH ENDS NAME THE ENCODING (core/tools/test/workspace/test_encoding_ratchet.py). `size` prints `·`; decoding its stdout as
     # utf-8 while the child writes the console codepage raises UnicodeDecodeError on byte 0xb7.
     #
     # The write end used to be left to whatever the environment happened to carry, and these five
@@ -68,9 +68,9 @@ def test_a_session_that_only_deleted_reports_a_negative_net(tmp_path):
     """The question Lucas asked: did the workspace get smaller. A close that cut 6 lines and added
     none must say so with a sign, not with a total that happens to be lower."""
     ws = _repo(tmp_path)
-    (ws / 'doc.md').write_text('a\nb\nc\nd\ne\nf\n', encoding='utf-8')
+    (ws / 'doc.md').write_text('a\nb\nc\nd\ne\nf\n', encoding='utf-8', newline='\n')
     base = _commit(ws, 'seed')
-    (ws / 'doc.md').write_text('a\n', encoding='utf-8')
+    (ws / 'doc.md').write_text('a\n', encoding='utf-8', newline='\n')
     _commit(ws, 'cut')
 
     out = _run(ws, '--since', base).stdout
@@ -81,14 +81,14 @@ def test_a_vendored_or_generated_md_is_not_counted(tmp_path):
     """A generated file is authored by nobody and a vendored one by someone else. Counting either
     would let a regenerated dashboard read as a session that wrote 400 lines."""
     ws = _repo(tmp_path)
-    (ws / 'doc.md').write_text('mine\n', encoding='utf-8')
+    (ws / 'doc.md').write_text('mine\n', encoding='utf-8', newline='\n')
     base = _commit(ws, 'seed')
 
     generated = next(p for p in (LAW / 'generated.txt').read_text(encoding='utf-8').splitlines()
                      if p.strip() and not p.startswith('#') and p.strip().endswith('.md'))
     target = ws / generated.strip()
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text('x\n' * 50, encoding='utf-8')
+    target.write_text('x\n' * 50, encoding='utf-8', newline='\n')
     _commit(ws, 'regen')
 
     out = _run(ws, '--since', base).stdout
@@ -100,7 +100,7 @@ def test_without_a_session_it_reports_the_corpus_only(tmp_path):
     """A close on a machine with no transcript still answers how big the corpus is. A report that
     failed here would fail the close, and no measurement is worth that."""
     ws = _repo(tmp_path)
-    (ws / 'doc.md').write_text('a\nb\n', encoding='utf-8')
+    (ws / 'doc.md').write_text('a\nb\n', encoding='utf-8', newline='\n')
     _commit(ws, 'seed')
 
     r = _run(ws)
@@ -114,10 +114,10 @@ def test_the_attribution_names_the_directory_that_moved_most(tmp_path):
     ws = _repo(tmp_path)
     for d in ('big', 'small'):
         (ws / d).mkdir()
-        (ws / d / 'doc.md').write_text('x\n', encoding='utf-8')
+        (ws / d / 'doc.md').write_text('x\n', encoding='utf-8', newline='\n')
     base = _commit(ws, 'seed')
-    (ws / 'big/doc.md').write_text('x\n' * 30, encoding='utf-8')
-    (ws / 'small/doc.md').write_text('x\n' * 3, encoding='utf-8')
+    (ws / 'big/doc.md').write_text('x\n' * 30, encoding='utf-8', newline='\n')
+    (ws / 'small/doc.md').write_text('x\n' * 3, encoding='utf-8', newline='\n')
     _commit(ws, 'grow')
 
     out = _run(ws, '--since', base).stdout
@@ -128,7 +128,7 @@ def test_the_attribution_names_the_directory_that_moved_most(tmp_path):
 def test_a_missing_transcript_is_not_a_failure(tmp_path):
     """--session for an id with no transcript: the corpus half still prints, exit 0."""
     ws = _repo(tmp_path)
-    (ws / 'doc.md').write_text('a\n', encoding='utf-8')
+    (ws / 'doc.md').write_text('a\n', encoding='utf-8', newline='\n')
     _commit(ws, 'seed')
 
     r = _run(ws, '--session', 'no-such-session-id')

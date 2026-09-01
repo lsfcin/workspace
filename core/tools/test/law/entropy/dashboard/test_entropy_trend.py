@@ -18,18 +18,18 @@ from entropy_trend import baseline, format_trend
 
 def git(repo: Path, *args):
     subprocess.run(['git', '-C', str(repo), *args], check=True,
-                   capture_output=True, text=True)
+                   capture_output=True, text=True, encoding='utf-8')
 
 
 def commit(repo: Path, files: dict, days_ago: int):
     """One commit writing every path in `files`, dated `days_ago` days before now."""
     for name, content in files.items():
-        (repo / name).write_text(content, encoding='utf-8')
+        (repo / name).write_text(content, encoding='utf-8', newline='\n')
         git(repo, 'add', name)
     when = f'{(date.today() - timedelta(days=days_ago)).isoformat()}T12:00:00'
     subprocess.run(['git', '-C', str(repo), 'commit', '-qm', 'x', '--no-verify'],
                    check=True, capture_output=True, text=True,
-                   env={**os.environ, 'GIT_AUTHOR_DATE': when, 'GIT_COMMITTER_DATE': when})
+                   env={**os.environ, 'GIT_AUTHOR_DATE': when, 'GIT_COMMITTER_DATE': when}, encoding='utf-8')
 
 
 @pytest.fixture

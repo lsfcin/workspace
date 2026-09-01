@@ -33,7 +33,7 @@ def _added_by(path: Path) -> str:
     out = subprocess.run(
         ['git', '-C', str(repo), 'log', '--diff-filter=A', '--format=%h %an',
          '-1', '--', rel(path, repo)],
-        capture_output=True, text=True).stdout.strip()
+        capture_output=True, text=True, encoding='utf-8').stdout.strip()
     return out or 'unknown'
 
 

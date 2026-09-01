@@ -87,7 +87,7 @@ def subdir_scan(directory: Path, rs: str, re_end: str) -> tuple:
                 scaffold = sub / 'CONTEXT.md'
                 scaffold.write_text(
                     f'# {sub.name}\n> ← add description\n\n{rs}\n## Routing\n\n{re_end}\n',
-                    encoding='utf-8')
+                    encoding='utf-8', newline='\n')
                 print(f'  created scaffold: {scaffold}')
             link_list.append(sub)
         else:

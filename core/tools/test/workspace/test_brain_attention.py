@@ -19,7 +19,7 @@ GOALS = WORKSPACE_ROOT / 'brain/goals'
 
 def _goal(tmp_path: Path, body: str) -> Path:
     path = tmp_path / 'g.md'
-    path.write_text(body, encoding='utf-8')
+    path.write_text(body, encoding='utf-8', newline='\n')
     return path
 
 

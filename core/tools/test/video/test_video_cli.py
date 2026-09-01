@@ -76,7 +76,7 @@ def test_a_link_with_media_never_reaches_web_fetch():
 
 def test_from_file_reads_every_link_in_one_call(tmp_path):
     f = tmp_path / 'INBOX.md'
-    f.write_text('- https://a.com/1 útil pro isoroll\n- [x](https://b.com/2)\n', encoding='utf-8')
+    f.write_text('- https://a.com/1 útil pro isoroll\n- [x](https://b.com/2)\n', encoding='utf-8', newline='\n')
     urls, level, save, as_json = video_cli.parse_args(['--from', str(f)])
     assert urls == ['https://a.com/1', 'https://b.com/2']
     assert (level, save, as_json) == ('auto', False, False)
@@ -106,6 +106,6 @@ def test_a_mixed_batch_prints_one_block_per_link_and_a_summary(capsys, monkeypat
 
 def test_no_links_is_not_an_error(tmp_path, capsys):
     f = tmp_path / 'INBOX.md'
-    f.write_text('nothing captured yet\n', encoding='utf-8')
+    f.write_text('nothing captured yet\n', encoding='utf-8', newline='\n')
     assert video_cli.main(['--from', str(f)]) == 0
     assert 'no links found' in capsys.readouterr().err

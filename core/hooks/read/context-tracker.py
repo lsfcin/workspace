@@ -27,7 +27,7 @@ def _iface_seen(session_id: str) -> set:
 
 def _record_iface(session_id: str, path: str) -> None:
 	if path not in _iface_seen(session_id):
-		with _iface_marker(session_id).open('a', encoding='utf-8') as f:
+		with _iface_marker(session_id).open('a', encoding='utf-8', newline='\n') as f:
 			f.write(path + '\n')
 
 

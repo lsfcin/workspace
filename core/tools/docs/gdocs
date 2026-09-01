@@ -34,7 +34,7 @@ def cmd_read(account: str, document_id: str, as_json: bool, as_outline: bool,
     else:
         text = docs_drive.export_md(alias, document_id)
     if out:
-        pathlib.Path(out).write_text(text, encoding="utf-8")
+        pathlib.Path(out).write_text(text, encoding="utf-8", newline='\n')
         print(f"Wrote {len(text)} chars to {out}")
     else:
         print(text)
@@ -62,7 +62,7 @@ def cmd_push(account: str, document_id: str, md_path: str) -> None:
 def cmd_apply(account: str, document_id: str, path: str, force: bool) -> None:
     """The general seam: a JSON array of Docs API requests, applied atomically."""
     alias = gauth.resolve_alias(account)
-    requests = json.loads(pathlib.Path(path).read_text())
+    requests = json.loads(pathlib.Path(path).read_text(encoding='utf-8'))
     revision = docs_core.get_document(alias, document_id).get("revisionId", "")
     res = docs_core.apply(alias, document_id, requests, revision, force)
     print(f"Applied {len(requests)} request(s); {len(res.get('replies', []))} replies")

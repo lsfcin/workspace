@@ -92,7 +92,7 @@ def iface_path(path: Path) -> Path:
 def load_existing_desc(ipath: Path) -> str:
     if not ipath.exists():
         return "TODO — run: Core/tools/assets/inspect <file> --desc \"one-line description\""
-    for line in ipath.read_text().splitlines():
+    for line in ipath.read_text(encoding='utf-8').splitlines():
         if line.startswith("description:"):
             return line.split(":", 1)[1].strip()
     return "TODO — run: Core/tools/assets/inspect <file> --desc \"one-line description\""
@@ -134,7 +134,7 @@ def main() -> int:
     desc = args.desc if args.desc else existing_desc
 
     content = gen_imgif(path, desc) if is_img else gen_csvif(path, desc)
-    ipath.write_text(content, encoding='utf-8')
+    ipath.write_text(content, encoding='utf-8', newline='\n')
 
     action = "Updated" if ipath.exists() else "Created"
     print(f"✓ {action}: {ipath.name}")

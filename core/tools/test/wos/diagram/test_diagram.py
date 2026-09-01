@@ -28,7 +28,7 @@ def _run(*args, off=''):
     # interpreter needs to start on some systems, which reads as the feature switch failing.
     env = {**os.environ, law.OFF_ENV: off} if off else None
     return subprocess.run([interpreter(), str(TOOL), *args], capture_output=True, text=True,
-                          cwd=WORKSPACE_ROOT, env=env)
+                          cwd=WORKSPACE_ROOT, env=env, encoding='utf-8')
 
 
 def _page(tmp_path):
@@ -61,8 +61,8 @@ def test_coverage_names_a_block_it_could_not_read(tmp_path):
     (root / 'sub').mkdir(parents=True)
     (root / 'AGENTS.md').write_text('# root\n<!-- routing:start -->\n'
                                     '| [`sub/`](sub/CONTEXT.md) | a subtree |\n'
-                                    '<!-- routing:end -->\n', encoding='utf-8')
-    (root / 'sub/CONTEXT.md').write_text('# sub\n> no routing block at all\n', encoding='utf-8')
+                                    '<!-- routing:end -->\n', encoding='utf-8', newline='\n')
+    (root / 'sub/CONTEXT.md').write_text('# sub\n> no routing block at all\n', encoding='utf-8', newline='\n')
     subprocess.run(['git', 'init', '-q'], cwd=root, check=True)
     subprocess.run(['git', 'add', '-A'], cwd=root, check=True)
 
@@ -110,7 +110,7 @@ def test_check_reports_stale_and_current(tmp_path):
     assert _run('--out', str(out), '--check').returncode == 1       # absent is stale
     _page(tmp_path)
     assert _run('--out', str(out), '--check').returncode == 0
-    out.write_text(out.read_text(encoding='utf-8') + '<!-- hand edit -->', encoding='utf-8')
+    out.write_text(out.read_text(encoding='utf-8') + '<!-- hand edit -->', encoding='utf-8', newline='\n')
     stale = _run('--out', str(out), '--check')
     assert stale.returncode == 1 and 'STALE' in stale.stdout
 

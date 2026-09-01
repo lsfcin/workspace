@@ -128,7 +128,7 @@ def update_goals_table(goal_files):
     content = GOALS_FILE.read_text(encoding='utf-8')
     result  = replace_block(content, "<!-- goals:start -->", "<!-- goals:end -->", new_table)
     if result and result != content:
-        GOALS_FILE.write_text(result, encoding='utf-8')
+        GOALS_FILE.write_text(result, encoding='utf-8', newline='\n')
         print("[Brain] GOALS.md active goals updated")
 
 
@@ -192,5 +192,5 @@ def update_goals_md(goal_files, attention):
         result = replace_block(content, "<!-- stats:start -->", "<!-- stats:end -->", full_block)
 
     if result and result != content:
-        GOALS_FILE.write_text(result, encoding='utf-8')
+        GOALS_FILE.write_text(result, encoding='utf-8', newline='\n')
         print("[Brain] GOALS.md updated")

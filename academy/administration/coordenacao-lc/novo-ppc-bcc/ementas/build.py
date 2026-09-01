@@ -92,5 +92,5 @@ for item in inv:
     audit.append(record)
     print("built:", out_path.name)
 
-json.dump(audit, open(HERE / "audit.json", "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+json.dump(audit, open(HERE / "audit.json", "w", encoding="utf-8", newline='\n'), ensure_ascii=False, indent=2)
 print(f"\n{sum(1 for r in audit if r['status']=='OK')} built, {sum(1 for r in audit if r['status'].startswith('GAP'))} gaps")

@@ -22,7 +22,7 @@ def needs_description(ipath: Path) -> bool:
         return False
     return any(
         line.startswith("description:") and "TODO" in line
-        for line in ipath.read_text().splitlines()
+        for line in ipath.read_text(encoding='utf-8').splitlines()
     )
 
 
@@ -76,7 +76,7 @@ def main() -> int:
 
     created = 0
     for asset in missing_iface:
-        result = subprocess.run([sys.executable, str(INSPECT), str(asset)], capture_output=True, text=True)
+        result = subprocess.run([sys.executable, str(INSPECT), str(asset)], capture_output=True, text=True, encoding='utf-8')
         if result.returncode == 0:
             rel = asset.relative_to(paper)
             print(f"  + {rel}if  (TODO description)")

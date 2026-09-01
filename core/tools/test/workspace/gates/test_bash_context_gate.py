@@ -28,7 +28,7 @@ def _run(command: str, session: str) -> subprocess.CompletedProcess:
         'cwd': str(WORKSPACE_ROOT),
     })
     return subprocess.run([interpreter(), str(GATE)], input=payload,
-                          capture_output=True, text=True, check=False)
+                          capture_output=True, text=True, check=False, encoding='utf-8')
 
 
 def test_a_path_named_only_in_a_heredoc_body_does_not_gate():

@@ -23,7 +23,7 @@ def test_no_ledger_assigns_a_model():
 
 def _ledger(tmp_path, line, name='ROADMAP.md'):
     doc = tmp_path / name
-    doc.write_text(f'# r\n> a ledger\n\n1. an item. {line}\n', encoding='utf-8')
+    doc.write_text(f'# r\n> a ledger\n\n1. an item. {line}\n', encoding='utf-8', newline='\n')
     return doc
 
 

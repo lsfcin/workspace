@@ -49,7 +49,7 @@ def record(repo=None):
     """Store the branch this session started on."""
     marker, branch = _current(repo)
     if marker:
-        marker.write_text(f'{branch}\n', encoding='utf-8')
+        marker.write_text(f'{branch}\n', encoding='utf-8', newline='\n')
 
 
 def check(commit):
@@ -65,7 +65,7 @@ def check(commit):
     print('   about to land on their branch. If it should be yours:')
     print(f'   git merge-base --is-ancestor {started} HEAD  &&  git branch -f {started} HEAD')
     print('   Never reset or force-push theirs. See core/hooks/SPECS.md § Branch drift.')
-    marker.write_text(f'{branch}\n', encoding='utf-8')
+    marker.write_text(f'{branch}\n', encoding='utf-8', newline='\n')
 
 
 def main() -> int:

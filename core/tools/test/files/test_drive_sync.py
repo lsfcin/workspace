@@ -68,7 +68,7 @@ def test_sync_directory_downloads_changed_items_and_updates_cache(tmp_path, monk
     downloaded = []
     def fake_download(alias, file_id, dest_dir, export_as=None):
         out = dest_dir / (f"{file_id}.md" if export_as == "md" else f"{file_id}.xlsx")
-        out.write_text("mock content", encoding="utf-8")
+        out.write_text("mock content", encoding="utf-8", newline='\n')
         downloaded.append((file_id, export_as))
         return out
 

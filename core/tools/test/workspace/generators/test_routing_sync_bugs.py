@@ -56,8 +56,8 @@ def test_hoisted_row_points_into_the_child(tmp_path: Path) -> None:
     sub.mkdir()
     (sub / "CONTEXT.md").write_text(
         "# refs\n> Captured references — tier-1 links in [REFS.md](REFS.md).\n", encoding="utf-8"
-    )
-    (sub / "REFS.md").write_text("# refs\n", encoding="utf-8")
+    , newline='\n')
+    (sub / "REFS.md").write_text("# refs\n", encoding="utf-8", newline='\n')
     row = build_sub_rows([sub], {})
     assert "(refs/REFS.md)" in row
     assert "](REFS.md)" not in row
@@ -86,8 +86,8 @@ def test_subdir_rows_are_not_reported_as_removed_files(capsys, tmp_path: Path) -
     backticked, so they parsed as files. Noise on that line hides a real removal."""
     sub = tmp_path / "child"
     sub.mkdir()
-    (sub / "CONTEXT.md").write_text("# child\n> a child\n", encoding="utf-8")
-    (tmp_path / "CONTEXT.md").write_text(f"# d\n> d\n\n{RS}\n## Routing\n\n{RE}\n", encoding="utf-8")
+    (sub / "CONTEXT.md").write_text("# child\n> a child\n", encoding="utf-8", newline='\n')
+    (tmp_path / "CONTEXT.md").write_text(f"# d\n> d\n\n{RS}\n## Routing\n\n{RE}\n", encoding="utf-8", newline='\n')
     sync(tmp_path)
     capsys.readouterr()
     sync(tmp_path)
@@ -95,12 +95,12 @@ def test_subdir_rows_are_not_reported_as_removed_files(capsys, tmp_path: Path) -
 
 
 def test_stale_row_is_dropped_when_the_file_is_gone(tmp_path: Path) -> None:
-    (tmp_path / "kept.py").write_text("# kept\n", encoding="utf-8")
+    (tmp_path / "kept.py").write_text("# kept\n", encoding="utf-8", newline='\n')
     (tmp_path / "CONTEXT.md").write_text(
         f"# d\n> d\n\n{RS}\n## Routing\n\n| File | Description |\n|------|-------------|\n"
         f"| [`gone.py`](gone.py) | a file that was deleted |\n"
         f"| [`kept.py`](kept.py) | kept |\n{RE}\n",
-        encoding="utf-8",
+        encoding="utf-8", newline='\n'
     )
     sync(tmp_path)
     out = (tmp_path / "CONTEXT.md").read_text(encoding="utf-8")
@@ -111,11 +111,11 @@ def test_stale_row_is_dropped_when_the_file_is_gone(tmp_path: Path) -> None:
 # ── (c) a hand-written `## Routing` must be replaced, not doubled ─────────────────────
 
 def test_unsentineled_routing_section_is_replaced_not_appended(tmp_path: Path) -> None:
-    (tmp_path / "mod.py").write_text("# mod\n", encoding="utf-8")
+    (tmp_path / "mod.py").write_text("# mod\n", encoding="utf-8", newline='\n')
     (tmp_path / "CONTEXT.md").write_text(
         "# d\n> d\n\n## Routing\n\n| File | Description |\n|------|-------------|\n"
         "| `hand.py` | hand-maintained, going stale |\n\n## Notes\n\nkeep me\n",
-        encoding="utf-8",
+        encoding="utf-8", newline='\n'
     )
     sync(tmp_path)
     out = (tmp_path / "CONTEXT.md").read_text(encoding="utf-8")
@@ -135,8 +135,8 @@ def test_facade_prefix_never_accumulates() -> None:
 def test_repeated_sync_is_idempotent_for_a_commentless_facade(tmp_path: Path) -> None:
     """`__init__.py` with no first-line comment: file_description() is empty, so the row
     falls back to the previous table cell — which already carried the prefix."""
-    (tmp_path / "__init__.py").write_text("from x import y\n", encoding="utf-8")
-    (tmp_path / "CONTEXT.md").write_text(f"# d\n> d\n\n{RS}\n## Routing\n\n{RE}\n", encoding="utf-8")
+    (tmp_path / "__init__.py").write_text("from x import y\n", encoding="utf-8", newline='\n')
+    (tmp_path / "CONTEXT.md").write_text(f"# d\n> d\n\n{RS}\n## Routing\n\n{RE}\n", encoding="utf-8", newline='\n')
     for _ in range(5):
         sync(tmp_path)
     out = (tmp_path / "CONTEXT.md").read_text(encoding="utf-8")
@@ -146,7 +146,7 @@ def test_repeated_sync_is_idempotent_for_a_commentless_facade(tmp_path: Path) ->
 def test_no_tracked_context_has_a_doubled_facade_prefix() -> None:
     files = subprocess.run(
         ["git", "ls-files", "-z", "*CONTEXT.md"],
-        cwd=WORKSPACE_ROOT, capture_output=True, text=True, check=True,
+        cwd=WORKSPACE_ROOT, capture_output=True, text=True, check=True, encoding='utf-8'
     ).stdout
     offenders = [
         p for p in files.split("\0")
@@ -172,7 +172,7 @@ def test_every_extensionless_tool_keeps_its_routing_row() -> None:
     tools = [
         p for p in subprocess.run(
             ["git", "ls-files", "-z", "core/tools/*"],
-            cwd=WORKSPACE_ROOT, capture_output=True, text=True, check=True,
+            cwd=WORKSPACE_ROOT, capture_output=True, text=True, check=True, encoding='utf-8'
         ).stdout.split("\0")
         if p and "." not in Path(p).name and "/test/" not in p
     ]

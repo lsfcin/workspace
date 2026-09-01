@@ -36,7 +36,7 @@ def _published_skills(off: str = '') -> set:
               f'COMMANDS_DIR=$WORKSPACE/.claude/commands; MIRRORS=(); '
               f'source {posix(WORKSPACE_ROOT / SKILL_MIRROR)}; list_skills')
     env = {**os.environ, law.OFF_ENV: off} if off else os.environ
-    out = subprocess.run(['bash', '-c', script], capture_output=True, text=True, env=env)
+    out = subprocess.run(['bash', '-c', script], capture_output=True, text=True, env=env, encoding='utf-8')
     assert out.returncode == 0, out.stderr
     return set(out.stdout.split())
 
@@ -107,14 +107,14 @@ def _asks_the_law(hook: str, tmp_path) -> set:
         'def _rec(slug, *a, **k):\n'
         '    _log.open("a").write(slug + "\\n")\n'
         '    return _orig(slug, *a, **k)\n'
-        'feature_law.is_enabled = _rec\n', encoding='utf-8')
+        'feature_law.is_enabled = _rec\n', encoding='utf-8', newline='\n')
     payload = json.dumps({'tool_name': 'Bash', 'session_id': 'law-probe',
                           'cwd': str(WORKSPACE_ROOT),
                           'tool_input': {'command': 'ls', 'file_path': '/tmp/probe.py',
                                          'content': '# probe\n'}})
     subprocess.run([interpreter(), str(WORKSPACE_ROOT / hook)], input=payload, text=True,
                    capture_output=True, timeout=60,
-                   env={**os.environ, 'PYTHONPATH': str(shim), 'LAW_PROBE': str(log)})
+                   env={**os.environ, 'PYTHONPATH': str(shim), 'LAW_PROBE': str(log)}, encoding='utf-8')
     return set(log.read_text(encoding='utf-8').split())
 
 
@@ -178,7 +178,7 @@ def test_a_switched_off_tool_refuses_to_run():
                 continue
             out = subprocess.run([interpreter(), str(WORKSPACE_ROOT / target)], capture_output=True, text=True,
                                  cwd=WORKSPACE_ROOT,
-                                 env={**os.environ, law.OFF_ENV: row['slug']})
+                                 env={**os.environ, law.OFF_ENV: row['slug']}, encoding='utf-8')
             assert out.returncode == tool_law.OFF_EXIT, (
                 f"{row['slug']}: exits {out.returncode} under {law.OFF_ENV}, so the switch does "
                 f"not stop {target}")

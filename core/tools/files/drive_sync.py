@@ -39,7 +39,7 @@ def load_config(dir_path: pathlib.Path) -> Optional[dict]:
 def save_config(dir_path: pathlib.Path, config: dict) -> None:
     """Save declarative sync config to drive_sync.json."""
     cfg_file = dir_path / CONFIG_FILENAME
-    cfg_file.write_text(json.dumps(config, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    cfg_file.write_text(json.dumps(config, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline='\n')
 
 
 def load_cache(dir_path: pathlib.Path) -> dict:
@@ -56,7 +56,7 @@ def load_cache(dir_path: pathlib.Path) -> dict:
 def save_cache(dir_path: pathlib.Path, cache: dict) -> None:
     """Save local sync cache to .drive-manifest-cache.json."""
     cache_file = dir_path / CACHE_FILENAME
-    cache_file.write_text(json.dumps(cache, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    cache_file.write_text(json.dumps(cache, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline='\n')
 
 
 def is_debounce_active(cache: dict, ttl_seconds: int = DEFAULT_TTL_SECONDS, now: Optional[datetime.datetime] = None) -> bool:

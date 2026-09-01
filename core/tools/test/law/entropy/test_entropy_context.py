@@ -40,7 +40,7 @@ def _routed(tmp_path, description):
     doc.write_text('# t\n> what it is\n\n<!-- routing:start -->\n## Routing\n\n'
                    '| File | Description |\n|------|-------------|\n'
                    f'| [`thing.py`](thing.py) | {description} |\n'
-                   '<!-- routing:end -->\n', encoding='utf-8')
+                   '<!-- routing:end -->\n', encoding='utf-8', newline='\n')
     return doc
 
 
@@ -54,13 +54,13 @@ def test_an_ellipsis_outside_the_block_is_prose(tmp_path):
     """Authors write `…` in prose and several do; only the generated half is the generator's."""
     doc = _routed(tmp_path, 'a complete description')
     doc.write_text(doc.read_text(encoding='utf-8').replace('> what it is', '> what it is…'),
-                   encoding='utf-8')
+                   encoding='utf-8', newline='\n')
     assert entropy_context.check_truncation(doc) is None
 
 
 def test_a_file_with_no_routing_block_is_not_asked(tmp_path):
     doc = tmp_path / 'SPECS.md'
-    doc.write_text('# s\n> a rule that trails off…\n', encoding='utf-8')
+    doc.write_text('# s\n> a rule that trails off…\n', encoding='utf-8', newline='\n')
     assert entropy_context.check_truncation(doc) is None
 
 
@@ -69,13 +69,13 @@ def _project(tmp_path, line3):
     (project / '../../brain/goals').resolve().mkdir(parents=True, exist_ok=True)
     project.mkdir(parents=True)
     target = project / 'CONTEXT.md'
-    target.write_text(f'# thing\n> what it is\n{line3}\n', encoding='utf-8')
+    target.write_text(f'# thing\n> what it is\n{line3}\n', encoding='utf-8', newline='\n')
     return target
 
 
 def test_a_declared_goal_passes(tmp_path):
     (tmp_path / 'brain/goals').mkdir(parents=True)
-    (tmp_path / 'brain/goals/real.md').write_text('# g\n', encoding='utf-8')
+    (tmp_path / 'brain/goals/real.md').write_text('# g\n', encoding='utf-8', newline='\n')
     target = _project(tmp_path, '> goal: [real](../../brain/goals/real.md)')
     assert entropy_context.check_goal_link(target) is None
 
@@ -100,7 +100,7 @@ def test_scaffolding_is_not_a_project(tmp_path):
     templates = tmp_path / 'code' / '_templates'
     templates.mkdir(parents=True)
     target = templates / 'CONTEXT.md'
-    target.write_text('# t\n> templates\nno goal line\n', encoding='utf-8')
+    target.write_text('# t\n> templates\nno goal line\n', encoding='utf-8', newline='\n')
     assert entropy_context.check_goal_link(target) is None
 
 
@@ -108,7 +108,7 @@ def test_a_non_project_context_is_not_asked(tmp_path):
     other = tmp_path / 'brain' / 'goals'
     other.mkdir(parents=True)
     target = other / 'CONTEXT.md'
-    target.write_text('# goals\n> one file per goal\n', encoding='utf-8')
+    target.write_text('# goals\n> one file per goal\n', encoding='utf-8', newline='\n')
     assert entropy_context.check_goal_link(target) is None
 
 
@@ -125,7 +125,7 @@ def _head(tmp_path, tokens, constrained, name='CONTEXT.md'):
     rule = 'A module must never import around its facade. ' if constrained else ''
     doc = tmp_path / name
     doc.write_text(rule + 'x' * (tokens * 4) + '\n<!-- routing:start -->\n| f |\n',
-                   encoding='utf-8')
+                   encoding='utf-8', newline='\n')
     return doc
 
 
@@ -148,7 +148,7 @@ def test_a_thin_head_may_carry_a_constraint(tmp_path):
 
 def test_an_existing_sibling_spec_changes_the_advice(tmp_path):
     doc = _head(tmp_path, HEAD_WARN + 50, True)
-    (tmp_path / 'SPECS.md').write_text('# specs\n', encoding='utf-8')
+    (tmp_path / 'SPECS.md').write_text('# specs\n', encoding='utf-8', newline='\n')
     assert 'move them to the' in entropy_context.check_misplaced_answer(doc, HEAD_WARN)
 
 
@@ -160,7 +160,7 @@ def test_only_context_files_are_checked(tmp_path):
 def test_the_generated_block_is_not_part_of_the_head(tmp_path):
     """The routing table's size is the fanout signal's business, not this check's."""
     doc = tmp_path / 'CONTEXT.md'
-    doc.write_text('# t\n<!-- routing:start -->\n' + 'x' * (HEAD_WARN * 8), encoding='utf-8')
+    doc.write_text('# t\n<!-- routing:start -->\n' + 'x' * (HEAD_WARN * 8), encoding='utf-8', newline='\n')
     assert entropy_context.context_head(doc).strip() == '# t'
 
 

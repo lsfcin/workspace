@@ -9,7 +9,7 @@ _CODE_DOMAINS = [
 
 def _exa_key():
     cfg = pathlib.Path.home() / '.feynman/web-search.json'
-    return json.loads(cfg.read_text())['exaApiKey']
+    return json.loads(cfg.read_text(encoding='utf-8'))['exaApiKey']
 
 def _exa(query, n, lang):
     q = f'{query} {lang}' if lang else query

@@ -12,7 +12,7 @@ from conftest import WORKSPACE_ROOT
 def _run(target, *args):
     return subprocess.run(['bash', str(WORKSPACE_ROOT / 'core/run'), target, *args],
                           cwd=WORKSPACE_ROOT, stdin=subprocess.DEVNULL,
-                          capture_output=True, text=True, timeout=180)
+                          capture_output=True, text=True, timeout=180, encoding='utf-8')
 
 
 def test_a_bash_target_runs_as_bash():

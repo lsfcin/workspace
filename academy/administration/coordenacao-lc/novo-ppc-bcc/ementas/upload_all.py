@@ -34,5 +34,5 @@ for rec in audit:
     print(f"uploaded: {name}  ->  {res.get('webViewLink','')}")
     results.append({"nome": rec["nome"], "periodo": rec["periodo"], "id": res["id"], "link": res.get("webViewLink", "")})
 
-json.dump(results, open(HERE / "upload_results.json", "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+json.dump(results, open(HERE / "upload_results.json", "w", encoding="utf-8", newline='\n'), ensure_ascii=False, indent=2)
 print(f"\n{len(results)} uploaded")

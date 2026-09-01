@@ -36,7 +36,7 @@ def test_retired_tokens_come_from_schema():
 def test_a_longer_word_is_not_a_substring_hit(tmp_path):
     """Retired `gone-token` must not fire on `gone-tokenizer` — a different word."""
     target = tmp_path / 'note.md'
-    target.write_text('the gone-tokenizer module is unrelated\n', encoding='utf-8')
+    target.write_text('the gone-tokenizer module is unrelated\n', encoding='utf-8', newline='\n')
     assert entropy_ledger.retired_hits([target], {'gone-token': 'kept'},
                                        set()) == []
 
@@ -48,20 +48,20 @@ def test_item_slugs_read_item_position_only(tmp_path):
         '> [x] [done-item] finished\n'
         '- **`[parked-item]`** — out of scope\n'
         'prose mentioning [a-reference] mid-sentence\n'
-        '- see [a-link](http://x) for details\n', encoding='utf-8')
+        '- see [a-link](http://x) for details\n', encoding='utf-8', newline='\n')
     assert entropy_ledger.item_slugs(target) == {'real-item', 'done-item', 'parked-item'}
 
 
 def test_sibling_namespaces_may_repeat_a_slug(tmp_path):
     for name in ('goal-a.md', 'goal-b.md'):
-        (tmp_path / name).write_text('> [ ] [build-mvp] ship it\n', encoding='utf-8')
+        (tmp_path / name).write_text('> [ ] [build-mvp] ship it\n', encoding='utf-8', newline='\n')
     namespaces = {'goals': [tmp_path / 'goal-a.md', tmp_path / 'goal-b.md']}
     assert entropy_ledger.duplicate_slugs(namespaces) == {}
 
 
 def test_same_slug_in_two_ledgers_is_a_duplicate(tmp_path):
-    (tmp_path / 'ROADMAP.md').write_text('- [ ] [thing] do it\n', encoding='utf-8')
-    (tmp_path / 'OTHER.md').write_text('- [ ] [thing] do it\n', encoding='utf-8')
+    (tmp_path / 'ROADMAP.md').write_text('- [ ] [thing] do it\n', encoding='utf-8', newline='\n')
+    (tmp_path / 'OTHER.md').write_text('- [ ] [thing] do it\n', encoding='utf-8', newline='\n')
     dups = entropy_ledger.duplicate_slugs(
         {'roadmap': [tmp_path / 'ROADMAP.md'], 'other': [tmp_path / 'OTHER.md']})
     assert set(dups) == {'thing'}
@@ -77,14 +77,14 @@ def test_no_item_lives_in_two_ledgers():
 
 def test_goal_vocabulary_holds_files_and_their_items(tmp_path):
     (tmp_path / 'craft-flows.md').write_text(
-        '# g\n> [ ] [prompt-dsl] dsl as a contract\n', encoding='utf-8')
+        '# g\n> [ ] [prompt-dsl] dsl as a contract\n', encoding='utf-8', newline='\n')
     vocabulary = entropy_ledger.goal_vocabulary(tmp_path)
     assert vocabulary == {'craft-flows', 'prompt-dsl'}
 
 
 def test_a_wiki_link_to_an_item_resolves(tmp_path):
     target = tmp_path / 'note.md'
-    target.write_text('see [[prompt-dsl]] in [[craft-flows]]\n', encoding='utf-8')
+    target.write_text('see [[prompt-dsl]] in [[craft-flows]]\n', encoding='utf-8', newline='\n')
     vocabulary = {'craft-flows', 'prompt-dsl'}
     assert entropy_ledger.wiki_link_hits([target], vocabulary, set()) == []
 
@@ -92,7 +92,7 @@ def test_a_wiki_link_to_an_item_resolves(tmp_path):
 def test_a_wiki_link_naming_nothing_is_flagged(tmp_path):
     """[[dobra]] was exactly this: a project name, not a goal. Its goal is local-ai."""
     target = tmp_path / 'note.md'
-    target.write_text('crosses with [[dobra]]\n', encoding='utf-8')
+    target.write_text('crosses with [[dobra]]\n', encoding='utf-8', newline='\n')
     hits = entropy_ledger.wiki_link_hits([target], {'local-ai'}, set())
     assert len(hits) == 1 and 'dobra' in hits[0]
 
@@ -126,7 +126,7 @@ def test_memory_links_are_exempt_but_its_retired_tokens_are_not():
 
 def _doc(tmp_path, name, body):
     doc = tmp_path / name
-    doc.write_text(body, encoding='utf-8')
+    doc.write_text(body, encoding='utf-8', newline='\n')
     return doc
 
 

@@ -71,7 +71,7 @@ def write_block(target: Path, name: str, body: str) -> None:
     start, end = markers(name)
     text = target.read_text(encoding='utf-8') if target.exists() else ''
     block = '\n'.join((start, body.strip(), end))
-    target.write_text(replace_block(text, block, start, end), encoding='utf-8')
+    target.write_text(replace_block(text, block, start, end), encoding='utf-8', newline='\n')
 
 
 def verify_block(target: Path, label: str, verdict: str, log: str) -> None:
