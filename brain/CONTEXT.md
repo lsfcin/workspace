@@ -44,5 +44,4 @@ Design rationale → [SPECS.md](SPECS.md) § Rationale.
 | [`INBOX.md`](INBOX.md) | zero friction. thoughts. no taxonomy. no formating. handle duplications. triage with `/inbox`: each entry routed to a goal, task, ref, project doc, draft — or deleted. signal the route preemptively (optional — agent infers if omitted): `goal` · `task: today`/`week`/`month`/`backlog` · `ref` · `proj: <name>` · `draft` · `delete` |
 | [`SPECS.md`](SPECS.md) | Goal file format, section growth triggers, signals, dynamics, timing, and backlog conventions. |
 | [`USER.md`](USER.md) | Lucas — read before any Brain task. |
-| [`drafts/context-folding-report.md`](drafts/context-folding-report.md) | Context Folding: A Graph-Based Architecture for Infinite-Horizon AI Agent Memory |
 <!-- routing:end -->

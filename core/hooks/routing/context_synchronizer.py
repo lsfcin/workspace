@@ -11,7 +11,7 @@ from file_law import is_code_file
 from shard_table import build_shard_rows, index_for, shards_of
 from workspace_scanner import (
     SPLIT_THRESHOLD,
-    code_files, has_code_content, subdir_scan,
+    carried, code_files, has_code_content, subdir_scan,
     parse_preserved_files, parse_preserved_subs,
     build_sub_rows, build_file_rows, build_routing_block,
 )
@@ -146,10 +146,10 @@ def sync(target: Path):
         all_files = []
         all_subdirs = sorted(p for p in directory.iterdir()
                              if p.is_dir() and not p.name.startswith('.'))
-        link_list = [s for s in all_subdirs
-                     if (s / 'CONTEXT.md').exists() or s.name in preserved_subs]
+        link_list = carried([s for s in all_subdirs
+                             if (s / 'CONTEXT.md').exists() or s.name in preserved_subs])
     else:
-        direct_files = [(f, f.name) for f in code_files(directory)]
+        direct_files = [(f, f.name) for f in carried(code_files(directory))]
         fold_list, link_list = subdir_scan(directory, RS, RE)
         all_files = direct_files + fold_list
 

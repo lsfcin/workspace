@@ -53,4 +53,7 @@ por turma.
 <!-- routing:start -->
 ## Routing
 
+| File | Description |
+|------|-------------|
+| [`AI4Good - Prática extra para abono de faltas .md`](AI4Good - Prática extra para abono de faltas .md) | Prática extra para abono de faltas da disciplina  Tópicos Avançados em IA \- Turma 2 (AI4Good) |
 <!-- routing:end -->

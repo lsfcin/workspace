@@ -7,7 +7,8 @@ Verification contract + patterns for all code projects. Architecture and rules: 
 <!-- routing:start -->
 ## Routing
 
-| File | API | Description |
-|------|-----|-------------|
-| [`contract.py`](contract.py) | `discover`, `run` | How a repo declares its verification, and how to run what it declared. One definition. |
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`SPECS.md`](SPECS.md) | — | — | Verification contract + patterns for all code projects: tiers T0-T3, script names, dump-oracle rules. Reference: code/isoroll-module/test/. |
+| [`contract.py`](contract.py) | [`contract.pyi`](contract.pyi) | `discover`, `run` | How a repo declares its verification, and how to run what it declared. One definition. |
 <!-- routing:end -->

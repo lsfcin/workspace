@@ -44,7 +44,10 @@ code/*
 !code/SPECS.md
 !code/SPECS-*.md
 !code/ROADMAP-*.md
-!code/eslint.shared.js
+# The shared ESLint rules AND the stub that declares them, as one glob. `eslint.shared.js` was
+# named alone, so the `.d.ts` beside it stayed ignored while every other interface stub in the
+# workspace is tracked — code/CONTEXT.md's Interface column linked a file a clone never got.
+!code/eslint.shared.*
 !code/laplata/
 code/laplata/*
 !code/laplata/CONTEXT.md
@@ -120,10 +123,26 @@ branches/saude/*
 !branches/saude/CONTEXT.md
 !branches/writing/
 branches/writing/*
-!branches/writing/mantras.md
+!branches/writing/CONTEXT.md
 !branches/writing/drafts/
 branches/writing/drafts/*
 !branches/writing/drafts/CONTEXT.md
+# mantras.md was allowlisted at branches/writing/mantras.md and has lived one directory down in
+# drafts/ ever since; the line matched nothing and the file was never carried.
+!branches/writing/drafts/mantras.md
+!branches/writing/drafts/email/
+branches/writing/drafts/email/*
+!branches/writing/drafts/email/CONTEXT.md
+# The four plain content dirs under branches/ — no nested repo, so their files are trackable.
+# They sat at the bottom of this file inside the skill-mirror comment block until 2026-09-01.
+!branches/google-migration/
+!branches/shoplist/
+!branches/tips/
+!branches/tweaks/
+# This cockpit's queue is state, not a session artefact: each row pairs a local path with a Drive
+# path, and neither side re-derives it. The blanket ROADMAP.md rule above is aimed at nested
+# project repos, which this directory is not.
+!branches/google-migration/ROADMAP.md
 
 core/*
 !core/CONTEXT.md
@@ -243,10 +262,6 @@ code/statem
 .opencode/skills/*/
 .zcode/skills/*/
 .agents/skills/*/
-!branches/google-migration/
-!branches/shoplist/
-!branches/tips/
-!branches/tweaks/
 
 # The workspace venv. Local to one machine, never versioned.
 .venv/

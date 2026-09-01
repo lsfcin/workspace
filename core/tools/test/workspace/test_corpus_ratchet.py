@@ -41,8 +41,10 @@ MISPLACED_CEILING = 1
 # Nobody was counting these until 2026-08-31: test_pointer_integrity strips the routing block
 # before it looks, and waives a gitignored target on the grounds that the prose cannot be edited
 # to fix it. True, and the fix is in .gitignore instead — so it is reported here rather than
-# silently allowed. The 10 left are one routing decision each and are not one session's call.
-ROUTING_CEILING = 10
+# silently allowed. Drained to 0 on 2026-09-01: six targets were allowlisted and four stopped
+# being routed to, and workspace_scanner.carried now refuses to write the row at all, so this
+# ratchet guards a generator rather than a backlog.
+ROUTING_CEILING = 0
 
 # The margin lets one cut land without forcing a test edit; a real drain pass trips it.
 FINISHED_SLACK = 10

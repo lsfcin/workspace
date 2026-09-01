@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from entropy_corpus import LINK_RE, is_generated_mirror, tracked_paths  # noqa: E402
+from entropy_corpus import LINK_RE, is_generated_mirror, owning_repo, tracked_paths  # noqa: E402
 from entropy_context import ROUTING_END, ROUTING_START  # noqa: E402
 from platform_law import posix, rel  # noqa: E402
 
@@ -115,7 +115,7 @@ def untracked_routing_targets(files: list, root: Path) -> list:
             target = (path.parent / link.split('#', 1)[0]).resolve()
             if is_generated_mirror(target) or target.resolve() in tracked:
                 continue
-            if not target.is_file() or _owning_repo(target, root) != root.resolve():
+            if not target.is_file() or owning_repo(target, root) != root.resolve():
                 # A broken link, another repo's file, or a bare directory. The first is
                 # test_pointer_integrity's, the second is that repo's own ledger's, and git has
                 # no object for the third — none of them is a routing table carrying a lie.
@@ -125,12 +125,6 @@ def untracked_routing_targets(files: list, root: Path) -> list:
                 f'   track. A clone gets the table and not the file, so the row points at\n'
                 f'   nothing. Track the target, or stop routing to it.')
     return sorted(set(findings))
-
-
-def _owning_repo(path: Path, root: Path) -> Path:
-    """The repo a file really belongs to. A nested repo's file is tracked THERE, and charging it
-    to this one reports 27 papers and modules as untracked on every run."""
-    return next((d.resolve() for d in path.parents if (d / '.git').exists()), root.resolve())
 
 
 def check_dirs(path: Path, root: Path) -> str | None:

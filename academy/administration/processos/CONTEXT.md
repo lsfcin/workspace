@@ -6,7 +6,7 @@
 
 | File | Description |
 |------|-------------|
-| [`equivalencias.md`](equivalencias.md) | Fluxo completo de aproveitamento de estudos, dispensa de disciplinas, critérios normativos e guia operacional no SIPAC. |
-| [`modelos.md`](modelos.md) | Biblioteca de modelos padronizados de pareceres e despachos administrativos docentes. |
-| [`normas.md`](normas.md) | Síntese de referência rápida das resoluções acadêmicas e do Regulamento Geral de Graduação da UFRPE. |
+| [`equivalencias.md`](equivalencias.md) | Procedimento operacional padrão para análise de requerimentos de equivalência curricular e emissão de pareceres docentes na UFRPE. |
+| [`modelos.md`](modelos.md) | Biblioteca de minutas e textos padronizados para atos administrativos no SIPAC/UFRPE. |
+| [`normas.md`](normas.md) | Síntese estruturada das normas de aproveitamento de estudos, dispensa de disciplinas e regulação acadêmica da UFRPE. |
 <!-- routing:end -->

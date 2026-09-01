@@ -9,7 +9,7 @@ and what is still unverified while the workspace is untrusted — is [`SPECS.md`
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`skills/`](skills/CONTEXT.md) | ZCode skills mirror, symlinked from core/skills by sync-skills. |
+| [`skills/`](skills/CONTEXT.md) | ZCode's discovery point for the skill library: generated copies of core/skills, not tracked. |
 
 | File | Description |
 |------|-------------|

@@ -47,6 +47,21 @@ costed yet: push each scattered ledger from the same hook, or stop committing th
 each repo's own next commit carry its ledger. The second is smaller and matches "one repo, one
 session, one commit"; the first keeps the ledger true the moment it is written.
 
+## b20260901-a-tracked-json-cannot-be-routed-to
+
+**Symptom:** `.agents/hooks.json` is tracked, described, and had a routing row — and the first
+sync of `.agents/` in months deleted it. `workspace_scanner.is_scanned` admits a file only if its
+suffix is in `workspace_meta.ALL_EXTS`, which has no `.json`, so the row could not be rebuilt.
+
+**Why it matters:** the row was right and the generator cannot produce it, so the directory now
+describes itself with a file missing. Every config a harness dictates is a `.json`
+(`.agents/hooks.json`, `.zcode/config.json`), which is exactly the class the routing table exists
+to name. It also means the deletion looked like this session's regression and had to be proven not
+to be — a check that silently drops a row costs that investigation every time.
+
+**Root cause:** unestablished which change dropped `.json` from `ALL_EXTS`, and whether it was
+dropped to keep generated `.json` out. The fix is a decision about that set, not about the scanner.
+
 <!-- entropy:start -->
 ## Entropy
 

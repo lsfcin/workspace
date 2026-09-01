@@ -3,7 +3,10 @@ import re
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+_HOOKS = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_HOOKS))
+sys.path.insert(0, str(_HOOKS / 'entropy'))
+from entropy_corpus import ignored_here, is_generated_mirror  # noqa: E402
 from file_law import is_code_file, load_limits  # noqa: E402
 from hoist import hoist, md_blurb  # noqa: E402
 from shard_table import EMPTY_CELL, render_table  # noqa: E402
@@ -14,6 +17,7 @@ from workspace_meta import (  # noqa: E402
 # The number lives in limits.env, never here — this file held the only copy for months
 # while three other checkers each invented their own (see file_law.py).
 SPLIT_THRESHOLD = load_limits()['WARN_FILES']
+_ROOT        = _HOOKS.parents[1]
 _SKIP_DIRS   = {'node_modules', '__pycache__', '.git', 'dist', 'build', '.venv', 'venv'}
 FACADE_NAMES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
 
@@ -37,6 +41,29 @@ def is_scanned(path: Path) -> bool:
             and not path.name.endswith(('.d.ts', '.pyi'))
             and (path.suffix in ALL_EXTS or is_code_file(path)))
 
+def carried(paths: list) -> list:
+    """Those of `paths` a clone actually receives, order kept.
+
+    The table is generated from disk but SHIPS in git, so a row for an ignored path describes a
+    tree the reader does not have. Ten had accumulated by 2026-09-01, and one of them
+    (`academy/reviews/…/outputs/CONTEXT.md`) was a scaffold this generator wrote itself, inside a
+    directory git is told to ignore — the row and the file it pointed at were both its own work.
+
+    Asked of the paths about to become rows, never inside `is_scanned`: that question is shared
+    with the commit-time description gate, and one `git check-ignore` per file would put a
+    subprocess in the recursion `has_code_content` runs on every save.
+
+    A generated mirror is carried by its generator instead of by git — `.opencode/skills/` and the
+    three trees beside it are rebuilt from `core/skills/` on every sync, so a clone that installs
+    has them and the rows are true. `is_generated_mirror` already knows which those are, and
+    `untracked_routing_targets` waives the same set; a second list here is the drift both exist
+    to catch.
+    """
+    if not paths:
+        return []
+    ignored = ignored_here(paths, _ROOT)
+    return [p for p in paths if p.resolve() not in ignored or is_generated_mirror(p)]
+
 def code_files(directory: Path) -> list:
     return sorted(p for p in directory.iterdir() if is_scanned(p))
 
@@ -47,9 +74,9 @@ def has_code_content(directory: Path) -> bool:
 
 def subdir_scan(directory: Path, rs: str, re_end: str) -> tuple:
     fold_list, link_list = [], []
-    for sub in sorted(p for p in directory.iterdir()
-                      if p.is_dir() and not p.name.startswith('.')
-                      and p.name not in _SKIP_DIRS):
+    for sub in carried(sorted(p for p in directory.iterdir()
+                              if p.is_dir() and not p.name.startswith('.')
+                              and p.name not in _SKIP_DIRS)):
         has_ctx = (sub / 'CONTEXT.md').exists()
         if not has_code_content(sub) and not has_ctx: continue
         files = code_files(sub)
@@ -65,7 +92,10 @@ def subdir_scan(directory: Path, rs: str, re_end: str) -> tuple:
             link_list.append(sub)
         else:
             for f in files: fold_list.append((f, f'{sub.name}/{f.name}'))
-    return fold_list, link_list
+    # A folded file is a grandchild, so an ignored one survives its parent's filter: the row
+    # `2026-07/instagram-video-by-bodam.sketch.md` in brain/attachments reached a clone that way.
+    kept = set(carried([f for f, _ in fold_list]))
+    return [pair for pair in fold_list if pair[0] in kept], link_list
 
 def parse_preserved_files(inner: str) -> dict:
     """Descriptions already in the table, kept across a re-sync.

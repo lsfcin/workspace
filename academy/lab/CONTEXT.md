@@ -21,6 +21,5 @@ not authored.
 
 | File | Description |
 |------|-------------|
-| [`CHECKPOINTS-backup-2026-08-26.md`](CHECKPOINTS-backup-2026-08-26.md) | research checkpoints — snapshot taken before the 2026-08-26 rewrite |
 | [`SPECS.md`](SPECS.md) | What must stay true of the student-facing checkpoint document, whoever edits it next. |
 <!-- routing:end -->

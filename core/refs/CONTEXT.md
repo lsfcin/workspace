@@ -11,6 +11,6 @@ definitions and the citation discipline: [`SPECS.md`](SPECS.md).
 
 | File | Description |
 |------|-------------|
-| [`REFS.md`](REFS.md) | External references and evidence with tier markers (`[A]`, `[P]`, `[V]`, `[C]`). |
+| [`REFS.md`](REFS.md) | What external material exists for the workspace-os / agent-library scaffold, and how much weight does each hold? One line per ref, carrying tier markers `[A] [B] [P] [V] [C]`. Citation discipline: [CONTEXT.md](CONTEXT.md). |
 | [`SPECS.md`](SPECS.md) | What each tier marker means, and the citation discipline that keeps REFS.md honest. |
 <!-- routing:end -->

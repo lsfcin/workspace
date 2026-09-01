@@ -3,18 +3,12 @@
 
 Each file is a single piece. Filename = slug. No required format — write freely.
 
-## Routing
-
-| Subdirectory | Description |
-|--------------|-------------|
-| (none) | flat folder, all drafts live here directly |
-
 <!-- routing:start -->
 ## Routing
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`email/`](email/CONTEXT.md) | — |
+| [`email/`](email/CONTEXT.md) | Draft replies waiting to be sent — one file per reply, written by `/gmail` triage. |
 
 | File | Description |
 |------|-------------|

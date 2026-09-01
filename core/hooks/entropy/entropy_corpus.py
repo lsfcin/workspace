@@ -71,6 +71,40 @@ def tracked_paths(root: Path, nested: bool = False) -> set:
     return paths
 
 
+def owning_repo(path: Path, root: Path) -> Path:
+    """The repo a file really belongs to. A nested repo's file is tracked THERE, and charging it
+    to this one reports 27 papers and modules as untracked on every run.
+
+    `path` itself counts, not only its parents: a repo belongs to itself. Asking about the
+    DIRECTORY `code/aiwbot` — which is what a routing row for a nested project is — walked
+    straight past its own `.git`, called root the owner, and root's .gitignore names every
+    nested repo wholesale, so `code/CONTEXT.md` lost all 15 project rows at once.
+    """
+    return next((d.resolve() for d in [path, *path.parents] if (d / '.git').exists()),
+                root.resolve())
+
+
+def ignored_here(paths: list, root: Path) -> set:
+    """Of these, the ones git is TOLD to ignore — the paths a clone never receives.
+
+    `tracked_paths` answers what a clone has today; this answers what it will never get, and the
+    routing generator needs the second question rather than the first. An untracked file that is
+    merely new is one commit from being carried and must keep its row; an ignored one is carried
+    by nothing, ever, and a row for it ships a table pointing at absence.
+
+    A nested repo's file is never ignored *here*: root's .gitignore names those directories
+    wholesale, and asking this repo about them would strip every project row out of
+    `code/CONTEXT.md`. Same boundary `owning_repo` draws for the check above it.
+    """
+    mine = [p for p in paths if owning_repo(p, root) == root.resolve()]
+    if not mine:
+        return set()
+    out = subprocess.run(['git', '-C', str(root), 'check-ignore', '--stdin'],
+                         input='\n'.join(str(p) for p in mine),
+                         capture_output=True, text=True).stdout
+    return {Path(line).resolve() for line in out.splitlines()}
+
+
 def nested_repos(root: Path, depth: int = 3) -> list:
     """Repos inside the workspace. Bounded walk — an unbounded one costs 14 GB of .venv
     and trash, which is how earlier counts of this workspace came out wrong twice."""

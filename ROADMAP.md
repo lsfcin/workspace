@@ -28,11 +28,6 @@ project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of
 tables are parsed by `schema_law.py` and its transient-doc rows are live exemptions; `SETUP.md` answers to
 `test_setup_executable.py`. Cut prose around them, never a row, and read the parser before the file.
 
-**🟡 ten routing rows name a file this repo does not carry**
-*What* — the inherited backlog behind `ROUTING_CEILING` drained: each row tracked, or stopped being routed to.
-*Why* — a clone gets the table and not the file; the check that found them only stops the count rising.
-*Done when* — `ROUTING_CEILING` reads 0. One routing decision each, and `branches/` holds most of them.
-
 ## Cost — what a session costs, and which of it is avoidable
 
 **🟢 cheaper models where the work is mechanical**

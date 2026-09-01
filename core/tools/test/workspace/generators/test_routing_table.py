@@ -14,7 +14,7 @@ from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 
 from hoist import DESC_LIMIT  # noqa: E402  (the bound is imported, never restated)
 from workspace_meta import ALL_EXTS, COMMENT_RE, extract_api, file_description  # noqa: E402
-from workspace_scanner import build_file_rows, parse_preserved_files  # noqa: E402
+from workspace_scanner import build_file_rows, carried, parse_preserved_files  # noqa: E402
 
 
 def _table(tmp_path, **sources) -> str:
@@ -154,6 +154,25 @@ def test_a_first_line_comment_is_never_bounded(tmp_path) -> None:
     comment = 'x ' * 60
     table = _table(tmp_path, **{'a.py': f'# {comment}\n'})
     assert comment.strip() in table
+
+
+def test_no_row_is_written_for_a_path_this_repo_is_told_to_ignore() -> None:
+    """The table is generated from disk but SHIPS in git, so an ignored path is a row naming
+    what the reader does not have. Ten had accumulated by 2026-09-01, one of them a scaffold
+    the generator wrote itself inside an ignored directory — it made both the row and its file."""
+    kept = WORKSPACE_ROOT / 'core/CONTEXT.md'
+    assert carried([WORKSPACE_ROOT / 'outputs/report.md']) == []
+    assert carried([kept]) == [kept]
+
+
+def test_a_nested_repo_and_a_generated_mirror_keep_their_rows(tmp_path: Path) -> None:
+    """Both are ignored HERE and carried by something else — the nested repo's own index, and
+    sync-skills. Filtering on this repo's .gitignore alone emptied code/CONTEXT.md of all 15
+    project rows the first time this ran."""
+    (tmp_path / '.git').mkdir()
+    mirror = WORKSPACE_ROOT / '.claude/skills/inbox/SKILL.md'
+    assert carried([tmp_path]) == [tmp_path]
+    assert carried([mirror]) == [mirror]
 
 
 def test_preserved_descriptions_survive_a_narrower_table() -> None:

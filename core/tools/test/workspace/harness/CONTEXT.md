@@ -21,6 +21,6 @@ Both exist because of an incident, and both incidents were silent:
 
 | File | Interface | Description |
 |------|-----------|-------------|
-| [`test_hook_environment.py`](test_hook_environment.py) | — | T0 harness invariant: the suite must mean the same thing run by hand and run by a git hook. Zero-token, verify-fast. |
+| [`test_hook_environment.py`](test_hook_environment.py) | [`test_hook_environment.pyi`](test_hook_environment.pyi) | T0 harness invariant: the suite must mean the same thing run by hand and run by a git hook. Zero-token, verify-fast. |
 | [`test_import_paths.py`](test_import_paths.py) | [`test_import_paths.pyi`](test_import_paths.pyi) | T0 harness invariant: the suite's sys.path cannot silently shadow a module. |
 <!-- routing:end -->
