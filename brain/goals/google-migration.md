@@ -37,6 +37,10 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 
 > [ ] [brave-conta-padrao] mudar a conta Google padrão do Brave para lsf.cin@gmail.com — primeiro passo da migração, e o
 > único que não depende de decidir nada (INBOX 2026-08-18)  
+> [ ] [github-email-primario] trocar o e-mail primário do GitHub de `lsf@cin.ufpe.br` para `lsf.cin@gmail.com` —
+> Settings → Emails, **clique de UI**: a API REST não expõe endpoint para primário (só visibilidade), então é a mão do
+> Lucas. Os três e-mails já estão verificados na conta, e o `git config` global já assina com o pessoal, então isto só
+> move o endereço de cobrança/notificação, não a autoria dos commits (auditoria de repos 2026-08-31)  
 > [ ] [drive-sync-method] decidir a forma de sincronizar a pasta local com o gdrive na parte acadêmica, principalmente
 > das aulas — a hipótese do Lucas é instalar o próprio cliente do gdrive e deixar ele sincronizar, *"funcionaria como um
 > git com commits automatizados?"*. Checar a viabilidade: o cliente sincroniza estado, não histórico, então a pergunta
@@ -71,14 +75,14 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-26  ·  trend: advancing
+last-touch: 2026-08-28  ·  trend: advancing
 
 | period      | touches |
 |-------------|----------|
-| month       |       8 |
-| trimester   |       8 |
-| semester    |       8 |
-| year        |       8 |
-| 2-year      |       8 |
-| 4-year      |       8 |
+| month       |       9 |
+| trimester   |       9 |
+| semester    |       9 |
+| year        |       9 |
+| 2-year      |       9 |
+| 4-year      |       9 |
 <!-- stats:end -->
