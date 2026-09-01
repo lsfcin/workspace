@@ -111,11 +111,6 @@ tables are parsed by `schema_law.py` and its transient-doc rows are live exempti
 *Why* — it is part of WOS and the last feature that cannot be switched off.
 *Done when* — `core/tools/wos/features --findings` reads zero.
 
-**🟡 `.gitignore` says both things about a nested repo's `CONTEXT.md`**
-*What* — one answer on whether those four files are tracked, reconciling contradictions.
-*Why* — allowlist vs wholesale ignore blocks conflict silently.
-*Done when* — contradiction is eliminated and environment directories are explicitly guarded.
-
 **🟡 the public scaffold repo his students clone**
 *What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
 *Why* — students asked for it; hard precondition for ablation study.

@@ -48,18 +48,6 @@ code/*
 # named alone, so the `.d.ts` beside it stayed ignored while every other interface stub in the
 # workspace is tracked — code/CONTEXT.md's Interface column linked a file a clone never got.
 !code/eslint.shared.*
-!code/laplata/
-code/laplata/*
-!code/laplata/CONTEXT.md
-!code/gira/
-code/gira/*
-!code/gira/CONTEXT.md
-!code/cria/
-code/cria/*
-!code/cria/CONTEXT.md
-!code/freeai/
-code/freeai/*
-!code/freeai/CONTEXT.md
 !code/_templates/
 code/_templates/*
 !code/_templates/*.md
@@ -88,33 +76,9 @@ academy/papers/*
 # had no history anywhere, which breaks the assumption that "done work is deleted, git
 # is the history" rests on. Naming each type individually is how that gap appeared.
 !academy/papers/*.md
-!academy/papers/pls-pix/
-academy/papers/pls-pix/*
-!academy/papers/pls-pix/CONTEXT.md
-!academy/papers/mutual-credit-ai/
-academy/papers/mutual-credit-ai/*
-!academy/papers/mutual-credit-ai/CONTEXT.md
-!academy/papers/mechanism-search/
-academy/papers/mechanism-search/*
-!academy/papers/mechanism-search/CONTEXT.md
-!academy/papers/2027-CHI-cria/
-academy/papers/2027-CHI-cria/*
-!academy/papers/2027-CHI-cria/CONTEXT.md
-!academy/papers/ai4good/
-academy/papers/ai4good/*
-!academy/papers/ai4good/CONTEXT.md
-!academy/papers/wos-ablation/
-academy/papers/wos-ablation/*
-!academy/papers/wos-ablation/CONTEXT.md
 
 branches/*
 !branches/CONTEXT.md
-!branches/instituto/
-branches/instituto/*
-!branches/instituto/CONTEXT.md
-!branches/casinhas/
-branches/casinhas/*
-!branches/casinhas/CONTEXT.md
 !branches/financas/
 branches/financas/*
 !branches/financas/CONTEXT.md
@@ -202,6 +166,12 @@ brain/memory/*
 # clone can't fetch them, and every internal commit flags a spurious "M". Git can't
 # track individual files (e.g. CONTEXT.md) inside a nested repo anyway — routing reads
 # them off-disk. So ignore each repo dir wholesale. Enforced by core/hooks/git/gitlink_gate.py.
+#
+# A repo listed here gets NO allowlist block above. Twelve of them carried one — `!<dir>/`,
+# `<dir>/*`, `!<dir>/CONTEXT.md` — saying the CONTEXT.md was tracked while this block said the
+# whole directory was ignored. This block is later, so it always won and the 36 lines above
+# tracked nothing; the file simply stated both answers. Deleted 2026-09-01.
+# gitignore_heal.py will not re-add them: it skips any subdir holding a `.git`.
 academy/papers/2027-CHI-cria
 academy/papers/ai4good
 academy/papers/mechanism-search
