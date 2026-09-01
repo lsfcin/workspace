@@ -61,6 +61,13 @@ o formato.
 > [ ] [fecho-de-aula] fechar toda aula com dois blocos: (1) **vocabulário** — que palavras a turma passou a ter, o que
 > expandiu no conhecimento da área; (2) **verificação** — um teste curto que o aluno usa para conferir sozinho que
 > aprendeu, possivelmente respondido em sala como formulário que contabiliza nota (INBOX 2026-08-27)  
+
+**Três propostas independentes e o contraste, em 2026-09-01**, em `brain/drafts/`
+(`metodologia-aulas-sonnet.md`, `-gemini.md`, `-opus.md`, e
+[`-contraste.md`](../drafts/metodologia-aulas-contraste.md)). As três convergiram sozinhas em oito
+pontos — esse núcleo é o achado. O contraste corta de cada uma e propõe uma versão de **8 blocos**,
+menor que qualquer uma das três. Falta só confrontar com o estado real das duas disciplinas antes
+de promover pra `academy/teaching/`.
 > [ ] [pesquisa-que-falta] gamificação séria (sem infantilizar), specs/contract grading, mecanismos de avaliação por
 > pares com propriedades verificáveis, e venues de publicação alcançáveis por graduandos em um semestre  
 
@@ -122,5 +129,5 @@ o formato.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: advancing  ·  touches: 38/58/58/58/58/58
+last-touch: 2026-09-01  ·  trend: advancing  ·  touches: 39/59/59/59/59/59
 <!-- stats:end -->

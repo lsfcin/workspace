@@ -8,4 +8,7 @@ deliverable lands.
 <!-- routing:start -->
 ## Routing
 
+| File | Description |
+|------|-------------|
+| [`metodologia-aulas-opus.md`](metodologia-aulas-opus.md) | metodologia-aulas-opus |
 <!-- routing:end -->
