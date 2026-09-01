@@ -185,4 +185,9 @@ def interface_for(src: Path, ctx_dir: Path) -> str:
     elif src.suffix == '.dart':                  c = src.parent / (src.stem + '.dart.api')
     elif src.suffix == '.tex':                   c = src.with_suffix('.texif')
     else: return '—'
-    return f'[`{c.relative_to(ctx_dir)}`]({c.relative_to(ctx_dir)})' if c.exists() else '—'
+    # as_posix(), not the Path: a markdown link separator is `/` on every operating system. A bare
+    # Path formats with os.sep, so regenerating this table on a Windows clone published
+    # `](auth\gauth.pyi)` -- a link that resolves nowhere, in a file test_pointer_integrity checks,
+    # written by a generator into a versioned file. Found 2026-09-01 by the table rewriting itself.
+    rel = c.relative_to(ctx_dir).as_posix()
+    return f'[`{rel}`]({rel})' if c.exists() else '—'

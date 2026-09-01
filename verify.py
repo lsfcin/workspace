@@ -15,6 +15,7 @@
 # than wiring anything.
 import subprocess
 import sys
+from importlib.util import find_spec
 from pathlib import Path
 from shutil import which
 
@@ -54,8 +55,27 @@ def shell_syntax() -> int:
 
 
 def suite(network: bool) -> int:
-    """T0 static + T1 unit. `full` adds the network-marked cases (live yt-dlp, real URLs)."""
+    """T0 static + T1 unit. `full` adds the network-marked cases (live yt-dlp, real URLs).
+
+    PARALLEL, AND FOR THE SAME REASON THE TOOLS WERE PORTED (2026-09-01). This suite is bound by
+    process SPAWN, not by work: measured here, the 30 slowest cases account for 113 s of 171 s and
+    nearly all of them shell out. That is the finding ISSUES.md recorded one level down about
+    `sync-skills`, and the pre-commit gate runs this whole file on every commit at the workspace
+    root -- so a commit cost 5-10 minutes on a Windows clone. 167 s -> 45 s over three consecutive
+    green runs, 659 passed each.
+
+    `auto`, never a number: how many cores this machine has is a per-machine value, and spelling
+    one in a versioned file is the defect the whole port exists to remove.
+
+    ASKED FOR, NOT ASSUMED. A clone without xdist would die on the flag it was handed and report a
+    RED SUITE for a missing dependency -- the exact lie the absent `make` told (ISSUES.md B9), and
+    the reason shell_syntax() below skips loudly instead of failing. Slower is not broken.
+    """
     command = [interpreter(), '-m', 'pytest', SUITE, '-q']
+    if find_spec('xdist'):
+        command += ['-n', 'auto']
+    else:
+        print('⚠  pytest-xdist not installed — suite runs serial (~4x slower). See SETUP.md.')
     if not network:
         command += ['-m', 'not network']
     return _run(command)

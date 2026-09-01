@@ -30,7 +30,8 @@
 #   breaks   what stops working without it, written in the words the FAILURE uses
 #
 name	kind	import	probe	feature	breaks
-pytest	pip	pytest	import:pytest	verify-suite	make verify-fast cannot run at all, so the pre-commit gate has nothing to check
+pytest	pip	pytest	import:pytest	verify-suite	verify.py cannot run the suite at all, so the pre-commit gate has nothing to check
+pytest-xdist	pip	xdist	import:xdist	verify-suite	verify.py fast falls over on the -n auto it passes; without it the suite is serial and a commit costs 167 s instead of 45 s
 mypy	pip	-	venv-script:stubgen	interface-stubs	interface stubs stop regenerating on save; the .pyi files go stale without anything saying so
 pyyaml	pip	yaml	import:yaml	latex	core/tools/paper/terms dies on import, so the pre-commit term-consistency gate silently skips every paper
 requests	pip	requests	import:requests	notes-notion	core/tools/notes/notion cannot reach the API
