@@ -149,3 +149,7 @@ tables are parsed by `schema_law.py` and its transient-doc rows are live exempti
 - **A second compaction shim for copilot** — no copilot session has ever run here.
 - **Raising `BLOCK_LINES` to 300** — moves the queue; files needing room need a seam, not higher ceilings.
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
+- **A check that only asks whether a `TYPE-<slug>.md` is tracked** — built, then dropped 2026-09-01: it
+  finds nothing, and the defect it was aimed at is any routing row naming a file git does not carry.
+- **Deleting a dated `*-backup-*.md` beside a tracked type as a corpse** — `academy/lab/CONTEXT.md`
+  declares those snapshots captured, not authored; the untracked *law* next to them was the real bug.
