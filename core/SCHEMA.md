@@ -43,10 +43,10 @@ a block, never write a measured number outside one.**
 ### The one exception: transient initiative docs
 
 A **cross-project rollout** is **not a new type** (ruled 2026-08-14, Lucas): it is intent, plan and
-what we rejected scoped to one initiative, which is the ROADMAP question, so it needs a **scope
-suffix** rather than a name. A **session plan** is a third thing the type system does not reach: a
-roadmap is structural, a session plan lives one sitting. Membership **only shrinks**, and each
-survivor owes a death condition on line 3.
+what we rejected scoped to one initiative — the ROADMAP question — so it takes a **scope suffix**,
+not a name. A **session plan** the type system does not reach at all: a roadmap is structural, a
+session plan lives one sitting. Membership **only shrinks**; each survivor owes a death condition on
+line 3.
 
 | File | Route | Why |
 |---|---|---|
@@ -56,9 +56,7 @@ survivor owes a death condition on line 3.
 **Every backticked `.md` name in this section is parsed as an exemption**, so naming a retired file
 here to explain its history puts it straight back on the list.
 
-## Placement and routing
-
-### Placement: tier × read-frequency
+## Placement: tier × read-frequency
 
 The first test is **is it still true?** — against code, tests and `git log`, never memory; an untrue
 ESSENTIAL is the most expensive object here. Then tier, per *section*: **ESSENTIAL** = work comes out
@@ -77,16 +75,16 @@ it, no check reads it, and it dies with the harness; symlink it in and it is an 
 identity and navigation only. **Open the child `CONTEXT.md` and the file's own routing block first** —
 most of what looks movable is already written better elsewhere. What replaces a moved section is one
 thin pointer line, never an instruction; the check fires on an over-size head *and* a modal. **A
-constraint sitting in a `CONTEXT.md` head is the standard defect.** Compression is last and nearly
-worthless: a pilot moved the worst offender 0.22% for a full model call. Placement beats phrasing.
+constraint sitting in a `CONTEXT.md` head is the standard defect.** Compression is last and measured
+worthless — placement beats phrasing.
 
-### No archive types
+## No archive types
 
 `ARCHIVE.md`, `HISTORY.md` and `.log/done.md` are **deleted, not renamed** — a file that is "never
-auto-loaded, ask explicitly" is doing git's job. The rule applies *inside* a file too: **a completed
-`ROADMAP.md` item is cut, not ticked**; keep a line only when the next session needs it to *extend*
-the work, as present-tense state. The one thing git cannot hold is an approach *tried and rejected*:
-one line under `## Rejected` in the relevant `ROADMAP.md`, or `## Ditched` in `brain/GOALS.md`.
+auto-loaded, ask explicitly" is doing git's job. The [`deletion`](norms/deletion.md) norm applies
+*inside* a file too; keep a finished line only when the next session needs it to *extend* the work,
+as present-tense state. The one thing git cannot hold is an approach *tried and rejected*: one line
+under `## Rejected` in the relevant `ROADMAP.md`, or `## Ditched` in `brain/GOALS.md`.
 
 ## Routing depth and locality (structural policy)
 
@@ -104,8 +102,8 @@ when the split removes more table than it adds — a directory in the dozens pay
 not. Numbers live in [`limits.env`](hooks/limits.env), never in a second copy; offenders live in
 [`ISSUES.md`](../ISSUES.md). Prose is capped at the same number as code, but a shard's readers are
 *sessions deciding whether to read it*, so the index must carry enough to decide without opening
-anything. Also: **no session reads the corpus, it reads a chain**, so the real cost of a routing table
-is row *count* per chain — which is why a generated column empty on every row is not emitted.
+anything. Also: **no session reads the corpus, it reads a chain**, so a routing table costs row
+*count* per chain.
 
 ## When a document outgrows its type
 
@@ -116,9 +114,9 @@ type is this*.** Route what survives: **generated** or **hand-authored content**
 **hand-authored constraint** → `SPECS.md` · **a question no type answers** → a new type, which only
 `SETUP.md` ever qualified for.
 
-**A generated measurement goes where its question already has a type**, so the entropy report is a
-block inside the root `ISSUES.md` — at the root because `outputs/` is gitignored and **a ratchet that
-is not tracked cannot ratchet**. **A declaration table takes none of these routes:** `features.txt`,
+**A generated measurement goes where its question already has a type**, and lands in a tracked file —
+**a ratchet that is not tracked cannot ratchet**. **A declaration table takes none of these routes:**
+`features.txt`,
 `profile.txt`, `limits.env`, `deps.txt`, `vendored.txt`, `generated.txt` and `extensionless.txt` are
 hand-authored data read by exactly one law module, **never prose**. **The extension names the shape:**
 `.tsv` for a table with a header row, `.txt` for one value per line, `.env` for `key=value`.
@@ -130,10 +128,9 @@ hand-authored data read by exactly one law module, **never prose**. **The extens
 and what a generator already derives: a split preserves the mass across more files, which is how this
 workspace reached nine roadmaps. Two traps: a deleted file's row in the transient table keeps its
 exemption alive, and the document you are deleting can be the sole record of something live. **An
-approved sibling is `TYPE-<slug>.md` with the unsuffixed file as the index**, slug lowercase kebab-case
-— three gates assume that shape (`type-gate.py` reads `^[A-Z][A-Z0-9_.-]*\.md$` as a type name,
-`entropy_naming.TYPE_SLUG` accepts only `[a-z0-9]+(?:-[a-z0-9]+)*`, `citation-gate.LEDGER_NAMES`
-matches `^ROADMAP(-[a-z0-9-]+)?\.md$`). The index keeps what is true of every sibling, any list the
+approved sibling is `TYPE-<slug>.md` with the unsuffixed file as the index**, slug lowercase
+kebab-case — `type-gate.py`, `entropy_naming.TYPE_SLUG` and `citation-gate.LEDGER_NAMES` each read
+that shape and none of them states it. The index keeps what is true of every sibling, any list the
 type's rule says lives in one place, and the generated routing table. The check that makes "as small as
 possible" checkable: **a reader who has read only the index names the sibling that answers their
 question, and is never wrong.**
@@ -153,8 +150,8 @@ SPECS (the same job as a `> spec:` line), `feature` on SETUP, `enforced-by` on b
 
 `enforced-by`, `blocked-by`, `governs` and `spec` name paths; `feature` names the registry.
 [`entropy_fields.py`](hooks/entropy/entropy_fields.py) checks each against the tree — blocking on what
-a commit adds, reporting on everything. Numbers already had *"re-run it, never quote it"*; claims about
-our own tree had nothing. It never reaches prose, and inside `governs` reads only path-shaped tokens.
+a commit adds, reporting on everything. It never reaches prose, and inside `governs` reads only
+path-shaped tokens.
 
 ### What a description must say
 
@@ -167,14 +164,12 @@ times. And **the table names the marker in words, not the emoji.**
 
 ## Vocabulary
 
-**Data, not a rule** — which is why it lives here and not in the always-loaded `AGENTS.md`.
 **workspace-os** is also written `wos` · `WOS` · `w-os` · `W-OS`; **craft flow** means the `/craft`
-skill and `core/flows/craft/`; **Front** is a top-level workstream in `ROADMAP.md`. **A Front number is
-not a citable identifier:** closed items are deleted, so `Front 4.1` is a dead pointer the day the work
-lands. Numbering is legal only inside `ROADMAP.md` / `ROADMAP-<slug>.md`, and in commit messages.
-**A bug id is never reused** (ruled 2026-08-31): new ids in an `ISSUES.md` are durable slugs,
-`b<YYYYMMDD>-<slug>`; a numeric id dies with its fix, so citing a bug outside its ledger names the
-slug, never the number.
+skill and `core/flows/craft/`; **Front** is a top-level workstream in `ROADMAP.md`. **Neither a Front
+number nor a bug number is a citable identifier** — closed items are deleted, so the number is a dead
+pointer the day the work lands. Numbering is legal only inside `ROADMAP.md` / `ROADMAP-<slug>.md` and
+in commit messages; **a bug id is never reused** (ruled 2026-08-31), new ids are durable slugs
+`b<YYYYMMDD>-<slug>`, and a bug cited outside its ledger is named by slug.
 
 ### Terms with one meaning
 
@@ -203,11 +198,10 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `.loop` | `.craft` | 2026-08-20 |
 | `parsed-by` | — retired unfilled | 2026-08-25 |
 
-**A rename whose old spelling is also a real word needs a shape, not a token.** `loops` is ordinary
-English, so what is retired is the command `/loops` and the state dir `.loop`; "Loop 0..6" stays.
-`Frente`→`Front` is not a row at all — `citation-gate.py` matches the *citation shape* `Frente <n>`
-instead, because a row that fails on correct prose trains people to ignore the check. Not yet swept,
-so not yet listed: `SPEC.md`→`SPECS.md`.
+**A rename whose old spelling is also a real word needs a shape, not a token** — a row that fails on
+correct prose trains people to ignore the check, so `/loops` and `.loop` are rows while `Frente`→
+`Front` is a citation shape inside `citation-gate.py`. Not yet swept, so not yet listed:
+`SPEC.md`→`SPECS.md`.
 
 ### A vendor's model name is data, never a directive
 

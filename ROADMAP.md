@@ -28,6 +28,11 @@ project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of
 tables are parsed by `schema_law.py` and its transient-doc rows are live exemptions; `SETUP.md` answers to
 `test_setup_executable.py`. Cut prose around them, never a row, and read the parser before the file.
 
+**🔴 `SCHEMA.md` ran out of prose 20 lines above the cap**
+*What* — a ruling on the last 20 lines: a second shard beside `SCHEMA-layers.md`, or law Lucas calls expendable.
+*Why* — one sitting took it 226 → 220 and every remaining line is a rule with a checker or a parsed table.
+*Done when* — Lucas has ruled. A sibling needs his explicit OK, which is why the sitting stops here.
+
 ## Cost — what a session costs, and which of it is avoidable
 
 **🟢 cheaper models where the work is mechanical**
