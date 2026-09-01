@@ -28,10 +28,13 @@ project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of
 tables are parsed by `schema_law.py` and its transient-doc rows are live exemptions; `SETUP.md` answers to
 `test_setup_executable.py`. Cut prose around them, never a row, and read the parser before the file.
 
-**🔴 `SCHEMA.md` ran out of prose 20 lines above the cap**
-*What* — a ruling on the last 20 lines: a second shard beside `SCHEMA-layers.md`, or law Lucas calls expendable.
-*Why* — one sitting took it 226 → 220 and every remaining line is a rule with a checker or a parsed table.
-*Done when* — Lucas has ruled. A sibling needs his explicit OK, which is why the sitting stops here.
+**🔴 the cap and the rationale rule point opposite ways, and the four law files are where they meet**
+*What* — a ruling: shard each by reader, exempt the type, or send rationale to git. `core/norms/CONTEXT.md`
+says rationale belongs in the `SPECS.md` that owns the rule; the cap says cut. Both cannot hold at 361 lines.
+*Why* — measured 2026-09-01, not guessed: `SCHEMA.md` gave up 6 lines of true redundancy and stopped at 220
+with every remaining line a parsed table or a rule with a checker; `core/hooks/SPECS.md` reads the same at 361,
+where reaching 200 means deleting the coverage, shim and lifecycle tables. A sibling needs Lucas's explicit OK.
+*Done when* — Lucas has ruled and the 🟢 item above is either doable or dead.
 
 ## Cost — what a session costs, and which of it is avoidable
 
