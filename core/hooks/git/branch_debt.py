@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# What the entropy dashboard counts about branches: repos on unmerged work, and remote labels
+# What the entropy dashboard counts about branches: work that lives in only one place, and labels
 # whose commits already landed.
 #
 # It sits in git/ rather than beside the other entropy checks because it is the one that reads
@@ -7,10 +7,11 @@
 # takes a root and shells out. That difference is also what put entropy/ over the fanout cap
 # when it briefly lived there, which is the check doing its job.
 #
-# /roundup Phase 5 already rules that a session promotes whenever the work is green and coherent,
-# and says which of the three reasons applies when it does not. What was missing is the number the
-# ruling exists to reduce: nothing counted repos left on an open branch, so branches accumulated
-# across repos with nobody able to see it. Warn-only, like every other dashboard section.
+# Warn-only, like every other dashboard section. Widened 2026-08-31 after a hand audit found what
+# the first version could not see: 117 merged local branches, three holding unpromoted work that
+# simply was not checked out, 16 repos ahead of their remote and two with no remote at all.
+# code/SPECS-git.md had stated "unpushed work is invisible work" since July and nothing measured
+# it — a law nobody counts is a sentence.
 import subprocess
 from pathlib import Path
 
@@ -40,24 +41,106 @@ def _base_of(repo: Path) -> str:
     return ''
 
 
-def unmerged_branches(root: Path) -> list:
-    """One line per repo whose current branch is ahead of the branch it promotes into.
+def _locals(repo: Path) -> list:
+    return [b for b in _git(repo, 'branch', '--format=%(refname:short)').splitlines() if b]
 
-    Ahead-by-zero is the whole test and it is cheap — the same test `git branch -d` applies before
-    it refuses. A repo already on its base, or with no base branch to promote into, is not a
-    finding: the first has nothing open and the second has nowhere to put it.
+
+def _merged(repo: Path, base: str, branch: str) -> bool:
+    return _git(repo, 'rev-list', '--count', f'{base}..{branch}') == '0'
+
+
+def _deletable(repo: Path, base: str) -> list:
+    """The branches `git branch -d` would really delete, by git's own rule rather than a guess.
+
+    Merged into base, not checked out in any worktree, and — when it tracks a remote — already
+    contained in that remote. Guessing instead cost three of the first run's lines: one branch was
+    live in a parallel session's worktree and two sat ahead of their own upstream, so the emitted
+    command was one git refused. A report that names an action has to name one that runs.
+    """
+    fmt = '%(refname:short)\t%(worktreepath)\t%(upstream:short)'
+    out = []
+    for line in _git(repo, 'branch', f'--format={fmt}').splitlines():
+        name, worktree, upstream = (line.split('\t') + ['', ''])[:3]
+        if not name or name in BASES or worktree:
+            continue
+        if not _merged(repo, base, name):
+            continue
+        if upstream and not _merged(repo, upstream, name):
+            continue
+        out.append(name)
+    return out
+
+
+def unmerged_branches(root: Path) -> list:
+    """One line per local branch holding commits its base does not have.
+
+    Every local branch, not only the checked-out one: the branch nobody switched back to is
+    exactly the one that holds forgotten work, so asking about HEAD alone asked about the safest
+    branch in the repo. A repo with no base at all is the finding itself — it has nowhere to
+    promote to, which is how a repo on a lone feature branch reported clean.
     """
     signals = []
     for repo in sorted([root] + nested_repos(root)):
-        branch = _git(repo, 'branch', '--show-current')
-        if not branch or branch in BASES:
+        name = _rel(repo, root)
+        base = _base_of(repo)
+        if not base:
+            signals.append(f'{name} — no main/master/develop to promote into')
             continue
+        for branch in _locals(repo):
+            if branch in BASES:
+                continue
+            ahead = _git(repo, 'rev-list', '--count', f'{base}..{branch}')
+            if ahead.isdigit() and int(ahead) > 0:
+                signals.append(f'{name} — {branch} is {ahead} ahead of {base}')
+    return signals
+
+
+def merged_local_branches(root: Path) -> list:
+    """Local labels whose every commit is already in the base branch.
+
+    The remote twin below has been counted since July; the local side never was, and by the time
+    anything looked there were a hundred and fifteen. Deleting one is safe and purely local —
+    `git branch -d` refuses exactly the branches this check does not list — so the line is the
+    command, the same way its twin is.
+    """
+    signals = []
+    for repo in sorted([root] + nested_repos(root)):
         base = _base_of(repo)
         if not base:
             continue
-        ahead = _git(repo, 'rev-list', '--count', f'{base}..{branch}')
-        if ahead.isdigit() and int(ahead) > 0:
-            signals.append(f'{_rel(repo, root)} — {branch} is {ahead} ahead of {base}')
+        stale = _deletable(repo, base)
+        if stale:
+            name = _rel(repo, root)
+            signals.append(f'{name} — {len(stale)} merged into {base}: '
+                           f'git -C {name} branch -d {" ".join(stale)}')
+    return signals
+
+
+def unpushed_work(root: Path) -> list:
+    """Commits that exist on this disk and nowhere else.
+
+    Two machines share this workspace, so code/SPECS-git.md rules that unpushed work is invisible
+    work; this is that rule as a number. A repo with no remote can never satisfy it and is named
+    first. A branch already merged into its base is skipped — it holds nothing unique, and
+    merged_local_branches above owns it.
+    """
+    signals = []
+    for repo in sorted([root] + nested_repos(root)):
+        name = _rel(repo, root)
+        if not _git(repo, 'remote', 'get-url', 'origin'):
+            signals.append(f'{name} — no remote: nothing here exists anywhere else')
+            continue
+        base = _base_of(repo)
+        for branch in _locals(repo):
+            if branch not in BASES and base and _merged(repo, base, branch):
+                continue
+            if not _git(repo, 'rev-parse', '--verify', '--quiet',
+                        f'refs/remotes/origin/{branch}'):
+                signals.append(f'{name} — {branch} was never pushed')
+                continue
+            ahead = _git(repo, 'rev-list', '--count', f'origin/{branch}..{branch}')
+            if ahead.isdigit() and int(ahead) > 0:
+                signals.append(f'{name} — {branch} is {ahead} ahead of origin/{branch}')
     return signals
 
 

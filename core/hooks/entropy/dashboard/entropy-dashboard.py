@@ -26,7 +26,8 @@ for _dir in (_ENTROPY, _ENTROPY.parent, _ENTROPY.parent / 'git',
 
 import feature_law  # noqa: E402
 from blocks import replace_block  # noqa: E402
-from branch_debt import merged_remote_branches, unmerged_branches  # noqa: E402
+from branch_debt import (merged_local_branches, merged_remote_branches,  # noqa: E402
+                         unmerged_branches, unpushed_work)
 from entropy_context import (check_goal_link,  # noqa: E402
                              check_misplaced_answer, check_truncation)
 from entropy_corpus import (enforcement_paths, tracked_files,  # noqa: E402
@@ -112,6 +113,8 @@ def collect(files: list) -> dict:
     findings['stubs'] = stub_signals(files)
     findings['fanout'] = fanout_signals(files, WORKSPACE_ROOT)
     findings['branches'] = unmerged_branches(WORKSPACE_ROOT)
+    findings['unpushed'] = unpushed_work(WORKSPACE_ROOT)
+    findings['locals'] = merged_local_branches(WORKSPACE_ROOT)
     findings['remotes'] = merged_remote_branches(WORKSPACE_ROOT)
     findings['finished'] = finished_work_hits(files, exempt)
     findings['undescribed'] = unanswered_placeholders(files, exempt)

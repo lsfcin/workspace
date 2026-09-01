@@ -45,19 +45,19 @@ never edit it by hand.
 | [`isoroll-content/`](isoroll-content/CONTEXT.md) | Offline asset generation pipeline for the isoroll Foundry VTT module |
 | [`isoroll-module/`](isoroll-module/CONTEXT.md) | Foundry VTT v14 isometric projection module — TypeScript + Vite + SCSS. |
 | [`laplata/`](laplata/CONTEXT.md) | Mapa vivo dos fluxos de dinheiro no Brasil — pipeline de dados abertos (BCB, IBGE) + visualizações que revelam ralos. Infraestrutura do programa instituto (núcleo 4) e estágio 1 do motor de ideação. |
+| [`obra/`](obra/CONTEXT.md) | Somar o dinheiro da obra e primar o STT com o vocabulário dela. Dados em `branches/casinhas/`. |
 | [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for experimenting with LC/UFRPE curriculum redesign |
 | [`spacemantics/`](spacemantics/CONTEXT.md) | Verifiable spatial DSL (texpace) + deterministic checker that lift LLM spatial capability across 2D/2.5D/3D/4D |
-| [`statem/`](statem/CONTEXT.md) | CLI runbook for agent long runs — state machine with explicit transitions, checks, and resume semantics. |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records — ARCHIVED as a spec |
 
-| File | API | Description |
-|------|-----|-------------|
-| [`ROADMAP-spec-drive.md`](ROADMAP-spec-drive.md) | — | Enforcement rollout making the spec the contract for `code/` modules: verifiable inputs/outputs/invariants that precede and govern the code. Goal: [spec-driven-development](../brain/goals/spec-driven-development.md). |
-| [`ROADMAP-verify.md`](ROADMAP-verify.md) | — | Testing-discipline rollout for `code/` projects: make agents verify their own results (no human eye per prompt) and enforce code centralization. Pilot: isoroll-module. Second: apptime. |
-| [`SETUP.md`](SETUP.md) | — | Per-language setup, facade templates, and project scaffolding reference |
-| [`SPECS-git.md`](SPECS-git.md) | — | Which branches exist, what may be committed where, and when work is pushed. |
-| [`SPECS-structure.md`](SPECS-structure.md) | — | How a project is laid out: its files, its module specs, and its facade. |
-| [`SPECS-style.md`](SPECS-style.md) | — | How a file is written, how big it may get, and when a directory splits. |
-| [`SPECS.md`](SPECS.md) | — | Engineering conventions, architecture decisions, and process rules for all code/ projects. |
-| [`eslint.shared.js`](eslint.shared.js) | `localPlugin`, `sharedRules`, `countCallsInSubtree`, `getChainDepth` | Shared ESLint rules for all TypeScript/JavaScript projects under code/ — R1-R6 style enforcement. |
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`ROADMAP-spec-drive.md`](ROADMAP-spec-drive.md) | — | — | Enforcement rollout making the spec the contract for `code/` modules: verifiable inputs/outputs/invariants that precede and govern the code. Goal: [spec-driven-development](../brain/goals/spec-driven-development.md). |
+| [`ROADMAP-verify.md`](ROADMAP-verify.md) | — | — | Testing-discipline rollout for `code/` projects: make agents verify their own results (no human eye per prompt) and enforce code centralization. Pilot: isoroll-module. Second: apptime. |
+| [`SETUP.md`](SETUP.md) | — | — | Per-language setup, facade templates, and project scaffolding reference |
+| [`SPECS-git.md`](SPECS-git.md) | — | — | Which branches exist, what may be committed where, and when work is pushed. |
+| [`SPECS-structure.md`](SPECS-structure.md) | — | — | How a project is laid out: its files, its module specs, and its facade. |
+| [`SPECS-style.md`](SPECS-style.md) | — | — | How a file is written, how big it may get, and when a directory splits. |
+| [`SPECS.md`](SPECS.md) | — | — | Engineering conventions, architecture decisions, and process rules for all code/ projects. |
+| [`eslint.shared.js`](eslint.shared.js) | [`eslint.shared.d.ts`](eslint.shared.d.ts) | `localPlugin`, `sharedRules`, `countCallsInSubtree`, `getChainDepth` | Shared ESLint rules for all TypeScript/JavaScript projects under code/ — R1-R6 style enforcement. |
 <!-- routing:end -->

@@ -19,14 +19,11 @@ All projects under `code/` follow Git Flow:
 - Never commit directly to `main`
 - `develop` must always build and pass tests
 - Feature branches: short-lived, one concern each
-- Merge via PR — no direct pushes to `develop` or `main`
 - Tag `main` on every release: `v<semver>`
 
 **Enforcement.** `core/hooks/git/gitflow_gate.py` (pre-commit block 1e) **hard-blocks** in `code/`
 repos: any commit on `main`/`master`/`develop`, or on a branch not matching
-`feature/*`/`release/*`/`hotfix/*`. Emergency bypass: `git commit --no-verify`. The
-**merge-only-via-PR** rule is *not* locally enforceable — set it up as GitHub branch protection on
-`main` and `develop` per repo (require PR + passing checks). Migration note: a project still
+`feature/*`/`release/*`/`hotfix/*`. Emergency bypass: `git commit --no-verify`. Migration note: a project still
 committing to `main`/`master` directly must create `develop` and switch to `feature/*` before its
 next commit, or the gate blocks it.
 
@@ -44,3 +41,11 @@ pay it back. An undocumented bypass is indistinguishable from the gate never hav
 work** and `main` is the sync point, not a release tag. `feature/*` auto-pushes via
 `core/hooks/post-commit`; promotion to `develop`/`main` happens in `/roundup` Phase 5 behind a green
 verification run; `/handoff` only *reports* divergence and never merges.
+
+**No pull request is required, and no branch is protected** — ruled 2026-08-31 (Lucas), after an
+audit found the PR rule honoured in 3 of 18 repos and contradicting the promotion it was written
+beside: a solo repo whose promotion already sits behind a green verify run gains nothing from a
+round trip through GitHub. The green run is the gate. What is now enforced instead is the law this
+file already stated and nothing measured — `core/hooks/git/branch_debt.py` counts a repo with
+commits its remote does not have, and a repo with no remote at all, so *invisible work* is a number
+in [`ISSUES.md`](../ISSUES.md) rather than a sentence here.

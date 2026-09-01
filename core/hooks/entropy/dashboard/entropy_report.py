@@ -63,8 +63,13 @@ SECTIONS = (
      'the source wrote past the bound — shorten it there, never edit the table'),
     ('misplaced', 'Constraints trapped in a CONTEXT.md head',
      'the only enforced-read type — move the contract to a sibling SPECS.md'),
-    ('branches', 'Repos on an unmerged feature branch',
+    ('branches', 'Local branches holding unpromoted work',
      'promote when the work is green, or say which reason applies — /roundup Phase 5'),
+    ('unpushed', 'Work that exists on this disk and nowhere else',
+     'two machines share this workspace — push it, or give the repo a remote to push to: '
+     'code/SPECS-git.md § Push policy'),
+    ('locals', 'Local branches already merged into their base',
+     'safe to delete, and purely local — `git -C <repo> branch -d <branch>`'),
     ('remotes', 'Remote branches already merged into their base',
      'safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas'),
 )
