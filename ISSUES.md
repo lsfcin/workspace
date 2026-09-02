@@ -199,6 +199,23 @@ route), scoping the scatter assertions to repos that exist locally, or accepting
 per-machine and untracking it. **Lucas's call**, because the third costs the reviewable diff the
 ledger exists to give.
 
+## b20260902-a-section-citation-survives-the-section-moving-away
+
+**Symptom:** sharding `SETUP.md` moved 17 of its 21 steps into siblings. Nine tracked files cited
+those steps as `SETUP.md § <name>`, and every one still pointed at `SETUP.md`, which no longer holds
+them. The suite was green throughout. They were found by grep, by hand.
+
+**Why it matters:** `core/SPECS.md` requires a section be cited by name *because* a number ages
+silently — and the named form ages silently too, in the one operation the workspace has now blessed.
+`test_pointer_integrity.py` checks that `](path)` resolves, so a link whose file exists and whose
+section does not reads as healthy. Two of the nine were a hook's error message and a skill's
+protocol step, so the cost lands on whoever is installing a fresh clone, with no session watching.
+
+**Root cause:** nothing parses the `§` half of a citation. The check is cheap and the corpus is
+small — for every `<FILE> § <Section>` in a tracked `.md`, assert `<FILE>` has that `##` heading —
+and the sharded types (`SCHEMA.md`, `SETUP.md`, and whichever law file the open ruling shards next)
+are exactly where it pays.
+
 <!-- entropy:start -->
 ## Entropy
 

@@ -166,5 +166,7 @@ remaining candidates are law files, so the payment has to come from somewhere th
   porting the two bash tools took it 167 s → 42 s, so the trade was never needed.
 - **A check that only asks whether a `TYPE-<slug>.md` is tracked** — built, then dropped 2026-09-01: it
   finds nothing, and the defect it was aimed at is any routing row naming a file git does not carry.
+- **Reaching the 200-line cap by deleting SETUP steps** — declined 2026-09-02: every step is a
+  feature a stranger's clone can no longer install, and strangers are who the file is for.
 - **Deleting a dated `*-backup-*.md` beside a tracked type as a corpse** — `academy/lab/CONTEXT.md`
   declares those snapshots captured, not authored; the untracked *law* next to them was the real bug.
