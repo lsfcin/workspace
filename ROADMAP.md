@@ -137,6 +137,9 @@ where reaching 200 means deleting the coverage, shim and lifecycle tables. A sib
 - **A second compaction shim for copilot** — no copilot session has ever run here.
 - **Raising `BLOCK_LINES` to 300** — moves the queue; files needing room need a seam, not higher ceilings.
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
+- **Narrowing the pre-commit to only the touched tests** — declined 2026-09-01: it was the biggest
+  win and the only one that weakens the gate holding both clones. Parallelising the suite and
+  porting the two bash tools took it 167 s → 42 s, so the trade was never needed.
 - **A check that only asks whether a `TYPE-<slug>.md` is tracked** — built, then dropped 2026-09-01: it
   finds nothing, and the defect it was aimed at is any routing row naming a file git does not carry.
 - **Deleting a dated `*-backup-*.md` beside a tracked type as a corpse** — `academy/lab/CONTEXT.md`

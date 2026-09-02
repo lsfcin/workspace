@@ -592,6 +592,11 @@ node --input-type=module -e "import('$PWD/.opencode/plugins/workspace-policy.js'
 ./verify.py fast                                      # the workspace's own suite
 ```
 
+The suite runs in parallel (`pytest-xdist`, `-n auto`), because it is bound by process **spawn**
+rather than by work — the same finding as the skill mirrors, one level up. It costs ~42 s here and
+cost 167 s serial, and the pre-commit gate runs all of it on every commit at the workspace root, so
+that difference is the price of every commit. Without xdist it still runs, serial, and says so.
+
 Whether each *gate* then behaves as promised is a different question, answered by
 [`core/hooks/SPECS.md`](core/hooks/SPECS.md) § What a working install looks like.
 
