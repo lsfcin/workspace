@@ -2,7 +2,7 @@
 # session reads, how often, and how much each re-read cost. Reads the local transcripts; no network.
 #
 # The question is ours, not the harness's: `context-gate.py` demands a whole CONTEXT.md chain before
-# any file access in a subtree, and `pre-read.sh` redirects a source read to its stub. Both exist to
+# any file access in a subtree, and `pre-read.py` redirects a source read to its stub. Both exist to
 # SAVE context and neither had ever been measured doing it. A chain re-read once per subtree per
 # session is the mechanism paying for itself; the same file served three times in one session is the
 # mechanism billing twice for a page nobody asked for again.

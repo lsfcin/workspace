@@ -4,7 +4,7 @@
 Asked by Lucas (2026-08-15): *"does a session, due to our hooks/gates, re-read the same context file
 more than once?"* It is the sharpest question anyone has put to the enforcement layer, because it
 points at a cost this workspace **imposes** rather than one it inherits. `context-gate.py` demands a
-whole `CONTEXT.md` chain before any file access in a subtree and `pre-read.sh` redirects a source
+whole `CONTEXT.md` chain before any file access in a subtree and `pre-read.py` redirects a source
 read to its stub; both exist to *save* context and neither had ever been measured doing it.
 
 ## Method

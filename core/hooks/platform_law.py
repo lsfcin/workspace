@@ -61,8 +61,8 @@ def session_state(name: str) -> Path:
 
     `tempfile.gettempdir()` is the same directory `/tmp` names on POSIX, so the markers do not move
     there, and it is what Git Bash already maps `/tmp` to here -- which is what keeps the shell
-    halves that still spell `/tmp` (read/pre-read.sh, session/precompact-wipe.sh) agreeing with
-    these until they are ported.
+    halves that still spell `/tmp` (session/precompact-wipe.sh, session/session-prune.sh) agreeing
+    with these until they are ported. The read gate was the third and is Python now.
     """
     return Path(tempfile.gettempdir()) / name
 

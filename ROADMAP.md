@@ -105,15 +105,6 @@ the item above cannot be prioritised until it is. Raw figures for three sessions
 
 ## Portability — would this work on a machine that is not Lucas's
 
-**🟢 `read/pre-read.sh` is the last bash on the hot read path, and six shims spell its name**
-*What* — `read/pre-read.py`, and every declaration that names the `.sh` moved with it: the five
-harness registrations, `antigravity_policy.py`, `copilot-pre-tool.py`, `SETUP.md`'s chmod line,
-`core/features.txt`, and `core/hooks/SPECS.md`. *Why* — it spends five subprocesses per Read to do
-one file comparison, it is the slowest gate measured, and being shell is what kept the stub map out
-of Python until 2026-09-02 (`stubs.GATE_ON`). The port is mechanical; the rename is the work.
-*Done when* — no `.sh` remains under `core/hooks/read/`, `test_shim_paths.py` is green, and the four
-interface states still behave as `test_read_gate_prerequisites.py` pins them.
-
 **🟡 ten tools are over the line-count warn threshold, newly visible**
 *What* — `gdocs` 183, `permissions` 170, `video_core.py` 169, `session/context` 169, `notion` 153.
 *Why* — they were invisible before shebang stripping. None exceeds the 200 cap; backlog, not block.

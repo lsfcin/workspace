@@ -4,7 +4,7 @@
 #
 # The second of `interface-stubs`' two paths (core/SPECS.md § AD-14). This half is what
 # keeps the stub current WITHIN a session; generators/interfaces.sh is what stages it into
-# the commit. Switch off only one and read/pre-read.sh silently stops enforcing, because it
+# the commit. Switch off only one and read/pre-read.py silently stops enforcing, because it
 # blocks a source read only while the stub beside it is current.
 if sh "$RUN" hooks/feature_law.py --enabled interface-stubs; then
 

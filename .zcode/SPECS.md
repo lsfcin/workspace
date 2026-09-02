@@ -30,7 +30,7 @@ parsed but stay **inert** until the workspace is trusted in the ZCode client —
 | PreToolUse `Read\|Edit\|Write\|ApplyPatch\|Grep\|NotebookEdit` | same | `read/context-gate.py` |
 | PreToolUse `Bash` | same | `read/bash-context-gate.py`, `checks/heredoc-gate.py` |
 | PreToolUse `Edit\|Write\|ApplyPatch` | `Edit\|Write` | `checks/pre-edit.py`, `facade/facade-scan.py`, `facade/facade-gate.py`, `checks/issues-gate.py`, `read/spec-read-gate.py` |
-| PreToolUse `Read` | same | `read/pre-read.sh` |
+| PreToolUse `Read` | same | `read/pre-read.py` |
 | PreToolUse `Agent\|Task` | `Agent` | `read/agent-context.py` |
 | PostToolUse `Edit\|Write\|ApplyPatch` | `Edit\|Write` | `post-edit.sh` |
 | PostToolUse `Read` | same | `facade/facade-tracker.py`, `read/context-tracker.py` |

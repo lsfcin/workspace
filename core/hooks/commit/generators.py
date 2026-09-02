@@ -128,7 +128,7 @@ def interfaces(commit):
 
     `interface-stubs` names TWO paths in core/features.txt -- this one and postedit/interfaces.sh.
     Not a duplicate trigger: this one stages the stub into the commit and sweeps stubless siblings,
-    post-edit keeps the stub current inside the session so read/pre-read.sh never serves a stale
+    post-edit keeps the stub current inside the session so read/pre-read.py never serves a stale
     interface. Guarding one would leave the other writing.
     """
     if not feature_law.is_enabled('interface-stubs'):

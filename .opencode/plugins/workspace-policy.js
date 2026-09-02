@@ -9,7 +9,7 @@
 //   - facade-gate.py      : block Code/ module edits until the module facade is read
 //   - issues-gate.py      : ISSUES.md FIXED flips require a regression spec
 //   - spec-read-gate.py   : spec-locked module edits require its SPEC.md read first
-//   - pre-read.sh         : block source reads when a current interface file exists
+//   - pre-read.py         : block source reads when a current interface file exists
 //   - post-edit.sh        : regenerate interfaces, terms check, context_synchronizer
 //   - facade-tracker      : record facade reads for facade-gate session state
 //   - context-tracker.py  : record CONTEXT.md/interface reads for context-gate + pre-read
@@ -72,7 +72,7 @@ export const WorkspacePolicy = async ({ client }) => {
       }
 
       // Grep — context-gate only (Claude parity: the Grep matcher sits on the chain
-      // gate, never on pre-read.sh). Its target is a `path`, not a `file_path`.
+      // gate, never on pre-read.py). Its target is a `path`, not a `file_path`.
       if (input.tool === "grep") {
         const p = buildGrepPayload(output.args || {})
         if (!p) return
@@ -93,8 +93,8 @@ export const WorkspacePolicy = async ({ client }) => {
           const g = run(`${HOOKS}/read/context-gate.py`, p, "Read", { stdin: true })
           if (g.status === 2) throw new Error(blockMsg(g, "CONTEXT GATE"))
           if (g.stdout && g.stdout.trim()) await warn(client, g.stdout)
-          // 2. pre-read.sh — interface-first source gate.
-          const r = run(`${HOOKS}/read/pre-read.sh`, p, "Read", { stdin: true })
+          // 2. pre-read.py — interface-first source gate.
+          const r = run(`${HOOKS}/read/pre-read.py`, p, "Read", { stdin: true })
           if (r.status === 2) throw new Error(blockMsg(r, "READ INTERFACE FIRST"))
           if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
         }

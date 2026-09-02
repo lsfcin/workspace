@@ -34,7 +34,7 @@ def pre_tool(call: dict[str, Any], sid: str) -> dict[str, Any]:
 
     if name == "view_file":
         p = {"file_path": args.get("AbsolutePath", ""), "session_id": sid}
-        gates = [("read/context-gate.py", "Read", p), ("read/pre-read.sh", "Read", p)]
+        gates = [("read/context-gate.py", "Read", p), ("read/pre-read.py", "Read", p)]
     elif name == "replace_file_content":
         p = {"file_path": args.get("TargetFile", ""), "old_string": args.get("TargetContent", ""),
              "new_string": args.get("ReplacementContent", ""), "session_id": sid}

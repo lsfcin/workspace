@@ -1,6 +1,4 @@
-from _typeshed import Incomplete
-
-GATE: Incomplete
+GATE: str
 
 def test_a_missing_stub_is_announced_and_the_read_is_allowed(tmp_path) -> None: ...
 def test_the_announcement_is_made_once_per_file_per_session(tmp_path) -> None: ...

@@ -128,8 +128,10 @@ both venv layouts, and `test_corpus_ratchet.py` exempts it by name for that reas
 exemption stays an exemption. A shell script that must spawn Python *inline* — a `-c` one-liner, a
 heredoc — cannot pass through the arm above and otherwise spells a venv path itself, which is how
 the bare word `python3` reached fourteen shell sites. Every one of them swallowed the Store alias's
-advert with `2>/dev/null` or `|| exit 0`, so `post-edit.sh` and its four stages, `pre-read.sh` and
-`precompact-wipe.sh` had **never run** on a Windows clone while reading as green. Held at zero by
+advert with `2>/dev/null` or `|| exit 0`, so `post-edit.sh` and its four stages, the interface-first
+read gate and `precompact-wipe.sh` had **never run** on a Windows clone while reading as green.
+That gate is Python now and cannot spell the word at all, which is the shape of the real fix and the
+reason the port was worth doing rather than the spelling being corrected in place. Held at zero by
 `test_no_shell_hook_spawns_the_bare_word_python3`, which is a floor and not a ceiling because a
 hook that can only ever pass is indistinguishable from one that works.
 `run` also exports `PYTHONIOENCODING=utf-8`, because every gate prints ⛔ ✓ ⚠ and a Python encoding
@@ -154,7 +156,7 @@ the test existed to guard.
 | `read/bash-context-gate.py` | PreToolUse: Bash | **Blocks** Bash commands naming workspace files in subtrees whose chain is unread — this is what closes the `cat`/`grep` bypass |
 | `checks/heredoc-gate.py` | PreToolUse: Bash | **Warns, never blocks** — a heredoc writing a workspace file (`cat >`/`tee`) meets none of the `Edit\|Write` gates. Silent for stdin-to-an-interpreter, which writes nothing |
 | `compact/bash-compact-rewrite.py` | PreToolUse: Bash | **Rewrites, never blocks** — sends every line of a multi-line command through rtk, which parses line 1 only; delegates any payload it cannot split safely |
-| `read/pre-read.sh` | PreToolUse: Read | **Blocks** reading a source file while its interface is current, naming the unread `CONTEXT.md` chain alongside it — both read gates exit 2 on one Read and the harness reports only the first, so each names the whole set; warns when the interface is stale. Reading the interface unlocks the source for the session |
+| `read/pre-read.py` | PreToolUse: Read | **Blocks** reading a source file while its interface is current, naming the unread `CONTEXT.md` chain alongside it — both read gates exit 2 on one Read and the harness reports only the first, so each names the whole set; warns when the interface is stale. Reading the interface unlocks the source for the session |
 | `read/context-tracker.py` | PostToolUse: Read | Records `CONTEXT.md` reads and interface reads — the state both gates above consume |
 | `read/spec-read-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Blocks** editing a spec-locked module (`CONTEXT.md` `> spec:` + `SPECS.md` `status: locked`) until its `SPECS.md` was Read this session; nudges on new files in spec-less `code/` modules |
 | `read/agent-context.py` | PreToolUse: Agent, SubagentStart | **Induces, never blocks** — hands a spawned worker the `>` line of each subtree its prompt names |
@@ -305,7 +307,7 @@ below reads ✅ until a post-trust probe run earns it.
 Three hook points cover the whole surface:
 
 ```
-PreTool (Read)  → bash core/hooks/read/pre-read.sh
+PreTool (Read)  → sh   core/run hooks/read/pre-read.py
 PreTool (Edit)  → sh   core/run hooks/checks/pre-edit.py
                   sh   core/run hooks/facade/facade-scan.py   (write/create only)
                   sh   core/run hooks/facade/facade-gate.py

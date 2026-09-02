@@ -127,9 +127,9 @@ def test_no_shell_hook_spawns_the_bare_word_python3():                          
     `python3` is not a name Windows has: it reaches a Microsoft Store execution alias that prints
     an advert and exits without running anything. Every site that spelled it sat behind
     `2>/dev/null` or `|| exit 0`, so the failure was *green*. On 2026-08-29 that was true of
-    post-edit.sh and all four stages it sources, read/pre-read.sh and session/precompact-wipe.sh —
-    interface stubs, routing sync, lint, reminders and the interface-first gate had never once run
-    on a Windows clone, and nothing anywhere said so.
+    post-edit.sh and all four stages it sources, the interface-first read gate (shell then, Python
+    since 2026-09-02) and session/precompact-wipe.sh — interface stubs, routing sync, lint,
+    reminders and that gate had never once run on a Windows clone, and nothing anywhere said so.
 
     A ceiling would be the wrong shape. A hook that can only ever pass is indistinguishable from
     one that works, so the count may not creep by one; `core/run` answers the interpreter question

@@ -75,7 +75,7 @@ def blocking_interface(target: Path) -> Path | None:
 def prerequisites(target: Path, seen: set[str], iface_seen: set[str], gate_interface: bool) -> list[Path]:
 	"""Everything a read of `target` must be preceded by, as ONE list.
 
-	WHY THIS IS ONE LIST AND NOT TWO MESSAGES. `context-gate.py` and `read/pre-read.sh` are separate
+	WHY THIS IS ONE LIST AND NOT TWO MESSAGES. `context-gate.py` and `read/pre-read.py` are separate
 	PreToolUse hooks on the same Read, both exit 2, and the harness reports only the FIRST — measured
 	2026-09-01, both blocking on one payload, one message surfacing. So a gate that names only its own
 	prerequisite hands the agent one slice per turn: reading a source file in a fresh subtree cost

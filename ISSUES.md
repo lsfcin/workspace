@@ -148,65 +148,6 @@ The port answers that in `validate._lines` — for the checker. The file itself 
 declared the rule). Whether the fix is renormalising the working tree once or a check that catches
 the next one is the open question.
 
-## b20260901-the-facade-set-is-written-out-in-four-places
-
-**Symptom:** `{'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}` — the
-files that ARE their own interface — is spelled out identically in
-[`stubgen/stubs.py`](core/hooks/stubgen/stubs.py) (`FACADES`),
-[`facade/facade-gate.py`](core/hooks/facade/facade-gate.py),
-[`facade/facade-tracker.py`](core/hooks/facade/facade-tracker.py) and
-[`routing/workspace_scanner.py`](core/hooks/routing/workspace_scanner.py) (`FACADE_NAMES` in the
-last three). Found 2026-09-01 while adding a read gate that would have been the fifth.
-
-**Why it matters:** [`core/hooks/CONTEXT.md`](core/hooks/CONTEXT.md) says the law lives in this
-directory's root and **a checker that restates any of it is the drift the checkers exist to catch**.
-This is that drift, four times over, in the enforcement layer itself — and the four copies already
-disagree in name, which is how a fifth nearly got written without anyone noticing the other four.
-The set is not stable-by-luck either: `index.dart` was added once, and nothing would have carried it
-to a copy that had drifted.
-
-**Root cause:** no module owns "what a file IS to the facade discipline". `file_law.py` is the
-declared home for exactly this class of question — what a file is — and none of the four asks it.
-The fix is one definition and four imports; the open decision is only whether it lands in
-`file_law.py` or beside `FACADES` in `stubs.py`.
-
-## b20260901-a-read-gate-races-the-tracker-that-clears-it
-
-**Symptom:** the context gate names N `CONTEXT.md` files and says to read them in one parallel
-batch. Reading all N in one batch and retrying can still be refused, naming one of the N that was
-just read. Observed 2026-09-01: a four-file batch cleared three, and
-`core/tools/test/CONTEXT.md` — read successfully in that batch — was demanded again on the retry.
-It was present in the marker file by the next command.
-
-**Why it matters:** it costs exactly the round trip the gate's own message exists to save, and it
-does it on the turn the agent did the right thing. Worse, it is indistinguishable from the gate
-being wrong about the chain, so the reflex it teaches is to distrust the list.
-
-**Root cause:** `context-tracker.py` is a **PostToolUse** hook, one process per Read, and each does
-read-then-append on one marker file (`hook_input.mark_seen`). A parallel batch runs N of them
-concurrently, so an interleaved read-modify-write can drop a line. Unestablished whether the loss is
-in the append or in the gate simply running before the last tracker finished; the two have different
-fixes (a lock or an atomic write against nothing at all).
-
-## b20260901-the-codegraph-nudge-only-fires-when-a-stub-is-stale
-
-**Symptom:** the `💡 codegraph indexed` nudge at the foot of
-[`read/pre-read.sh`](core/hooks/read/pre-read.sh) is reachable on exactly one path — a source whose
-stub is **stale**. Every other state returns before it: a facade, a type with no interface
-convention, an absent or empty stub, a current stub already read, and a current stub that blocks all
-`exit` before line 89.
-
-**Why it matters:** the nudge's own comment says "one-time per project per session", which describes
-a hook that fires for the project, not for the rare file whose stub happens to be out of date. It is
-the same shape as the two failures that comment block already records — a branch that cannot fire is
-indistinguishable from one with no reason to — and this one survived *inside the file those lessons
-were written in*.
-
-**Root cause:** the early `exit 0`s were each correct for their own state and nobody re-checked what
-they left downstream. The open question is whether the nudge belongs before the interface logic
-entirely, or in a hook of its own; it is a suggestion, and a suggestion gated on an unrelated
-failure is not one.
-
 <!-- entropy:start -->
 ## Entropy
 

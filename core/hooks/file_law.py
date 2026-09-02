@@ -28,11 +28,11 @@ CODE_EXTS = {'.js', '.jsx', '.ts', '.tsx', '.py', '.dart', '.sh',
 # A stub is generated FROM its source and rides in the routing table's Interface column.
 GENERATED = ('.pyi', '.d.ts', '.dart.api', '.texif')
 
-# Files that ARE their own interface, so nothing generates one beside them and the read gate
-# never fires on one. It was spelled out identically in four places — stubgen, both facade
-# hooks and the routing scanner — already drifting in NAME (FACADES vs FACADE_NAMES), which is
-# how a fifth copy nearly got written without anyone noticing the other four. It belongs to the
-# question this module owns, what a file IS, and `index.dart` joining once proves the set moves.
+# Files that ARE their own interface, so nothing generates one beside them and the read gate never
+# fires on one. It was spelled out identically in four places — stubgen, both facade hooks and the
+# routing scanner — and the four had already drifted in what they CALLED it, which is how a fifth
+# copy nearly got written without anyone noticing the other four. It belongs to the question this
+# module owns, what a file IS, and `index.dart` joining once proves the set moves.
 FACADES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
 
 # How a file of each kind declares what it is. One home, because it used to have three —

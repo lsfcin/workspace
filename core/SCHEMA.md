@@ -197,6 +197,7 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `WATCHLIST.md` | `core/refs/REFS.md` | 2026-08-20 |
 | `.loop` | `.craft` | 2026-08-20 |
 | `parsed-by` | — retired unfilled | 2026-08-25 |
+| `pre-read.sh` | `read/pre-read.py` | 2026-09-02 |
 
 **A rename whose old spelling is also a real word needs a shape, not a token** — a row that fails on
 correct prose trains people to ignore the check, so `/loops` and `.loop` are rows while `Frente`→

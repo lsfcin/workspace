@@ -70,7 +70,7 @@ def main() -> int:
             payload = {"file_path": file_path, "session_id": session_id()}
             if gate("read/context-gate.py", payload, "Read", workspace_root, messages):
                 return 2
-            if gate("read/pre-read.sh", payload, "Read", workspace_root, messages):
+            if gate("read/pre-read.py", payload, "Read", workspace_root, messages):
                 return 2
         emit_allow("\n\n".join(messages))
         return 0

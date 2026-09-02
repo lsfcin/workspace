@@ -221,7 +221,7 @@ on the machine it was written on, since the execute bit is not a permission Wind
 
 **Install** — idempotent by nature:
 ```bash
-chmod +x core/hooks/post-edit.sh core/hooks/read/pre-read.sh core/hooks/pre-commit \
+chmod +x core/hooks/post-edit.sh core/hooks/pre-commit \
          core/hooks/post-commit core/hooks/copilot/copilot-agent.sh \
          core/hooks/session/start-session.sh
 ```

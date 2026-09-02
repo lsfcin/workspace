@@ -90,7 +90,7 @@
 #
 slug	group	runs	install	enforcement	scope	wired	buys
 context-chain	hooks	automatic	-	blocks	general	core/hooks/read/context-gate.py,core/hooks/read/bash-context-gate.py	An agent cannot touch a file in a subtree it has not oriented in, including through cat and grep, so it arrives knowing the neighbourhood instead of guessing from a filename
-interface-first-reads	hooks	automatic	interface-stubs	blocks	general	core/hooks/read/pre-read.sh	Reading a source file is blocked while its generated stub is current, so the agent reads 30 lines of signatures instead of 200 lines of body
+interface-first-reads	hooks	automatic	interface-stubs	blocks	general	core/hooks/read/pre-read.py	Reading a source file is blocked while its generated stub is current, so the agent reads 30 lines of signatures instead of 200 lines of body
 interface-stubs	hooks	automatic	interface-stubs	generates	general	core/hooks/commit/generators.py,core/hooks/postedit/interfaces.sh	The .pyi / .d.ts / .dart.api / .texif stubs regenerate on every save, so the interface-first read can never serve a stale summary
 routing-tables	hooks	automatic	-	generates	general	core/hooks/routing/context_synchronizer.py	Each directory's file list writes itself from first-line comments; nobody maintains an index, and an index nobody maintains is the one that lies
 agent-context-brief	hooks	automatic	-	advises	general	core/hooks/read/agent-context.py	A spawned subagent is handed its subtree's CONTEXT.md chain instead of being gated on it, so briefing a worker stops being a discipline the orchestrator has to remember

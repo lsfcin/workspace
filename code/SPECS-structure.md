@@ -65,7 +65,7 @@ external consumers import. Nothing imports internal files from another module di
 
 **Exempt from enforcement:** test files, the facade file itself, `generated/` and `vendor/` dirs.
 
-**Reading facades:** `index.ts` / `__init__.py` / `index.dart` are read directly — `pre-read.sh`
+**Reading facades:** `index.ts` / `__init__.py` / `index.dart` are read directly — `pre-read.py`
 does not block them. They are already minimal interfaces. Implementation files are redirected to
 their `.d.ts` / `.pyi` / `.dart.api` interface instead.
 

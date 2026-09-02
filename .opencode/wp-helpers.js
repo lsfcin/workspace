@@ -41,7 +41,7 @@ export function python() {
 }
 
 // opencode tool names -> Claude canonical env value + matcher group.
-//   read             -> Read  (pre-read.sh, facade-tracker)
+//   read             -> Read  (pre-read.py, facade-tracker)
 //   edit, apply_patch-> Edit  (pre-edit + facade-scan + facade-gate, post-edit.sh)
 //   write            -> Write (same scripts; pre-edit.py Write branch + facade-scan)
 export const TOOL_MAP = {
@@ -102,7 +102,7 @@ export function buildPayloads(args, toolName) {
 }
 
 // Grep is gated by context-gate.py only (Claude parity: matcher Grep sits on the context gate,
-// never on pre-read.sh). Its target is a `path` key, not `file_path` — context-gate.py's
+// never on pre-read.py). Its target is a `path` key, not `file_path` — context-gate.py's
 // target_path() reads `path` when CLAUDE_TOOL_NAME is "Grep".
 /**
  * @param {Record<string, any>} args opencode grep args

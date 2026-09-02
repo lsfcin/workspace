@@ -22,28 +22,12 @@ def target_path(tool: str, tool_input: dict) -> str:
 	return str(tool_input.get('file_path', ''))
 
 
-def missing_chain(session_id: str, raw: str) -> int:
-	"""`--missing-chain <session> <path>`: print the CONTEXT.md files that path still needs.
-
-	A QUERY, not a hook run, and read/pre-read.sh is the caller — the other gate on the same Read,
-	which is shell and cannot import chain.py. It asks only on the branch that is about to block,
-	so the subprocess is not on the per-Read path, and what it buys is the round trip the agent
-	would otherwise spend discovering this list one gate at a time.
-	"""
-	try:
-		target = Path(raw).resolve()
-	except OSError:
-		return 0
-	if not target.is_relative_to(WORKSPACE_ROOT):
-		return 0
-	for ctx in prerequisites(target, load_seen(session_id), set(), gate_interface=False):
-		print(ctx)
-	return 0
-
-
 def main() -> int:
-	if len(sys.argv) == 4 and sys.argv[1] == '--missing-chain':
-		return missing_chain(sys.argv[2], sys.argv[3])
+	# THE `--missing-chain` QUERY ARM IS GONE. It printed this file's half of the prerequisite list
+	# for one caller: the stub gate, back when it was shell and could not import chain.py. Both gates
+	# are Python now and both call `prerequisites()` directly, which is what the arm was reaching for
+	# through a subprocess.
+	#
 	# context-chain is TWO files — this one and bash-context-gate.py, which closes the
 	# cat/grep bypass. Both consult the law, or switching the feature off would leave half
 	# the gate standing and an ablation would measure a cost nobody removed.
@@ -71,7 +55,7 @@ def main() -> int:
 	if SKIP_PARTS.intersection(target.parts):
 		return 0
 
-	# The stub is a prerequisite of a READ and of nothing else: read/pre-read.sh matches Read alone,
+	# The stub is a prerequisite of a READ and of nothing else: read/pre-read.py matches Read alone,
 	# so demanding one before an Edit would invent a rule no gate enforces. And the law is asked
 	# here rather than inside chain.py, so that module stays the definition and never the registry.
 	gate_interface = tool == 'Read' and feature_law.is_enabled('interface-first-reads')

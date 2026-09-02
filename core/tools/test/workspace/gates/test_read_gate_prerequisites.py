@@ -1,7 +1,7 @@
 # T0: a blocking read gate names every prerequisite of the read, not the one it happens to own.
 #
 # Two PreToolUse hooks fire on the same Read -- read/context-gate.py for the CONTEXT.md chain and
-# read/pre-read.sh for the interface stub -- both exit 2, and the harness reports only whichever
+# read/pre-read.py for the interface stub -- both exit 2, and the harness reports only whichever
 # lands first. Measured 2026-09-01: one payload, both gates blocking, one message surfacing. So a
 # gate naming its own slice sent the agent back for the rest on the NEXT turn, and reading one
 # source file in a fresh subtree cost FIVE tool calls, two of them pure retries. In the six-hour
@@ -24,7 +24,7 @@ sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks/read'))
 from chain import blocking_interface, context_chain, interface_state  # noqa: E402
 
 CONTEXT_GATE = WORKSPACE_ROOT / 'core/hooks/read/context-gate.py'
-PRE_READ = WORKSPACE_ROOT / 'core/hooks/read/pre-read.sh'
+PRE_READ = WORKSPACE_ROOT / 'core/hooks/read/pre-read.py'
 
 
 def _subject() -> Path:
@@ -40,11 +40,17 @@ def _subject() -> Path:
 
 
 def _run(gate: Path, target: Path, session: str, tool: str = 'Read') -> subprocess.CompletedProcess:
+	"""Through `core/run`, because that is how every harness spawns a gate.
+
+	Not `[interpreter(), gate]`: `run` is what exports PYTHONIOENCODING=utf-8, and without it a gate
+	printing ⛔ dies inside its own message on a console codepage that has no such character. A spec
+	that spawns a gate a way nobody spawns it measures a program nobody runs.
+	"""
 	payload = json.dumps({'session_id': session, 'cwd': str(WORKSPACE_ROOT),
 	                      'tool_name': tool, 'tool_input': {'file_path': str(target)}})
-	argv = ['bash', str(gate)] if gate.suffix == '.sh' else [interpreter(), str(gate)]
+	argv = ['sh', str(WORKSPACE_ROOT / 'core/run'), f'hooks/read/{gate.name}']
 	return subprocess.run(argv, input=payload, capture_output=True, text=True,
-	                      check=False, encoding='utf-8')
+	                      check=False, encoding='utf-8', errors='replace')
 
 
 def _named(result: subprocess.CompletedProcess, candidates: list[Path]) -> set[str]:
@@ -80,7 +86,7 @@ def test_a_satisfied_read_costs_no_further_round_trip() -> None:
 
 
 def test_a_stub_is_demanded_of_a_read_and_of_nothing_else() -> None:
-	"""read/pre-read.sh matches Read alone, so an Edit that demanded a stub would invent a rule."""
+	"""read/pre-read.py matches Read alone, so an Edit that demanded a stub would invent a rule."""
 	subject = _subject()
 	result = _run(CONTEXT_GATE, subject, f'test-{uuid.uuid4()}', tool='Edit')
 
@@ -95,12 +101,14 @@ def test_a_stub_is_demanded_of_a_read_and_of_nothing_else() -> None:
 	('absent', 0, 'NO INTERFACE'),
 	('none', 0, ''),
 ])
-def test_the_python_reading_of_a_stub_matches_the_shell_gates(state, expected_rc, marker,
-                                                              tmp_path) -> None:
-	"""chain.interface_state is what lets the chain gate speak for a gate written in shell.
+def test_the_state_a_gate_acts_on_is_the_state_the_chain_reports(state, expected_rc, marker,
+                                                                 tmp_path) -> None:
+	"""`chain.interface_state` is what lets the chain gate speak for the stub gate's prerequisite.
 
-	It is a second reading of the same four states, so the two can disagree the way STUB_FOR and
-	pre-read.sh's `case` already do. This pins them together on every state, in both languages.
+	Both gates read it now, which is what the port bought — the four states used to live twice, once
+	here and once as a shell `case` no Python caller could ask, and two readings of one law drift the
+	way STUB_FOR and GATE_ON once did. This pins the definition to the behaviour on every state, so a
+	future divergence fails here rather than in a message an agent cannot satisfy.
 	"""
 	source = tmp_path / ('__init__.py' if state == 'none' else 'subject.py')
 	source.write_text('def f():\n    return 1\n', encoding='utf-8', newline='\n')

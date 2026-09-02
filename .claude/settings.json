@@ -68,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/read/pre-read.sh"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/pre-read.py"
           }
         ]
       },

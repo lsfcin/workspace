@@ -1,6 +1,7 @@
 # b20260831-silent-stub-gate regression — a gate that is OFF must say so.
 #
-# core/hooks/read/pre-read.sh ranked its three states backwards. A CURRENT stub hard-blocked the
+# core/hooks/read/pre-read.py ranked its three states backwards, back when it was shell. A CURRENT
+# stub hard-blocked the
 # read, a STALE one warned and allowed, and a MISSING one hit `[ ! -f "$iface" ] && exit 0` and
 # said nothing at all -- so the worst state was the quietest, and the hook read as passing while
 # the interface-first discipline was switched off for that file. entropy_size.stub_signals knew
@@ -17,7 +18,7 @@ from types import SimpleNamespace
 
 from conftest import WORKSPACE_ROOT
 
-GATE = WORKSPACE_ROOT / 'core/hooks/read/pre-read.sh'
+GATE = 'hooks/read/pre-read.py'
 
 sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks/stubgen'))
 sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks/commit'))
@@ -30,8 +31,9 @@ from stubs import interface_for  # noqa: E402
 def _read(path, session: str) -> subprocess.CompletedProcess:
     """The hook as the Read protocol delivers it: payload on stdin, verdict in the exit code."""
     payload = json.dumps({'session_id': session, 'tool_input': {'file_path': str(path)}})
-    return subprocess.run(['bash', str(GATE)], input=payload,
-                          capture_output=True, text=True, check=False, encoding='utf-8')
+    return subprocess.run(['sh', str(WORKSPACE_ROOT / 'core/run'), GATE], input=payload,
+                          capture_output=True, text=True, check=False,
+                          encoding='utf-8', errors='replace')
 
 
 def test_a_missing_stub_is_announced_and_the_read_is_allowed(tmp_path):
@@ -144,7 +146,7 @@ def test_the_counter_names_the_interface_the_source_actually_wants(tmp_path):
 def test_a_facade_is_not_a_finding(tmp_path):
     """The counter and the gate must agree on what a facade is.
 
-    pre-read.sh exempts them ("already minimal interfaces") and code/CONTEXT.md tells agents to
+    pre-read.py exempts them ("already minimal interfaces") and code/CONTEXT.md tells agents to
     read them — so 41 of the 200 findings asked for a stub the gate would never consult.
     """
     for name in ('__init__.py', 'index.ts'):

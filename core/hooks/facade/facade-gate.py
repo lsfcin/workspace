@@ -7,19 +7,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law
 from file_law import FACADES  # noqa: E402
-from hook_input import parse_stdin
-from platform_law import WORKSPACE_ROOT, session_state  # noqa: E402
+from hook_input import load_facades, parse_stdin
+from platform_law import WORKSPACE_ROOT  # noqa: E402
 
 # NOT the file_law CODE set: this is "languages that have a facade convention", a genuinely
 # narrower question than "is this code". Named apart so the two never get conflated again —
 # `FACADES` beside it answers a third question, which file IS one, and comes from there too.
 FACADE_EXTS  = {'.ts', '.tsx', '.js', '.jsx', '.py', '.dart'}
 TEST_RE      = re.compile(r'(?:^|/)(?:test_[^/]+|[^/]+_test|[^/]+\.(?:test|spec))\.[^/]+$')
-
-
-def facades_read(session_id: str) -> set[str]:
-	sf = session_state(f'claude_facades_{session_id}.txt')
-	return set(sf.read_text(encoding='utf-8').splitlines()) if sf.exists() else set()
 
 
 def find_nearest_facade(path: Path) -> Path | None:
@@ -58,7 +53,7 @@ def main() -> int:
 		return 0
 
 	facade = find_nearest_facade(file_path)
-	if not facade or str(facade) in facades_read(session_id):
+	if not facade or str(facade) in load_facades(session_id):
 		return 0
 
 	try:
@@ -68,7 +63,7 @@ def main() -> int:
 		rel_f, rel_p = facade, file_path
 	print(f"⛔ READ FACADE FIRST — {rel_p}", file=sys.stderr)
 	print(f"   Read {rel_f} before editing this module.", file=sys.stderr)
-	print(f"   Source reads then auto-redirect to .d.ts/.pyi via pre-read.sh.", file=sys.stderr)
+	print(f"   Source reads then auto-redirect to .d.ts/.pyi via pre-read.py.", file=sys.stderr)
 	return 2
 
 

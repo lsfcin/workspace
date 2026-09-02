@@ -37,7 +37,7 @@ problem for a non-Claude agent. Field-name lists (`PATH_KEYS`,
 | opencode event + tool name | Claude matcher | Script | Block via |
 |---|---|---|---|
 | `tool.execute.before`, `read` | PreToolUse `Read` | `core/hooks/read/context-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `read` | PreToolUse `Read` | `core/hooks/read/pre-read.sh` | exit 2 → throw |
+| `tool.execute.before`, `read` | PreToolUse `Read` | `core/hooks/read/pre-read.py` | exit 2 → throw |
 | `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/read/context-gate.py` | exit 2 → throw |
 | `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/checks/pre-edit.py` | exit 2 → throw |
 | `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/facade/facade-scan.py` | (warn only; never exits 2) |
@@ -58,7 +58,7 @@ handled by a dedicated branch in `tool.execute.before` that extracts
 directly, mirroring `copilot-pre-tool.py`'s `TERMINAL_HINTS` branch. No
 post-hook for `bash` (same as Copilot — nothing to track after a terminal
 command). `grep` is likewise a dedicated branch: Claude gates Grep on the
-context gate only (never `pre-read.sh`), and its target is a `path` key rather
+context gate only (never `pre-read.py`), and its target is a `path` key rather
 than `file_path`. The compaction hook wipes this session's seen-markers so the
 CONTEXT.md chain is re-read after compaction — the PreCompact equivalent.
 
@@ -81,7 +81,7 @@ subtree briefings here.
 
 ### stdin vs env-var schema (per script, verified by reading each)
 
-- `pre-edit.py`, `facade-scan.py`, `facade-gate.py`, `pre-read.sh` → read JSON
+- `pre-edit.py`, `facade-scan.py`, `facade-gate.py`, `pre-read.py` → read JSON
   from **stdin**. Plugin spawns with `spawnSync({input: json})`.
 - `post-edit.sh`, `facade-tracker.py` → read JSON from the **`CLAUDE_TOOL_INPUT`
   env var** (not stdin). Plugin sets `env.CLAUDE_TOOL_INPUT = json`.
@@ -94,7 +94,7 @@ subtree briefings here.
 
 opencode has no inline-tool-warning API on `tool.execute.before`. Blocking
 messages reach the LLM via `throw` (the only inline channel). Non-blocking
-warnings (e.g. `⚠️ INTERFACE STALE` from `pre-read.sh`, `💬 FIRST-LINE MISSING`
+warnings (e.g. `⚠️ INTERFACE STALE` from `pre-read.py`, `💬 FIRST-LINE MISSING`
 from `post-edit.sh`) use two channels:
 
 - `client.app.log({ body: { level: "warn", message } })` — server log entry.
