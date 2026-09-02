@@ -223,6 +223,27 @@ small — for every `<FILE> § <Section>` in a tracked `.md`, assert `<FILE>` ha
 and the sharded types (`SCHEMA.md`, `SETUP.md`, and whichever law file the open ruling shards next)
 are exactly where it pays.
 
+## b20260902-core-run-reads-any-two-letters-sh-as-a-shebang
+
+**Symptom:** `core/run tools/files/gdrive list ...` fails with `gdrive: 2: import: not found` and
+`Syntax error: "(" unexpected` — the shell complaining about Python. Every `gdrive` subcommand is
+affected, from every caller. Found while reading the Drive folder of a class deck.
+
+**Root cause:** [`core/run`](core/run) sniffs the interpreter by matching the target's first line
+against `case "$first_line" in *bash*) ... *sh*)`. That is a **substring** test on the whole line,
+not a shebang test. `gdrive`'s first line is a comment listing its subcommands, one of which is
+**`share`** — which contains `sh` — so the file is handed to `sh`. The `*bash*` arm has the same
+hole, and any tool whose first-line comment happens to contain those letters inside a word is one
+rename away from the same failure.
+
+**Why it matters:** the error message names the wrong layer entirely. It reads as a broken Python
+file, and nothing in it points at `core/run` — so the cost is paid in diagnosis, by whoever next
+calls a tool whose description mentions sharing, shell, publishing or a dozen other ordinary words.
+
+**Fix:** match a real shebang — the line must start with `#!` and the interpreter is its last path
+segment — rather than testing the line for two letters anywhere. The regression spec is cheap: a
+fixture whose first line is a comment containing `share`, asserted to run under Python.
+
 <!-- entropy:start -->
 ## Entropy
 

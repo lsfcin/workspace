@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+NAO_SAO_FORMULARIOS: Incomplete
 SPECS: Incomplete
 
 def test_a_section_is_a_page_break_and_never_a_question() -> None: ...

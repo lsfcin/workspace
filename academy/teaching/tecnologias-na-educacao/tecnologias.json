@@ -1,0 +1,146 @@
+{
+ "_": "A árvore de tecnologias da disciplina. Fonte da verdade; a seção do Notion é gerada daqui, não editada à mão. Campos por folha: nome (específico o bastante para a equipe ordenar), oque (uma frase, no registro do deck: para que serve), video, repo, estrelas e push (conferidos na API do GitHub em 2026-09-02), precisa (vazio = laptop comum), novo (true = pouca gente usou, rende artigo).",
+ "conferido": "2026-09-02",
+ "equipamento": {
+  "": "laptop comum, CPU ou GPU integrada",
+  "4090": "desktop do laboratório",
+  "Quest": "Oculus Quest 3",
+  "licenca": "conta paga ou licença a conseguir",
+  "peca": "hardware barato de comprar (~R$30)"
+ },
+ "eixos": [
+  {
+   "eixo": "Agentes",
+   "folhas": [
+    {"nome": "Loop agêntico com ferramentas", "oque": "um modelo que decide sozinho qual ferramenta chamar, em que ordem, até terminar a tarefa", "video": "https://youtu.be/cUfLrn3TM3M", "repo": "https://github.com/langchain-ai/langgraph", "estrelas": 40942, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "Multiagente colaborativo", "oque": "vários agentes com papéis diferentes discutindo entre si até fechar um resultado", "video": "https://youtu.be/hbvm_q8xBTw", "repo": "https://github.com/crewAIInc/crewAI", "estrelas": 58010, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "Servidor MCP próprio", "oque": "expor os seus dados e ações como ferramentas que qualquer assistente sabe usar", "video": "https://youtu.be/Y4bpWRLdRoA", "repo": "https://github.com/modelcontextprotocol/python-sdk", "estrelas": 24188, "push": "2026-09-02", "precisa": "", "novo": true},
+    {"nome": "Agente que opera o navegador", "oque": "clicar, preencher e navegar por sistemas que não têm API — o SIGA, o portal da escola", "video": "https://youtu.be/zGkVKix_CRU", "repo": "https://github.com/browser-use/browser-use", "estrelas": 112080, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "Agente de voz full-duplex", "oque": "conversa falada em tempo real, que pode ser interrompida no meio da frase", "video": "https://youtu.be/Uxz3Uo9py_4", "repo": "https://github.com/pipecat-ai/pipecat", "estrelas": 15144, "push": "2026-09-02", "precisa": "", "novo": true}
+   ]
+  },
+  {
+   "eixo": "Recuperação — RAG e suas variantes",
+   "folhas": [
+    {"nome": "RAG clássico", "oque": "responder com base em documentos seus, buscando os trechos certos antes de gerar", "video": "https://youtu.be/vNpxWaVzky8", "repo": "https://github.com/run-llama/llama_index", "estrelas": 51982, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "Busca híbrida: palavra-chave + significado", "oque": "juntar BM25 e vetores, porque um acha o termo exato e o outro acha o sentido", "video": "https://youtu.be/lYxGYXjfrNI", "repo": "https://github.com/qdrant/qdrant", "estrelas": 34347, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "Reranking e late-interaction", "oque": "reordenar os candidatos com um modelo mais caro só no fim, onde a precisão importa", "video": "https://youtu.be/xTzUn3G9YA0", "repo": "https://github.com/stanford-futuredata/ColBERT", "estrelas": 3927, "push": "2025-10-14", "precisa": "", "novo": true},
+    {"nome": "GraphRAG", "oque": "montar um grafo de entidades do material e responder perguntas que exigem ligar pontos distantes", "video": "https://youtu.be/Aw7iQjKAX2k", "repo": "https://github.com/microsoft/graphrag", "estrelas": 35797, "push": "2026-09-02", "precisa": "", "novo": true},
+    {"nome": "Contextual retrieval", "oque": "escrever o contexto de volta em cada trecho antes de indexar, para o pedaço não perder de que capítulo veio", "video": "https://youtu.be/tmiBae2goJM", "repo": "https://github.com/anthropics/anthropic-cookbook", "estrelas": 52372, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "RAG agêntico", "oque": "o próprio agente decide se busca, o que busca e quando parar de buscar", "video": "https://youtu.be/0z9_MhcYvcY", "repo": "https://github.com/agno-agi/agno", "estrelas": 42016, "push": "2026-09-02", "precisa": "", "novo": true},
+    {"nome": "RAG sobre página de PDF com figura", "oque": "buscar direto na imagem da página, sem extrair texto — funciona com gráfico, tabela e diagrama", "video": "https://youtu.be/rhJJynv47Pw", "repo": "https://github.com/illuin-tech/colpali", "estrelas": 2809, "push": "2026-09-01", "precisa": "", "novo": true}
+   ]
+  },
+  {
+   "eixo": "Modelos locais e no navegador",
+   "folhas": [
+    {"nome": "Rodar um LLM na sua máquina", "oque": "modelo local, sem nuvem, sem chave de API e sem dado saindo do computador", "video": "https://youtu.be/UtSSMs6ObqY", "repo": "https://github.com/ollama/ollama", "estrelas": 179994, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "LLM dentro do navegador do usuário", "oque": "o modelo roda na aba de quem acessa: nada para instalar, nada para pagar, nada de servidor", "video": "https://youtu.be/sY90q9eQhjc", "repo": "https://github.com/huggingface/transformers.js", "estrelas": 16282, "push": "2026-09-02", "precisa": "", "novo": true},
+    {"nome": "Modelos pequenos (Gemma, Qwen, Phi)", "oque": "modelo pequeno o bastante para caber num laptop e ainda resolver a tarefa", "video": "https://youtu.be/f7Ax2NGqRrQ", "repo": "https://github.com/google-deepmind/gemma", "estrelas": 5710, "push": "2026-09-01", "precisa": "", "novo": false},
+    {"nome": "Modelo de visão pequeno em CPU", "oque": "descrever e responder sobre imagens sem placa de vídeo", "video": "https://youtu.be/6PJBETNsxDk", "repo": "https://github.com/vikhyat/moondream", "estrelas": 10027, "push": "2026-04-20", "precisa": "", "novo": true},
+    {"nome": "Quantização e ONNX", "oque": "encolher o modelo para caber e rodar rápido no aparelho que você tem", "video": "https://youtu.be/K75j8MkwgJ0", "repo": "https://github.com/microsoft/onnxruntime", "estrelas": 21728, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "Fine-tuning com LoRA", "oque": "especializar um modelo no seu domínio treinando só uma fração dos pesos", "video": "https://youtu.be/NJuSw233cio", "repo": "https://github.com/unslothai/unsloth", "estrelas": 75499, "push": "2026-09-02", "precisa": "4090", "novo": false}
+   ]
+  },
+  {
+   "eixo": "Voz",
+   "folhas": [
+    {"nome": "Transcrição de fala", "oque": "transformar aula, entrevista e áudio de WhatsApp em texto, offline", "video": "https://youtu.be/k6nIxWGdrS4", "repo": "https://github.com/SYSTRAN/faster-whisper", "estrelas": 25200, "push": "2025-11-19", "precisa": "", "novo": false},
+    {"nome": "Síntese de voz local", "oque": "texto vira fala natural sem internet e sem custo por caractere", "video": "https://youtu.be/rjq5eZoWWSo", "repo": "https://github.com/OHF-Voice/piper1-gpl", "estrelas": 5432, "push": "2026-08-29", "precisa": "", "novo": false},
+    {"nome": "Diarização: quem falou quanto tempo", "oque": "separar as vozes de uma gravação e medir participação — quem domina a fala numa aula", "video": "https://youtu.be/37R_R82lfwA", "repo": "https://github.com/pyannote/pyannote-audio", "estrelas": 10500, "push": "2026-09-02", "precisa": "", "novo": true},
+    {"nome": "Alinhar fala e texto palavra a palavra", "oque": "saber exatamente onde o leitor tropeçou — a base de avaliar leitura em voz alta", "video": "https://youtu.be/KtAFU_xeHr4", "repo": "https://github.com/m-bain/whisperX", "estrelas": 23861, "push": "2026-08-30", "precisa": "", "novo": true},
+    {"nome": "Clonagem de voz", "oque": "gerar fala com o timbre de uma pessoa específica a partir de poucos segundos de áudio", "video": "https://youtu.be/pPp-f0wXIic", "repo": "https://github.com/fishaudio/fish-speech", "estrelas": 32508, "push": "2026-08-22", "precisa": "licenca", "novo": false}
+   ]
+  },
+  {
+   "eixo": "Acessibilidade",
+   "folhas": [
+    {"nome": "Reconhecer língua de sinais pela câmera", "oque": "traduzir sinais em texto a partir do vídeo da webcam", "video": "https://youtu.be/_WpGrofBnMo", "repo": "https://github.com/dxli94/WLASL", "estrelas": 1264, "push": "2023-03-18", "precisa": "", "novo": true},
+    {"nome": "Gerar Libras com avatar (VLibras)", "oque": "traduzir português para Libras num avatar 3D — a ferramenta oficial do governo brasileiro", "video": "https://youtu.be/Qrky_UO8laU", "repo": "https://github.com/spbgovbr-vlibras/vlibras-translator-api", "estrelas": 17, "push": "2026-08-31", "precisa": "", "novo": true},
+    {"nome": "Descrever imagem para leitor de tela", "oque": "gerar o texto alternativo que falta em quase todo material didático", "video": "https://youtu.be/_MacwNgLXPA", "repo": "https://github.com/OpenGVLab/InternVL", "estrelas": 10150, "push": "2025-09-22", "precisa": "", "novo": false},
+    {"nome": "Material que se deixa ouvir", "oque": "qualquer conteúdo escrito vira áudio navegável, para quem não lê a tela", "video": "https://youtu.be/ik1jY22PlP4", "repo": "https://github.com/rany2/edge-tts", "estrelas": 11845, "push": "2026-03-22", "precisa": "", "novo": false},
+    {"nome": "Interface só por voz, offline", "oque": "operar o sistema falando, sem teclado, sem tela e sem internet", "video": "https://youtu.be/Itic1lFc4Gg", "repo": "https://github.com/alphacep/vosk-api", "estrelas": 15102, "push": "2026-08-09", "precisa": "", "novo": false}
+   ]
+  },
+  {
+   "eixo": "Visão — corpo e gesto",
+   "folhas": [
+    {"nome": "Gestos de mão pela câmera", "oque": "controlar algo com a mão no ar, sem tocar em nada", "video": "https://youtu.be/cJgDuywJv8Y", "repo": "https://github.com/google-ai-edge/mediapipe", "estrelas": 36821, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "Pose corporal", "oque": "acompanhar o corpo inteiro em vídeo — postura, exercício, dança, sinal de cansaço", "video": "https://youtu.be/nFcZ2H1Ix3w", "repo": "https://github.com/open-mmlab/mmpose", "estrelas": 7867, "push": "2025-08-04", "precisa": "", "novo": false},
+    {"nome": "Olhar e atenção por webcam", "oque": "estimar para onde a pessoa está olhando na tela, sem hardware nenhum", "video": "https://youtu.be/Wh77ZGdIaZQ", "repo": "https://github.com/brownhci/WebGazer", "estrelas": 3887, "push": "2026-02-24", "precisa": "", "novo": true},
+    {"nome": "Rosto: emoção, olhar e anti-spoofing numa API só", "oque": "quinze tarefas faciais atrás de uma chamada, rodando em CPU", "video": "https://youtu.be/n84hBgtzvxo", "repo": "https://github.com/yakhyo/uniface", "estrelas": 1642, "push": "2026-08-23", "precisa": "", "novo": true},
+    {"nome": "Detecção de objetos", "oque": "achar e contar coisas na cena — o que tem, quantos, onde", "video": "https://youtu.be/5ku7npMrW40", "repo": "https://github.com/ultralytics/ultralytics", "estrelas": 61212, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "Treinar um classificador sem escrever código", "oque": "ensinar o computador a reconhecer imagem, som ou pose arrastando exemplos no navegador", "video": "https://youtu.be/og3okifj5S4", "repo": "https://github.com/googlecreativelab/teachablemachine-community", "estrelas": 1731, "push": "2026-06-19", "precisa": "", "novo": false}
+   ]
+  },
+  {
+   "eixo": "Visão — documento e escrita",
+   "folhas": [
+    {"nome": "OCR de manuscrito", "oque": "ler letra de mão em foto de caderno ou prova", "video": "https://youtu.be/0OA9RdW2saE", "repo": "https://github.com/PaddlePaddle/PaddleOCR", "estrelas": 88706, "push": "2026-07-22", "precisa": "", "novo": false},
+    {"nome": "PDF e caderno viram texto e LaTeX", "oque": "documento complexo, com fórmula e tabela, sai como markdown editável", "video": "https://youtu.be/7HICWaI3hgI", "repo": "https://github.com/opendatalab/MinerU", "estrelas": 79030, "push": "2026-09-02", "precisa": "", "novo": true},
+    {"nome": "Correção de prova em papel", "oque": "foto do gabarito preenchido vira nota, sem leitora óptica", "video": "https://youtu.be/yLGrkRkqPkQ", "repo": "https://github.com/Udayraj123/OMRChecker", "estrelas": 1136, "push": "2026-08-17", "precisa": "", "novo": true},
+    {"nome": "Modelo de visão lendo o caderno", "oque": "mandar a foto e perguntar o que está errado na resolução do aluno", "video": "https://youtu.be/gJuVdfhfIY0", "repo": "https://github.com/QwenLM/Qwen3-VL", "estrelas": 19890, "push": "2026-01-30", "precisa": "", "novo": false},
+    {"nome": "Captura e limpeza de quadro", "oque": "endireitar e limpar a foto torta do quadro branco para virar material legível", "video": "https://youtu.be/SQ3D1tlCtNg", "repo": "https://github.com/opencv/opencv", "estrelas": 90696, "push": "2026-09-02", "precisa": "", "novo": false}
+   ]
+  },
+  {
+   "eixo": "Realidade estendida e 3D",
+   "folhas": [
+    {"nome": "WebAR sem instalar app", "oque": "realidade aumentada que abre por link no celular, direto no navegador", "video": "https://youtu.be/1VG6fP2wDEU", "repo": "https://github.com/AR-js-org/AR.js", "estrelas": 5980, "push": "2026-06-21", "precisa": "", "novo": false},
+    {"nome": "3D na página com model-viewer", "oque": "colocar um objeto 3D girável numa página com uma tag HTML", "video": "https://youtu.be/8uMBmfzgjN0", "repo": "https://github.com/google/model-viewer", "estrelas": 8222, "push": "2026-07-07", "precisa": "", "novo": false},
+    {"nome": "Passthrough e mão nua no Quest 3", "oque": "conteúdo digital ancorado na sala de verdade, controlado com a mão, sem controle", "video": "https://youtu.be/7XWyZblSnZA", "repo": "https://github.com/pmndrs/xr", "estrelas": 2605, "push": "2026-05-29", "precisa": "Quest", "novo": true},
+    {"nome": "3D Gaussian Splatting", "oque": "filmar um lugar com o celular e caminhar dentro dele depois", "video": "https://youtu.be/IoR-HqD_ojg", "repo": "https://github.com/graphdeco-inria/gaussian-splatting", "estrelas": 23708, "push": "2025-10-17", "precisa": "4090", "novo": true},
+    {"nome": "Fotogrametria com celular", "oque": "várias fotos de um objeto viram um modelo 3D medido", "video": "https://youtu.be/kLpjdy4_w-M", "repo": "https://github.com/colmap/colmap", "estrelas": 12629, "push": "2026-09-01", "precisa": "", "novo": false},
+    {"nome": "Geometria 3D a partir de fotos comuns (VGGT)", "oque": "profundidade, câmera e nuvem de pontos de fotos soltas, sem calibrar nada", "video": "https://youtu.be/7ZYwJEpCUUA", "repo": "https://github.com/facebookresearch/vggt", "estrelas": 14327, "push": "2026-05-19", "precisa": "", "novo": true},
+    {"nome": "WebXR multiusuário", "oque": "duas pessoas no mesmo espaço virtual pelo navegador, sem servidor de jogo", "video": "https://youtu.be/6ku5MfuAXks", "repo": "https://github.com/networked-aframe/networked-aframe", "estrelas": 1206, "push": "2026-08-05", "precisa": "", "novo": false},
+    {"nome": "Unity com AR Foundation", "oque": "AR de aplicativo nativo, com rastreamento de imagem, plano e face, num projeto só para Android e iOS", "video": "https://youtu.be/FWyTf3USDCQ", "repo": "https://github.com/Unity-Technologies/arfoundation-samples", "estrelas": 3434, "push": "2026-08-28", "precisa": "", "novo": false}
+   ]
+  },
+  {
+   "eixo": "Geração de mídia",
+   "folhas": [
+    {"nome": "Imagem gerada na sua máquina", "oque": "ilustração sob medida para o material, sem assinatura e sem limite de uso", "video": "https://youtu.be/l4CiwGS2ewY", "repo": "https://github.com/comfyanonymous/ComfyUI", "estrelas": 131205, "push": "2026-09-02", "precisa": "4090", "novo": false},
+    {"nome": "Foto vira modelo 3D", "oque": "uma imagem entra, um objeto 3D texturizado sai — pronto para o AR", "video": "https://youtu.be/OX2P23W7TAA", "repo": "https://github.com/microsoft/TRELLIS", "estrelas": 13560, "push": "2026-06-26", "precisa": "4090", "novo": true},
+    {"nome": "Vídeo curto gerado", "oque": "animar um conceito abstrato que nenhuma foto explica", "video": "https://youtu.be/Xe0YmwcS0O4", "repo": "https://github.com/hpcaitech/Open-Sora", "estrelas": 29348, "push": "2026-04-09", "precisa": "4090", "novo": false},
+    {"nome": "Avatar falante com lipsync", "oque": "um rosto que fala o áudio que você deu, em tempo real", "video": "https://youtu.be/oKv32gEAM2U", "repo": "https://github.com/TMElyralab/MuseTalk", "estrelas": 6495, "push": "2025-09-26", "precisa": "4090", "novo": false},
+    {"nome": "Áudio e música gerados", "oque": "trilha e efeito sonoro sob medida a partir de uma descrição", "video": "https://youtu.be/q7h_KMR1_6I", "repo": "https://github.com/facebookresearch/audiocraft", "estrelas": 23596, "push": "2026-03-03", "precisa": "", "novo": false}
+   ]
+  },
+  {
+   "eixo": "Mundos e simulação",
+   "folhas": [
+    {"nome": "Simulação social multiagente (MiroFish)", "oque": "milhares de agentes com personalidade e memória interagindo, para ensaiar como um cenário evolui", "video": "https://youtu.be/QmdCkaTM1P4", "repo": "https://github.com/666ghj/MiroFish", "estrelas": 71874, "push": "2026-09-01", "precisa": "", "novo": true},
+    {"nome": "Turma sintética: agentes generativos", "oque": "uma população simulada para pilotar o seu teste antes de gastar gente real — piloto de desenho, nunca dado", "video": "https://youtu.be/FBvyxc0PSlc", "repo": "https://github.com/joonspk-research/generative_agents", "estrelas": 22046, "push": "2024-08-05", "precisa": "", "novo": true},
+    {"nome": "Rede social simulada com um milhão de agentes", "oque": "estudar boato, bolha e viralização sem experimentar em gente", "video": "https://youtu.be/lprGHqkApus", "repo": "https://github.com/camel-ai/oasis", "estrelas": 5093, "push": "2026-08-27", "precisa": "", "novo": true},
+    {"nome": "Ambiente jogável gerado por modelo", "oque": "o mundo do jogo não é programado, é previsto quadro a quadro pelo modelo", "video": "https://youtu.be/v3fzc4CHXGA", "repo": "https://github.com/eloialonso/diamond", "estrelas": 2100, "push": "2024-12-06", "precisa": "4090", "novo": true},
+    {"nome": "Gêmeo digital com ESP32 e sensores", "oque": "medir o mundo físico de verdade — luz, som, temperatura, presença — e espelhar num painel", "video": "https://youtu.be/xIdX0eosdP4", "repo": "https://github.com/espressif/arduino-esp32", "estrelas": 17310, "push": "2026-09-02", "precisa": "peca", "novo": false}
+   ]
+  },
+  {
+   "eixo": "Avaliação e medida",
+   "folhas": [
+    {"nome": "Knowledge tracing", "oque": "estimar, exercício a exercício, o que o aluno já domina e o que ainda não", "video": "https://youtu.be/uGQO604u4-Y", "repo": "https://github.com/pykt-team/pykt-toolkit", "estrelas": 431, "push": "2026-08-31", "precisa": "", "novo": true},
+    {"nome": "Testagem adaptativa (TRI)", "oque": "a próxima questão depende da resposta anterior — mede mais com menos itens", "video": "https://youtu.be/iVjCaTlfXZo", "repo": "https://github.com/douglasrizzo/catsim", "estrelas": 150, "push": "2026-07-10", "precisa": "", "novo": true},
+    {"nome": "Repetição espaçada (FSRS)", "oque": "calcular o dia exato de revisar cada coisa para não esquecer, com o mínimo de revisões", "video": "https://youtu.be/NMLxc06l-Co", "repo": "https://github.com/open-spaced-repetition/fsrs4anki", "estrelas": 4052, "push": "2026-08-14", "precisa": "", "novo": true},
+    {"nome": "LLM como corretor, calibrado", "oque": "usar um modelo para corrigir resposta aberta e provar que ele concorda com humanos", "video": "https://youtu.be/trfUBIDeI1Y", "repo": "https://github.com/confident-ai/deepeval", "estrelas": 18059, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "Construir o próprio benchmark de uma matéria", "oque": "em vez de usar a régua dos outros, fabricar a régua — e medir os modelos com ela", "video": "https://youtu.be/kDY4TodQwbg", "repo": "https://github.com/EleutherAI/lm-evaluation-harness", "estrelas": 13873, "push": "2026-09-01", "precisa": "", "novo": true},
+    {"nome": "Painel de learning analytics", "oque": "transformar log de uso em decisão de professor, não em gráfico bonito", "video": "https://youtu.be/gNdmTfE7vlM", "repo": "https://github.com/metabase/metabase", "estrelas": 49059, "push": "2026-09-02", "precisa": "", "novo": false}
+   ]
+  },
+  {
+   "eixo": "Confiança e explicação",
+   "folhas": [
+    {"nome": "Explicar a decisão do modelo (SHAP)", "oque": "dizer qual variável pesou na nota ou na recomendação, e quanto", "video": "https://youtu.be/MQ6fFDwjuco", "repo": "https://github.com/shap/shap", "estrelas": 25725, "push": "2026-09-02", "precisa": "", "novo": false},
+    {"nome": "Detectar alucinação e falta de fundamento", "oque": "medir se a resposta está mesmo apoiada na fonte que ela cita", "video": "https://youtu.be/xsDNArrmyuo", "repo": "https://github.com/truera/trulens", "estrelas": 3530, "push": "2026-09-02", "precisa": "", "novo": true},
+    {"nome": "Guardrails e prompt injection", "oque": "impedir que um texto do usuário vire ordem para o seu sistema", "video": "https://youtu.be/y8iDGA4Y650", "repo": "https://github.com/guardrails-ai/guardrails", "estrelas": 7346, "push": "2026-09-01", "precisa": "", "novo": false},
+    {"nome": "Aprendizado federado", "oque": "treinar com dados de várias escolas sem que dado nenhum saia de cada escola", "video": "https://youtu.be/jOmmuzMIQ4c", "repo": "https://github.com/adap/flower", "estrelas": 7102, "push": "2026-09-02", "precisa": "", "novo": true},
+    {"nome": "Marca d'água em texto gerado", "oque": "assinar o que a máquina escreveu, de um jeito que sobrevive à edição", "video": "https://youtu.be/_fMFb2Lv7rI", "repo": "https://github.com/google-deepmind/synthid-text", "estrelas": 1081, "push": "2026-09-01", "precisa": "", "novo": true}
+   ]
+  }
+ ],
+ "depois_da_arvore": {
+  "_": "A árvore é ponto de partida, não teto. O deck da aula fecha em 'estado da arte' com estes dois — a seção do Notion fecha igual.",
+  "papers": "https://huggingface.co/papers/trending",
+  "repos": "https://github.com/trending"
+ }
+}

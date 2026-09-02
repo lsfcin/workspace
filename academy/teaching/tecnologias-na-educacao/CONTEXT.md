@@ -62,6 +62,31 @@ sala**: fechar a aba mata o trabalho da turma, então o arquivo tem de ser salvo
 **Excalidraw é o padrão da disciplina** (veredito de 2026-08-26, depois da aula de 19/08). O Miro
 foi removido da página do Notion e de toda menção aqui — se um dia fizer falta, o git tem.
 
+## A árvore de tecnologias
+
+**A § Tecnologias Emergentes da página do Notion é gerada, não editada à mão.** A fonte é
+[`tecnologias.json`](tecnologias.json) — 12 eixos, 68 folhas, cada folha com um vídeo e um
+repositório próprios, mais estrelas e data do último commit **gravadas no dado**, que é o que
+deixa a árvore auditável no semestre seguinte. Publicar:
+
+```bash
+core/run --python academy/teaching/tecnologias-na-educacao/build_tecnologias.py
+core/run tools/notes/notion apply --account personal /tmp/notion-ops-tecnologias.json
+```
+
+O plano de ops sai fora da árvore de propósito: regenera do JSON, e versioná-lo criaria uma segunda
+cópia sempre atrasada. Os doze ids que ele apaga estão nomeados um a um no gerador — a página
+carrega calendário, processo e avaliação no mesmo nível, e um delete por prefixo levaria tudo.
+
+Uma folha declara o equipamento só quando ele passa de um laptop: `[desktop 4090]`, `[Quest 3]`,
+`[licença]`, `[peça ~R$30]`. Sem marca é laptop comum. `⚡` marca o que pouca gente usou — **cada
+eixo precisa de pelo menos uma**, senão a curadoria daquele eixo falhou. A equipe ordena um top-10
+no Excalidraw; a mecânica é dela, não há formulário.
+
+Três armadilhas de licença ficam ditas na folha porque a equipe descobriria tarde: **3D Gaussian
+Splatting** é não-comercial (Inria), e **YOLO** e **MiroFish** são AGPL-3.0 — publicar como serviço
+obriga a abrir o código.
+
 Questionários são specs versionados, aplicados por [`gforms`](../../../core/tools/forms/CONTEXT.md):
 
 ```bash
@@ -86,4 +111,5 @@ por turma.
 | [`add_aula02.py`](add_aula02.py) | [`add_aula02.pyi`](add_aula02.pyi) | `build` | Aula 02: intercala slides novos no deck existente e refina dois slides. |
 | [`aula02_conteudo.py`](aula02_conteudo.py) | [`aula02_conteudo.pyi`](aula02_conteudo.pyi) | — | Conteudo da aula 02 — o que entra no deck e onde. |
 | [`build_excalidraw.py`](build_excalidraw.py) | [`build_excalidraw.pyi`](build_excalidraw.pyi) | `frame`, `rect`, `ellipse`, `text`, `bloco` | Gera o quadro da aula 02: um frame por equipe + um frame de exemplo preenchido. |
+| [`build_tecnologias.py`](build_tecnologias.py) | [`build_tecnologias.pyi`](build_tecnologias.pyi) | `par`, `toggle`, `folha`, `blocos`, `ops` | Gera a seção Tecnologias Emergentes do Notion a partir de tecnologias.json: toggle por eixo, toggle por folha. |
 <!-- routing:end -->

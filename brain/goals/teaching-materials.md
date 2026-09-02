@@ -111,6 +111,19 @@ de promover pra `academy/teaching/`.
 > [ ] [or-gate-shape] OR gate body ainda ausente no deck de portas lógicas; investigar o tipo `CUSTOM` no grupo do slide
 > 23, depois decidir se vale seguir debugando  
 
+**A árvore de tecnologias entrou no ar em 2026-09-02**: 12 eixos, 68 folhas, cada folha com vídeo
+e repositório próprios, publicada como toggles aninhados na § Tecnologias Emergentes do Notion.
+Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobras:
+> [ ] [arvore-excalidraw] gerar o quadro do top-10 — um frame por equipe com coluna numerada 1 a 10, reusando
+> `build_excalidraw.py`; é onde a equipe entrega a ordenação, já que não há formulário  
+> [ ] [arvore-folhas-fracas] decidir duas folhas que subiram sem veredito: *Painel de learning analytics* (Metabase é BI
+> genérico, melhor vídeo tem 229 views) e *WebXR multiusuário* (vídeo com 133 views). Cortar é uma edição no JSON e um
+> republish  
+> [ ] [arvore-urls-curtas] Lucas precisa clicar: publicar a página no Notion (Share → Publish) e escolher o subdomínio
+> `.notion.site`, que é o único jeito de ter URL curta, com significado e sem expirar. O agente não alcança — a API do
+> Notion não liga o compartilhamento público. O link do Excalidraw é sala ao vivo e expira por natureza; a URL estável
+> só existe depois que o quadro virar arquivo salvo  
+
 > [ ] [acessibilidade-edson] preparar uma versão acessível das missões E do site da disciplina para o Edson — os dois
 > artefatos, não só um (INBOX 2026-08-24)  
 > [ ] [slides-pesquisa] material (talvez slides) que apresente aos alunos os conceitos dos projetos de pesquisa: dobra,
@@ -129,5 +142,5 @@ de promover pra `academy/teaching/`.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-01  ·  trend: advancing  ·  touches: 39/59/59/59/59/59
+last-touch: 2026-09-02  ·  trend: advancing  ·  touches: 42/62/62/62/62/62
 <!-- stats:end -->

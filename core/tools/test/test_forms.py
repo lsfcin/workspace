@@ -6,7 +6,16 @@ from conftest import WORKSPACE_ROOT
 
 import forms_spec
 
-SPECS = [p for p in sorted((WORKSPACE_ROOT / 'academy/teaching').glob('*/*.json')) if not p.name.startswith('.') and p.name != 'drive_sync.json']
+# A discipline folder holds more than one kind of JSON, and the glob below cannot tell them apart
+# from the outside. Named, never sniffed: a spec whose `items` key is misspelled must fail loudly
+# rather than be quietly skipped for not looking like a form — that is the whole point of the glob.
+NAO_SAO_FORMULARIOS = {
+    'drive_sync.json',      # estado do sync, escrito por core/tools/files/drive_sync.py
+    'tecnologias.json',     # a árvore de tecnologias, lida por build_tecnologias.py
+}
+
+SPECS = [p for p in sorted((WORKSPACE_ROOT / 'academy/teaching').glob('*/*.json'))
+         if not p.name.startswith('.') and p.name not in NAO_SAO_FORMULARIOS]
 
 
 def test_a_section_is_a_page_break_and_never_a_question():
