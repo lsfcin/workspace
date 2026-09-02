@@ -54,9 +54,20 @@ where reaching 200 means deleting the coverage, shim and lifecycle tables. A sib
 *Done when* — he reads growth without asking and the hook still costs zero tokens until a crossing.
 
 **🟡 anything the agent needs Lucas to physically do is said where he never sees it**
-*What* — one channel reaching him at the *end* of a response.
-*Why* — close offer and auth-consent requests land in agent-facing prose at prompt-submit time.
-*Done when* — both reach him without interrupting the thread, with measured token cost.
+*What* — one channel reaching him at the *end* of a response, and at the moment a session parks.
+*Why* — close offer and auth-consent requests land in agent-facing prose at prompt-submit time; the
+same defect's third instance is a session blocked on an `AskUserQuestion` while he is elsewhere,
+which is where most of a long session's wall-clock actually goes. *Done when* — all three reach him
+without interrupting the thread, with measured token cost.
+
+**🟡 a session's wall-clock has never been split into working and waiting**
+*What* — a fourth `core/tools/wos/session/` instrument answering how much of a span the machine was
+busy, and what the idle gaps were parked on, plus the `core/experiments/` file that makes it a trend.
+*Why* — the three tools there measure what a session *costs*; none measures how long it *took*, so
+"the session ran ten hours" has never been separable from "Lucas was away for eight of them" — and
+the item above cannot be prioritised until it is. Raw figures for three sessions are in the
+2026-09-02 hand-off, unstored precisely because nothing can re-run them yet.
+*Done when* — the instrument runs from a transcript and `core/experiments/` carries its first rows.
 
 **🟡 thinking is 65% of billed output and no instrument here can see it**
 *What* — a number for what thinking effort costs and whether lowering it breaks the work.
@@ -93,6 +104,15 @@ where reaching 200 means deleting the coverage, shim and lifecycle tables. A sib
 *Done when* — he reads it at a glance and failing shapes are deleted.
 
 ## Portability — would this work on a machine that is not Lucas's
+
+**🟢 `read/pre-read.sh` is the last bash on the hot read path, and six shims spell its name**
+*What* — `read/pre-read.py`, and every declaration that names the `.sh` moved with it: the five
+harness registrations, `antigravity_policy.py`, `copilot-pre-tool.py`, `SETUP.md`'s chmod line,
+`core/features.txt`, and `core/hooks/SPECS.md`. *Why* — it spends five subprocesses per Read to do
+one file comparison, it is the slowest gate measured, and being shell is what kept the stub map out
+of Python until 2026-09-02 (`stubs.GATE_ON`). The port is mechanical; the rename is the work.
+*Done when* — no `.sh` remains under `core/hooks/read/`, `test_shim_paths.py` is green, and the four
+interface states still behave as `test_read_gate_prerequisites.py` pins them.
 
 **🟡 ten tools are over the line-count warn threshold, newly visible**
 *What* — `gdocs` 183, `permissions` 170, `video_core.py` 169, `session/context` 169, `notion` 153.
