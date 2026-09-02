@@ -62,58 +62,6 @@ to be — a check that silently drops a row costs that investigation every time.
 **Root cause:** unestablished which change dropped `.json` from `ALL_EXTS`, and whether it was
 dropped to keep generated `.json` out. The fix is a decision about that set, not about the scanner.
 
-## b20260901-a-mirror-never-reaches-the-machine-that-pulled-it
-
-**Symptom:** the Windows clone had **no skill mirrors at all** — none of the four harnesses — so no
-`/inbox`, `/compass`, `/roundup`, `/craft` or `/install` existed on it. Every source was present and
-every check that could run said nothing. Found 2026-09-01 after a session of work on the other
-machine.
-
-**Root cause, and it is a premise rather than a bug in any file.** The ruling that let the mirrors
-leave git is written in [`core/hooks/postedit/sync.sh`](core/hooks/postedit/sync.sh): *generated
-content may be untracked provided regeneration is automatic*. The same comment enumerates where that
-happens — install, edit, create, and delete one commit behind. **Every one of those moments belongs
-to the machine that AUTHORS.** None belongs to the machine that RECEIVES. Skills are edited on one
-machine, arrive on the other as sources by `git pull`, and nothing there regenerates the copies, so
-the premise holds on exactly half of a two-machine workspace.
-
-`.claude/settings.local.json` is the same class and has no trigger at all — only the manual
-`permissions --set`. It was also out of sync on this clone, for the same reason.
-
-**The fix, decided 2026-09-01 (Lucas): a `SessionStart` hook**, not a git `post-merge`. Both would
-run on the receiving machine, so that is not the discriminator; the consumer of a mirror is the
-**session**, and a pull that happens while a session is open is a change that arrives after the
-harness has already read its skill list. It regenerates the skills in silence and prints one line
-only when it changed something; permissions it reports rather than writes, because a permission
-level arriving over the network should not apply itself.
-
-**Blocked on** [[b20260901-a-bash-tool-costs-thirty-seconds-a-commit-here]] — the check the hook
-would call takes 22 s here, and a SessionStart hook may not.
-
-## b20260901-a-bash-tool-costs-thirty-seconds-a-commit-here
-
-**Symptom, measured 2026-09-01 on the Windows clone:** `sync-skills --check` takes **22 s** with the
-mirrors in sync, and 16 s with them absent. `core/hooks/commit/generators.py` § `skills` runs the
-tool **twice** — regenerate, then `--check` — so **every commit that touches a skill pays ~30 s**,
-and every skill edit pays ~16 s through the post-edit hook. Nobody had measured it, and on Linux
-nobody would feel it.
-
-**Root cause: `fork`, not work.** 100 forks of `cmp` under Git Bash cost **4.8 s** here — ~48 ms
-each, some 50x the Linux cost — and the tool spends ~300 of them: `basename` per skill per mirror,
-`cmp` per copy, `grep` per frontmatter field, and one whole **Python interpreter per command file**
-inside `render_command`. One Python process hashing all 17 sources costs 250 ms including startup.
-
-**Why it is the workspace's own thesis:** *"porting bash to Python removes the per-OS axis"*
-(`test_port_ratchet.py`). These two are the last bash tools in `core/tools/`, which is the half of
-B12 that was left undecided — the launcher learned to dispatch on the shebang, and *why these two
-are still bash* never got an answer.
-
-**The fix:** port `sync-skills`, `skills/mirror.sh` and `skills/validate.sh` to Python. It also
-deletes the `bash …` exception from [`SETUP.md`](SETUP.md) rather than documenting it. **The risk is
-the reason it is written down instead of done in a hurry:** `validate.sh` blocks every commit in
-both clones, and its loop-cap and DAG rules are regex-subtle. Land it behind an equivalence check —
-run both implementations over the same tree and diff the outputs — before deleting the bash.
-
 ## b20260901-a-second-shell-tool-walks-past-every-read-gate
 
 **Symptom:** on Windows the harness exposes a PowerShell tool alongside Bash. `Get-Content` on a
@@ -158,6 +106,47 @@ and the two clones are different operating systems with genuinely different feat
 **Root cause:** it predates the second machine. The per-command escape hatch (`WOS_FEATURES_OFF=`)
 exists and the per-machine one does not. **Lucas's call**, because the alternative — a gitignored
 answers file — costs the reviewable general/Lucas-specific diff the head says it is for.
+
+## b20260901-a-generator-writes-the-hosts-path-separator
+
+**Symptom:** two generators published a Windows path separator into content meant to be read
+anywhere. `core/hooks/routing/workspace_meta.py` § `interface_for` formatted a `Path`, so
+regenerating any routing table here wrote `](auth\gauth.pyi)` into a **tracked** `CONTEXT.md` — a
+file [`test_pointer_integrity.py`](core/tools/test/workspace/test_pointer_integrity.py) checks. And
+`render_command` rebased every command-file link with `os.path.relpath`, so `.claude/commands/`
+carried **16 dead links across 5 files**. Both found 2026-09-01, by the tables rewriting themselves
+during the skills port. Both fixed there, with `as_posix()`.
+
+**Why it stays open as a class:** a markdown link separator is `/` on every operating system, and
+nothing checks that a generator knows it. These two were found by accident — one because an
+unrelated edit regenerated a table, the other because a byte-for-byte equivalence diff was being run
+for a different reason. `render_command`'s own comment says it exists to fix dead relative links,
+and it had been publishing them on this machine since the day it was written, invisibly, because the
+machine that authored the fix spells the separator the way markdown wants.
+
+**Root cause:** unestablished how many other generators format a `Path` into text that leaves the
+machine. The fix is a check that no generated `.md` contains a backslash inside a `](…)` target —
+the one in
+[`test_b20260901_a_mirror_never_reaches_the_machine_that_pulled_it.py`](core/tools/test/workspace/gates/test_b20260901_a_mirror_never_reaches_the_machine_that_pulled_it.py)
+covers `.claude/commands/` only.
+
+## b20260901-a-source-file-is-crlf-in-a-tree-that-declares-lf
+
+**Symptom:** `core/skills/install.md` is CRLF in this working tree. `.gitattributes` declares
+`* text=auto eol=lf` and its own comment says *"LF is not 'the Linux ending' here, it is the
+workspace's ending"*; the git blob is LF, and `git status` is clean because normalisation hides the
+difference on read. The mirrors are byte copies, so the CRLF propagates into all four of them and
+into the command file — one skill spelled differently from the other sixteen, on one machine only.
+
+**Why it matters:** it is invisible to every check we have. It surfaced only because the port's
+equivalence diff compared bytes. The same shape also means `head -1` disagrees across the two
+clones: MSYS strips a trailing CR inside command substitution and GNU bash does not, so a CRLF
+source passes the frontmatter check here and would read as having no frontmatter at all on Linux.
+The port answers that in `validate._lines` — for the checker. The file itself is still CRLF.
+
+**Root cause:** unestablished how it got that way (an editor, or a checkout before `.gitattributes`
+declared the rule). Whether the fix is renormalising the working tree once or a check that catches
+the next one is the open question.
 
 <!-- entropy:start -->
 ## Entropy
