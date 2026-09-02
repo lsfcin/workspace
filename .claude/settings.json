@@ -139,6 +139,10 @@
           },
           {
             "type": "command",
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/mirror-heal.py"
+          },
+          {
+            "type": "command",
             "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/inbox-nudge.py"
           },
           {

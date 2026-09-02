@@ -174,24 +174,25 @@ def skills(commit):
     The --check re-run is not belt-and-braces: it is what catches a sync that reported success and
     left the mirrors disagreeing anyway.
 
-    THIS STAGE NO LONGER STAGES ANYTHING. It used to `git add -A` the four mirror trees, because
-    the copies were tracked. Since 2026-08-29 they are gitignored generated content (ISSUES.md B8),
-    so that loop could only ever add nothing -- and it restated the four mirror paths that
-    sync-skills already owns in its MIRRORS array, a second copy of a list with one home. What is
-    left is regenerate-and-validate, and correctness now lives at the moment of the edit
+    THIS STAGE NO LONGER STAGES ANYTHING. The copies were tracked until 2026-08-29; since they are
+    gitignored generated content (ISSUES.md B8) that loop could only add nothing, and it restated
+    the mirror paths sync-skills already owns. Correctness lives at the moment of the edit
     (core/hooks/postedit/sync.sh) rather than at commit time.
     """
     if not any(p.startswith('core/skills/') and p.endswith('.md') for p in commit.staged):
         return
     print('→ sync-skills…')
-    sync = commit.root / 'core/tools/wos/sync-skills'
-    done = subprocess.run(['bash', str(sync)], capture_output=True, text=True,
+    # Through the launcher, never a spelled interpreter: sync-skills is Python since 2026-09-01 and
+    # `bash` would run it as a shell script. The pair of runs cost ~30 s while it was bash, ~0.6 s
+    # now, which is the whole reason the SessionStart heal could be built at all.
+    sync = ['sh', str(commit.root / 'core/run'), 'tools/wos/sync-skills']
+    done = subprocess.run(sync, capture_output=True, text=True,
                           cwd=commit.toplevel, encoding='utf-8', errors='replace')
     print(done.stdout + done.stderr)
     if done.returncode != 0:
         raise Blocked('⛔ sync-skills failed — invalid skill frontmatter (see core/SCHEMA.md). '
                       'Fix before committing.')
-    if subprocess.run(['bash', str(sync), '--check'], capture_output=True, text=True,
+    if subprocess.run([*sync, '--check'], capture_output=True, text=True,
                       cwd=commit.toplevel, encoding='utf-8').returncode != 0:
         raise Blocked('⛔ skill mirrors out of sync after regeneration.')
     print('✓ skills synced + validated')

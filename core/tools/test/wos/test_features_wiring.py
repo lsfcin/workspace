@@ -9,12 +9,16 @@
 import json
 import os
 import subprocess
+import sys
 
 import feature_law as law
 from conftest import WORKSPACE_ROOT
-from platform_law import interpreter, posix
+from platform_law import interpreter
 
-SKILL_MIRROR = 'core/tools/wos/skills/mirror.sh'
+sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools/wos/skills'))
+import mirror  # noqa: E402
+
+SKILL_MIRROR = 'core/tools/wos/skills/mirror.py'
 NORMS_GENERATOR = 'core/hooks/routing/norms.py'
 TOOL_LAW = 'core/tools/tool_law.py'
 
@@ -27,18 +31,26 @@ GROUP_PUBLISHERS = {SKILL_MIRROR, NORMS_GENERATOR}
 
 
 def _published_skills(off: str = '') -> set:
-    """What the mirror would publish — the skills group's one observable. Sourced, not imported:
-    the dispatcher is a shell fragment, and these are the variables `sync-skills` supplies."""
-    # posix(), not str(): both become TEXT inside a bash command, where a backslash escapes
-    # the next character. The Windows spelling arrived with every separator eaten, so bash
-    # reported the fragment missing and the probe read as the mirror publishing nothing.
-    script = (f'WORKSPACE={posix(WORKSPACE_ROOT)}; SRC=$WORKSPACE/core/skills; '
-              f'COMMANDS_DIR=$WORKSPACE/.claude/commands; MIRRORS=(); '
-              f'source {posix(WORKSPACE_ROOT / SKILL_MIRROR)}; list_skills')
-    env = {**os.environ, law.OFF_ENV: off} if off else os.environ
-    out = subprocess.run(['bash', '-c', script], capture_output=True, text=True, env=env, encoding='utf-8')
-    assert out.returncode == 0, out.stderr
-    return set(out.stdout.split())
+    """What the mirror would publish — the skills group's one observable.
+
+    IMPORTED since the 2026-09-01 port; it used to source a shell fragment through `bash -c` with
+    both paths spelled as POSIX text, and it cost 16 s of the suite because every one of the
+    fifteen calls spawned bash plus a whole feature_law subprocess underneath it.
+
+    The switch is still read from the ENVIRONMENT, so monkeypatching os.environ is what moves the
+    observable — mirror.disabled() asks the law fresh on every call precisely so that works.
+    """
+    previous = os.environ.get(law.OFF_ENV)
+    if off:
+        os.environ[law.OFF_ENV] = off
+    try:
+        return set(mirror.list_skills(WORKSPACE_ROOT / 'core' / 'skills'))
+    finally:
+        if off:
+            if previous is None:
+                del os.environ[law.OFF_ENV]
+            else:
+                os.environ[law.OFF_ENV] = previous
 
 
 def test_a_row_claiming_to_be_wired_really_is():

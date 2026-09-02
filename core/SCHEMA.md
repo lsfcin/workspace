@@ -4,7 +4,7 @@
 > [`schema_law.py`](hooks/schema_law.py) parses them and no checker restates them. Drift is a bug.
 > answers: what type a file is, where it lives, how it splits, what a word means
 > enforced-by: core/hooks/checks/type-gate.py, core/hooks/entropy/entropy_naming.py,
-> core/hooks/entropy/entropy_ledger.py, core/tools/wos/skills/validate.sh
+> core/hooks/entropy/entropy_ledger.py, core/tools/wos/skills/validate.py
 
 ## The `.md` type system
 
@@ -216,5 +216,5 @@ data. `entropy_vendor.py` matches the bolded assignment and nothing else.
 
 | Shard | Description | Answers | Enforced by |
 |-------|-------------|---------|-------------|
-| [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this shard is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts. | what fields each layer requires, which layer may point at which | core/tools/wos/skills/validate.sh |
+| [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this shard is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts. | what fields each layer requires, which layer may point at which | core/tools/wos/skills/validate.py |
 <!-- routing:end -->

@@ -241,14 +241,11 @@ They were symlinks until 2026-08-29. `ln -s` under Git Bash silently copies unle
 `MSYS=winsymlinks:nativestrict`, which needs Developer Mode — a machine-level privilege out of
 proportion to what this workspace is. Copying removes the per-OS axis instead of adding an arm for
 it, and what the symlink bought was freshness, which is now regeneration at the moments that change
-a skill: this step, the post-edit hook, and the pre-commit generator.
+a skill: this step, the post-edit hook, the pre-commit generator, and — since 2026-09-01 —
+`SessionStart`, which is the only one of them that belongs to the machine that RECEIVES a `git
+pull` rather than the one that authors.
 
 **Precondition** `core/run tools/wos/sync-skills --check`
-
-One spelling, like every other tool. This step said `bash …` and gave the reason that the launcher
-execs its target with Python — true until B12 closed, since when `core/run` dispatches on the
-shebang and these two bash tools reach `bash` through it like any other target. Never bare `sh …`:
-on POSIX that is dash, which has no arrays and dies on their first line.
 
 **Install** — idempotent; it also prunes mirrors whose source skill is gone or switched off:
 ```bash
@@ -257,9 +254,8 @@ core/run tools/wos/sync-skills
 
 **Verify** `core/run tools/wos/sync-skills --check` — prints `OK: all mirrors and command files in
 sync`. Any `MISSING` / `STALE` / `ORPHAN` line names the file and the source it disagrees with.
-On a Windows clone this check costs ~22 s and a commit that touches a skill ~30 s, because both
-tools are bash and a fork there costs ~50x what it costs on Linux. Measured 2026-09-01; the port
-that ends it is in `ISSUES.md`.
+It costs ~0.3 s. It cost **22 s** here until the tool was ported out of bash on 2026-09-01, because
+a fork under Git Bash costs ~50x what it costs on Linux and the tool spent ~300 of them.
 
 ## Python interfaces — stubgen
 > feature: `interface-stubs` · agent: yes

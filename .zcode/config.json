@@ -143,6 +143,11 @@
             {
               "type": "command",
               "timeout": 30,
+              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/mirror-heal.py"
+            },
+            {
+              "type": "command",
+              "timeout": 30,
               "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/inbox-nudge.py"
             },
             {

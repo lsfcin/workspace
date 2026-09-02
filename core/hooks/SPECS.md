@@ -162,6 +162,7 @@ the test existed to guard.
 | `post-edit.sh` | PostToolUse: Edit, Write | Regenerates interfaces, scaffolds `jsconfig.json`/`tsconfig.json` if missing, reminds about a missing first-line comment, runs the routing sync |
 | `session/precompact-wipe.sh` | PreCompact | Wipes the seen-markers, so the `CONTEXT.md` chain is re-read after compaction |
 | `session/session-prune.sh` | SessionStart | Prunes session marker files older than 2 days |
+| `session/mirror-heal.py` | SessionStart | **Heals, and reports** — regenerates the skill mirrors a `git pull` brought sources for but no copies of (one line, only when it acted); **warns without writing** when a harness permission config no longer matches `core/profile.txt`, because a level arriving over the network is Lucas's call |
 
 **Why one of them only warns.** A `PreToolUse` hook fires *after* the model has emitted the tool call,
 so by the time `heredoc-gate.py` sees a 3,000-character `cat >` payload those tokens are already

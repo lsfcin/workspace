@@ -50,7 +50,7 @@ symlink built by hand outside the tool.
 
 `_template.md`, `*.original.md` (caveman-compress backups), and `CONTEXT.md` are excluded;
 `sync-skills` skips them. `SPECS.md` is not on that exclusion list yet — this file is the first
-instance in `core/skills/`, and it exposes the gap: `core/tools/wos/skills/mirror.sh`'s `is_skill()`
+instance in `core/skills/`, and it exposes the gap: `core/tools/wos/skills/mirror.py`'s `is_skill()`
 will read it as an unregistered skill (no frontmatter) until `SPECS` is added there too.
 
 ## Global (folder-shaped) skills

@@ -4,6 +4,12 @@
 # `SyntaxError: unmatched ')'`. It now dispatches on the shebang (ruled 2026-08-31, Lucas:
 # add capabilities, never exceptions). This spec holds both arms: a bash target runs as bash,
 # and a python target still reaches the interpreter.
+#
+# THE BASH ARM CHANGED SUBJECT 2026-09-01, and the reason is worth keeping: it used to run
+# `tools/wos/sync-skills --check`, which was the last bash tool under core/tools/ until the port
+# took it. The capability the launcher owes is unchanged and still has to be held, so the arm now
+# names a bash target that still exists rather than being deleted with its old subject. It also
+# took 21 s of this suite -- the single slowest case in it.
 import subprocess
 
 from conftest import WORKSPACE_ROOT
@@ -16,7 +22,7 @@ def _run(target, *args):
 
 
 def test_a_bash_target_runs_as_bash():
-    out = _run('tools/wos/sync-skills', '--check')
+    out = _run('hooks/session/session-prune.sh')
     assert out.returncode == 0, out.stdout + out.stderr
     assert 'SyntaxError' not in out.stderr
 

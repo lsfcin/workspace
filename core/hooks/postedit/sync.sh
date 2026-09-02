@@ -22,11 +22,14 @@ sh "$RUN" hooks/routing/context_synchronizer.py "$file" 2>/dev/null
 # skill is an `rm`, which no hook sees, so a deleted skill's mirrors are pruned at commit by
 # `orphans prune` inside sync-skills -- not at the moment of deletion. Install, edit and create are
 # immediate; delete is one commit behind. Stated in core/skills/SPECS.md rather than left implied.
+#
+# AND NONE OF THOSE MOMENTS BELONGS TO THE MACHINE THAT RECEIVES a pull, which is why
+# core/hooks/session/mirror-heal.py now carries the same guarantee at SessionStart.
 case "$file" in
 	"$WORKSPACE_ROOT"/core/skills/*.md)
-		bash "$WORKSPACE_ROOT/core/tools/wos/sync-skills" >/dev/null 2>&1 \
+		sh "$WORKSPACE_ROOT/core/run" tools/wos/sync-skills >/dev/null 2>&1 \
 			&& printf '✓ skill mirrors synced\n' \
-			|| printf '⚠️  sync-skills failed — run `bash core/tools/wos/sync-skills` to see why\n'
+			|| printf '⚠️  sync-skills failed — run `core/run tools/wos/sync-skills` to see why\n'
 		;;
 esac
 

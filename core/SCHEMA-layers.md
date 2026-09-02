@@ -4,7 +4,7 @@
 > prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two
 > different contracts.
 > answers: what fields each layer requires, which layer may point at which
-> enforced-by: core/tools/wos/skills/validate.sh
+> enforced-by: core/tools/wos/skills/validate.py
 
 
 **Execution metadata lives on the executor (agent), never on the skill.** A skill is a trigger, a flow
@@ -12,7 +12,7 @@ is a procedure, an agent is the thing that runs. The graph is a **sparse typed D
 skills do not point at skills. Provider and model names appear **only in generated runtime mirrors**,
 never in `core/` source. **No flow is privileged** — realism comes from validation running over *every*
 flow, [`flows/_template.md`](flows/_template.md) included, which is a template and not a reference
-implementation. [`wos/skills/validate.sh`](tools/wos/skills/validate.sh) enforces every field below
+implementation. [`wos/skills/validate.py`](tools/wos/skills/validate.py) enforces every field below
 plus the `uses:` DAG and is wired into `core/hooks/pre-commit`, so nothing here restates its messages.
 
 ### Layer: skill — `core/skills/<name>.md`
