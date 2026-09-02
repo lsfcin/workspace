@@ -91,24 +91,48 @@ def normalise(raw: str) -> str:
 # the seam what an operating system is. The entry's name is a digest of the path so the same mark
 # twice is the same file, which is also what makes marking idempotent and lets every caller drop its
 # read-before-write guard.
-def _store(session_id: str, kind: str) -> Path:
+def store(session_id: str, kind: str) -> Path:
+	"""Where one session's marks of one kind live. Public because the wipe deletes these.
+
+	session/precompact-wipe.py spelled `/tmp/claude_ctx_seen_$sid` in shell — a second copy of this
+	name, on the wrong temp directory for one of the two systems. The owner of a name owns who can
+	ask for it.
+	"""
 	return session_state(f'claude_{kind}_{session_id}')
 
 
+# EVERY FAILURE HERE IS PER-ENTRY, and the reason is the defect above one layer up. A `try` around
+# the whole comprehension turns ONE unreadable entry into an EMPTY set — the gate re-demanding a
+# CONTEXT.md the session already read, which is the exact symptom the directory shape was built to
+# end. The store is written by one process while another reads it, so a vanished entry (a concurrent
+# precompact wipe) is normal traffic and may cost at most the mark it belongs to.
 def _load(session_id: str, kind: str) -> set[str]:
 	try:
-		return {entry.read_text(encoding='utf-8').strip()
-		        for entry in _store(session_id, kind).iterdir()}
+		entries = list(store(session_id, kind).iterdir())
 	except OSError:
 		return set()
+	found = set()
+	for entry in entries:
+		try:
+			found.add(entry.read_text(encoding='utf-8').strip())
+		except OSError:
+			continue
+	return found
 
 
+# WRITE THEN RENAME, because creating the file and filling it are two steps and a reader between
+# them gets `''`. Distinct-file creation is what made marking atomic; it does not make the CONTENT
+# atomic, and _load reads content. `os.replace` is atomic on both systems and overwrites, which is
+# what keeps the same mark twice idempotent. The temp name carries the pid so two hooks marking the
+# same path at once cannot land on each other's half-written file.
 def _mark(session_id: str, kind: str, path: str) -> None:
-	store = _store(session_id, kind)
+	folder = store(session_id, kind)
+	entry = folder / hashlib.sha1(path.encode('utf-8')).hexdigest()[:16]
+	pending = entry.with_suffix(f'.{os.getpid()}')
 	try:
-		store.mkdir(parents=True, exist_ok=True)
-		entry = store / hashlib.sha1(path.encode('utf-8')).hexdigest()[:16]
-		entry.write_text(path, encoding='utf-8', newline='\n')
+		folder.mkdir(parents=True, exist_ok=True)
+		pending.write_text(path, encoding='utf-8', newline='\n')
+		os.replace(pending, entry)
 	except OSError:
 		pass  # a PostToolUse exit status is read by nobody; a marker we cannot write is not fatal
 

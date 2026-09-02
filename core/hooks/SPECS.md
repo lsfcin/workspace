@@ -132,7 +132,7 @@ exemption stays an exemption. A shell script that must spawn Python *inline* —
 heredoc — cannot pass through the arm above and otherwise spells a venv path itself, which is how
 the bare word `python3` reached fourteen shell sites. Every one of them swallowed the Store alias's
 advert with `2>/dev/null` or `|| exit 0`, so `post-edit.sh` and its four stages, the interface-first
-read gate and `precompact-wipe.sh` had **never run** on a Windows clone while reading as green.
+read gate and `precompact-wipe.py` had **never run** on a Windows clone while reading as green.
 That gate is Python now and cannot spell the word at all, which is the shape of the real fix and the
 reason the port was worth doing rather than the spelling being corrected in place. Held at zero by
 `test_no_shell_hook_spawns_the_bare_word_python3`, which is a floor and not a ceiling because a
@@ -165,8 +165,8 @@ the test existed to guard.
 | `read/agent-context.py` | PreToolUse: Agent, SubagentStart | **Induces, never blocks** — hands a spawned worker the `>` line of each subtree its prompt names |
 | `checks/issues-gate.py` | PreToolUse: Edit, Write (`ISSUES.md`) | **Blocks** flipping a bug to FIXED without a matching `test/**/b<N>-*` regression spec |
 | `post-edit.sh` | PostToolUse: Edit, Write | Regenerates interfaces, scaffolds `jsconfig.json`/`tsconfig.json` if missing, reminds about a missing first-line comment, runs the routing sync |
-| `session/precompact-wipe.sh` | PreCompact | Wipes the seen-markers, so the `CONTEXT.md` chain is re-read after compaction |
-| `session/session-prune.sh` | SessionStart | Prunes session marker files older than 2 days |
+| `session/precompact-wipe.py` | PreCompact | Wipes the seen-markers, so the `CONTEXT.md` chain is re-read after compaction |
+| `session/session-prune.py` | SessionStart | Prunes session marker files older than 2 days |
 | `session/mirror-heal.py` | SessionStart | **Heals, and reports** — regenerates the skill mirrors a `git pull` brought sources for but no copies of (one line, only when it acted); **warns without writing** when a harness permission config no longer matches `core/profile.txt`, because a level arriving over the network is Lucas's call |
 
 **Why one of them only warns.** A `PreToolUse` hook fires *after* the model has emitted the tool call,
@@ -355,7 +355,7 @@ The six ❌ are the live gaps: Copilot, opencode and zcode get no lint enforceme
 violation authored there is caught only at commit, by git. **⏸ means registered, not firing** — the
 trust gate above holds the zcode column inert, and it flips only when a post-trust probe verifies each
 row. Event remaps: no `SubagentStart` in zcode, so `agent-context.py` rides PreToolUse `Agent|Task`;
-no `PreCompact`, so `precompact-wipe.sh` rides SessionStart `^compact$`.
+no `PreCompact`, so `precompact-wipe.py` rides SessionStart `^compact$`.
 
 ## A ✅ in that table is a claim, and `test_shim_paths.py` is what checks it
 

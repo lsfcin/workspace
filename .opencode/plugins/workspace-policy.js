@@ -13,7 +13,7 @@
 //   - post-edit.sh        : regenerate interfaces, terms check, context_synchronizer
 //   - facade-tracker      : record facade reads for facade-gate session state
 //   - context-tracker.py  : record CONTEXT.md/interface reads for context-gate + pre-read
-//   - precompact-wipe.sh  : wipe seen-markers on experimental.session.compacting
+//   - precompact-wipe.py  : wipe seen-markers on experimental.session.compacting
 //
 // The existing core/hooks/* scripts remain the single source of truth. This plugin
 // only TRANSLATES opencode's tool.execute.before/after events into the
@@ -179,7 +179,7 @@ export const WorkspacePolicy = async ({ client }) => {
     // Same script Claude Code runs; it reads the session id from stdin JSON and
     // consults feature_law itself, so an off switch stays in one registry.
     "experimental.session.compacting": async () => {
-      spawnSync("bash", [`${HOOKS}/session/precompact-wipe.sh`], {
+      spawnSync(python(), [`${HOOKS}/session/precompact-wipe.py`], {
         input: JSON.stringify({ session_id: SESSION_ID }),
         cwd: WORKSPACE, encoding: "utf8",
       })

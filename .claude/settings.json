@@ -121,7 +121,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/session/precompact-wipe.sh"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/precompact-wipe.py"
           }
         ]
       }
@@ -131,7 +131,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/session/session-prune.sh"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/session-prune.py"
           },
           {
             "type": "command",

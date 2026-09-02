@@ -70,15 +70,23 @@ def suite(network: bool) -> int:
     ASKED FOR, NOT ASSUMED. A clone without xdist would die on the flag it was handed and report a
     RED SUITE for a missing dependency -- the exact lie the absent `make` told (ISSUES.md B9), and
     the reason shell_syntax() below skips loudly instead of failing. Slower is not broken.
+
+    TWO PASSES WHEN PARALLEL, and the second one is the price of the first. A case that dirties the
+    real tree — the mirror heal has to, there is no root to point it at — is a true answer to the
+    wrong question for every worker reading that tree beside it. It cost two of three red runs here
+    on 2026-09-02 while the Windows clone had seen three greens: how wide the window opens is a core
+    count, so a suite that is green on one machine proves nothing about the other. `serial` is the
+    marker, conftest.py holds the reason, and the pass costs a few seconds because almost nothing
+    wears it. Without xdist there is one pass and the marker means nothing.
     """
-    command = [interpreter(), '-m', 'pytest', SUITE, '-q']
-    if find_spec('xdist'):
-        command += ['-n', 'auto']
-    else:
+    base = [interpreter(), '-m', 'pytest', SUITE, '-q']
+    marks = [] if network else ['not network']
+    if not find_spec('xdist'):
         print('⚠  pytest-xdist not installed — suite runs serial (~4x slower). See SETUP.md.')
-    if not network:
-        command += ['-m', 'not network']
-    return _run(command)
+        return _run(base + (['-m', ' and '.join(marks)] if marks else []))
+    parallel = base + ['-n', 'auto', '-m', ' and '.join([*marks, 'not serial'])]
+    lone = base + ['-m', ' and '.join([*marks, 'serial'])]
+    return _run(parallel) or _run(lone)
 
 
 def main(argv: list) -> int:

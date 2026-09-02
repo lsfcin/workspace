@@ -97,7 +97,7 @@ def pre_invocation(data: dict[str, Any]) -> dict[str, Any]:
     sid = str(data.get("conversationId", ""))
     inv_num = data.get("invocationNum", 0)
     if inv_num == 1:
-        run_gate("session/session-prune.sh", {}, "SessionStart")
+        run_gate("session/session-prune.py", {}, "SessionStart")
         run_gate("git/branch_marker.py", {}, "SessionStart", extra_args=["record"])
         for script in ("session/mirror-heal.py", "session/inbox-nudge.py",
                        "session/compass-nudge.py"):

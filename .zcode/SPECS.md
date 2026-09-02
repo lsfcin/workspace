@@ -35,14 +35,14 @@ parsed but stay **inert** until the workspace is trusted in the ZCode client —
 | PostToolUse `Edit\|Write\|ApplyPatch` | `Edit\|Write` | `post-edit.sh` |
 | PostToolUse `Read` | same | `facade/facade-tracker.py`, `read/context-tracker.py` |
 | UserPromptSubmit | same | `session/context-meter.py` |
-| SessionStart `^compact$` | **PreCompact** | `session/precompact-wipe.sh` |
-| SessionStart (no matcher) | SessionStart | `session/session-prune.sh`, `git/branch-marker.sh record`, `session/inbox-nudge.py`, `session/compass-nudge.py` |
+| SessionStart `^compact$` | **PreCompact** | `session/precompact-wipe.py` |
+| SessionStart (no matcher) | SessionStart | `session/session-prune.py`, `git/branch-marker.sh record`, `session/inbox-nudge.py`, `session/compass-nudge.py` |
 
 Event differences vs Claude Code, and how they are covered:
 
 - **No `SubagentStart`** — `agent-context.py` is registered under PreToolUse `Agent|Task` (the
   matcher Claude Code's own settings.json uses for the same script).
-- **No `PreCompact`** — `precompact-wipe.sh` rides SessionStart with matcher `^compact$`, which
+- **No `PreCompact`** — `precompact-wipe.py` rides SessionStart with matcher `^compact$`, which
   ZCode fires after a compaction. Same wipe, later moment; the script is currently
   feature-disabled anyway.
 - Matchers add ZCode's aliases (`ApplyPatch`, `Task`) so renamed tools still hit the gates.

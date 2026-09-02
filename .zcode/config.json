@@ -124,7 +124,7 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/session/precompact-wipe.sh"
+              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/precompact-wipe.py"
             }
           ]
         },
@@ -133,7 +133,7 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/session/session-prune.sh"
+              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/session-prune.py"
             },
             {
               "type": "command",

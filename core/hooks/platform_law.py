@@ -60,9 +60,9 @@ def session_state(name: str) -> Path:
     pass, and it cost this session a deadlock against its own enforcement layer to find.
 
     `tempfile.gettempdir()` is the same directory `/tmp` names on POSIX, so the markers do not move
-    there, and it is what Git Bash already maps `/tmp` to here -- which is what keeps the shell
-    halves that still spell `/tmp` (session/precompact-wipe.sh, session/session-prune.sh) agreeing
-    with these until they are ported. The read gate was the third and is Python now.
+    there. Three shell halves kept spelling `/tmp` on the claim that Git Bash mounts it at %TEMP% --
+    a claim about the OTHER clone that neither machine can check from where it stands. All three are
+    Python since 2026-09-02, so nothing has to be true about a mount for these to agree.
     """
     return Path(tempfile.gettempdir()) / name
 

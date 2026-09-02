@@ -65,6 +65,15 @@ def git_lines(*args) -> list:
 def pytest_configure(config):
     config.addinivalue_line(
         "markers", "network: hits real network/models; excluded from verify:fast")
+    # A TEST THAT DIRTIES THE REAL TREE CANNOT SHARE THE CLOCK WITH ONE THAT READS IT. The suite
+    # went parallel 2026-09-01 and this class of case became a coin flip: the mirror-heal spec seeds
+    # drift into core/skills/compass.md and restores it in a finally, and two OTHER cases failed
+    # inside that window here — the sync-skills check, and the diagram's determinism (two renders of
+    # a tree that changed between them). Two of three full runs were red on 2026-09-02, on a suite
+    # the Windows clone had seen green three times running, because how wide the window opens is a
+    # core count. verify.py runs these in a second, serial pass.
+    config.addinivalue_line(
+        "markers", "serial: mutates the real workspace tree; never run beside another case")
     # Every gate and tool this suite spawns is spawned through core/run in production, and core/run
     # exports this. Declared once here rather than per spawn: a spec that runs a gate barer than the
     # harness ever does is testing a gate that does not exist, and it fails as a TypeError about

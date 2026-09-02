@@ -50,7 +50,7 @@ problem for a non-Claude agent. Field-name lists (`PATH_KEYS`,
 | `tool.execute.after`, `read` | PostToolUse `Read` | `core/hooks/facade/facade-tracker.py` | n/a (no block) |
 | `tool.execute.after`, `read` | PostToolUse `Read` | `core/hooks/read/context-tracker.py` | n/a (no block) |
 | `tool.execute.after`, `edit`/`write`/`apply_patch` | PostToolUse `Edit\|Write` | `core/hooks/post-edit.sh` | n/a (no block) |
-| `experimental.session.compacting` | PreCompact | `core/hooks/session/precompact-wipe.sh` | n/a (no block) |
+| `experimental.session.compacting` | PreCompact | `core/hooks/session/precompact-wipe.py` | n/a (no block) |
 
 `bash` is not in `TOOL_MAP` (its payload is a command string, not a file path) —
 handled by a dedicated branch in `tool.execute.before` that extracts
@@ -85,7 +85,7 @@ subtree briefings here.
   from **stdin**. Plugin spawns with `spawnSync({input: json})`.
 - `post-edit.sh`, `facade-tracker.py` → read JSON from the **`CLAUDE_TOOL_INPUT`
   env var** (not stdin). Plugin sets `env.CLAUDE_TOOL_INPUT = json`.
-- `precompact-wipe.sh` → reads `session_id` from **stdin** (no tool payload —
+- `precompact-wipe.py` → reads `session_id` from **stdin** (no tool payload —
   the compaction hook sends `{session_id}` and nothing else).
 - All scripts also read `CLAUDE_TOOL_NAME` (values `Read`/`Edit`/`Write`/
   `Grep`/`Bash`); the plugin sets it on every spawn.
@@ -135,7 +135,7 @@ block), edit a `.py` past `BLOCK_LINES` (expect block), grep a workspace subtree
 before reading its `CONTEXT.md` chain (expect block — target is the `path` arg),
 edit a `.py` (expect `.pyi` timestamp updates), edit a `CONTEXT.md`-adjacent dir
 (expect `context_synchronizer` runs), and after `/compact` the chain gate asks
-again (expect `precompact-wipe.sh` removed `claude_ctx_seen_opencode<pid>`).
+again (expect `precompact-wipe.py` removed `claude_ctx_seen_opencode<pid>`).
 
 <!-- routing:start -->
 ## Routing

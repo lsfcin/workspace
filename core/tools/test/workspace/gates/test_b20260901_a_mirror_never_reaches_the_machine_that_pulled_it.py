@@ -12,6 +12,8 @@ import os
 import subprocess
 import sys
 
+import pytest
+
 from conftest import WORKSPACE_ROOT
 
 sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools/wos/skills'))
@@ -41,9 +43,16 @@ def test_the_hook_is_silent_when_nothing_changed():
     assert out.stdout == '', f'the hook spoke with nothing to report: {out.stdout!r}'
 
 
+@pytest.mark.serial
 def test_a_mirror_dirtied_by_a_merge_is_healed_in_one_line():
     """What a `git pull` does: the SOURCE arrives changed and the copies do not follow. Nothing on
-    the receiving machine regenerates them, which is the whole bug."""
+    the receiving machine regenerates them, which is the whole bug.
+
+    SERIAL, because there is no seam to seed the drift anywhere but the real tree: mirror-heal.py
+    and sync-skills both work on WORKSPACE_ROOT with nothing to point elsewhere. Restoring in a
+    `finally` closes the window afterwards and not during, and a parallel worker inside it reads a
+    workspace that is genuinely out of sync — which is a true answer to the wrong question.
+    """
     assert _in_sync(), 'precondition: the working tree must start in sync'
     source = SOURCES / 'compass.md'
     original = source.read_bytes()

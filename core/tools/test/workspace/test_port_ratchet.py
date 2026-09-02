@@ -58,6 +58,36 @@ RECORDS = (':!core/experiments/**', ':!.craft/**', ':!*.log', ':!brain/**', ':!a
 LAUNCHER = 'core/run'
 
 
+# THE SHELL THAT MAY STAY IN THE ENFORCEMENT LAYER, named one by one. The bash ban was scoped to
+# core/tools/ (test_b20260901_a_bash_tool_costs...), leaving the hooks — the hot path, where a fork
+# costs ~50x more under Git Bash than here — with no ratchet at all. Two of them were still spelling
+# `/tmp` by hand on a mount claim nothing could check: that is what an unratcheted debt looks like.
+#
+# Two reasons earn a place, and neither is "it works": SPAWNED BY NAME by something outside this
+# workspace (git, .claude/settings.json, a harness), or SOURCED as a fragment into post-edit.sh,
+# sharing its shell state. An equality assert, not a subset — a NEW shell fails, and so does a
+# REMOVED one, because a name that has been paid off leaves the list instead of sitting in it.
+SHELL_ALLOWED = {
+    'core/hooks/post-edit.sh',                  # name dictated by .claude/settings.json
+    'core/hooks/postedit/interfaces.sh',        # sourced fragment
+    'core/hooks/postedit/lint.sh',              # sourced fragment
+    'core/hooks/postedit/reminders.sh',         # sourced fragment
+    'core/hooks/postedit/sync.sh',              # sourced fragment
+    'core/hooks/session/start-session.sh',      # neutral entrypoint, spawned by name
+    'core/hooks/copilot/copilot-agent.sh',      # provider shim entrypoint
+    'core/hooks/zcode/probe.sh',                # hook-protocol probe, run by hand
+    'core/hooks/zcode/probe-deny.sh',           # hook-protocol probe, run by hand
+}
+
+
+def test_the_enforcement_layer_holds_no_unearned_shell():                                    # I1
+    live = set(_git('ls-files', 'core/hooks/*.sh', 'core/hooks/**/*.sh'))
+    assert live == SHELL_ALLOWED, (
+        f'added: {sorted(live - SHELL_ALLOWED)}; paid off: {sorted(SHELL_ALLOWED - live)}. Shell in '
+        'a hook costs a fork per call and cannot import the law modules, so it re-spells what they '
+        'own. Port it, or say in SHELL_ALLOWED which of the two reasons it meets')
+
+
 def test_no_per_os_script_sits_beside_the_python():                                          # I1
     forks = _git('ls-files', '*.ps1', '*.bat', '*.cmd')
     assert not forks, (
@@ -127,8 +157,8 @@ def test_no_shell_hook_spawns_the_bare_word_python3():                          
     `python3` is not a name Windows has: it reaches a Microsoft Store execution alias that prints
     an advert and exits without running anything. Every site that spelled it sat behind
     `2>/dev/null` or `|| exit 0`, so the failure was *green*. On 2026-08-29 that was true of
-    post-edit.sh and all four stages it sources, the interface-first read gate (shell then, Python
-    since 2026-09-02) and session/precompact-wipe.sh — interface stubs, routing sync, lint,
+    post-edit.sh and all four stages it sources, the interface-first read gate and the precompact
+    wipe (both shell then, both Python since 2026-09-02) — interface stubs, routing sync, lint,
     reminders and that gate had never once run on a Windows clone, and nothing anywhere said so.
 
     A ceiling would be the wrong shape. A hook that can only ever pass is indistinguishable from
