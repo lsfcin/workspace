@@ -9,6 +9,25 @@
 
 <!-- add entries below, newest first -->
 
+pesquisar skill UNSLOP e ver se vale a pena pra gente
+
+pesquisar aihero.dev e ver se serve pra gente
+pontos que podemos ver /grill-me, /implement pq usa TDD
+
+ai-2027.com pode servir pra gente?
+
+https://www.instagram.com/reel/DcyFpRtxEZn/?igsi=NTc4MTIwNjQ2YQ==
+falar desse estudo nas minhas aulas, mobilidade social e diploma ainda demonstram causalidade
+— via aiwbot · 2026-09-02
+
+https://www.instagram.com/reel/DcyFJB0smCG/?igsi=NTc4MTIwNjQ2YQ==
+quero discutir isso nas minhas aulas
+— via aiwbot · 2026-09-02
+
+https://www.instagram.com/reel/DcyNNHKtEsL/?igsi=NTc4MTIwNjQ2YQ==
+será que faz sentido?
+— via aiwbot · 2026-09-02
+
 to com uma forte suspeita que os nossos hooks e talvez tools também estão consumindo muito mais tempo do que precisariam, honestamente, acho difícil acreditar que seja algo normal. o problema parece ser mais grave no windows inclusive
 
 pesquisar sobre finasterida e outras estratégias pro cabelo, quero ver se tem uma forma saudável de conter ou até recuperar as minhas entradas. fazer isso direito, pesquisa científica, etc
