@@ -4,10 +4,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from file_law import FACADES  # noqa: E402
 from hook_input import parse_stdin
 from platform_law import session_state  # noqa: E402
-
-FACADE_NAMES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
 
 
 def main() -> int:
@@ -15,7 +14,7 @@ def main() -> int:
 	if tool and tool != 'Read':
 		return 0
 	file_path = str(tool_input.get('file_path', ''))
-	if Path(file_path).name not in FACADE_NAMES:
+	if Path(file_path).name not in FACADES:
 		return 0
 	session_file = session_state(f'claude_facades_{session_id}.txt')
 	with session_file.open('a', encoding='utf-8', newline='\n') as f:

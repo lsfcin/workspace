@@ -3,7 +3,6 @@ from pathlib import Path
 from shard_table import EMPTY_CELL as EMPTY_CELL
 
 SPLIT_THRESHOLD: Incomplete
-FACADE_NAMES: Incomplete
 
 def is_scanned(path: Path) -> bool: ...
 def carried(paths: list) -> list: ...

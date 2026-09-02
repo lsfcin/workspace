@@ -6,12 +6,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law
+from file_law import FACADES  # noqa: E402
 from hook_input import parse_stdin
 from platform_law import WORKSPACE_ROOT, session_state  # noqa: E402
 
-FACADE_NAMES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
-# NOT the file_law code set: this is "languages that have a facade convention", a genuinely
-# narrower question than "is this code". Named apart so the two never get conflated again.
+# NOT the file_law CODE set: this is "languages that have a facade convention", a genuinely
+# narrower question than "is this code". Named apart so the two never get conflated again —
+# `FACADES` beside it answers a third question, which file IS one, and comes from there too.
 FACADE_EXTS  = {'.ts', '.tsx', '.js', '.jsx', '.py', '.dart'}
 TEST_RE      = re.compile(r'(?:^|/)(?:test_[^/]+|[^/]+_test|[^/]+\.(?:test|spec))\.[^/]+$')
 
@@ -28,7 +29,7 @@ def find_nearest_facade(path: Path) -> Path | None:
 	project_root = Path(*path.parts[:code_idx + 2])
 	current = path.parent
 	while True:
-		for name in FACADE_NAMES:
+		for name in FACADES:
 			candidate = current / name
 			if candidate.exists():
 				return candidate
@@ -51,7 +52,7 @@ def main() -> int:
 		return 0
 	if file_path.suffix not in FACADE_EXTS:
 		return 0
-	if file_path.name in FACADE_NAMES:
+	if file_path.name in FACADES:
 		return 0
 	if TEST_RE.search(str(file_path)):
 		return 0

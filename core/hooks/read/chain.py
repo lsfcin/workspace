@@ -15,11 +15,13 @@ EXEMPT_NAMES = {'CONTEXT.md', 'AGENTS.md', 'CLAUDE.md', 'MEMORY.md'}
 SKIP_PARTS = {'.git', 'node_modules', 'dist', '.codegraph', '__pycache__', '.vscode', '.hooks'}
 TOKEN_RE = re.compile(r'''[^\s'"`;|&<>()=]+''')
 
-# Which stub blocks a read, and which files ARE their own interface. Asked of stubgen, never
-# restated: that module owns both the generated set and the wider gated one, side by side, and a
-# second copy here is the drift this file was itself created to end.
+# Which stub blocks a read, and which files ARE their own interface. Both asked, never restated:
+# stubgen owns the generated set and the wider gated one side by side, file_law owns what a file IS.
+# A second copy here is the drift this file was itself created to end.
+from file_law import FACADES  # noqa: E402
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'stubgen'))
-from stubs import FACADES, GATE_ON  # noqa: E402
+from stubs import GATE_ON  # noqa: E402
 
 
 def context_chain(target: Path) -> list[Path]:

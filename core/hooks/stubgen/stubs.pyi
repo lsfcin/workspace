@@ -3,7 +3,6 @@ from pathlib import Path
 
 STUB_FOR: Incomplete
 GATE_ON: Incomplete
-FACADES: Incomplete
 
 def interface_for(path): ...
 def stub_out_dir(path) -> Path: ...

@@ -7,7 +7,7 @@ _HOOKS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_HOOKS))
 sys.path.insert(0, str(_HOOKS / 'entropy'))
 from entropy_corpus import ignored_here, is_generated_mirror  # noqa: E402
-from file_law import is_code_file, load_limits  # noqa: E402
+from file_law import FACADES, is_code_file, load_limits  # noqa: E402
 from hoist import hoist, md_blurb  # noqa: E402
 from shard_table import EMPTY_CELL, render_table  # noqa: E402
 from workspace_meta import (  # noqa: E402
@@ -19,7 +19,6 @@ from workspace_meta import (  # noqa: E402
 SPLIT_THRESHOLD = load_limits()['WARN_FILES']
 _ROOT        = _HOOKS.parents[1]
 _SKIP_DIRS   = {'node_modules', '__pycache__', '.git', 'dist', 'build', '.venv', 'venv'}
-FACADE_NAMES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
 
 def is_scanned(path: Path) -> bool:
     """True if this file gets a row in its directory's routing table.
@@ -165,8 +164,8 @@ def build_file_rows(files_with_rel: list, preserved: dict, ctx_dir: Path) -> str
     for every file in a directory is not information about that directory.
     """
     rows = []
-    for f, rel in sorted(files_with_rel, key=lambda x: (x[0].name not in FACADE_NAMES, x[1])):
-        pre  = FACADE_PREFIX if f.name in FACADE_NAMES else ''
+    for f, rel in sorted(files_with_rel, key=lambda x: (x[0].name not in FACADES, x[1])):
+        pre  = FACADE_PREFIX if f.name in FACADES else ''
         kept = _strip_facade(preserved.get(rel, preserved.get(f.name, PLACEHOLDER)))
         found = file_description(f)
         # A `.md` description is its own file's blurb — written under its own H1, in its own

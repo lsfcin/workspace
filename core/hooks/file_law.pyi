@@ -8,6 +8,7 @@ GENERATED_FILE: Incomplete
 EXTENSIONLESS_FILE: Incomplete
 CODE_EXTS: Incomplete
 GENERATED: Incomplete
+FACADES: Incomplete
 EXAMPLE_COMMENT: Incomplete
 
 def is_tool_entrypoint(path: Path) -> bool: ...

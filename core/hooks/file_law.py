@@ -28,6 +28,13 @@ CODE_EXTS = {'.js', '.jsx', '.ts', '.tsx', '.py', '.dart', '.sh',
 # A stub is generated FROM its source and rides in the routing table's Interface column.
 GENERATED = ('.pyi', '.d.ts', '.dart.api', '.texif')
 
+# Files that ARE their own interface, so nothing generates one beside them and the read gate
+# never fires on one. It was spelled out identically in four places — stubgen, both facade
+# hooks and the routing scanner — already drifting in NAME (FACADES vs FACADE_NAMES), which is
+# how a fifth copy nearly got written without anyone noticing the other four. It belongs to the
+# question this module owns, what a file IS, and `index.dart` joining once proves the set moves.
+FACADES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
+
 # How a file of each kind declares what it is. One home, because it used to have three —
 # pre-edit.py held two dicts and gates/source-quality.sh a shell case-list, and only the
 # shell one ran at commit time, only as a warning, and only over code extensions.
@@ -87,14 +94,6 @@ def _lines(path: Path) -> list:
             if ln.strip() and not ln.startswith('#')]
 
 
-def _patterns() -> list:
-    return _lines(VENDORED_FILE)
-
-
-def _generated_patterns() -> list:
-    return _lines(GENERATED_FILE)
-
-
 def allowed_extensionless() -> set:
     """Basenames an external tool dictates, so they cannot carry an extension."""
     return set(_lines(EXTENSIONLESS_FILE))
@@ -112,7 +111,7 @@ def is_vendored(path: Path, root: Path) -> bool:
         rel = _rel(path.resolve(), root)
     except ValueError:
         return False
-    return any(fnmatch.fnmatch(rel, pattern) for pattern in _patterns())
+    return any(fnmatch.fnmatch(rel, p) for p in _lines(VENDORED_FILE))
 
 
 def is_generated_artifact(path: Path, root: Path) -> bool:
@@ -129,7 +128,7 @@ def is_generated_artifact(path: Path, root: Path) -> bool:
         rel = _rel(path.resolve(), root)
     except ValueError:
         return False
-    return any(fnmatch.fnmatch(rel, pattern) for pattern in _generated_patterns())
+    return any(fnmatch.fnmatch(rel, p) for p in _lines(GENERATED_FILE))
 
 
 def is_authored(path: Path, root: Path) -> bool:

@@ -13,14 +13,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from entropy_corpus import is_generated_mirror  # noqa: E402
-from file_law import (is_authored, is_authored_prose,  # noqa: E402
+from file_law import (FACADES, is_authored, is_authored_prose,  # noqa: E402
                       is_generated_artifact, is_vendored, load_limits,
                       over_column_cap)
 from platform_law import rel  # noqa: E402
 from schema_law import WORKSPACE_ROOT  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'stubgen'))
-from stubs import FACADES, STUB_FOR, interface_for  # noqa: E402
+from stubs import STUB_FOR, interface_for  # noqa: E402
 
 
 def _rel(path) -> str:

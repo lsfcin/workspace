@@ -36,13 +36,6 @@ STUB_FOR = {'.py': '.pyi', '.ts': '.d.ts', '.tsx': '.d.ts', '.js': '.d.ts'}
 GATE_ON = dict(STUB_FOR, **{'.dart': '.dart.api', '.tex': '.texif', '.csv': '.csvif',
                             '.tsv': '.tsvif'})
 
-# Files that ARE the interface, so nothing generates one beside them. read/pre-read.sh has said this
-# since it was written ("facade files are already minimal interfaces -- reading source directly is
-# correct") and code/CONTEXT.md tells every agent to read the facade of each module it touches. The
-# counter did not know, and 41 of its 200 findings were facades: a stub there is a file the gate
-# never consults, so generating one drains the number without touching anything real.
-FACADES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
-
 
 def interface_for(path):
     """The interface file that belongs beside `path`, or None if its type has no convention."""
