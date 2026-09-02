@@ -84,7 +84,7 @@ reader will see it.
 Anything reading it gets that string instead of Lucas's profile, and
 [`brain/memory/MEMORY.md`](brain/memory/MEMORY.md) routes to it.
 
-**Why it matters:** it is the ruling [`SETUP.md`](SETUP.md) § Skill mirrors already made on
+**Why it matters:** it is the ruling [`SETUP-clone.md`](SETUP-clone.md) § Skill mirrors already made on
 2026-08-29 — native symlinks under Git Bash need Developer Mode, a privilege out of proportion to
 this workspace — applied everywhere except the one file that predates it. The mirrors stopped being
 symlinks; this did not follow.
@@ -210,6 +210,13 @@ silently — and the named form ages silently too, in the one operation the work
 `test_pointer_integrity.py` checks that `](path)` resolves, so a link whose file exists and whose
 section does not reads as healthy. Two of the nine were a hook's error message and a skill's
 protocol step, so the cost lands on whoever is installing a fresh clone, with no session watching.
+
+**It predates the shard.** A sweep for the same shape found two that have been wrong for longer and
+that nobody noticed: `core/tools/test/wos/test_deps.py` sends the reader to `SETUP.md § Workspace
+path` in two error messages, and that section was **deleted 2026-08-29**; `core/tools/web/`'s
+routing row says `SETUP.md §12`, a *numbered* citation `core/SPECS.md` forbids outright. Neither is
+a one-line fix — the first should name `core/run`, and the second lives in the tool's first-line
+comment where the generator reads it — so both are recorded here rather than guessed at.
 
 **Root cause:** nothing parses the `§` half of a citation. The check is cheap and the corpus is
 small — for every `<FILE> § <Section>` in a tracked `.md`, assert `<FILE>` has that `##` heading —
