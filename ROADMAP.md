@@ -110,6 +110,15 @@ the item above cannot be prioritised until it is. Raw figures for three sessions
 *Why* — they were invisible before shebang stripping. None exceeds the 200 cap; backlog, not block.
 *Done when* — warn list is empty or rows are deliberately exempted with reasons.
 
+**🟡 the port grew the workspace by 1,300 lines and nothing has paid for them**
+*What* — the cut that funds the port. Candidates, largest first: `SETUP.md` 610 lines over a 200 cap,
+`core/hooks/SPECS.md` 367, `core/SPECS.md` 266, `core/SCHEMA.md` 221 — and the two directories the
+entropy block reports over `BLOCK_FILES`, `core/tools/test/workspace` and its `gates/`, which the
+port itself added two files to.
+*Why* — AGENTS.md says growing takes Lucas's OK first and a session leaves fewer lines than it
+found. The port was worth every line; that is a reason to pay, not a reason not to.
+*Done when* — the four size signals above are gone and the net since 2026-09-01 is negative.
+
 **🔴 the platform seam owes three answers, and one of them is a secret**
 *What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.
 *Why* — secret convention needs ACL equivalence; dep probes must verify function, not bare import.
