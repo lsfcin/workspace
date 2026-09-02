@@ -148,6 +148,49 @@ The port answers that in `validate._lines` — for the checker. The file itself 
 declared the rule). Whether the fix is renormalising the working tree once or a check that catches
 the next one is the open question.
 
+## b20260902-nothing-forbids-a-test-from-dirtying-the-real-tree
+
+**Symptom:** two of three full runs were red on this clone on 2026-09-02, on a suite the Windows
+clone had seen green three times running. One case seeds drift into `core/skills/compass.md` and
+restores it in a `finally`; parallel workers reading inside that window failed — the `sync-skills`
+check, and the diagram's determinism, which renders the tree twice and got two different trees.
+
+**Why it matters:** the pre-commit gate runs this whole suite on every commit at the workspace root,
+so a race here refuses commits at random, and the operator's evidence is a failure in a file they
+did not touch. It is also invisible in the direction that matters: how wide the window opens is a
+**core count**, so green on one machine says nothing about the other — the same shape as
+`b20260901-one-answers-file-is-shared-by-two-operating-systems`, one layer down.
+
+**Fixed for the one case that was proven:** it wears `@pytest.mark.serial` and `verify.py` runs a
+second serial pass. **What stays open is the class.** `core/tools/test/wos/CONTEXT.md` states the
+law in as many words — *"Each test builds its own repo and bare origin; nothing touches the real
+workspace"* — and nothing checks it. A crude grep for a write beside a `WORKSPACE_ROOT` reference
+names ~40 files, almost all of them false (they write into `tmp_path`), so the audit is real work
+rather than a scan. The structural fix is a root argument on `mirror-heal.py` and `sync-skills`, so
+the one case with no seam gets one.
+
+**Root cause:** the suite went parallel 2026-09-01 and the law it broke was written for a serial
+runner, where a mutation restored in a `finally` is invisible to everything.
+
+## b20260902-a-generated-ledger-is-red-on-the-clone-that-did-not-write-it
+
+**Symptom:** `verify.py full` failed here on two `test_entropy_scatter.py` cases —
+no collected row, and `academy/papers/2026-JBCS-relativistic_raytracer` missing from the root index
+— against an `ISSUES.md` this session had not touched. The block was generated on the Windows clone,
+which does not have those nested repos; this one has 27. Regenerating made it green with no source
+change.
+
+**Why it matters:** the suite asserts a generated block matches the machine reading it, and the
+block is committed. So the same commit is green on the machine that wrote it and red on the other,
+and every pull hands the receiving clone a red pre-commit gate for work it did not do — which is
+also the shape `mirror-heal.py` was built for, on a different artifact. The first suspicion is
+always the local change, so it costs an investigation each time.
+
+**Root cause:** unestablished whether the answer is regenerating on receipt (the `mirror-heal.py`
+route), scoping the scatter assertions to repos that exist locally, or accepting that this block is
+per-machine and untracking it. **Lucas's call**, because the third costs the reviewable diff the
+ledger exists to give.
+
 <!-- entropy:start -->
 ## Entropy
 
