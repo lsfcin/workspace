@@ -21,19 +21,21 @@ project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of
 *Why* — the norm that produced this mass now says cut. A `.md` line in this tree is re-read by every session.
 *Done when* — both numbers are met with `verify-fast` green. Check code parsers before cutting any `.md`.
 
-**🟢 four law files sit over the 200-line cap and each needs its own sitting**
-*What* — `SETUP.md`, `core/hooks/SPECS.md`, `core/SPECS.md`, `core/SCHEMA.md` under the cap, cut not split.
+**🟢 three law files sit over the 200-line cap and each needs its own sitting**
+*What* — `core/hooks/SPECS.md`, `core/SPECS.md`, `core/SCHEMA.md` under the cap, cut not split.
 *Why* — they are the largest scaffold files and the cut pays twice, closing size findings and the item above.
 *Done when* — § Size signals lists none of them. **Not narration — every line is live law.** `SCHEMA.md`'s
-tables are parsed by `schema_law.py` and its transient-doc rows are live exemptions; `SETUP.md` answers to
-`test_setup_executable.py`. Cut prose around them, never a row, and read the parser before the file.
+tables are parsed by `schema_law.py` and its transient-doc rows are live exemptions. Cut prose around
+them, never a row, and read the parser before the file.
 
-**🔴 the cap and the rationale rule point opposite ways, and the four law files are where they meet**
+**🔴 the cap and the rationale rule point opposite ways, and the three law files are where they meet**
 *What* — a ruling: shard each by reader, exempt the type, or send rationale to git. `core/norms/CONTEXT.md`
 says rationale belongs in the `SPECS.md` that owns the rule; the cap says cut. Both cannot hold at 361 lines.
 *Why* — measured 2026-09-01, not guessed: `SCHEMA.md` gave up 6 lines of true redundancy and stopped at 220
 with every remaining line a parsed table or a rule with a checker; `core/hooks/SPECS.md` reads the same at 361,
-where reaching 200 means deleting the coverage, shim and lifecycle tables. A sibling needs Lucas's explicit OK.
+where reaching 200 means deleting the coverage, shim and lifecycle tables. `SETUP.md` took the sibling route
+2026-09-02 with Lucas's OK: 610 in one file became five, none over the cap, at **+11 lines total** — so a
+shard is available, it is checked, and it buys the cap rather than the mass.
 *Done when* — Lucas has ruled and the 🟢 item above is either doable or dead.
 
 ## Cost — what a session costs, and which of it is avoidable
@@ -111,13 +113,15 @@ the item above cannot be prioritised until it is. Raw figures for three sessions
 *Done when* — warn list is empty or rows are deliberately exempted with reasons.
 
 **🟡 the port grew the workspace by 1,300 lines and nothing has paid for them**
-*What* — the cut that funds the port. Candidates, largest first: `SETUP.md` 610 lines over a 200 cap,
-`core/hooks/SPECS.md` 367, `core/SPECS.md` 266, `core/SCHEMA.md` 221 — and the two directories the
-entropy block reports over `BLOCK_FILES`, `core/tools/test/workspace` and its `gates/`, which the
-port itself added two files to.
+*What* — the cut that funds the port. Candidates, largest first: `core/hooks/SPECS.md` 367,
+`core/SPECS.md` 266, `core/SCHEMA.md` 221 — and the two directories the entropy block reports over
+`BLOCK_FILES`, `core/tools/test/workspace` and its `gates/`, which the port itself added two files to.
 *Why* — AGENTS.md says growing takes Lucas's OK first and a session leaves fewer lines than it
 found. The port was worth every line; that is a reason to pay, not a reason not to.
-*Done when* — the four size signals above are gone and the net since 2026-09-01 is negative.
+*Done when* — the three size signals above are gone and the net since 2026-09-01 is negative.
+**The largest candidate paid nothing.** `SETUP.md` was the biggest file here and its 610 lines held
+~50 of history, not 400: sharding took it under the cap at +11 lines. The debt is still 1,300 and the
+remaining candidates are law files, so the payment has to come from somewhere this list does not name.
 
 **🔴 the platform seam owes three answers, and one of them is a secret**
 *What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.
