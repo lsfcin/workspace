@@ -84,9 +84,8 @@ def suite(network: bool) -> int:
     if not find_spec('xdist'):
         print('⚠  pytest-xdist not installed — suite runs serial (~4x slower). See SETUP.md.')
         return _run(base + (['-m', ' and '.join(marks)] if marks else []))
-    parallel = base + ['-n', 'auto', '-m', ' and '.join([*marks, 'not serial'])]
-    lone = base + ['-m', ' and '.join([*marks, 'serial'])]
-    return _run(parallel) or _run(lone)
+    code = _run(base + ['-m', ' and '.join([*marks, 'serial'])])
+    return code or _run(base + ['-n', 'auto', '-m', ' and '.join([*marks, 'not serial'])])
 
 
 def main(argv: list) -> int:
