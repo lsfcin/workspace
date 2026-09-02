@@ -102,8 +102,11 @@ it. **A gate that can only block is the mirror of one that can only pass**, and 
 working.
 
 The CONTEXT.md chain gate never had this defect because both of its ends are Python calling the
-same normalisation. So the rule is not "spell the path more carefully"; it is that the module owning
-the marker exposes the question — `read/context-tracker.py --seen <session> <path>` is the shape.
+same normalisation. So the rule is not "spell the path more carefully"; it is that **the module
+owning the marker owns the comparison** — `hook_input` holds both stores and every reader asks it.
+The shell caller had to be handed a query CLI arm to reach that answer; porting it (2026-09-02)
+deleted the arm and the question with it, which is the difference between working around a seam and
+removing one.
 
 ## Agent lifecycle gates
 
