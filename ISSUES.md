@@ -170,7 +170,7 @@ rather than a scan. The structural fix is a root argument on `mirror-heal.py` an
 the one case with no seam gets one.
 
 **A second case, proven 2026-09-02:** `test_present_tense_state_is_not_a_corpse` died with
-`FileNotFoundError: '/mnt/workspace/code/_nudgeprobe5b974581'` — some test creates a probe directory
+`FileNotFoundError` on `code/_nudgeprobe5b974581` — some test creates a probe directory
 **inside the real `code/`** and deletes it, and a parallel worker walking that tree hit the gap. It
 is a different shape from the first: that one mutated a tracked file's content, this one creates and
 removes a real path, so a check that only watched tracked files would miss it. Two cases, two
