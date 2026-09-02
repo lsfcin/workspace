@@ -29,7 +29,9 @@
   status — filtering output is for inspection, never for decision.
 - **A `.md` section is cited by name, never by number** (2026-08-15). A number ages on the first
   section inserted and ages *silently*, still resolving but to the wrong section, and no link check
-  catches that. Good reference: ``[`SETUP.md`](SETUP.md) § Web search``.
+  catches that. Good reference: ``[`SETUP-accounts.md`](SETUP-accounts.md) § Web search``. **Name the
+  file the section is actually in** — a sharded type moves sections between siblings, and the same
+  link check is blind to that too.
 - **A filename is one word, and the whole word** (Lucas, 2026-07-23): `architect` > `arch`. A name
   repeating its parent's namespace is noise, and generic names are reserved for the flow that earns
   them.

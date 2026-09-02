@@ -68,7 +68,7 @@ def main() -> int:
         print(f'↑ auto-pushed {branch}')
     elif not _authenticated():
         print(f'⚠ auto-push failed for {branch} — this machine is not authenticated with GitHub.')
-        print("  Run 'gh auth login', then 'gh auth setup-git'. SETUP.md § GitHub account.")
+        print("  Run 'gh auth login', then 'gh auth setup-git'. SETUP-clone.md § GitHub account.")
     else:
         print(f'⚠ auto-push failed for {branch} — offline, or history diverged (force-push needed).')
         print('  Push manually before switching machines. git said:')

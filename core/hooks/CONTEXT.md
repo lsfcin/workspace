@@ -1,7 +1,7 @@
 # hooks
 > The enforcement layer: git hooks, agent lifecycle hooks, and the Tier 0 checks they run.
 
-Wired globally via `core.hooksPath` pointed at this directory ([`SETUP.md`](../../SETUP.md) § Git hook), so
+Wired globally via `core.hooksPath` pointed at this directory ([`SETUP-clone.md`](../../SETUP-clone.md) § Git hook), so
 `pre-commit` fires in **every** repo under this workspace, and by absolute path from
 `.claude/settings.json` for the agent-side gates.
 

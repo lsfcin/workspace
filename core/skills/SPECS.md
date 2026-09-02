@@ -29,7 +29,7 @@ mirror: the next sync overwrites it, and `--check` compares by content, so the e
 
 | Moment | Covered by | Immediate? |
 |--------|-----------|------------|
-| install / fresh clone | `SETUP.md` § Skill mirrors | yes |
+| install / fresh clone | `SETUP-clone.md` § Skill mirrors | yes |
 | edit a skill | `core/hooks/postedit/sync.sh` | yes |
 | create a skill | `core/hooks/postedit/sync.sh` | yes |
 | **delete a skill** | `orphans prune`, inside the pre-commit generator | **no — one commit behind** |

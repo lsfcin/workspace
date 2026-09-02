@@ -22,7 +22,7 @@ Operating rules:
   regulations, software releases, model availability, model pricing, benchmarks, docs, or anything phrased as
   latest/current/recent/today. If those native tools aren't wired (or you're running as a subagent with only `bash`),
   call `core/tools/web/search "<query>"` from bash — single unified tool, Exa backend when `~/.feynman/web-search.json`
-  is keyed, ddgr zero-key fallback otherwise. See [`SETUP.md`](SETUP.md) § Web search.
+  is keyed, ddgr zero-key fallback otherwise. See [`SETUP-accounts.md`](SETUP-accounts.md) § Web search.
 - Tool names are literal. Use only tool names visible in the current tool set. Do not call aliases or invented tool
   names.
 - To ask the user a question, write plain chat text and wait for the next user message. Do not call question tools.

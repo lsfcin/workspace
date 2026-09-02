@@ -17,18 +17,20 @@ Arguments: $ARGUMENTS — a feature slug to install just one feature, or empty f
 installer would have to be ported to every harness, while the newcomer's own agent works on
 whichever harness they already opened. That is you.
 
-**This skill is a door, not a copy.** The procedure is [`SETUP.md`](../../SETUP.md) at the
-workspace root, and it stands alone — a stranger on another agent has no skill loaded and installs
-from that file directly. Never restate a command from it here or in your reply; read it and run it.
+**This skill is a door, not a copy.** The procedure is [`SETUP.md`](../../SETUP.md) at the workspace
+root plus the `SETUP-<slug>.md` shards it routes to, and it stands alone — a stranger on another
+agent has no skill loaded and installs from those files directly. Never restate a command from it here or in your reply; read it and run it.
 If you catch yourself explaining a step, you are drifting into a second copy that will disagree
 with the first one.
 
 ## Protocol
 
-1. **Read `SETUP.md`.** It opens with the contract each step follows — `> feature:`,
-   **Precondition**, **Install**, **Verify** — plus what is already wired and the whole-install
-   probe. The steps sit between its `<!-- steps:start -->` and `<!-- steps:end -->` markers, one
-   `##` section each. Nothing outside those markers is a step.
+1. **Read `SETUP.md`, then every shard its routing table names.** The index carries the contract each
+   step follows — `> feature:`, **Precondition**, **Install**, **Verify** — plus what is already
+   wired and the whole-install probe; it holds **no steps of its own**. The steps live in the
+   `SETUP-<slug>.md` siblings, between each one's `<!-- steps:start -->` and `<!-- steps:end -->`
+   markers, one `##` section each. Nothing outside those markers is a step. `SETUP-clone.md` runs
+   first; the rest are independent.
 
 2. **Run every step's Precondition first, before installing anything.** Then print one table and
    stop:

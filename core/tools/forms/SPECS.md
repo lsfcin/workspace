@@ -45,7 +45,7 @@ different command, and the recovery message says so.
 `SERVICE_DISABLED` comes back from every call until Google Forms API is switched on in the GCP
 project that owns the OAuth client. No scope fixes it, and re-consenting looks like it should but
 does not — the consent screen and the API library are different pages. That switch is a click in
-Google's console, so it is Lucas's: [SETUP.md](../../../SETUP.md) § Google Forms API. Live since
+Google's console, so it is Lucas's: [SETUP-accounts.md](../../../SETUP-accounts.md) § Google Forms API. Live since
 2026-08-19 on project `workspace-os-506016`, created by him and carrying gmail, calendar, docs,
 slides and sheets too — the successor to `workspace-gmail-499605` for anything needing the console.
 One project serves every account: the project owns the *app*, an account only consents to it, so a
