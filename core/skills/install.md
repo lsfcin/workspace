@@ -17,9 +17,9 @@ Arguments: $ARGUMENTS — a feature slug to install just one feature, or empty f
 installer would have to be ported to every harness, while the newcomer's own agent works on
 whichever harness they already opened. That is you.
 
-**This skill is a door, not a copy.** The procedure is [`SETUP.md`](../../SETUP.md) at the workspace
-root plus the `SETUP-<slug>.md` shards it routes to, and it stands alone — a stranger on another
-agent has no skill loaded and installs from those files directly. Never restate a command from it here or in your reply; read it and run it.
+**This skill is a door, not a copy.** The procedure is [`SETUP.md`](../../SETUP.md) at the
+workspace root plus the `SETUP-<slug>.md` shards it routes to, and it stands alone — a stranger
+on another agent has no skill loaded and installs from those files directly. Never restate a command from it here or in your reply; read it and run it.
 If you catch yourself explaining a step, you are drifting into a second copy that will disagree
 with the first one.
 

@@ -27,11 +27,9 @@
 - **A command whose exit status is a gate never goes inside a pipe** (2026-08-13): in `a | tail && b`
   the status is `tail`'s, so a failed merge still pushes. Use `set -e` and no pipes, or capture the
   status — filtering output is for inspection, never for decision.
-- **A `.md` section is cited by name, never by number** (2026-08-15). A number ages on the first
-  section inserted and ages *silently*, still resolving but to the wrong section, and no link check
-  catches that. Good reference: ``[`SETUP-accounts.md`](SETUP-accounts.md) § Web search``. **Name the
-  file the section is actually in** — a sharded type moves sections between siblings, and the same
-  link check is blind to that too.
+- **A `.md` section is cited by name, and by the file it is now in** — never by number (2026-08-15).
+  A number ages silently on the first insert; a sharded type moves sections between siblings; no
+  link check sees either. Good reference: ``[`SETUP-accounts.md`](SETUP-accounts.md) § Web search``.
 - **A filename is one word, and the whole word** (Lucas, 2026-07-23): `architect` > `arch`. A name
   repeating its parent's namespace is noise, and generic names are reserved for the flow that earns
   them.
