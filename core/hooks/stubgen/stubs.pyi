@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from pathlib import Path
 
 STUB_FOR: Incomplete
+GATE_ON: Incomplete
 FACADES: Incomplete
 
 def interface_for(path): ...

@@ -7,53 +7,28 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
-from hook_input import load_seen, mark_seen, parse_stdin
-from platform_law import session_state  # noqa: E402
+from hook_input import (load_iface_seen, load_seen, mark_iface_seen, mark_seen, normalise,
+                        parse_stdin)
 
 IFACE_SUFFIXES = ('.d.ts', '.pyi', '.dart.api', '.texif', '.csvif')
-
-
-def _iface_marker(session_id: str):
-	return session_state(f'claude_iface_seen_{session_id}.txt')
-
-
-def _iface_seen(session_id: str) -> set:
-	marker = _iface_marker(session_id)
-	try:
-		return set(marker.read_text(encoding='utf-8').splitlines()) if marker.exists() else set()
-	except OSError:
-		return set()
-
-
-def _record_iface(session_id: str, path: str) -> None:
-	if path not in _iface_seen(session_id):
-		with _iface_marker(session_id).open('a', encoding='utf-8', newline='\n') as f:
-			f.write(path + '\n')
 
 
 def was_read(session_id: str, raw: str) -> bool:
 	"""Whether `raw` names an interface already read this session, however it is spelled.
 
-	WHY THIS ARM EXISTS, AND WHY THE QUESTION CANNOT BE ASKED IN SHELL. read/pre-read.sh used to
-	answer it with `grep -qxF`, comparing three spellings of one file: this module writes
-	`C:\\Users\\...` (Path.resolve), the hook payload arrives as `c:\\Users\\...`, and the
-	`readlink -f` in between produced `c:/Users/...`. None matched, so the gate blocked every
-	source read and reading the interface -- the thing its own message promised would unlock it --
-	could never satisfy it. A gate that can only block is the mirror of one that can only pass.
+	WHY THE QUESTION CANNOT BE ASKED IN SHELL. read/pre-read.sh used to answer it with `grep -qxF`,
+	comparing three spellings of one file: this side writes `C:\\Users\\...` (Path.resolve), the hook
+	payload arrives as `c:\\Users\\...`, and the `readlink -f` in between produced `c:/Users/...`.
+	None matched, so the gate blocked every source read and reading the interface -- the thing its
+	own message promised would unlock it -- could never satisfy it. A gate that can only block is
+	the mirror of one that can only pass.
 
 	The CONTEXT.md chain gate never had this defect for one reason: both of its ends are Python and
-	call the same normalisation. So the bug is not Windows, it is the shell/Python boundary, and
-	the fix is to move the comparison to the side that owns the marker rather than to spell the
-	path more carefully on the other. `_normalise` is used by the writer directly below.
+	call the same normalisation. So the bug is not Windows, it is the shell/Python boundary, and the
+	fix is to move the comparison to the side that owns the marker rather than to spell the path more
+	carefully on the other. That side is now hook_input, beside the CONTEXT.md marker it mirrors.
 	"""
-	return _normalise(raw) in _iface_seen(session_id)
-
-
-def _normalise(raw: str) -> str:
-	try:
-		return str(Path(raw).resolve())
-	except OSError:
-		return raw
+	return normalise(raw) in load_iface_seen(session_id)
 
 
 def main() -> int:
@@ -70,12 +45,12 @@ def main() -> int:
 	raw = str(tool_input.get('file_path', ''))
 	if not raw:
 		return 0
-	path = _normalise(raw)
+	path = normalise(raw)
 	if Path(raw).name in ('CONTEXT.md', 'SPEC.md'):
 		if path not in load_seen(session_id):
 			mark_seen(session_id, path)
 	elif raw.endswith(IFACE_SUFFIXES):
-		_record_iface(session_id, path)
+		mark_iface_seen(session_id, path)
 	return 0
 
 

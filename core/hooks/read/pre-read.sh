@@ -82,7 +82,16 @@ else
 	if ! sh "$RUN" hooks/feature_law.py --enabled interface-first-reads; then
 		exit 0
 	fi
-	printf "⛔ READ INTERFACE FIRST — %s\n   Interface is current. Read it instead of the source:\n   %s\n   It has all public signatures without implementation noise.\n   (Reading the interface unlocks the source for this session.)\n" "$file" "$iface" >&2
+	# NAME THE WHOLE SET, NOT THIS GATE'S SLICE. context-gate.py fires on the same Read, also exits
+	# 2, and the harness reports only whichever lands first -- measured 2026-09-01, both blocking on
+	# one payload and one message surfacing. So a message naming only the stub sends the agent back
+	# for the CONTEXT.md chain on the NEXT turn: five tool calls to read one file, two of them pure
+	# retries. Asked of the gate that owns the chain, on the blocking branch only, so the subprocess
+	# never lands on the per-Read path.
+	chain=$(sh "$RUN" hooks/read/context-gate.py --missing-chain "$sid" "$file" 2>/dev/null)
+	printf "⛔ READ INTERFACE FIRST — %s\n   Read these first, in ONE parallel batch, then retry:\n" "$file" >&2
+	[ -n "$chain" ] && printf "%s\n" "$chain" | sed 's/^/   /' >&2
+	printf "   %s   <- interface; all public signatures without implementation noise\n   (Reading the interface unlocks the source for this session.)\n" "$iface" >&2
 	exit 2
 fi
 

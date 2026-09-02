@@ -150,11 +150,11 @@ the test existed to guard.
 | `facade/facade-scan.py` | PreToolUse: Write (new files in `code/`) | **Informs** — prints the exports the target module's facade already declares, warns if that list is empty |
 | `facade/facade-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Blocks** edits to a `code/` module file until the nearest facade was Read this session |
 | `facade/facade-tracker.py` | PostToolUse: Read | Records facade reads, consumed by `facade-gate.py` |
-| `read/context-gate.py` | PreToolUse: Read, Edit, Write, Grep, NotebookEdit | **Blocks** file access until the target subtree's `CONTEXT.md` chain was Read this session. Session-deduped; `CONTEXT.md`/`AGENTS.md` targets exempt |
+| `read/context-gate.py` | PreToolUse: Read, Edit, Write, Grep, NotebookEdit | **Blocks** file access until the target subtree's `CONTEXT.md` chain was Read this session; on a Read the message also names the current stub, so one batch clears both read gates. Session-deduped; `CONTEXT.md`/`AGENTS.md` targets exempt |
 | `read/bash-context-gate.py` | PreToolUse: Bash | **Blocks** Bash commands naming workspace files in subtrees whose chain is unread — this is what closes the `cat`/`grep` bypass |
 | `checks/heredoc-gate.py` | PreToolUse: Bash | **Warns, never blocks** — a heredoc writing a workspace file (`cat >`/`tee`) meets none of the `Edit\|Write` gates. Silent for stdin-to-an-interpreter, which writes nothing |
 | `compact/bash-compact-rewrite.py` | PreToolUse: Bash | **Rewrites, never blocks** — sends every line of a multi-line command through rtk, which parses line 1 only; delegates any payload it cannot split safely |
-| `read/pre-read.sh` | PreToolUse: Read | **Blocks** reading a source file while its interface is current; warns when the interface is stale. Reading the interface unlocks the source for the session |
+| `read/pre-read.sh` | PreToolUse: Read | **Blocks** reading a source file while its interface is current, naming the unread `CONTEXT.md` chain alongside it — both read gates exit 2 on one Read and the harness reports only the first, so each names the whole set; warns when the interface is stale. Reading the interface unlocks the source for the session |
 | `read/context-tracker.py` | PostToolUse: Read | Records `CONTEXT.md` reads and interface reads — the state both gates above consume |
 | `read/spec-read-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Blocks** editing a spec-locked module (`CONTEXT.md` `> spec:` + `SPECS.md` `status: locked`) until its `SPECS.md` was Read this session; nudges on new files in spec-less `code/` modules |
 | `read/agent-context.py` | PreToolUse: Agent, SubagentStart | **Induces, never blocks** — hands a spawned worker the `>` line of each subtree its prompt names |
