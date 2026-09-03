@@ -9,7 +9,7 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/context-gate.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/read/context-gate.py"
             }
           ]
         },
@@ -19,12 +19,12 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/bash-context-gate.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/read/bash-context-gate.py"
             },
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/checks/heredoc-gate.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/checks/heredoc-gate.py"
             }
           ]
         },
@@ -34,27 +34,27 @@
             {
               "type": "command",
               "timeout": 60,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/checks/pre-edit.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/checks/pre-edit.py"
             },
             {
               "type": "command",
               "timeout": 60,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/facade/facade-scan.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/facade/facade-scan.py"
             },
             {
               "type": "command",
               "timeout": 60,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/facade/facade-gate.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/facade/facade-gate.py"
             },
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/checks/issues-gate.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/checks/issues-gate.py"
             },
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/spec-read-gate.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/read/spec-read-gate.py"
             }
           ]
         },
@@ -64,7 +64,7 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/pre-read.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/read/pre-read.py"
             }
           ]
         },
@@ -74,7 +74,7 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/agent-context.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/read/agent-context.py"
             }
           ]
         }
@@ -86,7 +86,7 @@
             {
               "type": "command",
               "timeout": 120,
-              "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/post-edit.sh"
+              "command": "bash ${ZCODE_PROJECT_DIR}/core/hooks/post-edit.sh"
             }
           ]
         },
@@ -96,12 +96,12 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/facade/facade-tracker.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/facade/facade-tracker.py"
             },
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/context-tracker.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/read/context-tracker.py"
             }
           ]
         }
@@ -112,7 +112,7 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/context-meter.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/context-meter.py"
             }
           ]
         }
@@ -124,7 +124,7 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/precompact-wipe.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/precompact-wipe.py"
             }
           ]
         },
@@ -133,27 +133,27 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/session-prune.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/session-prune.py"
             },
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/git/branch_marker.py record"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/git/branch_marker.py record"
             },
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/mirror-heal.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/mirror-heal.py"
             },
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/inbox-nudge.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/inbox-nudge.py"
             },
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/compass-nudge.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/compass-nudge.py"
             }
           ]
         }

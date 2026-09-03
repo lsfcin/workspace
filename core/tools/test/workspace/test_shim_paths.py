@@ -37,9 +37,12 @@ SHIMS = {
         re.compile(r'["\']((?:[A-Za-z0-9_-]+/)+[A-Za-z0-9_-]+\.(?:py|sh))["\']'),
     ),
     # Direct registration, no adapter: both configs spawn canonical scripts through
-    # core/run, which resolves this clone's interpreter. `${CLAUDE_PROJECT_DIR}` is expanded
+    # core/run, which resolves this clone's interpreter. The project-dir variable is expanded
     # by the harness, so the same string is correct on every machine and neither file is rewritten
-    # at install time. ZCode's registration is additionally inert until workspace trust — see
+    # at install time. Each config names its own harness's spelling — `${CLAUDE_PROJECT_DIR}` in
+    # the claude shim, `${ZCODE_PROJECT_DIR}` in the zcode shim (documented synonyms, so either
+    # would expand, but the registration should not wear another harness's name). ZCode's
+    # registration is additionally inert until workspace trust — see
     # core/experiments/zcode-hook-protocol.md — but the paths it names must resolve regardless.
     #
     # `.claude/settings.json` was NOT in this table until 2026-08-28, and that gap is why it could
@@ -55,7 +58,7 @@ SHIMS = {
     ),
     'zcode': (
         [WORKSPACE_ROOT / '.zcode/config.json'],
-        re.compile(r'\$\{CLAUDE_PROJECT_DIR\}/core/run ([A-Za-z0-9_./-]+\.(?:py|sh))'),
+        re.compile(r'\$\{ZCODE_PROJECT_DIR\}/core/run ([A-Za-z0-9_./-]+\.(?:py|sh))'),
     ),
     'antigravity': (
         [HOOKS / 'antigravity/antigravity_policy.py'],
