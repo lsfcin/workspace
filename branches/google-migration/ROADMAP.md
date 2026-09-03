@@ -9,7 +9,8 @@ Goal (o porquê e as decisões ainda abertas):
 
 ### academy/
 - [ ] cv/ ← Professional/Curriculo/
-- [ ] talks/ ← Professional/Geral/Talks/
+- [x] talks/ ← Professional/Geral/Talks/ — 34 pastas, 92 arquivos, conferidos dos dois lados antes
+  de mandar `Talks/` para a lixeira do cin (2026-09-03)
 - [ ] classes/programacao-1/_material ← UFRPE/Disciplinas/P1/
 - [ ] classes/programacao-2/_material ← UFRPE/Disciplinas/P2/
 - [ ] classes/projeto-interdisciplinar-1/_material ← UFRPE/Disciplinas/PI1/

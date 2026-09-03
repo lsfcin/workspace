@@ -4,7 +4,7 @@
 Abre com o paradoxo da realidade perfeita ("e se…") e fecha numa oficina ao vivo em que as equipes
 repensam os próprios projetos. Deck no Drive pessoal, `academy/talks/2026-09 - RVA p_ Chico (CIn)/`.
 
-O deck **carrega as duas versões**: 166 slides de trabalho, um divisor `SKIPPED —`, e os 140
+O deck **carrega as duas versões**: 179 slides de trabalho, um divisor `SKIPPED —`, e os 140
 originais de março/2026 intactos atrás dele. Nada foi destruído para caber no relógio.
 
 <!-- routing:start -->
