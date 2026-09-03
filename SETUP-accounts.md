@@ -1,8 +1,8 @@
 # Setup — outside accounts
 > Everything that reaches a service off this machine: web search, the shared Google OAuth behind six
-> tools, the Forms API's separate project, and the Telegram capture bridge. Four of the five need a
-> human for one browser action, and each says exactly which one.
-> feature: web-search, google-auth, forms, telegram-capture
+> tools, the Forms API's separate project, the Telegram capture bridge, and the CIn VPN. Five of the
+> six need a human for one browser action or one password, and each says exactly which one.
+> feature: web-search, google-auth, forms, telegram-capture, vpn-cin
 > enforced-by: core/tools/test/workspace/test_setup_executable.py
 
 The five-part contract, and the rule for what the agent hands over: [`SETUP.md`](SETUP.md). Secrets
@@ -108,5 +108,56 @@ systemctl --user enable --now aiwbot
 
 **Verify** — send a message from the paired chat and confirm the entry lands in `brain/INBOX.md`;
 `journalctl --user -u aiwbot -n 50` if it does not.
+
+## VPN do CIn
+> feature: `vpn-cin` · agent: no
+
+IKEv2 through strongSwan to `vpn.cin.ufpe.br`, full tunnel, parameters from
+[the CIn helpdesk](https://helpdesk.cin.ufpe.br/servicos/conectividade/vpn) § IKEv2 → Linux Manual
+— the PET *Manual de Sobrevivência* is stale and only points there, and
+`/redes/vpn` (L2TP, PPTP) is retired. **`network-manager-l2tp` must stay uninstalled**, the
+helpdesk's own first cause of "connects but does not browse". The tunnel carries IPv4 only, so the
+dispatcher blackholes IPv6 while it is up; without it every AAAA site is reached from the local
+address and institutional access is silently not recognised.
+
+**Needs you:** the CIn domain password, typed into the NetworkManager prompt. Nothing stores it —
+`password-flags=2` asks every time and this file carries only the label. The account is Active
+Directory: **stop after two failed attempts** and reset at <https://account.cin.ufpe.br>, because a
+locked account and a wrong password fail identically and guessing is what locks it.
+
+**Precondition** `nmcli -g NAME connection show | grep -qx VPN-CIn`
+
+**Install**
+```bash
+sudo apt install -y network-manager-strongswan libstrongswan-extra-plugins libcharon-extra-plugins
+nmcli connection add type vpn con-name VPN-CIn ifname '*' vpn-type strongswan autoconnect no \
+  ipv4.method auto ipv6.method disabled ipv4.ignore-auto-dns yes \
+  ipv4.dns '172.21.2.151,172.21.2.152,172.21.2.153' \
+  ipv4.dns-search 'cin.ufpe.br,windows.cin.ufpe.br'
+for kv in address=vpn.cin.ufpe.br method=eap user=lsf virtual=yes encap=no ipcomp=no \
+          proposal=yes ike=aes256-sha256-modp2048 esp=aes256-sha256-modp2048 password-flags=2; do
+  nmcli connection modify VPN-CIn +vpn.data "$kv"
+done
+sudo tee /etc/NetworkManager/dispatcher.d/90-vpn-cin-ipv6 >/dev/null <<'EOF'
+#!/bin/sh
+# The CIn VPN tunnels IPv4 only; without this, IPv6 leaves on the local address.
+[ "$CONNECTION_ID" = "VPN-CIn" ] || exit 0
+case "$2" in
+  vpn-up)   ip -6 route replace blackhole ::/0 metric 1 ;;
+  vpn-down) ip -6 route del blackhole ::/0 metric 1 2>/dev/null || true ;;
+esac
+EOF
+sudo chmod 0755 /etc/NetworkManager/dispatcher.d/90-vpn-cin-ipv6
+```
+
+**Verify** — `nmcli --ask connection up VPN-CIn`, then all three:
+```bash
+curl -4 -s https://ifconfig.me            # 150.161.2.x, reverse Net-ExtVPN-extIP.cin.ufpe.br
+getent hosts virtualdisk.cin.ufpe.br      # 172.21.2.20 — internal name resolves
+curl -6 -s --max-time 5 https://ifconfig.me || echo "IPv6 blocked — correct"
+```
+`journalctl -u NetworkManager -n 80 | grep -iE 'charon|eap|ike'` names a failure:
+`AUTHENTICATION_FAILED` is the password, an `IKE_SA` retransmit is the provider blocking UDP
+500/4500 — then `nmcli connection modify VPN-CIn +vpn.data encap=yes`.
 
 <!-- steps:end -->

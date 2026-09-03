@@ -133,6 +133,7 @@ rtk-compaction	hooks	automatic	rtk-compaction	none	general	core/hooks/compact/ba
 web-search	tools	on-demand	web-search	none	general	core/tools/web/search	One entrypoint every agent calls for search, resolving its own backend, so picking a search CLI is a maintenance burden inside one script instead of in every agent's prompt
 google-auth	tools	on-demand	google-auth	none	lucas	core/tools/auth/gauth.py	Shared OAuth2 for every Google-backed tool: mail, calendar, files and slides
 forms	tools	on-demand	forms	none	lucas	core/tools/forms/gforms	A form is written as a versioned JSON spec and applied in one call, so the questions live in the workspace and its answers come back as text instead of a spreadsheet nobody reads
+vpn-cin	tools	on-demand	vpn-cin	none	lucas	-	The CIn internal network reachable from anywhere as one NetworkManager profile, so a machine rebuild replays a step instead of researching the helpdesk again
 mail-triage	tools	on-demand	-	none	lucas	core/tools/mail/gmail	Reads a mailbox and classifies it into workspace routes, so email arrives as INBOX entries rather than as a second queue
 notes-notion	tools	on-demand	-	none	lucas	core/tools/notes/notion	Pages and note databases read as navigable text
 latex	hooks+tools	automatic	latex	blocks	general	core/hooks/commit/gates.py,core/tools/paper/papers	Everything this workspace does with a paper: search and text extraction, the .texif scaffolding, and the term-consistency check that blocks a paper commit whose vocabulary drifted
