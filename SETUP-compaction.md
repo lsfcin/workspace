@@ -65,6 +65,23 @@ printf '%s' '{"hook_event_name":"PreToolUse","tool_name":"Bash","session_id":"pr
 # expect: cd core / rtk git status / rtk ls -la  — lines 2 and 3 are what raw rtk drops
 ```
 
+## RTK — ZCode registration
+> feature: `rtk-compaction` · agent: yes
+
+Same shim, same exactly-once rule, ZCode's **user scope** (`~/.zcode/cli/config.json` → `hooks`).
+User scope, not the workspace's `.zcode/config.json`: project-scope ZCode hooks stay inert until the
+workspace is trusted (`core/experiments/zcode-hook-protocol.md`), while user-scope ones run — and the
+exactly-once rule from [`core/hooks/compact/SPECS.md`](core/hooks/compact/SPECS.md) is about scope
+merging, not about Claude.
+
+**Precondition** `grep -c bash-compact-rewrite ~/.zcode/cli/config.json` — one match when done.
+
+**Install** — the Claude PATCH above, pointed at `~/.zcode/cli/config.json`, with `enabled: true`
+nested in `hooks` (configuration-file hooks require it) and the same replace-not-append Bash entry.
+
+**Verify** — the same end-to-end probe as the Claude section; expect `split-rewrote` in the
+`/tmp/claude_rtk_compact_probe.tsv` counter. Config alone proves nothing.
+
 ## RTK — other agents
 > feature: `rtk-compaction` · agent: yes
 
