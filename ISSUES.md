@@ -28,6 +28,24 @@ of investigation per occurrence, which is the same silent-failure shape
 Restored 2026-08-31: a session deleted this section without a fix or a regression spec, which the
 FIXED gate forbids — deletion is a status flip like any other.
 
+## B5 — the zcode probe registrations are staged and must come out after the post-trust probe
+
+**Symptom:** `.zcode/config.json` carries two temporary entries — `zcode/probe.sh` on the no-matcher
+SessionStart list and `zcode/probe-deny.sh` under a `WebFetch` matcher — registered so the first
+session after workspace trust is granted measures what ZCode actually delivers to a hook
+(variable expansion, stdin schema, whether a plain-text exit-2 reason reaches the agent).
+
+**Why it matters:** they are instruments, not gates. The deny probe **blocks every WebFetch** in the
+workspace once trust lands, and the dump probe writes to `/tmp/zcode_probe/` on every session start;
+both are noise the moment their measurement is in.
+
+**Fix:** run one trusted session (accept the trust prompt, trigger one WebFetch), then: remove both
+probe entries from `.zcode/config.json`, empty `/tmp/zcode_probe/` into
+[`core/experiments/zcode-hook-protocol.md`](core/experiments/zcode-hook-protocol.md), write the
+measured answers into `.zcode/SPECS.md` § Unverified assumptions, and flip this to FIXED — the
+regression spec is the probe's own removal being visible in `git log`. Staged 2026-09-03
+(`feature/zcode-wiring`).
+
 ## b20260831-scattered-ledgers-never-push
 
 **Symptom:** committing in the workspace repo makes the ledger scatter write and **commit** a

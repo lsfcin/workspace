@@ -64,8 +64,11 @@ Event differences vs Claude Code, and how they are covered:
   spelling, documented as a synonym of `${CLAUDE_PROJECT_DIR}`); never measured on this machine,
   since no hook has ever fired. The probe dump verifies it.
 
-Probe instruments for that re-run: `core/hooks/zcode/probe.sh`, `probe-deny.sh` (register the deny
-on a sacrificial matcher, e.g. `WebFetch`, temporarily).
+Both probe instruments are **staged in `config.json` already** — `probe.sh` rides the no-matcher
+SessionStart list, `probe-deny.sh` sits alone under a sacrificial `WebFetch` matcher — so the first
+trusted session measures variable expansion, stdin schema and exit-2 delivery in one pass. They are
+temporary: the first post-trust session removes both registrations and writes the measured answers
+into the list above ([`ISSUES.md`](../ISSUES.md) B5 tracks that).
 
 ## Skills mirror — `skills/`
 

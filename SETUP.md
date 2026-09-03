@@ -44,7 +44,7 @@ for an install step; they are not steps and have no probes.
 | Feature | Why nothing is needed |
 |---|---|
 | Claude Code hooks | `.claude/settings.json` is in the repo; Claude Code reads it when the workspace is opened, and `core/hooks/` activates immediately |
-| ZCode hooks | `.zcode/config.json` is in the repo and ZCode reads it at every session start — but project-scope hooks stay **inert until the workspace is trusted in the client** (one-time, per machine; `agent: no` — open the workspace in ZCode and accept the trust prompt). Until then zcode enforces nothing at edit time; the git gates still fire |
+| ZCode hooks | `.zcode/config.json` is in the repo and ZCode reads it at every session start — but project-scope hooks stay **inert until the workspace is trusted in the client** (one-time, per machine; `agent: no` — open the workspace in ZCode and accept the trust prompt; until then each session warns "workspace hook(s) pending review; disabled for this session"). Until trust lands, zcode enforces nothing at edit time; the git gates still fire, and the rtk shim still runs from ZCode's user scope ([`SETUP-compaction.md`](SETUP-compaction.md)) |
 | opencode policy plugin | `.opencode/plugins/workspace-policy.js` is a project-level plugin, auto-loaded from the workspace root. Helpers live in `.opencode/wp-helpers.js`, outside `plugins/` so opencode does not load them as a second plugin |
 | Antigravity hooks | `.agents/hooks.json` is in the repo; Antigravity / Gemini reads it on startup and delegates lifecycle events to `core/hooks/antigravity/antigravity_policy.py` |
 | Copilot hook registration | `.github/hooks/workspace-policy.json` and `.github/hooks/rtk-rewrite.json` are inert config files until Copilot itself is installed |
