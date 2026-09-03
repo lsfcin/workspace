@@ -70,7 +70,7 @@ workspace.
 checkout mid-flight and your commit lands on *their* branch, auto-pushed there. **The branch reads
 correct at session start**, which is why no start-of-session check can catch it.
 
-[`git/branch-marker.sh`](git/branch-marker.sh) records the branch at `SessionStart` and the
+[`git/branch_marker.py`](git/branch_marker.py) records the branch at `SessionStart` and the
 pre-commit path warns when HEAD no longer matches. Three properties carry the design: **warn, never
 block**, because a deliberate mid-session switch is legitimate; **warn once per divergence**, since a
 warning that repeats after being understood is one people learn to skip; and **one marker per repo,
@@ -158,7 +158,7 @@ the test existed to guard.
 | `read/context-gate.py` | PreToolUse: Read, Edit, Write, Grep, NotebookEdit | **Blocks** file access until the target subtree's `CONTEXT.md` chain was Read this session; on a Read the message also names the current stub, so one batch clears both read gates. Session-deduped; `CONTEXT.md`/`AGENTS.md` targets exempt |
 | `read/bash-context-gate.py` | PreToolUse: Bash | **Blocks** Bash commands naming workspace files in subtrees whose chain is unread — this is what closes the `cat`/`grep` bypass |
 | `checks/heredoc-gate.py` | PreToolUse: Bash | **Warns, never blocks** — a heredoc writing a workspace file (`cat >`/`tee`) meets none of the `Edit\|Write` gates. Silent for stdin-to-an-interpreter, which writes nothing |
-| `compact/bash-compact-rewrite.py` | PreToolUse: Bash | **Rewrites, never blocks** — sends every line of a multi-line command through rtk, which parses line 1 only; delegates any payload it cannot split safely |
+| `compact/bash-compact-rewrite.py` | PreToolUse: Bash — registered **once, at user scope** (`~/.claude/settings.json`, `~/.zcode/cli/config.json`; never a project file — see `compact/SPECS.md` § where the shim is registered) | **Rewrites, never blocks** — sends every line of a multi-line command through rtk, which parses line 1 only; delegates any payload it cannot split safely |
 | `read/pre-read.py` | PreToolUse: Read | **Blocks** reading a source file while its interface is current, naming the unread `CONTEXT.md` chain alongside it — both read gates exit 2 on one Read and the harness reports only the first, so each names the whole set; warns when the interface is stale. Reading the interface unlocks the source for the session |
 | `read/context-tracker.py` | PostToolUse: Read | Records `CONTEXT.md` reads and interface reads — the state both gates above consume |
 | `read/spec-read-gate.py` | PreToolUse: Edit, Write (`code/` files) | **Blocks** editing a spec-locked module (`CONTEXT.md` `> spec:` + `SPECS.md` `status: locked`) until its `SPECS.md` was Read this session; nudges on new files in spec-less `code/` modules |

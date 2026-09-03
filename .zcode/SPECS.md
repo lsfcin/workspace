@@ -13,15 +13,21 @@ What this must satisfy — the canonical gates, the shim contract, the coverage 
 
 ## Hook registration — `config.json`
 
-Direct registration (the 2A shape): `config.json` points at the canonical `core/hooks/*` scripts
-with **absolute paths**, mirroring `.claude/settings.json` one-to-one. No adapter script, no second
-copy of a rule — ZCode's hook protocol matches Claude Code's closely enough (events, matchers on
-tool names, stdin JSON, exit 2 = block) that the canonical scripts are spawned as-is. ZCode reads
-this file on every session start in the workspace.
+Direct registration (the 2A shape): every command in `config.json` is
+`sh ${ZCODE_PROJECT_DIR}/core/run hooks/<script>` — the canonical `core/hooks/*` scripts, spawned
+through `core/run` so the interpreter is never spelled (see that file's header for why), mirroring
+`.claude/settings.json` one-to-one. No adapter script, no second copy of a rule — ZCode's hook
+protocol matches Claude Code's closely enough (events, matchers on tool names, stdin JSON,
+exit 2 = block) that the canonical scripts are spawned as-is. ZCode reads this file on every session
+start in the workspace. The variable is ZCode's own spelling, a documented synonym of
+`${CLAUDE_PROJECT_DIR}`; a ZCode registration should not wear Claude's name.
 
-**⚠ PENDING TRUST (measured 2026-08-21, see the experiment):** project-scope hooks are read and
-parsed but stay **inert** until the workspace is trusted in the ZCode client — a one-time
-`agent: no` action per machine, recorded in `SETUP.md`. Until then this registration blocks nothing.
+**⚠ PENDING TRUST (measured 2026-08-21, re-measured 2026-09-03, see the experiment):** project-scope
+hooks are read and parsed but stay **inert** until the workspace is trusted in the ZCode client — a
+one-time `agent: no` action per machine; until then every session shows "workspace hook(s) pending
+review; disabled for this session". The rtk compaction shim is unaffected: it rides ZCode's
+**user scope** (`~/.zcode/cli/config.json`, [`SETUP-compaction.md`](../SETUP-compaction.md)), which
+has no trust gate.
 
 ### Event → script mapping
 
@@ -36,7 +42,7 @@ parsed but stay **inert** until the workspace is trusted in the ZCode client —
 | PostToolUse `Read` | same | `facade/facade-tracker.py`, `read/context-tracker.py` |
 | UserPromptSubmit | same | `session/context-meter.py` |
 | SessionStart `^compact$` | **PreCompact** | `session/precompact-wipe.py` |
-| SessionStart (no matcher) | SessionStart | `session/session-prune.py`, `git/branch-marker.sh record`, `session/inbox-nudge.py`, `session/compass-nudge.py` |
+| SessionStart (no matcher) | SessionStart | `session/session-prune.py`, `git/branch_marker.py record`, `session/mirror-heal.py`, `session/inbox-nudge.py`, `session/compass-nudge.py` |
 
 Event differences vs Claude Code, and how they are covered:
 
@@ -54,8 +60,9 @@ Event differences vs Claude Code, and how they are covered:
 - whether a plain-text stdout reason on exit 2 reaches the agent (the 2A-vs-adapter decision
   criterion — if it does not, an adapter `core/hooks/zcode/zcode-hook.py` replaces the direct
   registration)
-- `${CLAUDE_PROJECT_DIR}` template expansion (unused here: absolute paths, like
-  `.claude/settings.json`)
+- `${ZCODE_PROJECT_DIR}` template expansion — every command here now names it (ZCode's own
+  spelling, documented as a synonym of `${CLAUDE_PROJECT_DIR}`); never measured on this machine,
+  since no hook has ever fired. The probe dump verifies it.
 
 Probe instruments for that re-run: `core/hooks/zcode/probe.sh`, `probe-deny.sh` (register the deny
 on a sacrificial matcher, e.g. `WebFetch`, temporarily).
