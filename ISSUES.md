@@ -28,13 +28,6 @@ of investigation per occurrence, which is the same silent-failure shape
 Restored 2026-08-31: a session deleted this section without a fix or a regression spec, which the
 FIXED gate forbids — deletion is a status flip like any other.
 
-## b5-zcode-probe-registrations-removed — FIXED
-
-The probes measured their one trusted session (2026-09-04) and left the same session: the
-registration is clean, the findings live in
-[`core/experiments/zcode-hook-protocol.md`](core/experiments/zcode-hook-protocol.md) and
-`.zcode/SPECS.md` § Measured answers.
-
 ## b20260831-scattered-ledgers-never-push
 
 **Symptom:** committing in the workspace repo makes the ledger scatter write and **commit** a
