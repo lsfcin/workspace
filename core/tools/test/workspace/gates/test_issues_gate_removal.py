@@ -30,3 +30,14 @@ def test_a_b19_spec_does_not_pay_b1s_debt(tmp_path):
     out = edit_issue(tmp_path, issues, old=B1_SECTION, new='')
     assert out.returncode == 2, out.stdout + out.stderr
     assert 'b1' in out.stderr
+
+
+def test_a_fixed_flip_with_a_spec_passes(tmp_path):
+    # fixed_ids used to return whole heading lines (FIXED_RE had no capture group), and a whole
+    # heading can never match a spec filename -- every flip blocked forever, spec or no spec.
+    # Found 2026-09-04 by the first real flip (B5).
+    issues = repo_with(tmp_path, SECTION)
+    spec_file(tmp_path, 'b7-the-bug-is-gone.py')
+    out = edit_issue(tmp_path, issues, old=SECTION,
+                     new='## b7-the-bug-is-gone — FIXED\n\nThe measurement lives elsewhere.\n')
+    assert out.returncode == 0, out.stderr

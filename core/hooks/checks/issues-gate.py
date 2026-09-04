@@ -14,7 +14,10 @@ import feature_law  # noqa: E402
 from hook_input import parse_stdin
 
 BUG_ID_RE = re.compile(r'^##\s+(b[\w-]+)', re.IGNORECASE | re.MULTILINE)
-FIXED_RE = re.compile(r'^##\s+b[\w-]+\b[^\n]*\bFIXED\b', re.IGNORECASE | re.MULTILINE)
+# The capture group is load-bearing: findall returns whole heading lines without one, and a whole
+# heading can never match a spec filename — every FIXED flip would block forever. Found 2026-09-04
+# by the first flip that used the gate (B5): a valid spec on disk, and the gate still demanded one.
+FIXED_RE = re.compile(r'^##\s+(b[\w-]+)\b[^\n]*\bFIXED\b', re.IGNORECASE | re.MULTILINE)
 SKIP_DIRS = {'.venv', 'node_modules', '__pycache__'}
 
 

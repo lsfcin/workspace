@@ -77,16 +77,6 @@
               "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/read/agent-context.py"
             }
           ]
-        },
-        {
-          "matcher": "WebFetch",
-          "hooks": [
-            {
-              "type": "command",
-              "timeout": 10,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/hooks/zcode/probe-deny.sh"
-            }
-          ]
         }
       ],
       "PostToolUse": [
@@ -164,11 +154,6 @@
               "type": "command",
               "timeout": 30,
               "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/compass-nudge.py"
-            },
-            {
-              "type": "command",
-              "timeout": 10,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/hooks/zcode/probe.sh SessionStart"
             }
           ]
         }

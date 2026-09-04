@@ -9,14 +9,15 @@ no matcher): `core/hooks/zcode/probe.sh` dumps stdin + filtered env + cwd + ppid
 `/tmp/zcode_probe/`; `probe-deny.sh` (plain-text stdout + exit 2) rides a sacrificial
 `WebFetch` matcher. Run the battery in a fresh ZCode session: Read, Bash, Write, Edit, Agent
 (Explore subagent), WebFetch, prompt submit. Measurement = dump files present per event +
-verbatim block text for WebFetch. Re-run after any trust/config change; instruments stay in
-`core/hooks/zcode/`.
+verbatim block text for WebFetch. Re-run after any trust/config change — the instruments were
+deleted after Sonda 2 (done work; restore from git history to re-run).
 
 ## Results
 
 | Date | Run | Hooks fired | WebFetch blocked | Verdict |
 |---|---|---|---|---|
 | 2026-08-21 | Sonda 1 — fresh scheduled session, config created mid-session of another | **0** (`/tmp/zcode_probe/` never created) | no (deny never ran) | config read + parsed, execution blocked by workspace-trust gate |
+| 2026-09-04 | Sonda 2 — trusted session (trust accepted after Sonda 1) | **yes** (probe dump written at session start; canonical gates visibly blocked) | **yes**, plain text verbatim | hooks fire post-trust; direct registration (2A) confirmed |
 
 Run detail (2026-08-21, ZCode 3.8.1):
 
@@ -38,24 +39,41 @@ Run detail (2026-08-21, ZCode 3.8.1):
   scope untested (a user-scope probe config was created for a Sonda 2, then removed without
   running: its WebFetch-deny would block every workspace).
 
+Run detail (2026-09-04, ZCode 3.8.1, trusted):
+
+- SessionStart probe fired at startup: `probe.sh` executed through the expanded
+  `${ZCODE_PROJECT_DIR}` and wrote `/tmp/zcode_probe/000_SessionStart.txt` — variable
+  expansion works, and the env carries **both** spellings (`ZCODE_PROJECT_DIR` and
+  `CLAUDE_PROJECT_DIR`, plus `ZCODE_SESSION_ID`/`CLAUDE_SESSION_ID`).
+- stdin payload measured: flat JSON (not nested), with duplicated camelCase/snake_case keys —
+  `session_id`/`sessionId`, `hook_event_name`/`hookEventName`,
+  `transcript_path`/`transcriptPath` — plus `cwd`, `permission_mode`, `source`, `model`,
+  `traceId`, `turnId`. `session_id` is present, so no PPID fallback is needed;
+  `hook_input.py` tolerates the shape as-is.
+- Exit-2 fidelity: the WebFetch deny probe's plain-text stdout reason
+  (`PROBE-DENY-PLAIN: …`) reached the agent **verbatim** as the tool error. 2A stands —
+  no adapter `zcode-hook.py` is needed.
+- Canonical gates fired under ZCode in the same session: the Read context-gate and the Bash
+  context-gate both blocked exactly as they do under Claude Code; the pre-edit chain fired on
+  the B5 edits themselves, and the SessionStart list (prune, branch marker, mirror-heal,
+  nudges) ran with the probe.
+
 ## What changed
 
-- `.zcode/config.json` now carries the production registration (direct spawns of the
-  canonical `core/hooks/*` scripts, absolute paths, mirroring `.claude/settings.json`) —
-  **inert until the workspace is trusted**; one-time `agent: no` step recorded in
-  `SETUP.md`.
-- `core/hooks/zcode/` holds the probe instruments; `test_shim_paths.py` gained the `zcode`
-  entry (path-resolution check passes).
-- The adapter-vs-direct decision is deferred to the first post-trust run: if plain-text
-  stdout on exit 2 does not reach the agent, `core/hooks/zcode/zcode-hook.py` replaces the
-  direct registration.
+- Direct registration (2A) **confirmed** by Sonda 2: the canonical `core/hooks/*` scripts spawn
+  through `core/run` with `${ZCODE_PROJECT_DIR}`, no adapter was ever needed, and
+  `core/hooks/zcode/` was deleted — done work, git holds the probes.
+- Both probe registrations removed from `.zcode/config.json` (2026-09-04): WebFetch is
+  unblocked and `/tmp/zcode_probe/` stays empty. `.zcode/SPECS.md` § Unverified assumptions
+  holds the three measured answers; ISSUES.md B5 closed as FIXED.
+- `test_shim_paths.py` reads `.zcode/config.json` in SHIMS (2026-08-28-style path check) and
+  `test_port_ratchet.py` dropped the two probe shells when the directory died.
 
 ## Limitations
 
-- No hook has ever executed under ZCode on this machine — payload shape (stdin schema,
-  `session_id` presence), exit-2 message fidelity, and `${CLAUDE_PROJECT_DIR}` expansion
-  are all `—`, measured by nobody. The 2A direct registration rests on documentation plus
-  Claude-Code symmetry, not on a fired hook.
+- Only SessionStart got a probe **dump** — the other events were verified indirectly, by the
+  gates' visible behavior (blocks, nudges), not by payload capture. Per-event stdin for
+  PreToolUse/PostToolUse is assumed Claude-compatible from the SessionStart schema, not dumped.
 - One machine, one ZCode version (3.8.1, Linux); the trust gate's UI wording/flow was not
   observed, only its log signature.
 - Sonda 1 could not separate "config re-read at session start" from "diagnostics emitted per

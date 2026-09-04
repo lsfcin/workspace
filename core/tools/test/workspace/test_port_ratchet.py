@@ -75,8 +75,6 @@ SHELL_ALLOWED = {
     'core/hooks/postedit/sync.sh',              # sourced fragment
     'core/hooks/session/start-session.sh',      # neutral entrypoint, spawned by name
     'core/hooks/copilot/copilot-agent.sh',      # provider shim entrypoint
-    'core/hooks/zcode/probe.sh',                # hook-protocol probe, run by hand
-    'core/hooks/zcode/probe-deny.sh',           # hook-protocol probe, run by hand
 }
 
 

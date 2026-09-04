@@ -41,9 +41,8 @@ SHIMS = {
     # by the harness, so the same string is correct on every machine and neither file is rewritten
     # at install time. Each config names its own harness's spelling — `${CLAUDE_PROJECT_DIR}` in
     # the claude shim, `${ZCODE_PROJECT_DIR}` in the zcode shim (documented synonyms, so either
-    # would expand, but the registration should not wear another harness's name). ZCode's
-    # registration is additionally inert until workspace trust — see
-    # core/experiments/zcode-hook-protocol.md — but the paths it names must resolve regardless.
+    # would expand, but the registration should not wear another harness's name). Trusted
+    # 2026-09-04 and firing — see core/experiments/zcode-hook-protocol.md.
     #
     # `.claude/settings.json` was NOT in this table until 2026-08-28, and that gap is why it could
     # carry twenty commands naming a directory that existed on one machine only. The shim this file

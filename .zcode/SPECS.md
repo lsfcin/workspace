@@ -22,12 +22,11 @@ exit 2 = block) that the canonical scripts are spawned as-is. ZCode reads this f
 start in the workspace. The variable is ZCode's own spelling, a documented synonym of
 `${CLAUDE_PROJECT_DIR}`; a ZCode registration should not wear Claude's name.
 
-**⚠ PENDING TRUST (measured 2026-08-21, re-measured 2026-09-03, see the experiment):** project-scope
-hooks are read and parsed but stay **inert** until the workspace is trusted in the ZCode client — a
-one-time `agent: no` action per machine; until then every session shows "workspace hook(s) pending
-review; disabled for this session". The rtk compaction shim is unaffected: it rides ZCode's
-**user scope** (`~/.zcode/cli/config.json`, [`SETUP-compaction.md`](../SETUP-compaction.md)), which
-has no trust gate.
+**Trusted 2026-09-04 (Sonda 2, see the experiment):** project-scope hooks fire — the probe
+dump, the deny probe and the canonical gates themselves (context-gate, pre-edit chain) all ran
+in the first post-trust session. The rtk compaction shim is unaffected by any of this: it rides
+ZCode's **user scope** (`~/.zcode/cli/config.json`,
+[`SETUP-compaction.md`](../SETUP-compaction.md)), which has no trust gate.
 
 ### Event → script mapping
 
@@ -53,22 +52,20 @@ Event differences vs Claude Code, and how they are covered:
   feature-disabled anyway.
 - Matchers add ZCode's aliases (`ApplyPatch`, `Task`) so renamed tools still hit the gates.
 
-### Unverified assumptions (blocked on trust, re-probe after)
+### Measured answers (Sonda 2, 2026-09-04 — [`core/experiments/zcode-hook-protocol.md`](../core/experiments/zcode-hook-protocol.md))
 
-- stdin payload shape per event (expected Claude-compatible; `hook_input.py` tolerates both nested
-  and flat schemas, and falls back to a PPID-derived session id)
-- whether a plain-text stdout reason on exit 2 reaches the agent (the 2A-vs-adapter decision
-  criterion — if it does not, an adapter `core/hooks/zcode/zcode-hook.py` replaces the direct
-  registration)
-- `${ZCODE_PROJECT_DIR}` template expansion — every command here now names it (ZCode's own
-  spelling, documented as a synonym of `${CLAUDE_PROJECT_DIR}`); never measured on this machine,
-  since no hook has ever fired. The probe dump verifies it.
+- **stdin payload shape**: flat JSON with duplicated camelCase/snake_case keys
+  (`session_id`/`sessionId`, `transcript_path`/`transcriptPath`, `hook_event_name`), plus
+  `cwd`, `permission_mode`, `traceId`, `turnId`. `session_id` present — no PPID fallback;
+  `hook_input.py` tolerates the shape as-is.
+- **Exit-2 fidelity**: a plain-text stdout reason on exit 2 reached the agent **verbatim** —
+  the 2A-vs-adapter criterion is answered; the direct registration stands and the adapter is
+  never built.
+- **`${ZCODE_PROJECT_DIR}` expansion**: confirmed — the probe executed through the expanded
+  path, and the env carries both spellings (`ZCODE_PROJECT_DIR` and `CLAUDE_PROJECT_DIR`).
 
-Both probe instruments are **staged in `config.json` already** — `probe.sh` rides the no-matcher
-SessionStart list, `probe-deny.sh` sits alone under a sacrificial `WebFetch` matcher — so the first
-trusted session measures variable expansion, stdin schema and exit-2 delivery in one pass. They are
-temporary: the first post-trust session removes both registrations and writes the measured answers
-into the list above ([`ISSUES.md`](../ISSUES.md) B5 tracks that).
+The probe instruments that measured this (`core/hooks/zcode/`) were deleted the same session —
+done work; git holds them and the experiment file holds the dump's findings.
 
 ## Skills mirror — `skills/`
 
