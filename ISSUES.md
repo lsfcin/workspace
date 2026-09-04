@@ -176,6 +176,28 @@ route), scoping the scatter assertions to repos that exist locally, or accepting
 per-machine and untracking it. **Lucas's call**, because the third costs the reviewable diff the
 ledger exists to give.
 
+## b20260904-an-interpreter-heredoc-writes-any-file-past-every-edit-gate
+
+**Symptom:** `"$(sh core/run --python)" - <<'PYEOF'` running a script whose body calls
+`Path('ISSUES.md').write_text(...)` edits a tracked file and fires **no** `PreToolUse: Edit|Write`
+hook — not the size gate, not the first-line-comment check, not `issues-gate.py`. Used this way on
+2026-09-04 to delete two bug sections from this file. The specs existed and the gate would have
+allowed it, so nothing was lost; the gate simply never ran.
+
+**Why it matters:** [`core/hooks/checks/heredoc-gate.py`](core/hooks/checks/heredoc-gate.py) exists
+precisely to catch a shell payload that walks past the file gates, and it is the layer that failed.
+Its `targets()` docstring states the exclusion as *"Empty for `python3 - <<'EOF'`, which writes
+nothing"* — and the second half is a claim about redirects being read as a claim about the process.
+A script reaching an interpreter through stdin can write anything the session can.
+
+**Root cause:** the gate spots a write by its **shell syntax** — `>`, `>>`, `tee` — so a write
+performed inside the interpreted body is invisible by construction. The stdin-to-interpreter
+exclusion is deliberate and well argued (44% of heredoc volume here is throwaway analysis, and a
+gate firing on those is a gate that gets turned off), so the fix is **not** to drop it: it is to
+narrow the claim to what the gate can know, and to decide whether an interpreter heredoc naming a
+tracked path in its body earns the same warning. **Lucas's call**, because the cheap version — grep
+the body for a tracked path — reintroduces exactly the false-positive rate the exclusion bought off.
+
 <!-- entropy:start -->
 ## Entropy
 
