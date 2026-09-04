@@ -21,8 +21,8 @@ Estruturada em 5 blocos rítmicos com timebox visível:
 ```
 [00-10 min] Kickoff & Escuta (Dilema real, cena problemática, escuta autêntica)
 [10-15 min] QR Code de Retenção (Abertura do formulário de acompanhamento contínuo)
-[15-55 min] Núcleo Conceitual (1 a 3 tópicos da Árvore Didática: WHY-WHAT-HOW + Ângulos)
-[55-65 min] Síntese & Glossário (Fechamento da árvore, mapa visual e termos novos)
+[15-60 min] Núcleo Conceitual (1 a 3 tópicos da Árvore Didática: WHY-WHAT-HOW + Ângulos)
+[60-65 min] Síntese & Glossário (Fechamento da árvore, mapa visual e termos novos)
 [65-75 min] Gatilho da Prática (Apresentação do alvo e preparação das equipes)
 ```
 
@@ -36,7 +36,7 @@ Estruturada em 5 blocos rítmicos com timebox visível:
    - Serve como incentivo e pontuação extra (bonificação formativa, não punição).
    - **Automação obrigatória:** formulário padronizado gerado via spec (`gforms`), integrado à
      planilha de notas da disciplina para consolidação automática.
-3. **Núcleo Conceitual (35 a 40 min):**
+3. **Núcleo Conceitual (35 a 45 min):**
    - Focado em 1 a 3 tópicos subordinados a um macro-tema do calendário.
    - Cada tópico segue o fluxo **WHY** (por que isso importa/motivação), **WHAT** (o que é /
      semântica raiz), **HOW** (como funciona / aplicação).
@@ -48,11 +48,12 @@ Estruturada em 5 blocos rítmicos com timebox visível:
    - *Formalização:* fórmulas, matemática, pseudo-código ou código-fonte real.
    - *Diagramas:* arquitetura, esquemas relacionais, árvores de fluxo.
    - *Evidência:* dados brutos, benchmarks, estatísticas do mundo real.
-   - *Imagens:* fotografia documental, cenas de impacto.
+   - *Imagens:* fotografia documental, cenas de impacto, ilustração de exemplo.
    - *Animações/Transições:* demonstração passo a passo de estados em sequência.
    - *Casos de Uso:* aplicação direta na indústria ou impacto social.
    - *Experimentação:* mini-teste ou simulação imediata.
-5. **Síntese & Glossário (10 min):** Amarra a árvore didática, revisa visualmente os nós e fixa o
+   - *Dinâmica:* desafio, momento colaborativo ou competitivo, interação social.
+5. **Síntese & Glossário (5 min):** Amarra a árvore didática, revisa visualmente os nós e fixa o
    vocabulário técnico consolidado.
 6. **Gatilho da Prática (10 min):** Apresenta o desafio da próxima aula prática. Os alunos usam
    esses minutos para alinhar papéis, entender o que será pedido e baixar dependências/modelos.
@@ -67,8 +68,8 @@ Estruturada para eliminar desorientação e garantir entrega funcional:
 ```
 [00-10 min] Alvo & Especificação Enxuta (Critério de aceite claro)
 [10-20 min] Modelagem com Contraste (Exemplo bom vs. exemplo ruim ao vivo)
-[20-65 min] Sprints Guiados com Checklist (Execução em etapas com cronômetro)
-[65-75 min] Verificação de Compartilhamento & Fecho (Garantia de acesso e socialização)
+[20-60 min] Ciclos 1 Guiado com Checklist (Execução mínima, garante entendimento)
+[60-75 min] Ciclo 2 com Checklist Iniciado (Tarefa completa, ciclo 1 é base)
 ```
 
 ### Regras dos Blocos Práticos
@@ -82,13 +83,14 @@ Estruturada para eliminar desorientação e garantir entrega funcional:
    - **Modelo (Starter):** repositório base, template de documento, quadro pré-formatado
      (Excalidraw/Notion) ou esqueleto de código.
    - **Roteiro:** guia passo a passo com tempo sugerido por micro-etapa.
-4. **Sprints & Checklist de Verificação:**
-   - Trabalho em blocos de 15 a 20 min com contagem regressiva visível.
+4. **Ciclo 1 & Checklist de Verificação:**
+   - Trabalho em bloco de até 40 min para garantir que os alunos dominam as ferramentas da 
+   atividade extensa/completa (Ciclo 2).
    - **Lista de Verificação (Checklist):** critérios binários (sim/não) para cada etapa.
-5. **Verificação de Compartilhamento:** Obrigatório em todo fechamento. Antes de sair, cada equipe
-   valida o acesso do professor/monitores ao artefato (permissão pública ou link comitado/enviado).
-6. **Fecho (5 a 10 min):** Demonstração relâmpago de 60 segundos de 1 ou 2 equipes (rodízio),
-   visibilizando o progresso e reforçando a autoeficácia da turma.
+5. **Ciclo 2 Iniciado:** 
+   - A partir daqui fica claro pra equipe qual é a missão completa (que não se encerra na aula). 
+   - Se possível sempre usar o ciclo 1 como base. Ou seja, repetindo o ciclo 1 porém com variações, 
+   é possível atingir o resultado completo final.
 
 ---
 

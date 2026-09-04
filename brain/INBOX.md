@@ -9,6 +9,12 @@
 
 <!-- add entries below, newest first -->
 
+https://openai.com/index/gpt-6-astra/
+um dos exemplos do astra é fazer slides, os slides deles são bem melhores que os nossos. definitivamente temos que aprender com eles, é absurda a diferença.
+
+https://www.instagram.com/reel/Dc2TOXhOLOP/?igsi=NTc4MTIwNjQ2YQ==
+será que isso ajuda nos nossos slides?
+
 resolver isso do gcalendar, calendário pessoal deveria ser o novo centralizador, calendário do cin é útil pro pessoal do voxar saber como tá meu horário então.
 
 acabei de rodar uma sessão inteira no opus só pra atualizar uns slides, e apesar da discussão na sessão ser boa o resultado nos slides foi péssimo, acabei pulando tudo que foi feito pela IA. os fluxos, as frases, tudo muito artificial, linguagem muito explicadinha... existe uma diferença grande no meu estilo de slides vs o que a IA gerou, talvez direcionar ela pra produzir em dois caminhos, um é o que será as notas de apresentador e outro são os slides em si, que ao meu ver servem de guia visual, de provocação e não de leitura. as imagens ficaram bem ruins também, pequenas, mal espaçadas, o texto por vezes ficava um por cima do outro, e pequenos também... enfim, design não é o forte e descobrimos mais uma vez essa limitação...
