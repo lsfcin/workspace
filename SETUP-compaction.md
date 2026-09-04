@@ -76,8 +76,25 @@ merging, not about Claude.
 
 **Precondition** `grep -c bash-compact-rewrite ~/.zcode/cli/config.json` — one match when done.
 
-**Install** — the Claude PATCH above, pointed at `~/.zcode/cli/config.json`, with `enabled: true`
-nested in `hooks` (configuration-file hooks require it) and the same replace-not-append Bash entry.
+**Install** — idempotent; creates the file if absent, replaces the `Bash` entry rather than appending:
+```bash
+"$(sh core/run --python)" - <<'PATCH'
+import json, pathlib
+p = pathlib.Path.home() / '.zcode' / 'cli' / 'config.json'
+d = json.loads(p.read_text()) if p.exists() else {}
+shim = f'sh {pathlib.Path.cwd()}/core/run hooks/compact/bash-compact-rewrite.py'
+hooks = d.setdefault('hooks', {})
+hooks['enabled'] = True
+pre = hooks.setdefault('PreToolUse', [])
+entry = next((e for e in pre if e.get('matcher') == 'Bash'), None)
+if entry is None:
+    pre.append({'matcher': 'Bash', 'hooks': [{'type': 'command', 'command': shim}]})
+else:
+    entry['hooks'] = [{'type': 'command', 'command': shim}]
+p.parent.mkdir(parents=True, exist_ok=True)
+p.write_text(json.dumps(d, indent=2) + '\n')
+PATCH
+```
 
 **Verify** — the same end-to-end probe as the Claude section; expect `split-rewrote` in the
 `/tmp/claude_rtk_compact_probe.tsv` counter. Config alone proves nothing.
