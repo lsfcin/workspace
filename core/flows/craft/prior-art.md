@@ -48,8 +48,8 @@ AI assistant) recognizes the lineage:
   ever-growing skill library of executable code." /craft has environment feedback (Loop 4b green/red) and execution
   errors (attempt logs); its **two gaps vs. Voyager** = (a) *separate-context* self-verification (currently Loop 5 is
   same-model re-running e2e — see [`craft.md`](craft.md) § Field Practice) and (b) cross-run **skill library** —
-  patterns die with their `.craft/<slug>/` file. Closing both is [`craft.md`](craft.md) § Second-opinion verifier + Loop
-  6.5.
+  patterns die with their `.craft/<slug>/` file. Closing both is
+  [`craft-ship.md`](craft-ship.md) § Second-opinion verifier.
 
 Open industry-frontier references: Anthropic — "Best practices for Claude Code"
 (<https://www.anthropic.com/engineering/claude-code-best-practices>); Cognition — "Don't Build Multi-Agents" (Yan, 2025

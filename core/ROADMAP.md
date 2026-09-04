@@ -36,9 +36,9 @@ are gone and a goal file with prose after its block is in the brain tests.
 
 **🟡 `/roundup` ends by asking for something it could have proposed inside the plan**
 *What* — one fewer round-trip per session. *Why* — Lucas suggested it and flagged it himself:
-*"é só uma ideia, avaliar antes de implantar."* *Done when* — evaluated against AGENTS.md § one
-action: a closing message naming the next session's close names a second action, so the honest
-version may belong in the plan template rather than in roundup's last line.
+*"é só uma ideia, avaliar antes de implantar."* *Done when* — evaluated against the one-action rule
+for agent-facing text: a closing message naming the next session's close names a second action, so
+the honest version may belong in the plan template rather than in roundup's last line.
 
 **🟢 a `gslides frames` command — the capability question is already answered**
 *What* — one command taking an element, start and end positions, a frame count and an easing,

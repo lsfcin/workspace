@@ -64,8 +64,8 @@ Run detail (2026-09-04, ZCode 3.8.1, trusted):
   through `core/run` with `${ZCODE_PROJECT_DIR}`, no adapter was ever needed, and
   `core/hooks/zcode/` was deleted — done work, git holds the probes.
 - Both probe registrations removed from `.zcode/config.json` (2026-09-04): WebFetch is
-  unblocked and `/tmp/zcode_probe/` stays empty. `.zcode/SPECS.md` § Unverified assumptions
-  holds the three measured answers; ISSUES.md B5 closed as FIXED.
+  unblocked and `/tmp/zcode_probe/` stays empty. `.zcode/SPECS.md` § Measured answers
+  holds the three of them; the B5 section left ISSUES.md behind its regression spec.
 - `test_shim_paths.py` reads `.zcode/config.json` in SHIMS (2026-08-28-style path check) and
   `test_port_ratchet.py` dropped the two probe shells when the directory died.
 

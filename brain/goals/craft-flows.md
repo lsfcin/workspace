@@ -38,7 +38,7 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 > + 4 subtrees (padaria/feature/research/architecture); mapa em `core/flows/craft/TREE.md`. Feature subtree = SDD
 > contract-first (painel de permissão no Loop 0, Loop 3.5 Contract Layout, revisão de simetria de conceitos no Loop
 > 3).  
-> [x] [craft-flows] executar os 8 passos de `core/ROADMAP.md` § craft-flows — DONE 2026-07-23: passos 1–6 (renomeação
+> [x] [craft-flows] executar os 8 passos do item craft-flows de `core/ROADMAP.md` — DONE 2026-07-23: passos 1–6 (renomeação
 > loop→flow + `flows/craft/` + goal→`craft-flows.md`; `sota` redefinido; `scout uses: sota`; template canônico; guarda
 > de DAG no `validate_flows`). passo 7 (split do monolito `craft.md` em craft/routing/runtimes/prior-art) e passo 8
 > (suite caveman trazida pra dentro do workspace em `core/skills/caveman/`, links globais via
@@ -130,5 +130,5 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: advancing  ·  touches: 39/60/96/96/96/96
+last-touch: 2026-09-04  ·  trend: advancing  ·  touches: 57/80/116/116/116/116
 <!-- stats:end -->

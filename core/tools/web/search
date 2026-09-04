@@ -4,7 +4,7 @@
 #   2. ddgr  — zero-key fallback; also used when Exa errors out (bad key, quota, network)
 # Exa-only flags (--type, --since, --domains, --content) are silently ignored when the
 # ddgr backend is in use. Set --backend exa|ddgr to force one (errors propagate instead
-# of falling back). See SETUP.md §12.
+# of falling back). See SETUP-accounts.md § Web search.
 import argparse, json, os, shutil, subprocess, sys, urllib.request, urllib.error, pathlib
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
@@ -53,7 +53,7 @@ def _exa(query, n, stype, since, domains, content):
 
 def _ddgr(query, n, region):
     if not shutil.which('ddgr'):
-        raise RuntimeError('ddgr not installed (apt install ddgr — see SETUP.md §12)')
+        raise RuntimeError('ddgr not installed (apt install ddgr — see SETUP-accounts.md § Web search)')
     max_retries = int(os.environ.get('WEB_RETRIES', '5'))
     last_err = None
     out = ''

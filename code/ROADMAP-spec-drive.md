@@ -60,7 +60,8 @@ The gates above guard the *output*. The *authoring workflow* that produces spec-
 `SPEC.md` + interface stubs + a type-matched connection graph *before* any code (checked by
 `core/tools/spec-contract-check`), with an optional human sign-off configured in the Loop 0 permission
 panel. A `feature` run is therefore what *fills the ratchet* — each shipped module leaves a locked spec.
-Git Flow is enforced alongside (`.hooks/gitflow-gate.sh`, pre-commit 1e; see `SPECS.md` § Git Flow).
+Git Flow is enforced alongside (`core/hooks/git/gitflow_gate.py`, pre-commit 1e; see
+`SPECS-git.md` § Git Branching).
 
 ## Phases
 

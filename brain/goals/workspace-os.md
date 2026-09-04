@@ -76,7 +76,7 @@ before judging them, and the knowledge graph, which is its own front and needs r
 sitting. Neither belongs at the end of a drain session. Put one on the calendar; do not squeeze it.
 
 The genuinely free move, when you want the number to fall without spending judgment: open
-[/ROADMAP.md](../../ROADMAP.md) § Sequencing, take the mechanical list, and hand it to a sonnet
+[/ROADMAP.md](../../ROADMAP.md), take the mechanical items, and hand them to a sonnet
 session. The ledger's length is the measure, and those items shorten it without you in the loop.
 
 **Known risk — dataset with no live backup:** `datasets/relativistic_raytracer` (5.8 GB) is the sole
@@ -96,7 +96,7 @@ fallback · iterate — MVP can always be extended*
 
 ## backlog
 
-> [ ] [v1] the four-criterion gate — see [/ROADMAP.md](../../ROADMAP.md) § v1 definition of done  
+> [ ] [v1] the four-criterion gate — see [/ROADMAP.md](../../ROADMAP.md)  
 > [ ] [mvp-validate] use the system daily for 30 days, then assess: does it reduce mental load? By definition post-v1 —
 > this is the achievement v1 exists to make measurable  
 > [ ] [daily-use] the practical layer actually gets used — TODO redesign, dashboard freshness, mobile capture (ROADMAP §
@@ -120,8 +120,8 @@ fallback · iterate — MVP can always be extended*
 > fecha pedindo *plan*, não *continue*  
 > [ ] [security-gates] decidir quais dos 20 itens da checklist pré-lançamento viram gate de verdade para os projetos que
 > vão pro ar (gira, voti, ppc) — vários já cobertos (secret-scan no pre-commit, skill `security-review`); o que sobra é
-> auth server-side, RLS, rate-limit e headers, que nenhum gate nosso vê. Ref em `core/refs/REFS.md` § Shipping
-> an agent-written app (INBOX 2026-08-13)  
+> auth server-side, RLS, rate-limit e headers, que nenhum gate nosso vê. Ref em `core/refs/REFS.md`,
+> na linha sobre shipping de app escrito por agente (INBOX 2026-08-13)  
 > [ ] [jcode-custo] averiguar o JCode — reimplementação em Rust do harness do Claude Code, com multi-agente no mesmo
 > projeto; duas perguntas separadas, e a segunda vale mais: (1) a ferramenta presta? (2) é mesmo o harness que deixa
 > tudo caro, ou o custo é do modelo? — a (2) dá pra medir aqui sem instalar nada, comparando tokens de scaffolding vs
@@ -147,5 +147,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-01  ·  trend: advancing  ·  touches: 340/472/492/492/492/492
+last-touch: 2026-09-04  ·  trend: advancing  ·  touches: 395/527/547/547/547/547
 <!-- stats:end -->

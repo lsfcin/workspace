@@ -85,6 +85,31 @@ def _deliberately_absent(root: Path, targets: list) -> set:
     return {name for name in done.stdout.split('\0') if name}
 
 
+def check_separators(root: Path, memory_dir: Path) -> list:
+    """Link targets spelled with a backslash — the host's separator, published as content.
+
+    A markdown separator is `/` on every operating system, and nothing checked that a generator
+    knows it. Two did not: `workspace_meta.interface_for` formatted a `Path`, so regenerating any
+    routing table on Windows wrote `](auth\\gauth.pyi)` into a TRACKED CONTEXT.md, and
+    `render_command` rebased every command link with `os.path.relpath`, publishing 16 dead links
+    across 5 files. Both were found by accident, because the machine that authored them spells the
+    separator the way markdown wants and reads its own output as correct.
+
+    THIS ONE READS RAW TEXT, unlike check_pointers. `_strip_fences` drops the routing block, and
+    the routing block is exactly where a generator writes — stripping first would make the check
+    blind to the case that motivated it.
+    """
+    failures = []
+    for path in _structural_files(root, memory_dir):
+        for link in LINK_RE.findall(path.read_text(encoding="utf-8")):
+            if "\\" in link:
+                failures.append(
+                    f"{path}: link target spells the host's separator -> {link}\n"
+                    f"   A markdown separator is `/` everywhere. If a generator wrote this,\n"
+                    f"   fix it there with `as_posix()` — never by editing the table.")
+    return failures
+
+
 def check_pointers(root: Path, memory_dir: Path) -> list:
     """Return a list of human-readable broken-pointer messages (empty = clean)."""
     failures, missing = [], []

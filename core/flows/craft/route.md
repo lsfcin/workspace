@@ -26,7 +26,7 @@ Ask the user only what you cannot infer. Assign exactly one subtree:
 
 | Subtree | Choose when | Shape (why it's distinct) | Flow file |
 |---|---|---|---|
-| `padaria` | ≤2 files, existing pattern in the repo covers it, fully revertible, criticality low/normal | no ceremony — one session does plan+code+ship | `craft.md` § Padaria shortcut |
+| `padaria` | ≤2 files, existing pattern in the repo covers it, fully revertible, criticality low/normal | no ceremony — one session does plan+code+ship | `craft-plan.md` § Padaria shortcut |
 | `feature` | build or change a module/feature | contract-first: I/O laid out before code, TDD, ship | [`craft.md`](craft.md) (feature subtree) |
 | `research` | investigate, gather, synthesize, review literature/sources | plan→scale→gather→draft→cite→review→deliver | `core/flows/research/{sota,literature,explore,compare,recipe,replicate,review,summarize,watch,audit}.md` + `core/flows/mechanism-search.md` — pick the closest |
 | `architecture` | choose between designs/patterns/technologies; a decision needing a record | problem→options→trade-offs→decision→ADR | [`architect.md`](architect.md) |

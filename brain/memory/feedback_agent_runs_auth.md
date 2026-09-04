@@ -19,8 +19,8 @@ me and ask me to do only what only I myself can do... write it down so we don't 
 discussion again"*. The second time cost a round trip that the first should have prevented, which
 is the point: the rule is provider-agnostic, not a per-tool detail.
 
-**How to apply:** it is written into the workspace at `core/tools/CONTEXT.md` § *An auth failure
-names its own fix* (provider-agnostic paragraph) and `core/SPECS.md` AD-12, and enforced by
+**How to apply:** it is written into the workspace at `core/tools/SPECS.md` § An auth failure
+names its own fix (provider-agnostic paragraph) and `core/SPECS.md` AD-12, and enforced by
 `core/tools/test/test_notion.py::test_lucas_is_only_ever_asked_for_what_happens_inside_notion`
 — no CLI path may appear above the `AGENT:` line of an instruction. A new provider tool inherits
 this without re-litigating it. Related: [[feedback-provider-agnostic-naming]], [[project-wos-fanout-split]].

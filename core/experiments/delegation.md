@@ -17,7 +17,7 @@ grep -ho '"subagent_type"[: ]*"[a-zA-Z-]*"' *.jsonl | sed 's/.*"\([a-zA-Z-]*\)"$
   | sort | uniq -c | sort -rn                       # spawns by agent type
 ```
 
-The hand-check this instrument owes (`SPECS.md` § build the instrument, then check the instrument):
+The hand-check this instrument owes (`SPECS.md` § The corollary the cost work paid for twice):
 **worker transcripts must equal spawns**, and the per-type counts must sum to the spawn total. Both
 held on the first run — 37 = 37, and 15+12+3+3+3+1 = 37 — so no spawn is unattributed and none is
 double-counted.

@@ -107,29 +107,6 @@ and the two clones are different operating systems with genuinely different feat
 exists and the per-machine one does not. **Lucas's call**, because the alternative — a gitignored
 answers file — costs the reviewable general/Lucas-specific diff the head says it is for.
 
-## b20260901-a-generator-writes-the-hosts-path-separator
-
-**Symptom:** two generators published a Windows path separator into content meant to be read
-anywhere. `core/hooks/routing/workspace_meta.py` § `interface_for` formatted a `Path`, so
-regenerating any routing table here wrote `](auth\gauth.pyi)` into a **tracked** `CONTEXT.md` — a
-file [`test_pointer_integrity.py`](core/tools/test/workspace/test_pointer_integrity.py) checks. And
-`render_command` rebased every command-file link with `os.path.relpath`, so `.claude/commands/`
-carried **16 dead links across 5 files**. Both found 2026-09-01, by the tables rewriting themselves
-during the skills port. Both fixed there, with `as_posix()`.
-
-**Why it stays open as a class:** a markdown link separator is `/` on every operating system, and
-nothing checks that a generator knows it. These two were found by accident — one because an
-unrelated edit regenerated a table, the other because a byte-for-byte equivalence diff was being run
-for a different reason. `render_command`'s own comment says it exists to fix dead relative links,
-and it had been publishing them on this machine since the day it was written, invisibly, because the
-machine that authored the fix spells the separator the way markdown wants.
-
-**Root cause:** unestablished how many other generators format a `Path` into text that leaves the
-machine. The fix is a check that no generated `.md` contains a backslash inside a `](…)` target —
-the one in
-[`test_b20260901_a_mirror_never_reaches_the_machine_that_pulled_it.py`](core/tools/test/workspace/gates/test_b20260901_a_mirror_never_reaches_the_machine_that_pulled_it.py)
-covers `.claude/commands/` only.
-
 ## b20260901-a-source-file-is-crlf-in-a-tree-that-declares-lf
 
 **Symptom:** `core/skills/install.md` is CRLF in this working tree. `.gitattributes` declares
@@ -198,51 +175,6 @@ always the local change, so it costs an investigation each time.
 route), scoping the scatter assertions to repos that exist locally, or accepting that this block is
 per-machine and untracking it. **Lucas's call**, because the third costs the reviewable diff the
 ledger exists to give.
-
-## b20260902-a-section-citation-survives-the-section-moving-away
-
-**Symptom:** sharding `SETUP.md` moved 17 of its 21 steps into siblings. Nine tracked files cited
-those steps as `SETUP.md § <name>`, and every one still pointed at `SETUP.md`, which no longer holds
-them. The suite was green throughout. They were found by grep, by hand.
-
-**Why it matters:** `core/SPECS.md` requires a section be cited by name *because* a number ages
-silently — and the named form ages silently too, in the one operation the workspace has now blessed.
-`test_pointer_integrity.py` checks that `](path)` resolves, so a link whose file exists and whose
-section does not reads as healthy. Two of the nine were a hook's error message and a skill's
-protocol step, so the cost lands on whoever is installing a fresh clone, with no session watching.
-
-**It predates the shard.** A sweep for the same shape found two that have been wrong for longer and
-that nobody noticed: `core/tools/test/wos/test_deps.py` sends the reader to `SETUP.md § Workspace
-path` in two error messages, and that section was **deleted 2026-08-29**; `core/tools/web/`'s
-routing row says `SETUP.md §12`, a *numbered* citation `core/SPECS.md` forbids outright. Neither is
-a one-line fix — the first should name `core/run`, and the second lives in the tool's first-line
-comment where the generator reads it — so both are recorded here rather than guessed at.
-
-**Root cause:** nothing parses the `§` half of a citation. The check is cheap and the corpus is
-small — for every `<FILE> § <Section>` in a tracked `.md`, assert `<FILE>` has that `##` heading —
-and the sharded types (`SCHEMA.md`, `SETUP.md`, and whichever law file the open ruling shards next)
-are exactly where it pays.
-
-## b20260902-core-run-reads-any-two-letters-sh-as-a-shebang
-
-**Symptom:** `core/run tools/files/gdrive list ...` fails with `gdrive: 2: import: not found` and
-`Syntax error: "(" unexpected` — the shell complaining about Python. Every `gdrive` subcommand is
-affected, from every caller. Found while reading the Drive folder of a class deck.
-
-**Root cause:** [`core/run`](core/run) sniffs the interpreter by matching the target's first line
-against `case "$first_line" in *bash*) ... *sh*)`. That is a **substring** test on the whole line,
-not a shebang test. `gdrive`'s first line is a comment listing its subcommands, one of which is
-**`share`** — which contains `sh` — so the file is handed to `sh`. The `*bash*` arm has the same
-hole, and any tool whose first-line comment happens to contain those letters inside a word is one
-rename away from the same failure.
-
-**Why it matters:** the error message names the wrong layer entirely. It reads as a broken Python
-file, and nothing in it points at `core/run` — so the cost is paid in diagnosis, by whoever next
-calls a tool whose description mentions sharing, shell, publishing or a dozen other ordinary words.
-
-**Fix:** match a real shebang — the line must start with `#!` and the interpreter is its last path
-segment — rather than testing the line for two letters anywhere. The regression spec is cheap: a
-fixture whose first line is a comment containing `share`, asserted to run under Python.
 
 <!-- entropy:start -->
 ## Entropy

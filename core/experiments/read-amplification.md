@@ -104,4 +104,4 @@ is filed in [`/ROADMAP.md`](../../ROADMAP.md).
 - **The first run of this instrument was wrong, and its own test caught it** — `'ROADMAP.md'.isupper()`
   is `False`, so every ledger read was filed under `prose` and the most expensive file in the
   workspace hid inside the largest bucket. The numbers above are the corrected run; the discipline
-  that produced the check is [`SPECS.md`](SPECS.md) § build the instrument, then check it.
+  that produced the check is [`SPECS.md`](SPECS.md) § The corollary the cost work paid for twice.

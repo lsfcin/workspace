@@ -63,12 +63,35 @@ for py in "$root/.venv/bin/python3" "$root/.venv/Scripts/python.exe"; do
         echo "core/run: no venv script named $1 -- see core/tools/deps.txt" >&2
         exit 1
     fi
+    # A SHEBANG, NEVER TWO LETTERS ANYWHERE ON THE LINE. This matched `*bash*` and `*sh*` against
+    # the whole first line, so any tool whose opening comment happened to contain those letters
+    # inside an ordinary word was handed to `sh`. `gdrive` and `gdocs` both list `share` among
+    # their subcommands, so every one of their calls died with `import: not found` and a syntax
+    # error the shell blamed on Python -- an error naming the wrong layer entirely, with nothing
+    # in it pointing back here. The interpreter is the LAST PATH SEGMENT of a real `#!` line, and
+    # `#!/usr/bin/env bash` names it one word further on.
     target_path="$root/core/$target"
     if [ -f "$target_path" ]; then
         first_line=$(head -n 1 "$target_path" 2>/dev/null || true)
         case "$first_line" in
-            *bash*) exec bash "$target_path" "$@" ;;
-            *sh*)   exec sh "$target_path" "$@" ;;
+            '#!'*)
+                shebang=${first_line#\#!}
+                shebang=${shebang# }
+                interp=${shebang%% *}
+                interp=${interp##*/}
+                if [ "$interp" = env ]; then
+                    rest=${shebang#* }
+                    interp=${rest%% *}
+                    interp=${interp##*/}
+                fi
+                # Anything else -- python3 included -- falls through to the venv interpreter
+                # below, which is the point: a Python target runs under THIS clone's venv, never
+                # under whatever `python3` its own shebang happens to name.
+                case "$interp" in
+                    bash)    exec bash "$target_path" "$@" ;;
+                    sh|dash) exec sh "$target_path" "$@" ;;
+                esac
+                ;;
         esac
     fi
     exec "$py" "$root/core/$target" "$@"

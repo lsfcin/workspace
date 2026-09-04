@@ -122,5 +122,5 @@ defect.** Rewriting it a third time would have failed the same way; the tool lea
 
 So a tool that a skill *requires* is designed batch-first: many arguments or a file to read them
 out of, one block of output per item, a summary line naming the failures, and **no item's failure
-ends the run**. This is `AGENTS.md` § *agent-facing text names one action* pointed at the tool
-rather than at the text — the text can only name one action if the tool offers one.
+ends the run**. This is the one-action rule for agent-facing text pointed at the tool rather than
+at the text — the text can only name one action if the tool offers one.

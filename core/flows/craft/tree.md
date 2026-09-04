@@ -9,7 +9,7 @@
 ```
 /craft <task>
    └── route.md  ── classify by TYPE + criticality ──►
-         ├── padaria       tiny, revertible change            → craft.md § Padaria shortcut
+         ├── padaria       tiny, revertible change            → craft-plan.md § Padaria shortcut
          ├── feature        build/change a module              → craft.md  (contract-first SDD)
          ├── research       investigate / gather / synthesize  → research/sota · research/literature · research/explore · research/compare · … (research/* flows)
          └── architecture   choose between designs             → architect.md  (→ ADR record)
@@ -19,7 +19,7 @@
 
 | Subtree | Distinct shape (why it's its own branch) | Flow | Durable output |
 |---|---|---|---|
-| **padaria** | no ceremony — one session plans+codes+ships | `craft.md` § Padaria | commit |
+| **padaria** | no ceremony — one session plans+codes+ships | `craft-plan.md` § Padaria shortcut | commit |
 | **feature** | contract-first: panel → contracts before code → TDD → ship | `craft.md` | shipped code + module `SPEC.md` |
 | **research** | plan→scale→gather→draft→cite→review→deliver | `core/flows/research/*` flows | research brief + provenance |
 | **architecture** | problem→options→trade-offs→decision→record | `architect.md` | ADR entry in `SPECS.md` |
@@ -62,5 +62,5 @@ content. The four here are distinct shapes. A fifth needs the same bar and an en
 
 Designed 2026-07-18 (session extending the SDD enforcement rollout). The tree unifies work previously tracked as
 `[skill-tree]` and `[research-loops]` in the craft-flows goal. Prior art for the pipeline lineage
-(Reflexion/LATM/Voyager) is in `craft.md` § Prior Art; the industry parallel for the feature subtree is GitHub Spec Kit
+(Reflexion/LATM/Voyager) is in `prior-art.md` § Prior Art; the industry parallel for the feature subtree is GitHub Spec Kit
 / Kiro (spec → clarify → plan → tasks → implement).

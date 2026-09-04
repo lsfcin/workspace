@@ -24,7 +24,8 @@ chain into the `feature` subtree with this ADR as an input constraint.
 - Directory: `<project>/.craft/<decision-slug>/`. Files append-only. Carry block copied verbatim between steps (same
   discipline as the feature subtree).
 - The **durable output** is an ADR entry, NOT the `.craft/` trail: by default a new `### <NNNN> <Decision>` subsection
-  under `SPECS.md` § Architecture Decisions (the template already defines that structure); for a large/standalone
+  under the project's own `SPECS.md`, in its Architecture Decisions section (the scaffold in
+  [`code/_templates/SPECS.md`](../../../code/_templates/SPECS.md) already defines it); for a large/standalone
   decision, a `docs/adr/<NNNN>-<slug>.md` file instead. `.craft/<decision-slug>/` is deleted on record unless
   `keep-trail: yes`.
 
@@ -55,7 +56,8 @@ OK (or redirection) before recording; else proceed.
 
 ## Step A4 — Record (ADR)  ·  **Output:** the durable ADR + `4-record.md`
 
-Write the decision record. Default target: append to the project `SPECS.md` § Architecture Decisions:
+Write the decision record. Default target: append to the project's own `SPECS.md`, under its
+Architecture Decisions section:
 
 ```markdown
 ### <NNNN> <Decision title>

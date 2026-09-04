@@ -6,7 +6,7 @@ Run from the parent directory: `python3 -m scripts <absolute-filepath>`.
 
 Third-party code synced from upstream — attribution in [`../CONTEXT.md`](../CONTEXT.md). It
 **complies with workspace rules** like first-class code: there is **no `.vendor` exemption** (one
-was tried and rejected — see `../CONTEXT.md` § Local adaptations #2), so these files were **split to
+was tried and rejected — see `../SPECS.md` § Local adaptations), so these files were **split to
 satisfy the size gate**, not exempted from it. Record any re-split there so the next upstream re-sync
 can diff. This package is package-shaped (`__init__.py`), so it carries **no generated `.pyi` stubs** —
 they are upstream re-diff noise, and `stubgen` mangles them into a nested `scripts/scripts/` path
