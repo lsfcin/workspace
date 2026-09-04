@@ -12,5 +12,7 @@
 
 | File | Description |
 |------|-------------|
-| [`SPECS.md`](SPECS.md) | Metodologia raiz para aulas teóricas e práticas — contrato pedagógico para o professor e agentes. |
+| [`SPECS-aulas.md`](SPECS-aulas.md) | Contrato de planejamento e auditoria para aulas teóricas e práticas (nível micro). |
+| [`SPECS-disciplinas.md`](SPECS-disciplinas.md) | Metodologia macro semestral de condução, ciclos de projeto, avaliação e acompanhamento. |
+| [`SPECS.md`](SPECS.md) | O que deve ser verdade em toda aula teórica ou prática e em toda condução de disciplina. Contrato de planejamento e auditoria para o professor e agentes (Antigravity, Claude Code, etc.). |
 <!-- routing:end -->
