@@ -66,10 +66,28 @@ o formato.
 (`metodologia-aulas-sonnet.md`, `-gemini.md`, `-opus.md`, e
 [`-contraste.md`](../drafts/metodologia-aulas-contraste.md)). As três convergiram sozinhas em oito
 pontos — esse núcleo é o achado. O contraste corta de cada uma e propõe uma versão de **8 blocos**,
-menor que qualquer uma das três. Falta só confrontar com o estado real das duas disciplinas antes
-de promover pra `academy/teaching/`.
-> [ ] [pesquisa-que-falta] gamificação séria (sem infantilizar), specs/contract grading, mecanismos de avaliação por
-> pares com propriedades verificáveis, e venues de publicação alcançáveis por graduandos em um semestre  
+menor que qualquer uma das três.
+
+**A pesquisa que faltava foi feita em 2026-09-03**, com 15 fontes revisadas por pares em
+`academy/refs/REFS.md` e a leitura de decisão em `outputs/metodologia-disciplinas-sota.md` (o
+estado real das duas disciplinas, as opções e o contraste com a proposta do Gemini ficam nos
+arquivos irmãos; o relato em `brain/drafts/metodologia-disciplinas-pesquisa.md`). **O achado que
+muda o desenho: a grade de XP já existe** — a planilha intergrupos do TE roda desde 2024.1 uma
+rubrica de 6 missões × 3 critérios em `A/AP/NA`, e ninguém a vê; o AI4Good não tem grade nenhuma.
+**Decidido:** painel só o dono vê (expor trabalho excelente do colega causa desistência, e o
+mecanismo do estudo é avaliação por pares — que é a VA1 do TE). **Ainda em aberto**, com número na
+mesa: mecânica do XP, ordem da capacitação, e o rótulo `VA1`, que mede coisas diferentes nas duas
+disciplinas e por isso bloqueia o modelo comum.
+> [ ] [folha-ai4good] a VA2 do AI4Good não tem folha de banca e a do TE tem; banca estruturada
+> α=.75–.80 contra α=.50 solta. Rascunho pronto em `outputs/ai4good-folha-de-avaliacao.md` — decidir
+> pesos, escala (o TE usa três níveis no grid de pares e quatro na banca) e se vira formulário  
+> [ ] [refs-no-teto] `academy/refs/REFS.md` está em 197 de 200 linhas; a próxima captura não cabe.
+> Candidato a corte: a seção de reels do topo, cuja prosa longa duplica as tarefas já pareadas aqui  
+> [ ] [gforms-token] token do `gforms` da conta `personal` expirou — reconsentimento abre navegador
+> na máquina de Lucas; bloqueia ler a folha de pitch como spec e alimentar painel sem digitação  
+> [ ] [planilha-canonica] duas cópias da planilha de pares do TE com o mesmo nome (`16iG7bh…` está
+> linkada no Notion e recebe respostas; `1sEtJuf7…` está na pasta da disciplina). Declarar a canônica
+> antes de qualquer painel ler dela; o Miro ainda vive dentro dos decks de Missão  
 
 > [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from
 > the animation entries in `core/refs/REFS.md` (claude-code+remotion, Claude Code UI-animation skills).
@@ -142,5 +160,5 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-02  ·  trend: advancing  ·  touches: 42/62/62/62/62/62
+last-touch: 2026-09-02  ·  trend: advancing  ·  touches: 43/63/63/63/63/63
 <!-- stats:end -->

@@ -152,3 +152,46 @@ candidatos foram avaliados pelo *trabalho* que fazem, não pela estética.
   **prototipação**, não à de problema.
 - [Abstract (Netflix), episódios livres no YouTube](https://www.youtube.com/watch?v=q_k8fVNzbGU) — **46m49s**. Longo
   demais para aula; material de casa.
+
+## Avaliação de disciplina: gamificação, nota, pares e painel (2026-09-03)
+
+Todas revisadas por pares; o veículo em cada linha é o que diz o peso. Leitura de decisão:
+`outputs/metodologia-disciplinas-sota.md`.
+
+- [Sailer & Homner — Gamification of Learning: a Meta-analysis](https://doi.org/10.1007/s10648-019-09498-w) — *Educ
+  Psych Review* 2020. g=.49 cognitivo, .36 motivacional, .25 comportamental. **Competição com colaboração** modera.
+- [Li, Hew & Du — Gamification, motivação intrínseca e competência](https://doi.org/10.1007/s11423-023-10337-7) —
+  *ETR&D* 2023, N=2500. Autonomia g=.638, vínculo g=1.776, **competência g=.277** — o elo fraco.
+- [Rodrigues et al. — novelty effect e familiarization effect](https://doi.org/10.1186/s41239-021-00314-6) — *IJETHE*
+  2021, **CS1 brasileiro, N=756, 14 semanas**. Curva em U: cai na 4ª semana, volta entre a 6ª e a 10ª.
+- [Rogers & Feller — Discouraged by Peer Excellence](https://doi.org/10.1177/0956797615623770) — *Psychological
+  Science* 2016, N=5.740, MOOC **com avaliação por pares**. Ver a entrega excelente do colega fez desistir do curso.
+- [Sinha & Kapur — Productive Failure](https://doi.org/10.3102/00346543211019105) — *Review of Educ Research* 2021, 53
+  estudos. Resolver **antes** de ensinar bate ensinar antes: g=.36 (.87 corrigido). Inverte para habilidade genérica.
+- [Kalyuga — Expertise Reversal Effect](https://doi.org/10.1007/s10648-007-9054-3) — *Educ Psych Review* 2007. O
+  andaime que ajuda o novato atrapalha quem já sabe: não há "um modo geral" de capacitar, há regra por nível.
+- [Hackerson et al. — Alternative grading in undergraduate STEM: scoping
+  review](https://doi.org/10.1186/s43031-024-00106-8) — *DISER* 2024. Specs/contract/mastery: populares, **evidência
+  de resultado escassa** e sem consenso teórico. Adotar é desenho, não conclusão.
+- [Panadero & Jonsson et al. — Effects of Rubrics: meta-analytic review](https://doi.org/10.1007/s10648-023-09823-4) —
+  *Educ Psych Review* 2023. Desempenho g=.45; **nº de critérios e de níveis não moderou**.
+- [Double, McGrane & Hopfenbeck — Peer Assessment on Academic
+  Performance](https://doi.org/10.1007/s10648-019-09510-3) — *Educ Psych Review* 2020, 54 estudos. g=.31 contra nada e
+  **g=.28 contra a avaliação do professor**.
+- [Falchikov & Goldfinch — Peer and Teacher Marks](https://doi.org/10.3102/00346543070003287) — *Review of Educ
+  Research* 2000, 48 estudos. O par bate com o professor em **julgamento global sobre critérios bem entendidos**.
+- [Abuzied & Nabag — Structured viva: validade e confiabilidade](https://doi.org/10.1186/s12909-023-04524-6) — *BMC Med
+  Educ* 2023. Banca com folha de critérios α=.75–.80; banca solta α=.50.
+- [Paulsen & Lindsay — painéis para o estudante](https://doi.org/10.1007/s10639-023-12401-4) — *Educ Inf Technol* 2024.
+  O painel útil é guiado por teoria de aprendizagem, não por log de LMS.
+- [Kaliisa et al. — Have Learning Analytics Dashboards Lived Up to the
+  Hype?](https://doi.org/10.1145/3636555.3636884) — *LAK '24*. **Localizada, não lida** (dl.acm.org recusa): ler antes
+  de citar.
+- [Cameron, Banko & Pierce — Pervasive negative effects of rewards on intrinsic motivation: the myth
+  continues](https://doi.org/10.1007/BF03392017) — *The Behavior Analyst* 24:1–44, 2001. A fronteira que decide o XP:
+  o dano aparece com recompensa **tangível, prometida antes e frouxamente ligada ao desempenho**; quando é **ligada ao
+  nível atingido**, a motivação intrínseca sobe ou não muda. Contestado por Deci, Koestner & Ryan (1999).
+- [Gorbunova, van Merriënboer & Costley — Are Inductive Teaching Methods Compatible with Cognitive Load
+  Theory?](https://doi.org/10.1007/s10648-023-09828-z) — *Educ Psych Review* 35:111, 2023. Descreve **oito sequências**
+  de problema e instrução e conclui que ao menos seis são compatíveis com carga cognitiva. Tira a pergunta de
+  "qual campo" e põe em "qual sequência, para qual objetivo e qual aluno".
