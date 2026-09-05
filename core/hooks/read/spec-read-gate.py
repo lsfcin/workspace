@@ -9,11 +9,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
-from hook_input import load_seen, parse_stdin
+from hook_input import capability, load_seen, parse_stdin
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 
 CODE_ROOT = WORKSPACE_ROOT / 'code'
-GATED_TOOLS = {'Edit', 'Write'}
 EXEMPT_NAMES = {'CONTEXT.md', 'AGENTS.md', 'CLAUDE.md', 'MEMORY.md', 'README.md'}
 SKIP_PARTS = {'.git', 'node_modules', 'dist', '.codegraph', '__pycache__', '.vscode'}
 SPEC_LINE_RE = re.compile(r'^>\s*spec:\s*(\S.*?)\s*$', re.MULTILINE)
@@ -66,7 +65,7 @@ def main() -> int:
 		return 0  # switched off: a disabled gate does not block, and does not pretend it ran
 	_, tool, tool_input, session_id, _ = parse_stdin()
 	result = 0
-	if tool in GATED_TOOLS:
+	if capability(tool, tool_input) == 'write':
 		raw = str(tool_input.get('file_path', ''))
 		target = Path(raw) if raw else None
 		if target is not None and target.is_absolute():
@@ -81,8 +80,8 @@ def main() -> int:
 		if gated:
 			found = find_spec_module(target)
 			if found is None:
-				if tool == 'Write' and not target.exists():
-					nudge()
+				if not target.exists():
+					nudge()  # a write to a path that is not there yet is a file being created
 			else:
 				module_dir, spec_path, status = found
 				if status == 'optout':

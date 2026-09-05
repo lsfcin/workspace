@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law
 from file_law import FACADES  # noqa: E402
-from hook_input import load_facades, parse_stdin
+from hook_input import capability, load_facades, parse_stdin
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 
 # NOT the file_law CODE set: this is "languages that have a facade convention", a genuinely
@@ -40,7 +40,7 @@ def main() -> int:
 	if not feature_law.is_enabled('facade-discipline'):
 		return 0
 	_, tool, tool_input, session_id, _ = parse_stdin()
-	if tool not in ('Edit', 'Write'):
+	if capability(tool, tool_input) != 'write':
 		return 0
 	file_path = Path(str(tool_input.get('file_path', '')))
 	if 'code' not in file_path.parts:

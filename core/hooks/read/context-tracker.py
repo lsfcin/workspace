@@ -7,7 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
-from hook_input import mark_iface_seen, mark_seen, normalise, parse_stdin
+from hook_input import capability, mark_iface_seen, mark_seen, normalise, parse_stdin
 
 IFACE_SUFFIXES = ('.d.ts', '.pyi', '.dart.api', '.texif', '.csvif')
 
@@ -24,7 +24,7 @@ def main() -> int:
 	if not feature_law.is_enabled('subtree-read-tracking'):
 		return 0  # switched off: nothing is recorded, so the chain gate fires per file again
 	_, tool, tool_input, session_id, _ = parse_stdin()
-	if tool and tool != 'Read':
+	if capability(tool, tool_input) != 'read':
 		return 0
 	raw = str(tool_input.get('file_path', ''))
 	if not raw:

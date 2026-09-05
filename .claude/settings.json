@@ -17,17 +17,12 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Read|Edit|Write|Grep|NotebookEdit",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",
             "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/context-gate.py"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
+          },
           {
             "type": "command",
             "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/bash-context-gate.py"
@@ -35,12 +30,7 @@
           {
             "type": "command",
             "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/checks/heredoc-gate.py"
-          }
-        ]
-      },
-      {
-        "matcher": "Edit|Write",
-        "hooks": [
+          },
           {
             "type": "command",
             "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/checks/pre-edit.py"
@@ -60,12 +50,7 @@
           {
             "type": "command",
             "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/spec-read-gate.py"
-          }
-        ]
-      },
-      {
-        "matcher": "Read",
-        "hooks": [
+          },
           {
             "type": "command",
             "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/pre-read.py"
@@ -84,17 +69,12 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "Edit|Write",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",
             "command": "bash ${CLAUDE_PROJECT_DIR}/core/hooks/post-edit.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Read",
-        "hooks": [
+          },
           {
             "type": "command",
             "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/facade/facade-tracker.py"

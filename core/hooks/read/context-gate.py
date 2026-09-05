@@ -8,18 +8,18 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from chain import EXEMPT_NAMES, SKIP_PARTS, prerequisites
-from hook_input import is_subagent, load_iface_seen, load_seen, parse_stdin
+from hook_input import capability, is_subagent, load_iface_seen, load_seen, parse_stdin
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 
-GATED_TOOLS = {'Read', 'Edit', 'Write', 'Grep', 'NotebookEdit'}
+# The keys a file-touching call names its target with, in the order a payload carries them. Asked
+# instead of a tool-name list (b20260901): a harness may name its file tool anything, and the gate
+# that reads the name is the one that was silently weaker on Windows.
+TARGET_KEYS = ('file_path', 'notebook_path', 'path')
 
 
 def target_path(tool: str, tool_input: dict) -> str:
-	if tool == 'NotebookEdit':
-		return str(tool_input.get('notebook_path', ''))
-	if tool == 'Grep':
-		return str(tool_input.get('path', ''))
-	return str(tool_input.get('file_path', ''))
+	return next((str(tool_input[k]) for k in TARGET_KEYS
+	             if str(tool_input.get(k, '')).strip()), '')
 
 
 def main() -> int:
@@ -34,7 +34,7 @@ def main() -> int:
 	if not feature_law.is_enabled('context-chain'):
 		return 0
 	raw, tool, tool_input, session_id, _ = parse_stdin()
-	if tool not in GATED_TOOLS:
+	if capability(tool, tool_input) not in ('read', 'write'):
 		return 0
 	if is_subagent(raw):
 		return 0
@@ -58,7 +58,8 @@ def main() -> int:
 	# The stub is a prerequisite of a READ and of nothing else: read/pre-read.py matches Read alone,
 	# so demanding one before an Edit would invent a rule no gate enforces. And the law is asked
 	# here rather than inside chain.py, so that module stays the definition and never the registry.
-	gate_interface = tool == 'Read' and feature_law.is_enabled('interface-first-reads')
+	gate_interface = (capability(tool, tool_input) == 'read'
+	                  and feature_law.is_enabled('interface-first-reads'))
 	seen = load_seen(session_id)
 	needed = prerequisites(target, seen, load_iface_seen(session_id), gate_interface)
 	if not needed:

@@ -318,9 +318,19 @@ PostTool (Edit) → bash core/hooks/post-edit.sh
 PostTool (Read) → sh   core/run hooks/facade/facade-tracker.py
 ```
 
-Every canonical hook expects `file_path` (absolute), the `CLAUDE_TOOL_NAME` env var (`"Read"`,
-`"Edit"` or `"Write"`), the JSON payload on **stdin** for pre-hooks and in **`CLAUDE_TOOL_INPUT`** for
-post-hooks, and treats exit code **2** as a hard block with stdout as the message shown to the agent.
+Every canonical hook expects `file_path` (absolute), the JSON payload on **stdin** for pre-hooks and
+in **`CLAUDE_TOOL_INPUT`** for post-hooks, and treats exit code **2** as a hard block with stdout as
+the message shown to the agent.
+
+**Register every hook on every tool, and let each one decide.** A shim that filters by tool name is
+a whitelist, and it goes stale the moment its harness adds a tool — silently, in the direction where
+nothing reports it. That is b20260901: Windows exposes a PowerShell tool beside Bash, `Get-Content`
+met no read gate while `sed` through Bash did, and the enforcement layer was weaker on one operating
+system with nothing saying so. So the matchers are `.*` and the gates ask
+[`hook_input.capability`](hook_input.py) what the call DOES: a payload carrying a command line runs
+one, a payload carrying a path plus new content writes it, a payload carrying only a path reads it.
+`CLAUDE_TOOL_NAME` may still be passed and is no longer read for dispatch by any gate — a new
+harness's tool is covered before we hear it exists.
 
 **A shim must pass a session-stable id** or the markers never dedupe and every gate fires on every
 call. Claude Code takes `session_id` from the stdin JSON; the Copilot shims derive `copilot<host-pid>`.

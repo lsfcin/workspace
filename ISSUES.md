@@ -47,21 +47,6 @@ costed yet: push each scattered ledger from the same hook, or stop committing th
 each repo's own next commit carry its ledger. The second is smaller and matches "one repo, one
 session, one commit"; the first keeps the ledger true the moment it is written.
 
-## b20260901-a-second-shell-tool-walks-past-every-read-gate
-
-**Symptom:** on Windows the harness exposes a PowerShell tool alongside Bash. `Get-Content` on a
-source file with a current stub is **not blocked**, while `sed` on the same file through Bash is —
-`.claude/settings.json` matches `Bash` for the command gate and `Read` for the interface gate, and
-this tool is neither. Found 2026-09-01 by using it.
-
-**Why it matters:** the enforcement layer is the workspace's whole premise, and it is weaker on one
-operating system than the other — silently, and in the direction where nothing reports it. It is the
-same shape as the bare `python3` finding: a gate that reads as installed and never fires.
-
-**Root cause:** the matchers name tools rather than capabilities, and a harness may add a tool. The
-fix is a decision — widen the matchers, or state that the gates are Bash-only and say so where a
-reader will see it.
-
 ## b20260901-a-source-file-is-crlf-in-a-tree-that-declares-lf
 
 **Symptom:** `core/skills/install.md` is CRLF in this working tree. `.gitattributes` declares

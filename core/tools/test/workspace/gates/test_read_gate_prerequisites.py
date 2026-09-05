@@ -46,8 +46,15 @@ def _run(gate: Path, target: Path, session: str, tool: str = 'Read') -> subproce
 	printing ⛔ dies inside its own message on a console codepage that has no such character. A spec
 	that spawns a gate a way nobody spawns it measures a program nobody runs.
 	"""
+	# The payload carries the SHAPE the named tool really sends, because that shape is what the
+	# gates read now — a call with a path and new content writes, one with only a path reads
+	# (b20260901-a-second-shell-tool-walks-past-every-read-gate). A bare file_path under the name
+	# `Edit` is a payload no harness produces, and asserting on one measures nobody's program.
+	tool_input = {'file_path': str(target)}
+	if tool != 'Read':
+		tool_input |= {'old_string': 'a', 'new_string': 'b'}
 	payload = json.dumps({'session_id': session, 'cwd': str(WORKSPACE_ROOT),
-	                      'tool_name': tool, 'tool_input': {'file_path': str(target)}})
+	                      'tool_name': tool, 'tool_input': tool_input})
 	argv = ['sh', str(WORKSPACE_ROOT / 'core/run'), f'hooks/read/{gate.name}']
 	return subprocess.run(argv, input=payload, capture_output=True, text=True,
 	                      check=False, encoding='utf-8', errors='replace')

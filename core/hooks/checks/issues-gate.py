@@ -11,7 +11,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
-from hook_input import parse_stdin
+from hook_input import capability, parse_stdin
 
 BUG_ID_RE = re.compile(r'^##\s+(b[\w-]+)', re.IGNORECASE | re.MULTILINE)
 # The capture group is load-bearing: findall returns whole heading lines without one, and a whole
@@ -65,13 +65,14 @@ def main() -> int:
 	if not feature_law.is_enabled('issues-gate'):
 		return 0  # switched off: a disabled gate does not block, and does not pretend it ran
 	_, tool, tool_input, _, _ = parse_stdin()
-	if tool not in ('Edit', 'Write'):
-		return 0
+	if capability(tool, tool_input) != 'write':
+		return 0  # by capability, never by name — a harness may name its write tool anything
 	file_path = Path(str(tool_input.get('file_path', '')))
 	if file_path.name != 'ISSUES.md':
 		return 0
 
-	if tool == 'Write':
+	# Which SHAPE of write, asked of the payload: whole content, or a patch over what is there.
+	if 'content' in tool_input:
 		new_full = str(tool_input.get('content', ''))
 	else:
 		old_text = str(tool_input.get('old_string', ''))

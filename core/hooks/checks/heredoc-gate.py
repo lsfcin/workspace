@@ -23,7 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
-from hook_input import parse_stdin
+from hook_input import capability, parse_stdin
 from platform_law import rel  # noqa: E402
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
@@ -120,8 +120,8 @@ def main() -> int:
 	if not feature_law.is_enabled('heredoc-gate'):
 		return 0  # switched off: a disabled gate does not block, and does not pretend it ran
 	_raw, tool, tool_input, _session, cwd = parse_stdin()
-	if tool and tool != 'Bash':
-		return 0
+	if capability(tool, tool_input) != 'shell':
+		return 0  # by capability, never by name — a harness may expose a second shell
 	paths = written_paths(str(tool_input.get('command', '')), cwd)
 	if not paths:
 		return 0

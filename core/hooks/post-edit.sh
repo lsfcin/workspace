@@ -13,9 +13,15 @@ RUN="$WORKSPACE_ROOT/core/run"
 PY="$(sh "$RUN" --python)" || exit 0
 
 input_json="${CLAUDE_TOOL_INPUT:-$(cat)}"
-file=$(echo "$input_json" | "$PY" -c \
-	"import sys,json; d=json.load(sys.stdin); ti=d.get('tool_input'); ti=ti if isinstance(ti,dict) else d; print(ti.get('file_path',''))" 2>/dev/null)
+# Capability, not tool name (b20260901): registered on every tool, so a harness that adds one gets
+# the same treatment. `capability` is imported rather than restated -- one definition, in
+# hook_input.py, or this file becomes the copy of the law the law modules exist to prevent.
+meta=$(echo "$input_json" | "$PY" -c \
+	"import sys,json; sys.path.insert(0,'$HOOKS_DIR'); from hook_input import capability; d=json.load(sys.stdin); ti=d.get('tool_input'); ti=ti if isinstance(ti,dict) else d; print(capability(d.get('tool_name',''), ti)); print(ti.get('file_path',''))" 2>/dev/null)
+cap=$(printf '%s' "$meta" | sed -n 1p)
+file=$(printf '%s' "$meta" | sed -n 2p)
 
+[ "$cap" = "write" ] || exit 0
 [ -z "$file" ] || [ ! -f "$file" ] && exit 0
 
 dir=$(dirname "$file")

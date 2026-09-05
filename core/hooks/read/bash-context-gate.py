@@ -9,7 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from chain import context_chain, paths_in
-from hook_input import is_subagent, load_seen, parse_stdin
+from hook_input import capability, is_subagent, load_seen, parse_stdin
 
 HEREDOC = re.compile(r"<<-?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1")
 
@@ -42,7 +42,9 @@ def main() -> int:
 	if not feature_law.is_enabled('context-chain'):
 		return 0
 	raw, tool, tool_input, session_id, cwd = parse_stdin()
-	if tool and tool != 'Bash':
+	# By capability, never by name: a harness may expose a second shell (PowerShell on Windows),
+	# and this gate is the workspace's premise. See hook_input.capability.
+	if capability(tool, tool_input) != 'shell':
 		return 0
 	if is_subagent(raw):
 		return 0

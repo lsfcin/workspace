@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from file_law import CODE_EXTS, EXAMPLE_COMMENT, is_authored, load_limits
-from hook_input import parse_stdin
+from hook_input import capability, parse_stdin
 
 CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml'}
 # parents[3], not [2]: this file is core/hooks/checks/pre-edit.py, so [2] is core/ and every
@@ -40,11 +40,17 @@ def block(*lines):
 
 
 _, tool, data, _, _ = parse_stdin()
+# By capability, never by name (b20260901). The two branches below then ask the PAYLOAD which
+# shape of write this is: whole content, or a patch. A harness naming its tools differently
+# still sends one of those two shapes, and neither branch has ever known the tool's name for
+# any reason but its shape.
+if capability(tool, data) != 'write':
+	sys.exit(0)
 file_path = data.get('file_path', '')
 basename  = os.path.basename(file_path)
 
 # CONTEXT.md: new files must have a description on line 2 (> short description)
-if basename == 'CONTEXT.md' and tool == 'Write' and not os.path.exists(file_path):
+if basename == 'CONTEXT.md' and 'content' in data and not os.path.exists(file_path):
 	lines = data.get('content', '').splitlines()
 	line2 = lines[1].strip() if len(lines) > 1 else ''
 	if not re.match(r'^>\s*\S', line2):
@@ -59,7 +65,7 @@ is_content = ext in CONTENT_EXTS and basename != 'CONTEXT.md'
 if not is_code and not is_content:
 	sys.exit(0)
 
-if tool == 'Write':
+if 'content' in data:
 	content   = data.get('content', '')
 	new_lines = len(content.splitlines())
 	if not os.path.exists(file_path):
@@ -70,7 +76,7 @@ if tool == 'Write':
 			      f"   New files must start with a description.",
 			      f"   Example: {EXAMPLE_COMMENT.get(ext, '# Description')}")
 
-elif tool == 'Edit':
+elif 'new_string' in data:
 	if not os.path.exists(file_path):
 		sys.exit(0)
 	current_lines = len(open(file_path, encoding='utf-8').read().splitlines())

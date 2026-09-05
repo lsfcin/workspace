@@ -47,6 +47,25 @@ def parse_stdin() -> tuple[dict[str, Any], str, dict[str, Any], str, str]:
 	return data, tool, tool_input, session_id, cwd
 
 
+def capability(tool: str, tool_input: dict[str, Any]) -> str:
+	"""What this call DOES — 'shell', 'write', 'read' or 'other' — read from the payload.
+
+	The gates used to name tools. On Windows the harness exposes a PowerShell tool beside Bash, and
+	`Get-Content` on a source file with a current stub walked past every read gate while `sed`
+	through Bash was blocked: the enforcement layer was weaker on one operating system, silently
+	(b20260901). A matcher listing tool names is a whitelist that goes stale the next time a harness
+	adds one, so the question moved to the payload: a call carrying a command line runs one, a call
+	carrying a path plus new content writes it, a call carrying only a path reads it. That stays
+	true of a tool nobody here has met yet."""
+	if str(tool_input.get('command', '')).strip():
+		return 'shell'
+	if not any(str(tool_input.get(k, '')).strip()
+	           for k in ('file_path', 'notebook_path', 'path')):
+		return 'other'
+	writes = any(k in tool_input for k in ('content', 'new_string', 'new_source', 'edits'))
+	return 'write' if writes else 'read'
+
+
 def is_subagent(raw: dict[str, Any]) -> bool:
 	"""True when this hook fired inside a worker rather than the main thread.
 

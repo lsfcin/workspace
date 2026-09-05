@@ -5,12 +5,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from file_law import FACADES  # noqa: E402
-from hook_input import mark_facade, parse_stdin
+from hook_input import capability, mark_facade, parse_stdin
 
 
 def main() -> int:
 	_, tool, tool_input, session_id, _ = parse_stdin()
-	if tool and tool != 'Read':
+	if capability(tool, tool_input) != 'read':
 		return 0
 	file_path = str(tool_input.get('file_path', ''))
 	if Path(file_path).name not in FACADES:

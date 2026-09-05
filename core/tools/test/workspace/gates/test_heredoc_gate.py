@@ -23,10 +23,10 @@ GATE = WORKSPACE_ROOT / 'core/hooks/checks/heredoc-gate.py'
 WS = posix(WORKSPACE_ROOT)
 
 
-def run(command: str, tool: str = 'Bash') -> str:
+def run(command: str, tool: str = 'Bash', tool_input: dict | None = None) -> str:
 	"""The context the gate would inject, or '' when it stays silent."""
 	payload = json.dumps({'tool_name': tool, 'cwd': str(WORKSPACE_ROOT),
-	                      'tool_input': {'command': command}})
+	                      'tool_input': {'command': command} if tool_input is None else tool_input})
 	done = subprocess.run([interpreter(), str(GATE)], input=payload,
 	                      capture_output=True, text=True, encoding='utf-8')
 	assert done.returncode == 0, f'the gate must never block: {done.stderr}'
@@ -78,6 +78,11 @@ def test_the_message_names_one_action():
 	assert message.count('Use ') == 1
 
 
-def test_a_non_bash_tool_is_not_touched():
-	"""Registered on Bash, but a shim may hand it anything; Edit and Write have their own gates."""
-	assert run(f"cat > {WS}/x.md <<'EOF'\nx\nEOF", tool='Write') == ''
+def test_a_call_that_runs_no_command_is_not_touched():
+	"""Registered on every tool since 2026-09-04, so what it declines is a payload shape rather
+	than a name: a write carries a path and content, and Edit and Write have their own gates.
+
+	The name is deliberately not the filter. `Write` carrying a `command` used to be the case
+	here, and it is a payload no harness sends — while `PowerShell` carrying one is exactly what
+	the old name matcher let through (b20260901-a-second-shell-tool-walks-past-every-read-gate)."""
+	assert run('', tool='Write', tool_input={'file_path': f'{WS}/x.md', 'content': 'x'}) == ''

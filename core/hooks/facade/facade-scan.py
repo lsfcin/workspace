@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from hook_input import parse_stdin
+from hook_input import capability, parse_stdin
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 
 FACADE_FOR = {
@@ -27,7 +27,9 @@ FACADE_FOR = {
 }
 
 _, tool, data, _, _ = parse_stdin()
-if tool != 'Write':
+# By capability, never by name. An Edit is a write too, and is filtered a line below by the
+# file already existing — this hook is about a file being CREATED beside a facade.
+if capability(tool, data) != 'write':
     sys.exit(0)
 
 file_path = Path(data.get('file_path', ''))
