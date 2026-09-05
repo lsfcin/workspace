@@ -5,10 +5,12 @@ Companion to [`CONTEXT.md`](CONTEXT.md), which routes into this directory. Split
 the head crossed `CONTEXT_HEAD_WARN`: rationale is a contract, and `CONTEXT.md` is the only
 enforced-read type, so it is charged to every session in the subtree (`core/SCHEMA.md` § Placement).
 
-## Why stderr is the whole subject of `test_gate_messages.py`
+## Why stderr is the whole subject of `test_b4_gate_messages.py`
 
 A `PreToolUse` exit-2's stderr is fed back to the model and its stdout is dropped, so a gate printing
-to stdout blocks with no reason attached and reads as "No stderr output".
+to stdout blocks with no reason attached and reads as "No stderr output". That was B4, and this file
+carries the id because the FIXED gate matches a bug to a spec by **filename** — the proof already
+existed under a name that did not name it, which is a fix nobody could close.
 
 ## Why `test_subagent_gate.py` exists
 
