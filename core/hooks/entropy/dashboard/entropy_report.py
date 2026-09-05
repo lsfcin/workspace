@@ -96,9 +96,17 @@ def render(findings: dict, scanned: int, root, name: str = '', trend: str = '') 
            f'**{total} findings here**{trend}', '',
            '| Check | Findings |', '|-------|----------|']
     out += [f'| {title} | {len(findings[key])} |' for key, title, _ in SECTIONS]
+    out += ['', '*A check with no findings is the `0` in that table and nothing more. Only a check '
+            'with something to show gets a section below.*']
+    # A CLEAN CHECK GOT A SECTION UNTIL 2026-09-05, and it was the bulk of this file: 17 of the 23
+    # sections said "Clean." under a heading and a restated note, ~102 lines repeating a table row
+    # that already said 0. That is the shape core/hooks/SPECS.md forbids one layer up — a report
+    # whose biggest part is not a problem teaches its reader to stop reading it — and it hid the
+    # answer to "why is ISSUES.md 300 lines when five bugs are open?" behind a generated block.
     for key, title, note in SECTIONS:
         items = findings[key]
+        if not items:
+            continue
         out += ['', f'### {title}', '', f'*{note}*', '']
-        out += ['Clean.'] if not items else [
-            f'- {_rel(i.splitlines()[0], root)}' for i in sorted(items)]
+        out += [f'- {_rel(i.splitlines()[0], root)}' for i in sorted(items)]
     return '\n'.join(out + ['', END]) + '\n'
