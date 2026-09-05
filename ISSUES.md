@@ -256,7 +256,7 @@ Clean.
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/codex-and-inbox-wip is 3 ahead of main
-- . — feature/pending-decisions is 3 ahead of main
+- . — feature/pending-decisions is 4 ahead of main
 
 ### Work that exists on this disk and nowhere else
 

@@ -153,9 +153,19 @@ export function run(script, payload, canonical, { stdin } = {}) {
 // `tool.execute.before`, so pre-hook warnings go to two channels: a server log
 // entry + a TUI toast. The LLM does NOT see these; only the user does. Blocking
 // messages use throw (separate code path) which the LLM DOES see.
+//
+// THE PAYLOAD IS UNWRAPPED FIRST, because a warning is read by a person. A gate
+// speaks in hookSpecificOutput.additionalContext (core/hooks/SPECS.md), which is
+// the only exit-0 channel that reaches an LLM; putting that JSON in a toast shows
+// the envelope instead of the sentence. Verified 2026-09-05 by driving the plugin
+// with a synthetic client: every toast was a JSON document.
 export async function warn(client, msg) {
-  const text = (msg || "").trim()
+  let text = (msg || "").trim()
   if (!text) return
+  try {
+    const said = JSON.parse(text)?.hookSpecificOutput?.additionalContext
+    if (typeof said === "string" && said.trim()) text = said.trim()
+  } catch {}
   try {
     await client.app.log({ body: { service: "workspace-policy", level: "warn", message: text } })
   } catch {}

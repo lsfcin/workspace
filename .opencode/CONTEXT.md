@@ -97,6 +97,11 @@ from `post-edit.sh`) use two channels:
 - `client.app.log({ body: { level: "warn", message } })` — server log entry.
 - `client.tui.showToast({ body: { variant: "warning", message } })` — TUI toast.
 
+**`warn` unwraps `hookSpecificOutput.additionalContext` first**, because both
+channels are read by a person and a gate speaks in that envelope. Found
+2026-09-05 by driving the plugin with a synthetic client: every toast was a JSON
+document rather than a sentence.
+
 The LLM does NOT see pre-hook warnings; only the user does. Post-hook messages
 (`✓ .pyi regenerated`, etc.) are appended to `output.output` on
 `tool.execute.after` so the LLM sees them in the tool result (the only inline
