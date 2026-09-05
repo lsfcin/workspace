@@ -70,7 +70,7 @@ exist: [`code/ROADMAP-verify.md`](../../code/ROADMAP-verify.md). Installing the 
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`SPECS.md`](SPECS.md) | — | — | What must be true of the enforcement layer, and why: what each gate blocks, what the hooks write, and the contract a new agent's shim must satisfy. |
+| [`SPECS.md`](SPECS.md) | — | — | What each gate blocks, what the hooks write, and the contract a new agent's shim must satisfy. |
 | [`described.txt`](described.txt) | — | — | Files DESCRIBED HERE because they cannot describe themselves. One "<path><TAB><description>" per line, path relative to the workspace root. Read by core/hooks/routing/workspace_meta.py. |
 | [`dispatch.py`](dispatch.py) | [`dispatch.pyi`](dispatch.pyi) | `table_path`, `load_table`, `run_gate`, `emit`, `collect` | PreToolUse: one process for every gate — read stdin once, ask capability once, run what it selects. |
 | [`extensionless.txt`](extensionless.txt) | — | — | Files allowed to have no extension because something OUTSIDE this workspace dictates the name — enforced by test_every_extensionless_tracked_file_is_explained. |

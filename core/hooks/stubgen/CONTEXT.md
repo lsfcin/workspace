@@ -6,6 +6,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`SPECS.md`](SPECS.md) | — | — | Which interface each language gets, what generates it, and the one supported way to lift the size cap while you work. |
 | [`dart-api-extract.py`](dart-api-extract.py) | [`dart-api-extract.pyi`](dart-api-extract.pyi) | `extract`, `main` | Extract public Dart API surface into a compact .dart.api stub file |
 | [`paper-scaffold.py`](paper-scaffold.py) | [`paper-scaffold.pyi`](paper-scaffold.pyi) | `scaffold`, `main` | paper-scaffold.py: Initialize or adapt a paper directory to workspace standards. new <name>    — create academy/papers/<name>/ from template adapt <path>  — add missing scaffold files to an existing paper Both modes are safe: existing files are never overwritten (skipped with ~). |
 | [`stubs.py`](stubs.py) | [`stubs.pyi`](stubs.pyi) | `interface_for`, `stub_out_dir`, `find_stubgen`, `emit_pyi`, `emit_dts` | Generate the interface for ONE file: the single copy of every stub-generator invocation. |

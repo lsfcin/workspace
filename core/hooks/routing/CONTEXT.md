@@ -14,6 +14,7 @@ cost of the design working, and the baseline carries it rather than a rising thr
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`SPECS.md`](SPECS.md) | — | — | What the routing generator writes into an authored document, and where every file's one-line description has to come from. |
 | [`blocks.py`](blocks.py) | [`blocks.pyi`](blocks.pyi) | `markers`, `line_pos`, `replace_block`, `main` | A generated block inside an authored file: found by its markers, rewritten in place. |
 | [`context_synchronizer.py`](context_synchronizer.py) | [`context_synchronizer.pyi`](context_synchronizer.pyi) | `replace_block`, `sync_shards`, `sync` | Sync the Routing block in CONTEXT.md (or AGENTS.md at workspace root). |
 | [`header.py`](header.py) | [`header.pyi`](header.pyi) | `header_fields` | The `> key: value` header a document declares itself with, parsed once for everyone who reads it. |
