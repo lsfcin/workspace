@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-# The entropy dashboard. Runs every Tier 0 check over the whole
-# tree and writes ONE generated report, so agents and Lucas read a pre-computed file
-# instead of re-scanning the workspace. Zero-token, no LLM.
+# The entropy dashboard. Runs every Tier 0 check over ONE repo — this one, or the `--repo` named —
+# and writes one generated report, so agents and Lucas read a pre-computed file instead of
+# re-scanning the tree. Zero-token, no LLM.
 #
 # Division of labour with core/hooks/checks/type-gate.py: the gate is a ratchet and only blocks what
 # a commit ADDS, which is why a repo that inherited violations is not blocked on every
