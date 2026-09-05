@@ -11,9 +11,11 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from platform_law import interpreter
 
+# PostToolUse only, and the last two of what used to be three. The pre-tool shim routed by these
+# too until 2026-09-05, when core/hooks/dispatch.py made the capability the question and
+# TERMINAL_HINTS had nothing left to name.
 READ_HINTS = ("read", "open", "view", "inspect", "search")
 EDIT_HINTS = ("edit", "write", "create", "replace", "insert", "delete", "patch", "apply")
-TERMINAL_HINTS = ("terminal", "shell", "bash", "execute", "run_in")
 PATH_KEYS = (
     "filePath",
     "file_path",

@@ -4,67 +4,12 @@
     "events": {
       "PreToolUse": [
         {
-          "matcher": "Read|Edit|Write|ApplyPatch|Grep|NotebookEdit",
-          "hooks": [
-            {
-              "type": "command",
-              "timeout": 30,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/read/context-gate.py"
-            }
-          ]
-        },
-        {
-          "matcher": "Bash",
-          "hooks": [
-            {
-              "type": "command",
-              "timeout": 30,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/read/bash-context-gate.py"
-            },
-            {
-              "type": "command",
-              "timeout": 30,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/checks/heredoc-gate.py"
-            }
-          ]
-        },
-        {
-          "matcher": "Edit|Write|ApplyPatch",
+          "matcher": ".*",
           "hooks": [
             {
               "type": "command",
               "timeout": 60,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/checks/pre-edit.py"
-            },
-            {
-              "type": "command",
-              "timeout": 60,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/facade/facade-scan.py"
-            },
-            {
-              "type": "command",
-              "timeout": 60,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/facade/facade-gate.py"
-            },
-            {
-              "type": "command",
-              "timeout": 30,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/checks/issues-gate.py"
-            },
-            {
-              "type": "command",
-              "timeout": 30,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/read/spec-read-gate.py"
-            }
-          ]
-        },
-        {
-          "matcher": "Read",
-          "hooks": [
-            {
-              "type": "command",
-              "timeout": 30,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/read/pre-read.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/dispatch.py"
             }
           ]
         },

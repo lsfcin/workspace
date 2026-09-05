@@ -34,33 +34,30 @@ problem for a non-Claude agent. Field-name lists (`PATH_KEYS`,
 
 ### Event → script mapping
 
-| opencode event + tool name | Claude matcher | Script | Block via |
-|---|---|---|---|
-| `tool.execute.before`, `read` | PreToolUse `Read` | `core/hooks/read/context-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `read` | PreToolUse `Read` | `core/hooks/read/pre-read.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/read/context-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/checks/pre-edit.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write` | PreToolUse `Edit\|Write` | `core/hooks/facade/facade-scan.py` | (warn only; never exits 2) |
-| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/facade/facade-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/checks/issues-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `edit`/`write`/`apply_patch` | PreToolUse `Edit\|Write` | `core/hooks/read/spec-read-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `bash` | PreToolUse `Bash` | `core/hooks/read/bash-context-gate.py` | exit 2 → throw |
-| `tool.execute.before`, `bash` | PreToolUse `Bash` | `core/hooks/checks/heredoc-gate.py` | (warn only; never exits 2) |
-| `tool.execute.before`, `grep` | PreToolUse `Grep` | `core/hooks/read/context-gate.py` | exit 2 → throw |
-| `tool.execute.after`, `read` | PostToolUse `Read` | `core/hooks/facade/facade-tracker.py` | n/a (no block) |
-| `tool.execute.after`, `read` | PostToolUse `Read` | `core/hooks/read/context-tracker.py` | n/a (no block) |
-| `tool.execute.after`, `edit`/`write`/`apply_patch` | PostToolUse `Edit\|Write` | `core/hooks/post-edit.sh` | n/a (no block) |
-| `experimental.session.compacting` | PreCompact | `core/hooks/session/precompact-wipe.py` | n/a (no block) |
+| opencode event | Script | Block via |
+|---|---|---|
+| `tool.execute.before`, any mapped tool | `core/hooks/dispatch.py` | exit 2 → throw |
+| `tool.execute.after`, `read` | `facade/facade-tracker.py`, `read/context-tracker.py` | n/a (no block) |
+| `tool.execute.after`, `edit`/`write`/`apply_patch` | `core/hooks/post-edit.sh` | n/a (no block) |
+| `experimental.session.compacting` | `core/hooks/session/precompact-wipe.py` | n/a (no block) |
 
-`bash` is not in `TOOL_MAP` (its payload is a command string, not a file path) —
-handled by a dedicated branch in `tool.execute.before` that extracts
-`args.command`/`args.cmd` and calls `bash-context-gate.py` + `heredoc-gate.py`
-directly, mirroring `copilot-pre-tool.py`'s `TERMINAL_HINTS` branch. No
-post-hook for `bash` (same as Copilot — nothing to track after a terminal
-command). `grep` is likewise a dedicated branch: Claude gates Grep on the
-context gate only (never `pre-read.py`), and its target is a `path` key rather
-than `file_path`. The compaction hook wipes this session's seen-markers so the
+**Which gates run is not decided here.** `dispatch.py` reads the capability off
+the payload and selects from `core/hooks/gates.txt`; this plugin only builds the
+payload. The `before` handler carried eleven script rows until 2026-09-05, keyed
+on opencode's tool names — a hand-copy of that table, in the tool-name shape
+`b20260901` retired.
+
+`bash` and `grep` still get their own branch, because their target is a
+`command` and a `path` rather than a `file_path` — a translation, not a policy.
+No post-hook for `bash` (same as Copilot — nothing to track after a terminal
+command). The compaction hook wipes this session's seen-markers so the
 CONTEXT.md chain is re-read after compaction — the PreCompact equivalent.
+
+**An empty field is omitted, never sent empty.** `hook_input.capability()` asks
+whether a content key is PRESENT, so a read payload carrying `content: ""` would
+read as a write and run the write gates. `buildPayloads` drops empty fields;
+`apply_patch` keeps an empty `old_string`/`new_string` pair on purpose, because
+it IS a write whose body no gate here can measure.
 
 ### Tool-name mapping (opencode → Claude canonical env value)
 
@@ -150,6 +147,10 @@ again (expect `precompact-wipe.py` removed `claude_ctx_seen_opencode<pid>`).
 | [`agents/craft-high.md`](agents/craft-high.md) | — | — | Craft-flow executor, high tier — planning, plan review, architecture, escalated coding. Spawned by the craft flow with a single loop file as input. |
 | [`agents/craft-low.md`](agents/craft-low.md) | — | — | Craft-flow executor, low tier — mechanical steps (grounding, branch, ship). Spawned by the craft flow with a single loop file as input. |
 | [`agents/craft-medium.md`](agents/craft-medium.md) | — | — | Craft-flow executor, medium tier — tests-first, code-until-green, user test. Spawned by the craft flow with a single loop file as input. |
+| [`jsconfig.json`](jsconfig.json) | — | — | ← add first-line comment |
+| [`package-lock.json`](package-lock.json) | — | — | ← add first-line comment |
+| [`package.json`](package.json) | — | — | ← add first-line comment |
+| [`plugins/jsconfig.json`](plugins/jsconfig.json) | — | — | ← add first-line comment |
 | [`plugins/workspace-policy.js`](plugins/workspace-policy.js) | [`plugins/workspace-policy.d.ts`](plugins/workspace-policy.d.ts) | `WorkspacePolicy`, `blockMsg` | Workspace policy plugin for opencode. |
 | [`wp-helpers.js`](wp-helpers.js) | [`wp-helpers.d.ts`](wp-helpers.d.ts) | `python`, `buildPayloads`, `buildGrepPayload`, `run`, `warn` | Helpers for the workspace-policy opencode plugin. |
 <!-- routing:end -->

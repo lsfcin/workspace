@@ -41,6 +41,9 @@ EVENTS = {'SessionStart': ['session start'], 'UserPromptSubmit': ['every prompt'
           'PreCompact': ['on compact'], 'SubagentStart': ['subagent start']}
 TOOLS = {'Read': 'read', 'Grep': 'read', 'Edit': 'edit', 'Write': 'edit', 'NotebookEdit': 'edit',
          'Bash': 'bash'}
+# The same three asked of the payload rather than of a tool name — gates.txt's first column. A
+# gate's moment is its capability's, never the whole matcher its dispatcher was hung on.
+CAPABILITY_MOMENTS = {'shell': 'before bash', 'read': 'before read', 'write': 'before edit'}
 
 # git dictates these two names (core.hooksPath — see CONTEXT.md), so they are entrypoints that no
 # settings file registers and none ever will.
@@ -51,7 +54,14 @@ _WALKED: dict = {}   # one walk of the tree per root, not one per feature asked 
 
 def _moments(event: str, matcher: str) -> list:
     """The canonical moments one registration lands on. ONE REGISTRATION MAY LAND ON SEVERAL: the
-    context chain's matcher names Read and Edit, so it fires at two of them."""
+    context chain's matcher names Read and Edit, so it fires at two of them.
+
+    A WILDCARD MATCHER LANDS ON ALL OF THEM, and reading it as none is what made this module go
+    quiet. The matchers became `.*` on 2026-09-04 (b20260901, so a second shell tool could not walk
+    past the read gates); `[A-Za-z]+` finds no tool name in `.*`, so every PreToolUse registration
+    resolved to no moment at all and the `when` half of the feature registry blanked for 25 of the
+    37 hook features — with nothing red, because an unplaced feature is only ever counted.
+    """
     if event in EVENTS:
         return list(EVENTS[event])
     prefix = {'PreToolUse': 'before', 'PostToolUse': 'after'}.get(event)
@@ -59,7 +69,8 @@ def _moments(event: str, matcher: str) -> list:
         return []
     if 'Agent' in matcher:
         return ['subagent start']
-    return sorted({f'{prefix} {TOOLS[t]}' for t in re.findall(r'[A-Za-z]+', matcher) if t in TOOLS})
+    named = {TOOLS[t] for t in re.findall(r'[A-Za-z]+', matcher) if t in TOOLS}
+    return sorted(f'{prefix} {tool}' for tool in (named or set(TOOLS.values())))
 
 
 def ordered(moments) -> list:
@@ -92,6 +103,31 @@ def registrations(root: Path = WORKSPACE_ROOT) -> list:
     return out
 
 
+def _spread(rel: str, moments: list, seeds: dict, root: Path) -> dict:
+    """A dispatcher's moments belong to the gates it dispatches, and gates.txt is where they are.
+
+    core/hooks/dispatch.py names no gate in its own source — it reads them out of a data file — so
+    the walk below cannot see the edge and would leave nine gates unplaced. This is the one edge
+    declared in data rather than in code, which is why it is spelled here and not in hook_reach.
+
+    EACH GATE TAKES ITS CAPABILITY'S MOMENT, not the dispatcher's whole matcher. The registration
+    is `.*`, so inheriting it verbatim would say the heredoc gate fires before a read — true of the
+    process, false of the gate, and the finer answer is sitting in the same row. Intersected with
+    the dispatcher's own moments, so a harness that registers it on reads alone is believed.
+    """
+    if not rel.endswith('hooks/dispatch.py'):
+        return seeds
+    for line in (root / 'core/hooks/gates.txt').read_text(encoding='utf-8').splitlines():
+        line = line.strip()
+        if not line or line.startswith('#'):
+            continue
+        cap, _, path, _ = (part.strip() for part in line.split('\t'))
+        moment = CAPABILITY_MOMENTS.get(cap)
+        if moment in moments:
+            seeds.setdefault(f'core/hooks/{path}', []).append(moment)
+    return seeds
+
+
 def sites(root: Path = WORKSPACE_ROOT) -> dict:
     """{repo-relative path: [moments]} — every file a declared entrypoint reaches, and when."""
     if str(root) in _WALKED:
@@ -99,9 +135,10 @@ def sites(root: Path = WORKSPACE_ROOT) -> dict:
     seeds = {rel: list(moments) for rel, moments in GIT_ENTRYPOINTS.items()}
     for reg in registrations(root):
         for token in reg['command'].split():
-            rel = _rel(token, root)
-            if (root / rel).is_file():
+            rel = hook_reach.target(token, root)
+            if rel:
                 seeds.setdefault(rel, []).extend(reg['moments'])
+                seeds = _spread(rel, reg['moments'], seeds, root)
     # A DIRECT REGISTRATION OUTRANKS BEING NAMED BY SOMEBODY ELSE. Both are declarations, but one
     # says "run this here" and the other only says "this file knows that file exists", so a seed is
     # authoritative about itself and inherits nothing.

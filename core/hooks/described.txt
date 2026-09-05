@@ -14,3 +14,4 @@
 # Same shape as extensionless.txt, vendored.txt and generated.txt beside it: the law is the data
 # file, never the checker.
 .agents/hooks.json	Antigravity lifecycle hook registrations — the canonical WOS gates each event routes to.
+.zcode/config.json	ZCode hook registrations — one PreToolUse entry into core/hooks/dispatch.py, plus the tracker, session and compaction hooks.

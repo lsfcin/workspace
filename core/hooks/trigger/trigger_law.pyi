@@ -5,6 +5,7 @@ HOOKS: Incomplete
 MOMENTS: Incomplete
 EVENTS: Incomplete
 TOOLS: Incomplete
+CAPABILITY_MOMENTS: Incomplete
 GIT_ENTRYPOINTS: Incomplete
 
 def ordered(moments) -> list: ...

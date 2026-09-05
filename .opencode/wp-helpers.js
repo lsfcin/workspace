@@ -76,6 +76,14 @@ function normalizePath(raw) {
 // there is no filePath; paths are embedded in patchText markers — extract them
 // and return one payload per path (caller iterates). Every payload carries the
 // session-stable id (SESSION_ID) so the canonical scripts dedupe their markers.
+//
+// AN EMPTY FIELD IS OMITTED, NOT SENT EMPTY, and since 2026-09-05 that is load-bearing.
+// hook_input.capability() asks whether a content key is PRESENT, not whether it holds anything, so
+// a read payload carrying `content: ""` reads as a write and core/hooks/dispatch.py would run the
+// write gates on a file nobody is writing. apply_patch keeps a pair of empty edit fields on
+// purpose: it IS a write, its body is a patch nothing here can measure, and the empty pair puts it
+// on pre-edit.py's patch branch — which blocks a file already past the cap and cannot mistake a
+// patched-in file for a new one with no first-line comment.
 /**
  * @param {Record<string, any>} args opencode tool args
  * @param {string} toolName opencode tool name
@@ -86,19 +94,18 @@ export function buildPayloads(args, toolName) {
     const patchText = args.patchText || ""
     const paths = [...patchText.matchAll(APPLY_PATCH_RE)].map(m => normalizePath(m[1].trim()))
     return paths.filter(Boolean).map(p => ({
-      file_path: p, content: "", old_string: "", new_string: "",
-      session_id: SESSION_ID,
+      file_path: p, old_string: "", new_string: "", session_id: SESSION_ID,
     }))
   }
   const fp = normalizePath(firstString(args, PATH_KEYS))
   if (!fp) return []
-  return [{
-    file_path: fp,
-    content:    firstString(args, CONTENT_KEYS),
-    old_string: firstString(args, OLD_KEYS),
-    new_string: firstString(args, NEW_KEYS),
-    session_id: SESSION_ID,
-  }]
+  const payload = { file_path: fp, session_id: SESSION_ID }
+  for (const [key, keys] of [["content", CONTENT_KEYS], ["old_string", OLD_KEYS],
+                             ["new_string", NEW_KEYS]]) {
+    const value = firstString(args, keys)
+    if (value) payload[key] = value
+  }
+  return [payload]
 }
 
 // Grep is gated by context-gate.py only (Claude parity: matcher Grep sits on the context gate,

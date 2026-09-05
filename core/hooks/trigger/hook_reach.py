@@ -28,6 +28,22 @@ HOPS = 4          # dispatcher -> stage -> check -> the module that check import
                   # that, a name appearing in a file is coincidence rather than a call.
 
 
+def target(token: str, root: Path = WORKSPACE_ROOT) -> str:
+    """The repo-relative file a command token names, or '' when it names none.
+
+    THE SECOND ARM IS THE LAUNCHER'S CONVENTION, and its absence blanked every gate's moment. Since
+    2026-08-29 a shim spawns `core/run hooks/read/pre-read.py` — the argument is relative to
+    `core/`, not to the repo — so `root / 'hooks/read/pre-read.py'` is not a file, and the only
+    token in such a command that resolved was `core/run` itself. Every hook spawned that way seeded
+    nothing, which is all of them; trigger_law.py reported 25 of 37 hook features as having no
+    moment, and nothing was red because an unplaced feature is only ever counted.
+    """
+    rel = _rel(token, root)
+    if (root / rel).is_file():
+        return rel
+    return f'core/{rel}' if (root / 'core' / rel).is_file() else ''
+
+
 def chain(entry: str = DISPATCHERS[0], root: Path = WORKSPACE_ROOT) -> list:
     """The stages a dispatcher SOURCES, in execution order, read from its own `for part in` list.
     That order is load-bearing — lint runs last because it needs the stubs the generators just

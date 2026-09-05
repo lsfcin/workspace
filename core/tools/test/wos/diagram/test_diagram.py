@@ -80,9 +80,16 @@ def test_nothing_on_the_page_is_guessed_at(tmp_path):
     moment is now READ, and what the registrations cannot place is counted as a gap rather than
     guessed at. The page still carries the word, because the footer states what it inferred, and
     stating "nothing" is the honest form of that claim.
+
+    THE SECOND VALUE IS `declared`, NOT `inferred`, and reading it as the opposite is how this case
+    passed for a week on a broken walk. `trigger_of` returns `bool(moments)`; the name here said
+    the reverse, so `assert not inferred` demanded that this site have NO moment — which is exactly
+    what a launcher-relative spawn produced (core/hooks/trigger/hook_reach.py § target). The test
+    asserted the opposite of its own docstring and went green on the defect it was written to
+    forbid. Fixed 2026-09-05 with the walk.
     """
-    when, inferred = data.trigger_of('core/hooks/checks')
-    assert not inferred and when != 'unknown', (
+    when, declared = data.trigger_of('core/hooks/checks')
+    assert declared and when != 'not declared', (
         'a firing moment is being guessed again — trigger_law.py reads it from the registrations')
     html, _out = _page(tmp_path)
     assert 'inferred' in html

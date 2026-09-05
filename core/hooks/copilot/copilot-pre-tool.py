@@ -12,9 +12,6 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
 from copilot_shared import (
-    EDIT_HINTS,
-    READ_HINTS,
-    TERMINAL_HINTS,
     COMMAND_KEYS,
     build_payload,
     collect_paths,
@@ -34,11 +31,12 @@ def emit_allow(message: str = "") -> None:
     print(json.dumps(output, ensure_ascii=False))
 
 
-HOOKS = Path(__file__).resolve().parents[1]
+DISPATCH = Path(__file__).resolve().parents[1] / "dispatch.py"
 
 
-def gate(script: str, payload: dict[str, Any], tool: str, root: Path, messages: list[str]) -> bool:
-    result = run_script(HOOKS / script, payload, tool, root)
+def gate(payload: dict[str, Any], tool: str, root: Path, messages: list[str]) -> bool:
+    """One dispatcher run over one canonical payload. True when it blocked."""
+    result = run_script(DISPATCH, payload, tool, root)
     if result.stdout.strip():
         messages.append(result.stdout.strip())
     if result.returncode == 2:
@@ -47,55 +45,29 @@ def gate(script: str, payload: dict[str, Any], tool: str, root: Path, messages: 
     return False
 
 
+# WHICH GATES RUN IS NO LONGER THIS FILE'S QUESTION, and the three hint sets that used to answer it
+# (READ_HINTS / EDIT_HINTS / TERMINAL_HINTS) are gone with the branches they fed. They were a
+# whitelist of tool names — the shape b20260901 retired when the question moved to the payload —
+# and every gate order they encoded was a hand-copy of core/hooks/gates.txt. This shim now does
+# only what a shim is for: turn Copilot's schema into a canonical payload, once per target.
 def main() -> int:
     data = load_input()
     workspace_root = Path(data.get("cwd") or os.getcwd()).resolve()
     tool_name = str(data.get("tool_name") or "")
     tool_input = data.get("tool_input") if isinstance(data.get("tool_input"), dict) else {}
-    tool_name_lower = tool_name.lower()
-    paths = collect_paths(workspace_root, tool_input)
     messages: list[str] = []
 
-    if any(hint in tool_name_lower for hint in TERMINAL_HINTS):
-        command = first_string(tool_input, COMMAND_KEYS)
-        if command:
-            payload = {"command": command, "session_id": session_id()}
-            if gate("read/bash-context-gate.py", payload, "Bash", workspace_root, messages):
-                return 2
-        emit_allow("\n\n".join(messages))
-        return 0
+    command = first_string(tool_input, COMMAND_KEYS)
+    if command:
+        payloads = [{"command": command, "session_id": session_id()}]
+    else:
+        payloads = [build_payload(p, tool_input) for p in collect_paths(workspace_root, tool_input)]
 
-    if any(hint in tool_name_lower for hint in READ_HINTS) and paths:
-        for file_path in paths:
-            payload = {"file_path": file_path, "session_id": session_id()}
-            if gate("read/context-gate.py", payload, "Read", workspace_root, messages):
-                return 2
-            if gate("read/pre-read.py", payload, "Read", workspace_root, messages):
-                return 2
-        emit_allow("\n\n".join(messages))
-        return 0
+    for payload in payloads:
+        if gate(payload, tool_name, workspace_root, messages):
+            return 2
 
-    if any(hint in tool_name_lower for hint in EDIT_HINTS) and paths:
-        write_like = any(hint in tool_name_lower for hint in ("create", "write", "insert"))
-        canonical = "Write" if write_like else "Edit"
-        for file_path in paths:
-            payload = build_payload(file_path, tool_input)
-            if gate("read/context-gate.py", payload, canonical, workspace_root, messages):
-                return 2
-            if gate("checks/pre-edit.py", payload, canonical, workspace_root, messages):
-                return 2
-            if write_like:
-                gate("facade/facade-scan.py", payload, canonical, workspace_root, messages)
-            if gate("facade/facade-gate.py", payload, canonical, workspace_root, messages):
-                return 2
-            if gate("checks/issues-gate.py", payload, canonical, workspace_root, messages):
-                return 2
-            if gate("read/spec-read-gate.py", payload, canonical, workspace_root, messages):
-                return 2
-        emit_allow("\n\n".join(messages))
-        return 0
-
-    emit_allow()
+    emit_allow("\n\n".join(messages))
     return 0
 
 

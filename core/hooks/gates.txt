@@ -1,0 +1,37 @@
+# Every PreToolUse gate, and the capability that selects it. Read by core/hooks/dispatch.py
+# (which runs them) and by core/hooks/trigger/trigger_law.py (which reports when they fire).
+#
+# WHY THIS FILE EXISTS. Each gate used to be its own `command` in each harness's config, so a
+# tool call spawned all nine and every one of them asked the same capability question over the
+# same stdin — 0.41 s of hook time on a Read that needs two of them (measured 2026-09-05,
+# b20260905). The nine registrations were also nine hand-written copies of THIS table, one per
+# harness, and three of them routed by TOOL NAME — the whitelist b20260901 retired when the
+# question moved to the payload. One table, read by one dispatcher, is both fixes.
+#
+# CAPABILITY, NEVER A TOOL NAME. The value comes from hook_input.capability(), which asks the
+# payload what the call DOES: a command line is 'shell', a path plus new content is 'write', a
+# path alone is 'read'. A call that is none of those is 'other' and selects nothing — that is
+# the whole saving on a Grep or a TodoWrite.
+#
+# ORDER IS LOAD-BEARING, ascending, and the chain stops at the first gate that blocks.
+# context-gate must clear before issues-gate, which reads the target file off disk.
+#
+# CLASS says what the gate may do, and the dispatcher holds it to that: `blocks` may exit 2
+# after writing its own reason to stderr; `informs` never exits 2 and speaks in
+# hookSpecificOutput.additionalContext, the only exit-0 channel that reaches the model
+# (core/hooks/SPECS.md § Agent lifecycle gates).
+#
+# read/agent-context.py is NOT here: it fires on Agent/SubagentStart, which is a moment rather
+# than a capability, and keeps its own registration.
+#
+# capability	order	path	class
+shell	10	read/bash-context-gate.py	blocks
+shell	20	checks/heredoc-gate.py	informs
+read	10	read/context-gate.py	blocks
+read	20	read/pre-read.py	blocks
+write	10	read/context-gate.py	blocks
+write	20	checks/pre-edit.py	blocks
+write	30	facade/facade-scan.py	informs
+write	40	facade/facade-gate.py	blocks
+write	50	checks/issues-gate.py	blocks
+write	60	read/spec-read-gate.py	blocks

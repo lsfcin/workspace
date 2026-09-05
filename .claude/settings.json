@@ -21,39 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/context-gate.py"
-          },
-          {
-            "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/bash-context-gate.py"
-          },
-          {
-            "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/checks/heredoc-gate.py"
-          },
-          {
-            "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/checks/pre-edit.py"
-          },
-          {
-            "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/facade/facade-scan.py"
-          },
-          {
-            "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/facade/facade-gate.py"
-          },
-          {
-            "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/checks/issues-gate.py"
-          },
-          {
-            "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/spec-read-gate.py"
-          },
-          {
-            "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/pre-read.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/dispatch.py"
           }
         ]
       },

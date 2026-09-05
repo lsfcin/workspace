@@ -27,49 +27,54 @@ def run_gate(script: str, payload: dict[str, Any], tool: str, extra_args: list[s
     return proc.returncode, msg
 
 
+def said(msg: str) -> str:
+    """A dispatcher's exit-0 stdout is a hookSpecificOutput document; Antigravity wants prose."""
+    try:
+        return str(json.loads(msg)["hookSpecificOutput"]["additionalContext"]).strip()
+    except (ValueError, KeyError, TypeError):
+        return msg
+
+
+# ARGUMENT NAMES ARE THIS SHIM'S JOB; THE GATE LIST IS NOT. Antigravity spells one file path four
+# ways (AbsolutePath, TargetFile, SearchPath, CommandLine), which only a per-tool branch can
+# translate. Which gates then run used to be spelled out here too — five hand-copied orderings of
+# core/hooks/gates.txt, drifting the moment either side changed. The branches now produce a
+# canonical payload and stop; core/hooks/dispatch.py reads the capability off it.
 def pre_tool(call: dict[str, Any], sid: str) -> dict[str, Any]:
     name = call.get("name", "")
     args = call.get("args") or {}
-    gates: list[tuple[str, str, dict[str, Any]]] = []
+    payload: dict[str, Any] | None = None
+    tool = ""
 
     if name == "view_file":
-        p = {"file_path": args.get("AbsolutePath", ""), "session_id": sid}
-        gates = [("read/context-gate.py", "Read", p), ("read/pre-read.py", "Read", p)]
+        payload, tool = {"file_path": args.get("AbsolutePath", "")}, "Read"
     elif name == "replace_file_content":
-        p = {"file_path": args.get("TargetFile", ""), "old_string": args.get("TargetContent", ""),
-             "new_string": args.get("ReplacementContent", ""), "session_id": sid}
-        gates = [("read/context-gate.py", "Edit", p), ("checks/pre-edit.py", "Edit", p),
-                 ("facade/facade-gate.py", "Edit", p), ("checks/issues-gate.py", "Edit", p),
-                 ("read/spec-read-gate.py", "Edit", p)]
+        payload, tool = {"file_path": args.get("TargetFile", ""),
+                         "old_string": args.get("TargetContent", ""),
+                         "new_string": args.get("ReplacementContent", "")}, "Edit"
     elif name == "write_to_file":
-        p = {"file_path": args.get("TargetFile", ""), "content": args.get("CodeContent", ""), "session_id": sid}
-        gates = [("read/context-gate.py", "Write", p), ("checks/pre-edit.py", "Write", p),
-                 ("facade/facade-scan.py", "Write", p), ("facade/facade-gate.py", "Write", p),
-                 ("checks/issues-gate.py", "Write", p), ("read/spec-read-gate.py", "Write", p)]
+        payload, tool = {"file_path": args.get("TargetFile", ""),
+                         "content": args.get("CodeContent", "")}, "Write"
     elif name == "run_command":
-        p = {"command": args.get("CommandLine", ""), "session_id": sid}
-        gates = [("read/bash-context-gate.py", "Bash", p), ("checks/heredoc-gate.py", "Bash", p)]
+        payload, tool = {"command": args.get("CommandLine", "")}, "Bash"
     elif name == "grep_search":
-        p = {"path": args.get("SearchPath", ""), "session_id": sid}
-        gates = [("read/context-gate.py", "Grep", p)]
+        payload, tool = {"path": args.get("SearchPath", "")}, "Grep"
     elif name == "invoke_subagent":
+        # Not in gates.txt: this fires on a moment (a worker being spawned) rather than on what a
+        # call does to a file, so it keeps its own registration here and in every other harness.
         subs = args.get("Subagents", [])
         txt = "\n".join(s.get("Prompt", "") for s in subs if isinstance(s, dict))
-        p = {"prompt": txt, "session_id": sid, "prompt_id": sid}
-        gates = [("read/agent-context.py", "Agent", p)]
+        _, msg = run_gate("read/agent-context.py",
+                          {"prompt": txt, "session_id": sid, "prompt_id": sid}, "Agent")
+        return {"decision": "allow", "reason": msg} if msg else {"decision": "allow"}
 
-    info_msgs: list[str] = []
-    for script, tool, payload in gates:
-        rc, msg = run_gate(script, payload, tool)
-        if rc == 2:
-            return {"decision": "deny", "reason": msg or f"Blocked by {script}"}
-        if msg:
-            info_msgs.append(msg)
+    if payload is None:
+        return {"decision": "allow"}
 
-    out: dict[str, Any] = {"decision": "allow"}
-    if info_msgs:
-        out["reason"] = "\n".join(info_msgs)
-    return out
+    rc, msg = run_gate("dispatch.py", {**payload, "session_id": sid}, tool)
+    if rc == 2:
+        return {"decision": "deny", "reason": msg or "Blocked by a workspace gate"}
+    return {"decision": "allow", "reason": said(msg)} if msg else {"decision": "allow"}
 
 
 def post_tool(call: dict[str, Any], sid: str) -> dict[str, Any]:

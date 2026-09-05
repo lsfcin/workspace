@@ -14,4 +14,5 @@ and what is still unverified while the workspace is untrusted — is [`SPECS.md`
 | File | Description |
 |------|-------------|
 | [`SPECS.md`](SPECS.md) | What ZCode must spawn, how its events map onto the canonical ones, and what is still unverified. |
+| [`config.json`](config.json) | ZCode hook registrations — one PreToolUse entry into core/hooks/dispatch.py, plus the tracker, session and compaction hooks. |
 <!-- routing:end -->

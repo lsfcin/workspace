@@ -21,6 +21,6 @@ generating them runs then.
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`hook_reach.py`](hook_reach.py) | [`hook_reach.pyi`](hook_reach.pyi) | `chain`, `code`, `index`, `reaches` | Which files a hook ENTRYPOINT actually reaches. The sibling of hook_input.py one level up: that one parses what comes INTO a hook, this one says what a hook goes on to RUN. |
+| [`hook_reach.py`](hook_reach.py) | [`hook_reach.pyi`](hook_reach.pyi) | `target`, `chain`, `code`, `index`, `reaches` | Which files a hook ENTRYPOINT actually reaches. The sibling of hook_input.py one level up: that one parses what comes INTO a hook, this one says what a hook goes on to RUN. |
 | [`trigger_law.py`](trigger_law.py) | [`trigger_law.pyi`](trigger_law.pyi) | `ordered`, `registrations`, `sites`, `moments_of` | WHEN it fires. The fourth law module: file_law.py says what a file IS, schema_law.py what a name MAY BE, feature_law.py which features are LIVE — this one says at which moment a live feature runs. Like the other three it reads its answer out of declared files rather than holding one. |
 <!-- routing:end -->

@@ -34,7 +34,10 @@ SHIMS = {
          HOOKS / 'copilot/copilot-post-tool.py',
          HOOKS / 'copilot/copilot-session-start.py',
          HOOKS / 'copilot/copilot_shared.py'],
-        re.compile(r'["\']((?:[A-Za-z0-9_-]+/)+[A-Za-z0-9_-]+\.(?:py|sh))["\']'),
+        # `*`, not `+`, since 2026-09-05: the shim's one gate spawn is `"dispatch.py"`, which sits
+        # at core/hooks/ and carries no directory. Requiring a slash made the pattern blind to the
+        # only path that now matters.
+        re.compile(r'["\']((?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+\.(?:py|sh))["\']'),
     ),
     # Direct registration, no adapter: both configs spawn canonical scripts through
     # core/run, which resolves this clone's interpreter. The project-dir variable is expanded
@@ -79,9 +82,21 @@ def test_every_shim_names_at_least_one_canonical_script():
     """Guards the guard: a regex that stopped matching would make both cases below vacuous."""
     for shim in SHIMS:
         count = len(_spawned(shim))
-        assert count >= 5, (
+        assert count >= 2, (
             f'{shim}: found {count} script paths. The shim was rewritten and this pattern no '
             'longer reads it, so the resolution checks are passing on an empty set.'
+        )
+
+
+def test_every_shim_reaches_the_dispatcher():
+    """The floor above was five scripts until 2026-09-05, and five was the real check: a shim that
+    stopped naming the gates would fall under it. Every PreToolUse gate hangs off ONE entrypoint
+    now (core/hooks/dispatch.py, selecting from gates.txt), so the count fell and this case is what
+    the count was standing in for. A shim missing it is a harness running with no gates at all,
+    reading as correct — the silent-weakening shape b20260901 cost a day to find."""
+    for shim in SHIMS:
+        assert any(p.endswith('dispatch.py') for p in _spawned(shim)), (
+            f'{shim}: names no dispatch.py, so none of the gates in core/hooks/gates.txt reach it'
         )
 
 

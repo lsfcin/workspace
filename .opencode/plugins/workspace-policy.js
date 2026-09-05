@@ -1,29 +1,17 @@
 // Workspace policy plugin for opencode.
-// Mirrors the workspace's .claude/settings.json PreToolUse/PostToolUse hooks so
-// opencode enforces the SAME workspace behavioral policies as Claude Code:
-//   - context-gate.py     : force CONTEXT.md chain read before Read/Edit/Write/Grep
-//   - bash-context-gate.py: same chain gate for Bash commands touching files
-//   - heredoc-gate.py     : warn-only — a cat >/tee heredoc meets no Edit|Write gate
-//   - pre-edit.py         : first-line comment, line-count limits, CONTEXT.md line-2
-//   - facade-scan.py      : list facade exports before writing a new Code/ file
-//   - facade-gate.py      : block Code/ module edits until the module facade is read
-//   - issues-gate.py      : ISSUES.md FIXED flips require a regression spec
-//   - spec-read-gate.py   : spec-locked module edits require its SPEC.md read first
-//   - pre-read.py         : block source reads when a current interface file exists
-//   - post-edit.sh        : regenerate interfaces, terms check, context_synchronizer
-//   - facade-tracker      : record facade reads for facade-gate session state
-//   - context-tracker.py  : record CONTEXT.md/interface reads for context-gate + pre-read
+// Runs the SAME workspace behavioral policies as every other harness, through the same three
+// entrypoints:
+//   - dispatch.py         : every PreToolUse gate, selected by capability (core/hooks/gates.txt)
+//   - post-edit.sh, facade-tracker.py, context-tracker.py : the PostToolUse trackers
 //   - precompact-wipe.py  : wipe seen-markers on experimental.session.compacting
 //
-// The existing core/hooks/* scripts remain the single source of truth. This plugin
-// only TRANSLATES opencode's tool.execute.before/after events into the
-// stdin-JSON + CLAUDE_TOOL_NAME/CLAUDE_TOOL_INPUT env schema the scripts already
-// expect, and maps Claude exit-2 to opencode throw. Design lifted from
-// core/hooks/copilot/copilot-pre-tool.py / copilot-post-tool.py (prior art for a non-Claude
-// agent — copilot-pre-tool.py's `gate()` ordering is the reference this plugin
-// mirrors: context-gate before pre-read/pre-edit, issues-gate after
-// facade-gate). Translation helpers live in ../wp-helpers.js (kept out of
-// plugins/ so opencode does not auto-load them as a plugin).
+// The core/hooks/* scripts remain the single source of truth. This plugin only TRANSLATES
+// opencode's tool.execute.before/after events into the stdin-JSON + CLAUDE_TOOL_NAME/
+// CLAUDE_TOOL_INPUT env schema the scripts already expect, and maps Claude exit-2 to opencode
+// throw. It used to translate the gate LIST as well — six numbered steps keyed on opencode's tool
+// names, one of five such copies across the harnesses — until core/hooks/dispatch.py made the
+// capability the only question (b20260905). Translation helpers live in ../wp-helpers.js (kept
+// out of plugins/ so opencode does not auto-load them as a plugin).
 //
 // Every payload carries a session-stable id (`opencode<host-pid>`, the Copilot
 // pattern) and every spawn asks core/run for the interpreter — the platform seam —
@@ -55,84 +43,38 @@ export const WorkspacePolicy = async ({ client }) => {
   })
   if (on.status !== 0) return {}
   return {
+    // TRANSLATE, THEN HAND OVER. Which gates run, in what order, was spelled out here in six
+    // numbered steps — a hand-copy of core/hooks/gates.txt keyed on opencode's tool NAMES, which
+    // is the whitelist b20260901 retired. This handler now does only what a shim is for: turn
+    // opencode's args into a canonical payload and let core/hooks/dispatch.py read the capability
+    // off it. bash and grep still need their own branch because their target is a `command` and a
+    // `path` rather than a `file_path`, which is a translation, not a policy.
     "tool.execute.before": async (input, output) => {
-      // Bash — CONTEXT.md chain gate on any workspace file the command touches,
-      // plus the warn-only heredoc gate (cat > / tee writes meet no Edit|Write gate).
-      // Not in TOOL_MAP (bash isn't file-path-based): handled separately.
+      const args = output.args || {}
+      let payloads = []
+      let canonical = ""
+
       if (input.tool === "bash") {
-        const command = (output.args && (output.args.command || output.args.cmd)) || ""
+        const command = args.command || args.cmd || ""
         if (!command) return
-        const payload = { command, session_id: SESSION_ID }
-        const r = run(`${HOOKS}/read/bash-context-gate.py`, payload, "Bash", { stdin: true })
-        if (r.status === 2) throw new Error(blockMsg(r, "CONTEXT GATE (Bash)"))
-        if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
-        const h = run(`${HOOKS}/checks/heredoc-gate.py`, payload, "Bash", { stdin: true })
-        if (h.stdout && h.stdout.trim()) await warn(client, h.stdout)
-        return
-      }
-
-      // Grep — context-gate only (Claude parity: the Grep matcher sits on the chain
-      // gate, never on pre-read.py). Its target is a `path`, not a `file_path`.
-      if (input.tool === "grep") {
-        const p = buildGrepPayload(output.args || {})
+        payloads = [{ command, session_id: SESSION_ID }]
+        canonical = "Bash"
+      } else if (input.tool === "grep") {
+        const p = buildGrepPayload(args)
         if (!p) return
-        const g = run(`${HOOKS}/read/context-gate.py`, p, "Grep", { stdin: true })
-        if (g.status === 2) throw new Error(blockMsg(g, "CONTEXT GATE"))
-        if (g.stdout && g.stdout.trim()) await warn(client, g.stdout)
-        return
+        payloads = [p]
+        canonical = "Grep"
+      } else {
+        const m = TOOL_MAP[input.tool]
+        if (!m) return
+        payloads = buildPayloads(args, input.tool)
+        canonical = m.canonical
       }
 
-      const m = TOOL_MAP[input.tool]
-      if (!m) return
-      const payloads = buildPayloads(output.args || {}, input.tool)
-      if (payloads.length === 0) return
-
-      if (m.group === "read") {
-        for (const p of payloads) {
-          // 1. context-gate.py — force CONTEXT.md chain read before the file itself.
-          const g = run(`${HOOKS}/read/context-gate.py`, p, "Read", { stdin: true })
-          if (g.status === 2) throw new Error(blockMsg(g, "CONTEXT GATE"))
-          if (g.stdout && g.stdout.trim()) await warn(client, g.stdout)
-          // 2. pre-read.py — interface-first source gate.
-          const r = run(`${HOOKS}/read/pre-read.py`, p, "Read", { stdin: true })
-          if (r.status === 2) throw new Error(blockMsg(r, "READ INTERFACE FIRST"))
-          if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
-        }
-        return
-      }
-
-      // edit/write/apply_patch — Edit|Write matcher, pre-hooks in order.
       for (const p of payloads) {
-        // 1. context-gate.py — force CONTEXT.md chain read before editing.
-        const g = run(`${HOOKS}/read/context-gate.py`, p, m.canonical, { stdin: true })
-        if (g.status === 2) throw new Error(blockMsg(g, "CONTEXT GATE"))
-        if (g.stdout && g.stdout.trim()) await warn(client, g.stdout)
-        // 2. pre-edit.py — size + first-line + CONTEXT.md line-2.
-        //    Skipped for apply_patch: no content/old/new fields in patchText.
-        if (input.tool !== "apply_patch") {
-          const r = run(`${HOOKS}/checks/pre-edit.py`, p, m.canonical, { stdin: true })
-          if (r.status === 2) throw new Error(blockMsg(r, "pre-edit blocked"))
-          if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
-        }
-        // 3. facade-scan.py — Write only; inform about existing facade exports.
-        //    Never blocks (exit 0 only); guarded anyway.
-        if (m.canonical === "Write") {
-          const r = run(`${HOOKS}/facade/facade-scan.py`, p, "Write", { stdin: true })
-          if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
-          if (r.status === 2) throw new Error(blockMsg(r, "facade-scan blocked"))
-        }
-        // 4. facade-gate.py — block Code/ edits until facade read this session.
-        const r = run(`${HOOKS}/facade/facade-gate.py`, p, m.canonical, { stdin: true })
-        if (r.status === 2) throw new Error(blockMsg(r, "READ FACADE FIRST"))
+        const r = run(`${HOOKS}/dispatch.py`, p, canonical, { stdin: true })
+        if (r.status === 2) throw new Error(blockMsg(r, "blocked by a workspace gate"))
         if (r.stdout && r.stdout.trim()) await warn(client, r.stdout)
-        // 5. issues-gate.py — ISSUES.md FIXED flips need a regression spec.
-        const k = run(`${HOOKS}/checks/issues-gate.py`, p, m.canonical, { stdin: true })
-        if (k.status === 2) throw new Error(blockMsg(k, "ISSUES GATE"))
-        if (k.stdout && k.stdout.trim()) await warn(client, k.stdout)
-        // 6. spec-read-gate.py — spec-locked module edits need its SPEC.md read first.
-        const s = run(`${HOOKS}/read/spec-read-gate.py`, p, m.canonical, { stdin: true })
-        if (s.status === 2) throw new Error(blockMsg(s, "SPEC GATE"))
-        if (s.stdout && s.stdout.trim()) await warn(client, s.stdout)
       }
     },
 
