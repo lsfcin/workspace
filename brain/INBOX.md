@@ -9,6 +9,20 @@
 
 <!-- add entries below, newest first -->
 
+nas minhas disciplinas, incluir o uso do harness em cada etapa
+— via aiwbot · 2026-09-05
+
+https://www.instagram.com/p/Dcygo4skfjX/?utm_source=ig_web_copy_link
+fazer um comparativo com o ubuntu, talvez valha à pena trocar
+— via aiwbot · 2026-09-05
+
+https://www.instagram.com/p/Dc54js5CEsw/?utm_source=ig_web_copy_link
+temos que testar isso
+— via aiwbot · 2026-09-05
+
+https://www.instagram.com/p/Dc37X91M4QQ/?igsi=NTc4MTIwNjQ2YQ==
+será que consigo usar de alguma forma?
+
 https://openai.com/index/gpt-6-astra/
 um dos exemplos do astra é fazer slides, os slides deles são bem melhores que os nossos. definitivamente temos que aprender com eles, é absurda a diferença.
 
