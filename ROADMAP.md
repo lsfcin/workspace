@@ -153,6 +153,8 @@ remaining candidates are law files, so the payment has to come from somewhere th
 
 ## Rejected
 
+- **Regenerating the entropy block on receipt, the `mirror-heal.py` route** — declined 2026-09-04: a
+  full tree scan before the first prompt, and a working tree already dirty when the session opens.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
 - **Curing confident wrongness with a prompt rule** — induced loses to enforced; corpus is evidence.
 - **A preliminary cut of features before the ablation** — declined 2026-08-21: cutting on hunches is a guess.
