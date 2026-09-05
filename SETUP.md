@@ -79,7 +79,7 @@ rather than by work, and the pre-commit gate runs all of it on every commit at t
 Without xdist it still runs, serial, and says so.
 
 Whether each *gate* then behaves as promised is a different question, answered by
-[`core/hooks/SPECS.md`](core/hooks/SPECS.md) § What a working install looks like.
+[`core/hooks/SPECS.md`](core/hooks/SPECS.md) § One dispatcher, and the table it reads.
 
 ## Per-project setup
 

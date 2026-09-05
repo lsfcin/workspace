@@ -15,7 +15,8 @@ of its own execution order. Order is fixed in `pre_commit.stages()` and is not a
 `lint` runs last because ESLint needs the `.d.ts` that `interfaces` writes.
 
 `Blocked` is the only unhappy way out, and that is the design: `core/hooks/SPECS.md` promises a hook
-that blocks names its fix, and a second exit path is how ISSUES.md B4 happened.
+that blocks names its fix, and a second exit path is what once let a rejection reach the agent as
+"No stderr output" — a refusal with no reason attached, costing a round of investigation each time.
 
 <!-- routing:start -->
 ## Routing
