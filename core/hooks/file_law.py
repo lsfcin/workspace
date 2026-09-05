@@ -18,6 +18,7 @@ LIMITS_FILE = HERE / 'limits.env'
 VENDORED_FILE = HERE / 'vendored.txt'
 GENERATED_FILE = HERE / 'generated.txt'
 EXTENSIONLESS_FILE = HERE / 'extensionless.txt'
+DESCRIBED_FILE = HERE / 'described.txt'
 
 # Things the line cap and the fanout signal apply to. Prose types (.md, .yaml, .toml) are
 # NOT here: their size is a signal, never a cap. `.tex` is code on purpose — a paper
@@ -99,36 +100,36 @@ def allowed_extensionless() -> set:
     return set(_lines(EXTENSIONLESS_FILE))
 
 
-def is_vendored(path: Path, root: Path) -> bool:
-    """True for third-party files we did not author and must not police.
+def _listed(path: Path, root: Path, declaration: Path) -> bool:
+    """True when this path matches a glob in one of the sibling declaration files.
 
-    17 of the 28 files over the line cap are conference templates (sigconf, iclr). Holding
-    someone else's LaTeX class to our authoring rules makes the finding list 60% noise and
-    would make every paper uncommittable. Same shape as gitignore-exceptions.txt: a named,
-    reviewed list, never a heuristic.
+    Two questions of one shape — is this path in a named, reviewed list — so one reader. Why
+    each list exists is stated in its own head, which is where a rule about a data file belongs.
     """
     try:
         rel = _rel(path.resolve(), root)
     except ValueError:
         return False
-    return any(fnmatch.fnmatch(rel, p) for p in _lines(VENDORED_FILE))
+    return any(fnmatch.fnmatch(rel, p) for p in _lines(declaration))
+
+
+def is_vendored(path: Path, root: Path) -> bool:
+    """Third-party files we did not author and must not police — core/hooks/vendored.txt."""
+    return _listed(path, root, VENDORED_FILE)
 
 
 def is_generated_artifact(path: Path, root: Path) -> bool:
-    """True for a file one of OUR tools writes — see core/hooks/generated.txt.
+    """A file one of OUR tools writes — core/hooks/generated.txt. Separate from is_vendored on
+    purpose: that list is provenance we do not own, this one is provenance we do."""
+    return _listed(path, root, GENERATED_FILE)
 
-    A generated artifact is code by extension and authored by nobody, so the authoring rules
-    read it as a violation the moment it is staged: ARCHITECTURE.html is 400-odd lines of HTML
-    and the line cap would block the commit that first carried it. The cap is right and the file
-    is right; what was missing was the third answer, that a tool wrote it. Kept separate from
-    is_vendored on purpose — that list is about provenance we do not own, this one is about
-    provenance we do.
-    """
-    try:
-        rel = _rel(path.resolve(), root)
-    except ValueError:
-        return False
-    return any(fnmatch.fnmatch(rel, p) for p in _lines(GENERATED_FILE))
+
+def described() -> dict:
+    """{path: description} for a file whose format has no comment syntax to carry one. JSON is
+    the class — every config a harness dictates is one, and the routing table exists to name
+    exactly those. core/hooks/described.txt says which, and why it is not a net."""
+    rows = (ln.split('\t', 1) for ln in _lines(DESCRIBED_FILE) if '\t' in ln)
+    return {name.strip(): text.strip() for name, text in rows}
 
 
 def is_authored(path: Path, root: Path) -> bool:

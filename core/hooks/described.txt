@@ -1,0 +1,16 @@
+# Files DESCRIBED HERE because they cannot describe themselves. One "<path><TAB><description>" per
+# line, path relative to the workspace root. Read by core/hooks/routing/workspace_meta.py.
+#
+# WHY IT EXISTS (2026-09-04): the routing generator reads a file's description out of its own first
+# line, and JSON has no comment syntax. So `.agents/hooks.json` — tracked, load-bearing, and
+# described in its directory's table for months — lost its row the first time .agents/ re-synced,
+# and the generator could not rebuild it. Every config a harness dictates is a .json, which is
+# exactly the class the routing table exists to name.
+#
+# The narrow list, not a net: a format with a comment syntax describes itself at the source, where
+# the description sits beside what it describes. Only a format that CANNOT belongs here, and
+# test_b20260901_a_tracked_json_cannot_be_routed_to.py holds every path listed to being tracked.
+#
+# Same shape as extensionless.txt, vendored.txt and generated.txt beside it: the law is the data
+# file, never the checker.
+.agents/hooks.json	Antigravity lifecycle hook registrations — the canonical WOS gates each event routes to.

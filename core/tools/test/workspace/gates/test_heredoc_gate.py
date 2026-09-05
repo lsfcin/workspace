@@ -5,8 +5,9 @@
 # HISTORY.md, both written past the size gate and the first-line-comment check.
 #
 # The silence cases matter more than the firing ones. Stdin-to-an-interpreter is 44% of heredoc
-# volume here and writes nothing; a gate that fires on those is a gate that gets switched off, and
-# it would fire on every cost-measurement script in core/tools/wos/session/.
+# volume here and is throwaway analysis; a gate that fires on all of those is a gate that gets
+# switched off, and it would fire on every cost-measurement script in core/tools/wos/session/.
+# Such a body CAN write — that half is b20260904, and its spec sits beside this file.
 import json
 import subprocess
 

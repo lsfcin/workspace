@@ -15,6 +15,12 @@ HERE = Path(__file__).resolve().parent
 CORE = HERE.parent
 REGISTRY_FILE = CORE / 'features.txt'
 PROFILE_FILE = CORE / 'profile.txt'
+# THE ANSWERS ARE PER MACHINE; THE BASE IS NOT (2026-09-04). profile.txt is versioned and its head
+# claimed to hold the answers "for THIS machine" — but two clones pull it, on two operating systems
+# with genuinely different feature sets, so `features --on` on one landed on the other. This file is
+# gitignored and overrides the base row by row, the same shape as .claude/settings.local.json. The
+# base stays versioned because that is what keeps the general/Lucas-specific line a reviewable diff.
+LOCAL_PROFILE_FILE = CORE / 'profile.local.txt'
 
 # The closed sets the registry's columns may draw from. Kept here rather than in the data file for
 # the same reason limits.env holds numbers and file_law.py holds the extension list: the values are
@@ -71,9 +77,14 @@ def slugs() -> set:
 
 
 def load_profile() -> dict:
-    """The answers, split by kind: {'toggle': {slug: 'on'|'off'}, 'setting': {key: value}}."""
+    """The answers, split by kind: {'toggle': {slug: 'on'|'off'}, 'setting': {key: value}}.
+
+    The base first, this machine's overrides on top. Reading in that order is the whole merge —
+    a local row answers one key and says nothing about the rest, so a machine declares only its
+    departures and inherits every question it has no opinion about.
+    """
     out: dict = {'toggle': {}, 'setting': {}}
-    for row in _rows(PROFILE_FILE):
+    for row in _rows(PROFILE_FILE) + _rows(LOCAL_PROFILE_FILE):
         kind = row.get('kind', '')
         if kind in out:
             out[kind][row.get('key', '')] = row.get('value', '')

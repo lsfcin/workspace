@@ -45,10 +45,21 @@ def test_a_shebang_is_not_a_description(tmp_path):
 
 def test_a_file_the_routing_table_never_lists_is_not_asked(tmp_path):
     """The check's scope is exactly the generator's: a row that will never exist owes nothing."""
-    for name in ('data.json', 'thing.pyi', 'CONTEXT.md'):
+    for name in ('thing.pyi', 'CONTEXT.md'):
         path = tmp_path / name
         path.write_text('no description here\n', encoding='utf-8', newline='\n')
         assert entropy_context.check_description(path) is None, name
+
+
+def test_a_format_with_no_comment_syntax_is_sent_to_the_declaration_file(tmp_path):
+    """`.json` got a row from 2026-09-04 (b20260901-a-tracked-json-cannot-be-routed-to), and JSON
+    has no comment syntax — so the gate must name the route that exists, not a first line the
+    format cannot hold. A gate naming an impossible fix is a gate nobody can obey."""
+    path = tmp_path / 'data.json'
+    path.write_text('{"a": 1}\n', encoding='utf-8', newline='\n')
+    message = entropy_context.check_description(path)
+    assert 'core/hooks/described.txt' in message
+    assert 'first line' not in message
 
 
 def test_the_message_names_the_shape_the_file_needs(tmp_path):

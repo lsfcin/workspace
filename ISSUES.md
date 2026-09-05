@@ -47,21 +47,6 @@ costed yet: push each scattered ledger from the same hook, or stop committing th
 each repo's own next commit carry its ledger. The second is smaller and matches "one repo, one
 session, one commit"; the first keeps the ledger true the moment it is written.
 
-## b20260901-a-tracked-json-cannot-be-routed-to
-
-**Symptom:** `.agents/hooks.json` is tracked, described, and had a routing row — and the first
-sync of `.agents/` in months deleted it. `workspace_scanner.is_scanned` admits a file only if its
-suffix is in `workspace_meta.ALL_EXTS`, which has no `.json`, so the row could not be rebuilt.
-
-**Why it matters:** the row was right and the generator cannot produce it, so the directory now
-describes itself with a file missing. Every config a harness dictates is a `.json`
-(`.agents/hooks.json`, `.zcode/config.json`), which is exactly the class the routing table exists
-to name. It also means the deletion looked like this session's regression and had to be proven not
-to be — a check that silently drops a row costs that investigation every time.
-
-**Root cause:** unestablished which change dropped `.json` from `ALL_EXTS`, and whether it was
-dropped to keep generated `.json` out. The fix is a decision about that set, not about the scanner.
-
 ## b20260901-a-second-shell-tool-walks-past-every-read-gate
 
 **Symptom:** on Windows the harness exposes a PowerShell tool alongside Bash. `Get-Content` on a
@@ -76,36 +61,6 @@ same shape as the bare `python3` finding: a gate that reads as installed and nev
 **Root cause:** the matchers name tools rather than capabilities, and a harness may add a tool. The
 fix is a decision — widen the matchers, or state that the gates are Bash-only and say so where a
 reader will see it.
-
-## b20260901-a-git-symlink-is-a-text-file-on-windows
-
-**Symptom:** `brain/memory/user_profile.md` is stored as a symlink (mode 120000). Windows git has
-`core.symlinks=false`, so the clone materialises a 10-byte file whose whole content is `../USER.md`.
-Anything reading it gets that string instead of Lucas's profile, and
-[`brain/memory/MEMORY.md`](brain/memory/MEMORY.md) routes to it.
-
-**Why it matters:** it is the ruling [`SETUP-clone.md`](SETUP-clone.md) § Skill mirrors already made on
-2026-08-29 — native symlinks under Git Bash need Developer Mode, a privilege out of proportion to
-this workspace — applied everywhere except the one file that predates it. The mirrors stopped being
-symlinks; this did not follow.
-
-**Root cause:** it was never revisited. Whether the answer is a generated copy, a pointer line, or
-folding the file into `USER.md` is Lucas's call.
-
-## b20260901-one-answers-file-is-shared-by-two-operating-systems
-
-**Symptom:** `core/profile.txt` is versioned and its own head says it holds the answers **for THIS
-machine**. Two machines pull it. `features --on/--off` on one lands on the other, and the permission
-level is one line in the same file.
-
-**Why it matters:** every other per-machine artifact in the workspace is generated and gitignored
-(`.claude/settings.local.json`, the mirrors, `.venv`). This one is the answers themselves, tracked,
-and the two clones are different operating systems with genuinely different feature sets — `latex`,
-`telegram-capture` and the apt-only deps are not the same question here as there.
-
-**Root cause:** it predates the second machine. The per-command escape hatch (`WOS_FEATURES_OFF=`)
-exists and the per-machine one does not. **Lucas's call**, because the alternative — a gitignored
-answers file — costs the reviewable general/Lucas-specific diff the head says it is for.
 
 ## b20260901-a-source-file-is-crlf-in-a-tree-that-declares-lf
 
@@ -175,28 +130,6 @@ always the local change, so it costs an investigation each time.
 route), scoping the scatter assertions to repos that exist locally, or accepting that this block is
 per-machine and untracking it. **Lucas's call**, because the third costs the reviewable diff the
 ledger exists to give.
-
-## b20260904-an-interpreter-heredoc-writes-any-file-past-every-edit-gate
-
-**Symptom:** `"$(sh core/run --python)" - <<'PYEOF'` running a script whose body calls
-`Path('ISSUES.md').write_text(...)` edits a tracked file and fires **no** `PreToolUse: Edit|Write`
-hook — not the size gate, not the first-line-comment check, not `issues-gate.py`. Used this way on
-2026-09-04 to delete two bug sections from this file. The specs existed and the gate would have
-allowed it, so nothing was lost; the gate simply never ran.
-
-**Why it matters:** [`core/hooks/checks/heredoc-gate.py`](core/hooks/checks/heredoc-gate.py) exists
-precisely to catch a shell payload that walks past the file gates, and it is the layer that failed.
-Its `targets()` docstring states the exclusion as *"Empty for `python3 - <<'EOF'`, which writes
-nothing"* — and the second half is a claim about redirects being read as a claim about the process.
-A script reaching an interpreter through stdin can write anything the session can.
-
-**Root cause:** the gate spots a write by its **shell syntax** — `>`, `>>`, `tee` — so a write
-performed inside the interpreted body is invisible by construction. The stdin-to-interpreter
-exclusion is deliberate and well argued (44% of heredoc volume here is throwaway analysis, and a
-gate firing on those is a gate that gets turned off), so the fix is **not** to drop it: it is to
-narrow the claim to what the gate can know, and to decide whether an interpreter heredoc naming a
-tracked path in its body earns the same warning. **Lucas's call**, because the cheap version — grep
-the body for a tracked path — reintroduces exactly the false-positive rate the exclusion bought off.
 
 <!-- entropy:start -->
 ## Entropy

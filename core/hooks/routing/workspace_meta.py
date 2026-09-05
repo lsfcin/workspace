@@ -4,7 +4,7 @@ from pathlib import Path
 
 # One definition, from core/hooks/file_law.py — this module used to carry its own copy.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from file_law import CODE_EXTS  # noqa: E402  (re-exported: callers import it from here)
+from file_law import CODE_EXTS, described  # noqa: E402  (CODE_EXTS re-exported for callers)
 from hoist import comment_paragraph, md_blurb  # noqa: E402
 
 # `.env` and `.txt` joined 2026-08-15: the four files core/hooks keeps its law in
@@ -12,7 +12,9 @@ from hoist import comment_paragraph, md_blurb  # noqa: E402
 # `#` first line and were unreachable by the generator, so core/hooks/CONTEXT.md hand-wrote a
 # table to name them — an inventory forced by a gap in this set. Five such files are tracked
 # workspace-wide, four of them here; this is a narrow list, not a net for data dumps.
-CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml', '.env', '.txt'}
+# `.json` joined 2026-09-04, with described.txt as its describing route: it has no comment syntax,
+# so the row a harness-dictated config earns cannot come from the file itself.
+CONTENT_EXTS = {'.md', '.yaml', '.yml', '.toml', '.env', '.txt', '.json'}
 ALL_EXTS     = CODE_EXTS | CONTENT_EXTS
 PLACEHOLDER  = '← add first-line comment'
 
@@ -82,6 +84,10 @@ def _frontmatter_description(path: Path) -> str:
     return ''
 
 def file_description(path: Path) -> str:
+    # Asked first, and only ever answers for a path named in core/hooks/described.txt. A format
+    # that CAN carry a comment still describes itself at the source, beside what it describes.
+    if declared := next((d for p, d in described().items() if str(path).endswith(p)), ''):
+        return declared
     if not path.suffix:
         return _exec_description(path)
     if path.suffix == '.md':

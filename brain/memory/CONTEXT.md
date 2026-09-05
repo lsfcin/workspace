@@ -14,7 +14,12 @@ What cannot be controlled is the agent *deciding* to write one. That is fine —
 |------|------|
 | `MEMORY.md` | The index. One line per memory; loaded into every session, so its length is a real cost (~1,198 tok — measured, see below). |
 | `<slug>.md` | One fact each, with `name` / `description` / `metadata.type` frontmatter. |
-| `user_profile.md` | A symlink to [`../USER.md`](../USER.md) — the profile is workspace content first and a memory second. |
+
+The profile is **not** a file here. It was a symlink to [`../USER.md`](../USER.md) until 2026-09-04,
+and a symlink is a text file on Windows: `core.symlinks=false` gave that clone a 10-byte file whose
+whole content was the string `../USER.md`, which is what a reader following the index got. The index
+routes straight to `../USER.md` now, the way the head above already described the profile — workspace
+content first, a memory second.
 
 Types are `user` · `feedback` · `reference`. Bodies link to each other with `[[name]]`,
 and a `[[name]]` with no matching file is allowed on purpose: it marks a memory worth writing.
@@ -49,5 +54,4 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`feedback_visual_eyeball_gate.md`](feedback_visual_eyeball_gate.md) | Every image-producing pipeline step needs Lucas's visual review (artifact board) before advancing — loops passing their own tests is not enough for visual work |
 | [`reference_linuz90_bot.md`](reference_linuz90_bot.md) | linuz90/claude-telegram-bot source read — the reference design for aiwbot; how it does session lineage + its UX feature set |
 | [`reference_texpace_is_spacemantics.md`](reference_texpace_is_spacemantics.md) | texpace" routes to the spacemantics project — same thing for /inbox routing |
-| [`user_profile.md`](user_profile.md) | Lucas — read before any Brain task. |
 <!-- routing:end -->

@@ -10,27 +10,39 @@ sys.path.insert(0, str(ROOT / 'core' / 'hooks'))
 
 import feature_law as law  # noqa: E402  — path is set above, which is the house pattern
 
-PROFILE = ROOT / 'core' / 'profile.txt'
+LOCAL = law.LOCAL_PROFILE_FILE
 MARK = {'on': 'on ', 'off': 'OFF'}
+LOCAL_HEAD = ('# What THIS machine answers differently. Gitignored: the versioned answers are\n'
+              '# core/profile.txt, and a row here overrides one of them for this clone only.\n'
+              '# Same three tab-separated columns. Written by core/tools/wos/features --on|--off.\n'
+              'kind\tkey\tvalue\n')
 
 
 def _write_toggle(slug: str, value: str) -> int:
-    """Rewrite one answer in place. The file is the interface, so the edit is a line swap and
-    every comment, ordering and setting survives it untouched."""
+    """Answer for THIS machine, never in the versioned base.
+
+    Two clones on two operating systems pull core/profile.txt, so a flip typed here used to land
+    over there — and the base stays versioned precisely so the general/Lucas-specific line is a
+    reviewable diff. A row is written even when it repeats the base: what this machine runs is
+    then stated where this machine is asked, rather than inherited and silently re-decided.
+    """
     if slug not in law.slugs():
         print(f'no such feature: {slug!r} — it is not declared in core/features.txt',
               file=sys.stderr)
         return 1
-    lines = PROFILE.read_text(encoding='utf-8').splitlines(keepends=True)
+    lines = LOCAL.read_text(encoding='utf-8').splitlines(keepends=True) if LOCAL.exists() \
+        else [LOCAL_HEAD]
+    row = f'toggle\t{slug}\t{value}\n'
     for i, line in enumerate(lines):
         parts = line.rstrip('\n').split('\t')
         if len(parts) == 3 and parts[0] == 'toggle' and parts[1] == slug:
-            lines[i] = f'toggle\t{slug}\t{value}\n'
-            PROFILE.write_text(''.join(lines), encoding='utf-8', newline='\n')
-            print(f'{slug} -> {value}')
-            return 0
-    print(f'{slug} is declared but has no answer in core/profile.txt', file=sys.stderr)
-    return 1
+            lines[i] = row
+            break
+    else:
+        lines.append(row)
+    LOCAL.write_text(''.join(lines), encoding='utf-8', newline='\n')
+    print(f'{slug} -> {value}  (this machine only: {LOCAL.name})')
+    return 0
 
 
 def _listing(rows: list) -> int:
@@ -87,8 +99,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(add_help=True)
     ap.add_argument('--group', help='list one group only')
     ap.add_argument('--findings', action='store_true', help='what cannot be switched off yet')
-    ap.add_argument('--on', metavar='SLUG', help='switch a feature on, in core/profile.txt')
-    ap.add_argument('--off', metavar='SLUG', help='switch a feature off, in core/profile.txt')
+    ap.add_argument('--on', metavar='SLUG', help='switch on, in core/profile.local.txt')
+    ap.add_argument('--off', metavar='SLUG', help='switch off, in core/profile.local.txt')
     ap.add_argument('--check', action='store_true', help='exit 1 on any disagreement')
     args = ap.parse_args()
 

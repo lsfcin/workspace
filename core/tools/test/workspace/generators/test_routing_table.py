@@ -12,6 +12,7 @@ from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 # sys.path for the enforcement layer is set once, by conftest.py — a second copy
 # here would go stale the next time core/hooks is split.
 
+from file_law import described  # noqa: E402  (the second describing route, asked not restated)
 from hoist import DESC_LIMIT  # noqa: E402  (the bound is imported, never restated)
 from workspace_meta import ALL_EXTS, COMMENT_RE, extract_api, file_description  # noqa: E402
 from workspace_scanner import build_file_rows, carried, parse_preserved_files  # noqa: E402
@@ -45,20 +46,26 @@ def test_file_and_description_are_never_dropped(tmp_path) -> None:
     assert table.splitlines()[0].rstrip().endswith('Description |')
 
 
-def test_every_scanned_extension_can_be_described() -> None:
-    """The scanner's extension list and the comment-pattern table must agree.
+def test_every_scanned_extension_has_a_way_to_be_described() -> None:
+    """Every extension the scanner picks up must have SOME route to a description.
 
     Two lists that have to match, with nothing checking that they did: `.sh` and `.jsx`
     were in ALL_EXTS and absent from COMMENT_RE, so 59 tracked files were undescribable by
     construction. Each got `← add first-line comment` in its routing row no matter how well
     it was commented — including `core/hooks/post-edit.sh`, inside the enforcement
     directory, which was read as evidence of a discipline hole until the generator was asked.
+
+    Two routes since 2026-09-04, because a format can have no comment syntax at all: a first-line
+    comment where the format allows one, and core/hooks/described.txt where it does not. `.json`
+    is the second route's whole reason — every config a harness dictates is one.
     """
-    missing = sorted(ALL_EXTS - set(COMMENT_RE))
+    declared = {Path(p).suffix for p in described()}
+    missing = sorted(ALL_EXTS - set(COMMENT_RE) - declared)
     assert not missing, (
-        f'{missing} are scanned but have no comment pattern, so file_description() returns '
-        f"'' for every one of them and the generator asks for a comment the file may "
-        f'already carry. Add a pattern to COMMENT_RE in core/hooks/routing/workspace_meta.py')
+        f'{missing} are scanned and have no route to a description, so file_description() returns '
+        f"'' for every one of them and the generator asks for a comment the file may already "
+        f'carry. Add a COMMENT_RE pattern in core/hooks/routing/workspace_meta.py, or — for a '
+        f'format with no comment syntax — a line in core/hooks/described.txt.')
 
 
 def test_a_shell_script_is_described_below_its_shebang(tmp_path) -> None:

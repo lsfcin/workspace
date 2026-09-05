@@ -127,10 +127,16 @@ def check_description(path: Path) -> str | None:
         return None
     if file_description(path).strip():
         return None
-    example = EXAMPLE_COMMENT.get(path.suffix, '# Short description')
+    # A format with no comment syntax cannot be told to grow a first line, and JSON is the class:
+    # every config a harness dictates is one. Its route is core/hooks/described.txt, so the fix
+    # this names has to be that one — a gate naming an impossible fix is a gate nobody can obey.
+    if path.suffix not in EXAMPLE_COMMENT:
+        return (f'{path}: nothing to put in the routing table, and its format carries no comment.\n'
+                f"   Its CONTEXT.md row would read '{PLACEHOLDER}'.\n"
+                f'   Describe it in core/hooks/described.txt: <path><TAB><description>')
     return (f'{path}: nothing to put in the routing table.\n'
             f"   Its CONTEXT.md row would read '{PLACEHOLDER}'.\n"
-            f'   Give it a first line: {example}')
+            f'   Give it a first line: {EXAMPLE_COMMENT[path.suffix]}')
 
 
 def check_truncation(path: Path) -> str | None:
