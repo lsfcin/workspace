@@ -34,6 +34,14 @@ of a skill left a dangling mirror symlink another session's opencode choked on a
   landed under an unrelated commit message, and the fix (soft-reset + recommit) needs a force-push
   to a branch the other machine may hold — so it could not be cleanly undone. **Check `git status`
   for a pre-dirty index at session start, and prefer `git commit -- <paths>` when it is not clean.**
+- **A REFUSED commit leaves its index staged, and the next commit absorbs it.** Incident
+  2026-09-05: a commit was blocked by the pre-commit gate (a parallel session's untracked goal file
+  broke a root check). The fix was a separate one-file commit — but everything staged for the
+  refused attempt was still in the index, so that "chore(brain): track hair.md" commit silently
+  carried a generator change and a new test. Nothing was lost and nothing was another session's, but
+  the message names a third of its own content, and the checkout was shared so amending it would
+  have meant a force-push under someone else's HEAD. **After any refused commit, `git status`
+  before the next one** — or `git commit -- <paths>`, which is the same defence as the bullet above.
 - **HEAD is shared state too — check the branch immediately before committing, not at session
   start.** Incident 2026-08-14: the session began on `feature/wos-typeset`, a parallel session
   switched the shared checkout to `feature/brain-attention` mid-flight, and the commit landed on

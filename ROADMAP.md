@@ -21,22 +21,19 @@ project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of
 *Why* — the norm that produced this mass now says cut. A `.md` line in this tree is re-read by every session.
 *Done when* — both numbers are met with `verify-fast` green. Check code parsers before cutting any `.md`.
 
-**🟢 three law files sit over the 200-line cap and each needs its own sitting**
-*What* — `core/hooks/SPECS.md`, `core/SPECS.md`, `core/SCHEMA.md` under the cap, cut not split.
+**🟢 two law files still sit over the 200-line cap, and the route to 200 is now known**
+*What* — `core/SPECS.md` and `core/SCHEMA.md` under the cap. `core/hooks/SPECS.md` landed on 200 exactly
+2026-09-05 and is the worked example.
 *Why* — they are the largest scaffold files and the cut pays twice, closing size findings and the item above.
-*Done when* — § Size signals lists none of them. **Not narration — every line is live law.** `SCHEMA.md`'s
+*How* — **cut what is narrated twice, then move the rest to the directory that owns the code it governs**
+(ruled 2026-09-05, Lucas — the route neither of the three options named). `core/hooks/SPECS.md` gave up 90
+lines of narrative already told in `core/run` and in its own `CONTEXT.md`; the last 86 were live rules with
+their why, and those went to `routing/SPECS.md` and `stubgen/SPECS.md`, the `compact/SPECS.md` shape. Not a
+`TYPE-<slug>` sibling and not a shard — a rule placed beside the code it is about.
+*Done when* — § Size signals lists neither. **Not narration — every line is live law.** `SCHEMA.md`'s
 tables are parsed by `schema_law.py` and its transient-doc rows are live exemptions. Cut prose around
-them, never a row, and read the parser before the file.
-
-**🔴 the cap and the rationale rule point opposite ways, and the three law files are where they meet**
-*What* — a ruling: shard each by reader, exempt the type, or send rationale to git. `core/norms/CONTEXT.md`
-says rationale belongs in the `SPECS.md` that owns the rule; the cap says cut. Both cannot hold at 361 lines.
-*Why* — measured 2026-09-01, not guessed: `SCHEMA.md` gave up 6 lines of true redundancy and stopped at 220
-with every remaining line a parsed table or a rule with a checker; `core/hooks/SPECS.md` reads the same at 361,
-where reaching 200 means deleting the coverage, shim and lifecycle tables. `SETUP.md` took the sibling route
-2026-09-02 with Lucas's OK: 610 in one file became five, none over the cap, at **+11 lines total** — so a
-shard is available, it is checked, and it buys the cap rather than the mass.
-*Done when* — Lucas has ruled and the 🟢 item above is either doable or dead.
+them, never a row, and read the parser before the file. `core/SPECS.md` has no subdirectory to move into,
+so it is the one that tests whether the route generalises.
 
 ## Cost — what a session costs, and which of it is avoidable
 
