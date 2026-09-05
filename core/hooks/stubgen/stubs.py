@@ -144,6 +144,37 @@ def find_tsc():
     return which('tsc') or which('tsc', path=str(Path.home() / '.local/bin'))
 
 
+def project_root(start: Path, stop: Path):
+    """The nearest ancestor of `start` holding a tsconfig.json, or None."""
+    directory = (stop / start).parent
+    while directory != stop and directory != directory.parent:
+        if (directory / 'tsconfig.json').is_file():
+            return directory
+        directory = directory.parent
+    return None
+
+
+def emit_project_dts(project: Path, tsc: str) -> list:
+    """Declarations for one tsconfig project at once, and the .d.ts files that came out.
+
+    Per PROJECT, not per file: tsc --incremental costs one run for a directory tree and N runs for
+    N files. The build-info marker is gitignored by this function rather than by the caller,
+    because a caller that forgot would commit a binary cache — and it lives here for the reason
+    the module head gives, that the tsc INVOCATION is the thing that must never be duplicated.
+    """
+    config = project / 'tsconfig.json'
+    if (project / 'tsconfig.declarations.json').is_file():
+        config = project / 'tsconfig.declarations.json'
+    ignore, marker = project / '.gitignore', '.tsbuildinfo-declarations'
+    if marker not in (ignore.read_text(encoding='utf-8') if ignore.is_file() else ''):
+        with ignore.open('a', encoding='utf-8', newline='\n') as handle:
+            handle.write(f'\n{marker}\n')
+    subprocess.run([tsc, '-p', str(config), '--emitDeclarationOnly', '--incremental',
+                    '--tsBuildInfoFile', str(project / marker)],
+                   capture_output=True, text=True, encoding='utf-8', errors='replace')
+    return [ignore] + [d for d in project.rglob('*.d.ts') if 'node_modules' not in d.parts]
+
+
 def main() -> int:
     """`stubs.py <file>` -- emit the interface for one file. The entry point postedit uses."""
     if len(sys.argv) != 2:

@@ -40,8 +40,7 @@ from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
 from entropy_naming import (check_dirs, check_placement,  # noqa: E402
                             check_shape, untracked_routing_targets)
 from entropy_size import size_signals, stub_signals  # noqa: E402
-from entropy_report import END, SECTIONS, SEED, START, render  # noqa: E402
-from entropy_scatter import scatter  # noqa: E402
+from entropy_report import END, SECTIONS, SEED, START, local_seed, render  # noqa: E402
 from entropy_trend import baseline, format_trend  # noqa: E402
 from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
 from entropy_vendor import vendor_directive_hits  # noqa: E402
@@ -83,7 +82,10 @@ def _rel(path) -> str:
     return rel(path, WORKSPACE_ROOT)
 
 
-def collect(files: list) -> dict:
+def collect(files: list, repo: Path = WORKSPACE_ROOT) -> dict:
+    """Every check, over one repo's files. `repo` is the repo being counted; the LAW is always the
+    workspace's, because a nested project obeys the same SCHEMA. Only the questions that ask git
+    something — what is tracked, what a branch is ahead of — are repo-relative."""
     gate = _gate("type-gate")
     allowed, exempt = load_law(SCHEMA)
     scopes = load_scopes(SCHEMA)
@@ -113,16 +115,18 @@ def collect(files: list) -> dict:
     findings['wiki'] = wiki_link_hits(
         files, goal_vocabulary(WORKSPACE_ROOT / 'brain/goals'),
         wiki_exempt_paths(WORKSPACE_ROOT))
+    # The workspace's own ledgers. A nested project has its own and does not answer for these.
     findings['duplicates'] = [f'`[{slug}]` claimed by {", ".join(sorted(claims))}'
-                              for slug, claims in duplicate_slugs(LEDGERS).items()]
-    findings['routing'] = untracked_routing_targets(files, WORKSPACE_ROOT)
+                              for slug, claims in duplicate_slugs(
+                                  LEDGERS if repo == WORKSPACE_ROOT else {}).items()]
+    findings['routing'] = untracked_routing_targets(files, repo)
     findings['size'] = size_signals(files)
     findings['stubs'] = stub_signals(files)
     findings['fanout'] = fanout_signals(files, WORKSPACE_ROOT)
-    findings['branches'] = unmerged_branches(WORKSPACE_ROOT)
-    findings['unpushed'] = unpushed_work(WORKSPACE_ROOT)
-    findings['locals'] = merged_local_branches(WORKSPACE_ROOT)
-    findings['remotes'] = merged_remote_branches(WORKSPACE_ROOT)
+    findings['branches'] = unmerged_branches(repo)
+    findings['unpushed'] = unpushed_work(repo)
+    findings['locals'] = merged_local_branches(repo)
+    findings['remotes'] = merged_remote_branches(repo)
     findings['finished'] = finished_work_hits(files, exempt)
     findings['undescribed'] = unanswered_placeholders(files, exempt)
     findings['stores'] = experiment_hits(files) + ref_tier_hits(files)
@@ -139,26 +143,28 @@ def main(argv: list | None = None) -> int:
         return 0  # switched off: no report is written, so the number stops existing rather than lying
     args = argv if argv is not None else sys.argv[1:]
     dry_run = '--dry-run' in args or bool(os.environ.get('LAW_PROBE')) or bool(os.environ.get('WOS_DRY_RUN'))
-    files = tracked_files(WORKSPACE_ROOT, nested=True)
-    findings = collect(files)
-    # Every code repo's findings go to its own ledger first; what is left is this repo's own, and
-    # the counts come back so the root can sum them in the same pass that wrote them.
-    mine, counts = scatter(findings, WORKSPACE_ROOT, files, write=not dry_run)
-    text = REPORT.read_text(encoding='utf-8') if REPORT.exists() else SEED
-    here = sum(len(mine[k]) for k, _, _ in SECTIONS)
-    collected = here + sum(counts.values())
+    # EVERY REPO COUNTS ONLY ITSELF (ruled 2026-09-04, Lucas). The root used to scan all 27 nested
+    # repos and carry a table of them — repos its own git IGNORES, so the committed block described
+    # THIS DISK and the clone without them read the same commit as red for work it had not done.
+    # A project's findings are written where its reader is: by its own pre-commit, into its own
+    # ISSUES.md. Which projects exist, and where they live outside, is PROJECTS.md.
+    repo = Path(args[args.index('--repo') + 1]).resolve() if '--repo' in args else WORKSPACE_ROOT
+    ledger = repo / 'ISSUES.md'
+    files = tracked_files(repo, nested=False)
+    findings = collect(files, repo)
+    here = sum(len(findings[k]) for k, _, _ in SECTIONS)
+    name = '' if repo == WORKSPACE_ROOT else _rel(repo)
     # A bare count is how "flat" got written every session while the real number climbed —
     # re-derive the baseline from git history every run rather than trusting yesterday's memory.
-    # Trend on `here`, the number the header prints: baseline() reads that same wording back out of
-    # git, so trending `collected` against it subtracts two different scopes and prints nonsense
-    # (34 findings with a "+571 over 0 days" beside it, the first run after the header changed).
-    trend = format_trend(here, baseline(WORKSPACE_ROOT))
-    block = render(mine, len(files), WORKSPACE_ROOT, index=counts, trend=trend)
+    trend = format_trend(here, baseline(repo)) if repo == WORKSPACE_ROOT else ''
+    block = render(findings, len(files), repo, name=name, trend=trend)
+    seed = SEED if repo == WORKSPACE_ROOT else local_seed(name)
     if not dry_run:
-        REPORT.write_text(replace_block(text, block, START, END), encoding="utf-8", newline='\n')
+        text = ledger.read_text(encoding='utf-8') if ledger.exists() else seed
+        ledger.write_text(replace_block(text, block, START, END, at_end=not ledger.exists()),
+                          encoding="utf-8", newline='\n')
     status = '[dry-run] ' if dry_run else ''
-    print(f'entropy dashboard {status}→ {_rel(REPORT)} ({collected} findings, '
-          f'{here} here, {len(counts)} local ledgers)')
+    print(f'entropy {status}→ {_rel(ledger)} ({here} findings, {len(files)} files scanned)')
     return 0
 
 

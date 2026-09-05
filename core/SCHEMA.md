@@ -28,6 +28,7 @@ not get a type.
 | `USER.md` | Who is Lucas, and how does he fail? |
 | `MEMORY.md` | Which memories exist, and what is each about? (index + router, `brain/memory/` only) |
 | `SETUP.md` | How do I make this environment work? (toolchain install + config) |
+| `PROJECTS.md` | Where does each internal project live — here, and outside? (root only) |
 | `STATUS.md` | Is this craft chain still running, and where did it stop? (`.craft/<slug>/` only) |
 | `SCHEMA.md` | This file: the law about types. |
 

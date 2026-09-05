@@ -21,9 +21,10 @@ workspace.
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | Description |
-|------|-----------|-------------|
-| [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | T1 roundup tool (core/SPECS.md § AD-09): the deterministic half of the session-close ritual. Zero-token, no network — every case builds its own throwaway repo. |
-| [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | T0 the session-close skills (core/SPECS.md § AD-09): what bash cannot assert about the other layer. Zero-token, no network. |
-| [`test_size.py`](test_size.py) | [`test_size.pyi`](test_size.pyi) | T1 size tool (ROADMAP.md § Cost): whether the workspace got smaller this session, and where. Zero-token, no network — every case builds its own throwaway repo. |
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`test_b20260831_scattered_ledgers_never_push.py`](test_b20260831_scattered_ledgers_never_push.py) | [`test_b20260831_scattered_ledgers_never_push.pyi`](test_b20260831_scattered_ledgers_never_push.pyi) | `roundup` | b20260831 regression — a project's commits reach its remote, and the session close is where. |
+| [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | — | T1 roundup tool (core/SPECS.md § AD-09): the deterministic half of the session-close ritual. Zero-token, no network — every case builds its own throwaway repo. |
+| [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | — | T0 the session-close skills (core/SPECS.md § AD-09): what bash cannot assert about the other layer. Zero-token, no network. |
+| [`test_size.py`](test_size.py) | [`test_size.pyi`](test_size.pyi) | — | T1 size tool (ROADMAP.md § Cost): whether the workspace got smaller this session, and where. Zero-token, no network — every case builds its own throwaway repo. |
 <!-- routing:end -->

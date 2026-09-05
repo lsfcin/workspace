@@ -15,7 +15,7 @@
 import subprocess
 from pathlib import Path
 
-from entropy_corpus import nested_repos
+# nested_repos is deliberately NOT imported: these four signals answer for one repo (see `repos`).
 from platform_law import rel
 
 # In base order. `master` is not legacy noise here: branches/instituto is on it, and a repo whose
@@ -71,6 +71,18 @@ def _deletable(repo: Path, base: str) -> list:
     return out
 
 
+def repos(root: Path) -> list:
+    """The repos these four signals answer for: exactly the one asked about.
+
+    It was `[root] + nested_repos(root)` until 2026-09-04, so the workspace's own ledger carried
+    the branch debt of 27 projects its git ignores — a count that described THIS DISK, red on the
+    clone that has none of them (b20260902). Each project now answers for itself, in its own
+    ISSUES.md, and the cross-repo sweep that PUSHES them lives in `core/tools/wos/roundup`, where
+    a session close can act on it. Named rather than inlined: four callers, one rule.
+    """
+    return [root]
+
+
 def unmerged_branches(root: Path) -> list:
     """One line per local branch holding commits its base does not have.
 
@@ -80,7 +92,7 @@ def unmerged_branches(root: Path) -> list:
     promote to, which is how a repo on a lone feature branch reported clean.
     """
     signals = []
-    for repo in sorted([root] + nested_repos(root)):
+    for repo in repos(root):
         name = _rel(repo, root)
         base = _base_of(repo)
         if not base:
@@ -104,7 +116,7 @@ def merged_local_branches(root: Path) -> list:
     command, the same way its twin is.
     """
     signals = []
-    for repo in sorted([root] + nested_repos(root)):
+    for repo in repos(root):
         base = _base_of(repo)
         if not base:
             continue
@@ -125,7 +137,7 @@ def unpushed_work(root: Path) -> list:
     merged_local_branches above owns it.
     """
     signals = []
-    for repo in sorted([root] + nested_repos(root)):
+    for repo in repos(root):
         name = _rel(repo, root)
         if not _git(repo, 'remote', 'get-url', 'origin'):
             signals.append(f'{name} — no remote: nothing here exists anywhere else')
@@ -153,7 +165,7 @@ def merged_remote_branches(root: Path) -> list:
     the way that note did.
     """
     signals = []
-    for repo in sorted([root] + nested_repos(root)):
+    for repo in repos(root):
         base = _base_of(repo)
         if not base or not _git(repo, 'rev-parse', '--verify', '--quiet',
                                 f'refs/remotes/origin/{base}'):

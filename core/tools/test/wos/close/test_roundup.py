@@ -28,9 +28,9 @@ SEEDED_ISSUES = ('# Issues\n\n## B1 — a hand-written issue the generators must
                  '<!-- entropy:start -->\n**9 findings**\n<!-- entropy:end -->\n')
 
 # Every real file the script reaches for — what they do to the tree is the subject of these cases.
-PARTS = ('core/tools/wos/roundup', 'core/tools/wos/close/artifacts.py',
+PARTS = ('core/tools/wos/roundup', 'core/tools/wos/close/artifacts.py', 'core/hooks/routing/blocks.py',
          'core/tools/wos/close/branches.py', 'core/tools/verify/contract.py',
-         'core/hooks/platform_law.py', 'core/hooks/routing/blocks.py')
+         'core/hooks/platform_law.py', 'core/hooks/entropy/entropy_corpus.py')  # real: sweep asks it
 
 
 def _git(repo, *args):

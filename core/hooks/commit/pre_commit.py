@@ -145,6 +145,9 @@ def stages() -> list:
     because it stages files the later stages then see. The 2026-07-31 split recorded this order
     after the previous 385-line single file had drifted out of it (1, 2, 1a, 1c, 1d, 1e, 1g, 1f,
     1b, 2b, 3, 4 ...), so it is preserved deliberately rather than inherited.
+
+    `ledger` runs after every generator and before `lint`: it counts what this commit will really
+    contain, so it must see the routing tables and stubs the stages above just wrote.
     """
     import gates
     import gates_project
@@ -156,6 +159,7 @@ def stages() -> list:
             generators.routing,
             generators.interfaces,
             generators.skills,
+            generators.ledger,
             gates.lint]
 
 

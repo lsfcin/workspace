@@ -1,73 +1,73 @@
-# B5 regression — the ledger the scatter writes is committed by the scatter.
+# B5 regression — the ledger's writer owns its artifact, so a written ledger is never left loose.
+#
 # 26 nested repos carried untracked ISSUES.md ledgers nobody ever committed: invisible to clones,
-# to history, and to anyone who did not run the dashboard locally — so the findings were addressed
-# to readers who cannot see them. The writer owns its artifact now: write_local commits the ledger
-# with a PATHSPEC commit (whatever else is staged in that repo stays staged), and steps aside for
-# a repo mid-operation. The commit carries --no-verify because the ledger is generated content —
-# the parent's own generated.txt exempts generated files from authoring rules, and a gate blocking
-# a generated report would re-create the uncommitted-ledger state it exists to kill.
+# to history, and to anyone who did not run the dashboard locally — the findings were addressed to
+# readers who could not see them. That is the law, and it still holds.
+#
+# WHAT CHANGED 2026-09-04 (Lucas's ruling): the writer is no longer the workspace root reaching in
+# from outside. The root used to scan every nested repo and commit a ledger into each one behind
+# the session — commits nobody typed, so nobody pushed them
+# (b20260831-scattered-ledgers-never-push). Now each repo's OWN pre-commit writes its own ledger
+# and STAGES it, so it rides the commit the operator is already making: one repo, one session, one
+# commit, and no artifact left loose. The push half of that ruling lives in core/tools/wos/roundup.
 import os
 import subprocess
+import sys
+from pathlib import Path
 
-from entropy_report import SECTIONS
-from entropy_scatter import scatter
+from conftest import WORKSPACE_ROOT
 
+sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks/commit'))
+import generators  # noqa: E402
+from pre_commit import Commit  # noqa: E402
 
-def _workspace(tmp_path):
-    ws = tmp_path / 'ws'
-    (ws / 'code/proj').mkdir(parents=True)
-    repo = ws / 'code/proj'
-    subprocess.run(['git', 'init', '-q', str(repo)], check=True)
-    (repo / 'file.py').write_text('x = 1\n', encoding='utf-8', newline='\n')
-    env = {**os.environ, 'GIT_AUTHOR_NAME': 't', 'GIT_AUTHOR_EMAIL': 't@t',
-           'GIT_COMMITTER_NAME': 't', 'GIT_COMMITTER_EMAIL': 't@t'}
-    subprocess.run(['git', '-C', str(repo), 'add', '.'], check=True)
-    subprocess.run(['git', '-C', str(repo), 'commit', '-qm', 'init', '--no-verify'],
-                   check=True, env=env)
-    return ws, repo
-
-
-def _findings():
-    findings = {key: [] for key, _, _ in SECTIONS}
-    findings['size'] = ['code/proj/file.py — 3 line(s) over the cap']
-    return findings
-
-
-FILES = ['code/proj/file.py']
+ENV = {**os.environ, 'GIT_AUTHOR_NAME': 't', 'GIT_AUTHOR_EMAIL': 't@t',
+       'GIT_COMMITTER_NAME': 't', 'GIT_COMMITTER_EMAIL': 't@t'}
 
 
 def _git(repo, *args):
-    return subprocess.run(['git', '-C', str(repo), *args], capture_output=True, text=True, encoding='utf-8')
+    return subprocess.run(['git', '-C', str(repo), *args], capture_output=True, text=True,
+                          encoding='utf-8', env=ENV)
 
 
-def test_the_ledger_the_scatter_writes_gets_committed(tmp_path):
-    ws, repo = _workspace(tmp_path)
-    mine, counts = scatter(_findings(), ws, FILES)
-    assert counts['code/proj'] == 1
-    assert 'entropy ledger' in _git(repo, 'log', '--oneline', '--', 'ISSUES.md').stdout
-    assert _git(repo, 'status', '--porcelain').stdout == '', 'the ledger was left dirty'
+def _repo(tmp_path) -> Path:
+    """A throwaway repo with one tracked file. Nothing here touches the real workspace."""
+    repo = tmp_path / 'proj'
+    repo.mkdir(parents=True)
+    subprocess.run(['git', 'init', '-q', str(repo)], check=True)
+    (repo / 'file.py').write_text('# a file\nx = 1\n', encoding='utf-8', newline='\n')
+    _git(repo, 'add', '.')
+    _git(repo, 'commit', '-qm', 'init', '--no-verify')
+    return repo
 
 
-def test_an_unchanged_ledger_is_not_committed_again(tmp_path):
-    ws, repo = _workspace(tmp_path)
-    scatter(_findings(), ws, FILES)
-    first = _git(repo, 'rev-list', '--count', 'HEAD').stdout.strip()
-    scatter(_findings(), ws, FILES)
-    assert _git(repo, 'rev-list', '--count', 'HEAD').stdout.strip() == first
+def _commit(repo: Path) -> Commit:
+    return Commit(root=WORKSPACE_ROOT, toplevel=repo, staged=['file.py'])
 
 
-def test_a_repo_mid_operation_is_left_alone(tmp_path):
-    ws, repo = _workspace(tmp_path)
-    (repo / '.git' / 'MERGE_HEAD').write_text('x', encoding='utf-8', newline='\n')
-    scatter(_findings(), ws, FILES)
-    assert 'ISSUES.md' in _git(repo, 'status', '--porcelain').stdout, 'the ledger must be written'
-    assert _git(repo, 'log', '--oneline', '--', 'ISSUES.md').stdout == '', 'mid-operation repo committed'
+def test_the_repo_writes_its_own_ledger_and_stages_it(tmp_path):
+    """Written AND staged, in one stage: an artifact the writer leaves loose is B5 all over again."""
+    repo = _repo(tmp_path)
+    generators.ledger(_commit(repo))
+
+    ledger = repo / 'ISSUES.md'
+    assert ledger.is_file(), 'the repo wrote no ledger of its own'
+    staged = _git(repo, 'diff', '--cached', '--name-only').stdout.split()
+    assert 'ISSUES.md' in staged, 'the ledger was written and left out of the commit under way'
 
 
-def test_staged_work_in_the_repo_stays_staged(tmp_path):
-    ws, repo = _workspace(tmp_path)
-    (repo / 'wip.py').write_text('y = 2\n', encoding='utf-8', newline='\n')
-    _git(repo, 'add', 'wip.py')
-    scatter(_findings(), ws, FILES)
-    assert 'wip.py' in _git(repo, 'status', '--porcelain').stdout, 'the pathspec commit ate staged work'
-    assert 'entropy ledger' in _git(repo, 'log', '--oneline', '--', 'ISSUES.md').stdout
+def test_the_ledger_says_it_is_about_this_repo(tmp_path):
+    """Each ledger reports ITS OWN repo. A local file stating a workspace-wide total was the
+    self-description failure this scatter was rebuilt to end."""
+    repo = _repo(tmp_path)
+    generators.ledger(_commit(repo))
+    text = (repo / 'ISSUES.md').read_text(encoding='utf-8')
+    assert 'findings here' in text
+    assert 'more across' not in text, 'a repo may not report on repos it cannot see'
+
+
+def test_writing_a_ledger_never_refuses_the_commit(tmp_path):
+    """Ruled: writes and warns. A gate here would refuse a commit over debt it did not create."""
+    repo = _repo(tmp_path)
+    generators.ledger(_commit(repo))  # raising Blocked would fail this test by escaping
+    generators.ledger(_commit(repo))  # and a second run over its own output must be stable too

@@ -26,7 +26,7 @@ sys.dont_write_bytecode = True
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 for _dir in (SCRIPT_DIR / 'close', SCRIPT_DIR.parents[1] / 'hooks',
-             SCRIPT_DIR.parents[1] / 'tools/verify'):
+             SCRIPT_DIR.parents[1] / 'hooks/entropy', SCRIPT_DIR.parents[1] / 'tools/verify'):
     sys.path.insert(0, str(_dir))
 import artifacts  # noqa: E402
 import branches  # noqa: E402
@@ -41,13 +41,43 @@ WORKSPACE = SCRIPT_DIR.parents[2]
 # without failing anything, which is how both skills promised three while this printed six.
 # Ruled 2026-08-25: cost and size lead, because they are the two facts Lucas reads the block for and
 # the rest is state the next session needs. Both print bare — they are sentences, not labelled state.
-STATE = ('cost', 'size', 'verify', 'sync', 'entropy', 'diagram', 'compaction')
+STATE = ('cost', 'size', 'verify', 'sync', 'projects', 'entropy', 'diagram', 'compaction')
 BARE = ('cost', 'size')
 
 
 def out(repo, *args) -> str:
     done = git(repo, *args)
     return done.stdout.strip() if done.returncode == 0 else ''
+
+
+def projects(root: Path) -> str:
+    """Push every nested project whose HEAD its remote does not have, and say what happened.
+
+    Ruled 2026-09-04 (Lucas). Two halves of one problem meet here. The workspace's ledger stopped
+    counting these projects, because they are IGNORED by its git and a count of them described this
+    disk rather than the repo (b20260902). And their ledgers used to be committed from outside, by
+    the scatter, behind the session — nobody typed those commits, so nobody pushed them, which is
+    exactly what code/SPECS-git.md § Push policy forbids (b20260831). Each project now writes and
+    commits its own ledger at its own pre-commit; what was still missing is the push, and a session
+    close is where a person is present to see it. A repo with no remote is named, never pushed:
+    that one cannot be fixed from here.
+    """
+    from entropy_corpus import nested_repos
+    pushed, stuck, homeless = [], [], []
+    for repo in sorted(nested_repos(root)):
+        name = posix(repo.relative_to(root))
+        if not out(repo, 'remote', 'get-url', 'origin'):
+            homeless.append(name)
+        elif not out(repo, 'log', '--oneline', '@{upstream}..HEAD'):
+            continue
+        elif git(repo, 'push', '-q', 'origin', 'HEAD').returncode == 0:
+            pushed.append(name)
+        else:
+            stuck.append(name)
+    said = [f'{len(pushed)} pushed' if pushed else '',
+            f'{len(stuck)} failed: {", ".join(stuck)}' if stuck else '',
+            f'{len(homeless)} with no remote: {", ".join(homeless)}' if homeless else '']
+    return ' · '.join(part for part in said if part)
 
 
 def verify(root: Path) -> tuple:
@@ -149,6 +179,7 @@ def main(argv: list) -> int:
     sid = session_id(root)
     cost, size = report(root, sid)
     said = {'cost': cost, 'size': size, 'verify': verdict, 'sync': sync, 'entropy': entropy,
+            'projects': projects(root) if root == WORKSPACE else '',
             'diagram': diagram, 'compaction': compaction(sid) if sid else ''}
     for label in STATE:
         value = said[label]

@@ -25,6 +25,5 @@ that keeps the counts falling lives in `core/tools/test/workspace/test_corpus_ra
 |------|-----------|-----|-------------|
 | [`entropy-dashboard.py`](entropy-dashboard.py) | [`entropy-dashboard.pyi`](entropy-dashboard.pyi) | `collect`, `main` | The entropy dashboard. Runs every Tier 0 check over the whole tree and writes ONE generated report, so agents and Lucas read a pre-computed file instead of re-scanning the workspace. Zero-token, no LLM. |
 | [`entropy_report.py`](entropy_report.py) | [`entropy_report.pyi`](entropy_report.pyi) | `local_seed`, `render` | The entropy report: what the dashboard's findings look like on the page. |
-| [`entropy_scatter.py`](entropy_scatter.py) | [`entropy_scatter.pyi`](entropy_scatter.pyi) | `ledger_repos`, `owner`, `partition`, `write_local`, `scatter` | Which repo owns a finding, and the local ledger it is written into. |
 | [`entropy_trend.py`](entropy_trend.py) | [`entropy_trend.pyi`](entropy_trend.pyi) | `baseline`, `format_trend` | The dashboard's own history, re-derived from git rather than stored. |
 <!-- routing:end -->

@@ -53,7 +53,8 @@ def test_scopes_come_from_schema():
     Fewer findings is exactly what a broken parse looks like.
     """
     scopes = type_gate.load_scopes(SCHEMA)
-    assert scopes == {'AGENTS.md': 'root', 'README.md': 'repo-root'}, (
+    assert scopes == {'AGENTS.md': 'root', 'README.md': 'repo-root',
+                      'PROJECTS.md': 'root'}, (
         'the scope column of the type table stopped parsing — check_placement is now '
         'silently checking nothing'
     )

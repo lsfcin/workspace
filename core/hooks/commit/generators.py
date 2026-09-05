@@ -89,38 +89,33 @@ def _sweep(commit, staged, pattern, exclude=()):
 
 
 def _typescript(commit, staged):
-    """Declarations once per tsconfig project, not once per file (tsc --incremental)."""
+    """Declarations once per tsconfig project, not once per file. The tsc call itself is stubs.py's,
+    which is where every stub-generator invocation lives; this stage owns only what to stage."""
     tsc = stubs.find_tsc()
     if not tsc:
         print('⚠  tsc not found — .d.ts not generated. Install: npm install -g typescript\n')
         return
-    for project in sorted({_project_root(commit, p) for p in staged} - {None}):
-        config = project / 'tsconfig.json'
-        if (project / 'tsconfig.declarations.json').is_file():
-            config = project / 'tsconfig.declarations.json'
-        ignore = project / '.gitignore'
-        marker = '.tsbuildinfo-declarations'
-        if marker not in (ignore.read_text(encoding='utf-8') if ignore.is_file() else ''):
-            with ignore.open('a', encoding='utf-8', newline='\n') as handle:
-                handle.write(f'\n{marker}\n')
-            _stage(commit, ignore)
-        subprocess.run([tsc, '-p', str(config), '--emitDeclarationOnly', '--incremental',
-                        '--tsBuildInfoFile', str(project / marker)],
-                       capture_output=True, text=True, encoding='utf-8', errors='replace')
-        for declaration in project.rglob('*.d.ts'):
-            if 'node_modules' not in declaration.parts:
-                _stage(commit, declaration)
+    roots = {stubs.project_root(Path(p), commit.toplevel) for p in staged} - {None}
+    for project in sorted(roots):
+        _stage(commit, *stubs.emit_project_dts(project, tsc))
         print(f'✓ .d.ts generated: {project}')
 
 
-def _project_root(commit, path):
-    """The nearest ancestor holding a tsconfig.json, or None."""
-    directory = (commit.toplevel / path).parent
-    while directory != commit.toplevel and directory != directory.parent:
-        if (directory / 'tsconfig.json').is_file():
-            return directory
-        directory = directory.parent
-    return None
+def ledger(commit):
+    """This repo's own entropy findings, written into its own ISSUES.md and staged.
+
+    Ruled 2026-09-04 (Lucas): each repo counts only itself, and writes where its reader is. The
+    workspace root used to scan all 27 nested projects from outside and commit a ledger into each
+    one behind the session — commits nobody typed, so nobody pushed them
+    (b20260831-scattered-ledgers-never-push), against a table that described this disk and was red
+    on the clone that had none of them (b20260902). WRITES AND WARNS, never refuses: the count is
+    a signal to act on, and a gate here would refuse commits over a debt the commit did not create.
+    """
+    if not feature_law.is_enabled('entropy-dashboard'):
+        return
+    if spawn(commit, 'core/hooks/entropy/dashboard/entropy-dashboard.py',
+             '--repo', str(commit.toplevel)).returncode == 0:
+        _stage(commit, commit.toplevel / 'ISSUES.md')
 
 
 def interfaces(commit):
