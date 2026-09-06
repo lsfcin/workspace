@@ -14,6 +14,11 @@
   `git grep` reads *this* repo and every project under `code/` is a separate one. Corollary: **an
   incomplete rename is indistinguishable from entropy in the leaves, and is fixable only in the
   generator.**
+- **One number answering two questions is the same bug as two numbers answering one** (2026-09-06),
+  and only the second shape is obvious. Before moving a constant, read every caller: a shared one is
+  not a single source of truth, it is two rules that happen to agree so far.
+- **A ruling that lives only in prose gets re-reported forever** — either the data file carries the
+  decision or expect to make it again. AD-16 band 1 → 2, in its cheapest form.
 - **A check proving something *happened* beats one proving nothing errored** (2026-08-14). Bugs that
   exit 0, block with no message, or write a file nobody re-reads survive precisely by being mute, so
   ask *"what does this produce, and is it there?"* before reading code behind an exception.
