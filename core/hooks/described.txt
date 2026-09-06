@@ -17,3 +17,7 @@
 .github/hooks/workspace-policy.json	Copilot lifecycle hook registrations — SessionStart, PreToolUse and PostToolUse, each spawning its shim through core/run.
 .zcode/config.json	ZCode hook registrations — one PreToolUse entry into core/hooks/dispatch.py, plus the tracker, session and compaction hooks.
 core/skills/caveman/hooks/jsconfig.json	Type-checking settings for the caveman hooks — tells tsc these are CommonJS Node scripts, so the generated .d.ts stubs are correct.
+academy/teaching/ai4good/2026-2-rotina-e-setup.json	O questionário de rotina e setup da turma 2026.2, escrito como spec e aplicado por gforms new.
+academy/teaching/ai4good/drive_sync.json	Estado do sync desta pasta com o Drive, escrito por core/tools/files/drive_sync.py — não é um formulário.
+academy/teaching/tecnologias-na-educacao/2026-2-rotina-e-setup.json	O questionário de rotina e setup da turma 2026.2, escrito como spec e aplicado por gforms new.
+academy/teaching/tecnologias-na-educacao/tecnologias.json	A árvore de tecnologias da disciplina, lida por build_tecnologias.py — não é um formulário.

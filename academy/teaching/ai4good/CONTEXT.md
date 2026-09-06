@@ -55,7 +55,7 @@ por turma.
 
 | File | Description |
 |------|-------------|
-| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | ← add first-line comment |
+| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | O questionário de rotina e setup da turma 2026.2, escrito como spec e aplicado por gforms new. |
 | [`AI4Good - Prática extra para abono de faltas .md`](AI4Good - Prática extra para abono de faltas .md) | Prática extra para abono de faltas da disciplina  Tópicos Avançados em IA \- Turma 2 (AI4Good) |
-| [`drive_sync.json`](drive_sync.json) | ← add first-line comment |
+| [`drive_sync.json`](drive_sync.json) | Estado do sync desta pasta com o Drive, escrito por core/tools/files/drive_sync.py — não é um formulário. |
 <!-- routing:end -->
