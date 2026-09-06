@@ -24,6 +24,9 @@ PRE_EDIT = WORKSPACE_ROOT / "core/hooks/checks/pre-edit.py"
 # Any file under a subtree carrying a CONTEXT.md chain; its content is irrelevant.
 DEEP_FILE = WORKSPACE_ROOT / "core/hooks/brain/brain_attention.py"
 
+# SERIAL: `payload()` builds a real module under code/ and removes it. b20260902's third case.
+pytestmark = pytest.mark.serial
+
 # Every gate wired as a blocking PreToolUse hook. pre-edit.py was the only one of the six
 # on stdout, which is why this went unnoticed for so long: five siblings were correct.
 BLOCKING_GATES = (
@@ -164,29 +167,18 @@ def test_no_bare_print_survives_in_pre_edit() -> None:
     assert not bare, f"pre-edit.py prints to stdout again: {bare}"
 
 
-def test_first_line_rejection_lands_on_stderr(tmp_path: Path) -> None:
+# Three rejections, one shape. They were three copies of these six lines until 2026-09-05, when
+# the file hit its cap and the duplication was the cheapest thing in it to spend.
+@pytest.mark.parametrize("name, content, reason", [
+    ("p.py", "x = 1\n", "FIRST-LINE MISSING"),
+    ("CONTEXT.md", "# t\nno blockquote\n", "CONTEXT.md DESCRIPTION MISSING"),
+    ("big.py", "# big\n" + "x = 1\n" * 400, "SIZE GATE"),
+])
+def test_a_write_rejection_lands_on_stderr(tmp_path: Path, name, content, reason) -> None:
     r = _run({"tool_name": "Write",
-              "tool_input": {"file_path": str(tmp_path / "p.py"), "content": "x = 1\n"}})
+              "tool_input": {"file_path": str(tmp_path / name), "content": content}})
     assert r.returncode == 2
-    assert "FIRST-LINE MISSING" in r.stderr
-    assert not r.stdout.strip()
-
-
-def test_context_description_rejection_lands_on_stderr(tmp_path: Path) -> None:
-    r = _run({"tool_name": "Write",
-              "tool_input": {"file_path": str(tmp_path / "CONTEXT.md"),
-                             "content": "# t\nno blockquote\n"}})
-    assert r.returncode == 2
-    assert "CONTEXT.md DESCRIPTION MISSING" in r.stderr
-    assert not r.stdout.strip()
-
-
-def test_size_gate_rejection_lands_on_stderr(tmp_path: Path) -> None:
-    r = _run({"tool_name": "Write",
-              "tool_input": {"file_path": str(tmp_path / "big.py"),
-                             "content": "# big\n" + "x = 1\n" * 400}})
-    assert r.returncode == 2
-    assert "SIZE GATE" in r.stderr
+    assert reason in r.stderr
     assert not r.stdout.strip()
 
 

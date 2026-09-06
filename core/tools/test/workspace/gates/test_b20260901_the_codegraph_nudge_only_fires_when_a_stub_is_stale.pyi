@@ -4,6 +4,7 @@ from collections.abc import Generator
 
 GATE: str
 MARKER: str
+pytestmark: Incomplete
 
 @pytest.fixture
 def indexed_project() -> Generator[Incomplete]: ...

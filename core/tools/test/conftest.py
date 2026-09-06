@@ -62,6 +62,63 @@ def git_lines(*args) -> list:
     return [line for line in done.stdout.splitlines() if line and '_ratchet' not in line]
 
 
+import pytest  # noqa: E402 — after the env scrub above, which must run before anything imports git
+
+# THE SUBTREES A TEST MAY NOT LEAVE CHANGED, and why these two. `core/skills/` is where the proven
+# offender seeded drift, `code/` is where two others created a real probe directory and removed it.
+# Both are scanned by other cases while a case is inside that window, which is what made the suite
+# a coin flip. Kept to two directories on purpose: the guard runs around EVERY test, so it has to
+# cost microseconds -- os.scandir over two directories, no subprocess, no git.
+_WATCHED = ('code', 'core/skills')
+
+
+def _shape():
+    """Name, size and mtime of everything directly under each watched directory.
+
+    NOT a hash and not a walk: this has to be cheap enough to run twice per test. It sees a created
+    or removed path, and a tracked file whose content changed -- the two shapes b20260902 recorded.
+    A change deeper than one level that leaves the top level identical is not caught, and that is
+    the stated limit rather than an oversight.
+    """
+    import os
+    shape = {}
+    for relative in _WATCHED:
+        directory = WORKSPACE_ROOT / relative
+        try:
+            with os.scandir(directory) as entries:
+                for entry in entries:
+                    stat = entry.stat()
+                    shape[f'{relative}/{entry.name}'] = (stat.st_size, stat.st_mtime_ns)
+        except OSError:
+            shape[relative] = 'unreadable'
+    return shape
+
+
+@pytest.fixture(autouse=True)
+def _no_test_dirties_the_real_tree(request):
+    """core/tools/test/wos/CONTEXT.md states the law -- "nothing touches the real workspace" -- and
+    until 2026-09-05 nothing checked it, so it was broken three times without anyone noticing.
+
+    A case that really must mutate the tree says so with `serial`, and verify.py gives it a pass of
+    its own where no worker is reading beside it. That marker is the exemption here, so declaring
+    it is the only way to be allowed, and forgetting it is now a failure in the offending test
+    rather than a random red in a file its author never touched.
+    """
+    if request.node.get_closest_marker('serial'):
+        yield
+        return
+    before = _shape()
+    yield
+    after = _shape()
+    if before != after:
+        changed = sorted(set(before) ^ set(after)
+                         | {k for k in set(before) & set(after) if before[k] != after[k]})
+        pytest.fail(
+            f'this test changed the real workspace tree: {changed[:8]}. Build what you need under '
+            f'tmp_path, or mark the case `serial` if it genuinely has no seam -- see '
+            f'core/tools/test/wos/CONTEXT.md and b20260902.')
+
+
 def pytest_configure(config):
     config.addinivalue_line(
         "markers", "network: hits real network/models; excluded from verify:fast")

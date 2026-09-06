@@ -16,8 +16,10 @@ the first ablation run its entire signal ([`core/SPECS.md`](../../../SPECS.md) �
 session close does is a different question from what the workspace declares about itself, and
 [`core/SPECS.md`](../../../SPECS.md) § AD-09 governs it alone.
 
-Zero-token, no network. Each test builds its own repo and bare origin; nothing touches the real
-workspace.
+Zero-token, no network. Each test builds its own repo and bare origin; **nothing touches the real
+workspace** — a law that went unchecked and was broken three times (b20260902), and is now enforced
+for the whole suite by the autouse tree guard in [`../conftest.py`](../conftest.py). A case with no
+seam declares `serial` and gets a pass of its own; three do.
 
 <!-- routing:start -->
 ## Routing
@@ -30,7 +32,6 @@ workspace.
 
 | File | Interface | Description |
 |------|-----------|-------------|
-| [`test_b20260901_one_answers_file_is_shared_by_two_operating_systems.py`](test_b20260901_one_answers_file_is_shared_by_two_operating_systems.py) | [`test_b20260901_one_answers_file_is_shared_by_two_operating_systems.pyi`](test_b20260901_one_answers_file_is_shared_by_two_operating_systems.pyi) | b20260901 regression — this machine's answers override the shared ones and never travel. |
 | [`test_b6_google_skills.py`](test_b6_google_skills.py) | [`test_b6_google_skills.pyi`](test_b6_google_skills.pyi) | B6 regression — every Google-backed tool family has a skill wrapper. Half the families carried a core/skills/<name>.md and half did not, on no stated rule; the question re-litigated itself every time a family landed. Ruled 2026-08-31 (Lucas): add where missing, never half — the rule is a sentence in core/tools/SPECS.md § Adding a tool, and this spec is the sentence made checkable. Scope is the Google families the ruling names; a family outside the set is a SPECS change first, not a silent pass here. |
 | [`test_deps.py`](test_deps.py) | [`test_deps.pyi`](test_deps.pyi) | T0 declared dependencies (core/tools/SPECS.md § Declared dependencies): a third-party import the tool surface uses must be declared, and every tool must run under the workspace venv. |
 | [`test_features.py`](test_features.py) | [`test_features.pyi`](test_features.pyi) | T0 the feature registry's declaration half (core/SPECS.md § AD-14): every feature is declared, answered, and inside the closed sets its columns may draw from. |

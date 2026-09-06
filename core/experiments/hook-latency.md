@@ -26,9 +26,9 @@ Per **tool call**, summing PreToolUse and PostToolUse — the number a session a
 
 | Date | Machine · harness | read | write | shell | other | Note |
 |---|---|---|---|---|---|---|
-| 2026-09-05 | dell-g15 Linux · claude | 0.211 s | 0.308 s | 0.221 s | 0.222 s | three PostToolUse registrations, each its own process |
-| 2026-09-05 | dell-g15 Linux · claude | 0.116 s | 0.273 s | 0.121 s | 0.118 s | PostToolUse collapsed into the dispatcher |
-| 2026-09-05 | dell-g15 Linux · zcode | 0.109 s | 0.260 s | 0.119 s | 0.114 s | same tree, the other harness's config |
+| 2026-09-05 | g15 Linux · claude | 0.211 s | 0.308 s | 0.221 s | 0.222 s | three PostToolUse hooks, three processes |
+| 2026-09-05 | g15 Linux · claude | 0.116 s | 0.273 s | 0.121 s | 0.118 s | PostToolUse collapsed into the dispatcher |
+| 2026-09-05 | g15 Linux · zcode | 0.109 s | 0.260 s | 0.119 s | 0.114 s | same tree, the other harness's config |
 
 Floor, same runs: `sh core/run --python` **0.007-0.009 s**, a bare interpreter start
 **0.026-0.031 s**. So roughly **60% of any hook's cost is CPython starting**, before a gate reads
@@ -64,10 +64,11 @@ the same attempt: an unanchored `Write` matcher also matches **TodoWrite**.
 config the b20260901 spec never looked at because it reads `.claude/settings.json` alone. Now both
 register the dispatcher on `.*`.
 
-Guarded by
-[`test_b20260905_hooks_and_tools_suspected_of_paying_more_time_than_needed.py`](../tools/test/workspace/gates/test_b20260905_hooks_and_tools_suspected_of_paying_more_time_than_needed.py),
-which asserts the *shape* — no matcher wider than the hook's declared capability, and no
-divergence between the two harnesses — never a wall-clock threshold.
+Guarded by `test_b20260905_hooks_and_tools_suspected_of_paying_more_time_than_needed.py`, under
+[`core/tools/test/workspace/gates/`](../tools/test/workspace/gates/CONTEXT.md), which asserts the
+*shape* — no harness filtering a lifecycle hook by tool name, no divergence between the two
+configs, and `post-edit.sh` refusing before it resolves an interpreter — never a wall-clock
+threshold.
 
 ## Limitations
 
