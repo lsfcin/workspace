@@ -11,10 +11,32 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from session_cost import turn_components
+from session_cost import UNPRICED, priced, turn_components
 from session_log import output_chars
 
+
+def trusted_model(event: dict, model: str) -> str:
+	"""The model that answered, or `unpriced` when the transcript cannot be believed about it.
+
+	THE STAMP IS THE HARNESS'S, NOT THE API'S. A session run through ZCode on GLM-5.3-flash wrote
+	`"model":"claude-opus-5"` on all 70 of its assistant lines, so /roundup reported it as opus at
+	100% of spend, at opus prices (b20260905). The id was VALID, so refusing unknown names would
+	not have caught it.
+
+	WHAT SEPARATES THEM IS `requestId`. Every real Anthropic API response carries one (`req_011C…`)
+	and nothing else in the record does: across every transcript on this disk, 2026-09-05, all 168
+	Anthropic-stamped responses had one and all 8 non-Anthropic ones (minimax-m3) had none —
+	`entrypoint`, `version` and `userType` split neither way. So the rule is: believe the stamp when
+	the record carries a request id AND we hold a rate for it; otherwise price nothing and say so.
+	The failure direction is honest — a real turn reported as unpriced is visible and fixable, a
+	foreign turn reported at opus rates is a number nobody can check.
+	"""
+	if not event.get('requestId') or not priced(model):
+		return f'{UNPRICED} ({model})' if model else UNPRICED
+	return model
+
 ROOT = Path.home() / '.claude' / 'projects'
+
 # Logged output is known in characters; only the whole turn is known in tokens. Declared, not
 # derived: the obvious calibration — responses carrying no thinking block — measures 1.6 chars/tok,
 # so it is not clean either. Tool-call JSON is denser than 3.6, which makes logged tokens an
@@ -59,6 +81,7 @@ def turns(project: str, session: str = ''):
 				model = message.get('model') or ''
 				if not usage or model.startswith('<'):
 					continue
+				model = trusted_model(event, model)
 				key = event.get('requestId') or f'_{len(merged)}'
 				if key not in merged:
 					context = (usage.get('input_tokens', 0)

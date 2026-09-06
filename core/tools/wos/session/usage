@@ -14,7 +14,7 @@ from pathlib import Path
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from session_cost import COMPONENTS
+from session_cost import COMPONENTS, UNPRICED
 from session_log import project_slug
 from session_turns import turns
 
@@ -56,18 +56,32 @@ def self_authored(rows) -> tuple:
 
 def brief(rows) -> None:
 	"""The per-session block /roundup prints. Shares and $/turn only — absolute spend is list price
-	and has never been checked against a bill, so it is not a number to hand a session close."""
+	and has never been checked against a bill, so it is not a number to hand a session close.
+
+	UNPRICED TURNS ARE COUNTED AND NAMED, never averaged in. They cost 0 by construction
+	(session_cost.RATES), so dividing the bill by every turn would quietly report a session as
+	cheaper the less we know about it — the same direction of error b20260905 was about.
+	"""
 	by_model: dict = defaultdict(float)
 	total = out = 0.0
+	unpriced = 0
 	for _context, comp, model, _session, _out_tokens, _logged in rows:
+		if model.startswith(UNPRICED):
+			unpriced += 1
+			continue
 		cost = sum(comp.values())
 		by_model[model] += cost
 		total += cost
 		out += comp['output']
+	priced_turns = len(rows) - unpriced
+	if not priced_turns or not total:
+		print(f'cost: {len(rows):,} turns · unpriced — no turn carries a rate we hold')
+		return
 	_mean, attr_share, multiplier = self_authored(rows)
 	split = ' · '.join(f'{model.replace("claude-", "")} {cost / total:.0%}'
 	                   for model, cost in sorted(by_model.items(), key=lambda kv: -kv[1]))
-	print(f'cost: {len(rows):,} turns · ${total / len(rows):.3f}/turn · {split}')
+	tail = f' · {unpriced:,} of {len(rows):,} turns unpriced' if unpriced else ''
+	print(f'cost: {priced_turns:,} turns · ${total / priced_turns:.3f}/turn · {split}{tail}')
 	print(f'output: {out / total:.0%} of the bill at list price, {attr_share:.0%} once you count '
 	      f'every later turn re-reading it ({multiplier:.1f}x what it looks like)')
 
@@ -86,6 +100,7 @@ def main() -> None:
 	total = sum(sum(comp.values()) for _c, comp, _m, _s, _o, _l in rows)
 	by_model: dict = defaultdict(float)
 	by_model_out: dict = defaultdict(float)
+	by_model_turns: dict = defaultdict(int)
 	by_bucket: dict = defaultdict(lambda: [0, 0.0])
 	by_session: dict = defaultdict(float)
 	by_component: dict = defaultdict(float)
@@ -96,6 +111,7 @@ def main() -> None:
 		logged_out += logged
 		by_model[model] += cost
 		by_model_out[model] += comp['output']
+		by_model_turns[model] += 1
 		slot = by_bucket[bucket_of(context)]
 		slot[0] += 1
 		slot[1] += cost
@@ -108,6 +124,12 @@ def main() -> None:
 
 	print('by model — and how much of each is the model talking rather than reading')
 	for model, cost in sorted(by_model.items(), key=lambda kv: -kv[1]):
+		# A row with no rate prints its turn count instead of a dollar share. It is not zero spend,
+		# it is spend this workspace cannot price, and the two must not read the same (b20260905).
+		if not cost:
+			print(f'  {model:<28} {by_model_turns[model]:>9,} turns   no rate held — see '
+			      f'session_cost.RATES')
+			continue
 		print(f'  {model:<28} ${cost:9,.2f}  {cost / total:5.1%}'
 		      f'   output {by_model_out[model] / cost:5.1%}')
 

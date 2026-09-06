@@ -19,6 +19,7 @@ Zero-token, no network. Fixtures are built per test; nothing reads Lucas's real 
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`test_b20260905_the_cost_line_prices_every_session_at_opus_rates.py`](test_b20260905_the_cost_line_prices_every_session_at_opus_rates.py) | [`test_b20260905_the_cost_line_prices_every_session_at_opus_rates.pyi`](test_b20260905_the_cost_line_prices_every_session_at_opus_rates.pyi) | `response`, `project` | b20260905 regression — the cost line believes the model stamp only when the record proves it. |
 | [`test_context.py`](test_context.py) | [`test_context.pyi`](test_context.pyi) | `turn`, `result`, `use`, `transcript` | T1 the context instrument (core/hooks/SPECS.md): what fills the window, attributed from the transcript. |
 | [`test_reads.py`](test_reads.py) | [`test_reads.pyi`](test_reads.pyi) | `transcript`, `read_pair` | T1 the read instrument: a Read costs what it was SERVED, and a stub is not a source. |
 | [`test_usage.py`](test_usage.py) | [`test_usage.pyi`](test_usage.pyi) | `response`, `text`, `thinking`, `project` | T1 the cost instrument: what counts as one turn, and which half of output is re-read. |

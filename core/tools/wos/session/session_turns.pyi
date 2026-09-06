@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
 
+def trusted_model(event: dict, model: str) -> str: ...
+
 ROOT: Incomplete
 CHARS_PER_TOKEN: float
 
