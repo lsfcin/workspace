@@ -21,15 +21,20 @@ project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of
 *Why* — the norm that produced this mass now says cut. A `.md` line in this tree is re-read by every session.
 *Done when* — both numbers are met with `verify-fast` green. Check code parsers before cutting any `.md`.
 
-**🟢 one law file still sits over the line cap, and the route under it is known**
-*What* — `core/SPECS.md` (266) under the cap. The worked example is `core/hooks/SPECS.md`, which sits
-on its own cap exactly; `core/SCHEMA.md` is no longer in this queue.
-*Why* — it is the largest scaffold file and the cut pays twice, closing a size finding and the item above.
-*How* — **cut what is narrated twice, then move the rest to the directory that owns the code it governs**
-(ruled 2026-09-05, Lucas — the route neither of the three options named). `core/hooks/SPECS.md` gave up 90
-lines of narrative already told in `core/run` and in its own `CONTEXT.md`; the last 86 were live rules with
-their why, and those went to `routing/SPECS.md` and `stubgen/SPECS.md`, the `compact/SPECS.md` shape. Not a
-`TYPE-<slug>` sibling and not a shard — a rule placed beside the code it is about.
+**🟢 shorten a link, by name, without leaving a machine on**
+*What* — a free static shortener this workspace owns: a repo of redirect stubs on GitHub Pages (or
+Cloudflare Pages), published by `git push`, so nothing of Lucas's has to stay up. **Named slugs, never
+codes** — `ai4good`, not `x7f2q`. A slug a student can be told out loud and type from memory is the
+whole product, and it is what rules out every hash-based service.
+*Why* — asked 2026-09-06; the links Lucas hands students are Notion pages, Slides, Sheets and
+Excalidraw boards, all unspeakable as URLs.
+*First* — the **investigation**, not the build. Two halves. (1) Where in WOS a shortened link could be
+applied automatically: the Google family's returned URLs (`gdocs`, `gslides`, `gforms`, `gdrive`),
+`REFS.md` rows, `INBOX.md` captures — and which of those must keep the canonical URL because something
+parses it. (2) Teaching material, the priority: whether the shortener can run **at the moment a link is
+created**, inside the tools that already exist, rather than as a manual pass anyone has to remember.
+*Done when* — a decision exists: what gets shortened, who owns the slug namespace, and where the
+mapping lives so it is versioned like everything else here.
 *Done when* — § Size signals lists neither. **Not narration — every line is live law.** `SCHEMA.md`'s
 tables are parsed by `schema_law.py` and its transient-doc rows are live exemptions. Cut prose around
 them, never a row, and read the parser before the file. `core/SPECS.md` has no subdirectory to move into,
@@ -109,16 +114,17 @@ the item above cannot be prioritised until it is. Raw figures for three sessions
 *Why* — they were invisible before shebang stripping. None exceeds the 200 cap; backlog, not block.
 *Done when* — warn list is empty or rows are deliberately exempted with reasons.
 
-**🟡 the port grew the workspace by 1,300 lines and nothing has paid for them**
-*What* — the cut that funds the port. Candidates, largest first: `core/hooks/SPECS.md` 367,
-`core/SPECS.md` 266, `core/SCHEMA.md` 221 — and the two directories the entropy block reports over
-`BLOCK_FILES`, `core/tools/test/workspace` and its `gates/`, which the port itself added two files to.
+**🟡 the port grew the workspace by 1,300 lines and the payment is still short**
+*What* — the cut that funds the port. The named candidates are gone: `core/hooks/SPECS.md`,
+`core/SPECS.md` and `core/SCHEMA.md` are all under the cap, and the two over-full test directories
+are split. **That closed the size findings without closing the debt** — part of it was paid by
+raising the cap rather than by cutting, which moves the line and not the mass.
 *Why* — AGENTS.md says growing takes Lucas's OK first and a session leaves fewer lines than it
 found. The port was worth every line; that is a reason to pay, not a reason not to.
-*Done when* — the three size signals above are gone and the net since 2026-09-01 is negative.
-**The largest candidate paid nothing.** `SETUP.md` was the biggest file here and its 610 lines held
-~50 of history, not 400: sharding took it under the cap at +11 lines. The debt is still 1,300 and the
-remaining candidates are law files, so the payment has to come from somewhere this list does not name.
+*Done when* — the net since 2026-09-01 is negative, measured by `core/run tools/wos/size`.
+**Two candidates have paid nothing.** `SETUP.md` held ~50 lines of history, not 400, so sharding took
+it under the cap at +11. And the law files gave up narration that was twice-told, which is the cheap
+half; what is left in them is reasons, and reasons are the thing worth keeping.
 
 **🔴 the platform seam owes three answers, and one of them is a secret**
 *What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.

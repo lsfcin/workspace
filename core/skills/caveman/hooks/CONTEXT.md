@@ -25,7 +25,7 @@ reconcile: [`../SPECS.md`](../SPECS.md).
 | [`activate.js`](activate.js) | [`activate.d.ts`](activate.d.ts) | — | caveman — Claude Code SessionStart activation hook |
 | [`config.js`](config.js) | [`config.d.ts`](config.d.ts) | `getConfigDir`, `getConfigPath`, `featureOff`, `getDefaultMode`, `readFlag` | caveman — shared configuration resolver, and the façade the hooks import |
 | [`flagfile.js`](flagfile.js) | [`flagfile.d.ts`](flagfile.d.ts) | `safeWriteFlag`, `readFlag`, `appendFlag`, `readHistory` | caveman — reads and writes of the mode flag and the lifetime history log |
-| [`jsconfig.json`](jsconfig.json) | — | — | ← add first-line comment |
+| [`jsconfig.json`](jsconfig.json) | — | — | Type-checking settings for the caveman hooks — tells tsc these are CommonJS Node scripts, so the generated .d.ts stubs are correct. |
 | [`mode-tracker.js`](mode-tracker.js) | [`mode-tracker.d.ts`](mode-tracker.d.ts) | — | caveman — UserPromptSubmit hook to track which caveman mode is active |
 | [`safepath.js`](safepath.js) | [`safepath.d.ts`](safepath.d.ts) | `debugLog`, `resolveSafeDir`, `isWritableTarget`, `prepareTarget`, `withFd` | caveman — symlink-safe path resolution shared by every flag-file writer |
 | [`stats-data.js`](stats-data.js) | [`stats-data.d.ts`](stats-data.d.ts) | `findRecentSession`, `parseSession`, `findCompressedPairs`, `summarizeCompressed`, `aggregateHistory` | caveman — collection: read session transcripts, the history log, and compressed |
