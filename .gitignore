@@ -160,6 +160,9 @@ brain/goals/*
 !brain/memory/
 brain/memory/*
 !brain/memory/*.md
+!brain/drafts/
+brain/drafts/*
+!brain/drafts/*.md
 
 # Nested project repos — each has its own git repo (AGENTS.md: internal projects use
 # their own repos). They must NOT be embedded as gitlinks in the workspace: a fresh
