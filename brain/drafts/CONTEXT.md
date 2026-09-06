@@ -5,9 +5,12 @@
 directory had no `CONTEXT.md`, so it was missing from `../CONTEXT.md`'s routing, so it never entered
 `.gitignore`'s `brain/*` exception list — six drafts whose only copy was one disk (b20260905).
 
-Why a draft leaves rather than accumulates, and why a model's name belongs in these filenames:
-[`core/tools/test/workspace/test_b20260905_brain_drafts_carries_two_asymmetries.py`](../../core/tools/test/workspace/test_b20260905_brain_drafts_carries_two_asymmetries.py)
-holds both, beside the checks that enforce them.
+Why a draft leaves rather than accumulates, and why a model's name belongs in these filenames: the
+`b20260905_brain_drafts` spec under
+[`core/tools/test/workspace/`](../../core/tools/test/workspace/CONTEXT.md) holds both, beside the
+checks that enforce them. The draft bodies are exempt from the authoring caps
+(`core/hooks/vendored.txt`) — another harness wrote them, and reflowing one edits the artifact
+being compared.
 
 <!-- routing:start -->
 ## Routing
