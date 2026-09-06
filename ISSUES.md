@@ -15,6 +15,40 @@ copied count is the drift these checks exist to catch. The FIXED gate governs th
 only, and it is satisfied the same way here as in every project: a bug flips to FIXED when a
 matching regression spec exists and passes.
 
+## b20260905-a-ratchet-that-greps-one-file-type-misses-the-config-that-broke-it
+
+**Symptom:** `.github/hooks/workspace-policy.json` registers its three Copilot hooks as
+`python3 core/hooks/copilot/…` and `python core/hooks/copilot/…`. That bare word is the exact
+spelling `core/run`'s header and `test_no_shell_hook_spawns_the_bare_word_python3` exist to
+eliminate: on Windows it reaches a Microsoft Store execution alias that prints an advert and exits
+9009, so the hook never runs and the caller reads the advert as its output. Found 2026-09-05 while
+measuring hook latency, not by any check.
+
+**Why it matters:** the enforcement layer is silently off on one harness on one operating system —
+the b20260901 shape, which this workspace has now paid for three times. Multi-harness parity is not
+a nice-to-have here: every harness is meant to reach the same gates through `core/run`.
+
+**Root cause:** the ratchet greps `*.sh` only. A registration is a registration whatever file type
+it lives in, so the check's corpus is narrower than its rule — and the two other provider shims
+(`core/hooks/copilot/copilot-post-tool.py`, `core/hooks/antigravity/antigravity_policy.py`) run the
+PostToolUse trackers by path rather than through `dispatch.py`, each a hand-copy of the table
+`gates.txt` exists to be the only copy of. Same family, same fix direction.
+
+## b20260905-a-timing-assertion-fails-under-the-load-the-suite-itself-creates
+
+**Symptom:** `test_the_mirror_check_is_not_slow_again` failed twice on 2026-09-05 under
+`pytest -n auto`, and passed both times on a rerun with nothing changed. It wraps `sync-skills
+--check` in `time.monotonic()` and asserts a ceiling.
+
+**Why it matters:** the pre-commit gate runs this suite on every commit at the workspace root, so a
+wall-clock assertion measured while sixteen workers compete for the same cores refuses commits at
+random — the same operator experience as `b20260902`, from a different cause. It also devalues the
+thing it guards: a ceiling that cries wolf gets raised until it means nothing.
+
+**Root cause:** the case is a real regression guard (the bash version cost 22 s), but a duration is
+not a property of the code alone. Either it earns `serial`, or it asserts something load-independent
+— a fork count, a subprocess count — which is what actually regressed when it was written.
+
 <!-- entropy:start -->
 ## Entropy
 
@@ -92,7 +126,7 @@ matching regression spec exists and passes.
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/codex-and-inbox-wip is 3 ahead of main
-- . — feature/pending-decisions is 6 ahead of main
+- . — feature/pending-decisions is 7 ahead of main
 
 ### Local branches already merged into their base
 
