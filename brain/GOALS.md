@@ -4,24 +4,24 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-09-05 17:50
+last-updated: 2026-09-06 17:58
 
 >**areas** — last 14 days  
 ```
-health       ██████████   196 touches
-career       ███░░░░░░░   59 touches
+health       ██████████   210 touches
+career       ██░░░░░░░░   60 touches
 finances     █░░░░░░░░░   33 touches
-fun          ███░░░░░░░   60 touches
+fun          ██░░░░░░░░   60 touches
 spiritual    ░░░░░░░░░░   1 touches
 ```
 
 >**goals** — last 14 days  
 ```
 CONTEXT                  ░░░░░░░░░░   3 touches
-burocracia-academica     ░░░░░░░░░░   14 touches
+burocracia-academica     ░░░░░░░░░░   15 touches
 career-ufrpe             ░░░░░░░░░░   3 touches
 corporal-expressiveness  ░░░░░░░░░░   1 touches
-craft-flows              █░░░░░░░░░   38 touches
+craft-flows              █░░░░░░░░░   39 touches
 cria                     ███░░░░░░░   78 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   3 touches
@@ -29,10 +29,10 @@ exercise                 ░░░░░░░░░░   1 touches
 finances                 ░░░░░░░░░░   3 touches
 google-migration         ░░░░░░░░░░   13 touches
 guitar                   ░░░░░░░░░░   3 touches
-hair                     ░░░░░░░░░░   0 touches
+hair                     ░░░░░░░░░░   1 touches
 home-casinhas            █░░░░░░░░░   31 touches
 instituto                █░░░░░░░░░   27 touches
-lih-dd                   █░░░░░░░░░   29 touches
+lih-dd                   █░░░░░░░░░   30 touches
 local-ai                 ████░░░░░░   86 touches
 magic-places             ░░░░░░░░░░   1 touches
 make-in-time             ░░░░░░░░░░   1 touches
@@ -49,11 +49,11 @@ spacemantics             ██░░░░░░░░   57 touches
 spec-driven-development  ░░░░░░░░░░   5 touches
 startapps                █████░░░░░   105 touches
 surf                     ░░░░░░░░░░   1 touches
-teaching-materials       █░░░░░░░░░   27 touches
+teaching-materials       █░░░░░░░░░   28 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   1 touches
-workspace-os             ██████████   196 touches
+workspace-os             ██████████   210 touches
 yoga                     ░░░░░░░░░░   1 touches
 ```
 <!-- data:end -->

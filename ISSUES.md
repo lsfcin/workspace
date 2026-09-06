@@ -54,7 +54,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/pending-decisions is 3 ahead of main
+- . — feature/pending-decisions is 4 ahead of main
 
 <!-- entropy:end -->
 
