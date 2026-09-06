@@ -12,9 +12,9 @@ core/run tools/links/cfpages check                     # what is untrue about th
 Named slugs, not codes — `ai4good`, not `x7f2q`. A slug is said out loud and typed from memory.
 
 ```
-lsf.pages.dev/ai4good        a course home
-lsf.pages.dev/ai4good/setup  something inside it — one level
-lsf.pages.dev/rva-chico      a one-off, flat and hyphenated
+lucassf.pages.dev/ai4good        a course home
+lucassf.pages.dev/ai4good/setup  something inside it — one level
+lucassf.pages.dev/rva-chico      a one-off, flat and hyphenated
 ```
 
 [`links.txt`](links.txt) records every slug's target, one tab-separated row, queried with `find`.
@@ -32,5 +32,5 @@ The slug grammar, the private-subtree refusal, why Cloudflare rather than GitHub
 | [`SPECS.md`](SPECS.md) | — | — | Why the redirect is Cloudflare's and not GitHub's, why a private subtree gets no slug, and what makes a map that grows forever stay cheap. |
 | [`cfpages`](cfpages) | — | — | named short links: add, find, rm, build, check |
 | [`links.txt`](links.txt) | — | — | Every short link this workspace hands out: the slug someone is told out loud, and where it really goes. Read by core/tools/links/links_core.py; published as _redirects by `cfpages build`. |
-| [`links_core.py`](links_core.py) | [`links_core.pyi`](links_core.pyi) | `Refused`, `load`, `preamble`, `save`, `validate_slug` | links_core.py — the slug map read+write seam, and the redirect file it emits, for links/cfpages |
+| [`links_core.py`](links_core.py) | [`links_core.pyi`](links_core.pyi) | `base`, `Refused`, `load`, `preamble`, `save` | links_core.py — the slug map read+write seam, and the redirect file it emits, for links/cfpages |
 <!-- routing:end -->

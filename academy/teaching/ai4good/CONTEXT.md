@@ -48,12 +48,14 @@ por turma.
 
 | Spec | `formId` | Link de resposta |
 |------|----------|------------------|
-| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | `1Nfdbl6jj5aG5AXMbK0wOip79v-3Q6gTrycVaxL8fqAY` | [viewform](https://docs.google.com/forms/d/e/1FAIpQLSfESI8OWLI1JSALkpAAtbRkqRzKxP6az3NCd9mi5Mop_697kQ/viewform) |
+| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | `1Nfdbl6jj5aG5AXMbK0wOip79v-3Q6gTrycVaxL8fqAY` | `lucassf.pages.dev/ai4good/setup` |
 
 <!-- routing:start -->
 ## Routing
 
 | File | Description |
 |------|-------------|
+| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | ← add first-line comment |
 | [`AI4Good - Prática extra para abono de faltas .md`](AI4Good - Prática extra para abono de faltas .md) | Prática extra para abono de faltas da disciplina  Tópicos Avançados em IA \- Turma 2 (AI4Good) |
+| [`drive_sync.json`](drive_sync.json) | ← add first-line comment |
 <!-- routing:end -->

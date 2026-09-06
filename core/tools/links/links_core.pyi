@@ -4,6 +4,9 @@ from _typeshed import Incomplete
 HERE: Incomplete
 MAP: Incomplete
 HEADER: Incomplete
+
+def base() -> str: ...
+
 SLUG_RE: Incomplete
 PRIVATE: Incomplete
 

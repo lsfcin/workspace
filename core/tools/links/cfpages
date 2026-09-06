@@ -17,7 +17,6 @@ ROOT = _HERE.parents[2]
 # and code/ is for software projects — which is exactly the scope the Git Flow branch gate covers.
 # Losing this clone costs one `gh repo clone`; the map it is built from is the versioned half.
 PUBLISH = ROOT / 'outputs' / 'links'
-BASE = 'https://lsf.pages.dev'
 
 # The published site is redirects and nothing else. An index listing every slug would hand a
 # stranger the whole map, which is the one thing the private-subtree refusal exists to prevent —
@@ -27,7 +26,7 @@ INDEX = "<!doctype html><meta charset=utf-8><title>lsf</title><p>Nothing to see 
 
 def cmd_add(slug: str, url: str, owner: str, home: str) -> None:
     row = links_core.add(slug, url, owner=owner, home=home)
-    print(f"{BASE}/{row['slug']}  ->  {row['url']}")
+    print(f"{links_core.base()}/{row['slug']}  ->  {row['url']}")
     print(f"  owner: {row['owner']}   added: {row['added']}")
     print(f"  not live until: core/run tools/links/cfpages build --push")
 
@@ -35,7 +34,7 @@ def cmd_add(slug: str, url: str, owner: str, home: str) -> None:
 def cmd_find(term: str) -> None:
     rows = links_core.find(term) if term else links_core.load()
     for r in rows:
-        print(f"{BASE}/{r['slug']}\t{r['url']}\t{r['owner']}\t{r['added']}")
+        print(f"{links_core.base()}/{r['slug']}\t{r['url']}\t{r['owner']}\t{r['added']}")
     print(f"── {len(rows)} slug(s)", file=sys.stderr)
 
 
@@ -75,7 +74,7 @@ def cmd_build(publish: pathlib.Path, push: bool) -> None:
     # -u origin HEAD: the same call works on the first push, when there is no upstream yet, and on
     # every one after. A publish repo is re-cloned often enough that "first push" is not a one-off.
     subprocess.run(['git', 'push', '-u', 'origin', 'HEAD'], cwd=publish, check=True)
-    print(f"  pushed — Cloudflare Pages deploys in ~30s, then {BASE}/<slug> is live")
+    print(f"  pushed — Cloudflare Pages deploys in ~30s, then {links_core.base()}/<slug> is live")
 
 
 def cmd_check() -> None:

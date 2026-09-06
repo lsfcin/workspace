@@ -21,14 +21,14 @@ project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of
 *Why* — the norm that produced this mass now says cut. A `.md` line in this tree is re-read by every session.
 *Done when* — both numbers are met with `verify-fast` green. Check code parsers before cutting any `.md`.
 
-**🔴 the shortener is built and needs two clicks nobody here can make**
-*What* — `lsf.pages.dev/<slug>` live. `core/tools/links/` is built and pushed to
-`github.com/lsfcin/lsf-links`; what is missing is Cloudflare Pages connected to that repo, project
-name `lsf`, which is a consent screen and therefore Lucas's.
+**🟡 the shortener is live and holds two of the links it is for**
+*What* — the remaining handable links given slugs. `lucassf.pages.dev` redirects and the two course
+forms are in the map; the other ~12 files carrying a Google, Notion or Excalidraw link are not, and
+no course has a `/<course>` home because no page URL was ever collected.
 *Why* — asked 2026-09-06 and decided the same day: handable links only, one level for courses, a
 central map, private subtrees refused. Rationale: [`core/tools/links/SPECS.md`](core/tools/links/SPECS.md).
-*Done when* — Lucas types `lsf.pages.dev/ai4good/setup` on his phone and lands on the form, and the
-teaching tables quote the short link instead of the Google URL.
+*Done when* — `cfpages find` returns a row for every link a person is handed, and no `.md` in
+`academy/` quotes a raw Google URL for one.
 
 ## Cost — what a session costs, and which of it is avoidable
 

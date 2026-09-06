@@ -29,6 +29,7 @@
 kind	key	value
 setting	lang	en
 setting	permissions	open
+setting	links-base	https://lucassf.pages.dev
 toggle	context-chain	on
 toggle	interface-first-reads	on
 toggle	interface-stubs	on

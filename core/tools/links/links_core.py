@@ -8,10 +8,24 @@
 import datetime
 import pathlib
 import re
+import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1] / 'hooks'))
+import feature_law  # noqa: E402
+
 MAP = HERE / 'links.txt'
 HEADER = ('slug', 'url', 'owner', 'added')
+
+
+def base() -> str:
+    """The published domain, read from core/profile.txt rather than held here.
+
+    A `pages.dev` name is globally unique across every Cloudflare account, so the one this
+    workspace gets is whatever was still free the day the project was made — `lsf` was taken,
+    which is a fact about a stranger's account and cannot live in scaffold code.
+    """
+    return feature_law.setting('links-base', 'https://example.pages.dev')
 
 # A slug is what Lucas says out loud to a room, so the grammar is what survives being spoken and
 # typed from memory: lowercase, digits, hyphen, and AT MOST ONE slash. The one level is for a

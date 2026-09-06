@@ -23,5 +23,5 @@ Refused = links_core.Refused
 def mint(slug: str, url: str, owner: str = '', home: str = '') -> str:
     """Add the slug and return the line to print. Refusals reach the caller as `Refused`."""
     links_core.add(slug, url, owner=owner, home=home)
-    return (f"  short:   https://lsf.pages.dev/{slug}"
+    return (f"  short:   {links_core.base()}/{slug}"
             f"  (live after: core/run tools/links/cfpages build --push)")
