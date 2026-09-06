@@ -16,6 +16,7 @@ one answers *what the tree actually contains*.
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`test_b20260901_a_source_file_is_crlf_in_a_tree_that_declares_lf.py`](test_b20260901_a_source_file_is_crlf_in_a_tree_that_declares_lf.py) | [`test_b20260901_a_source_file_is_crlf_in_a_tree_that_declares_lf.pyi`](test_b20260901_a_source_file_is_crlf_in_a_tree_that_declares_lf.pyi) | `eol_rows`, `declared_lf` | b20260901 regression — a file the tree declares LF is LF, in the index AND on this disk. |
 | [`test_b20260902_a_section_citation_survives_the_section_moving_away.py`](test_b20260902_a_section_citation_survives_the_section_moving_away.py) | [`test_b20260902_a_section_citation_survives_the_section_moving_away.pyi`](test_b20260902_a_section_citation_survives_the_section_moving_away.pyi) | `section_hits` | T0 a `<file>.md § <Section>` citation names a section that is really there. |
 | [`test_citation_gate.py`](test_citation_gate.py) | [`test_citation_gate.pyi`](test_citation_gate.pyi) | — | T0 roadmap item numbers may not be cited outside a roadmap. Zero-token, runs in verify-fast. |
 | [`test_column_cap.py`](test_column_cap.py) | [`test_column_cap.pyi`](test_column_cap.pyi) | — | T0 column cap: how wide one authored .md line may be, and the three shapes exempt from it. Zero-token, runs in verify-fast. |

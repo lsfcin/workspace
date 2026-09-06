@@ -22,3 +22,10 @@
 *.tgz  binary
 *.gz   binary
 *.zip  binary
+
+# Unzipped OOXML payload: the members of a .docx, extracted. `*.docx binary` above covers the
+# archive and says nothing about its contents once they are on disk, so these fifteen were being
+# treated as text and carried CRLF into the index — the only tracked files in this repo that ever
+# did (b20260901). They are rewritten back into a .docx byte for byte, and core/hooks/vendored.txt
+# already declares them as not ours to author. Same rule, said to git.
+academy/administration/pda/template_extracted/** -text
