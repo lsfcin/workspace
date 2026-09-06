@@ -1,9 +1,26 @@
 #!/usr/bin/env bash
-# PostToolUse: Edit, Write — regenerates interfaces, checks first-line comment, syncs CONTEXT.md
+# PostToolUse, capability `write` — regenerates interfaces, checks first-line comment, syncs CONTEXT.md
 
 HOOKS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "$HOOKS_DIR/../.." && pwd)"
 RUN="$WORKSPACE_ROOT/core/run"
+
+input_json="${CLAUDE_TOOL_INPUT:-$(cat)}"
+
+# LEAVE BEFORE STARTING PYTHON. Registered on `.*` -- and it must stay that way, because a matcher
+# listing tool names is the whitelist b20260901 retired -- this hook fired on every Grep, Bash and
+# TodoWrite, spending an interpreter start and an import chain to ask capability() a question whose
+# answer was 'not a write' (0.222 s per ungated tool call, measured 2026-09-05; see
+# core/experiments/hook-latency.md).
+#
+# A SUPERSET TEST, NEVER THE ANSWER. capability() stays the one definition of what a write is; this
+# only refuses payloads that cannot possibly be one, by looking for the keys that make a call a
+# write in the raw JSON. It can admit a non-write -- the real check below still runs and still
+# decides -- and it can never turn a write away, which is the only direction that would be a bug.
+case "$input_json" in
+	*'"content"'*|*'"new_string"'*|*'"new_source"'*|*'"edits"'*) ;;
+	*) exit 0 ;;
+esac
 
 # THE INTERPRETER IS ASKED FOR, NEVER SPELLED. This line read `python3` until 2026-08-29, and on a
 # Windows clone that word resolves to a Microsoft Store execution alias which prints an advert and
@@ -11,8 +28,6 @@ RUN="$WORKSPACE_ROOT/core/run"
 # stage it sources -- had never once run here. It failed green, behind the `2>/dev/null` that was
 # there to swallow a malformed payload. Nothing downstream could tell the two apart.
 PY="$(sh "$RUN" --python)" || exit 0
-
-input_json="${CLAUDE_TOOL_INPUT:-$(cat)}"
 # Capability, not tool name (b20260901): registered on every tool, so a harness that adds one gets
 # the same treatment. `capability` is imported rather than restated -- one definition, in
 # hook_input.py, or this file becomes the copy of the law the law modules exist to prevent.

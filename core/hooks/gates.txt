@@ -1,4 +1,4 @@
-# Every PreToolUse gate, and the capability that selects it. Read by core/hooks/dispatch.py
+# Every lifecycle gate, the moment and the capability that select it. Read by core/hooks/dispatch.py
 # (which runs them) and by core/hooks/trigger/trigger_law.py (which reports when they fire).
 #
 # WHY THIS FILE EXISTS. Each gate used to be its own `command` in each harness's config, so a
@@ -24,14 +24,29 @@
 # read/agent-context.py is NOT here: it fires on Agent/SubagentStart, which is a moment rather
 # than a capability, and keeps its own registration.
 #
-# capability	order	path	class
-shell	10	read/bash-context-gate.py	blocks
-shell	20	checks/heredoc-gate.py	informs
-read	10	read/context-gate.py	blocks
-read	20	read/pre-read.py	blocks
-write	10	read/context-gate.py	blocks
-write	20	checks/pre-edit.py	blocks
-write	30	facade/facade-scan.py	informs
-write	40	facade/facade-gate.py	blocks
-write	50	checks/issues-gate.py	blocks
-write	60	read/spec-read-gate.py	blocks
+# THE MOMENT IS A COLUMN, ADDED 2026-09-05 (b20260905). PostToolUse had never been collapsed: its
+# three hooks were each their own registration, so a Grep started three interpreters that parsed
+# the payload, asked capability() and returned 0 — 0.222 s of hook time on a call that needs none
+# of them, against 0.049 s once the two Python ones moved in here. The narrow fix — matching the
+# tool names each hook serves — was tried first and REFUSED by
+# test_b20260901_a_second_shell_tool_walks_past_every_read_gate: a tracker that misses a harness's
+# tool is worse than one that runs too often, because the gate it feeds keeps blocking a read that
+# already happened. The moment belongs in this table for the same reason the capability does.
+#
+# post-edit.sh is NOT here and cannot be: it is bash, and this table's rows are imported into the
+# dispatcher's own process. It keeps its `.*` registration and pays for its own early exit, which
+# is why that exit is now made in shell before any interpreter starts.
+#
+# moment	capability	order	path	class
+pre	shell	10	read/bash-context-gate.py	blocks
+pre	shell	20	checks/heredoc-gate.py	informs
+pre	read	10	read/context-gate.py	blocks
+pre	read	20	read/pre-read.py	blocks
+pre	write	10	read/context-gate.py	blocks
+pre	write	20	checks/pre-edit.py	blocks
+pre	write	30	facade/facade-scan.py	informs
+pre	write	40	facade/facade-gate.py	blocks
+pre	write	50	checks/issues-gate.py	blocks
+pre	write	60	read/spec-read-gate.py	blocks
+post	read	10	facade/facade-tracker.py	informs
+post	read	20	read/context-tracker.py	informs

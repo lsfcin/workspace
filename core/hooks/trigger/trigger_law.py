@@ -41,9 +41,13 @@ EVENTS = {'SessionStart': ['session start'], 'UserPromptSubmit': ['every prompt'
           'PreCompact': ['on compact'], 'SubagentStart': ['subagent start']}
 TOOLS = {'Read': 'read', 'Grep': 'read', 'Edit': 'edit', 'Write': 'edit', 'NotebookEdit': 'edit',
          'Bash': 'bash'}
-# The same three asked of the payload rather than of a tool name — gates.txt's first column. A
-# gate's moment is its capability's, never the whole matcher its dispatcher was hung on.
-CAPABILITY_MOMENTS = {'shell': 'before bash', 'read': 'before read', 'write': 'before edit'}
+# Asked of the payload rather than of a tool name — gates.txt's first two columns. A gate's moment
+# is its own (moment, capability), never the whole matcher its dispatcher was hung on. The `post`
+# half arrived 2026-09-05 with the PostToolUse collapse (b20260905): before then the trackers were
+# their own registrations and this module read their moment off a matcher naming Read.
+CAPABILITY_MOMENTS = {('pre', 'shell'): 'before bash', ('pre', 'read'): 'before read',
+                      ('pre', 'write'): 'before edit', ('post', 'read'): 'after read',
+                      ('post', 'write'): 'after edit'}
 
 # git dictates these two names (core.hooksPath — see CONTEXT.md), so they are entrypoints that no
 # settings file registers and none ever will.
@@ -121,8 +125,11 @@ def _spread(rel: str, moments: list, seeds: dict, root: Path) -> dict:
         line = line.strip()
         if not line or line.startswith('#'):
             continue
-        cap, _, path, _ = (part.strip() for part in line.split('\t'))
-        moment = CAPABILITY_MOMENTS.get(cap)
+        parts = [part.strip() for part in line.split('\t')]
+        if len(parts) == 4:
+            parts = ['pre', *parts]   # a table written before the moment column existed
+        gate_moment, cap, _, path, _ = parts
+        moment = CAPABILITY_MOMENTS.get((gate_moment, cap))
         if moment in moments:
             seeds.setdefault(f'core/hooks/{path}', []).append(moment)
     return seeds

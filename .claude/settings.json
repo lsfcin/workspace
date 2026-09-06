@@ -45,11 +45,7 @@
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/facade/facade-tracker.py"
-          },
-          {
-            "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/read/context-tracker.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/dispatch.py"
           }
         ]
       }

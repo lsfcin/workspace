@@ -22,6 +22,7 @@ Per-file format, the rule that keeps a stored number honest, and the reporting d
 | [`context-window.md`](context-window.md) | What fills a session's context window, split by source, and how much of it the workspace controls. |
 | [`delegation.md`](delegation.md) | How often does this workspace actually spawn a subagent, and which agent definitions get used? |
 | [`entropy-scope-vs-rot.md`](entropy-scope-vs-rot.md) | When the entropy count climbs, is the tree drifting or is the check set growing? |
+| [`hook-latency.md`](hook-latency.md) | What does the enforcement layer cost per tool call, and how much of that is work nobody asked for? |
 | [`output-cost.md`](output-cost.md) | Output tokens are more expensive than input — by how much, and where are ours? |
 | [`read-amplification.md`](read-amplification.md) | Do our own gates make a session read the same file more than once — and what does that cost? |
 | [`subagent-context-chain.md`](subagent-context-chain.md) | Does forcing an agent to read a subtree's CONTEXT.md chain change what it does — and should a subagent be forced at all? |

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# PreToolUse: one process for every gate — read stdin once, ask capability once, run what it selects.
+# PreToolUse, PostToolUse: one process for every gate — read stdin once, ask the moment and the
+# capability once, run what they select.
 #
 # WHAT THIS REPLACED. Each gate in core/hooks/gates.txt was its own `command` in each harness's
 # config, so a single tool call spawned nine interpreters that each re-read the same stdin and
@@ -30,23 +31,30 @@ def table_path() -> Path:
 	return Path(os.environ.get('WOS_GATES_TABLE') or (HERE / 'gates.txt'))
 
 
-def load_table() -> dict[str, list[tuple[str, str]]]:
-	"""capability -> [(path, class)], in the order the file declares.
+def load_table() -> dict[tuple[str, str], list[tuple[str, str]]]:
+	"""(moment, capability) -> [(path, class)], in the order the file declares.
 
 	Order is load-bearing and lives in the data, not here: context-gate must clear before
 	issues-gate, which reads the target file off disk.
+
+	A FOUR-COLUMN ROW IS STILL READ, as `pre`. The tests build their own tables and the shims are
+	versioned separately from this file, so a table written before the moment column existed must
+	not silently select nothing — that is the "runs, exits cleanly, does nothing" shape gates.txt's
+	own head was written about.
 	"""
-	rows: dict[str, list[tuple[int, str, str]]] = {}
+	rows: dict[tuple[str, str], list[tuple[int, str, str]]] = {}
 	for line in table_path().read_text(encoding='utf-8').splitlines():
 		line = line.strip()
 		if not line or line.startswith('#'):
 			continue
-		parts = line.split('\t')
-		if len(parts) != 4:
+		parts = [p.strip() for p in line.split('\t')]
+		if len(parts) == 4:
+			parts = ['pre', *parts]
+		if len(parts) != 5:
 			continue
-		cap, order, path, kind = (p.strip() for p in parts)
-		rows.setdefault(cap, []).append((int(order), path, kind))
-	return {cap: [(p, k) for _, p, k in sorted(items)] for cap, items in rows.items()}
+		moment, cap, order, path, kind = parts
+		rows.setdefault((moment, cap), []).append((int(order), path, kind))
+	return {key: [(p, k) for _, p, k in sorted(items)] for key, items in rows.items()}
 
 
 # EVERY GATE RUNS IN ITS OWN SANDBOX OF PROCESS STATE, because nine processes just became one.
@@ -97,11 +105,11 @@ def run_gate(rel: str) -> tuple[int, str, str]:
 # additionalContext exists. Plain stdout is folded into the same field rather than dropped: it is
 # exit-0 stdout, which that section calls transcript-only and read by nobody, and a gate's text
 # arriving at the model is the behaviour the section asks for.
-def emit(messages: list[str]) -> None:
+def emit(messages: list[str], event: str = 'PreToolUse') -> None:
 	if not messages:
 		return
 	print(json.dumps({'hookSpecificOutput': {
-		'hookEventName': 'PreToolUse',
+		'hookEventName': event,
 		'additionalContext': '\n'.join(messages),
 	}}))
 
@@ -123,8 +131,13 @@ def collect(text: str, messages: list[str]) -> None:
 
 def main() -> int:
 	raw, tool, tool_input, _, _ = parse_stdin()
+	# THE MOMENT COMES FROM THE PAYLOAD, never from a second registration spelling it. Claude Code
+	# and ZCode both send hook_event_name; anything that does not is PreToolUse, which is what this
+	# file did before the column existed and what every shim still assumes.
+	event = str(raw.get('hook_event_name') or raw.get('hookEventName') or 'PreToolUse')
+	moment = 'post' if event == 'PostToolUse' else 'pre'
 	cap = capability(tool, tool_input)
-	gates = load_table().get(cap, [])
+	gates = load_table().get((moment, cap), [])
 	if not gates:
 		return 0  # 'other' selects nothing — a Grep or a TodoWrite pays for no gate at all
 
@@ -163,7 +176,7 @@ def main() -> int:
 			sys.stderr.write(err)
 		collect(out, messages)
 
-	emit(messages)
+	emit(messages, event)
 	return 1 if failed else 0
 
 

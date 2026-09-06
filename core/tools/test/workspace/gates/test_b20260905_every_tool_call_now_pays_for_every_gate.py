@@ -28,14 +28,14 @@ HOOKS = WORKSPACE_ROOT / 'core/hooks'
 WS = posix(WORKSPACE_ROOT)
 
 
-def rows() -> list[tuple[str, str, str]]:
-	"""(capability, path, class) for every declared gate."""
+def rows() -> list[tuple[str, str, str, str]]:
+	"""(moment, capability, path, class) for every declared gate."""
 	found = []
 	for line in TABLE.read_text(encoding='utf-8').splitlines():
 		line = line.strip()
 		if line and not line.startswith('#'):
-			cap, _, path, kind = (p.strip() for p in line.split('\t'))
-			found.append((cap, path, kind))
+			moment, cap, _, path, kind = (p.strip() for p in line.split('\t'))
+			found.append((moment, cap, path, kind))
 	return found
 
 
@@ -71,17 +71,31 @@ def declare(table, *gates: tuple[str, str]) -> None:
 	table.write_text('\n'.join(lines) + '\n', encoding='utf-8', newline='\n')
 
 
-@pytest.mark.parametrize('path', sorted({p for _, p, _ in rows()}))
+@pytest.mark.parametrize('path', sorted({p for _, _, p, _ in rows()}))
 def test_every_declared_gate_exists(path):
 	"""The table is a registration, and a registration naming a dead file is the defect
 	test_shim_paths.py exists to catch one layer up."""
 	assert (HOOKS / path).is_file(), f'gates.txt names {path}, which is not there'
 
 
-@pytest.mark.parametrize('cap,path,kind', rows())
-def test_every_declared_gate_has_a_known_capability_and_class(cap, path, kind):
+@pytest.mark.parametrize('moment,cap,path,kind', rows())
+def test_every_declared_gate_has_a_known_moment_capability_and_class(moment, cap, path, kind):
+	assert moment in ('pre', 'post'), f'{path}: unknown moment {moment!r}'
 	assert cap in ('shell', 'read', 'write'), f'{path}: unknown capability {cap!r}'
 	assert kind in ('blocks', 'informs'), f'{path}: unknown class {kind!r}'
+
+
+def test_a_post_gate_does_not_run_at_pre() -> None:
+	"""The moment column earns its keep only if it SELECTS. Both trackers are declared `post`, so a
+	PreToolUse call on a CONTEXT.md must not mark it as read — that would clear the very gate the
+	same call is being judged by, which is the read-gate race b20260901 already paid for once."""
+	payload = call('Read', {'file_path': str(WORKSPACE_ROOT / 'core/hooks/CONTEXT.md')},
+	               'moment-probe')
+	payload['hook_event_name'] = 'PreToolUse'
+	done = run(payload)
+	assert done.returncode in (0, 2), done.stderr
+	post = {path for moment, _, path, _ in rows() if moment == 'post'}
+	assert post, 'gates.txt declares no post gates, so this case proves nothing'
 
 
 def test_a_gate_guarded_by_dunder_main_actually_runs():
