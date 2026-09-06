@@ -1,0 +1,167 @@
+# links_core.py — the slug map read+write seam, and the redirect file it emits, for links/cfpages
+#
+# The mapping is the source of truth and lives HERE, in the workspace, versioned like every other
+# registry in core/ (features.txt, profile.txt, deps.txt, harnesses.txt are the same shape). What
+# gets published is generated from it and owned by nobody: a `_redirects` file in a throwaway
+# public repo. Delete that repo and one `build` rebuilds it; delete this file and the slugs are
+# gone, which is the asymmetry that decides where it lives.
+import datetime
+import pathlib
+import re
+
+HERE = pathlib.Path(__file__).resolve().parent
+MAP = HERE / 'links.txt'
+HEADER = ('slug', 'url', 'owner', 'added')
+
+# A slug is what Lucas says out loud to a room, so the grammar is what survives being spoken and
+# typed from memory: lowercase, digits, hyphen, and AT MOST ONE slash. The one level is for a
+# course — `ai4good/setup` — because the things he hands out cluster by course and nothing else
+# clusters at all. A second level would be a directory tree nobody can recite.
+SLUG_RE = re.compile(r'^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9-]*)?$')
+
+# WHY THESE ARE REFUSED, AND WHY THE CHECK IS ON THE SLUG RATHER THAN THE URL.
+# A redirect is public: anyone who types a slug is sent wherever it points. That is harmless when
+# the target needs a Google login — they hit a permission wall. It is NOT harmless for a document
+# shared as "anyone with the link", because a guessable slug turns *unlisted* into *discoverable*,
+# and the branches/ notary, health and finance documents are exactly the kind shared that way.
+# The URL cannot answer this — a Drive URL looks identical whoever it is shared with — so the
+# guard keys on the two things that CAN answer: the name Lucas chose, and the file he is
+# recording the link in. Both are refusals, not warnings, because the failure is silent and
+# permanent: nothing ever tells you a stranger guessed the slug.
+PRIVATE = ('branches', 'casinhas', 'saude', 'financas')
+
+
+class Refused(Exception):
+    """A refusal that names its own fix. Printed as-is; never a traceback."""
+
+
+def _rows(text: str) -> list[dict]:
+    out = []
+    for line in text.splitlines():
+        if not line.strip() or line.startswith('#'):
+            continue
+        parts = line.split('\t')
+        if tuple(parts[:4]) == HEADER:
+            continue
+        out.append(dict(zip(HEADER, (parts + ['', '', '', ''])[:4])))
+    return out
+
+
+def load(path: pathlib.Path = MAP) -> list[dict]:
+    if not path.exists():
+        return []
+    return _rows(path.read_text(encoding='utf-8'))
+
+
+def preamble(path: pathlib.Path = MAP) -> list[str]:
+    """The leading `#` block — what the file is. A whole-file rewrite must not eat it."""
+    if not path.exists():
+        return []
+    out = []
+    for line in path.read_text(encoding='utf-8').splitlines():
+        if not line.startswith('#'):
+            break
+        out.append(line)
+    return out
+
+
+def save(rows: list[dict], path: pathlib.Path = MAP) -> None:
+    """Rewritten whole and sorted by slug, so a diff shows the one row that changed."""
+    lines = preamble(path) + ['\t'.join(HEADER)]
+    lines += ['\t'.join(r[k] for k in HEADER) for r in sorted(rows, key=lambda r: r['slug'])]
+    path.write_text('\n'.join(lines) + '\n', encoding='utf-8', newline='\n')
+
+
+def validate_slug(slug: str) -> None:
+    if not SLUG_RE.match(slug):
+        raise Refused(
+            f"'{slug}' is not a sayable slug.\n"
+            f"  lowercase, digits and hyphen, with at most one '/' for a course:\n"
+            f"    ai4good        a course home\n"
+            f"    ai4good/setup  something inside it\n"
+            f"    rva-chico      a one-off, flat and hyphenated"
+        )
+
+
+def check_private(slug: str, home: str = '') -> None:
+    """Refuse a slug that would publish a private thing. `home` is the file recording the link."""
+    # The hyphen is a word boundary here, not just the slash: a flat slug is how a one-off is
+    # named, so `casinhas-planta` is exactly the shape the refusal is for. Matching whole
+    # segments alone let that through on the first run of this check.
+    head = slug.split('/')[0]
+    if head in PRIVATE or head.split('-')[0] in PRIVATE:
+        raise Refused(
+            f"'{slug}' names a private subtree, so it gets no slug.\n"
+            f"  A redirect is public — a guessable slug turns an 'anyone with the link'\n"
+            f"  document into a discoverable one. Hand out the canonical URL instead."
+        )
+    if home and pathlib.PurePosixPath(home).parts[:1] == ('branches',):
+        raise Refused(
+            f"{home} is under branches/, so its links get no slug.\n"
+            f"  Same reason: the redirect is public and the sharing on those documents is not.\n"
+            f"  Hand out the canonical URL instead."
+        )
+
+
+def add(slug: str, url: str, owner: str = '', home: str = '',
+        path: pathlib.Path = MAP) -> dict:
+    """Mint one slug. Refuses rather than overwrites — a live link must not silently move."""
+    validate_slug(slug)
+    check_private(slug, home)
+    if not url.startswith(('http://', 'https://')):
+        raise Refused(f"'{url}' is not a URL. A slug points somewhere reachable or nowhere.")
+    rows = load(path)
+    for r in rows:
+        if r['slug'] == slug:
+            raise Refused(
+                f"'{slug}' is taken — it points at {r['url']}\n"
+                f"  Pick another name, or `cfpages rm {slug}` first if that link is dead."
+            )
+    row = {'slug': slug, 'url': url, 'owner': owner or slug.split('/')[0],
+           'added': datetime.date.today().isoformat()}
+    rows.append(row)
+    save(rows, path)
+    return row
+
+
+def remove(slug: str, path: pathlib.Path = MAP) -> dict:
+    rows = load(path)
+    kept = [r for r in rows if r['slug'] != slug]
+    if len(kept) == len(rows):
+        raise Refused(f"'{slug}' is not in the map. `cfpages find {slug}` to look for a near miss.")
+    save(kept, path)
+    return next(r for r in rows if r['slug'] == slug)
+
+
+def find(term: str, path: pathlib.Path = MAP) -> list[dict]:
+    """Query, never read whole. This is what keeps a file that grows forever cheap to consult."""
+    t = term.lower()
+    return [r for r in load(path) if t in r['slug'].lower() or t in r['url'].lower()
+            or t in r['owner'].lower()]
+
+
+def redirects(rows: list[dict], code: int = 302) -> str:
+    """Cloudflare Pages' `_redirects`: `<from> <to> <status>`, one per line, longest match wins.
+
+    302 and not 301: a 301 is cached by the browser forever, so a slug pointed at the wrong
+    document once would keep going there on Lucas's own machine long after the map was fixed.
+    """
+    lines = [f"/{r['slug']} {r['url']} {code}" for r in sorted(rows, key=lambda r: r['slug'])]
+    return '\n'.join(lines) + '\n'
+
+
+def check(rows: list[dict]) -> list[str]:
+    """Everything that is untrue about the map, one finding per line."""
+    findings, seen = [], {}
+    for r in rows:
+        try:
+            validate_slug(r['slug'])
+            check_private(r['slug'])
+        except Refused as e:
+            findings.append(f"{r['slug']}: {str(e).splitlines()[0]}")
+        if r['slug'] in seen:
+            findings.append(f"{r['slug']}: listed twice")
+        seen[r['slug']] = r
+        if not r['url'].startswith(('http://', 'https://')):
+            findings.append(f"{r['slug']}: target is not a URL ({r['url']})")
+    return findings

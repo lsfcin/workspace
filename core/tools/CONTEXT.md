@@ -36,6 +36,7 @@ The `subagent` feature is runtime-specific and has no CLI wrapper:
 | [`docs/`](docs/CONTEXT.md) | Long-form documents, read and edited in place. Provider leaf: `gdocs` (Google Docs API). |
 | [`files/`](files/CONTEXT.md) | Remote file storage: list, search, download, upload. Provider leaf: `gdrive`. |
 | [`forms/`](forms/CONTEXT.md) | Surveys and their answers: a form written as a versioned spec, applied in one call. Provider leaf: `gforms`. |
+| [`links/`](links/CONTEXT.md) | A link gets a name a room can be told out loud. Provider leaf: `cfpages` (Cloudflare Pages). |
 | [`mail/`](mail/CONTEXT.md) | Read a mailbox and triage it. Provider leaf: `gmail`. Auth: [`../auth/gauth.py`](mail/../auth/gauth.py). |
 | [`notes/`](notes/CONTEXT.md) | Pages and note databases, read as navigable text. Provider leaf: `notion` (Notion REST API). |
 | [`paper/`](paper/CONTEXT.md) | Academic sources and text: search papers, extract text, annotate, check terminology. |
@@ -53,5 +54,6 @@ The `subagent` feature is runtime-specific and has no CLI wrapper:
 | [`auth/gauth.py`](auth/gauth.py) | [`auth/gauth.pyi`](auth/gauth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `AuthExpired` | gauth.py — Google's leaf of the auth family: shared OAuth2 for every Google-backed tool |
 | [`deps.txt`](deps.txt) | — | — | Every external dependency the core/tools surface needs, declared: what installs it, what probes it, and what its absence breaks. Read by core/tools/wos/deps (the probe runner) and by core/tools/test/wos/test_deps.py (the class check). |
 | [`gcli.py`](gcli.py) | [`gcli.pyi`](gcli.pyi) | `run`, `fanout`, `auth_command` | gcli.py — the two things every Google-backed CLI does identically: consent, and fan out over accounts |
+| [`slug.py`](slug.py) | [`slug.pyi`](slug.pyi) | `mint` | slug.py — the one line a tool spends on offering `--slug`: mint a short link for what it created |
 | [`tool_law.py`](tool_law.py) | [`tool_law.pyi`](tool_law.pyi) | `require` | tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls |
 <!-- routing:end -->

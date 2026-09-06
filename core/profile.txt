@@ -74,6 +74,8 @@ toggle	forms	on
 toggle	vpn-cin	on
 toggle	mail-triage	on
 toggle	notes-notion	on
+toggle	link-shortener	on
+toggle	links	on
 toggle	video-text	on
 toggle	wazip	on
 toggle	asset-inspect	on

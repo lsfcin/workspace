@@ -21,24 +21,14 @@ project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of
 *Why* — the norm that produced this mass now says cut. A `.md` line in this tree is re-read by every session.
 *Done when* — both numbers are met with `verify-fast` green. Check code parsers before cutting any `.md`.
 
-**🟢 shorten a link, by name, without leaving a machine on**
-*What* — a free static shortener this workspace owns: a repo of redirect stubs on GitHub Pages (or
-Cloudflare Pages), published by `git push`, so nothing of Lucas's has to stay up. **Named slugs, never
-codes** — `ai4good`, not `x7f2q`. A slug a student can be told out loud and type from memory is the
-whole product, and it is what rules out every hash-based service.
-*Why* — asked 2026-09-06; the links Lucas hands students are Notion pages, Slides, Sheets and
-Excalidraw boards, all unspeakable as URLs.
-*First* — the **investigation**, not the build. Two halves. (1) Where in WOS a shortened link could be
-applied automatically: the Google family's returned URLs (`gdocs`, `gslides`, `gforms`, `gdrive`),
-`REFS.md` rows, `INBOX.md` captures — and which of those must keep the canonical URL because something
-parses it. (2) Teaching material, the priority: whether the shortener can run **at the moment a link is
-created**, inside the tools that already exist, rather than as a manual pass anyone has to remember.
-*Done when* — a decision exists: what gets shortened, who owns the slug namespace, and where the
-mapping lives so it is versioned like everything else here.
-*Done when* — § Size signals lists neither. **Not narration — every line is live law.** `SCHEMA.md`'s
-tables are parsed by `schema_law.py` and its transient-doc rows are live exemptions. Cut prose around
-them, never a row, and read the parser before the file. `core/SPECS.md` has no subdirectory to move into,
-so it is the one that tests whether the route generalises.
+**🔴 the shortener is built and needs two clicks nobody here can make**
+*What* — `lsf.pages.dev/<slug>` live. `core/tools/links/` is built and pushed to
+`github.com/lsfcin/lsf-links`; what is missing is Cloudflare Pages connected to that repo, project
+name `lsf`, which is a consent screen and therefore Lucas's.
+*Why* — asked 2026-09-06 and decided the same day: handable links only, one level for courses, a
+central map, private subtrees refused. Rationale: [`core/tools/links/SPECS.md`](core/tools/links/SPECS.md).
+*Done when* — Lucas types `lsf.pages.dev/ai4good/setup` on his phone and lands on the form, and the
+teaching tables quote the short link instead of the Google URL.
 
 ## Cost — what a session costs, and which of it is avoidable
 

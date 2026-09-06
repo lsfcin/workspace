@@ -6,7 +6,7 @@ _HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
-import slides_core, slides_outline, gauth, gcli
+import slides_core, slides_outline, gauth, gcli, slug as slug_tool
 
 
 def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
@@ -31,11 +31,13 @@ def cmd_read(account: str, presentation_id: str, as_json: bool, verbose: bool) -
           else slides_outline.outline(pres, verbose=verbose))
 
 
-def cmd_new(account: str, title: str) -> None:
+def cmd_new(account: str, title: str, slug: str) -> None:
     alias = gauth.resolve_alias(account)
     pres = slides_core.create(alias, title)
     print(f"Created '{pres['title']}' ({alias})  id:{pres['presentationId']}")
     print(f"  {slides_core.url(pres['presentationId'])}")
+    if slug:
+        print(slug_tool.mint(slug, slides_core.url(pres['presentationId'])))
 
 
 def cmd_add(account: str, presentation_id: str, layout: str) -> None:
@@ -108,6 +110,7 @@ def main():
 
     pn = sub.add_parser("new")
     pn.add_argument("--account", required=True)
+    pn.add_argument("--slug", default="", help="also mint a short link for the new deck")
     pn.add_argument("title")
 
     pad = sub.add_parser("add")
@@ -139,7 +142,7 @@ def main():
     if   args.cmd == "auth":    cmd_auth(args.alias, args.write, args.reauth)
     elif args.cmd == "list":    cmd_list(args.account, args.name)
     elif args.cmd == "read":    cmd_read(args.account, args.presentation_id, args.as_json, args.verbose)
-    elif args.cmd == "new":     cmd_new(args.account, args.title)
+    elif args.cmd == "new":     cmd_new(args.account, args.title, args.slug)
     elif args.cmd == "add":     cmd_add(args.account, args.presentation_id, args.layout)
     elif args.cmd == "text":    cmd_text(args.account, args.presentation_id, args.slide_id,
                                          args.text, args.x, args.y, args.w, args.h)

@@ -6,7 +6,7 @@ _HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
-import docs_core, docs_drive, docs_outline, gauth, gcli
+import docs_core, docs_drive, docs_outline, gauth, gcli, slug as slug_tool
 
 
 def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
@@ -40,7 +40,7 @@ def cmd_read(account: str, document_id: str, as_json: bool, as_outline: bool,
         print(text)
 
 
-def cmd_new(account: str, title: str, from_md: str, folder: str) -> None:
+def cmd_new(account: str, title: str, from_md: str, folder: str, slug: str) -> None:
     alias = gauth.resolve_alias(account)
     if from_md:
         doc = docs_drive.create_from_md(alias, title, from_md, folder)
@@ -49,6 +49,8 @@ def cmd_new(account: str, title: str, from_md: str, folder: str) -> None:
         document_id = docs_core.create(alias, title)["documentId"]
     print(f"Created '{title}' ({alias})  id:{document_id}")
     print(f"  {docs_core.url(document_id)}")
+    if slug:
+        print(slug_tool.mint(slug, docs_core.url(document_id), home=from_md))
 
 
 def cmd_push(account: str, document_id: str, md_path: str) -> None:
@@ -129,6 +131,7 @@ def _parser() -> argparse.ArgumentParser:
     pn.add_argument("--account", required=True)
     pn.add_argument("--from", dest="from_md", default="", help="markdown file to convert into the body")
     pn.add_argument("--folder", default="", help="Drive folder id to create it in")
+    pn.add_argument("--slug", default="", help="also mint a short link for the new document")
     pn.add_argument("title")
 
     pp = sub.add_parser("push")
@@ -170,7 +173,7 @@ def main():
     elif args.cmd == "list":     cmd_list(args.account, args.name)
     elif args.cmd == "read":     cmd_read(args.account, args.document_id, args.as_json,
                                           args.as_outline, args.verbose, args.out)
-    elif args.cmd == "new":      cmd_new(args.account, args.title, args.from_md, args.folder)
+    elif args.cmd == "new":      cmd_new(args.account, args.title, args.from_md, args.folder, args.slug)
     elif args.cmd == "push":     cmd_push(args.account, args.document_id, args.md_path)
     elif args.cmd == "apply":    cmd_apply(args.account, args.document_id, args.requests_json, args.force)
     elif args.cmd == "text":     cmd_text(args.account, args.document_id, args.index, args.text)

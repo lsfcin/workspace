@@ -5,6 +5,9 @@
 - FILESYSTEM = source of truth. No memory, no assumptions.
 - **PROVIDER-AGNOSTIC STORAGE**: the workspace owns its state, never a harness; if it insists,
 symlink the path into WIS.
+- A LINK HANDED OUT GETS A NAME — `core/run tools/links/cfpages`, or `--slug` where it is created.
+Targets live in [`core/tools/links/links.txt`](core/tools/links/links.txt); a doc quotes the short
+link, never the mapping.
 - **SECRETS STAY OUT OF GIT**: passwords, tokens, CPF/CNPJ go in a gitignored
 `<subtree>/segredos.env`; the text keeps the label.
 - IMPROVE WOS, after finishing MICRO (particular task), take a step back and review and refine MACRO

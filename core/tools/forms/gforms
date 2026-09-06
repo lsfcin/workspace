@@ -11,7 +11,7 @@ import tool_law
 # Guarded before the Google imports: "forms is off" must refuse here, not fail deeper in.
 tool_law.require('forms')
 
-import forms_core, forms_spec, gauth  # noqa: E402
+import forms_core, forms_spec, gauth, slug as slug_tool  # noqa: E402
 
 
 def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
@@ -27,7 +27,7 @@ def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
     print(f"Done. Token saved: {token}")
 
 
-def cmd_new(account: str, spec_path: str, folder: str) -> None:
+def cmd_new(account: str, spec_path: str, folder: str, slug: str) -> None:
     """A form is created, filled and filed in one call: the whole spec or nothing."""
     alias = gauth.resolve_alias(account)
     spec = json.loads(pathlib.Path(spec_path).read_text(encoding='utf-8'))
@@ -41,6 +41,9 @@ def cmd_new(account: str, spec_path: str, folder: str) -> None:
         print(f"  filed into folder {folder}")
     print(f"  edit:    {forms_core.edit_url(form_id)}")
     print(f"  respond: {form.get('responderUri', '')}")
+    if slug:
+        # The responder link, never the edit one: the slug is what a room gets told.
+        print(slug_tool.mint(slug, form.get("responderUri", ""), home=spec_path))
 
 
 def cmd_read(account: str, form_id: str, as_json: bool) -> None:
@@ -97,6 +100,7 @@ def main():
     pn = sub.add_parser("new")
     pn.add_argument("--account", required=True)
     pn.add_argument("--folder", default="", help="Drive folder id to file the form into")
+    pn.add_argument("--slug", default="", help="also mint a short link for the responder URL")
     pn.add_argument("spec_json", help="file holding the form spec (see CONTEXT.md)")
 
     pr = sub.add_parser("read")
@@ -116,7 +120,7 @@ def main():
 
     args = p.parse_args()
     if   args.cmd == "auth":      cmd_auth(args.alias, args.write, args.reauth)
-    elif args.cmd == "new":       cmd_new(args.account, args.spec_json, args.folder)
+    elif args.cmd == "new":       cmd_new(args.account, args.spec_json, args.folder, args.slug)
     elif args.cmd == "read":      cmd_read(args.account, args.form_id, args.as_json)
     elif args.cmd == "apply":     cmd_apply(args.account, args.form_id, args.requests_json)
     elif args.cmd == "responses": cmd_responses(args.account, args.form_id, args.as_json)

@@ -4,9 +4,10 @@ import sys, pathlib, argparse
 _HERE = pathlib.Path(__file__).resolve().parent
 # Seams sit beside the CLI; gauth is its own family, shared by every provider tool.
 sys.path.insert(0, str(_HERE))
+sys.path.insert(0, str(_HERE.parent))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
 sys.path.insert(0, str(_HERE.parents[1] / 'hooks'))
-import drive_core, drive_sync, gauth
+import drive_core, drive_sync, gauth, slug as slug_tool
 from platform_law import WORKSPACE_ROOT
 
 DOWNLOAD_DIR = WORKSPACE_ROOT / "Downloads/workspace-drive"
@@ -85,12 +86,16 @@ def cmd_perms(account: str, file_id: str) -> None:
         who = perm.get("emailAddress") or perm.get("domain") or perm["type"]
         print(f"  {perm['role']:<8} {who}")
 
-def cmd_share(account: str, file_id: str, email: str, role: str) -> None:
+def cmd_share(account: str, file_id: str, email: str, role: str, slug: str) -> None:
     alias = gauth.resolve_alias(account)
     svc = drive_core.get_service(alias, write=True)
     kind = "anyone" if email == "anyone" else "user"
     drive_core.grant_permission(svc, file_id, email, role=role, kind=kind)
     print(f"Shared {file_id} with {email} as {role} ({alias})")
+    if slug:
+        # Sharing is the moment a link becomes handable, so it is the moment worth naming.
+        link = svc.files().get(fileId=file_id, fields="webViewLink").execute()["webViewLink"]
+        print(slug_tool.mint(slug, link))
 
 def cmd_rm(account: str, file_ids: list) -> None:
     alias = gauth.resolve_alias(account)
@@ -165,6 +170,7 @@ def main():
     psh = sub.add_parser("share")
     psh.add_argument("--account", required=True)
     psh.add_argument("--role", default="writer", choices=["reader", "commenter", "writer"])
+    psh.add_argument("--slug", default="", help="also mint a short link for the shared file")
     psh.add_argument("file_id")
     psh.add_argument("email")
 
@@ -187,7 +193,7 @@ def main():
     elif args.cmd == "put":      cmd_put(args.account, args.path, args.parent, args.gdoc, args.name)
     elif args.cmd == "copy":     cmd_copy(args.account, args.file_id, args.name, args.parent)
     elif args.cmd == "perms":    cmd_perms(args.account, args.file_id)
-    elif args.cmd == "share":    cmd_share(args.account, args.file_id, args.email, args.role)
+    elif args.cmd == "share":    cmd_share(args.account, args.file_id, args.email, args.role, args.slug)
     elif args.cmd == "rm":       cmd_rm(args.account, args.file_ids)
     elif args.cmd == "sync":     cmd_sync(args.account, args.dir_path, args.force)
     else:                        p.print_help()

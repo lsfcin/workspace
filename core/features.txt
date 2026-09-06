@@ -136,6 +136,7 @@ forms	tools	on-demand	forms	none	lucas	core/tools/forms/gforms	A form is written
 vpn-cin	tools	on-demand	vpn-cin	none	lucas	-	The CIn internal network reachable from anywhere as one NetworkManager profile, so a machine rebuild replays a step instead of researching the helpdesk again
 mail-triage	tools	on-demand	-	none	lucas	core/tools/mail/gmail	Reads a mailbox and classifies it into workspace routes, so email arrives as INBOX entries rather than as a second queue
 notes-notion	tools	on-demand	-	none	lucas	core/tools/notes/notion	Pages and note databases read as navigable text
+link-shortener	tools	on-demand	-	none	lucas	core/tools/links/cfpages	A link gets a name a student can be told out loud and type from memory, so a deck or a form is handed to a room as lsf.pages.dev/ai4good instead of a Google URL nobody can transcribe
 latex	hooks+tools	automatic	latex	blocks	general	core/hooks/commit/gates.py,core/tools/paper/papers	Everything this workspace does with a paper: search and text extraction, the .texif scaffolding, and the term-consistency check that blocks a paper commit whose vocabulary drifted
 video-text	tools	on-demand	-	none	general	core/tools/video/video	Turns a media link into navigable text through metadata, captions, transcript, OCR and visual captioning, which is what makes a link in the INBOX drainable
 wazip	tools	on-demand	-	none	general	core/tools/chat/wazip	Turns an exported chat into navigable text with the voice notes transcribed inline, which is what makes WhatsApp — where the obra, a feirinha and the instituto actually happen — readable by a session at all
@@ -157,6 +158,7 @@ foundry	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.p
 iso-visual	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.py	The isoroll visual-semantics reference: image-to-text conventions and known model failure modes
 filesystem	norms	automatic	-	advises	general	core/hooks/routing/norms.py	An agent answers from the tree in front of it instead of from what it remembers, which is what makes a stale belief impossible to act on
 storage	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Nothing that matters is written into a vendor directory, so the workspace stays portable across harnesses instead of hostage to one
+links	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A link handed to a room is named where it is created and its target recorded in one file, so the short link is sayable and the mapping never scatters into the documents that quote it
 secrets	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A credential or someone else's personal data never reaches a remote, because a repo that leaks one is not fixable by deleting the line
 improve	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A session that notices a defect either fixes it or files it, so a finding never dies with the session that found it
 interview	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Doubt about intent costs one question instead of a session of work in the wrong direction
