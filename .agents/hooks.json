@@ -2,7 +2,7 @@
   "workspace-policy": {
     "PreToolUse": [
       {
-        "matcher": "view_file|replace_file_content|write_to_file|run_command|grep_search|invoke_subagent",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",
@@ -14,7 +14,7 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "view_file|replace_file_content|write_to_file",
+        "matcher": ".*",
         "hooks": [
           {
             "type": "command",

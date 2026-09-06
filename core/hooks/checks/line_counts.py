@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# The line-count gate: warn at 150 code lines, block at 200.
+# The line-count gate: warn and block on code lines, at the two numbers limits.env declares.
 #
 # Two callers, one implementation, which core/hooks/SPECS.md promises explicitly -- the pre-commit
 # pipeline passes the staged files, and a bare run audits every tracked file in the repo.
@@ -27,7 +27,7 @@ def report(paths, root=None) -> tuple:
     reject path, and a checker that prints its own verdict cannot be composed into one.
     """
     limits = file_law.load_limits()
-    warn, block = int(limits.get('WARN_LINES', 150)), int(limits.get('BLOCK_LINES', 200))
+    warn, block = int(limits['WARN_LINES']), int(limits['BLOCK_LINES'])
     root = Path(root) if root else Path.cwd()
     lines, blocked, warned = [], False, False
     for path in paths:

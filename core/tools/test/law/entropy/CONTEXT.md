@@ -24,7 +24,7 @@ it is the same ambiguity the reader has.
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`dashboard/`](dashboard/CONTEXT.md) | The two checks that are about the REPORT rather than about the tree: who owns a finding, and what the count was last time. |
+| [`dashboard/`](dashboard/CONTEXT.md) | The checks that are about the REPORT rather than about the tree: what a ledger may claim, and what the count was last time. |
 
 | File | Interface | Description |
 |------|-----------|-------------|

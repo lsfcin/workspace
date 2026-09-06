@@ -1,7 +1,7 @@
 import pytest
 from _typeshed import Incomplete
 
-GATES: Incomplete
+SUITE: Incomplete
 OFFENDERS: Incomplete
 
 @pytest.fixture

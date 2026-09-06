@@ -71,7 +71,7 @@ desirable **CUT**. **A provider's own directory is not a placement, it is an esc
 it, no check reads it, and it dies with the harness; symlink it in and it is an instance again.
 
 **The REDIRECT recipe, in order**, and the order is what pays: (1) delete what a hook already enforces
-— except a number that changes how you write *before* the hook can speak, so the 150/200 caps stay;
+— except a number that changes how you write *before* the hook can speak, so the size caps stay;
 (2) move constraints to a sibling `SPECS.md`; (3) move data out; (4) delete stale claims; (5) keep
 identity and navigation only. **Open the child `CONTEXT.md` and the file's own routing block first** —
 most of what looks movable is already written better elsewhere. What replaces a moved section is one
@@ -95,13 +95,15 @@ Four axes, **deliberately separate** — conflating them produced the wrong "fla
 |---|---|---|
 | **locality** | many small local `CONTEXT.md` = good, never consolidate to "reduce clutter" — granularity is what makes weak models navigate | judgement |
 | **depth** | cap hops to content, not file count; **measure** before adding a routing level | judgement |
-| **fanout** | `WARN_FILES=7` asks for a look, `BLOCK_FILES=10` is the cap | `entropy_fanout.py`, dashboard |
-| **document size** | `BLOCK_LINES=200` caps one authored `.md`; a root that sheds shards routes to them | `pre-edit.py`, dashboard |
+| **fanout** | `WARN_FILES` asks for a look, `BLOCK_FILES` is the cap | `entropy_fanout.py`, dashboard |
+| **routing** | a subdirectory under `FOLD_FILES` is folded into its parent's table, not linked | `workspace_scanner.py` |
+| **document size** | `BLOCK_LINES` caps one authored `.md`; a root that sheds shards routes to them | `pre-edit.py`, dashboard |
 
 Splitting an over-full directory *adds a hop*, so fanout and depth trade directly: pay the hop only
-when the split removes more table than it adds — a directory in the dozens pays, one at 8-9 files does
-not. Numbers live in [`limits.env`](hooks/limits.env), never in a second copy; offenders live in
-[`ISSUES.md`](../ISSUES.md). Prose is capped at the same number as code, but a shard's readers are
+when the split removes more table than it adds — a directory in the dozens pays, one just over the
+signal does not. Numbers live in [`limits.env`](hooks/limits.env), never in a second copy — this
+table named four of them until 2026-09-06 and every one went stale the day they moved; offenders
+live in [`ISSUES.md`](../ISSUES.md). Prose is capped at the same number as code, but a shard's readers are
 *sessions deciding whether to read it*, so the index must carry enough to decide without opening
 anything. Also: **no session reads the corpus, it reads a chain**, so a routing table costs row
 *count* per chain.

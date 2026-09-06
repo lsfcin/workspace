@@ -13,7 +13,7 @@ the verification rules — and dated snapshots carry the text.
 Edit it with [`core/tools/docs/gdocs`](../../core/tools/docs/CONTEXT.md). Read `comments` before any
 `push`, because `push` replaces the whole body and orphans anything anchored to text that goes away.
 Snapshot first: `gdocs read > CHECKPOINTS-backup-<date>.md`. A shell redirect writes the snapshot, so
-the 200-line cap does not fire on it — that is placement, not a loophole: a snapshot is captured,
+the line cap does not fire on it — that is placement, not a loophole: a snapshot is captured,
 not authored.
 
 <!-- routing:start -->

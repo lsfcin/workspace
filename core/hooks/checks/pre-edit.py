@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# PreToolUse: Edit|Write — size gate (200-line block), first-line comment, CONTEXT.md description.
+# PreToolUse: Edit|Write — size gate (limits.env BLOCK_LINES), first-line comment, CONTEXT.md description.
 import os, re, sys
 from pathlib import Path
 

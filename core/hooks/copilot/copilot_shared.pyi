@@ -3,8 +3,6 @@ from _typeshed import Incomplete
 from pathlib import Path
 from typing import Any
 
-READ_HINTS: Incomplete
-EDIT_HINTS: Incomplete
 PATH_KEYS: Incomplete
 CONTENT_KEYS: Incomplete
 OLD_KEYS: Incomplete

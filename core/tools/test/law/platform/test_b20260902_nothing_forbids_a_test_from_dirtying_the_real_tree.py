@@ -33,9 +33,15 @@ import sys
 import pytest
 from conftest import WORKSPACE_ROOT, _shape
 
-GATES = WORKSPACE_ROOT / 'core/tools/test/workspace/gates'
+SUITE = WORKSPACE_ROOT / 'core/tools/test'
 
 # The three, and the shape each one has. Every other case in the suite writes under tmp_path.
+#
+# FOUND BY NAME, NEVER BY DIRECTORY (2026-09-06). These three were resolved against
+# `workspace/gates/` until the 21-file split moved two of them into `gates/vcs/` and
+# `gates/checks/`. A law that hard-codes where its subject lives does not fail when the subject
+# moves — it fails when someone MOVES it, which is the same red for the opposite reason, and it
+# would have gone green again the moment a file of that name reappeared anywhere.
 OFFENDERS = {
 	'test_b20260901_a_mirror_never_reaches_the_machine_that_pulled_it.py': 'mutates core/skills',
 	'test_b20260901_the_codegraph_nudge_only_fires_when_a_stub_is_stale.py': 'creates under code/',
@@ -104,7 +110,11 @@ def test_the_guard_is_autouse_rather_than_something_a_test_opts_into() -> None:
 def test_each_known_offender_declares_itself_serial(name, shape) -> None:
 	"""`serial` is the exemption, and verify.py gives these a pass with no worker beside them.
 	Two of the three were unmarked until 2026-09-05; b20260902 records only one of those two."""
-	body = (GATES / name).read_text(encoding='utf-8')
+	found = sorted(SUITE.rglob(name))
+	assert len(found) == 1, (
+		f'expected exactly one {name} under the suite, found {[str(p) for p in found]}. A second '
+		'copy would let one carry the marker while the other dirties the tree.')
+	body = found[0].read_text(encoding='utf-8')
 	assert 'pytest.mark.serial' in body, f'{name} {shape} and no longer declares `serial`'
 
 

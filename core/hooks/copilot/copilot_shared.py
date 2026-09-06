@@ -11,11 +11,11 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from platform_law import interpreter
 
-# PostToolUse only, and the last two of what used to be three. The pre-tool shim routed by these
-# too until 2026-09-05, when core/hooks/dispatch.py made the capability the question and
-# TERMINAL_HINTS had nothing left to name.
-READ_HINTS = ("read", "open", "view", "inspect", "search")
-EDIT_HINTS = ("edit", "write", "create", "replace", "insert", "delete", "patch", "apply")
+# READ_HINTS / EDIT_HINTS / TERMINAL_HINTS are all gone (2026-09-05 pre, 2026-09-06 post). They
+# were a whitelist of tool NAMES, which goes stale the moment Copilot adds a tool — silently, in
+# the direction where nothing reports it. Both shims read the capability off the payload now, so
+# what is left here is the payload translation: how Copilot spells a path, content, an edit pair
+# and a command line, which is the one thing a shim genuinely owns.
 PATH_KEYS = (
     "filePath",
     "file_path",

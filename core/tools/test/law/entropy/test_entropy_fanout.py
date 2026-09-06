@@ -24,48 +24,22 @@ WARN = load_limits()['WARN_FILES']
 
 # Inherited fanout, each a directory that owes a split. Nothing else may join.
 #
-# MOST ROWS BELOW READ THE SAME WAY, stated once here rather than per row: the directory's NAME has
-# not drifted — every file in it really does the one job the directory claims — so the count is the
-# cost of that design working, not a responsibility problem. Each keeps the SEAM it would split on,
-# because a row with no named retirement is a threshold that quietly rises. COST THE HOP BEFORE
-# TAKING IT: the split rejected for `core/hooks/entropy/` was rejected for removing less table than
-# it added, and a new directory is a CONTEXT.md the whole tree pays to read.
-BASELINE = {
-    'core/skills/caveman/scripts',
-    'core/skills/caveman/hooks',
-    'academy/administration/coordenacao-lc/novo-ppc-bcc/ementas',
-    # The exception — this name HAS drifted. `gates/` is supposed to mirror `core/hooks/gates/`, but
-    # it holds tests for hooks from read/, checks/, git/ and compact/ as well, which is the
-    # responsibility problem the signal exists to surface rather than a count to wave through.
-    # Retired the way `law/entropy/` and `workspace/generators/` already are: one test directory per
-    # hook directory it covers.
-    'core/tools/test/workspace/gates',
-    # Seam: what each tool TOUCHES — the ledgers it reads (`spec-scan`, `spec-contract-check`,
-    # `features`, `deps`) against the files it rewrites (`wrap`, `sync-skills`,
-    # `sync-global-skills`, `roundup`).
-    'core/tools/wos',
-    # Seam: what each check READS — the tree's shape (corpus, naming, fanout, size) against its text
-    # (context, ledger, stores, vendor). Costed and REJECTED 2026-08-24 (Lucas); the directory holds
-    # over the signal on purpose and its own CONTEXT.md carries the reason.
-    'core/hooks/entropy',
-    # Over the BLOCK cap, not the warn, and the only row whose retirement is still an open question:
-    # it is described as a mirror of `core/hooks/entropy/` and is not one — ISSUES.md B5.
-    'core/tools/test/law/entropy',
-    # Seam: what each module DOES TO A DOCUMENT — reads it (`header`, `hoist`, `workspace_meta`,
-    # `workspace_scanner`) against writes into it (`blocks`, `context_synchronizer`, `norms`,
-    # `shard_table`). Same verdict as `core/hooks/entropy/` for the same reason, in its CONTEXT.md.
-    'core/hooks/routing',
-    # The OS-agnostic port put the ninth file here: `platform_law.py` joined the three law modules
-    # the root is supposed to hold. Retired by the port finishing rather than by a split — the root
-    # also carries `post-edit.sh`, and porting the post-edit stages to Python removes it. If the
-    # count has not fallen once the last shell hook is gone, this row becomes a real split.
-    'core/hooks',
-    # The Antigravity integration put the eighth file here: `test_antigravity_shim.py` joined the
-    # seven workspace-invariant tests. Costed against the hop: a split saving one table row does not
-    # pay for the CONTEXT.md. Retired when provider shim tests split into a dedicated directory once
-    # Codex and other runtimes gain behavioral suites.
-    'core/tools/test/workspace',
-}
+# EMPTY SINCE 2026-09-06, and how it emptied is the part worth keeping. Eight of the ten rows read
+# the same way: the directory's NAME had not drifted — every file in it really did the one job the
+# directory claimed — so the count was the cost of that design working rather than a responsibility
+# problem. Two of those eight had been costed and REJECTED outright (`core/hooks/entropy/` and
+# `core/hooks/routing/`, 2026-08-24, Lucas) and were still reported at every session close, because
+# the ruling lived in prose no checker reads. A threshold overruled twice and never moved is a
+# threshold nobody believes, so the numbers moved instead: WARN_FILES 7 → 10, BLOCK_FILES 10 → 15.
+#
+# The other two were real, and were split rather than waved through: `workspace/gates/` at 21 held
+# tests for four different hook directories under a name claiming one, and `workspace/` at 15 held
+# the ratchets and the shim coverage beside the whole-tree invariants.
+#
+# COST THE HOP BEFORE TAKING IT — a new directory is a CONTEXT.md the whole tree pays to read, and
+# that is why raising the number was the cheaper answer for eight of these and no answer at all for
+# the other two.
+BASELINE = set()
 
 
 def _live() -> set:

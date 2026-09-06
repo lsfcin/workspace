@@ -21,10 +21,10 @@ project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of
 *Why* — the norm that produced this mass now says cut. A `.md` line in this tree is re-read by every session.
 *Done when* — both numbers are met with `verify-fast` green. Check code parsers before cutting any `.md`.
 
-**🟢 two law files still sit over the 200-line cap, and the route to 200 is now known**
-*What* — `core/SPECS.md` and `core/SCHEMA.md` under the cap. `core/hooks/SPECS.md` landed on 200 exactly
-2026-09-05 and is the worked example.
-*Why* — they are the largest scaffold files and the cut pays twice, closing size findings and the item above.
+**🟢 one law file still sits over the line cap, and the route under it is known**
+*What* — `core/SPECS.md` (266) under the cap. The worked example is `core/hooks/SPECS.md`, which sits
+on its own cap exactly; `core/SCHEMA.md` is no longer in this queue.
+*Why* — it is the largest scaffold file and the cut pays twice, closing a size finding and the item above.
 *How* — **cut what is narrated twice, then move the rest to the directory that owns the code it governs**
 (ruled 2026-09-05, Lucas — the route neither of the three options named). `core/hooks/SPECS.md` gave up 90
 lines of narrative already told in `core/run` and in its own `CONTEXT.md`; the last 86 were live rules with
@@ -158,7 +158,11 @@ remaining candidates are law files, so the payment has to come from somewhere th
 - **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
 - **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
 - **A second compaction shim for copilot** — no copilot session has ever run here.
-- **Raising `BLOCK_LINES` to 300** — moves the queue; files needing room need a seam, not higher ceilings.
+- **Raising `BLOCK_LINES` to 300** — moves the queue; files needing room need a seam, not higher
+  ceilings. **Partly reversed 2026-09-06 (Lucas): 150/200 → 200/250.** The reasoning above survives
+  and is why the number is 250 and not 300 — what it got wrong is that it read every over-cap file as
+  a missing seam, when three of them were law files being asked to delete the reasons behind rules
+  nothing else recorded. A cap is still a cap: over it, a file is CUT and not split.
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
 - **Narrowing the pre-commit to only the touched tests** — declined 2026-09-01: it was the biggest
   win and the only one that weakens the gate holding both clones. Parallelising the suite and

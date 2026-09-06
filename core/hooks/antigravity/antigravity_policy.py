@@ -77,13 +77,17 @@ def pre_tool(call: dict[str, Any], sid: str) -> dict[str, Any]:
     return {"decision": "allow", "reason": said(msg)} if msg else {"decision": "allow"}
 
 
+# THE SAME RULE ON THE WAY BACK OUT (2026-09-06, b20260905). `pre_tool` above stopped hand-copying
+# gates.txt on 2026-09-05 and this half was left naming facade-tracker.py and context-tracker.py
+# itself — the two `post read` rows, in a second copy that drifts the moment the table changes.
+# post-edit.sh is the one thing that cannot move into the table: its rows are imported into the
+# dispatcher's own process and post-edit.sh is bash.
 def post_tool(call: dict[str, Any], sid: str) -> dict[str, Any]:
     name = call.get("name", "")
     args = call.get("args") or {}
     if name == "view_file":
-        p = {"file_path": args.get("AbsolutePath", ""), "session_id": sid}
-        run_gate("facade/facade-tracker.py", p, "Read")
-        run_gate("read/context-tracker.py", p, "Read")
+        run_gate("dispatch.py", {"file_path": args.get("AbsolutePath", ""), "session_id": sid,
+                                 "hook_event_name": "PostToolUse"}, "Read")
     elif name in ("replace_file_content", "write_to_file"):
         path = args.get("TargetFile", "")
         tool = "Write" if name == "write_to_file" else "Edit"

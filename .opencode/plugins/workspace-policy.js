@@ -85,20 +85,21 @@ export const WorkspacePolicy = async ({ client }) => {
       const payloads = buildPayloads(input.args || output.args || {}, input.tool)
       if (payloads.length === 0) return
 
+      // WHICH GATES RUN IS NOT DECIDED HERE — the same rule the `before` handler already follows.
+      // This branch named facade-tracker.py and context-tracker.py itself until 2026-09-06: a
+      // hand-copy of the two `post read` rows in core/hooks/gates.txt, keyed on the group, drifting
+      // the moment either side changed (b20260905). dispatch.py reads the moment off the payload.
+      // post-edit.sh cannot join that table — its rows are imported into the dispatcher's own
+      // process and post-edit.sh is bash — so it keeps this spawn.
       const msgs = []
-      if (m.group === "read") {
-        for (const p of payloads) {
-          const r = run(`${HOOKS}/facade/facade-tracker.py`, p, "Read", { stdin: false })
-          if (r.stdout && r.stdout.trim()) msgs.push(r.stdout.trim())
-          const c = run(`${HOOKS}/read/context-tracker.py`, p, "Read", { stdin: false })
-          if (c.stdout && c.stdout.trim()) msgs.push(c.stdout.trim())
-        }
-      } else {
-        for (const p of payloads) {
-          const r = run(`${HOOKS}/post-edit.sh`, p, m.canonical, { stdin: false })
-          if (r.stdout && r.stdout.trim()) msgs.push(r.stdout.trim())
-          if (r.stderr && r.stderr.trim()) msgs.push(r.stderr.trim())
-        }
+      for (const p of payloads) {
+        const d = run(`${HOOKS}/dispatch.py`, { ...p, hook_event_name: "PostToolUse" },
+                      m.canonical, { stdin: false })
+        if (d.stdout && d.stdout.trim()) msgs.push(d.stdout.trim())
+        if (m.group === "read") continue
+        const r = run(`${HOOKS}/post-edit.sh`, p, m.canonical, { stdin: false })
+        if (r.stdout && r.stdout.trim()) msgs.push(r.stdout.trim())
+        if (r.stderr && r.stderr.trim()) msgs.push(r.stderr.trim())
       }
 
       const text = msgs.join("\n\n").trim()

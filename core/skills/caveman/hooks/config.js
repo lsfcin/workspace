@@ -46,12 +46,29 @@ function getConfigPath() {
 // Fail-OPEN by construction: this hook is registered globally and runs in sessions that are not
 // inside the workspace at all, where the law is simply absent. Absent law means unchanged
 // behaviour, never a dead hook.
+//
+// THE INTERPRETER IS ASKED, NEVER SPELLED. This spawned the bare word `python3` until 2026-09-06,
+// which on a Windows clone reaches the Microsoft Store alias: it prints an advert and exits 9009,
+// so `status === 1` was false and the feature read as ON no matter what the profile said. Caveman
+// could not be switched off through the registry on the one platform the bug lived on — and the
+// fail-open design is what hid it, because failing open is also what a healthy absent law looks
+// like. `core/run --python` prints this clone's venv interpreter (the platform seam); an empty
+// answer means no venv, which is the absent-law case and stays open.
+//
+// The law is NOT run through `core/run` directly: that launcher exits 1 when it cannot find an
+// interpreter, the same status `--enabled` uses for "switched off", and a half-installed clone
+// would silently read as a deliberate shutdown.
 function featureOff() {
   try {
     const law = path.join(__dirname, '..', '..', '..', 'hooks', 'feature_law.py');
     if (!fs.existsSync(law)) return false;
-    return require('child_process')
-      .spawnSync('python3', [law, '--enabled', 'caveman']).status === 1;
+    const run = path.join(__dirname, '..', '..', '..', 'run');
+    const spawnSync = require('child_process').spawnSync;
+    const found = spawnSync('sh', [run, '--python'], { encoding: 'utf8' });
+    if (found.status !== 0) return false;
+    const python = (found.stdout || '').trim();
+    if (!python) return false;
+    return spawnSync(python, [law, '--enabled', 'caveman']).status === 1;
   } catch (e) {
     return false;
   }

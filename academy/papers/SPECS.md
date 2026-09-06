@@ -48,11 +48,13 @@ the PDF lands at the paper root.
 
 ## File size
 
-**200 LOC per section file** — enforced by the workspace hook (warn at 150, hard block at 200).
-Split by extracting subsection inputs, or move content to `tables/*.tex` / `figures/*.tex`. `.bib`
-has no LOC limit.
+**A section file is code for the line cap** — `WARN_LINES` then `BLOCK_LINES`, enforced by the
+workspace hook, and the two numbers live in [`core/hooks/limits.env`](../../core/hooks/limits.env)
+rather than here (they moved on 2026-09-06 and this section named the old pair). Split by
+extracting subsection inputs, or move content to `tables/*.tex` / `figures/*.tex`. `.bib` has no
+LOC limit.
 
-Size is a signal about the writing, not a quota to game: a section past 200 lines is usually two
+Size is a signal about the writing, not a quota to game: a section over the cap is usually two
 sections.
 
 ## First-line description

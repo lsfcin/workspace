@@ -69,6 +69,30 @@ SHIMS = {
 }
 
 
+# THE REGISTRATION A HARNESS READS, as opposed to the adapter it reaches. Copilot and Antigravity
+# both delegate to a shim, so neither config names a gate — what has to be true of them is that
+# they spawn through the launcher and that the adapter they name is on disk. Neither file was read
+# by anything until 2026-09-06, which is how .github/hooks/workspace-policy.json carried three
+# `python3` registrations for weeks past a ratchet that core/hooks/SPECS.md names as their enforcer
+# (b20260905). The same self-indictment as the `.claude/settings.json` note above, one shim over.
+REGISTRATIONS = {
+    '.github/hooks/workspace-policy.json': 'copilot',
+    '.agents/hooks.json': 'antigravity',
+}
+
+
+def test_every_registration_spawns_its_shim_through_the_launcher():
+    for rel, family in sorted(REGISTRATIONS.items()):
+        text = (WORKSPACE_ROOT / rel).read_text(encoding='utf-8')
+        named = re.findall(r'sh core/run (hooks/[A-Za-z0-9_./-]+\.(?:py|sh))', text)
+        assert named, (
+            f'{rel} registers no hook through `sh core/run`, so it spells an interpreter itself. '
+            'That is the spelling that reaches a Store alias on Windows and fails green.')
+        dead = sorted(p for p in named if not (CORE / p).exists())
+        assert not dead, f'{rel} registers paths that do not resolve: {dead}'
+        assert any(family in p for p in named), f'{rel} no longer reaches the {family} shim'
+
+
 def _spawned(shim: str) -> set:
     sources, pattern = SHIMS[shim]
     found = set()
@@ -125,16 +149,17 @@ def test_antigravity_spawns_only_scripts_that_exist():
     assert not dead, f'antigravity shim spawns paths that do not resolve: {dead}'
 
 
-def test_opencode_shim_never_spawns_the_bare_word_python3():
-    """The bare word is the spelling that silently switches the whole opencode plugin
-    off on a Windows clone: the Store alias prints an advert, exits 9009, the feature
-    probe reads as 'off' and no gate registers. The interpreter is asked from
-    `core/run --python` -- the platform seam -- never spelled."""
+def test_opencode_shim_resolves_the_interpreter_through_the_seam():
+    """The positive half of the ban: this shim must still ASK, not merely fail to spell.
+
+    The prohibition itself moved out on 2026-09-06. It was a `spawnSync('python3')` search over
+    these two files alone, and b20260905 was the same defect one shim over, in a file type nobody
+    grepped. `test_no_shell_hook_spawns_the_bare_word_python3` now covers every registration and
+    plugin type in the tree, which is strictly wider — keeping a second copy here would be the
+    drift this workspace's checks exist to catch. What it cannot say is this: a shim that stopped
+    calling `core/run --python` would spell nothing and pass the ban while resolving nothing."""
     for source in SHIMS['opencode'][0]:
         text = source.read_text(encoding='utf-8')
-        assert not re.search(r'spawnSync\(\s*[\'"]python3[\'"]', text), (
-            f'{source.name} spawns python3 directly -- ask core/run --python instead'
-        )
         assert 'core/run' in text and '--python' in text, (
             f'{source.name} no longer resolves the interpreter through the platform seam'
         )

@@ -22,7 +22,7 @@ DESCRIBED_FILE = HERE / 'described.txt'
 
 # Things the line cap and the fanout signal apply to. Prose types (.md, .yaml, .toml) are
 # NOT here: their size is a signal, never a cap. `.tex` is code on purpose — a paper
-# section file is authored under the same 200-line rule (academy/papers/SPECS.md § File size).
+# section file is authored under the same line rule (academy/papers/SPECS.md § File size).
 CODE_EXTS = {'.js', '.jsx', '.ts', '.tsx', '.py', '.dart', '.sh',
              '.html', '.css', '.scss', '.tex'}
 

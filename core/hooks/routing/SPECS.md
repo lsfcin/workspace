@@ -15,8 +15,9 @@ directory) and every commit, keeping each directory's `## Routing` block true un
 comment (code, below any shebang), a module docstring's first line (`.py`), `description:`
 frontmatter then the line-2 `> ` blurb (`.md`), or the ` — ` usage comment (extensionless scripts);
 **removes** entries for deleted files; **links** interfaces to their source; **folds** a leaf
-directory under `WARN_FILES` into the parent block and **links** one at or above it; **warns** when a
-directory exceeds `WARN_FILES` direct files.
+directory under `FOLD_FILES` into the parent block and **links** one at or above it; **warns** when a
+directory exceeds `WARN_FILES` direct files. Those are two numbers because they are two questions —
+*substantial enough to route to* is not *too crowded to read* (2026-09-06, [`limits.env`](../limits.env)).
 
 **Never edit inside the `<!-- routing:start/end -->` sentinels** — the next sync overwrites it.
 **Renames are not tracked**: the old entry disappears and the new file arrives with a placeholder.

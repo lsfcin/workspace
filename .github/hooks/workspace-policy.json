@@ -3,24 +3,21 @@
     "SessionStart": [
       {
         "type": "command",
-        "command": "python3 core/hooks/copilot/copilot-session-start.py",
-        "windows": "python core/hooks/copilot/copilot-session-start.py",
+        "command": "sh core/run hooks/copilot/copilot-session-start.py",
         "cwd": "."
       }
     ],
     "PreToolUse": [
       {
         "type": "command",
-        "command": "python3 core/hooks/copilot/copilot-pre-tool.py",
-        "windows": "python core/hooks/copilot/copilot-pre-tool.py",
+        "command": "sh core/run hooks/copilot/copilot-pre-tool.py",
         "cwd": "."
       }
     ],
     "PostToolUse": [
       {
         "type": "command",
-        "command": "python3 core/hooks/copilot/copilot-post-tool.py",
-        "windows": "python core/hooks/copilot/copilot-post-tool.py",
+        "command": "sh core/run hooks/copilot/copilot-post-tool.py",
         "cwd": "."
       }
     ]

@@ -149,27 +149,31 @@ def test_the_launcher_is_the_only_thing_that_cannot_ask():
         f'it, it almost certainly wants {SEAM}.venv_script() instead')
 
 
+REGISTRATION_GLOBS = ('*.json', '*.js', '*.toml')
+
+
+def _spawns(pattern, globs):
+    """Files whose LIVE lines match; a line that only NAMES the word is not a spawn."""
+    return sorted({line.split(':', 1)[0]
+                   for line in _git('grep', '-nE', pattern, '--', *globs)
+                   if not line.split(':', 2)[-1].lstrip().startswith(('#', '//'))})
+
+
 def test_no_shell_hook_spawns_the_bare_word_python3():                                       # I6
-    """Zero, not a ceiling — this one has been found three times by accident.
+    """Zero, not a ceiling — found four times by accident, the last one sideways (b20260905).
 
-    `python3` is not a name Windows has: it reaches a Microsoft Store execution alias that prints
-    an advert and exits without running anything. Every site that spelled it sat behind
-    `2>/dev/null` or `|| exit 0`, so the failure was *green*. On 2026-08-29 that was true of
-    post-edit.sh and all four stages it sources, the interface-first read gate and the precompact
-    wipe (both shell then, both Python since 2026-09-02) — interface stubs, routing sync, lint,
-    reminders and that gate had never once run on a Windows clone, and nothing anywhere said so.
-
-    A ceiling would be the wrong shape. A hook that can only ever pass is indistinguishable from
-    one that works, so the count may not creep by one; `core/run` answers the interpreter question
-    and `core/run --python` covers the inline `-c` case that cannot go through it.
+    Why the word is banned and what it cost is in `core/run`'s own head. What belongs here is why
+    the CHECK missed it: the corpus was `*.sh` alone while core/hooks/SPECS.md named this test the
+    enforcer across ALL shims, so `.github/hooks/workspace-policy.json` carried three Copilot
+    registrations spelled `python3` and `python` and nothing looked. A registration is a
+    registration whatever file type it lives in. Two arms, because command position is spelled
+    differently: a shell file runs a bare word, a config quotes one. Neither matches `--python`,
+    `python()` or a `python` variable — which is how .opencode/ and caveman ask the seam by name.
     """
-    hits = _git('grep', '-nE', r'(^|[^/[:alnum:]._-])python3\b', '--', '*.sh')
-    # A comment may name the word — this file's own history is written in them. Only a line that
-    # would RUN it counts, so drop anything whose first non-blank character is `#`.
-    live = sorted({line.split(':', 1)[0] for line in hits
-                   if not line.split(':', 2)[-1].lstrip().startswith('#')})
+    live = (_spawns(r'(^|[^/[:alnum:]._-])python3\b', ('*.sh',))
+            + _spawns(r'''["'`]python3?([[:space:]"'`]|$)''', REGISTRATION_GLOBS))
     assert not live, (
-        f'these shell files spawn the bare word python3: {live}. It resolves to a Store alias on '
+        f'these files spawn the bare word python3: {live}. It resolves to a Store alias on '
         'Windows and fails green. Use `sh "$RUN" <core-relative path>`, or '
         '`"$(sh "$RUN" --python)" -c ...` for an inline script')
 

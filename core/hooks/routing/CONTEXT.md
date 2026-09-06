@@ -1,13 +1,11 @@
 # routing
 > The CONTEXT.md routing-table generator, and the delimited-block writer every generator shares.
 
-**This directory sits over the fanout signal and holds there** — costed 2026-08-24 alongside
-`core/hooks/entropy/`, same verdict. The candidate seam was what each module does to a document:
-reading it (`header`, `hoist`, `workspace_meta`, `workspace_scanner`) against writing into it
-(`blocks`, `context_synchronizer`, `norms`, `shard_table`). The hop removes less table than it adds,
-and a new directory is a `CONTEXT.md` the whole tree pays to read. The name has not drifted — every
-module here is machinery for the generated blocks inside authored documents — so the count is the
-cost of the design working, and the baseline carries it rather than a rising threshold.
+**This directory is not split**, and the seam it would split on is what each module does to a
+document: reads it (`header`, `hoist`, `workspace_meta`, `workspace_scanner`) against writes into it
+(`blocks`, `context_synchronizer`, `norms`, `shard_table`). Costed 2026-08-24 alongside
+`core/hooks/entropy/`, same verdict — the hop removes less table than it adds, and a new directory
+is a `CONTEXT.md` the whole tree pays to read.
 
 <!-- routing:start -->
 ## Routing
