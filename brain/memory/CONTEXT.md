@@ -49,7 +49,7 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`feedback_multiharness_essential.md`](feedback_multiharness_essential.md) | Multi-harness is ESSENTIAL to Lucas — optimize the copying, never delete a harness; and no hook dies without a scoreboard |
 | [`feedback_parallel_sessions.md`](feedback_parallel_sessions.md) | How to work safely when multiple Claude/opencode sessions edit /mnt/workspace at once |
 | [`feedback_plain_language.md`](feedback_plain_language.md) | Write WOS in plain words — Lucas loses the thread when jargon accumulates, and language IS the system when the reader is an LLM |
-| [`feedback_provider_agnostic_naming.md`](feedback_provider_agnostic_naming.md) | Never put provider/model names (NB, Gemini, etc.) in file names, verbs, or dirs — workspace is provider-agnostic |
+| [`feedback_provider_agnostic_naming.md`](feedback_provider_agnostic_naming.md) | Provider/model names are banned as a DIRECTIVE (assigning work, naming a tier, coupling code to a vendor) and fine as DATA (a measurement, a quoted id, which harness produced a draft) — position, not presence |
 | [`feedback_question_context.md`](feedback_question_context.md) | every choice put to Lucas carries the context, the problem and the tradeoffs in the question itself and in each option |
 | [`feedback_visual_eyeball_gate.md`](feedback_visual_eyeball_gate.md) | Every image-producing pipeline step needs Lucas's visual review (artifact board) before advancing — loops passing their own tests is not enough for visual work |
 | [`reference_linuz90_bot.md`](reference_linuz90_bot.md) | linuz90/claude-telegram-bot source read — the reference design for aiwbot; how it does session lineage + its UX feature set |

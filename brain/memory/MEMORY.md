@@ -9,8 +9,8 @@
   (artifact board) before advancing; shortest path to visible content
 - [Fable Quota Strategy](fable_quota_strategy.md) — "Fable decides, Opus writes, Sonnet executes"; multiview is
   consumed, its F1 spine lives on develop; instituto prompt is in its final window
-- [Feedback: provider-agnostic naming](feedback_provider_agnostic_naming.md) — never a provider or model name in
-  files, verbs or directories; the function is the name, the provider is data
+- [Feedback: provider-agnostic naming](feedback_provider_agnostic_naming.md) — position, not presence: a model name is
+  banned as a DIRECTIVE, fine as DATA (a measurement, a quoted id, which harness wrote a draft)
 - [Feedback: background bash reliability](feedback_background_bash_reliability.md) — backgrounded Bash chains can die
   silently across a ScheduleWakeup pause; prefer foreground or unchained calls for sweeps the user is waiting on
 - [Feedback: delete weak features](feedback_delete_weak_features.md) — weak signal = delete outright (code, docs,

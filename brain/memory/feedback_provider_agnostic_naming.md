@@ -1,6 +1,6 @@
 ---
 name: feedback-provider-agnostic-naming
-description: "Never put provider/model names (NB, Gemini, etc.) in file names, verbs, or dirs — workspace is provider-agnostic"
+description: "Provider/model names are banned as a DIRECTIVE (assigning work, naming a tier, coupling code to a vendor) and fine as DATA (a measurement, a quoted id, which harness produced a draft) — position, not presence"
 metadata: 
   node_type: memory
   type: feedback
@@ -26,3 +26,16 @@ The line that decides a given mention: **directive vs data.** Assigning work by 
 *measured* split ("opus-5 56.5%, sonnet 7.7%") or a quoted stale model id inside a bug report is legitimate, because
 there the model is the fact being reported. This is why it cannot become a flat retired token — a presence check would
 fire on the honest uses, so any guard has to read position. Related: [[project-wos-zero-roadmap]].
+
+**A FILENAME IS NOT AN EXCEPTION TO THIS — it was never covered (ruled 2026-09-05, Lucas, closing
+b20260905-brain-drafts).** I had summarised this rule as an absolute ban and asked whether comparing harnesses needed a
+written exception. It does not. Lucas: *"essa é uma estratégia que queremos dar suporte... não se encaixa na
+preocupação de provider agnostic, pelo contrário, entra no adversarial / experimental"*, and the distinction he drew is
+the one already implemented — *"é muito diferente ter algo que só funciona pra 1 harness vs ter algo que é uma
+contribuição que nós tivemos o cuidado de dizer qual foi o harness/modelo que gerou aquilo."* `brain/drafts/
+metodologia-aulas-{sonnet,opus,gemini}.md` are legal and the names are the point: the provider is the variable under
+study. `core/hooks/entropy/entropy_vendor.py`'s head is the authority — *"THE CHECK READS POSITION, NOT PRESENCE"* —
+so read that file before ruling on any mention, and never widen it into a token ban.
+
+**Ask the code, not this memory.** The nuance was in this body since 2026-08-17 and I still recalled the absolute
+version off the description line, because that is what the index loads.

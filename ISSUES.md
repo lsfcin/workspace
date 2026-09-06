@@ -92,7 +92,7 @@ matching regression spec exists and passes.
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/codex-and-inbox-wip is 3 ahead of main
-- . — feature/pending-decisions is 5 ahead of main
+- . — feature/pending-decisions is 6 ahead of main
 
 ### Local branches already merged into their base
 
