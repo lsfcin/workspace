@@ -240,35 +240,11 @@ estava em 80%). Prefixo = **`[MODELO-SIGAA]`** (hífen). Escrita 100% automatiza
 Períodos (OBRIGATORIAS): `1 Periodo=1TvICk8Hxq4x4YwINRwb45NYdXvIHHOH6`; demais: re-listar via `drive` (ids mudam pouco).
 Re-inventariar no início (fonte da verdade = Drive).
 
-## Formatos-fonte (variam — tratar cada)
-- **Fonte JÁ é o MODELO SIGAA** (tabelas aninhadas em `sdt`, não top-level). `python-docx .tables` retorna 0 — extrair
-  via `element.body.findall(qn('w:tbl'))`. **`port.py` atual lê tabelas TOP-LEVEL (formato consolidado) — PRECISA
-  adaptar p/ nested-sdt.**
-- **Estados**: preenchida (ex. INTELIGÊNCIA HÍBRIDA.docx — copiar verbatim) vs **template vazio** (ex. 0001 FUNDAMENTOS
-  — sem conteúdo). Regra: fonte preenchida → verbatim; **fonte vazia → NÃO inventar**; puxar do consolidado
-  (`OBRIGATÓRIOS.docx` `1hvMHdkL…` / `OPTATIVOS.docx` `1CKNht6f…` na pasta "Comissão PPC - 2026") OU flag pro Lucas.
-- **Google Docs** (maioria): `download_file` hoje exporta gdoc→**PDF** (ruim p/ tabela). Adicionar export **gdoc→.docx**
-  (`EXPORT_MIME[GDOC]='…wordprocessingml.document'`) p/ ler verbatim. `.doc` antigo (só em Outros/legado).
+## O que resta
 
-## Pipeline por disciplina
-1. Baixar fonte (gdoc→.docx export; .docx direto).
-2. Extrair campos **VERBATIM** das tabelas nested-sdt (`ementas/port.py`, adaptado).
-3. OBJETIVOS: gerar só se vazio, mapeado 1:1 ao CONTEÚDO, **sem AISlop/alucinação** (datas/anos/páginas/títulos = nunca
-   inventar; verbatim only).
-4. Preencher MODELO fresco (`ementas/filler.py`: dedupe células mescladas + **Times New Roman em todos os runs** — senão
-   Cambria no Docs).
-5. Upload: `core/tools/files/gdrive put --account ufrpe --parent <id_subpasta> --gdoc --name "[MODELO-SIGAA] <nome>"
-   <arquivo.docx>` → converte p/ Google Doc na mesma subpasta.
+O pipeline **rodou e está auditado** — 41/44, diff verbatim e varredura de alucinação limpos. O
+passo-a-passo que estava aqui descrevia premissas que o bloco STATUS no topo desmente, então saiu:
+`ementas/` é a fonte da verdade sobre como cada etapa funciona, e git guarda o resto.
 
-## Ferramentas prontas (desta run)
-- **Write path**: `core/tools/files/gdrive` (branch `feature/drive-core-write`, commit `5726518`, pushed) — `mkdir`,
-  `put`, `put --gdoc`, `auth --write/--reauth`. `drive_core.py` = seam read+write. **Token `drive-write` da ufrpe já
-  vivo.**
-- **Scripts**: `ementas/port.py` + `ementas/filler.py` (persistidos; port.py precisa da adaptação nested-sdt + gdoc
-  export).
-- Se auth falhar (`invalid_grant`): `drive auth ufrpe --write --reauth` (sessão interativa).
-
-## Etapa final (obrigatória) — auditoria + anti-alucinação
-Ver seção "Etapa final" acima: inventário do que foi criado, **diff verbatim automatizado** (campo gerado vs
-célula-fonte, byte-a-byte exceto OBJETIVOS), varredura de alucinação nos OBJETIVOS, tabela final dos campos preenchidos
-por conta, eyeball de ≥1 Doc convertido. Gate: nada fica sem OK do Lucas.
+Falta **só o upload** — o comando no STATUS acima, uma vez por disciplina, com o id da subpasta
+vindo da tabela. Se a auth falhar (`invalid_grant`): `drive auth ufrpe --write --reauth`, interativo.

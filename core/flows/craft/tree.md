@@ -62,5 +62,6 @@ content. The four here are distinct shapes. A fifth needs the same bar and an en
 
 Designed 2026-07-18 (session extending the SDD enforcement rollout). The tree unifies work previously tracked as
 `[skill-tree]` and `[research-loops]` in the craft-flows goal. Prior art for the pipeline lineage
-(Reflexion/LATM/Voyager) is in `prior-art.md` § Prior Art; the industry parallel for the feature subtree is GitHub Spec Kit
+(Reflexion/LATM/Voyager) is in `prior-art.md` § Prior Art; the industry parallel for the feature subtree is GitHub Spec
+Kit
 / Kiro (spec → clarify → plan → tasks → implement).

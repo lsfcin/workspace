@@ -14,4 +14,6 @@
 # Same shape as extensionless.txt, vendored.txt and generated.txt beside it: the law is the data
 # file, never the checker.
 .agents/hooks.json	Antigravity lifecycle hook registrations — the canonical WOS gates each event routes to.
+.github/hooks/workspace-policy.json	Copilot lifecycle hook registrations — SessionStart, PreToolUse and PostToolUse, each spawning its shim through core/run.
 .zcode/config.json	ZCode hook registrations — one PreToolUse entry into core/hooks/dispatch.py, plus the tracker, session and compaction hooks.
+core/skills/caveman/hooks/jsconfig.json	Type-checking settings for the caveman hooks — tells tsc these are CommonJS Node scripts, so the generated .d.ts stubs are correct.

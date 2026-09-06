@@ -1,4 +1,4 @@
-# T0 column cap: how wide one authored .md line may be, and the three shapes exempt from it.
+# T0 column cap: how wide one authored .md line may be, and the four shapes exempt from it.
 # Zero-token, runs in verify-fast.
 #
 # Split from test_file_law.py 2026-08-24 at the 200-line gate. The seam is the one that file
@@ -65,3 +65,31 @@ def test_only_the_LEADING_block_is_frontmatter() -> None:
 def test_an_unterminated_frontmatter_marker_exempts_nothing() -> None:
     """A stray opening `---` must not switch the cap off for the whole file."""
     assert over_column_cap(f'---\nname: t\n# t\n{LONG}\n', COLS) == [4]
+
+
+def test_a_line_long_only_because_of_a_url_is_exempt() -> None:
+    """The fourth exemption. A URL is one token; no rewrap makes it shorter, so the cap could only
+    buy worse prose around an object that will not move."""
+    url = 'https://example.org/' + 'p' * 150
+    assert not over_column_cap(f'see the source ([fonte]({url})).', COLS)
+    assert not over_column_cap(f'reference: <{url}>', COLS)
+
+
+def test_a_relative_link_target_counts_the_same_way() -> None:
+    """A repo path is as unbreakable as a URL, and heading text carrying one is the shape that
+    actually tripped this — `.zcode/SPECS.md` § Measured answers."""
+    assert not over_column_cap(
+        '### Measured answers ([the record](../core/experiments/' + 'a' * 120 + '.md))', COLS)
+
+
+def test_the_authored_half_is_still_measured_at_full_width() -> None:
+    """The bound that keeps it from hollowing the cap out: a long sentence does not become legal
+    by having a link dropped into it."""
+    assert over_column_cap(f'{LONG} [x](https://example.org/y)', COLS) == [1]
+
+
+def test_a_bare_word_with_a_slash_is_not_a_link() -> None:
+    """Only a real target is subtracted — `](...)`, an autolink, or a scheme. Ordinary prose that
+    happens to contain `core/hooks/` stays fully measured, or the exemption would swallow paths
+    written inline as text."""
+    assert over_column_cap('core/hooks/limits.env ' + LONG, COLS) == [1]

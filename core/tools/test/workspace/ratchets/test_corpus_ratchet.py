@@ -35,7 +35,7 @@ HEAD_WARN = load_limits()['CONTEXT_HEAD_WARN']
 # by writing prose — which is the point.
 FINISHED_CEILING = 0
 UNDESCRIBED_CEILING = 3
-MISPLACED_CEILING = 1
+MISPLACED_CEILING = 0  # drained 2026-09-06: the dashboard head was the last one
 
 # Routing rows pointing at a file git does not carry — a clone gets the table and not the file.
 # Nobody was counting these until 2026-08-31: test_pointer_integrity strips the routing block

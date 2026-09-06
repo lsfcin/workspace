@@ -9,6 +9,7 @@
 # the BLOCKING gate, which is how core/hooks/pre-commit reached 385 lines and
 # core/tools/wos/sync-skills 341 without ever being stopped. One definition, one home.
 import fnmatch
+import re
 import sys
 from pathlib import Path
 from platform_law import rel as _rel
@@ -139,12 +140,16 @@ def is_authored(path: Path, root: Path) -> bool:
             and not is_generated_artifact(path, root))
 
 
+LINK_TOKEN = re.compile(r'<[^>\s]+>|\]\([^)\s]+\)|(?<![\w])[a-z][a-z0-9+.-]*://\S+')
+
+
 def over_column_cap(text: str, cols: int) -> list:
     """Line numbers of prose lines longer than `cols`. The one definition every reader uses.
 
-    Three shapes are exempt: a **markdown table row**, anything inside a **fenced code block**,
-    and the **leading YAML frontmatter block**. Why each, and why the third is not a hollow-out,
-    is in limits.env § BLOCK_COLS — the one home for this rule's reasoning.
+    FOUR shapes are exempt: a **markdown table row**, anything inside a **fenced code block**, the
+    **leading YAML frontmatter block**, and a line that fits once its **link targets** are taken
+    out. Why each, and why none is a hollow-out, is in limits.env § BLOCK_COLS — the one home for
+    this rule's reasoning.
     """
     over, fenced = [], False
     lines = text.splitlines()
@@ -160,7 +165,12 @@ def over_column_cap(text: str, cols: int) -> list:
         if line.lstrip().startswith('```'):
             fenced = not fenced
             continue
-        if not fenced and len(line) > cols and not line.lstrip().startswith('|'):
+        if fenced or line.lstrip().startswith('|') or len(line) <= cols:
+            continue
+        # A URL and a relative path are single tokens: no rewrap makes them shorter, so the only
+        # thing this cap could buy on such a line is worse prose around it. Measured with the
+        # targets removed, so the AUTHORED half is still held to the full width.
+        if len(LINK_TOKEN.sub('', line)) > cols:
             over.append(number)
     return over
 

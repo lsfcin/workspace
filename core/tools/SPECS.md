@@ -124,3 +124,20 @@ So a tool that a skill *requires* is designed batch-first: many arguments or a f
 out of, one block of output per item, a summary line naming the failures, and **no item's failure
 ends the run**. This is the one-action rule for agent-facing text pointed at the tool rather than
 at the text — the text can only name one action if the tool offers one.
+
+## A provider without OAuth
+
+The decision — that the module holding the secret lives in the family rather than in `auth/` — is
+[`core/SPECS.md`](../SPECS.md) § AD-12. Its two consequences moved here on 2026-09-06 because they
+constrain **how a tool is written**, not where a module sits, and a rule belongs beside the code it
+governs.
+
+**The split is the Google split; what changes is which half belongs to whom.** For any provider,
+**Lucas does only what has no command form** — a click in the provider's UI, a consent screen, a
+secret minted inside his account (his correction, 2026-08-14: *"run it for me and ask me to do only
+what only I myself can do"*). The secret enters through **stdin** via a builtin pipe, never as an
+argument: argv is readable by any process of the user and survives in shell history.
+
+**A 404 is a sharing failure until proven otherwise**, because the same code means "not connected to
+this integration" and "no such id", and the first is far more common — content is *invisible* to the
+integration, not forbidden. The message says so in that order.
