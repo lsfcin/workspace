@@ -18,7 +18,7 @@
   and only the second shape is obvious. Before moving a constant, read every caller: a shared one is
   not a single source of truth, it is two rules that happen to agree so far.
 - **A ruling that lives only in prose gets re-reported forever** — either the data file carries the
-  decision or expect to make it again. AD-16 band 1 → 2, in its cheapest form.
+  decision or expect to make it again (AD-16 band 1 → 2, cheapest form).
 - **A check proving something *happened* beats one proving nothing errored** (2026-08-14). Bugs that
   exit 0, block with no message, or write a file nobody re-reads survive precisely by being mute, so
   ask *"what does this produce, and is it there?"* before reading code behind an exception.
@@ -247,5 +247,4 @@ chose **no parallelism** (2026-08-17), and the common case is sequential anyway.
 
 **The chargeable half is cheap** and is intent rather than contract, so it is an item in
 [`ROADMAP.md`](../ROADMAP.md) and not a rule here: roundup already prints the per-session split, so
-having a plan declare its expected split makes deviation visible and dated without forcing anyone to
-delegate. Band 1 → 2 of AD-16, and it needs no new instrument.
+a plan declaring its expected split makes deviation visible and dated, forcing nobody to delegate.
