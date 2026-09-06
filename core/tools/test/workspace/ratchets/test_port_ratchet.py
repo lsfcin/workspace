@@ -150,6 +150,10 @@ def test_the_launcher_is_the_only_thing_that_cannot_ask():
 
 
 REGISTRATION_GLOBS = ('*.json', '*.js', '*.toml')
+# NAMED so b20260905's spec can drive these same two patterns over a planted repo. A second copy
+# there would let the ban and its own regression test disagree about what the ban matches.
+SHELL_SPAWN = r'(^|[^/[:alnum:]._-])python3\b'
+QUOTED_SPAWN = r'''["'`]python3?([[:space:]"'`]|$)'''
 
 
 def _spawns(pattern, globs):
@@ -170,8 +174,7 @@ def test_no_shell_hook_spawns_the_bare_word_python3():                          
     differently: a shell file runs a bare word, a config quotes one. Neither matches `--python`,
     `python()` or a `python` variable — which is how .opencode/ and caveman ask the seam by name.
     """
-    live = (_spawns(r'(^|[^/[:alnum:]._-])python3\b', ('*.sh',))
-            + _spawns(r'''["'`]python3?([[:space:]"'`]|$)''', REGISTRATION_GLOBS))
+    live = (_spawns(SHELL_SPAWN, ('*.sh',)) + _spawns(QUOTED_SPAWN, REGISTRATION_GLOBS))
     assert not live, (
         f'these files spawn the bare word python3: {live}. It resolves to a Store alias on '
         'Windows and fails green. Use `sh "$RUN" <core-relative path>`, or '

@@ -9,15 +9,13 @@
 # The fix was the port, and these hold the two things that could bring the cost back: a bash tool
 # reappearing under core/tools/, and the check quietly becoming slow again.
 import ast
+import importlib.machinery
+import importlib.util
 import subprocess
-import time
+import sys
+from unittest import mock
 
 from conftest import WORKSPACE_ROOT
-
-# Generous on purpose. The measured figure is ~0.3 s and the bash was 22 s, so anything in between
-# is a decisive verdict; a tight bound would only turn a loaded CI box into a red suite. This
-# catches an ORDER OF MAGNITUDE, which is the only thing that went wrong last time.
-CEILING_SECONDS = 5.0
 
 
 def test_no_bash_tool_remains_under_core_tools():
@@ -30,19 +28,56 @@ def test_no_bash_tool_remains_under_core_tools():
     assert not shell, f'bash is back under core/tools/: {shell}'
 
 
-def test_the_mirror_check_is_not_slow_again():
-    """The number the SessionStart heal depends on. A hook that runs before every session may not
-    cost 22 s, which is exactly why the heal was blocked on this port."""
-    started = time.monotonic()
+def test_the_mirror_check_still_answers():
+    """The check the SessionStart heal depends on runs, end to end, and exits clean.
+
+    THIS USED TO ASSERT A CEILING IN SECONDS, and b20260905 is what that cost: it failed twice
+    under `pytest -n auto` and passed both times on a rerun with nothing changed, because sixteen
+    workers were competing for the same cores. The pre-commit gate runs this suite, so a wall-clock
+    bound refuses commits at random — and a ceiling that cries wolf gets raised until it means
+    nothing. A duration is not a property of the code; it is a property of the machine on the day.
+
+    What actually regressed was FORKS — ~300 of them at ~48 ms under Git Bash. That is asserted
+    next door, on the source and on the run, and both forms hold on a loaded box and on an idle
+    one."""
     done = subprocess.run(['sh', str(WORKSPACE_ROOT / 'core/run'), 'tools/wos/sync-skills',
                            '--check'],
                           cwd=WORKSPACE_ROOT, stdin=subprocess.DEVNULL, capture_output=True,
                           text=True, timeout=180, encoding='utf-8', errors='replace')
-    elapsed = time.monotonic() - started
     assert done.returncode == 0, done.stdout + done.stderr
-    assert elapsed < CEILING_SECONDS, (
-        f'sync-skills --check took {elapsed:.1f}s (ceiling {CEILING_SECONDS}s, measured 0.3s after '
-        f'the port, 22.0s as bash). Something reintroduced per-item process spawning.')
+
+
+def test_the_check_spawns_nothing_while_it_runs():
+    """The fork count, asserted at RUN TIME rather than read off the imports.
+
+    The source check below proves these three modules do not import `subprocess`. It cannot see a
+    fork reached any other way — `os.system`, `os.posix_spawn`, a helper they import that does it
+    for them — and the defect this file exists for was 300 forks, not one import. So run `check()`
+    in-process with every spawn primitive booby-trapped: it is read-only over WORKSPACE_ROOT, which
+    is why it needs no `serial` marker and no seam."""
+    import os
+
+    # An explicit SourceFileLoader, because `sync-skills` has no extension and nothing can infer a
+    # loader from the name — spec_from_file_location returns None on its own.
+    sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools/wos/skills'))
+    source = WORKSPACE_ROOT / 'core/tools/wos/sync-skills'
+    spec = importlib.util.spec_from_loader(
+        'sync_skills_under_test',
+        importlib.machinery.SourceFileLoader('sync_skills_under_test', str(source)))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    def refuse(*args, **kwargs):
+        raise AssertionError(
+            'sync-skills --check spawned a process. The port exists to stop spawning per item; '
+            '22 s of a 30 s commit was fork overhead, not work.')
+
+    with mock.patch.object(subprocess, 'run', refuse), \
+            mock.patch.object(subprocess, 'Popen', refuse), \
+            mock.patch.object(os, 'system', refuse), \
+            mock.patch.object(os, 'posix_spawn', refuse, create=True):
+        mirrors, commands = module.harnesses()
+        assert module.check(mirrors, commands) == 0
 
 
 def test_the_check_does_not_spawn_a_process_per_skill():
