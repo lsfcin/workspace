@@ -21,6 +21,13 @@ from .validate import validate
 MAX_RETRIES = 2
 MAX_FILE_SIZE = 500_000  # 500KB
 
+# The id the SDK path falls back to, overridable with CAVEMAN_MODEL. Named here as DATA —
+# it is which model this call goes to, not an instruction to any agent reading the file.
+# The tier is upstream's choice and is kept: compression is mechanical, and moving it is a
+# spend decision that belongs to whoever runs the tool, not to the session that repaired
+# the id. What was broken is only that `claude-sonnet-4-5` no longer resolves.
+DEFAULT_MODEL = "claude-sonnet-5"
+
 
 def call_claude(prompt: str) -> str:
     """SDK when ANTHROPIC_API_KEY is set, else the `claude` CLI (desktop auth)."""
@@ -31,7 +38,7 @@ def call_claude(prompt: str) -> str:
 
             client = anthropic.Anthropic(api_key=api_key)
             msg = client.messages.create(
-                model=os.environ.get("CAVEMAN_MODEL", "claude-sonnet-4-5"),
+                model=os.environ.get("CAVEMAN_MODEL", DEFAULT_MODEL),
                 max_tokens=8192,
                 messages=[{"role": "user", "content": prompt}],
             )
@@ -94,6 +101,20 @@ def _write_verified_backup(backup_path: Path, original_text: str) -> bool:
     return False
 
 
+def _write_compressed(filepath: Path, compressed: str) -> None:
+    """Write model output as a text file — which means it ends in a newline.
+
+    `call_claude` strips the response, because a model that answers with a leading blank
+    line or a trailing fence would otherwise write that into the file. Stripping the
+    trailing newline too is a side effect, not the intent: every compressed file came out
+    without its final newline, so `git diff` reported `\\ No newline at end of file` on a
+    pass whose whole job was to leave the file otherwise intact. Restored here, at the one
+    place model output reaches the disk, rather than in `call_claude` — the strip there is
+    still what we want from a response.
+    """
+    filepath.write_text(compressed.rstrip('\n') + '\n', encoding='utf-8', newline='\n')
+
+
 def _validate_with_retries(filepath: Path, backup_path: Path, compressed: str,
                            original_text: str) -> bool:
     """Validate, and on failure ask for targeted fixes. Restore the original if it never passes."""
@@ -117,7 +138,7 @@ def _validate_with_retries(filepath: Path, backup_path: Path, compressed: str,
 
         print("Fixing with Claude...")
         compressed = call_claude(build_fix_prompt(original_text, compressed, result.errors))
-        filepath.write_text(compressed, encoding='utf-8', newline='\n')
+        _write_compressed(filepath, compressed)
     return True
 
 
@@ -149,6 +170,6 @@ def compress_file(filepath: Path) -> bool:
 
     if not _write_verified_backup(backup_path, original_text):
         return False
-    filepath.write_text(compressed, encoding='utf-8', newline='\n')
+    _write_compressed(filepath, compressed)
 
     return _validate_with_retries(filepath, backup_path, compressed, original_text)

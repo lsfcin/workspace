@@ -30,18 +30,6 @@ the fourteen and silently has no `/roundup`. Reproduced 2026-08-18. *Done when* 
 skill or an explicit refusal, never silence. Linking them globally means a workspace skill can fire
 in a repo it knows nothing about; that trade is the decision, not the wiring.
 
-**🟢 `parse_owns` reads prose as declared paths, and says so on every commit**
-*What* — the `>**owns**` block ending where it actually ends. *Why* — it currently runs to the next
-field or heading, so ordinary blockquote prose becomes candidate paths and every commit prints
-`⚠ <goal>: owns '<prose>' ... resolves to no repo` for at least three goals. The noise trains the
-reader to skip post-commit output, which is where the gates also speak. *Done when* — the warnings
-are gone and a goal file with prose after its block is in the brain tests.
-
-**🟢 `/caveman compress` carries two bugs that outlived the rejection of its main use**
-*What* — the trailing newline it strips, and the stale model id it defaults to.
-*Why* — compressing workspace docs was measured and rejected, but the tool still runs on demand.
-*Done when* — a compressed file keeps its final newline and the default model id resolves.
-
 **🟡 `/roundup` ends by asking for something it could have proposed inside the plan**
 *What* — one fewer round-trip per session. *Why* — Lucas suggested it and flagged it himself:
 *"é só uma ideia, avaliar antes de implantar."* *Done when* — evaluated against the one-action rule

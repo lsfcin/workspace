@@ -6,6 +6,7 @@ from pathlib import Path
 
 MAX_RETRIES: int
 MAX_FILE_SIZE: int
+DEFAULT_MODEL: str
 
 def call_claude(prompt: str) -> str: ...
 def compress_file(filepath: Path) -> bool: ...

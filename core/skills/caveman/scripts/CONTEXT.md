@@ -8,9 +8,8 @@ Third-party code synced from upstream — attribution in [`../CONTEXT.md`](../CO
 **complies with workspace rules** like first-class code: there is **no `.vendor` exemption** (one
 was tried and rejected — see `../SPECS.md` § Local adaptations), so these files were **split to
 satisfy the size gate**, not exempted from it. Record any re-split there so the next upstream re-sync
-can diff. This package is package-shaped (`__init__.py`), so it carries **no generated `.pyi` stubs** —
-they are upstream re-diff noise, and `stubgen` mangles them into a nested `scripts/scripts/` path
-(known `post-edit.sh` bug: if an edit regenerates that dir, delete it, do not commit it).
+can diff. It carries generated `.pyi` stubs like every other source directory; being package-shaped
+(`__init__.py`) buys it no exemption from that either.
 
 **The pass is ordered so the cheapest step can refuse the expensive one**: detect the file type
 locally, spending no model tokens; compress; then validate what the model was forbidden to touch and
