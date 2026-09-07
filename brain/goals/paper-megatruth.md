@@ -38,6 +38,10 @@ to submission." Show up first, content second.
 > [ ] [mega-04] map what's done vs. what's missing for a submission  
 > [ ] [mega-05] identify target venue and deadline  
 > [ ] [mega-06] write and submit  
+> [ ] [repo-decisao] decidir: dar repo próprio ao megatruth como todo paper tem (o `CONTEXT.md`
+> volta a ser roteado e o conteúdo ganha história, que hoje não existe em lugar nenhum) ou deixar o
+> paper local mesmo, sem linha. A linha em `academy/papers/CONTEXT.md` foi tirada em 2026-09-01
+> (decisão reversível) porque era a rota para um arquivo que nenhum clone recebe  
 > [ ] [responder-time] responder ao time (João e Mari) — quebrar o silêncio é o bloqueio real, distinto de `[mega-01]`
 > (agendar reunião)  
 

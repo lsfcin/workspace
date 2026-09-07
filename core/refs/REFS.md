@@ -99,3 +99,18 @@
 - [ByteDance OpenViking](https://github.com/ByteDance/OpenViking) · [NVIDIA
   Switchyard](https://github.com/NVIDIA/Switchyard)
   — context browsing and cheap-tier model routing.
+- [GPT-6 Astra](https://openai.com/index/gpt-6-astra/)
+  — flagship OpenAI release; its example slide decks are far better than ours — study what makes
+  them better (assessment task in `brain/goals/teaching-materials.md` [astra-slides]).
+- [Claude Code front-end design plugins](https://www.instagram.com/reel/Dc2TOXhOLOP/)
+  — five plugins for UI quality, design systems, image→code, browser testing — may help our slides
+  (assessment task in `brain/goals/teaching-materials.md` [front-design-plugins]; — via reel).
+- [Creative developer projects roundup](https://www.instagram.com/p/DcuI3KiDuyu/)
+  — includes polished AI-made SVG animations; material for the animation question in
+  `brain/goals/teaching-materials.md` [research-tools] (— via aiwbot).
+- [FABLE 5.1 release take](https://www.instagram.com/reel/DcyNNHKtEsL/)
+  — practitioner read on the biggest-impact change in FABLE 5.1; evaluate whether it applies here
+  (`brain/goals/workspace-os.md` [ferramentas-obsoletas]; — via aiwbot).
+- [AI 2027](https://ai-2027.com)
+  — forecast/scenario site; Lucas asks whether it serves us (task in
+  `brain/goals/teaching-materials.md` [ai2027-material]).

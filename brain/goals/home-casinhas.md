@@ -57,6 +57,8 @@ fallback · even a partial map beats starting from zero again*
 > [ ] [indie-team] research independent, cheaper construction team as alternative  
 > [ ] [cad-to-ifc] gerar IFC por script parametrizado (ifcopenshell) a partir das plantas V03 + Bonsai como visualizador
 > (S8–S9)  
+> [ ] [janela-moldura] considerar a "janela moldura" do Paulo Trigo nas janelas das casinhas —
+> ([reel](https://www.instagram.com/reel/Dc0okrDRp2z/), — via aiwbot 2026-09-03, INBOX)  
 > [ ] [complementares] rascunhar estrutural/hidráulico/elétrico com guias IA no Bonsai; engenheiro valida/assina
 > (S12+)  
 
@@ -75,5 +77,5 @@ fallback · even a partial map beats starting from zero again*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: advancing  ·  touches: 18/34/34/34/34/34
+last-touch: 2026-09-04  ·  trend: advancing  ·  touches: 40/56/56/56/56/56
 <!-- stats:end -->

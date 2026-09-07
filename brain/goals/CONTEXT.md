@@ -18,6 +18,7 @@
 | [`finances.md`](finances.md) | [ finances | management | near ] finances |
 | [`google-migration.md`](google-migration.md) | [ career | admin | now ] migração Google — conta cin → pessoal, e o Drive para o workspace |
 | [`guitar.md`](guitar.md) | [ fun | music | year ] guitar |
+| [`hair.md`](hair.md) | [ health | hair | year ] cabelo — conter e recuperar as entradas |
 | [`home-casinhas.md`](home-casinhas.md) | [ finances | home | year ] casinhas construction |
 | [`instituto.md`](instituto.md) | [ craft | innovation | dream ] instituto |
 | [`lih-dd.md`](lih-dd.md) | [ craft | research | year ] LIH.DD — research lab |

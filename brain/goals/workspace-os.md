@@ -129,6 +129,8 @@ fallback · iterate — MVP can always be extended*
 > [ ] [zcode-trust] aceitar o trust do workspace no ZCode (Settings, ou o prompt ao abrir /mnt/workspace) — **só o Lucas
 > pode**; sem isso os hooks do shim ficam inertes. Depois abrir sessão nova e re-rodar a sonda de
 > `core/experiments/zcode-hook-protocol.md`, que decide se o registro direto fica ou vira adaptador (INBOX 2026-08-21)  
+> [ ] [zero-sum-linhas] avaliar gate de orçamento zero-sum no WOS: nenhum commit adiciona linhas
+> sem que diminua de outro canto — é viável medir e impor? (INBOX 2026-09-05)  
 > [ ] [ferramentas-obsoletas] de tempos em tempos, checar se alguma ferramenta nossa deve ser atualizada ou abandonada
 > porque os modelos e harnesses melhoraram — o WOS existe para contornar fraquezas do modelo, então cada fraqueza
 > corrigida upstream é código nosso que virou peso morto. Mesmo raciocínio do estudo de ablação, em cadência menor
@@ -147,5 +149,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-04  ·  trend: advancing  ·  touches: 395/527/547/547/547/547
+last-touch: 2026-09-06  ·  trend: advancing  ·  touches: 437/569/589/589/589/589
 <!-- stats:end -->

@@ -64,6 +64,9 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 > **recovery codes** estão entre os arquivos soltos, então esta linha amarra direto em `[auth-recovery]`  
 > [ ] [calendar-migrar] migrar o calendar de lsf@cin.ufpe.br para lsf.cin@gmail.com — `core/tools/calendar/gcalendar` já
 > lê as três contas, então a migração é de dados e de conta padrão, não de ferramenta (INBOX 2026-08-18)  
+> [ ] [calendar-centralizador] resolver o papel de cada calendário: o pessoal vira o centralizador
+> (a fonte da verdade da agenda), e o do cin fica só como visibilidade pro pessoal do voxar saber o
+> horário — não o contrário como hoje (INBOX 2026-09-05)  
 > [ ] [auth-recovery] backup/recovery do Google Authenticator — várias contas com 2FA nele; se o celular quebrar/sumir,
 > como recuperar? Mapear códigos de recuperação por conta + método de restauração antes que vire pesadelo (INBOX
 > 2026-07-24)  
@@ -75,5 +78,5 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: advancing  ·  touches: 10/10/10/10/10/10
+last-touch: 2026-09-03  ·  trend: advancing  ·  touches: 13/13/13/13/13/13
 <!-- stats:end -->

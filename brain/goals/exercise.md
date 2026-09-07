@@ -31,6 +31,11 @@ counts. Start from what was actually fun.
 > [ ] [hips-10y] rotina de 2 exercícios de quadril, 10 reps x 3 séries, ao acordar
 > ([reel](https://www.instagram.com/reel/DaI-joGAJ4z/), INBOX 2026-08-17) — a promessa do post é mobilidade daqui a 10
 > anos; serve como âncora de manhã, não como treino  
+> [ ] [posterior-chain] investigar se "back chain dominance" é coisa real — pesquisa científica
+> antes de adotar; se sustentar, incluir na bateria de exercícios
+> ([reel](https://www.instagram.com/reel/DZnwqiWuvZu/), — via aiwbot 2026-09-01; a tese do post:
+> estilo de vida sedentário desliga o glúteo e desalinha a cadeia posterior, "fix the posterior
+> chain first")  
 > [ ] [form-details] calisthenics form details for pull-ups / push-ups / dips / pike push-ups
 > ([reel](https://www.instagram.com/reel/DbRrzFQpJgV/), INBOX 2026-07-28) — read when a bodyweight rhythm actually
 > exists, not before  

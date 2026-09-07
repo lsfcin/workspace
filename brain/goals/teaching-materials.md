@@ -146,6 +146,26 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 > artefatos, não só um (INBOX 2026-08-24)  
 > [ ] [slides-pesquisa] material (talvez slides) que apresente aos alunos os conceitos dos projetos de pesquisa: dobra,
 > cria, texpace/spacemantics — serve de ponte entre a disciplina e a pesquisa própria (INBOX 2026-08-24)  
+> [ ] [harness-nas-etapas] incluir o uso do harness em cada etapa das disciplinas — "via aiwbot ·
+> 2026-09-05", integrar à metodologia da semana-padrão  
+> [ ] [astra-slides] estudar o exemplo de slides do GPT-6 Astra — ref em `core/refs/REFS.md`; Lucas
+> 2026-09-05: *"os slides deles são bem melhores que os nossos… é absurda a diferença"* — extrair o
+> que os torna melhores e alimentar o fluxo de slides  
+> [ ] [slides-dois-caminhos] redesenhar o fluxo de slides em dois caminhos: (1) notas de
+> apresentador, (2) os slides em si como guia visual e provocação, não leitura. Relato 2026-09-05:
+> sessão inteira em slides produziu prosa artificial, imagens pequenas e mal espaçadas, texto
+> sobreposto — design não é o forte, e o fluxo atual não separa as duas saídas  
+> [ ] [front-design-plugins] testar os cinco plugins de design front-end do Claude Code (auditoria
+> de UI, design system, imagem→código, teste em browser) nos nossos slides — ref em
+> `core/refs/REFS.md` (INBOX 2026-09-05)  
+> [ ] [diploma-causalidade] falar desse estudo nas aulas — mobilidade social e diploma ainda
+> demonstram causalidade (Duryea et al. 2023, Economics of Education Review; — via aiwbot
+> 2026-09-02)  
+> [ ] [tributacao-trabalho-capital] discutir nas aulas: taxamos as pessoas erradas? — argumento do
+> David Friedberg de que renda do trabalho não deveria ser tributada e ganho de capital sim (— via
+> aiwbot 2026-09-02)  
+> [ ] [ai2027-material] decidir se ai-2027.com serve pra gente — como material de aula ou leitura
+> de pesquisa (INBOX 2026-09-05, pergunta aberta do Lucas)  
 > [ ] [ai4good-revisao-sobras] sobras da revisão dos decks História/ML/MLP + Prática MLP (2026-08-21): (1) checar
 > visualmente a timeline da parte 3 — cobre Dartmouth 1956, inverno da IA, backprop 1986, AlexNet 2012? decidir se sobe
 > pra parte 1 ou ganha recap; (2) slide-ponte no fim da aula amarrando os dois decks; (3) o único slide de resultados
@@ -160,5 +180,5 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-02  ·  trend: advancing  ·  touches: 43/63/63/63/63/63
+last-touch: 2026-09-06  ·  trend: advancing  ·  touches: 50/70/70/70/70/70
 <!-- stats:end -->

@@ -9,6 +9,14 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 
 ## Open
 
+**🟢 evaluate UNSLOP and aihero.dev against our skills and flows**
+*What* — a skill UNSLOP (acha o repo real antes de julgar; nenhum link veio na captura) e
+[aihero.dev](https://aihero.dev) — pontos nomeados pelo Lucas: `/grill-me` e
+o `/implement` que usa TDD. *Why* — avaliação pontual pedida (INBOX 2026-09-05); não reabre o
+rejeitado "surveying outside skills" em larga escala, são duas leads nomeadas, uma delas com site
+próprio. *Done when* — cada uma tem um veredito com evidência (testada contra um fluxo nosso) ou é
+rejeitada por escrito.
+
 **🟡 our own skills are too big, and nobody has checked whether the bulk earns anything**
 *What* — every `core/skills/*.md` read for verbosity, redundancy, ambiguity, and steps costing more
 than they save. *Why* — Lucas (2026-08-25): *"skills são úteis mas me parecem meio gigantes quase
