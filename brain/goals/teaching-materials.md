@@ -140,7 +140,9 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 > [ ] [arvore-urls-curtas] Lucas precisa clicar: publicar a página no Notion (Share → Publish) e escolher o subdomínio
 > `.notion.site`, que é o único jeito de ter URL curta, com significado e sem expirar. O agente não alcança — a API do
 > Notion não liga o compartilhamento público. O link do Excalidraw é sala ao vivo e expira por natureza; a URL estável
-> só existe depois que o quadro virar arquivo salvo  
+> só existe depois que o quadro virar arquivo salvo. **Depois do clique**, `cfpages add ai4good <url>` e
+> `cfpages add tecnologias <url>` fecham os dois `/<curso>` — é a última metade aberta do encurtador, e ela mora aqui
+> porque o que falta é o clique, não o mint  
 
 > [ ] [acessibilidade-edson] preparar uma versão acessível das missões E do site da disciplina para o Edson — os dois
 > artefatos, não só um (INBOX 2026-08-24)  
@@ -180,5 +182,5 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-06  ·  trend: advancing  ·  touches: 50/70/70/70/70/70
+last-touch: 2026-09-07  ·  trend: advancing  ·  touches: 51/71/71/71/71/71
 <!-- stats:end -->

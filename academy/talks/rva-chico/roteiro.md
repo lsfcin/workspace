@@ -1,6 +1,6 @@
 # Roteiro — RVA p/ Chico, 03/09/2026, 10h, 1h40
 
-> Deck: [interação natural em realidades estendidas — 2026.2](https://docs.google.com/presentation/d/1FrVUudBNRPUE4dJRAhyYRIyQigQBAa0mJ93ggmLZ1kQ/edit),
+> Deck: [interação natural em realidades estendidas — 2026.2](https://lucassf.pages.dev/rva-chico),
 > Drive pessoal, `academy/talks/2026-09 - RVA p_ Chico (CIn)/`. **179 slides de trabalho**, depois
 > um divisor `SKIPPED` e os **140 originais de março** intactos como arquivo — se um corte doer no
 > palco, o slide velho está lá atrás. Na mesma pasta há uma cópia limpa do deck de março.

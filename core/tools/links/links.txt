@@ -6,4 +6,5 @@
 # mapping; this is the one place the target is written down.
 slug	url	owner	added
 ai4good/setup	https://docs.google.com/forms/d/e/1FAIpQLSfESI8OWLI1JSALkpAAtbRkqRzKxP6az3NCd9mi5Mop_697kQ/viewform	ai4good	2026-09-06
+rva-chico	https://docs.google.com/presentation/d/1FrVUudBNRPUE4dJRAhyYRIyQigQBAa0mJ93ggmLZ1kQ/edit	rva-chico	2026-09-07
 tecnologias/setup	https://docs.google.com/forms/d/e/1FAIpQLScOoEjTI-l64rgUSBMQ198J_B9ssrai_tIVAcPAOYe-uWklww/viewform	tecnologias	2026-09-06
