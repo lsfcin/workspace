@@ -77,7 +77,7 @@ written and green-by-skip; nothing has yet confirmed the id resolves.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/links-and-caveman is 4 ahead of main
+- . — feature/links-and-caveman is 5 ahead of main
 
 <!-- entropy:end -->
 
