@@ -101,7 +101,7 @@ por turma.
 
 | Spec | `formId` | Link de resposta |
 |------|----------|------------------|
-| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | `1QyOkwdY9nNZPLLh179tSRyadgh6Cl-p9R1XM7qRTWkY` | `lucassf.pages.dev/tecnologias/setup` |
+| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | `1QyOkwdY9nNZPLLh179tSRyadgh6Cl-p9R1XM7qRTWkY` | `lucassf.pages.dev/techedu/setup` |
 
 <!-- routing:start -->
 ## Routing

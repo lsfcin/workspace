@@ -137,8 +137,9 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 > [ ] [arvore-folhas-fracas] decidir duas folhas que subiram sem veredito: *Painel de learning analytics* (Metabase é BI
 > genérico, melhor vídeo tem 229 views) e *WebXR multiusuário* (vídeo com 133 views). Cortar é uma edição no JSON e um
 > republish  
-> [ ] [arvore-url-excalidraw] o link do Excalidraw é sala ao vivo e expira por natureza; a URL estável só existe depois
-> que o quadro virar arquivo salvo. Salvar, e só então mintar o slug  
+> [ ] [arvore-url-excalidraw] `lucassf.pages.dev/techedu/draw` aponta para a sala ao vivo do Excalidraw, que expira por
+> natureza — no dia em que morrer, o slug manda a turma pra lugar nenhum e nada avisa. Salvar o quadro como arquivo e
+> repontar a linha  
 
 > [ ] [acessibilidade-edson] preparar uma versão acessível das missões E do site da disciplina para o Edson — os dois
 > artefatos, não só um (INBOX 2026-08-24)  
@@ -178,5 +179,5 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-07  ·  trend: advancing  ·  touches: 52/72/72/72/72/72
+last-touch: 2026-09-08  ·  trend: advancing  ·  touches: 53/73/73/73/73/73
 <!-- stats:end -->
