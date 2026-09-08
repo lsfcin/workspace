@@ -66,18 +66,18 @@ written and green-by-skip; nothing has yet confirmed the id resolves.
 | Header fields naming code that is not there | 0 |
 | Truncated routing descriptions | 0 |
 | Constraints trapped in a CONTEXT.md head | 0 |
-| Local branches holding unpromoted work | 1 |
+| Local branches holding unpromoted work | 0 |
 | Work that exists on this disk and nowhere else | 0 |
 | Local branches already merged into their base | 0 |
-| Remote branches already merged into their base | 0 |
+| Remote branches already merged into their base | 1 |
 
 *A check with no findings is the `0` in that table and nothing more. Only a check with something to show gets a section below.*
 
-### Local branches holding unpromoted work
+### Remote branches already merged into their base
 
-*promote when the work is green, or say which reason applies — /roundup Phase 5*
+*safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — feature/links-and-caveman is 5 ahead of main
+- . — 1 merged into main: git -C . push origin --delete feature/links-and-caveman
 
 <!-- entropy:end -->
 
