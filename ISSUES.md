@@ -77,7 +77,7 @@ written and green-by-skip; nothing has yet confirmed the id resolves.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/repo-map-and-promotion is 3 ahead of main
+- . — feature/repo-map-and-promotion is 4 ahead of main
 
 ### Local branches already merged into their base
 
