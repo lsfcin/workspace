@@ -29,6 +29,17 @@ def git(repo, *args) -> subprocess.CompletedProcess:
                           encoding='utf-8', errors='replace')
 
 
+def out(repo, *args) -> str:
+    """What git said, or nothing. Four callers had a private copy of these two lines.
+
+    It answers "" for a command that FAILED as well as for one that said nothing, which is
+    load-bearing where the question has no answer and fatal where it does — the reason six
+    projects went 22 commits unpushed. Ask the returncode when the difference matters.
+    """
+    done = git(repo, *args)
+    return done.stdout.strip() if done.returncode == 0 else ''
+
+
 def spawn(root, *command) -> subprocess.CompletedProcess:
     """A child of the close: stdin closed, and no bytecode written.
 

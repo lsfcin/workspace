@@ -9,6 +9,12 @@
 
 <!-- add entries below, newest first -->
 
+https://arxiv.org/abs/2608.30114v1
+a gente TEM que olhar isso! não deixar pra mt longe.
+
+https://www.instagram.com/p/DdEhCWsDg3W/?stkn=NTc4MTIwNjQ2YQ==
+isso tem que entrar nas minhas aulas de ai4good
+
 será que tem como a visualização default do VSCode para arquivos .md ser a visualização formatada? e se
 tiver será que tem como também editar arquivos nesse tipo de visualização?
 

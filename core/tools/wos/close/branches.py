@@ -4,12 +4,17 @@
 # Imported by core/tools/wos/roundup, which keeps the sequence and the decisions. Same scope as
 # core/hooks/git/gitflow_gate.py — the workspace repo and code/* project repos promote; every other
 # nested repo just pushes its current branch.
-from artifacts import git
+from artifacts import git, out
 
 
-def _out(repo, *args) -> str:
-    done = git(repo, *args)
-    return done.stdout.strip() if done.returncode == 0 else ''
+def gitflow(workspace, repo) -> bool:
+    """Which repos promote develop → main: the workspace itself, and the projects under code/.
+
+    The scope this file's head has always declared, in the one place both callers read it — the
+    close's own repo and the project sweep beside it. It was a line inside roundup while the sweep
+    promoted nothing, which is how nine projects sat 22 commits behind their own develop.
+    """
+    return repo == workspace or (repo.parent.name == 'code' and repo.parent.parent == workspace)
 
 
 def promote(root, branch: str, leave_dirty: bool) -> str:
@@ -20,7 +25,7 @@ def promote(root, branch: str, leave_dirty: bool) -> str:
     for target, source in (('develop', branch), ('main', 'develop')):
         if git(root, 'rev-parse', '--verify', '-q', target).returncode != 0 or target == source:
             continue
-        behind = _out(root, 'rev-list', '--count', f'{target}..origin/{target}')
+        behind = out(root, 'rev-list', '--count', f'{target}..origin/{target}')
         if behind.isdigit() and int(behind) > 0:
             return f'{target} is behind origin — a parallel session is mid-flight; not promoted'
         # A fast-forward needs no checkout, so it never touches the working tree — which is what
@@ -50,8 +55,8 @@ def promoted_line(root, branch: str) -> str:
     shas = ''
     for name in ('main', 'develop', branch):
         if git(root, 'rev-parse', '--verify', '-q', name).returncode == 0:
-            shas += f' {name}@{_out(root, "rev-parse", "--short", name)}'
-    tracked = _out(root, 'for-each-ref', '--format=%(refname:short)%(upstream:track)', 'refs/heads')
+            shas += f' {name}@{out(root, "rev-parse", "--short", name)}'
+    tracked = out(root, 'for-each-ref', '--format=%(refname:short)%(upstream:track)', 'refs/heads')
     unpushed = sum(1 for line in tracked.splitlines() if 'ahead' in line)
     state = ' all pushed' if unpushed == 0 else f' {unpushed} branch(es) unpushed'
     return f'promoted ·{shas} ·{state}'
