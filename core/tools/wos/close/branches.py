@@ -12,6 +12,16 @@ def _out(repo, *args) -> str:
     return done.stdout.strip() if done.returncode == 0 else ''
 
 
+def gitflow(workspace, repo) -> bool:
+    """Which repos promote develop → main: the workspace itself, and the projects under code/.
+
+    The scope this file's head has always declared, in the one place both callers read it — the
+    close's own repo and the project sweep beside it. It was a line inside roundup while the sweep
+    promoted nothing, which is how nine projects sat 22 commits behind their own develop.
+    """
+    return repo == workspace or (repo.parent.name == 'code' and repo.parent.parent == workspace)
+
+
 def promote(root, branch: str, leave_dirty: bool) -> str:
     """'' when every hop landed, else the reason nothing was promoted.
 

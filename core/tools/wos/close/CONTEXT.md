@@ -21,5 +21,6 @@ this directory's `settle` exists to make unrepeatable.
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`artifacts.py`](artifacts.py) | [`artifacts.pyi`](artifacts.pyi) | `git`, `spawn`, `settle`, `write_block`, `verify_block` | The generated artifacts a session close regenerates, and what happens to each one afterwards. |
-| [`branches.py`](branches.py) | [`branches.pyi`](branches.pyi) | `promote`, `promoted_line` | Branch promotion at session close: feature → develop → main, and what to say when it did not run. |
+| [`branches.py`](branches.py) | [`branches.pyi`](branches.pyi) | `gitflow`, `promote`, `promoted_line` | Branch promotion at session close: feature → develop → main, and what to say when it did not run. |
+| [`projects.py`](projects.py) | [`projects.pyi`](projects.pyi) | `push`, `sweep` | Every nested project at session close: push what its remote has not seen, promote what it owes main. |
 <!-- routing:end -->
