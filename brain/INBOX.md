@@ -52,3 +52,9 @@ silenciosamente. Comando e script prontos em `SETUP-accounts.md` § VPN do CIn (
 foi de 113→163 linhas com essa seção e passou do aviso de 150 — ou corta ~13 linhas (candidato: a seção Exa
 API key, 15 linhas para uma feature opcional), ou o heredoc do dispatcher vira arquivo versionado (−14 aqui,
 +1 arquivo).
+
+task: backlog — `branches/casinhas` mantém a pasta espelho no Drive à mão, e já existe um motor declarativo
+pra isso: um `drive_sync.json` na raiz do projeto (como o de `academy/teaching/ai4good`) faria o
+`core/run tools/files/gdrive sync` alcançar a pasta, e o mapa em `PROJECTS.md` passaria a mostrar `sync` em vez
+de um link cru. Decidir: vale sincronizar de verdade, ou o espelho manual é intencional porque a pasta tem
+material que não deve subir?
