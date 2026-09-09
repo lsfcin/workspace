@@ -10,12 +10,7 @@
 from pathlib import Path
 
 import branches
-from artifacts import git
-
-
-def _out(repo, *args) -> str:
-    done = git(repo, *args)
-    return done.stdout.strip() if done.returncode == 0 else ''
+from artifacts import git, out
 
 
 def push(repo, branch: str) -> str:
@@ -26,7 +21,7 @@ def push(repo, branch: str) -> str:
     next close can ask.
     """
     tracked = git(repo, 'rev-parse', '--abbrev-ref', '@{upstream}').returncode == 0
-    if tracked and not _out(repo, 'log', '--oneline', '@{upstream}..HEAD'):
+    if tracked and not out(repo, 'log', '--oneline', '@{upstream}..HEAD'):
         return ''
     args = ('push', '-q', 'origin', 'HEAD') if tracked else ('push', '-q', '-u', 'origin', branch)
     return 'pushed' if git(repo, *args).returncode == 0 else 'failed'
@@ -46,20 +41,20 @@ def sweep(root: Path) -> str:
     pushed, promoted, stuck, homeless = [], [], [], []
     for repo in sorted(nested_repos(root)):
         name = posix(repo.relative_to(root))
-        if not _out(repo, 'remote', 'get-url', 'origin'):
+        if not out(repo, 'remote', 'get-url', 'origin'):
             homeless.append(name)
             continue
         git(repo, 'fetch', '--quiet')
-        landed = push(repo, _out(repo, 'rev-parse', '--abbrev-ref', 'HEAD'))
+        landed = push(repo, out(repo, 'rev-parse', '--abbrev-ref', 'HEAD'))
         if landed:
             (pushed if landed == 'pushed' else stuck).append(name)
         if not branches.gitflow(root, repo):
             continue
-        was = _out(repo, 'rev-parse', 'main')
-        refused = branches.promote(repo, _out(repo, 'rev-parse', '--abbrev-ref', 'HEAD'), False)
+        was = out(repo, 'rev-parse', 'main')
+        refused = branches.promote(repo, out(repo, 'rev-parse', '--abbrev-ref', 'HEAD'), False)
         if refused:
             stuck.append(f'{name} — {refused}')
-        elif _out(repo, 'rev-parse', 'main') != was:
+        elif out(repo, 'rev-parse', 'main') != was:
             promoted.append(name)
     said = [f'{len(pushed)} pushed' if pushed else '',
             f'{len(promoted)} promoted' if promoted else '',

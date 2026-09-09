@@ -175,11 +175,15 @@ brain/drafts/*
 # whole directory was ignored. This block is later, so it always won and the 36 lines above
 # tracked nothing; the file simply stated both answers. Deleted 2026-09-01.
 # gitignore_heal.py will not re-add them: it skips any subdir holding a `.git`.
+academy/papers/2026-JBCS-relativistic_raytracer
+academy/papers/2026-SIBGRAPI-relativistic_raytracer
 academy/papers/2027-CHI-cria
+academy/papers/2027-ICLR-dobra
 academy/papers/ai4good
 academy/papers/mechanism-search
 academy/papers/mutual-credit-ai
 academy/papers/pls-pix
+academy/papers/spacemantics
 academy/papers/wos-ablation
 branches/casinhas
 branches/instituto
@@ -196,6 +200,7 @@ code/isometric-perspective
 code/isoroll-content
 code/isoroll-module
 code/laplata
+code/obra
 code/ppc
 code/shortvid
 code/spacemantics

@@ -31,9 +31,10 @@ for _dir in (SCRIPT_DIR / 'close', SCRIPT_DIR.parents[1] / 'hooks',
 import artifacts  # noqa: E402
 import branches  # noqa: E402
 import contract  # noqa: E402
-from artifacts import git, spawn  # noqa: E402
+from artifacts import git, out, spawn  # noqa: E402
 from platform_law import interpreter, posix, session_state  # noqa: E402
 from projects import sweep  # noqa: E402
+from repomap import redraw  # noqa: E402
 
 WORKSPACE = SCRIPT_DIR.parents[2]
 
@@ -42,13 +43,8 @@ WORKSPACE = SCRIPT_DIR.parents[2]
 # without failing anything, which is how both skills promised three while this printed six.
 # Ruled 2026-08-25: cost and size lead, because they are the two facts Lucas reads the block for and
 # the rest is state the next session needs. Both print bare — they are sentences, not labelled state.
-STATE = ('cost', 'size', 'verify', 'sync', 'projects', 'entropy', 'diagram', 'compaction')
+STATE = ('cost', 'size', 'verify', 'sync', 'projects', 'map', 'entropy', 'diagram', 'compaction')
 BARE = ('cost', 'size')
-
-
-def out(repo, *args) -> str:
-    done = git(repo, *args)
-    return done.stdout.strip() if done.returncode == 0 else ''
 
 
 def verify(root: Path) -> tuple:
@@ -128,10 +124,11 @@ def main(argv: list) -> int:
     verdict, label, log = verify(root)
     # Both generated blocks land in ISSUES.md, so they settle once, in one commit. Workspace repo
     # only: the dashboard scans the whole tree, nested repos included.
-    entropy = diagram = ''
+    entropy = diagram = drawn = ''
     if root == WORKSPACE:
         artifacts.verify_block(root / 'ISSUES.md', label, verdict, log)
         entropy, diagram = artifacts.regenerate(root, leave_dirty, clean)
+        drawn = redraw(root, leave_dirty)   # before promotion, so the map rides into develop
 
     gitflow = branches.gitflow(WORKSPACE, root)
     git(root, 'fetch', '--quiet')
@@ -150,7 +147,7 @@ def main(argv: list) -> int:
     sid = session_id(root)
     cost, size = report(root, sid)
     said = {'cost': cost, 'size': size, 'verify': verdict, 'sync': sync, 'entropy': entropy,
-            'projects': sweep(root) if root == WORKSPACE else '',
+            'projects': sweep(root) if root == WORKSPACE else '', 'map': drawn,
             'diagram': diagram, 'compaction': compaction(sid) if sid else ''}
     for label in STATE:
         value = said[label]
