@@ -21,6 +21,7 @@ protocols: [core/flows/](../../core/flows/CONTEXT.md).
 |--------------|-------------|
 | [`2026-JBCS-relativistic_raytracer/`](2026-JBCS-relativistic_raytracer/CONTEXT.md) | JBCS special issue paper on relativistic raytracing benchmarking for SVR 2026 |
 | [`2026-SIBGRAPI-relativistic_raytracer/`](2026-SIBGRAPI-relativistic_raytracer/CONTEXT.md) | SIBGRAPI 2026 paper on relativistic raytracing benchmarking |
+| [`2027-CHI-avdspace/`](2027-CHI-avdspace/CONTEXT.md) | CHI paper workspace for a structured design-space synthesis of autonomous-vehicle communication in mixed traffic. |
 | [`2027-CHI-cria/`](2027-CHI-cria/CONTEXT.md) | Hybrid human-AI ideation as mechanism design — classroom study. Targets: LBW CHI 2027 (piloto), full CHI 2028. |
 | [`2027-ICLR-dobra/`](2027-ICLR-dobra/CONTEXT.md) | Context folding + SLMs on consumer hardware — research twin of `code/dobra`. Target: ICLR 2027 (~Sep 2026 deadline). |
 | [`ai4good/`](ai4good/CONTEXT.md) | Visão + sistema + piloto: o papel moral da IA — da captura de atenção e da guerra à reconfiguração das lógicas sociais. Sessão Opus dedicada pendente. |
