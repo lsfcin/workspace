@@ -104,13 +104,11 @@ def _typescript(commit, staged):
 def _keeps_a_ledger(commit) -> bool:
     """A PROJECT keeps its own findings; a TARGET keeps none.
 
-    The workspace publishes into repos it does not develop in — `outputs/links` is the redirect
-    clone, and core/tools/links/SPECS.md gives that as the reason it is a target: *"no ISSUES.md,
-    no pre-commit, and `build` rebuilds it whole from links.txt"*. This hook is global, so it fired
-    there anyway and shipped a ledger into a public repo on every `cfpages build --push`.
-
-    The question is asked of the same .gitignore the project map reads, so a repo becomes a project
-    exactly when it is declared one, and nothing here holds a second list of names.
+    core/tools/links/SPECS.md gives that as the reason the redirect clone is a target: "no
+    ISSUES.md, no pre-commit, and `build` rebuilds it whole from links.txt". This hook is global,
+    so it fired there anyway and shipped a ledger into a public repo on every `cfpages build
+    --push`. Asked of the same .gitignore the project map reads, so nothing here holds a second
+    list of names.
     """
     if commit.is_workspace:
         return True

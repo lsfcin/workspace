@@ -127,14 +127,11 @@ def nested_repos(root: Path, depth: int = 3) -> list:
 def declared_projects(root: Path) -> set:
     """Project paths as .gitignore declares them — the one parse rule, in one place.
 
-    A project line names a directory with no glob and no trailing slash — `code/aiwbot`. The
-    trailing slash is what separates a project from an ignored working directory (`outputs/`,
-    `tmp/`), and the glob what separates it from a subtree rule (`academy/*`).
-
-    Tracked, so it says the same thing on every clone whether or not a given project is checked
-    out — which is why PROJECTS.md reads its ROW SET from here and never from the disk. A nested
-    repo that is NOT in this set is a **target** rather than a project: something the workspace
-    publishes to, which keeps no ledger of its own.
+    A project line names a directory with no glob and no trailing slash: the slash separates it
+    from an ignored working directory (`outputs/`), the glob from a subtree rule (`academy/*`).
+    Tracked, so it reads the same on every clone whether or not a project is checked out, which is
+    why PROJECTS.md takes its row set from here and never from the disk. A nested repo NOT in this
+    set is a target — somewhere the workspace publishes to, keeping no ledger of its own.
     """
     lines = (root / '.gitignore').read_text(encoding='utf-8').splitlines()
     return {line.strip() for line in lines

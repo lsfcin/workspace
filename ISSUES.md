@@ -59,7 +59,7 @@ the FIXED gate's terms, and why `git log` is the only place they still exist.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/repo-map-and-promotion is 8 ahead of main
+- . — feature/repo-map-and-promotion is 9 ahead of main
 
 <!-- entropy:end -->
 

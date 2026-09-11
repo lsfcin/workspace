@@ -77,3 +77,17 @@ pra isso: um `drive_sync.json` na raiz do projeto (como o de `academy/teaching/a
 `core/run tools/files/gdrive sync` alcançar a pasta, e o mapa em `PROJECTS.md` passaria a mostrar `sync` em vez
 de um link cru. Decidir: vale sincronizar de verdade, ou o espelho manual é intencional porque a pasta tem
 material que não deve subir?
+
+task: backlog — dois módulos do enforcement passaram do aviso de 200 linhas fechando as issues de
+2026-09-11: `core/hooks/commit/generators.py` (193→214) e `core/hooks/entropy/entropy_corpus.py`
+(199→214). Nenhum chega perto do teto de 250, e o segundo já estava a uma linha do aviso, então
+qualquer adição o derrubava. O ROADMAP tem um item para as ferramentas acima do limiar mas ele cobre
+`core/tools/`, não `core/hooks/`. Decidir: estender aquele item para o enforcement, ou cortar —
+`generators.py` tem cinco estágios que poderiam virar dois arquivos pela linha gera-artefato /
+gera-interface.
+
+task: backlog — o gate de tipo do pre-commit recusou um repositório de teste descartável durante a
+sessão porque `core.hooksPath` é global e alcança qualquer repo criado sob o workspace, inclusive um
+`tmp_path` do pytest. O teste contorna apontando `core.hooksPath` para um diretório vazio. Decidir: o
+pre-commit deveria se recusar a rodar num repo fora da árvore do workspace, em vez de cada teste ter
+de lembrar de desligá-lo?
