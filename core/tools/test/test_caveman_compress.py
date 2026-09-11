@@ -1,14 +1,19 @@
-# T1 caveman compress: model output reaches disk as a text file, and the model id still resolves.
+# T1 caveman compress: model output reaches disk as a text file, and the default id has one home.
 #
 # The package had no coverage at all, which is why both bugs below survived a rejection of its
 # main use: compressing workspace docs was measured and rejected, so nothing ran the tool, so
 # nothing noticed. It still runs on demand, and a tool nobody exercises is exactly the one whose
 # defects are found by its next user.
+#
+# A network case asking Anthropic whether DEFAULT_MODEL still RESOLVES lived here until
+# 2026-09-11, green-by-skip on every clone, which is not green. It went, and the reason is better
+# than "no credentials": call_claude takes the SDK branch only when ANTHROPIC_API_KEY is set and
+# otherwise shells out to `claude --print`, which picks its own model — so the constant this
+# workspace could ever reach is the one path no machine here takes. The cases below still pin it
+# to one place, which is what keeps the next id change a single edit.
 import importlib
 import os
 import sys
-
-import pytest
 
 from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 
@@ -63,17 +68,3 @@ def test_caveman_model_overrides_the_default(monkeypatch):
     assert os.environ.get('CAVEMAN_MODEL', compress.DEFAULT_MODEL) == 'claude-opus-5'
     monkeypatch.delenv('CAVEMAN_MODEL')
     assert os.environ.get('CAVEMAN_MODEL', compress.DEFAULT_MODEL) == compress.DEFAULT_MODEL
-
-
-@pytest.mark.network
-def test_the_default_model_still_resolves():
-    """The only honest test of staleness, so it runs in `verify.py full` and not in verify-fast.
-
-    A retrieve is not a generation — it spends no output tokens. Skipped rather than failed when
-    the machine has no credentials: a clone without a key must not read red for that reason.
-    """
-    anthropic = pytest.importorskip('anthropic')
-    if not (os.environ.get('ANTHROPIC_API_KEY') or os.environ.get('ANTHROPIC_AUTH_TOKEN')):
-        pytest.skip('no Anthropic credentials on this machine')
-    model = anthropic.Anthropic().models.retrieve(compress.DEFAULT_MODEL)
-    assert model.id == compress.DEFAULT_MODEL

@@ -124,6 +124,21 @@ def nested_repos(root: Path, depth: int = 3) -> list:
     return found
 
 
+def declared_projects(root: Path) -> set:
+    """Project paths as .gitignore declares them — the one parse rule, in one place.
+
+    A project line names a directory with no glob and no trailing slash: the slash separates it
+    from an ignored working directory (`outputs/`), the glob from a subtree rule (`academy/*`).
+    Tracked, so it reads the same on every clone whether or not a project is checked out, which is
+    why PROJECTS.md takes its row set from here and never from the disk. A nested repo NOT in this
+    set is a target — somewhere the workspace publishes to, keeping no ledger of its own.
+    """
+    lines = (root / '.gitignore').read_text(encoding='utf-8').splitlines()
+    return {line.strip() for line in lines
+            if '/' in line and not line.startswith(('#', '!', '.', '$'))
+            and '*' not in line and not line.rstrip().endswith('/')}
+
+
 # Generated mirrors: sync-skills rewrites these from core/skills on every run, so a prose
 # finding inside one is unfixable in place and is already reported against the source it was
 # copied from. Fixing the mirror is fixing the generator.

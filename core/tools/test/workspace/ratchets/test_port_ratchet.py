@@ -24,6 +24,20 @@ from platform_law import AUTHORING_ROOT, POSIX_VENV_BIN
 
 SEAM = 'core/hooks/platform_law.py'
 
+
+def _files(*args) -> list:
+    """Which files a search really hits — asked with line numbers so the shared filter can place
+    each hit, then reduced to names.
+
+    `git grep -l` cannot be filtered: a bare filename says nothing about WHERE in the file the
+    match sat, and `conftest.git_lines` drops a hit that lands inside a generated block. Four cases
+    here went red on ISSUES.md's `verify:` block, which QUOTES the last red suite log — a record of
+    what WAS true, and one core/SCHEMA.md forbids editing by hand, so the finding had no legal fix
+    (2026-09-11). Searching with `-n` costs nothing and keeps the authored half of every file fully
+    held to the rule.
+    """
+    return sorted({line.partition(':')[0] for line in _git('grep', '-n', *args)})
+
 # THE NEEDLES COME FROM THE SEAM, WHICH IS WHY THESE ARE NUMBERS AND NOT BUDGETS (2026-08-30).
 #
 # Both counts used to sit at 44 and 19 with a comment predicting "a floor somewhere above zero made
@@ -103,7 +117,7 @@ def test_only_the_seam_knows_what_an_os_is():                                   
 
 
 def test_a_path_that_becomes_data_is_spelled_by_the_seam():                                  # AD-8
-    hand_rolled = sorted({f for f in _git('grep', '-l', 'str(.*relative_to', '--')
+    hand_rolled = sorted({f for f in _files('str(.*relative_to', '--')
                           if f != SEAM})
     assert not hand_rolled, (
         f'these spell a relative path by hand: {hand_rolled}. str() of a relative_to hands back a '
@@ -119,7 +133,7 @@ def test_no_setup_shard_is_named_for_an_operating_system():                     
 
 
 def test_a_machine_path_does_not_spread():                                                   # I6
-    live = _git('grep', '-lF', AUTHORING_ROOT.lstrip('/'), '--', *RECORDS)
+    live = _files('-F', AUTHORING_ROOT.lstrip('/'), '--', *RECORDS)
     assert len(live) <= MACHINE_PATH_CEILING, (
         f'{len(live)} versioned files hardcode the authoring machine\'s root, over '
         f'{MACHINE_PATH_CEILING}: {live}. Resolve the root at run time -- every tool here already '
@@ -127,7 +141,7 @@ def test_a_machine_path_does_not_spread():                                      
 
 
 def test_a_posix_only_venv_path_does_not_spread():                                           # I6
-    live = [f for f in _git('grep', '-lF', POSIX_VENV_BIN, '--', *RECORDS) if f != SEAM]
+    live = [f for f in _files('-F', POSIX_VENV_BIN, '--', *RECORDS) if f != SEAM]
     assert len(live) <= VENV_POSIX_CEILING, (
         f'{len(live)} versioned files name the POSIX venv bin directory, over '
         f'{VENV_POSIX_CEILING}: {live}. It is {SEAM}\'s WINDOWS_VENV_BIN elsewhere -- ask '
@@ -143,7 +157,7 @@ def test_the_launcher_is_the_only_thing_that_cannot_ask():
     somebody did not want to fix -- and it is worth one test of its own, because the honest floor
     of a ratchet is a claim that should fail loudly if it stops being true.
     """
-    live = [f for f in _git('grep', '-lF', POSIX_VENV_BIN, '--', *RECORDS) if f != SEAM]
+    live = [f for f in _files('-F', POSIX_VENV_BIN, '--', *RECORDS) if f != SEAM]
     assert live == [LAUNCHER], (
         f'expected the launcher alone to name the venv layout, found {live}. If a NEW file needs '
         f'it, it almost certainly wants {SEAM}.venv_script() instead')

@@ -59,7 +59,30 @@ def git_lines(*args) -> list:
     """
     import subprocess
     done = subprocess.run(['git', *args], cwd=WORKSPACE_ROOT, capture_output=True, text=True, encoding='utf-8')
-    return [line for line in done.stdout.splitlines() if line and '_ratchet' not in line]
+    hits = [line for line in done.stdout.splitlines() if line and '_ratchet' not in line]
+    return [line for line in hits if not _inside_generated_block(line)]
+
+
+def _inside_generated_block(hit: str) -> bool:
+    """Whether a `path:line:text` hit lands in a block no author wrote.
+
+    The same exemption `_ratchet` gets, for the same reason: the file necessarily carries what the
+    ratchet forbids, and rewriting it would falsify rather than fix. ISSUES.md's `verify:` block
+    QUOTES the last red suite log, so a traceback naming the venv path made four ratchets red over
+    a record — and the only fix would have been to hand-edit a generated block, which
+    core/SCHEMA.md forbids outright. `core/tools/wos/wrap` already skips these spans (2026-09-11).
+
+    Scoped to the block, never the file: the hand-written half stays held to every rule. A hit with
+    no line number cannot be placed and is kept, so the tolerant direction reports rather than hides.
+    """
+    import file_law
+    path, _, rest = hit.partition(':')
+    number, _, _ = rest.partition(':')
+    target = WORKSPACE_ROOT / path
+    if not number.isdigit() or not path.endswith('.md') or not target.is_file():
+        return False
+    return file_law.is_generated_line(target.read_text(encoding='utf-8', errors='replace'),
+                                      int(number))
 
 
 import pytest  # noqa: E402 — after the env scrub above, which must run before anything imports git

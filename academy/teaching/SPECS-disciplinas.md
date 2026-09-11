@@ -31,14 +31,34 @@
 
 ---
 
-## 3. A Anatomia da Entrega (A Tríade Fechada)
+## 3. A Anatomia da Entrega (A Tríade Fechada & O Par de .md)
 
-Nenhuma entrega (Missão no TecEdu ou Prática no AI4Good) pode ser solicitada sem três artefatos prévios:
-1. **Modelo (Starter Kit):** Template com lacunas (estrutura de documento, repositório base ou quadro Excalidraw).
-2. **Contraste Didático:** Par explícito de *Exemplo Positivo* (o que cumpre a régua) vs.
-   *Exemplo Negativo* (o erro comum).
-3. **Lista de Verificação (Checklist de Aceite):** 3 a 5 critérios verificáveis em escala de 3 níveis:
-   `A` (Atingido), `AP` (Atingido Parcialmente) ou `NA` (Não Atingido).
+Toda entrega (Checkpoint) de disciplina opera sob dois links canônicos na Planilha Mestre, gerados a partir de
+modelos-base em Markdown (.md) estruturados por artefatos:
+
+1. **Documento de Metodologia (`templates/template-metodologia.md`):**
+   - Racional pedagógico ancorado (Chão $\to$ Horizonte, Doshi & Hauser).
+   - Guia explícito para IAs & Agentes (harness dos alunos) atuarem como tutores sem dar respostas prontas.
+   - Grafo de dependência entre os artefatos da entrega (entradas e saídas encadeadas).
+   - Pipeline de construção passo a passo por artefato (sprints guiados).
+   - Matriz de critérios de verificação ($A/AP/NA$) alinhada à coluna de verificação da planilha.
+2. **Documento de Materiais (`templates/template-materiais.md`):**
+   - **Modelo (Starter Kit):** Template com lacunas estruturadas para cada artefato exigido.
+   - **Exemplo Positivo (Excelente):** Referência que cumpre a régua, acompanhada das anotações críticas do professor
+     explicando o porquê do mérito.
+   - **Exemplo Negativo (Fraco / Superficial / Irreal):** Referência com erros típicos e armadilhas frequentes,
+     acompanhada das anotações críticas explicando por que seria reprovado / $NA$.
+3. **Distribuição, Visualização Rica & Edição Online (Stack Leve):**
+   - **Fonte Canônica:** Arquivos `.md` mantidos em `academy/teaching/<disciplina>/` no workspace do professor.
+   - **Distribuição (Cloudflare Pages):** Espelhamento estático no repositório público `lsf-links` (`outputs/links/`).
+   - **Visualização Rica (Humano/Mobile):** `https://lucassf.pages.dev/<disciplina>/<slug>` renderizado pelo
+     visualizador nativo (`viewer.js` + `viewer.css` + `marked.min.js`), com suporte a alertas GitHub, tabelas
+     responsivas e tema dark/light, sem dependências de CDN externa.
+   - **Visualização Direta (IAs/Harnesses):** `https://lucassf.pages.dev/<disciplina>/<slug>.md` (ou botão "Copiar p/
+     Agente (RAW)" no topo da página), permitindo ingestão via `curl -s` ou cópia com 1 clique.
+   - **Edição Online (Zero Custo / Zero Limites):** Botão "Editar (github.dev)" na barra superior, abrindo o VS Code no
+     navegador diretamente no arquivo no GitHub. Commits vão direto para a branch `main` e o Cloudflare Pages
+     atualiza em segundos.
 
 ---
 
@@ -81,8 +101,15 @@ Nenhuma entrega (Missão no TecEdu ou Prática no AI4Good) pode ser solicitada s
 ## 7. Contrato para Agentes (Auditoria e Planejamento de Disciplinas)
 
 Ao auditar ou planejar a condução de uma disciplina, o agente deve validar:
-1. `[ ]` Cada entrega do calendário possui a Tríade (Modelo, Contraste Bom/Ruim e Checklist de 3 a 5 critérios)?
-2. `[ ]` O sequenciamento respeita a regra: ferramentas com andaime prévio, conceitos novos com PS-I?
-3. `[ ]` O acompanhamento de notas opera com visibilidade estritamente privada por aluno/equipe?
-4. `[ ]` A banca final possui folha estruturada com subitens explícitos vinculados a pesos objetivos?
-5. `[ ]` Há alinhamento do requisito "Um passo a mais" (declaração da alavanca e do óbvio abandonado)?
+1. `[ ]` Cada entrega do calendário possui o par de `.md` estruturado pelos modelos canônicos
+   (`templates/template-metodologia.md` e `templates/template-materiais.md`)?
+2. `[ ]` A Metodologia decompõe a entrega em artefatos com entradas e saídas explícitas e traz a seção `Guia para IAs &
+   Agentes`?
+3. `[ ]` O documento de Materiais cobre a Tríade (Modelo, Exemplo Positivo e Exemplo Negativo) acompanhada de anotações
+   críticas do professor para cada artefato?
+4. `[ ]` O sequenciamento respeita a regra: ferramentas com andaime prévio, conceitos novos com PS-I?
+5. `[ ]` O acompanhamento de notas opera com visibilidade estritamente privada por aluno/equipe?
+6. `[ ]` A banca final possui folha estruturada com subitens explícitos vinculados a pesos objetivos?
+7. `[ ]` Há alinhamento do requisito "Um passo a mais" (declaração da alavanca e do óbvio abandonado)?
+8. `[ ]` Os artefatos estão publicados no Cloudflare Pages com páginas de visualização rica e endpoints RAW para
+   harnesses de agentes?

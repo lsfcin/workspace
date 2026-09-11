@@ -177,6 +177,7 @@ brain/drafts/*
 # gitignore_heal.py will not re-add them: it skips any subdir holding a `.git`.
 academy/papers/2026-JBCS-relativistic_raytracer
 academy/papers/2026-SIBGRAPI-relativistic_raytracer
+academy/papers/2027-CHI-avdspace
 academy/papers/2027-CHI-cria
 academy/papers/2027-ICLR-dobra
 academy/papers/ai4good

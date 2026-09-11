@@ -18,16 +18,14 @@ ROW = re.compile(r'^\|\s*`([^`]+)`\s*\|', re.MULTILINE)
 
 
 def declared_in_gitignore() -> set:
-	"""Project paths as .gitignore declares them.
+	"""Project paths as .gitignore declares them — asked of the module that owns the rule.
 
-	A project line names a directory with no glob and no trailing slash — `code/aiwbot`. The
-	trailing slash is what separates a project from an ignored working directory (`outputs/`,
-	`tmp/`), and the glob what separates it from a subtree rule (`academy/*`).
+	Restating the parse here is what this file is built to catch one level up: a second copy of a
+	rule is where two readers start disagreeing. entropy_corpus.declared_projects is the one copy,
+	and the pre-commit's ledger stage asks it the same question.
 	"""
-	lines = (WORKSPACE_ROOT / '.gitignore').read_text(encoding='utf-8').splitlines()
-	return {line.strip() for line in lines
-	        if '/' in line and not line.startswith(('#', '!', '.', '$'))
-	        and '*' not in line and not line.rstrip().endswith('/')}
+	from entropy_corpus import declared_projects
+	return declared_projects(WORKSPACE_ROOT)
 
 
 def listed_in_projects() -> set:

@@ -24,6 +24,7 @@ import re
 import subprocess
 from pathlib import Path
 
+import file_law
 from conftest import WORKSPACE_ROOT
 
 CITATION = re.compile(r'(?:\[[^\]]*\]\(([^)\s]+\.md)\)|`([^`\s]+\.md)`|(?<![\w/])([\w./-]+\.md))'
@@ -78,10 +79,17 @@ def section_hits(files: list, root: Path) -> list:
     hits = []
     for path in files:
         try:
-            lines = path.read_text(encoding='utf-8').splitlines()
+            text = path.read_text(encoding='utf-8')
         except (OSError, UnicodeDecodeError):
             continue
+        lines = text.splitlines()
+        # A generated block is not the author's to fix, and core/SCHEMA.md forbids hand-editing
+        # one: ISSUES.md's verify block QUOTES a red suite log, so a traceback that named a since
+        # renamed section was reported as a citation nobody could correct (2026-09-11).
+        owned = file_law.generated_spans(text)
         for number, line in enumerate(lines, 1):
+            if any(start <= number <= end for start, end in owned):
+                continue
             if not (match := CITATION.search(line)):
                 continue
             target = match.group(1) or match.group(2) or match.group(3)

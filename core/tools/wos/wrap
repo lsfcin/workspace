@@ -21,9 +21,7 @@ import file_law  # noqa: E402
 PREFIX = re.compile(r'^(?P<indent>[ \t]*)(?P<quote>(?:>[ \t]*)*)'
                     r'(?P<marker>(?:[-*+][ \t]+|\d+[.)][ \t]+)?)')
 
-# A generator's delimited block. Never hand-edited — fix the generator, per ISSUES.md.
-BLOCK_OPEN = re.compile(r'^\s*<!--\s*[\w-]+:start\s*-->')
-BLOCK_CLOSE = re.compile(r'^\s*<!--\s*[\w-]+:end\s*-->')
+# A generator's delimited block is file_law.generated_spans — never hand-edited, fix the generator.
 
 
 def split_prefix(line: str) -> tuple:
@@ -70,20 +68,17 @@ def wrap_line(line: str, cols: int) -> list:
 def rewrap(text: str, cols: int) -> str:
     """Rewrap every line file_law flags, skipping what a generator owns.
 
-    One shape is added here, and only because file_law cannot see it: a DELIMITED GENERATED BLOCK
-    inside an authored file, which the law knows nothing about — is_generated_artifact answers for
-    whole files. Frontmatter used to be a second arm here; it is the law's now (limits.env
-    § BLOCK_COLS), so this tool asks instead of restating.
+    The delimited generated block was a second arm here until 2026-09-11, spelled with this tool's
+    own two regexes. It is the law's now — file_law.generated_spans — because two other readers
+    needed the same answer and a third copy is where they would start disagreeing. Frontmatter went
+    the same way earlier (limits.env § BLOCK_COLS): this tool asks rather than restating.
     """
     flagged = set(file_law.over_column_cap(text, cols))
-    out, generated = [], False
+    owned = file_law.generated_spans(text)
+    out = []
 
     for number, line in enumerate(text.splitlines(), 1):
-        if BLOCK_OPEN.match(line):
-            generated = True
-        elif BLOCK_CLOSE.match(line):
-            generated = False
-
+        generated = any(start <= number <= end for start, end in owned)
         if number in flagged and not generated:
             out.extend(wrap_line(line, cols))
         else:
