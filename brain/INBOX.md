@@ -9,6 +9,25 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/p/Dc-eScZjdmL/?utm_source=ig_web_copy_link
+quero escutar todos esses álbuns
+— via aiwbot · 2026-09-11
+
+explorar
+https://www.instagram.com/reel/DdG848DNm3p/?stkn=NTc4MTIwNjQ2YQ==
+— via aiwbot · 2026-09-10
+
+https://github.com/mattpocock/skills
+talvez seja útil pra gente, avaliar
+
+https://www.instagram.com/p/Dc9g2R7E-T5/?utm_source=ig_web_copy_link
+acho que isso também cabe nas aulas
+— via aiwbot · 2026-09-10
+
+https://www.instagram.com/p/DdGCA8yAVsV/?utm_source=ig_web_copy_link
+colocar nas minhas aulas
+— via aiwbot · 2026-09-10
+
 https://arxiv.org/abs/2608.30114v1
 a gente TEM que olhar isso! não deixar pra mt longe.
 
