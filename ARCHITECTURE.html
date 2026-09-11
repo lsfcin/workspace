@@ -125,7 +125,7 @@ table.heat td.z { color:var(--dim); opacity:.4; }
 <li class=""><span class="cnt">5<span class="of"> of 46</span></span><span class="txt">automatic features have no firing moment declared anywhere in this repo<small>core/hooks/trigger/trigger_law.py, against every registration · <b>target 0</b></small></span></li>
 <li class=""><span class="cnt">3<span class="of"> of 80</span></span><span class="txt">features cannot be switched off at all<small>core/features.txt § wired · <b>target 0</b></small></span></li>
 <li class=""><span class="cnt">2<span class="of"> of 6</span></span><span class="txt">declared layers hold no feature at all<small>core/features.txt § group · <b>undecided</b></small></span></li>
-<li class="zero"><span class="cnt">0<span class="of"> of 120</span></span><span class="txt">routing blocks could not be read<small>the routing sentinels · <b>target 0 · met</b></small></span></li>
+<li class="zero"><span class="cnt">0<span class="of"> of 121</span></span><span class="txt">routing blocks could not be read<small>the routing sentinels · <b>target 0 · met</b></small></span></li>
 </ul></section>
 <section class="ov"><h2>when it fires</h2><p class="q">the session from first moment to last, with the features that run at each one — read from the registrations, not from where a file sits</p><div class="life"><div class="band"><span class="mom">always in context</span><span class="run" style="width:195px" title="acronyms, cap, deletion, dogfood, edit, filesystem, improve, interview, links, reduce, secrets, storage, symmetry"></span><span class="n">13</span><span class="who">acronyms, cap, deletion, dogfood, edit, filesystem, improve, interview, links, reduce, secrets, storage, symmetry</span></div>
 <div class="band"><span class="mom">session start</span><span class="run" style="width:270px" title="brain-dashboard, citation-gate, compass-nudge, duplication-gate, facade-discipline, gitflow-gate, gitignore-self-heal, gitlink-gate, inbox-nudge, interface-stubs, line-limit, lint-typescript, project-contract, routing-tables, type-gate, verify-contract, verify-suite, latex"></span><span class="n">18</span><span class="who">brain-dashboard, citation-gate, compass-nudge, duplication-gate, facade-discipline, gitflow-gate, gitignore-self-heal, gitlink-gate, inbox-nudge, interface-stubs, line-limit, lint-typescript, project-contract, routing-tables, type-gate, verify-contract, verify-suite, latex</span></div>
@@ -221,7 +221,7 @@ table.heat td.z { color:var(--dim); opacity:.4; }
 <th title="core/hooks/checks — fires: session start · before edit · before bash"><span class="vert">hooks/checks</span></th>
 <th title="core/hooks/commit — fires: session start · post-commit"><span class="vert">hooks/commit</span></th>
 <th title="core/hooks/compact — fires: not declared"><span class="vert">hooks/compact</span> <span class="inf">no moment</span></th>
-<th title="core/hooks/entropy — fires: not declared"><span class="vert">hooks/entropy</span> <span class="inf">no moment</span></th>
+<th title="core/hooks/entropy — fires: session start"><span class="vert">hooks/entropy</span></th>
 <th title="core/hooks/entropy/dashboard — fires: session start"><span class="vert">hooks/entropy/dashboard</span></th>
 <th title="core/hooks/facade — fires: session start · after read · before edit"><span class="vert">hooks/facade</span></th>
 <th title="core/hooks/git — fires: session start"><span class="vert">hooks/git</span></th>
@@ -330,7 +330,7 @@ table.heat td.z { color:var(--dim); opacity:.4; }
 <tr><th class="rowhead" title="">wazip</th><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="none" title="wazip at core/tools/chat — wired, enforces nothing">·</td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr>
 <tr><th class="rowhead" title="">web-search</th><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="empty"></td><td class="none" title="web-search at core/tools/web — wired, enforces nothing">·</td><td class="empty"></td><td class="empty"></td><td class="empty"></td></tr>
 </tbody></table></div><p class="legend"><span class="key"><b>■</b> blocks the commit</span><span class="key"><b>▲</b> warns, never blocks</span><span class="key"><b>●</b> writes a file</span><span class="key"><b>○</b> advice to the agent</span><span class="key"><b>·</b> wired, enforces nothing</span></p><p class="note">Rows and columns both come from <code>core/features.txt</code>. An empty column is a site that enforces nothing — a finding about the workspace, not about the drawing. Column tooltips carry the firing moment, read from the registrations themselves by <code>core/hooks/trigger/trigger_law.py</code>; a site marked <span class="inf">no moment</span> is one nothing in this repo registers.</p></section>
-<section class="panel p-spine"><h2>the routing chain, three levels deep</h2><div class="scroll"><svg class="spine" viewBox="0 0 414 2448" width="414" height="2448" role="img" aria-label="routing spine">
+<section class="panel p-spine"><h2>the routing chain, three levels deep</h2><div class="scroll"><svg class="spine" viewBox="0 0 414 2470" width="414" height="2470" role="img" aria-label="routing spine">
 <path class="link" d="M14 25 V47 H40" />
 <path class="link" d="M40 47 V69 H66" />
 <path class="link" d="M66 69 V91 H92" />
@@ -358,88 +358,89 @@ table.heat td.z { color:var(--dim); opacity:.4; }
 <path class="link" d="M66 553 V575 H92" />
 <path class="link" d="M66 553 V597 H92" />
 <path class="link" d="M66 553 V619 H92" />
-<path class="link" d="M14 25 V641 H40" />
-<path class="link" d="M40 641 V663 H66" />
-<path class="link" d="M40 641 V685 H66" />
-<path class="link" d="M40 641 V707 H66" />
-<path class="link" d="M40 641 V729 H66" />
-<path class="link" d="M14 25 V751 H40" />
-<path class="link" d="M40 751 V773 H66" />
-<path class="link" d="M40 751 V795 H66" />
-<path class="link" d="M66 795 V817 H92" />
-<path class="link" d="M66 795 V839 H92" />
-<path class="link" d="M40 751 V861 H66" />
-<path class="link" d="M40 751 V883 H66" />
-<path class="link" d="M40 751 V905 H66" />
-<path class="link" d="M40 751 V927 H66" />
-<path class="link" d="M40 751 V949 H66" />
-<path class="link" d="M40 751 V971 H66" />
-<path class="link" d="M66 971 V993 H92" />
-<path class="link" d="M14 25 V1015 H40" />
-<path class="link" d="M40 1015 V1037 H66" />
-<path class="link" d="M40 1015 V1059 H66" />
-<path class="link" d="M40 1015 V1081 H66" />
-<path class="link" d="M40 1015 V1103 H66" />
-<path class="link" d="M40 1015 V1125 H66" />
-<path class="link" d="M40 1015 V1147 H66" />
-<path class="link" d="M40 1015 V1169 H66" />
-<path class="link" d="M40 1015 V1191 H66" />
-<path class="link" d="M40 1015 V1213 H66" />
-<path class="link" d="M40 1015 V1235 H66" />
-<path class="link" d="M40 1015 V1257 H66" />
-<path class="link" d="M40 1015 V1279 H66" />
-<path class="link" d="M40 1015 V1301 H66" />
-<path class="link" d="M40 1015 V1323 H66" />
-<path class="link" d="M40 1015 V1345 H66" />
-<path class="link" d="M40 1015 V1367 H66" />
-<path class="link" d="M14 25 V1389 H40" />
-<path class="link" d="M40 1389 V1411 H66" />
-<path class="link" d="M40 1389 V1433 H66" />
-<path class="link" d="M40 1389 V1455 H66" />
-<path class="link" d="M66 1455 V1477 H92" />
-<path class="link" d="M66 1455 V1499 H92" />
-<path class="link" d="M40 1389 V1521 H66" />
-<path class="link" d="M66 1521 V1543 H92" />
-<path class="link" d="M66 1521 V1565 H92" />
-<path class="link" d="M66 1521 V1587 H92" />
-<path class="link" d="M66 1521 V1609 H92" />
-<path class="link" d="M66 1521 V1631 H92" />
-<path class="link" d="M66 1521 V1653 H92" />
-<path class="link" d="M66 1521 V1675 H92" />
-<path class="link" d="M66 1521 V1697 H92" />
-<path class="link" d="M66 1521 V1719 H92" />
-<path class="link" d="M66 1521 V1741 H92" />
-<path class="link" d="M66 1521 V1763 H92" />
-<path class="link" d="M66 1521 V1785 H92" />
-<path class="link" d="M66 1521 V1807 H92" />
-<path class="link" d="M66 1521 V1829 H92" />
-<path class="link" d="M66 1521 V1851 H92" />
-<path class="link" d="M40 1389 V1873 H66" />
-<path class="link" d="M40 1389 V1895 H66" />
-<path class="link" d="M40 1389 V1917 H66" />
-<path class="link" d="M40 1389 V1939 H66" />
-<path class="link" d="M66 1939 V1961 H92" />
-<path class="link" d="M66 1939 V1983 H92" />
-<path class="link" d="M66 1939 V2005 H92" />
-<path class="link" d="M40 1389 V2027 H66" />
-<path class="link" d="M66 2027 V2049 H92" />
-<path class="link" d="M66 2027 V2071 H92" />
-<path class="link" d="M66 2027 V2093 H92" />
-<path class="link" d="M66 2027 V2115 H92" />
-<path class="link" d="M66 2027 V2137 H92" />
-<path class="link" d="M66 2027 V2159 H92" />
-<path class="link" d="M66 2027 V2181 H92" />
-<path class="link" d="M66 2027 V2203 H92" />
-<path class="link" d="M66 2027 V2225 H92" />
-<path class="link" d="M66 2027 V2247 H92" />
-<path class="link" d="M66 2027 V2269 H92" />
-<path class="link" d="M66 2027 V2291 H92" />
-<path class="link" d="M66 2027 V2313 H92" />
-<path class="link" d="M66 2027 V2335 H92" />
-<path class="link" d="M66 2027 V2357 H92" />
-<path class="link" d="M66 2027 V2379 H92" />
-<path class="link" d="M66 2027 V2401 H92" />
-<path class="link" d="M14 25 V2423 H40" />
+<path class="link" d="M66 553 V641 H92" />
+<path class="link" d="M14 25 V663 H40" />
+<path class="link" d="M40 663 V685 H66" />
+<path class="link" d="M40 663 V707 H66" />
+<path class="link" d="M40 663 V729 H66" />
+<path class="link" d="M40 663 V751 H66" />
+<path class="link" d="M14 25 V773 H40" />
+<path class="link" d="M40 773 V795 H66" />
+<path class="link" d="M40 773 V817 H66" />
+<path class="link" d="M66 817 V839 H92" />
+<path class="link" d="M66 817 V861 H92" />
+<path class="link" d="M40 773 V883 H66" />
+<path class="link" d="M40 773 V905 H66" />
+<path class="link" d="M40 773 V927 H66" />
+<path class="link" d="M40 773 V949 H66" />
+<path class="link" d="M40 773 V971 H66" />
+<path class="link" d="M40 773 V993 H66" />
+<path class="link" d="M66 993 V1015 H92" />
+<path class="link" d="M14 25 V1037 H40" />
+<path class="link" d="M40 1037 V1059 H66" />
+<path class="link" d="M40 1037 V1081 H66" />
+<path class="link" d="M40 1037 V1103 H66" />
+<path class="link" d="M40 1037 V1125 H66" />
+<path class="link" d="M40 1037 V1147 H66" />
+<path class="link" d="M40 1037 V1169 H66" />
+<path class="link" d="M40 1037 V1191 H66" />
+<path class="link" d="M40 1037 V1213 H66" />
+<path class="link" d="M40 1037 V1235 H66" />
+<path class="link" d="M40 1037 V1257 H66" />
+<path class="link" d="M40 1037 V1279 H66" />
+<path class="link" d="M40 1037 V1301 H66" />
+<path class="link" d="M40 1037 V1323 H66" />
+<path class="link" d="M40 1037 V1345 H66" />
+<path class="link" d="M40 1037 V1367 H66" />
+<path class="link" d="M40 1037 V1389 H66" />
+<path class="link" d="M14 25 V1411 H40" />
+<path class="link" d="M40 1411 V1433 H66" />
+<path class="link" d="M40 1411 V1455 H66" />
+<path class="link" d="M40 1411 V1477 H66" />
+<path class="link" d="M66 1477 V1499 H92" />
+<path class="link" d="M66 1477 V1521 H92" />
+<path class="link" d="M40 1411 V1543 H66" />
+<path class="link" d="M66 1543 V1565 H92" />
+<path class="link" d="M66 1543 V1587 H92" />
+<path class="link" d="M66 1543 V1609 H92" />
+<path class="link" d="M66 1543 V1631 H92" />
+<path class="link" d="M66 1543 V1653 H92" />
+<path class="link" d="M66 1543 V1675 H92" />
+<path class="link" d="M66 1543 V1697 H92" />
+<path class="link" d="M66 1543 V1719 H92" />
+<path class="link" d="M66 1543 V1741 H92" />
+<path class="link" d="M66 1543 V1763 H92" />
+<path class="link" d="M66 1543 V1785 H92" />
+<path class="link" d="M66 1543 V1807 H92" />
+<path class="link" d="M66 1543 V1829 H92" />
+<path class="link" d="M66 1543 V1851 H92" />
+<path class="link" d="M66 1543 V1873 H92" />
+<path class="link" d="M40 1411 V1895 H66" />
+<path class="link" d="M40 1411 V1917 H66" />
+<path class="link" d="M40 1411 V1939 H66" />
+<path class="link" d="M40 1411 V1961 H66" />
+<path class="link" d="M66 1961 V1983 H92" />
+<path class="link" d="M66 1961 V2005 H92" />
+<path class="link" d="M66 1961 V2027 H92" />
+<path class="link" d="M40 1411 V2049 H66" />
+<path class="link" d="M66 2049 V2071 H92" />
+<path class="link" d="M66 2049 V2093 H92" />
+<path class="link" d="M66 2049 V2115 H92" />
+<path class="link" d="M66 2049 V2137 H92" />
+<path class="link" d="M66 2049 V2159 H92" />
+<path class="link" d="M66 2049 V2181 H92" />
+<path class="link" d="M66 2049 V2203 H92" />
+<path class="link" d="M66 2049 V2225 H92" />
+<path class="link" d="M66 2049 V2247 H92" />
+<path class="link" d="M66 2049 V2269 H92" />
+<path class="link" d="M66 2049 V2291 H92" />
+<path class="link" d="M66 2049 V2313 H92" />
+<path class="link" d="M66 2049 V2335 H92" />
+<path class="link" d="M66 2049 V2357 H92" />
+<path class="link" d="M66 2049 V2379 H92" />
+<path class="link" d="M66 2049 V2401 H92" />
+<path class="link" d="M66 2049 V2423 H92" />
+<path class="link" d="M14 25 V2445 H40" />
 <g class="node d0"><title>(workspace root)</title><circle cx="14" cy="25" r="3.5" /><text x="23" y="29">/</text></g>
 <g class="node d1"><title>academy</title><circle cx="40" cy="47" r="3.5" /><text x="49" y="51">academy</text></g>
 <g class="node d2"><title>academy/administration</title><circle cx="66" cy="69" r="3.5" /><text x="75" y="73">administration</text></g>
@@ -468,207 +469,208 @@ table.heat td.z { color:var(--dim); opacity:.4; }
 <g class="node d3"><title>academy/teaching/ai4good</title><circle cx="92" cy="575" r="3.5" /><text x="101" y="579">ai4good</text></g>
 <g class="node d3"><title>academy/teaching/aisetup</title><circle cx="92" cy="597" r="3.5" /><text x="101" y="601">aisetup</text></g>
 <g class="node d3"><title>academy/teaching/tecnologias-na-educacao</title><circle cx="92" cy="619" r="3.5" /><text x="101" y="623">tecnologias-na-educacao</text></g>
-<g class="node d1"><title>brain</title><circle cx="40" cy="641" r="3.5" /><text x="49" y="645">brain</text></g>
-<g class="node d2"><title>brain/attachments</title><circle cx="66" cy="663" r="3.5" /><text x="75" y="667">attachments</text></g>
-<g class="node d2"><title>brain/drafts</title><circle cx="66" cy="685" r="3.5" /><text x="75" y="689">drafts</text></g>
-<g class="node d2"><title>brain/goals</title><circle cx="66" cy="707" r="3.5" /><text x="75" y="711">goals</text></g>
-<g class="node d2"><title>brain/memory</title><circle cx="66" cy="729" r="3.5" /><text x="75" y="733">memory</text></g>
-<g class="node d1"><title>branches</title><circle cx="40" cy="751" r="3.5" /><text x="49" y="755">branches</text></g>
-<g class="node d2"><title>branches/casinhas</title><circle cx="66" cy="773" r="3.5" /><text x="75" y="777">casinhas</text></g>
-<g class="node d2"><title>branches/ecovila</title><circle cx="66" cy="795" r="3.5" /><text x="75" y="799">ecovila</text></g>
-<g class="node d3"><title>branches/ecovila/burocracia</title><circle cx="92" cy="817" r="3.5" /><text x="101" y="821">burocracia</text></g>
-<g class="node d3"><title>branches/ecovila/refs</title><circle cx="92" cy="839" r="3.5" /><text x="101" y="843">refs</text></g>
-<g class="node d2"><title>branches/google-migration</title><circle cx="66" cy="861" r="3.5" /><text x="75" y="865">google-migration</text></g>
-<g class="node d2"><title>branches/instituto</title><circle cx="66" cy="883" r="3.5" /><text x="75" y="887">instituto</text></g>
-<g class="node d2"><title>branches/shoplist</title><circle cx="66" cy="905" r="3.5" /><text x="75" y="909">shoplist</text></g>
-<g class="node d2"><title>branches/tips</title><circle cx="66" cy="927" r="3.5" /><text x="75" y="931">tips</text></g>
-<g class="node d2"><title>branches/tweaks</title><circle cx="66" cy="949" r="3.5" /><text x="75" y="953">tweaks</text></g>
-<g class="node d2"><title>branches/writing</title><circle cx="66" cy="971" r="3.5" /><text x="75" y="975">writing</text></g>
-<g class="node d3"><title>branches/writing/drafts</title><circle cx="92" cy="993" r="3.5" /><text x="101" y="997">drafts …</text></g>
-<g class="node d1"><title>code</title><circle cx="40" cy="1015" r="3.5" /><text x="49" y="1019">code</text></g>
-<g class="node d2"><title>code/_templates</title><circle cx="66" cy="1037" r="3.5" /><text x="75" y="1041">_templates</text></g>
-<g class="node d2"><title>code/aiwbot</title><circle cx="66" cy="1059" r="3.5" /><text x="75" y="1063">aiwbot</text></g>
-<g class="node d2"><title>code/apptime</title><circle cx="66" cy="1081" r="3.5" /><text x="75" y="1085">apptime</text></g>
-<g class="node d2"><title>code/corpora</title><circle cx="66" cy="1103" r="3.5" /><text x="75" y="1107">corpora</text></g>
-<g class="node d2"><title>code/cria</title><circle cx="66" cy="1125" r="3.5" /><text x="75" y="1129">cria</text></g>
-<g class="node d2"><title>code/dobra</title><circle cx="66" cy="1147" r="3.5" /><text x="75" y="1151">dobra</text></g>
-<g class="node d2"><title>code/flows</title><circle cx="66" cy="1169" r="3.5" /><text x="75" y="1173">flows</text></g>
-<g class="node d2"><title>code/freeai</title><circle cx="66" cy="1191" r="3.5" /><text x="75" y="1195">freeai</text></g>
-<g class="node d2"><title>code/gira</title><circle cx="66" cy="1213" r="3.5" /><text x="75" y="1217">gira</text></g>
-<g class="node d2"><title>code/isoroll-content</title><circle cx="66" cy="1235" r="3.5" /><text x="75" y="1239">isoroll-content</text></g>
-<g class="node d2"><title>code/isoroll-module</title><circle cx="66" cy="1257" r="3.5" /><text x="75" y="1261">isoroll-module</text></g>
-<g class="node d2"><title>code/laplata</title><circle cx="66" cy="1279" r="3.5" /><text x="75" y="1283">laplata</text></g>
-<g class="node d2"><title>code/obra</title><circle cx="66" cy="1301" r="3.5" /><text x="75" y="1305">obra</text></g>
-<g class="node d2"><title>code/ppc</title><circle cx="66" cy="1323" r="3.5" /><text x="75" y="1327">ppc</text></g>
-<g class="node d2"><title>code/spacemantics</title><circle cx="66" cy="1345" r="3.5" /><text x="75" y="1349">spacemantics</text></g>
-<g class="node d2"><title>code/voti</title><circle cx="66" cy="1367" r="3.5" /><text x="75" y="1371">voti</text></g>
-<g class="node d1"><title>core</title><circle cx="40" cy="1389" r="3.5" /><text x="49" y="1393">core</text></g>
-<g class="node d2"><title>core/agents</title><circle cx="66" cy="1411" r="3.5" /><text x="75" y="1415">agents</text></g>
-<g class="node d2"><title>core/experiments</title><circle cx="66" cy="1433" r="3.5" /><text x="75" y="1437">experiments</text></g>
-<g class="node d2"><title>core/flows</title><circle cx="66" cy="1455" r="3.5" /><text x="75" y="1459">flows</text></g>
-<g class="node d3"><title>core/flows/craft</title><circle cx="92" cy="1477" r="3.5" /><text x="101" y="1481">craft</text></g>
-<g class="node d3"><title>core/flows/research</title><circle cx="92" cy="1499" r="3.5" /><text x="101" y="1503">research</text></g>
-<g class="node d2"><title>core/hooks</title><circle cx="66" cy="1521" r="3.5" /><text x="75" y="1525">hooks</text></g>
-<g class="node d3"><title>core/hooks/antigravity</title><circle cx="92" cy="1543" r="3.5" /><text x="101" y="1547">antigravity</text></g>
-<g class="node d3"><title>core/hooks/brain</title><circle cx="92" cy="1565" r="3.5" /><text x="101" y="1569">brain</text></g>
-<g class="node d3"><title>core/hooks/checks</title><circle cx="92" cy="1587" r="3.5" /><text x="101" y="1591">checks</text></g>
-<g class="node d3"><title>core/hooks/commit</title><circle cx="92" cy="1609" r="3.5" /><text x="101" y="1613">commit</text></g>
-<g class="node d3"><title>core/hooks/compact</title><circle cx="92" cy="1631" r="3.5" /><text x="101" y="1635">compact</text></g>
-<g class="node d3"><title>core/hooks/copilot</title><circle cx="92" cy="1653" r="3.5" /><text x="101" y="1657">copilot</text></g>
-<g class="node d3"><title>core/hooks/entropy</title><circle cx="92" cy="1675" r="3.5" /><text x="101" y="1679">entropy …</text></g>
-<g class="node d3"><title>core/hooks/facade</title><circle cx="92" cy="1697" r="3.5" /><text x="101" y="1701">facade</text></g>
-<g class="node d3"><title>core/hooks/git</title><circle cx="92" cy="1719" r="3.5" /><text x="101" y="1723">git</text></g>
-<g class="node d3"><title>core/hooks/postedit</title><circle cx="92" cy="1741" r="3.5" /><text x="101" y="1745">postedit</text></g>
-<g class="node d3"><title>core/hooks/read</title><circle cx="92" cy="1763" r="3.5" /><text x="101" y="1767">read</text></g>
-<g class="node d3"><title>core/hooks/routing</title><circle cx="92" cy="1785" r="3.5" /><text x="101" y="1789">routing</text></g>
-<g class="node d3"><title>core/hooks/session</title><circle cx="92" cy="1807" r="3.5" /><text x="101" y="1811">session</text></g>
-<g class="node d3"><title>core/hooks/stubgen</title><circle cx="92" cy="1829" r="3.5" /><text x="101" y="1833">stubgen</text></g>
-<g class="node d3"><title>core/hooks/trigger</title><circle cx="92" cy="1851" r="3.5" /><text x="101" y="1855">trigger</text></g>
-<g class="node d2"><title>core/norms</title><circle cx="66" cy="1873" r="3.5" /><text x="75" y="1877">norms</text></g>
-<g class="node d2"><title>core/prompts</title><circle cx="66" cy="1895" r="3.5" /><text x="75" y="1899">prompts</text></g>
-<g class="node d2"><title>core/refs</title><circle cx="66" cy="1917" r="3.5" /><text x="75" y="1921">refs</text></g>
-<g class="node d2"><title>core/skills</title><circle cx="66" cy="1939" r="3.5" /><text x="75" y="1943">skills</text></g>
-<g class="node d3"><title>core/skills/caveman</title><circle cx="92" cy="1961" r="3.5" /><text x="101" y="1965">caveman …</text></g>
-<g class="node d3"><title>core/skills/foundry</title><circle cx="92" cy="1983" r="3.5" /><text x="101" y="1987">foundry</text></g>
-<g class="node d3"><title>core/skills/prepare</title><circle cx="92" cy="2005" r="3.5" /><text x="101" y="2009">prepare</text></g>
-<g class="node d2"><title>core/tools</title><circle cx="66" cy="2027" r="3.5" /><text x="75" y="2031">tools</text></g>
-<g class="node d3"><title>core/tools/assets</title><circle cx="92" cy="2049" r="3.5" /><text x="101" y="2053">assets</text></g>
-<g class="node d3"><title>core/tools/audio</title><circle cx="92" cy="2071" r="3.5" /><text x="101" y="2075">audio</text></g>
-<g class="node d3"><title>core/tools/calendar</title><circle cx="92" cy="2093" r="3.5" /><text x="101" y="2097">calendar</text></g>
-<g class="node d3"><title>core/tools/chat</title><circle cx="92" cy="2115" r="3.5" /><text x="101" y="2119">chat</text></g>
-<g class="node d3"><title>core/tools/docs</title><circle cx="92" cy="2137" r="3.5" /><text x="101" y="2141">docs</text></g>
-<g class="node d3"><title>core/tools/files</title><circle cx="92" cy="2159" r="3.5" /><text x="101" y="2163">files</text></g>
-<g class="node d3"><title>core/tools/forms</title><circle cx="92" cy="2181" r="3.5" /><text x="101" y="2185">forms</text></g>
-<g class="node d3"><title>core/tools/links</title><circle cx="92" cy="2203" r="3.5" /><text x="101" y="2207">links</text></g>
-<g class="node d3"><title>core/tools/mail</title><circle cx="92" cy="2225" r="3.5" /><text x="101" y="2229">mail</text></g>
-<g class="node d3"><title>core/tools/notes</title><circle cx="92" cy="2247" r="3.5" /><text x="101" y="2251">notes</text></g>
-<g class="node d3"><title>core/tools/paper</title><circle cx="92" cy="2269" r="3.5" /><text x="101" y="2273">paper</text></g>
-<g class="node d3"><title>core/tools/slides</title><circle cx="92" cy="2291" r="3.5" /><text x="101" y="2295">slides</text></g>
-<g class="node d3"><title>core/tools/test</title><circle cx="92" cy="2313" r="3.5" /><text x="101" y="2317">test …</text></g>
-<g class="node d3"><title>core/tools/verify</title><circle cx="92" cy="2335" r="3.5" /><text x="101" y="2339">verify</text></g>
-<g class="node d3"><title>core/tools/video</title><circle cx="92" cy="2357" r="3.5" /><text x="101" y="2361">video</text></g>
-<g class="node d3"><title>core/tools/web</title><circle cx="92" cy="2379" r="3.5" /><text x="101" y="2383">web</text></g>
-<g class="node d3"><title>core/tools/wos</title><circle cx="92" cy="2401" r="3.5" /><text x="101" y="2405">wos …</text></g>
-<g class="node d1"><title>models</title><circle cx="40" cy="2423" r="3.5" /><text x="49" y="2427">models</text></g>
+<g class="node d3"><title>academy/teaching/templates</title><circle cx="92" cy="641" r="3.5" /><text x="101" y="645">templates</text></g>
+<g class="node d1"><title>brain</title><circle cx="40" cy="663" r="3.5" /><text x="49" y="667">brain</text></g>
+<g class="node d2"><title>brain/attachments</title><circle cx="66" cy="685" r="3.5" /><text x="75" y="689">attachments</text></g>
+<g class="node d2"><title>brain/drafts</title><circle cx="66" cy="707" r="3.5" /><text x="75" y="711">drafts</text></g>
+<g class="node d2"><title>brain/goals</title><circle cx="66" cy="729" r="3.5" /><text x="75" y="733">goals</text></g>
+<g class="node d2"><title>brain/memory</title><circle cx="66" cy="751" r="3.5" /><text x="75" y="755">memory</text></g>
+<g class="node d1"><title>branches</title><circle cx="40" cy="773" r="3.5" /><text x="49" y="777">branches</text></g>
+<g class="node d2"><title>branches/casinhas</title><circle cx="66" cy="795" r="3.5" /><text x="75" y="799">casinhas</text></g>
+<g class="node d2"><title>branches/ecovila</title><circle cx="66" cy="817" r="3.5" /><text x="75" y="821">ecovila</text></g>
+<g class="node d3"><title>branches/ecovila/burocracia</title><circle cx="92" cy="839" r="3.5" /><text x="101" y="843">burocracia</text></g>
+<g class="node d3"><title>branches/ecovila/refs</title><circle cx="92" cy="861" r="3.5" /><text x="101" y="865">refs</text></g>
+<g class="node d2"><title>branches/google-migration</title><circle cx="66" cy="883" r="3.5" /><text x="75" y="887">google-migration</text></g>
+<g class="node d2"><title>branches/instituto</title><circle cx="66" cy="905" r="3.5" /><text x="75" y="909">instituto</text></g>
+<g class="node d2"><title>branches/shoplist</title><circle cx="66" cy="927" r="3.5" /><text x="75" y="931">shoplist</text></g>
+<g class="node d2"><title>branches/tips</title><circle cx="66" cy="949" r="3.5" /><text x="75" y="953">tips</text></g>
+<g class="node d2"><title>branches/tweaks</title><circle cx="66" cy="971" r="3.5" /><text x="75" y="975">tweaks</text></g>
+<g class="node d2"><title>branches/writing</title><circle cx="66" cy="993" r="3.5" /><text x="75" y="997">writing</text></g>
+<g class="node d3"><title>branches/writing/drafts</title><circle cx="92" cy="1015" r="3.5" /><text x="101" y="1019">drafts …</text></g>
+<g class="node d1"><title>code</title><circle cx="40" cy="1037" r="3.5" /><text x="49" y="1041">code</text></g>
+<g class="node d2"><title>code/_templates</title><circle cx="66" cy="1059" r="3.5" /><text x="75" y="1063">_templates</text></g>
+<g class="node d2"><title>code/aiwbot</title><circle cx="66" cy="1081" r="3.5" /><text x="75" y="1085">aiwbot</text></g>
+<g class="node d2"><title>code/apptime</title><circle cx="66" cy="1103" r="3.5" /><text x="75" y="1107">apptime</text></g>
+<g class="node d2"><title>code/corpora</title><circle cx="66" cy="1125" r="3.5" /><text x="75" y="1129">corpora</text></g>
+<g class="node d2"><title>code/cria</title><circle cx="66" cy="1147" r="3.5" /><text x="75" y="1151">cria</text></g>
+<g class="node d2"><title>code/dobra</title><circle cx="66" cy="1169" r="3.5" /><text x="75" y="1173">dobra</text></g>
+<g class="node d2"><title>code/flows</title><circle cx="66" cy="1191" r="3.5" /><text x="75" y="1195">flows</text></g>
+<g class="node d2"><title>code/freeai</title><circle cx="66" cy="1213" r="3.5" /><text x="75" y="1217">freeai</text></g>
+<g class="node d2"><title>code/gira</title><circle cx="66" cy="1235" r="3.5" /><text x="75" y="1239">gira</text></g>
+<g class="node d2"><title>code/isoroll-content</title><circle cx="66" cy="1257" r="3.5" /><text x="75" y="1261">isoroll-content</text></g>
+<g class="node d2"><title>code/isoroll-module</title><circle cx="66" cy="1279" r="3.5" /><text x="75" y="1283">isoroll-module</text></g>
+<g class="node d2"><title>code/laplata</title><circle cx="66" cy="1301" r="3.5" /><text x="75" y="1305">laplata</text></g>
+<g class="node d2"><title>code/obra</title><circle cx="66" cy="1323" r="3.5" /><text x="75" y="1327">obra</text></g>
+<g class="node d2"><title>code/ppc</title><circle cx="66" cy="1345" r="3.5" /><text x="75" y="1349">ppc</text></g>
+<g class="node d2"><title>code/spacemantics</title><circle cx="66" cy="1367" r="3.5" /><text x="75" y="1371">spacemantics</text></g>
+<g class="node d2"><title>code/voti</title><circle cx="66" cy="1389" r="3.5" /><text x="75" y="1393">voti</text></g>
+<g class="node d1"><title>core</title><circle cx="40" cy="1411" r="3.5" /><text x="49" y="1415">core</text></g>
+<g class="node d2"><title>core/agents</title><circle cx="66" cy="1433" r="3.5" /><text x="75" y="1437">agents</text></g>
+<g class="node d2"><title>core/experiments</title><circle cx="66" cy="1455" r="3.5" /><text x="75" y="1459">experiments</text></g>
+<g class="node d2"><title>core/flows</title><circle cx="66" cy="1477" r="3.5" /><text x="75" y="1481">flows</text></g>
+<g class="node d3"><title>core/flows/craft</title><circle cx="92" cy="1499" r="3.5" /><text x="101" y="1503">craft</text></g>
+<g class="node d3"><title>core/flows/research</title><circle cx="92" cy="1521" r="3.5" /><text x="101" y="1525">research</text></g>
+<g class="node d2"><title>core/hooks</title><circle cx="66" cy="1543" r="3.5" /><text x="75" y="1547">hooks</text></g>
+<g class="node d3"><title>core/hooks/antigravity</title><circle cx="92" cy="1565" r="3.5" /><text x="101" y="1569">antigravity</text></g>
+<g class="node d3"><title>core/hooks/brain</title><circle cx="92" cy="1587" r="3.5" /><text x="101" y="1591">brain</text></g>
+<g class="node d3"><title>core/hooks/checks</title><circle cx="92" cy="1609" r="3.5" /><text x="101" y="1613">checks</text></g>
+<g class="node d3"><title>core/hooks/commit</title><circle cx="92" cy="1631" r="3.5" /><text x="101" y="1635">commit</text></g>
+<g class="node d3"><title>core/hooks/compact</title><circle cx="92" cy="1653" r="3.5" /><text x="101" y="1657">compact</text></g>
+<g class="node d3"><title>core/hooks/copilot</title><circle cx="92" cy="1675" r="3.5" /><text x="101" y="1679">copilot</text></g>
+<g class="node d3"><title>core/hooks/entropy</title><circle cx="92" cy="1697" r="3.5" /><text x="101" y="1701">entropy …</text></g>
+<g class="node d3"><title>core/hooks/facade</title><circle cx="92" cy="1719" r="3.5" /><text x="101" y="1723">facade</text></g>
+<g class="node d3"><title>core/hooks/git</title><circle cx="92" cy="1741" r="3.5" /><text x="101" y="1745">git</text></g>
+<g class="node d3"><title>core/hooks/postedit</title><circle cx="92" cy="1763" r="3.5" /><text x="101" y="1767">postedit</text></g>
+<g class="node d3"><title>core/hooks/read</title><circle cx="92" cy="1785" r="3.5" /><text x="101" y="1789">read</text></g>
+<g class="node d3"><title>core/hooks/routing</title><circle cx="92" cy="1807" r="3.5" /><text x="101" y="1811">routing</text></g>
+<g class="node d3"><title>core/hooks/session</title><circle cx="92" cy="1829" r="3.5" /><text x="101" y="1833">session</text></g>
+<g class="node d3"><title>core/hooks/stubgen</title><circle cx="92" cy="1851" r="3.5" /><text x="101" y="1855">stubgen</text></g>
+<g class="node d3"><title>core/hooks/trigger</title><circle cx="92" cy="1873" r="3.5" /><text x="101" y="1877">trigger</text></g>
+<g class="node d2"><title>core/norms</title><circle cx="66" cy="1895" r="3.5" /><text x="75" y="1899">norms</text></g>
+<g class="node d2"><title>core/prompts</title><circle cx="66" cy="1917" r="3.5" /><text x="75" y="1921">prompts</text></g>
+<g class="node d2"><title>core/refs</title><circle cx="66" cy="1939" r="3.5" /><text x="75" y="1943">refs</text></g>
+<g class="node d2"><title>core/skills</title><circle cx="66" cy="1961" r="3.5" /><text x="75" y="1965">skills</text></g>
+<g class="node d3"><title>core/skills/caveman</title><circle cx="92" cy="1983" r="3.5" /><text x="101" y="1987">caveman …</text></g>
+<g class="node d3"><title>core/skills/foundry</title><circle cx="92" cy="2005" r="3.5" /><text x="101" y="2009">foundry</text></g>
+<g class="node d3"><title>core/skills/prepare</title><circle cx="92" cy="2027" r="3.5" /><text x="101" y="2031">prepare</text></g>
+<g class="node d2"><title>core/tools</title><circle cx="66" cy="2049" r="3.5" /><text x="75" y="2053">tools</text></g>
+<g class="node d3"><title>core/tools/assets</title><circle cx="92" cy="2071" r="3.5" /><text x="101" y="2075">assets</text></g>
+<g class="node d3"><title>core/tools/audio</title><circle cx="92" cy="2093" r="3.5" /><text x="101" y="2097">audio</text></g>
+<g class="node d3"><title>core/tools/calendar</title><circle cx="92" cy="2115" r="3.5" /><text x="101" y="2119">calendar</text></g>
+<g class="node d3"><title>core/tools/chat</title><circle cx="92" cy="2137" r="3.5" /><text x="101" y="2141">chat</text></g>
+<g class="node d3"><title>core/tools/docs</title><circle cx="92" cy="2159" r="3.5" /><text x="101" y="2163">docs</text></g>
+<g class="node d3"><title>core/tools/files</title><circle cx="92" cy="2181" r="3.5" /><text x="101" y="2185">files</text></g>
+<g class="node d3"><title>core/tools/forms</title><circle cx="92" cy="2203" r="3.5" /><text x="101" y="2207">forms</text></g>
+<g class="node d3"><title>core/tools/links</title><circle cx="92" cy="2225" r="3.5" /><text x="101" y="2229">links</text></g>
+<g class="node d3"><title>core/tools/mail</title><circle cx="92" cy="2247" r="3.5" /><text x="101" y="2251">mail</text></g>
+<g class="node d3"><title>core/tools/notes</title><circle cx="92" cy="2269" r="3.5" /><text x="101" y="2273">notes</text></g>
+<g class="node d3"><title>core/tools/paper</title><circle cx="92" cy="2291" r="3.5" /><text x="101" y="2295">paper</text></g>
+<g class="node d3"><title>core/tools/slides</title><circle cx="92" cy="2313" r="3.5" /><text x="101" y="2317">slides</text></g>
+<g class="node d3"><title>core/tools/test</title><circle cx="92" cy="2335" r="3.5" /><text x="101" y="2339">test …</text></g>
+<g class="node d3"><title>core/tools/verify</title><circle cx="92" cy="2357" r="3.5" /><text x="101" y="2361">verify</text></g>
+<g class="node d3"><title>core/tools/video</title><circle cx="92" cy="2379" r="3.5" /><text x="101" y="2383">video</text></g>
+<g class="node d3"><title>core/tools/web</title><circle cx="92" cy="2401" r="3.5" /><text x="101" y="2405">web</text></g>
+<g class="node d3"><title>core/tools/wos</title><circle cx="92" cy="2423" r="3.5" /><text x="101" y="2427">wos …</text></g>
+<g class="node d1"><title>models</title><circle cx="40" cy="2445" r="3.5" /><text x="49" y="2449">models</text></g>
 </svg>
-<p class="note">37 directories sit deeper than level 3 and are not drawn. They are reached by the same chain, one hop at a time — which is the point of the spine rather than a gap in it.</p></div><p class="note">Every edge is read from a generated routing block — the same table an agent follows. Nothing here is drawn by hand, so a wrong edge is a wrong routing table, and fixing the picture means fixing the source. Parsed 120 of 120 blocks.</p></section>
+<p class="note">37 directories sit deeper than level 3 and are not drawn. They are reached by the same chain, one hop at a time — which is the point of the spine rather than a gap in it.</p></div><p class="note">Every edge is read from a generated routing block — the same table an agent follows. Nothing here is drawn by hand, so a wrong edge is a wrong routing table, and fixing the picture means fixing the source. Parsed 121 of 121 blocks.</p></section>
 <section class="panel p-mass"><h2>tracked bytes per directory</h2><div class="scroll"><svg class="treemap" viewBox="0 0 960 520" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="folder mass">
-<g class="cell c4"><title>core/tools — 249 tracked files, 1107 KB, 35.2% of tracked mass</title><rect x="0.0" y="0.0" width="337.3" height="519.0" />
-<text x="6.0" y="17.0">core/tools</text><text class="sub" x="6.0" y="32.0">249 files</text>
+<g class="cell c4"><title>core/tools — 252 tracked files, 1125 KB, 35.1% of tracked mass</title><rect x="0.0" y="0.0" width="335.7" height="519.0" />
+<text x="6.0" y="17.0">core/tools</text><text class="sub" x="6.0" y="32.0">252 files</text>
 </g>
-<g class="cell c4"><title>core/hooks — 108 tracked files, 511 KB, 16.3% of tracked mass</title><rect x="338.3" y="0.0" width="246.3" height="327.7" />
-<text x="344.3" y="17.0">core/hooks</text><text class="sub" x="344.3" y="32.0">108 files</text>
+<g class="cell c4"><title>core/hooks — 108 tracked files, 515 KB, 16.1% of tracked mass</title><rect x="336.7" y="0.0" width="242.4" height="328.5" />
+<text x="342.7" y="17.0">core/hooks</text><text class="sub" x="342.7" y="32.0">108 files</text>
 </g>
-<g class="cell c0"><title>academy/administration — 34 tracked files, 298 KB, 9.5% of tracked mass</title><rect x="338.3" y="328.7" width="246.3" height="190.3" />
-<text x="344.3" y="345.7">academy/administration</text><text class="sub" x="344.3" y="360.7">34 files</text>
+<g class="cell c0"><title>academy/administration — 34 tracked files, 298 KB, 9.3% of tracked mass</title><rect x="336.7" y="329.5" width="242.4" height="189.5" />
+<text x="342.7" y="346.5">academy/administration</text><text class="sub" x="342.7" y="361.5">34 files</text>
 </g>
-<g class="cell c4"><title>core/skills — 72 tracked files, 231 KB, 7.4% of tracked mass</title><rect x="585.6" y="0.0" width="233.2" height="155.9" />
-<text x="591.6" y="17.0">core/skills</text><text class="sub" x="591.6" y="32.0">72 files</text>
+<g class="cell c4"><title>core/skills — 72 tracked files, 231 KB, 7.2% of tracked mass</title><rect x="580.1" y="0.0" width="230.2" height="154.8" />
+<text x="586.1" y="17.0">core/skills</text><text class="sub" x="586.1" y="32.0">72 files</text>
 </g>
-<g class="cell c4"><title>core/flows — 29 tracked files, 138 KB, 4.4% of tracked mass</title><rect x="819.8" y="0.0" width="139.2" height="155.9" />
-<text x="825.8" y="17.0">core/flows</text><text class="sub" x="825.8" y="32.0">29 files</text>
+<g class="cell c0"><title>academy/teaching — 25 tracked files, 148 KB, 4.6% of tracked mass</title><rect x="811.4" y="0.0" width="147.6" height="154.8" />
+<text x="817.4" y="17.0">academy/teaching</text><text class="sub" x="817.4" y="32.0">25 files</text>
 </g>
-<g class="cell c1"><title>brain/goals — 39 tracked files, 134 KB, 4.3% of tracked mass</title><rect x="585.6" y="156.9" width="140.0" height="150.3" />
-<text x="591.6" y="173.9">brain/goals</text><text class="sub" x="591.6" y="188.9">39 files</text>
+<g class="cell c4"><title>core/flows — 29 tracked files, 138 KB, 4.3% of tracked mass</title><rect x="580.1" y="155.8" width="115.6" height="183.9" />
+<text x="586.1" y="172.8">core/flows</text><text class="sub" x="586.1" y="187.8">29 files</text>
 </g>
-<g class="cell c0"><title>academy/teaching — 20 tracked files, 105 KB, 3.4% of tracked mass</title><rect x="585.6" y="308.2" width="140.0" height="117.7" />
-<text x="591.6" y="325.2">academy/teaching</text><text class="sub" x="591.6" y="340.2">20 files</text>
+<g class="cell c1"><title>brain/goals — 39 tracked files, 134 KB, 4.2% of tracked mass</title><rect x="580.1" y="340.7" width="115.6" height="178.3" />
+<text x="586.1" y="357.7">brain/goals</text><text class="sub" x="586.1" y="372.7">39 files</text>
 </g>
-<g class="cell c0"><title>(root) — 19 tracked files, 82 KB, 2.6% of tracked mass</title><rect x="585.6" y="426.9" width="140.0" height="92.1" />
-<text x="591.6" y="443.9">(root)</text><text class="sub" x="591.6" y="458.9">19 files</text>
+<g class="cell c0"><title>(root) — 19 tracked files, 80 KB, 2.5% of tracked mass</title><rect x="696.7" y="155.8" width="104.2" height="118.0" />
+<text x="702.7" y="172.8">(root)</text><text class="sub" x="702.7" y="187.8">19 files</text>
 </g>
-<g class="cell c1"><title>brain/drafts — 7 tracked files, 61 KB, 1.9% of tracked mass</title><rect x="726.6" y="156.9" width="116.8" height="81.3" />
-<text x="732.6" y="173.9">brain/drafts</text><text class="sub" x="732.6" y="188.9">7 files</text>
+<g class="cell c1"><title>brain/drafts — 7 tracked files, 61 KB, 1.9% of tracked mass</title><rect x="801.9" y="155.8" width="78.8" height="118.0" />
+<text x="807.9" y="172.8">brain/dra…</text><text class="sub" x="807.9" y="187.8">7 files</text>
 </g>
-<g class="cell c4"><title>core/experiments — 11 tracked files, 59 KB, 1.9% of tracked mass</title><rect x="844.4" y="156.9" width="114.6" height="81.3" />
-<text x="850.4" y="173.9">core/experimen…</text><text class="sub" x="850.4" y="188.9">11 files</text>
+<g class="cell c4"><title>core/experiments — 11 tracked files, 59 KB, 1.9% of tracked mass</title><rect x="881.7" y="155.8" width="77.3" height="118.0" />
+<text x="887.7" y="172.8">core/expe…</text><text class="sub" x="887.7" y="187.8">11 files</text>
 </g>
-<g class="cell c4"><title>core — 6 tracked files, 55 KB, 1.8% of tracked mass</title><rect x="726.6" y="239.2" width="84.1" height="103.4" />
-<text x="732.6" y="256.2">core</text><text class="sub" x="732.6" y="271.2">6 files</text>
+<g class="cell c4"><title>core — 6 tracked files, 55 KB, 1.7% of tracked mass</title><rect x="696.7" y="274.8" width="96.3" height="88.4" />
+<text x="702.7" y="291.8">core</text><text class="sub" x="702.7" y="306.8">6 files</text>
 </g>
-<g class="cell c3"><title>code — 10 tracked files, 53 KB, 1.7% of tracked mass</title><rect x="811.7" y="239.2" width="80.3" height="103.4" />
-<text x="817.7" y="256.2">code</text><text class="sub" x="817.7" y="271.2">10 files</text>
+<g class="cell c3"><title>code — 10 tracked files, 53 KB, 1.7% of tracked mass</title><rect x="696.7" y="364.2" width="96.3" height="84.5" />
+<text x="702.7" y="381.2">code</text><text class="sub" x="702.7" y="396.2">10 files</text>
 </g>
-<g class="cell c1"><title>brain/memory — 20 tracked files, 44 KB, 1.4% of tracked mass</title><rect x="893.0" y="239.2" width="66.0" height="103.4" />
+<g class="cell c1"><title>brain/memory — 20 tracked files, 44 KB, 1.4% of tracked mass</title><rect x="696.7" y="449.6" width="96.3" height="69.4" />
+<text x="702.7" y="466.6">brain/memory</text><text class="sub" x="702.7" y="481.6">20 files</text>
 </g>
-<g class="cell c1"><title>brain — 5 tracked files, 31 KB, 1.0% of tracked mass</title><rect x="726.6" y="343.6" width="70.4" height="68.6" />
-<text x="732.6" y="360.6">brain</text><text class="sub" x="732.6" y="375.6">5 files</text>
+<g class="cell c1"><title>brain — 5 tracked files, 32 KB, 1.0% of tracked mass</title><rect x="794.1" y="274.8" width="90.3" height="55.1" />
+<text x="800.1" y="291.8">brain</text><text class="sub" x="800.1" y="306.8">5 files</text>
 </g>
-<g class="cell c4"><title>core/agents — 7 tracked files, 26 KB, 0.9% of tracked mass</title><rect x="726.6" y="413.2" width="70.4" height="58.9" />
-<text x="732.6" y="430.2">core/age…</text><text class="sub" x="732.6" y="445.2">7 files</text>
+<g class="cell c4"><title>core/agents — 7 tracked files, 26 KB, 0.8% of tracked mass</title><rect x="885.3" y="274.8" width="73.7" height="55.1" />
+<text x="891.3" y="291.8">core/age…</text><text class="sub" x="891.3" y="306.8">7 files</text>
 </g>
-<g class="cell c0"><title>academy/talks — 6 tracked files, 21 KB, 0.7% of tracked mass</title><rect x="726.6" y="473.0" width="70.4" height="46.0" />
-<text x="732.6" y="490.0">academy/…</text><text class="sub" x="732.6" y="505.0">6 files</text>
+<g class="cell c0"><title>academy/talks — 6 tracked files, 21 KB, 0.7% of tracked mass</title><rect x="794.1" y="330.9" width="58.6" height="54.2" />
 </g>
-<g class="cell c5"><title>.opencode — 6 tracked files, 20 KB, 0.6% of tracked mass</title><rect x="798.0" y="343.6" width="59.8" height="51.7" />
+<g class="cell c5"><title>.opencode — 6 tracked files, 20 KB, 0.6% of tracked mass</title><rect x="853.6" y="330.9" width="56.0" height="54.2" />
 </g>
-<g class="cell c0"><title>academy/refs — 2 tracked files, 17 KB, 0.6% of tracked mass</title><rect x="858.8" y="343.6" width="51.8" height="51.7" />
+<g class="cell c0"><title>academy/refs — 2 tracked files, 17 KB, 0.5% of tracked mass</title><rect x="910.6" y="330.9" width="48.4" height="54.2" />
 </g>
-<g class="cell c1"><title>brain/attachments — 2 tracked files, 16 KB, 0.5% of tracked mass</title><rect x="911.6" y="343.6" width="47.4" height="51.7" />
+<g class="cell c1"><title>brain/attachments — 2 tracked files, 16 KB, 0.5% of tracked mass</title><rect x="794.1" y="386.0" width="50.0" height="48.0" />
 </g>
-<g class="cell c0"><title>academy/reviews — 10 tracked files, 15 KB, 0.5% of tracked mass</title><rect x="798.0" y="396.3" width="48.5" height="49.6" />
+<g class="cell c0"><title>academy/reviews — 10 tracked files, 15 KB, 0.5% of tracked mass</title><rect x="794.1" y="435.0" width="50.0" height="47.1" />
 </g>
-<g class="cell c0"><title>academy/papers — 3 tracked files, 11 KB, 0.4% of tracked mass</title><rect x="798.0" y="446.9" width="48.5" height="35.8" />
+<g class="cell c0"><title>academy/papers — 3 tracked files, 12 KB, 0.4% of tracked mass</title><rect x="794.1" y="483.1" width="50.0" height="35.9" />
 </g>
-<g class="cell c4"><title>core/refs — 3 tracked files, 11 KB, 0.4% of tracked mass</title><rect x="798.0" y="483.7" width="48.5" height="35.3" />
+<g class="cell c4"><title>core/refs — 3 tracked files, 11 KB, 0.4% of tracked mass</title><rect x="845.1" y="386.0" width="41.7" height="40.2" />
 </g>
-<g class="cell c3"><title>code/_templates — 7 tracked files, 10 KB, 0.3% of tracked mass</title><rect x="847.5" y="396.3" width="44.6" height="36.2" />
+<g class="cell c3"><title>code/_templates — 7 tracked files, 10 KB, 0.3% of tracked mass</title><rect x="887.8" y="386.0" width="39.4" height="40.2" />
 </g>
-<g class="cell c7"><title>.zcode — 3 tracked files, 8 KB, 0.3% of tracked mass</title><rect x="893.1" y="396.3" width="34.9" height="36.2" />
+<g class="cell c7"><title>.zcode — 3 tracked files, 8 KB, 0.3% of tracked mass</title><rect x="928.2" y="386.0" width="30.8" height="40.2" />
 </g>
-<g class="cell c0"><title>academy/lab — 2 tracked files, 7 KB, 0.2% of tracked mass</title><rect x="929.0" y="396.3" width="30.0" height="36.2" />
+<g class="cell c0"><title>academy/lab — 2 tracked files, 7 KB, 0.2% of tracked mass</title><rect x="845.1" y="427.2" width="34.3" height="31.0" />
 </g>
-<g class="cell c5"><title>.opencode/plugins — 3 tracked files, 6 KB, 0.2% of tracked mass</title><rect x="847.5" y="433.5" width="35.3" height="29.6" />
+<g class="cell c5"><title>.opencode/plugins — 3 tracked files, 6 KB, 0.2% of tracked mass</title><rect x="845.1" y="459.2" width="34.3" height="29.8" />
 </g>
-<g class="cell c4"><title>core/prompts — 2 tracked files, 6 KB, 0.2% of tracked mass</title><rect x="847.5" y="464.1" width="35.3" height="28.8" />
+<g class="cell c4"><title>core/prompts — 2 tracked files, 6 KB, 0.2% of tracked mass</title><rect x="845.1" y="490.0" width="34.3" height="29.0" />
 </g>
-<g class="cell c4"><title>core/norms — 14 tracked files, 5 KB, 0.2% of tracked mass</title><rect x="847.5" y="493.9" width="35.3" height="25.1" />
+<g class="cell c4"><title>core/norms — 14 tracked files, 5 KB, 0.2% of tracked mass</title><rect x="880.4" y="427.2" width="29.9" height="29.0" />
 </g>
-<g class="cell c3"><title>.craft/commands-mirror-cost — 2 tracked files, 5 KB, 0.2% of tracked mass</title><rect x="883.8" y="433.5" width="33.1" height="26.1" />
+<g class="cell c3"><title>.craft/commands-mirror-cost — 2 tracked files, 5 KB, 0.2% of tracked mass</title><rect x="911.3" y="427.2" width="29.1" height="29.0" />
 </g>
-<g class="cell c5"><title>.opencode/skills — 1 tracked files, 3 KB, 0.1% of tracked mass</title><rect x="917.9" y="433.5" width="20.0" height="26.1" />
+<g class="cell c5"><title>.opencode/skills — 1 tracked files, 3 KB, 0.1% of tracked mass</title><rect x="941.4" y="427.2" width="17.6" height="29.0" />
 </g>
-<g class="cell c7"><title>.zcode/skills — 1 tracked files, 3 KB, 0.1% of tracked mass</title><rect x="939.0" y="433.5" width="20.0" height="26.1" />
+<g class="cell c7"><title>.zcode/skills — 1 tracked files, 3 KB, 0.1% of tracked mass</title><rect x="880.4" y="457.3" width="23.4" height="21.9" />
 </g>
-<g class="cell c2"><title>branches/google-migration — 2 tracked files, 3 KB, 0.1% of tracked mass</title><rect x="883.8" y="460.6" width="23.5" height="20.3" />
+<g class="cell c2"><title>branches/google-migration — 2 tracked files, 3 KB, 0.1% of tracked mass</title><rect x="880.4" y="480.2" width="23.4" height="19.9" />
 </g>
-<g class="cell c2"><title>.claude/agents — 3 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="883.8" y="481.9" width="23.5" height="18.2" />
+<g class="cell c2"><title>.claude/agents — 3 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="880.4" y="501.1" width="23.4" height="17.9" />
 </g>
-<g class="cell c5"><title>.opencode/agents — 3 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="883.8" y="501.1" width="23.5" height="17.9" />
+<g class="cell c5"><title>.opencode/agents — 3 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="904.8" y="457.3" width="18.1" height="22.7" />
 </g>
-<g class="cell c2"><title>branches/ecovila — 4 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="908.3" y="460.6" width="17.9" height="22.9" />
+<g class="cell c2"><title>branches/ecovila — 4 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="924.0" y="457.3" width="17.6" height="22.7" />
 </g>
-<g class="cell c2"><title>.claude — 1 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="927.2" y="460.6" width="16.6" height="22.9" />
+<g class="cell c2"><title>.claude — 1 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="942.6" y="457.3" width="16.4" height="22.7" />
 </g>
-<g class="cell c0"><title>academy — 2 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="944.8" y="460.6" width="14.2" height="22.9" />
+<g class="cell c0"><title>academy — 2 tracked files, 2 KB, 0.1% of tracked mass</title><rect x="904.8" y="481.0" width="15.3" height="20.8" />
 </g>
-<g class="cell c2"><title>branches/writing — 4 tracked files, 1 KB, 0.1% of tracked mass</title><rect x="908.3" y="484.5" width="14.4" height="17.6" />
+<g class="cell c2"><title>branches/writing — 4 tracked files, 1 KB, 0.1% of tracked mass</title><rect x="904.8" y="502.8" width="15.3" height="16.2" />
 </g>
-<g class="cell c2"><title>branches — 1 tracked files, 1 KB, 0.1% of tracked mass</title><rect x="908.3" y="503.1" width="14.4" height="15.9" />
+<g class="cell c2"><title>branches — 1 tracked files, 1 KB, 0.1% of tracked mass</title><rect x="921.1" y="481.0" width="13.5" height="16.6" />
 </g>
-<g class="cell c6"><title>.vscode — 2 tracked files, 1 KB, 0.0% of tracked mass</title><rect x="923.7" y="484.5" width="11.3" height="18.5" />
+<g class="cell c6"><title>.vscode — 2 tracked files, 1 KB, 0.0% of tracked mass</title><rect x="935.6" y="481.0" width="12.3" height="16.6" />
 </g>
-<g class="cell c1"><title>.agents — 2 tracked files, 1 KB, 0.0% of tracked mass</title><rect x="923.7" y="503.9" width="11.3" height="15.1" />
+<g class="cell c1"><title>.agents — 2 tracked files, 1 KB, 0.0% of tracked mass</title><rect x="949.0" y="481.0" width="10.0" height="16.6" />
 </g>
-<g class="cell c2"><title>branches/tweaks — 2 tracked files, 1 KB, 0.0% of tracked mass</title><rect x="936.0" y="484.5" width="11.5" height="14.7" />
+<g class="cell c2"><title>branches/tweaks — 2 tracked files, 1 KB, 0.0% of tracked mass</title><rect x="921.1" y="498.5" width="16.1" height="10.2" />
 </g>
-<g class="cell c2"><title>branches/tips — 2 tracked files, 1 KB, 0.0% of tracked mass</title><rect x="948.5" y="484.5" width="10.5" height="14.7" />
+<g class="cell c2"><title>branches/tips — 2 tracked files, 1 KB, 0.0% of tracked mass</title><rect x="921.1" y="509.7" width="16.1" height="9.3" />
 </g>
-<g class="cell c4"><title>.github/hooks — 2 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="936.0" y="500.1" width="12.7" height="8.9" />
+<g class="cell c4"><title>.github/hooks — 2 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="938.3" y="498.5" width="11.4" height="9.7" />
 </g>
-<g class="cell c2"><title>branches/shoplist — 2 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="936.0" y="510.1" width="12.7" height="8.9" />
+<g class="cell c2"><title>branches/shoplist — 2 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="938.3" y="509.3" width="11.4" height="9.7" />
 </g>
-<g class="cell c4"><title>.github — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="949.7" y="500.1" width="9.3" height="12.0" />
+<g class="cell c4"><title>.github — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="950.7" y="498.5" width="8.3" height="13.1" />
 </g>
-<g class="cell c1"><title>.agents/skills — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="949.7" y="513.2" width="6.1" height="5.8" />
+<g class="cell c1"><title>.agents/skills — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="950.7" y="512.6" width="5.4" height="6.4" />
 </g>
-<g class="cell c5"><title>models — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="956.8" y="513.2" width="2.2" height="5.8" />
+<g class="cell c5"><title>models — 1 tracked files, 0 KB, 0.0% of tracked mass</title><rect x="957.1" y="512.6" width="1.9" height="6.4" />
 </g>
-</svg></div><p class="note">738 tracked files, 3143 KB, folded to two levels. The inventory is <code>git ls-files</code> and never a directory walk — which is what keeps <code>.venv</code>, <code>Downloads/</code> and the trash out of a picture of the workspace, three directories that would otherwise dwarf everything real.</p></section>
+</svg></div><p class="note">746 tracked files, 3208 KB, folded to two levels. The inventory is <code>git ls-files</code> and never a directory walk — which is what keeps <code>.venv</code>, <code>Downloads/</code> and the trash out of a picture of the workspace, three directories that would otherwise dwarf everything real.</p></section>
 </div>
 <footer>
-<p><b>coverage</b> parsed 120 of 120 routing blocks · none unparsed</p>
-<p><b>scope</b> the workspace repository. 27 repositories nested inside it are drawn as directories and no deeper: each is its own repository, and none carries a picture of its own.</p>
+<p><b>coverage</b> parsed 121 of 121 routing blocks · none unparsed</p>
+<p><b>scope</b> the workspace repository. 28 repositories nested inside it are drawn as directories and no deeper: each is its own repository, and none carries a picture of its own.</p>
 <p><b>what is inferred</b> nothing, as of 2026-08-18. Every edge above renders declared or generated data, the firing moment included: <code>core/hooks/trigger/trigger_law.py</code> reads it from the registrations, the pre-commit dispatcher's own stage order and the install steps. What the registrations cannot place is counted as a gap instead of guessed at.</p>
 <p><b>how to change it</b> edit the source, not this file: <code>core/features.txt</code> for the matrix, a directory's <code>CONTEXT.md</code> for the spine. Regenerated and committed by <code>/roundup</code> at every session close, so a stale picture is a bug in the close, not a fact of life.</p>
 </footer>

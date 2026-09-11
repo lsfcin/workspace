@@ -28,6 +28,7 @@ keeps whatever the machine that has it wrote.
 |------|--------|-------|
 | `academy/papers/2026-JBCS-relativistic_raytracer` | [Overleaf](https://git.overleaf.com/6a06aab5ad89bc3e2628f977) | — |
 | `academy/papers/2026-SIBGRAPI-relativistic_raytracer` | [Overleaf](https://git.overleaf.com/6a0cbc7958195756380a96cb) | — |
+| `academy/papers/2027-CHI-avdspace` | [Overleaf](https://git:olp_3RmsQBckvjMYWeVm6jn74sjjhBVxFR0mkygu@git.overleaf.com/6a2440ecfb4d51b7965e2df3) | — |
 | `academy/papers/2027-CHI-cria` | [Overleaf](https://git.overleaf.com/6a4c847e31d1ceaba2e92283) | — |
 | `academy/papers/2027-ICLR-dobra` | [Overleaf](https://git.overleaf.com/6a48660e2fa100e8e2c6bc04) | — |
 | `academy/papers/ai4good` | [Overleaf](https://git.overleaf.com/6a4d01f88e85188bc8e7684b) | — |

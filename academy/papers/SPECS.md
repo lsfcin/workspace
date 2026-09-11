@@ -121,6 +121,13 @@ Hold every paragraph to all five before committing.
   venues, explicitly acknowledge local work.
 - **Reviewer simulation** — read each paragraph as a hostile reviewer seeking rejection. Write
   pre-emptive counter-arguments into the prose; name limitations before the reviewer does.
+- **Review panel** — before a submission closes, spawn independent reviewer agents (methods, theory,
+  domain, meta-review, writing), each given the same briefing and none seeing the others. Require a
+  literal quotation and a page for every finding; a finding without one is cut. **Convergence between
+  agents that could not see each other is the signal** — it separates a real defect from an echo.
+  Give the panel the paper's own numbers so it can check the paper against itself. Run it on our own
+  drafts with the same severity used on someone else's (2026-09-10: a panel found two misreadings of
+  a cited taxonomy that a self-review had missed).
 
 ## Evidence discipline
 

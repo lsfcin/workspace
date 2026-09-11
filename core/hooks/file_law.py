@@ -142,6 +142,35 @@ def is_authored(path: Path, root: Path) -> bool:
 
 LINK_TOKEN = re.compile(r'<[^>\s]+>|\]\([^)\s]+\)|(?<![\w])[a-z][a-z0-9+.-]*://\S+')
 
+BLOCK_OPEN = re.compile(r'^\s*<!--\s*[\w-]+:start\s*-->')
+BLOCK_CLOSE = re.compile(r'^\s*<!--\s*[\w-]+:end\s*-->')
+
+
+def generated_spans(text: str) -> list:
+    """(start, end) line numbers of the blocks a generator owns inside an authored file.
+
+    `is_generated_artifact` answers for WHOLE files; this is the other half, and it is what three
+    readers needed separately before 2026-09-11: wrap refusing to reflow one, the port ratchets
+    going red on ISSUES.md's quoted red-suite log, and the section-citation gate reading a section
+    name out of that same log. Inside a block there is no legal fix — core/SCHEMA.md forbids
+    hand-editing one — so a finding there is one nobody can act on.
+
+    Never the whole file: an authored file's own half stays held to every rule.
+    """
+    spans, opened = [], None
+    for number, line in enumerate(text.splitlines(), 1):
+        if BLOCK_OPEN.match(line):
+            opened = number
+        elif BLOCK_CLOSE.match(line) and opened:
+            spans.append((opened, number))
+            opened = None
+    return spans
+
+
+def is_generated_line(text: str, number: int) -> bool:
+    """Whether one 1-indexed line of an authored file sits inside a generated block."""
+    return any(start <= number <= end for start, end in generated_spans(text))
+
 
 def over_column_cap(text: str, cols: int) -> list:
     """Line numbers of prose lines longer than `cols`. The one definition every reader uses.

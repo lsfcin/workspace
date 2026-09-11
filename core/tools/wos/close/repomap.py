@@ -20,14 +20,12 @@ HEAD = ('| Path | Remote | Drive |', '|------|--------|-------|')
 def declared(root: Path) -> set:
     """Project paths as .gitignore declares them — the key column's independent source.
 
-    A project line names a directory with no glob and no trailing slash. The trailing slash
-    separates a project from an ignored working directory (`outputs/`, `tmp/`), the glob from a
-    subtree rule (`academy/*`).
+    The parse rule itself is entropy_corpus.declared_projects, which the pre-commit's ledger stage
+    asks the same question of. A second copy here is where the two would start disagreeing about
+    what a project is.
     """
-    lines = (root / '.gitignore').read_text(encoding='utf-8').splitlines()
-    return {line.strip() for line in lines
-            if '/' in line and not line.startswith(('#', '!', '.', '$'))
-            and '*' not in line and not line.rstrip().endswith('/')}
+    from entropy_corpus import declared_projects
+    return declared_projects(root)
 
 
 def link(url: str) -> str:

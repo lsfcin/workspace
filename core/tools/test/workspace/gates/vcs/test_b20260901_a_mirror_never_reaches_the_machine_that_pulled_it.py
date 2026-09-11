@@ -64,9 +64,11 @@ def test_a_mirror_dirtied_by_a_merge_is_healed_in_one_line():
         out = _run(HOOK)
         assert out.returncode == 0
         assert _in_sync(), 'the hook ran and the mirrors still disagree'
-        spoke = [line for line in out.stdout.splitlines() if line.strip()]
-        assert len(spoke) == 1, f'expected exactly one line, got {spoke}'
-        assert 'skill mirrors regenerated' in spoke[0]
+        # The line it cares about, never the line COUNT. Asserting the count made this case fail
+        # on output that was entirely correct: the heal line plus a true permissions-drift warning
+        # from the same hook. A gate may grow a second thing to say without a mirror test going red.
+        spoke = [line for line in out.stdout.splitlines() if 'skill mirrors regenerated' in line]
+        assert len(spoke) == 1, f'expected one heal line, got {out.stdout!r}'
     finally:
         source.write_bytes(original)
         _run('tools/wos/sync-skills')

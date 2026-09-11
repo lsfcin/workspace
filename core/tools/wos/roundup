@@ -43,7 +43,8 @@ WORKSPACE = SCRIPT_DIR.parents[2]
 # without failing anything, which is how both skills promised three while this printed six.
 # Ruled 2026-08-25: cost and size lead, because they are the two facts Lucas reads the block for and
 # the rest is state the next session needs. Both print bare — they are sentences, not labelled state.
-STATE = ('cost', 'size', 'verify', 'sync', 'projects', 'map', 'entropy', 'diagram', 'compaction')
+STATE = ('cost', 'size', 'verify', 'sync', 'projects', 'map', 'entropy', 'diagram', 'compaction',
+         'permissions')
 BARE = ('cost', 'size')
 
 
@@ -61,6 +62,31 @@ def verify(root: Path) -> tuple:
     # the ledger on 2026-09-02: a measured number, in the file whose own head forbids a copied count.
     counts = [line.strip() for line in log.splitlines() if ' passed' in line]
     return (f'green ({" · ".join(counts)})' if counts else 'green'), declared[0], log
+
+
+def permissions(root: Path) -> str:
+    """Re-render the harness permission configs from the profile. Silent unless it acted.
+
+    A session that approves a new command leaves an extra allow-entry in the gitignored
+    `.claude/settings.local.json`, so the rendered file drifts from core/profile.txt — and the
+    SessionStart heal then warns about it in every later session, which reddened a mirror test on
+    output that was entirely correct. Per-session accretion into a rendered file wants a
+    re-render, and the close is when the session's approvals are finally all in.
+
+    Not the same as applying a level that ARRIVED — core/profile.txt is this clone's own answer,
+    tracked, and the level is read from it rather than chosen here (ruled 2026-09-11, Lucas).
+    """
+    if spawn(root, interpreter(), str(SCRIPT_DIR / 'permissions'), '--check').returncode == 0:
+        return ''
+    try:   # imported late: the close is copied into throwaway repos that carry no core/hooks
+        import feature_law  # noqa: PLC0415
+        level = feature_law.setting('permissions')
+    except ImportError:
+        return ''
+    if not level:
+        return 'declared level missing from core/profile.txt'
+    done = spawn(root, interpreter(), str(SCRIPT_DIR / 'permissions'), '--set', level)
+    return f'{level} re-rendered' if done.returncode == 0 else f'{level} re-render failed'
 
 
 def session_id(root: Path) -> str:
@@ -119,6 +145,10 @@ def main(argv: list) -> int:
         print("Yours: commit, then rerun.\nAnother session's: rerun with --leave-dirty.")
         return 2
 
+    # BEFORE the suite runs, so it reads a cured tree: two cases assert what the SessionStart heal
+    # says, and a drifted permission config makes both of them red over nothing.
+    perms = permissions(root) if root == WORKSPACE else ''
+
     # Measured BEFORE the verify block is written — artifacts.regenerate says why.
     clean = git(root, 'diff', '--quiet', 'ISSUES.md').returncode == 0
     verdict, label, log = verify(root)
@@ -148,7 +178,8 @@ def main(argv: list) -> int:
     cost, size = report(root, sid)
     said = {'cost': cost, 'size': size, 'verify': verdict, 'sync': sync, 'entropy': entropy,
             'projects': sweep(root) if root == WORKSPACE else '', 'map': drawn,
-            'diagram': diagram, 'compaction': compaction(sid) if sid else ''}
+            'diagram': diagram, 'compaction': compaction(sid) if sid else '',
+            'permissions': perms}
     for label in STATE:
         value = said[label]
         if value:

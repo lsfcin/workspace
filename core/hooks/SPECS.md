@@ -134,7 +134,7 @@ captured at session start. Both verified by running it (Claude Code 2.1.218, nei
 
 What each generator writes is specified beside it: [`stubgen/SPECS.md`](stubgen/SPECS.md) for
 interfaces and the size-cap bypass, [`routing/SPECS.md`](routing/SPECS.md) for the routing block and
-first-line descriptions. Two rules stay here, because the root's law owns them.
+first-line descriptions. Three rules stay here, because the root's law owns them.
 
 **A file a tool writes is not a file anyone authored.** A file is **authored** — every size, shape
 and first-line rule applies — or **vendored** and exempt because upstream chose its layout, or
@@ -143,6 +143,14 @@ what our tools write, a **named, reviewed glob list, never a heuristic**, each e
 generator, and `file_law.is_authored()` is the one question every size and shape gate asks. **Why
 the exemption is safe here and not in general:** the artifact has a test that its generator
 reproduces it byte for byte (`--check`). An entry without that is a hand-edited file in a costume.
+
+**A generated BLOCK inside an authored file is exempt the same way, and only inside its markers.**
+`generated.txt` answers for whole files; `file_law.generated_spans()` answers for the `:start`/`:end`
+span, and every reader asks it rather than spelling the markers. A finding there has no legal fix —
+hand-editing one is forbidden outright — so reporting it is reporting what nobody can act on. Three
+checks learned this separately on 2026-09-11, all on `ISSUES.md`'s verify block, which **quotes the
+last red suite log**: a traceback in it named a venv path, a machine root and a since-renamed
+section, and made four ratchets and the citation gate red over a record of what *was* true.
 
 **Finished-work prose is blocked on what a commit adds.** `entropy/entropy_ledger.py` carries the
 detector — strikethrough, a dated completion report, a settled-marker, a ticked item in a ledger —
