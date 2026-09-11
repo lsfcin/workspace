@@ -1,14 +1,13 @@
-# core/run runs what it says it runs — B12, then b20260902-core-run-reads-any-two-letters-sh-as-
-# a-shebang, which is the same launcher failing from the other side.
-# B12: it exec'd every target with the venv interpreter, so the two bash tools died with
-# `SyntaxError: unmatched ')'`. It gained shebang dispatch (ruled 2026-08-31, Lucas: add
-# capabilities, never exceptions). b20260902: that dispatch matched `*bash*` and `*sh*` as a
-# SUBSTRING OF THE WHOLE FIRST LINE, so a tool whose opening comment merely contained those two
-# letters inside a word went to `sh` instead. `gdrive` and `gdocs` both list `share` among their
-# subcommands, and every call to either died with `import: not found` — the shell blaming Python
-# for a choice core/run made, with nothing in the message naming the launcher. Three arms now:
-# a bash target runs as bash, a python target reaches the interpreter, and a python target whose
-# comment says `share` is still a python target.
+# core/run runs what it says it runs: a bash target runs as bash, a python target reaches the
+# interpreter, and a python target whose comment merely contains those two letters is still python.
+#
+# Two bugs, the same launcher failing from either side. B12: it exec'd every target with the venv
+# interpreter, so the two bash tools died with `SyntaxError: unmatched ')'`. It gained shebang
+# dispatch (ruled 2026-08-31, Lucas: add capabilities, never exceptions). b20260902: that dispatch
+# matched `*bash*` and `*sh*` as a SUBSTRING OF THE WHOLE FIRST LINE, so a tool whose opening
+# comment contained them inside a word went to `sh`. `gdrive` and `gdocs` both list `share` among
+# their subcommands, and every call to either died with `import: not found` — the shell blaming
+# Python for a choice core/run made, with nothing in the message naming the launcher.
 #
 # THE BASH ARM HAS CHANGED SUBJECT TWICE, and the reason is worth keeping: it ran
 # `tools/wos/sync-skills --check` until the port took that tool (2026-09-01, and it was 21 s of this
