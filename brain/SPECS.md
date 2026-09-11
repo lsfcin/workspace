@@ -32,10 +32,10 @@ the periods in `core/hooks/brain/brain_common.py`. Named here once rather than o
 it was a six-row table in each of them until 2026-08-31, ~320 lines of the corpus that nothing read,
 while `GOALS.md` built its dashboard from git directly.
 
-**A goal file is written in whatever language Lucas thinks in.** The English rule for the durable
-`.md` corpus (`ROADMAP.md` § Shape) serves documents an agent re-reads every session; a goal file's
-reader is Lucas, and translating his own motivation into a second language costs him the thing that
-makes it work. Exempt, ruled 2026-08-31. `brain/goals/CONTEXT.md`'s routing table inherits the
+**A goal file is written in whatever language Lucas thinks in.** The rest of the durable `.md`
+corpus is English because an agent re-reads it every session; a goal file's reader is Lucas, and
+translating his own motivation into a second language costs him the thing that makes it work.
+Exempt, ruled 2026-08-31, and out of the scaffold scope entirely since 2026-09-11. `brain/goals/CONTEXT.md`'s routing table inherits the
 exemption — it is generated from these files' first lines.
 
 ## Signals
