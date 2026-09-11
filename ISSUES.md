@@ -101,7 +101,7 @@ written and green-by-skip; nothing has yet confirmed the id resolves.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/repo-map-and-promotion is 1 ahead of main
+- . — feature/repo-map-and-promotion is 2 ahead of main
 
 ### Remote branches already merged into their base
 
@@ -119,11 +119,6 @@ written and green-by-skip; nothing has yet confirmed the id resolves.
 2026-09-10 · `verify.py full` · **red**
 
 ```
-........................................................................ [ 94%]
-.....F..........................................                         [100%]
-=================================== FAILURES ===================================
-_________ test_routing_tables_pointing_at_untracked_files_do_not_grow __________
-[gw8] linux -- Python 3.14.4 /mnt/workspace/.venv/bin/python3
 
     def test_routing_tables_pointing_at_untracked_files_do_not_grow():
         live = _routing()
@@ -137,7 +132,12 @@ E       assert 1 <= 0
 
 core/tools/test/workspace/ratchets/test_corpus_ratchet.py:97: AssertionError
 =========================== short test summary info ============================
+FAILED core/tools/test/workspace/ratchets/test_port_ratchet.py::test_a_posix_only_venv_path_does_not_spread
+FAILED core/tools/test/workspace/ratchets/test_port_ratchet.py::test_the_launcher_is_the_only_thing_that_cannot_ask
+FAILED core/tools/test/workspace/ratchets/test_port_ratchet.py::test_a_machine_path_does_not_spread
+FAILED core/tools/test/workspace/test_projects_declaration.py::test_every_declared_project_has_a_row
+FAILED core/tools/test/workspace/test_projects_declaration.py::test_the_table_reads_the_same_on_every_clone
 FAILED core/tools/test/workspace/ratchets/test_corpus_ratchet.py::test_routing_tables_pointing_at_untracked_files_do_not_grow
-1 failed, 838 passed, 1 skipped in 36.94s
+6 failed, 833 passed, 1 skipped in 35.33s
 ```
 <!-- verify:end -->
