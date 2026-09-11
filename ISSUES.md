@@ -59,13 +59,13 @@ the FIXED gate's terms, and why `git log` is the only place they still exist.
 
 *a signal for review, never a cap — do not summarize to fit*
 
-- brain/SPECS.md — 1 line(s) over the 120-column cap (first at line 38)
+- brain/SPECS.md — 1 line(s) over the 120-column cap (first at line 40)
 
 ### Local branches holding unpromoted work
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/repo-map-and-promotion is 1 ahead of main
+- . — feature/repo-map-and-promotion is 2 ahead of main
 
 <!-- entropy:end -->
 

@@ -3,7 +3,6 @@ name: craft
 description: >
   Run the craft flow: develop a feature in file-relayed loops with model autorouting
   (clarify → plan → ground → architecture → TDD → code → user test → ship).
-  Invoke with /craft [task or feature request].
 ---
 
 # /craft

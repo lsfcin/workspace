@@ -2,7 +2,7 @@
 name: gslides
 description: >
   Read and edit Google Slides decks in place across all configured accounts — deck as navigable
-  text, edits through batchUpdate. Invoke with /gslides [intent].
+  text, edits through batchUpdate.
 ---
 
 Read and edit Google Slides decks in place across all configured accounts (personal, cin, ufrpe).

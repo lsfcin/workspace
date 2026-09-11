@@ -2,7 +2,6 @@
 name: skill-name
 description: >
   One-line summary of what this skill does and when to invoke it.
-  Invoke with /skill-name [optional args].
 ---
 
 # Skill name

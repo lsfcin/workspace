@@ -11,7 +11,9 @@ Goal files grow from seed to full. No section required at creation.
 - [ ] [short-id] first backlog item
 ```
 
-Area: `health` / `career` / `finances` / `fun` / `spiritual`
+Area — `health` body, sleep, exercise, checkups · `career` research, papers, teaching, academic
+positioning, grants · `finances` money, taxes, admin, investments · `fun` hobbies, play,
+exploration, anything done for its own sake · `spiritual` reflection, meaning, inner life, values.
 Horizon: `now` / `near` / `year` / `dream`
 
 **Growth triggers** — add section when useful, not before:
