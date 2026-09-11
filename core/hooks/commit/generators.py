@@ -101,6 +101,27 @@ def _typescript(commit, staged):
         print(f'✓ .d.ts generated: {project}')
 
 
+def _keeps_a_ledger(commit) -> bool:
+    """A PROJECT keeps its own findings; a TARGET keeps none.
+
+    The workspace publishes into repos it does not develop in — `outputs/links` is the redirect
+    clone, and core/tools/links/SPECS.md gives that as the reason it is a target: *"no ISSUES.md,
+    no pre-commit, and `build` rebuilds it whole from links.txt"*. This hook is global, so it fired
+    there anyway and shipped a ledger into a public repo on every `cfpages build --push`.
+
+    The question is asked of the same .gitignore the project map reads, so a repo becomes a project
+    exactly when it is declared one, and nothing here holds a second list of names.
+    """
+    if commit.is_workspace:
+        return True
+    here = rel(commit.toplevel, commit.root)
+    if Path(here).is_absolute():   # outside the workspace: it borrows the hook and owns its ledger
+        return True
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'entropy'))
+    from entropy_corpus import declared_projects  # noqa: PLC0415
+    return here in declared_projects(commit.root)
+
+
 def ledger(commit):
     """This repo's own entropy findings, written into its own ISSUES.md and staged.
 
@@ -112,6 +133,8 @@ def ledger(commit):
     a signal to act on, and a gate here would refuse commits over a debt the commit did not create.
     """
     if not feature_law.is_enabled('entropy-dashboard'):
+        return
+    if not _keeps_a_ledger(commit):
         return
     if spawn(commit, 'core/hooks/entropy/dashboard/entropy-dashboard.py',
              '--repo', str(commit.toplevel)).returncode == 0:

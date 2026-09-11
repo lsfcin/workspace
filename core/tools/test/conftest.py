@@ -59,7 +59,46 @@ def git_lines(*args) -> list:
     """
     import subprocess
     done = subprocess.run(['git', *args], cwd=WORKSPACE_ROOT, capture_output=True, text=True, encoding='utf-8')
-    return [line for line in done.stdout.splitlines() if line and '_ratchet' not in line]
+    hits = [line for line in done.stdout.splitlines() if line and '_ratchet' not in line]
+    return [line for line in hits if not _inside_generated_block(line)]
+
+
+def _generated_spans(path: str) -> list:
+    """Line ranges a generator owns in one authored file, as `<!-- name:start -->` to `:end`."""
+    import re
+    target = WORKSPACE_ROOT / path
+    if not target.is_file():
+        return []
+    spans, opened = [], None
+    for number, line in enumerate(target.read_text(encoding='utf-8', errors='replace').splitlines(), 1):
+        if re.match(r'^\s*<!--\s*[\w-]+:start\s*-->', line):
+            opened = number
+        elif re.match(r'^\s*<!--\s*[\w-]+:end\s*-->', line) and opened:
+            spans.append((opened, number))
+            opened = None
+    return spans
+
+
+def _inside_generated_block(hit: str) -> bool:
+    """Whether a `path:line:text` hit lands in a block no author wrote.
+
+    The same exemption `_ratchet` gets, for the same reason: the file necessarily carries what the
+    ratchet forbids, and rewriting it would falsify rather than fix. ISSUES.md's `verify:` block
+    QUOTES the last red suite log — its own head says "this is its last result, never a claim that
+    it is still true" — so a traceback naming the venv path made four ratchets red over a record,
+    and the only way to clear them would have been to edit a generated block by hand, which
+    core/SCHEMA.md forbids outright. `core/tools/wos/wrap` already skips these spans; a ratchet that
+    did not is the same asymmetry, read from the other side (2026-09-11).
+
+    Scoped to the block, never the file: ISSUES.md's hand-written half is still held to every rule.
+    A hit with no line number cannot be placed and is kept, which keeps the tolerant direction the
+    one that reports rather than the one that hides.
+    """
+    path, _, rest = hit.partition(':')
+    number, _, _ = rest.partition(':')
+    if not number.isdigit() or not path.endswith('.md'):
+        return False
+    return any(start <= int(number) <= end for start, end in _generated_spans(path))
 
 
 import pytest  # noqa: E402 — after the env scrub above, which must run before anything imports git

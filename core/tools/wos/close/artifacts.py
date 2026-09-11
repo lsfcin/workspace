@@ -61,11 +61,19 @@ def settle(repo, name: str, was_clean: bool, message: str, leave_dirty: bool) ->
     deterministic output means a file changes when the WORKSPACE changed, never merely because a
     generator ran.
     """
-    if git(repo, 'diff', '--quiet', name).returncode == 0:
+    tracked = git(repo, 'ls-files', '--error-unmatch', name).returncode == 0
+    if tracked and git(repo, 'diff', '--quiet', name).returncode == 0:
         return ''
     if leave_dirty:
         if was_clean:
-            git(repo, 'checkout', '-q', '--', name)
+            # An untracked file has no committed version to restore, so `git checkout -- <name>`
+            # fails and the artifact stays in the other session's tree — the one outcome this
+            # function exists to make impossible. The first generated artifact to land in a repo
+            # that lacks it reaches this: undoing a create is a delete.
+            if tracked:
+                git(repo, 'checkout', '-q', '--', name)
+            else:
+                (Path(repo) / name).unlink(missing_ok=True)
         return " · reported only, not committed (tree holds another session's work)"
     if git(repo, 'add', name).returncode or git(repo, 'commit', '-q', '-m', message).returncode:
         return f' · commit failed, {name} left dirty'
