@@ -48,6 +48,17 @@ modelos-base em Markdown (.md) estruturados por artefatos:
      explicando o porquê do mérito.
    - **Exemplo Negativo (Fraco / Superficial / Irreal):** Referência com erros típicos e armadilhas frequentes,
      acompanhada das anotações críticas explicando por que seria reprovado / $NA$.
+3. **Distribuição, Visualização Rica & Edição Online (Stack Leve):**
+   - **Fonte Canônica:** Arquivos `.md` mantidos em `academy/teaching/<disciplina>/` no workspace do professor.
+   - **Distribuição (Cloudflare Pages):** Espelhamento estático no repositório público `lsf-links` (`outputs/links/`).
+   - **Visualização Rica (Humano/Mobile):** `https://lucassf.pages.dev/<disciplina>/<slug>` renderizado pelo
+     visualizador nativo (`viewer.js` + `viewer.css` + `marked.min.js`), com suporte a alertas GitHub, tabelas
+     responsivas e tema dark/light, sem dependências de CDN externa.
+   - **Visualização Direta (IAs/Harnesses):** `https://lucassf.pages.dev/<disciplina>/<slug>.md` (ou botão "Copiar p/
+     Agente (RAW)" no topo da página), permitindo ingestão via `curl -s` ou cópia com 1 clique.
+   - **Edição Online (Zero Custo / Zero Limites):** Botão "Editar (github.dev)" na barra superior, abrindo o VS Code no
+     navegador diretamente no arquivo no GitHub. Commits vão direto para a branch `main` e o Cloudflare Pages
+     atualiza em segundos.
 
 ---
 
@@ -100,3 +111,5 @@ Ao auditar ou planejar a condução de uma disciplina, o agente deve validar:
 5. `[ ]` O acompanhamento de notas opera com visibilidade estritamente privada por aluno/equipe?
 6. `[ ]` A banca final possui folha estruturada com subitens explícitos vinculados a pesos objetivos?
 7. `[ ]` Há alinhamento do requisito "Um passo a mais" (declaração da alavanca e do óbvio abandonado)?
+8. `[ ]` Os artefatos estão publicados no Cloudflare Pages com páginas de visualização rica e endpoints RAW para
+   harnesses de agentes?
