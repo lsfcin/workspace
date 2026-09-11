@@ -1,6 +1,5 @@
-# Files this workspace GENERATES. Excluded from the line cap, the fanout signal and the size
-# dashboard — an authoring rule aimed at a file nobody authored produces a finding nobody can act
-# on, and the only honest fix would be to make the generator write worse output.
+# Files this workspace GENERATES, each entry naming its generator. Exempt from every authoring
+# rule; what the exemption covers and why it is safe: core/hooks/SPECS.md § Generated artifacts.
 #
 # NOT vendored.txt, and the difference is the whole reason this file exists: that list means
 # "third party, not ours to split", this one means "ours, but written by a tool". Filing our own

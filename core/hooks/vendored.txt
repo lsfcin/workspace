@@ -1,6 +1,5 @@
-# Third-party files we did not author. Excluded from the line cap, the fanout signal and
-# the size dashboard — holding someone else's code to our authoring rules produces findings
-# nobody can act on.
+# Third-party files we did not author, exempt from every authoring rule for the reason
+# core/hooks/SPECS.md § Generated artifacts gives.
 #
 # Same contract as gitignore-exceptions.txt: a NAMED, reviewed list, never a heuristic.
 # Adding a line here is a claim that the file comes from upstream and is not ours to split.
