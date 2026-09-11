@@ -103,15 +103,25 @@ por turma.
 |------|----------|------------------|
 | [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | `1QyOkwdY9nNZPLLh179tSRyadgh6Cl-p9R1XM7qRTWkY` | `lucassf.pages.dev/techedu/setup` |
 
+## Entregas e Checkpoints
+
+As especificações de entrega não usam slides: residem como pares `.md` versionados e servidos via shortlink.
+
+| Checkpoint | Data | Metodologia (`.md`) | Materiais & Tríade (`.md`) |
+|---|---|---|---|
+| CP-01: Problem-Tech Fit | 16/09/2026 | [`cp01-metodologia.md`](cp01-metodologia.md) (`techedu/cp01`) | [`cp01-materiais.md`](cp01-materiais.md) (`techedu/cp01-materiais`) |
+
 <!-- routing:start -->
 ## Routing
 
 | File | Interface | API | Description |
-|------|-----------|-----|-------------|
-| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | — | — | O questionário de rotina e setup da turma 2026.2, escrito como spec e aplicado por gforms new. |
+|---|---|---|---|
+| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | — | — | O questionário de rotina e setup da turma 2026.2, aplicado por gforms new. |
 | [`add_aula02.py`](add_aula02.py) | [`add_aula02.pyi`](add_aula02.pyi) | `build` | Aula 02: intercala slides novos no deck existente e refina dois slides. |
 | [`aula02_conteudo.py`](aula02_conteudo.py) | [`aula02_conteudo.pyi`](aula02_conteudo.pyi) | — | Conteudo da aula 02 — o que entra no deck e onde. |
-| [`build_excalidraw.py`](build_excalidraw.py) | [`build_excalidraw.pyi`](build_excalidraw.pyi) | `frame`, `rect`, `ellipse`, `text`, `bloco` | Gera o quadro da aula 02: um frame por equipe + um frame de exemplo preenchido. |
-| [`build_tecnologias.py`](build_tecnologias.py) | [`build_tecnologias.pyi`](build_tecnologias.pyi) | `par`, `toggle`, `folha`, `blocos`, `ops` | Gera a seção Tecnologias Emergentes do Notion a partir de tecnologias.json: toggle por eixo, toggle por folha. |
-| [`tecnologias.json`](tecnologias.json) | — | — | A árvore de tecnologias da disciplina, lida por build_tecnologias.py — não é um formulário. |
+| [`build_excalidraw.py`](build_excalidraw.py) | [`build_excalidraw.pyi`](build_excalidraw.pyi) | `frame`, `rect`, `ellipse`, `text`, `bloco` | Gera o quadro da aula 02: um frame por equipe + frame de exemplo preenchido. |
+| [`build_tecnologias.py`](build_tecnologias.py) | [`build_tecnologias.pyi`](build_tecnologias.pyi) | `par`, `toggle`, `folha`, `blocos`, `ops` | Gera a seção Tecnologias Emergentes do Notion a partir de tecnologias.json. |
+| [`cp01-materiais.md`](cp01-materiais.md) | — | — | Tríade de materiais para a entrega CP-01 (Starter Kit, Exemplo Bom e Exemplo Ruim). |
+| [`cp01-metodologia.md`](cp01-metodologia.md) | — | — | Metodologia da entrega CP-01: grafo de artefatos, pipeline e matriz A/AP/NA. |
+| [`tecnologias.json`](tecnologias.json) | — | — | A árvore de tecnologias da disciplina, lida por build_tecnologias.py. |
 <!-- routing:end -->
