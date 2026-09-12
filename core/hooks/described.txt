@@ -21,3 +21,4 @@ academy/teaching/ai4good/2026-2-rotina-e-setup.json	O questionário de rotina e 
 academy/teaching/ai4good/drive_sync.json	Estado do sync desta pasta com o Drive, escrito por core/tools/files/drive_sync.py — não é um formulário.
 academy/teaching/tecnologias-na-educacao/2026-2-rotina-e-setup.json	O questionário de rotina e setup da turma 2026.2, escrito como spec e aplicado por gforms new.
 academy/teaching/tecnologias-na-educacao/tecnologias.json	A árvore de tecnologias da disciplina, lida por build_tecnologias.py — não é um formulário.
+code/aiwbot/tests/fixtures/claude_pong.json	One recorded `claude -p --output-format json` answer — the fixture the seam's parser tests read.

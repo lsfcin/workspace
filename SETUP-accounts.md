@@ -100,7 +100,12 @@ between a stranger and writes into `brain/INBOX.md`. Ask for the token; write
 
 **Precondition** `systemctl --user status aiwbot --no-pager | head -3`
 
-**Install** — the unit lives outside the repo, at `~/.config/systemd/user/aiwbot.service`:
+**Install** — the unit lives outside the repo, at `~/.config/systemd/user/aiwbot.service`. It must
+carry `Environment=PYTHONUNBUFFERED=1`: the journal is a pipe, so Python block-buffers stdout and
+every diagnostic sits in an 8 KB buffer until the process exits, which made the bot's logs invisible
+exactly while it was running (2026-07-27). `Restart=always` self-heals a crash, and the unit does
+not survive a reboot without a login session unless `loginctl enable-linger lucas` is set (sudo, not
+currently set). Switching branches or pulling takes effect only on restart.
 ```bash
 systemctl --user daemon-reload
 systemctl --user enable --now aiwbot
