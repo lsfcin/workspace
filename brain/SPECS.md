@@ -37,8 +37,9 @@ while `GOALS.md` built its dashboard from git directly.
 **A goal file is written in whatever language Lucas thinks in.** The rest of the durable `.md`
 corpus is English because an agent re-reads it every session; a goal file's reader is Lucas, and
 translating his own motivation into a second language costs him the thing that makes it work.
-Exempt, ruled 2026-08-31, and out of the scaffold scope entirely since 2026-09-11. `brain/goals/CONTEXT.md`'s routing table inherits the
-exemption — it is generated from these files' first lines.
+Exempt, ruled 2026-08-31, and out of the scaffold scope entirely since 2026-09-11.
+`brain/goals/CONTEXT.md`'s routing table inherits the exemption — it is generated from these
+files' first lines.
 
 ## Signals
 
