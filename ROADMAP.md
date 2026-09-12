@@ -122,12 +122,6 @@ scaffold`: the debt is the scaffold's, and absorbing a project's own prose neith
 *Why* — secret convention needs ACL equivalence; dep probes must verify function, not bare import.
 *Done when* — seam writes secrets tight on all systems and no probe falsely greens.
 
-**🟡 two features read `-` for a reason that is not the aiwbot's**
-*What* — a verdict for `github-auth` and `vpn-cin`, the other two rows `features --findings` counts.
-*Why* — they were folded into the aiwbot item and are a separate question: one has an observable
-here (`feature/*` auto-push), the other is machine state this workspace does not author.
-*Done when* — `core/run tools/wos/features --findings` reads zero.
-
 **🟡 the public scaffold repo his students clone**
 *What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
 *Why* — students asked for it; hard precondition for ablation study.
