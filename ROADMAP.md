@@ -24,6 +24,13 @@ subtree. Mass alone was the wrong instrument.
 *Done when* — the six files at the top of `reads` are each smaller and `verify-fast` is green.
 Check code parsers before cutting any `.md`.
 
+**🔴 nothing stops prose from restating a number `core/hooks/limits.env` owns**
+*What* — the invariant. Two `.md` sat five days stale on 150/200 after the law moved, and this file
+named files against the old warn for six days. `core/tools/test/law/test_citation_gate.py` already
+guards the sibling family, so it grows a case or a checker is born.
+*Why* — every other law here is parsed from one home; this one is copied by hand and rots silently.
+*Done when* — Lucas has ruled, because building it grows the workspace.
+
 ## Cost — what a session costs, and which of it is avoidable
 
 **🟢 cheaper models where the work is mechanical**
@@ -90,10 +97,16 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 
 ## Portability — would this work on a machine that is not Lucas's
 
-**🟡 ten tools are over the line-count warn threshold, newly visible**
-*What* — `gdocs` 183, `permissions` 170, `video_core.py` 169, `session/context` 169, `notion` 153.
-*Why* — they were invisible before shebang stripping. None exceeds the 200 cap; backlog, not block.
-*Done when* — warn list is empty or rows are deliberately exempted with reasons.
+**🟡 no authored file above the warn, in any folder and of any type**
+*What* — the warn list empty, or each surviving row exempted with its reason. Scope is universal
+(Lucas, 2026-09-12): every folder, every authored type, exceptions explicit. Ask the instrument —
+`core/run hooks/checks/line_counts.py` with no arguments audits every tracked file.
+*Why* — this item used to carry its own list of filenames and counts, measured against the 150 warn
+that became 200 on 2026-09-06, so it named files that had stopped being findings. A roadmap holding
+a measured number rots the day the law moves.
+*Done when* — the instrument prints no warn, and prose is inside its scope rather than beside it:
+today the warn exists for code only, and `.md` is held to the block alone, after the fact, by the
+entropy dashboard.
 
 **🟡 the port grew the workspace by 1,300 lines and the payment is still short**
 *What* — the cut that funds the port. Every named candidate has been tried: the law files gave up
@@ -101,7 +114,8 @@ their twice-told narration, `SETUP.md` sharded at +11 because it held ~50 lines 
 400, and the rest was paid by raising the cap, which moves the line and not the mass.
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every
 line; that is a reason to pay, not a reason not to.
-*Done when* — the net since 2026-09-01 is negative, measured by `core/run tools/wos/size`.
+*Done when* — the net since 2026-09-01 is negative, measured by `core/run tools/wos/size --scope
+scaffold`: the debt is the scaffold's, and absorbing a project's own prose neither creates nor pays it.
 
 **🔴 the platform seam owes three answers, and one of them is a secret**
 *What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.
@@ -109,9 +123,17 @@ line; that is a reason to pay, not a reason not to.
 *Done when* — seam writes secrets tight on all systems and no probe falsely greens.
 
 **🟢 absorb `code/aiwbot` into this repo**
-*What* — aiwbot versioned here, its standalone repo deleted, `telegram-capture` wired.
-*Why* — it is part of WOS and the last feature that cannot be switched off.
-*Done when* — `core/tools/wos/features --findings` reads zero.
+*What* — aiwbot versioned here, its standalone repo archived on GitHub (Lucas, 2026-09-12:
+archived, not deleted — reversible, and the history stays reachable), `telegram-capture` wired.
+*Why* — it is part of WOS and the last feature whose switch cannot even be written, because a
+`wired` path pointing into a repo this one does not version is a Tier 0 test asserting on a stranger.
+*Done when* — `telegram-capture` reads a wiring path and the honesty probe passes.
+
+**🟡 two features read `-` for a reason that is not the aiwbot's**
+*What* — a verdict for `github-auth` and `vpn-cin`, the other two rows `features --findings` counts.
+*Why* — they were folded into the aiwbot item and are a separate question: one has an observable
+here (`feature/*` auto-push), the other is machine state this workspace does not author.
+*Done when* — `core/run tools/wos/features --findings` reads zero.
 
 **🟡 the public scaffold repo his students clone**
 *What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
