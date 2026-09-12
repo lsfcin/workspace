@@ -19,7 +19,7 @@ mechanism control: arm G (same files, renamed `zz*`) costs +872 — so the name-
 
 ## Gates
 - `entropy_stores.experiment_hits` → clean (all four required sections present)
-- `check-line-counts.sh` → 141 lines, under the 150 warn / 200 block thresholds
+- `check-line-counts.sh` → under both thresholds `core/hooks/limits.env` declares
 - branch: NOT created. `feature/roundup-md-cap` reused; a checkout would collide with the session
   holding this worktree (craft.md § Field Practice, "two loops, one repo = worktree fight").
 - staging: explicit paths only. `extras: pre-existing-dirty` = ISSUES.md, core/hooks/entropy/**,

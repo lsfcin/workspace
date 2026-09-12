@@ -7,7 +7,7 @@
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`check-duplication.py`](check-duplication.py) | [`check-duplication.pyi`](check-duplication.pyi) | `main` | Pre-commit duplication gate — jscpd over the repo; blocks when a clone involves a staged file. No baseline: touching a file with a legacy clone means extracting it now (ROADMAP-verify.md W2). |
-| [`citation-gate.py`](citation-gate.py) | [`citation-gate.pyi`](citation-gate.pyi) | `citation_exempt_paths`, `staged_files`, `citation_hits`, `main` | Tier 0: a roadmap item number is not a citable identifier outside the roadmap family. |
+| [`citation-gate.py`](citation-gate.py) | [`citation-gate.pyi`](citation-gate.pyi) | `citation_exempt_paths`, `staged_files`, `citation_hits`, `limit_exempt_paths`, `limit_hits` | Tier 0: a roadmap item number is not a citable identifier outside the roadmap family. |
 | [`heredoc-gate.py`](heredoc-gate.py) | [`heredoc-gate.pyi`](heredoc-gate.pyi) | `targets`, `body_writes`, `in_workspace`, `written_paths`, `main` | PreToolUse: Bash — a shell heredoc that writes a workspace file meets none of the file gates. |
 | [`issues-gate.py`](issues-gate.py) | [`issues-gate.pyi`](issues-gate.pyi) | `bug_ids`, `fixed_ids`, `repo_root`, `has_spec`, `main` | PreToolUse: Edit|Write on ISSUES.md — the FIXED gate. A bug may not leave this file without executable proof: flipping one to FIXED, or deleting its section, requires a matching regression spec (a file named *b<N>[_-]* under a test/ directory of this repo). |
 | [`line_counts.py`](line_counts.py) | [`line_counts.pyi`](line_counts.pyi) | `report`, `main` | The line-count gate: warn and block on code lines, at the two numbers limits.env declares. |

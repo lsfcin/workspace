@@ -66,6 +66,13 @@ printf '%s\n' '<secret>' | core/tools/<family>/<tool> auth <alias>
    where missing, never half) — `gmail`, `gcalendar`, `gdrive`, `gslides`, `gforms`, `gdocs` set.
 8. Save — the routing block regenerates automatically.
 
+## The one capability with no CLI wrapper
+
+`subagent` is the single runtime-specific thing this tree offers, so it has no file here: one
+harness spawns a worker with its Agent tool, passing `core/agents/<name>.md` as the system prompt,
+while Feynman and Pi take a JSON task spec through their own `subagent` tool. Wrapping it would mean
+a tool that works on one machine's runtime and returns nothing on another's.
+
 ## Declared dependencies
 
 Every external thing the tool surface needs is one row in [`deps.txt`](deps.txt): what installs it,

@@ -79,7 +79,7 @@ the artifact; let Lucas move his own attention.
 
 **Every section earns its place or is omitted** — the same rule as the phases in
 [`roundup.md`](roundup.md). A section with nothing behind it is deleted, header and all; there is
-no "none.", no placeholder, no shape to fill. Last session's block ran 48 lines and 3 of its 5
+no "none.", no placeholder, no shape to fill. Last session's ran to 48 lines and 3 of its 5
 open threads were already written in `ROADMAP.md` — that is what these caps exist to stop.
 
 **Name what you decided alone.** git holds what changed and never the option that was rejected, so a

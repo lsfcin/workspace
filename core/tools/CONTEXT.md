@@ -4,17 +4,13 @@
 **A family directory is the feature; the tool inside it is the provider.** `mail/gmail`,
 `calendar/gcalendar`, `files/gdrive` — swapping a provider changes a leaf, never a family.
 
-Naming rules, the auth-failure protocol, and how to add a tool: [`SPECS.md`](SPECS.md).
+Naming rules, the auth-failure protocol, how to add a tool, and the one capability here with no CLI
+wrapper: [`SPECS.md`](SPECS.md).
 
 Call any tool via bash — `core/run tools/<family>/<provider> <args>`:
 ```
-core/run tools/mail/gmail sync --since 7
 core/run tools/files/gdrive search --account personal "aula"
 ```
-
-The `subagent` feature is the one runtime-specific capability here and has no CLI wrapper: Claude
-Code spawns a worker with the Agent tool, passing `core/agents/<name>.md` as the system prompt,
-while Feynman and Pi take a JSON task spec through their native `subagent` tool.
 
 <!-- routing:start -->
 ## Routing

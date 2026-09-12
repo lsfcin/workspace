@@ -61,17 +61,12 @@
 #                that cannot be switched off is entangled with the scaffold rather than sitting on
 #                it, and the target for that count is ZERO.
 #                `n/a` means NO IN-PROCESS SWITCH, never "exempt" — the feature is still ablatable,
-#                by building a clone variant without it (core/SPECS.md § AD-14). NO ROW USES `n/a`
-#                as of 2026-08-17. The four that carried it were third-party machine state this
-#                workspace does not author — the .venv, the absolute shebang, flutter — and left as
-#                a SETUP.md step plus a deps.txt line, which is the codeburn ruling applied
-#                unchanged. The fifth, google-auth, was misfiled: core/tools/auth/gauth.py is ours,
-#                so it is a tool with a moment of its own.
-#                THE TARGET OF ZERO IS NOT MET: `github-auth` and `vpn-cin` still read `-`, and
-#                the count is printed rather than explained away. An empty `n/a` column is not the
-#                same fact as the target being met, and conflating them made this registry the
-#                workspace describing itself wrongly for a day (2026-08-18).
-#                A row is n/a only because a switch CANNOT exist, never because wiring one is work.
+#                by building a clone variant without it (core/SPECS.md § AD-14). A row is n/a only
+#                because a switch CANNOT exist, never because wiring one is work: the two carrying
+#                it are a GitHub credential and a NetworkManager profile, machine state a SETUP.md
+#                step installs and no code here authors. Wiring one would mean claiming a switch
+#                that cannot revoke what it names. They keep their row because the SETUP join
+#                above requires one, so deleting the row would break the join, not pay the debt.
 #                Do not hide the count by claiming a row is wired when it is not. The honesty test
 #                in test_features.py is a BEHAVIOURAL PROBE: it runs the feature both ways and
 #                fails unless the observable changes. A grep for the slug would pass on a guard in
@@ -95,7 +90,7 @@ first-line-comment	hooks	on-demand	-	warns	general	core/hooks/entropy/entropy_co
 duplication-gate	hooks	automatic	declared-deps	blocks	general	core/hooks/checks/check-duplication.py	jscpd blocks a commit whose staged files clone existing logic; copy-paste is the failure mode agents are fastest at
 facade-discipline	hooks	automatic	-	blocks	general	core/hooks/facade/check-facade-imports.py	Cross-module imports that reach around index / __init__ are blocked, so module boundaries stay real and a rename does not become an archaeology project
 type-gate	hooks	automatic	-	blocks	general	core/hooks/checks/type-gate.py	UPPERCASE.md names are a closed allowlist, ratcheted on what a commit adds, so inventing a file type is a deliberate act instead of an accident
-citation-gate	hooks	automatic	-	blocks	general	core/hooks/checks/citation-gate.py	A roadmap item number is not a citable identifier outside the roadmap family, because a closed item is deleted and every citation of it becomes a dead pointer
+citation-gate	hooks	automatic	-	blocks	general	core/hooks/checks/citation-gate.py	A pointer that outlives what it names is refused at commit: a roadmap item number outside the roadmap family, because a closed item is deleted, and prose copying a number core/hooks/limits.env owns, because a copied law rots the day the law moves
 issues-gate	hooks	automatic	-	blocks	general	core/hooks/checks/issues-gate.py	An issue cannot be flipped to FIXED without a matching regression test, so "it works now" stops being a claim and becomes a file
 spec-read-gate	hooks	automatic	-	blocks	general	core/hooks/read/spec-read-gate.py	Editing a module with a locked contract requires having read that contract this session
 heredoc-gate	hooks	automatic	-	warns	general	core/hooks/checks/heredoc-gate.py	Warns when a file is written through a bash heredoc, which is the one path that bypasses every edit-time gate
@@ -121,12 +116,12 @@ entropy-dashboard	hooks	on-demand	-	none	general	core/hooks/entropy/dashboard/en
 diagram	tools	on-demand	-	generates	general	core/tools/wos/diagram/architecture	The workspace draws itself from its own declarations — one committed HTML picture of what enforces what, what routes where and how much of it there is, regenerated at every session close so the map cannot drift from the tree
 size	tools	on-demand	-	none	general	core/tools/wos/size	Every close says how many .md lines the session added and removed and in which directories, so "is the workspace getting more concise" is a number instead of a feeling
 permissions	tools	on-demand	permissions	generates	general	core/tools/wos/permissions	What an agent may do without asking is chosen once from three named levels and rendered into each harness config, so the policy is one reviewable file instead of an allowlist that grows one panic-click at a time and enforces nothing
-github-auth	tools	on-demand	github-auth	none	general	-	One authenticated GitHub account for the whole workspace: feature branches auto-push, /roundup can promote, and the agent reaches PRs and issues through gh instead of asking you to paste output from a browser
+github-auth	tools	on-demand	github-auth	none	general	n/a a GitHub credential on the machine; no code here can revoke it	One authenticated GitHub account for the whole workspace: feature branches auto-push, /roundup can promote, and the agent reaches PRs and issues through gh instead of asking you to paste output from a browser
 rtk-compaction	hooks	automatic	rtk-compaction	none	general	core/hooks/compact/bash-compact-rewrite.py	Compresses tool output before it reaches the context by 60-90%, transparently, with nothing to type
 web-search	tools	on-demand	web-search	none	general	core/tools/web/search	One entrypoint every agent calls for search, resolving its own backend, so picking a search CLI is a maintenance burden inside one script instead of in every agent's prompt
 google-auth	tools	on-demand	google-auth	none	lucas	core/tools/auth/gauth.py	Shared OAuth2 for every Google-backed tool: mail, calendar, files and slides
 forms	tools	on-demand	forms	none	lucas	core/tools/forms/gforms	A form is written as a versioned JSON spec and applied in one call, so the questions live in the workspace and its answers come back as text instead of a spreadsheet nobody reads
-vpn-cin	tools	on-demand	vpn-cin	none	lucas	-	The CIn internal network reachable from anywhere as one NetworkManager profile, so a machine rebuild replays a step instead of researching the helpdesk again
+vpn-cin	tools	on-demand	vpn-cin	none	lucas	n/a a NetworkManager profile on the machine; no code here can revoke it	The CIn internal network reachable from anywhere as one NetworkManager profile, so a machine rebuild replays a step instead of researching the helpdesk again
 mail-triage	tools	on-demand	-	none	lucas	core/tools/mail/gmail	Reads a mailbox and classifies it into workspace routes, so email arrives as INBOX entries rather than as a second queue
 notes-notion	tools	on-demand	-	none	lucas	core/tools/notes/notion	Pages and note databases read as navigable text
 link-shortener	tools	on-demand	-	none	lucas	core/tools/links/cfpages	A link gets a name a student can be told out loud and type from memory, so a deck or a form is handed to a room as one short sayable link instead of a Google URL nobody can transcribe

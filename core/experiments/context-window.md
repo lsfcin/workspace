@@ -131,7 +131,7 @@ exists. Only ~97 of that is names; the other ~745 is description prose — the s
   (arms C/D/G moved), so the listing is not a TUI-only feature — but nothing here proves the two
   modes compose the system prompt identically. The corroboration is indirect: arm A, a bare
   directory with no commands at all, already costs 23,353, while a real workspace session's entire
-  residual measured 21,419 — there is no room in that number for a 16,000-token block of bodies.
+  residual measured 21,419 — there is no room in that number for 16,000 tokens of bodies.
   Different CLI versions and five days apart, so it is a bound, not a proof.
 - **The arms are scratch directories, not this workspace.** They carry no `CLAUDE.md`, no CONTEXT
   chain, no MCP servers and no repo. That is what makes the deltas clean and it is also why the

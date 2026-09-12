@@ -117,6 +117,50 @@ def test_a_shard_of_an_exempt_document_inherits_the_exemption():
         assert shard.resolve() in exempt, shard
 
 
+def test_no_prose_restates_a_number_the_numeric_law_owns():
+    """The live assertion, green at all times. It was red when written: eight authored files still
+    named 150/200 six days after the law moved to 200/250, and one named the fanout law's previous
+    pair. Ruled by Lucas 2026-09-12, scope the law only — a measured number in prose is a separate
+    question with a separate owner."""
+    hits = entropy_citations.limit_hits(
+        entropy_corpus.tracked_files(WORKSPACE_ROOT),
+        entropy_citations.limit_exempt_paths(WORKSPACE_ROOT))
+    assert hits == [], '\n'.join(hits)
+
+
+def test_a_stale_copy_of_the_line_law_is_a_hit(tmp_path):
+    """The shape that actually rotted, in the two spellings the corpus used."""
+    for text in ('under the 150 warn / 200 block thresholds\n', '| 150 LOC | Warning at commit |\n'):
+        doc = tmp_path / 'notes.md'
+        doc.write_text(text, encoding='utf-8', newline='\n')
+        assert len(entropy_citations.limit_hits([doc], set())) == 1, text
+
+
+def test_naming_the_owner_instead_of_the_number_passes(tmp_path):
+    """The fix is a pointer, never a corrected copy: a copy rots again at the next ruling."""
+    doc = tmp_path / 'notes.md'
+    doc.write_text('Both numbers live in `core/hooks/limits.env`.\n', encoding='utf-8', newline='\n')
+    assert entropy_citations.limit_hits([doc], set()) == []
+
+
+def test_block_as_an_ordinary_word_beside_a_count_is_not_a_hit(tmp_path):
+    """`a 16,000-token block of bodies` is a sentence about reading. A whole-line conjunction
+    called it a limit, which is why the law word has to TOUCH the number it governs."""
+    doc = tmp_path / 'notes.md'
+    doc.write_text("no room for a block of 16,000 tokens, and last session's ran to 48 lines\n",
+                   encoding='utf-8', newline='\n')
+    assert entropy_citations.limit_hits([doc], set()) == []
+
+
+def test_a_generated_block_is_authored_by_nobody(tmp_path):
+    """A routing row is written from a first-line comment, so a finding inside one names a file
+    that cannot be edited to clear it — the gate would block that commit forever."""
+    doc = tmp_path / 'CONTEXT.md'
+    doc.write_text('<!-- routing:start -->\n| x | blocks a file at 250 lines |\n<!-- routing:end -->\n',
+                   encoding='utf-8', newline='\n')
+    assert entropy_citations.limit_hits([doc], set()) == []
+
+
 def test_the_checker_exempts_itself_and_its_tests():
     """Otherwise the check fails on the file that defines it — the corpse of a self-referring rule."""
     exempt = entropy_citations.citation_exempt_paths(WORKSPACE_ROOT)

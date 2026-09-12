@@ -125,6 +125,24 @@ def test_the_attribution_names_the_directory_that_moved_most(tmp_path):
     assert out.index('big') < out.index('small') if 'small' in out else True
 
 
+def test_the_delta_obeys_the_same_scope_the_corpus_does(tmp_path):
+    """b20260912 — `--scope scaffold` filtered the corpus and not the delta, so the scaffold's own
+    debt was reported with every line a content tree had moved folded into it. The roadmap item
+    that debt belongs to names this exact command as its observable, which made it unverifiable."""
+    ws = _repo(tmp_path)
+    (ws / 'core').mkdir(exist_ok=True)
+    (ws / 'core/doc.md').write_text('x\n', encoding='utf-8', newline='\n')
+    (ws / 'code/thing').mkdir(parents=True)
+    (ws / 'code/thing/doc.md').write_text('x\n', encoding='utf-8', newline='\n')
+    base = _commit(ws, 'seed')
+    (ws / 'code/thing/doc.md').write_text('x\n' * 40, encoding='utf-8', newline='\n')
+    _commit(ws, 'grow the content tree')
+
+    scoped = _run(ws, '--scope', 'scaffold', '--since', base).stdout
+    assert 'session +0/-0 = +0' in scoped, scoped
+    assert '+39/-0 = +39' in _run(ws, '--since', base).stdout
+
+
 def test_a_missing_transcript_is_not_a_failure(tmp_path):
     """--session for an id with no transcript: the corpus half still prints, exit 0."""
     ws = _repo(tmp_path)

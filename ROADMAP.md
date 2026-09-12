@@ -1,35 +1,23 @@
 # Workspace roadmap
 
-> Everything still open in the workspace scaffold, in one file. **Cap: 200 lines.** A finished item
-> is deleted — git is the history. A killed one gets a line under § Rejected so it cannot come back looking new.
+> Everything still open in the workspace scaffold, in one file. A finished item is deleted; a killed
+> one gets **one line** under § Rejected so it cannot come back looking new.
 >
 > **Three fields per item, no fourth.** *What* will exist · *Why* it is worth building · *Done when*,
 > the observable that ends it. **HOW is the job of the session that takes the item** — a roadmap
 > carrying its own implementation goes stale the day the code disagrees with it. Rules live in the
 > `SPECS.md` that owns them; numbers live in `core/experiments/` and `ISSUES.md`. Re-run an instrument.
 >
-> 🔴 Lucas decides · 🟡 an agent can rule alone · 🟢 mechanical. Items are named, never numbered: a
-> number points at nothing the day the item lands.
+> 🔴 Lucas decides · 🟡 an agent can rule alone · 🟢 mechanical. Items are named, never numbered.
 
 ## Shape — does the tree still look like what we say it does
 
-**🟢 the scaffold is cut where a line is read, not where it merely sits**
-*What* — `core/run tools/wos/session/reads` ranks what sessions are actually served; the top of that
-list is what gets cut. Today that is `ROADMAP.md` and the `CONTEXT.md` chain the context gate makes
-mandatory — 23% of every char served. A chain blurb is cut twice over, in its own file and in the
-parent routing row generated from it.
-*Why* — a line costs when it is read. A skill body is ~2 tokens at turn 1
-(`core/experiments/context-window.md`), while a chain file is served whole before any work in its
-subtree. Mass alone was the wrong instrument.
-*Done when* — the six files at the top of `reads` are each smaller and `verify-fast` is green.
-Check code parsers before cutting any `.md`.
-
-**🔴 nothing stops prose from restating a number `core/hooks/limits.env` owns**
-*What* — the invariant. Two `.md` sat five days stale on 150/200 after the law moved, and this file
-named files against the old warn for six days. `core/tools/test/law/test_citation_gate.py` already
-guards the sibling family, so it grows a case or a checker is born.
-*Why* — every other law here is parsed from one home; this one is copied by hand and rots silently.
-*Done when* — Lucas has ruled, because building it grows the workspace.
+**🟡 four numeric laws have no home, and `core/hooks/limits.env` is not theirs**
+*What* — one home per number, or a written reason why a local one is right. The citation gate
+covers the line/file/column law and deliberately stops there; the craft loop file's soft size, a
+research output's length and a commit subject's width are each declared in the prose that uses them.
+*Why* — the same copy-paste that made eight files name a stale warn, one layer out.
+*Done when* — each of the four is either parsed from one file or carries its reason where it sits.
 
 ## Cost — what a session costs, and which of it is avoidable
 
@@ -101,32 +89,23 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 *What* — the warn list empty, or each surviving row exempted with its reason. Scope is universal
 (Lucas, 2026-09-12): every folder, every authored type, exceptions explicit. Ask the instrument —
 `core/run hooks/checks/line_counts.py` with no arguments audits every tracked file.
-*Why* — this item used to carry its own list of filenames and counts, measured against the 150 warn
-that became 200 on 2026-09-06, so it named files that had stopped being findings. A roadmap holding
-a measured number rots the day the law moves.
+*Why* — a roadmap holding its own list of filenames and counts named files that had stopped being
+findings the day the law moved. Ask the instrument, never the ledger.
 *Done when* — the instrument prints no warn, and prose is inside its scope rather than beside it:
-today the warn exists for code only, and `.md` is held to the block alone, after the fact, by the
-entropy dashboard.
+today the warn exists for code only, and `.md` answers to the entropy dashboard after the fact.
 
-**🟡 the port grew the workspace by 1,300 lines and the payment is still short**
-*What* — the cut that funds the port. Every named candidate has been tried: the law files gave up
-their twice-told narration, `SETUP.md` sharded at +11 because it held ~50 lines of history and not
-400, and the rest was paid by raising the cap, which moves the line and not the mass.
+**🟡 the port grew the workspace and the payment is still short**
+*What* — the cut that funds the port. Every named candidate has been tried; the rest was paid by
+raising the cap, which moves the line and not the mass.
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every
 line; that is a reason to pay, not a reason not to.
-*Done when* — the net since 2026-09-01 is negative, measured by `core/run tools/wos/size --scope
-scaffold`: the debt is the scaffold's, and absorbing a project's own prose neither creates nor pays it.
+*Done when* — the net since 2026-09-01 is negative under `core/run tools/wos/size --scope scaffold`.
+The debt is the scaffold's: absorbing a project's own prose neither creates nor pays it.
 
 **🔴 the platform seam owes three answers, and one of them is a secret**
 *What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.
 *Why* — secret convention needs ACL equivalence; dep probes must verify function, not bare import.
 *Done when* — seam writes secrets tight on all systems and no probe falsely greens.
-
-**🟡 two features read `-` for a reason that is not the aiwbot's**
-*What* — a verdict for `github-auth` and `vpn-cin`, the other two rows `features --findings` counts.
-*Why* — they were folded into the aiwbot item and are a separate question: one has an observable
-here (`feature/*` auto-push), the other is machine state this workspace does not author.
-*Done when* — `core/run tools/wos/features --findings` reads zero.
 
 **🟡 the public scaffold repo his students clone**
 *What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
@@ -148,30 +127,27 @@ here (`feature/*` auto-push), the other is machine state this workspace does not
 
 ## Rejected
 
-- **Excluding `code/aiwbot` from the entropy scan once it was absorbed** — declined 2026-09-12: a
-  tree inside this repo that the repo's own checks skip is an asymmetry nobody can see. The whole
-  cost of letting it be scanned was four findings its own `ISSUES.md` already carried.
-- **A scaffold target of ≤170 `.md` files and ≤10,000 lines** — declined 2026-09-11 (Lucas): "não
-  tem base real." Set before anyone measured the tree, and the arithmetic never closed — `core/flows/`
-  and `core/agents/` were out of scope yet counted, so all the rest had to shed 45%. `core/norms/reduce.md`
-  already carries the governing half; the cutting half is read cost, above.
-- **Regenerating the entropy block on receipt, the `mirror-heal.py` route** — declined 2026-09-04: a
-  full tree scan before the first prompt, and a working tree already dirty when the session opens.
+- **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree this repo's own checks skip
+  is an asymmetry nobody can see, and it cost four findings aiwbot already carried.
+- **A scaffold target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Set before
+  anyone measured, and the arithmetic never closed. `core/norms/reduce.md` governs; read cost cuts.
+- **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first
+  prompt, and a tree already dirty when the session opens.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
 - **Curing confident wrongness with a prompt rule** — induced loses to enforced; corpus is evidence.
-- **A preliminary cut of features before the ablation** — declined 2026-08-21: cutting on hunches is a guess.
+- **A preliminary cut of features before the ablation** — 2026-08-21: cutting on hunches is a guess.
 - **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
 - **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
 - **A second compaction shim for copilot** — no copilot session has ever run here.
-- **Raising `BLOCK_LINES` to 300** — moves the queue; a file needing room needs a seam. **Partly
-  reversed 2026-09-06 (Lucas): 150/200 → 200/250**, because three over-cap files were law files
-  being asked to delete reasons nothing else recorded. Over the cap, a file is still CUT, not split.
+- **Raising the line block by half** — moves the queue; a file needing room needs a seam. **Partly
+  reversed 2026-09-06 (Lucas)**: three over-cap files were law files being asked to delete reasons
+  nothing else held. Over the cap a file is still CUT, not split.
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
-- **Narrowing the pre-commit to only the touched tests** — declined 2026-09-01: the only speed-up
-  that weakens the gate holding both clones, and parallelising took it 167 s → 42 s without it.
-- **A check that only asks whether a `TYPE-<slug>.md` is tracked** — dropped 2026-09-01: it finds
-  nothing; the real defect is any routing row naming a file git does not carry.
-- **Reaching the 200-line cap by deleting SETUP steps** — declined 2026-09-02: every step is a
-  feature a stranger's clone then cannot install, and strangers are who the file is for.
-- **Deleting a dated `*-backup-*.md` beside a tracked type as a corpse** — `academy/lab/CONTEXT.md`
-  declares those captured, not authored; the untracked *law* next to them was the real bug.
+- **Narrowing the pre-commit to the touched tests** — 2026-09-01: the only speed-up that weakens the
+  gate holding both clones, and parallelising paid four-fold without it.
+- **A check asking only whether a `TYPE-<slug>.md` is tracked** — 2026-09-01: the real defect is any
+  routing row naming a file git does not carry.
+- **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's
+  clone then cannot install, and strangers are who the file is for.
+- **Deleting a dated `*-backup-*.md` as a corpse** — `academy/lab/CONTEXT.md` declares those
+  captured, not authored; the untracked *law* beside them was the real bug.

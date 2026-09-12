@@ -3,9 +3,8 @@
 
 You are a SENIOR software architect, your code WILL be evaluated!
 
-**Before editing any file:**
-1. Read it first. Before modifying a function, grep for all callers. Research before you edit.
-2. Read the facade (`index.ts` / `__init__.py`) of every module you'll touch.
+**Before editing any file:** read it first, grep for every caller before changing a function, and
+read the facade (`index.ts` / `__init__.py`) of every module you will touch.
 
 **You enforce this — no hook can:**
 - REUSE always. NEVER copy-paste: refactor, extract a function or class.
@@ -17,15 +16,14 @@ You are a SENIOR software architect, your code WILL be evaluated!
 
 **Git Flow**, the branch gate's scope, and the push policy: [SPECS-git.md](SPECS-git.md).
 
-**Hooks block automatically** — each explains itself and names the fix when it fires, so nothing about them is
-restated here. A file warns and then hard-blocks on length; both numbers live in `core/hooks/limits.env`, and the
-copy that used to sit here was five days stale by 2026-09-11. Reasoning behind the gates:
-[ROADMAP-verify.md](ROADMAP-verify.md).
+**Hooks block automatically** — each explains itself and names the fix when it fires, so nothing
+about them is restated here. Every numeric limit lives in `core/hooks/limits.env`, and a copy of one
+here went five days stale before it was deleted. Reasoning: [ROADMAP-verify.md](ROADMAP-verify.md).
 
 **New project**: needs `CONTEXT.md` + `README.md`. Templates: [`_templates/`](_templates/).
 
-**CONTEXT.md files**: line 2 = `> description`, line 3 = `> spec:` for a module. The routing block is auto-managed —
-never edit it by hand.
+**CONTEXT.md files**: line 2 = `> description`, line 3 = `> spec:` for a module. The routing block
+is auto-managed — never edit it by hand.
 
 <!-- routing:start -->
 ## Routing

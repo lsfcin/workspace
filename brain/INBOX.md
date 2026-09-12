@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DdME5hsNRju/?utm_source=ig_web_copy_link
+colocar na minha aula
+— via aiwbot · 2026-09-12
+
 https://www.instagram.com/p/Dc-eScZjdmL/?utm_source=ig_web_copy_link
 quero escutar todos esses álbuns
 — via aiwbot · 2026-09-11
@@ -62,15 +66,6 @@ temos que testar isso
 https://www.instagram.com/p/Dc37X91M4QQ/?igsi=NTc4MTIwNjQ2YQ==
 será que consigo usar de alguma forma?
 (extração falhou 2026-09-05: post atrás de login, nem com cookies — retriage quando o conteúdo existir)
-
-task: today — VPN do CIn está de pé e funcionando (IPv4 sai por Net-ExtVPN-extIP.cin.ufpe.br), mas o dispatcher que
-bloqueia IPv6 durante a VPN NÃO foi instalado: falta um `sudo install` que eu não consegui rodar. Enquanto isso todo
-site com AAAA é acessado com o IP de casa, e periódico/editora não reconhece o acesso institucional —
-silenciosamente. Comando e script prontos em `SETUP-accounts.md` § VPN do CIn (bloco Install, heredoc do
-`90-vpn-cin-ipv6`); a Precondição/Verify da própria seção diz se já foi. Decidir também: `SETUP-accounts.md`
-foi de 113→163 linhas com essa seção e passou do aviso de 150 — ou corta ~13 linhas (candidato: a seção Exa
-API key, 15 linhas para uma feature opcional), ou o heredoc do dispatcher vira arquivo versionado (−14 aqui,
-+1 arquivo).
 
 task: backlog — `branches/casinhas` mantém a pasta espelho no Drive à mão, e já existe um motor declarativo
 pra isso: um `drive_sync.json` na raiz do projeto (como o de `academy/teaching/ai4good`) faria o

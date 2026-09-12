@@ -1,7 +1,8 @@
 # [Project Name] — Roadmap
 
 > Pending work only. A finished item is deleted -- git is the history. A killed idea gets one line
-> under `## Rejected` so it does not resurface looking new. Cap: 200 lines, siblings included.
+> under `## Rejected` so it does not resurface looking new. Held to `core/hooks/limits.env`,
+> siblings included.
 
 <!-- Three fields per item, and no fourth. HOW to build it is the job of the session that takes
      the item, not of this file: a roadmap that carries its own implementation goes stale the day
