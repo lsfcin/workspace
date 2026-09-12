@@ -79,10 +79,8 @@ def load_limits() -> dict:
 
 
 def _lines(path: Path) -> list:
-    if not path.exists():
-        return []
-    return [ln.strip() for ln in path.read_text(encoding='utf-8').splitlines()
-            if ln.strip() and not ln.startswith('#')]
+    text = path.read_text(encoding='utf-8') if path.exists() else ''
+    return [ln.strip() for ln in text.splitlines() if ln.strip() and not ln.startswith('#')]
 
 
 def allowed_extensionless() -> set:
