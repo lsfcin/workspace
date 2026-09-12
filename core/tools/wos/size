@@ -25,19 +25,22 @@ def git(root, *args):
     return r.stdout if r.returncode == 0 else ''
 
 
-# The scaffold: the workspace describing itself, which is what ROADMAP.md § Shape sets a target
-# for. Content trees (academy/, branches/, code/, models/) grow because Lucas is doing his work and
-# are not the thing being held to a number. Named here rather than in the roadmap because a scope
-# is a definition and a target is a decision — the number stays in ROADMAP.md, where a reader who
-# disagrees with it can argue with it.
+# The scaffold: the workspace describing itself. Content trees (academy/, branches/, code/,
+# models/) grow because Lucas is doing his work, and so do his own files inside brain/ — goals,
+# memories, drafts and saved attachments are what the scaffold serves rather than part of it
+# (Lucas, 2026-09-11, when the size target they inflated was rejected). What is left is the part a
+# stranger cloning this repo would get.
 SCOPES = {'scaffold': ('core/', 'brain/')}
+EXCLUDED = {'scaffold': ('brain/goals/', 'brain/memory/', 'brain/drafts/', 'brain/attachments/')}
 
 
 def in_scope(rel, scope):
-    """Root files plus the named prefixes. A root `.md` is scaffold by definition — there is
-    nothing else at the top of this tree."""
+    """Root files plus the named prefixes, less the content the scope excludes. A root `.md` is
+    scaffold by definition — there is nothing else at the top of this tree."""
     if not scope:
         return True
+    if rel.startswith(EXCLUDED[scope]):
+        return False
     return '/' not in rel or rel.startswith(SCOPES[scope])
 
 

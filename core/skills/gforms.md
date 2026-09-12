@@ -2,7 +2,7 @@
 name: gforms
 description: >
   Google Forms as versioned specs: create, edit and read answers across all configured accounts —
-  a form written as JSON, applied in one call. Invoke with /gforms [intent].
+  a form written as JSON, applied in one call.
 ---
 
 Google Forms across all configured accounts (personal, cin, ufrpe): a form written as a versioned

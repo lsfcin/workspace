@@ -1,33 +1,15 @@
 # Brain
 > Personal OS: goals, attention, ideas, life. Agent collaborates here.
 
-## What This Is
-
-Brain = Lucas's personal OS. Not productivity tool — thinking partner space.
-Agent is first-class collaborator, not just reader.
+Not a productivity tool — a thinking-partner space, where the agent is a first-class collaborator
+rather than a reader.
 
 **Capture is free, structure is earned.** A thought lands in `INBOX.md` with no taxonomy and no
-formatting, and `/inbox` is what routes it to a goal, a task, a reference — or deletes it. Nothing
-else here has to be tidy at write time. The routing table below says what each file is.
+formatting, and `/inbox` routes it to a goal, a task, a reference — or deletes it. Nothing else here
+has to be tidy at write time. The routing table below says what each file is.
 
-## Area Taxonomy
-
-| Area | Covers |
-|------|--------|
-| `health` | Body, sleep, exercise, medical checkups |
-| `career` | Research, papers, teaching, academic positioning, grants |
-| `finances` | Money management, taxes, admin, investments |
-| `fun` | Hobbies, play, exploration, anything done for its own sake |
-| `spiritual` | Reflection, meaning, inner life, values |
-
-## Skills
-
-- `/compass` — gentle strategic review: good wind, reorder by motivation, negotiate timing, ditch freely, close wins,
-  next easy start
-- `/inbox` — triage INBOX.md entries
-
-Goal file format, section specs, signals/dynamics/timing fields → [SPECS.md](SPECS.md).
-Design rationale → [SPECS.md](SPECS.md) § Rationale.
+Goal file format, the five areas, section specs, signals/dynamics/timing fields, and the design
+rationale: [SPECS.md](SPECS.md).
 
 <!-- routing:start -->
 ## Routing

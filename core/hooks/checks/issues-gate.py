@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # PreToolUse: Edit|Write on ISSUES.md — the FIXED gate. A bug may not leave this file without
-# executable proof: flipping one to FIXED, or deleting its section outright, requires a matching
-# regression spec (a file named *b<N>[_-]* under a test/ directory of this repo). Deleting an open
-# bug used to bypass the flip check — the gate reads the removal too. See ROADMAP-verify.md I2.
+# executable proof: flipping one to FIXED, or deleting its section, requires a matching regression
+# spec (a file named *b<N>[_-]* under a test/ directory of this repo).
+#
+# Deleting an open bug used to bypass the flip check, so the gate reads the removal too.
+# See ROADMAP-verify.md I2.
 import os
 import re
 import subprocess

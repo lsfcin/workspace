@@ -1,4 +1,5 @@
 # B6 regression — every Google-backed tool family has a skill wrapper.
+#
 # Half the families carried a core/skills/<name>.md and half did not, on no stated rule; the
 # question re-litigated itself every time a family landed. Ruled 2026-08-31 (Lucas): add where
 # missing, never half — the rule is a sentence in core/tools/SPECS.md § Adding a tool, and this

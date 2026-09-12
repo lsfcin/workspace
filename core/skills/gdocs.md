@@ -2,7 +2,7 @@
 name: gdocs
 description: >
   Read and edit Google Docs in place across all configured accounts — markdown round trip or
-  surgical batchUpdate, comments included. Invoke with /gdocs [intent].
+  surgical batchUpdate, comments included.
 ---
 
 Read and edit Google Docs in place across all configured accounts (personal, cin, ufrpe).

@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-# What is switched ON. The third law module: file_law.py says what a file IS, schema_law.py says
-# what a name MAY BE, this one says which features are live. Like schema_law.py it reads its
-# answer out of core/ rather than holding one — the registry is core/features.txt, the answers are
+# What is switched ON: which features are live. The registry is core/features.txt, the answers are
 # core/profile.txt, and neither is restated here.
 #
 # Why it exists (2026-08-16): the ablation bench ran once and produced no signal because no single

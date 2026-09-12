@@ -17,10 +17,9 @@ You are a SENIOR software architect, your code WILL be evaluated!
 
 **Git Flow**, the branch gate's scope, and the push policy: [SPECS-git.md](SPECS-git.md).
 
-**Hooks block automatically** — each explains itself and names the fix when it fires, so only the numbers you need
-*while writing* are here: files warn at **150 lines**, hard-block at **200**. The rest (facade boundaries, missing
-first-line comments, duplicated blocks, the CONTEXT.md chain, interface stubs, `verify:fast` green, an ISSUES FIXED flip
-needing a `test/**/b<N>-*` spec) surface at the moment they apply. Reasoning behind them:
+**Hooks block automatically** — each explains itself and names the fix when it fires, so nothing about them is
+restated here. A file warns and then hard-blocks on length; both numbers live in `core/hooks/limits.env`, and the
+copy that used to sit here was five days stale by 2026-09-11. Reasoning behind the gates:
 [ROADMAP-verify.md](ROADMAP-verify.md).
 
 **New project**: needs `CONTEXT.md` + `README.md`. Templates: [`_templates/`](_templates/).
