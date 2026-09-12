@@ -8,6 +8,10 @@ three times. **The dangerous shape never looks like drift: a tool that knows it 
 law has found a gap in the law, not a special case of its own.** The tell is a checker whose
 docstring explains why it disagrees with what it just asked.
 
+A module under `core/hooks/` reaches that law with
+`sys.path.insert(0, str(Path(__file__).resolve().parents[1]))`; the suite gets the same path once,
+from `core/tools/test/conftest.py`, and no test repeats it.
+
 ## Git pre-commit (`pre-commit`)
 
 Applied globally via `core.hooksPath`, so it fires on every `git commit` in **every** repo under this
