@@ -13,6 +13,7 @@
 # number for code and prose alike since 2026-08-18, but only the BLOCK half reached .md -- through
 # pre-edit.py at write time and the entropy dashboard after the fact -- so the WARN, the half that
 # asks for a look before a file is unreadable, existed for code alone.
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -29,7 +30,11 @@ for _stream in (sys.stdout, sys.stderr):
 # already uses. The BLOCK is never waivable: over that number a file is CUT, not excused. The reason
 # travels with the file rather than sitting in a list somewhere else, because the reader who needs it
 # is the one who just opened the file and found it long.
-WARN_EXEMPT = 'warn-exempt:'
+#
+# It must OPEN a comment line. Naming the marker in prose is not claiming it: the sentence
+# documenting this waiver, in core/hooks/SPECS.md, silently exempted that file the moment it was
+# written — a gate a document switches off by describing it.
+WARN_EXEMPT = re.compile(r'^\s*(?:#|//|%|<!--)\s*warn-exempt:', re.M)
 
 
 def report(paths, root=None) -> tuple:
@@ -61,7 +66,7 @@ def report(paths, root=None) -> tuple:
         if count >= block:
             lines.append(f'🚨 BLOCK: {path} ({count} lines)')
             blocked = True
-        elif count >= warn and WARN_EXEMPT not in text:
+        elif count >= warn and not WARN_EXEMPT.search(text):
             lines.append(f'⚠ WARN: {path} ({count} lines)')
             warned = True
     if blocked:

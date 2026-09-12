@@ -25,8 +25,7 @@ workspace. Stage order and the one place a commit is refused: [`commit/CONTEXT.m
 - Auto-syncs each staged directory's `CONTEXT.md` routing block, and generates `.pyi`, `.d.ts` and
   `.dart.api` — all staged with the commit.
 - `verify:fast` contract: a project declaring that script must be green, or the commit is blocked.
-- `checks/check-duplication.py`: jscpd over the committing repo, blocking clones that involve staged
-  files (75 tokens / 10 lines).
+- `checks/check-duplication.py`: jscpd over the repo, blocking clones that involve a staged file.
 - Spec-driven module gate: a new `CONTEXT.md` under `code/` must declare `> spec: <file>` or
   `> spec: none`. Ratchet — existing modules are grandfathered.
 - `checks/type-gate.py`: a staged `.md` must be a known type or a well-shaped instance, sitting where
