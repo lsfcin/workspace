@@ -58,7 +58,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/single-source-law is 2 ahead of main
+- . — feature/single-source-law is 3 ahead of main
 
 ### Remote branches already merged into their base
 
