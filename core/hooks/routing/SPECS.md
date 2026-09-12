@@ -22,10 +22,13 @@ directory exceeds `WARN_FILES` direct files. Those are two numbers because they 
 **Never edit inside the `<!-- routing:start/end -->` sentinels** — the next sync overwrites it.
 **Renames are not tracked**: the old entry disappears and the new file arrives with a placeholder.
 
-**Hoisted text is bounded and rebased; authored text is not.** A `.md` blurb and a subdirectory blurb
-were written to sit under their own heading, so [`hoist.py`](hoist.py) rebases their links and cuts
-them at `DESC_LIMIT`. A code file's first-line comment goes in untouched: it was authored as this
-table's one-liner.
+**Every description is bounded at `DESC_LIMIT`; only a `.md`'s is also rebased.** A `.md` blurb and a
+subdirectory blurb were written to sit under their own heading, so [`hoist.py`](hoist.py) rewrites
+their relative links for the parent directory. A code file's comment has nothing to rebase, and was
+exempt from the bound too until 2026-09-11 on the grounds that it is authored as this table's
+one-liner — but `comment_paragraph` reads the whole opening paragraph, so it is no more a line than
+the blurb is. Ten rows were over; the fix is a paragraph break in the source, never a cut in the
+table, which `entropy_context.check_truncation` asserts at zero.
 
 ## First-line descriptions
 
