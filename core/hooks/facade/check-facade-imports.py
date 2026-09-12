@@ -19,7 +19,12 @@ EXEMPT_RE = re.compile(
 # Matches: from '...', export ... from '...', require('...')  — relative paths only.
 TS_FROM_RE   = re.compile(r'''(?:from|require\s*\()\s*['"](\.[^'"]+)['"]''')
 # Matches: from ..pkg.submod import  — relative Python imports descending into a submodule.
-PY_REL_RE    = re.compile(r'^from\s+(\.+)(\S+)\s+import', re.MULTILINE)
+# The module part must START WITH A NAME. Without that bound `\S+` ate the second dot of
+# `from .. import x` — the form that goes THROUGH the parent facade — and every one of those
+# was reported as a violation, with a message naming no module (2026-09-12, 16 files in
+# code/aiwbot on the way in). A dotless `from . import x` was never matched at all, so the
+# bug only ever fired on the import the rule is meant to bless.
+PY_REL_RE    = re.compile(r'^from\s+(\.+)([A-Za-z_]\S*)\s+import', re.MULTILINE)
 # Matches: import '../folder/file.dart' or export '../folder/file.dart'
 DART_FROM_RE = re.compile(r'''(?:import|export)\s+['"](\.[^'"]+\.dart)['"]''')
 

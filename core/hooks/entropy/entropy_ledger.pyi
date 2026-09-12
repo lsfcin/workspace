@@ -9,6 +9,7 @@ def item_slugs(path: Path) -> set: ...
 def duplicate_slugs(namespaces: dict) -> dict: ...
 
 STRIKETHROUGH: Incomplete
+CODE_SPAN: Incomplete
 DATED_REPORT: Incomplete
 SETTLED: Incomplete
 TICKED_ITEM: Incomplete

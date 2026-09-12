@@ -78,28 +78,11 @@ pra isso: um `drive_sync.json` na raiz do projeto (como o de `academy/teaching/a
 de um link cru. Decidir: vale sincronizar de verdade, ou o espelho manual é intencional porque a pasta tem
 material que não deve subir?
 
-task: backlog — dois módulos do enforcement passaram do aviso de 200 linhas fechando as issues de
-2026-09-11: `core/hooks/commit/generators.py` (193→214) e `core/hooks/entropy/entropy_corpus.py`
-(199→214). Nenhum chega perto do teto de 250, e o segundo já estava a uma linha do aviso, então
-qualquer adição o derrubava. O ROADMAP tem um item para as ferramentas acima do limiar mas ele cobre
-`core/tools/`, não `core/hooks/`. Decidir: estender aquele item para o enforcement, ou cortar —
-`generators.py` tem cinco estágios que poderiam virar dois arquivos pela linha gera-artefato /
-gera-interface.
-
 task: backlog — o gate de tipo do pre-commit recusou um repositório de teste descartável durante a
 sessão porque `core.hooksPath` é global e alcança qualquer repo criado sob o workspace, inclusive um
 `tmp_path` do pytest. O teste contorna apontando `core.hooksPath` para um diretório vazio. Decidir: o
 pre-commit deveria se recusar a rodar num repo fora da árvore do workspace, em vez de cada teste ter
 de lembrar de desligá-lo?
-
-task: backlog — nada impede uma prosa `.md` de repetir um número que `core/hooks/limits.env` já
-define, e em 2026-09-11 duas cópias estavam paradas em 150/200 cinco dias depois da lei virar
-200/250: `code/CONTEXT.md`, lido 56 vezes, e `core/hooks/SPECS.md` quatro linhas abaixo da regra que
-proíbe exatamente essa repetição. Os dois foram corrigidos tirando o número. Falta o invariante:
-`core/tools/test/law/test_citation_gate.py` já guarda a família irmã (número de item citado fora do
-roadmap), então ou ele cresce um caso, ou nasce um checker que recusa qualquer `.md` que enuncie um
-limiar de `limits.env` diferente do vigente. Construir custa linhas, e crescer precisa do aval do
-Lucas — daí estar aqui e não feito.
 
 task: backlog — regerar toda tabela de roteamento do workspace de uma vez revelou duas derivas
 paradas em `academy/`, e as duas pioram o que está publicado. Um `.json` sem sintaxe de comentário

@@ -48,6 +48,15 @@ code/*
 # named alone, so the `.d.ts` beside it stayed ignored while every other interface stub in the
 # workspace is tracked — code/CONTEXT.md's Interface column linked a file a clone never got.
 !code/eslint.shared.*
+# aiwbot is versioned HERE (2026-09-12), alone among code/ projects, because it is WOS
+# infrastructure rather than one of Lucas's projects: `telegram-capture`'s switch could not be
+# written at all while its code sat in a repo this one does not carry, and a `wired` path into a
+# nested repo makes a Tier 0 test of THIS repo assert on a stranger. Its whole tree is tracked, so
+# the blanket `ROADMAP.md` rule above — aimed at nested project repos — is undone for it too. Its
+# caches are not re-listed here: `code/aiwbot/.gitignore` still holds them, and git reads a deeper
+# file last, so naming them twice would be the same law in two places.
+!code/aiwbot/
+!code/aiwbot/**
 !code/_templates/
 code/_templates/*
 !code/_templates/*.md
@@ -188,7 +197,6 @@ academy/papers/spacemantics
 academy/papers/wos-ablation
 branches/casinhas
 branches/instituto
-code/aiwbot
 code/apptime
 code/corpora
 code/cria
