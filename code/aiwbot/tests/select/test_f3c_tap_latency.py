@@ -1,4 +1,5 @@
 # test_f3c_tap_latency.py — F3c: a panel tap costs ONE Telegram round trip, not two or three.
+#
 # The bot-side work was measured at under 1 ms on every warm path, so the felt latency is round
 # trips (222 ms median each from Lucas's machine). These assert the count, which is the only
 # part we control — a client renders an inline keyboard from server state, so one is the floor.

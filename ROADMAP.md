@@ -122,13 +122,6 @@ scaffold`: the debt is the scaffold's, and absorbing a project's own prose neith
 *Why* — secret convention needs ACL equivalence; dep probes must verify function, not bare import.
 *Done when* — seam writes secrets tight on all systems and no probe falsely greens.
 
-**🟢 absorb `code/aiwbot` into this repo**
-*What* — aiwbot versioned here, its standalone repo archived on GitHub (Lucas, 2026-09-12:
-archived, not deleted — reversible, and the history stays reachable), `telegram-capture` wired.
-*Why* — it is part of WOS and the last feature whose switch cannot even be written, because a
-`wired` path pointing into a repo this one does not version is a Tier 0 test asserting on a stranger.
-*Done when* — `telegram-capture` reads a wiring path and the honesty probe passes.
-
 **🟡 two features read `-` for a reason that is not the aiwbot's**
 *What* — a verdict for `github-auth` and `vpn-cin`, the other two rows `features --findings` counts.
 *Why* — they were folded into the aiwbot item and are a separate question: one has an observable

@@ -7,8 +7,8 @@
 
 | File | Interface | Description |
 |------|-----------|-------------|
-| [`__init__.py`](__init__.py) | — | **facade** — __init__.py — marks tests/text as a package. |
-| [`test_b1_table_bold.py`](test_b1_table_bold.py) | [`test_b1_table_bold.pyi`](test_b1_table_bold.pyi) | test_b1_table_bold.py — regression spec for [b1]: tables and bold not rendering in Telegram. Both halves of the report came from constructs found in REAL agent answers (BUGS asked for exactly that), not from hand-written shapes: a pipe-table with markdown in its cells, and the `**bold *italic***` run whose crossed tags made Telegram strip a whole message's… |
+| [`__init__.py`](__init__.py) | [`__init__.pyi`](__init__.pyi) | **facade** — __init__.py — marks tests/text as a package. |
+| [`test_b1_table_bold.py`](test_b1_table_bold.py) | [`test_b1_table_bold.pyi`](test_b1_table_bold.pyi) | test_b1_table_bold.py — regression spec for [b1]: tables and bold not rendering in Telegram. |
 | [`test_format.py`](test_format.py) | [`test_format.pyi`](test_format.pyi) | test_format.py — free unit test: markdown/table -> Telegram HTML conversion. |
 | [`test_htmlsplit.py`](test_htmlsplit.py) | [`test_htmlsplit.pyi`](test_htmlsplit.pyi) | test_htmlsplit.py — free unit test: chunking formatted HTML without breaking a tag. |
 | [`test_labels.py`](test_labels.py) | [`test_labels.pyi`](test_labels.pyi) | test_labels.py — free unit test: fitting a model id into a button label. |

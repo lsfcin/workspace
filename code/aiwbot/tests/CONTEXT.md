@@ -41,7 +41,7 @@ cross-directory import and they moved to `chatkit.py`, where they belonged.
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`__init__.py`](__init__.py) | — | — | **facade** — __init__.py — marks tests as a package. |
+| [`__init__.py`](__init__.py) | [`__init__.pyi`](__init__.pyi) | — | **facade** — __init__.py — marks tests as a package. |
 | [`chatkit.py`](chatkit.py) | [`chatkit.pyi`](chatkit.pyi) | `Bubble`, `Chat`, `FakeReplyAnchor`, `FakeMsg`, `Origin` | chatkit.py — shared Telegram fakes: a chat that records every write, its bubbles, and the origin message replies hang off. Extracted from the Stage 3 sealing tests when Stage 4 needed the same three objects — the ask bubbles are sent through exactly the same reply primitives. |
 | [`conftest.py`](conftest.py) | [`conftest.pyi`](conftest.pyi) | `store` | conftest.py — fixtures shared by the panel tests: an in-memory config and a fake backend. |
 | [`fixtures/claude_pong.json`](fixtures/claude_pong.json) | — | — | One recorded `claude -p --output-format json` answer — the fixture the seam's parser tests read. |

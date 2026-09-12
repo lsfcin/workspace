@@ -7,7 +7,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`__init__.py`](__init__.py) | — | — | **facade** — __init__.py — facade: the concrete backends. Registered in backend/__init__.py, not here. |
+| [`__init__.py`](__init__.py) | [`__init__.pyi`](__init__.pyi) | — | **facade** — __init__.py — facade: the concrete backends. Registered in backend/__init__.py, not here. |
 | [`catalog.py`](catalog.py) | [`catalog.pyi`](catalog.pyi) | `metadata`, `efforts`, `context_window`, `model_ids`, `groups` | catalog.py — opencode's model catalogue: configured ids + per-model effort/context metadata. |
 | [`claude.py`](claude.py) | [`claude.pyi`](claude.pyi) | `ClaudeBackend`, `build_args`, `capabilities`, `efforts`, `last_response` | claude.py — ClaudeBackend: normalizes `claude -p --output-format json` (single result object). |
 | [`claudeparse.py`](claudeparse.py) | [`claudeparse.pyi`](claudeparse.pyi) | `parse_events`, `StreamParser`, `feed`, `finish` | claudeparse.py — claude's output → AgentEvents, both shapes: one result object, and stream-json. Split out of claude.py for F4: that file was 194/200 and a stream parser does not fit under the gate. claude.py keeps the backend class and its store reads; parsing lives here. |

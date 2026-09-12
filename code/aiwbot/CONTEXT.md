@@ -37,7 +37,7 @@ feature's install already lives.
 | [`SPECS-streaming.md`](SPECS-streaming.md) | — | How an answer arrives bubble by bubble, what is sealed, and what spend means. |
 | [`SPECS-telegram.md`](SPECS-telegram.md) | — | Panels, buttons, tables and speech-to-text: what the chat client can render. |
 | [`SPECS.md`](SPECS.md) | — | aiwbot — Specs |
-| [`conftest.py`](conftest.py) | — | conftest.py — pytest anchor: puts the project root on sys.path so `backend` imports resolve. |
+| [`conftest.py`](conftest.py) | [`conftest.pyi`](conftest.pyi) | conftest.py — pytest anchor: puts the project root on sys.path so `backend` imports resolve. |
 | [`proto.py`](proto.py) | [`proto.pyi`](proto.pyi) | proto.py — live smoke: run one prompt through each backend + prove single-lineage resume. ~$0.10/run. |
 | [`requirements.txt`](requirements.txt) | — | requirements.txt — aiwbot's extra runtime deps, installed into the shared workspace venv. |
 <!-- routing:end -->

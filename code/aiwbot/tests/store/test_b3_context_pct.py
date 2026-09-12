@@ -1,4 +1,5 @@
 # test_b3_context_pct.py — regression spec for [b3]: context occupancy over 100% (even 200%).
+#
 # Root cause: the numerator was a SUM over every API request in the turn. A turn that used tools
 # re-read the whole context from cache on each request, so the sum measured spend, not how full
 # the window was. Measured over Lucas's real transcripts, those sums reach 6190% and 32533%.

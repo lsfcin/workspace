@@ -23,7 +23,7 @@ registry that maps a name to a class stays in this facade, so adding a provider 
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`__init__.py`](__init__.py) | — | `get_backend`, `backend_names` | **facade** — __init__.py — facade: seam types + backend registry. Import backends only through here. |
+| [`__init__.py`](__init__.py) | [`__init__.pyi`](__init__.pyi) | `get_backend`, `backend_names` | **facade** — __init__.py — facade: seam types + backend registry. Import backends only through here. |
 | [`base.py`](base.py) | [`base.pyi`](base.pyi) | `AgentEvent`, `TurnOptions`, `add_flag`, `AgentBackend`, `try_json` | base.py — the provider-agnostic seam: AgentEvent + AgentBackend contract + shared primitives. |
 | [`binaries.py`](binaries.py) | [`binaries.pyi`](binaries.pyi) | `resolve`, `find` | binaries.py — resolve a CLI's executable: PATH first, then the places its installer puts it. |
 | [`caps.py`](caps.py) | [`caps.pyi`](caps.pyi) | `Capabilities` | caps.py — capability declaration: what modes/models a backend may actually be offered. |

@@ -1,4 +1,5 @@
 # test_f4_ask_wiring.py — F4 Stage 4: the transport and the CLI wiring around the broker.
+#
 # Every constant asserted here was measured against the real binary on 2026-07-27 rather than
 # read off documentation: `claude -p` re-runs `initialize` several times per invocation, kills a
 # tool call at 60 s unless MCP_TOOL_TIMEOUT lifts it, and refuses MCP tools outright in plan mode.

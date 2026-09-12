@@ -1,4 +1,5 @@
 # test_f6_interview_shape.py — what the chat looks like when the agent interviews Lucas mid-turn
+#
 # (2026-07-29, from his first real interview). A question is its own message, so everything the
 # agent writes after it has to land BELOW it — the answer to a question must never appear above the
 # question — and the status line must not sit there claiming work that is blocked on him.

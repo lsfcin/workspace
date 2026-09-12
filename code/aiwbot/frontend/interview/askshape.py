@@ -1,4 +1,5 @@
 # askshape.py — what a question LOOKS like in the chat: its bubble, its keys, and how it closes.
+#
 # Split out of ask.py when registering the answer pushed that file past the size gate. The line the
 # cut follows is the one the gate exposed: ask.py is the broker (tokens, futures, who is waiting),
 # and this is the view (what Lucas reads and taps). Nothing here knows about a future.

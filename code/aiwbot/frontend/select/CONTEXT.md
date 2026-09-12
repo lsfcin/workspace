@@ -7,7 +7,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`__init__.py`](__init__.py) | — | — | **facade** — __init__.py — facade: the picker keyboards: what a scope may be offered, drawn as rows of buttons. |
+| [`__init__.py`](__init__.py) | [`__init__.pyi`](__init__.pyi) | — | **facade** — __init__.py — facade: the picker keyboards: what a scope may be offered, drawn as rows of buttons. |
 | [`choices.py`](choices.py) | [`choices.pyi`](choices.pyi) | `harness_values`, `model_values`, `groups`, `effort_values`, `preferred` | choices.py — what a scope may be offered: the backends' declarations, asked per dimension. |
 | [`keyboard.py`](keyboard.py) | [`keyboard.pyi`](keyboard.pyi) | `per_row`, `cell`, `segment`, `chunk`, `framed` | keyboard.py — inline-keyboard primitives: rows of at most four, framed by the panel's controls. |
 | [`labels.py`](labels.py) | [`labels.pyi`](labels.pyi) | `provider_short`, `model_label` | labels.py — fit a model id into a button: provider prefix, then compress only if it overflows. |

@@ -1,4 +1,5 @@
 # stt.py — aiwbot's binding of the shared STT: workspace vocabulary primed in (C1, C3, C4).
+#
 # The wrapper itself moved to core/tools/audio/stt.py — the bot is no longer the only thing here
 # that listens. What stays aiwbot's is `hotwords`: priming is domain data, not wrapper logic.
 # The public surface below is unchanged on purpose; SPECS.md is locked on `run(path, model)`.

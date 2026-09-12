@@ -1,4 +1,5 @@
 # anchor.py — map each answer bubble to its session, so any of them can be replied to (AD-23).
+#
 # Split out of painter.py (2026-07-29) when segments arrived and the file hit its size gate:
 # painting owns what a bubble SAYS, this owns what a reply to it MEANS. No I/O — the callback is
 # the caller's, and every rule here is about ordering, which is where this went wrong once before.

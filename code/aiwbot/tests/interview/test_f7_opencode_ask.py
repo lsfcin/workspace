@@ -1,4 +1,5 @@
 # test_f7_opencode_ask.py — opencode parity: the ask transport and the retry vocabulary.
+#
 # Every constant here was measured against opencode 1.18.7 on 2026-07-29 (SPECS AD-31), the way
 # AD-27 was measured for claude: `opencode run` has NO MCP flag, the config rides in
 # OPENCODE_CONFIG_CONTENT, and the tool call dies at ~60 s unless the per-server `timeout` lifts it.

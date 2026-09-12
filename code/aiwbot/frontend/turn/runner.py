@@ -1,4 +1,5 @@
 # runner.py — run one turn and put its answer on screen: dispatch, deliver, anchor, speak.
+#
 # The impure sibling of helpers.py: that module DECIDES (pure, no I/O), this one DOES (awaits
 # the backend and Telegram). Split out of bot.py for F4 — streaming changes "await the whole result,
 # then deliver" into "paint as it arrives, then seal", and everything that changes is in here, so

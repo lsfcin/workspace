@@ -1,4 +1,5 @@
 # askserver.py — the daemon's own MCP server: one HTTP endpoint per live turn, JSON-RPC by hand.
+#
 # linuz90's ask_user works because the SDK runs the agent IN-process; aiwbot drives a subprocess
 # CLI, so a stdio MCP server would be a child of that CLI and could never reach the bot's Telegram
 # state. Hosting the server here inverts it: the CLI is pointed at the daemon over loopback, and

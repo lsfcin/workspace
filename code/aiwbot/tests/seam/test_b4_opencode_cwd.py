@@ -1,4 +1,5 @@
 # test_b4_opencode_cwd.py — regression spec for [b4]: turns ran in the daemon's launch directory.
+#
 # Measured live 2026-07-29: `cwd=` on the subprocess is not enough, because opencode trusts `PWD`
 # over `getcwd()` — a daemon started from /home/lucas filed every Telegram opencode session there
 # and pointed its file/shell tools at it, while /resume listed the workspace root.

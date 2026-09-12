@@ -1,4 +1,5 @@
 # landing.py — turn the live bubbles into the finished answer: the footer, the keyboard, and the
+#
 # one pass that stamps every bubble with its exact position. Split out of painter.py (2026-07-29,
 # size gate): painting is what happens WHILE the answer arrives, landing is what happens once it
 # has. Both halves work on the same `Painter`, which is passed in rather than inherited from.

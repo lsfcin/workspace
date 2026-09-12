@@ -7,7 +7,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`__init__.py`](__init__.py) | — | — | **facade** — __init__.py — marks tests/stream as a package. |
+| [`__init__.py`](__init__.py) | [`__init__.pyi`](__init__.pyi) | — | **facade** — __init__.py — marks tests/stream as a package. |
 | [`test_f4_frames.py`](test_f4_frames.py) | [`test_f4_frames.pyi`](test_f4_frames.pyi) | — | test_f4_frames.py — F4 Stage 2: what may be RENDERED mid-stream, and the guarantee that a streamed turn still ends as byte-for-byte the answer today's code ships. |
 | [`test_f4_sealing.py`](test_f4_sealing.py) | [`test_f4_sealing.pyi`](test_f4_sealing.pyi) | — | test_f4_sealing.py — F4 Stage 3: bubbles sealed as they are born, and the property that makes that safe. If the first test here fails, Stage 3 is wrong and Stage 2 still ships. |
 | [`test_f4_streaming.py`](test_f4_streaming.py) | [`test_f4_streaming.pyi`](test_f4_streaming.pyi) | `send_action`, `edit_text` | test_f4_streaming.py — F4 Stage 2: the live bubble. Throttle mechanics, the pin, and the guarantee that a streamed turn still ends as byte-for-byte today's answer. |

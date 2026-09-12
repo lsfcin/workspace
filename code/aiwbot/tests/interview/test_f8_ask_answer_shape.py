@@ -1,6 +1,7 @@
-# test_f8_ask_answer_shape.py — what an interview looks like in the chat, from Lucas reading a real
-# one on his phone (2026-07-29): the option buttons were cut off ("Cada mensagem vira sessão nov…"),
-# and once he answered, nothing in the chat said what he had answered.
+# test_f8_ask_answer_shape.py — what an interview looks like in the chat, read on a phone.
+#
+# From Lucas reading a real one (2026-07-29): the option buttons were cut off ("Cada mensagem vira
+# sessão nov…"), and once he answered, nothing in the chat said what he had answered.
 import asyncio
 from frontend.interview import ask, askserver
 from frontend import phrases
