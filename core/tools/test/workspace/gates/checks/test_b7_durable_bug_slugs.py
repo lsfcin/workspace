@@ -1,4 +1,5 @@
 # B7 regression — a bug id is a durable slug, and never borrowed.
+#
 # Ids here used to be positional; completion deleted them and every close renumbered, so a
 # citation of "B6" resolved to a bug that no longer was the one meant (the ZCode trust gate
 # citation was the sighting). Since 2026-08-31 new ids are slugs, `b<YYYYMMDD>-<slug>`; a numeric

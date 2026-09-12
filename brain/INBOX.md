@@ -100,3 +100,12 @@ proíbe exatamente essa repetição. Os dois foram corrigidos tirando o número.
 roadmap), então ou ele cresce um caso, ou nasce um checker que recusa qualquer `.md` que enuncie um
 limiar de `limits.env` diferente do vigente. Construir custa linhas, e crescer precisa do aval do
 Lucas — daí estar aqui e não feito.
+
+task: backlog — regerar toda tabela de roteamento do workspace de uma vez revelou duas derivas
+paradas em `academy/`, e as duas pioram o que está publicado. Um `.json` sem sintaxe de comentário
+ganha linha com `← add first-line comment`, que é uma dívida que ninguém pode pagar naquele arquivo
+— `core/hooks/described.txt` existe exatamente para isso e o gerador não o consulta para esse caso.
+E em `academy/teaching/tecnologias-na-educacao/`, o blurb do próprio arquivo vence a descrição
+escrita à mão, então `cp01-materiais.md` passa a anunciar na tabela o id da Planilha Mestre em vez
+da frase que dizia o que o arquivo é. Revertido em 2026-09-11 sem commitar; volta na próxima vez que
+alguém salvar naqueles diretórios.

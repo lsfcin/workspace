@@ -1,4 +1,5 @@
 # Usage: core/tools/web/search <query> [--n N] [--type neural|keyword] [--since YYYY-MM-DD] [--domains d1,d2] [--content] [--backend auto|exa|ddgr] [--region REG] — unified web search; Exa (keyed) by default, ddgr (no-key) fallback; returns normalized JSON array [{title, url, abstract, score?}]
+#
 # Backend resolution (--backend auto, the default):
 #   1. Exa   — used when ~/.feynman/web-search.json contains an exaApiKey
 #   2. ddgr  — zero-key fallback; also used when Exa errors out (bad key, quota, network)

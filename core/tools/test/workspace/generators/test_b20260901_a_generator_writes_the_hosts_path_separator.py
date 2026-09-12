@@ -1,4 +1,5 @@
 # b20260901-a-generator-writes-the-hosts-path-separator regression — a markdown link target is
+#
 # spelled with `/` on every operating system, and a generator that formats a `Path` publishes the
 # host's answer instead. Two did. `workspace_meta.interface_for` wrote `](auth\gauth.pyi)` into a
 # TRACKED CONTEXT.md the moment any routing table was regenerated on Windows, and `render_command`

@@ -1,4 +1,5 @@
 # B9 regression — a verification run is not a write.
+#
 # test_features_wiring probes every registered hook, and one of them is the entropy dashboard,
 # which rewrote ISSUES.md (and every nested repo's local ledger) on each probe — measured 2026-08-30
 # blocking two merges in one session, because git refuses to start one over a dirty tracked file.

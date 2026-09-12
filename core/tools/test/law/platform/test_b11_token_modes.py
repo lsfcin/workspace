@@ -1,4 +1,5 @@
 # B11 regression — a credential file is written tight, by the writer, on every system.
+#
 # The Google token directories landed at 775 with 664 token files: any local account could read
 # a live refresh token, and nothing in the workspace set a mode when it wrote. platform_law owns
 # the seam (secure_dir / secure_file) and gauth applies it where it writes. Ruling 2026-08-31

@@ -171,13 +171,17 @@ def build_file_rows(files_with_rel: list, preserved: dict, ctx_dir: Path) -> str
         pre  = FACADE_PREFIX if f.name in FACADES else ''
         kept = _strip_facade(preserved.get(rel, preserved.get(f.name, PLACEHOLDER)))
         found = file_description(f)
-        # A `.md` description is its own file's blurb — written under its own H1, in its own
-        # directory. That makes it hoisted text, exactly like a subdirectory's, so it gets
-        # the same rebase and the same bound. Everything else here is a first-line comment,
-        # authored for this table, and is carried through untouched.
-        if found and f.suffix == '.md':
+        # Every description here is hoisted text and takes the same bound. A `.md`'s is its own
+        # file's blurb, written under its own H1 in its own directory, so it is rebased too. A
+        # code file's has nothing to rebase — but it is not the one-liner this used to assume:
+        # `comment_paragraph` reads a whole PARAGRAPH for every `#`-commented language, so an
+        # author explaining themselves at length published the explanation into a table one
+        # directory up. The row that taught this was 1,300 characters of two bugs' history
+        # (2026-09-11), in a CONTEXT.md the context gate makes mandatory.
+        if found:
             folded = Path(rel).parent
-            found = hoist(found, '' if str(folded) == '.' else f'{folded}/')
+            rebase = f.suffix == '.md' and str(folded) != '.'
+            found = hoist(found, f'{folded}/' if rebase else '')
         desc = pre + (found or kept)
         rows.append((f'[`{rel}`]({rel})', interface_for(f, ctx_dir), extract_api(f), desc))
     return render_table(HEADERS, rows, ALWAYS)
