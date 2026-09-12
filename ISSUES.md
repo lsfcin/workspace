@@ -47,8 +47,8 @@ matching regression spec exists and passes.
 | Header fields naming code that is not there | 0 |
 | Truncated routing descriptions | 0 |
 | Constraints trapped in a CONTEXT.md head | 0 |
-| Local branches holding unpromoted work | 2 |
-| Work that exists on this disk and nowhere else | 0 |
+| Local branches holding unpromoted work | 1 |
+| Work that exists on this disk and nowhere else | 1 |
 | Local branches already merged into their base | 0 |
 | Remote branches already merged into their base | 1 |
 
@@ -59,13 +59,18 @@ matching regression spec exists and passes.
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/single-source-law is 1 ahead of main
-- . — feature/warn-universal is 9 ahead of main
+
+### Work that exists on this disk and nowhere else
+
+*two machines share this workspace — push it, or give the repo a remote to push to: code/SPECS-git.md § Push policy*
+
+- . — feature/single-source-law was never pushed
 
 ### Remote branches already merged into their base
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 1 merged into main: git -C . push origin --delete feature/absorb-aiwbot
+- . — 1 merged into main: git -C . push origin --delete feature/warn-universal
 
 <!-- entropy:end -->
 

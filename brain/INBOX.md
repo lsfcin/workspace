@@ -8,6 +8,11 @@
 ---
 
 <!-- add entries below, newest first -->
+https://darioamodei.com/essay/machines-of-loving-grace
+falar disso nas minhas aulas
+
+https://www.instagram.com/reel/DdJ5rfDjEoH/?stkn=NTc4MTIwNjQ2YQ==
+talvez seja útil pra gente
 
 https://www.instagram.com/reel/DdMgKczjl3g/?stkn=NTc4MTIwNjQ2YQ==
 pode ser útil pra gente
