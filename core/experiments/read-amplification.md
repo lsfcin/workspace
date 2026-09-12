@@ -25,6 +25,7 @@ worker re-reading a chain its parent already read is a different question.
 |---|---|---|---|---|---|---|
 | 2026-08-17 | 80 | 3,234 | 863 | 9,389k chars | 2,371 (73%) | 7,520k (80%) |
 | 2026-08-19 | 86 | 3,510 | 873 | 9,943k chars | 2,637 (75%) | 8,033k (81%) |
+| 2026-09-11 | 97 | 4,254 | 900 | 12,495k chars | 3,354 (79%) | 10,620k (85%) |
 
 By what was served (2026-08-17):
 
@@ -50,43 +51,29 @@ three times the per-session repeat rate of the chain it is usually blamed alongs
 **Stubs are cheap and are being served.** 339 stub reads for 159k chars — 470 chars each against
 2,300 for a source read — so the redirect is both live and paying.
 
-## Did sharding the ledger lower its read cost? — asked 2026-08-19, NOT YET ANSWERABLE
+## Did sharding the ledger lower its read cost? — unanswerable, and it stays that way
 
 Lucas, watching a session open all seven shards: *"we splited those to avoid reading too much,
-clearly the split wasn't enough… either we improve the routing so the agent really only opens the
-small subfile when needed or we go back to huge files."* The right response is a number, and the
-number does not exist yet. What the instrument shows, and why none of it settles the question:
+clearly the split wasn't enough."* Settling it needed ~2 weeks of ordinary sessions and a comparison
+of chars served for the whole `ROADMAP*` family, not the root alone. **Those two weeks are not
+available.** The shards lived seven days and the family is one file again (`cfe8833`, nine roadmaps
+become one), so the arm the comparison needs does not exist and cannot be had without re-splitting a
+file that is under its cap.
 
-`ROADMAP.md` went 101 reads / 877k chars (08-17) to **134 / 1,000k** (08-19) — 33 reads and 123k
-chars added in the two days the split happened. That reads like a regression and is not evidence of
-one, for three reasons that each defeat it on their own:
-
-- **Every session in the window was a roadmap session.** The shards were created 08-18/19 by sessions
-  whose entire job was the roadmap family. A census over a family cannot skip a member, so the
-  measurement window contains only the workload sharding does not help.
-- **Per-read cost does not separate the two eras.** One post-split session read the root 3x for 7k
-  chars; a **pre**-split session (08-17) read it 4x for 4k. `Read` takes offset and limit, so what a
-  read costs depends on how it was asked for, and that variance is larger than the effect.
-- **The shards are one day old.** None of `ROADMAP.md`, `-ledger.md`, `-legibility.md`,
-  `-cost.md`, `-measurement.md`, `-portability.md` or `-self-description.md` appears in the top 60
-  re-read files. There is not enough of them in the population to measure.
-
-**What would settle it**, and the only thing that will: re-run `session/reads --top 60` after ~2 weeks
-of ordinary (non-roadmap) sessions and compare **chars served for the whole `ROADMAP*` family per
-session**, not for the root file alone. Sharding moves cost between family members; a number that
-watches one member cannot see whether the total fell.
-
-**One defect found while measuring, and it needs no experiment.** The root's routing table cannot let
-a reader skip a shard: its `Description` column names a topic rather than the questions inside, and
-its `Items` column is empty for every shard but one — although the generator already parses each
-shard's items to produce the `Open` and `Needs Lucas` counts. That is a fix, not a hypothesis, and it
-is filed in [`/ROADMAP.md`](../../ROADMAP.md).
+What the corpus does hold, read on 2026-09-11 over 97 sessions: the whole family cost **1,743k
+chars**, `ROADMAP.md` 1,127k of it, and every shard shows 1.0–2.2 reads per session in its one week
+alive. A session really did open several of them, which is what Lucas saw. Sharding moves cost
+between family members, and nothing here shows it lowered the total.
 
 ## What changed
 
 - **This is the measurement behind cutting the ledger.** A line removed from `ROADMAP.md` is not
-  removed once; at 3.0 reads per session it is removed three times per session, forever. The drain
+  removed once; at 2.5 reads per session it is removed 2.5 times per session, forever. The drain
   on 2026-08-17 took the file 971 → 828 lines in one sitting.
+- **It is also the instrument that replaced the scaffold size target** (2026-09-11). The target
+  counted files and lines; this counts what a session is served, and the two disagree — a skill body
+  is ~2 tokens at turn 1 while the gate-mandated `CONTEXT.md` chain is 43% of every char served.
+  What gets cut is now read off the top of this list.
 - The `CONTEXT.md`-chain-is-expensive suspicion is retired for the second time, now from the read
   side rather than the growth side (`context-window.md` measured it at 4.6% of growth).
 

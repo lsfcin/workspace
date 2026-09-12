@@ -2,7 +2,6 @@
 name: drive
 description: >
   List, search, and download files from Google Drive across all configured accounts (personal, cin, ufrpe).
-  Invoke with /drive [intent].
 ---
 
 # Drive skill

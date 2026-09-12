@@ -6,23 +6,15 @@
 
 Naming rules, the auth-failure protocol, and how to add a tool: [`SPECS.md`](SPECS.md).
 
-Call any tool via bash:
+Call any tool via bash — `core/run tools/<family>/<provider> <args>`:
 ```
-core/run tools/web/search "relativistic raytracing GPU"
-core/run tools/paper/papers "Schwarzschild geodesics" --cat gr-qc --n 15
 core/run tools/mail/gmail sync --since 7
-core/run tools/calendar/gcalendar upcoming --days 7
 core/run tools/files/gdrive search --account personal "aula"
 ```
 
-## Subagent tool
-
-The `subagent` feature is runtime-specific and has no CLI wrapper:
-
-| Runtime | How to spawn a worker agent |
-|---------|----------------------------|
-| Claude Code | Agent tool — pass `core/agents/<name>.md` content as system prompt |
-| Feynman / Pi | Native `subagent` tool with JSON task spec |
+The `subagent` feature is the one runtime-specific capability here and has no CLI wrapper: Claude
+Code spawns a worker with the Agent tool, passing `core/agents/<name>.md` as the system prompt,
+while Feynman and Pi take a JSON task spec through their native `subagent` tool.
 
 <!-- routing:start -->
 ## Routing

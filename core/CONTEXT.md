@@ -4,15 +4,9 @@
 **Runtime-agnostic** — no provider-specific code. Skills invoke via `/skill-name`. Tools call via bash. Flows
 orchestrate agents.
 
-## Research Agent System
-
-Ported from Feynman (https://github.com/companion-inc/feynman), adapted for provider-agnostic use.
-
-1. **Lead agent** (`agents/lead.md`) — receives requests, plans, orchestrates workers, synthesizes results. Read before
-   any research task.
-2. **Worker agents** (`agents/`) — specialist subagents spawned by lead: `researcher`, `writer`, `verifier`, `reviewer`.
-3. **Flows** (`flows/`) — step-by-step orchestration protocols. Each names agents and sequence.
-4. **Tools** (`tools/`) — executable CLI scripts; call via bash. Auto-documented in `tools/CONTEXT.md`.
+The research half was ported from Feynman (https://github.com/companion-inc/feynman) and made
+provider-agnostic. `agents/lead.md` is the entrypoint for any research task; it plans and spawns the
+specialist workers beside it.
 
 <!-- routing:start -->
 ## Routing

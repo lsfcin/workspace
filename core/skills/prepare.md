@@ -1,6 +1,6 @@
 ---
 name: prepare
-description: Turn a raw task into an optimized agent prompt: interviews for intent, classifies the task, recommends model and effort. Invoke with /prepare [your raw task]
+description: Turn a raw task into an optimized agent prompt: interviews for intent, classifies the task, recommends model and effort.
 ---
 
 # /prepare

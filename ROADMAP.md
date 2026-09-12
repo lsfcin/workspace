@@ -9,17 +9,20 @@
 > `SPECS.md` that owns them; numbers live in `core/experiments/` and `ISSUES.md`. Re-run an instrument.
 >
 > 🔴 Lucas decides · 🟡 an agent can rule alone · 🟢 mechanical. Items are named, never numbered: a
-> number points at nothing the day the item lands. All four v1 criteria were met by 2026-08-16.
+> number points at nothing the day the item lands.
 
 ## Shape — does the tree still look like what we say it does
 
-**🟢 the scaffold is still most of a lean workspace away from lean**
-*What* — root + `core/` + `brain/` at **≤170 `.md` files and ≤10,000 lines**, read from
-`core/run tools/wos/size --scope scaffold`. `core/experiments/` keeps conclusions only; `ISSUES.md`'s
-hand-written half fits a screen; each top-level skill reaches ~45 lines; `brain/` sheds attachments and
-project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of scope) but still count.
-*Why* — the norm that produced this mass now says cut. A `.md` line in this tree is re-read by every session.
-*Done when* — both numbers are met with `verify-fast` green. Check code parsers before cutting any `.md`.
+**🟢 the scaffold is cut where a line is read, not where it merely sits**
+*What* — `core/run tools/wos/session/reads` ranks what sessions are actually served; the top of that
+list is what gets cut. Today that is `ROADMAP.md` and the `CONTEXT.md` chain the context gate makes
+mandatory — 23% of every char served. A chain blurb is cut twice over, in its own file and in the
+parent routing row generated from it.
+*Why* — a line costs when it is read. A skill body is ~2 tokens at turn 1
+(`core/experiments/context-window.md`), while a chain file is served whole before any work in its
+subtree. Mass alone was the wrong instrument.
+*Done when* — the six files at the top of `reads` are each smaller and `verify-fast` is green.
+Check code parsers before cutting any `.md`.
 
 ## Cost — what a session costs, and which of it is avoidable
 
@@ -40,18 +43,15 @@ project-state memories. `core/flows/` and `core/agents/` are **not cut** (out of
 
 **🟡 anything the agent needs Lucas to physically do is said where he never sees it**
 *What* — one channel reaching him at the *end* of a response, and at the moment a session parks.
-*Why* — close offer and auth-consent requests land in agent-facing prose at prompt-submit time; the
-same defect's third instance is a session blocked on an `AskUserQuestion` while he is elsewhere,
-which is where most of a long session's wall-clock actually goes. *Done when* — all three reach him
-without interrupting the thread, with measured token cost.
+*Why* — close offers and auth-consent requests land in agent-facing prose at prompt-submit time, and
+a session blocked on an `AskUserQuestion` while he is elsewhere is the same defect's third instance.
+*Done when* — all three reach him without interrupting the thread, with measured token cost.
 
 **🟡 a session's wall-clock has never been split into working and waiting**
-*What* — a fourth `core/tools/wos/session/` instrument answering how much of a span the machine was
-busy, and what the idle gaps were parked on, plus the `core/experiments/` file that makes it a trend.
-*Why* — the three tools there measure what a session *costs*; none measures how long it *took*, so
-"the session ran ten hours" has never been separable from "Lucas was away for eight of them" — and
-the item above cannot be prioritised until it is. Raw figures for three sessions are in the
-2026-09-02 hand-off, unstored precisely because nothing can re-run them yet.
+*What* — a fourth `core/tools/wos/session/` instrument: how much of a span the machine was busy and
+what the idle gaps were parked on, plus the `core/experiments/` file that makes it a trend.
+*Why* — the three tools there measure what a session *costs*, none how long it *took*, so "ran ten
+hours" has never been separable from "Lucas was away for eight". The item above waits on this.
 *Done when* — the instrument runs from a transcript and `core/experiments/` carries its first rows.
 
 **🟡 thinking is 65% of billed output and no instrument here can see it**
@@ -96,16 +96,12 @@ the item above cannot be prioritised until it is. Raw figures for three sessions
 *Done when* — warn list is empty or rows are deliberately exempted with reasons.
 
 **🟡 the port grew the workspace by 1,300 lines and the payment is still short**
-*What* — the cut that funds the port. The named candidates are gone: `core/hooks/SPECS.md`,
-`core/SPECS.md` and `core/SCHEMA.md` are all under the cap, and the two over-full test directories
-are split. **That closed the size findings without closing the debt** — part of it was paid by
-raising the cap rather than by cutting, which moves the line and not the mass.
-*Why* — AGENTS.md says growing takes Lucas's OK first and a session leaves fewer lines than it
-found. The port was worth every line; that is a reason to pay, not a reason not to.
+*What* — the cut that funds the port. Every named candidate has been tried: the law files gave up
+their twice-told narration, `SETUP.md` sharded at +11 because it held ~50 lines of history and not
+400, and the rest was paid by raising the cap, which moves the line and not the mass.
+*Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every
+line; that is a reason to pay, not a reason not to.
 *Done when* — the net since 2026-09-01 is negative, measured by `core/run tools/wos/size`.
-**Two candidates have paid nothing.** `SETUP.md` held ~50 lines of history, not 400, so sharding took
-it under the cap at +11. And the law files gave up narration that was twice-told, which is the cheap
-half; what is left in them is reasons, and reasons are the thing worth keeping.
 
 **🔴 the platform seam owes three answers, and one of them is a secret**
 *What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.
@@ -137,6 +133,10 @@ half; what is left in them is reasons, and reasons are the thing worth keeping.
 
 ## Rejected
 
+- **A scaffold target of ≤170 `.md` files and ≤10,000 lines** — declined 2026-09-11 (Lucas): "não
+  tem base real." Set before anyone measured the tree, and the arithmetic never closed — `core/flows/`
+  and `core/agents/` were out of scope yet counted, so all the rest had to shed 45%. `core/norms/reduce.md`
+  already carries the governing half; the cutting half is read cost, above.
 - **Regenerating the entropy block on receipt, the `mirror-heal.py` route** — declined 2026-09-04: a
   full tree scan before the first prompt, and a working tree already dirty when the session opens.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
@@ -145,18 +145,15 @@ half; what is left in them is reasons, and reasons are the thing worth keeping.
 - **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
 - **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
 - **A second compaction shim for copilot** — no copilot session has ever run here.
-- **Raising `BLOCK_LINES` to 300** — moves the queue; files needing room need a seam, not higher
-  ceilings. **Partly reversed 2026-09-06 (Lucas): 150/200 → 200/250.** The reasoning above survives
-  and is why the number is 250 and not 300 — what it got wrong is that it read every over-cap file as
-  a missing seam, when three of them were law files being asked to delete the reasons behind rules
-  nothing else recorded. A cap is still a cap: over it, a file is CUT and not split.
+- **Raising `BLOCK_LINES` to 300** — moves the queue; a file needing room needs a seam. **Partly
+  reversed 2026-09-06 (Lucas): 150/200 → 200/250**, because three over-cap files were law files
+  being asked to delete reasons nothing else recorded. Over the cap, a file is still CUT, not split.
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
-- **Narrowing the pre-commit to only the touched tests** — declined 2026-09-01: it was the biggest
-  win and the only one that weakens the gate holding both clones. Parallelising the suite and
-  porting the two bash tools took it 167 s → 42 s, so the trade was never needed.
-- **A check that only asks whether a `TYPE-<slug>.md` is tracked** — built, then dropped 2026-09-01: it
-  finds nothing, and the defect it was aimed at is any routing row naming a file git does not carry.
+- **Narrowing the pre-commit to only the touched tests** — declined 2026-09-01: the only speed-up
+  that weakens the gate holding both clones, and parallelising took it 167 s → 42 s without it.
+- **A check that only asks whether a `TYPE-<slug>.md` is tracked** — dropped 2026-09-01: it finds
+  nothing; the real defect is any routing row naming a file git does not carry.
 - **Reaching the 200-line cap by deleting SETUP steps** — declined 2026-09-02: every step is a
-  feature a stranger's clone can no longer install, and strangers are who the file is for.
+  feature a stranger's clone then cannot install, and strangers are who the file is for.
 - **Deleting a dated `*-backup-*.md` beside a tracked type as a corpse** — `academy/lab/CONTEXT.md`
-  declares those snapshots captured, not authored; the untracked *law* next to them was the real bug.
+  declares those captured, not authored; the untracked *law* next to them was the real bug.

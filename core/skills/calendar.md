@@ -2,7 +2,6 @@
 name: calendar
 description: >
   List upcoming events and query date ranges from Google Calendar across all configured accounts (personal, cin, ufrpe).
-  Invoke with /calendar [intent].
 ---
 
 # Calendar skill

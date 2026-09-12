@@ -1,4 +1,5 @@
 # B13 regression — the harness mirror list is declared once, in a data file something reads.
+#
 # sync-skills carried MIRRORS=(...) in its own source; adding a harness meant editing a bash
 # array by hand — done twice in one week. The list now lives in core/harnesses.txt, sync-skills
 # reads it, and .gitignore restates only what the declaration says. A declaration nothing can

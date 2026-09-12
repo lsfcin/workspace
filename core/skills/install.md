@@ -2,7 +2,7 @@
 name: install
 description: >
   Install this workspace on the machine you are running on: probe every step in SETUP.md, report
-  what is missing, and execute it. Invoke with /install [feature slug, or blank for everything].
+  what is missing, and execute it. Takes one feature slug, or nothing for everything.
 ---
 
 # Install

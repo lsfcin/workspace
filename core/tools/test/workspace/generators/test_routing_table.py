@@ -155,12 +155,28 @@ def test_a_long_md_blurb_is_bounded(tmp_path) -> None:
     )
 
 
-def test_a_first_line_comment_is_never_bounded(tmp_path) -> None:
-    """Only hoisted text is cut. A code comment was authored as this table's one-liner —
-    it lives in this directory, has nothing to rebase, and nothing else carries its text."""
-    comment = 'x ' * 60
+def test_a_long_first_line_comment_is_bounded_too(tmp_path) -> None:
+    """A code comment takes the same bound as a blurb, for the same reason.
+
+    It was exempt until 2026-09-11 on the grounds that it is authored as this table's
+    one-liner. It is not a line: `comment_paragraph` reads the whole opening paragraph for
+    every `#`-commented language, so an author explaining a bug at length published the
+    explanation into a table one directory up. One row in
+    `core/tools/test/workspace/CONTEXT.md` — a mandatory read — held 1,300 characters of two
+    bugs' history. Nothing is lost; the paragraph is still in the file it was written in.
+    """
+    comment = 'x ' * 400
     table = _table(tmp_path, **{'a.py': f'# {comment}\n'})
-    assert comment.strip() in table
+    assert '…' in table, 'a comment past the limit must say that it was cut'
+    assert comment.strip() not in table, 'the whole paragraph reached the table uncut'
+
+
+def test_a_short_first_line_comment_is_untouched(tmp_path) -> None:
+    """The bound cuts essays, not descriptions — the ordinary row must survive verbatim."""
+    comment = 'what this module is, in one line'
+    table = _table(tmp_path, **{'a.py': f'# {comment}\n'})
+    assert comment in table
+    assert '…' not in table
 
 
 def test_no_row_is_written_for_a_path_this_repo_is_told_to_ignore() -> None:
