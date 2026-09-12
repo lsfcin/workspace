@@ -148,6 +148,9 @@ here (`feature/*` auto-push), the other is machine state this workspace does not
 
 ## Rejected
 
+- **Excluding `code/aiwbot` from the entropy scan once it was absorbed** — declined 2026-09-12: a
+  tree inside this repo that the repo's own checks skip is an asymmetry nobody can see. The whole
+  cost of letting it be scanned was four findings its own `ISSUES.md` already carried.
 - **A scaffold target of ≤170 `.md` files and ≤10,000 lines** — declined 2026-09-11 (Lucas): "não
   tem base real." Set before anyone measured the tree, and the arithmetic never closed — `core/flows/`
   and `core/agents/` were out of scope yet counted, so all the rest had to shed 45%. `core/norms/reduce.md`

@@ -17,8 +17,13 @@ matching regression spec exists and passes.
 
 ## Open
 
-Nothing. The four that stood here were closed 2026-09-11, each with a regression spec beside it —
-the FIXED gate's terms, and why `git log` is the only place they still exist.
+- The project-map generator cannot run in the session that changes the project set.
+  `core/tools/wos/close/repomap.py` rewrites `PROJECTS.md` and then hands it to `artifacts.settle`,
+  which rolls the write back whenever the tree is dirty — correct against another session's work,
+  and wrong here, because the dirt IS the change the map must describe. Absorbing `code/aiwbot` on
+  2026-09-12 hit it: the row could only be removed by disabling settle for one call. The close
+  eventually redraws it, so nothing stays wrong for long; what is wrong is that the only way past
+  it was to reach around a generator's own safety.
 
 <!-- entropy:start -->
 ## Entropy
@@ -59,7 +64,7 @@ the FIXED gate's terms, and why `git log` is the only place they still exist.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/absorb-aiwbot is 2 ahead of main
+- . — feature/absorb-aiwbot is 3 ahead of main
 
 ### Local branches already merged into their base
 

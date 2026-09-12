@@ -11,6 +11,12 @@ and verification blocks that used to sit below are gone: the workspace's own
 of the same scan is the drift those checks exist to catch.
 
 ## Open
+- [ ] [b6] `frontend/SPECS.md` is the contract the spec gate locks the WHOLE `frontend/` module
+  with, and it describes only the audio-in-out voice pipeline. Every surface — turn, stream, text,
+  session, select, interview — is edited against a contract that says nothing about it. Renamed
+  from `SPEC.md` on 2026-09-12 (the old name is not a type this workspace allows); the name was the
+  cheap half. Either the contract grows to cover the module, or the voice half moves to
+  `frontend/voice/` and declares itself there.
 - [ ] [b5] `/resume` anchor arrives with no last answer, so the message is only the reattach
   command — `frontend/session/sessions.py` `last_response`. Live 2026-08-17 on session
   `949a9cc6` ("PLAN WOS ROADMAP"): `_anchor` does ask for the body
