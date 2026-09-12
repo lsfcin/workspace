@@ -85,14 +85,12 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 
 ## Portability — would this work on a machine that is not Lucas's
 
-**🟡 no authored file above the warn, in any folder and of any type**
-*What* — the warn list empty, or each surviving row exempted with its reason. Scope is universal
-(Lucas, 2026-09-12): every folder, every authored type, exceptions explicit. Ask the instrument —
+**🟡 the five warn exemptions are reviewed, or they hollow the warn out**
+*What* — a verdict on each file carrying `warn-exempt:`, kept or cut. Ask the instrument —
 `core/run hooks/checks/line_counts.py` with no arguments audits every tracked file.
-*Why* — a roadmap holding its own list of filenames and counts named files that had stopped being
-findings the day the law moved. Ask the instrument, never the ledger.
-*Done when* — the instrument prints no warn, and prose is inside its scope rather than beside it:
-today the warn exists for code only, and `.md` answers to the entropy dashboard after the fact.
+*Why* — the marker was added with the warn's scope; an exemption nobody revisits is the cap moved
+by hand, one file at a time, which is what the block cap exists to prevent.
+*Done when* — each marker is either gone or carries a reason a second reader agrees with.
 
 **🟡 the port grew the workspace and the payment is still short**
 *What* — the cut that funds the port. Every named candidate has been tried; the rest was paid by
