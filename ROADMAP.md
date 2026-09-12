@@ -1,6 +1,7 @@
 # Workspace roadmap
 
-> Everything still open in the workspace scaffold, in one file. **Cap: 200 lines.** A finished item
+> Everything still open in the workspace scaffold, in one file. Held to `core/hooks/limits.env`
+> like every other authored file. A finished item
 > is deleted — git is the history. A killed one gets a line under § Rejected so it cannot come back looking new.
 >
 > **Three fields per item, no fourth.** *What* will exist · *Why* it is worth building · *Done when*,
@@ -24,12 +25,12 @@ subtree. Mass alone was the wrong instrument.
 *Done when* — the six files at the top of `reads` are each smaller and `verify-fast` is green.
 Check code parsers before cutting any `.md`.
 
-**🔴 nothing stops prose from restating a number `core/hooks/limits.env` owns**
-*What* — the invariant. Two `.md` sat five days stale on 150/200 after the law moved, and this file
-named files against the old warn for six days. `core/tools/test/law/test_citation_gate.py` already
-guards the sibling family, so it grows a case or a checker is born.
-*Why* — every other law here is parsed from one home; this one is copied by hand and rots silently.
-*Done when* — Lucas has ruled, because building it grows the workspace.
+**🟡 four numeric laws have no home, and `core/hooks/limits.env` is not theirs**
+*What* — one home per number, or a written reason why a local one is right. The citation gate
+covers the line/file/column law and deliberately stops there; the craft loop file's soft size, a
+research output's length and a commit subject's width are each declared in the prose that uses them.
+*Why* — the same copy-paste that made eight files name a stale warn, one layer out.
+*Done when* — each of the four is either parsed from one file or carries its reason where it sits.
 
 ## Cost — what a session costs, and which of it is avoidable
 
@@ -101,8 +102,8 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 *What* — the warn list empty, or each surviving row exempted with its reason. Scope is universal
 (Lucas, 2026-09-12): every folder, every authored type, exceptions explicit. Ask the instrument —
 `core/run hooks/checks/line_counts.py` with no arguments audits every tracked file.
-*Why* — this item used to carry its own list of filenames and counts, measured against the 150 warn
-that became 200 on 2026-09-06, so it named files that had stopped being findings. A roadmap holding
+*Why* — this item used to carry its own list of filenames and counts, measured against a warn
+that has since moved, so it named files that had stopped being findings. A roadmap holding
 a measured number rots the day the law moves.
 *Done when* — the instrument prints no warn, and prose is inside its scope rather than beside it:
 today the warn exists for code only, and `.md` is held to the block alone, after the fact, by the

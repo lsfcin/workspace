@@ -1,7 +1,7 @@
 # aiwbot — Specs
 
 ## Conventions
-- Style R1–R6 (see code/CONTEXT.md). Files <200 LOC. Facade imports only via `backend/__init__.py`.
+- Style R1–R6 (see code/CONTEXT.md). Files under the line cap. Facade imports only via `backend/__init__.py`.
 - Free tests must stay green to commit; live smoke (`make smoke`) is manual and costs money.
 
 <!-- routing:start -->

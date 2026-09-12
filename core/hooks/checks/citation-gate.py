@@ -45,6 +45,40 @@ RETIRED_SPELLING = re.compile(r'(?<!\w)Frente \d+(?:\.\d+[a-z]?)?(?!\w)')
 # so a `ROADMAP-<slug>.md` in any repo under the workspace is covered without enumeration.
 LEDGER_NAMES = re.compile(r'^ROADMAP(-[a-z0-9-]+)?\.md$')
 
+# THE SECOND DEAD POINTER, the same defect wearing numbers. `core/hooks/limits.env` owns every
+# numeric limit and `file_law.py` is its only parser, because a checker that restates the law is
+# the drift the checkers exist to catch. Prose was never held to that: on 2026-09-12 eight authored
+# files still named the line law one ruling behind, six days after it moved. Ruled by Lucas that
+# day, scope this law only. THE FIX IS NEVER TO CORRECT THE COPY — delete it and name the owner,
+# the way `code/CONTEXT.md` does. A corrected copy rots at the next ruling; a pointer cannot.
+#
+# NOT A VALUE COMPARISON, deliberately: asking whether a number still MATCHES goes quiet the day
+# the law moves off a value a stale line happens to share, which is the day the check is needed.
+# The shape is banned, exactly as `Front 4.1` is whether or not that item exists.
+#
+# `cap` is NOT a law word. limits.env says "a WARN asks for a look, a BLOCK stops the commit", and
+# `cap` is the general word: it pulled in four numeric laws that are not this one, which is a
+# roadmap finding rather than something to smuggle in here. `LOC` is the SUBJECT and never the law
+# word — `56 LOC now` measures, `200 LOC | Hard block` copies.
+_WORD = r'(?:warns?|warning|blocks?|aviso)'
+# `block of 16,000 tokens` composes; `block at 250 lines` limits. The preposition is the whole
+# difference, so the window joining a law word to a count may not contain `of`.
+_NEAR = r'(?:(?!\bof\b).){0,24}?'
+_SIZED = r'\d{2,6}\s*[-–—]?\s*(?:lines?|linhas?|LOC|files?|arquivos?|cols?|columns?|chars?|tokens?)'
+_BARE = r'\d{2,6}'
+# Two shapes, because prose writes the law both ways: `150 LOC | Hard block` names what it measures,
+# and `warn 150, block 200` lets the law word do that job. The second is TOUCHING only, which is
+# what separates `block 200` from `block ran 48 lines`.
+LIMIT_CLAIM = re.compile(
+    rf'(?i)(?<!\w)(?:{_WORD}\W{_NEAR}{_SIZED}|{_SIZED}{_NEAR}\W{_WORD}'
+    rf'|{_WORD}\s*[:=]?\s*{_BARE}|{_BARE}\s*{_WORD})(?!\w)')
+# A generated block is authored by nobody: its rows come from first-line comments, so a finding
+# inside one names a file that cannot be edited to clear it.
+GENERATED_BLOCK = re.compile(r'(?m)^<!-- \w+:start -->$.*?^<!-- \w+:end -->$', re.DOTALL)
+# The law's own file, its only parser, and the two checks that apply it may all name a number.
+LIMIT_OWNERS = ('core/hooks/limits.env', 'core/hooks/file_law.py',
+                'core/hooks/checks/line_counts.py', 'core/hooks/checks/pre-edit.py')
+
 # The two documents that state the rule, the report that quotes findings, and this checker
 # with its tests all have to be able to NAME the shape they forbid. Nothing else may.
 # core/hooks/SPECS.md joined this list by failing the check the moment it documented the gate,
@@ -113,13 +147,43 @@ def citation_hits(files: list, exempt: set) -> list:
     return hits
 
 
+def limit_exempt_paths(root: Path) -> set:
+    """Everything allowed to write a number the numeric law owns: the law, its parser, the checks
+    that apply it, and the documents that state the rule — which are already the citation set."""
+    return citation_exempt_paths(root) | {(root / name).resolve() for name in LIMIT_OWNERS}
+
+
+def limit_hits(files: list, exempt: set) -> list:
+    """Lines restating a number `core/hooks/limits.env` owns, one hit per file."""
+    exempt = {path.resolve() for path in exempt}
+    hits = []
+    for path in files:
+        if path.resolve() in exempt or path.suffix not in ('.md', '.txt'):
+            continue
+        try:
+            text = path.read_text(encoding='utf-8')
+        except (OSError, UnicodeDecodeError):
+            continue
+        text = GENERATED_BLOCK.sub(lambda m: '\n' * m.group(0).count('\n'), text)
+        for number, line in enumerate(text.splitlines(), 1):
+            if LIMIT_CLAIM.search(line):
+                hits.append(
+                    f'{path}: states a size limit in prose (line {number}).\n'
+                    f'   core/hooks/limits.env owns every numeric limit here, and a copy of one\n'
+                    f'   rots the day the law moves — eight files did, for six days.\n'
+                    f'   Name the owner instead of the number, the way code/CONTEXT.md does.')
+                break
+    return hits
+
+
 def main() -> int:
     if not feature_law.is_enabled('citation-gate'):
         return 0  # switched off: a disabled gate does not block, and does not pretend it ran
     if not (WORKSPACE_ROOT / 'core/SCHEMA.md').exists():
         return 0  # not the workspace repo; nothing to enforce against
     staged = [p for p in staged_files() if p.exists()]
-    hits = citation_hits(staged, citation_exempt_paths(WORKSPACE_ROOT))
+    hits = (citation_hits(staged, citation_exempt_paths(WORKSPACE_ROOT))
+            + limit_hits(staged, limit_exempt_paths(WORKSPACE_ROOT)))
     if hits:
         print('⛔ citation gate:')
         for hit in hits:

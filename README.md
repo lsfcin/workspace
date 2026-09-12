@@ -57,7 +57,7 @@ a rule that gets switched off.
 
 | Feature | What it buys you |
 |---|---|
-| Size limits (warn 150, block 200) | Forces graph-shaped design: small single-responsibility files with explicit imports. An agent that cannot grow a file has to actually decompose it |
+| Size limits (`core/hooks/limits.env`) | Forces graph-shaped design: small single-responsibility files with explicit imports. An agent that cannot grow a file has to actually decompose it |
 | Duplication gate | jscpd blocks a commit whose staged files clone existing logic. Copy-paste is the failure mode agents are fastest at |
 | `verify:fast` contract | A project declaring the script must be green to commit. Discovered by convention, so a new project opts in by naming a script, not by wiring anything |
 | Bug-fix gate | A bug cannot be flipped to FIXED without a matching regression test. "It works now" stops being a claim and becomes a file |

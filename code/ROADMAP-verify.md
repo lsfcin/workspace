@@ -18,7 +18,7 @@ concept.
 Origin: assessment session 2026-07-02. Diagnosis: workspace over-invests in context transfer
 (docs, skills, codegraph, facades), zero in behavior verification. No test suite anywhere.
 Fixes verified by human eyes in live sessions; verification evaporates at session end
-(B32 puppeteer harness built, used once, thrown away). 200 LOC gate without a duplication
+(B32 puppeteer harness built, used once, thrown away). A line-count gate without a duplication
 gate manufactures copies (z-order walk found in 5 places). Nondeterministic bugs (zIndex
 ties → PIXI insertion order) unresolvable without a mechanical oracle.
 
@@ -45,7 +45,7 @@ ties → PIXI insertion order) unresolvable without a mechanical oracle.
 | Compaction | PreCompact wipes seen-markers → chain re-read after compaction |
 | Subagents | Inherit seen-state (markers keyed by `session_id`, shared) — no re-read |
 | Scope | Whole workspace, all subtrees (code/, brain/, academy/, …) |
-| 200 LOC cap | KEEP. Pair with duplication gate + rewritten block message |
+| Line-count gate | KEEP. Pair with duplication gate + rewritten block message |
 | jscpd | Full block, no baseline file. Clones touching staged files block the commit |
 | Pilot order | isoroll-module (long road), then apptime |
 
@@ -136,7 +136,7 @@ The workspace-wide half of the rollout is the enforcement layer's own contract
   between oracle and eyes.
 - code/SETUP.md + code/SPECS.md: fold verification contract mention (only _templates and
   `core/hooks/SPECS.md` carry it so far).
-- 200-LOC file-size hook: scope the .frag/.txt exemption by PATH, not extension — exempt
+- File-size hook: scope the .frag/.txt exemption by PATH, not extension — exempt
   design/** prototype/artifact dirs, gate everything under src/ regardless of extension.
   Rationale (2026-07-14 isoroll session, Lucas-raised): rig.frag exemption is correct
   (single-file Artifact constraint, frozen design reference, no product future) but a

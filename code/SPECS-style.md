@@ -48,17 +48,15 @@ One sentence, no period, ≤80 chars. Describe *what*, not *how*.
 
 Applies to `.js .ts .tsx .py .dart .html .css .scss`:
 
-| Threshold | Action |
-|-----------|--------|
-| Under 100 LOC | Target — ideal file size |
-| 150 LOC | Warning at commit (hook warns, does not block) |
-| 200 LOC | Hard block — commit and AI edits rejected |
+`WARN_LINES` warns at commit, `BLOCK_LINES` rejects the commit and the edit, and both numbers live
+in `core/hooks/limits.env` — the copy that used to sit here as a table named the warn and the block
+one ruling behind, for six days. Ask the law: `core/run hooks/checks/line_counts.py`.
 
 Near limits: extract modules, separate orchestration from implementation logic.
 
 ## Splitting an over-full directory
 
-`WARN_FILES=7` / `BLOCK_FILES=10` (`core/hooks/limits.env`). A large routing table is the
+`WARN_FILES` / `BLOCK_FILES` (`core/hooks/limits.env`). A large routing table is the
 directory saying it holds more than one responsibility — but the split costs a routing hop, so it
 has to earn it. Five things learned draining `core/hooks`, `core/tools`, `aiwbot` and `flows`,
 each of which cost a session to find:

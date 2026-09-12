@@ -39,8 +39,8 @@ Inline order after `html.escape`: `**bold**` → `~~strike~~` → code spans (al
 - Links: `<a href="…">`, URL attribute-escaped, `http`/`https`/`tg` only. Bare URLs left alone —
   Telegram auto-links them.
 
-**Size guard**: 56 LOC now, hard gate 200. Past ~160, split inline conversion into `frontend/text/inline.py`.
-R5 (≤40 lines/function) pushes the block dispatcher toward a table of line-matchers, not an if-chain.
+**Size guard**: 56 LOC now, well under the gate. Once it nears it, split inline conversion into `frontend/text/inline.py`.
+R5 (≤40 lines/function) pushes the dispatcher of blocks toward a table of line-matchers, not an if-chain.
 
 ## Part 2 — HTML-safe delivery (`frontend/text/htmlsplit.py` new, `frontend/reply.py`)
 - `split_html(text, limit)` — split on line boundaries, never mid-line; carry a tag stack so anything

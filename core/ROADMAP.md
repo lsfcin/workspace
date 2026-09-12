@@ -2,7 +2,7 @@
 
 > What is still unsound about the agent library itself — skills, agents, flows, tools and their
 > schema. Workspace scaffold work is the wos ledger's, [/ROADMAP.md](../ROADMAP.md); an item belongs
-> to exactly one of the two. **Cap: 200 lines.** Same three fields, same deletion policy, same
+> to exactly one of the two. Same cap, same three fields, same deletion policy, same
 > refusal to write HOW: [/ROADMAP.md](../ROADMAP.md) states both once.
 
 Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
