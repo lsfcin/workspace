@@ -2,6 +2,10 @@
 # removed. Zero-token, runs in verify-fast.
 #
 # Split out of test_corpus_ratchet.py on 2026-08-29, which had carried these since the port began
+#
+# warn-exempt: a suite file grows by CASE, and every case here is a defect that shipped. Cutting to
+# the warn deletes coverage, which is the one thing a line count may never buy. The block cap still
+# applies: past it this file is split by question, the way it was split from the corpus ratchet.
 # and said so: "they live here rather than in a file of their own ... they assert something about
 # the WHOLE TREE". That reason was right about the DIRECTORY and wrong about the file. Being
 # whole-tree is what puts both halves in workspace/; it is not what makes them one question. The

@@ -25,6 +25,13 @@ for _stream in (sys.stdout, sys.stderr):
     _stream.reconfigure(encoding='utf-8', errors='replace')
 
 
+# A file may waive the WARN by carrying this marker plus its reason, in whatever comment syntax it
+# already uses. The BLOCK is never waivable: over that number a file is CUT, not excused. The reason
+# travels with the file rather than sitting in a list somewhere else, because the reader who needs it
+# is the one who just opened the file and found it long.
+WARN_EXEMPT = 'warn-exempt:'
+
+
 def report(paths, root=None) -> tuple:
     """(lines of report, blocked) for `paths`. Never raises, never prints -- the caller decides.
 
@@ -49,11 +56,12 @@ def report(paths, root=None) -> tuple:
         # output leaves the artifact dirty on every close.
         if file_law.is_generated_artifact(target, root):
             continue
-        count = len(target.read_text(encoding='utf-8', errors='replace').splitlines())
+        text = target.read_text(encoding='utf-8', errors='replace')
+        count = len(text.splitlines())
         if count >= block:
             lines.append(f'🚨 BLOCK: {path} ({count} lines)')
             blocked = True
-        elif count >= warn:
+        elif count >= warn and WARN_EXEMPT not in text:
             lines.append(f'⚠ WARN: {path} ({count} lines)')
             warned = True
     if blocked:

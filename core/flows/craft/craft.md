@@ -5,14 +5,13 @@ args: <task or feature request>
 ## Tool Discipline (Read First)
 
 Tool names are literal. Use only tools visible in the current tool set. See `core/tools/` for runtime-specific mappings.
-
 - Agent delegation: use `subagent` / `Agent` when available; otherwise the user opens a fresh session per loop.
 - If a tool returns `Tool not found`, map to the canonical visible tool or record the capability as blocked.
 
 Engineer this task in loops: $@
 
-This is an execution request, not a request to explain the workflow. Derive a feature slug (lowercase, hyphens, ≤5
-words). Do not ask for confirmation beyond the Loop 0 interview.
+Execute, do not explain. Derive a feature slug (lowercase, hyphens, ≤5 words), and ask for no
+confirmation beyond the Loop 0 interview.
 
 > **This is the `feature` subtree of the craft tree** ([`route.md`](route.md), [`tree.md`](tree.md)). Reach it via the
 > router, which pins `subtree: feature`. It is **contract-first**: Loop 0 sets a supervision panel, Loop 3.5 lays out

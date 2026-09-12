@@ -6,6 +6,9 @@
 > enforced-by: core/hooks/checks/type-gate.py, core/hooks/entropy/entropy_naming.py,
 > core/hooks/entropy/entropy_ledger.py, core/tools/wos/skills/validate.py
 
+<!-- warn-exempt: the tables here are parsed, not read, so a cut moves law rather than prose — and
+     the rows a reader needs least are the ones a checker needs most. The block cap still applies. -->
+
 ## The `.md` type system
 
 **`UPPERCASE.md` is a type. `lowercase.md` is an instance.** A type means the same thing in every

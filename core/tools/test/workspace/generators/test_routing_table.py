@@ -1,5 +1,8 @@
 # The routing table's generated columns (core/hooks/SPECS.md). Zero-token, runs in verify-fast.
 #
+# warn-exempt: a suite file grows by CASE, and cutting to the warn deletes coverage of a generator
+# whose failures are silent by construction. The block cap still applies.
+#
 # The rule here was measured on 2026-07-30 across 159 CONTEXT.md / 1242 rows: a generated column
 # empty on EVERY row is not emitted. 773 of 1242 rows carried an em-dash Interface, paying table
 # width to say "nothing here".
