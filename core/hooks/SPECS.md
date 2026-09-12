@@ -18,8 +18,9 @@ workspace. Stage order and the one place a commit is refused: [`commit/CONTEXT.m
 - Warns and then blocks on the length of any authored file, code and prose alike, via
   `checks/line_counts.py` over staged files — the same module that runs standalone. Both thresholds
   are [`limits.env`](limits.env)'s answer and which files are authored is
-  [`file_law.py`](file_law.py)'s, never a checker's and never this file's: the copy that stood here
-  named the old pair for five days after the law moved.
+  [`file_law.py`](file_law.py)'s, never a checker's: the copy that stood here named the old pair for
+  five days after the law moved. A file waives the **warn** — never the block — with a
+  `warn-exempt: <reason>` line of its own.
 - Hard-blocks cross-module imports that bypass the facade, via `facade/check-facade-imports.py`.
 - Auto-syncs each staged directory's `CONTEXT.md` routing block, and generates `.pyi`, `.d.ts` and
   `.dart.api` — all staged with the commit.
