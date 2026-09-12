@@ -169,7 +169,7 @@ def disabled() -> list:
 
 def main() -> int:
     """`--enabled <slug>` exits 0 when live, 1 when off — so a shell gate or a node hook shares
-    this law instead of reimplementing it. Same arm, same reason, as file_law.py --filter-code.
+    this law instead of reimplementing it.
     `--disabled` prints the off slugs for a caller that filters a whole group at once."""
     if len(sys.argv) == 3 and sys.argv[1] == '--enabled':
         return 0 if is_enabled(sys.argv[2]) else 1

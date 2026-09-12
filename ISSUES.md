@@ -58,13 +58,13 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/single-source-law is 7 ahead of main
+- . — feature/single-source-law is 1 ahead of main
 
 ### Remote branches already merged into their base
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 1 merged into main: git -C . push origin --delete feature/absorb-aiwbot
+- . — 2 merged into main: git -C . push origin --delete feature/absorb-aiwbot feature/warn-universal
 
 <!-- entropy:end -->
 

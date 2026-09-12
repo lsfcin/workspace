@@ -20,16 +20,20 @@ SOURCE = ('.js', '.jsx', '.ts', '.tsx', '.py', '.dart')
 
 
 def source_quality(commit):
-    """Line counts over the staged code files.
+    """Line counts over everything this commit staged.
 
     The missing first-line description comment used to be checked here too. It moved into the Tier
     0 gate (checks/type-gate.py, reached from gates_project.py), which already runs over exactly
     this commit's added files. What was here was a shell case-list that only warned, only over code
     extensions, and was a third copy of a table now living once in file_law.py.
+
+    The whole staged set, not `code_files`: which of them the cap applies to is line_counts.report's
+    own question, asked of file_law, and a pre-filter here was this gate answering it a second time
+    -- which is how prose stayed outside the warn while limits.env held one number for both.
     """
-    if not commit.code_files or not feature_law.is_enabled('line-limit'):
+    if not commit.staged or not feature_law.is_enabled('line-limit'):
         return
-    lines, blocked = line_counts.report(commit.code_files, root=commit.toplevel)
+    lines, blocked = line_counts.report(commit.staged, root=commit.toplevel)
     if blocked:
         raise Blocked('\n'.join(lines))
     print('\n'.join(lines))

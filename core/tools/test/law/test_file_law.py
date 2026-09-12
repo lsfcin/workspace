@@ -137,6 +137,9 @@ def test_every_extensionless_tracked_file_is_explained() -> None:
 # reviewed — the same shape as vendored.txt, and for the same reason: the alternative is a
 # heuristic that quietly decides for us.
 NOT_THE_CODE_LAW = {
+    'file_law.py':                    'THE LAW ITSELF — it holds the one list every other checker '
+                                      'imports. It passed unlisted only while a usage string '
+                                      'happened to spell its own name (2026-09-12)',
     'entropy/entropy_corpus.py':      'SCANNED — text files worth walking, includes .md/.json',
     'entropy/entropy_naming.py':      'AUTHORED — the files our naming rules apply to',
     'facade/check-facade-imports.py': 'per-language import syntax, not file-ness',

@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
-# The line-count gate: warn and block on code lines, at the two numbers limits.env declares.
+# The line-count gate: warn and block on authored lines, at the two numbers limits.env declares.
 #
 # Two callers, one implementation, which core/hooks/SPECS.md promises explicitly -- the pre-commit
 # pipeline passes the staged files, and a bare run audits every tracked file in the repo.
 #
-# WHICH FILES ARE CODE IS file_law.py'S ANSWER, never a regex here. This script carrying its own
+# WHICH FILES ARE AUTHORED IS file_law.py'S ANSWER, never a regex here. This script carrying its own
 # extension list is what let .sh and extensionless scripts past the gate for months, during which
 # core/hooks/pre-commit itself reached 385 lines unblocked. The thresholds are limits.env's answer
 # for the same reason.
+#
+# PROSE JOINED IT 2026-09-12 (Lucas: every folder, every authored type). limits.env has held one
+# number for code and prose alike since 2026-08-18, but only the BLOCK half reached .md -- through
+# pre-edit.py at write time and the entropy dashboard after the fact -- so the WARN, the half that
+# asks for a look before a file is unreadable, existed for code alone.
 import subprocess
 import sys
 from pathlib import Path
@@ -32,7 +37,10 @@ def report(paths, root=None) -> tuple:
     lines, blocked, warned = [], False, False
     for path in paths:
         target = root / path
-        if not target.is_file() or not file_law.is_code_file(Path(path)):
+        # Code or prose, asked of the law rather than of a suffix. is_authored answers for our own
+        # code and is_authored_prose for our own .md; both already waive vendored and generated.
+        if not target.is_file() or not (file_law.is_authored(Path(path), root)
+                                        or file_law.is_authored_prose(Path(path), root)):
             continue
         # A tool wrote it, so no authoring rule applies — the third answer file_law holds, and the
         # one this gate never asked for. `generated.txt` promises the cap is waived and the entropy
@@ -49,11 +57,11 @@ def report(paths, root=None) -> tuple:
             lines.append(f'⚠ WARN: {path} ({count} lines)')
             warned = True
     if blocked:
-        lines.append(f'\nOne or more code files exceed the block threshold ({block} lines).')
+        lines.append(f'\nOne or more authored files exceed the block threshold ({block} lines).')
     elif warned:
-        lines.append(f'\nOne or more code files exceed the warn threshold ({warn} lines).')
+        lines.append(f'\nOne or more authored files exceed the warn threshold ({warn} lines).')
     else:
-        lines.append('No code files exceed thresholds.')
+        lines.append('No authored files exceed thresholds.')
     return lines, blocked
 
 

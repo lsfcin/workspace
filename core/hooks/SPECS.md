@@ -17,10 +17,11 @@ from `core/tools/test/conftest.py`, and no test repeats it.
 Applied globally via `core.hooksPath`, so it fires on every `git commit` in **every** repo under this
 workspace. Stage order and the one place a commit is refused: [`commit/CONTEXT.md`](commit/CONTEXT.md).
 
-- Warns and then blocks on code-file length, via `checks/line_counts.py` over staged files — the
-  same module that runs standalone. Both thresholds are [`limits.env`](limits.env)'s answer and
-  which extensions count is [`file_law.py`](file_law.py)'s, never a checker's and never this file's:
-  the copy that stood here read 150/200 for five days after the law moved to 200/250.
+- Warns and then blocks on the length of any authored file, code and prose alike, via
+  `checks/line_counts.py` over staged files — the same module that runs standalone. Both thresholds
+  are [`limits.env`](limits.env)'s answer and which files are authored is
+  [`file_law.py`](file_law.py)'s, never a checker's and never this file's: the copy that stood here
+  read 150/200 for five days after the law moved to 200/250.
 - Warns when a newly staged code file lacks its first-line description comment.
 - Hard-blocks cross-module imports that bypass the facade, via `facade/check-facade-imports.py`.
 - Auto-syncs each staged directory's `CONTEXT.md` routing block, and generates `.pyi`, `.d.ts` and
