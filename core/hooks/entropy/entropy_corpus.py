@@ -141,12 +141,9 @@ def declared_projects(root: Path) -> set:
 
 # Generated mirrors: sync-skills rewrites these from core/skills on every run, so a prose
 # finding inside one is unfixable in place and is already reported against the source it was
-# copied from. Fixing the mirror is fixing the generator.
-#
-# `.zcode/skills/` joined 2026-08-24 — the mirror landed when ZCode was registered and this list
-# did not follow it, so the new mirror's generated CONTEXT.md was counted as authored prose nobody
-# could fix. Only the skills subtree is a mirror: `.zcode/config.json`, `CONTEXT.md` and `SPECS.md`
-# are authored and stay in the corpus.
+# copied from. Fixing the mirror is fixing the generator. A new harness's mirror must join this
+# list the day it is registered, or it is counted as authored prose nobody can fix. Only the
+# skills subtree is a mirror: a harness's own config and CONTEXT.md are authored.
 MIRRORS = ('.claude/', '.opencode/', '.github/', '.zcode/skills/')
 
 
@@ -158,36 +155,26 @@ def is_generated_mirror(path: Path) -> bool:
     return any(part in posix(path) for part in MIRRORS)
 
 
-# The law, the check that enforces it, that check's tests, and the report that quotes the
-# findings all have to be able to NAME a retired token. Nothing else may.
-#
-# The report moved inside ISSUES.md 2026-08-20, so the exemption follows it — and widens, since a
-# file-level list cannot see block boundaries: the hand-written issues above the block may now name
-# a retired token too. That is a real loosening and it is the honest one, because an issue is often
-# ABOUT a name that should no longer exist.
-#
-# `core/SCHEMA.md` holds § Retired tokens itself, so it is the one law file that must be able to
-# name what it retires. The vocabulary shard came home 2026-08-25 and its separate exemption went
-# with it; `SCHEMA-layers.md` has no business naming a retired token and is deliberately absent.
+# The law, the check that enforces it, that check's tests, and the report that quotes the findings
+# all have to be able to NAME a retired token. Nothing else may. `core/SCHEMA.md` holds § Retired
+# tokens itself; `ISSUES.md` carries the generated report, and a file-level list cannot see block
+# boundaries, so the hand-written issues above the block are covered too — the honest loosening,
+# because an issue is often ABOUT a name that should no longer exist.
 ENFORCEMENT = ('core/SCHEMA.md', 'ISSUES.md')
 
-# The ledger check's own tests, found by name instead of by path. Spelling the path out is
-# what broke this exemption the moment core/tools/test was split (2026-07-31) — the same
-# defect as the hard-coded sibling path below, one directory over.
+# The ledger check's own tests, found by name instead of by path: spelling the path out is what
+# broke this exemption the moment core/tools/test was split (2026-07-31).
 _CHECKER_TESTS = ('core/tools/test/**/test_entropy_ledger.py*',
                   'core/tools/test/**/test_entropy_retired.py*')
 
-# The checker and its stub are SIBLINGS of this file, so they are derived rather than
-# spelled out. A hard-coded path here stops exempting them the moment the hooks directory
-# moves — which is exactly what happened when the hooks moved into `core/` (2026-07-31).
+# The checker and its stub are SIBLINGS of this file, so they are derived rather than spelled out —
+# a hard-coded path stopped exempting them the day the hooks moved into `core/`.
 _CHECKER = ('entropy_ledger.py', 'entropy_ledger.pyi')
 
-# Since the entropy scatter every nested repo's ledger carries the same generated block the root's
-# does, so the exemption that followed the report into ISSUES.md has to follow it into all of them.
-# This is not a courtesy: the report's own section notes name a retired token and spell `[[slug]]`
-# literally, so a ledger left unexempt is flagged by the very text the tool wrote into it — the
-# check reporting on its own output. Derived from nested_repos rather than a `code/*` glob, which
-# is how the exemption stayed correct when the scatter generalised (2026-08-25).
+# Every nested repo's ledger carries the same generated block the root's does, so the exemption
+# follows the report into all of them. Not a courtesy: that block's own notes name a retired token
+# and spell `[[slug]]` literally, so an unexempt ledger is flagged by the text the tool wrote into
+# it. Derived from nested_repos rather than a `code/*` glob, which is how it survived the scatter.
 _LOCAL_LEDGER = 'ISSUES.md'
 
 
@@ -201,12 +188,9 @@ def enforcement_paths(root: Path) -> set:
 
 # brain/memory holds cross-session agent memory, and its `[[slug]]` names ANOTHER MEMORY rather
 # than a goal. A slug with no file yet is allowed there on purpose — it marks a memory worth
-# writing later. Different vocabulary, different strictness, so the goal check cannot apply.
-#
-# Only the wiki-link check is relaxed. Retired tokens are still enforced there, and that is not
-# hypothetical: the day the store moved into the workspace (2026-08-15) that check caught four
-# memories still naming files and flows renamed in July — instructions a future session would have
-# followed. Memory rots exactly like documentation, and nothing was watching it before.
+# writing later. Only the wiki-link check is relaxed: retired tokens are still enforced there, and
+# the day the store arrived that check caught four memories naming files renamed in July.
+# Memory rots exactly like documentation, and nothing was watching it before.
 MEMORY_DIR = 'brain/memory'
 
 
