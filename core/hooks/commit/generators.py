@@ -2,8 +2,8 @@
 # The pre-commit stages that WRITE: brain stats, routing tables, interface stubs, skill mirrors.
 #
 # A generator writes artifacts and stages them into the commit under way; a gate (gates.py,
-# gates_project.py) may refuse it. That split is the 2026-07-31 reorganisation and it is the reason
-# this file never raises Blocked except where a generator's own output could not be trusted.
+# gates_project.py) may refuse it. That split is why this file never raises Blocked except where a
+# generator's own output could not be trusted.
 import subprocess
 import sys
 from pathlib import Path
@@ -26,10 +26,9 @@ def _stage(commit, *paths):
 
 def prepare(commit):
     """Brain stats and the self-healing .gitignore allowlist. First -- both stage files."""
-    # Only on a staged brain/goals/ file, so unrelated commits are not polluted. The path is
-    # resolved against the MACHINERY root: this hook fires in every repo under the workspace, and
-    # a cwd-relative path only happens to work in the one repo that has brain/GOALS.md. The guard
-    # hid that, which is why it survived the 2026-07-31 split.
+    # Only on a staged brain/goals/ file, so unrelated commits are not polluted. Resolved against
+    # the MACHINERY root: this hook fires in every repo, and a cwd-relative path only happens to
+    # work in the one that has brain/GOALS.md.
     if (commit.root / 'brain/GOALS.md').is_file() and \
             any(p.startswith('brain/goals/') for p in commit.staged):
         spawn(commit, 'core/hooks/brain/brain_stats.py')
@@ -41,9 +40,8 @@ def prepare(commit):
 def routing(commit):
     """CONTEXT.md routing blocks, the AGENTS.md norms block, and TeX .texif interfaces."""
     # $STAGED is --diff-filter=ACM, so a DELETED file is invisible to code_files -- and a directory
-    # that LOSES a file is exactly the one whose routing table now names something gone. The stale
-    # row then survived forever, because nothing else re-syncs that CONTEXT.md. `is_code_file`
-    # classifies by name, so it does not need the file to still exist.
+    # that LOSES a file is exactly the one whose routing table now names something gone, forever,
+    # since nothing else re-syncs it. `is_code_file` classifies by name, so the file need not exist.
     dirty = commit.code_files + [p for p in commit.deleted if file_law.is_code_file(Path(p))]
     for leaf in sorted({str(Path(p).parent) for p in dirty}):
         if (commit.toplevel / leaf / 'CONTEXT.md').is_file():
@@ -69,13 +67,8 @@ def _sweep(commit, staged, pattern, exclude=()):
     """Staged sources, PLUS any stubless sibling in the same directories.
 
     A source that entered the repo outside Edit/Write -- a bash heredoc, a bulk vendoring, a
-    --no-verify commit -- was never stubbed by anything, and nothing ever looked back: 182 files
-    workspace-wide had no interface. Sweeping the touched directories catches the common shape (a
-    directory that gained files in one go) without paying a whole-tree scan on every commit.
-
-    It was `.py` only until 2026-08-31, and the residue was booked as a number in ISSUES.md
-    § Entropy -- which B5 says no clone has ever been able to read. The number grew to 200, 31 of
-    them the .js of code/isoroll-module, which this arm could not reach at all.
+    --no-verify commit -- was never stubbed by anything, and nothing ever looked back. Sweeping the
+    touched directories catches the common shape without paying a whole-tree scan on every commit.
     """
     found = set(staged)
     for directory in {Path(p).parent for p in staged}:
@@ -104,11 +97,9 @@ def _typescript(commit, staged):
 def _keeps_a_ledger(commit) -> bool:
     """A PROJECT keeps its own findings; a TARGET keeps none.
 
-    core/tools/links/SPECS.md gives that as the reason the redirect clone is a target: "no
-    ISSUES.md, no pre-commit, and `build` rebuilds it whole from links.txt". This hook is global,
-    so it fired there anyway and shipped a ledger into a public repo on every `cfpages build
-    --push`. Asked of the same .gitignore the project map reads, so nothing here holds a second
-    list of names.
+    core/tools/links/SPECS.md gives that as the reason the redirect clone is a target. This hook is
+    global, so it fired there anyway and shipped a ledger into a public repo on every build. Asked
+    of the same .gitignore the project map reads, so nothing here holds a second list of names.
     """
     if commit.is_workspace:
         return True
@@ -123,12 +114,10 @@ def _keeps_a_ledger(commit) -> bool:
 def ledger(commit):
     """This repo's own entropy findings, written into its own ISSUES.md and staged.
 
-    Ruled 2026-09-04 (Lucas): each repo counts only itself, and writes where its reader is. The
-    workspace root used to scan all 27 nested projects from outside and commit a ledger into each
-    one behind the session — commits nobody typed, so nobody pushed them
-    (b20260831-scattered-ledgers-never-push), against a table that described this disk and was red
-    on the clone that had none of them (b20260902). WRITES AND WARNS, never refuses: the count is
-    a signal to act on, and a gate here would refuse commits over a debt the commit did not create.
+    Ruled 2026-09-04 (Lucas): each repo counts only itself, and writes where its reader is. Scanning
+    the nested projects from outside committed ledgers nobody typed and nobody pushed
+    (b20260831-scattered-ledgers-never-push), against a table that described one disk (b20260902).
+    WRITES AND WARNS, never refuses: a gate here would refuse commits over a debt they did not make.
     """
     if not feature_law.is_enabled('entropy-dashboard'):
         return
@@ -143,9 +132,8 @@ def interfaces(commit):
     """.pyi, .d.ts and .dart.api, generated and staged into this commit.
 
     `interface-stubs` names TWO paths in core/features.txt -- this one and postedit/interfaces.sh.
-    Not a duplicate trigger: this one stages the stub into the commit and sweeps stubless siblings,
-    post-edit keeps the stub current inside the session so read/pre-read.py never serves a stale
-    interface. Guarding one would leave the other writing.
+    Not a duplicate trigger: this one stages the stub and sweeps stubless siblings, post-edit keeps
+    the stub current inside the session so read/pre-read.py never serves a stale interface.
     """
     if not feature_law.is_enabled('interface-stubs'):
         return
@@ -162,8 +150,7 @@ def interfaces(commit):
     if javascript:
         tsc = stubs.find_tsc()
         if not tsc:
-            print('⚠  tsc not found — .d.ts not generated for JS files.')
-            print('   Install: npm install -g typescript\n')
+            print('⚠  tsc not found — .d.ts not generated for JS. Install: npm i -g typescript\n')
         else:
             for source in commit.existing(javascript):
                 if stubs.emit_dts(commit.toplevel / source, tsc):
@@ -185,22 +172,20 @@ def interfaces(commit):
 def skills(commit):
     """Regenerate the skill-library mirrors, then validate their frontmatter.
 
-    Regeneration prunes orphans, which is the only thing that removes a DELETED skill's copies:
-    `rm` is not an Edit, so no post-edit hook sees it and this stage is where that case lands.
-    The --check re-run is not belt-and-braces: it is what catches a sync that reported success and
-    left the mirrors disagreeing anyway.
+    Regeneration prunes orphans, the only thing that removes a DELETED skill's copies: `rm` is not
+    an Edit, so no post-edit hook sees it. The --check re-run is not belt-and-braces: it catches a
+    sync that reported success and left the mirrors disagreeing anyway.
 
-    THIS STAGE NO LONGER STAGES ANYTHING. The copies were tracked until 2026-08-29; since they are
-    gitignored generated content (ISSUES.md B8) that loop could only add nothing, and it restated
-    the mirror paths sync-skills already owns. Correctness lives at the moment of the edit
-    (core/hooks/postedit/sync.sh) rather than at commit time.
+    THIS STAGE NO LONGER STAGES ANYTHING: the copies are gitignored generated content, so the loop
+    that staged them added nothing while restating paths sync-skills owns. Correctness lives at the
+    moment of the edit (core/hooks/postedit/sync.sh) rather than at commit time.
     """
     if not any(p.startswith('core/skills/') and p.endswith('.md') for p in commit.staged):
         return
     print('→ sync-skills…')
     # Through the launcher, never a spelled interpreter: sync-skills is Python since 2026-09-01 and
-    # `bash` would run it as a shell script. The pair of runs cost ~30 s while it was bash, ~0.6 s
-    # now, which is the whole reason the SessionStart heal could be built at all.
+    # `bash` would run it as a shell script. The port is also what made the pair of runs cheap
+    # enough for the SessionStart heal to exist.
     sync = ['sh', str(commit.root / 'core/run'), 'tools/wos/sync-skills']
     done = subprocess.run(sync, capture_output=True, text=True,
                           cwd=commit.toplevel, encoding='utf-8', errors='replace')

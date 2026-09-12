@@ -3,14 +3,10 @@
 # that module parses core/SCHEMA.md, this one owns the file-shape law every size, fanout
 # and line-count check reads.
 #
-# Why it exists (2026-07-31): "a code file" was defined FOUR times — check-line-counts.sh,
-# entropy-dashboard.py, workspace_meta.py and workspace_scanner.py each carried their own
-# extension list, and no two agreed. `.sh` and extensionless executables were invisible to
-# the BLOCKING gate, which is how core/hooks/pre-commit reached 385 lines and
-# core/tools/wos/sync-skills 341 without ever being stopped. One definition, one home.
+# Why it exists (2026-07-31): "a code file" was defined in four checkers, no two agreeing, so the
+# BLOCKING gate could not see `.sh` or an extensionless executable. One definition, one home.
 import fnmatch
 import re
-import sys
 from pathlib import Path
 from platform_law import rel as _rel
 
@@ -21,9 +17,9 @@ GENERATED_FILE = HERE / 'generated.txt'
 EXTENSIONLESS_FILE = HERE / 'extensionless.txt'
 DESCRIBED_FILE = HERE / 'described.txt'
 
-# Things the line cap and the fanout signal apply to. Prose types (.md, .yaml, .toml) are
-# NOT here: their size is a signal, never a cap. `.tex` is code on purpose — a paper
-# section file is authored under the same line rule (academy/papers/SPECS.md § File size).
+# Things the line cap and the fanout signal apply to. `.md` is not here: is_authored_prose below
+# answers for it. `.tex` is code on purpose — a paper section file is authored under the same line
+# rule (academy/papers/SPECS.md § File size).
 CODE_EXTS = {'.js', '.jsx', '.ts', '.tsx', '.py', '.dart', '.sh',
              '.html', '.css', '.scss', '.tex'}
 
@@ -31,15 +27,12 @@ CODE_EXTS = {'.js', '.jsx', '.ts', '.tsx', '.py', '.dart', '.sh',
 GENERATED = ('.pyi', '.d.ts', '.dart.api', '.texif')
 
 # Files that ARE their own interface, so nothing generates one beside them and the read gate never
-# fires on one. It was spelled out identically in four places — stubgen, both facade hooks and the
-# routing scanner — and the four had already drifted in what they CALLED it, which is how a fifth
-# copy nearly got written without anyone noticing the other four. It belongs to the question this
-# module owns, what a file IS, and `index.dart` joining once proves the set moves.
+# fires on one. It was spelled out in four places — stubgen, both facade hooks and the routing
+# scanner — which had already drifted in what they CALLED it.
 FACADES = {'index.ts', 'index.tsx', 'index.js', 'index.jsx', '__init__.py', 'index.dart'}
 
-# How a file of each kind declares what it is. One home, because it used to have three —
-# pre-edit.py held two dicts and gates/source-quality.sh a shell case-list, and only the
-# shell one ran at commit time, only as a warning, and only over code extensions.
+# How a file of each kind declares what it is. One home, because it used to have three, and only
+# the shell one ran at commit time — as a warning, over code extensions alone.
 EXAMPLE_COMMENT = {
     '.py': '# Short description',      '.js': '// Short description',
     '.ts': '// Short description',     '.tsx': '// Short description',
@@ -55,17 +48,13 @@ EXAMPLE_COMMENT = {
 
 def is_tool_entrypoint(path: Path) -> bool:
     """An extensionless CLI under core/tools/, by SHAPE — not by the shebang that named one
-    machine's venv and made all 33 unrunnable elsewhere. `core/run` starts them now."""
+    machine's venv and made all 33 unrunnable elsewhere."""
     return not path.suffix and '/core/tools/' in f'/{path.as_posix()}'
 
 
 def is_code_file(path: Path) -> bool:
-    """One definition. An extension, a core/tools CLI, or a shebang.
-
-    The last two arms close the old blind spot: pre-commit and the core/tools CLIs are real
-    code, named by git or by our own convention. Dropping those shebangs took 31 files out
-    of the line cap and the fanout signal in one edit.
-    """
+    """One definition. An extension, a core/tools CLI, or a shebang — the last two arms closing the
+    blind spot that hid pre-commit and every core/tools CLI from the cap (31 files)."""
     if path.name.endswith(GENERATED):
         return False
     if path.suffix in CODE_EXTS:
@@ -90,10 +79,8 @@ def load_limits() -> dict:
 
 
 def _lines(path: Path) -> list:
-    if not path.exists():
-        return []
-    return [ln.strip() for ln in path.read_text(encoding='utf-8').splitlines()
-            if ln.strip() and not ln.startswith('#')]
+    text = path.read_text(encoding='utf-8') if path.exists() else ''
+    return [ln.strip() for ln in text.splitlines() if ln.strip() and not ln.startswith('#')]
 
 
 def allowed_extensionless() -> set:
@@ -104,9 +91,8 @@ def allowed_extensionless() -> set:
 def _listed(path: Path, root: Path, declaration: Path) -> bool:
     """True when this path matches a glob in one of the sibling declaration files.
 
-    Two questions of one shape — is this path in a named, reviewed list — so one reader. Why
-    each list exists is stated in its own head, which is where a rule about a data file belongs.
-    """
+    Two questions of one shape — is this path in a named, reviewed list — so one reader. Why each
+    list exists is stated in its own head, where a rule about a data file belongs."""
     try:
         rel = _rel(path.resolve(), root)
     except ValueError:
@@ -120,15 +106,14 @@ def is_vendored(path: Path, root: Path) -> bool:
 
 
 def is_generated_artifact(path: Path, root: Path) -> bool:
-    """A file one of OUR tools writes — core/hooks/generated.txt. Separate from is_vendored on
-    purpose: that list is provenance we do not own, this one is provenance we do."""
+    """A file one of OUR tools writes — core/hooks/generated.txt. Separate from is_vendored: that
+    list is provenance we do not own, this one is provenance we do."""
     return _listed(path, root, GENERATED_FILE)
 
 
 def described() -> dict:
-    """{path: description} for a file whose format has no comment syntax to carry one. JSON is
-    the class — every config a harness dictates is one, and the routing table exists to name
-    exactly those. core/hooks/described.txt says which, and why it is not a net."""
+    """{path: description} for a file whose format has no comment syntax to carry one — JSON is the
+    class. core/hooks/described.txt says which, and why it is not a net."""
     rows = (ln.split('\t', 1) for ln in _lines(DESCRIBED_FILE) if '\t' in ln)
     return {name.strip(): text.strip() for name, text in rows}
 
@@ -149,13 +134,10 @@ BLOCK_CLOSE = re.compile(r'^\s*<!--\s*[\w-]+:end\s*-->')
 def generated_spans(text: str) -> list:
     """(start, end) line numbers of the blocks a generator owns inside an authored file.
 
-    `is_generated_artifact` answers for WHOLE files; this is the other half, and it is what three
-    readers needed separately before 2026-09-11: wrap refusing to reflow one, the port ratchets
-    going red on ISSUES.md's quoted red-suite log, and the section-citation gate reading a section
-    name out of that same log. Inside a block there is no legal fix — core/SCHEMA.md forbids
-    hand-editing one — so a finding there is one nobody can act on.
-
-    Never the whole file: an authored file's own half stays held to every rule.
+    `is_generated_artifact` answers for WHOLE files; this is the other half, which three readers
+    needed separately before 2026-09-11. Inside a block there is no legal fix — core/SCHEMA.md
+    forbids hand-editing one — so a finding there is one nobody can act on. Never the whole file:
+    an authored file's own half stays held to every rule.
     """
     spans, opened = [], None
     for number, line in enumerate(text.splitlines(), 1):
@@ -177,8 +159,7 @@ def over_column_cap(text: str, cols: int) -> list:
 
     FOUR shapes are exempt: a **markdown table row**, anything inside a **fenced code block**, the
     **leading YAML frontmatter block**, and a line that fits once its **link targets** are taken
-    out. Why each, and why none is a hollow-out, is in limits.env § BLOCK_COLS — the one home for
-    this rule's reasoning.
+    out. Why each, and why none is a hollow-out: limits.env § BLOCK_COLS.
     """
     over, fenced = [], False
     lines = text.splitlines()
@@ -196,9 +177,8 @@ def over_column_cap(text: str, cols: int) -> list:
             continue
         if fenced or line.lstrip().startswith('|') or len(line) <= cols:
             continue
-        # A URL and a relative path are single tokens: no rewrap makes them shorter, so the only
-        # thing this cap could buy on such a line is worse prose around it. Measured with the
-        # targets removed, so the AUTHORED half is still held to the full width.
+        # A URL and a relative path are single tokens no rewrap shortens. Measured with the targets
+        # removed, so the AUTHORED half is still held to the full width.
         if len(LINK_TOKEN.sub('', line)) > cols:
             over.append(number)
     return over
@@ -207,31 +187,12 @@ def over_column_cap(text: str, cols: int) -> list:
 def is_authored_prose(path: Path, root: Path) -> bool:
     """The prose twin, for the gates that hold .md to the same line cap (2026-08-18).
 
-    A separate predicate rather than a wider is_authored, because two of that function's callers
-    must stay code-only: entropy_fanout counts MODULES in a directory — a flat collection of
-    documents is a legitimate shape, and brain/goals/ is 57 files — and `--filter-code` feeds the
-    shell line gate. It lives here rather than in the two gates that ask it, for the reason the
-    whole module exists: the same question answered in two files drifts.
+    A separate predicate rather than a wider is_authored, because entropy_fanout counts MODULES in
+    a directory — a flat collection of documents is a legitimate shape, and brain/goals/ is 57
+    files. It lives here rather than in the gates that ask it, for the reason the whole module
+    exists: the same question answered in two files drifts.
     """
     return (path.suffix == '.md' and not is_vendored(path, root)
             and not is_generated_artifact(path, root))
 
 
-def main() -> int:
-    """`--filter-code` keeps stdin paths that are code, so the shell gate shares this law."""
-    if '--filter-code' not in sys.argv:
-        print('usage: file_law.py --filter-code < paths', file=sys.stderr)
-        return 2
-    root = HERE.parents[1]
-    for line in sys.stdin:
-        candidate = Path(line.strip())
-        if not line.strip():
-            continue
-        full = candidate if candidate.is_absolute() else root / candidate
-        if is_authored(full, root):
-            print(line.strip())
-    return 0
-
-
-if __name__ == '__main__':
-    sys.exit(main())

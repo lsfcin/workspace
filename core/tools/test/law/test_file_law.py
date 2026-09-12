@@ -1,11 +1,7 @@
 # T0 file law (core/hooks/SPECS.md). Zero-token, runs in verify-fast.
 #
-# Why this file exists: "a code file" was defined FIVE times — check-line-counts.sh,
-# entropy-dashboard.py, workspace_meta.py, pre-edit.py and facade-gate.py each carried an
-# extension list, and no two agreed. `.sh` and extensionless executables were invisible to
-# the BLOCKING gate, which is how core/hooks/pre-commit reached 385 lines and
-# core/tools/wos/sync-skills 341 without ever being stopped.
-#
+# Why this file exists is core/hooks/file_law.py's own head: "a code file" was defined in five
+# checkers at once, and what they disagreed about was invisible to the BLOCKING gate.
 # test_no_checker_carries_its_own_extension_list is the one that makes that unrepeatable.
 import re
 import subprocess
@@ -137,6 +133,9 @@ def test_every_extensionless_tracked_file_is_explained() -> None:
 # reviewed — the same shape as vendored.txt, and for the same reason: the alternative is a
 # heuristic that quietly decides for us.
 NOT_THE_CODE_LAW = {
+    'file_law.py':                    'THE LAW ITSELF — it holds the one list every other checker '
+                                      'imports. It passed unlisted only while a usage string '
+                                      'happened to spell its own name (2026-09-12)',
     'entropy/entropy_corpus.py':      'SCANNED — text files worth walking, includes .md/.json',
     'entropy/entropy_naming.py':      'AUTHORED — the files our naming rules apply to',
     'facade/check-facade-imports.py': 'per-language import syntax, not file-ness',

@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DdMgKczjl3g/?stkn=NTc4MTIwNjQ2YQ==
+pode ser útil pra gente
+— via aiwbot · 2026-09-12
+
 https://www.instagram.com/reel/DdME5hsNRju/?utm_source=ig_web_copy_link
 colocar na minha aula
 — via aiwbot · 2026-09-12

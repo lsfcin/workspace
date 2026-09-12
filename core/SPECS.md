@@ -1,6 +1,11 @@
 # Core SPECS
 > Architecture decisions and conventions for the Core agent library.
 
+<!-- warn-exempt: one decision per section, each carrying the reason it was made. Cutting to the warn
+     means deleting decisions or the reasons behind them, which is what raised the cap on 2026-09-06.
+     The block cap still applies: past it this file is cut, not excused. -->
+
+
 ## Conventions
 
 - **An untracked file opts out of every check this workspace has** (2026-08-15) — and keeps giving
@@ -25,10 +30,10 @@
 - **Does the claim describe the TEXT or the EXECUTION?** (Lucas, 2026-08-24.) That question picks the
   instrument, not *"grep is forbidden"*. For a **textual** claim grep is fine, but **the negative
   assert is the check** — source-reading with only positive asserts is defective. For a **runtime**
-  claim a substring is a proxy that has already been caught passing wrongly, so **run it and watch**;
-  if it cannot be run, read the source with comments stripped and say so in the check. Hence also **a
-  test case matches the exact basename, never a suffix**: `endswith` let a harness hand the Bash gate
-  a Read payload, and the case passed *by not blocking*.
+  claim a substring is a proxy already caught passing wrongly, so **run it and watch**; if it cannot
+  be run, read the source with comments stripped and say so. Hence also **a test case matches the
+  exact basename, never a suffix**: `endswith` let a Read payload reach the Bash gate, and the case
+  passed *by not blocking*.
 - **A command whose exit status is a gate never goes inside a pipe** (2026-08-13): in `a | tail && b`
   the status is `tail`'s, so a failed merge still pushes. Use `set -e` and no pipes, or capture the
   status — filtering output is for inspection, never for decision.
@@ -63,10 +68,9 @@ is `core/tools/SPECS.md`, beside the code that writes them.
 ### AD-04 — Slides are edited in place, with no local format (2026-08-14, revokes Slidev)
 **Revokes the 2026-06-18 decision for Slidev and the Google Slides → Slidev port**, which rested on the
 source of truth not being agent-editable. It **is**: `batchUpdate` writes and repositions elements
-remotely, and motion authors as a generated slide sequence that survives PDF export — the requirement
-Lucas named. The port therefore only produced a second copy to keep in sync, so Slidev was **deleted**,
-not demoted, and course material stays where the students see it. Tool: `core/tools/slides/gslides`;
-API facts: `core/tools/slides/SPECS.md`.
+remotely, and motion authors as a generated slide sequence that survives PDF export. The port only
+produced a second copy to keep in sync, so Slidev was **deleted**, not demoted, and course material
+stays where the students see it. Tool: `core/tools/slides/gslides`; API: `core/tools/slides/SPECS.md`.
 
 ### AD-06 — A skill's `refs/` folder sits beside the skill (2026-07-05)
 References a skill accumulates live at the **same level as the skill file**, never inside a generated
@@ -100,8 +104,7 @@ lines the script prints is the script's business — the skills copy verbatim an
 - **Dirt in the working tree has two possible owners and the script cannot tell them apart**, so it
   prints the paths and **asks** rather than asserting; `--leave-dirty` answers "not mine".
 - **Promotion fast-forwards without checkout** (`git fetch . <src>:<dst>`), so it never touches the
-  working tree — that, and no general claim about merges, is what makes it safe over someone else's
-  dirt.
+  working tree — that, and no general claim about merges, is what makes it safe over someone's dirt.
 - **The script refuses and says why** (red verify, target behind origin). A branch incoherent on its
   own enters through `--no-promote "<reason>"`; an unfinished milestone is not one, because green
   partial work belongs on `develop`.
@@ -111,18 +114,15 @@ lines the script prints is the script's business — the skills copy verbatim an
   with the video and web tools in the most expensive turn of all.
 
 Guarded by [`core/tools/test/wos/`](../core/tools/test/wos/CONTEXT.md) — the tool against throwaway
-workspaces, the skills against re-inlining work the script already owns. **How many tests that is
-was written here as a number until 2026-09-06, which the schema's own rule forbids**: everything
-countable is counted, never declared.
+workspaces, the skills against re-inlining work the script already owns.
 
 ### AD-10 — `core/tools/` classifies by capability; the provider is the leaf (2026-08-14)
 **Directory = what the tool does, file = who provides it** (`mail/gmail`, `files/gdrive`), so changing
 provider changes a leaf and never a family; a folder named for a manufacturer classifies on the wrong
-axis, which is why no rename of one ever feels right. Two refinements stop it becoming a fanout
-own-goal: **create the family only when the tool arrives**, and **write a `CONTEXT.md` only from the
-second file on**, since the routing generator folds a sub-threshold directory into its parent unless
-it declares itself. Declared cost: this was the **second** time every `core/tools/` path changed, and
-a third is not free.
+axis. Two refinements stop it becoming a fanout own-goal: **create the family only when the tool
+arrives**, and **write a `CONTEXT.md` only from the second file on**, since the routing generator
+folds a sub-threshold directory into its parent unless it declares itself. Declared cost: this was
+the **second** time every `core/tools/` path changed, and a third is not free.
 
 ### AD-11 — A read uses the strongest consent the account has already given (2026-08-14)
 When an alias holds a write token the read path uses **it** and never asks for a second. Edit consent
@@ -137,60 +137,51 @@ consequences the CLI carries are rules about tools, so they live with the tools:
 [`core/tools/SPECS.md`](tools/SPECS.md) § A provider without OAuth.
 
 ### AD-13 — A subagent skips the context gate; whoever invokes it delivers the context (2026-08-15)
-A worker handed **an explicit path** never needed the `CONTEXT.md` chain: forcing it costs ~2k tokens
-on a 17.8k start, re-read every turn. It replaces an exemption that already existed **by accident** —
-a worker inheriting its parent's seen-set skipped the gate only in subtrees the parent happened to
-have visited. The gate protecting contracts still fires for everyone; which field tells a worker
-apart, and why it is that one, is `hook_input.is_subagent`'s own docstring.
+A worker handed **an explicit path** never needed the `CONTEXT.md` chain, and forcing it is a large
+share of a small start, re-read every turn. It replaces an exemption that already existed **by
+accident** — a worker inheriting its parent's seen-set skipped the gate only in subtrees the parent
+happened to have visited. The gate protecting contracts still fires for everyone; which field tells a
+worker apart is `hook_input.is_subagent`'s own docstring.
 
 The duty moved to the orchestrator and a hook discharges it: `read/agent-context.py` reads the paths
 cited in the `Agent` prompt and hands the worker each subtree's `>` line. **It induces, never blocks.**
-It needs two events because neither one is enough alone, so the briefing is **per turn** rather than
-per worker: several workers in one turn get the union of cited paths. Too broad, never wrong, and
-unsolvable otherwise — a worker's only id is born after the prompt has passed. The join and its
-measurement: `core/experiments/subagent-context-chain.md`.
+The briefing is **per turn** rather than per worker, so several workers in one turn get the union of
+cited paths: too broad, never wrong, and unsolvable otherwise — a worker's only id is born after the
+prompt has passed. The join and its measurement: `core/experiments/subagent-context-chain.md`.
 
 ### AD-14 — A capability that cannot be switched off is a finding, not a feature (2026-08-16)
 The ablation bench ran once and produced **no** signal, for one reason: nothing could be switched off
 one at a time. While that stays true nothing here is measurable. So the registry is the **instrument**,
 not a configuration system: `core/features.txt` declares each capability, `core/profile.txt` holds this
-machine's answers, and `feature_law.py` is the third law module (the trio is named in
-`core/hooks/CONTEXT.md`). It **names** which hook, skill or tool is wired and never restates the rule
-that hook applies.
+machine's answers, and `feature_law.py` is the third law module. It **names** which hook, skill or tool
+is wired and never restates the rule that hook applies.
 
 - **The `wired` column is honest or it is useless** — a row claiming a switch it does not have makes
-  the ablation report "no effect" for something never switched off. What that column may hold, and
-  why it is comma-separated when a feature spans layers, is `core/features.txt`'s own head: the
-  registry states its columns, and a second copy here is the drift the law modules exist to catch.
+  the ablation report "no effect" for something never switched off. What that column may hold is
+  `core/features.txt`'s own head; a second copy here is the drift the law modules exist to catch.
 - **`WOS_FEATURES_OFF` only subtracts.** There is no `WOS_FEATURES_ON`: an ablation run answers *what
   does this workspace cost without X*, and switching something on is a versioned decision in the
-  profile, not a variable that dies with the shell. Its sibling rule — `is_enabled` fails OPEN on an
-  unknown slug — is stated where it is applied, in `feature_law.py`'s own head.
+  profile, not a variable that dies with the shell.
 
 **The ablation runs OUTSIDE the workspace** (Lucas, 2026-08-17) — a system does not run the experiment
 on itself. The harness builds **variants** of a checkout, one capability missing from each, from the
 public repository, which makes that repo a **hard precondition** and forces a synthetic task suite.
 So there are two shutdown routes and `wired` knows only the first: an **in-process switch**, which is
-`is_enabled()` in the file applying the rule and is what `WOS_FEATURES_OFF` and the profile reach; and
-a **clone variant**, built without the capability at all, which only the ablation harness uses.
+`is_enabled()` in the file applying the rule; and a **clone variant**, built without the capability at
+all, which only the ablation harness uses.
 
 **Every capability is ablatable; not every one has an in-process switch** (Lucas: *"ALL features of the
-WOS should be toggleable"*). `n/a` in `wired` means *"no in-process switch"*, never *"exempt"*, and the
-column has been **empty since 2026-08-17**, so the target of zero has no exceptions. **What is
-measurable is decided by the wiring point, never by the group** — classifying by group would have
-discarded the registry's highest-signal row, a compaction feature wired in a hook and running on every
-Bash call.
-
-**A feature crossing layers is honest only when every layer consults the law** (2026-08-17) — one
-half switched off is not switched off. The worked case is `latex` and it is written beside the
-column it constrains.
+WOS should be toggleable"*). `n/a` in `wired` means *"no in-process switch"*, never *"exempt"*. **What
+is measurable is decided by the wiring point, never by the group** — classifying by group would have
+discarded the registry's highest-signal row, a compaction feature running on every Bash call. **A
+feature crossing layers is honest only when every layer consults the law** (2026-08-17): one half
+switched off is not switched off.
 
 **The honesty test asks ONE question — would switching this off change anything? — and answers it the
-strongest way each row allows**, because searching for the literal slug inside the named file forces
-one call site per row and had nowhere to land for 25 of them. That is what **makes a shared wiring
-point legal**: a group with an invokable seam is probed by behaviour rather than by grep, which passes
-on a guard in an unreachable branch. How each row is answered is `test_features_wiring.py`, which
-runs in the commit gate and is the only place it should be written.
+strongest way each row allows**, because searching for the literal slug inside the named file has
+nowhere to land for a shared wiring point. That is what **makes one legal**: a group with an invokable
+seam is probed by behaviour rather than by grep, which passes on a guard in an unreachable branch. How
+each row is answered is `test_features_wiring.py`, and that is the only place it should be written.
 
 ### AD-15 — What an always-loaded rule must prove to keep its place (2026-08-17)
 Applies to text loaded in **every session**: `AGENTS.md`, `CONTEXT.md` heads, always-listed skills. The
@@ -205,13 +196,12 @@ instead of prose?*
 
 **The discriminator between `delete` and `move` is blocking, not the existence of a detector.**
 `UPPERCASE.md = a type` left `AGENTS.md` because `type-gate.py` stops the commit; `DONE WORK IS
-DELETED` stayed, because `entropy_ledger.py` owns the finished-work detector but `type-gate.py` imports
-only its wiki-link half — deleting prose on the strength of a report trades enforcement for nothing.
+DELETED` stayed, because the finished-work detector never reached a blocking gate — deleting prose on
+the strength of a report trades enforcement for nothing.
 
 **Counterweights, because indiscriminate pruning is the one way this makes things worse:** context is
 never cruft, **no deletion is justified by character count alone**, and this governs **always-loaded**
-text only. It is not a cost item — the gain is enforcement, not tokens
-([`experiments/context-window.md`](experiments/context-window.md), re-run rather than quoted).
+text only. It is not a cost item — the gain is enforcement, not tokens.
 
 ### AD-16 — Doubt is not charged when asserting; it is charged when storing (2026-08-17)
 Asking for doubt in prose is the cheap half and has already been tried: this workspace is thick with
@@ -220,8 +210,7 @@ weeks nor four asserted-then-retracted explanations of one hook. The question is
 caution but **where caution becomes a gate**. Three bands:
 
 1. **Rule written, nothing checking — the cheap win.** The two rules this workspace cited as proof it
-   knew how to doubt went unverified for months: INDUCED wearing ENFORCED's costume. `entropy_stores.py`
-   charges for both now.
+   knew how to doubt went unverified for months: INDUCED wearing ENFORCED's costume.
 2. **Enforced by construction.** Write the claim **where a parser already reads** and it is audited on
    every commit for free. That is what law-in-data does, which makes *"a checker that restates the law
    is the drift checkers exist to catch"* a doubt rule at heart.
@@ -232,19 +221,13 @@ caution but **where caution becomes a gate**. Three bands:
 module.** Owning a detector and charging for it are separate facts.
 
 ### AD-17 — Delegation is mandatory where an executor reads the assignment; elsewhere it is advice (2026-08-17)
-The ask: *"gostaria que ele delegasse mais ao sonnet pra economizar… seria ótimo se tivesse uma forma
-mais garantida"*, with the **plan** as the trigger — the moment work is cut into tasks is the cheap
-point to decide who executes each one. **That trigger is already built**: the Loop 1 plan table in
-`core/flows/craft/craft.md` carries `tier` and `effort` per task row, and the same loop's adversarial
-review charges that each row be executable by its assigned tier.
+The ask was a guaranteed way to route cheap work to a cheaper tier, with the **plan** as the trigger —
+the moment work is cut into tasks is the cheap point to decide who executes each one. **That trigger
+is already built**: the Loop 1 plan table in `core/flows/craft/craft.md` carries `tier` and `effort`
+per task row, and that loop's adversarial review charges that each row be executable by its tier.
 
 **What is missing is an executor that reads it.** Inside `/craft` there is one; outside it nothing
 reads the tag, so it is advice. **Hence the reading of the expensive-tier-heavy split: it measures how
 much work bypasses the flow that routes**, not per-task indiscipline. The lever is routing more work
-through `/craft`, not building a second router beside it. **Delegating ≠ parallelising**, and
-conflating them is what makes the proposal feel risky — offered a shape with parallel workers Lucas
-chose **no parallelism** (2026-08-17), and the common case is sequential anyway.
-
-**The chargeable half is cheap** and is intent rather than contract, so it is an item in
-[`ROADMAP.md`](../ROADMAP.md) and not a rule here: roundup already prints the per-session split, so
-a plan declaring its expected split makes deviation visible and dated, forcing nobody to delegate.
+through `/craft`, not building a second router beside it. **Delegating ≠ parallelising**: offered a
+shape with parallel workers Lucas chose **no parallelism** (2026-08-17).

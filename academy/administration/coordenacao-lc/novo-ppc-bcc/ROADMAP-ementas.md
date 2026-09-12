@@ -96,70 +96,13 @@ Convenções: checkbox `( X )` marcado; defaults `NÃO TEM`; código `NOVA` para
 
 ## Caminho de escrita em Google Docs (decisão do Lucas = "Docs direto", automatizado)
 
-**`core/tools/docs/gdocs` existe (2026-08-25) e NÃO substitui este pipeline.** Ele escreve markdown,
-que não carrega a tabela em `sdt` do MODELO SIGAA nem a cópia verbatim das células. O que ele agrega
-aqui é a *conferência*: `gdocs read <id>` lê a ementa já convertida sem exportar `.docx`.
+**`core/tools/docs/gdocs` NÃO substitui este pipeline.** Ele escreve markdown, que não carrega a
+tabela em `sdt` do MODELO SIGAA nem a cópia verbatim das células. O que ele agrega é a *conferência*:
+`gdocs read <id>` lê a ementa já convertida sem exportar `.docx`.
 
-**Escrita EXISTE no workspace** — não é só read-only. O `core/tools/files/gdrive` é read-only (scope `drive.readonly`),
-MAS `core/tools/files/drive_migrate_core.py` usa **`SCOPES_WRITE = ["https://www.googleapis.com/auth/drive"]`** (escrita
-total) com token separado `drive-write`, e já criou pastas/copiou arquivos antes (`find_or_create_folder`, `copy_file`).
-
-Estado dos tokens de escrita (`~/.config/workspace-drive-write/`):
-- ✅ `personal.token.json` e `cin.token.json` existem (Lucas já autorizou escrita antes).
-- ❌ **`personal` está EXPIRADO/REVOGADO** (`invalid_grant`) e **não há token da `ufrpe`** (conta das ementas).
-
-**Método (validado): geração local OK; upload precisa de 1 re-auth.**
-1. `python-docx` copia o MODELO (tabela em `sdt`) e preenche as células → `.docx` individual `[MODELO-SIGAA]
-   <disciplina>.docx`. **Validado** com Álgebra Vetorial (dedupe de células mescladas necessário — ver
-   `scratchpad/filler.py`).
-2. Para upload+conversão automáticos que o Lucas pediu, falta:
-   - (i) **re-autorizar escrita na conta ufrpe** (uma vez, browser): `core/tools/files/gdrive auth ufrpe --write
-     --reauth` — **o agente roda o comando**, o browser abre na máquina do Lucas e a única parte dele é escolher a conta
-     na tela de consentimento.
-   - (ii) adicionar método **upload-local-`.docx` + converter p/ Google Doc** (`files().create` com
-     `mimeType=application/vnd.google-apps.document` + media) — hoje só existe `copy_file` (copia arquivo já no Drive),
-     não upload de arquivo local.
-3. Com (i)+(ii): Claude cria pastas, sobe cada ementa, converte p/ Google Doc e organiza — 100% automatizado, sem
-   trabalho manual do Lucas.
-
-### Refactor spec — módulo de escrita em Drive (aprovado; executar no Opus, PRÉ-REQUISITO do upload)
-
-Objetivo: tirar a escrita de `drive_migrate` (script específico cin→personal) e criar um seam de Drive read+write,
-account-agnostic. Seguir `core/SCHEMA.md` + gerar `.pyi` (interface enforçada).
-
-**Estado atual (verificado nesta sessão):**
-- `core/tools/files/gdrive` (CLI) + `drive_fetch.py`: só leitura, scope `drive.readonly`. `DOWNLOAD_DIR =
-  ~/Downloads/workspace-drive` (**bug**: deve cair sob `Downloads` — item do Lucas no INBOX).
-- `drive_migrate_core.py`: `SCOPES_WRITE=["…/auth/drive"]`, `get_cin_service`/`get_personal_service` (contas hardcoded),
-  `find_or_create_folder`, `copy_file`. Auth via `gauth.auth(alias,'drive-write',SCOPES_WRITE)` → token em
-  `~/.config/workspace-drive-write/<alias>.token.json`.
-- Token `drive-write` da **ufrpe** recém-criado pelo Lucas (validar liveness antes de usar).
-
-**Alvo:**
-- `drive_core.py` (novo): `get_service(alias, write=False)`; reexporta `list/search/recent/download`; **novos**:
-  `mkdir(alias, name, parent_id, dry_run=False)`, `upload_local(alias, path, parent_id, as_gdoc=False)` → converte
-  `.docx`→Google Doc via `files().create(mimeType='application/vnd.google-apps.document', media=MediaFileUpload(path))`,
-  retorna `{id, webViewLink}`; `find_or_create_folder` (movido).
-- `drive` (CLI): subcomandos novos `mkdir`, `put`, `put --gdoc`. `download` continua.
-- `drive_migrate*` → wrapper fino sobre `drive_core`.
-- `DOWNLOAD_DIR` configurável, default sob workspace.
-- Scope de escrita isolado por conta (já é o padrão do token `drive-write`).
-
-**Validação do refactor:** `mkdir` uma pasta de teste na ufrpe → `put --gdoc` o `[MODELO-SIGAA] Álgebra...docx` →
-conferir link/fonte no Docs → limpar teste. Só então rodar o bulk das ementas.
-
----
-
-## Estrutura de pastas proposta (sob `novo-ppc-bcc/`)
-```
-novo-ppc-bcc/
-  ementas/
-    fonte/        # PROGRAMA docs baixados do Drive (referência, não versionar binários grandes)
-    template/     # 1-tabela.docx limpo extraído do OPTATIVOS
-    saida-docx/   # ementas preenchidas geradas p/ Lucas subir ao Drive
-    gaps.md       # tabela componente|campo-faltante (OBJETIVOS etc.)
-```
-Workspace só versiona estruturais (`.md`); `.docx` grandes ficam em `scratchpad`/Drive, não no git.
+O caminho de escrita existe e está no `core/tools/files/gdrive` (`mkdir`, `put --gdoc`), com token
+`drive-write` por conta. O que depende do Lucas é só a tela de consentimento quando o token da
+`ufrpe` morre.
 
 ---
 
@@ -210,12 +153,6 @@ Antes de fechar, rodar uma checagem completa e entregar ao Lucas:
 - Todo OBJETIVOS gerado consta na tabela final com item-fonte que o embasa.
 - Nenhum `.docx` subiu ao Drive sem OK do Lucas.
 - 1 doc conferido visualmente no Docs (fonte + tabela ok).
-
----
-
-## Efeito colateral desta run (registrar)
-- **pandoc instalado** (`pip install pypandoc-binary` no `.venv`; symlinks no bin do venv e em `~/.local/bin/pandoc`).
-  `core/tools/paper/parse` agora lê `.docx`. Melhoria durável — anotar no `brain/INBOX.md`.
 
 ---
 

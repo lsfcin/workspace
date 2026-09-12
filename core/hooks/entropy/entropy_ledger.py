@@ -134,14 +134,10 @@ def finished_work_hits(files: list, exempt: set) -> list:
 def unanswered_placeholders(files: list, exempt: set) -> list:
     """A generator or a template asked a question, and nobody answered it.
 
-    Split out of finished_work_hits 2026-08-15, where it was 70 of the 105 findings and
-    carried that check's remediation — "cut it; git is the history". That advice is wrong
-    here and acting on it is worse than ignoring it: the marker is not a record of
-    finished work, it is a live request, and the generator writes it again on the next
-    save. Three scaffolds emit the same glyph — the routing generator for a source file
-    with no first-line comment and for a CONTEXT.md with no blurb, the refs template for
-    its own unfilled field — and all three are answered at the source, never by deleting
-    the marker.
+    Split out of finished_work_hits 2026-08-15, which carried the remediation "cut it; git is the
+    history". That advice is wrong here and acting on it is worse than ignoring it: the marker is a
+    live request, not a record, and the generator writes it again on the next save. Three scaffolds
+    emit the same glyph, and all three are answered at the source.
 
     Counted per file rather than per row, so the number means "files that lie to a reader"
     and matches the enforced-read unit: whoever opens this CONTEXT.md pays for all of them.

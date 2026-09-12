@@ -1,2 +1,6 @@
+from _typeshed import Incomplete
+
+WARN_EXEMPT: Incomplete
+
 def report(paths, root=None) -> tuple: ...
 def main() -> int: ...

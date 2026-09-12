@@ -6,28 +6,26 @@
 A checker that restates any of these is the drift the checkers exist to catch, and it has bitten
 three times. **The dangerous shape never looks like drift: a tool that knows it is overriding the
 law has found a gap in the law, not a special case of its own.** The tell is a checker whose
-docstring explains why it disagrees with what it just asked.
-
-A module under `core/hooks/` reaches that law with
-`sys.path.insert(0, str(Path(__file__).resolve().parents[1]))`; the suite gets the same path once,
-from `core/tools/test/conftest.py`, and no test repeats it.
+docstring explains why it disagrees with what it just asked. A module here reaches that law with
+`sys.path.insert(0, str(Path(__file__).resolve().parents[1]))`; the suite gets it once, from
+`core/tools/test/conftest.py`.
 
 ## Git pre-commit (`pre-commit`)
 
 Applied globally via `core.hooksPath`, so it fires on every `git commit` in **every** repo under this
 workspace. Stage order and the one place a commit is refused: [`commit/CONTEXT.md`](commit/CONTEXT.md).
 
-- Warns and then blocks on code-file length, via `checks/line_counts.py` over staged files — the
-  same module that runs standalone. Both thresholds are [`limits.env`](limits.env)'s answer and
-  which extensions count is [`file_law.py`](file_law.py)'s, never a checker's and never this file's:
-  the copy that stood here read 150/200 for five days after the law moved to 200/250.
-- Warns when a newly staged code file lacks its first-line description comment.
+- Warns and then blocks on the length of any authored file, code and prose alike, via
+  `checks/line_counts.py` over staged files — the same module that runs standalone. Both thresholds
+  are [`limits.env`](limits.env)'s answer and which files are authored is
+  [`file_law.py`](file_law.py)'s, never a checker's: the copy that stood here named the old pair for
+  five days after the law moved. A file waives the **warn** — never the block — with a
+  `warn-exempt: <reason>` line of its own.
 - Hard-blocks cross-module imports that bypass the facade, via `facade/check-facade-imports.py`.
 - Auto-syncs each staged directory's `CONTEXT.md` routing block, and generates `.pyi`, `.d.ts` and
   `.dart.api` — all staged with the commit.
 - `verify:fast` contract: a project declaring that script must be green, or the commit is blocked.
-- `checks/check-duplication.py`: jscpd over the committing repo, blocking clones that involve staged
-  files (75 tokens / 10 lines).
+- `checks/check-duplication.py`: jscpd over the repo, blocking clones that involve a staged file.
 - Spec-driven module gate: a new `CONTEXT.md` under `code/` must declare `> spec: <file>` or
   `> spec: none`. Ratchet — existing modules are grandfathered.
 - `checks/type-gate.py`: a staged `.md` must be a known type or a well-shaped instance, sitting where
@@ -35,12 +33,11 @@ workspace. Stage order and the one place a commit is refused: [`commit/CONTEXT.m
   [`../SCHEMA.md`](../SCHEMA.md), never restated.
 - `checks/citation-gate.py`: a roadmap item number may not appear outside `ROADMAP*.md`. **Not a
   ratchet** — swept to zero 2026-08-16. Completion is deletion here, so a cited number points at
-  nothing the day the item lands; cite the section instead. It matches the citation *shape*, never
-  the bare word, because `frente` is ordinary Portuguese.
+  nothing the day the item lands; cite the section instead, by its *shape* and never the bare word.
 - `git/gitignore-self-heal.sh`: a new domain subdirectory carrying a `CONTEXT.md` gets its
   `!<domain>/<dir>/` allow line written, and **then stops the commit** if that directory holds files
-  git could not see — it would otherwise ship a `CONTEXT.md` without its content. Ruled 2026-08-19
-  (Lucas): **a commit hook that stages what the caller did not is worse than the bug it fixes.**
+  git could not see. Ruled 2026-08-19 (Lucas): **a commit hook that stages what the caller did not
+  is worse than the bug it fixes.**
 
 ### Branch drift
 
@@ -51,16 +48,14 @@ correct at session start**, which is why no start-of-session check can catch it.
 path warns when HEAD no longer matches. Three properties carry it: **warn, never block**, because a
 deliberate switch is legitimate; **once per divergence**, since a repeated warning is one people
 learn to skip; and **one marker per repo, not per session**, because `check` runs inside a git hook
-with no session id to pair with. Recovery is non-destructive and the warning prints it: confirm a
-fast-forward with `git merge-base --is-ancestor <your-branch> HEAD`, then
-`git branch -f <your-branch> HEAD` and push **yours**. Never reset or force-push theirs, and never
-`git checkout` your branch back — that yanks HEAD out from under them, the same defect pointed the
-other way.
+with no session id to pair with. The warning prints its own non-destructive recovery. Never reset or
+force-push theirs, and never `git checkout` your branch back — that yanks HEAD out from under them,
+the same defect pointed the other way.
 
-**No exemptions for vendored third-party code.** A `.vendor` marker that switched the gates off was
+**No exemptions for vendored third-party code.** A `.vendor` marker switching the gates off was
 rejected (2026-07-23, Lucas: *"even thirdparty solutions, once brought to our w-os should comply with
 our rules. opening exceptions is quite dangerous"*). Vendoring means adopting and adapting: split
-what is too big, and record the deviations so a future re-sync knows what it is merging against.
+what is too big, and record the deviations a future re-sync merges against.
 
 ## A marker is asked about, never string-matched across the shell/Python boundary
 
@@ -78,18 +73,16 @@ shim. Every one spawns through [`../run`](../run), which is the shim contract in
 
 **A shim carries no machine-specific string, and that is the whole reason `run` exists** — it picks
 this clone's venv layout, exports `PYTHONIOENCODING=utf-8`, and answers `--python` for a caller that
-must spawn Python inline. Why the bare word `python3` is banned, and what it cost on a Windows clone,
-is in [`../run`](../run)'s own head; `test_no_shell_hook_spawns_the_bare_word_python3` holds it at
-zero — a floor and not a ceiling, because a hook that can only ever pass is indistinguishable from
-one that works.
+must spawn Python inline. Why the bare word `python3` is banned is in [`../run`](../run)'s own head;
+`test_no_shell_hook_spawns_the_bare_word_python3` holds it at zero.
 
 ### One dispatcher, and the table it reads
 
 Every `PreToolUse` gate is registered once, as [`dispatch.py`](dispatch.py): it reads stdin once,
 asks [`hook_input.capability`](hook_input.py) once, and runs in-process the gates that capability
 selects from [`gates.txt`](gates.txt) — which also tells
-[`trigger/trigger_law.py`](trigger/trigger_law.py) when each fires. Nine separate `command` entries
-cost 0.40 s per tool call against the dispatcher's 0.054 s (b20260905); why they were also five
+[`trigger/trigger_law.py`](trigger/trigger_law.py) when each fires. Separate `command` entries cost
+roughly eight times the dispatcher's per-call latency (b20260905); why they were also five
 hand-copies of one table is in [`gates.txt`](gates.txt)'s own head.
 
 Four rules survive the collapse, and `test_b20260905_*` holds each. **A blocking gate exits 2 having
@@ -104,7 +97,7 @@ stdout is parsed as a single document and a second would be heard by nobody.
 |--------|-------------|-----------|
 | `read/context-gate.py` | read, write | **Blocks** until the target subtree's `CONTEXT.md` chain was Read this session; on a read it also names the current stub, so one batch clears both read gates. Session-deduped; `CONTEXT.md`/`AGENTS.md` exempt |
 | `read/pre-read.py` | read | **Blocks** reading a source file while its interface is current, naming the unread chain alongside it — both read gates exit 2 on one read and the harness reports only the first, so each names the whole set. Warns when the interface is stale; reading it unlocks the source |
-| `checks/pre-edit.py` | write | **Blocks** an edit pushing a code file past 200 lines, and a new file with no first-line description comment |
+| `checks/pre-edit.py` | write | **Blocks** an edit pushing an authored file past the block cap, and a new file with no first-line description comment |
 | `facade/facade-scan.py` | write | **Informs** — the exports the target module's facade already declares; warns if that list is empty |
 | `facade/facade-gate.py` | write | **Blocks** edits to a `code/` module file until the nearest facade was Read this session |
 | `checks/issues-gate.py` | write | **Blocks** flipping a bug to FIXED, or deleting its section, without a matching `test/**/b<N>-*` regression spec |
@@ -118,22 +111,22 @@ names — its exemption from the chain gate is [`../SPECS.md`](../SPECS.md) § A
 `facade/facade-tracker.py` and `read/context-tracker.py` (PostToolUse) record the reads the gates
 above consume; `post-edit.sh` (PostToolUse) regenerates interfaces, scaffolds `jsconfig.json` /
 `tsconfig.json` and runs the routing sync; `session/precompact-wipe.py` (PreCompact) wipes the
-seen-markers; `session/session-prune.py` (SessionStart) drops markers older than 2 days, and
+seen-markers; `session/session-prune.py` (SessionStart) drops stale markers, and
 `session/mirror-heal.py` regenerates skill mirrors there while **warning without writing** when a
 harness permission config no longer matches `core/profile.txt`. `compact/bash-compact-rewrite.py`,
 registered once at user scope, **rewrites, never blocks**.
 
 **Why one of them only warns.** A `PreToolUse` hook fires *after* the model emitted the tool call, so
-by the time `heredoc-gate.py` sees a 3,000-character `cat >` payload those tokens are already billed
-and in the thread; blocking makes the turn emit them again as a `Write`. The gate exists to change
-turn N+1. **Any gate whose subject is what was already sent has this shape; a gate whose subject is
-what is about to happen on disk should still block.** It warns through
-`hookSpecificOutput.additionalContext`, delivered **to the model** on exit 0 with the tool still
-running — the only non-blocking channel that reaches it, since exit-0 stdout is transcript-only and
-`systemMessage` addresses Lucas rather than the agent. **Every "Informs" hook uses it**, asserted by
+by the time `heredoc-gate.py` sees a long `cat >` payload those tokens are already billed; blocking
+makes the turn emit them again as a `Write`, and the gate exists to change turn N+1. **Any gate whose
+subject is what was already sent has this shape; one whose subject is what is about to happen on disk
+should still block.** It warns through `hookSpecificOutput.additionalContext`, delivered **to the
+model** on exit 0 with the tool still running — the only non-blocking channel that reaches it, since
+exit-0 stdout is transcript-only and `systemMessage` addresses Lucas rather than the agent. **Every
+"Informs" hook uses it**, asserted by
 `test_an_informing_hook_speaks_on_the_channel_that_reaches_the_model`. And **a
-`.claude/settings.json` hook edit is live in the session that made it** — registration is not
-captured at session start. Both verified by running it (Claude Code 2.1.218, neither documented).
+`.claude/settings.json` hook edit is live in the session that made it**. Both verified by running
+them, neither documented.
 
 ## Generated artifacts
 
@@ -143,34 +136,30 @@ first-line descriptions. Three rules stay here, because the root's law owns them
 
 **A file a tool writes is not a file anyone authored.** A file is **authored** — every size, shape
 and first-line rule applies — or **vendored** and exempt because upstream chose its layout, or
-**generated**, which is neither and needed its own answer. [`generated.txt`](generated.txt) declares
-what our tools write, a **named, reviewed glob list, never a heuristic**, each entry naming its
-generator, and `file_law.is_authored()` is the one question every size and shape gate asks. **Why
-the exemption is safe here and not in general:** the artifact has a test that its generator
-reproduces it byte for byte (`--check`). An entry without that is a hand-edited file in a costume.
+**generated**, which is neither. [`generated.txt`](generated.txt) declares what our tools write, a
+**named, reviewed glob list, never a heuristic**, each entry naming its generator. **Why the
+exemption is safe here and not in general:** the artifact has a test that its generator reproduces
+it byte for byte (`--check`). An entry without that is a hand-edited file in a costume.
 
 **A generated BLOCK inside an authored file is exempt the same way, and only inside its markers.**
 `generated.txt` answers for whole files; `file_law.generated_spans()` answers for the `:start`/`:end`
 span, and every reader asks it rather than spelling the markers. A finding there has no legal fix —
-hand-editing one is forbidden outright — so reporting it is reporting what nobody can act on. Three
-checks learned this separately on 2026-09-11, all on `ISSUES.md`'s verify block, which **quotes the
-last red suite log**: a traceback in it named a venv path, a machine root and a since-renamed
-section, and made four ratchets and the citation gate red over a record of what *was* true.
+hand-editing one is forbidden outright — so reporting it is reporting what nobody can act on. Five
+checks learned that separately on 2026-09-11, all on `ISSUES.md`'s quoted red-suite log.
 
 **Finished-work prose is blocked on what a commit adds.** `entropy/entropy_ledger.py` carries the
-detector — strikethrough, a dated completion report, a settled-marker, a ticked item in a ledger —
-and `checks/type-gate.py` calls it on `staged_added_files()`, so a file **arriving** with a corpse is
-rejected while the inherited queue stays the dashboard's and rides `test_corpus_ratchet.py`'s
-ceiling. That split is the rule for every Tier 0 check here: **a gate that fails on the day it lands
-trains its reader to ignore it.** [`core/SPECS.md`](../SPECS.md) § AD-15 makes blocking — not the
-mere existence of a detector — what licenses deleting the prose.
+detector and `checks/type-gate.py` calls it on `staged_added_files()`, so a file **arriving** with a
+corpse is rejected while the inherited queue stays the dashboard's, under
+`test_corpus_ratchet.py`'s ceiling. That split is the rule for every Tier 0 check here: **a gate that
+fails on the day it lands trains its reader to ignore it.** [`core/SPECS.md`](../SPECS.md) § AD-15
+makes blocking — not the mere existence of a detector — what licenses deleting the prose.
 
 ## Canonical behaviour, and the contract a new agent's shim must satisfy
 
-Canonical behaviour lives in neutral files under `core/hooks/` and [`AGENTS.md`](../../AGENTS.md).
-A provider-specific file is a shim, a discovery point or startup wiring — **never a second copy of a
-rule** — and is either **ENFORCED**, able to block a read, an edit or a commit, or **INDUCED**,
-injecting guidance the agent may ignore. ENFORCED, one registration each:
+Canonical behaviour lives in neutral files under `core/hooks/` and [`AGENTS.md`](../../AGENTS.md). A
+provider-specific file is a shim, a discovery point or startup wiring — **never a second copy of a
+rule** — and is either **ENFORCED**, able to block a read, an edit or a commit, or **INDUCED**, guidance
+the agent may ignore. ENFORCED, one registration each:
 `.github/hooks/workspace-policy.json` (Copilot lifecycle), `.opencode/plugins/workspace-policy.js`
 (translates `tool.execute.*` and `experimental.session.compacting` onto the dispatcher),
 `.zcode/config.json` (direct spawns, no adapter), `.agents/hooks.json` (delegates to
@@ -185,29 +174,26 @@ payload is JSON on **stdin** for pre-hooks and in **`CLAUDE_TOOL_INPUT`** for po
 absolute, and exit code **2** is a hard block with **stderr** as the message shown to the agent.
 
 **Register on every tool, and let the payload decide.** A shim that filters by tool name is a
-whitelist, and it goes stale the moment its harness adds a tool — silently, in the direction where
-nothing reports it. That is b20260901: Windows exposes a PowerShell tool beside Bash, `Get-Content`
-met no read gate while `sed` through Bash did, and the layer was weaker on one operating system with
-nothing saying so. So the matchers are `.*` and the dispatcher asks
+whitelist that goes stale the moment its harness adds a tool — silently, in the direction where
+nothing reports it. That is b20260901: a PowerShell tool beside Bash met no read gate, so the layer
+was weaker on one operating system with nothing saying so. The matchers are `.*` and the dispatcher
+asks
 [`hook_input.capability`](hook_input.py) what the call DOES: a command line runs one, a path plus new
 content writes it, a path alone reads it. **An empty field is omitted, never sent empty** —
 capability asks whether a content key is *present*, so `content: ""` on a read runs the write gates.
 
 **A shim must pass a session-stable id** or the markers never dedupe and every gate fires on every
-call. Claude Code takes `session_id` from the stdin JSON; the Copilot shims derive
-`copilot<host-pid>`. Worked examples: `copilot/copilot-pre-tool.py`,
-`antigravity/antigravity_policy.py`, `.opencode/plugins/workspace-policy.js` — each translates its
-harness's argument names into a canonical payload and stops there.
+call. Worked examples, each translating its harness's argument names into a canonical payload and
+stopping there: `copilot/copilot-pre-tool.py`, `antigravity/antigravity_policy.py`,
+`.opencode/plugins/workspace-policy.js`.
 
 **Every gate in `gates.txt` reaches every harness by construction** — one registration, one table,
 and `test_every_shim_reaches_the_dispatcher` fails any shim that stops naming it — as do the
 trackers and `post-edit.sh`. What still differs never went through the dispatcher: the git-only
-stages above reach the other harnesses only because git does, and **lint is the live gap**, since
-ESLint R1-R6 and Prettier over TS under `code/` run at commit and in Claude Code and nowhere else.
-Event remaps: no `SubagentStart` in zcode, so `agent-context.py` rides PreToolUse `Agent|Task`; no
+stages above reach the other harnesses only because git does, and **lint is the live gap**. Event
+remaps: no `SubagentStart` in zcode, so `agent-context.py` rides PreToolUse `Agent|Task`; no
 `PreCompact`, so `precompact-wipe.py` rides SessionStart `^compact$`.
 
 **A claim about coverage is checked by `test_shim_paths.py`**, which proves a path **resolves** and
-never that a gate **fires**. A new runtime's shim owes two things: the contract above, and an entry
-in that file's `SHIMS` — its files, and how a spawn names a script. A shim with no entry is
-unchecked, the state opencode and Copilot were both in.
+never that a gate **fires**. A new runtime's shim owes the contract above and an entry in that file's
+`SHIMS`. A shim with no entry is unchecked, the state opencode and Copilot were both in.

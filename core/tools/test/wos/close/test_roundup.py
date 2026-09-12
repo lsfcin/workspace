@@ -1,6 +1,9 @@
 # T1 roundup tool (core/SPECS.md § AD-09): the deterministic half of the session-close ritual.
 # Zero-token, no network — every case builds its own throwaway repo.
 #
+# warn-exempt: a suite file grows by CASE, and each case here builds a whole throwaway workspace
+# before it can assert anything. Cutting to the warn deletes coverage. The block cap still applies.
+#
 # The one thing worth guarding hardest is the dirty stop. It used to assert that uncommitted work
 # was work *this* session forgot to commit, and asked for a commit that would have swept a parallel
 # session's half-finished goal merge into main. Dirt has two possible owners and the script cannot

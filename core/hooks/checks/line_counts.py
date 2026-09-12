@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
-# The line-count gate: warn and block on code lines, at the two numbers limits.env declares.
+# The line-count gate: warn and block on authored lines, at the two numbers limits.env declares.
 #
 # Two callers, one implementation, which core/hooks/SPECS.md promises explicitly -- the pre-commit
 # pipeline passes the staged files, and a bare run audits every tracked file in the repo.
 #
-# WHICH FILES ARE CODE IS file_law.py'S ANSWER, never a regex here. This script carrying its own
+# WHICH FILES ARE AUTHORED IS file_law.py'S ANSWER, never a regex here. This script carrying its own
 # extension list is what let .sh and extensionless scripts past the gate for months, during which
 # core/hooks/pre-commit itself reached 385 lines unblocked. The thresholds are limits.env's answer
 # for the same reason.
+#
+# PROSE JOINED IT 2026-09-12 (Lucas: every folder, every authored type). limits.env has held one
+# number for code and prose alike since 2026-08-18, but only the BLOCK half reached .md -- through
+# pre-edit.py at write time and the entropy dashboard after the fact -- so the WARN, the half that
+# asks for a look before a file is unreadable, existed for code alone.
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -18,6 +24,17 @@ import file_law  # noqa: E402
 
 for _stream in (sys.stdout, sys.stderr):
     _stream.reconfigure(encoding='utf-8', errors='replace')
+
+
+# A file may waive the WARN by carrying this marker plus its reason, in whatever comment syntax it
+# already uses. The BLOCK is never waivable: over that number a file is CUT, not excused. The reason
+# travels with the file rather than sitting in a list somewhere else, because the reader who needs it
+# is the one who just opened the file and found it long.
+#
+# It must OPEN a comment line. Naming the marker in prose is not claiming it: the sentence
+# documenting this waiver, in core/hooks/SPECS.md, silently exempted that file the moment it was
+# written — a gate a document switches off by describing it.
+WARN_EXEMPT = re.compile(r'^\s*(?:#|//|%|<!--)\s*warn-exempt:', re.M)
 
 
 def report(paths, root=None) -> tuple:
@@ -32,7 +49,10 @@ def report(paths, root=None) -> tuple:
     lines, blocked, warned = [], False, False
     for path in paths:
         target = root / path
-        if not target.is_file() or not file_law.is_code_file(Path(path)):
+        # Code or prose, asked of the law rather than of a suffix. is_authored answers for our own
+        # code and is_authored_prose for our own .md; both already waive vendored and generated.
+        if not target.is_file() or not (file_law.is_authored(Path(path), root)
+                                        or file_law.is_authored_prose(Path(path), root)):
             continue
         # A tool wrote it, so no authoring rule applies — the third answer file_law holds, and the
         # one this gate never asked for. `generated.txt` promises the cap is waived and the entropy
@@ -41,19 +61,20 @@ def report(paths, root=None) -> tuple:
         # output leaves the artifact dirty on every close.
         if file_law.is_generated_artifact(target, root):
             continue
-        count = len(target.read_text(encoding='utf-8', errors='replace').splitlines())
+        text = target.read_text(encoding='utf-8', errors='replace')
+        count = len(text.splitlines())
         if count >= block:
             lines.append(f'🚨 BLOCK: {path} ({count} lines)')
             blocked = True
-        elif count >= warn:
+        elif count >= warn and not WARN_EXEMPT.search(text):
             lines.append(f'⚠ WARN: {path} ({count} lines)')
             warned = True
     if blocked:
-        lines.append(f'\nOne or more code files exceed the block threshold ({block} lines).')
+        lines.append(f'\nOne or more authored files exceed the block threshold ({block} lines).')
     elif warned:
-        lines.append(f'\nOne or more code files exceed the warn threshold ({warn} lines).')
+        lines.append(f'\nOne or more authored files exceed the warn threshold ({warn} lines).')
     else:
-        lines.append('No code files exceed thresholds.')
+        lines.append('No authored files exceed thresholds.')
     return lines, blocked
 
 
