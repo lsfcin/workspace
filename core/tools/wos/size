@@ -86,8 +86,14 @@ def base_commit(root, session_id):
     return ''
 
 
-def delta(root, base):
-    """+/- authored .md lines between base and HEAD, and which directories moved."""
+def delta(root, base, scope=''):
+    """+/- authored .md lines between base and HEAD, and which directories moved.
+
+    Scoped through the SAME `in_scope` the corpus counter uses. It was unscoped until 2026-09-12,
+    so `--scope scaffold --since` counted 199 scaffold files and then credited that scaffold with
+    every line a content tree had moved — two answers to "what is the scaffold" in one file, which
+    is the drift every other law module here is built to prevent.
+    """
     added = removed = 0
     by_dir = defaultdict(int)
     raw = git(root, 'diff', '--numstat', f'{base}..HEAD', '--', '*.md')
@@ -98,6 +104,8 @@ def delta(root, base):
         a, d, rel = int(parts[0]), int(parts[1]), parts[2]
         p = root / rel
         if file_law.is_vendored(p, root) or file_law.is_generated_artifact(p, root):
+            continue
+        if not in_scope(rel, scope):
             continue
         added += a
         removed += d
@@ -131,7 +139,7 @@ def main():
 
     base = args.since or (base_commit(root, args.session) if args.session else '')
     if base:
-        added, removed, movers = delta(root, base)
+        added, removed, movers = delta(root, base, scope)
         net = added - removed
         parts.append(f'session +{added}/-{removed} = {net:+d}')
         if movers:
