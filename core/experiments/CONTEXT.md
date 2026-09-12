@@ -19,6 +19,7 @@ Per-file format, the rule that keeps a stored number honest, and the reporting d
 |------|-------------|
 | [`SPECS.md`](SPECS.md) | The format every file in this directory follows, and the discipline that keeps a stored number trustworthy. |
 | [`caveman-cost.md`](caveman-cost.md) | What does keeping caveman mode on cost per session, and does the compression it buys pay for it? |
+| [`confident-wrongness.md`](confident-wrongness.md) | When this workspace has been confidently wrong, what caught it — and how much of that was one of our own checks? |
 | [`context-window.md`](context-window.md) | What fills a session's context window, split by source, and how much of it the workspace controls. |
 | [`delegation.md`](delegation.md) | How often does this workspace actually spawn a subagent, and which agent definitions get used? |
 | [`entropy-scope-vs-rot.md`](entropy-scope-vs-rot.md) | When the entropy count climbs, is the tree drifting or is the check set growing? |
