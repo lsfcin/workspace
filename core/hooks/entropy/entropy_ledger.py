@@ -81,6 +81,7 @@ def duplicate_slugs(namespaces: dict) -> dict:
 
 
 STRIKETHROUGH = re.compile(r'~~[^~\n]+~~')
+CODE_SPAN = re.compile(r'`[^`\n]*`')
 DATED_REPORT = re.compile(
     r'\b(?:shipped|landed|deleted|removed|fixed|closed|merged|completed|resolved|retired)\b'
     r'[^.\n]{0,40}?\b20\d\d-\d\d-\d\d\b', re.I)
@@ -96,10 +97,9 @@ PLACEHOLDER = '← add'
 def finished_work_hits(files: list, exempt: set) -> list:
     """Prose describing work that already landed — the corpse no link-checker can see.
 
-    Completion is deletion (core/SCHEMA.md § No archive types), so this is the same rule
-    as duplicate_slugs by another route: a ledger's length should measure remaining work.
-    AGENTS.md already bans strikethrough and SCHEMA already bans the ticked item; both
-    were law with nothing enforcing them. The dated report is the general case.
+    Completion is deletion (core/SCHEMA.md § No archive types): a ledger's length should
+    measure remaining work. AGENTS.md bans strikethrough and SCHEMA bans the ticked item,
+    both law with nothing enforcing them; the dated report is the general case.
     """
     exempt = {path.resolve() for path in exempt}
     hits = []
@@ -110,8 +110,11 @@ def finished_work_hits(files: list, exempt: set) -> list:
             text = path.read_text(encoding='utf-8')
         except (OSError, UnicodeDecodeError):
             continue
+        # Strikethrough is read in PROSE only: inside a code span those four characters are DATA,
+        # since a document about markdown must be able to write the spelling it converts. Position,
+        # not presence — the test the vendor-directive check already applies to a model name.
         for label, match in (
-            ('strikethrough', STRIKETHROUGH.search(text)),
+            ('strikethrough', STRIKETHROUGH.search(CODE_SPAN.sub('', text))),
             ('a dated completion report', DATED_REPORT.search(text)),
             ('a SETTLED marker', SETTLED.search(text)),
             # A tick is a corpse only in a ledger; elsewhere the glyph is a legend marker,

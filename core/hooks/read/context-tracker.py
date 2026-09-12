@@ -30,7 +30,11 @@ def main() -> int:
 	if not raw:
 		return 0
 	path = normalise(raw)
-	if Path(raw).name in ('CONTEXT.md', 'SPEC.md'):
+	# A spec is recorded by SHAPE, never by one filename. spec-read-gate.py resolves whatever the
+	# module's CONTEXT.md names in `> spec:`, so a module whose spec is called SPECS.md — the only
+	# spelling core/SCHEMA.md's type allowlist actually permits — read its spec, got no marker, and
+	# was refused forever. Found 2026-09-12 renaming code/aiwbot/frontend/SPEC.md to the legal name.
+	if Path(raw).name == 'CONTEXT.md' or Path(raw).name.startswith('SPEC'):
 		mark_seen(session_id, path)  # idempotent: one file per entry, named for the path
 	elif raw.endswith(IFACE_SUFFIXES):
 		mark_iface_seen(session_id, path)

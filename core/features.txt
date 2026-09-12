@@ -67,17 +67,10 @@
 #                a SETUP.md step plus a deps.txt line, which is the codeburn ruling applied
 #                unchanged. The fifth, google-auth, was misfiled: core/tools/auth/gauth.py is ours,
 #                so it is a tool with a moment of its own.
-#                THE TARGET OF ZERO IS NOT MET, and saying so here is the point: `telegram-capture`
-#                reads `-`. Its code moved to code/aiwbot, a repo this one does not version, so
-#                every wiring available today is wrong rather than merely unwritten — a
-#                code/aiwbot path in this column makes a Tier 0 test of THIS repo assert on a
-#                nested repo's content. The row is blocked on where that code lives — the
-#                portability-and-clonability question in ROADMAP.md — not on wiring effort, and not
-#                on this file. Until then the count stands at one and is printed rather than
-#                explained away. This paragraph claimed the opposite for a day (2026-08-18): the
-#                `n/a` column being empty is not the same fact as the target being met, and
-#                conflating them made this registry the newest instance of the workspace describing
-#                itself wrongly.
+#                THE TARGET OF ZERO IS NOT MET: `github-auth` and `vpn-cin` still read `-`, and
+#                the count is printed rather than explained away. An empty `n/a` column is not the
+#                same fact as the target being met, and conflating them made this registry the
+#                workspace describing itself wrongly for a day (2026-08-18).
 #                A row is n/a only because a switch CANNOT exist, never because wiring one is work.
 #                Do not hide the count by claiming a row is wired when it is not. The honesty test
 #                in test_features.py is a BEHAVIOURAL PROBE: it runs the feature both ways and
@@ -121,7 +114,7 @@ brain-dashboard	hooks	automatic	-	generates	lucas	core/hooks/brain/brain_stats.p
 brain-attention	hooks	automatic	-	none	lucas	core/hooks/brain/brain_attention.py	Counts the commits that actually touched each goal's declared paths, across every repo in the workspace, instead of counting edits to the goal file
 inbox-nudge	hooks	automatic	-	advises	lucas	core/hooks/session/inbox-nudge.py	Says at session start when brain/INBOX.md has piled past a threshold, so capture stays free without the queue quietly going unread
 compass-nudge	hooks	automatic	-	advises	lucas	core/hooks/session/compass-nudge.py	A soft, ignorable reminder that the strategic review has not run in a while
-telegram-capture	tools	on-demand	telegram-capture	none	lucas	-	An away-from-PC front door into brain/INBOX.md, so a thought lands in the workspace instead of in a chat app
+telegram-capture	tools	on-demand	telegram-capture	none	lucas	code/aiwbot/frontend/inbox.py	An away-from-PC front door into brain/INBOX.md, so a thought lands in the workspace instead of in a chat app
 context-meter	hooks	automatic	-	advises	general	core/hooks/session/context-meter.py	Says once per threshold what the next turn costs, so a session crosses into an expensive band knowingly rather than by drift
 precompact-wipe	hooks	automatic	-	none	general	core/hooks/session/precompact-wipe.py	Clears the CONTEXT.md seen-markers before a compaction, so the chain is re-read by a session that no longer remembers reading it
 entropy-dashboard	hooks	on-demand	-	none	general	core/hooks/entropy/dashboard/entropy-dashboard.py	Naming, placement, pointer integrity, fanout and size run as deterministic checks over this repo and every nested one, giving a number that must shrink instead of a feeling that the repo is messy
