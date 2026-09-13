@@ -155,14 +155,10 @@ def main(argv: list) -> int:
     # Both generated blocks land in ISSUES.md, so they settle once, in one commit. Workspace repo
     # only: the dashboard scans the whole tree, nested repos included.
     entropy = diagram = drawn = ''
-    # ASKED BEFORE THE BLOCK IS WRITTEN, because the block has to know the answer: without it the
-    # close published a finding saying its own branch was ahead of main, seconds before merging it.
-    # All three facts that decide the merge are in hand here; the promotion below re-reads them
-    # rather than re-deciding. Why reordering cures nothing: branch_debt.unmerged_branches.
+    # ASKED BEFORE THE BLOCK IS WRITTEN, because the block has to know it: the close used to publish
+    # a finding that its own branch was ahead of main, seconds before merging it. All four facts are
+    # in hand here (--leave-dirty too: promote() refuses under it). Why: branch_debt.
     gitflow = branches.gitflow(WORKSPACE, root)
-    # --leave-dirty is the fourth fact, and it was missing on the first real run: promote() refuses
-    # while the tree holds another session's work, so under that flag the merge usually does NOT
-    # happen and excusing the branch would hide real debt.
     promoting = branch if (verdict != 'red' and not no_promote and gitflow
                            and not leave_dirty) else ''
     if root == WORKSPACE:
