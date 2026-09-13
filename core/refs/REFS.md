@@ -83,6 +83,63 @@
 - `[C]` [agenteval](https://github.com/lukasmetzler/agenteval) · [instrlint](https://github.com/jed1978/instrlint)
   — instruction and harness evaluation tools.
 
+## Grounding, doubt & when a checker can actually refuse
+
+*Gathered 2026-09-12 for the `ROADMAP.md` 🔴 item on confident wrongness. The reasoning built on
+these is [`../experiments/confident-wrongness.md`](../experiments/confident-wrongness.md).*
+
+**Mechanisms that can refuse — all of them parsers or solvers, none of them a judge.**
+- `[A]` [Grammar-Constrained Decoding](https://aclanthology.org/2023.emnlp-main.674/)
+  (EMNLP 2023) — invalid output cannot be sampled at all; the checker is fused into decoding, not consulted after.
+- `[A]` [BeliefBank](https://aclanthology.org/2021.emnlp-main.697.pdf)
+  (EMNLP 2021) — a belief enters memory only after a weighted MaxSAT solver checks it against declared constraints.
+- `[A]` [Conflict-Aware Memory for Embodied Agents](https://aclanthology.org/2026.acl-long.1306.pdf)
+  (ACL 2026) — named Conflict Detection Rules flag conflicting memories before write; +14-15pp planner accuracy.
+- `[A]` [Learn to Refuse](https://aclanthology.org/2024.emnlp-main.212/)
+  (EMNLP 2024) — refuses on scope-membership against a traceable knowledge base, not on a confidence score.
+- `[A]` [LLatrieval](https://aclanthology.org/2024.naacl-long.305/)
+  (NAACL 2024) — gates the *evidence* before generation rather than the claim after it.
+- `[B]` [ProVe](https://doi.org/10.3233/SW-233467)
+  (Semantic Web Journal, 2024) — scores whether a KG triple is supported by its cited text before it is trusted.
+- `[C]` [Guardrails AI](https://github.com/guardrails-ai/guardrails)
+  — `OnFailAction.EXCEPTION` aborts the call; refusal is opt-in, and the other actions do not refuse.
+- `[C]` [factgate](https://github.com/agiwhitelist/factgate)
+  — fallible model proposes claims, a deterministic layer returns VERIFIED / BLOCK / HELD.
+- `[P]` [DSPy Assertions](https://arxiv.org/abs/2312.13382)
+  — a hard `Assert` past its retry cap raises rather than returning a silently wrong output.
+- `[P]` [ConsistencyGate](https://arxiv.org/abs/2607.22962)
+  — write-time admission control for agent memory; admits a fact only above a support threshold.
+
+**Against asking the model how sure it is.**
+- `[A]` [Relying on the Unreliable](https://aclanthology.org/2024.acl-long.198/)
+  (ACL 2024) — 47% error rate among responses deployed models gave as confident.
+- `[B]` [Investigating Selective Prediction](https://aclanthology.org/2022.findings-acl.158/)
+  (ACL Findings 2022) — over 17 datasets no method beats plain softmax consistently; all degrade out of distribution.
+- `[B]` [Miscalibrated In-Context Learners](https://aclanthology.org/2025.findings-acl.603/)
+  (ACL Findings 2025) — miscalibration is the default in low-resource and shifted setups.
+
+**The one licensed confidence gate: conformal, with its precondition checked.**
+- `[A]` [Conformal Prediction for NLP: A Survey](https://aclanthology.org/2024.tacl-1.82/)
+  (TACL 2024) — only conformalized scores are guarantees, and only under exchangeability.
+- `[A]` [SConU](https://aclanthology.org/2025.acl-long.934/)
+  (ACL 2025) — tests whether a sample violates the exchangeability the guarantee rests on, before trusting it.
+- `[A]` [CALM](https://proceedings.neurips.cc/paper_files/paper/2022/hash/6fac9e316a4ae75ea244ddcef1982c71-Abstract-Conference.html)
+  (NeurIPS 2022) — a deployed control-flow gate on confidence with a distribution-free risk guarantee, i.i.d. only.
+
+**Agreement is not evidence of correctness — the direct hit on our own worst incident.**
+- `[A]` [Debate or Vote](https://proceedings.neurips.cc/paper_files/paper/2025/file/934252acd87f254d5d4672fbde283bd2-Paper-Conference.pdf)
+  (NeurIPS 2025) — a theorem: debate induces a martingale over beliefs, so it does not raise expected correctness.
+- `[P]` [Nine Judges, Two Effective Votes](https://arxiv.org/html/2605.29800v1)
+  — a 9-judge, 7-family panel carries the value of ~2 independent votes; the best single judge matches or beats it.
+- `[P]` [When LLMs Agree, Are They Right?](https://arxiv.org/html/2607.08065v2)
+  — agreement predicts correctness only weakly, and worst for the most self-consistent model.
+
+**What production ships instead: an unchecked LLM judgment call at the write.**
+- `[V]` [LangMem core concepts](https://github.com/langchain-ai/langmem/blob/main/docs/docs/concepts/conceptual_guide.md)
+  — every write asks an LLM to decide against free-text instructions; the doc names over/under-extraction as unresolved.
+- `[C]` [mem0](https://github.com/mem0ai/mem0/blob/main/mem0/memory/main.py)
+  — `_add_to_vector_store` emits ADD/UPDATE/DELETE/NONE from one LLM call, with nothing checking it.
+
 ## Unjudged intake queue (`status: unjudged`)
 - [Standard Technical English (STE)](https://www.instagram.com/reel/DclKZARteCP/)
   — controlled English grammar for precision vocabulary.
