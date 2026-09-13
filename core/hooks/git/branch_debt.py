@@ -92,20 +92,17 @@ def unmerged_branches(root: Path, promoting: str = '') -> list:
     promote to, which is how a repo on a lone feature branch reported clean.
 
     `promoting` NAMES THE BRANCH THIS CLOSE IS ABOUT TO MERGE, and excuses it. Without it every
-    session close published a finding against its own branch: `roundup` regenerates this block
-    BEFORE it promotes, so the branch was genuinely ahead when the check ran and level with main a
-    few seconds later — true when written, false when read, and the commit carrying the block was
-    the last thing keeping it true. Swapping the order cures nothing, because the artifact is
-    written on the feature branch in order to ride into develop, and after promotion the Git Flow
-    gate leaves no commit that could carry it. A reader who learns to discount this section
-    discounts every other finding in it, which is the real cost.
+    close published a finding against its own branch: `roundup` regenerates this block BEFORE it
+    promotes, so the branch was ahead when the check ran and level seconds later — true when
+    written, false when read. Reordering cures nothing, because the artifact is written on the
+    feature branch in order to ride into develop, and after promotion the Git Flow gate leaves no
+    branch to carry it. The cost is that a reader who discounts this section discounts every other
+    finding in it.
 
-    The caller decides, and only `roundup` knows: it has the verify verdict, `--no-promote` and the
-    gitflow scope in hand before it regenerates, so it passes a name only when the merge is
-    actually going to be attempted. The residual gap is one cycle wide — if the merge is then
-    REFUSED, this block under-reports until the next close. That is the better failure: refusal
-    makes `roundup` exit non-zero and say so on the spot, where a false finding every single close
-    is silent by design.
+    Only `roundup` can answer: it holds the verify verdict, `--no-promote` and the gitflow scope
+    before it regenerates, so it names a branch only when a merge will be attempted. A REFUSED
+    merge then under-reports for one cycle — the better failure, since refusal makes `roundup` exit
+    non-zero and say so, where a false finding every close is silent by design.
     """
     signals = []
     for repo in repos(root):

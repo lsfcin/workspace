@@ -66,11 +66,6 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 *Why* — this workspace compensates for model failures; a rule that outlives its failure is pure cost.
 *Done when* — a **per-feature** verdict is readable. Runs outside this workspace (`academy/papers/wos-ablation/`).
 
-**🔴 the agent is confidently wrong: the research has run, the ruling has not**
-*What* — Lucas picks a mechanism from those the evidence leaves standing, and the store criteria with it.
-*Why* — the field's default checker scores and never refuses; and a third store is forbidden scatter.
-*Done when* — he has ruled from `core/experiments/confident-wrongness.md` and `core/refs/REFS.md`.
-
 ## Legibility — can Lucas still read what he owns
 
 **🔴 the legibility sitting: the jargon audit and the one-root test**
@@ -126,6 +121,10 @@ The debt is the scaffold's: absorbing a project's own prose neither creates nor 
   prompt, and a tree already dirty when the session opens.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
 - **Curing confident wrongness by prompt, by LLM judge, or by self-report** — evidence kills all three.
+- **Curing confident wrongness inside this scaffold at all** — 2026-09-13 (Lucas): of the three
+  mechanisms the 42-source survey left standing, none passes a cost test, and the survey's own
+  verdict is that the only thing that refuses is a parser or a solver. That is a research question,
+  and it became `academy/papers/back2dsl`, with `spacemantics` and `wos-ablation` as its instances.
 - **Writing a research map as a plan block in this file, and one review yaml per kept source** —
   2026-09-13: the first grows the most re-read file we own, against a `scout` step that asks for it;
   the second would breach the `core/refs/` fanout block. A topical `REFS-<slug>.md` shard does both jobs.

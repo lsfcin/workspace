@@ -17,6 +17,18 @@ matching regression spec exists and passes.
 
 ## Open
 
+- The line-count gate reads the WORKING TREE while the commit carries the INDEX, so a file can be
+  committed over the cap with the gate printing `No authored files exceed thresholds`. Found
+  2026-09-13 by doing it: `core/hooks/git/branch_debt.py` and `core/tools/wos/roundup` went in at
+  202 and 201 lines against `WARN_LINES=200` while the working copies sat at 199, because the trims
+  were never staged. `core/hooks/checks/line_counts.py` takes the staged file NAMES from the
+  pre-commit pipeline and then calls `target.read_text()`, which is the file on disk — so the gate
+  answers a question about a file nobody is committing. It fails in both directions: this way it
+  passes what it should warn on, and the mirror case warns about a fix already staged. The cure is
+  to read the staged blob (`git show :<path>`) when the caller passed a staged list, and the disk
+  only for a bare audit run. Same shape as the entropy bug fixed this session — a check reporting on
+  something other than what it guards.
+
 - `core/tools/paper/papers` has no working arm: Semantic Scholar returns HTTP 429 and arXiv times
   out, both re-confirmed 2026-09-13. The tool itself is honest — it prints `{"error": ...}` to
   stderr and exits 1 — and the cause is outside this workspace, so nothing here can fix it. What
@@ -66,13 +78,13 @@ matching regression spec exists and passes.
 
 *a signal for review, never a cap — do not summarize to fit*
 
-- brain/INBOX.md — 1 line(s) over the 120-column cap (first at line 16)
+- brain/INBOX.md — 2 line(s) over the 120-column cap (first at line 12)
 
 ### Local branches holding unpromoted work
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/confident-wrongness is 2 ahead of main
+- . — feature/confident-wrongness is 3 ahead of main
 
 <!-- entropy:end -->
 

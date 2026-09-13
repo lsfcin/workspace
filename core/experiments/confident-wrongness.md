@@ -49,8 +49,19 @@ What caught each of the 18, for the 2026-09-12 run:
 
 ## What changed
 
-`nothing yet` — the mechanism is Lucas's ruling, in the dedicated session the `ROADMAP.md` item
-names. What the numbers hand that sitting:
+**The item left this workspace** (2026-09-13, Lucas). The sitting ran, and its ruling was that none
+of the three mechanisms the 42-source survey left standing is worth building here: gating at
+generation only reaches output expressible as a grammar, admission control on the two stores costs
+seconds on every commit while nothing has ever measured whether the cheaper format check catches
+anything, and designing for the second clone does not close as a gate because it needs the second
+machine to be running. The survey's own verdict is why that is not a retreat — *every mechanism
+found that can actually refuse is a parser or a solver, never a judge* — so the question is about
+interfaces, and it became `academy/papers/back2dsl`, which carries the survey and its provenance.
+
+**This file stays here and is not moved.** It measures this workspace, and the store owns it; the
+paper cites these numbers rather than copying them.
+
+What the numbers handed that sitting, and now hand the paper:
 
 - **One of eighteen** was caught by a check this workspace runs. Seventeen needed a second machine, a
   hand audit, a later read, or a sitting. The `ROADMAP.md` item's claim that *nothing catches it* is
