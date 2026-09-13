@@ -75,7 +75,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/confident-wrongness is 2 ahead of main
+- . — feature/confident-wrongness is 3 ahead of main
 
 <!-- entropy:end -->
 
