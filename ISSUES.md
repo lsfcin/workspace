@@ -17,15 +17,15 @@ matching regression spec exists and passes.
 
 ## Open
 
-- `core/tools/paper/papers` has no working arm, and every dependency it declares probes green. The
-  Semantic Scholar side returns HTTP 429 and the arXiv side times out, both arms, repeatedly. A whole
-  research run on 2026-09-13 reached all of its sources through `core/tools/web/search` with
-  venue-host targeting instead, which preserved the peer-review discipline but lost the `venue`,
-  `peer_reviewed` and `citations` fields the tool exists to supply — so venue had to be established by
-  fetching each page. `core/run tools/wos/deps` reports all declared dependencies present throughout,
-  because every probe there asks whether a module imports and none asks whether the tool answers. That
-  gap is the same one `ROADMAP.md` § Portability already names as *no probe falsely greens*; this is
-  its first measured instance, and the `sota` and `scout` flows both mandate the dead tool by name.
+- `core/tools/paper/papers` has no working arm: Semantic Scholar returns HTTP 429 and arXiv times
+  out, both re-confirmed 2026-09-13. The tool itself is honest — it prints `{"error": ...}` to
+  stderr and exits 1 — and the cause is outside this workspace, so nothing here can fix it. What
+  was ours is fixed: `deps` now declares both services with a probe that CALLS them, so the miss
+  reports red instead of the green it read while a whole research run went around the tool, and the
+  `sota` and `scout` flows name the fallback that worked (`core/tools/web/search` aimed at venue
+  hosts) rather than only the tool. Still open because the capability is still gone: a run pays for
+  it by establishing `venue`, `peer_reviewed` and `citations` one fetched page at a time. Worth
+  re-probing before any research run, and worth a second provider if it stays down.
 
 <!-- entropy:start -->
 ## Entropy
@@ -72,7 +72,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/confident-wrongness is 1 ahead of main
+- . — feature/confident-wrongness is 2 ahead of main
 
 <!-- entropy:end -->
 

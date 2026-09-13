@@ -30,6 +30,7 @@ INSTALL = {
     'npm': 'npm install -g {name}',
     'npx': 'npx --yes {name}   # no install needed, but the first run must reach the registry',
     'binary': 'see SETUP.md — {name} has its own installer',
+    'service': None,  # nothing to install — see _install_line
 }
 
 
@@ -46,6 +47,13 @@ def _install_line(row: dict) -> str:
     NOT by asking which OS this is, which would put a platform fork outside the seam. `apt-get` is
     asked of the filesystem, the way find_tsc() asks for tsc: shutil already knows the difference.
     """
+    if row['kind'] == 'service':
+        # Nothing to install, so the line says what CAN be done instead. A remote API is missing by
+        # someone else's decision — rate limit, outage, a moved endpoint — and the reader's real
+        # question is whether to wait or to route around it, which is why the fallback is named.
+        return (f"nothing to install — {row['name']} is a remote service and is refusing or timing "
+                f"out. Re-run to tell a rate limit from an outage; if it stays down, reach the "
+                f"sources through `core/run tools/web/search` with venue-host targeting instead")
     if row['kind'] == 'system':
         return ' '.join(platform_law.package_install(row['name']))
     if row['kind'] == 'apt' and not which('apt-get'):
