@@ -11,6 +11,12 @@ an importable namespace package (PEP 420) — so `import git` inside this repo w
 tests instead of GitPython the day anything depends on it. A shadowing trap that fires years later
 is worth one word of convention.
 
+**It fired again on 2026-09-13**, which is why shared fixtures here live in `vcs_repos.py` and not
+in a `conftest.py`: three files in this directory import `WORKSPACE_ROOT` from the ROOT conftest by
+bare name, so a `conftest.py` beside them wins on `sys.path` and collection dies for the whole
+directory. Same trap, second mechanism — pytest's fixture merging is not what breaks, the bare
+import is.
+
 <!-- routing:start -->
 ## Routing
 
@@ -21,5 +27,5 @@ is worth one word of convention.
 | [`test_b20260913_the_close_reports_the_branch_it_is_about_to_promote.py`](test_b20260913_the_close_reports_the_branch_it_is_about_to_promote.py) | [`test_b20260913_the_close_reports_the_branch_it_is_about_to_promote.pyi`](test_b20260913_the_close_reports_the_branch_it_is_about_to_promote.pyi) | — | b20260913 regression — the close may not publish a finding against the branch it is merging. |
 | [`test_branch_debt.py`](test_branch_debt.py) | [`test_branch_debt.pyi`](test_branch_debt.pyi) | — | T0 the branch-debt signals: a repo is a finding when work lives in only one place, and never otherwise. Zero-token, runs in verify-fast. |
 | [`test_branch_marker.py`](test_branch_marker.py) | [`test_branch_marker.pyi`](test_branch_marker.pyi) | `marker_path`, `repo`, `run` | T0 the branch-drift warning (core/hooks/SPECS.md § Branch drift): HEAD moving under a session must be said out loud, exactly once, and must never block. |
-| [`vcs_repos.py`](vcs_repos.py) | — | `git`, `commit`, `repo`, `cloned` | The git repos every vcs case needs, built once instead of per file. |
+| [`vcs_repos.py`](vcs_repos.py) | [`vcs_repos.pyi`](vcs_repos.pyi) | `git`, `commit`, `repo`, `cloned` | The git repos every vcs case needs, built once instead of per file. |
 <!-- routing:end -->
