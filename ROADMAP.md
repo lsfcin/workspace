@@ -66,10 +66,10 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 *Why* — this workspace compensates for model failures; a rule that outlives its failure is pure cost.
 *Done when* — a **per-feature** verdict is readable. Runs outside this workspace (`academy/papers/wos-ablation/`).
 
-**🔴 the agent is confidently wrong and nothing catches it**
-*What* — define knowledge store criteria, and a mechanism grounding decisions before they harden.
-*Why* — a plan agreeing with its own premise is the costliest failure mode; a third store is forbidden scatter.
-*Done when* — research has run and Lucas has ruled in a dedicated session. Enforced, not prompt-induced.
+**🔴 the agent is confidently wrong: the research has run, the ruling has not**
+*What* — Lucas picks a mechanism from those the evidence leaves standing, and the store criteria with it.
+*Why* — the field's default checker scores and never refuses; and a third store is forbidden scatter.
+*Done when* — he has ruled from `core/experiments/confident-wrongness.md` and `core/refs/REFS.md`.
 
 ## Legibility — can Lucas still read what he owns
 
@@ -132,7 +132,7 @@ The debt is the scaffold's: absorbing a project's own prose neither creates nor 
 - **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first
   prompt, and a tree already dirty when the session opens.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
-- **Curing confident wrongness with a prompt rule** — induced loses to enforced; corpus is evidence.
+- **Curing confident wrongness by prompt, by LLM judge, or by self-report** — evidence kills all three.
 - **A preliminary cut of features before the ablation** — 2026-08-21: cutting on hunches is a guess.
 - **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
 - **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
