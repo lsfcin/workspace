@@ -114,11 +114,3 @@
 - [AI 2027](https://ai-2027.com)
   — forecast/scenario site; Lucas asks whether it serves us (task in
   `brain/goals/teaching-materials.md` [ai2027-material]).
-
-<!-- routing:start -->
-## Routing
-
-| Shard | Description |
-|-------|-------------|
-| [`REFS-grounding.md`](REFS-grounding.md) | What the field knows about an agent being confidently wrong, and the mechanisms that catch it. The grouping is the finding: every mechanism here that can truly refuse is a parser or a solver, and none is a judge. |
-<!-- routing:end -->

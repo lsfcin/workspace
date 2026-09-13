@@ -120,11 +120,10 @@ The debt is the scaffold's: absorbing a project's own prose neither creates nor 
 - **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first
   prompt, and a tree already dirty when the session opens.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
-- **Curing confident wrongness by prompt, by LLM judge, or by self-report** — evidence kills all three.
-- **Curing confident wrongness inside this scaffold at all** — 2026-09-13 (Lucas): of the three
-  mechanisms the 42-source survey left standing, none passes a cost test, and the survey's own
-  verdict is that the only thing that refuses is a parser or a solver. That is a research question,
-  and it became `academy/papers/back2dsl`, with `spacemantics` and `wos-ablation` as its instances.
+- **Curing confident wrongness inside this scaffold** — 2026-09-13 (Lucas): prompt, LLM judge and
+  self-report were killed by evidence; of the three mechanisms the 42-source survey left standing,
+  none passes a cost test. Only a parser or a solver refuses, which makes it research —
+  `academy/papers/back2dsl`, with `spacemantics` and `wos-ablation` as its instances.
 - **Writing a research map as a plan block in this file, and one review yaml per kept source** —
   2026-09-13: the first grows the most re-read file we own, against a `scout` step that asks for it;
   the second would breach the `core/refs/` fanout block. A topical `REFS-<slug>.md` shard does both jobs.
