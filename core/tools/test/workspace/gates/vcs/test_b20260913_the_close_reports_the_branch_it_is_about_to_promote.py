@@ -43,15 +43,21 @@ def test_naming_no_branch_reports_every_one_of_them(repo):
 
 
 def test_the_close_only_names_a_branch_it_will_actually_merge():
-	"""The three facts roundup holds before it regenerates, as the expression it passes.
+	"""The four facts roundup holds before it regenerates, as the expression it passes.
 
 	Read as source rather than run: reaching the real arm means running a whole session close.
-	What must not drift is that ALL THREE still gate the name — a verdict of red, an explicit
-	--no-promote, or a repo outside gitflow scope each mean no merge follows, and excusing the
-	branch then would hide real debt rather than an artifact of ordering.
+	What must not drift is that ALL FOUR still gate the name — a red verdict, an explicit
+	--no-promote, a repo outside gitflow scope, or --leave-dirty each mean no merge follows, and
+	excusing the branch then would hide real debt rather than an artifact of ordering.
+
+	--leave-dirty was the one missing on the first real run: promote() refuses while the tree holds
+	another session's work, so the block excused a branch that stayed 6 ahead of main. It never
+	reached disk — the same dirty tree rolls the artifact back — which is the pairing the docstring
+	in branch_debt.unmerged_branches claims: the under-report only happens where refusal is loud.
 	"""
 	roundup = (Path(__file__).resolve().parents[4] / 'wos/roundup').read_text(encoding='utf-8')
-	line, = [ln for ln in roundup.splitlines() if ln.strip().startswith('promoting = ')]
-	for fact in ("verdict != 'red'", 'not no_promote', 'gitflow'):
+	start = roundup.index('promoting = ')
+	line = roundup[start:roundup.index('\n\n', start)]
+	for fact in ("verdict != 'red'", 'not no_promote', 'gitflow', 'not leave_dirty'):
 		assert fact in line, f'{fact} no longer gates the excused branch: {line}'
 	assert 'artifacts.regenerate(root, leave_dirty, clean, promoting)' in roundup

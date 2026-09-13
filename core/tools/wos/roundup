@@ -160,7 +160,11 @@ def main(argv: list) -> int:
     # All three facts that decide the merge are in hand here; the promotion below re-reads them
     # rather than re-deciding. Why reordering cures nothing: branch_debt.unmerged_branches.
     gitflow = branches.gitflow(WORKSPACE, root)
-    promoting = branch if (verdict != 'red' and not no_promote and gitflow) else ''
+    # --leave-dirty is the fourth fact, and it was missing on the first real run: promote() refuses
+    # while the tree holds another session's work, so under that flag the merge usually does NOT
+    # happen and excusing the branch would hide real debt.
+    promoting = branch if (verdict != 'red' and not no_promote and gitflow
+                           and not leave_dirty) else ''
     if root == WORKSPACE:
         artifacts.verify_block(root / 'ISSUES.md', label, verdict, log)
         entropy, diagram = artifacts.regenerate(root, leave_dirty, clean, promoting)
