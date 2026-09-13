@@ -65,7 +65,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/confident-wrongness is 4 ahead of main
+- . — feature/confident-wrongness is 5 ahead of main
 
 ### Remote branches already merged into their base
 
