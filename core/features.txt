@@ -90,6 +90,7 @@ first-line-comment	hooks	on-demand	-	warns	general	core/hooks/entropy/entropy_co
 duplication-gate	hooks	automatic	declared-deps	blocks	general	core/hooks/checks/check-duplication.py	jscpd blocks a commit whose staged files clone existing logic; copy-paste is the failure mode agents are fastest at
 facade-discipline	hooks	automatic	-	blocks	general	core/hooks/facade/check-facade-imports.py	Cross-module imports that reach around index / __init__ are blocked, so module boundaries stay real and a rename does not become an archaeology project
 type-gate	hooks	automatic	-	blocks	general	core/hooks/checks/type-gate.py	UPPERCASE.md names are a closed allowlist, ratcheted on what a commit adds, so inventing a file type is a deliberate act instead of an accident
+retired-tokens	hooks	automatic	-	advises	general	core/hooks/checks/retired-gate.py	A rename that is finished in the law but not in the text is reported at the edit that writes the dead spelling, instead of by the session close a whole session later
 citation-gate	hooks	automatic	-	blocks	general	core/hooks/checks/citation-gate.py	A pointer that outlives what it names is refused at commit: a roadmap item number outside the roadmap family, because a closed item is deleted, and prose copying a number core/hooks/limits.env owns, because a copied law rots the day the law moves
 issues-gate	hooks	automatic	-	blocks	general	core/hooks/checks/issues-gate.py	An issue cannot be flipped to FIXED without a matching regression test, so "it works now" stops being a claim and becomes a file
 spec-read-gate	hooks	automatic	-	blocks	general	core/hooks/read/spec-read-gate.py	Editing a module with a locked contract requires having read that contract this session
@@ -151,6 +152,7 @@ secrets	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A credenti
 improve	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A session that notices a defect either fixes it or files it, so a finding never dies with the session that found it
 interview	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Doubt about intent costs one question instead of a session of work in the wrong direction
 acronyms	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A reader is never left decoding, which is what keeps a durable file readable by the next session rather than only by its author
+language	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A word that needs a glossary is replaced rather than defined, so the durable text stays readable to the person who owns it and not only to the session that wrote it
 edit	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Refining an existing file beats adding one, so the tree stops scattering and the same idea stops living in three places
 cap	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A file over the cap is cut down rather than split into siblings, so growth turns into deletion instead of into more files
 symmetry	norms	automatic	-	advises	general	core/hooks/routing/norms.py	An asymmetry that is written down gets fixed; one that is merely noticed becomes the next category error
