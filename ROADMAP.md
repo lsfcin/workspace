@@ -133,6 +133,9 @@ The debt is the scaffold's: absorbing a project's own prose neither creates nor 
   prompt, and a tree already dirty when the session opens.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
 - **Curing confident wrongness by prompt, by LLM judge, or by self-report** — evidence kills all three.
+- **Writing a research map as a plan block in this file, and one review yaml per kept source** —
+  2026-09-13: the first grows the most re-read file we own, against a `scout` step that asks for it;
+  the second would breach the `core/refs/` fanout block. A topical `REFS-<slug>.md` shard does both jobs.
 - **A preliminary cut of features before the ablation** — 2026-08-21: cutting on hunches is a guess.
 - **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
 - **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.

@@ -26,6 +26,16 @@ matching regression spec exists and passes.
   tell the checks which branch this close is about to promote — threaded from `roundup` through
   `close/artifacts.py` and the dashboard's argv into `core/hooks/git/branch_debt.py`.
 
+- `core/tools/paper/papers` has no working arm, and every dependency it declares probes green. The
+  Semantic Scholar side returns HTTP 429 and the arXiv side times out, both arms, repeatedly. A whole
+  research run on 2026-09-13 reached all of its sources through `core/tools/web/search` with
+  venue-host targeting instead, which preserved the peer-review discipline but lost the `venue`,
+  `peer_reviewed` and `citations` fields the tool exists to supply — so venue had to be established by
+  fetching each page. `core/run tools/wos/deps` reports all declared dependencies present throughout,
+  because every probe there asks whether a module imports and none asks whether the tool answers. That
+  gap is the same one `ROADMAP.md` § Portability already names as *no probe falsely greens*; this is
+  its first measured instance, and the `sota` and `scout` flows both mandate the dead tool by name.
+
 <!-- entropy:start -->
 ## Entropy
 
@@ -54,18 +64,18 @@ matching regression spec exists and passes.
 | Header fields naming code that is not there | 0 |
 | Truncated routing descriptions | 0 |
 | Constraints trapped in a CONTEXT.md head | 0 |
-| Local branches holding unpromoted work | 0 |
+| Local branches holding unpromoted work | 1 |
 | Work that exists on this disk and nowhere else | 0 |
 | Local branches already merged into their base | 0 |
-| Remote branches already merged into their base | 1 |
+| Remote branches already merged into their base | 0 |
 
 *A check with no findings is the `0` in that table and nothing more. Only a check with something to show gets a section below.*
 
-### Remote branches already merged into their base
+### Local branches holding unpromoted work
 
-*safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
+*promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — 1 merged into main: git -C . push origin --delete feature/confident-wrongness
+- . — feature/confident-wrongness is 1 ahead of main
 
 <!-- entropy:end -->
 
