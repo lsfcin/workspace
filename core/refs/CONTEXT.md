@@ -11,6 +11,7 @@ definitions and the citation discipline: [`SPECS.md`](SPECS.md).
 
 | File | Description |
 |------|-------------|
+| [`REFS-grounding.md`](REFS-grounding.md) | What the field knows about an agent being confidently wrong, and the mechanisms that catch it. The grouping is the finding: every mechanism here that can truly refuse is a parser or a solver, and none is a judge. |
 | [`REFS.md`](REFS.md) | What external material exists for the workspace-os / agent-library scaffold, and how much weight does each hold? One line per ref, carrying tier markers `[A] [B] [P] [V] [C]`. Citation discipline: [CONTEXT.md](CONTEXT.md). |
 | [`SPECS.md`](SPECS.md) | What each tier marker means, and the citation discipline that keeps REFS.md honest. |
 <!-- routing:end -->
