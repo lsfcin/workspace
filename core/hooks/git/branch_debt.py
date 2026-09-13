@@ -83,13 +83,29 @@ def repos(root: Path) -> list:
     return [root]
 
 
-def unmerged_branches(root: Path) -> list:
+def unmerged_branches(root: Path, promoting: str = '') -> list:
     """One line per local branch holding commits its base does not have.
 
     Every local branch, not only the checked-out one: the branch nobody switched back to is
     exactly the one that holds forgotten work, so asking about HEAD alone asked about the safest
     branch in the repo. A repo with no base at all is the finding itself — it has nowhere to
     promote to, which is how a repo on a lone feature branch reported clean.
+
+    `promoting` NAMES THE BRANCH THIS CLOSE IS ABOUT TO MERGE, and excuses it. Without it every
+    session close published a finding against its own branch: `roundup` regenerates this block
+    BEFORE it promotes, so the branch was genuinely ahead when the check ran and level with main a
+    few seconds later — true when written, false when read, and the commit carrying the block was
+    the last thing keeping it true. Swapping the order cures nothing, because the artifact is
+    written on the feature branch in order to ride into develop, and after promotion the Git Flow
+    gate leaves no commit that could carry it. A reader who learns to discount this section
+    discounts every other finding in it, which is the real cost.
+
+    The caller decides, and only `roundup` knows: it has the verify verdict, `--no-promote` and the
+    gitflow scope in hand before it regenerates, so it passes a name only when the merge is
+    actually going to be attempted. The residual gap is one cycle wide — if the merge is then
+    REFUSED, this block under-reports until the next close. That is the better failure: refusal
+    makes `roundup` exit non-zero and say so on the spot, where a false finding every single close
+    is silent by design.
     """
     signals = []
     for repo in repos(root):
@@ -99,7 +115,10 @@ def unmerged_branches(root: Path) -> list:
             signals.append(f'{name} — no main/master/develop to promote into')
             continue
         for branch in _locals(repo):
-            if branch in BASES:
+            # Only for the repo the close is actually promoting in: `promoting` is one branch name
+            # in one repo, and `repos()` answers for exactly that repo today. Guarding on `base`
+            # too keeps a branch NAMED main from excusing itself.
+            if branch in BASES or (promoting and branch == promoting):
                 continue
             ahead = _git(repo, 'rev-list', '--count', f'{base}..{branch}')
             if ahead.isdigit() and int(ahead) > 0:

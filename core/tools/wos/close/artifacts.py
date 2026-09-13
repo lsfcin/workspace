@@ -110,15 +110,24 @@ def verify_block(target: Path, label: str, verdict: str, log: str) -> None:
     write_block(target, 'verify', '\n'.join(body))
 
 
-def regenerate(root: Path, leave_dirty: bool, clean: bool) -> tuple:
+def regenerate(root: Path, leave_dirty: bool, clean: bool, promoting: str = '') -> tuple:
     """(entropy, diagram) — both rewritten, then settled.
 
     `clean` is measured by the CALLER, before the verify block is written. Measuring it here would
     read this close's own write as pre-existing dirt, so under --leave-dirty the rollback would
     never fire and the regenerated file would ride into the other session's next `git add -A` —
     the exact incident settle() exists to make unrepeatable.
+
+    `promoting` comes from the CALLER for the same shape of reason: this close runs the dashboard
+    BEFORE it merges, so without a name the block published a finding against the close's own
+    branch every single time. Only roundup holds the three facts that decide whether the merge
+    happens — the verify verdict, --no-promote, and whether the repo is in gitflow scope — so it
+    passes the name and this step only relays it. branch_debt.unmerged_branches carries the rest.
     """
-    if spawn(root, interpreter(), str(root / DASHBOARD)).returncode == 0:
+    dashboard = [interpreter(), str(root / DASHBOARD)]
+    if promoting:
+        dashboard += ['--promoting', promoting]
+    if spawn(root, *dashboard).returncode == 0:
         # The count AND how it moved are both read out of the header the dashboard just wrote.
         # roundup used to compute a second delta of its own, against the session immediately
         # before it — which is how "flat" got written into hand-off after hand-off while the real

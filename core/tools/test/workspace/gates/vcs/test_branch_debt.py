@@ -7,34 +7,10 @@
 # code/obra sitting exactly there, 42 files on a lone feature branch with no remote, reporting
 # clean. The action was always available and is the obvious one: give it a base. Silence about a
 # repo that cannot promote is not the absence of debt, it is the absence of a question.
-import subprocess
-from pathlib import Path
-
-import pytest
-
 from branch_debt import (merged_local_branches, merged_remote_branches, unmerged_branches,
                          unpushed_work)
 
-
-def git(repo: Path, *args):
-	subprocess.run(['git', '-C', str(repo), *args], check=True,
-	               capture_output=True, text=True, encoding='utf-8')
-
-
-def commit(repo: Path, name: str):
-	(repo / name).write_text(name, encoding='utf-8', newline='\n')
-	git(repo, 'add', name)
-	git(repo, 'commit', '-qm', name, '--no-verify')
-
-
-@pytest.fixture
-def repo(tmp_path):
-	"""A repo with a `main` carrying one commit, ready to branch off."""
-	subprocess.run(['git', 'init', '-q', '-b', 'main', str(tmp_path)], check=True)
-	git(tmp_path, 'config', 'user.email', 'test@test')
-	git(tmp_path, 'config', 'user.name', 'test')
-	commit(tmp_path, 'base.txt')
-	return tmp_path
+from vcs_repos import cloned, commit, git, repo  # noqa: F401 — pytest fixtures
 
 
 def test_a_branch_ahead_of_its_base_is_a_finding(repo):
@@ -70,17 +46,6 @@ def test_a_repo_with_no_base_branch_is_the_finding(repo):
 	git(repo, 'branch', '-D', 'main')
 	signal, = unmerged_branches(repo)
 	assert 'no main/master/develop' in signal, signal
-
-
-@pytest.fixture
-def cloned(repo, tmp_path_factory):
-	"""A clone, so `origin/*` refs are real rather than simulated."""
-	work = tmp_path_factory.mktemp('clone')
-	subprocess.run(['git', 'clone', '-q', str(repo), str(work / 'r')], check=True)
-	clone = work / 'r'
-	git(clone, 'config', 'user.email', 'test@test')
-	git(clone, 'config', 'user.name', 'test')
-	return clone
 
 
 def test_a_remote_branch_already_in_base_is_offered_for_deletion(cloned):

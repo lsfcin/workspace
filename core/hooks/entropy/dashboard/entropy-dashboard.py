@@ -82,10 +82,14 @@ def _rel(path) -> str:
     return rel(path, WORKSPACE_ROOT)
 
 
-def collect(files: list, repo: Path = WORKSPACE_ROOT) -> dict:
+def collect(files: list, repo: Path = WORKSPACE_ROOT, promoting: str = '') -> dict:
     """Every check, over one repo's files. `repo` is the repo being counted; the LAW is always the
     workspace's, because a nested project obeys the same SCHEMA. Only the questions that ask git
-    something — what is tracked, what a branch is ahead of — are repo-relative."""
+    something — what is tracked, what a branch is ahead of — are repo-relative.
+
+    `promoting` is the branch the caller is about to merge, and only a session close knows one.
+    branch_debt.unmerged_branches carries the reason; it is threaded rather than re-derived here
+    because this tool cannot see the verify verdict that decides whether the merge happens."""
     gate = _gate("type-gate")
     allowed, exempt = load_law(SCHEMA)
     scopes = load_scopes(SCHEMA)
@@ -123,7 +127,7 @@ def collect(files: list, repo: Path = WORKSPACE_ROOT) -> dict:
     findings['size'] = size_signals(files)
     findings['stubs'] = stub_signals(files)
     findings['fanout'] = fanout_signals(files, WORKSPACE_ROOT)
-    findings['branches'] = unmerged_branches(repo)
+    findings['branches'] = unmerged_branches(repo, promoting)
     findings['unpushed'] = unpushed_work(repo)
     findings['locals'] = merged_local_branches(repo)
     findings['remotes'] = merged_remote_branches(repo)
@@ -149,9 +153,13 @@ def main(argv: list | None = None) -> int:
     # A project's findings are written where its reader is: by its own pre-commit, into its own
     # ISSUES.md. Which projects exist, and where they live outside, is PROJECTS.md.
     repo = Path(args[args.index('--repo') + 1]).resolve() if '--repo' in args else WORKSPACE_ROOT
+    # The branch the CALLER is about to merge, excused from the branch-debt count because it is
+    # about to stop being true. Only a session close can answer this, so the default is no branch
+    # and a bare run reports every branch that is ahead — see branch_debt.unmerged_branches.
+    promoting = args[args.index('--promoting') + 1] if '--promoting' in args else ''
     ledger = repo / 'ISSUES.md'
     files = tracked_files(repo, nested=False)
-    findings = collect(files, repo)
+    findings = collect(files, repo, promoting)
     here = sum(len(findings[k]) for k, _, _ in SECTIONS)
     name = '' if repo == WORKSPACE_ROOT else _rel(repo)
     # A bare count is how "flat" got written every session while the real number climbed —
