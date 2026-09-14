@@ -77,13 +77,6 @@ its blocks are counted against nobody.
 
 ## Legibility — can Lucas still read what he owns
 
-**🟢 `probe` owes its § Retired tokens row, and only Lucas can unblock it**
-*What* — the row. Seven of seven words are swept; `probe` is renamed everywhere and survives in one
-place no rename of ours reaches: `brain/goals/google-migration.md` names a Drive deck
-`__probe_delete_me`. The line beside it already asks Lucas to delete that deck.
-*Why* — the check matches filenames too, so the row added early reds the suite on our own tree.
-*Done when* — the deck is gone, the row is in, and the entropy scan finds zero survivors.
-
 **🟡 the health picture: keep what Lucas reads at a glance, cut the rest**
 *What* — one page answering *is this well tied, and what is missing* — not an inventory.
 *Why* — three drawings answered *what is there*; he needs a glanceable health picture.
@@ -99,10 +92,15 @@ line; that is a reason to pay, not a reason not to.
 *Done when* — the net since 2026-09-01 is negative under `core/run tools/wos/size --scope repo`.
 The debt is this repo's: absorbing a project's own writing neither creates nor pays it.
 
-**🔴 the platform boundary owes three answers, and one of them is a secret**
-*What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.
-*Why* — secret convention needs ACL equivalence; dep checks must verify function, not bare import.
-*Done when* — boundary writes secrets tight on all systems and no check falsely greens.
+**🔴 the platform boundary's last answer needs a Windows machine, and there is none**
+*What* — manager names for the 3 `apt` rows (`poppler-utils`, `tesseract-ocr`, `ddgr`). The file's
+own head only lets a row claim `system` once the name is VERIFIED on the other managers.
+*Why* — a row claiming a portability nobody checked is the false green these checks exist to end.
+*Done when* — each of the three is `system` with a verified name, or stays `apt` with the reason.
+*Blocked* — Lucas has no Windows access, for an unknown stretch (2026-09-14). Nothing else unblocks it.
+The other two answers are in: `is_owner_only()` reads the ACL back rather than trusting `st_mode`,
+and `core/tools/deps.txt` now carries a `floor` column — a floor, not the ceiling this line asked
+for, because the failure is a distro shipping something too old, never a release from the future.
 
 **🟡 the public repo his students clone**
 *What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.

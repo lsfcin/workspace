@@ -210,6 +210,7 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `seam` | `boundary` | 2026-09-14 |
 | `tier` | `level` | 2026-09-14 |
 | `slug` | `name` | 2026-09-14 |
+| `probe` | `metadata` | 2026-09-14 |
 
 **One retired token can owe four replacements, and the cell holds only the commonest.** `slug` names
 four ideas, and they do not flatten into one: a link's `short name`, a feature's or file's `name`, a
