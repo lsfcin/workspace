@@ -42,7 +42,7 @@ def test_every_declared_feature_reaches_the_matrix():
     """Nothing is silently dropped. A feature missing from the picture is invisible exactly where
     the picture is supposed to make it visible, which is how a diagram starts lying."""
     rows, _columns, _cells = data.matrix(data.features())
-    assert {row['slug'] for row in rows} == law.slugs()
+    assert {row['name'] for row in rows} == law.names()
 
 
 def test_an_unwired_feature_is_shown_rather_than_omitted():
@@ -51,7 +51,7 @@ def test_an_unwired_feature_is_shown_rather_than_omitted():
     rows, columns, cells = data.matrix(data.features())
     html = matrix_form.render(rows, columns, cells, data.trigger_of)
     for row in data.unwired(rows):
-        assert row['slug'] in html
+        assert row['name'] in html
     assert 'unwired' in html
 
 

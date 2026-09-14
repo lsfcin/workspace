@@ -23,6 +23,7 @@ HOOKS = Path(__file__).resolve().parents[1]
 for _dir in (HOOKS, HOOKS / 'entropy'):
     sys.path.insert(0, str(_dir))
 
+import dispatch  # noqa: E402
 import feature_law  # noqa: E402
 import hook_reach  # noqa: E402
 from entropy_corpus import tracked_files  # noqa: E402
@@ -121,16 +122,13 @@ def _spread(rel: str, moments: list, seeds: dict, root: Path) -> dict:
     """
     if not rel.endswith('hooks/dispatch.py'):
         return seeds
-    for line in (root / 'core/hooks/gates.txt').read_text(encoding='utf-8').splitlines():
-        line = line.strip()
-        if not line or line.startswith('#'):
-            continue
-        parts = [part.strip() for part in line.split('\t')]
-        if len(parts) == 4:
-            parts = ['pre', *parts]   # a table written before the moment column existed
-        gate_moment, cap, _, path, _ = parts
+    # PARSED BY THE DISPATCHER'S OWN READER, never re-split here. This function hand-split the table
+    # until 2026-09-14, when a sixth column broke it and two other copies of the same loop at once.
+    for (gate_moment, cap), gates in dispatch.load_table(root / 'core/hooks/gates.txt').items():
         moment = CAPABILITY_MOMENTS.get((gate_moment, cap))
-        if moment in moments:
+        if moment not in moments:
+            continue
+        for path, _kind, _feature in gates:
             seeds.setdefault(f'core/hooks/{path}', []).append(moment)
     return seeds
 
@@ -156,7 +154,7 @@ def sites(root: Path = WORKSPACE_ROOT) -> dict:
     return _WALKED[str(root)]
 
 
-def _setup_moments(slug: str, root: Path) -> list:
+def _setup_moments(name: str, root: Path) -> list:
     """The moment of a feature whose registration lives OUTSIDE this repo, by design.
 
     Not a fallback and not a defect: rtk-compaction is registered globally on purpose — Claude Code
@@ -167,7 +165,7 @@ def _setup_moments(slug: str, root: Path) -> list:
     text = (root / 'SETUP.md').read_text(encoding='utf-8', errors='replace')
     moments: list = []
     for block in re.split(r'^> feature: ', text, flags=re.M)[1:]:
-        if not block.startswith(f'`{slug}`'):
+        if not block.startswith(f'`{name}`'):
             continue
         body = block.split('\n## ')[0]
         matcher = ' '.join(re.findall(r"'matcher':\s*'([^']+)'", body))
@@ -188,5 +186,5 @@ def moments_of(row: dict, root: Path = WORKSPACE_ROOT) -> tuple:
     moments = ordered([m for path in feature_law.wired_paths(row) for m in reached.get(path, [])])
     if moments:
         return moments, 'registered'
-    declared = _setup_moments(row['slug'], root)
+    declared = _setup_moments(row['name'], root)
     return (declared, 'setup') if declared else ([], 'none')

@@ -21,7 +21,7 @@ def block(kind: str, text: str, **extra) -> dict:
 
 
 def test_a_pasted_page_url_reduces_to_the_id_the_api_wants():
-    """Lucas pastes a URL, never a uuid — the slug's own dashes must not confuse the parse."""
+    """Lucas pastes a URL, never a uuid — the name's own dashes must not confuse the parse."""
     url = f"https://www.notion.so/lucas/Aula-3-Computacao-Grafica-{PAGE_ID}?pvs=4"
     assert notion_core.normalize_id(url) == DASHED
     # A copied block link carries a second id in the fragment; the page is still what was asked for.

@@ -32,7 +32,7 @@ not get a type.
 | `MEMORY.md` | Which memories exist, and what is each about? (index + router, `brain/memory/` only) |
 | `SETUP.md` | How do I make this environment work? (toolchain install + config) |
 | `PROJECTS.md` | Where does each internal project live — here, and outside? (root only) |
-| `STATUS.md` | Is this craft chain still running, and where did it stop? (`.craft/<slug>/` only) |
+| `STATUS.md` | Is this craft chain still running, and where did it stop? (`.craft/<name>/` only) |
 | `SCHEMA.md` | This file: the law about types. |
 
 Anything else is rejected: *"add it to the allowlist if you mean it."* `STATUS.md` must stay one line
@@ -134,7 +134,7 @@ hand-authored data read by exactly one law module, **never prose**. **The extens
 and what a generator already derives: a split preserves the mass across more files, which is how this
 workspace reached nine roadmaps. Two traps: a deleted file's row in the transient table keeps its
 exemption alive, and the document you are deleting can be the sole record of something live. **An
-approved sibling is `TYPE-<slug>.md` with the unsuffixed file as the index**, slug lowercase
+approved sibling is `TYPE-<name>.md` with the unsuffixed file as the index**, name lowercase
 kebab-case — `type-gate.py`, `entropy_naming.TYPE_SLUG` and `citation-gate.LIST_NAMES` each read
 that shape and none of them states it. The index keeps what is true of every sibling, any list the
 type's rule says lives in one place, and the generated routing table. The check that makes "as small as
@@ -173,9 +173,9 @@ times. And **the table names the marker in words, not the emoji.**
 **workspace-os** is also written `wos` · `WOS` · `w-os` · `W-OS`; **craft flow** means the `/craft`
 skill and `core/flows/craft/`; **Front** is a top-level workstream in `ROADMAP.md`. **Neither a Front
 number nor a bug number is a citable identifier** — closed items are deleted, so the number is a dead
-pointer the day the work lands. Numbering is legal only inside `ROADMAP.md` / `ROADMAP-<slug>.md` and
-in commit messages; **a bug id is never reused** (ruled 2026-08-31), new ids are durable slugs
-`b<YYYYMMDD>-<slug>`, and a bug cited outside its list is named by slug.
+pointer the day the work lands. Numbering is legal only inside `ROADMAP.md` / `ROADMAP-<name>.md` and
+in commit messages; **a bug id is never reused** (ruled 2026-08-31), new ids are durable names
+`b<YYYYMMDD>-<name>`, and a bug cited outside its list is named by id.
 
 ### Terms with one meaning
 
@@ -209,6 +209,12 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `ledger` | `list` | 2026-09-14 |
 | `seam` | `boundary` | 2026-09-14 |
 | `tier` | `level` | 2026-09-14 |
+| `slug` | `name` | 2026-09-14 |
+| `probe` | `metadata` | 2026-09-14 |
+
+**One retired token can owe four replacements, and the cell holds only the commonest.** `slug` names
+four ideas, and they do not flatten into one: a link's `short name`, a feature's or file's `name`, a
+bracketed `item id`, and a bug's `id`.
 
 **A rename whose old spelling is also a real word needs a shape, not a token** — a row that fails on
 correct prose trains people to ignore the check, so `/loops` and `.loop` are rows while `Frente`→

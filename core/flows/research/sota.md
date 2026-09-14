@@ -54,11 +54,11 @@ PDF exists, cite the PDF URL from search metadata and mark full-text parsing as 
 Derive a short name from the field: lowercase, hyphenated, no filler, at most 5 words.
 
 Every run must leave on disk:
-- `outputs/.plans/<slug>.md` — the plan
+- `outputs/.plans/<name>.md` — the plan
 - `<refs dir>/REFS.md` — level-tagged reference lines, appended
 - `<refs dir>/<key>.yaml` — one review per kept paper
-- `outputs/<slug>-sota.md` — the ≤200-line decision summary
-- `outputs/<slug>-sota.provenance.md` — the provenance sidecar
+- `outputs/<name>-sota.md` — the ≤200-line decision summary
+- `outputs/<name>-sota.provenance.md` — the provenance sidecar
 
 `<refs dir>` is the target project's `refs/` when the field serves a project, or
 `core/refs/` for workspace-level work. If not given, ask which one in Step 1 — refs with no home
@@ -69,7 +69,7 @@ and still write the summary and sidecar with `Verification: BLOCKED`.
 
 ## Step 1 — Plan
 
-Write `outputs/.plans/<slug>.md` immediately. It must state:
+Write `outputs/.plans/<name>.md` immediately. It must state:
 - **the decision this map serves** (one paragraph — if there is none, say so; the summary is then
   written for the next reader who will have one)
 - the field's boundaries: what is in, what is deliberately out
@@ -100,8 +100,8 @@ Keep subagent task JSON small and valid; no multi-paragraph instructions inside 
 ```json
 {
   "tasks": [
-    { "agent": "researcher", "task": "Read outputs/.plans/<slug>-T1.md and write <slug>-sota-T1.md.", "output": "<slug>-sota-T1.md" },
-    { "agent": "researcher", "task": "Read outputs/.plans/<slug>-T2.md and write <slug>-sota-T2.md.", "output": "<slug>-sota-T2.md" }
+    { "agent": "researcher", "task": "Read outputs/.plans/<name>-T1.md and write <name>-sota-T1.md.", "output": "<name>-sota-T1.md" },
+    { "agent": "researcher", "task": "Read outputs/.plans/<name>-T2.md and write <name>-sota-T2.md.", "output": "<name>-sota-T2.md" }
   ],
   "concurrency": 4,
   "failFast": false
@@ -140,7 +140,7 @@ Skim-only hits stay as REFS.md lines and get no yaml. Say in the summary how man
 
 ## Step 5 — Write the ≤200-line decision summary (human-facing artifact)
 
-Write `outputs/<slug>-sota.md`. **Hard cap: 200 lines.** If it does not fit, cut — the yaml holds
+Write `outputs/<name>-sota.md`. **Hard cap: 200 lines.** If it does not fit, cut — the yaml holds
 the detail. Structure:
 
 1. **Verdict** — 3–8 lines. Where the field actually stands, and what that means for the decision
@@ -170,7 +170,7 @@ having written it.
 
 ## Step 7 — Deliver
 
-Write `outputs/<slug>-sota.provenance.md`:
+Write `outputs/<name>-sota.provenance.md`:
 
 ```markdown
 # Provenance: [field]
@@ -182,7 +182,7 @@ Write `outputs/<slug>-sota.provenance.md`:
 - **Level mix:** [A]=n [B]=n [P]=n [V]=n [C]=n
 - **Reviews written:** [list of <key>.yaml]
 - **Verification:** [PASS / PASS WITH NOTES / BLOCKED]
-- **Plan:** outputs/.plans/<slug>.md
+- **Plan:** outputs/.plans/<name>.md
 ```
 
 Before responding, verify every required artifact exists on disk and that the summary is ≤200

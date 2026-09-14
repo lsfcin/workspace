@@ -27,14 +27,14 @@ Do not ask for confirmation. Briefly summarize the plan to the user and continue
 asked to review the plan first.
 
 Required artifacts:
-- Plan: `outputs/.plans/<slug>-review-plan.md`
-- Evidence notes: `outputs/.drafts/<slug>-review-evidence.md`
-- Final review: `outputs/<slug>-review.md`
-- Provenance: `outputs/<slug>-review.provenance.md`
+- Plan: `outputs/.plans/<name>-review-plan.md`
+- Evidence notes: `outputs/.drafts/<name>-review-evidence.md`
+- Final review: `outputs/<name>-review.md`
+- Provenance: `outputs/<name>-review.provenance.md`
 
 Workflow:
 1. Create `outputs/.plans`, `outputs/.drafts`, and `outputs`.
-2. Write `outputs/.plans/<slug>-review-plan.md` with:
+2. Write `outputs/.plans/<name>-review-plan.md` with:
    - artifact identifier and source type (arXiv ID, URL, local file, PDF, Markdown, etc.)
    - review criteria: novelty, empirical rigor, baselines, reproducibility, claims validity, figures/tables, metrics,
      related work, writing quality
@@ -47,13 +47,13 @@ Workflow:
    - For arXiv IDs or URLs, fetch the paper/source directly and record the URL.
    - Inspect linked code, datasets, supplemental material, or citations when they are reachable and materially affect
      the review.
-5. Write evidence notes to `outputs/.drafts/<slug>-review-evidence.md` before writing the final review. Include
+5. Write evidence notes to `outputs/.drafts/<name>-review-evidence.md` before writing the final review. Include
    quoted/paraphrased claims, observed methods, reported metrics, baseline comparisons, reproducibility facts, and every
    inspected source path or URL.
 6. Use the `researcher` and `reviewer` subagents only if the `subagent` tool is available and the artifact is large
    enough to benefit from delegation. If subagents are unavailable or would only add overhead, do the lead-owned review
    directly.
-7. Write exactly one final review artifact to `outputs/<slug>-review.md` with:
+7. Write exactly one final review artifact to `outputs/<name>-review.md` with:
    - Summary Assessment
    - Strengths
    - Critical Issues
@@ -63,12 +63,12 @@ Workflow:
    - Inline Annotations tied to sections, claims, figures, or tables where possible
    - Recommendation
    - Sources
-8. If the artifact cannot be parsed or critical evidence is unavailable, still write `outputs/<slug>-review.md`. Mark
+8. If the artifact cannot be parsed or critical evidence is unavailable, still write `outputs/<name>-review.md`. Mark
    the affected sections with `Verification: BLOCKED`, explain exactly what failed, and distinguish blocked checks from
    actual paper weaknesses.
-9. Write `outputs/<slug>-review.provenance.md` (date, artifact identifier, sources inspected vs accepted vs rejected,
-   verification status). Before responding, verify on disk that both `outputs/<slug>-review.md` and its provenance
+9. Write `outputs/<name>-review.provenance.md` (date, artifact identifier, sources inspected vs accepted vs rejected,
+   verification status). Before responding, verify on disk that both `outputs/<name>-review.md` and its provenance
    sidecar exist. If the review is missing, create it immediately as a blocked review artifact with the failure reason.
 
 Never end with planning-only chat. Never ask what to do next. Never claim the review is complete unless
-`outputs/<slug>-review.md` exists.
+`outputs/<name>-review.md` exists.

@@ -67,13 +67,13 @@ def test_kebab_instance_and_snake_module_both_pass(tmp_path):
         assert entropy_naming.check_shape(tmp_path / name, set()) is None
 
 
-def test_type_slug_shape_passes_only_for_a_known_type(tmp_path):
+def test_type_name_shape_passes_only_for_a_known_type(tmp_path):
     allowed = {'ROADMAP.md'}
     assert entropy_naming.check_shape(tmp_path / 'ROADMAP-ementas.md', allowed) is None
     assert entropy_naming.check_shape(tmp_path / 'LEXICON-notes.md', allowed) is not None
 
 
-def test_mixed_slug_dot_type_shape_is_rejected(tmp_path):
+def test_mixed_name_dot_type_shape_is_rejected(tmp_path):
     failure = entropy_naming.check_shape(tmp_path / 'video.SETUP.md', {'SETUP.md'})
     assert failure is not None and 'retired' in failure
 

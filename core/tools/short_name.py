@@ -1,4 +1,4 @@
-# slug.py — the one line a tool spends on offering `--slug`: mint a short link for what it created
+# short_name.py — the one line a tool spends on offering `--short-name`: mint a short link for what it created
 #
 # Shares the tools root with tool_law.py for the same reason and in the same shape: more than one
 # family imports it, and core/tools/SPECS.md § Naming says such a module belongs here rather than
@@ -20,8 +20,8 @@ import links_core  # noqa: E402
 Refused = links_core.Refused
 
 
-def mint(slug: str, url: str, owner: str = '', home: str = '') -> str:
-    """Add the slug and return the line to print. Refusals reach the caller as `Refused`."""
-    links_core.add(slug, url, owner=owner, home=home)
-    return (f"  short:   {links_core.base()}/{slug}"
+def mint(short_name: str, url: str, owner: str = '', home: str = '') -> str:
+    """Add the short name and return the line to print. Refusals reach the caller as `Refused`."""
+    links_core.add(short_name, url, owner=owner, home=home)
+    return (f"  short:   {links_core.base()}/{short_name}"
             f"  (live after: core/run tools/links/cfpages build --push)")

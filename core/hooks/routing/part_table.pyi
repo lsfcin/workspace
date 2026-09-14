@@ -3,7 +3,7 @@ from pathlib import Path
 
 ITEM: Incomplete
 LUCAS_ITEM: Incomplete
-SLUG: Incomplete
+NAME: Incomplete
 EMPTY_CELL: Incomplete
 ITEM_HEADLINE: Incomplete
 PART_COLUMNS: Incomplete

@@ -33,7 +33,7 @@ def test_every_norm_file_is_declared_and_every_declared_norm_exists():
     naming no file is a registry claiming to switch something that does not exist. Both are silent,
     which is why they are asserted rather than eyeballed.
     """
-    declared = {r['slug'] for r in _rows()}
+    declared = {r['name'] for r in _rows()}
     on_disk = {p.stem for p in NORMS_DIR.glob('*.md') if p.name != 'CONTEXT.md'}
     assert declared == on_disk, (
         f'declared but missing: {sorted(declared - on_disk)}; '
@@ -78,7 +78,7 @@ def test_a_norm_is_a_rule_and_not_an_essay():
     so the cost of a norm growing is paid forever and silently — the same shape as the read
     amplification measured on ROADMAP.md, one level closer to the prompt.
     """
-    fat = [slug for slug, text in norms.published() if '\n\n' in text]
+    fat = [name for name, text in norms.published() if '\n\n' in text]
     assert not fat, (
         f'these norms carry more than one rule: {fat}. Move the rationale to the SPECS.md that '
         f'owns the rule and leave a pointer')
@@ -92,17 +92,17 @@ def test_switching_a_norm_off_removes_it_from_the_prompt():
     A norm is markdown and calls no function, so publishing is the whole meaning of "on" — exactly
     the skills group's argument, with a stronger observable because AGENTS.md is always loaded.
     """
-    slug = _rows()[0]['slug']
+    name = _rows()[0]['name']
     script = ('import sys; sys.path.insert(0, "core/hooks/routing"); import norms; '
               'print(",".join(s for s, _ in norms.published()))')
     both = {}
-    for label, env in (('on', {}), ('off', {law.OFF_ENV: slug})):
+    for label, env in (('on', {}), ('off', {law.OFF_ENV: name})):
         out = subprocess.run([sys.executable, '-c', script], capture_output=True, text=True,
                              cwd=WORKSPACE_ROOT, env={**os.environ, **env}, encoding='utf-8')
         assert out.returncode == 0, out.stderr
         both[label] = out.stdout.strip().split(',')
-    assert slug in both['on'], f'{slug} is not published even switched on'
-    assert slug not in both['off'], (
-        f'{slug} still publishes under {law.OFF_ENV}: the row names the generator but the switch '
+    assert name in both['on'], f'{name} is not published even switched on'
+    assert name not in both['off'], (
+        f'{name} still publishes under {law.OFF_ENV}: the row names the generator but the switch '
         f'changes nothing there')
     assert len(both['off']) == len(both['on']) - 1, 'the switch must remove one rule, not all of them'

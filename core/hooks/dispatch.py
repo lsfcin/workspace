@@ -22,6 +22,7 @@ from typing import Any
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+import scoreboard  # noqa: E402
 from hook_input import capability, parse_stdin  # noqa: E402
 
 # WOS_GATES_TABLE points this at another table, and exists for the tests alone: a real gate cannot
@@ -31,30 +32,36 @@ def table_path() -> Path:
 	return Path(os.environ.get('WOS_GATES_TABLE') or (HERE / 'gates.txt'))
 
 
-def load_table() -> dict[tuple[str, str], list[tuple[str, str]]]:
-	"""(moment, capability) -> [(path, class)], in the order the file declares.
+def load_table(table: Path = None) -> dict[tuple[str, str], list[tuple[str, str, str]]]:
+	"""(moment, capability) -> [(path, class, feature)], in the order the file declares.
+
+	`table` names another copy of this file, and exists so THIS stays the only parser: trigger_law
+	reads the table under a caller-supplied root, and hand-split its own until 2026-09-14 — when
+	adding a sixth column broke three separate readers at once. One file, one reader.
 
 	Order is load-bearing and lives in the data, not here: context-gate must clear before
 	issues-gate, which reads the target file off disk.
 
-	A FOUR-COLUMN ROW IS STILL READ, as `pre`. The tests build their own tables and the shims are
-	versioned separately from this file, so a table written before the moment column existed must
-	not silently select nothing — that is the "runs, exits cleanly, does nothing" shape gates.txt's
-	own head was written about.
+	A FOUR- OR FIVE-COLUMN ROW IS STILL READ — four as `pre`, five with no feature. The tests build
+	their own tables and the shims are versioned separately from this file, so a table written
+	before either column existed must not silently select nothing — that is the "runs, exits
+	cleanly, does nothing" shape gates.txt's own head was written about.
 	"""
-	rows: dict[tuple[str, str], list[tuple[int, str, str]]] = {}
-	for line in table_path().read_text(encoding='utf-8').splitlines():
+	rows: dict[tuple[str, str], list[tuple[int, str, str, str]]] = {}
+	for line in (table or table_path()).read_text(encoding='utf-8').splitlines():
 		line = line.strip()
 		if not line or line.startswith('#'):
 			continue
 		parts = [p.strip() for p in line.split('\t')]
 		if len(parts) == 4:
 			parts = ['pre', *parts]
-		if len(parts) != 5:
+		if len(parts) == 5:
+			parts = [*parts, '-']
+		if len(parts) != 6:
 			continue
-		moment, cap, order, path, kind = parts
-		rows.setdefault((moment, cap), []).append((int(order), path, kind))
-	return {key: [(p, k) for _, p, k in sorted(items)] for key, items in rows.items()}
+		moment, cap, order, path, kind, feature = parts
+		rows.setdefault((moment, cap), []).append((int(order), path, kind, feature))
+	return {key: [(p, k, f) for _, p, k, f in sorted(items)] for key, items in rows.items()}
 
 
 # EVERY GATE RUNS IN ITS OWN SANDBOX OF PROCESS STATE, because nine processes just became one.
@@ -150,11 +157,17 @@ def main() -> int:
 
 	messages: list[str] = []
 	failed = False
-	for rel, kind in gates:
+	for rel, kind, feature in gates:
 		code, out, err = run_gate(rel)
 		# A BLOCK ENDS THE CHAIN AND IS PASSED THROUGH UNTOUCHED. The gate already wrote the reason
 		# a model is about to read; anything added here would be a second voice on one rejection.
 		if code == 2 and kind == 'blocks':
+			# COUNTED HERE BECAUSE THIS IS THE ONLY PLACE THAT SEES AN EXIT CODE. The gate recorded
+			# its own `fired` through feature_law; whether that firing ever stopped anything is
+			# knowable only from here (/ROADMAP.md § Measurement). A `-` feature counts nothing,
+			# which is what keeps the three unswitched gates visible as a gap.
+			if feature != '-':
+				scoreboard.record(feature, 'blocked')
 			sys.stderr.write(err)
 			return 2
 		if code == 2:

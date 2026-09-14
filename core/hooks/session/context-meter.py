@@ -45,12 +45,12 @@ def mark(session_id: str, threshold: int) -> None:
 
 
 def find_transcript(raw: dict, session_id: str, cwd: str) -> str:
-	"""The payload names it when it can; otherwise it is <cwd-slug>/<session_id>.jsonl."""
+	"""The payload names it when it can; otherwise it is <cwd-name>/<session_id>.jsonl."""
 	given = raw.get('transcript_path')
 	if given and os.path.isfile(given):
 		return given
-	slug = cwd.replace('/', '-')
-	candidate = Path.home() / '.claude' / 'projects' / slug / f'{session_id}.jsonl'
+	name = cwd.replace('/', '-')
+	candidate = Path.home() / '.claude' / 'projects' / name / f'{session_id}.jsonl'
 	return str(candidate) if candidate.is_file() else ''
 
 

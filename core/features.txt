@@ -9,15 +9,15 @@
 # drift the checkers exist to catch.
 #
 # THE TWO VOCABULARIES IT RECONCILES, and it does not invent a third:
-#   SETUP.md          declares a slug per install step ("what do I run")     -> the `install` column
-#   core/tools/deps.txt declares a slug per dependency ("what breaks")       -> the `slug` column
+#   SETUP.md          declares a name per install step ("what do I run")     -> the `install` column
+#   core/tools/deps.txt declares a name per dependency ("what breaks")       -> the `name` column
 # Thirteen each, four shared verbatim. Both are the wrong shape for a toggle on their own: neither
 # covers the enforcement layer, which has no install step and no dependency and is three quarters
 # of what Lucas asked to be able to switch off. So this key set is a strict superset of their union.
 #
 # Tab-separated. Columns:
-#   slug         the feature's identity. Every `feature` in core/tools/deps.txt appears here.
-#                A SLUG AND THE FILE IT GOVERNS CARRY THE SAME NAME (Lucas, 2026-08-17), enforced
+#   name         the feature's identity. Every `feature` in core/tools/deps.txt appears here.
+#                A NAME AND THE FILE IT GOVERNS CARRY THE SAME NAME (Lucas, 2026-08-17), enforced
 #                for the skills group by test_features.py: `roundup` is core/skills/roundup.md.
 #                Descriptive suffixes read well in a registry and cost a lookup at every other
 #                site, which is how `craft-flow` came to name a file called loops.md whose flow
@@ -46,7 +46,7 @@
 #                a tool is called by path. Named `automatic`/`on-demand` rather than
 #                `passive`/`active` because this registry's other job is saying which features are
 #                switched ON, and "an active feature" would be ambiguous at every other site.
-#   install      the SETUP.md step that installs it, or - . Every `> feature:` slug in SETUP.md
+#   install      the SETUP.md step that installs it, or - . Every `> feature:` name in SETUP.md
 #                appears in this column. THIS IS THE JOIN: three files, one vocabulary.
 #   enforcement  blocks | warns | generates | advises | none — how hard it pushes, once something
 #                has started it. Orthogonal to `runs` above, which says what starts it.
@@ -69,14 +69,14 @@
 #                above requires one, so deleting the row would break the join, not pay the debt.
 #                Do not hide the count by claiming a row is wired when it is not. The honesty test
 #                in test_features.py is a BEHAVIOURAL CHECK: it runs the feature both ways and
-#                fails unless the observable changes. A grep for the slug would pass on a guard in
+#                fails unless the observable changes. A grep for the name would pass on a guard in
 #                an unreachable branch, and would force one call site per row — which is why the
 #                whole skills group shares one wiring point in the mirror.
 #   buys         one sentence: what it is for and what it buys you. Required, because nobody
 #                accepts an enforcement layer they cannot see the value of, and writing this
 #                sentence per feature is itself an audit of whether the feature earns its place.
 #
-slug	group	runs	install	enforcement	scope	wired	buys
+name	group	runs	install	enforcement	scope	wired	buys
 context-chain	hooks	automatic	-	blocks	general	core/hooks/read/context-gate.py,core/hooks/read/bash-context-gate.py	An agent cannot touch a file in a subtree it has not oriented in, including through cat and grep, so it arrives knowing the neighbourhood instead of guessing from a filename
 interface-first-reads	hooks	automatic	interface-stubs	blocks	general	core/hooks/read/pre-read.py	Reading a source file is blocked while its generated stub is current, so the agent reads 30 lines of signatures instead of 200 lines of body
 interface-stubs	hooks	automatic	interface-stubs	generates	general	core/hooks/commit/generators.py,core/hooks/postedit/interfaces.sh	The .pyi / .d.ts / .dart.api / .texif stubs regenerate on every save, so the interface-first read can never serve a stale summary
@@ -114,6 +114,7 @@ telegram-capture	tools	on-demand	telegram-capture	none	lucas	code/aiwbot/fronten
 context-meter	hooks	automatic	-	advises	general	core/hooks/session/context-meter.py	Says once per threshold what the next turn costs, so a session crosses into an expensive band knowingly rather than by drift
 precompact-wipe	hooks	automatic	-	none	general	core/hooks/session/precompact-wipe.py	Clears the CONTEXT.md seen-markers before a compaction, so the chain is re-read by a session that no longer remembers reading it
 entropy-dashboard	hooks	on-demand	-	none	general	core/hooks/entropy/dashboard/entropy-dashboard.py	Naming, placement, pointer integrity, crowding and size run as deterministic checks over this repo and every nested one, giving a number that must shrink instead of a feeling that the repo is messy
+hook-scoreboard	hooks	automatic	-	none	general	core/hooks/scoreboard.py	Counts what each feature actually did — how often it fired, and how often it blocked something real — so a hook can be cut on evidence instead of on a guess
 diagram	tools	on-demand	-	generates	general	core/tools/wos/diagram/architecture	The workspace draws itself from its own declarations — one committed HTML picture of what enforces what, what routes where and how much of it there is, regenerated at every session close so the map cannot drift from the tree
 size	tools	on-demand	-	none	general	core/tools/wos/size	Every close says how many .md lines the session added and removed and in which directories, so "is the workspace getting more concise" is a number instead of a feeling
 permissions	tools	on-demand	permissions	generates	general	core/tools/wos/permissions	What an agent may do without asking is chosen once from three named levels and rendered into each harness config, so the policy is one reviewable file instead of an allowlist that grows one panic-click at a time and enforces nothing

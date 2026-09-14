@@ -56,9 +56,9 @@ Derive a short name from the topic: lowercase, hyphenated, no filler words, at m
 Use it for every file this run writes.
 
 Every run must leave these files on disk:
-- `outputs/.plans/<slug>.md`
-- `outputs/<slug>.md`
-- `outputs/<slug>.provenance.md`   <!-- provenance discipline only -->
+- `outputs/.plans/<name>.md`
+- `outputs/<name>.md`
+- `outputs/<name>.provenance.md`   <!-- provenance discipline only -->
 
 Once work starts, never end with chat-only output. If a capability fails, continue in degraded
 mode and still write a partial artifact, marked `Verification: BLOCKED`.
@@ -66,7 +66,7 @@ mode and still write a partial artifact, marked `Verification: BLOCKED`.
 ## Plan
 <!-- part of required-artifacts -->
 
-Write the plan to `outputs/.plans/<slug>.md` before doing any work. State the scale decision in
+Write the plan to `outputs/.plans/<name>.md` before doing any work. State the scale decision in
 the plan before assigning owners.
 
 - `confirm: plan` → stop here, summarize the plan briefly, and ask:
@@ -112,7 +112,7 @@ final artifact yourself.
 ## Provenance
 <!-- required: research-brief — recommended: domain — not required: utility -->
 
-Write a sidecar next to the artifact as `<slug>.provenance.md` (a flow may instead declare a
+Write a sidecar next to the artifact as `<name>.provenance.md` (a flow may instead declare a
 single running log, as long as it is declared):
 
 ```markdown
@@ -124,7 +124,7 @@ single running log, as long as it is declared):
 - **Sources accepted:** [count and/or list]
 - **Sources rejected:** [dead, unverifiable, or removed]
 - **Verification:** [PASS / PASS WITH NOTES / BLOCKED]
-- **Plan:** outputs/.plans/<slug>.md
+- **Plan:** outputs/.plans/<name>.md
 - **Research files:** [files used]
 ```
 

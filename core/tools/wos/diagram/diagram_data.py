@@ -94,16 +94,16 @@ def matrix(rows: list) -> tuple:
     # Grouped, then alphabetical. Registry order is declaration order and interleaves the layers,
     # which printed the same group heading five times — a table that makes a reader re-find the
     # section they are already in.
-    rows = sorted(rows, key=lambda r: (r['group'], r['slug']))
+    rows = sorted(rows, key=lambda r: (r['group'], r['name']))
     for row in rows:
         for area in row['areas']:
-            cells[(row['slug'], area)] = row['enforcement']
+            cells[(row['name'], area)] = row['enforcement']
     columns = sorted({area for row in rows for area in row['areas']})
     return rows, columns, cells
 
 
 def fan_in(rows: list, by: str = 'path') -> tuple:
-    """([(point, [slug]) busiest first], [slug nothing switches]) — where the switches concentrate.
+    """([(point, [name]) busiest first], [name nothing switches]) — where the switches concentrate.
 
     The matrix draws this same relation as a grid and spends most of its cells on the points that
     carry exactly one feature — 43 of the 47. Read as fan-in instead, the shape arrives at once:
@@ -115,9 +115,9 @@ def fan_in(rows: list, by: str = 'path') -> tuple:
     points: dict = {}
     for row in rows:
         for key in (row['areas'] if by == 'area' else row['wired_paths']):
-            points.setdefault(key, []).append(row['slug'])
+            points.setdefault(key, []).append(row['name'])
     ranked = sorted(points.items(), key=lambda kv: (-len(kv[1]), kv[0]))
-    return [(point, sorted(slugs)) for point, slugs in ranked], [r['slug'] for r in unwired(rows)]
+    return [(point, sorted(names)) for point, names in ranked], [r['name'] for r in unwired(rows)]
 
 
 def unwired(rows: list) -> list:

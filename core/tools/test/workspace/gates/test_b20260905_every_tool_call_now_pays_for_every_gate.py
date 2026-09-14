@@ -19,6 +19,7 @@ import subprocess
 
 import pytest
 
+import dispatch
 from conftest import WORKSPACE_ROOT
 from platform_law import interpreter, posix
 
@@ -29,14 +30,16 @@ WS = posix(WORKSPACE_ROOT)
 
 
 def rows() -> list[tuple[str, str, str, str]]:
-	"""(moment, capability, path, class) for every declared gate."""
-	found = []
-	for line in TABLE.read_text(encoding='utf-8').splitlines():
-		line = line.strip()
-		if line and not line.startswith('#'):
-			moment, cap, _, path, kind = (p.strip() for p in line.split('\t'))
-			found.append((moment, cap, path, kind))
-	return found
+	"""(moment, capability, path, class) for every declared gate.
+
+	READ THROUGH THE DISPATCHER'S OWN PARSER, never re-split here. This function used to hand-parse
+	gates.txt into exactly five columns and broke the day a sixth was added (2026-09-14) — a second
+	reader of one data file, which is the drift core/hooks/CONTEXT.md says the checks exist to
+	catch, caught in the checks themselves.
+	"""
+	return [(moment, cap, path, kind)
+	        for (moment, cap), gates in dispatch.load_table().items()
+	        for path, kind, _feature in gates]
 
 
 def run(payload: dict, target=DISPATCH) -> subprocess.CompletedProcess:

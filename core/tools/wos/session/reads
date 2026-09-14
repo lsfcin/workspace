@@ -1,4 +1,4 @@
-# Usage: core/tools/wos/session/reads [--project <slug>] [--session <id>] [--top N] — which files a
+# Usage: core/tools/wos/session/reads [--project <name>] [--session <id>] [--top N] — which files a
 # session reads, how often, and how much each re-read cost. Reads the local transcripts; no network.
 #
 # The question is ours, not the harness's: `context-gate.py` demands a whole CONTEXT.md chain before

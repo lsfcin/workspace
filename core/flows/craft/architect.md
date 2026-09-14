@@ -21,12 +21,12 @@ chain into the `feature` folder with this ADR as an input constraint.
 
 ## File protocol
 
-- Directory: `<project>/.craft/<decision-slug>/`. Files append-only. Carry block copied verbatim between steps (same
+- Directory: `<project>/.craft/<decision-name>/`. Files append-only. Carry block copied verbatim between steps (same
   discipline as the feature folder).
 - The **durable output** is an ADR entry, NOT the `.craft/` trail: by default a new `### <NNNN> <Decision>` subsection
   under the project's own `SPECS.md`, in its Architecture Decisions section (the repo in
   [`code/_templates/SPECS.md`](../../../code/_templates/SPECS.md) already defines it); for a large/standalone
-  decision, a `docs/adr/<NNNN>-<slug>.md` file instead. `.craft/<decision-slug>/` is deleted on record unless
+  decision, a `docs/adr/<NNNN>-<name>.md` file instead. `.craft/<decision-name>/` is deleted on record unless
   `keep-trail: yes`.
 
 ## Step A0 — Frame  ·  **Output:** `0-frame.md`
@@ -66,10 +66,10 @@ Architecture Decisions section:
 - **Options considered:** <one line each, the rejected ones named>
 - **Decision:** <what was chosen>
 - **Consequences:** <what this enables and what it costs / forecloses>
-- **Provenance:** <.craft/<decision-slug>/ if kept, or "trail dropped">
+- **Provenance:** <.craft/<decision-name>/ if kept, or "trail dropped">
 ```
 
-Then: update `ROADMAP.md` if the decision spawns work; delete `.craft/<decision-slug>/` unless `keep-trail: yes`; commit
+Then: update `ROADMAP.md` if the decision spawns work; delete `.craft/<decision-name>/` unless `keep-trail: yes`; commit
 on a `feature/*` branch (the gitflow gate applies). Do not merge — the user's call.
 
 **Chain-out:** if the decision requires implementation, hand the ADR to the `feature` folder as an input constraint for

@@ -26,16 +26,16 @@ files in this run.
 ## Required Artifacts
 
 Every run must leave these on disk:
-- `outputs/.plans/<slug>.md`
-- `outputs/<slug>-comparison.md`
-- `outputs/<slug>.provenance.md`
+- `outputs/.plans/<name>.md`
+- `outputs/<name>-comparison.md`
+- `outputs/<name>.provenance.md`
 
 Once evidence gathering starts, never end with chat-only output. If a capability fails, continue in degraded mode and
 still write a partial matrix plus provenance with `Verification: BLOCKED`.
 
 ## Step 1: Plan
 
-Write the comparison plan to `outputs/.plans/<slug>.md`: which sources to compare, which dimensions to evaluate,
+Write the comparison plan to `outputs/.plans/<name>.md`: which sources to compare, which dimensions to evaluate,
 expected output structure. `confirm: none` — summarize the plan to the user in one or two lines and continue immediately
 (do not wait for approval).
 
@@ -50,7 +50,7 @@ owners.
 
 Comparison matrix covering: source, key claim, evidence type, caveats, confidence. Distinguish agreement, disagreement,
 and uncertainty clearly. Generate charts when the comparison involves quantitative metrics; use Mermaid for
-method/architecture comparisons. Save to `outputs/<slug>-comparison.md`.
+method/architecture comparisons. Save to `outputs/<name>-comparison.md`.
 
 Integrity: read each source before characterizing it; URL or it didn't happen; mark inferred vs directly-stated claims;
 never invent sources, numbers, or figures.
@@ -60,7 +60,7 @@ never invent sources, numbers, or figures.
 For broad runs, run the `verifier` subagent to verify source URLs and add inline citations to the matrix. For direct
 2-source runs, verify URLs and add citations yourself. End the matrix with a `Sources` section of direct URLs.
 
-Write provenance to `outputs/<slug>.provenance.md`:
+Write provenance to `outputs/<name>.provenance.md`:
 
 ```markdown
 # Provenance: [topic]
@@ -68,7 +68,7 @@ Write provenance to `outputs/<slug>.provenance.md`:
 - **Sources compared:** [count / list]
 - **Sources accepted / rejected:** [...]
 - **Verification:** [PASS / PASS WITH NOTES / BLOCKED]
-- **Plan:** outputs/.plans/<slug>.md
+- **Plan:** outputs/.plans/<name>.md
 ```
 
 Before responding, verify on disk that all required artifacts exist. Final response is brief: link the matrix +

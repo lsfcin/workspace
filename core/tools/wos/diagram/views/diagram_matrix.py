@@ -48,16 +48,16 @@ def render(rows: list, columns: list, cells: dict, trigger_of) -> str:
 
 
 def _row(row: dict, columns: list, cells: dict) -> str:
-    slug = row['slug']
-    label = escape(slug) if row['areas'] else f'{escape(slug)} <span class="unwired">unwired</span>'
+    name = row['name']
+    label = escape(name) if row['areas'] else f'{escape(name)} <span class="unwired">unwired</span>'
     tds = [f'<th class="rowhead" title="{escape(row.get("description", ""))}">{label}</th>']
     for area in columns:
-        strength = cells.get((slug, area))
+        strength = cells.get((name, area))
         if strength is None:
             tds.append('<td class="empty"></td>')
             continue
         mark, meaning = MARKS.get(strength, ('?', strength))
-        tds.append(f'<td class="{escape(strength)}" title="{escape(slug)} at {escape(area)} — '
+        tds.append(f'<td class="{escape(strength)}" title="{escape(name)} at {escape(area)} — '
                    f'{escape(meaning)}">{mark}</td>')
     return '<tr>' + ''.join(tds) + '</tr>'
 

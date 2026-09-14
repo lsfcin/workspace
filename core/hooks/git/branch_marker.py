@@ -28,8 +28,8 @@ def marker_for(repo) -> Path:
     marker was written to a path that could not exist, so the warning could never fire there.
     A test that restates this path instead of calling this function is testing its own copy.
     """
-    slug = re.sub(r'[^A-Za-z0-9]', '_', str(repo))
-    return Path(tempfile.gettempdir()) / f'claude_branch_{slug}.txt'
+    name = re.sub(r'[^A-Za-z0-9]', '_', str(repo))
+    return Path(tempfile.gettempdir()) / f'claude_branch_{name}.txt'
 
 
 def _current(repo) -> tuple:

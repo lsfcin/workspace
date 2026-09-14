@@ -51,63 +51,63 @@ def project(tmp_path, monkeypatch):
 
 def test_one_response_split_across_records_is_one_turn(project):
 	"""The 1.97x bug. Claude Code repeats the whole usage object on every content block it writes."""
-	slug = project({'s1': [
+	name = project({'s1': [
 		response(1000, 500, [thinking()], 'r1'),
 		response(1000, 500, [text('hello')], 'r1'),
 		response(1000, 500, [{'type': 'tool_use', 'id': 't1', 'name': 'Bash',
 		                      'input': {'command': 'ls'}}], 'r1'),
 	]})
-	rows = list(turns(slug))
+	rows = list(turns(name))
 	assert len(rows) == 1
 	assert rows[0][4] == 500, 'output_tokens must be read once, not once per record'
 
 
 def test_the_records_of_one_response_pool_their_logged_output(project):
 	"""Content is spread across the records, so the chars have to be summed even though usage is not."""
-	slug = project({'s1': [
+	name = project({'s1': [
 		response(1000, 500, [text('a' * 36)], 'r1'),
 		response(1000, 500, [text('b' * 36)], 'r1'),
 	]})
-	assert list(turns(slug))[0][5] == pytest.approx(72 / CHARS_PER_TOKEN)
+	assert list(turns(name))[0][5] == pytest.approx(72 / CHARS_PER_TOKEN)
 
 
 def test_thinking_is_billed_but_never_logged(project):
 	"""It is paid once and never re-read, so it must not enter the tokens that land in the thread."""
-	slug = project({'s1': [response(1000, 900, [thinking(), text('ok')], 'r1')]})
-	row = list(turns(slug))[0]
+	name = project({'s1': [response(1000, 900, [thinking(), text('ok')], 'r1')]})
+	row = list(turns(name))[0]
 	assert row[4] == 900
 	assert row[5] == pytest.approx(2 / CHARS_PER_TOKEN), 'only the two chars of "ok" enter the thread'
 
 
 def test_tool_call_arguments_are_logged_output(project):
 	"""86% of what this workspace emits is tool_use input; excluding it would measure prose alone."""
-	slug = project({'s1': [response(1000, 500, [
+	name = project({'s1': [response(1000, 500, [
 		{'type': 'tool_use', 'id': 't1', 'name': 'Write', 'input': {'content': 'x' * 100}}], 'r1')]})
 	payload = len(json.dumps({'content': 'x' * 100}))
-	assert list(turns(slug))[0][5] == pytest.approx(payload / CHARS_PER_TOKEN)
+	assert list(turns(name))[0][5] == pytest.approx(payload / CHARS_PER_TOKEN)
 
 
 def test_the_same_request_id_in_two_sessions_stays_two_turns(project):
 	"""Responses are keyed per transcript. Merging across files would delete a whole session's turn."""
-	slug = project({'s1': [response(1000, 500, [text('a')], 'r1')],
+	name = project({'s1': [response(1000, 500, [text('a')], 'r1')],
 	                's2': [response(2000, 500, [text('b')], 'r1')]})
-	assert len(list(turns(slug))) == 2
+	assert len(list(turns(name))) == 2
 
 
 def test_a_response_with_no_request_id_is_still_a_turn(project):
 	"""Older transcripts predate requestId; dropping them would silently shrink the population."""
 	record = response(1000, 500, [text('a')], 'r1')
 	del record['requestId']
-	slug = project({'s1': [record, response(2000, 500, [text('b')], 'r2')]})
-	assert len(list(turns(slug))) == 2
+	name = project({'s1': [record, response(2000, 500, [text('b')], 'r2')]})
+	assert len(list(turns(name))) == 2
 
 
 def test_a_sidechain_response_never_enters_the_main_chain(project):
 	"""Subagent turns are billed in their own transcript; counting them here doubles the worker."""
 	side = response(1000, 500, [text('a')], 'r1')
 	side['isSidechain'] = True
-	slug = project({'s1': [side, response(2000, 500, [text('b')], 'r2')]})
-	assert len(list(turns(slug))) == 1
+	name = project({'s1': [side, response(2000, 500, [text('b')], 'r2')]})
+	assert len(list(turns(name))) == 1
 
 
 def test_a_thinking_heavy_session_does_not_read_as_self_authored(tmp_path):

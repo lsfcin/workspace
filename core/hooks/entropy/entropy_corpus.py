@@ -173,7 +173,7 @@ _CHECKER = ('entropy_list.py', 'entropy_list.pyi')
 
 # Every nested repo's list carries the same generated block the root's does, so the exemption
 # follows the report into all of them. Not a courtesy: that block's own notes name a retired token
-# and spell `[[slug]]` literally, so an unexempt list is flagged by the text the tool wrote into
+# and spell `[[name]]` literally, so an unexempt list is flagged by the text the tool wrote into
 # it. Derived from nested_repos rather than a `code/*` glob, which is how it survived the scatter.
 _LOCAL_LIST = 'ISSUES.md'
 
@@ -186,8 +186,8 @@ def enforcement_paths(root: Path) -> set:
             | {(repo / _LOCAL_LIST).resolve() for repo in nested_repos(root)})
 
 
-# brain/memory holds cross-session agent memory, and its `[[slug]]` names ANOTHER MEMORY rather
-# than a goal. A slug with no file yet is allowed there on purpose — it marks a memory worth
+# brain/memory holds cross-session agent memory, and its `[[name]]` names ANOTHER MEMORY rather
+# than a goal. A name with no file yet is allowed there on purpose — it marks a memory worth
 # writing later. Only the wiki-link check is relaxed: retired tokens are still enforced there, and
 # the day the store arrived that check caught four memories naming files renamed in July.
 # Memory rots exactly like documentation, and nothing was watching it before.

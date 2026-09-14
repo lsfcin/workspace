@@ -69,7 +69,7 @@ For each confirmed email:
    Then update the INBOX entry to include the `attachment:` line with the saved path.
 3. **Draft reply** — if route is `draft` or `needs_reply` is true and Lucas wants to draft, create:
    ```
-   branches/writing/drafts/email/YYYY-MM-DD-<alias>-<slug>.md
+   branches/writing/drafts/email/YYYY-MM-DD-<alias>-<name>.md
    ```
    with format:
    ```markdown

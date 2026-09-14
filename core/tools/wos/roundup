@@ -90,7 +90,7 @@ def permissions(root: Path) -> str:
 
 
 def session_id(root: Path) -> str:
-    """The newest transcript under this repo's project slug — the id both `usage --session` and the
+    """The newest transcript under this repo's project name — the id both `usage --session` and the
     compaction counter are keyed by. Best-effort: a close must never fail because a report did."""
     folder = Path.home() / '.claude' / 'projects' / posix(root).replace(':', '').replace('/', '-')
     logs = sorted(folder.glob('*.jsonl'), key=lambda p: p.stat().st_mtime) if folder.is_dir() else []

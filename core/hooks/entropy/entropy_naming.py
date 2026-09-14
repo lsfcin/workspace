@@ -36,11 +36,11 @@ STEM_OK = re.compile(r'^[_.]?[a-z0-9]+([-_.][a-z0-9]+)*$|^__[a-z0-9]+__$')
 # not a claim that the directory is a repo.
 SCAFFOLD_DIR = re.compile(r'^_')
 UPPERCASE_MD = re.compile(r'^[A-Z][A-Z0-9_.-]*\.md$')
-# The sanctioned second shape: ROADMAP-<slug>.md (AGENTS.md — a plan may live in a
-# ROADMAP-<slug>.md referenced from the ROADMAP).
-TYPE_SLUG = re.compile(r'^([A-Z][A-Z0-9_-]*)-([a-z0-9]+(?:-[a-z0-9]+)*)$')
+# The sanctioned second shape: ROADMAP-<name>.md (AGENTS.md — a plan may live in a
+# ROADMAP-<name>.md referenced from the ROADMAP).
+TYPE_NAME = re.compile(r'^([A-Z][A-Z0-9_-]*)-([a-z0-9]+(?:-[a-z0-9]+)*)$')
 DIR_OK = re.compile(r'^[_.]?[a-z0-9]+([-_.][a-z0-9]+)*$')
-# academy/papers/<year>-<VENUE>-<slug>: the venue is an acronym and is uppercase in every
+# academy/papers/<year>-<VENUE>-<name>: the venue is an acronym and is uppercase in every
 # citation of it. A convention that is correct in the outside world outranks ours.
 PAPER_DIR = re.compile(r'^\d{4}-[A-Z0-9]+-[a-z0-9][a-z0-9_-]*$')
 UNTYPEABLE = re.compile(r'\s|[^\x00-\x7f]')
@@ -52,7 +52,7 @@ JS_STEM = re.compile(r'^[A-Za-z][A-Za-z0-9]*(\.[A-Za-z0-9]+)*$')
 
 
 def check_shape(path: Path, allowed: set) -> str | None:
-    """Filename shape: lowercase instance, allowlisted type, or TYPE-slug."""
+    """Filename shape: lowercase instance, allowlisted type, or TYPE-name."""
     if path.suffix not in AUTHORED:
         return None
     name = path.name
@@ -65,22 +65,22 @@ def check_shape(path: Path, allowed: set) -> str | None:
     stem = name[:-len(path.suffix)]
     if path.suffix in JS_LIKE and JS_STEM.match(stem):
         return None
-    typed = TYPE_SLUG.match(stem)
+    typed = TYPE_NAME.match(stem)
     if typed and f'{typed.group(1)}.md' in allowed and path.suffix == '.md':
         return None
     if STEM_OK.match(stem):
         return None
     return (f"{_head(path)}: '{name}' is neither a lowercase instance nor a known type.\n"
             f'   Lowercase instances are kebab-case (snake_case for Python modules);\n'
-            f'   a type is UPPERCASE.md, optionally TYPE-<slug>.md. The mixed\n'
-            f'   <slug>.TYPE.md shape is retired (core/SCHEMA.md § The `.md` type system).')
+            f'   a type is UPPERCASE.md, optionally TYPE-<name>.md. The mixed\n'
+            f'   <name>.TYPE.md shape is retired (core/SCHEMA.md § The `.md` type system).')
 
 
 def untracked_routing_targets(files: list, root: Path) -> list:
     """A routing table pointing at a file git does not carry.
 
-    The general form of the TYPE_SLUG question above, and it sits here for that reason: the shape
-    law says a `TYPE-<slug>.md` is a real part of its type, and this says the tree really has one.
+    The general form of the TYPE_NAME question above, and it sits here for that reason: the shape
+    law says a `TYPE-<name>.md` is a real part of its type, and this says the tree really has one.
     A name that passes `check_shape` and a file a clone never receives are the same defect read
     from two ends.
 

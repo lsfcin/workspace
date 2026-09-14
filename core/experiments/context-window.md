@@ -10,10 +10,10 @@ already carry, and is therefore worth folding.
 
 ```bash
 core/tools/wos/session/context                   # this project
-core/tools/wos/session/context --project <slug>  # any other
+core/tools/wos/session/context --project <name>  # any other
 ```
 
-Reads `~/.claude/projects/<slug>/*.jsonl` and `<slug>/<session>/subagents/*.jsonl`. Turn-1 context is
+Reads `~/.claude/projects/<name>/*.jsonl` and `<name>/<session>/subagents/*.jsonl`. Turn-1 context is
 exact (the `usage` fields). Per-source attribution is by character count, converted at a ratio
 measured **per turn** rather than an assumed constant. Sources the transcript does not label
 (`CLAUDE.md`, `AGENTS.md`, `MEMORY.md`) are measured on disk; what remains after both is the

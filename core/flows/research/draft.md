@@ -23,9 +23,9 @@ run.
 ## Required Artifacts
 
 Every run must leave these on disk:
-- `outputs/.plans/<slug>.md`
-- `papers/<slug>.md`
-- `papers/<slug>.provenance.md`
+- `outputs/.plans/<name>.md`
+- `papers/<name>.md`
+- `papers/<name>.provenance.md`
 
 Once drafting starts, never end with chat-only output. If source material is missing, leave labeled placeholders rather
 than inventing results, and record the gap in provenance.
@@ -33,7 +33,7 @@ than inventing results, and record the gap in provenance.
 Requirements:
 - Before writing, outline the draft structure: proposed title, sections, key claims to make, source material to draw
   from, and a verification log for the critical claims, figures, and calculations. Write the outline to
-  `outputs/.plans/<slug>.md`. Briefly summarize the outline to the user and continue immediately. Do not ask for
+  `outputs/.plans/<name>.md`. Briefly summarize the outline to the user and continue immediately. Do not ask for
   confirmation or wait for a proceed response unless the user explicitly requested outline review.
 - Use the `writer` subagent when the draft should be produced from already-collected notes, then use the `verifier`
   subagent to add inline citations and verify sources.
@@ -47,7 +47,7 @@ Requirements:
   and pipelines only when the structure is supported by sources. Every figure needs a provenance-bearing caption.
 - Before delivery, sweep the draft for any claim that sounds stronger than its support. Mark tentative results as
   tentative and remove unsupported numerics instead of letting the verifier discover them later.
-- Save exactly one draft to `papers/<slug>.md`.
-- End with a `Sources` appendix with direct URLs for all primary references, and write `papers/<slug>.provenance.md`
+- Save exactly one draft to `papers/<name>.md`.
+- End with a `Sources` appendix with direct URLs for all primary references, and write `papers/<name>.provenance.md`
   (date, source material used, verification status of claims/figures). Verify both files exist on disk before
   responding.

@@ -24,17 +24,17 @@ import feature_law  # noqa: E402
 OFF_EXIT = 69
 
 
-def require(slug: str) -> None:
-    """Stop the tool when its feature is switched off, naming the slug and the way back.
+def require(name: str) -> None:
+    """Stop the tool when its feature is switched off, naming the name and the way back.
 
     Called at the top of a CLI entrypoint, before any work. `feature_law.is_enabled` fails
-    OPEN on an unknown slug, so a typo here leaves the tool behaving exactly as it did
+    OPEN on an unknown name, so a typo here leaves the tool behaving exactly as it did
     before this module existed — a feature is never lost to a bad line of data.
     """
-    if feature_law.is_enabled(slug):
+    if feature_law.is_enabled(name):
         return
     _sys.stderr.write(
-        f"{slug}: switched off for this workspace.\n"
+        f"{name}: switched off for this workspace.\n"
         f"  core/profile.txt holds the versioned answer; WOS_FEATURES_OFF subtracts for one run.\n"
     )
     raise SystemExit(OFF_EXIT)

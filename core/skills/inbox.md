@@ -27,7 +27,7 @@ Every INBOX entry lands in exactly one place:
 | **task** | commitment → backlog item in the goal it serves (`brain/goals/*.md`); capture with no clear goal → stays in `INBOX.md` | `task` |
 | **ref** | domain `refs/REFS.md` — one level-1 line (routing table + convention below) | `ref` |
 | **project** | `code/<proj>/ROADMAP.md` `## Backlog` (idea) or `ISSUES.md` (bug) | `proj: <name>` |
-| **draft** | new file in `branches/writing/drafts/[slug].md` | `draft` |
+| **draft** | new file in `branches/writing/drafts/[name].md` | `draft` |
 | **delete** | gone | `delete` |
 
 Lucas may preemptively signal the route in the entry (optional — infer from content if omitted).
@@ -66,7 +66,7 @@ A `ref` goes to the **nearest owning folder's** `refs/REFS.md` — never a centr
 - **Level 1 — capture (default, zero-friction):** append one line to `refs/REFS.md`:
   `- [what it is](url) — one-phrase why it matters`. This is **all** `/inbox` ever does for a ref.
 - **Level 2 — promote (manual, deliberate):** when a ref earns real study or citation, a human promotes it to
-  `refs/<slug>.yaml` (schema = `academy/papers/*/refs/CONTEXT.md`). Triage NEVER auto-creates a yaml.
+  `refs/<name>.yaml` (schema = `academy/papers/*/refs/CONTEXT.md`). Triage NEVER auto-creates a yaml.
 - **Lazy creation:** the first ref routed to a domain births `refs/REFS.md` (and a minimal `refs/CONTEXT.md`: line 2 =
   `> Captured references for <domain>.`). Do NOT pre-seed empty `refs/` folders across projects.
 
@@ -164,7 +164,7 @@ For each entry:
 - Add task lines to the backlog of the goal they serve in `brain/goals/*.md`
 - Append ref lines to the domain `refs/REFS.md` (create `refs/REFS.md` + `refs/CONTEXT.md` if absent)
 - Append project ideas/bugs to `code/<proj>/ROADMAP.md` / `ISSUES.md` — leave **staged**, report repos
-- Create draft files in `branches/writing/drafts/[slug].md` with a title and blank body
+- Create draft files in `branches/writing/drafts/[name].md` with a title and blank body
 - Clear confirmed entries from `brain/INBOX.md` — leave unconfirmed entries untouched
 - **Last, always:** `core/run hooks/brain/brain_stats.py` — refreshes the `GOALS.md` dashboard
   and stages it. The commit hook runs this only when a `brain/goals/` file is already staged

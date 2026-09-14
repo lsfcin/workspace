@@ -10,6 +10,16 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+# GUARDED, BECAUSE A MEASUREMENT MAY NEVER BREAK WHAT IT MEASURES. This module is copied into
+# throwaway trees by the suite and reaches half-installed clones, where the recorder beside it may
+# simply not be there — and an ImportError here would take down every gate in the workspace to save
+# a row of statistics. Same rule core/run states for a clone that is missing pieces.
+try:
+    import scoreboard  # noqa: E402  — path is set above, which is the house pattern
+except ImportError:  # pragma: no cover — only on a tree that carries feature_law without it
+    scoreboard = None
+
 CORE = HERE.parent
 REGISTRY_FILE = CORE / 'features.txt'
 PROFILE_FILE = CORE / 'profile.txt'
@@ -70,12 +80,12 @@ def load_registry() -> list:
     return _rows(REGISTRY_FILE)
 
 
-def slugs() -> set:
-    return {r['slug'] for r in load_registry()}
+def names() -> set:
+    return {r['name'] for r in load_registry()}
 
 
 def load_profile() -> dict:
-    """The answers, split by kind: {'toggle': {slug: 'on'|'off'}, 'setting': {key: value}}.
+    """The answers, split by kind: {'toggle': {name: 'on'|'off'}, 'setting': {key: value}}.
 
     The base first, this machine's overrides on top. Reading in that order is the whole merge —
     a local row answers one key and says nothing about the rest, so a machine declares only its
@@ -93,16 +103,23 @@ def _off_by_env() -> set:
     return {s.strip() for s in os.environ.get(OFF_ENV, '').split(',') if s.strip()}
 
 
-def is_enabled(slug: str) -> bool:
+def is_enabled(name: str) -> bool:
     """Is this feature live right now?
 
-    Fail-open on an unknown slug, and that is the load-bearing choice: a gate must never stop
+    Fail-open on an unknown name, and that is the load-bearing choice: a gate must never stop
     enforcing because someone mistyped a row. A feature nobody declared behaves exactly as it did
     before this module existed, so wiring a gate can only ever be safe.
     """
-    if slug in _off_by_env():
+    if name in _off_by_env():
         return False
-    return load_profile()['toggle'].get(slug, 'on') != 'off'
+    live = load_profile()['toggle'].get(name, 'on') != 'off'
+    # THE ONE PLACE A FEATURE OF ANY GROUP CAN BE COUNTED. Every switched feature — hook, tool,
+    # skill, flow, norm — passes through here, which is why the scoreboard hangs off this line
+    # rather than off thirty call sites. Recorded only when live: a feature that is off did not
+    # fire, it was skipped, and counting the skip would make an ablation run look busy.
+    if live and scoreboard is not None:
+        scoreboard.record(name, 'fired')
+    return live
 
 
 def setting(key: str, default: str = '') -> str:
@@ -157,26 +174,26 @@ def findings() -> list:
 
 
 def disabled() -> list:
-    """Every declared slug that is currently off, in file order.
+    """Every declared name that is currently off, in file order.
 
     The set form exists so a group dispatcher pays ONE subprocess instead of one per row: the
     skills mirror filters fourteen rows through a single call. Asking `--enabled` in a loop is the
     same answer at fourteen times the cost, and a loop over a hot path is how a switch acquires a
     reputation for being slow to consult.
     """
-    return [r['slug'] for r in load_registry() if not is_enabled(r['slug'])]
+    return [r['name'] for r in load_registry() if not is_enabled(r['name'])]
 
 
 def main() -> int:
-    """`--enabled <slug>` exits 0 when live, 1 when off — so a shell gate or a node hook shares
+    """`--enabled <name>` exits 0 when live, 1 when off — so a shell gate or a node hook shares
     this law instead of reimplementing it.
-    `--disabled` prints the off slugs for a caller that filters a whole group at once."""
+    `--disabled` prints the off names for a caller that filters a whole group at once."""
     if len(sys.argv) == 3 and sys.argv[1] == '--enabled':
         return 0 if is_enabled(sys.argv[2]) else 1
     if len(sys.argv) == 2 and sys.argv[1] == '--disabled':
         print('\n'.join(disabled()))
         return 0
-    print('usage: feature_law.py --enabled <slug> | --disabled', file=sys.stderr)
+    print('usage: feature_law.py --enabled <name> | --disabled', file=sys.stderr)
     return 2
 
 

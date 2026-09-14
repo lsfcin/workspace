@@ -1,65 +1,86 @@
-# SPECS | Disciplinas
-> Metodologia macro semestral de condução, ciclos de projeto, avaliação e acompanhamento.
-> governs: todas as disciplinas de graduação e pós ministradas por Lucas (TecEdu, AI4Good)
+# SPECS | disciplinas
+> metodologia macro semestral de condução, ciclos de projeto, avaliação e acompanhamento.
+> governs: todas as disciplinas de graduação e pós ministradas por Lucas (techedu, ai4good, etc)
 
-## 1. Princípios & Sequenciamento Pedagógico
+## 1. objetivos
 
-1. **Regra de Sequenciamento por Tipo de Conhecimento:**
-   - *Habilidade instrumental / setup de ambiente:* Instrução direta prévia (receita, starter kit e andaime explícito).
-   - *Conceito novo / modelagem de problema:* Problema autêntico antes da técnica (PS-I). A equipe enfrenta o dilema
-     na prática de sexta; a fundamentação teórica de quarta formaliza o desbloqueio conceitual.
-2. **Alinhamento Construtivo & Stage-Gate:** Todo entregável intermediário é uma fatia funcional do produto final
-   (Artigo no formato SBC/IEEE + Demonstração WOW funcional). Tarefas decorativas ou isoladas são proibidas.
-
----
-
-## 2. O Calendário Canônico (Os 4 Arcos — 34 Encontros / 17 Semanas)
-
-```
-[ARCO 1: PROBLEMATIZAÇÃO & FERRAMENTAL] (Semanas 01–04 / Encontros 01–08)
-  ├── Enquadramento do tema real, contrato pedagógico e setup instrumental guiado
-  └── Exploração de dores autênticas com as 7 alavancas contra o óbvio
-[ARCO 2: CONSTRUÇÃO & PROVA DE CONCEITO] (Semanas 05–09 / Encontros 09–18)
-  ├── GATE 1 (Fechamento preliminar): Pitch gravado/ao vivo + Termo de Projeto + Persona
-  └── Ciclos de arquitetura, prototipagem inicial e verificação parcial (Módulos A e B)
-[ARCO 3: SPRINT EXPERIMENTAL & REDAÇÃO] (Semanas 10–14 / Encontros 19–28)
-  ├── Execução de experimentos sistemáticos (ablação, métricas, testes com usuários)
-  └── GATE 2 (Status Report): Demo funcional preliminar + Seções 1 a 3 do artigo
-[ARCO 4: IMPACTO & DEFESA PÚBLICA] (Semanas 15–17 / Encontros 29–34)
-  └── GATE 3 (Final): Banca examinadora com folha estruturada + Demo WOW + Artigo SBC/IEEE
-```
+1. **visão de mundo e de contribuição**
+   - *cenário micro:* escutar os alunos, suas histórias, experiências, dificuldades, desejos, visões, como funcionam, como aprendem, quais os perfis.
+   - *calibrar visão macro:* conectar com a realidade ampla com foco na verdade, no estudo, na ciência e não em opinião rasa.
+   - *reperar agência:* fortalecer a capacidade, a capacidade de atuação, impulsionar a autoestima, coletividade e criatividade.
+2. **desenvolvimento de habilidades**
+   - *problemáticas:* conectar o ferramental teórico-prático a ser desenvolvido com problemáticas relevantes à atualidade e ao contexto dos alunos.
+   - *habilidades técnicas e comportamentais:* definir de antemão o conjunto de habilidades alvo da disciplina.
+   - *grafo de conhecimento:* conectar o conjunto de habilidades de forma estruturada, dependências e sinergias.
+   - *etapas:* conduzir aprendizagem com instrução direta prévia, entregar starter kits, receitas, passos construtivos explícitos, cada peça conecta com a seguinte. aprendizagem sem mistério, simplicidade como valor central.
+   - *verificação:* critérios de avaliação fornecidos de antemão, verificação continuada. permitir ritmos diferentes de aprendizagem. recapitular e reavaliar.
+3. **produção de artefatos**
+   - *demonstração wow:* conduzir alunos a produzirem soluções com tom de novidade e utilidade que impressionem terceiros que os deixem orgulhosos.
+   - *relatório técnico:* desenvolver com rigor metodológico que gere relatórios que vamos submeter para veículos científicos.
+   - *apresentação:* para bancas avaliadoras para ter discussão e conexão externa servindo de preparatório para pitchs em editais e eventos.
 
 ---
 
-## 3. A Anatomia da Entrega (A Tríade Fechada & O Par de .md)
+## 2. calendário canônico (4 arcos: ~30 encontros | 15 semanas)
 
-Toda entrega (Checkpoint) de disciplina opera sob dois links canônicos na Planilha Mestre, gerados a partir de
-modelos-base em Markdown (.md) estruturados por artefatos:
+```
+[ARCO 1: INICIALIZAÇÃO] (semanas 01–02)
+  ├── escuta e partilha de experiências relevantes
+  ├── contrato pedagógico e problemáticas alvo
+  └── setup instrumental guiado
+[ARCO 2: FERRAMENTAL E PROBLEMATIZAÇÃO] (semanas 03–06)
+  ├── estudo das técnicas, apropriação, estrapolação
+  └── estudo das problemáticas relevantes, macro
+[ARCO 3: CICLOS DE CONSTRUÇÃO DA SOLUÇÃO] (semanas 07–12)
+  ├── definição de macro-áreas de interesse, para problema e técnica
+  ├── prototipação da técnica base, garantir código funcional
+  ├── levantamento de competidores, na indústria e academia
+  ├── ideação da contribuição para a literatura e sociedade
+  ├── diagrama da solução técnica, módulos, entradas e saídas
+  ├── definição de métricas e desenho dos experimentos
+  ├── desenvolvimento, iterativo incremental, foco no diferencial
+  └── aplicação de testes, coleta dos resultados e avaliação
+[ARCO 4: PREPARAÇÃO E DEFESA PÚBLICA] (semanas 13–15)
+  ├── refinamento geral, solução e experimentos
+  ├── revisão e ajustes da demonstração, vídeo que causa efeito wow
+  ├── revisão e ajustes do relatório técnico, pronto para submissão
+  ├── refinamento da apresentação
+  └── banca examinadora e encerramento
+```
 
-1. **Documento de Metodologia (`templates/template-metodologia.md`):**
-   - Racional pedagógico ancorado (Chão $\to$ Horizonte, Doshi & Hauser).
-   - Guia explícito para IAs & Agentes (harness dos alunos) atuarem como tutores sem dar respostas prontas.
-   - Grafo de dependência entre os artefatos da entrega (entradas e saídas encadeadas).
-   - Pipeline de construção passo a passo por artefato (sprints guiados).
-   - Matriz de critérios de verificação ($A/AP/NA$) alinhada à coluna de verificação da planilha.
-2. **Documento de Materiais (`templates/template-materiais.md`):**
-   - **Modelo (Starter Kit):** Template com lacunas estruturadas para cada artefato exigido.
-   - **Exemplo Positivo (Excelente):** Referência que cumpre a régua, acompanhada das anotações críticas do professor
-     explicando o porquê do mérito.
-   - **Exemplo Negativo (Fraco / Superficial / Irreal):** Referência com erros típicos e armadilhas frequentes,
-     acompanhada das anotações críticas explicando por que seria reprovado / $NA$.
+---
+
+## 3. anatomia das entregas (metodologia e materiais)
+
+toda entrega (checkpoint) de disciplina é direcionada por dois documentos canônicos (metodologia e materiais), gerados a partir de modelos-base em markdown (.md) estruturados por artefatos:
+
+1. **metodologia (`templates/template-metodologia.md`):**
+   - grafo de dependência entre os artefatos da entrega (entradas e saídas encadeadas).
+   - para cada artefato a ser produzido:
+      - racional pedagógico ancorado (Chão $\to$ Horizonte, Doshi & Hauser).
+      - entrada, o que precisa estar pronto antes de começar.
+      - etapas, construção passo a passo por artefato a ser produzido naquela entrega.
+      - saída, o que é esperado do produto, qual sua utilidade.
+2. **materiais (`templates/template-materiais.md`):**
+   - para cada artefato a ser produzido:
+      - **modelo:** material de modelo com espaços / lacunas estruturadas com conteúdo guia indicando como deve ser preenchido.
+      - **exemplo excelente:** versão do modelo preenchido de forma excelente, gerado através dos passos indicados na metodologia.
+      - **exemplo que parece bom mas não é:** versão do modelo preenchido, cumprindo superficialmente o que foi solicitado, alcançando um potencial estado de "entregue" porém sem substância ("sem alma"), entrando na lógica da "educação faz de conta" em que o aluno finge que faz e o professor finge que acredita.
+
+      
 3. **Distribuição, Visualização Rica & Edição Online (Stack Leve):**
    - **Fonte Canônica:** Arquivos `.md` mantidos em `academy/teaching/<disciplina>/` no workspace do professor.
    - **Distribuição (Cloudflare Pages):** Espelhamento estático no repositório público `lsf-links` (`outputs/links/`).
-   - **Visualização Rica (Humano/Mobile):** `https://lucassf.pages.dev/<disciplina>/<slug>` renderizado pelo
+   - **Visualização Rica (Humano/Mobile):** `https://lucassf.pages.dev/<disciplina>/<name>` renderizado pelo
      visualizador nativo (`viewer.js` + `viewer.css` + `marked.min.js`), com suporte a alertas GitHub, tabelas
      responsivas e tema dark/light, sem dependências de CDN externa.
-   - **Visualização Direta (IAs/Harnesses):** `https://lucassf.pages.dev/<disciplina>/<slug>.md` (ou botão "Copiar p/
+   - **Visualização Direta (IAs/Harnesses):** `https://lucassf.pages.dev/<disciplina>/<name>.md` (ou botão "Copiar p/
      Agente (RAW)" no topo da página), permitindo ingestão via `curl -s` ou cópia com 1 clique.
    - **Edição Online (Zero Custo / Zero Limites):** Botão "Editar (github.dev)" na barra superior, abrindo o VS Code no
      navegador diretamente no arquivo no GitHub. Commits vão direto para a branch `main` e o Cloudflare Pages
      atualiza em segundos.
 
+   - Guia explícito para IAs & Agentes (harness dos alunos) atuarem como tutores sem dar respostas prontas.
 ---
 
 ## 4. Acompanhamento & Maestria ("XP Sério")

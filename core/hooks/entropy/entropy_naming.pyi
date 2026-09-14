@@ -5,7 +5,7 @@ AUTHORED: Incomplete
 STEM_OK: Incomplete
 SCAFFOLD_DIR: Incomplete
 UPPERCASE_MD: Incomplete
-TYPE_SLUG: Incomplete
+TYPE_NAME: Incomplete
 DIR_OK: Incomplete
 PAPER_DIR: Incomplete
 UNTYPEABLE: Incomplete

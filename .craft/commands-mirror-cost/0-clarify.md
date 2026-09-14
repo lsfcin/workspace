@@ -58,7 +58,7 @@ verdict: padaria
    repo = worktree fight"). No merge.
 
 ## Deviation from the flow, recorded before it happens
-Loop 2's Git Flow step (`branch MUST be feature/<slug>` off develop) is **not run**: a concurrent
+Loop 2's Git Flow step (`branch MUST be feature/<name>` off develop) is **not run**: a concurrent
 session owns the working tree, and a checkout would collide. Staying on `feature/roundup-md-cap`
 with explicit staging is the orchestrator's instruction and overrides Loop 2 here.
 

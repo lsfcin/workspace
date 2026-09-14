@@ -84,7 +84,7 @@ None is worked until the layer reopens.
   orchestrator still held the text. The fence is writing in a spawn prompt, which names no consequence.
 - **The router has no `experiment` folder**, so a controlled measurement fell back to the padaria
   gate, which measures the write rather than the investigation.
-- **Padaria mandates a `feature/<slug>` branch off develop** while the same flow's Field Practice
+- **Padaria mandates a `feature/<name>` branch off develop** while the same flow's Field Practice
   names "two loops, one repo" as a known hazard.
 - **The flow reads 18 KB of routing and runtimes before the gate that decides it needs them.**
 - **Only Loop 1 declares a cap**, and the whole-file check reads it as covering the flow — including

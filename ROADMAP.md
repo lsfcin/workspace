@@ -56,10 +56,19 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 
 ## Measurement — does any of this earn its keep
 
-**🟡 no hook has ever been measured, so no hook can be cut on evidence**
-*What* — a count per feature of how often it fired and how often it blocked something real.
-*Why* — 71 features are on and none has a scoreboard, so every cut is a guess and kept rules paid on faith.
-*Done when* — after two weeks of ordinary use a feature × fired × blocked table exists.
+**🟡 the scoreboard is running and owes its first reading**
+*What* — the two-week reading, and the cuts it justifies. The instrument runs and the clock is
+running with it: `core/run tools/wos/features --scoreboard`, into
+`core/experiments/hook-scoreboard.md`.
+*Why* — 82 features are on, so every cut is a guess and kept rules are paid on faith.
+*Done when* — the table is read after two weeks of ordinary use and each silent feature is a decision.
+
+**🟢 three gates consult no switch, so an ablation cannot turn them off**
+*What* — `checks/pre-edit.py`, `facade/facade-scan.py` and `facade/facade-tracker.py` calling
+`feature_law.is_enabled()`. They carry `-` in `core/hooks/gates.txt` § feature, which is a finding.
+*Why* — a gate that keeps running with its feature off makes that feature's ablation row a lie, and
+its blocks are counted against nobody.
+*Done when* — no row in `gates.txt` carries `-`.
 
 **🟡 the ablation — the repo has never been measured against its own absence**
 *What* — variants of the public repo, one feature off in each, against one synthetic task suite.
@@ -67,16 +76,6 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 *Done when* — a **per-feature** verdict is readable. Runs outside this workspace (`academy/papers/wos-ablation/`).
 
 ## Legibility — can Lucas still read what he owns
-
-**🟢 the audit's words also name code, and the rename is unfinished until identifiers follow**
-*What* — `slug` out of identifiers, then its row in § Retired tokens. Five of seven are done. The
-sixth, `probe`, is renamed everywhere and owes only its row: `brain/goals/google-migration.md` names
-a Drive deck `__probe_delete_me` that no rename of ours can reach, so the row lands the moment
-Lucas deletes that deck — which is what the line beside it already asks him to do.
-*Why* — the check matches filenames, so a row added while a module still carries the word reds the
-suite on our own code. Never sweep a bracketed short name, or a word carrying a second sense
-elsewhere in the tree — each costs a revert, and one word had three senses in one tree.
-*Done when* — the entropy scan finds zero survivors of every row.
 
 **🟡 the health picture: keep what Lucas reads at a glance, cut the rest**
 *What* — one page answering *is this well tied, and what is missing* — not an inventory.
@@ -93,10 +92,15 @@ line; that is a reason to pay, not a reason not to.
 *Done when* — the net since 2026-09-01 is negative under `core/run tools/wos/size --scope repo`.
 The debt is this repo's: absorbing a project's own writing neither creates nor pays it.
 
-**🔴 the platform boundary owes three answers, and one of them is a secret**
-*What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.
-*Why* — secret convention needs ACL equivalence; dep checks must verify function, not bare import.
-*Done when* — boundary writes secrets tight on all systems and no check falsely greens.
+**🔴 the platform boundary's last answer needs a Windows machine, and there is none**
+*What* — manager names for the 3 `apt` rows (`poppler-utils`, `tesseract-ocr`, `ddgr`). The file's
+own head only lets a row claim `system` once the name is VERIFIED on the other managers.
+*Why* — a row claiming a portability nobody checked is the false green these checks exist to end.
+*Done when* — each of the three is `system` with a verified name, or stays `apt` with the reason.
+*Blocked* — Lucas has no Windows access, for an unknown stretch (2026-09-14). Nothing else unblocks it.
+The other two answers are in: `is_owner_only()` reads the ACL back rather than trusting `st_mode`,
+and `core/tools/deps.txt` now carries a `floor` column — a floor, not the ceiling this line asked
+for, because the failure is a distro shipping something too old, never a release from the future.
 
 **🟡 the public repo his students clone**
 *What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
@@ -136,7 +140,7 @@ The debt is this repo's: absorbing a project's own writing neither creates nor p
 - **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): prompt, judge and self-report died on evidence;
   only a parser or solver refuses, so it is research — `academy/papers/back2dsl`.
 - **A research map as a plan block here, and one review yaml per kept source** — 2026-09-13: the first grows our most
-  re-read file; the second breaches the `core/refs/` crowding block. A `REFS-<slug>.md` does both.
+  re-read file; the second breaches the `core/refs/` crowding block. A `REFS-<name>.md` does both.
 - **A preliminary cut of features before the ablation** — 2026-08-21: cutting on hunches is a guess.
 - **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
 - **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
@@ -146,7 +150,7 @@ The debt is this repo's: absorbing a project's own writing neither creates nor p
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
 - **Narrowing the pre-commit to the touched tests** — 2026-09-01: the only speed-up that weakens the gate holding both
   clones, and parallelising paid four-fold without it.
-- **A check asking only whether a `TYPE-<slug>.md` is tracked** — 2026-09-01: the real defect is any routing row naming
+- **A check asking only whether a `TYPE-<name>.md` is tracked** — 2026-09-01: the real defect is any routing row naming
   a file git does not carry.
 - **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's clone cannot install,
   and strangers are who the file is for.

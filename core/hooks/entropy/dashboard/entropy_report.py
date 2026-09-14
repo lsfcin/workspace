@@ -39,7 +39,7 @@ SECTIONS = (
     ('routing', 'Routing tables pointing at files git does not carry',
      'a clone gets the table and not the file — track the target, or stop routing to it'),
     ('goals', 'Projects not declaring their goal', 'line 3 of a code/ CONTEXT.md'),
-    ('wiki', 'Wiki-links naming nothing', 'a [[slug]] is a goal file or an item in one'),
+    ('wiki', 'Wiki-links naming nothing', 'a [[name]] is a goal file or an item in one'),
     ('retired', 'Retired tokens still alive', 'a rename is unfinished until these are zero'),
     ('citations', 'Roadmap item numbers cited outside a roadmap',
      'a closed item is deleted — cite the SPECS.md/SCHEMA.md section that owns the rule'),

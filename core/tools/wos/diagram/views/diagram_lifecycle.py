@@ -24,7 +24,7 @@ def _bar(moment: str, features: list) -> str:
     chain, and it is only visible because the vocabulary is declared rather than collected from
     what happened to exist."""
     width = max(len(features) * BAR, 2)
-    names = ', '.join(f['slug'] for f in features)
+    names = ', '.join(f['name'] for f in features)
     klass = 'band empty' if not features else 'band'
     return (f'<div class="{klass}"><span class="mom">{escape(moment)}</span>'
             f'<span class="run" style="width:{width}px" title="{escape(names)}"></span>'
@@ -39,8 +39,8 @@ def render(bands: list, on_demand: list, unplaced: list) -> str:
     IS the finding: it is the order a session runs, read out of the registrations.
     """
     rows = '\n'.join(_bar(moment, features) for moment, features in bands)
-    called = ', '.join(sorted(row['slug'] for row in on_demand))
-    missing = ', '.join(sorted(row['slug'] for row in unplaced))
+    called = ', '.join(sorted(row['name'] for row in on_demand))
+    missing = ', '.join(sorted(row['name'] for row in unplaced))
     note = (f'<p class="note"><b>{len(unplaced)} automatic feature'
             f'{"" if len(unplaced) == 1 else "s"} sit on no band at all</b> — nothing in this repo '
             f'declares when {"it fires" if len(unplaced) == 1 else "they fire"}: '

@@ -36,7 +36,7 @@ def trend_label(counts):
 
 # ── Per-file stats block ───────────────────────────────────────────────────────
 
-def build_stats_block(slug, attention):
+def build_stats_block(name, attention):
     """One line, not a table.
 
     This was a six-row `| period | touches |` table until 2026-08-31 — 9 lines in each of 36 goal
@@ -45,8 +45,8 @@ def build_stats_block(slug, attention):
     36 copies of a number that already lives on the dashboard. Every count survives here; only the
     table scaffolding went.
     """
-    counts = {name: attention.count(slug, days) for name, days in PERIODS}
-    lt     = attention.last_touch(slug)
+    counts = {period: attention.count(name, days) for period, days in PERIODS}
+    lt     = attention.last_touch(name)
 
     # The six periods are named once, in brain/SPECS.md, instead of on 36 goal files. Spelling
     # them here costs 43 characters a line and puts the row over the 120-column cap as soon as a
@@ -54,7 +54,7 @@ def build_stats_block(slug, attention):
     return (
         "<!-- stats:start -->\n"
         f"last-touch: {lt or '—'}  ·  trend: {trend_label(counts)}  ·  touches: "
-        + "/".join(str(counts[name]) for name, _ in PERIODS) + "\n"
+        + "/".join(str(counts[period]) for period, _ in PERIODS) + "\n"
         "<!-- stats:end -->"
     )
 
@@ -63,7 +63,7 @@ def build_stats_block(slug, attention):
 DONE_RE = re.compile(r'\[x\]', re.IGNORECASE)
 
 
-def compress_done(content, slug):
+def compress_done(content, name):
     start   = "<!-- done:start -->"
     end     = "<!-- done:end -->"
     pattern = re.compile(re.escape(start) + r"(.*?)" + re.escape(end), re.DOTALL)
@@ -93,12 +93,12 @@ def compress_done(content, slug):
 def load_goal_files():
     files = {}
     for f in sorted(GOALS_DIR.glob("*.md")):
-        slug = f.stem
+        name = f.stem
         # `_`-prefixed files are scaffolding, never goals. This replaces an
         # ALL-CAPS skip that only worked while the template was ARCHETYPE.md.
-        if slug.startswith("_"):
+        if name.startswith("_"):
             continue
-        files[slug] = f
+        files[name] = f
     return files
 
 
@@ -111,7 +111,7 @@ def staged_goal_files(goal_files):
     """
     out    = git("diff", "--cached", "--name-only")
     staged = {l.strip() for l in out.splitlines() if l.strip()}
-    return {slug: p for slug, p in goal_files.items() if str(p) in staged}
+    return {name: p for name, p in goal_files.items() if str(p) in staged}
 
 
 def pre_commit():
@@ -123,29 +123,29 @@ def pre_commit():
     # One harvest per declared repo, reused for every goal and every period below. The
     # previous shape ran a `git log` per goal per period — ~52 subprocesses each commit.
     attention = Attention(goal_files)
-    for slug, rel in attention.missing:
-        print(f"[Brain] ⚠ {slug}: owns '{rel}', which resolves to no repo — not counted")
+    for name, rel in attention.missing:
+        print(f"[Brain] ⚠ {name}: owns '{rel}', which resolves to no repo — not counted")
 
     targets  = staged_goal_files(goal_files)
     modified = []
 
-    for slug, path in targets.items():
+    for name, path in targets.items():
         original = path.read_text(encoding='utf-8')
         content  = original
 
         updated = replace_block(content, "<!-- stats:start -->", "<!-- stats:end -->",
-                                 build_stats_block(slug, attention))
+                                 build_stats_block(name, attention))
         if updated:
             content = updated
 
         # Overflow entries are dropped, not archived: git is the history
         # (core/SCHEMA.md, No archive types). The done-log was deleted 2026-07-30.
-        content, _ = compress_done(content, slug)
+        content, _ = compress_done(content, name)
 
         if content != original:
             path.write_text(content, encoding='utf-8', newline='\n')
             modified.append(str(path))
-            print(f"[Brain] {slug}: updated")
+            print(f"[Brain] {name}: updated")
 
     # Dashboard aggregates live git history for ALL goals — always fresh. GOALS.md
     # churn is not itself a measured signal, so refreshing it every commit is safe.

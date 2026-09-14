@@ -18,7 +18,7 @@ installer would have to be ported to every harness, while the newcomer's own age
 whichever harness they already opened. That is you.
 
 **This skill is a door, not a copy.** The procedure is [`SETUP.md`](../../SETUP.md) at the
-workspace root plus the `SETUP-<slug>.md` parts it routes to, and it stands alone — a stranger
+workspace root plus the `SETUP-<name>.md` parts it routes to, and it stands alone — a stranger
 on another agent has no skill loaded and installs from those files directly. Never restate a command from it here or in
 your reply; read it and run it.
 If you catch yourself explaining a step, you are drifting into a second copy that will disagree
@@ -29,7 +29,7 @@ with the first one.
 1. **Read `SETUP.md`, then every part its routing table names.** The index carries the contract each
    step follows — `> feature:`, **Precondition**, **Install**, **Verify** — plus what is already
    wired and the whole-install check; it holds **no steps of its own**. The steps live in the
-   `SETUP-<slug>.md` siblings, between each one's `<!-- steps:start -->` and `<!-- steps:end -->`
+   `SETUP-<name>.md` siblings, between each one's `<!-- steps:start -->` and `<!-- steps:end -->`
    markers, one `##` section each. Nothing outside those markers is a step. `SETUP-clone.md` runs
    first; the rest are independent.
 

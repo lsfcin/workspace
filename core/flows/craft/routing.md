@@ -158,4 +158,4 @@ for m in d.get('data',[]):
 
 Update the `last-reviewed` date in the table after re-running. If availability or ranking changed materially (a provider
 added a better coding model, a model was retired), bump both the table AND the frontmatter of any pinned executor files
-that drift from what's actually running — `grep executor .craft/<slug>/*.md` is your post-hoc audit.
+that drift from what's actually running — `grep executor .craft/<name>/*.md` is your post-hoc audit.

@@ -73,8 +73,8 @@ def base_commit(root, session_id):
     """The commit HEAD sat on when this session started, found from the transcript's first
     timestamp. The transcript is the only record of when the session began; git alone cannot
     tell this session's commits from yesterday's."""
-    slug = str(root).replace('/', '-')
-    path = Path.home() / '.claude' / 'projects' / slug / f'{session_id}.jsonl'
+    name = str(root).replace('/', '-')
+    path = Path.home() / '.claude' / 'projects' / name / f'{session_id}.jsonl'
     try:
         with open(path, encoding='utf-8') as f:
             for line in f:

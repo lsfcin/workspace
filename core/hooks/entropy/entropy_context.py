@@ -186,7 +186,7 @@ def check_goal_link(path: Path) -> str | None:
     match = GOAL_LINE.match(line.strip())
     if not match:
         return (f'{path}: line 3 must declare the goal this project serves.\n'
-                f'   Write `> goal: [<slug>](../../brain/goals/<slug>.md)`, or\n'
+                f'   Write `> goal: [<name>](../../brain/goals/<name>.md)`, or\n'
                 f'   `> goal: none` if it deliberately serves no goal. Found: {line[:60]!r}')
     if match.group(1) == 'none':
         return None

@@ -3,7 +3,7 @@
 #   kind   level | rule
 #   level   guarded | standard | open
 #   key    summary | tradeoff | mode (for kind=level); allow | ask | deny (for kind=rule)
-#   value  prose (for kind=level); neutral action slug (for kind=rule)
+#   value  prose (for kind=level); neutral action name (for kind=rule)
 #
 kind	level	key	value
 level	guarded	summary	Asks before editing files, running mutating commands, or pushing code.
