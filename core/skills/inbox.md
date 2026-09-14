@@ -13,7 +13,7 @@ Arguments: $ARGUMENTS
 
 Every route targets a doc that loads **only when needed**: `ROADMAP.md`, `ISSUES.md`, `refs/REFS.md`, goal files.
 
-**NEVER route an entry into a `CONTEXT.md`.** CONTEXT.md loads every session for its whole subtree — every line there
+**NEVER route an entry into a `CONTEXT.md`.** CONTEXT.md loads every session for its whole folder — every line there
 costs tokens on every task. Ideas, bugs, and references go to on-demand docs. This is the rule that keeps capture cheap
 without flooding always-loaded context.
 
@@ -48,7 +48,7 @@ command, INBOX vs. instructions is not the boundary. What the tag decides is **p
 
 ## Reference routing (route-by-domain)
 
-A `ref` goes to the **nearest owning subtree's** `refs/REFS.md` — never a central brain file, never CONTEXT.md.
+A `ref` goes to the **nearest owning folder's** `refs/REFS.md` — never a central brain file, never CONTEXT.md.
 
 | ref kind | home |
 |----------|------|

@@ -28,7 +28,7 @@ neither, and is in the Results table below.
 | 2026-08-16 | unchanged | unchanged | unchanged | ceiling **<1% of the bill** | **The ceiling is now known and it is small.** Still kept on. |
 
 **The benefit has a computable ceiling, and it does not need the toggle registry.** Caveman
-compresses prose to the user, which is 13.7% of *logged* output; logged output is 35% of billed
+compresses writing to the user, which is 13.7% of *logged* output; logged output is 35% of billed
 output tokens, and output is 12.9% of the bill
 ([`output-cost.md`](output-cost.md), 2026-08-16). Perfect compression of every word ever typed to
 Lucas would therefore save **under 1% of spend**. What is still unmeasured is where inside that
@@ -52,8 +52,8 @@ shows otherwise, and the honest position is that **nobody has measured the other
 - **The benefit side is bounded but not measured.** Its ceiling is computable (above) and is under
   1% of spend; where inside that ceiling the real saving sits is not, because sessions differ so
   much in task shape that a before/after across sessions proves nothing without an arm.
-- **The ceiling is a share of the bill, not of the thing caveman touches.** Against prose alone the
-  compression is large; prose is simply a small share of what is billed.
+- **The ceiling is a share of the bill, not of the thing caveman touches.** Against writing alone the
+  compression is large; writing is simply a small share of what is billed.
 - **The cost is not only the 654 tok.** It is re-read on every turn for the life of the session,
   which is cheap per token (cache reads are 0.1x) but not free.
 - **Turning it off has a second cost nobody has priced**: `/caveman` must then be invoked by hand,

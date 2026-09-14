@@ -1,7 +1,7 @@
 # Core Library Roadmap
 
 > What is still unsound about the agent library itself — skills, agents, flows, tools and their
-> schema. Workspace scaffold work is the wos ledger's, [/ROADMAP.md](../ROADMAP.md); an item belongs
+> schema. Workspace scaffold work is the wos list's, [/ROADMAP.md](../ROADMAP.md); an item belongs
 > to exactly one of the two. Same cap, same three fields, same deletion policy, same
 > refusal to write HOW: [/ROADMAP.md](../ROADMAP.md) states both once.
 
@@ -62,7 +62,7 @@ say the same thing.
 
 **🟢 nothing we build on Drive can be thrown away by the thing that built it**
 *What* — a `trash` command on `gdocs` and `gdrive`. *Why* — both write (`new`, `push`, `mkdir`,
-`put`) and neither deletes, so every probe an agent creates is cleanup Lucas does by hand; two are
+`put`) and neither deletes, so every check an agent creates is cleanup Lucas does by hand; two are
 waiting on him now. *Done when* — a file created by the CLI can be trashed by it, on the write token.
 
 ## Blocked — waiting on a trigger
@@ -81,8 +81,8 @@ None is worked until the layer reopens.
 
 - **A craft executor reverted an uncommitted orchestrator edit it did not write.** Loop 6 had been
   handed the dirty-tree fence and discarded the file anyway; nothing was lost only because the
-  orchestrator still held the text. The fence is prose in a spawn prompt, which names no consequence.
-- **The router has no `experiment` subtree**, so a controlled measurement fell back to the padaria
+  orchestrator still held the text. The fence is writing in a spawn prompt, which names no consequence.
+- **The router has no `experiment` folder**, so a controlled measurement fell back to the padaria
   gate, which measures the write rather than the investigation.
 - **Padaria mandates a `feature/<slug>` branch off develop** while the same flow's Field Practice
   names "two loops, one repo" as a known hazard.

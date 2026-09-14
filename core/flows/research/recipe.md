@@ -31,7 +31,7 @@ This is an execution request. Continue immediately.
 ## Workflow
 
 1. **Plan** — Write `outputs/.plans/<slug>-recipe.md` with the target task, benchmark or desired behavior, candidate
-   source types, feasibility constraints, and a task ledger. Continue automatically after writing the plan.
+   source types, feasibility constraints, and a task list. Continue automatically after writing the plan.
 2. **Research** — Use the `researcher` subagent when the task needs a broad paper/code sweep. For narrow tasks, gather
    evidence directly. The research must start from evidence of results, not from example scripts alone.
 3. **Recipe extraction** — For each promising approach, link the observed result to the exact recipe that produced it:

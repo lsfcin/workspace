@@ -15,7 +15,7 @@
 **🟡 four numeric laws have no home, and `core/hooks/limits.env` is not theirs**
 *What* — one home per number, or a written reason why a local one is right. The citation gate
 covers the line/file/column law and deliberately stops there; the craft loop file's soft size, a
-research output's length and a commit subject's width are each declared in the prose that uses them.
+research output's length and a commit subject's width are each declared in the writing that uses them.
 *Why* — the same copy-paste that made eight files name a stale warn, one layer out.
 *Done when* — each of the four is either parsed from one file or carries its reason where it sits.
 
@@ -38,7 +38,7 @@ research output's length and a commit subject's width are each declared in the p
 
 **🟡 anything the agent needs Lucas to physically do is said where he never sees it**
 *What* — one channel reaching him at the *end* of a response, and at the moment a session parks.
-*Why* — close offers and auth-consent requests land in agent-facing prose at prompt-submit time, and
+*Why* — close offers and auth-consent requests land in agent-facing writing at prompt-submit time, and
 a session blocked on an `AskUserQuestion` while he is elsewhere is the same defect's third instance.
 *Done when* — all three reach him without interrupting the thread, with measured token cost.
 
@@ -86,12 +86,12 @@ raising the cap, which moves the line and not the mass.
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every
 line; that is a reason to pay, not a reason not to.
 *Done when* — the net since 2026-09-01 is negative under `core/run tools/wos/size --scope scaffold`.
-The debt is the scaffold's: absorbing a project's own prose neither creates nor pays it.
+The debt is the scaffold's: absorbing a project's own writing neither creates nor pays it.
 
-**🔴 the platform seam owes three answers, and one of them is a secret**
+**🔴 the platform boundary owes three answers, and one of them is a secret**
 *What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.
-*Why* — secret convention needs ACL equivalence; dep probes must verify function, not bare import.
-*Done when* — seam writes secrets tight on all systems and no probe falsely greens.
+*Why* — secret convention needs ACL equivalence; dep checks must verify function, not bare import.
+*Done when* — boundary writes secrets tight on all systems and no check falsely greens.
 
 **🟡 the public scaffold repo his students clone**
 *What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
@@ -126,12 +126,12 @@ The debt is the scaffold's: absorbing a project's own prose neither creates nor 
   `academy/papers/back2dsl`, with `spacemantics` and `wos-ablation` as its instances.
 - **Writing a research map as a plan block in this file, and one review yaml per kept source** —
   2026-09-13: the first grows the most re-read file we own, against a `scout` step that asks for it;
-  the second would breach the `core/refs/` fanout block. A topical `REFS-<slug>.md` shard does both jobs.
+  the second would breach the `core/refs/` crowding block. A topical `REFS-<slug>.md` file does both jobs.
 - **A preliminary cut of features before the ablation** — 2026-08-21: cutting on hunches is a guess.
 - **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
 - **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
 - **A second compaction shim for copilot** — no copilot session has ever run here.
-- **Raising the line block by half** — moves the queue; a file needing room needs a seam. **Partly
+- **Raising the line block by half** — moves the queue; a file needing room needs a boundary. **Partly
   reversed 2026-09-06 (Lucas)**: three over-cap files were law files being asked to delete reasons
   nothing else held. Over the cap a file is still CUT, not split.
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
@@ -141,5 +141,5 @@ The debt is the scaffold's: absorbing a project's own prose neither creates nor 
   routing row naming a file git does not carry.
 - **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's
   clone then cannot install, and strangers are who the file is for.
-- **Deleting a dated `*-backup-*.md` as a corpse** — `academy/lab/CONTEXT.md` declares those
+- **Deleting a dated `*-backup-*.md` as a dead item** — `academy/lab/CONTEXT.md` declares those
   captured, not authored; the untracked *law* beside them was the real bug.

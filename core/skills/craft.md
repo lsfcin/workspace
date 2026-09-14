@@ -14,9 +14,9 @@ Arguments: $ARGUMENTS
 ## Protocol
 
 0. **Route first (the craft tree).** `/craft` is a tree, not one pipeline. Read
-   [`core/flows/craft/route.md`](../flows/craft/route.md) and classify the task into a subtree — `padaria` · `feature` ·
+   [`core/flows/craft/route.md`](../flows/craft/route.md) and classify the task into a folder — `padaria` · `feature` ·
    `research` · `architecture` (map + rationale: [`core/flows/craft/tree.md`](../flows/craft/tree.md)). Record
-   `subtree:` in the Carry block / STATUS. Then run that subtree's flow:
+   `subtree:` in the Carry block / STATUS. Then run that folder's flow:
    - `feature` / `padaria` → the craft flow below (feature is contract-first: Step 0 permission panel → Loop 3.5
      Contract Layout → Loop 3 concept-symmetry review → TDD → ship).
    - `research` → the matching
@@ -25,7 +25,7 @@ Arguments: $ARGUMENTS
    - `architecture` → [`core/flows/craft/architect.md`](../flows/craft/architect.md) (emits an ADR; chain into `feature`
      if it needs building).
 
-   The steps below are the **feature/padaria** subtree. For research/architecture, hand off and stop.
+   The steps below are the **feature/padaria** folder. For research/architecture, hand off and stop.
 
 1. **Resolve provider before Loop 0 (fastest identification):**
    ```bash
@@ -55,7 +55,7 @@ Arguments: $ARGUMENTS
 
 ## Why this is provider-aware (one-liner for the next reader)
 
-Each configured provider has its own coding-capable model list (`opencode models` probe); the tier table in `routing.md`
+Each configured provider has its own coding-capable model list (`opencode models` check); the tier table in `routing.md`
 fills tiers **from availability first, benchmarks second, cost third**. A chain stays inside one provider by default;
 downward delegation (openrouter→anthropic→copilot→nvidia) is cost-saving and encouraged; upward cross-provider promotion
 requires your explicit consent every time. nvidia's max is a hard ceiling — nvidia cannot silently pull Kimi or Opus.

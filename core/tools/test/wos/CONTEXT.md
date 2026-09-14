@@ -2,7 +2,7 @@
 > What the workspace declares about itself, and what the session-close ritual really does.
 
 Two responsibilities, after the instruments moved to [`session/`](session/CONTEXT.md) in 2026-08-17's
-fanout split.
+crowding split.
 
 **Declaration** — three files that must agree, checked against each other and never trusted.
 [`test_deps.py`](test_deps.py) on `core/tools/deps.txt`, and the feature registry split in two:
@@ -12,14 +12,14 @@ one. Data and behaviour are different questions with different failure modes —
 perfectly well-formed and still name a file that never reads the law, which is the failure that cost
 the first ablation run its entire signal ([`core/SPECS.md`](../../../SPECS.md) § AD-14).
 
-**The ritual** moved into [`close/`](close/CONTEXT.md) 2026-08-25, at the fanout signal: what a
+**The ritual** moved into [`close/`](close/CONTEXT.md) 2026-08-25, at the crowding signal: what a
 session close does is a different question from what the workspace declares about itself, and
 [`core/SPECS.md`](../../../SPECS.md) § AD-09 governs it alone.
 
 Zero-token, no network. Each test builds its own repo and bare origin; **nothing touches the real
 workspace** — a law that went unchecked and was broken three times (b20260902), and is now enforced
 for the whole suite by the autouse tree guard in [`../conftest.py`](../conftest.py). A case with no
-seam declares `serial` and gets a pass of its own; three do.
+boundary declares `serial` and gets a pass of its own; three do.
 
 <!-- routing:start -->
 ## Routing

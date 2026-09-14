@@ -23,7 +23,7 @@ incidents carry no marker at all, so the marker count is a floor on the incident
 estimate of it. The classification is judgment and is not reproducible by the command above.
 
 Hand-check, as `SPECS.md` requires of a new instrument: three incidents were traced to real commits
-with `git log -S` on the identifier each one names, confirming the prose describes code that changed
+with `git log -S` on the identifier each one names, confirming the writing describes code that changed
 rather than a story about code.
 
 ## Results
@@ -38,8 +38,8 @@ What caught each of the 18, for the 2026-09-12 run:
 
 | What caught it | Count | The clearest instance |
 |---|---|---|
-| Reading our own stored artifact later | 4 | a close wrote `green (1 passed, 695 deselected)` into the ledger |
-| A second machine or clone disagreed | 3 | probes spelled the POSIX venv path, so every other clone reported the dependency missing |
+| Reading our own stored artifact later | 4 | a close wrote `green (1 passed, 695 deselected)` into the list |
+| A second machine or clone disagreed | 3 | checks spelled the POSIX venv path, so every other clone reported the dependency missing |
 | Re-measuring with a better lens | 3 | *nothing has ever been delegated* was an artifact of the lens, not a fact |
 | A hand audit against raw data | 2 | the output-cost number was wrong by 2x for three weeks while two implementations agreed |
 | A dedicated review sitting | 2 | the two rules cited as proof we knew how to doubt had gone unverified for months |

@@ -16,7 +16,7 @@ this is a recurring source of confusion and breakage.
 of a skill left a dangling mirror symlink another session's opencode choked on at startup (broke websearch).
 
 **How to apply:**
-- **Partition by subtree.** One session owns `core/`, another `code/`, another `brain/`. Never two sessions in `.hooks/`
+- **Partition by folder.** One session owns `core/`, another `code/`, another `brain/`. Never two sessions in `.hooks/`
   or `.gitignore` at once.
 - **Before refactoring a file, check `git status`** — if it's already `M` (dirty from another session), it's contended;
   don't rewrite it, coordinate or defer.

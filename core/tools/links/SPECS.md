@@ -1,5 +1,5 @@
 # links — Specs
-> Why the redirect is Cloudflare's and not GitHub's, why a private subtree gets no slug, and what
+> Why the redirect is Cloudflare's and not GitHub's, why a private folder gets no slug, and what
 > makes a map that grows forever stay cheap.
 
 Companion to [`CONTEXT.md`](CONTEXT.md), which says what this family *is* and how to call it.
@@ -45,7 +45,7 @@ the whole map, which is the one thing the refusal above exists to prevent.
 ## The map grows forever, and that is fine
 
 One row per slug, and nothing ever prunes it on a schedule. It stays cheap because it is **data a
-tool queries, not prose a session reads**: `find` greps it and prints the matching rows, so no
+tool queries, not writing a session reads**: `find` greps it and prints the matching rows, so no
 context ever holds the whole file. That is the same bargain [`../deps.txt`](../deps.txt) and
 [`../../features.txt`](../../features.txt) make.
 

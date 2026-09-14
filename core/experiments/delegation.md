@@ -40,7 +40,7 @@ Two readings, and the second is the one that matters:
 
 ## What changed
 
-The false claim was cut from the wos ledger's agents item and replaced with a pointer here. The
+The false claim was cut from the wos list's agents item and replaced with a pointer here. The
 item itself was **not** closed on this number: a feature that was never given a deliberate trial
 is not the same as one that was tried and refused (Lucas, 2026-08-17), and this measurement cannot
 tell the two apart — see Limitations.

@@ -27,7 +27,7 @@ Default: **full**. Switch: `/caveman lite|full|ultra|wenyan-lite|wenyan|wenyan-u
 | *(none)* · `lite` · `full` · `ultra` · `wenyan-lite` · `wenyan` · `wenyan-ultra` | [`modes.md`](modes.md) | set the intensity level for this session |
 | `commit` | [`commit.md`](commit.md) | terse Conventional Commits message |
 | `review` | [`review.md`](review.md) | one-line PR review comments |
-| `compress <file>` | [`compress.md`](compress.md) | compress a prose `.md`/`.txt` file in place, backup kept |
+| `compress <file>` | [`compress.md`](compress.md) | compress a writing `.md`/`.txt` file in place, backup kept |
 | `crew` | [`cavecrew.md`](cavecrew.md) | when to delegate to caveman-style subagents |
 | `stats` | — | handled entirely by the hook; the model does nothing |
 | `help` | this file | show the table above and the deactivation line |
@@ -55,7 +55,7 @@ Yes: "Bug in auth middleware. Token expiry check use `<` not `<=`. Fix:"
 |-------|------------|
 | **lite** | No filler/hedging. Keep articles + full sentences. Professional but tight |
 | **full** | Drop articles, fragments OK, short synonyms. Classic caveman |
-| **ultra** | Abbreviate prose words (DB/auth/config/req/res/fn/impl), strip conjunctions, arrows for causality (X → Y), one word when one word enough. Code symbols, function names, API names, error strings: never abbreviate |
+| **ultra** | Abbreviate writing words (DB/auth/config/req/res/fn/impl), strip conjunctions, arrows for causality (X → Y), one word when one word enough. Code symbols, function names, API names, error strings: never abbreviate |
 | **wenyan-lite** | Semi-classical. Drop filler/hedging but keep grammar structure, classical register |
 | **wenyan-full** | Maximum classical terseness. Fully 文言文. 80-90% character reduction. Classical sentence patterns, verbs precede objects, subjects often omitted, classical particles (之/乃/為/其) |
 | **wenyan-ultra** | Extreme abbreviation while keeping classical Chinese feel. Maximum compression, ultra terse |

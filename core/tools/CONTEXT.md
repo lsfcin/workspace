@@ -33,14 +33,14 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`verify/`](verify/CONTEXT.md) | Verification contract + patterns for all code projects: tiers T0-T3, script names, dump-oracle rules. Reference |
 | [`video/`](video/CONTEXT.md) | Link to navigable text — metadata, captions, transcript, OCR, VLM caption. |
 | [`web/`](web/CONTEXT.md) | Reach the open web: search, fetch a page as text, browse and search code hosts. |
-| [`wos/`](wos/CONTEXT.md) | Tools that act on the workspace itself: spec ledger, contract check, skill mirrors. |
+| [`wos/`](wos/CONTEXT.md) | Tools that act on the workspace itself: spec list, contract check, skill mirrors. |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | What must be true of a `core/tools/` feature, and why: how a family is named, what a failure has to hand back, and what work is the agent's rather than Lucas's. |
 | [`attachments_util.py`](attachments_util.py) | [`attachments_util.pyi`](attachments_util.pyi) | `safe_name`, `month_dir`, `unique_path`, `prune_old_attachments` | attachments_util.py — shared filename/dir helpers for Core/tools attachment downloaders (gmail, telegram) |
 | [`auth/gauth.py`](auth/gauth.py) | [`auth/gauth.pyi`](auth/gauth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `AuthExpired` | gauth.py — Google's leaf of the auth family: shared OAuth2 for every Google-backed tool |
-| [`deps.txt`](deps.txt) | — | — | Every external dependency the core/tools surface needs, declared: what installs it, what probes it, and what its absence breaks. Read by core/tools/wos/deps (the probe runner) and by core/tools/test/wos/test_deps.py (the class check). |
+| [`deps.txt`](deps.txt) | — | — | Every external dependency the core/tools surface needs, declared: what installs it, what checks it, and what its absence breaks. Read by core/tools/wos/deps (the check runner) and by core/tools/test/wos/test_deps.py (the class check). |
 | [`gcli.py`](gcli.py) | [`gcli.pyi`](gcli.pyi) | `run`, `fanout`, `auth_command` | gcli.py — the two things every Google-backed CLI does identically: consent, and fan out over accounts |
 | [`slug.py`](slug.py) | [`slug.pyi`](slug.pyi) | `mint` | slug.py — the one line a tool spends on offering `--slug`: mint a short link for what it created |
 | [`tool_law.py`](tool_law.py) | [`tool_law.pyi`](tool_law.pyi) | `require` | tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls |

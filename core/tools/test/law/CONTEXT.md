@@ -12,7 +12,7 @@ one answers *what the tree actually contains*.
 | Subdirectory | Description |
 |--------------|-------------|
 | [`entropy/`](entropy/CONTEXT.md) | What each entropy check counts, and where it must stay silent. **One file per check, not one per module** — so a name here answers to a question, and only sometimes to a file next door. |
-| [`platform/`](platform/CONTEXT.md) | The platform seam's coverage: the one module allowed to know what an operating system is, and the credential-tightness ruling that rides on it. |
+| [`platform/`](platform/CONTEXT.md) | The platform boundary's coverage: the one module allowed to know what an operating system is, and the credential-tightness ruling that rides on it. |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|

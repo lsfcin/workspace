@@ -22,7 +22,7 @@ sentence reads worse without it. ONE IDEA, ONE WORD. A replaced word gets a row 
 explicit OK. The line cap outranks the column cap (ruled 2026-08-31): wrapping to fit the column
 never justifies a file over the line cap — the way out is cutting, not reflowing.
 - SYMMETRY IS A CORE VALUE, semantic and structural. When you find an asymmetry, write it down.
-- **DONE WORK IS DELETED. GIT IS THE HISTORY.** No strikethrough, no annotated corpses.
+- **DONE WORK IS DELETED. GIT IS THE HISTORY.** No strikethrough, no annotated dead items.
 - USE OUR TOOLS: we want those to be useful and perfected.
 - REDUCING IS THE WAY: improve/extend by cutting size; growing the workspace takes Lucas's OK first.
 Cut where a line is READ, not where it merely sits — `core/run tools/wos/session/reads` ranks that.

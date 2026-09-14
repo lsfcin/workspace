@@ -17,12 +17,12 @@ agents, reviewer); difference is the tool-result they return is compressed, so m
 | Deep code review with rationale + alternatives | `Code Reviewer` (vanilla) |
 | One-line answer you already know | Main thread, no subagent |
 
-Rule of thumb: **if you'd want the subagent's output in 1/3 the tokens, pick cavecrew. If you'd want prose, pick
+Rule of thumb: **if you'd want the subagent's output in 1/3 the tokens, pick cavecrew. If you'd want writing, pick
 vanilla.**
 
 ## Why this exists (the real win)
 
-Subagent tool results get injected into main context verbatim. A vanilla `Explore` that returns 2k tokens of prose costs
+Subagent tool results get injected into main context verbatim. A vanilla `Explore` that returns 2k tokens of writing costs
 2k tokens of main-context budget every time. The same finding from `cavecrew-investigator` returns ~700 tokens. Across
 20 delegations in one session that's the difference between context exhaustion and finishing the task.
 
@@ -74,7 +74,7 @@ Skip investigator. Hand exact path:line to `cavecrew-builder` directly.
   you'll have wasted a turn.
 - Don't ask `cavecrew-reviewer` for "general feedback" — it returns findings only, no architecture opinions. Use `Code
   Reviewer` for that.
-- Don't expect prose. Cavecrew output is structured, sometimes terse to the point of cryptic. If a human will read it
+- Don't expect writing. Cavecrew output is structured, sometimes terse to the point of cryptic. If a human will read it
   directly, paraphrase.
 
 ## Auto-clarity (inherited)

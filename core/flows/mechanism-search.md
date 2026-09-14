@@ -53,7 +53,7 @@ Before any generation:
 2. **Corpus check** (`researcher`) — retrieve the 5-8 precedents closest to the `ralo` from the
    corpus (`academy/papers/mechanism-search/refs/`). If the corpus is empty: run `/research lit`
    first (stage 0).
-3. Write `outputs/.plans/<slug>.md` (ralo, precedents, chosen personas, ledger). Summarize and ask
+3. Write `outputs/.plans/<slug>.md` (ralo, precedents, chosen personas, list). Summarize and ask
    for explicit confirmation before spawning generators.
 
 ## Agents and sequence

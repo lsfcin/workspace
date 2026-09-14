@@ -5,7 +5,7 @@ Mirrors [`core/tools/wos/session/`](../../../wos/session/CONTEXT.md), so a surfa
 are one word apart — the same split [`workspace/`](../../workspace/CONTEXT.md) made into `gates/`
 and `generators/`.
 
-Split out 2026-08-17, when `wos/` crossed the fanout signal. What stayed above is **declaration** —
+Split out 2026-08-17, when `wos/` crossed the crowding signal. What stayed above is **declaration** —
 whether the registry, the profile and `deps.txt` agree, and whether the session-close ritual does
 what its skill says. What moved here is **measurement**: these read real transcripts and answer in
 numbers, which is a different job and a different failure mode. A declaration test fails when two

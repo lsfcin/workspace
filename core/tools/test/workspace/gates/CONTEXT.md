@@ -23,7 +23,7 @@ Why each one exists, and the one place a test reads source instead of running it
 | Subdirectory | Description |
 |--------------|-------------|
 | [`checks/`](checks/CONTEXT.md) | Coverage for `core/hooks/checks/`: the standalone blocking checks the commit and edit hooks run. |
-| [`read/`](read/CONTEXT.md) | Coverage for `core/hooks/read/`: who must read what before touching a subtree, and who gets handed it instead. |
+| [`read/`](read/CONTEXT.md) | Coverage for `core/hooks/read/`: who must read what before touching a folder, and who gets handed it instead. |
 | [`vcs/`](vcs/CONTEXT.md) | Coverage for `core/hooks/git/`: branch shape, push diagnosis, and the mirror a pull leaves stale. |
 
 | File | Interface | API | Description |

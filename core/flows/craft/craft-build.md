@@ -7,7 +7,7 @@ args: <carry file>
 **Tier:** high (max if critico). **Input:** `2-ground.md`. **Output:** `3-arch.md`.
 
 Design the high-level shape: folders, files, classes, responsibilities, key function signatures. Then a same-session
-adversarial evaluation pass: does every criterion C1..Cn have a home and a **testable seam**? Would a medium-tier model
+adversarial evaluation pass: does every criterion C1..Cn have a home and a **testable boundary**? Would a medium-tier model
 implementing file-by-file make a wrong guess anywhere? Fix before writing the verdict.
 
 **Concept-Symmetry Review (recurrent · runs per Carry `supervision: arch-review`).** When `arch-review=per-feature`, run
@@ -44,11 +44,11 @@ verdict: PASS | FAIL <reason>
 **Flags:** an acceptance criterion cannot be satisfied by any reasonable design → `RETURN loop=1
 reason=criterion-infeasible`; two criteria contradict → `RETURN loop=0 reason=criteria-conflict`.
 
-## Loop 3.5 — Contract Layout (feature subtree · mandatory · contract-first)
+## Loop 3.5 — Contract Layout (feature folder · mandatory · contract-first)
 
 **Tier:** high. **Input:** `3-arch.md`. **Output:** `3b-contracts.md`.
 
-This is the heart of the feature subtree: **lay out every module/step I/O contract before any implementation**, so the
+This is the heart of the feature folder: **lay out every module/step I/O contract before any implementation**, so the
 connection graph is defined in advance and the code merely fills the placeholders. The contract is mandatory regardless
 of the supervision panel; only the *human sign-off* on it is optional.
 
@@ -82,7 +82,7 @@ criterion has no home in any module contract → `RETURN loop=1 reason=criterion
 
 **Tier:** medium. **Input:** `3b-contracts.md`. **Output:** `4a-tests.md`.
 
-TDD: write functional/unit tests **before** implementation code, one or more per criterion, placed at the seams named in
+TDD: write functional/unit tests **before** implementation code, one or more per criterion, placed at the boundaries named in
 the architecture. Run them; confirm they fail for the right reason (missing behavior, not syntax/import errors).
 
 ```markdown
@@ -95,7 +95,7 @@ the architecture. Run them; confirm they fail for the right reason (missing beha
 red-run: <n> failed as expected | wrong-failures: <none or list>
 ```
 
-**Flags:** a criterion is untestable at the designed seams → `RETURN loop=3 reason=no-seam`; untestable as *written*
+**Flags:** a criterion is untestable at the designed boundaries → `RETURN loop=3 reason=no-seam`; untestable as *written*
 regardless of design → `RETURN loop=1 reason=criterion-untestable`.
 
 ## Loop 4b — Code Until Green

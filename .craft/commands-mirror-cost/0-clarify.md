@@ -6,18 +6,18 @@ provider: anthropic | chain-deleg: none
 tier-map: anthropic | verified-on: 2026-08-20
 test-cmd: `core/tools/wos/session/context` (instrument sanity only) | e2e-cmd: none
 criticality: low | verdict: padaria
-subtree: research-shaped, run as padaria (see Routing note) | supervision: io-signoff=no arch-review=none
+folder: research-shaped, run as padaria (see Routing note) | supervision: io-signoff=no arch-review=none
 arch-review-supervised=no
 criteria:
-  C1 — a turn-1 token number for `.claude/commands/` produced by a probe someone else can re-run
-  C2 — the probe separates "the listing" from "the 52 KB of bodies", or says it cannot
+  C1 — a turn-1 token number for `.claude/commands/` produced by a check someone else can re-run
+  C2 — the check separates "the listing" from "the 52 KB of bodies", or says it cannot
   C3 — `core/experiments/context-window.md` gains Method / Results / What changed / Limitations content
   C4 — no file outside `core/experiments/context-window.md` and `.craft/` is written
-tasks: single padaria body (probe → record → ship)
+tasks: single padaria body (check → record → ship)
 context: core/experiments/SPECS.md, core/tools/wos/session/CONTEXT.md
 
 ## Routing note (Step R0)
-The craft tree has four subtrees: padaria · feature · research · architecture. This task is
+The craft tree has four folders: padaria · feature · research · architecture. This task is
 **empirical measurement of our own harness** — it fits none of them cleanly. `research/*` are
 source-gathering shapes (sota, literature, compare, audit); `research/explore.md` is an *optimization*
 loop needing a benchmark command and an iteration budget, not a two-arm ablation.
@@ -36,7 +36,7 @@ refs: core/experiments/context-window.md § Limitations (the "first thing to loo
   core/tools/wos/skills/mirror.sh, core/tools/wos/session/session_log.py:130 (turn-1 definition)
 scope-files: core/experiments/context-window.md
 expected-result: a dated Results row + a stated verdict (keep / cut), and a Limitations entry saying
-  what the probe cannot prove.
+  what the check cannot prove.
 ambition: minimal
 criticality: low tolerance: a null result is a fine outcome; an unfalsifiable one is not.
 innovation: none

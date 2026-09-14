@@ -35,7 +35,7 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 > [x] [iterate] ajustar flags de retorno e tabela de roteamento após 7 usos reais — DONE 2026-07-16 (A1; ver [A1] em `##
 > done`)
 > [x] [skill-tree] montar árvore de loops pessoais — DONE 2026-07-18: craft tree = router (`core/flows/craft/route.md`)
-> + 4 subtrees (padaria/feature/research/architecture); mapa em `core/flows/craft/TREE.md`. Feature subtree = SDD
+> + 4 folders (padaria/feature/research/architecture); mapa em `core/flows/craft/TREE.md`. Feature folder = SDD
 > contract-first (painel de permissão no Loop 0, Loop 3.5 Contract Layout, revisão de simetria de conceitos no Loop
 > 3).  
 > [x] [craft-flows] executar os 8 passos do item craft-flows de `core/ROADMAP.md` — DONE 2026-07-23: passos 1–6
@@ -120,8 +120,8 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 <!-- done:start -->
 
 > [x] [loop-tree] DONE 2026-07-18: `/craft` virou árvore. Router (`core/flows/craft/route.md`) classifica
->   task→subtree; mapa `core/flows/craft/TREE.md`. Feature subtree = SDD contract-first: painel de permissão,
->   Loop 3.5 Contract Layout (SPEC.md + stubs), revisão de simetria (Loop 3). Novo subtree `architect.md`.
+>   task→folder; mapa `core/flows/craft/TREE.md`. Feature folder = SDD contract-first: painel de permissão,
+>   Loop 3.5 Contract Layout (SPEC.md + stubs), revisão de simetria (Loop 3). Novo folder `architect.md`.
 >   Gitflow enforced (`core/hooks/git/gitflow_gate.py`). craft skill roteia primeiro.
 > [x] [A1] ajustar tabela de roteamento + flag protocol após 7 usos reais (DONE 2026-07-16):
 >   `core/flows/craft/craft.md` recebeu `## Field Practice` com overrides, `## Status` em Loop 6,
@@ -131,5 +131,5 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-06  ·  trend: advancing  ·  touches: 62/85/121/121/121/121
+last-touch: 2026-09-12  ·  trend: advancing  ·  touches: 58/84/124/124/124/124
 <!-- stats:end -->

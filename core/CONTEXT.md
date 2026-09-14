@@ -23,12 +23,12 @@ and spawns the specialist workers beside it.
 | File | Description |
 |------|-------------|
 | [`ROADMAP.md`](ROADMAP.md) | Core Library Roadmap |
-| [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this shard is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts. |
+| [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this part is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts. |
 | [`SCHEMA.md`](SCHEMA.md) | The law about `.md` documents: which types exist, where a file belongs, how one that outgrew the cap is cut, and which words are canonical. The **tables here are load-bearing** — [`schema_law.py`](hooks/schema_law.py) parses them and no checker restates them. Drift is a bug. |
 | [`SPECS.md`](SPECS.md) | Architecture decisions and conventions for the Core agent library. |
 | [`features.txt`](features.txt) | Every toggleable feature this workspace has, declared: what group it belongs to, how hard it enforces, whether it is general or Lucas-specific, and whether it can actually be switched off. Read by core/hooks/feature_law.py; the answers live in core/profile.txt. |
 | [`harnesses.txt`](harnesses.txt) | Supported agent harnesses and their relative skill mirror locations name	skills_dir	commands_dir |
-| [`permissions.txt`](permissions.txt) | Neutral permission tiers: what an agent may do without asking. Tab-separated columns: kind   tier | rule tier   guarded | standard | open key    summary | tradeoff | mode (for kind=tier); allow | ask | deny (for kind=rule) value  prose (for kind=tier); neutral action slug (for kind=rule) |
+| [`permissions.txt`](permissions.txt) | Neutral permission tiers: what an agent may do without asking. Tab-separated columns: kind   tier | rule tier   guarded | standard | open key    summary | tradeoff | mode (for kind=tier); allow | ask | deny (for kind=rule) value  writing (for kind=tier); neutral action slug (for kind=rule) |
 | [`profile.txt`](profile.txt) | Which features are switched on by default, and the settings that are not switches. The registry is core/features.txt; this file holds only the answers. Read by core/hooks/feature_law.py. |
 | [`run`](run) | The one command that runs anything in core/: find this clone's interpreter, then exec with it. |
 <!-- routing:end -->

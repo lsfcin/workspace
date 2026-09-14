@@ -6,7 +6,7 @@ tokens. estudar formas de reduzirmos"* and the Claude Code usage report. Lucas s
 research, brainstorm, then repeat refining — *"isso é crítico e deve ser feito com excelência. Não
 vamos ser ingênuos."* The plan built on it lived in a side roadmap until 2026-08-17, when the plan
 was drained into [/ROADMAP.md](../../ROADMAP.md) and this file absorbed every
-number it carried. **This is now the only home for the measurement**, and the ledger holds only what
+number it carried. **This is now the only home for the measurement**, and the list holds only what
 is still intended.
 
 **It took three passes and each one cut the previous headline.** That is the finding, as much as any
@@ -62,12 +62,12 @@ Composition of the logged 35% (2026-08-16, 11.59M chars):
 | `Bash` arguments | 26.2% |
 | `Write` arguments | 25.3% |
 | `Edit` arguments | 23.9% |
-| prose to the user | 13.7% |
+| writing to the user | 13.7% |
 | everything else (`ExitPlanMode`, `AskUserQuestion`, `TodoWrite`, `Read`, `Agent`) | 10.9% |
 
 **"SHUT UP AND WORK" attacks the 13.7%.** Against billed output that is 13.7% × 35% ≈ **4.8%**, and
 against the whole bill under 1%. That also bounds [`caveman-cost.md`](caveman-cost.md): caveman
-compresses prose, so that is its ceiling.
+compresses writing, so that is its ceiling.
 
 ## Cost by context size — the staircase
 
@@ -144,10 +144,10 @@ ways that pushed the same direction:
   later turn's context. `self_authored()` added raw `output_tokens` to the cumulative thread, which
   drove the ratio to its 1.0 cap within a few turns and reported 75.7%.
 
-The lesson is correction 2's, one turn further out and more uncomfortable: **the probe we built to
-replace a bad probe was never itself probed.** The instrument printed a startling number, the number
+The lesson is correction 2's, one turn further out and more uncomfortable: **the check we built to
+replace a bad check was never itself checked.** The instrument printed a startling number, the number
 was quoted into a roadmap, a hand-off and a limits file, and nothing checked it against a second
-method. Correction 1 came from re-reading raw data; correction 2 from varying a probe; correction 3
+method. Correction 1 came from re-reading raw data; correction 2 from varying a check; correction 3
 only from re-deriving the tool's own output by hand. Do that once before quoting a new instrument.
 
 ## What changed

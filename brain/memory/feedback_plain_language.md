@@ -12,8 +12,8 @@ Lucas, 2026-08-18: *"language is very important, semantical symmetry as well, I 
 is meant for LLMs, language IS the thing"* and *"more often than not I think our language choices can
 be simpler, better organized."*
 
-Words he named as ones he cannot parse instantly: **ledger, seam, probe**. Same family, found beside
-them: ratchet, corpus, substrate, fanout, hop, shim, spine, surface, law, drift, honesty test.
+Words he named as ones he cannot parse instantly: **list, boundary, check**. Same family, found beside
+them: ratchet, corpus, substrate, crowding, hop, shim, spine, surface, law, drift, honesty test.
 
 **Why:** the WOS is written for two readers — Lucas and the model — and jargon fails both. He said
 the feature registry, the group rename and the `capability` sweep were all *downstream* of this one
@@ -23,7 +23,7 @@ up, at the process.
 
 **How to apply:**
 - Prefer the plain word. A term survives only if a sentence reads **worse** without it — a definition
-  is a patch, not a fix. "Seam" means "the place the switch goes"; say that instead.
+  is a patch, not a fix. "Boundary" means "the place the switch goes"; say that instead.
 - One idea, one word, everywhere. A second spelling of one concept is a defect, not a style choice.
 - Definitions live in exactly one place: `core/SCHEMA.md` § Vocabulary. Never a second glossary.
 - When a session decides something on its own, say so in one line at close. A decision that cannot be

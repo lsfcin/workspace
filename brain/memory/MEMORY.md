@@ -3,7 +3,7 @@
 - [User Profile](../USER.md) — Lucas, CS professor at UFRPE/CIn-UFPE, research in Hybrid Intelligence, Mechanism
   Design, AR, 3D CV — workspace content first, memory second, so the index routes straight to it
 - [Feedback: bug tracking](feedback_bug_tracking.md) — isoroll bugs go in code/isoroll-module/ISSUES.md, not memory
-- [Feedback: parallel sessions](feedback_parallel_sessions.md) — partition workspace by subtree across concurrent
+- [Feedback: parallel sessions](feedback_parallel_sessions.md) — partition workspace by folder across concurrent
   sessions; check git status AND the current branch right before committing; stage explicitly, commit often
 - [Feedback: visual eyeball gate](feedback_visual_eyeball_gate.md) — image-producing steps need Lucas's visual OK
   (artifact board) before advancing; shortest path to visible content

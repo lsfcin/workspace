@@ -1,13 +1,13 @@
 # diagram
 > Coverage for the workspace picture, split the way its source is: what it draws, and what it claims.
 
-Split from [`../`](../CONTEXT.md) 2026-08-18, when the parent hit the fanout signal — the same
+Split from [`../`](../CONTEXT.md) 2026-08-18, when the parent hit the crowding signal — the same
 mirroring rule [`../../law/entropy/`](../../law/entropy/CONTEXT.md) follows, so the file testing a
 surface is found by knowing the name of the surface.
 
 **Two questions, and they fail differently.** [`test_diagram.py`](test_diagram.py) asks whether the
 picture can be more wrong than its sources: a source silently dropped so the drawing looks complete
-while a subtree is missing, or an inferred edge drawn like a declared one.
+while a folder is missing, or an inferred edge drawn like a declared one.
 [`test_diagram_health.py`](test_diagram_health.py) asks whether a number the page presents as a
 **problem** actually is one.
 

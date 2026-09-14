@@ -2,7 +2,7 @@
 > What ZCode must spawn, how its events map onto the canonical ones, and what is still unverified.
 
 Split from [`CONTEXT.md`](CONTEXT.md) 2026-08-24: a `CONTEXT.md` is the only enforced-read type, so
-a contract living in its head is read by everyone who touches the subtree whether they need it or
+a contract living in its head is read by everyone who touches the folder whether they need it or
 not (`core/SCHEMA.md` § Placement). The head keeps the pointer; the contract lives here.
 
 What this must satisfy — the canonical gates, the shim contract, the coverage table — is
@@ -22,8 +22,8 @@ exit 2 = block) that the canonical scripts are spawned as-is. ZCode reads this f
 start in the workspace. The variable is ZCode's own spelling, a documented synonym of
 `${CLAUDE_PROJECT_DIR}`; a ZCode registration should not wear Claude's name.
 
-**Trusted 2026-09-04 (Sonda 2, see the experiment):** project-scope hooks fire — the probe
-dump, the deny probe and the canonical gates themselves (context-gate, pre-edit chain) all ran
+**Trusted 2026-09-04 (Sonda 2, see the experiment):** project-scope hooks fire — the check
+dump, the deny check and the canonical gates themselves (context-gate, pre-edit chain) all ran
 in the first post-trust session. The rtk compaction shim is unaffected by any of this: it rides
 ZCode's **user scope** (`~/.zcode/cli/config.json`,
 [`SETUP-compaction.md`](../SETUP-compaction.md)), which has no trust gate.
@@ -61,10 +61,10 @@ Event differences vs Claude Code, and how they are covered:
 - **Exit-2 fidelity**: a plain-text stdout reason on exit 2 reached the agent **verbatim** —
   the 2A-vs-adapter criterion is answered; the direct registration stands and the adapter is
   never built.
-- **`${ZCODE_PROJECT_DIR}` expansion**: confirmed — the probe executed through the expanded
+- **`${ZCODE_PROJECT_DIR}` expansion**: confirmed — the check executed through the expanded
   path, and the env carries both spellings (`ZCODE_PROJECT_DIR` and `CLAUDE_PROJECT_DIR`).
 
-The probe instruments that measured this (`core/hooks/zcode/`) were deleted the same session —
+The check instruments that measured this (`core/hooks/zcode/`) were deleted the same session —
 done work; git holds them and the experiment file holds the dump's findings.
 
 ## Skills mirror — `skills/`

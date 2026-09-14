@@ -30,7 +30,7 @@ wrong per intent → `RETURN loop=0 reason=intent-mismatch` (user decides).
 
 Verify the working tree contains only in-scope changes (diff vs plan `files` + `.craft/`); update the project
 `ROADMAP.md` line to done with a one-line outcome; delete `.craft/<slug>/` unless `keep-trail: yes`; commit (normal
-prose, project's commit conventions) and push the feature branch. Do not merge — that is the user's call.
+writing, project's commit conventions) and push the feature branch. Do not merge — that is the user's call.
 
 **Spec promotion (SDD).** Before deleting `.craft/<slug>/`, if the chain touched a `code/` module, distill its durable
 contract into the module's `SPEC.md` (create from `code/_templates/module.SPEC.md` if absent): fold the Carry `criteria`

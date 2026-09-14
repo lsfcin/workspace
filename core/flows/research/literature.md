@@ -34,10 +34,10 @@ still write a partial review plus provenance with `Verification: BLOCKED`.
 ## Workflow
 
 1. **Plan** — Outline the scope: key questions, source types to search (papers, web, repos), time period, expected
-   sections, and a small task ledger plus verification log. Write the plan to `outputs/.plans/<slug>.md`. Briefly
+   sections, and a small task list plus verification log. Write the plan to `outputs/.plans/<slug>.md`. Briefly
    summarize the plan to the user and continue immediately. Do not ask for confirmation or wait for a proceed response
    unless the user explicitly requested plan review.
-   - When updating the plan ledger later, keep edits small and valid. If an edit fails, rewrite the full corrected plan
+   - When updating the plan list later, keep edits small and valid. If an edit fails, rewrite the full corrected plan
      file then continue.
 2. **Gather** — Use the `researcher` subagent when the sweep is wide enough to benefit from delegated paper triage
    before synthesis. For narrow topics, search directly. Researcher outputs go to `<slug>-research-*.md`. Do not

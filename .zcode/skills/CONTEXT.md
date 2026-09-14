@@ -18,9 +18,9 @@
 | [`gslides/SKILL.md`](gslides/SKILL.md) | Read and edit Google Slides decks in place across all configured accounts — deck as navigable text, edits through batchUpdate. |
 | [`handoff/SKILL.md`](handoff/SKILL.md) | Emit a copy-pasteable resume prompt for the next session. For the full session-close ritual use /roundup, which calls this. |
 | [`inbox/SKILL.md`](inbox/SKILL.md) | Triage brain/INBOX.md — route each entry to a goal, task, reference, project doc, writing draft, or delete. Cross-domain front door: reaches into code ROADMAP/ISSUES and domain refs/, not just brain/. |
-| [`install/SKILL.md`](install/SKILL.md) | Install this workspace on the machine you are running on: probe every step in SETUP.md, report what is missing, and execute it. Takes one feature slug, or nothing for everything. |
+| [`install/SKILL.md`](install/SKILL.md) | Install this workspace on the machine you are running on: check every step in SETUP.md, report what is missing, and execute it. Takes one feature slug, or nothing for everything. |
 | [`iso-visual/SKILL.md`](iso-visual/SKILL.md) | Isoroll visual-semantics reference: image-to-text conventions, known model failure modes, and how to verify visual output. Load before touching isoroll guides, kits, sprites or scenes. |
 | [`prepare/SKILL.md`](prepare/SKILL.md) | Turn a raw task into an optimized agent prompt: interviews for intent, classifies the task, recommends model and effort. |
 | [`research/SKILL.md`](research/SKILL.md) | Execute a research workflow from the workspace Core research system. |
-| [`roundup/SKILL.md`](roundup/SKILL.md) | Full session-close ritual: drain the ledgers, route session knowledge to durable files, then verify and hand off. Use at session end. |
+| [`roundup/SKILL.md`](roundup/SKILL.md) | Full session-close ritual: drain the lists, route session knowledge to durable files, then verify and hand off. Use at session end. |
 <!-- routing:end -->

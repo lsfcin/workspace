@@ -3,7 +3,7 @@
 
 Companion to [`CONTEXT.md`](CONTEXT.md), which routes into this directory. Split out 2026-08-15 when
 the head crossed `CONTEXT_HEAD_WARN`: rationale is a contract, and `CONTEXT.md` is the only
-enforced-read type, so it is charged to every session in the subtree (`core/SCHEMA.md` § Placement).
+enforced-read type, so it is charged to every session in the folder (`core/SCHEMA.md` § Placement).
 
 ## Why stderr is the whole subject of `test_b4_gate_messages.py`
 
@@ -15,7 +15,7 @@ existed under a name that did not name it, which is a fix nobody could close.
 ## Why `test_subagent_gate.py` exists
 
 The subagent exemption was real before it was decided — a worker inherited the parent's `session_id`
-and therefore its seen-set, leaving it ungated only for subtrees the parent happened to visit. Ruled
+and therefore its seen-set, leaving it ungated only for folders the parent happened to visit. Ruled
 deliberate 2026-08-15; measured in
 [`core/experiments/subagent-context-chain.md`](../../../../experiments/subagent-context-chain.md).
 

@@ -2,7 +2,7 @@
 > When a feature fires, read from the registrations rather than from where its file sits.
 
 Split out of this directory's root on 2026-08-18, the day it landed: the root holds the law and
-its two entrypoint families, and two more modules there put it past the fanout signal.
+its two entrypoint families, and two more modules there put it past the crowding signal.
 
 [`trigger_law.py`](trigger_law.py) answers **when**, the fourth question beside what a file *is*,
 what a name *may be* and what is *switched on*. Its data files are declarations that already

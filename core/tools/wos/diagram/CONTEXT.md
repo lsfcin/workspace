@@ -23,7 +23,7 @@ it out of the registrations. What the registrations cannot place is counted as a
 guessed at.
 
 Total and fail-loud: every run prints `parsed N of M routing blocks`, and a block it cannot slice
-is named rather than skipped — a picture that quietly drops a subtree is worse than no picture.
+is named rather than skipped — a picture that quietly drops a folder is worse than no picture.
 
 ```
 core/run tools/wos/diagram/architecture              # regenerate ARCHITECTURE.html

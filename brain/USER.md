@@ -50,6 +50,6 @@ code/ and academy/ in en-us.
 
 ## Working Style
 
-- **Visual thinker.** Lucas works best with visualization — schematics, diagrams, spatial layouts — not walls of prose.
+- **Visual thinker.** Lucas works best with visualization — schematics, diagrams, spatial layouts — not walls of writing.
   When explaining structure, a plan, or a comparison, prefer a diagram/table/schematic over paragraphs. Connects to the
   visual eyeball gate (`[[feedback_visual_eyeball_gate]]`) and to `spacemantics`/`texpace`.

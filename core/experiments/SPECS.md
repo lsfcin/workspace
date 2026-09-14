@@ -4,8 +4,8 @@
 ## The one rule that makes a stored number safe
 
 [`session/CONTEXT.md`](../tools/wos/session/CONTEXT.md) says these reports are re-run, never
-quoted from memory — a ledger of stored numbers is in direct tension with that unless every row
-carries the command that produced it. That is why `Method` is a runnable line and not prose. A row
+quoted from memory — a list of stored numbers is in direct tension with that unless every row
+carries the command that produced it. That is why `Method` is a runnable line and not writing. A row
 whose command no longer runs is a dead row: delete it, do not annotate it.
 
 ## The corollary the cost work paid for twice: build the instrument, then check the instrument
@@ -45,7 +45,7 @@ enforced is the content: nothing can tell a runnable `Method` line from a plausi
 
 The append-only table is the deliberate exception to *done work is deleted*: everywhere else a
 finished row is cut; here the trend is the artifact, and the cost work already proved what a single
-current-state number does — it steered the ledger for weeks while being wrong in every claim.
+current-state number does — it steered the list for weeks while being wrong in every claim.
 
 ## Honest reporting rules
 
@@ -61,4 +61,4 @@ Inherited verbatim from the ablation-bench pilot, which earned them:
 
 Name it for the question, lowercase, no date in the filename — the dates live in the table. Add
 the row to an existing file rather than creating a second file on the same question; a fork is how
-a ledger stops being comparable over time.
+a list stops being comparable over time.

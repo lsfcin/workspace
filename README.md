@@ -48,7 +48,7 @@ a rule that gets switched off.
 
 | Feature | What it buys you |
 |---|---|
-| `CONTEXT.md` chain gate | An agent cannot touch a file in a subtree it has not oriented in — including through `cat` and `grep`, which is where the bypass used to be. It arrives knowing the neighbourhood instead of guessing from a filename |
+| `CONTEXT.md` chain gate | An agent cannot touch a file in a folder it has not oriented in — including through `cat` and `grep`, which is where the bypass used to be. It arrives knowing the neighbourhood instead of guessing from a filename |
 | Interface-first reads | Reading a source file is blocked while its generated stub is current, so the agent reads 30 lines of signatures instead of 200 lines of body. The stubs regenerate on every save, so they cannot go quietly stale |
 | Generated routing tables | Each directory's file list writes itself from first-line comments. Nobody maintains an index, and an index nobody maintains is the one that lies |
 | Facade discipline | Cross-module imports that reach around `index` / `__init__` are blocked, so module boundaries stay real and a rename does not become an archaeology project |
@@ -68,16 +68,16 @@ a rule that gets switched off.
 | Feature | What it buys you |
 |---|---|
 | The `.md` type system | `UPPERCASE.md` names are a closed allowlist and each answers exactly one question, so there is one place a given fact belongs and inventing a file is a deliberate act. Rules in [`core/SCHEMA.md`](core/SCHEMA.md) |
-| Entropy dashboard | Naming, placement, pointer integrity, fanout and size run as deterministic checks over this repo and every nested one, into [`ISSUES.md`](ISSUES.md). A number that must shrink, instead of a feeling that the repo is messy |
+| Entropy dashboard | Naming, placement, pointer integrity, crowding and size run as deterministic checks over this repo and every nested one, into [`ISSUES.md`](ISSUES.md). A number that must shrink, instead of a feeling that the repo is messy |
 | Done work is deleted | Finished items are cut, never ticked. Git is the history, so a roadmap's length measures remaining work rather than accumulated pride |
 
 **Cost — so long sessions stay affordable.**
 
 | Feature | What it buys you |
 |---|---|
-| [Caveman](core/skills/caveman/CONTEXT.md) | Compresses the agent's own prose ~65% without touching technical content. Off with a sentence when precision matters |
+| [Caveman](core/skills/caveman/CONTEXT.md) | Compresses the agent's own writing ~65% without touching technical content. Off with a sentence when precision matters |
 | [rtk](https://github.com/rtk-ai/rtk) | Compresses *tool* output — git, test runners — before it reaches the context. 60-90%, transparent, nothing to type |
-| Session close ritual | `/roundup` drains the session's ledgers into durable files and promotes the branch; `/handoff` writes the next session's opening prompt, and refuses when there is nothing open |
+| Session close ritual | `/roundup` drains the session's lists into durable files and promotes the branch; `/handoff` writes the next session's opening prompt, and refuses when there is nothing open |
 
 ## Features beyond the repo
 
@@ -99,13 +99,13 @@ Clone the repo, open your own coding agent, and tell it to follow [`SETUP.md`](S
 harness you already opened is the installer.** There is no `curl | sh` and there is not going to be
 one: an installer would have to be ported to every agent, while a procedure works on whichever one
 you have. Every step there declares how to tell it is already done, an idempotent install, and a
-probe that proves it worked, so the agent runs the whole thing and hands you back the short list
+check that proves it worked, so the agent runs the whole thing and hands you back the short list
 only you can finish — an API key, a consent screen, a device pairing. Agents with skill support can
 open the same file with `/install`.
 
 Dependencies are declared in [`core/tools/deps.txt`](core/tools/deps.txt), with what each one's
 absence *looks like* — the expensive ones do not announce themselves as missing, they just return a
-worse answer. `core/tools/wos/deps` probes them all.
+worse answer. `core/tools/wos/deps` checks them all.
 
 Installing only a **subset** works: every feature is declared in
 [`core/features.txt`](core/features.txt), the answers for this machine live in

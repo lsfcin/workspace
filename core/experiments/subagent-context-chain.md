@@ -1,9 +1,9 @@
 # The CONTEXT.md chain and who pays for it
-> Does forcing an agent to read a subtree's CONTEXT.md chain change what it does — and should a
+> Does forcing an agent to read a folder's CONTEXT.md chain change what it does — and should a
 > subagent be forced at all?
 
 Two runs, one question. The 2026-07-23 ablation asked whether the gate makes an agent *safer*; the
-2026-08-15 probe asked whether the gate even *fires* for a subagent. The second answer reframes the
+2026-08-15 check asked whether the gate even *fires* for a subagent. The second answer reframes the
 first: the gate was never protecting workers in the way it was assumed to.
 
 Rescued from `tmp/ablation-bench/`, which is gitignored and slated for cleanup — so this file is the
@@ -17,14 +17,14 @@ never been in git.
 commit. Metrics frozen before the run: `task_completed`, `race_committed`, `context_files_read`,
 `gate_blocks`, tokens, wall clock, subagents spawned. Operator: opencode + glm-5.2.
 
-**Probe (2026-08-15).** Spawn one subagent, have it `Read` a file in a subtree whose chain the
+**Check (2026-08-15).** Spawn one subagent, have it `Read` a file in a folder whose chain the
 **parent has already fully read**, and record whether the gate fires:
 
 ```bash
 cat /tmp/claude_ctx_seen_<session_id>.txt   # before and after the spawn
 ```
 
-The parent-loaded subtree is what makes the test binary: a fresh key means the worker re-pays the
+The parent-loaded folder is what makes the test binary: a fresh key means the worker re-pays the
 chain, an inherited key means it is never gated at all.
 
 ## Results
@@ -33,7 +33,7 @@ chain, an inherited key means it is never gated at all.
 |---|---|---|---|---|---|---|
 | 2026-07-23 | with-chain, n=1 | no | **no** | 2 | 0 | 185,674 |
 | 2026-07-23 | without-chain, n=1 | yes | **no** | 2 | 0 | 299,252 |
-| 2026-08-15 | subagent, parent-loaded subtree | — | — | **0** | **0** | — |
+| 2026-08-15 | subagent, parent-loaded folder | — | — | **0** | **0** | — |
 
 **2026-07-23 — hypothesis not supported.** Both arms read the chain **voluntarily**, reaching the
 same `context_files_read=2`, because the prompt itself mentioned a "documented contract". The gate
@@ -44,7 +44,7 @@ budget against the other arm's 10.
 **2026-08-15 — the gate does not fire for subagents.** A worker inherits the parent's `session_id`,
 so it inherits `/tmp/claude_ctx_seen_<id>.txt` and reads gated files with **none** of that chain in
 its own window. Not a cost problem: a *correctness* one, and arbitrary — the worker is ungated only
-for subtrees the parent happened to visit, and pays the full chain everywhere else.
+for folders the parent happened to visit, and pays the full chain everywhere else.
 
 ## What changed
 
@@ -69,7 +69,7 @@ one the pilot lacked, and it is why the pilot could not answer its own question.
   Nothing in that row generalises.
 - **The two runs are not comparable.** Different harness, different model, different question. They
   share a file because they share a subject, not a method.
-- **The probe is a single observation of a mechanism**, not a rate. It shows the gate *can* be
+- **The check is a single observation of a mechanism**, not a rate. It shows the gate *can* be
   bypassed silently; it does not measure how often that matters.
 - **The pilot's source report contains corrupted text** — the operating model emitted stray
-  non-English fragments mid-sentence. Figures were taken from the metrics table, not the prose.
+  non-English fragments mid-sentence. Figures were taken from the metrics table, not the writing.

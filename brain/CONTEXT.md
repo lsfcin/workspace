@@ -16,7 +16,7 @@ rationale: [SPECS.md](SPECS.md).
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`attachments/`](attachments/CONTEXT.md) | Files captured from Gmail and Telegram, filed by month — the raw material, not a ledger. |
+| [`attachments/`](attachments/CONTEXT.md) | Files captured from Gmail and Telegram, filed by month — the raw material, not a list. |
 | [`drafts/`](drafts/CONTEXT.md) | Work in progress that is not yet anywhere else: proposals being compared, and reports being read. |
 | [`goals/`](goals/CONTEXT.md) | One file per goal — organic growth from seed to full. Dashboard + router: [GOALS.md](goals/../GOALS.md). |
 | [`memory/`](memory/CONTEXT.md) | What the agent learned across sessions and nothing else records. Harness-written, workspace-owned. |

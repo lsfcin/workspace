@@ -38,7 +38,7 @@ Gate behavior, the agent-shim contract, and how a module reaches the root law:
 | [`facade/`](facade/CONTEXT.md) | The facade discipline: read the facade before editing, never import around it. |
 | [`git/`](git/CONTEXT.md) | Gates and self-heals about git state itself: branch shape, gitlinks, .gitignore. |
 | [`postedit/`](postedit/CONTEXT.md) | Sourced post-edit stages: regenerate interfaces, remind, sync, lint. |
-| [`read/`](read/CONTEXT.md) | Who must read what before touching a subtree — and who gets handed it instead. |
+| [`read/`](read/CONTEXT.md) | Who must read what before touching a folder — and who gets handed it instead. |
 | [`routing/`](routing/CONTEXT.md) | The CONTEXT.md routing-table generator, and the delimited-block writer every generator shares. |
 | [`session/`](session/CONTEXT.md) | Session lifecycle: start, prune, precompact wipe, and the SessionStart nudges. |
 | [`stubgen/`](stubgen/CONTEXT.md) | Interface stubs and paper scaffolding, generated on save and on commit. |
@@ -51,13 +51,13 @@ Gate behavior, the agent-shim contract, and how a module reaches the root law:
 | [`dispatch.py`](dispatch.py) | [`dispatch.pyi`](dispatch.pyi) | `table_path`, `load_table`, `run_gate`, `emit`, `collect` | PreToolUse, PostToolUse: one process for every gate — read stdin once, ask the moment and the capability once, run what they select. |
 | [`extensionless.txt`](extensionless.txt) | — | — | Files allowed to have no extension because something OUTSIDE this workspace dictates the name — enforced by test_every_extensionless_tracked_file_is_explained. |
 | [`feature_law.py`](feature_law.py) | [`feature_law.pyi`](feature_law.pyi) | `load_registry`, `slugs`, `load_profile`, `is_enabled`, `setting` | What is switched ON: which features are live. The registry is core/features.txt, the answers are core/profile.txt, and neither is restated here. |
-| [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_tool_entrypoint`, `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: that module parses core/SCHEMA.md, this one owns the file-shape law every size, fanout and line-count check reads. |
+| [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_tool_entrypoint`, `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: that module parses core/SCHEMA.md, this one owns the file-shape law every size, crowding and line-count check reads. |
 | [`gates.txt`](gates.txt) | — | — | Every lifecycle gate, the moment and the capability that select it. Read by core/hooks/dispatch.py (which runs them) and by core/hooks/trigger/trigger_law.py (which reports when they fire). |
 | [`generated.txt`](generated.txt) | — | — | Files this workspace GENERATES, each entry naming its generator. Exempt from every authoring rule; what the exemption covers and why it is safe: core/hooks/SPECS.md § Generated artifacts. |
 | [`gitignore-exceptions.txt`](gitignore-exceptions.txt) | — | — | One "<domain>/<dir>" per line: a CONTEXT.md-bearing subdir Lucas deliberately wants left out of the .gitignore allowlist (reviewed, not an oversight). gitignore-self-heal.sh skips any name listed here instead of re-adding its `!<domain>/<dir>/` line. |
 | [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `capability`, `is_subagent`, `normalise`, `store` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |
 | [`limits.env`](limits.env) | — | — | Every numeric limit in the workspace, in one file. Read through core/hooks/file_law.py, the one reader, by every gate and instrument that holds a file to a number — same file, one law. |
-| [`platform_law.py`](platform_law.py) | [`platform_law.pyi`](platform_law.pyi) | `venv_script`, `interpreter`, `session_state`, `install_command`, `package_install` | The platform seam: the one file in this workspace allowed to know what an operating system is. |
+| [`platform_law.py`](platform_law.py) | [`platform_law.pyi`](platform_law.pyi) | `venv_script`, `interpreter`, `session_state`, `install_command`, `package_install` | The platform boundary: the one file in this workspace allowed to know what an operating system is. |
 | [`post-commit`](post-commit) | — | — | auto-push feature/*. Same handoff as pre-commit beside it. Never blocks: git ignores a post-commit's exit status, and every failure here is a warning. |
 | [`post-edit.sh`](post-edit.sh) | — | — | PostToolUse, capability `write` — regenerates interfaces, checks first-line comment, syncs CONTEXT.md |
 | [`pre-commit`](pre-commit) | — | — | Workspace pre-commit hook. Applied globally: git config --global core.hooksPath <this directory> |

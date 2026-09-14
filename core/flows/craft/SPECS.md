@@ -46,7 +46,7 @@ Requiring the adversarial step is what creates the death loop; requiring the bou
 requiring the step safe. `validate_flow_loops` in
 [`core/tools/wos/skills/validate.py`](../../tools/wos/skills/validate.py) enforces it over every
 file under `core/flows`, and rejects the commit through `sync-skills --check`. Whole-file rather
-than per-step: one cap governs the flow, and finding where a step ends in prose would be a guess.
+than per-step: one cap governs the flow, and finding where a step ends in writing would be a guess.
 
 **Evidence limit, stated rather than papered over:** both practitioner method docs behind this are
 **unread** — `WebFetch` refuses claude.ai artifacts and `core/tools/web/fetch` gets only the
