@@ -128,11 +128,11 @@ def test_a_path_that_becomes_data_is_spelled_by_the_seam():                     
         f'backslash on one machine and a slash on another; {SEAM} rel() is the one spelling')
 
 
-def test_no_setup_shard_is_named_for_an_operating_system():                                  # I3
-    shards = [f for f in _git('ls-files', 'SETUP-*.md')
+def test_no_setup_part_is_named_for_an_operating_system():                                  # I3
+    parts = [f for f in _git('ls-files', 'SETUP-*.md')
               if any(name in f.lower() for name in ('windows', 'linux', 'macos', 'darwin'))]
-    assert not shards, (
-        f'SETUP shards are per FEATURE, never per OS: {shards}. A shard named for a system '
+    assert not parts, (
+        f'SETUP parts are per FEATURE, never per OS: {parts}. A part named for a system '
         'declares that system the exception and another the default')
 
 

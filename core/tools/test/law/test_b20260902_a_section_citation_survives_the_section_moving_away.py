@@ -7,7 +7,7 @@
 # throughout, because test_pointer_integrity.py resolves the `](path)` half and a link whose FILE
 # exists and whose SECTION does not reads as healthy. They were found by grep, by hand.
 #
-# IT PREDATES THE SHARD. `SETUP.md § Workspace path` had pointed at a section deleted 2026-08-29,
+# IT PREDATES THE PART. `SETUP.md § Workspace path` had pointed at a section deleted 2026-08-29,
 # and `SETUP.md §12` — a numbered citation core/SPECS.md forbids outright — sat in a tool's
 # first-line comment where the routing generator republished it. Renaming one heading in
 # `.zcode/SPECS.md` killed two more citations on 2026-09-04, while this check was being written.

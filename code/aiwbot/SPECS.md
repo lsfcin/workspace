@@ -7,8 +7,8 @@
 <!-- routing:start -->
 ## Routing
 
-| Shard | Description | Governs |
-|-------|-------------|---------|
+| Part | Description | Governs |
+|------|-------------|---------|
 | [`SPECS-capability.md`](SPECS-capability.md) | What a backend declares it can do, and how mode, model and effort are offered. | backend/ capability declaration, frontend/ pickers |
 | [`SPECS-questions.md`](SPECS-questions.md) | An agent that asks: how the question is carried, positioned, and answered. | frontend/ question handling |
 | [`SPECS-seam.md`](SPECS-seam.md) | The one interface every coding-agent CLI becomes, and what it must pin. | backend/ |

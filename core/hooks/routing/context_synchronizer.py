@@ -8,7 +8,7 @@ import feature_law
 from blocks import line_pos as _line_pos
 from blocks import replace_block as _replace
 from file_law import is_code_file
-from shard_table import build_shard_rows, index_for, shards_of
+from part_table import build_part_rows, index_for, parts_of
 from workspace_scanner import (
     SPLIT_THRESHOLD,
     carried, code_files, has_code_content, subdir_scan,
@@ -44,7 +44,7 @@ def _drop_unsentineled_routing(text: str) -> str:
 def replace_block(text: str, new_block: str) -> str:
     """Swap the routing block for a new one, standardized to the end of the file.
 
-    Shared by the two things that own a routing block — a directory's CONTEXT.md and a sharded
+    Shared by the two things that own a routing block — a directory's CONTEXT.md and a cut
     type's index. They differ in what fills the block, never in where it sits.
 
     The marker mechanics live in blocks.py, shared with every other generated block; what stays
@@ -57,53 +57,53 @@ def replace_block(text: str, new_block: str) -> str:
 
 
 def _drop_block(text: str) -> str:
-    """Cut the routing block, markers and all — for an index whose last shard is gone."""
+    """Cut the routing block, markers and all — for an index whose last part is gone."""
     start, end = _line_pos(text, RS), _line_pos(text, RE)
     if start == -1 or end == -1:
         return text
     return (text[:start].rstrip('\n') + '\n' + text[end + len(RE):].lstrip('\n')).rstrip('\n') + '\n'
 
 
-def sync_shards(target: Path) -> bool:
-    """Rewrite the index table of the sharded type `target` belongs to; False when it is not one.
+def sync_parts(target: Path) -> bool:
+    """Rewrite the index table of the cut type `target` belongs to; False when it is not one.
 
-    Runs BESIDE the directory sync rather than instead of it: a shard is one of its type's files
+    Runs BESIDE the directory sync rather than instead of it: a part is one of its type's files
     and one of its directory's, and both tables are meant to know about it.
 
     An index is also reachable as `target` itself, and that arm is what stops a table outliving
-    its rows. `index_for` only ever answers for a SHARD, so the last shard's departure used to
+    its rows. `index_for` only ever answers for a PART, so the last part's departure used to
     leave the index holding a full table of files that were gone — nothing ever visited it again.
-    Found 2026-09-01 when academy/lab/CHECKPOINTS.md became SPECS.md and its one shard stopped
-    matching: the generator correctly reported zero shards and the stale table stayed on the page.
+    Found 2026-09-01 when academy/lab/CHECKPOINTS.md became SPECS.md and its one part stopped
+    matching: the generator correctly reported zero parts and the stale table stayed on the page.
     This arm REFRESHES a block the file already has and never creates one, so a type that was
-    never sharded stays exactly as it is.
+    never cut stays exactly as it is.
     """
     index = index_for(target) or (target if _is_emptied_index(target) else None)
     if index is None:
         return False
     text = index.read_text(encoding='utf-8')
-    rows = build_shard_rows(shards_of(index))
+    rows = build_part_rows(parts_of(index))
     updated = (replace_block(text, build_routing_block('', rows, RS, RE)) if rows
                else _drop_block(text))
     if updated != text:
         index.write_text(updated, encoding='utf-8', newline='\n')
-        print(f'✓ shard-sync: {index}')
+        print(f'✓ part-sync: {index}')
     return True
 
 
 def _is_emptied_index(path: Path) -> bool:
-    """An index that still carries a shard table after losing its last shard.
+    """An index that still carries a part table after losing its last part.
 
-    `index_for` deliberately answers None once `shards_of` is empty, so nothing revisited the
+    `index_for` deliberately answers None once `parts_of` is empty, so nothing revisited the
     index and the table outlived every file in it. Three conditions keep this from firing wider:
-    the name is an unsharded UPPERCASE type (`SPECS.md`, never `SPECS-layout.md`), the block is
-    already there (a type that never sharded is never given one), and it is not `CONTEXT.md` —
+    the name is an uncut UPPERCASE type (`SPECS.md`, never `SPECS-layout.md`), the block is
+    already there (a type never cut is never given one), and it is not `CONTEXT.md` —
     that one's routing block is the directory's, written by `sync` below, and dropping it here
     would delete a table this function has no rows for.
     """
     if path.suffix != '.md' or path.name == 'CONTEXT.md' or '-' in path.stem:
         return False
-    if not path.stem.isupper() or shards_of(path):
+    if not path.stem.isupper() or parts_of(path):
         return False
     return _line_pos(path.read_text(encoding='utf-8'), RS) != -1
 
@@ -117,7 +117,7 @@ def sync(target: Path):
     if not feature_law.is_enabled('routing-tables'):
         return
     if not target.is_dir():
-        sync_shards(target)
+        sync_parts(target)
     directory = target if target.is_dir() else target.parent
 
     ctx = directory / 'CONTEXT.md'

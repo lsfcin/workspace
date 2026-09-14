@@ -205,6 +205,7 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `parsed-by` | — retired unfilled | 2026-08-25 |
 | `pre-read.sh` | `read/pre-read.py` | 2026-09-02 |
 | `fanout` | `crowding` | 2026-09-14 |
+| `shard` | `part` | 2026-09-14 |
 
 **A rename whose old spelling is also a real word needs a shape, not a token** — a row that fails on
 correct prose trains people to ignore the check, so `/loops` and `.loop` are rows while `Frente`→
@@ -222,7 +223,7 @@ data. `entropy_vendor.py` matches the bolded assignment and nothing else.
 <!-- routing:start -->
 ## Routing
 
-| Shard | Description | Answers | Enforced by |
-|-------|-------------|---------|-------------|
+| Part | Description | Answers | Enforced by |
+|------|-------------|---------|-------------|
 | [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this part is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts. | what fields each layer requires, which layer may point at which | core/tools/wos/skills/validate.py |
 <!-- routing:end -->

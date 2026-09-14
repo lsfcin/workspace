@@ -46,7 +46,7 @@ def _declared() -> set:
     """What a `> feature:` line may name, read from the registry rather than restated.
 
     The INSTALL column first, because that is the join core/features.txt declares in its own header:
-    *"Every `> feature:` slug in SETUP.md appears in this column"*. A SETUP shard names install
+    *"Every `> feature:` slug in SETUP.md appears in this column"*. A SETUP part names install
     steps, and `git-hooks` is a step that four features share — it is not a feature slug and never
     was. The slug column is accepted too: a field naming a real feature is not a false claim about
     this tree, and refusing it would make the check pickier than the fact it is checking.

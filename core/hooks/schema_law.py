@@ -25,7 +25,7 @@ SCOPES = (('repo root only', 'repo-root'), ('root only', 'root'))
 
 
 def _law(schema_path: Path) -> str:
-    """The whole law: the index plus every shard, in name order.
+    """The whole law: the index plus every part, in name order.
 
     SCHEMA.md outgrew the line cap and split. Reading only the index would have silently
     dropped § Retired tokens — the parse would still succeed and return an empty dict, which

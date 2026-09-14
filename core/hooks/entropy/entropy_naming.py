@@ -80,7 +80,7 @@ def untracked_routing_targets(files: list, root: Path) -> list:
     """A routing table pointing at a file git does not carry.
 
     The general form of the TYPE_SLUG question above, and it sits here for that reason: the shape
-    law says a `TYPE-<slug>.md` is a real shard of its type, and this says the tree really has one.
+    law says a `TYPE-<slug>.md` is a real part of its type, and this says the tree really has one.
     A name that passes `check_shape` and a file a clone never receives are the same defect read
     from two ends.
 

@@ -109,8 +109,8 @@ Tried or measured, then dropped — recorded so a dead idea does not resurface l
 <!-- routing:start -->
 ## Routing
 
-| Shard | Description |
-|-------|-------------|
+| Part | Description |
+|------|-------------|
 | [`ROADMAP-p2.md`](ROADMAP-p2.md) | ← add description |
 | [`ROADMAP-p3.md`](ROADMAP-p3.md) | ← add description |
 <!-- routing:end -->

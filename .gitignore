@@ -37,10 +37,10 @@ ROADMAP.md
 code/*
 !code/CONTEXT.md
 !code/SETUP.md
-# A type and its shards, as a glob rather than one line each: an allowlist that enumerates
+# A type and its parts, as a glob rather than one line each: an allowlist that enumerates
 # files stops covering a document the moment it outgrows the line cap and splits, and the
-# shard lands untracked with nothing saying so. Same shape as the citation gate's exemption
-# and generated.txt — a shard inherits what its index has.
+# part lands untracked with nothing saying so. Same shape as the citation gate's exemption
+# and generated.txt — a part inherits what its index has.
 !code/SPECS.md
 !code/SPECS-*.md
 !code/ROADMAP-*.md
@@ -120,9 +120,9 @@ branches/writing/drafts/email/*
 core/*
 !core/CONTEXT.md
 !core/ROADMAP.md
-# The law and the conventions, INCLUDING their shards. Named one by one until 2026-08-20, which
+# The law and the conventions, INCLUDING their parts. Named one by one until 2026-08-20, which
 # left every SCHEMA-*.md and SPECS-*.md silently untracked — a clone got an index pointing at four
-# files it did not have. A type that shards must be allowlisted by its shape, never by enumeration.
+# files it did not have. A type that is cut must be allowlisted by its shape, never by enumeration.
 !core/SCHEMA.md
 !core/SCHEMA-*.md
 !core/SPECS.md

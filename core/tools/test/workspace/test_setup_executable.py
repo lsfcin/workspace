@@ -9,20 +9,20 @@ import re
 from conftest import WORKSPACE_ROOT
 
 SETUP = WORKSPACE_ROOT / 'SETUP.md'
-SHARDS = sorted(WORKSPACE_ROOT.glob('SETUP-*.md'))
+PARTS = sorted(WORKSPACE_ROOT.glob('SETUP-*.md'))
 INSTALL_SKILL = WORKSPACE_ROOT / 'core/skills/install.md'
 
 
 def _procedure() -> str:
-    """The index plus every shard. SETUP.md outgrew the line cap and the steps moved out of it;
+    """The index plus every part. SETUP.md outgrew the line cap and the steps moved out of it;
     reading only the index would find no steps and every check below would pass vacuously."""
-    return '\n'.join(p.read_text(encoding='utf-8') for p in [SETUP] + SHARDS)
+    return '\n'.join(p.read_text(encoding='utf-8') for p in [SETUP] + PARTS)
 
 
 def _steps():
     """The `##` sections between the steps markers. Prose outside them is not a step."""
     steps = []
-    for text in [p.read_text(encoding='utf-8') for p in [SETUP] + SHARDS]:
+    for text in [p.read_text(encoding='utf-8') for p in [SETUP] + PARTS]:
         if '<!-- steps:start -->' not in text:
             continue
         body = text.split('<!-- steps:start -->')[1].split('<!-- steps:end -->')[0]

@@ -53,7 +53,7 @@ def test_a_model_name_as_DATA_passes(tmp_path):
         set()) == []
 
 
-def test_a_shard_is_a_ledger_too(tmp_path):
+def test_a_part_is_a_ledger_too(tmp_path):
     """By NAME, so a ROADMAP-<slug>.md in any repo is covered without enumeration."""
     hits = entropy_vendor.vendor_directive_hits(
         [_ledger(tmp_path, '→ **model: sonnet**', name='ROADMAP-spec-drive.md')], set())

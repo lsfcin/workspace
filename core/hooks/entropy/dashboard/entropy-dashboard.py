@@ -60,8 +60,8 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 REPORT = WORKSPACE_ROOT / 'ISSUES.md'
 
 LEDGERS = {
-    # Every shard of the wos ledger is ONE namespace: criterion 2 forbids the same item in two
-    # ledgers, and sharding a ledger does not make its own shards rivals.
+    # Every part of the wos ledger is ONE namespace: criterion 2 forbids the same item in two
+    # ledgers, and cutting a ledger does not make its own parts rivals.
     'wos-roadmap': [WORKSPACE_ROOT / 'ROADMAP.md',
                     *sorted(WORKSPACE_ROOT.glob('ROADMAP-*.md'))],
     'core-roadmap': [WORKSPACE_ROOT / 'core/ROADMAP.md'],

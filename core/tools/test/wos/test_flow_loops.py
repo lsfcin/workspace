@@ -79,11 +79,11 @@ def test_the_files_that_state_the_rule_are_not_judged_by_it(tmp_path):
                                 'SPECS.md': STATES_THE_RULE}) == []
 
 
-def test_a_sharded_flow_is_checked_against_its_whole_family(tmp_path):
+def test_a_cut_flow_is_checked_against_its_whole_family(tmp_path):
     """The unit is the FLOW, not the file: a flow that outgrew the line cap and split still has one
-    cap, and it may be stated in any shard."""
-    assert _validate(tmp_path, {'shard.md': UNBOUNDED,
-                                'shard-two.md': 'Iteration cap: at most 4 passes.\n'}) == []
+    cap, and it may be stated in any part."""
+    assert _validate(tmp_path, {'part.md': UNBOUNDED,
+                                'part-two.md': 'Iteration cap: at most 4 passes.\n'}) == []
 
 
 def test_the_real_flow_corpus_is_clean():

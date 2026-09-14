@@ -51,7 +51,7 @@ three times the per-session repeat rate of the chain it is usually blamed alongs
 **Stubs are cheap and are being served.** 339 stub reads for 159k chars — 470 chars each against
 2,300 for a source read — so the redirect is both live and paying.
 
-## Did sharding the list lower its read cost? — unanswerable, and it stays that way
+## Did cutting the list lower its read cost? — unanswerable, and it stays that way
 
 Lucas, watching a session open all seven parts: *"we splited those to avoid reading too much,
 clearly the split wasn't enough."* Settling it needed ~2 weeks of ordinary sessions and a comparison
@@ -62,7 +62,7 @@ file that is under its cap.
 
 What the corpus does hold, read on 2026-09-11 over 97 sessions: the whole family cost **1,743k
 chars**, `ROADMAP.md` 1,127k of it, and every part shows 1.0–2.2 reads per session in its one week
-alive. A session really did open several of them, which is what Lucas saw. Sharding moves cost
+alive. A session really did open several of them, which is what Lucas saw. Cutting moves cost
 between family members, and nothing here shows it lowered the total.
 
 ## What changed

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
+from part_table import EMPTY_CELL as EMPTY_CELL
 from pathlib import Path
-from shard_table import EMPTY_CELL as EMPTY_CELL
 
 SPLIT_THRESHOLD: Incomplete
 

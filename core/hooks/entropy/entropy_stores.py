@@ -15,8 +15,8 @@ from pathlib import Path
 
 EXPERIMENTS = 'core/experiments'
 REFS = 'core/refs/REFS.md'
-# The family, not the one file: REFS.md sharded, and a suffix matcher would have gone
-# silent on every shard while still passing — the same shape as reading only an index.
+# The family, not the one file: REFS.md cut, and a suffix matcher would have gone
+# silent on every part while still passing — the same shape as reading only an index.
 REFS_DIR, REFS_STEM = 'core/refs/', 'REFS'
 
 # The format core/experiments/SPECS.md declares. `What changed` is required even when the answer is

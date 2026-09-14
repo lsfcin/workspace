@@ -11,10 +11,10 @@ from pathlib import Path
 
 # Two to three sentences, ruled by Lucas 2026-08-19: *"a 'Description' tão bem sucinta e muitas
 # vezes não explica de que se trata o arquivo"*. It was 80, which cannot hold a question and its
-# object, so the bound wrote the prose — thirty-odd shard descriptions were shaped to fit it, and
+# object, so the bound wrote the prose — thirty-odd part descriptions were shaped to fit it, and
 # `core/tools/wos/session/reads` advertised itself as "which files a", cut mid-word.
 #
-# 360 is MEASURED, not chosen: the eight rewritten shard descriptions run 304-347 characters at
+# 360 is MEASURED, not chosen: the eight rewritten part descriptions run 304-347 characters at
 # three sentences each. 240 was a guess at "two to three sentences" and truncated all eight, which
 # would have made the bound write the prose a second time — the exact failure, one size up.
 #
