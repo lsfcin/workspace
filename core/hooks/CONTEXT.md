@@ -62,5 +62,6 @@ Gate behavior, the agent-shim contract, and how a module reaches the root law:
 | [`post-edit.sh`](post-edit.sh) | — | — | PostToolUse, capability `write` — regenerates interfaces, checks first-line comment, syncs CONTEXT.md |
 | [`pre-commit`](pre-commit) | — | — | Workspace pre-commit hook. Applied globally: git config --global core.hooksPath <this directory> |
 | [`schema_law.py`](schema_law.py) | [`schema_law.pyi`](schema_law.pyi) | `load_law`, `load_scopes`, `load_retired` | The law parser. Every Level 0 check reads core/SCHEMA.md through this module, and none of them restates it — a second copy of the law inside a checker is the exact drift the checks exist to catch. |
+| [`scoreboard.py`](scoreboard.py) | [`scoreboard.pyi`](scoreboard.pyi) | `path`, `enabled`, `record`, `tally`, `started` | What each feature ACTUALLY did, counted at the moment it ran: how often it fired, and how often it blocked something real. The fourth question beside what a file IS, what a name MAY BE and which features are LIVE — those three read declarations, this one reads behaviour. |
 | [`vendored.txt`](vendored.txt) | — | — | Third-party files we did not author, exempt from every authoring rule for the reason core/hooks/SPECS.md § Generated artifacts gives. |
 <!-- routing:end -->

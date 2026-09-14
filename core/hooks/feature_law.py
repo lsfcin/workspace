@@ -10,6 +10,16 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+# GUARDED, BECAUSE A MEASUREMENT MAY NEVER BREAK WHAT IT MEASURES. This module is copied into
+# throwaway trees by the suite and reaches half-installed clones, where the recorder beside it may
+# simply not be there — and an ImportError here would take down every gate in the workspace to save
+# a row of statistics. Same rule core/run states for a clone that is missing pieces.
+try:
+    import scoreboard  # noqa: E402  — path is set above, which is the house pattern
+except ImportError:  # pragma: no cover — only on a tree that carries feature_law without it
+    scoreboard = None
+
 CORE = HERE.parent
 REGISTRY_FILE = CORE / 'features.txt'
 PROFILE_FILE = CORE / 'profile.txt'
@@ -102,7 +112,14 @@ def is_enabled(name: str) -> bool:
     """
     if name in _off_by_env():
         return False
-    return load_profile()['toggle'].get(name, 'on') != 'off'
+    live = load_profile()['toggle'].get(name, 'on') != 'off'
+    # THE ONE PLACE A FEATURE OF ANY GROUP CAN BE COUNTED. Every switched feature — hook, tool,
+    # skill, flow, norm — passes through here, which is why the scoreboard hangs off this line
+    # rather than off thirty call sites. Recorded only when live: a feature that is off did not
+    # fire, it was skipped, and counting the skip would make an ablation run look busy.
+    if live and scoreboard is not None:
+        scoreboard.record(name, 'fired')
+    return live
 
 
 def setting(key: str, default: str = '') -> str:

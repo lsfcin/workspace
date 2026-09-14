@@ -67,6 +67,7 @@ toggle	telegram-capture	on
 toggle	context-meter	on
 toggle	precompact-wipe	on
 toggle	entropy-dashboard	on
+toggle	hook-scoreboard	on
 toggle	diagram	on
 toggle	size	on
 toggle	rtk-compaction	on

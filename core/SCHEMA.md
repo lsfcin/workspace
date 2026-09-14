@@ -211,9 +211,9 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `tier` | `level` | 2026-09-14 |
 | `slug` | `name` | 2026-09-14 |
 
-**One retired token can owe four replacements, and the cell holds only the commonest.** `slug` named
-four ideas: a link's `short name`, a feature's or file's `name`, a bracketed `item id`, and a bug's
-`id`. Flattening them was refused (Lucas, 2026-09-14) — one idea, one word.
+**One retired token can owe four replacements, and the cell holds only the commonest.** `slug` names
+four ideas, and they do not flatten into one: a link's `short name`, a feature's or file's `name`, a
+bracketed `item id`, and a bug's `id`.
 
 **A rename whose old spelling is also a real word needs a shape, not a token** — a row that fails on
 correct prose trains people to ignore the check, so `/loops` and `.loop` are rows while `Frente`→

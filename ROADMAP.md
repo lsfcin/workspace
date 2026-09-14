@@ -56,10 +56,19 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 
 ## Measurement — does any of this earn its keep
 
-**🟡 no hook has ever been measured, so no hook can be cut on evidence**
-*What* — a count per feature of how often it fired and how often it blocked something real.
-*Why* — 71 features are on and none has a scoreboard, so every cut is a guess and kept rules paid on faith.
-*Done when* — after two weeks of ordinary use a feature × fired × blocked table exists.
+**🟡 the scoreboard is running and owes its first reading**
+*What* — the two-week reading, and the cuts it justifies. The instrument runs and the clock is
+running with it: `core/run tools/wos/features --scoreboard`, into
+`core/experiments/hook-scoreboard.md`.
+*Why* — 82 features are on, so every cut is a guess and kept rules are paid on faith.
+*Done when* — the table is read after two weeks of ordinary use and each silent feature is a decision.
+
+**🟢 three gates consult no switch, so an ablation cannot turn them off**
+*What* — `checks/pre-edit.py`, `facade/facade-scan.py` and `facade/facade-tracker.py` calling
+`feature_law.is_enabled()`. They carry `-` in `core/hooks/gates.txt` § feature, which is a finding.
+*Why* — a gate that keeps running with its feature off makes that feature's ablation row a lie, and
+its blocks are counted against nobody.
+*Done when* — no row in `gates.txt` carries `-`.
 
 **🟡 the ablation — the repo has never been measured against its own absence**
 *What* — variants of the public repo, one feature off in each, against one synthetic task suite.

@@ -1,4 +1,4 @@
-# Usage: core/tools/wos/features [--group <g>] [--findings] [--on <name>] [--off <name>] [--check] — list every toggleable feature from core/features.txt with its answer in core/profile.txt; --findings counts what cannot be switched off; --check exits 1 on any registry/profile disagreement
+# Usage: core/tools/wos/features [--group <g>] [--findings] [--on <name>] [--off <name>] [--check] [--scoreboard] — list every toggleable feature from core/features.txt with its answer in core/profile.txt; --findings counts what cannot be switched off; --check exits 1 on any registry/profile disagreement; --scoreboard reports what each feature actually did
 from __future__ import annotations
 
 import argparse
@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'core' / 'hooks'))
 
 import feature_law as law  # noqa: E402  — path is set above, which is the house pattern
+import scoreboard as board  # noqa: E402
 
 LOCAL = law.LOCAL_PROFILE_FILE
 MARK = {'on': 'on ', 'off': 'OFF'}
@@ -95,6 +96,35 @@ def _check() -> int:
     return 1 if problems else 0
 
 
+def _scoreboard() -> int:
+    """What each feature really did, against what it claims to be.
+
+    THE TWO COLUMNS ARE THE POINT, and a row where they disagree is the finding: a feature that
+    fired ten thousand times and blocked nothing is either enforcing something nobody violates or
+    enforcing nothing at all, and the registry cannot tell those apart. `-` under blocked means the
+    feature is not a blocking gate and was never expected to; `0` means it is one and never fired
+    in anger. Read them differently.
+    """
+    counts = board.tally()
+    if not counts:
+        print('nothing recorded yet. The clock starts at the first tool call after this feature')
+        print('was switched on: core/run tools/wos/features --on hook-scoreboard')
+        return 0
+    registry = {r['name']: r for r in law.load_registry()}
+    print(f'since {board.started()} · {len(counts)} feature(s) have fired\n')
+    print(f"  {'feature':<26} {'fired':>8} {'blocked':>8}  enforcement")
+    for name, seen in sorted(counts.items(), key=lambda kv: -kv[1]['fired']):
+        row = registry.get(name, {})
+        pushes = row.get('enforcement', '?') == 'blocks'
+        blocked = str(seen['blocked']) if pushes else '-'
+        print(f"  {name:<26} {seen['fired']:>8} {blocked:>8}  {row.get('enforcement', '?')}")
+    silent = sorted(set(registry) - set(counts))
+    if silent:
+        print(f'\n{len(silent)} declared feature(s) have never fired here:')
+        print('  ' + ', '.join(silent))
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(add_help=True)
     ap.add_argument('--group', help='list one group only')
@@ -102,6 +132,8 @@ def main() -> int:
     ap.add_argument('--on', metavar='NAME', help='switch on, in core/profile.local.txt')
     ap.add_argument('--off', metavar='NAME', help='switch off, in core/profile.local.txt')
     ap.add_argument('--check', action='store_true', help='exit 1 on any disagreement')
+    ap.add_argument('--scoreboard', action='store_true',
+                    help='what each feature really did: fired, and blocked')
     args = ap.parse_args()
 
     if args.on:
@@ -110,6 +142,8 @@ def main() -> int:
         return _write_toggle(args.off, 'off')
     if args.check:
         return _check()
+    if args.scoreboard:
+        return _scoreboard()
     if args.findings:
         return _findings()
 

@@ -4,7 +4,7 @@
 # Every test used to spell out `parents[3]` for the workspace root — nine copies of a depth,
 # which is a number that changes the moment a test moves into a subdirectory. Import it from
 # here instead; pytest loads this file before any test module.
-import os, sys, pathlib
+import os, sys, pathlib, tempfile
 
 HERE = pathlib.Path(__file__).resolve().parent
 WORKSPACE_ROOT = HERE.parents[2]
@@ -19,6 +19,13 @@ WORKSPACE_ROOT = HERE.parents[2]
 for _var in ('GIT_DIR', 'GIT_INDEX_FILE', 'GIT_WORK_TREE', 'GIT_OBJECT_DIRECTORY',
              'GIT_ALTERNATE_OBJECT_DIRECTORIES', 'GIT_PREFIX', 'GIT_COMMON_DIR'):
     os.environ.pop(_var, None)
+
+# THE SUITE MUST NOT BE IN THE MEASUREMENT. core/hooks/scoreboard.py counts what each feature did in
+# real use, and feature_law.is_enabled() is on the hot path of nearly every test here: one run wrote
+# 47,000 rows into the real store, which would have made a two-week reading almost entirely a
+# recording of pytest. Pointed at a throwaway file, and inherited by every subprocess a test spawns.
+os.environ['WOS_SCOREBOARD'] = str(
+    pathlib.Path(tempfile.gettempdir()) / 'wos-scoreboard-test.tsv')
 
 # Own directory first, so tests in subdirectories can `from conftest import WORKSPACE_ROOT`.
 sys.path.insert(0, str(HERE))
