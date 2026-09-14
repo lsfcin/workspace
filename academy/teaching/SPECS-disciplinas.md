@@ -1,42 +1,60 @@
-# SPECS | Disciplinas
-> Metodologia macro semestral de condução, ciclos de projeto, avaliação e acompanhamento.
-> governs: todas as disciplinas de graduação e pós ministradas por Lucas (TecEdu, AI4Good)
+# SPECS | disciplinas
+> metodologia macro semestral de condução, ciclos de projeto, avaliação e acompanhamento.
+> governs: todas as disciplinas de graduação e pós ministradas por Lucas (techedu, ai4good, etc)
 
-## 1. Princípios & Sequenciamento Pedagógico
+## 1. objetivos
 
-1. **Regra de Sequenciamento por Tipo de Conhecimento:**
-   - *Habilidade instrumental / setup de ambiente:* Instrução direta prévia (receita, starter kit e andaime explícito).
-   - *Conceito novo / modelagem de problema:* Problema autêntico antes da técnica (PS-I). A equipe enfrenta o dilema
-     na prática de sexta; a fundamentação teórica de quarta formaliza o desbloqueio conceitual.
-2. **Alinhamento Construtivo & Stage-Gate:** Todo entregável intermediário é uma fatia funcional do produto final
-   (Artigo no formato SBC/IEEE + Demonstração WOW funcional). Tarefas decorativas ou isoladas são proibidas.
-
----
-
-## 2. O Calendário Canônico (Os 4 Arcos — 34 Encontros / 17 Semanas)
-
-```
-[ARCO 1: PROBLEMATIZAÇÃO & FERRAMENTAL] (Semanas 01–04 / Encontros 01–08)
-  ├── Enquadramento do tema real, contrato pedagógico e setup instrumental guiado
-  └── Exploração de dores autênticas com as 7 alavancas contra o óbvio
-[ARCO 2: CONSTRUÇÃO & PROVA DE CONCEITO] (Semanas 05–09 / Encontros 09–18)
-  ├── GATE 1 (Fechamento preliminar): Pitch gravado/ao vivo + Termo de Projeto + Persona
-  └── Ciclos de arquitetura, prototipagem inicial e verificação parcial (Módulos A e B)
-[ARCO 3: SPRINT EXPERIMENTAL & REDAÇÃO] (Semanas 10–14 / Encontros 19–28)
-  ├── Execução de experimentos sistemáticos (ablação, métricas, testes com usuários)
-  └── GATE 2 (Status Report): Demo funcional preliminar + Seções 1 a 3 do artigo
-[ARCO 4: IMPACTO & DEFESA PÚBLICA] (Semanas 15–17 / Encontros 29–34)
-  └── GATE 3 (Final): Banca examinadora com folha estruturada + Demo WOW + Artigo SBC/IEEE
-```
+1. **visão de mundo e de contribuição**
+   - *cenário micro:* escutar os alunos, suas histórias, experiências, dificuldades, desejos, visões, como funcionam, como aprendem, quais os perfis.
+   - *calibrar visão macro:* conectar com a realidade ampla com foco na verdade, no estudo, na ciência e não em opinião rasa.
+   - *reperar agência:* fortalecer a capacidade, a capacidade de atuação, impulsionar a autoestima, coletividade e criatividade.
+2. **desenvolvimento de habilidades**
+   - *problemáticas:* conectar o ferramental teórico-prático a ser desenvolvido com problemáticas relevantes à atualidade e ao contexto dos alunos.
+   - *habilidades técnicas e comportamentais:* definir de antemão o conjunto de habilidades alvo da disciplina.
+   - *grafo de conhecimento:* conectar o conjunto de habilidades de forma estruturada, dependências e sinergias.
+   - *etapas:* conduzir aprendizagem com instrução direta prévia, entregar starter kits, receitas, passos construtivos explícitos, cada peça conecta com a seguinte. aprendizagem sem mistério, simplicidade como valor central.
+   - *verificação:* critérios de avaliação fornecidos de antemão, verificação continuada. permitir ritmos diferentes de aprendizagem. recapitular e reavaliar.
+3. **produção de artefatos**
+   - *demonstração wow:* conduzir alunos a produzirem soluções com tom de novidade e utilidade que impressionem terceiros que os deixem orgulhosos.
+   - *relatório técnico:* desenvolver com rigor metodológico que gere relatórios que vamos submeter para veículos científicos.
+   - *apresentação:* para bancas avaliadoras para ter discussão e conexão externa servindo de preparatório para pitchs em editais e eventos.
 
 ---
 
-## 3. A Anatomia da Entrega (A Tríade Fechada & O Par de .md)
+## 2. calendário canônico (4 arcos: ~30 encontros | 15 semanas)
 
-Toda entrega (Checkpoint) de disciplina opera sob dois links canônicos na Planilha Mestre, gerados a partir de
-modelos-base em Markdown (.md) estruturados por artefatos:
+```
+[ARCO 1: INICIALIZAÇÃO] (semanas 01–02)
+  ├── escuta e partilha de experiências relevantes
+  ├── contrato pedagógico e problemáticas alvo
+  └── setup instrumental guiado
+[ARCO 2: FERRAMENTAL E PROBLEMATIZAÇÃO] (semanas 03–06)
+  ├── estudo das técnicas, apropriação, estrapolação
+  └── estudo das problemáticas relevantes, macro
+[ARCO 3: CICLOS DE CONSTRUÇÃO DA SOLUÇÃO] (semanas 07–12)
+  ├── definição de macro-áreas de interesse, para problema e técnica
+  ├── prototipação da técnica base, garantir código funcional
+  ├── levantamento de competidores, na indústria e academia
+  ├── ideação da contribuição para a literatura e sociedade
+  ├── diagrama da solução técnica, módulos, entradas e saídas
+  ├── definição de métricas e desenho dos experimentos
+  ├── desenvolvimento, iterativo incremental, foco no diferencial
+  └── aplicação de testes, coleta dos resultados e avaliação
+[ARCO 4: PREPARAÇÃO E DEFESA PÚBLICA] (semanas 13–15)
+  ├── refinamento geral, solução e experimentos
+  ├── revisão e ajustes da demonstração, vídeo que causa efeito wow
+  ├── revisão e ajustes do relatório técnico, pronto para submissão
+  ├── refinamento da apresentação
+  └── banca examinadora e encerramento
+```
 
-1. **Documento de Metodologia (`templates/template-metodologia.md`):**
+---
+
+## 3. anatomia das entregas (materiais e métodos)
+
+toda entrega (checkpoint) de disciplina é direcionada por dois documentos canônicos (materiais e métodos), gerados a partir de modelos-base em markdown (.md) estruturados por artefatos:
+
+1. **documento de métodos (`templates/template-metodologia.md`):**
    - Racional pedagógico ancorado (Chão $\to$ Horizonte, Doshi & Hauser).
    - Guia explícito para IAs & Agentes (harness dos alunos) atuarem como tutores sem dar respostas prontas.
    - Grafo de dependência entre os artefatos da entrega (entradas e saídas encadeadas).
