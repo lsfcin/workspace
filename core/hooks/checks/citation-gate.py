@@ -8,7 +8,7 @@
 # files, including two pointing at Fronts 2 and 6, which have never existed. The rule was
 # INDUCED; this is the ENFORCED half.
 #
-# It lives here rather than in entropy/ because the fanout gate said so: entropy/ was already
+# It lives here rather than in entropy/ because the crowding gate said so: entropy/ was already
 # at eight code files and the ratchet refused a ninth. That was the right refusal — the check
 # belongs beside type-gate.py, which is the other Tier 0 vocabulary gate, and being here made
 # it a commit-time BLOCK instead of one more line in a report nobody is obliged to read.

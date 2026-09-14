@@ -44,7 +44,7 @@ Today, of the +509 climb, **493 (97%) is scope and 16 (3%) is rot**. The scope i
 findings, 170 column-cap findings from a check that did not exist, and 116 from six further checks.
 
 **Only one of the original nine actually rotted.** Split out, the old check set moved:
-`inventories 4→29 (+25)`, `fanout 32→36 (+4)`, `retired 4→5 (+1)`, `naming 4→3 (−1)`,
+`inventories 4→29 (+25)`, `crowding 32→36 (+4)`, `retired 4→5 (+1)`, `naming 4→3 (−1)`,
 `types 34→30 (−4)`, `size/line-cap 17→8 (−9)`. Without inventories the tree **improved by 9
 findings over 11 days**. CONTEXT.md hand-written inventories is the entire drift story.
 

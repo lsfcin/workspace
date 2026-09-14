@@ -17,7 +17,7 @@ one word apart.
 
 A subdirectory under `WARN_FILES` folds back into this table unless it carries its own
 `CONTEXT.md`, so each one declares itself and this table went 51 rows → 12. Moving files
-without paying that cost would satisfy the fanout count while leaving the reader exactly as
+without paying that cost would satisfy the crowding count while leaving the reader exactly as
 much to hold.
 
 **Scaffolding is imported from a kit, never from a sibling test.** `FakeMsg`/`FakeReplyAnchor`

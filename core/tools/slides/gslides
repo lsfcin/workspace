@@ -15,7 +15,7 @@ def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
 
 
 def cmd_list(account: str, name: str) -> None:
-    for alias in gcli.fanout(account):
+    for alias in gcli.aliases(account):
         print(f"\n── Presentations ({alias}) ──")
         found = slides_core.list_presentations(alias, name)
         if not found:

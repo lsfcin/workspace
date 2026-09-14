@@ -4,7 +4,7 @@
 #
 # It sits in git/ rather than beside the other entropy checks because it is the one that reads
 # git state instead of file content — every module in entropy/ takes a list of files, this one
-# takes a root and shells out. That difference is also what put entropy/ over the fanout cap
+# takes a root and shells out. That difference is also what put entropy/ over the crowding cap
 # when it briefly lived there, which is the check doing its job.
 #
 # Warn-only, like every other dashboard section. Widened 2026-08-31 after a hand audit found what

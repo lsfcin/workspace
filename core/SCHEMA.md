@@ -98,11 +98,11 @@ Four axes, **deliberately separate** — conflating them produced the wrong "fla
 |---|---|---|
 | **locality** | many small local `CONTEXT.md` = good, never consolidate to "reduce clutter" — granularity is what makes weak models navigate | judgement |
 | **depth** | cap hops to content, not file count; **measure** before adding a routing level | judgement |
-| **fanout** | `WARN_FILES` asks for a look, `BLOCK_FILES` is the cap | `entropy_fanout.py`, dashboard |
+| **crowding** | `WARN_FILES` asks for a look, `BLOCK_FILES` is the cap | `entropy_crowding.py`, dashboard |
 | **routing** | a subdirectory under `FOLD_FILES` is folded into its parent's table, not linked | `workspace_scanner.py` |
 | **document size** | `BLOCK_LINES` caps one authored `.md`; a root that sheds parts routes to them | `pre-edit.py`, dashboard |
 
-Splitting an over-full directory *adds a hop*, so fanout and depth trade directly: pay the hop only
+Splitting an over-full directory *adds a hop*, so crowding and depth trade directly: pay the hop only
 when the split removes more table than it adds — a directory in the dozens pays, one just over the
 signal does not. Numbers live in [`limits.env`](hooks/limits.env), never in a second copy — this
 table named four of them until 2026-09-06 and every one went stale the day they moved; offenders
@@ -204,6 +204,7 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `.loop` | `.craft` | 2026-08-20 |
 | `parsed-by` | — retired unfilled | 2026-08-25 |
 | `pre-read.sh` | `read/pre-read.py` | 2026-09-02 |
+| `fanout` | `crowding` | 2026-09-14 |
 
 **A rename whose old spelling is also a real word needs a shape, not a token** — a row that fails on
 correct prose trains people to ignore the check, so `/loops` and `.loop` are rows while `Frente`→
@@ -221,7 +222,7 @@ data. `entropy_vendor.py` matches the bolded assignment and nothing else.
 <!-- routing:start -->
 ## Routing
 
-| Part | Description | Answers | Enforced by |
+| Shard | Description | Answers | Enforced by |
 |-------|-------------|---------|-------------|
 | [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this part is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts. | what fields each layer requires, which layer may point at which | core/tools/wos/skills/validate.py |
 <!-- routing:end -->

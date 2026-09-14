@@ -32,7 +32,7 @@ from entropy_context import (check_goal_link,  # noqa: E402
                              check_misplaced_answer, check_truncation)
 from entropy_corpus import (enforcement_paths, tracked_files,  # noqa: E402
                             wiki_exempt_paths)
-from entropy_fanout import fanout_signals  # noqa: E402
+from entropy_crowding import crowding_signals  # noqa: E402
 from entropy_fields import field_hits  # noqa: E402
 from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
                             goal_vocabulary, retired_hits,
@@ -126,7 +126,7 @@ def collect(files: list, repo: Path = WORKSPACE_ROOT, promoting: str = '') -> di
     findings['routing'] = untracked_routing_targets(files, repo)
     findings['size'] = size_signals(files)
     findings['stubs'] = stub_signals(files)
-    findings['fanout'] = fanout_signals(files, WORKSPACE_ROOT)
+    findings['crowding'] = crowding_signals(files, WORKSPACE_ROOT)
     findings['branches'] = unmerged_branches(repo, promoting)
     findings['unpushed'] = unpushed_work(repo)
     findings['locals'] = merged_local_branches(repo)

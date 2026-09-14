@@ -27,7 +27,7 @@ def run(main_fn, *refusals) -> None:
         _sys.exit(str(exc))
 
 
-def fanout(account: str) -> list:
+def aliases(account: str) -> list:
     """Which aliases a command runs over: one named account, or every configured one."""
     return gauth.primary_aliases() if account == "all" else [gauth.resolve_alias(account)]
 

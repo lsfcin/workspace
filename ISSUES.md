@@ -92,13 +92,13 @@ matching regression spec exists and passes.
 
 *safe to delete, and purely local — `git -C <repo> branch -d <branch>`*
 
-- . — 1 merged into main: git -C . branch -d feature/confident-wrongness
+- . — 1 merged into main: git -C . branch -d feature/legibility-sitting
 
 ### Remote branches already merged into their base
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 2 merged into main: git -C . push origin --delete feature/confident-wrongness feature/legibility-sitting
+- . — 3 merged into main: git -C . push origin --delete feature/confident-wrongness feature/legibility-identifiers feature/legibility-sitting
 
 <!-- entropy:end -->
 

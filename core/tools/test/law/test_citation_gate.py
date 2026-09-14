@@ -119,7 +119,7 @@ def test_a_shard_of_an_exempt_document_inherits_the_exemption():
 
 def test_no_prose_restates_a_number_the_numeric_law_owns():
     """The live assertion, green at all times. It was red when written: eight authored files still
-    named 150/200 six days after the law moved to 200/250, and one named the fanout law's previous
+    named 150/200 six days after the law moved to 200/250, and one named the crowding law's previous
     pair. Ruled by Lucas 2026-09-12, scope the law only — a measured number in prose is a separate
     question with a separate owner."""
     hits = entropy_citations.limit_hits(

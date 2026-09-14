@@ -17,7 +17,7 @@ from workspace_meta import (  # noqa: E402
 # The number lives in limits.env, never here — this file held the only copy for months
 # while three other checkers each invented their own (see file_law.py). FOLD_FILES since
 # 2026-09-06: this asks whether a directory is substantial enough to route TO, which is not
-# the question WARN_FILES asks, and sharing one constant meant raising the fanout signal
+# the question WARN_FILES asks, and sharing one constant meant raising the crowding signal
 # would have folded every 7-9-file directory into its parent as a side effect.
 SPLIT_THRESHOLD = load_limits()['FOLD_FILES']
 _ROOT        = _HOOKS.parents[1]

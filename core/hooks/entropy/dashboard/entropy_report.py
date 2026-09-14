@@ -47,7 +47,7 @@ SECTIONS = (
     ('size', 'Size signals', 'a signal for review, never a cap — do not summarize to fit'),
     ('stubs', 'Source files with no interface stub',
      'the read gate only fires when a stub exists — a missing one turns it off silently'),
-    ('fanout', 'Directories holding too many files',
+    ('crowding', 'Directories holding too many files',
      'splitting costs one hop — pay it only when it removes more table than it adds'),
     ('finished', 'Prose describing finished work',
      'git is the history — cut it, or rewrite it as present-tense state'),
