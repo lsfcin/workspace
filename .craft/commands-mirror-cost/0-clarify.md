@@ -1,7 +1,7 @@
 # 0 — Clarify
 
 ## Carry
-slug: commands-mirror-cost | branch: feature/roundup-md-cap (SHARED — do not switch) | root: /mnt/workspace
+short name: commands-mirror-cost | branch: feature/roundup-md-cap (SHARED — do not switch) | root: /mnt/workspace
 provider: anthropic | chain-deleg: none
 tier-map: anthropic | verified-on: 2026-08-20
 test-cmd: `core/tools/wos/session/context` (instrument sanity only) | e2e-cmd: none

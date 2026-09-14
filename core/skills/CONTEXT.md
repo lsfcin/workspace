@@ -33,7 +33,7 @@ mirroring, and the folder-shaped global-skill pattern (`caveman/`): [`SPECS.md`]
 | [`gslides.md`](gslides.md) | Read and edit Google Slides decks in place across all configured accounts — deck as navigable text, edits through batchUpdate. |
 | [`handoff.md`](handoff.md) | Emit a copy-pasteable resume prompt for the next session. For the full session-close ritual use /roundup, which calls this. |
 | [`inbox.md`](inbox.md) | Triage brain/INBOX.md — route each entry to a goal, task, reference, project doc, writing draft, or delete. Cross-domain front door: reaches into code ROADMAP/ISSUES and domain refs/, not just brain/. |
-| [`install.md`](install.md) | Install this workspace on the machine you are running on: check every step in SETUP.md, report what is missing, and execute it. Takes one feature slug, or nothing for everything. |
+| [`install.md`](install.md) | Install this workspace on the machine you are running on: check every step in SETUP.md, report what is missing, and execute it. Takes one feature short name, or nothing for everything. |
 | [`iso-visual.md`](iso-visual.md) | Isoroll visual-semantics reference: image-to-text conventions, known model failure modes, and how to verify visual output. Load before touching isoroll guides, kits, sprites or scenes. |
 | [`prepare.md`](prepare.md) | Turn a raw task into an optimized agent prompt: interviews for intent, classifies the task, recommends model and effort. |
 | [`research.md`](research.md) | Execute a research workflow from the workspace Core research system. |

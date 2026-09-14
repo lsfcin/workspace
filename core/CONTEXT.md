@@ -28,7 +28,7 @@ and spawns the specialist workers beside it.
 | [`SPECS.md`](SPECS.md) | Architecture decisions and conventions for the Core agent library. |
 | [`features.txt`](features.txt) | Every toggleable feature this workspace has, declared: what group it belongs to, how hard it enforces, whether it is general or Lucas-specific, and whether it can actually be switched off. Read by core/hooks/feature_law.py; the answers live in core/profile.txt. |
 | [`harnesses.txt`](harnesses.txt) | Supported agent harnesses and their relative skill mirror locations name	skills_dir	commands_dir |
-| [`permissions.txt`](permissions.txt) | Neutral permission tiers: what an agent may do without asking. Tab-separated columns: kind   tier | rule tier   guarded | standard | open key    summary | tradeoff | mode (for kind=tier); allow | ask | deny (for kind=rule) value  writing (for kind=tier); neutral action slug (for kind=rule) |
+| [`permissions.txt`](permissions.txt) | Neutral permission tiers: what an agent may do without asking. Tab-separated columns: kind   tier | rule tier   guarded | standard | open key    summary | tradeoff | mode (for kind=tier); allow | ask | deny (for kind=rule) value  writing (for kind=tier); neutral action short name (for kind=rule) |
 | [`profile.txt`](profile.txt) | Which features are switched on by default, and the settings that are not switches. The registry is core/features.txt; this file holds only the answers. Read by core/hooks/feature_law.py. |
 | [`run`](run) | The one command that runs anything in core/: find this clone's interpreter, then exec with it. |
 <!-- routing:end -->

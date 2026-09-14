@@ -16,7 +16,7 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Design a replication plan for: $@
 
-Derive a short slug from the target (lowercase, hyphens, no filler words, ≤5 words). Use it for all files in this run.
+Derive a short name from the target (lowercase, hyphens, no filler words, ≤5 words). Use it for all files in this run.
 
 ## Required Artifacts
 

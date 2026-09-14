@@ -61,7 +61,7 @@ Notes a fresh orchestrator must read:
 
 Spawn via the native `Agent` tool with `subagent_type: 'craft-low'|'craft-medium'|'craft-high'` and the spawn-prompt
 body above. The agent's frontmatter `model: haiku|sonnet|opus` IS the tier alias Claude Code resolves to the latest
-low/medium/high-tier slug — Anthropic's own dogfood pattern (see [`prior-art.md`](prior-art.md) § Research provenance,
+low/medium/high-tier short name — Anthropic's own dogfood pattern (see [`prior-art.md`](prior-art.md) § Research provenance,
 source s8). No subprocess shelling; no `-m` needed.
 
 **Copilot CLI / anything else**: the user opens a fresh session per loop with the spawn-prompt and picks the model from

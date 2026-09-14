@@ -178,7 +178,7 @@ feature crossing layers is honest only when every layer consults the law** (2026
 switched off is not switched off.
 
 **The honesty test asks ONE question — would switching this off change anything? — and answers it the
-strongest way each row allows**, because searching for the literal slug inside the named file has
+strongest way each row allows**, because searching for the literal short name inside the named file has
 nowhere to land for a shared wiring point. That is what **makes one legal**: a group with an invokable
 boundary is checked by behaviour rather than by grep, which passes on a guard in an unreachable branch. How
 each row is answered is `test_features_wiring.py`, and that is the only place it should be written.

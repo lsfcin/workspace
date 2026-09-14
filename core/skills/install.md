@@ -2,12 +2,12 @@
 name: install
 description: >
   Install this workspace on the machine you are running on: check every step in SETUP.md, report
-  what is missing, and execute it. Takes one feature slug, or nothing for everything.
+  what is missing, and execute it. Takes one feature short name, or nothing for everything.
 ---
 
 # Install
 
-Arguments: $ARGUMENTS — a feature slug to install just one feature, or empty for all of them.
+Arguments: $ARGUMENTS — a feature short name to install just one feature, or empty for all of them.
 
 ---
 
@@ -43,7 +43,7 @@ with the first one.
    `needs-you` is any step marked `agent: no`. Do not attempt those and do not skip them silently.
 
 3. **Ask which missing steps to run** — default to all of the `agent: yes` ones. If `$ARGUMENTS`
-   named a feature slug, filter to steps declaring it and say what you filtered out.
+   named a feature short name, filter to steps declaring it and say what you filtered out.
 
 4. **Execute each chosen step, then run its Verify check.** A step is done when its check passes.
    **Never report a step done because its config looks right** — SETUP's own RTK step exists

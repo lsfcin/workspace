@@ -51,7 +51,7 @@ PDF exists, cite the PDF URL from search metadata and mark full-text parsing as 
 
 ## Required Artifacts
 
-Derive a short slug from the field: lowercase, hyphenated, no filler, at most 5 words.
+Derive a short name from the field: lowercase, hyphenated, no filler, at most 5 words.
 
 Every run must leave on disk:
 - `outputs/.plans/<slug>.md` — the plan

@@ -138,4 +138,4 @@ exists. Only ~97 of that is names; the other ~745 is description writing — the
   absolute turn-1 figures must never be quoted as a workspace session's cost.
 - **Observational only.** No arm, no control; nothing here shows a change *caused* anything. See
   [`subagent-context-chain.md`](subagent-context-chain.md) for the one real ablation.
-- **One project slug per run.** The tool prints what it skipped.
+- **One project short name per run.** The tool prints what it skipped.

@@ -147,7 +147,7 @@ For each entry:
    - **task** → name the goal backlog and the exact line to append (or, if it's pure capture, that it stays in INBOX)
    - **ref** → name the target `refs/REFS.md` and the exact tier-1 line
    - **project** → name the target file (ROADMAP / ISSUES), the exact line, and the repo
-   - **draft** → propose filename slug and one-line description of the draft
+   - **draft** → propose filename short name and one-line description of the draft
    - **delete** → one-line reason
 3. Present all proposed routes first. Wait for confirmation. Act only after Lucas confirms.
 

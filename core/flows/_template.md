@@ -52,7 +52,7 @@ create directories and write the plan artifact.
 ## Required Artifacts
 <!-- required: research-brief · domain — recommended: utility -->
 
-Derive a short slug from the topic: lowercase, hyphenated, no filler words, at most 5 words.
+Derive a short name from the topic: lowercase, hyphenated, no filler words, at most 5 words.
 Use it for every file this run writes.
 
 Every run must leave these files on disk:

@@ -5,7 +5,7 @@
 
 ## Research provenance
 
-The (b-refined) tier-alias + active-model-swap decision — strip `model:` provider slugs from
+The (b-refined) tier-alias + active-model-swap decision — strip `model:` provider short names from
 `.opencode/agents/craft-*.md`, keep `model: opus|sonnet|haiku` tier aliases in `.claude/agents/craft-*.md`, resolve the
 active provider once at Loop 0, spawn each loop with `opencode run -m <resolved> --agent craft-<tier> --auto` — is
 grounded in a deep-research run (2026-07-16) surveying academic routing/cascade papers (2023–2026) and production agent

@@ -82,7 +82,7 @@ Synthesis on top of fears:
 - Done items = move to `## done` section, **no topo do bloco**: `compress_done` mantém as três
   primeiras linhas e descarta o resto no próximo commit, sem avisar. Uma conquista escrita no fim do
   bloco desaparece silenciosamente — foi o que aconteceu em 2026-08-28. O bloco é mais-novo-primeiro.
-- Achievement format: `[short-id] description` — short-id is 2–4 word kebab-case slug
+- Achievement format: `[short-id] description` — short-id is 2–4 word kebab-case short name
 - Optional inline timing: `> [ ] [id] description — Jun 01`
 - On check-off: use `/compass` (the "close a win" move — folds the retired `/brain-finished`)
 

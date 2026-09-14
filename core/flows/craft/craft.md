@@ -10,7 +10,7 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Engineer this task in loops: $@
 
-Execute, do not explain. Derive a feature slug (lowercase, hyphens, ≤5 words), and ask for no
+Execute, do not explain. Derive a feature short name (lowercase, hyphens, ≤5 words), and ask for no
 confirmation beyond the Loop 0 interview.
 
 > **This is the `feature` folder of the craft tree** ([`route.md`](route.md), [`tree.md`](tree.md)). Reach it via the
@@ -43,7 +43,7 @@ instead of spending them: N cheap short sessions instead of one long expensive o
 - **Small.** Soft cap ~80 lines per file. A loop file that wants to exceed the cap is a smell: the task is too big —
   raise `FLAG: RETURN loop=1 reason=split-needed`.
 - **Carry block.** Every loop file starts with a `## Carry` block **copied verbatim** from the previous file (Loop 0
-  creates it). It holds: slug, branch, project root, test command, criticality, acceptance-criteria digest, context
+  creates it). It holds: short name, branch, project root, test command, criticality, acceptance-criteria digest, context
   pointers (project `CONTEXT.md`/`AGENTS.md` paths). This is what makes "read exactly one file" true — no loop ever
   needs to chase earlier files.
 - `.craft/` is committed on the feature branch during the flow (audit trail, survives crashes). Loop 6 folds the durable
@@ -119,7 +119,7 @@ FLAG: RETURN loop=<N> reason=<slug> evidence=<one line>
 
 ## Orchestration
 
-The orchestrator (lead session) holds only: slug, current loop number, verdicts, flags, and **the provider + tier-map
+The orchestrator (lead session) holds only: short name, current loop number, verdicts, flags, and **the provider + tier-map
 resolved in Loop 0**.
 
 **Routing is structural, not discretionary:** spawn via the pinned executor agent types `craft-low` / `craft-medium` /
