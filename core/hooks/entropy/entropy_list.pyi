@@ -13,7 +13,7 @@ CODE_SPAN: Incomplete
 DATED_REPORT: Incomplete
 SETTLED: Incomplete
 TICKED_ITEM: Incomplete
-LEDGER_FILES: Incomplete
+LIST_FILES: Incomplete
 PLACEHOLDER: str
 
 def finished_work_hits(files: list, exempt: set) -> list: ...

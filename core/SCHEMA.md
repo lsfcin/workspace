@@ -4,7 +4,7 @@
 > [`schema_law.py`](hooks/schema_law.py) parses them and no checker restates them. Drift is a bug.
 > answers: what type a file is, where it lives, how it splits, what a word means
 > enforced-by: core/hooks/checks/type-gate.py, core/hooks/entropy/entropy_naming.py,
-> core/hooks/entropy/entropy_ledger.py, core/tools/wos/skills/validate.py
+> core/hooks/entropy/entropy_list.py, core/tools/wos/skills/validate.py
 
 <!-- warn-exempt: the tables here are parsed, not read, so a cut moves law rather than prose — and
      the rows a reader needs least are the ones a checker needs most. The block cap still applies. -->
@@ -135,7 +135,7 @@ and what a generator already derives: a split preserves the mass across more fil
 workspace reached nine roadmaps. Two traps: a deleted file's row in the transient table keeps its
 exemption alive, and the document you are deleting can be the sole record of something live. **An
 approved sibling is `TYPE-<slug>.md` with the unsuffixed file as the index**, slug lowercase
-kebab-case — `type-gate.py`, `entropy_naming.TYPE_SLUG` and `citation-gate.LEDGER_NAMES` each read
+kebab-case — `type-gate.py`, `entropy_naming.TYPE_SLUG` and `citation-gate.LIST_NAMES` each read
 that shape and none of them states it. The index keeps what is true of every sibling, any list the
 type's rule says lives in one place, and the generated routing table. The check that makes "as small as
 possible" checkable: **a reader who has read only the index names the sibling that answers their
@@ -188,7 +188,7 @@ in commit messages; **a bug id is never reused** (ruled 2026-08-31), new ids are
 ### Retired tokens
 
 **A rename is finished when its old token appears nowhere.** This table *is* the assertion:
-`entropy_ledger.py` fails if any token below survives in a tracked file, this file excepted. Add a row
+`entropy_list.py` fails if any token below survives in a tracked file, this file excepted. Add a row
 the moment a rename lands, and delete the prose that would otherwise explain it.
 
 | Retired token | Replacement | Retired |
@@ -206,6 +206,7 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `pre-read.sh` | `read/pre-read.py` | 2026-09-02 |
 | `fanout` | `crowding` | 2026-09-14 |
 | `shard` | `part` | 2026-09-14 |
+| `ledger` | `list` | 2026-09-14 |
 
 **A rename whose old spelling is also a real word needs a shape, not a token** — a row that fails on
 correct prose trains people to ignore the check, so `/loops` and `.loop` are rows while `Frente`→

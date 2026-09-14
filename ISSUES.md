@@ -64,14 +64,14 @@ matching regression spec exists and passes.
 | Wiki-links naming nothing | 0 |
 | Retired tokens still alive | 0 |
 | Roadmap item numbers cited outside a roadmap | 0 |
-| Items claimed by two ledgers | 0 |
+| Items claimed by two lists | 0 |
 | Size signals | 1 |
 | Source files with no interface stub | 0 |
 | Directories holding too many files | 0 |
 | Prose describing finished work | 0 |
 | Unanswered scaffold placeholders | 0 |
 | Doubt stores missing their own discipline | 0 |
-| Ledgers naming a model where they mean a tier | 0 |
+| Lists naming a model where they mean a tier | 0 |
 | Header fields naming code that is not there | 0 |
 | Truncated routing descriptions | 0 |
 | Constraints trapped in a CONTEXT.md head | 0 |
@@ -92,7 +92,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/legibility-identifiers is 1 ahead of main
+- . — feature/legibility-identifiers is 2 ahead of main
 
 ### Local branches already merged into their base
 

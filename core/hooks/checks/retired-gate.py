@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # PostToolUse, capability `write` — a retired token reaches the agent at the edit, not at the close.
 #
-# THE CHECK ALREADY EXISTED AND WAS MERELY LATE. `entropy_ledger.retired_hits` is exact and costs
+# THE CHECK ALREADY EXISTED AND WAS MERELY LATE. `entropy_list.retired_hits` is exact and costs
 # zero tokens, and its only caller was the entropy dashboard — a report written into ISSUES.md
 # after the fact, which means a rename could stay unfinished for a whole session and be found by
 # the close. Same law, same function, one moment earlier.
@@ -26,7 +26,7 @@ sys.path.insert(0, str(HOOKS / 'entropy'))
 import feature_law  # noqa: E402
 import schema_law  # noqa: E402
 from entropy_corpus import enforcement_paths  # noqa: E402
-from entropy_ledger import retired_hits  # noqa: E402
+from entropy_list import retired_hits  # noqa: E402
 from hook_input import capability, parse_stdin  # noqa: E402
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 

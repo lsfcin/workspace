@@ -3,7 +3,7 @@
 # The lens exists to answer whether our own gates cause re-reads, so the two things it must never
 # get wrong are (a) sizing a read by its arguments instead of its result — an offset read of a huge
 # file would then look huge, which is the opposite of what the interface-first gate does — and
-# (b) classifying what was served, since the whole finding is "the chain is 1.0/session, the ledger
+# (b) classifying what was served, since the whole finding is "the chain is 1.0/session, the list
 # is 3.0/session" and that collapses if the buckets blur.
 import json
 import sys

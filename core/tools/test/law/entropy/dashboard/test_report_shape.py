@@ -3,7 +3,7 @@
 #
 # Every check got a heading, a restated note and the word "Clean." until 2026-09-05, so 17 of 23
 # sections said nothing in six lines each — ~102 of the workspace ISSUES.md's 323, all of it
-# repeating a summary row that already read zero. The file read as a large ledger with five open
+# repeating a summary row that already read zero. The file read as a large list with five open
 # bugs in it, and the question it provoked ("are we forgetting to delete?") had the wrong answer
 # available: nothing was being forgotten, the generator was the bulk.
 #

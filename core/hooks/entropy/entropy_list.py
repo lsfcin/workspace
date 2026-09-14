@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-# Tier 0 ledger and vocabulary checks, parsed from core/SCHEMA.md. Zero-token, deterministic.
+# Tier 0 list and vocabulary checks, parsed from core/SCHEMA.md. Zero-token, deterministic.
 #
 # Two assertions that make two recurring bugs catchable instead of re-discovered:
 #   retired tokens  — a rename is finished only when its old spelling appears nowhere
 #                     (core/SCHEMA.md § Retired tokens). This is what makes an
 #                     incomplete rename visible at the generator instead of at the leaves.
-#   duplicate slugs — a work item lives in exactly one ledger; a copy is a bug
+#   duplicate slugs — a work item lives in exactly one list; a copy is a bug
 #                     (ROADMAP.md header). This is v1 criterion 2, verified by scan.
 import re
 from pathlib import Path
@@ -15,7 +15,7 @@ from entropy_corpus import (enforcement_paths, is_generated_mirror,  # noqa: F40
 
 # A bracketed slug is an item ID only in item position: after the bullet and the optional
 # checkbox, decoration allowed. Elsewhere in prose it is a reference to an item that lives
-# somewhere else, which is exactly what a single ledger is supposed to produce.
+# somewhere else, which is exactly what a single list is supposed to produce.
 ITEM_SLUG = re.compile(
     r'^\s*(?:[-*>]+\s*)*(?:\[[ xX]\]\s*)*\**`?\[([a-z0-9][a-z0-9-]+)\](?!\()', re.M)
 
@@ -69,14 +69,14 @@ def duplicate_slugs(namespaces: dict) -> dict:
     Namespace, not file, is the unit. A goal file's achievement slugs (`build-mvp`,
     `mvp-scope`, `first-class`) are private vocabulary repeated across sibling goals by
     design — six startapps all having a `build-mvp` is not six copies of one item. What
-    criterion 2 forbids is the *same work item* tracked in two different ledgers, so the
+    criterion 2 forbids is the *same work item* tracked in two different lists, so the
     caller declares the namespaces and all goal files share one.
     """
     owners = {}
-    for namespace, ledgers in namespaces.items():
-        for ledger in ledgers:
-            for slug in item_slugs(ledger):
-                owners.setdefault(slug, {})[namespace] = ledger
+    for namespace, lists in namespaces.items():
+        for path in lists:
+            for slug in item_slugs(path):
+                owners.setdefault(slug, {})[namespace] = path
     return {slug: claims for slug, claims in owners.items() if len(claims) > 1}
 
 
@@ -90,14 +90,14 @@ SETTLED = re.compile(r'\bSETTLED\b')
 # finding against the top of the file instead of the line the reader has to go fix.
 TICKED_ITEM = re.compile(
     r'^[ \t]*(?:[-*>]+[ \t]*)*(?:\d+[a-z]?\.[ \t]*)?(?:\[[xX]\]|✅)', re.M)
-LEDGER_FILES = {'ROADMAP.md', 'GOALS.md', 'ISSUES.md'}
+LIST_FILES = {'ROADMAP.md', 'GOALS.md', 'ISSUES.md'}
 PLACEHOLDER = '← add'
 
 
 def finished_work_hits(files: list, exempt: set) -> list:
     """Prose describing work that already landed — the corpse no link-checker can see.
 
-    Completion is deletion (core/SCHEMA.md § No archive types): a ledger's length should
+    Completion is deletion (core/SCHEMA.md § No archive types): a list's length should
     measure remaining work. AGENTS.md bans strikethrough and SCHEMA bans the ticked item,
     both law with nothing enforcing them; the dated report is the general case.
     """
@@ -117,9 +117,9 @@ def finished_work_hits(files: list, exempt: set) -> list:
             ('strikethrough', STRIKETHROUGH.search(CODE_SPAN.sub('', text))),
             ('a dated completion report', DATED_REPORT.search(text)),
             ('a SETTLED marker', SETTLED.search(text)),
-            # A tick is a corpse only in a ledger; elsewhere the glyph is a legend marker,
+            # A tick is a corpse only in a list; elsewhere the glyph is a legend marker,
             # which is how core/SCHEMA.md flags a required frontmatter field.
-            ('a ticked item', TICKED_ITEM.search(text) if path.name in LEDGER_FILES else None),
+            ('a ticked item', TICKED_ITEM.search(text) if path.name in LIST_FILES else None),
         ):
             if not match:
                 continue

@@ -35,7 +35,7 @@ outputs/*
 
 # Every ISSUES.md, at the root and in each code repo. The pattern used to be anchored to the root
 # one, on the reasoning that every other ISSUES.md was hand-written from its first line to its last;
-# the entropy scatter (ruled 2026-08-20) ended that — each code repo's ledger now carries the same
+# the entropy scatter (ruled 2026-08-20) ended that — each code repo's list now carries the same
 # generated entropy block the root does, holding its own findings.
 #
 # The root additionally carries the verify block (core/tools/wos/roundup). Together these are

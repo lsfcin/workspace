@@ -27,7 +27,7 @@ from entropy_context import (check_description, check_goal_link,  # noqa: E402
 from entropy_corpus import (enforcement_paths, staged_added_files,  # noqa: E402
                             wiki_exempt_paths)
 from entropy_fields import field_hits  # noqa: E402
-from entropy_ledger import (finished_work_hits, goal_vocabulary,  # noqa: E402
+from entropy_list import (finished_work_hits, goal_vocabulary,  # noqa: E402
                             wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
 from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402

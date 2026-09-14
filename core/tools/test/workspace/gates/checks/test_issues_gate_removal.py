@@ -1,7 +1,7 @@
 # Regression — the issues gate reads removals, not only FIXED flips.
 #
 # A session deleted four fixed bug sections and one OPEN one from the workspace ISSUES.md; the
-# gate only fired on the literal word FIXED, so an open bug (B4) left the ledger without a fix or
+# gate only fired on the literal word FIXED, so an open bug (B4) left the list without a fix or
 # a spec. Since 2026-08-31 a section may not leave ISSUES.md — by deletion or by a FIXED flip —
 # without a matching regression spec, and a spec for B19 does not pay B1's debt: the id ends at
 # the name boundary.

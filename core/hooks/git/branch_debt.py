@@ -74,7 +74,7 @@ def _deletable(repo: Path, base: str) -> list:
 def repos(root: Path) -> list:
     """The repos these four signals answer for: exactly the one asked about.
 
-    It was `[root] + nested_repos(root)` until 2026-09-04, so the workspace's own ledger carried
+    It was `[root] + nested_repos(root)` until 2026-09-04, so the workspace's own list carried
     the branch debt of 27 projects its git ignores — a count that described THIS DISK, red on the
     clone that has none of them (b20260902). Each project now answers for itself, in its own
     ISSUES.md, and the cross-repo sweep that PUSHES them lives in `core/tools/wos/roundup`, where
@@ -175,7 +175,7 @@ def unpushed_work(root: Path) -> list:
 def merged_remote_branches(root: Path) -> list:
     """Remote `feature/*` labels whose every commit is already in the base branch.
 
-    Deleting one is an outward-facing act, so this counts and never acts. It was a ledger note
+    Deleting one is an outward-facing act, so this counts and never acts. It was a list note
     saying eleven such branches were waiting for Lucas; by the time anything read it again the
     real number was six times that, across seventeen repos. A count that regenerates cannot rot
     the way that note did.

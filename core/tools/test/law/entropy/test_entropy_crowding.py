@@ -16,7 +16,7 @@ from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 # here would go stale the next time core/hooks is split.
 
 import entropy_crowding  # noqa: E402
-import entropy_ledger  # noqa: E402
+import entropy_list  # noqa: E402
 from file_law import load_limits  # noqa: E402
 from platform_law import rel  # noqa: E402
 
@@ -44,7 +44,7 @@ BASELINE = set()
 
 def _live() -> set:
     counts = entropy_crowding.crowding_counts(
-        entropy_ledger.tracked_files(WORKSPACE_ROOT), WORKSPACE_ROOT)
+        entropy_list.tracked_files(WORKSPACE_ROOT), WORKSPACE_ROOT)
     return {rel(d, WORKSPACE_ROOT)
             for d, n in counts.items() if n > WARN}
 

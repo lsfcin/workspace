@@ -4,7 +4,7 @@
 # `pre-edit.py`, `facade-gate.py`, `spec-read-gate.py` and `issues-gate.py` are all
 # `PreToolUse: Edit|Write`, so `cat > file << 'EOF'` walks past every one of them. Measured over
 # this workspace's transcripts (2026-08-15): 128 such calls, 354,100 chars, and among them
-# brain/INBOX.md, HISTORY.md and test_entropy_ledger.py — written past the 200-line size gate, the
+# brain/INBOX.md, HISTORY.md and test_entropy_list.py — written past the 200-line size gate, the
 # first-line-comment check and the CONTEXT.md description rule. See core/hooks/SPECS.md.
 #
 # Two arms, because a payload has two ways to write. The shell's own redirects (`>`, `>>`, `tee`)

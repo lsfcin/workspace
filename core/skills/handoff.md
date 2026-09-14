@@ -104,7 +104,7 @@ Print the block between the `---` markers:
 [If $ARGUMENTS: use as directive. Else: the single next step, from ROADMAP + current state.]
 
 ### Worked on
-[≤3 bullets, and only what no ledger already holds. Shipped work is in git and the ROADMAP —
+[≤3 bullets, and only what no list already holds. Shipped work is in git and the ROADMAP —
  what belongs here is what a reader of those files would still not know.]
 
 ### Open threads

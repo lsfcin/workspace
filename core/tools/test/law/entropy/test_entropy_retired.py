@@ -1,28 +1,28 @@
 # T0 the retired-token check (core/SCHEMA.md § Retired tokens): a rename is finished only
 # when its old spelling appears nowhere. Zero-token, runs in verify-fast.
 #
-# Split from test_entropy_ledger.py 2026-08-24 at the 200-line cap. The seam was already there —
-# `entropy_ledger.py` answers several questions and this is the one that asserts against the LIVE
+# Split from test_entropy_list.py 2026-08-24 at the 200-line cap. The seam was already there —
+# `entropy_list.py` answers several questions and this is the one that asserts against the LIVE
 # workspace and is meant to be green at all times rather than baselined.
 from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 
-import entropy_ledger  # noqa: E402
+import entropy_list  # noqa: E402
 import schema_law  # noqa: E402
 
 
 def test_no_retired_token_survives():
     """A rename is finished only when its old spelling appears nowhere."""
-    hits = entropy_ledger.retired_hits(
-        entropy_ledger.tracked_files(WORKSPACE_ROOT),
+    hits = entropy_list.retired_hits(
+        entropy_list.tracked_files(WORKSPACE_ROOT),
         schema_law.load_retired(),
-        entropy_ledger.enforcement_paths(WORKSPACE_ROOT))
+        entropy_list.enforcement_paths(WORKSPACE_ROOT))
     assert hits == [], '\n'.join(hits)
 
 
 def test_the_law_may_name_what_it_retires(tmp_path):
     law = tmp_path / 'SCHEMA.md'
     law.write_text('| `gone-token` | `kept` | 2026-01-01 |\n', encoding='utf-8', newline='\n')
-    assert entropy_ledger.retired_hits([law], {'gone-token': 'kept'}, {law}) == []
+    assert entropy_list.retired_hits([law], {'gone-token': 'kept'}, {law}) == []
 
 
 def test_retired_token_in_a_filename_is_a_hit(tmp_path):
@@ -31,7 +31,7 @@ def test_retired_token_in_a_filename_is_a_hit(tmp_path):
     survives longest."""
     target = tmp_path / 'prefix-gone-token.md'
     target.write_text('clean body\n', encoding='utf-8', newline='\n')
-    hits = entropy_ledger.retired_hits([target], {'gone-token': 'kept'}, set())
+    hits = entropy_list.retired_hits([target], {'gone-token': 'kept'}, set())
     assert len(hits) == 1
     assert 'filename' in hits[0]
 
@@ -45,12 +45,12 @@ def test_a_retired_token_inside_a_url_is_not_a_hit(tmp_path):
     """
     target = tmp_path / 'INBOX.md'
     target.write_text('https://example.com/a-gone-token-post\n', encoding='utf-8', newline='\n')
-    assert entropy_ledger.retired_hits([target], {'gone-token': 'kept'}, set()) == []
+    assert entropy_list.retired_hits([target], {'gone-token': 'kept'}, set()) == []
 
 
 def test_the_line_number_survives_a_blanked_url(tmp_path):
     """The URL is blanked in place rather than cut, so offsets — and line numbers — still hold."""
     target = tmp_path / 'notes.md'
     target.write_text('https://example.com/gone-token\n\nreal gone-token here\n', encoding='utf-8', newline='\n')
-    hits = entropy_ledger.retired_hits([target], {'gone-token': 'kept'}, set())
+    hits = entropy_list.retired_hits([target], {'gone-token': 'kept'}, set())
     assert len(hits) == 1 and 'line 3' in hits[0]

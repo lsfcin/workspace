@@ -14,21 +14,21 @@ from header import header_fields
 from hoist import hoist, md_blurb
 
 # An open item is a NUMBERED one — `1.`, `10b.` — which is the shape a roadmap actually uses and
-# the same one entropy_ledger.TICKED_ITEM recognises. Counting `[slug]` instead would have read
+# the same one entropy_list.TICKED_ITEM recognises. Counting `[slug]` instead would have read
 # most fronts as empty: the bracketed id is optional and most items carry prose alone.
 #
 # THE MARK IS PART OF THE SHAPE, and every pattern in this file requires it for one reason: a
 # numbered line in prose looks exactly like an item, and a marked one does not. Without it these
-# matched `1. **Fold**` — a nested sub-step inside one ledger item — and the two numbered rules
+# matched `1. **Fold**` — a nested sub-step inside one list item — and the two numbered rules
 # inside a legibility front's opening paragraph, so the index advertised 6 open where 4 were and 8
 # where 6 were (corrected 2026-08-19). ROADMAP.md § How to read this requires the mark on every item.
 ITEM = re.compile(r'^\d+[a-z]?\.[ \t]*[🔴🟡🟢]', re.M)
-# The marker counts only in ITEM position. A bare substring count read 13 where the ledger holds
+# The marker counts only in ITEM position. A bare substring count read 13 where the list holds
 # 12, because one part has a sentence ABOUT the count with the marker inside it — the same
 # confusion between a mark and a mention that made the hand-kept count wrong four times.
 LUCAS_ITEM = re.compile(r'^[ \t]*\d+[a-z]?\.[ \t]*🔴', re.M)
-# The optional id, when an item declares one. Narrower than entropy_ledger's copy on purpose: an
-# index only needs to NAME items, never to decide whether two ledgers claim the same one.
+# The optional id, when an item declares one. Narrower than entropy_list's copy on purpose: an
+# index only needs to NAME items, never to decide whether two lists claim the same one.
 SLUG = re.compile(r'^\s*(?:[-*>]+\s*)*(?:\d+[a-z]?\.\s*)?(?:\[[ xX]\]\s*)*[^\S\n]*'
                   r'(?:[🔴🟡🟢]\s*)?\**`?\[([a-z0-9][a-z0-9-]+)\](?!\()', re.M)
 EMPTY_CELL = {'—', '-', ''}

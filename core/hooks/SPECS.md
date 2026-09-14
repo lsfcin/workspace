@@ -147,7 +147,7 @@ span, and every reader asks it rather than spelling the markers. A finding there
 hand-editing one is forbidden outright — so reporting it is reporting what nobody can act on. Five
 checks learned that separately on 2026-09-11, all on `ISSUES.md`'s quoted red-suite log.
 
-**Finished-work writing is blocked on what a commit adds.** `entropy/entropy_ledger.py` carries the
+**Finished-work writing is blocked on what a commit adds.** `entropy/entropy_list.py` carries the
 detector and `checks/type-gate.py` calls it on `staged_added_files()`, so a file **arriving** with a
 dead item is rejected while the inherited queue stays the dashboard's, under
 `test_corpus_ratchet.py`'s ceiling. That split is the rule for every Tier 0 check here: **a gate that

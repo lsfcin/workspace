@@ -53,7 +53,7 @@ def test_needs_lucas_is_counted_not_declared(tmp_path) -> None:
 
 
 def test_a_sentence_about_the_marker_is_not_a_marked_item(tmp_path) -> None:
-    """Caught on the first real run: a bare count read 13 where the ledger holds 12, because one
+    """Caught on the first real run: a bare count read 13 where the list holds 12, because one
     part carries a sentence ABOUT the count with the marker inside it. Mark versus mention is
     exactly the confusion that made the hand-kept number wrong four times."""
     (tmp_path / 'ROADMAP.md').write_text('# I\n> i.\n', encoding='utf-8', newline='\n')

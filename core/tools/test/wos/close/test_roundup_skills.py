@@ -127,7 +127,7 @@ def test_the_template_caps_what_it_repeats():
     ROADMAP.md. The caps are the fix; losing them is how it grows back."""
     assert '≤3 bullets' in HANDOFF_SKILL
     assert re.search(r'≤2 files', HANDOFF_SKILL)
-    assert 'no ledger already holds' in HANDOFF_SKILL
+    assert 'no list already holds' in HANDOFF_SKILL
 
 
 def test_both_skills_agree_on_which_phase_promotes():

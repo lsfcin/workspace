@@ -20,7 +20,7 @@ HEAD = ('| Path | Remote | Drive |', '|------|--------|-------|')
 def declared(root: Path) -> set:
     """Project paths as .gitignore declares them — the key column's independent source.
 
-    The parse rule itself is entropy_corpus.declared_projects, which the pre-commit's ledger stage
+    The parse rule itself is entropy_corpus.declared_projects, which the pre-commit's list stage
     asks the same question of. A second copy here is where the two would start disagreeing about
     what a project is.
     """

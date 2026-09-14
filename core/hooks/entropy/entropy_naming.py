@@ -8,7 +8,7 @@
 #
 # "Full words, not truncations" is NOT here: it is undecidable in general, so it is
 # enforced by declaration instead — core/SCHEMA.md § Retired tokens, checked by
-# entropy_ledger.py. A truncation becomes catchable the moment someone retires it.
+# entropy_list.py. A truncation becomes catchable the moment someone retires it.
 import re
 import sys
 from pathlib import Path
@@ -117,7 +117,7 @@ def untracked_routing_targets(files: list, root: Path) -> list:
                 continue
             if not target.is_file() or owning_repo(target, root) != root.resolve():
                 # A broken link, another repo's file, or a bare directory. The first is
-                # test_pointer_integrity's, the second is that repo's own ledger's, and git has
+                # test_pointer_integrity's, the second is that repo's own list's, and git has
                 # no object for the third — none of them is a routing table carrying a lie.
                 continue
             findings.append(

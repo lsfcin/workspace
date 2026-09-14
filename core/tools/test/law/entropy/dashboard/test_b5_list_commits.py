@@ -1,13 +1,13 @@
-# B5 regression — the ledger's writer owns its artifact, so a written ledger is never left loose.
+# B5 regression — the list's writer owns its artifact, so a written list is never left loose.
 #
-# 26 nested repos carried untracked ISSUES.md ledgers nobody ever committed: invisible to clones,
+# 26 nested repos carried untracked ISSUES.md lists nobody ever committed: invisible to clones,
 # to history, and to anyone who did not run the dashboard locally — the findings were addressed to
 # readers who could not see them. That is the law, and it still holds.
 #
 # WHAT CHANGED 2026-09-04 (Lucas's ruling): the writer is no longer the workspace root reaching in
-# from outside. The root used to scan every nested repo and commit a ledger into each one behind
+# from outside. The root used to scan every nested repo and commit a list into each one behind
 # the session — commits nobody typed, so nobody pushed them
-# (b20260831-scattered-ledgers-never-push). Now each repo's OWN pre-commit writes its own ledger
+# (b20260831-scattered-lists-never-push). Now each repo's OWN pre-commit writes its own list
 # and STAGES it, so it rides the commit the operator is already making: one repo, one session, one
 # commit, and no artifact left loose. The push half of that ruling lives in core/tools/wos/roundup.
 import os
@@ -45,29 +45,29 @@ def _commit(repo: Path) -> Commit:
     return Commit(root=WORKSPACE_ROOT, toplevel=repo, staged=['file.py'])
 
 
-def test_the_repo_writes_its_own_ledger_and_stages_it(tmp_path):
+def test_the_repo_writes_its_own_list_and_stages_it(tmp_path):
     """Written AND staged, in one stage: an artifact the writer leaves loose is B5 all over again."""
     repo = _repo(tmp_path)
-    generators.ledger(_commit(repo))
+    generators.issues(_commit(repo))
 
-    ledger = repo / 'ISSUES.md'
-    assert ledger.is_file(), 'the repo wrote no ledger of its own'
+    issues = repo / 'ISSUES.md'
+    assert issues.is_file(), 'the repo wrote no issues of its own'
     staged = _git(repo, 'diff', '--cached', '--name-only').stdout.split()
-    assert 'ISSUES.md' in staged, 'the ledger was written and left out of the commit under way'
+    assert 'ISSUES.md' in staged, 'the issues was written and left out of the commit under way'
 
 
-def test_the_ledger_says_it_is_about_this_repo(tmp_path):
-    """Each ledger reports ITS OWN repo. A local file stating a workspace-wide total was the
+def test_the_list_says_it_is_about_this_repo(tmp_path):
+    """Each list reports ITS OWN repo. A local file stating a workspace-wide total was the
     self-description failure this scatter was rebuilt to end."""
     repo = _repo(tmp_path)
-    generators.ledger(_commit(repo))
+    generators.issues(_commit(repo))
     text = (repo / 'ISSUES.md').read_text(encoding='utf-8')
     assert 'findings here' in text
     assert 'more across' not in text, 'a repo may not report on repos it cannot see'
 
 
-def test_writing_a_ledger_never_refuses_the_commit(tmp_path):
+def test_writing_a_list_never_refuses_the_commit(tmp_path):
     """Ruled: writes and warns. A gate here would refuse a commit over debt it did not create."""
     repo = _repo(tmp_path)
-    generators.ledger(_commit(repo))  # raising Blocked would fail this test by escaping
-    generators.ledger(_commit(repo))  # and a second run over its own output must be stable too
+    generators.issues(_commit(repo))  # raising Blocked would fail this test by escaping
+    generators.issues(_commit(repo))  # and a second run over its own output must be stable too

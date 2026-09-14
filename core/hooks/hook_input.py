@@ -164,7 +164,7 @@ def mark_seen(session_id: str, path: str) -> None:
 	_mark(session_id, 'ctx_seen', path)
 
 
-# The interface marker is the same session-scoped ledger one store over, and it lived privately in
+# The interface marker is the same session-scoped list one store over, and it lived privately in
 # read/context-tracker.py — which no gate can import, because a hyphen is not an identifier. That is
 # the whole reason context-tracker grew a query CLI arm, now deleted with the shell caller that
 # needed it. Beside its twin, both readers just call it. The facade pair is the third of the same

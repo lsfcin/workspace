@@ -132,7 +132,7 @@ wazip	tools	on-demand	-	none	general	core/tools/chat/wazip	Turns an exported cha
 asset-inspect	tools	on-demand	-	none	general	core/tools/assets/inspect	Interface stubs for non-code assets, so an image or a CSV is readable without opening it
 caveman	skills	automatic	caveman	none	lucas	core/skills/caveman/hooks/config.js	Compresses the agent's own prose by roughly 65% without touching technical content, and goes off with a sentence when precision matters
 craft	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.py	Develops a feature in file-relayed loops with model autorouting, so a plan carries its own model assignment instead of leaving routing to recall at execution time
-roundup	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.py	Drains the session's ledgers into durable files and promotes the branch, so a session's knowledge survives it and no repo idles on an open branch
+roundup	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.py	Drains the session's lists into durable files and promotes the branch, so a session's knowledge survives it and no repo idles on an open branch
 handoff	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.py	Writes the next session's opening prompt, and refuses when there is nothing open
 inbox	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.py	Routes every INBOX entry to a goal, task, reference or project doc, which is what makes capture free without making the queue permanent
 compass	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.py	The strategic review: what has wind, what to reorder, what to ditch guilt-free
@@ -156,6 +156,6 @@ language	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A word th
 edit	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Refining an existing file beats adding one, so the tree stops scattering and the same idea stops living in three places
 cap	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A file over the cap is cut down rather than split into siblings, so growth turns into deletion instead of into more files
 symmetry	norms	automatic	-	advises	general	core/hooks/routing/norms.py	An asymmetry that is written down gets fixed; one that is merely noticed becomes the next category error
-deletion	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A ledger holds only what is still open, so its length is a real measure of remaining work
+deletion	norms	automatic	-	advises	general	core/hooks/routing/norms.py	A list holds only what is still open, so its length is a real measure of remaining work
 dogfood	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Our own tools get used and therefore get good, instead of decaying beside a hand-rolled alternative
 reduce	norms	automatic	-	advises	general	core/hooks/routing/norms.py	Cada sessão devolve o workspace menor do que achou, então crescer vira uma decisão do Lucas em vez de um efeito colateral

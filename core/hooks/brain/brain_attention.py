@@ -94,7 +94,7 @@ def governing_repo(rel_path):
 
 
 def _is_bookkeeping(paths):
-    """True when a commit only rearranged the ledger that records attention.
+    """True when a commit only rearranged the list that records attention.
 
     Reads *what changed*, never the commit message, so no amount of commit-style
     discipline (or its absence) can move a goal's number.

@@ -47,16 +47,16 @@ def test_a_lettered_subitem_is_a_hit(tmp_path):
 
 
 def test_a_roadmap_may_number_its_own_items(tmp_path):
-    ledger = tmp_path / 'ROADMAP.md'
-    ledger.write_text('See Front 4.1 above.\n', encoding='utf-8', newline='\n')
-    assert entropy_citations.citation_hits([ledger], set()) == []
+    roadmap = tmp_path / 'ROADMAP.md'
+    roadmap.write_text('See Front 4.1 above.\n', encoding='utf-8', newline='\n')
+    assert entropy_citations.citation_hits([roadmap], set()) == []
 
 
 def test_a_scoped_roadmap_may_too(tmp_path):
     """ROADMAP-<slug>.md is the same type wearing a scope suffix, so it carries the same right."""
-    ledger = tmp_path / 'ROADMAP-verify.md'
-    ledger.write_text('Advances Front 3.1.\n', encoding='utf-8', newline='\n')
-    assert entropy_citations.citation_hits([ledger], set()) == []
+    roadmap = tmp_path / 'ROADMAP-verify.md'
+    roadmap.write_text('Advances Front 3.1.\n', encoding='utf-8', newline='\n')
+    assert entropy_citations.citation_hits([roadmap], set()) == []
 
 
 def test_a_lookalike_name_is_not_a_roadmap(tmp_path):
@@ -68,9 +68,9 @@ def test_a_lookalike_name_is_not_a_roadmap(tmp_path):
 
 def test_the_retired_spelling_is_a_hit_even_in_a_roadmap(tmp_path):
     """The number exemption is for the current spelling only — a rename must reach everywhere."""
-    ledger = tmp_path / 'ROADMAP.md'
-    ledger.write_text('See Frente 4.1 above.\n', encoding='utf-8', newline='\n')
-    hits = entropy_citations.citation_hits([ledger], set())
+    roadmap = tmp_path / 'ROADMAP.md'
+    roadmap.write_text('See Frente 4.1 above.\n', encoding='utf-8', newline='\n')
+    hits = entropy_citations.citation_hits([roadmap], set())
     assert len(hits) == 1
     assert 'renamed to `Front`' in hits[0]
 

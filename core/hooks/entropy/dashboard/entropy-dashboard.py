@@ -34,7 +34,7 @@ from entropy_corpus import (enforcement_paths, tracked_files,  # noqa: E402
                             wiki_exempt_paths)
 from entropy_crowding import crowding_signals  # noqa: E402
 from entropy_fields import field_hits  # noqa: E402
-from entropy_ledger import (duplicate_slugs, finished_work_hits,  # noqa: E402
+from entropy_list import (duplicate_slugs, finished_work_hits,  # noqa: E402
                             goal_vocabulary, retired_hits,
                             unanswered_placeholders, wiki_link_hits)
 from entropy_naming import (check_dirs, check_placement,  # noqa: E402
@@ -59,9 +59,9 @@ sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 # owns the block, never the file.
 REPORT = WORKSPACE_ROOT / 'ISSUES.md'
 
-LEDGERS = {
-    # Every part of the wos ledger is ONE namespace: criterion 2 forbids the same item in two
-    # ledgers, and cutting a ledger does not make its own parts rivals.
+LISTS = {
+    # Every part of the wos list is ONE namespace: criterion 2 forbids the same item in two
+    # lists, and cutting a list does not make its own parts rivals.
     'wos-roadmap': [WORKSPACE_ROOT / 'ROADMAP.md',
                     *sorted(WORKSPACE_ROOT.glob('ROADMAP-*.md'))],
     'core-roadmap': [WORKSPACE_ROOT / 'core/ROADMAP.md'],
@@ -119,10 +119,10 @@ def collect(files: list, repo: Path = WORKSPACE_ROOT, promoting: str = '') -> di
     findings['wiki'] = wiki_link_hits(
         files, goal_vocabulary(WORKSPACE_ROOT / 'brain/goals'),
         wiki_exempt_paths(WORKSPACE_ROOT))
-    # The workspace's own ledgers. A nested project has its own and does not answer for these.
+    # The workspace's own lists. A nested project has its own and does not answer for these.
     findings['duplicates'] = [f'`[{slug}]` claimed by {", ".join(sorted(claims))}'
                               for slug, claims in duplicate_slugs(
-                                  LEDGERS if repo == WORKSPACE_ROOT else {}).items()]
+                                  LISTS if repo == WORKSPACE_ROOT else {}).items()]
     findings['routing'] = untracked_routing_targets(files, repo)
     findings['size'] = size_signals(files)
     findings['stubs'] = stub_signals(files)
@@ -157,7 +157,7 @@ def main(argv: list | None = None) -> int:
     # about to stop being true. Only a session close can answer this, so the default is no branch
     # and a bare run reports every branch that is ahead — see branch_debt.unmerged_branches.
     promoting = args[args.index('--promoting') + 1] if '--promoting' in args else ''
-    ledger = repo / 'ISSUES.md'
+    issues = repo / 'ISSUES.md'
     files = tracked_files(repo, nested=False)
     findings = collect(files, repo, promoting)
     here = sum(len(findings[k]) for k, _, _ in SECTIONS)
@@ -168,11 +168,11 @@ def main(argv: list | None = None) -> int:
     block = render(findings, len(files), repo, name=name, trend=trend)
     seed = SEED if repo == WORKSPACE_ROOT else local_seed(name)
     if not dry_run:
-        text = ledger.read_text(encoding='utf-8') if ledger.exists() else seed
-        ledger.write_text(replace_block(text, block, START, END, at_end=not ledger.exists()),
+        text = issues.read_text(encoding='utf-8') if issues.exists() else seed
+        issues.write_text(replace_block(text, block, START, END, at_end=not issues.exists()),
                           encoding="utf-8", newline='\n')
     status = '[dry-run] ' if dry_run else ''
-    print(f'entropy {status}→ {_rel(ledger)} ({here} findings, {len(files)} files scanned)')
+    print(f'entropy {status}→ {_rel(issues)} ({here} findings, {len(files)} files scanned)')
     return 0
 
 

@@ -27,7 +27,7 @@ def kind_of(path: str) -> str:
 	if path.endswith(STUB_SUFFIXES):
 		return 'interface stub'
 	# `'ROADMAP.md'.isupper()` is False — the extension is lowercase — so the type check is on the
-	# stem. Without it every ledger read was filed under 'prose' and the most expensive file in the
+	# stem. Without it every list read was filed under 'prose' and the most expensive file in the
 	# workspace hid inside the largest bucket.
 	if name.endswith('.md'):
 		return 'other UPPERCASE.md' if name.split('.')[0].isupper() else 'prose'

@@ -92,9 +92,9 @@ Git Flow is enforced alongside (`core/hooks/git/gitflow_gate.py`, pre-commit 1e;
   into the module's SPEC.md and sets `status: locked` before deleting `.craft/` (durable per-module
   contract). Loop 3's second-opinion verifier already audits criteria-coverage.
 
-### P4 — Ratchet propagation + ledger ✅ 2026-07-17
+### P4 — Ratchet propagation + list ✅ 2026-07-17
 - `_templates/CONTEXT.md` ships `> spec:` (default `none`, opt-in lock) so new projects are born aware.
-- `core/tools/spec-scan` — the coverage ledger (`locked|draft|MISSING|optout|none` per module). Baseline
+- `core/tools/spec-scan` — the coverage list (`locked|draft|MISSING|optout|none` per module). Baseline
   at rollout: **1/88 locked** (spacemantics/dsl), 87 grandfathered.
 - Hook table + coverage table rows (ENFORCED) — now `core/hooks/SPECS.md`.
 
@@ -148,4 +148,4 @@ Sequence the 116 grandfathered modules by contact frequency, not by directory or
 | Date | Event |
 |------|-------|
 | 2026-07-17 | Plan approved (ratchet enforcement, spacemantics/dsl pilot). P0+P1+P3+P4 shipped; P2 convention set, extractor deferred. Gates live + tested in 3 runtimes. Baseline coverage 1/88. |
-| 2026-08-17 | **Resumed by ruling, not drifted into.** Coverage 9/125 (7%), all growth from one `/craft` run on `aiwbot/frontend`. Target set to enforce-on-contact; P5a (SPEC v1: WHAT/WHY, rounds, result sketch, research pass) gates P5b (arm the block). The wos ledger's decision item is closed and deleted — this file owns the work now. |
+| 2026-08-17 | **Resumed by ruling, not drifted into.** Coverage 9/125 (7%), all growth from one `/craft` run on `aiwbot/frontend`. Target set to enforce-on-contact; P5a (SPEC v1: WHAT/WHY, rounds, result sketch, research pass) gates P5b (arm the block). The wos list's decision item is closed and deleted — this file owns the work now. |

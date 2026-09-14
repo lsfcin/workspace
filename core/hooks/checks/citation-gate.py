@@ -40,10 +40,10 @@ CITATION = re.compile(r'(?<!\w)Front \d+(?:\.\d+[a-z]?)?(?!\w)')
 # finished only when the old spelling appears nowhere.
 RETIRED_SPELLING = re.compile(r'(?<!\w)Frente \d+(?:\.\d+[a-z]?)?(?!\w)')
 
-# The ledger family may number its own items: that is what numbering is FOR, and a commit
+# The list family may number its own items: that is what numbering is FOR, and a commit
 # message may cite one too, because git keeps commits forever. Matched on filename, not path,
 # so a `ROADMAP-<slug>.md` in any repo under the workspace is covered without enumeration.
-LEDGER_NAMES = re.compile(r'^ROADMAP(-[a-z0-9-]+)?\.md$')
+LIST_NAMES = re.compile(r'^ROADMAP(-[a-z0-9-]+)?\.md$')
 
 # THE SECOND DEAD POINTER, the same defect wearing numbers. `core/hooks/limits.env` owns every
 # numeric limit and `file_law.py` is its only parser, because a checker that restates the law is
@@ -135,7 +135,7 @@ def citation_hits(files: list, exempt: set) -> list:
                 f'   core/SCHEMA.md § Vocabulary.\n'
                 f'   Rename it, then apply the rule below: a number is legal only in ROADMAP*.md.')
             continue
-        if LEDGER_NAMES.match(path.name):
+        if LIST_NAMES.match(path.name):
             continue
         if match := CITATION.search(text):
             line = text[:match.start()].count('\n') + 1
