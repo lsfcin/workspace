@@ -34,7 +34,7 @@ from entropy_corpus import (enforcement_paths, tracked_files,  # noqa: E402
                             wiki_exempt_paths)
 from entropy_crowding import crowding_signals  # noqa: E402
 from entropy_fields import field_hits  # noqa: E402
-from entropy_list import (duplicate_slugs, finished_work_hits,  # noqa: E402
+from entropy_list import (duplicate_ids, finished_work_hits,  # noqa: E402
                             goal_vocabulary, retired_hits,
                             unanswered_placeholders, wiki_link_hits)
 from entropy_naming import (check_dirs, check_placement,  # noqa: E402
@@ -120,8 +120,8 @@ def collect(files: list, repo: Path = WORKSPACE_ROOT, promoting: str = '') -> di
         files, goal_vocabulary(WORKSPACE_ROOT / 'brain/goals'),
         wiki_exempt_paths(WORKSPACE_ROOT))
     # The workspace's own lists. A nested project has its own and does not answer for these.
-    findings['duplicates'] = [f'`[{slug}]` claimed by {", ".join(sorted(claims))}'
-                              for slug, claims in duplicate_slugs(
+    findings['duplicates'] = [f'`[{item_id}]` claimed by {", ".join(sorted(claims))}'
+                              for item_id, claims in duplicate_ids(
                                   LISTS if repo == WORKSPACE_ROOT else {}).items()]
     findings['routing'] = untracked_routing_targets(files, repo)
     findings['size'] = size_signals(files)

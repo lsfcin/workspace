@@ -15,11 +15,11 @@ SETUP = WORKSPACE_ROOT / 'SETUP.md'
 DEPS = WORKSPACE_ROOT / 'core' / 'tools' / 'deps.txt'
 
 
-def _setup_slugs():
+def _setup_names():
     return set(re.findall(r'^> feature: `([a-z0-9-]+)`', SETUP.read_text(encoding='utf-8'), re.M))
 
 
-def _deps_slugs():
+def _deps_names():
     lines = [ln for ln in DEPS.read_text(encoding='utf-8').splitlines()
              if ln.strip() and not ln.startswith('#')]
     header = lines[0].split('\t')
@@ -27,51 +27,51 @@ def _deps_slugs():
 
 
 def test_every_setup_step_maps_to_a_declared_feature():
-    """SETUP.md's slugs are install-shaped, so they join on the `install` column.
+    """SETUP.md's names are install-shaped, so they join on the `install` column.
 
     This is half of what keeps three files one vocabulary instead of three. Adding an install step
-    with a new slug fails here until the registry says which feature that step installs.
+    with a new name fails here until the registry says which feature that step installs.
     """
     installs = {r['install'] for r in law.load_registry()} - {'-', ''}
-    missing = sorted(_setup_slugs() - installs)
+    missing = sorted(_setup_names() - installs)
     assert not missing, (
         'SETUP.md declares install steps no registry row claims:\n  ' + '\n  '.join(missing))
 
 
 def test_every_dependency_feature_is_a_declared_feature():
-    """deps.txt's slugs are breakage-shaped: each names a feature, so they join on `slug`."""
-    missing = sorted(_deps_slugs() - law.slugs())
+    """deps.txt's names are breakage-shaped: each names a feature, so they join on `name`."""
+    missing = sorted(_deps_names() - law.names())
     assert not missing, (
         'core/tools/deps.txt names features absent from core/features.txt:\n  ' +
         '\n  '.join(missing))
 
 
-def test_a_skill_slug_names_the_skill_file():
-    """A slug and the file it governs carry the same name (Lucas, 2026-08-17).
+def test_a_skill_name_names_the_skill_file():
+    """A name and the file it governs carry the same name (Lucas, 2026-08-17).
 
-    Only the skills group can be checked this way — a hook's slug names a behavior spread over
-    several files, not one path. The failure this catches is the one that produced it: the slug
+    Only the skills group can be checked this way — a hook's name names a behavior spread over
+    several files, not one path. The failure this catches is the one that produced it: the name
     was `craft-flow`, the file was `loops.md`, and the flow was `craft`, so nothing disagreed
     with anything *adjacent* and the drift stayed legible at every single site.
     """
     skills = WORKSPACE_ROOT / 'core' / 'skills'
-    orphans = [r['slug'] for r in law.load_registry() if law.groups(r) == ['skills']
-               and not (skills / f"{r['slug']}.md").exists()
-               and not (skills / r['slug']).is_dir()]
+    orphans = [r['name'] for r in law.load_registry() if law.groups(r) == ['skills']
+               and not (skills / f"{r['name']}.md").exists()
+               and not (skills / r['name']).is_dir()]
     assert not orphans, (
-        'these skill slugs name no file in core/skills/:\n  ' + '\n  '.join(orphans))
+        'these skill names name no file in core/skills/:\n  ' + '\n  '.join(orphans))
 
 
 def test_every_row_is_complete_and_in_its_closed_set():
     for row in law.load_registry():
-        assert law.groups(row), f"{row['slug']} names no layer"
+        assert law.groups(row), f"{row['name']} names no layer"
         for group in law.groups(row):
             assert group in law.GROUPS, row
         assert row['runs'] in law.RUNS, row
         assert row['enforcement'] in law.ENFORCEMENT, row
         assert row['scope'] in law.SCOPES, row
         assert len(row['buys'].split()) >= 8, (
-            f"{row['slug']}'s `buys` must say what the feature buys you, not restate its name — "
+            f"{row['name']}'s `buys` must say what the feature buys you, not restate its name — "
             'nobody accepts an enforcement layer whose value they cannot see')
 
 
@@ -84,15 +84,15 @@ def test_runs_is_not_recoverable_from_enforcement():
     the ambiguity that made a reader of this registry report its capability layer as dead weight.
     """
     rows = law.load_registry()
-    quiet = [r['slug'] for r in rows if r['runs'] == 'automatic' and r['enforcement'] == 'none']
-    called = [r['slug'] for r in rows if r['runs'] == 'on-demand' and r['enforcement'] != 'none']
+    quiet = [r['name'] for r in rows if r['runs'] == 'automatic' and r['enforcement'] == 'none']
+    called = [r['name'] for r in rows if r['runs'] == 'on-demand' and r['enforcement'] != 'none']
     assert quiet, 'no automatic feature enforces nothing — did `runs` get derived from enforcement?'
     assert called, 'no on-demand feature pushes — did `runs` get derived from enforcement?'
 
 
 def test_every_declared_feature_has_an_answer():
-    """A slug added to the registry and never answered would default silently to on."""
-    declared, answered = law.slugs(), set(law.load_profile()['toggle'])
+    """A name added to the registry and never answered would default silently to on."""
+    declared, answered = law.names(), set(law.load_profile()['toggle'])
     assert declared == answered, (
         f'unanswered: {sorted(declared - answered)}\n'
         f'answered but undeclared: {sorted(answered - declared)}')

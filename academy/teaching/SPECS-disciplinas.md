@@ -50,34 +50,37 @@
 
 ---
 
-## 3. anatomia das entregas (materiais e métodos)
+## 3. anatomia das entregas (metodologia e materiais)
 
-toda entrega (checkpoint) de disciplina é direcionada por dois documentos canônicos (materiais e métodos), gerados a partir de modelos-base em markdown (.md) estruturados por artefatos:
+toda entrega (checkpoint) de disciplina é direcionada por dois documentos canônicos (metodologia e materiais), gerados a partir de modelos-base em markdown (.md) estruturados por artefatos:
 
-1. **documento de métodos (`templates/template-metodologia.md`):**
-   - Racional pedagógico ancorado (Chão $\to$ Horizonte, Doshi & Hauser).
-   - Guia explícito para IAs & Agentes (harness dos alunos) atuarem como tutores sem dar respostas prontas.
-   - Grafo de dependência entre os artefatos da entrega (entradas e saídas encadeadas).
-   - Pipeline de construção passo a passo por artefato (sprints guiados).
-   - Matriz de critérios de verificação ($A/AP/NA$) alinhada à coluna de verificação da planilha.
-2. **Documento de Materiais (`templates/template-materiais.md`):**
-   - **Modelo (Starter Kit):** Template com lacunas estruturadas para cada artefato exigido.
-   - **Exemplo Positivo (Excelente):** Referência que cumpre a régua, acompanhada das anotações críticas do professor
-     explicando o porquê do mérito.
-   - **Exemplo Negativo (Fraco / Superficial / Irreal):** Referência com erros típicos e armadilhas frequentes,
-     acompanhada das anotações críticas explicando por que seria reprovado / $NA$.
+1. **metodologia (`templates/template-metodologia.md`):**
+   - grafo de dependência entre os artefatos da entrega (entradas e saídas encadeadas).
+   - para cada artefato a ser produzido:
+      - racional pedagógico ancorado (Chão $\to$ Horizonte, Doshi & Hauser).
+      - entrada, o que precisa estar pronto antes de começar.
+      - etapas, construção passo a passo por artefato a ser produzido naquela entrega.
+      - saída, o que é esperado do produto, qual sua utilidade.
+2. **materiais (`templates/template-materiais.md`):**
+   - para cada artefato a ser produzido:
+      - **modelo:** material de modelo com espaços / lacunas estruturadas com conteúdo guia indicando como deve ser preenchido.
+      - **exemplo excelente:** versão do modelo preenchido de forma excelente, gerado através dos passos indicados na metodologia.
+      - **exemplo que parece bom mas não é:** versão do modelo preenchido, cumprindo superficialmente o que foi solicitado, alcançando um potencial estado de "entregue" porém sem substância ("sem alma"), entrando na lógica da "educação faz de conta" em que o aluno finge que faz e o professor finge que acredita.
+
+      
 3. **Distribuição, Visualização Rica & Edição Online (Stack Leve):**
    - **Fonte Canônica:** Arquivos `.md` mantidos em `academy/teaching/<disciplina>/` no workspace do professor.
    - **Distribuição (Cloudflare Pages):** Espelhamento estático no repositório público `lsf-links` (`outputs/links/`).
-   - **Visualização Rica (Humano/Mobile):** `https://lucassf.pages.dev/<disciplina>/<slug>` renderizado pelo
+   - **Visualização Rica (Humano/Mobile):** `https://lucassf.pages.dev/<disciplina>/<name>` renderizado pelo
      visualizador nativo (`viewer.js` + `viewer.css` + `marked.min.js`), com suporte a alertas GitHub, tabelas
      responsivas e tema dark/light, sem dependências de CDN externa.
-   - **Visualização Direta (IAs/Harnesses):** `https://lucassf.pages.dev/<disciplina>/<slug>.md` (ou botão "Copiar p/
+   - **Visualização Direta (IAs/Harnesses):** `https://lucassf.pages.dev/<disciplina>/<name>.md` (ou botão "Copiar p/
      Agente (RAW)" no topo da página), permitindo ingestão via `curl -s` ou cópia com 1 clique.
    - **Edição Online (Zero Custo / Zero Limites):** Botão "Editar (github.dev)" na barra superior, abrindo o VS Code no
      navegador diretamente no arquivo no GitHub. Commits vão direto para a branch `main` e o Cloudflare Pages
      atualiza em segundos.
 
+   - Guia explícito para IAs & Agentes (harness dos alunos) atuarem como tutores sem dar respostas prontas.
 ---
 
 ## 4. Acompanhamento & Maestria ("XP Sério")

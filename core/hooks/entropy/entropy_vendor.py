@@ -19,7 +19,7 @@ import re
 # discriminator: the directive is bold, the data never is.
 DIRECTIVE = re.compile(r'\*\*model:\s*([^*]+)\*\*')
 
-# Which files are lists, by NAME rather than by path, so a ROADMAP-<slug>.md in any repo under
+# Which files are lists, by NAME rather than by path, so a ROADMAP-<name>.md in any repo under
 # the workspace is covered without enumeration. Same rule as checks/citation-gate.py.
 LIST_NAME = re.compile(r'^ROADMAP(-[a-z0-9-]+)?\.md$')
 

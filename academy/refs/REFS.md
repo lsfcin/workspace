@@ -1,5 +1,5 @@
 # References
-> Level-1 capture: one line per ref. Promote to a paper's own `refs/<slug>.yaml` when it becomes a citation.
+> Level-1 capture: one line per ref. Promote to a paper's own `refs/<name>.yaml` when it becomes a citation.
 
 - [van Clief paper — arxiv 2603.16021](https://arxiv.org/pdf/2603.16021) — study (agent/folder methodology)
 - [Claude Code design space — arxiv 2604.14228](https://arxiv.org/pdf/2604.14228) — agent design space

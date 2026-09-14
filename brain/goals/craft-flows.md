@@ -17,7 +17,7 @@ transformative · essential · thrilled
 > aposentadas estão em § *Retired tokens* e são verificadas por hook. Os flows vivem em
 > [`core/flows/craft/`](../../core/flows/craft/CONTEXT.md), executados por `craft-{low,medium,high}`.
 > **A renomeação fechou em 2026-08-20**: a skill virou `/craft` em 2026-08-17 e o dir de estado
-> virou `.craft/<slug>/`. Ambas as grafias aposentadas já têm linha na tabela § *Retired tokens*,
+> virou `.craft/<name>/`. Ambas as grafias aposentadas já têm linha na tabela § *Retired tokens*,
 > então a volta do termo agora quebra o build em vez de virar entropia.
 
 ## selected next achievement
@@ -52,7 +52,7 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 > openrouter em paralelo com uma run Claude Code; comparar verdicts/files; decidir: ajustar plugin OU trocar provider OU
 > scope /craft ao Claude Code só. Dados: NENHUMA run `.craft/` em opencode hoje (todos os executor: tags são
 > craft-low/medium/high/claude-fable-5 via Claude Code)  
-> [ ] [A3] adicionar `.craft/<slug>/STATUS.md` por chain (active | blocked-flag-pending-user | abandoned | shipped) —
+> [ ] [A3] adicionar `.craft/<name>/STATUS.md` por chain (active | blocked-flag-pending-user | abandoned | shipped) —
 > Loop 0 cria, Loop 6 muta; `/craft --status` = `cat code/*/.craft/*/STATUS.md`. Motivação:
 > `isoroll-module/.craft/floor-fog-spike` e `.craft/painter-mvp-1` pararam sem 6-ship e sem status visível
 > [ ] [B1] second-opinion verifier em Loop 3 + Loop 6 (sessão fresh haiku, retorna `OK crit-covered:` | `GAP <id>`).
@@ -131,5 +131,5 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 64/90/130/130/130/130
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 65/91/131/131/131/131
 <!-- stats:end -->

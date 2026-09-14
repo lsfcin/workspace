@@ -27,7 +27,7 @@ def _split(points: list) -> tuple:
     Drawing 43 of them is the wallpaper this view exists to replace, so they are COUNTED rather
     than dropped — a collapsed tail states the same total, and the reader can see nothing is hidden.
     """
-    hubs = [(point, slugs) for point, slugs in points if len(slugs) >= HUB_MIN]
+    hubs = [(point, names) for point, names in points if len(names) >= HUB_MIN]
     return hubs, len(points) - len(hubs)
 
 
@@ -37,17 +37,17 @@ def _curve(y_from: float, y_to: float) -> str:
             f'{x1 - LINK_W * 0.45:.1f} {y_to:.1f} {x1} {y_to:.1f}" />')
 
 
-def _hub(point: str, slugs: list, top: float) -> tuple:
+def _hub(point: str, names: list, top: float) -> tuple:
     """One hub: its features on the left, converging into the file that switches them all off."""
-    height = ROW * len(slugs)
+    height = ROW * len(names)
     centre = top + height / 2
-    out = [_curve(top + ROW * i + ROW / 2, centre) for i in range(len(slugs))]
+    out = [_curve(top + ROW * i + ROW / 2, centre) for i in range(len(names))]
     out += [f'<text class="feat" x="{LABEL_W - 8}" y="{top + ROW * i + ROW / 2 + 4:.1f}">'
-            f'{escape(slug)}</text>' for i, slug in enumerate(slugs)]
+            f'{escape(name)}</text>' for i, name in enumerate(names)]
     out.append(f'<g class="hub"><title>{escape(point)}</title>'
-               f'<circle cx="{LABEL_W + LINK_W}" cy="{centre:.1f}" r="{3 + len(slugs) ** 0.5:.1f}"/>'
+               f'<circle cx="{LABEL_W + LINK_W}" cy="{centre:.1f}" r="{3 + len(names) ** 0.5:.1f}"/>'
                f'<text class="hub" x="{LABEL_W + LINK_W + 12}" y="{centre + 4:.1f}">'
-               f'{escape(point)} <tspan class="cnt">{len(slugs)}</tspan></text></g>')
+               f'{escape(point)} <tspan class="cnt">{len(names)}</tspan></text></g>')
     return '\n'.join(out), height
 
 
@@ -61,8 +61,8 @@ def render_graph(points: list, dangling: list) -> str:
     """
     hubs, tail = _split(points)
     body, y = [], float(PAD)
-    for point, slugs in hubs:
-        drawn, height = _hub(point, slugs, y)
+    for point, names in hubs:
+        drawn, height = _hub(point, names, y)
         body.append(drawn)
         y += height + HUB_GAP
     for text, klass in ((f'{tail} further points, one feature each', 'tail'),
@@ -86,10 +86,10 @@ def render_bars(points: list, dangling: list, grain: str) -> str:
     feature spans layers — `latex` is one row and two files in two directories.
     """
     hubs, tail = _split(points)
-    rows = [_bar(point, len(slugs), ', '.join(slugs)) for point, slugs in hubs]
+    rows = [_bar(point, len(names), ', '.join(names)) for point, names in hubs]
     rows.append(_bar(f'{tail} further {grain}s', 1, 'one feature each', klass='bar tail'))
-    for slug in dangling:
-        rows.append(_bar(slug, 0, 'no switch point at all', klass='bar loose'))
+    for name in dangling:
+        rows.append(_bar(name, 0, 'no switch point at all', klass='bar loose'))
     return f'<div class="fbars">{"".join(rows)}</div>'
 
 

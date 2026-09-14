@@ -1,7 +1,7 @@
 # memory
 > What the agent learned across sessions and nothing else records. Harness-written, workspace-owned.
 
-**The harness path is a symlink into here** — `~/.claude/projects/<slug>/memory` →
+**The harness path is a symlink into here** — `~/.claude/projects/<name>/memory` →
 `brain/memory/` — so every memory written by the agent lands in the workspace by construction,
 shows up in `git status`, and can be trimmed like any other file. This gives both properties at
 once: **locality** (the content is in the repo) and **control** (we can edit or delete
@@ -13,7 +13,7 @@ What cannot be controlled is the agent *deciding* to write one. That is fine —
 | File | Role |
 |------|------|
 | `MEMORY.md` | The index. One line per memory; loaded into every session, so its length is a real cost (~1,198 tok — measured, see below). |
-| `<slug>.md` | One fact each, with `name` / `description` / `metadata.type` frontmatter. |
+| `<name>.md` | One fact each, with `name` / `description` / `metadata.type` frontmatter. |
 
 The profile is **not** a file here. It was a symlink to [`../USER.md`](../USER.md) until 2026-09-04,
 and a symlink is a text file on Windows: `core.symlinks=false` gave that clone a 10-byte file whose
@@ -23,7 +23,7 @@ content first, a memory second.
 
 Types are `user` · `feedback` · `reference`. Bodies link to each other with `[[name]]`,
 and a `[[name]]` with no matching file is allowed on purpose: it marks a memory worth writing.
-That is why `test_pointer_integrity` gates `](path)` links here but **not** `[[slug]]` ones.
+That is why `test_pointer_integrity` gates `](path)` links here but **not** `[[name]]` ones.
 
 **Cost, measured rather than assumed:** the index is ~1,198 tok of a ~27.6k session start, less than
 half the skill listing. The long-standing suspicion that this store duplicates `USER.md` + `goals/`

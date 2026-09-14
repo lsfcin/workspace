@@ -29,8 +29,8 @@ _TOOL_TIMEOUT_MS = 3_600_000
 
 def _project_dir(cwd: str) -> pathlib.Path:
     """Claude Code stores a cwd's transcripts under ~/.claude/projects/<cwd, / -> ->."""
-    slug = cwd.replace("/", "-")
-    return pathlib.Path.home() / _PROJECTS / slug
+    name = cwd.replace("/", "-")
+    return pathlib.Path.home() / _PROJECTS / name
 
 
 def _opening_prompt(path: pathlib.Path) -> str:

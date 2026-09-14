@@ -3,7 +3,7 @@
 # branch shape, .md type, citations, gitlink.
 #
 # THREE FEATURES LIVE IN THIS ONE FILE -- verify-contract, verify-suite, project-contract -- so the
-# slug-names-the-file rule cannot apply here and three registry rows name this path. Each switch is
+# name-names-the-file rule cannot apply here and three registry rows name this path. Each switch is
 # read ONCE at the top and treated as a flag, never acted on by returning early from the whole
 # stage: a disabled feature must skip its own section, or it silently takes the sections after it
 # down with it. That was a live bug in the sourced-bash version's shape.
@@ -125,7 +125,7 @@ def _goal_link(commit):
     third = lines[2] if len(lines) > 2 else ''
     if not re.match(GOAL_LINE, third):
         raise Blocked(f"⛔ {commit.toplevel.name}/CONTEXT.md missing '> goal:' link on line 3.\n"
-                      "   Add '> goal: [slug](../../brain/goals/<slug>.md)' or '> goal: none'.")
+                      "   Add '> goal: [name](../../brain/goals/<name>.md)' or '> goal: none'.")
 
 
 def _spec_declaration(commit):

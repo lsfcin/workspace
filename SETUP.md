@@ -58,7 +58,7 @@ is why [`SETUP-compaction.md`](SETUP-compaction.md) § RTK — Claude Code regis
 
 ```bash
 core/run tools/wos/features                 # every feature, grouped, with your answer
-core/run tools/wos/features --off <slug>    # one you do not want; its install step is then moot
+core/run tools/wos/features --off <name>    # one you do not want; its install step is then moot
 ```
 
 ## Verification

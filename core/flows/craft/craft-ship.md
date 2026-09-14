@@ -29,10 +29,10 @@ wrong per intent → `RETURN loop=0 reason=intent-mismatch` (user decides).
 **Level:** low. **Input:** `5-user.md` (or `0-clarify.md` on the padaria path). **Output:** `6-ship.md`.
 
 Verify the working tree contains only in-scope changes (diff vs plan `files` + `.craft/`); update the project
-`ROADMAP.md` line to done with a one-line outcome; delete `.craft/<slug>/` unless `keep-trail: yes`; commit (normal
+`ROADMAP.md` line to done with a one-line outcome; delete `.craft/<name>/` unless `keep-trail: yes`; commit (normal
 writing, project's commit conventions) and push the feature branch. Do not merge — that is the user's call.
 
-**Spec promotion (SDD).** Before deleting `.craft/<slug>/`, if the chain touched a `code/` module, distill its durable
+**Spec promotion (SDD).** Before deleting `.craft/<name>/`, if the chain touched a `code/` module, distill its durable
 contract into the module's `SPEC.md` (create from `code/_templates/module.SPEC.md` if absent): fold the Carry `criteria`
 C1..Cn and Loop 3's `boundaries` into the spec's `## Invariants`/`## Examples`, point `## Examples` at the new tests
 (`4a-tests.md`), and set the `CONTEXT.md` `> spec: SPEC.md` line + `status: locked`. This converts the ephemeral
@@ -53,8 +53,8 @@ leftovers: <follow-ups routed to ROADMAP/INBOX, or none>
 **Flags:** out-of-scope files or secrets in diff → `RETURN loop=4b reason=dirty-tree`; push rejected → report BLOCKED,
 never force-push.
 
-**Status (mandatory):** Loop 6 mutates the chain's status field — `<project>/.craft/<slug>/STATUS.md`. The file opens
-with `# <slug> — chain status` (every `.md` needs a first line the routing generator can read) and its status line is
+**Status (mandatory):** Loop 6 mutates the chain's status field — `<project>/.craft/<name>/STATUS.md`. The file opens
+with `# <name> — chain status` (every `.md` needs a first line the routing generator can read) and its status line is
 `status: active | blocked-flag-pending-user | abandoned | shipped \| commit: <hash or none> \| last-loop: <N> \|
 last-updated: <date>`. Loop 0 creates the file with `status: active, last-loop: 0`. Anything beyond that line is
 **present-tense state** — what is still true and what it waits on. Never a completion report: `STATUS.md` is a
@@ -103,7 +103,7 @@ work.
 
 ## Loop 6.5 — Skill Extraction (Voyager-style skill library)
 
-After Loop 6 ship (and before deleting `.craft/<slug>/` unless `keep-trail: yes`), one low-level executor reads the
+After Loop 6 ship (and before deleting `.craft/<name>/` unless `keep-trail: yes`), one low-level executor reads the
 chain's `3-arch.md` (Adversarial pins / medium-executor traps section) + `4b-code.md` attempt log + `5-user.md`
 flag-and-fix, extracts any *reusable design pattern*, and appends it (frontmatter: domain tags + provenance link to the
 kept `.craft/` or commit hash) to `core/flows/.craft-skills/<domain>.md`. New `domain` files are created as needed;

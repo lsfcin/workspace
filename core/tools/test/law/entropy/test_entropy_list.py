@@ -2,7 +2,7 @@
 #
 # Two of these tests assert against the LIVE workspace and are meant to be green at all
 # times, not baselined: a surviving retired token means a rename is unfinished, and a
-# cross-list duplicate slug means v1 criterion 2 is false. Both were red when written,
+# cross-list duplicate item id means v1 criterion 2 is false. Both were red when written,
 # and the fix was to finish the work, not to widen the test.
 import sys
 from pathlib import Path
@@ -16,7 +16,7 @@ import entropy_list  # noqa: E402
 import schema_law  # noqa: E402
 
 # The three wos lists (ROADMAP.md header: "an item lives in exactly one of the three").
-# All goal files share one namespace because their achievement slugs are per-goal
+# All goal files share one namespace because their achievement item ids are per-goal
 # vocabulary — six startapps each having a [build-mvp] is not six copies of one item.
 LISTS = {
     'wos-roadmap': [WORKSPACE_ROOT / 'ROADMAP.md'],
@@ -41,7 +41,7 @@ def test_a_longer_word_is_not_a_substring_hit(tmp_path):
                                        set()) == []
 
 
-def test_item_slugs_read_item_position_only(tmp_path):
+def test_item_ids_read_item_position_only(tmp_path):
     target = tmp_path / 'ROADMAP.md'
     target.write_text(
         '- [ ] [real-item] do the thing\n'
@@ -49,20 +49,20 @@ def test_item_slugs_read_item_position_only(tmp_path):
         '- **`[parked-item]`** — out of scope\n'
         'prose mentioning [a-reference] mid-sentence\n'
         '- see [a-link](http://x) for details\n', encoding='utf-8', newline='\n')
-    assert entropy_list.item_slugs(target) == {'real-item', 'done-item', 'parked-item'}
+    assert entropy_list.item_ids(target) == {'real-item', 'done-item', 'parked-item'}
 
 
-def test_sibling_namespaces_may_repeat_a_slug(tmp_path):
+def test_sibling_namespaces_may_repeat_a_item_id(tmp_path):
     for name in ('goal-a.md', 'goal-b.md'):
         (tmp_path / name).write_text('> [ ] [build-mvp] ship it\n', encoding='utf-8', newline='\n')
     namespaces = {'goals': [tmp_path / 'goal-a.md', tmp_path / 'goal-b.md']}
-    assert entropy_list.duplicate_slugs(namespaces) == {}
+    assert entropy_list.duplicate_ids(namespaces) == {}
 
 
-def test_same_slug_in_two_lists_is_a_duplicate(tmp_path):
+def test_same_item_id_in_two_lists_is_a_duplicate(tmp_path):
     (tmp_path / 'ROADMAP.md').write_text('- [ ] [thing] do it\n', encoding='utf-8', newline='\n')
     (tmp_path / 'OTHER.md').write_text('- [ ] [thing] do it\n', encoding='utf-8', newline='\n')
-    dups = entropy_list.duplicate_slugs(
+    dups = entropy_list.duplicate_ids(
         {'roadmap': [tmp_path / 'ROADMAP.md'], 'other': [tmp_path / 'OTHER.md']})
     assert set(dups) == {'thing'}
     assert set(dups['thing']) == {'roadmap', 'other'}
@@ -70,9 +70,9 @@ def test_same_slug_in_two_lists_is_a_duplicate(tmp_path):
 
 def test_no_item_lives_in_two_lists():
     """v1 criterion 2, verified by scan rather than eyeball."""
-    dups = entropy_list.duplicate_slugs(LISTS)
+    dups = entropy_list.duplicate_ids(LISTS)
     assert dups == {}, '; '.join(
-        f'[{slug}] in {sorted(claims)}' for slug, claims in dups.items())
+        f'[{item_id}] in {sorted(claims)}' for item_id, claims in dups.items())
 
 
 def test_goal_vocabulary_holds_files_and_their_items(tmp_path):
@@ -107,7 +107,7 @@ def test_every_wiki_link_in_the_workspace_resolves():
 
 
 def test_memory_links_are_exempt_but_its_retired_tokens_are_not():
-    """brain/memory's `[[slug]]` names a memory, not a goal, and may dangle by design.
+    """brain/memory's `[[name]]` names a memory, not a goal, and may dangle by design.
 
     Only that check is relaxed. Retired tokens stay enforced there, which is not hypothetical: the
     day the store moved into the workspace it was still telling sessions to write to KNOWN-ISSUES.md.

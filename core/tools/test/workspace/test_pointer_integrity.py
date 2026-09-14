@@ -2,8 +2,8 @@
 # ](path) link across CONTEXT.md / ROADMAP*.md / SCHEMA.md / AGENTS.md (repo) and
 # MEMORY.md (auto-memory) must resolve. Zero-token, runs in verify-fast.
 #
-# [[slug]] resolution is intentionally NOT gated here: the memory spec allows a
-# dangling [[slug]] as a "planned, not yet written" memory, and the corpus mixes
+# [[name]] resolution is intentionally NOT gated here: the memory spec allows a
+# dangling [[name]] as a "planned, not yet written" memory, and the corpus mixes
 # kebab-case `name:` fields with underscore filenames as the link target, so there
 # is no single rule to enforce yet. The entropy dashboard counts them instead.
 import re
@@ -15,9 +15,9 @@ from entropy_corpus import LINK_RE  # one definition of what a link is, not two
 from platform_law import rel
 
 # The auto-memory store lives IN the workspace as of 2026-08-15; the harness path
-# ~/.claude/projects/<slug>/memory is a symlink to this directory, so every memory the
+# ~/.claude/projects/<name>/memory is a symlink to this directory, so every memory the
 # harness writes lands in git and can be trimmed like any other file. This used to reach
-# into $HOME and hardcode the project slug — a Level 0 gate that read a path outside the
+# into $HOME and hardcode the project name — a Level 0 gate that read a path outside the
 # repo it guards, and that no clone of this workspace could satisfy.
 MEMORY_DIR = WORKSPACE_ROOT / "brain/memory"
 
@@ -51,7 +51,7 @@ def _strip_fences(text: str) -> str:
     # one level up), not a hand-authored one — out of scope for this Level-0 gate.
     text = ROUTING_BLOCK_RE.sub(" ", text)
     # Inline single-backtick spans quote literal syntax for documentation
-    # (e.g. `` `[[slug]]` `` describing the convention itself) — not real refs.
+    # (e.g. `` `[[name]]` `` describing the convention itself) — not real refs.
     return INLINE_CODE_RE.sub(" ", text)
 
 
@@ -118,7 +118,7 @@ def check_pointers(root: Path, memory_dir: Path) -> list:
         for link in LINK_RE.findall(text):
             if link.startswith(("http://", "https://", "mailto:")):
                 continue
-            if "<" in link:  # template placeholder, e.g. brain/goals/<slug>.md
+            if "<" in link:  # template placeholder, e.g. brain/goals/<name>.md
                 continue
             target = link.split("#", 1)[0]
             if not target:

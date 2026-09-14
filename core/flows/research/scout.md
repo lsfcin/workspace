@@ -66,7 +66,7 @@ rules here and do not run your own parallel search.
 Two adjustments when `sota` runs under `scout`:
 - **Skip its plan confirmation.** The user already confirmed at Step 1 of this flow; a second
   gate on the same work is noise. Pass the Step 1 frame as `sota`'s "decision this map serves".
-- **Its summary is an input, not the deliverable.** Read `outputs/<slug>-sota.md` and the yamls
+- **Its summary is an input, not the deliverable.** Read `outputs/<name>-sota.md` and the yamls
   yourself before Step 3 — the mapping is synthesis, and synthesis is never delegated.
 
 If `sota` finishes under-covered (cap hit without saturation, or a `[P]`-only round it could not

@@ -42,7 +42,7 @@ RETIRED_SPELLING = re.compile(r'(?<!\w)Frente \d+(?:\.\d+[a-z]?)?(?!\w)')
 
 # The list family may number its own items: that is what numbering is FOR, and a commit
 # message may cite one too, because git keeps commits forever. Matched on filename, not path,
-# so a `ROADMAP-<slug>.md` in any repo under the workspace is covered without enumeration.
+# so a `ROADMAP-<name>.md` in any repo under the workspace is covered without enumeration.
 LIST_NAMES = re.compile(r'^ROADMAP(-[a-z0-9-]+)?\.md$')
 
 # THE SECOND DEAD POINTER, the same defect wearing numbers. `core/hooks/limits.env` owns every

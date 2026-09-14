@@ -23,23 +23,23 @@ in this run.
 ## Required Artifacts
 
 Every run must leave these on disk:
-- `outputs/.plans/<slug>.md`
-- `outputs/<slug>-audit.md`
-- `outputs/<slug>-audit.provenance.md`
+- `outputs/.plans/<name>.md`
+- `outputs/<name>-audit.md`
+- `outputs/<name>-audit.provenance.md`
 
 Once evidence gathering starts, never end with chat-only output. If the repo or paper is unreachable, write a partial
 audit plus provenance with `Verification: BLOCKED`.
 
 Requirements:
 - Before starting, outline the audit plan: which paper, which repo, which claims to check. Write the plan to
-  `outputs/.plans/<slug>.md`. Briefly summarize the plan to the user and continue immediately.
+  `outputs/.plans/<name>.md`. Briefly summarize the plan to the user and continue immediately.
 - Use the `researcher` subagent for evidence gathering and the `verifier` subagent to verify sources and add inline
   citations when the audit is non-trivial.
 - Compare claimed methods, defaults, metrics, and data handling against the actual code.
 - Call out missing code, mismatches, ambiguous defaults, and reproduction risks.
 - Read the paper and the actual code before characterizing either; mark each claim verified, inferred, or blocked
   honestly; never invent results.
-- Save exactly one audit artifact to `outputs/<slug>-audit.md`.
-- End with a `Sources` section containing paper and repository URLs, and write `outputs/<slug>-audit.provenance.md`
+- Save exactly one audit artifact to `outputs/<name>-audit.md`.
+- End with a `Sources` section containing paper and repository URLs, and write `outputs/<name>-audit.provenance.md`
   (date, paper + repo identifiers, claims checked, verification status). Verify both files exist on disk before
   responding.

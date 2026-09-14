@@ -48,7 +48,7 @@ Arguments: $ARGUMENTS
 4. Spawn each loop as a subagent per the flow's Orchestration section — pinned agent types `craft-low` / `craft-medium`
    / `craft-high`; pass the per-loop model from the resolved level-map (or rely on the frontmatter default). The
    executor's self-report tag is `executor: craft-<level> model=<provider/model-id> level=<level> deleg=<none|from→to>` —
-   that is your per-loop cost/routing audit (`grep executor <project>/.craft/<slug>/*.md`).
+   that is your per-loop cost/routing audit (`grep executor <project>/.craft/<name>/*.md`).
 5. Level `max` is never auto-spawned: pause and tell the user (max-level quota is scarce and, on nvidia, a hard ceiling
    —
    `routing.md` § Provider delegation rule 4 may surface the cost delta or stop the chain).

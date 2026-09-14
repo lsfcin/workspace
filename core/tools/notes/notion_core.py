@@ -12,7 +12,7 @@ VERSION = "2022-06-28"
 PAGE_SIZE = 100
 # A sub-page is its own read — recursing into one pulls a whole second document unasked.
 LEAF_TYPES = ("child_page", "child_database")
-# The id is the END of a hex run, not its start: a slug like "Computacao-Grafica-<id>" loses its
+# The id is the END of a hex run, not its start: a name like "Computacao-Grafica-<id>" loses its
 # dashes here and donates its own trailing "ca" to the front of the run.
 _HEX32 = re.compile(r"[0-9a-fA-F]{32}(?![0-9a-fA-F])")
 

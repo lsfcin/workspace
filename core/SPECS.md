@@ -44,7 +44,7 @@
   repeating its parent's namespace is noise, and generic names are reserved for the flow that earns
   them.
 - New skill, flat: copy `core/skills/_template.md`. As a suite: `core/skills/<suite>/SKILL.md` plus
-  `<slug>.md` subfiles — always preferred to flat skills with a long prefix past two of them.
+  `<name>.md` subfiles — always preferred to flat skills with a long prefix past two of them.
 - New Google service: import `auth/gauth.py`, define `SCOPES` and the service name, follow
   `files/drive_core.py`, and register the recovery command in `gauth._REAUTH_CMD` in the same commit
   the CLI gains `--reauth` — a test checks every command in that table names a tool that exists. A

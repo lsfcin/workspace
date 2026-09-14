@@ -35,7 +35,7 @@ def body(path: Path) -> str:
 
 
 def published() -> list:
-    """Every switched-on norm, in registry order, as (slug, body).
+    """Every switched-on norm, in registry order, as (name, body).
 
     A row naming a file that does not exist is skipped rather than raised: `is_enabled`
     fails open on purpose, and the publisher inherits that stance — a bad line of data must
@@ -43,11 +43,11 @@ def published() -> list:
     """
     out = []
     for row in feature_law.load_registry():
-        if 'norms' not in feature_law.groups(row) or not feature_law.is_enabled(row['slug']):
+        if 'norms' not in feature_law.groups(row) or not feature_law.is_enabled(row['name']):
             continue
-        path = NORMS_DIR / f"{row['slug']}.md"
+        path = NORMS_DIR / f"{row['name']}.md"
         if path.is_file():
-            out.append((row['slug'], body(path)))
+            out.append((row['name'], body(path)))
     return out
 
 

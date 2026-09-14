@@ -21,8 +21,8 @@ Derive a short name from the target (lowercase, hyphens, no filler words, ≤5 w
 ## Required Artifacts
 
 Every run must leave these on disk:
-- `outputs/.plans/<slug>-replication.md` — always (the plan)
-- on execution: results/scripts in a reproducible layout + `outputs/<slug>-replication.provenance.md`
+- `outputs/.plans/<name>-replication.md` — always (the plan)
+- on execution: results/scripts in a reproducible layout + `outputs/<name>-replication.provenance.md`
 - `CHANGELOG.md` entries for multi-step or resumable runs
 
 `confirm: plan` — this flow blocks for the execution-environment choice (Step 4) before running anything. Once execution

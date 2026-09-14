@@ -7,5 +7,5 @@
 
 | File | Description |
 |------|-------------|
-| [`REFS.md`](REFS.md) | Level-1 capture: one line per ref. Promote to a paper's own `refs/<slug>.yaml` when it becomes a citation. |
+| [`REFS.md`](REFS.md) | Level-1 capture: one line per ref. Promote to a paper's own `refs/<name>.yaml` when it becomes a citation. |
 <!-- routing:end -->

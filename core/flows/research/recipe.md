@@ -24,14 +24,14 @@ This is an execution request. Continue immediately.
 
 ## Required artifacts
 
-- `outputs/.plans/<slug>-recipe.md`
-- `outputs/.drafts/<slug>-recipe-research.md`
-- `outputs/<slug>-recipe.md`
-- `outputs/<slug>-recipe.provenance.md`
+- `outputs/.plans/<name>-recipe.md`
+- `outputs/.drafts/<name>-recipe-research.md`
+- `outputs/<name>-recipe.md`
+- `outputs/<name>-recipe.provenance.md`
 
 ## Workflow
 
-1. **Plan** — Write `outputs/.plans/<slug>-recipe.md` with the target task, benchmark or desired behavior, candidate
+1. **Plan** — Write `outputs/.plans/<name>-recipe.md` with the target task, benchmark or desired behavior, candidate
    source types, feasibility constraints, and a task list. Continue automatically after writing the plan.
 2. **Research** — Use the `researcher` subagent when the task needs a broad paper/code sweep. For narrow tasks, gather
    evidence directly. The research must start from evidence of results, not from example scripts alone.
@@ -44,11 +44,11 @@ This is an execution request. Continue immediately.
 5. **Implementation grounding** — Find working code or official docs for the chosen training path. Use `hf_repo_files`
    and `hf_repo_read_file` for relevant Hugging Face Hub repos. Record exact file paths, function names, class names,
    and command patterns when available.
-6. **Synthesis** — Write `outputs/.drafts/<slug>-recipe-research.md` first, then promote a concise final ranked brief to
-   `outputs/<slug>-recipe.md`.
+6. **Synthesis** — Write `outputs/.drafts/<name>-recipe-research.md` first, then promote a concise final ranked brief to
+   `outputs/<name>-recipe.md`.
 7. **Verification** — For any recipe you rank first, verify the key source URLs and the dataset/code availability before
    final delivery.
-8. **Provenance** — Write `outputs/<slug>-recipe.provenance.md` with date, sources consulted, sources accepted/rejected,
+8. **Provenance** — Write `outputs/<name>-recipe.provenance.md` with date, sources consulted, sources accepted/rejected,
    verification status, and artifact paths.
 
 ## Required final shape

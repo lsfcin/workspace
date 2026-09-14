@@ -107,7 +107,7 @@ def update_goals_table(goal_files):
         return
 
     rows = []
-    for slug, path in sorted(goal_files.items()):
+    for name, path in sorted(goal_files.items()):
         g = parse_goal_file(path)
         if not g:
             continue
@@ -136,17 +136,17 @@ def update_goals_md(goal_files, attention):
     if not GOALS_FILE.exists():
         return
 
-    goal_touches = {slug: attention.count(slug, 14) for slug in goal_files}
+    goal_touches = {name: attention.count(name, 14) for name in goal_files}
 
     # Areas union their goals' commit sets instead of summing their counts: one commit can
     # advance two goals (workspace-os owns core/, craft-flows owns core/flows/craft/), and
     # summing would count it twice for the area while both goal bars rightly show it.
     by_area = {a: [] for a in AREAS}
-    for slug, path in goal_files.items():
+    for name, path in goal_files.items():
         area = area_from_file(path)
         if area in by_area:
-            by_area[area].append(slug)
-    area_touches = {a: attention.area_count(slugs, 14) for a, slugs in by_area.items()}
+            by_area[area].append(name)
+    area_touches = {a: attention.area_count(names, 14) for a, names in by_area.items()}
 
     area_max = max(area_touches.values()) or 1
     goal_max = max(goal_touches.values()) or 1
@@ -157,8 +157,8 @@ def update_goals_md(goal_files, attention):
         for a in AREAS
     )
     goal_lines = "".join(
-        f"{slug:<24} {bar(goal_touches[slug], goal_max)}   {goal_touches[slug]} touches\n"
-        for slug in sorted(goal_touches)
+        f"{name:<24} {bar(goal_touches[name], goal_max)}   {goal_touches[name]} touches\n"
+        for name in sorted(goal_touches)
     )
 
     # Hook only replaces the data block — pareto/gap sections are preserved between commits

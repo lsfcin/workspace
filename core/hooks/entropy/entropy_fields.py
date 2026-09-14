@@ -28,7 +28,7 @@ PATH_FIELDS = ('enforced-by', 'blocked-by', 'spec')
 # business.
 MIXED_FIELDS = ('governs',)
 # `feature` names the registry, not paths.
-SLUG_FIELDS = ('feature',)
+NAME_FIELDS = ('feature',)
 
 # A field that declares there is nothing to name. `spec: none` is the common one and is an ANSWER —
 # the author was asked and said no — which is why it reads as a word rather than as an empty value.
@@ -46,13 +46,13 @@ def _declared() -> set:
     """What a `> feature:` line may name, read from the registry rather than restated.
 
     The INSTALL column first, because that is the join core/features.txt declares in its own header:
-    *"Every `> feature:` slug in SETUP.md appears in this column"*. A SETUP part names install
-    steps, and `git-hooks` is a step that four features share — it is not a feature slug and never
-    was. The slug column is accepted too: a field naming a real feature is not a false claim about
+    *"Every `> feature:` name in SETUP.md appears in this column"*. A SETUP part names install
+    steps, and `git-hooks` is a step that four features share — it is not a feature name and never
+    was. The name column is accepted too: a field naming a real feature is not a false claim about
     this tree, and refusing it would make the check pickier than the fact it is checking.
     """
     rows = feature_law.load_registry()
-    return ({r['slug'] for r in rows} | {r['install'] for r in rows}) - SENTINELS
+    return ({r['name'] for r in rows} | {r['install'] for r in rows}) - SENTINELS
 
 
 def _repo_root(path: Path) -> Path:
@@ -67,9 +67,9 @@ def _repo_root(path: Path) -> Path:
 def _items(value: str, field: str) -> list:
     """The comma list, as the tokens this field can be held to. Empty for prose.
 
-    A path and a slug are each ONE word, so an item is its first token and whatever follows is a
+    A path and a name are each ONE word, so an item is its first token and whatever follows is a
     human qualifier: `frontend/ streaming` names `frontend/`, and `substrate — nothing else runs
-    until these do` claims the slug `substrate`. Reading the whole item would put a sentence in
+    until these do` claims the name `substrate`. Reading the whole item would put a sentence in
     the finding and make the same wrong claim harder to see.
     """
     out = []
@@ -101,18 +101,18 @@ def _resolves(path: Path, token: str) -> bool:
 
 
 def field_hits(files: list, mixed: bool = True) -> list:
-    """Every header field naming a path or a slug that is not there.
+    """Every header field naming a path or a name that is not there.
 
     `mixed=False` drops `governs`, and the commit gate is the caller that passes it: that field's
     list mixes paths with prose, so a token this module misreads there would stop a commit rather
     than print a line. The dashboard reads it, where being wrong costs a reader ten seconds.
 
-    The slug half runs only where the registry lives. core/features.txt is the WORKSPACE's registry;
+    The name half runs only where the registry lives. core/features.txt is the WORKSPACE's registry;
     a nested repo under code/ declares its own install steps against no registry at all, and holding
-    its `feature:` line to our slugs would report `comfyui` and `blender` as undeclared features of a
+    its `feature:` line to our names would report `comfyui` and `blender` as undeclared features of a
     workspace that never claimed them — the category error this front is named after.
     """
-    checked = PATH_FIELDS + SLUG_FIELDS + (MIXED_FIELDS if mixed else ())
+    checked = PATH_FIELDS + NAME_FIELDS + (MIXED_FIELDS if mixed else ())
     hits, registry = [], None
     for path in files:
         if path.suffix != '.md':
@@ -124,7 +124,7 @@ def field_hits(files: list, mixed: bool = True) -> list:
         for field, value in header_fields(lines[2:]).items():
             if field not in checked:
                 continue
-            if field in SLUG_FIELDS:
+            if field in NAME_FIELDS:
                 if _repo_root(path) != WORKSPACE_ROOT:
                     continue
                 if registry is None:

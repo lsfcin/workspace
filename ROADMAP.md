@@ -68,15 +68,12 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 
 ## Legibility — can Lucas still read what he owns
 
-**🟢 the audit's words also name code, and the rename is unfinished until identifiers follow**
-*What* — `slug` out of identifiers, then its row in § Retired tokens. Five of seven are done. The
-sixth, `probe`, is renamed everywhere and owes only its row: `brain/goals/google-migration.md` names
-a Drive deck `__probe_delete_me` that no rename of ours can reach, so the row lands the moment
-Lucas deletes that deck — which is what the line beside it already asks him to do.
-*Why* — the check matches filenames, so a row added while a module still carries the word reds the
-suite on our own code. Never sweep a bracketed short name, or a word carrying a second sense
-elsewhere in the tree — each costs a revert, and one word had three senses in one tree.
-*Done when* — the entropy scan finds zero survivors of every row.
+**🟢 `probe` owes its § Retired tokens row, and only Lucas can unblock it**
+*What* — the row. Seven of seven words are swept; `probe` is renamed everywhere and survives in one
+place no rename of ours reaches: `brain/goals/google-migration.md` names a Drive deck
+`__probe_delete_me`. The line beside it already asks Lucas to delete that deck.
+*Why* — the check matches filenames too, so the row added early reds the suite on our own tree.
+*Done when* — the deck is gone, the row is in, and the entropy scan finds zero survivors.
 
 **🟡 the health picture: keep what Lucas reads at a glance, cut the rest**
 *What* — one page answering *is this well tied, and what is missing* — not an inventory.
@@ -136,7 +133,7 @@ The debt is this repo's: absorbing a project's own writing neither creates nor p
 - **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): prompt, judge and self-report died on evidence;
   only a parser or solver refuses, so it is research — `academy/papers/back2dsl`.
 - **A research map as a plan block here, and one review yaml per kept source** — 2026-09-13: the first grows our most
-  re-read file; the second breaches the `core/refs/` crowding block. A `REFS-<slug>.md` does both.
+  re-read file; the second breaches the `core/refs/` crowding block. A `REFS-<name>.md` does both.
 - **A preliminary cut of features before the ablation** — 2026-08-21: cutting on hunches is a guess.
 - **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
 - **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
@@ -146,7 +143,7 @@ The debt is this repo's: absorbing a project's own writing neither creates nor p
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
 - **Narrowing the pre-commit to the touched tests** — 2026-09-01: the only speed-up that weakens the gate holding both
   clones, and parallelising paid four-fold without it.
-- **A check asking only whether a `TYPE-<slug>.md` is tracked** — 2026-09-01: the real defect is any routing row naming
+- **A check asking only whether a `TYPE-<name>.md` is tracked** — 2026-09-01: the real defect is any routing row naming
   a file git does not carry.
 - **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's clone cannot install,
   and strangers are who the file is for.

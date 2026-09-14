@@ -46,5 +46,5 @@ fi
 if [ "$(basename "$file")" = "CONTEXT.md" ] && [ "$(dirname "$dir")" = "$WORKSPACE_ROOT/code" ]; then
 	line3=$(sed -n '3p' "$file" 2>/dev/null)
 	printf '%s' "$line3" | grep -qE '^>\s*goal:\s*(\[[^]]+\]\([^)]+\)|none)\s*$' \
-		|| printf "💬 CONTEXT.md GOAL LINK MISSING: %s\n   Add '> goal: [slug](../../brain/goals/<slug>.md)' or '> goal: none' as line 3.\n" "$file"
+		|| printf "💬 CONTEXT.md GOAL LINK MISSING: %s\n   Add '> goal: [name](../../brain/goals/<name>.md)' or '> goal: none' as line 3.\n" "$file"
 fi

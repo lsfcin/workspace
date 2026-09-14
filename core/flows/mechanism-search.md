@@ -37,9 +37,9 @@ who captures, the capture mechanism.
 
 Derive a short name from the `ralo` (lowercase, hyphens, ≤5 words). Every round must leave on disk:
 
-- `outputs/.plans/<slug>.md` — plan plus the queue-rule check
-- `outputs/.drafts/<slug>-gen-{1,2,3}.md` — candidates per persona
-- `outputs/<slug>-familias.md` — deduplicated families (the human filter's material)
+- `outputs/.plans/<name>.md` — plan plus the queue-rule check
+- `outputs/.drafts/<name>-gen-{1,2,3}.md` — candidates per persona
+- `outputs/<name>-familias.md` — deduplicated families (the human filter's material)
 - survivors appended to `branches/instituto/ROADMAP.md` (only after the human filter)
 
 Once generation starts, never end chat-only. If a capability fails, continue in degraded mode and
@@ -53,14 +53,14 @@ Before any generation:
 2. **Corpus check** (`researcher`) — retrieve the 5-8 precedents closest to the `ralo` from the
    corpus (`academy/papers/mechanism-search/refs/`). If the corpus is empty: run `/research lit`
    first (stage 0).
-3. Write `outputs/.plans/<slug>.md` (ralo, precedents, chosen personas, list). Summarize and ask
+3. Write `outputs/.plans/<name>.md` (ralo, precedents, chosen personas, list). Summarize and ask
    for explicit confirmation before spawning generators.
 
 ## Agents and sequence
 
 1. **Divergent generation** (3× `researcher` in parallel, antagonistic personas — e.g. behavioural
    economist, community organizer, crypto incentive engineer) — each generates 8-12 candidates into
-   `outputs/.drafts/<slug>-gen-N.md`. Mandatory anti-collapse techniques:
+   `outputs/.drafts/<name>-gen-N.md`. Mandatory anti-collapse techniques:
    - precedent mutation (take a mechanism from the corpus, swap 1 dimension: population, trigger,
      currency, scale)
    - distant analogy (biology, games, religion, logistics)
@@ -69,7 +69,7 @@ Before any generation:
    altruism) · collective effect · who operates it · why it does not exist yet · test-to-kill sketch
    ≤3 months.
 3. **Dedup and grouping** (`writer`) — merge near-duplicates, group by mechanism family into
-   `outputs/<slug>-familias.md`. NEVER rank by LLM as the final filter (self-evaluation is not
+   `outputs/<name>-familias.md`. NEVER rank by LLM as the final filter (self-evaluation is not
    trustworthy).
 4. **Deliberative human filter** — Habermas format: present families to the group (board/class),
    collect individual positions, synthesize a group statement, iterate 1×. Output: 2-3 survivors

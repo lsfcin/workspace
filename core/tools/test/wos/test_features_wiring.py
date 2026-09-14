@@ -23,7 +23,7 @@ NORMS_GENERATOR = 'core/hooks/routing/norms.py'
 TOOL_LAW = 'core/tools/tool_law.py'
 
 # A whole group can share one publisher, and then no row can name itself there: the mirror
-# cannot spell fourteen skill slugs and the generator cannot spell ten norm slugs. Those rows
+# cannot spell fourteen skill names and the generator cannot spell ten norm names. Those rows
 # are held honest by a BEHAVIOURAL check instead — below for skills, test_norms.py for norms.
 # `symmetry` passed the grep by accident, on the word "asymmetry" in a comment, which is the
 # whole argument against a grep in one line.
@@ -57,7 +57,7 @@ def test_a_row_claiming_to_be_wired_really_is():
     """The honesty check: would turning this off change anything? Answered the strongest way each
     row allows, which is what lets a group share one wiring point. A group with an invocable boundary
     is switched off for real and its observable must move — which a guard on an unreachable branch
-    cannot fake. A row owning its call site must name the slug there.
+    cannot fake. A row owning its call site must name the name there.
 
     EVERY path is checked, not the first: a feature spanning layers names one file per layer, and
     `latex` is the case that forced it — a gate that calls a tool it has also switched off would
@@ -68,34 +68,34 @@ def test_a_row_claiming_to_be_wired_really_is():
         for target in law.wired_paths(row):
             path = WORKSPACE_ROOT / target
             if not path.exists():
-                broken.append(f"{row['slug']}: {target} does not exist")
-            elif target not in GROUP_PUBLISHERS and row['slug'] not in path.read_text(encoding='utf-8'):
-                broken.append(f"{row['slug']}: {target} never mentions the slug")
+                broken.append(f"{row['name']}: {target} does not exist")
+            elif target not in GROUP_PUBLISHERS and row['name'] not in path.read_text(encoding='utf-8'):
+                broken.append(f"{row['name']}: {target} never mentions the name")
     assert not broken, (
         'these rows claim to be switchable and are not:\n  ' + '\n  '.join(broken))
 
-    group = {r['slug'] for r in law.load_registry() if r['wired'] == SKILL_MIRROR}
+    group = {r['name'] for r in law.load_registry() if r['wired'] == SKILL_MIRROR}
     live = _published_skills()
     assert group <= live, (
         f'the mirror does not publish {sorted(group - live)}, so switching them off proves '
         f'nothing — the registry and core/skills/ disagree about what exists')
-    for slug in sorted(group):
-        assert slug not in _published_skills(off=slug), (
-            f'{slug} is still published with {law.OFF_ENV}={slug}: the row names {SKILL_MIRROR} '
+    for name in sorted(group):
+        assert name not in _published_skills(off=name), (
+            f'{name} is still published with {law.OFF_ENV}={name}: the row names {SKILL_MIRROR} '
             f'but the switch changes nothing there')
 
 
-def test_an_unknown_slug_fails_open():
+def test_an_unknown_name_fails_open():
     """A gate must never stop enforcing because someone mistyped a row."""
     assert law.is_enabled('no-such-feature-anywhere')
 
 
 def test_the_ablation_switch_turns_one_feature_off(monkeypatch):
     """WOS_FEATURES_OFF is what the ablation drives; without it there is nothing to measure."""
-    slug = 'line-limit'
-    assert law.is_enabled(slug)
-    monkeypatch.setenv(law.OFF_ENV, f'something-else,{slug}')
-    assert not law.is_enabled(slug)
+    name = 'line-limit'
+    assert law.is_enabled(name)
+    monkeypatch.setenv(law.OFF_ENV, f'something-else,{name}')
+    assert not law.is_enabled(name)
     assert law.is_enabled('caveman'), 'the switch must remove one feature, not all of them'
 
 
@@ -111,14 +111,14 @@ def _asks_the_law(hook: str, tmp_path) -> set:
     shim.mkdir(parents=True)
     log.touch()
     (shim / 'sitecustomize.py').write_text(
-        '# check: record every slug a hook asks the law about, at runtime.\n'
+        '# check: record every name a hook asks the law about, at runtime.\n'
         'import os, pathlib, sys\n'
         f'sys.path.insert(0, {str(WORKSPACE_ROOT / "core/hooks")!r})\n'
         'import feature_law\n'
         '_log, _orig = pathlib.Path(os.environ["LAW_CHECK"]), feature_law.is_enabled\n'
-        'def _rec(slug, *a, **k):\n'
-        '    _log.open("a").write(slug + "\\n")\n'
-        '    return _orig(slug, *a, **k)\n'
+        'def _rec(name, *a, **k):\n'
+        '    _log.open("a").write(name + "\\n")\n'
+        '    return _orig(name, *a, **k)\n'
         'feature_law.is_enabled = _rec\n', encoding='utf-8', newline='\n')
     payload = json.dumps({'tool_name': 'Bash', 'session_id': 'law-check',
                           'cwd': str(WORKSPACE_ROOT),
@@ -161,11 +161,11 @@ def test_the_wired_gates_actually_consult_the_law(tmp_path):
             # A standalone hook ends by running main() on stdin; those we can observe.
             if target.endswith('.py') and 'sys.exit(main())' in body:
                 ran += 1
-                if row['slug'] not in _asks_the_law(target, tmp_path / row['slug'] / target):
-                    silent.append(f"{row['slug']}: {target} ran without asking the law")
+                if row['name'] not in _asks_the_law(target, tmp_path / row['name'] / target):
+                    silent.append(f"{row['name']}: {target} ran without asking the law")
             elif not ({'feature_law', 'tool_law'} & set(_strip_comments(body, target).split())
                       or 'feature_law' in _strip_comments(body, target)):
-                silent.append(f"{row['slug']}: {target} never reaches feature_law")
+                silent.append(f"{row['name']}: {target} never reaches feature_law")
     assert not silent, 'these rows claim a switch nothing consults:\n  ' + '\n  '.join(silent)
     assert ran, 'no wired hook was observable — the classifier stopped matching anything'
 
@@ -190,10 +190,10 @@ def test_a_switched_off_tool_refuses_to_run():
                 continue
             out = subprocess.run([interpreter(), str(WORKSPACE_ROOT / target)], capture_output=True, text=True,
                                  cwd=WORKSPACE_ROOT,
-                                 env={**os.environ, law.OFF_ENV: row['slug']}, encoding='utf-8')
+                                 env={**os.environ, law.OFF_ENV: row['name']}, encoding='utf-8')
             assert out.returncode == tool_law.OFF_EXIT, (
-                f"{row['slug']}: exits {out.returncode} under {law.OFF_ENV}, so the switch does "
+                f"{row['name']}: exits {out.returncode} under {law.OFF_ENV}, so the switch does "
                 f"not stop {target}")
-            assert row['slug'] in out.stderr, f'{row["slug"]} stops without naming itself'
-            checked.append(row['slug'])
+            assert row['name'] in out.stderr, f'{row["name"]} stops without naming itself'
+            checked.append(row['name'])
     assert checked, 'no tool is wired to an entrypoint yet — this check proves nothing'

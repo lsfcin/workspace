@@ -1,11 +1,11 @@
-# Every short link this workspace hands out: the slug someone is told out loud, and where it
+# Every short link this workspace hands out: the short name someone is told out loud, and where it
 # really goes. Read by core/tools/links/links_core.py; published as _redirects by `cfpages build`.
 #
 # Queried with `cfpages find <term>`, never read whole — that is what keeps a file that grows one
 # row per link cheap to consult. A CONTEXT.md elsewhere carries the short link and never the
 # mapping; this is the one place the target is written down.
 # Root url = lucassf.pages.dev/
-slug	url	owner	added
+short_name	url	owner	added
 ai4good	https://seasoned-bladder-7d0.notion.site/T-picos-em-IA-AI4Good-25d1656e2069803ea564d510d9db8307	ai4good	2026-09-08
 ai4good/setup	https://docs.google.com/forms/d/e/1FAIpQLSfESI8OWLI1JSALkpAAtbRkqRzKxP6az3NCd9mi5Mop_697kQ/viewform	ai4good	2026-09-06
 home	https://seasoned-bladder-7d0.notion.site/Lucas-S-Figueiredo-3695d139d7924e52b896d608086a68a5	home	2026-09-08

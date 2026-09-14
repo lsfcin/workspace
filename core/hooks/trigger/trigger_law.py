@@ -156,7 +156,7 @@ def sites(root: Path = WORKSPACE_ROOT) -> dict:
     return _WALKED[str(root)]
 
 
-def _setup_moments(slug: str, root: Path) -> list:
+def _setup_moments(name: str, root: Path) -> list:
     """The moment of a feature whose registration lives OUTSIDE this repo, by design.
 
     Not a fallback and not a defect: rtk-compaction is registered globally on purpose — Claude Code
@@ -167,7 +167,7 @@ def _setup_moments(slug: str, root: Path) -> list:
     text = (root / 'SETUP.md').read_text(encoding='utf-8', errors='replace')
     moments: list = []
     for block in re.split(r'^> feature: ', text, flags=re.M)[1:]:
-        if not block.startswith(f'`{slug}`'):
+        if not block.startswith(f'`{name}`'):
             continue
         body = block.split('\n## ')[0]
         matcher = ' '.join(re.findall(r"'matcher':\s*'([^']+)'", body))
@@ -188,5 +188,5 @@ def moments_of(row: dict, root: Path = WORKSPACE_ROOT) -> tuple:
     moments = ordered([m for path in feature_law.wired_paths(row) for m in reached.get(path, [])])
     if moments:
         return moments, 'registered'
-    declared = _setup_moments(row['slug'], root)
+    declared = _setup_moments(row['name'], root)
     return (declared, 'setup') if declared else ([], 'none')

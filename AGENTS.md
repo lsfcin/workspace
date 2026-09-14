@@ -5,7 +5,7 @@
 - FILESYSTEM = source of truth. No memory, no assumptions.
 - **PROVIDER-AGNOSTIC STORAGE**: the workspace owns its state, never a harness; if it insists,
 symlink the path into WIS.
-- A LINK HANDED OUT GETS A NAME — `core/run tools/links/cfpages`, or `--slug` where it is created.
+- A LINK HANDED OUT GETS A NAME — `core/run tools/links/cfpages`, or `--short-name` where it is created.
 Targets live in [`core/tools/links/links.txt`](core/tools/links/links.txt); a doc quotes the short
 link, never the mapping.
 - **SECRETS STAY OUT OF GIT**: passwords, tokens, CPF/CNPJ go in a gitignored
@@ -18,7 +18,7 @@ link, never the mapping.
 sentence reads worse without it. ONE IDEA, ONE WORD. A replaced word gets a row in
 [`core/SCHEMA.md`](core/SCHEMA.md) § Retired tokens, which is what finishes the rename.
 - EDIT > CREATE: refine / improve **wins over** creating new, except for prototyping. Avoid scattering.
-- A FILE OVER THE CAP IS CUT, NOT SPLIT. A `TYPE-<slug>.md` sibling is a last resort, and Lucas's
+- A FILE OVER THE CAP IS CUT, NOT SPLIT. A `TYPE-<name>.md` sibling is a last resort, and Lucas's
 explicit OK. The line cap outranks the column cap (ruled 2026-08-31): wrapping to fit the column
 never justifies a file over the line cap — the way out is cutting, not reflowing.
 - SYMMETRY IS A CORE VALUE, semantic and structural. When you find an asymmetry, write it down.

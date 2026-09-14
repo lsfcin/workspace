@@ -144,24 +144,24 @@ def harvest(repo):
 class Attention:
     """Per-goal commit sets, harvested once and queried for every period and every goal."""
 
-    def __init__(self, goal_files, owns_by_slug=None):
-        self.missing = []                    # (slug, declared path) that resolves nowhere
+    def __init__(self, goal_files, owns_by_name=None):
+        self.missing = []                    # (name, declared path) that resolves nowhere
         self._repos = {}                     # repo dir -> harvested commits
-        self._sets = {}                      # slug -> {(repo, sha): datetime}
+        self._sets = {}                      # name -> {(repo, sha): datetime}
 
-        for slug, path in goal_files.items():
-            declared = owns_by_slug.get(slug) if owns_by_slug else parse_owns(path)
+        for name, path in goal_files.items():
+            declared = owns_by_name.get(name) if owns_by_name else parse_owns(path)
             # The goal file is always owned. Life goals declare nothing and this is the
             # whole of their signal — for them the file genuinely is the artifact.
             targets = [workspace_rel(path)] + list(declared or [])
-            self._sets[slug] = self._collect(slug, targets)
+            self._sets[name] = self._collect(name, targets)
 
-    def _collect(self, slug, targets):
+    def _collect(self, name, targets):
         found = {}
         for rel in targets:
             resolved = governing_repo(rel)
             if resolved is None:
-                self.missing.append((slug, rel))
+                self.missing.append((name, rel))
                 continue
             repo, within = resolved
             if repo not in self._repos:
@@ -176,15 +176,15 @@ class Attention:
                     found[(str(repo), sha)] = when
         return found
 
-    def count(self, slug, days):
+    def count(self, name, days):
         cutoff = datetime.now(timezone.utc) - timedelta(days=days)
-        return sum(1 for when in self._sets.get(slug, {}).values() if when >= cutoff)
+        return sum(1 for when in self._sets.get(name, {}).values() if when >= cutoff)
 
-    def last_touch(self, slug):
-        whens = self._sets.get(slug, {}).values()
+    def last_touch(self, name):
+        whens = self._sets.get(name, {}).values()
         return max(whens).strftime("%Y-%m-%d") if whens else None
 
-    def area_count(self, slugs, days):
+    def area_count(self, names, days):
         """Distinct commits across several goals — a union, never a sum.
 
         One commit can advance two goals (workspace-os owns core/, craft-flows owns
@@ -192,6 +192,6 @@ class Attention:
         """
         cutoff = datetime.now(timezone.utc) - timedelta(days=days)
         seen = set()
-        for slug in slugs:
-            seen |= {k for k, when in self._sets.get(slug, {}).items() if when >= cutoff}
+        for name in names:
+            seen |= {k for k, when in self._sets.get(name, {}).items() if when >= cutoff}
         return len(seen)

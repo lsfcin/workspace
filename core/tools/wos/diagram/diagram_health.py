@@ -138,7 +138,7 @@ def detail(rows: list, root: Path = WORKSPACE_ROOT) -> dict:
     _bands, _on_demand, unplaced = data.lifecycle(rows)
     return {
         'empty layers': [layer for layer in declared if layer not in held],
-        'unswitchable': [row['slug'] for row in feature_law.findings()],
-        'no declared moment': [row['slug'] for row in unplaced],
+        'unswitchable': [row['name'] for row in feature_law.findings()],
+        'no declared moment': [row['name'] for row in unplaced],
         'orphan directories': [d for d, _n in orphans(root)],
     }

@@ -3,7 +3,7 @@
 #
 # Its own module rather than a function inside part_table.py, which renders: the header is now read
 # by a generator AND by a check (core/hooks/entropy/entropy_fields.py, which asks whether the paths
-# and slugs a field names exist). Two readers of one shape is the moment a second copy gets written,
+# and names a field names exist). Two readers of one shape is the moment a second copy gets written,
 # and a second copy of the law inside a checker is the exact drift the checkers exist to catch.
 #
 # The shape it parses: core/SCHEMA.md § What a part publishes about itself.

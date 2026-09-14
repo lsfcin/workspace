@@ -116,7 +116,7 @@ def validate_flow_loops(workspace: Path) -> list:
     bound rather than the step is core/flows/craft/SPECS.md).
 
     Whole-file, because a cap stated once governs the flow. CONTEXT.md and SPECS.md STATE the rule
-    so are not judged by it. The unit is the FLOW: a cut `<flow>-<slug>.md` is still one flow
+    so are not judged by it. The unit is the FLOW: a cut `<flow>-<name>.md` is still one flow
     with one cap, so a part is checked against its whole family.
     """
     problems = []

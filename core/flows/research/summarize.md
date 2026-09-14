@@ -40,14 +40,14 @@ window=<w> overlap=<o> tier1=<t1> tier2=<t2>`.
 ## Step 1 — Fetch, validate, measure
 
 - **GitHub repo URL** (exactly 4 slashes): fetch the raw README instead.
-- **Remote URL**: fetch to disk with `curl -sL -o outputs/.notes/<slug>-raw.txt <url>`. Do NOT use `fetch_content` — its
+- **Remote URL**: fetch to disk with `curl -sL -o outputs/.notes/<name>-raw.txt <url>`. Do NOT use `fetch_content` — its
   return value enters context directly, bypassing the RLM principle.
-- **Local file or PDF**: copy or extract to `outputs/.notes/<slug>-raw.txt`. For PDFs, extract text via `pdftotext` or
+- **Local file or PDF**: copy or extract to `outputs/.notes/<name>-raw.txt`. For PDFs, extract text via `pdftotext` or
   equivalent before measuring.
 - **Empty or failed fetch**: stop and surface the error.
-- **Existing output**: if `outputs/<slug>-summary.md` already exists, ask the user whether to overwrite.
+- **Existing output**: if `outputs/<name>-summary.md` already exists, ask the user whether to overwrite.
 
-Measure decoded text characters. Log: `[summarize] source=<source> slug=<slug> chars=<count>`
+Measure decoded text characters. Log: `[summarize] source=<source> name=<name> chars=<count>`
 
 ## Step 2 — Choose level
 
@@ -61,26 +61,26 @@ Log: `[summarize] level=<N> chars=<count>`
 
 ## Level 1 — Direct read
 
-Read `outputs/.notes/<slug>-raw.txt` in full. Summarize directly. Write to `outputs/<slug>-summary.md`.
+Read `outputs/.notes/<name>-raw.txt` in full. Summarize directly. Write to `outputs/<name>-summary.md`.
 
 ## Level 2 — RLM-lite windowed read
 
 Extract `<window-size>`-char windows via bash, using char-offset reads (not line offsets). For each window: extract key
-claims and evidence, append to `outputs/.notes/<slug>-notes.md`. Synthesize notes into `outputs/<slug>-summary.md`.
+claims and evidence, append to `outputs/.notes/<name>-notes.md`. Synthesize notes into `outputs/<name>-summary.md`.
 
 ## Level 3 — Full RLM parallel chunks
 
 Chunk the document with overlap, dispatch one `researcher` subagent per chunk (reads only its chunk file, no web
-search), aggregate summaries, deduplicate boundary claims, write `outputs/<slug>-summary.md`.
+search), aggregate summaries, deduplicate boundary claims, write `outputs/<name>-summary.md`.
 
 Example subagent task per chunk:
 ```
-Read ONLY outputs/.notes/<slug>-chunk-NNN.txt. Extract: (1) key claims, (2) methodology, (3) cited evidence. Do NOT use web search. Mark cross-boundary sentences BOUNDARY PARTIAL. Write to outputs/.notes/<slug>-summary-chunk-NNN.md.
+Read ONLY outputs/.notes/<name>-chunk-NNN.txt. Extract: (1) key claims, (2) methodology, (3) cited evidence. Do NOT use web search. Mark cross-boundary sentences BOUNDARY PARTIAL. Write to outputs/.notes/<name>-summary-chunk-NNN.md.
 ```
 
 ## Output format
 
-All levels produce the same artifact at `outputs/<slug>-summary.md`:
+All levels produce the same artifact at `outputs/<name>-summary.md`:
 
 ```markdown
 # Summary: [document title or source filename]
@@ -111,4 +111,4 @@ All levels produce the same artifact at `outputs/<slug>-summary.md`:
 Every claim in the summary must trace to the source text actually read. Never fill in content for unread or failed
 windows — report them under Coverage gaps instead.
 
-Before you stop, verify on disk that `outputs/<slug>-summary.md` exists.
+Before you stop, verify on disk that `outputs/<name>-summary.md` exists.

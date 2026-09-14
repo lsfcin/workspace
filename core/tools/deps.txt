@@ -31,7 +31,7 @@
 #            every one of those checks failed to RUN and the tool reported the dependency MISSING:
 #            the same false answer the old `make verify-fast` gate gave. The registry's own rule is
 #            that a dependency has one name; a per-machine spelling per row broke it.
-#   feature  the feature slug that owns it — same slugs SETUP.md declares per step
+#   feature  the feature name that owns it — same names SETUP.md declares per step
 #   breaks   what stops working without it, written in the words the FAILURE uses
 #
 name	kind	import	check	feature	breaks

@@ -12,10 +12,10 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from session_log import _result_chars, blocks, project_slug
+from session_log import _result_chars, blocks, project_name
 from session_turns import paths_for
 
-PROJECT = project_slug()
+PROJECT = project_name()
 STUB_SUFFIXES = ('.pyi', '.d.ts', '.dart.api', '.texif')
 
 

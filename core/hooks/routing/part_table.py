@@ -1,4 +1,4 @@
-# A cut type's index table: what each TYPE-<slug>.md publishes, rendered so the index answers
+# A cut type's index table: what each TYPE-<name>.md publishes, rendered so the index answers
 # "open or skip" without anything being opened.
 #
 # Its own module rather than a third job for workspace_scanner.py, whose sentence is *directory*
@@ -14,7 +14,7 @@ from header import header_fields
 from hoist import hoist, md_blurb
 
 # An open item is a NUMBERED one — `1.`, `10b.` — which is the shape a roadmap actually uses and
-# the same one entropy_list.TICKED_ITEM recognises. Counting `[slug]` instead would have read
+# the same one entropy_list.TICKED_ITEM recognises. Counting `[name]` instead would have read
 # most fronts as empty: the bracketed id is optional and most items carry prose alone.
 #
 # THE MARK IS PART OF THE SHAPE, and every pattern in this file requires it for one reason: a
@@ -29,11 +29,11 @@ ITEM = re.compile(r'^\d+[a-z]?\.[ \t]*[🔴🟡🟢]', re.M)
 LUCAS_ITEM = re.compile(r'^[ \t]*\d+[a-z]?\.[ \t]*🔴', re.M)
 # The optional id, when an item declares one. Narrower than entropy_list's copy on purpose: an
 # index only needs to NAME items, never to decide whether two lists claim the same one.
-SLUG = re.compile(r'^\s*(?:[-*>]+\s*)*(?:\d+[a-z]?\.\s*)?(?:\[[ xX]\]\s*)*[^\S\n]*'
+NAME = re.compile(r'^\s*(?:[-*>]+\s*)*(?:\d+[a-z]?\.\s*)?(?:\[[ xX]\]\s*)*[^\S\n]*'
                   r'(?:[🔴🟡🟢]\s*)?\**`?\[([a-z0-9][a-z0-9-]+)\](?!\()', re.M)
 EMPTY_CELL = {'—', '-', ''}
 # The headline an item already carries: the bold lead-in right after its number and mark. This is
-# the column the index was missing — `Items` reads the optional `[slug]` id, which almost no item
+# the column the index was missing — `Items` reads the optional `[name]` id, which almost no item
 # declares, so it rendered empty for every part but one while the generator was ALREADY parsing
 # the item text to produce Open and Needs Lucas. It read what would let a reader skip a part and
 # threw it away. Ruled 2026-08-19 (Lucas), after a session opened all seven parts to answer one
@@ -72,8 +72,8 @@ def part_facts(path: Path) -> dict:
         return facts
     if items := ITEM.findall(text):
         facts['open'] = str(len(items))
-    if slugs := SLUG.findall(text):
-        facts['items'] = ' '.join(f'`{slug}`' for slug in slugs)
+    if names := NAME.findall(text):
+        facts['items'] = ' '.join(f'`{name}`' for name in names)
     if red := LUCAS_ITEM.findall(text):
         facts['needs-lucas'] = str(len(red))
     return facts
@@ -97,7 +97,7 @@ def render_table(headers: tuple, rows: list, always: tuple) -> str:
 
 
 def parts_of(index: Path) -> list:
-    """Every `TYPE-<slug>.md` beside `TYPE.md`, in name order. Empty when the type has not split."""
+    """Every `TYPE-<name>.md` beside `TYPE.md`, in name order. Empty when the type has not split."""
     return sorted(index.parent.glob(f'{index.stem}-*{index.suffix}'))
 
 

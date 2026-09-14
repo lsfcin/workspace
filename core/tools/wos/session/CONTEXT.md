@@ -2,7 +2,7 @@
 > What a session costs and what fills it, read from the local transcripts. No network, no model.
 
 Split out of [`../CONTEXT.md`](../CONTEXT.md): these three share
-[`session_log.py`](session_log.py) and read `~/.claude/projects/<slug>/*.jsonl`, unlike the
+[`session_log.py`](session_log.py) and read `~/.claude/projects/<name>/*.jsonl`, unlike the
 parent's other tools, which act on the workspace tree.
 
 Quote neither report from memory — re-run the command. The cost work's lesson was four false claims
@@ -32,7 +32,7 @@ the memory store's cost stays separable from everything else's.
 | [`context`](context) | — | — | what fills the context window: what is already in it at turn 1, what the CONTEXT.md chain costs, what grows it turn over turn, and what a subagent starts with. Reads the local transcripts; no network, no model. |
 | [`reads`](reads) | — | — | which files a session reads, how often, and how much each re-read cost. Reads the local transcripts; no network. |
 | [`session_cost.py`](session_cost.py) | [`session_cost.pyi`](session_cost.pyi) | `priced`, `turn_components`, `turn_cost` | session_cost.py — the price of a turn. The one place rates live. |
-| [`session_log.py`](session_log.py) | [`session_log.pyi`](session_log.pyi) | `project_slug`, `label`, `att_chars`, `blocks`, `output_chars` | session_log.py — replay a Claude Code transcript and attribute each turn's context growth. |
+| [`session_log.py`](session_log.py) | [`session_log.pyi`](session_log.pyi) | `project_name`, `label`, `att_chars`, `blocks`, `output_chars` | session_log.py — replay a Claude Code transcript and attribute each turn's context growth. |
 | [`session_reads.py`](session_reads.py) | [`session_reads.pyi`](session_reads.pyi) | `kind_of`, `file_reads` | session_reads.py — which files a session read, how often, and what each read served. |
 | [`session_turns.py`](session_turns.py) | [`session_turns.pyi`](session_turns.pyi) | `trusted_model`, `paths_for`, `turns` | session_turns.py — what counts as ONE assistant turn, and how much of it lands in the thread. |
 | [`usage`](usage) | — | — | where session spend goes: by model, by context size, by billed component, and what one more turn costs. Reads the local transcripts; no network, no model. |

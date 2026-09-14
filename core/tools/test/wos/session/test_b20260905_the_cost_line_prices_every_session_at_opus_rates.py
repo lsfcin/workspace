@@ -53,8 +53,8 @@ def project(tmp_path, monkeypatch):
 
 def test_the_bug_itself_a_foreign_turn_stamped_opus_is_not_billed_as_opus(project) -> None:
 	"""The ZCode/GLM report, reproduced: a valid Anthropic id on a record with no request id."""
-	slug = project([response('claude-opus-5', None)])
-	(_context, comp, model, _session, _out, _logged) = next(iter(turns(slug)))
+	name = project([response('claude-opus-5', None)])
+	(_context, comp, model, _session, _out, _logged) = next(iter(turns(name)))
 	assert model.startswith(UNPRICED), f'a stamp with no request id was believed: {model!r}'
 	assert sum(comp.values()) == 0.0, 'an unpriceable turn must cost nothing, not opus rates'
 
@@ -62,15 +62,15 @@ def test_the_bug_itself_a_foreign_turn_stamped_opus_is_not_billed_as_opus(projec
 def test_the_claimed_model_survives_in_the_label(project) -> None:
 	"""Unpriced is not anonymous. What the transcript claimed is the only lead anyone has for
 	working out what actually answered, so it is carried rather than dropped."""
-	slug = project([response('claude-opus-5', None)])
-	assert 'claude-opus-5' in next(iter(turns(slug)))[2]
+	name = project([response('claude-opus-5', None)])
+	assert 'claude-opus-5' in next(iter(turns(name)))[2]
 
 
 def test_a_real_anthropic_turn_is_still_priced(project) -> None:
 	"""The mirror half, and the one that would break silently: over-refusing reports every session
 	as free, which is the same class of unchecked number in the other direction."""
-	slug = project([response('claude-opus-5', 'req_011Cabc')])
-	(_context, comp, model, _session, _out, _logged) = next(iter(turns(slug)))
+	name = project([response('claude-opus-5', 'req_011Cabc')])
+	(_context, comp, model, _session, _out, _logged) = next(iter(turns(name)))
 	assert model == 'claude-opus-5'
 	assert sum(comp.values()) > 0.0
 
@@ -78,8 +78,8 @@ def test_a_real_anthropic_turn_is_still_priced(project) -> None:
 def test_a_model_we_hold_no_rate_for_is_unpriced_even_with_a_request_id(project) -> None:
 	"""The other half of the rule. `minimax-m3` stamps honestly and had no rate, so RATES' old
 	(5.0, 25.0) default billed 8 sessions on this disk at the most expensive level it knows."""
-	slug = project([response('minimax-m3', 'req_011Cabc')])
-	assert next(iter(turns(slug)))[2].startswith(UNPRICED)
+	name = project([response('minimax-m3', 'req_011Cabc')])
+	assert next(iter(turns(name)))[2].startswith(UNPRICED)
 
 
 def test_no_rate_table_entry_prices_at_zero() -> None:

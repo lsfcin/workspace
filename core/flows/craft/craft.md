@@ -31,12 +31,12 @@ instead of spending them: N cheap short sessions instead of one long expensive o
 
 ### File protocol
 
-- Directory: `<project>/.craft/<feature-slug>/` inside the target project's own repo.
+- Directory: `<project>/.craft/<feature-name>/` inside the target project's own repo.
 - Files: `0-clarify.md`, `1-plan.md`, `2-ground.md`, `3-arch.md`, `3b-contracts.md` (feature folder), `4a-tests.md`,
   `4b-code.md`, `5-user.md`, `6-ship.md`.
 - **Append-only.** Executors add sections; never rewrite prior content. Corrections are new appended sections.
 - **Executor self-report.** Every appended section ends with `executor: <agent-type> model=<provider/model-id>
-  level=<level> deleg=<none|from→to>` — after a run, `grep executor .craft/<slug>/*.md` audits whether routing actually
+  level=<level> deleg=<none|from→to>` — after a run, `grep executor .craft/<name>/*.md` audits whether routing actually
   happened *and* which provider paid for each loop. The `model=` field MUST include the provider prefix (e.g.
   `model=nvidia/z-ai/glm-5.2`, not bare `model=glm-5.2`) so the per-provider cost split is recoverable from the chain
   alone, without the session log.
@@ -47,14 +47,14 @@ instead of spending them: N cheap short sessions instead of one long expensive o
   digest, context pointers (project `CONTEXT.md`/`AGENTS.md` paths). This is what makes "read exactly one
   file" true — no loop ever chases earlier files.
 - `.craft/` is committed on the feature branch during the flow (audit trail, survives crashes). Loop 6 folds the durable
-  outcome into the project's `ROADMAP.md` (workspace policy: plans live in roadmaps) and deletes `.craft/<slug>/` in the
+  outcome into the project's `ROADMAP.md` (workspace policy: plans live in roadmaps) and deletes `.craft/<name>/` in the
   final commit unless Loop 0 recorded `keep-trail: yes`.
 
 ### Carry block template
 
 ```markdown
 ## Carry
-slug: <feature-slug> | branch: <branch-name> | root: <project path>
+name: <feature-name> | branch: <branch-name> | root: <project path>
 provider: <orchestrator provider, e.g. nvidia | openrouter | opencode | anthropic | copilot> | chain-deleg: <none | deleg=<from>→<to>>
 level-map: <one of: nvidia | openrouter | opencode | anthropic | copilot> | verified-on: <date>
 test-cmd: <exact command, e.g. `npm test`> | e2e-cmd: <or "none">
@@ -108,7 +108,7 @@ the Carry `provider:` / `level-map:` fields. Executors do not: they are handed a
 Flag line format, appended at the end of the executor's section:
 
 ```
-FLAG: RETURN loop=<N> reason=<slug> evidence=<one line>
+FLAG: RETURN loop=<N> reason=<name> evidence=<one line>
 ```
 
 - The executor **raises**; the orchestrator **routes**. A return of ≤1 loop backwards is honored automatically.
@@ -134,8 +134,8 @@ nothing more:
 Read core/flows/craft/craft.md — the spine, all of it — then the one loop file
 that holds your loop: craft-plan.md (0-2), craft-build.md (3-4b), craft-ship.md
 (5-6.5). Read no other loop file. Then read
-<project>/.craft/<slug>/<input-file>. Execute Loop <N>. Append your output to
-<project>/.craft/<slug>/<output-file> following the embedded template. End your
+<project>/.craft/<name>/<input-file>. Execute Loop <N>. Append your output to
+<project>/.craft/<name>/<output-file> following the embedded template. End your
 section with `executor: craft-<level> model=<provider/model-id> level=<level>
 deleg=<none|from→to>`. Reply with ONE line:
 OK <verdict> | FLAG <flag line> | BLOCKED <reason>.

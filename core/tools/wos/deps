@@ -1,4 +1,4 @@
-# Usage: core/tools/wos/deps [--check] [--feature <slug>] — check every dependency declared in core/tools/deps.txt, reporting what each miss breaks; --check exits 1 on any miss
+# Usage: core/tools/wos/deps [--check] [--feature <name>] — check every dependency declared in core/tools/deps.txt, reporting what each miss breaks; --check exits 1 on any miss
 from __future__ import annotations
 
 import argparse
@@ -103,7 +103,7 @@ def main() -> int:
     tool_law.require('declared-deps')  # before argparse: off means off, including --help
     ap = argparse.ArgumentParser(add_help=True)
     ap.add_argument('--check', action='store_true', help='exit 1 if anything is missing')
-    ap.add_argument('--feature', help='check only the deps owned by one feature slug')
+    ap.add_argument('--feature', help='check only the deps owned by one feature name')
     args = ap.parse_args()
 
     wanted = [r for r in rows() if not args.feature or r['feature'] == args.feature]

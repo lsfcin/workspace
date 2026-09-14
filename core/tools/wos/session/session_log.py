@@ -29,7 +29,7 @@ TEXT_FIELDS = ('content', 'addedLines', 'stdout')
 PROJECTS = Path.home() / '.claude' / 'projects'
 
 
-def project_slug(root=None) -> str:
+def project_name(root=None) -> str:
 	"""The transcript directory this workspace's sessions are logged into, DERIVED not spelled.
 
 	All three tools defaulted to the authoring machine's path in the harness's notation, so on any

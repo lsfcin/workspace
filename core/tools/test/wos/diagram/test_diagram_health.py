@@ -103,12 +103,12 @@ def test_the_fan_in_reaches_every_feature_the_matrix_does():
     rows = data.features()
     for grain in ('path', 'area'):
         points, dangling = data.fan_in(rows, grain)
-        seen = {slug for _point, slugs in points for slug in slugs}
-        assert seen | set(dangling) == law.slugs(), (
-            f'the {grain} fan-in loses {sorted(law.slugs() - seen - set(dangling))}')
+        seen = {name for _point, names in points for name in names}
+        assert seen | set(dangling) == law.names(), (
+            f'the {grain} fan-in loses {sorted(law.names() - seen - set(dangling))}')
     points, dangling = data.fan_in(rows)
-    assert sum(len(slugs) for _p, slugs in points) == sum(len(r['wired_paths']) for r in rows)
-    assert dangling == [row['slug'] for row in data.unwired(rows)]
+    assert sum(len(names) for _p, names in points) == sum(len(r['wired_paths']) for r in rows)
+    assert dangling == [row['name'] for row in data.unwired(rows)]
 
 
 def test_the_collapsed_tail_hides_no_point():
@@ -118,7 +118,7 @@ def test_the_collapsed_tail_hides_no_point():
     points, dangling = data.fan_in(data.features())
     hubs, tail = fanin_form._split(points)
     assert len(hubs) + tail == len(points)
-    assert all(len(slugs) >= fanin_form.HUB_MIN for _p, slugs in hubs)
+    assert all(len(names) >= fanin_form.HUB_MIN for _p, names in hubs)
     assert str(tail) in fanin_form.render_graph(points, dangling)
 
 

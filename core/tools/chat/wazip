@@ -36,7 +36,7 @@ def contact_of(zip_path: pathlib.Path) -> str:
     return name.strip()
 
 
-def slug_of(contact: str) -> str:
+def file_name_of(contact: str) -> str:
     keep = [c.lower() if c.isalnum() else "-" for c in contact]
     return "-".join(part for part in "".join(keep).split("-") if part)
 
@@ -53,10 +53,10 @@ def one(zip_path: pathlib.Path, out_dir: pathlib.Path, prompt: str,
         if export is None:
             raise SystemExit(f"{zip_path.name}: nenhum .txt de conversa dentro do zip")
         contact = contact_of(zip_path)
-        target = out_dir / f"{slug_of(contact)}.txt"
+        target = out_dir / f"{file_name_of(contact)}.txt"
         count = chat_stitch.run(export, target, contact)
         if keep_media is not None:
-            shutil.copytree(work, keep_media / slug_of(contact), dirs_exist_ok=True)
+            shutil.copytree(work, keep_media / file_name_of(contact), dirs_exist_ok=True)
         return target, count
     finally:
         shutil.rmtree(work, ignore_errors=True)
