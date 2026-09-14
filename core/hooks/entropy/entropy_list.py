@@ -30,11 +30,10 @@ _URL = re.compile(r'<?https?://\S+')
 def retired_hits(files: list, retired: dict, exempt: set) -> list:
     """Every surviving occurrence of a retired token, in content or in a filename."""
     exempt = {path.resolve() for path in exempt}
-    # Hyphen AND UNDERSCORE are boundaries, not word characters: a retired token survives just
-    # as much inside `fable-loop-engineering.md` or `entropy_ledger.py` as it does standing
-    # alone, and that compound form is how an unfinished rename actually hides at the leaves.
-    # `\w` covered the hyphen and missed the underscore until 2026-09-14, which made this check
-    # blind to every snake_case identifier — the exact half a rename forgets.
+    # Hyphen and underscore are boundaries, not word characters: a retired token survives just
+    # as much inside `fable-loop-engineering.md` or `entropy_ledger.py` as standing alone, and
+    # that compound form is how an unfinished rename hides at the leaves. `\w` covered the
+    # hyphen and missed the underscore until 2026-09-14, blinding this to every identifier.
     patterns = {token: re.compile(rf'(?<![A-Za-z0-9]){re.escape(token)}(?![A-Za-z0-9])')
                 for token in retired}
     hits = []
