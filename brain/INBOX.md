@@ -8,6 +8,24 @@
 ---
 
 <!-- add entries below, newest first -->
+
+será que é muito complicado e/ou tem algum ponto muito negativo em trocar o limite de tamanho dos arquivos ao invés de usar 250 LOC + 120 de chars por linha para trocar por um número total de caracteres do documento? número de "palavras" talvez? número de "tokens"? penso isso por que essa quebra de linha em 120 chars é bem artificial
+
+https://www.instagram.com/p/DdQ3fXJjXDG/?utm_source=ig_web_copy_link
+colocar nas minhas aulas
+— via aiwbot · 2026-09-14
+
+em uma conversa com o antigravity ele me surpreendeu dizendo que autocompactou uma sessão e eu só soube no final...
+gostaria de no mínimo ser avisado automaticamente quando isso acontecesse... enfim, não tenho certeza da estratégia mas
+é um ponto a ser resolvido
+
+esse estudo tem que entrar na minha aula
+https://www.instagram.com/reel/DdPgPgYxjaV/?stkn=NTc4MTIwNjQ2YQ==
+
+https://www.instagram.com/reel/DdHFEu1O92_/?stkn=NTc4MTIwNjQ2YQ==
+eli5 pode ser realmente útil, parece ter match com algumas coisas que já discutimos aqui... talvez até pra trocar a
+forma como fazemos alguns procedimentos
+
 https://darioamodei.com/essay/machines-of-loving-grace
 falar disso nas minhas aulas
 
