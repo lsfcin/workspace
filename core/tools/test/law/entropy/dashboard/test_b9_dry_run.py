@@ -1,10 +1,10 @@
 # B9 regression — a verification run is not a write.
 #
-# test_features_wiring probes every registered hook, and one of them is the entropy dashboard,
-# which rewrote ISSUES.md (and every nested repo's local list) on each probe — measured 2026-08-30
+# test_features_wiring checks every registered hook, and one of them is the entropy dashboard,
+# which rewrote ISSUES.md (and every nested repo's local list) on each check — measured 2026-08-30
 # blocking two merges in one session, because git refuses to start one over a dirty tracked file.
-# The dashboard now reports without writing when it sees --dry-run, WOS_DRY_RUN, or the LAW_PROBE
-# environment the wiring probe already exports. This spec holds that seam: a probe-shaped run must
+# The dashboard now reports without writing when it sees --dry-run, WOS_DRY_RUN, or the LAW_CHECK
+# environment the wiring check already exports. This spec holds that seam: a check-shaped run must
 # leave the working tree byte-identical.
 import os
 import subprocess
@@ -30,10 +30,10 @@ def _dashboard(*args, env_extra=None):
     return out
 
 
-def test_the_wiring_probe_environment_writes_nothing():
+def test_the_wiring_check_environment_writes_nothing():
     before = _snapshot()
-    out = _dashboard(env_extra={'LAW_PROBE': '1'})
-    assert '[dry-run]' in out.stdout, 'a probe run must say it did not write'
+    out = _dashboard(env_extra={'LAW_CHECK': '1'})
+    assert '[dry-run]' in out.stdout, 'a check run must say it did not write'
     assert _snapshot() == before
 
 

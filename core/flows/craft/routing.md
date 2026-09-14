@@ -135,7 +135,7 @@ models` availability check, on the date stamped in the table. To refresh quarter
 model):
 
 ```bash
-# 1. Re-probe local opencode availability (which providers + coding-capable models are live NOW):
+# 1. Re-check local opencode availability (which providers + coding-capable models are live NOW):
 opencode models 2>&1 | awk -F/ '{print $1}' | sort -u
 opencode models 2>&1 | grep -E '^<provider>/' | grep -ivE 'safety|rerank|embed|guard|tts|voice|flux|gemma|paligemma|cosmos|bevformer|gliner|whisper|image|translate|drive|streampetr|spargedrive|usd'
 

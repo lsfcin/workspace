@@ -105,7 +105,7 @@ previously 0. The count differs slightly from a shell's 478 because a couple of 
 environment the service does not inherit — which is correct behaviour, since the picker should
 offer only what the process running the turn can actually reach.
 
-### AD-31 — opencode asks through its config, not through a flag (2026-07-29, probed live)
+### AD-31 — opencode asks through its config, not through a flag (2026-07-29, checked live)
 
 Measured against opencode 1.18.7 before any code was written, the same way AD-27 was measured, and
 it contradicted three of the audit's guesses. Everything below is from the binary and from three

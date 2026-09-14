@@ -90,7 +90,7 @@ def test_a_post_gate_does_not_run_at_pre() -> None:
 	PreToolUse call on a CONTEXT.md must not mark it as read — that would clear the very gate the
 	same call is being judged by, which is the read-gate race b20260901 already paid for once."""
 	payload = call('Read', {'file_path': str(WORKSPACE_ROOT / 'core/hooks/CONTEXT.md')},
-	               'moment-probe')
+	               'moment-check')
 	payload['hook_event_name'] = 'PreToolUse'
 	done = run(payload)
 	assert done.returncode in (0, 2), done.stderr
@@ -105,7 +105,7 @@ def test_a_gate_guarded_by_dunder_main_actually_runs():
 	that goes quiet if the dispatcher execs it under any other name. Compared rather than asserted
 	against a fixed string: the point is that routing through here changes nothing.
 	"""
-	payload = call('Bash', {'command': f"cat > {WS}/probe.md <<'EOF'\nx\nEOF"}, 'b20260905-main')
+	payload = call('Bash', {'command': f"cat > {WS}/check.md <<'EOF'\nx\nEOF"}, 'b20260905-main')
 	alone = run(payload, HOOKS / 'checks/heredoc-gate.py')
 	through = run(payload)
 	assert 'UNGATED WRITE' in alone.stdout, 'the gate itself went quiet — this test proves nothing'

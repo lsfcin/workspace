@@ -146,7 +146,7 @@ def main(argv: list | None = None) -> int:
     if not feature_law.is_enabled('entropy-dashboard'):
         return 0  # switched off: no report is written, so the number stops existing rather than lying
     args = argv if argv is not None else sys.argv[1:]
-    dry_run = '--dry-run' in args or bool(os.environ.get('LAW_PROBE')) or bool(os.environ.get('WOS_DRY_RUN'))
+    dry_run = '--dry-run' in args or bool(os.environ.get('LAW_CHECK')) or bool(os.environ.get('WOS_DRY_RUN'))
     # EVERY REPO COUNTS ONLY ITSELF (ruled 2026-09-04, Lucas). The root used to scan all 27 nested
     # repos and carry a table of them — repos its own git IGNORES, so the committed block described
     # THIS DISK and the clone without them read the same commit as red for work it had not done.

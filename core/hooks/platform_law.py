@@ -31,7 +31,7 @@ AUTHORING_ROOT = '/mnt/workspace'    # named ONCE, so a checker can search witho
 
 def venv_script(name: str) -> Path:
     """A console script inside the venv — pytest, stubgen, yt-dlp, pip. Two differences in one
-    answer: the directory (bin vs Scripts) and the suffix; by hand, a probe misreports a present dep."""
+    answer: the directory (bin vs Scripts) and the suffix; by hand, a check misreports a present dep."""
     return WORKSPACE_ROOT / (WINDOWS_VENV_BIN if _WINDOWS else POSIX_VENV_BIN) / (
         f'{name}.exe' if _WINDOWS else name)
 

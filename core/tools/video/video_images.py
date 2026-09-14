@@ -23,7 +23,7 @@ def _first_meta(data):
     return {}
 
 
-def probe(url, runner=None):
+def metadata(url, runner=None):
     """L0 for image posts — description, uploader and image count from gallery-dl."""
     r = _run(["-j", url], runner)
     out = (getattr(r, "stdout", "") or "").strip()
@@ -67,9 +67,9 @@ def _per_image(paths, fn):
     return "\n".join(out)
 
 
-def gather(url, level="auto", _probe=None, _media=None, _paths=None):
+def gather(url, level="auto", _metadata=None, _media=None, _paths=None):
     """Full image-post extraction. Returns (meta, parts, methods) for video_core.assemble."""
-    meta = (_probe or probe)(url)
+    meta = (_metadata or metadata)(url)
     parts, methods = [], []
     if not meta.get("ok"):
         return meta, parts, methods

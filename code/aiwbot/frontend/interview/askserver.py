@@ -10,7 +10,7 @@ from aiohttp import web
 from backend import ASK_SERVER_NAME
 from . import ask
 
-# What the CLI negotiated in the probe. Echoed back rather than dictated: the client sends the
+# What the CLI negotiated in the check. Echoed back rather than dictated: the client sends the
 # version it wants, and it re-sends `initialize` several times per invocation.
 PROTOCOL = "2025-06-18"
 # The name is the seam's, not this server's: every backend writes it into its own config (AD-31).

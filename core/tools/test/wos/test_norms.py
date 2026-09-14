@@ -85,7 +85,7 @@ def test_a_norm_is_a_rule_and_not_an_essay():
 
 
 def test_switching_a_norm_off_removes_it_from_the_prompt():
-    """The group's honesty probe (core/SPECS.md § AD-14).
+    """The group's honesty check (core/SPECS.md § AD-14).
 
     Run in a subprocess: `feature_law` caches nothing, but the switch is read from the environment
     at call time, and asserting it in-process would prove only that this test can set a variable.

@@ -24,7 +24,7 @@ TOOL_LAW = 'core/tools/tool_law.py'
 
 # A whole group can share one publisher, and then no row can name itself there: the mirror
 # cannot spell fourteen skill slugs and the generator cannot spell ten norm slugs. Those rows
-# are held honest by a BEHAVIOURAL probe instead — below for skills, test_norms.py for norms.
+# are held honest by a BEHAVIOURAL check instead — below for skills, test_norms.py for norms.
 # `symmetry` passed the grep by accident, on the word "asymmetry" in a comment, which is the
 # whole argument against a grep in one line.
 GROUP_PUBLISHERS = {SKILL_MIRROR, NORMS_GENERATOR}
@@ -111,22 +111,22 @@ def _asks_the_law(hook: str, tmp_path) -> set:
     shim.mkdir(parents=True)
     log.touch()
     (shim / 'sitecustomize.py').write_text(
-        '# probe: record every slug a hook asks the law about, at runtime.\n'
+        '# check: record every slug a hook asks the law about, at runtime.\n'
         'import os, pathlib, sys\n'
         f'sys.path.insert(0, {str(WORKSPACE_ROOT / "core/hooks")!r})\n'
         'import feature_law\n'
-        '_log, _orig = pathlib.Path(os.environ["LAW_PROBE"]), feature_law.is_enabled\n'
+        '_log, _orig = pathlib.Path(os.environ["LAW_CHECK"]), feature_law.is_enabled\n'
         'def _rec(slug, *a, **k):\n'
         '    _log.open("a").write(slug + "\\n")\n'
         '    return _orig(slug, *a, **k)\n'
         'feature_law.is_enabled = _rec\n', encoding='utf-8', newline='\n')
-    payload = json.dumps({'tool_name': 'Bash', 'session_id': 'law-probe',
+    payload = json.dumps({'tool_name': 'Bash', 'session_id': 'law-check',
                           'cwd': str(WORKSPACE_ROOT),
-                          'tool_input': {'command': 'ls', 'file_path': '/tmp/probe.py',
-                                         'content': '# probe\n'}})
+                          'tool_input': {'command': 'ls', 'file_path': '/tmp/check.py',
+                                         'content': '# check\n'}})
     subprocess.run([interpreter(), str(WORKSPACE_ROOT / hook)], input=payload, text=True,
                    capture_output=True, timeout=60,
-                   env={**os.environ, 'PYTHONPATH': str(shim), 'LAW_PROBE': str(log)}, encoding='utf-8')
+                   env={**os.environ, 'PYTHONPATH': str(shim), 'LAW_CHECK': str(log)}, encoding='utf-8')
     return set(log.read_text(encoding='utf-8').split())
 
 
@@ -175,17 +175,17 @@ def test_a_switched_off_tool_refuses_to_run():
 
     AD-14 files skills and tools together as the rows with nowhere to put a call. True of
     a skill — markdown, switched off only by the mirror declining to publish it. A tool is
-    a CLI this workspace owns, so it has a moment of its own, and this probe answers per row
+    a CLI this workspace owns, so it has a moment of its own, and this check answers per row
     where a shared publisher answers once for the group. `OFF_EXIT` is asserted rather than
     "non-zero": every tool exits 1 on a real failure, so any-non-zero would pass on a broken one.
     """
     import tool_law
-    probed = []
+    checked = []
     for row in law.load_registry():
         for target in law.wired_paths(row):
             # Scoped by wiring point, not by group. `rtk-compaction` is wired to a hook, whose
-            # observable is what it rewrites; the skills mirror is a sourced fragment probed
-            # above. AD-14 exactly — the wiring point decides how a row is probed.
+            # observable is what it rewrites; the skills mirror is a sourced fragment checked
+            # above. AD-14 exactly — the wiring point decides how a row is checked.
             if target == SKILL_MIRROR or not target.startswith('core/tools/'):
                 continue
             out = subprocess.run([interpreter(), str(WORKSPACE_ROOT / target)], capture_output=True, text=True,
@@ -195,5 +195,5 @@ def test_a_switched_off_tool_refuses_to_run():
                 f"{row['slug']}: exits {out.returncode} under {law.OFF_ENV}, so the switch does "
                 f"not stop {target}")
             assert row['slug'] in out.stderr, f'{row["slug"]} stops without naming itself'
-            probed.append(row['slug'])
-    assert probed, 'no tool is wired to an entrypoint yet — this probe proves nothing'
+            checked.append(row['slug'])
+    assert checked, 'no tool is wired to an entrypoint yet — this check proves nothing'

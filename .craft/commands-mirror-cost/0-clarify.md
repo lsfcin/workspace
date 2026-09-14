@@ -23,7 +23,7 @@ source-gathering shapes (sota, literature, compare, audit); `research/explore.md
 loop needing a benchmark command and an iteration budget, not a two-arm ablation.
 So it is routed by the bakery gate instead, which it passes on every clause: 1 file touched, no new
 API, no migration, an existing pattern covers it (`core/experiments/SPECS.md` format + the
-`*probe` scratch-project precedent in `~/.claude/projects/`), revert fully undoes it,
+`*check` scratch-project precedent in `~/.claude/projects/`), revert fully undoes it,
 criticality=low. **verdict: padaria.**
 
 ## Clarify

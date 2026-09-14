@@ -72,10 +72,10 @@ def test_a_rendered_config_is_not_versioned():
 
 
 def test_check_notices_a_config_that_no_longer_matches(tmp_path):
-    """--check is the step's Verify probe, so it has to actually catch a drifted file.
+    """--check is the step's Verify check, so it has to actually catch a drifted file.
 
     Both halves are written against whatever level THIS machine answered, never a hard-coded one:
-    a probe that only passes on the author's profile is the drift it was built to catch.
+    a check that only passes on the author's profile is the drift it was built to catch.
     """
     module = _tool()
     declared = module.law.setting('permissions', module.DEFAULT_TIER)

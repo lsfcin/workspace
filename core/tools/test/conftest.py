@@ -88,7 +88,7 @@ def _inside_generated_block(hit: str) -> bool:
 import pytest  # noqa: E402 — after the env scrub above, which must run before anything imports git
 
 # THE SUBTREES A TEST MAY NOT LEAVE CHANGED, and why these two. `core/skills/` is where the proven
-# offender seeded drift, `code/` is where two others created a real probe directory and removed it.
+# offender seeded drift, `code/` is where two others created a real check directory and removed it.
 # Both are scanned by other cases while a case is inside that window, which is what made the suite
 # a coin flip. Kept to two directories on purpose: the guard runs around EVERY test, so it has to
 # cost microseconds -- os.scandir over two directories, no subprocess, no git.

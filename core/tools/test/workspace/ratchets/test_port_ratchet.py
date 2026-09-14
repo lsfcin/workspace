@@ -47,7 +47,7 @@ def _files(*args) -> list:
 # Both counts used to sit at 44 and 19 with a comment predicting "a floor somewhere above zero made
 # of the documents that have to name both spellings". That floor was not a fact about the problem,
 # it was the shape of the answer: platform_law.py branched on these two strings without EXPORTING
-# them, so every consumer re-spelled the literal -- deps.txt in 17 probe rows, wos/deps,
+# them, so every consumer re-spelled the literal -- deps.txt in 17 check rows, wos/deps,
 # wos/permissions, and these tests. The ceilings were counting that duplication.
 #
 # The seam publishes its data now, the consumers ask, and what is left is one file each:

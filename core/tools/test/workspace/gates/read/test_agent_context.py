@@ -69,7 +69,7 @@ def test_the_briefing_carries_one_line_each_not_the_whole_head(prompt_id) -> Non
 	'Is core/hooks/brain/brain_attention.py correct?',
 ])
 def test_a_path_ending_a_sentence_is_still_found(prompt_id, prose) -> None:
-	"""The first live probe found nothing because the path ended a sentence.
+	"""The first live check found nothing because the path ended a sentence.
 
 	The unit tests all happened to put a space after the path, so they passed while the feature did
 	not work at all. Prose punctuation is the normal case in an agent prompt, not the edge case.

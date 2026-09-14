@@ -124,7 +124,7 @@ def is_wired(row: dict) -> bool:
     """Does this row have an in-process switch?
 
     `n/a` says one cannot exist — the .venv every hook runs on cannot disable itself and still
-    leave a gate running to answer. Those rows are NOT findings and are NOT probed: they are
+    leave a gate running to answer. Those rows are NOT findings and are NOT checked: they are
     ablated by building a clone variant without them, which is the harness's job and not this
     module's (core/SPECS.md § AD-14). Everything else either names a file or is a finding.
     """

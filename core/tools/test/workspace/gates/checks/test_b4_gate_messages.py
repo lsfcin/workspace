@@ -89,15 +89,15 @@ def _blocking_case(gate: str, tmp_path: Path):
             "file_path": str(mod / "a.py"),
             "old_string": "1", "new_string": "2"}}, "READ FACADE FIRST"
     else:
-        # The gate walks up to the workspace root, so the probe must really live under code/.
-        mod = WORKSPACE_ROOT / "code" / f"_spec_gate_probe_{uuid.uuid4().hex[:8]}"
+        # The gate walks up to the workspace root, so the check must really live under code/.
+        mod = WORKSPACE_ROOT / "code" / f"_spec_gate_check_{uuid.uuid4().hex[:8]}"
         mod.mkdir(parents=True)
         try:
             (mod / "CONTEXT.md").write_text(
-                "# probe\n> probe module, deleted by the test that made it\n"
+                "# check\n> check module, deleted by the test that made it\n"
                 "> spec: SPECS.md\n", encoding="utf-8", newline='\n')
             (mod / "SPECS.md").write_text(
-                "# probe\n> probe spec\nstatus: locked\n", encoding="utf-8", newline='\n')
+                "# check\n> check spec\nstatus: locked\n", encoding="utf-8", newline='\n')
             (mod / "a.py").write_text("# a\nx = 1\n", encoding="utf-8", newline='\n')
             yield {"tool_name": "Edit", "tool_input": {
                 "file_path": str(mod / "a.py"),

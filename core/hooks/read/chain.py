@@ -113,7 +113,7 @@ def paths_in(text: str, cwd: str, files_only: bool = False) -> set[Path]:
 		if '/' not in token and '\\' not in token:
 			continue
 		# Prose ends a path with punctuation — "...edit foo/bar.py." — and the trailing period made
-		# every sentence-final path invisible. It cost a live probe to catch, because the unit test
+		# every sentence-final path invisible. It cost a live check to catch, because the unit test
 		# happened to put a space after the path. A path never legitimately ends in these.
 		raw = token.strip('\'"`,:;!?()[]{}<>').rstrip('.')
 		if raw.startswith('~') or raw.startswith('-'):

@@ -12,7 +12,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`deps`](deps) | — | — | probe every dependency declared in core/tools/deps.txt, reporting what each miss breaks; --check exits 1 on any miss |
+| [`deps`](deps) | — | — | check every dependency declared in core/tools/deps.txt, reporting what each miss breaks; --check exits 1 on any miss |
 | [`features`](features) | — | — | list every toggleable feature from core/features.txt with its answer in core/profile.txt; --findings counts what cannot be switched off; --check exits 1 on any registry/profile disagreement |
 | [`permissions`](permissions) | — | — | print the permission levels declared in core/permissions.txt with the one this machine answered in core/profile.txt; --set switches level and re-renders every harness config; --check exits 1 when a rendered config no longer matches the answer |
 | [`roundup`](roundup) | — | — | the deterministic half of the /roundup ritual. Verification gate, entropy regen, branch promotion. Prints the state facts /handoff copies and anything that needs a decision; nothing else. |

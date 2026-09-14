@@ -35,17 +35,17 @@ class FakeMedia:
 
 
 
-def test_probe_parses_dump():
+def test_metadata_parses_dump():
     dump = (FIX / "ytdlp_dump.json").read_text(encoding='utf-8')
-    meta = vc.probe("http://x", runner=lambda a: FakeProc(stdout=dump))
+    meta = vc.metadata("http://x", runner=lambda a: FakeProc(stdout=dump))
     assert meta["ok"]
     assert meta["title"] == "Test Clip"
     assert meta["uploader"] == "Chan"
     assert "en" in meta["auto_captions"]
 
 
-def test_probe_failure_no_crash():
-    meta = vc.probe("http://x", runner=lambda a: FakeProc(stderr="ERROR: login required"))
+def test_metadata_failure_no_crash():
+    meta = vc.metadata("http://x", runner=lambda a: FakeProc(stderr="ERROR: login required"))
     assert meta["ok"] is False
     assert "login" in meta["error"]
 
@@ -61,7 +61,7 @@ def test_assemble_stops_at_metadata():
     def boom(url):
         raise AssertionError("captions must not be fetched when none advertised")
 
-    b = vc.assemble("http://x", _probe=lambda u: meta, _captions=boom)
+    b = vc.assemble("http://x", _metadata=lambda u: meta, _captions=boom)
     assert b["method"] == "metadata"
     assert "flower shop" in b["text"]
 
@@ -69,7 +69,7 @@ def test_assemble_stops_at_metadata():
 def test_assemble_uses_captions():
     meta = {"ok": True, "title": "T", "uploader": "U",
             "description": "desc", "subtitles": [], "auto_captions": ["en"]}
-    b = vc.assemble("http://x", _probe=lambda u: meta, _captions=lambda u: "spoken words")
+    b = vc.assemble("http://x", _metadata=lambda u: meta, _captions=lambda u: "spoken words")
     assert "captions" in b["method"]
     assert "spoken words" in b["text"] and "desc" in b["text"]
 
@@ -78,7 +78,7 @@ def test_assemble_speech_forced():
     meta = {"ok": True, "title": "T", "uploader": "U",
             "description": "", "subtitles": [], "auto_captions": []}
     fm = FakeMedia(spoken="the spoken line")
-    b = vc.assemble("http://x", level="speech", _probe=lambda u: meta, _media=fm)
+    b = vc.assemble("http://x", level="speech", _metadata=lambda u: meta, _media=fm)
     assert "speech" in b["method"]
     assert "the spoken line" in b["text"]
 
@@ -87,7 +87,7 @@ def test_assemble_auto_escalates_to_speech_then_ocr():
     meta = {"ok": True, "title": "T", "uploader": "U",
             "description": "", "subtitles": [], "auto_captions": []}
     fm = FakeMedia(spoken="", screen="text on the screen")
-    b = vc.assemble("http://x", _probe=lambda u: meta, _media=fm)
+    b = vc.assemble("http://x", _metadata=lambda u: meta, _media=fm)
     assert fm.calls == ["dl_audio", "dl_video"]  # tried speech, empty, escalated to ocr
     assert "ocr" in b["method"] and "text on the screen" in b["text"]
 
@@ -96,7 +96,7 @@ def test_assemble_auto_skips_heavy_when_metadata_suffices():
     meta = {"ok": True, "title": "T", "uploader": "U",
             "description": "already enough", "subtitles": [], "auto_captions": []}
     fm = FakeMedia(spoken="nope")
-    b = vc.assemble("http://x", _probe=lambda u: meta, _media=fm)
+    b = vc.assemble("http://x", _metadata=lambda u: meta, _media=fm)
     assert fm.calls == []  # no download when L0 already has text
     assert b["method"] == "metadata"
 
@@ -130,8 +130,8 @@ def test_source_of():
 def test_save_no_overwrite(tmp_path):
     meta = {"ok": True, "title": "My Clip", "uploader": "U",
             "description": "body", "subtitles": [], "auto_captions": []}
-    b1 = vc.assemble("http://x", save=True, base=tmp_path, _probe=lambda u: meta)
-    b2 = vc.assemble("http://x", save=True, base=tmp_path, _probe=lambda u: meta)
+    b1 = vc.assemble("http://x", save=True, base=tmp_path, _metadata=lambda u: meta)
+    b2 = vc.assemble("http://x", save=True, base=tmp_path, _metadata=lambda u: meta)
     p1, p2 = pathlib.Path(b1["saved_path"]), pathlib.Path(b2["saved_path"])
     assert p1.exists() and p2.exists() and p1 != p2
     assert "body" in p1.read_text(encoding='utf-8')
@@ -153,7 +153,7 @@ class ExplodingMedia(FakeMedia):
 
 
 def test_image_post_never_reaches_transcribe():
-    """--level full on an image-only carousel. yt-dlp reads video only, so the post probes
+    """--level full on an image-only carousel. yt-dlp reads video only, so the post reads
     as a failure and the whole ok-gated escalation — audio, OCR, captions — is skipped in
     favour of the gallery-dl image path."""
     class FakeImages:
@@ -161,7 +161,7 @@ def test_image_post_never_reaches_transcribe():
             return {"ok": True, "title": "carousel"}, ["text in the images"], ["ocr"]
 
     out = vc.assemble("http://insta/p/x", level="full",
-                      _probe=lambda u: {"ok": False, "error": "Unsupported URL"},
+                      _metadata=lambda u: {"ok": False, "error": "Unsupported URL"},
                       _media=ExplodingMedia(spoken="never"),
                       _images=FakeImages())
     assert out["ok"]
@@ -174,21 +174,21 @@ def test_no_audio_stream_does_not_reach_transcribe():
     if audio else ""`. Without it the same IndexError arrives by a different road."""
     media = ExplodingMedia(spoken="")          # download_audio returns None
     out = vc.assemble("http://x", level="speech",
-                      _probe=lambda u: {"ok": True, "title": "T", "uploader": "U",
+                      _metadata=lambda u: {"ok": True, "title": "T", "uploader": "U",
                                         "description": "", "subtitles": [], "auto_captions": []},
                       _media=media)
     assert "speech" not in out["method"]
 
 
 def test_mixed_instagram_carousel_gathers_images():
-    """B3 regression: Instagram carousel whose slide 1 is a video probes ok under yt-dlp,
+    """B3 regression: Instagram carousel whose slide 1 is a video reads ok under yt-dlp,
     and must still gather subsequent image slides via gallery-dl."""
     class FakeImages:
         def gather(self, url, level="auto"):
             return {"ok": True, "title": "mixed", "count": 3}, ["[2/3] slide 2 text", "[3/3] slide 3 text"], ["ocr"]
 
     out = vc.assemble("https://instagram.com/p/x", level="full",
-                      _probe=lambda u: {"ok": True, "title": "video slide 1", "uploader": "U",
+                      _metadata=lambda u: {"ok": True, "title": "video slide 1", "uploader": "U",
                                         "description": "caption", "subtitles": [], "auto_captions": []},
                       _media=FakeMedia(spoken="audio slide 1", screen="screen slide 1"),
                       _images=FakeImages())

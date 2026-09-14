@@ -1,5 +1,5 @@
 # T0 the install is a procedure, not prose (core/SCHEMA.md § The .md type system): every SETUP.md
-# step declares its feature and carries a precondition, an install and a verify probe.
+# step declares its feature and carries a precondition, an install and a verify check.
 #
 # The harness is the installer — a newcomer's own agent reads SETUP.md and executes it. That only
 # works if every step says how to tell it is already done and how to prove it worked. This file is
@@ -73,7 +73,7 @@ def test_a_step_an_agent_cannot_finish_says_what_to_ask_for():
             f'step "{name}" is marked agent: no but never says what to ask for')
 
 
-def test_every_step_can_be_probed():
+def test_every_step_can_be_checked():
     """A Verify with no command is a claim. Each step's parts must carry a runnable block."""
     for name, body in _steps():
         assert '```' in body, f'step "{name}" contains no command block'

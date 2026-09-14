@@ -44,7 +44,7 @@ def is_command(name: str, src: Path) -> bool:
 def disabled() -> set:
     """The whole `skills` group's wiring point (core/SPECS.md § AD-14). A skill is markdown and
     calls no function, so its only real "off" is the mirror declining to publish it — which means
-    one filter here switches all fourteen rows, and the honesty test is a behavioural probe rather
+    one filter here switches all fourteen rows, and the honesty test is a behavioural check rather
     than a grep for a call site that could not exist.
 
     Asked fresh rather than cached: the ablation switch is an environment variable, and a module

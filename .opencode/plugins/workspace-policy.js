@@ -35,7 +35,7 @@ export const WorkspacePolicy = async ({ client }) => {
   // which is the honest observable: opencode runs with none of the canonical gates.
   // The interpreter comes from core/run --python (the platform seam): the bare word
   // `python3` is the spelling that silently disables the whole plugin on a Windows
-  // clone — the Store alias prints an advert, exits 9009, and the probe reads as "off".
+  // clone — the Store alias prints an advert, exits 9009, and the check reads as "off".
   const py = python()
   if (!py) return {}
   const on = spawnSync(py, [`${HOOKS}/feature_law.py`, "--enabled", "opencode-plugin"], {
