@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Tier 0 gate (core/SCHEMA.md § The .md type system): a staged file must be a known .md type or a
+# Level 0 gate (core/SCHEMA.md § The .md type system): a staged file must be a known .md type or a
 # well-shaped instance, must sit where its type is allowed to live, must give the routing table
 # something to write about it, and a CONTEXT.md must not hand-list files. Zero-token, no LLM.
 #
@@ -30,7 +30,7 @@ from entropy_fields import field_hits  # noqa: E402
 from entropy_list import (finished_work_hits, goal_vocabulary,  # noqa: E402
                             wiki_link_hits)
 from entropy_naming import check_dirs, check_placement, check_shape  # noqa: E402
-from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
+from entropy_stores import experiment_hits, ref_level_hits  # noqa: E402
 from schema_law import SCHEMA, WORKSPACE_ROOT, load_law, load_scopes  # noqa: E402
 
 # CLAUDE.md and GEMINI.md are mandated by their respective harnesses, not chosen by us; a gate cannot un-invent them.
@@ -70,7 +70,7 @@ def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
             # The two doubt stores are small, closed and clean today, so this one goes in total
             # rather than on a ratchet: a new experiment or a newly judged reference arrives with
             # the discipline or does not arrive (core/SPECS.md § AD-16 band 1).
-            + experiment_hits([path]) + ref_tier_hits([path])
+            + experiment_hits([path]) + ref_level_hits([path])
             # A header field naming our own code is a claim about our own tree, and the tree is
             # right here (core/SCHEMA.md § Every field that names our own code is verified). Total like the stores above:
             # the declarations are clean today, so a new one arrives resolving or does not arrive.

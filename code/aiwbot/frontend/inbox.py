@@ -20,7 +20,7 @@ def append_entry(entry: str) -> None:
     # The switch, at the moment the feature does its one job: writing into the workspace.
     # `telegram-capture` read `-` in core/features.txt for as long as this code lived in a repo
     # the workspace did not version, because a wiring path into a nested repo would have made a
-    # Tier 0 test of the workspace assert on a stranger. Absorbing aiwbot is what made the line
+    # Level 0 test of the workspace assert on a stranger. Absorbing aiwbot is what made the line
     # writable (2026-09-12). It guards here rather than at the bot's entrypoint so switching the
     # feature off stops the CAPTURE without stopping the bot's other surfaces.
     tool_law.require('telegram-capture')

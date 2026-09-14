@@ -5,7 +5,7 @@ verificáveis, e a spec é o contrato. Specs viram a fonte da verdade; código s
 `core/flows`, e à árvore de loops (ver [[craft-flows]] e [[prompt-dsl]]). Precede o código, não documenta depois.
 
 > **linked work** — the `core/` agent-library pilot of this idea lives in an enforced
-> per-layer frontmatter contract ([core/SCHEMA.md](../../core/SCHEMA.md)), tier unified, pilot flow
+> per-layer frontmatter contract ([core/SCHEMA.md](../../core/SCHEMA.md)), level unified, pilot flow
 > `compare` normalized, validation in `sync-skills` + pre-commit. Sweep tracked in
 > [core/ROADMAP.md](../../core/ROADMAP.md). Sibling track to the `code/` module-spec gate (pre-commit §1d).
 
@@ -51,5 +51,5 @@ contract + `SPECS.md` § Current Workflow Contract — já são spec-shaped. Cop
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-01  ·  trend: steady  ·  touches: 9/20/20/20/20/20
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 11/22/22/22/22/22
 <!-- stats:end -->

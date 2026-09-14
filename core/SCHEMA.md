@@ -60,10 +60,10 @@ line 3.
 **Every backticked `.md` name in this section is parsed as an exemption**, so naming a retired file
 here to explain its history puts it straight back on the list.
 
-## Placement: tier × read-frequency
+## Placement: level × read-frequency
 
 The first test is **is it still true?** — against code, tests and `git log`, never memory; an untrue
-ESSENTIAL is the most expensive object here. Then tier, per *section*: **ESSENTIAL** = work comes out
+ESSENTIAL is the most expensive object here. Then level, per *section*: **ESSENTIAL** = work comes out
 wrong · **IMPORTANT** = work comes out slower · **DESIRABLE** = nothing changes, git holds it.
 Read-frequency is a property of the enforcement layer, not a guess: **HOT** = `CONTEXT.md` (the only
 enforced-read type), `AGENTS.md` and `MEMORY.md` (system prompt), `GOALS.md` and `ROADMAP.md`
@@ -217,7 +217,7 @@ correct prose trains people to ignore the check, so `/loops` and `.loop` are row
 ### A vendor's model name is data, never a directive
 
 **Ruled 2026-08-17 (Lucas): *"nothing in WOS should be tied to a specific vendor/company/model."*** A
-list assigns a **tier** — `low` · `medium` · `high` — and which model fills it is data, in
+list assigns a **level** — `low` · `medium` · `high` — and which model fills it is data, in
 [`flows/craft/routing.md`](flows/craft/routing.md) and nowhere else. **A shape, not a token:**
 `**model: opus**` is a directive and forbidden; `` `model: opus` `` in prose reporting a measurement is
 data. `entropy_vendor.py` matches the bolded assignment and nothing else.

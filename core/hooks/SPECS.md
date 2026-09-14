@@ -150,7 +150,7 @@ checks learned that separately on 2026-09-11, all on `ISSUES.md`'s quoted red-su
 **Finished-work writing is blocked on what a commit adds.** `entropy/entropy_list.py` carries the
 detector and `checks/type-gate.py` calls it on `staged_added_files()`, so a file **arriving** with a
 dead item is rejected while the inherited queue stays the dashboard's, under
-`test_corpus_ratchet.py`'s ceiling. That split is the rule for every Tier 0 check here: **a gate that
+`test_corpus_ratchet.py`'s ceiling. That split is the rule for every Level 0 check here: **a gate that
 fails on the day it lands trains its reader to ignore it.** [`core/SPECS.md`](../SPECS.md) § AD-15
 makes blocking — not the mere existence of a detector — what licenses deleting the writing.
 

@@ -21,7 +21,7 @@ another. Which projects exist is [`PROJECTS.md`](../../../../PROJECTS.md).
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`entropy-dashboard.py`](entropy-dashboard.py) | [`entropy-dashboard.pyi`](entropy-dashboard.pyi) | `collect`, `main` | The entropy dashboard. Runs every Tier 0 check over ONE repo — this one, or the `--repo` named — and writes one generated report, so agents and Lucas read a pre-computed file instead of re-scanning the tree. Zero-token, no LLM. |
+| [`entropy-dashboard.py`](entropy-dashboard.py) | [`entropy-dashboard.pyi`](entropy-dashboard.pyi) | `collect`, `main` | The entropy dashboard. Runs every Level 0 check over ONE repo — this one, or the `--repo` named — and writes one generated report, so agents and Lucas read a pre-computed file instead of re-scanning the tree. Zero-token, no LLM. |
 | [`entropy_report.py`](entropy_report.py) | [`entropy_report.pyi`](entropy_report.pyi) | `local_seed`, `render` | The entropy report: what the dashboard's findings look like on the page. |
 | [`entropy_trend.py`](entropy_trend.py) | [`entropy_trend.pyi`](entropy_trend.pyi) | `baseline`, `format_trend` | The dashboard's own history, re-derived from git rather than stored. |
 <!-- routing:end -->

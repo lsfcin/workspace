@@ -149,9 +149,9 @@ again (expect `precompact-wipe.py` removed `claude_ctx_seen_opencode<pid>`).
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`index.js`](index.js) | [`index.d.ts`](index.d.ts) | — | **facade** — opencode config facade — public surface consumed by plugins/workspace-policy.js. |
-| [`agents/craft-high.md`](agents/craft-high.md) | — | — | Craft-flow executor, high tier — planning, plan review, architecture, escalated coding. Spawned by the craft flow with a single loop file as input. |
-| [`agents/craft-low.md`](agents/craft-low.md) | — | — | Craft-flow executor, low tier — mechanical steps (grounding, branch, ship). Spawned by the craft flow with a single loop file as input. |
-| [`agents/craft-medium.md`](agents/craft-medium.md) | — | — | Craft-flow executor, medium tier — tests-first, code-until-green, user test. Spawned by the craft flow with a single loop file as input. |
+| [`agents/craft-high.md`](agents/craft-high.md) | — | — | Craft-flow executor, high level — planning, plan review, architecture, escalated coding. Spawned by the craft flow with a single loop file as input. |
+| [`agents/craft-low.md`](agents/craft-low.md) | — | — | Craft-flow executor, low level — mechanical steps (grounding, branch, ship). Spawned by the craft flow with a single loop file as input. |
+| [`agents/craft-medium.md`](agents/craft-medium.md) | — | — | Craft-flow executor, medium level — tests-first, code-until-green, user test. Spawned by the craft flow with a single loop file as input. |
 | [`jsconfig.json`](jsconfig.json) | — | — | ← add first-line comment |
 | [`package-lock.json`](package-lock.json) | — | — | ← add first-line comment |
 | [`package.json`](package.json) | — | — | ← add first-line comment |

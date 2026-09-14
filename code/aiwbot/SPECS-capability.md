@@ -21,7 +21,7 @@ Verified live 2026-07-23 (`claude --help`, `opencode run --help`, `opencode agen
 | knob | claude | opencode |
 |------|--------|----------|
 | mode | `--permission-mode plan\|bypassPermissions\|acceptEdits\|auto\|manual` | `--agent <name>`; `build` and `plan` are both **primary** agents (also `compaction`, `summary`, `title`; `explore`/`general` are subagents) |
-| model | `--model` — alias (`opus`, `sonnet`, `fable`) or full id | `-m provider/model`; `opencode models` lists **478** across providers (`anthropic/*`, `google/*`, `alibaba-coding-plan/*`, free `opencode/*` tiers…) |
+| model | `--model` — alias (`opus`, `sonnet`, `fable`) or full id | `-m provider/model`; `opencode models` lists **478** across providers (`anthropic/*`, `google/*`, `alibaba-coding-plan/*`, free `opencode/*` levels…) |
 | effort | `--effort low\|medium\|high\|xhigh\|max` | `--variant` — "provider-specific reasoning effort, e.g. high, max, minimal" |
 | title | `--name` | `--title` |
 | fork | (dropped, AD-3) | `--fork` |
@@ -115,6 +115,6 @@ that name daily and prefers `nv·dsv4f`, which is a preference no algorithm shou
 recency, intersected with the configured catalogue (a model whose provider vanished stops being
 offered rather than failing at dispatch). The curated "cheap and good" guess it replaced was wrong
 by a wide margin: it offered models used once each while the real top three had 91, 42 and 15
-sessions. A machine with no history falls back to the cheap tiers.
+sessions. A machine with no history falls back to the cheap levels.
 
 The source is one query over `session.model` + `time_updated`, which opencode indexes anyway.

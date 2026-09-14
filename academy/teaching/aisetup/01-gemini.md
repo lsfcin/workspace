@@ -11,7 +11,7 @@
 | Requisições/dia | **1.500** (por modelo, reseta à meia-noite no horário do Pacífico) |
 | Requisições/minuto | ~15 (Flash) / ~30 (Flash-Lite) |
 | Modelos | `gemini-3.5-flash` e `gemini-3.1-flash-lite` (gratuitos) |
-| Privacidade | ⚠️ Dados do free tier **são usados para treinar** produtos Google |
+| Privacidade | ⚠️ Dados do free level **são usados para treinar** produtos Google |
 
 ## Passo 1 — Pegar a API key (Windows e Linux, igual)
 
@@ -61,5 +61,5 @@ Para o OpenCode sempre abrir com o Gemini, crie um arquivo `opencode.json` na ra
 |----------|---------|
 | `429` em rajada | Você excedeu req/minuto: espere 1–2 minutos |
 | `429` o dia todo | Cota diária estourada: aguarde até a meia-noite (horário do Pacífico) ou use outra rota |
-| "Free tier is not available in your country" | O free tier não está liberado na sua região: avise o professor |
-| Modelo Pro não aparece | Normal: modelos Pro saíram do free tier — use apenas os **Flash** |
+| "Free level is not available in your country" | O free level não está liberado na sua região: avise o professor |
+| Modelo Pro não aparece | Normal: modelos Pro saíram do free level — use apenas os **Flash** |

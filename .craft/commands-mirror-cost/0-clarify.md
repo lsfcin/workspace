@@ -3,7 +3,7 @@
 ## Carry
 short name: commands-mirror-cost | branch: feature/roundup-md-cap (SHARED — do not switch) | root: /mnt/workspace
 provider: anthropic | chain-deleg: none
-tier-map: anthropic | verified-on: 2026-08-20
+level-map: anthropic | verified-on: 2026-08-20
 test-cmd: `core/tools/wos/session/context` (instrument sanity only) | e2e-cmd: none
 criticality: low | verdict: padaria
 folder: research-shaped, run as padaria (see Routing note) | supervision: io-signoff=no arch-review=none
@@ -63,4 +63,4 @@ session owns the working tree, and a checkout would collide. Staying on `feature
 with explicit staging is the orchestrator's instruction and overrides Loop 2 here.
 
 executor: orchestrator (inline, Field Practice "Loop 0 inline when context is hot") model=anthropic/claude-opus-5
-tier=max deleg=none
+level=max deleg=none

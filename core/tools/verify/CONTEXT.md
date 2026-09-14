@@ -1,5 +1,5 @@
 # verify
-> Verification contract + patterns for all code projects: tiers T0-T3, script names, dump-oracle rules. Reference
+> Verification contract + patterns for all code projects: levels T0-T3, script names, dump-oracle rules. Reference
 > implementation: code/isoroll-module/test/.
 
 Verification contract + patterns for all code projects. Architecture and rules: [`SPECS.md`](SPECS.md).

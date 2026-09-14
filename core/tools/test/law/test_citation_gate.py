@@ -27,7 +27,7 @@ def test_no_item_number_is_cited_outside_a_roadmap():
 
 def test_a_citation_in_source_is_a_hit(tmp_path):
     source = tmp_path / 'gate.py'
-    source.write_text('# Tier 0 gate (Front 4.1): the allowlist.\n', encoding='utf-8', newline='\n')
+    source.write_text('# Level 0 gate (Front 4.1): the allowlist.\n', encoding='utf-8', newline='\n')
     hits = entropy_citations.citation_hits([source], set())
     assert len(hits) == 1
     assert "'Front 4.1'" in hits[0]

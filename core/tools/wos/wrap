@@ -3,7 +3,7 @@
 # The cap itself is core/hooks/limits.env BLOCK_COLS and the question "is this line over" is
 # core/hooks/file_law.py over_column_cap. Neither is restated here: this tool only knows how to
 # BREAK a line, and asks that module which lines need breaking. A second copy of the exemption
-# list is the exact drift the Tier 0 checks exist to catch.
+# list is the exact drift the Level 0 checks exist to catch.
 import re
 import sys
 from pathlib import Path

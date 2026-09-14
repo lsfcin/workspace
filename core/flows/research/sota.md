@@ -55,7 +55,7 @@ Derive a short name from the field: lowercase, hyphenated, no filler, at most 5 
 
 Every run must leave on disk:
 - `outputs/.plans/<slug>.md` — the plan
-- `<refs dir>/REFS.md` — tier-tagged reference lines, appended
+- `<refs dir>/REFS.md` — level-tagged reference lines, appended
 - `<refs dir>/<key>.yaml` — one review per kept paper
 - `outputs/<slug>-sota.md` — the ≤200-line decision summary
 - `outputs/<slug>-sota.provenance.md` — the provenance sidecar
@@ -113,7 +113,7 @@ Keep subagent task JSON small and valid; no multi-paragraph instructions inside 
 Run **at least two rounds**. Round 1 is broad; let its findings sharpen Round 2 — never fire all
 queries at once. Reach academia, web, and repos each round.
 
-**Source-tier discipline is mandatory** (full rule:
+**Source-level discipline is mandatory** (full rule:
 [`core/refs/CONTEXT.md`](../../refs/CONTEXT.md)). arXiv is the easiest surface, so an unguarded
 pass returns almost only preprints, which are **not peer reviewed**. Every round must also reach
 published venues (ACL/EMNLP anthology, ACM DL, IEEE, OpenReview with an accepted venue). Prefer
@@ -126,7 +126,7 @@ in the summary — do not loop further.
 
 ## Step 4 — Capture references (machine-facing artifact)
 
-For **every kept source**, append one line to `<refs dir>/REFS.md`: tier marker
+For **every kept source**, append one line to `<refs dir>/REFS.md`: level marker
 `[A] [B] [P] [V] [C]`, title, canonical URL, and a short "why it matters to us".
 
 For every source you would **cite or reason from**, also write `<refs dir>/<key>.yaml` using the
@@ -146,8 +146,8 @@ the detail. Structure:
 1. **Verdict** — 3–8 lines. Where the field actually stands, and what that means for the decision
    named in the plan. Lead with the answer.
 2. **The live positions** — the small number of real approaches, one short block each: what it
-   claims, its strongest evidence with tier, its known failure mode.
-3. **Consensus vs contested** — what is settled and what is still argued. Cite tiers; a `[P]`-only
+   claims, its strongest evidence with level, its known failure mode.
+3. **Consensus vs contested** — what is settled and what is still argued. Cite levels; a `[P]`-only
    position is contested by construction.
 4. **What this implies for us** — the decision-relevant part. Options with trade-offs, not a
    recommendation dressed as a fact. Name what would change your mind.
@@ -161,7 +161,7 @@ evidence, mark it, and never let a `[P]` alone gate a workspace or project polic
 
 If subagents were used, run the `verifier` agent against the summary before delivery; do not run
 `verifier` and `reviewer` in the same parallel call. For direct-mode runs, verify yourself:
-confirm each URL resolves, each tier marker matches the venue, and each yaml's `relevance` is
+confirm each URL resolves, each level marker matches the venue, and each yaml's `relevance` is
 filled. Record findings in the provenance sidecar as FATAL / MAJOR / MINOR. Fix FATAL before
 delivering; note MAJOR under Gaps; accept MINOR.
 
@@ -179,7 +179,7 @@ Write `outputs/<slug>-sota.provenance.md`:
 - **Decision served:** [one line, or "none stated"]
 - **Rounds:** [n of max 4] · saturated: [yes/no]
 - **Sources consulted / accepted / rejected:** [counts]
-- **Tier mix:** [A]=n [B]=n [P]=n [V]=n [C]=n
+- **Level mix:** [A]=n [B]=n [P]=n [V]=n [C]=n
 - **Reviews written:** [list of <key>.yaml]
 - **Verification:** [PASS / PASS WITH NOTES / BLOCKED]
 - **Plan:** outputs/.plans/<slug>.md
@@ -193,4 +193,4 @@ and any blocked checks.
 
 Read before you summarize — a URL you did not open is not a source. Every claim, number, or
 benchmark maps to a source URL or a research note. Mark inferred vs verified honestly. No
-invented sources, venues, tiers, numbers, or figures.
+invented sources, venues, levels, numbers, or figures.

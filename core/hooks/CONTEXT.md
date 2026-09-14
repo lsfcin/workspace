@@ -1,5 +1,5 @@
 # hooks
-> The enforcement layer: git hooks, agent lifecycle hooks, and the Tier 0 checks they run.
+> The enforcement layer: git hooks, agent lifecycle hooks, and the Level 0 checks they run.
 
 Wired globally via `core.hooksPath` ([`SETUP-clone.md`](../../SETUP-clone.md) § Git hook), so
 `pre-commit` fires in **every** repo under this workspace, and by absolute path from
@@ -34,7 +34,7 @@ Gate behavior, the agent-shim contract, and how a module reaches the root law:
 | [`commit/`](commit/CONTEXT.md) | The git pre-commit and post-commit pipeline: what runs on every commit, in what order, and the one place a commit is refused. |
 | [`compact/`](compact/CONTEXT.md) | Shrink tool output before it reaches the context — the input-side twin of caveman. |
 | [`copilot/`](copilot/CONTEXT.md) | Provider shim: translates Copilot hook payloads onto the canonical gates. |
-| [`entropy/`](entropy/CONTEXT.md) | The Tier 0 checks that count what the tree has drifted into. One question each. |
+| [`entropy/`](entropy/CONTEXT.md) | The Level 0 checks that count what the tree has drifted into. One question each. |
 | [`facade/`](facade/CONTEXT.md) | The facade discipline: read the facade before editing, never import around it. |
 | [`git/`](git/CONTEXT.md) | Gates and self-heals about git state itself: branch shape, gitlinks, .gitignore. |
 | [`postedit/`](postedit/CONTEXT.md) | Sourced post-edit stages: regenerate interfaces, remind, sync, lint. |
@@ -61,6 +61,6 @@ Gate behavior, the agent-shim contract, and how a module reaches the root law:
 | [`post-commit`](post-commit) | — | — | auto-push feature/*. Same handoff as pre-commit beside it. Never blocks: git ignores a post-commit's exit status, and every failure here is a warning. |
 | [`post-edit.sh`](post-edit.sh) | — | — | PostToolUse, capability `write` — regenerates interfaces, checks first-line comment, syncs CONTEXT.md |
 | [`pre-commit`](pre-commit) | — | — | Workspace pre-commit hook. Applied globally: git config --global core.hooksPath <this directory> |
-| [`schema_law.py`](schema_law.py) | [`schema_law.pyi`](schema_law.pyi) | `load_law`, `load_scopes`, `load_retired` | The law parser. Every Tier 0 check reads core/SCHEMA.md through this module, and none of them restates it — a second copy of the law inside a checker is the exact drift the checks exist to catch. |
+| [`schema_law.py`](schema_law.py) | [`schema_law.pyi`](schema_law.pyi) | `load_law`, `load_scopes`, `load_retired` | The law parser. Every Level 0 check reads core/SCHEMA.md through this module, and none of them restates it — a second copy of the law inside a checker is the exact drift the checks exist to catch. |
 | [`vendored.txt`](vendored.txt) | — | — | Third-party files we did not author, exempt from every authoring rule for the reason core/hooks/SPECS.md § Generated artifacts gives. |
 <!-- routing:end -->

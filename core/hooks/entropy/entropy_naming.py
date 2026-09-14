@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Tier 0 naming and placement, parsed from core/SCHEMA.md. Zero-token, deterministic.
+# Level 0 naming and placement, parsed from core/SCHEMA.md. Zero-token, deterministic.
 #
 # Scope is AUTHORED files only. The 91 tracked paths carrying spaces and accents are all
 # received documents (.docx/.pdf/.html from the PPC process) whose names are their

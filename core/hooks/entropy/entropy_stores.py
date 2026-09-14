@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# Tier 0 for the two stores that record what we know and how sure we are: core/experiments/ and
+# Level 0 for the two stores that record what we know and how sure we are: core/experiments/ and
 # core/refs/REFS.md. Zero-token, deterministic.
 #
 # These are the two rules this workspace cites as proof it knows how to doubt — a runnable `Method`
-# with dated `Results` and `Limitations` never omitted, and a tier marker on every reference — and
+# with dated `Results` and `Limitations` never omitted, and a level marker on every reference — and
 # until 2026-08-18 neither was verified by anything. They held because a few careful sessions
 # followed them, which is INDUCED wearing ENFORCED's costume (core/SPECS.md § AD-16 band 1).
 #
@@ -23,8 +23,8 @@ REFS_DIR, REFS_STEM = 'core/refs/', 'REFS'
 # `nothing yet`: a measurement nobody acted on is a finding, and an absent section hides it.
 SECTIONS = ('## Method', '## Results', '## What changed', '## Limitations')
 
-# A reference is a bullet carrying a link. The tier comes first so a reader can sort by weight
-# without reading the line — core/refs/SPECS.md § Source tiers.
+# A reference is a bullet carrying a link. The level comes first so a reader can sort by weight
+# without reading the line — core/refs/SPECS.md § Source levels.
 TIERED = re.compile(r'^- `\[[ABPVC]\]`')
 LINKED = re.compile(r'\]\(https?://')
 
@@ -60,11 +60,11 @@ def experiment_hits(files: list) -> list:
     return hits
 
 
-def ref_tier_hits(files: list) -> list:
-    """Every reference with no source tier. The Unjudged section is the intake queue and is exempt.
+def ref_level_hits(files: list) -> list:
+    """Every reference with no source level. The Unjudged section is the intake queue and is exempt.
 
     That exemption is read from REFS.md's own heading rather than configured here: a captured link
-    earns its tier when it is promoted, and demanding one at capture time would make capture cost
+    earns its level when it is promoted, and demanding one at capture time would make capture cost
     something, which is the whole reason the queue exists.
     """
     hits = []
@@ -82,7 +82,7 @@ def ref_tier_hits(files: list) -> list:
                 unjudged = 'njudged' in line
             elif not unjudged and line.startswith('- ') and LINKED.search(line) \
                     and not TIERED.match(line):
-                hits.append(f'{path}:{number}: reference carries no source tier.\n'
+                hits.append(f'{path}:{number}: reference carries no source level.\n'
                             f'   Open the line with `[A]`/`[B]`/`[P]`/`[V]`/`[C]`, or leave it in\n'
                             f'   the Unjudged queue until it is judged (core/refs/SPECS.md).')
     return hits

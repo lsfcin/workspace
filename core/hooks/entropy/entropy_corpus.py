@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Which files the Tier 0 checks look at, and which of them are allowed to name what the
+# Which files the Level 0 checks look at, and which of them are allowed to name what the
 # checks forbid. Split from entropy_list.py 2026-07-30 at the 150-line warn: enumerating
 # the corpus is a different job from asserting things about it.
 import re
@@ -26,7 +26,7 @@ SKIP_DIRS = {'.venv', 'node_modules', '.mypy_cache', '.pytest_cache', '.Trash-10
              'Downloads'}
 
 def staged_added_files() -> list:
-    """Only files this commit ADDS — the ratchet every Tier 0 gate shares.
+    """Only files this commit ADDS — the ratchet every Level 0 gate shares.
 
     Renames count as adds of the new name: a file arriving under a new name is arriving,
     and the gates that read this all ask about the name and the content it lands with.

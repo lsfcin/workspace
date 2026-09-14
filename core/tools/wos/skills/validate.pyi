@@ -3,7 +3,7 @@ from pathlib import Path
 
 FLOW_TYPES: Incomplete
 CONFIRMS: Incomplete
-TIERS: Incomplete
+LEVELS: Incomplete
 
 def frontmatter(path: Path) -> list | None: ...
 def validate_skills(src: Path) -> list: ...

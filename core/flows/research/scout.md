@@ -25,18 +25,18 @@ latex` before reading an empty result as "the field is quiet", and route through
 ## Required Artifacts
 
 Every run must leave three things on disk before the final response:
-- everything `sota` requires — tier-tagged lines in the relevant `refs/REFS.md`, one review
+- everything `sota` requires — level-tagged lines in the relevant `refs/REFS.md`, one review
   yaml per kept paper, and the ≤200-line SOTA summary (Step 2);
 - the plan written into the target ROADMAP (Step 5).
 
 Never end chat-only after Step 2 begins. If gathering is blocked, write a partial plan marked
 `BLOCKED` and say what failed. Read every source before summarizing it; never invent sources,
-venues, tiers, or results.
+venues, levels, or results.
 
 ## Composition — `scout = sota + map-to-our-system + tiered plan`
 
 `scout` **uses** [`sota`](sota.md) for its whole gathering half. That is a declared edge
-(`uses: sota` in the frontmatter), not a suggestion: do not reimplement search, tier discipline,
+(`uses: sota` in the frontmatter), not a suggestion: do not reimplement search, level discipline,
 or reference capture here — run `sota` and build on its artifacts.
 
 Keep both entrypoints straight:
@@ -59,7 +59,7 @@ violation of the workspace "plans live in roadmaps" rule).
 
 Run [`sota`](sota.md) on the topic, with `<refs dir>` = the target project's `refs/` (or
 `core/refs/` for workspace-level work). `sota` owns the whole gathering half: refined rounds
-across web/repos/academia, the mandatory source-tier discipline, the round cap, the tier-tagged
+across web/repos/academia, the mandatory source-level discipline, the round cap, the level-tagged
 `REFS.md` lines, the per-paper review yamls, and the ≤200-line summary. Do not restate those
 rules here and do not run your own parallel search.
 
@@ -76,7 +76,7 @@ fix), carry that caveat forward — it constrains how hard the plan may lean on 
 
 Read the actual state of the target project (its CONTEXT.md, ROADMAP, relevant code/docs).
 For each finding, state plainly: does it **confirm** what we do, **contradict** it, or reveal a
-**gap**? Cite the source tier for each claim. Contradictions and gaps become plan items;
+**gap**? Cite the source level for each claim. Contradictions and gaps become plan items;
 confirmations become a short "we are already aligned on X" note (equally valuable — it stops us
 re-solving solved problems).
 
@@ -89,10 +89,10 @@ steps. Every step carries three things:
   sign-off + more evidence before coding — usually with an open question), 🟡 `pilot-first`
   (prove on one folder, measure, then generalize), 🟢 `safe` (mechanical/additive, low blast
   radius). A frente that changes workspace-wide behavior **opens** with a 🔴 step.
-- **model tier** — the *floor* tier that suffices: `haiku` (mechanical), `sonnet` (normal
+- **model level** — the *floor* level that suffices: `haiku` (mechanical), `sonnet` (normal
   engineering/writing), `opus` (design, security, cross-cutting judgment). Bigger always works,
   it just costs more.
-- **switch mechanism** — how that tier gets onto that step (see the canonical guide below).
+- **switch mechanism** — how that level gets onto that step (see the canonical guide below).
 
 State the **evidence caveat once** for the whole plan: where a step leans on preprint-only
 evidence, mark it and keep it 🔴/🟡 — a preprint never becomes a hard gate on its own.
@@ -104,10 +104,10 @@ that the 🔴 steps are the discussions to have before any code.
 
 | Mechanism | When to use | Who acts |
 |-----------|-------------|----------|
-| **Same session, `/model`** | The next whole chunk needs a different tier. Cheapest for a sustained stretch at one tier. | **User** flips it; an agent cannot change its own session model. |
-| **`/craft` autorouting** | A codeable feature with mixed-tier steps. The loop plan assigns craft-low(haiku)/medium(sonnet)/high(opus) per step; no manual switch. | The flow spawns the right tier per loop. |
-| **Agent tool `model:` override** | One sub-task needs a different tier than the driver — especially eval, where the graded model must be the weak one. | The driving agent spawns a sonnet/haiku subagent inline; no session change. |
-| **Handoff (`/handoff`)** | A clean tier boundary + heavy context: finish the design phase at one tier, start a fresh session at another carrying only the resume prompt. | **User** starts the new session at the chosen model. |
+| **Same session, `/model`** | The next whole chunk needs a different level. Cheapest for a sustained stretch at one level. | **User** flips it; an agent cannot change its own session model. |
+| **`/craft` autorouting** | A codeable feature with mixed-level steps. The loop plan assigns craft-low(haiku)/medium(sonnet)/high(opus) per step; no manual switch. | The flow spawns the right level per loop. |
+| **Agent tool `model:` override** | One sub-task needs a different level than the driver — especially eval, where the graded model must be the weak one. | The driving agent spawns a sonnet/haiku subagent inline; no session change. |
+| **Handoff (`/handoff`)** | A clean level boundary + heavy context: finish the design phase at one level, start a fresh session at another carrying only the resume prompt. | **User** starts the new session at the chosen model. |
 
 **Default mapping:** 🔴 decide-first steps → **Opus, same session** (judgment about shared
 behavior). 🟢/🟡 build steps → **Sonnet via `/craft`** (mechanical parts drop to haiku

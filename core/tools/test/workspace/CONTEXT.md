@@ -1,5 +1,5 @@
 # workspace
-> Tier 0 workspace-wide invariants: pointers resolve, .gitignore self-heals, imports do not shadow.
+> Level 0 workspace-wide invariants: pointers resolve, .gitignore self-heals, imports do not shadow.
 
 Split 2026-08-15 at 8 files and again 2026-09-06 at 15. What stays is what holds for the **whole
 tree** rather than for one piece of machinery: every relative link resolves, a new domain
@@ -32,7 +32,7 @@ owns it: [`ratchets/`](ratchets/CONTEXT.md) asks whether the backlog is shrinkin
 | [`test_b20260911_the_publish_repo_carries_a_list_its_spec_forbids.py`](test_b20260911_the_publish_repo_carries_a_list_its_spec_forbids.py) | [`test_b20260911_the_publish_repo_carries_a_list_its_spec_forbids.pyi`](test_b20260911_the_publish_repo_carries_a_list_its_spec_forbids.pyi) | — | b20260911 regression — a repo the workspace PUBLISHES to keeps no findings of its own. |
 | [`test_brain_attention.py`](test_brain_attention.py) | [`test_brain_attention.pyi`](test_brain_attention.pyi) | — | T0 the goal-file `>**owns**` block: a field ends where its block ends. Zero-token, verify-fast. |
 | [`test_gitignore_self_heal.py`](test_gitignore_self_heal.py) | [`test_gitignore_self_heal.pyi`](test_gitignore_self_heal.pyi) | — | T0 self-healing .gitignore allowlist check (core/hooks/SPECS.md): a new domain subdir with a CONTEXT.md must get its `!<domain>/<dir>/` allow line added automatically, no human action. |
-| [`test_pointer_integrity.py`](test_pointer_integrity.py) | [`test_pointer_integrity.pyi`](test_pointer_integrity.pyi) | `check_separators`, `check_pointers` | T0 pointer-integrity check (Tier 0): every relative ](path) link across CONTEXT.md / ROADMAP*.md / SCHEMA.md / AGENTS.md (repo) and MEMORY.md (auto-memory) must resolve. Zero-token, runs in verify-fast. |
+| [`test_pointer_integrity.py`](test_pointer_integrity.py) | [`test_pointer_integrity.pyi`](test_pointer_integrity.pyi) | `check_separators`, `check_pointers` | T0 pointer-integrity check (Level 0): every relative ](path) link across CONTEXT.md / ROADMAP*.md / SCHEMA.md / AGENTS.md (repo) and MEMORY.md (auto-memory) must resolve. Zero-token, runs in verify-fast. |
 | [`test_projects_declaration.py`](test_projects_declaration.py) | [`test_projects_declaration.pyi`](test_projects_declaration.pyi) | `declared_in_gitignore`, `listed_in_projects` | T0 the project map (core/SCHEMA.md § The .md type system): every internal project is declared, and the declaration cannot drift from the one place git already names them. |
 | [`test_setup_executable.py`](test_setup_executable.py) | [`test_setup_executable.pyi`](test_setup_executable.pyi) | — | T0 the install is a procedure, not prose (core/SCHEMA.md § The .md type system): every SETUP.md step declares its feature and carries a precondition, an install and a verify check. |
 <!-- routing:end -->

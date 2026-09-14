@@ -123,11 +123,11 @@ industry)."* So v1 adds, over the v0 five sections:
   against something before code exists.
 
 Precondition: a real research pass, **industry and academia**, acknowledged venues and not arXiv
-alone, plus existing libraries and formats. Captures go to `core/refs/REFS.md` with tier markers.
+alone, plus existing libraries and formats. Captures go to `core/refs/REFS.md` with level markers.
 `github/spec-kit` is one input and is **not** the answer on its own — it is guidance-only, with no
 hooks, gates or CI, while ours is enforced at five points; adopting it wholesale would trade
 ENFORCED for INDUCED. Read what its `constitution` / `clarify` / `converge` steps do that our
-Loop 3.5 does not, and steal only that. → **tier: high** for the contract, with Lucas.
+Loop 3.5 does not, and steal only that. → **level: high** for the contract, with Lucas.
 
 **P5b — arm the block, once v1 exists.** `spec-read-gate.py` today blocks editing a *locked* module;
 P5b extends the block to **any** `code/` module on contact — edit it, and it needs a spec. Ship it

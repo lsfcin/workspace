@@ -1,5 +1,5 @@
 # T0 the two doubt stores (core/SPECS.md § AD-16 band 1): an experiment states its own format, and
-# a judged reference carries a source tier. Zero-token, runs in verify-fast.
+# a judged reference carries a source level. Zero-token, runs in verify-fast.
 #
 # These are the rules this workspace cites as proof it knows how to doubt, and until 2026-08-18
 # nothing verified either — INDUCED wearing ENFORCED's costume, which is the defect that front
@@ -72,12 +72,12 @@ def _refs(tmp_path: Path, body: str) -> list:
     target.mkdir(parents=True, exist_ok=True)
     path = target / 'REFS.md'
     path.write_text(body, encoding='utf-8', newline='\n')
-    return stores.ref_tier_hits([path])
+    return stores.ref_level_hits([path])
 
 
-def test_a_judged_reference_needs_a_tier(tmp_path):
+def test_a_judged_reference_needs_a_level(tmp_path):
     hits = _refs(tmp_path, '## Judged\n\n- [A paper](https://example.org/x) — a finding.\n')
-    assert len(hits) == 1 and 'no source tier' in hits[0]
+    assert len(hits) == 1 and 'no source level' in hits[0]
 
 
 def test_a_tiered_reference_passes(tmp_path):
@@ -85,7 +85,7 @@ def test_a_tiered_reference_passes(tmp_path):
 
 
 def test_the_unjudged_queue_is_exempt(tmp_path):
-    """Capture stays free. A link earns its tier when it is promoted, and demanding one at capture
+    """Capture stays free. A link earns its level when it is promoted, and demanding one at capture
     time is what turns an intake queue into a chore."""
     assert _refs(tmp_path, '## Unjudged\n\n- [A paper](https://example.org/x) — maybe.\n') == []
 
@@ -101,5 +101,5 @@ def test_the_real_stores_are_clean():
     workspace rather than a capability sitting beside it."""
     files = (sorted((WORKSPACE_ROOT / 'core/experiments').glob('*.md'))
              + [WORKSPACE_ROOT / 'core/refs/REFS.md'])
-    hits = stores.experiment_hits(files) + stores.ref_tier_hits(files)
+    hits = stores.experiment_hits(files) + stores.ref_level_hits(files)
     assert hits == [], '\n'.join(hits)

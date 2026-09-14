@@ -1,4 +1,4 @@
-# T0 list and vocabulary checks (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
+# T0 list and vocabulary checks (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
 #
 # Two of these tests assert against the LIVE workspace and are meant to be green at all
 # times, not baselined: a surviving retired token means a rename is unfinished, and a

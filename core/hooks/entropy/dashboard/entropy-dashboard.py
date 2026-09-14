@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# The entropy dashboard. Runs every Tier 0 check over ONE repo — this one, or the `--repo` named —
+# The entropy dashboard. Runs every Level 0 check over ONE repo — this one, or the `--repo` named —
 # and writes one generated report, so agents and Lucas read a pre-computed file instead of
 # re-scanning the tree. Zero-token, no LLM.
 #
@@ -42,7 +42,7 @@ from entropy_naming import (check_dirs, check_placement,  # noqa: E402
 from entropy_size import size_signals, stub_signals  # noqa: E402
 from entropy_report import END, SECTIONS, SEED, START, local_seed, render  # noqa: E402
 from entropy_trend import baseline, format_trend  # noqa: E402
-from entropy_stores import experiment_hits, ref_tier_hits  # noqa: E402
+from entropy_stores import experiment_hits, ref_level_hits  # noqa: E402
 from entropy_vendor import vendor_directive_hits  # noqa: E402
 from file_law import load_limits  # noqa: E402
 from platform_law import rel  # noqa: E402
@@ -133,7 +133,7 @@ def collect(files: list, repo: Path = WORKSPACE_ROOT, promoting: str = '') -> di
     findings['remotes'] = merged_remote_branches(repo)
     findings['finished'] = finished_work_hits(files, exempt)
     findings['undescribed'] = unanswered_placeholders(files, exempt)
-    findings['stores'] = experiment_hits(files) + ref_tier_hits(files)
+    findings['stores'] = experiment_hits(files) + ref_level_hits(files)
     findings['vendor'] = vendor_directive_hits(files, exempt)
     findings['fields'] = field_hits(files)
     # One directory-level finding is reported by every file under it; dedupe so a count

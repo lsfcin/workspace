@@ -29,7 +29,7 @@ that was false. What is left is not build — it is **one decision and one mecha
     gitflow-shaped · clonable by a student
 
 **All build work lives in [/ROADMAP.md](../../ROADMAP.md)** — the single wos list, each step tagged
-with model tier and impact flag. This file holds only why, signals, dynamics, and timing. Plans do not
+with model level and impact flag. This file holds only why, signals, dynamics, and timing. Plans do not
 live in goal files (AGENTS.md).
 
 > **The governing constraint, Lucas 2026-08-16:** *"definitivamente, quero zerar o roadmap do WOS o
@@ -67,7 +67,7 @@ live in goal files (AGENTS.md).
 
 **ease-start**  
 **All four v1 criteria are green, and nothing in the list is waiting on you.** The drain is agent
-work now: the remaining items carry their own model tier and none of them is blocked on a decision.
+work now: the remaining items carry their own model level and none of them is blocked on a decision.
 So the easy start is not a decision to make — it is a session to hand off.
 
 Two items do want you, and both are **conversations to schedule, not questions to answer in five
@@ -149,5 +149,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 472/652/679/679/679/679
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 483/665/692/692/692/692
 <!-- stats:end -->

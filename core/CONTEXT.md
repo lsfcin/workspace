@@ -13,10 +13,10 @@ and spawns the specialist workers beside it.
 | [`agents/`](agents/CONTEXT.md) | Agent definitions; load as system prompt to spawn a specialist worker. |
 | [`experiments/`](experiments/CONTEXT.md) | What we measured about this workspace, when, and what changed because of it. One file per question. |
 | [`flows/`](flows/CONTEXT.md) | Workflow protocols; each names the agents and steps to execute. |
-| [`hooks/`](hooks/CONTEXT.md) | The enforcement layer: git hooks, agent lifecycle hooks, and the Tier 0 checks they run. |
+| [`hooks/`](hooks/CONTEXT.md) | The enforcement layer: git hooks, agent lifecycle hooks, and the Level 0 checks they run. |
 | [`norms/`](norms/CONTEXT.md) | Rules obeyed rather than enforced. One file each; `AGENTS.md`'s rule block is generated from them. |
-| [`prompts/`](prompts/CONTEXT.md) | Prepared session prompts — copy-paste into parallel agent sessions. Each file notes target tier/effort and deliverable. |
-| [`refs/`](refs/CONTEXT.md) | Captured references for the agent library / workspace-os scaffold — tier-1 links in [REFS.md](refs/REFS.md). |
+| [`prompts/`](prompts/CONTEXT.md) | Prepared session prompts — copy-paste into parallel agent sessions. Each file notes target level/effort and deliverable. |
+| [`refs/`](refs/CONTEXT.md) | Captured references for the agent library / workspace-os scaffold — level-1 links in [REFS.md](refs/REFS.md). |
 | [`skills/`](skills/CONTEXT.md) | Agent skills — provider-agnostic workflows invoked as slash commands or by instruction. |
 | [`tools/`](tools/CONTEXT.md) | CLI tools callable via bash, one directory per family; routing block auto-synced on save. |
 
@@ -28,7 +28,7 @@ and spawns the specialist workers beside it.
 | [`SPECS.md`](SPECS.md) | Architecture decisions and conventions for the Core agent library. |
 | [`features.txt`](features.txt) | Every toggleable feature this workspace has, declared: what group it belongs to, how hard it enforces, whether it is general or Lucas-specific, and whether it can actually be switched off. Read by core/hooks/feature_law.py; the answers live in core/profile.txt. |
 | [`harnesses.txt`](harnesses.txt) | Supported agent harnesses and their relative skill mirror locations name	skills_dir	commands_dir |
-| [`permissions.txt`](permissions.txt) | Neutral permission tiers: what an agent may do without asking. Tab-separated columns: kind   tier | rule tier   guarded | standard | open key    summary | tradeoff | mode (for kind=tier); allow | ask | deny (for kind=rule) value  prose (for kind=tier); neutral action slug (for kind=rule) |
+| [`permissions.txt`](permissions.txt) | Neutral permission levels: what an agent may do without asking. Tab-separated columns: kind   level | rule level   guarded | standard | open key    summary | tradeoff | mode (for kind=level); allow | ask | deny (for kind=rule) value  prose (for kind=level); neutral action slug (for kind=rule) |
 | [`profile.txt`](profile.txt) | Which features are switched on by default, and the settings that are not switches. The registry is core/features.txt; this file holds only the answers. Read by core/hooks/feature_law.py. |
 | [`run`](run) | The one command that runs anything in core/: find this clone's interpreter, then exec with it. |
 <!-- routing:end -->

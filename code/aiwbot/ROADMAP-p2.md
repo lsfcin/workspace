@@ -5,7 +5,7 @@ surfaces measured on 2026-07-23 and records the UX decisions Lucas made the same
 
 ## Why this ranks here
 It is a **money lever**, not a nicety: a claude turn costs ~$0.11 even when trivial, and this
-workspace has 6 configured opencode providers including free `opencode/*` tiers. Routing a throwaway
+workspace has 6 configured opencode providers including free `opencode/*` levels. Routing a throwaway
 phone question to a free model must cost **one tap**, which is what fixes the ranking of every UX
 decision below.
 

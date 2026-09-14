@@ -15,7 +15,7 @@ from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 from part_table import build_part_rows, index_for, part_facts, parts_of  # noqa: E402
 
 ALPHA = """# Alpha
-> Tier 0 checks and the ratchet that makes the count fall.
+> Level 0 checks and the ratchet that makes the count fall.
 > priority: essential
 
 1. 🔴 do the thing.

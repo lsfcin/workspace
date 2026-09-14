@@ -19,7 +19,7 @@ _LIST_TIMEOUT = 20
 # top three had 91, 42 and 15 sessions in the window. Frequency ranks, recency breaks ties.
 RECENT_DAYS = 30
 SHORTLIST = 6
-# Fallback for a machine with no opencode history yet — cheap tiers first, since a first-time
+# Fallback for a machine with no opencode history yet — cheap levels first, since a first-time
 # shortlist should at least not be expensive.
 _FALLBACK_PROVIDERS = ("opencode", "alibaba-coding-plan")
 _PER_PROVIDER = 2

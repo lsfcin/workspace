@@ -1,4 +1,4 @@
-# T0 type gate (Tier 0, law in core/SCHEMA.md): the uppercase allowlist. Zero-token, runs in verify-fast.
+# T0 type gate (Level 0, law in core/SCHEMA.md): the uppercase allowlist. Zero-token, runs in verify-fast.
 #
 # The no-hand-inventory rule moved to entropy/test_entropy_inventory.py 2026-08-15 — it
 # tests `entropy_context.py`, not this gate, which only decides WHEN a check runs.

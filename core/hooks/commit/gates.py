@@ -22,7 +22,7 @@ SOURCE = ('.js', '.jsx', '.ts', '.tsx', '.py', '.dart')
 def source_quality(commit):
     """Line counts over everything this commit staged.
 
-    The missing first-line description comment used to be checked here too. It moved into the Tier
+    The missing first-line description comment used to be checked here too. It moved into the Level
     0 gate (checks/type-gate.py, reached from gates_project.py), which already runs over exactly
     this commit's added files. What was here was a shell case-list that only warned, only over code
     extensions, and was a third copy of a table now living once in file_law.py.

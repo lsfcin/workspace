@@ -11,7 +11,7 @@ Environment setup (LaTeX toolchain, papers compilation): [SETUP.md](SETUP.md)
 | [`administration/`](administration/CONTEXT.md) | University administration Lucas is responsible for — LC coordination, the PPC revision, committees, bureaucracy. |
 | [`lab/`](lab/CONTEXT.md) | How Lucas advises students: the checkpoint process each student copies, and the law that governs it. |
 | [`papers/`](papers/CONTEXT.md) | LaTeX papers, submissions, manuscript workflows |
-| [`refs/`](refs/CONTEXT.md) | General research references (no target manuscript) — tier-1 links in [REFS.md](refs/REFS.md). Paper-specific refs live in each paper's own `refs/`. |
+| [`refs/`](refs/CONTEXT.md) | General research references (no target manuscript) — level-1 links in [REFS.md](refs/REFS.md). Paper-specific refs live in each paper's own `refs/`. |
 | [`reviews/`](reviews/CONTEXT.md) | Peer reviews Lucas is writing — one folder per submission, holding the paper, its refs, and the review. |
 | [`talks/`](talks/CONTEXT.md) | Academic and outreach talks — one folder per talk, holding outline, slides source, and prep notes. |
 | [`teaching/`](teaching/CONTEXT.md) | Course material Lucas teaches — per-discipline slides, exercises, and generated artifacts. |

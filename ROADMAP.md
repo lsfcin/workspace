@@ -22,7 +22,7 @@ research output's length and a commit subject's width are each declared in the w
 ## Cost — what a session costs, and which of it is avoidable
 
 **🟢 cheaper models where the work is mechanical**
-*What* — mechanical work routed off the most expensive tier.
+*What* — mechanical work routed off the most expensive level.
 *Why* — the measured split is opus-heavy and some of that is typing, not thinking.
 *Done when* — the split moves and work still lands. Context size is a 4.2x multiplier routing cannot beat.
 
@@ -69,12 +69,13 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 ## Legibility — can Lucas still read what he owns
 
 **🟢 the audit's words also name code, and the rename is unfinished until identifiers follow**
-*What* — `boundary` `slug` out of identifiers, plus `tier` → `level` (ruled; a parsed value in
-`core/permissions.txt` and 9 modules), then every row in § Retired tokens. **`probe` owes its row
-and cannot have one**: `brain/goals/lih-dd.md` uses the word in Lucas's research sense, in his own
-pt-br, and a row would red the suite on his writing. Ask him, or give goal files an exemption.
-*Why* — `retired_hits` matches filenames, so a row added while `entropy_list.py` exists reds the
-suite on our own modules. Never sweep a bracketed short name, Lucas's pt-br goal files, or a word
+*What* — `slug` out of identifiers, then every row in § Retired tokens. **Two words owe a row and
+cannot have one**, because the check matches a spelling and a word has senses: `probe` survives in
+`brain/goals/lih-dd.md` (Lucas's research sense, his pt-br), and `tier` in `paper-jarbinhas.md` ("a
+lower-tier venue") and `code/freeai/CONTEXT.md` ("free tier", the pricing plan). Ask Lucas, or give
+his own writing the exemption a URL already has.
+*Why* — `retired_hits` matches filenames, so a row added while a module still carries the word reds
+the suite on our own code. Never sweep a bracketed short name, Lucas's pt-br goal files, or a word
 carrying a second sense elsewhere in the tree. Each of the three costs a revert.
 *Done when* — the entropy scan finds zero survivors of every row.
 
@@ -130,7 +131,7 @@ The debt is this repo's: absorbing a project's own writing neither creates nor p
   cost picks the cut.
 - **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first prompt, and a tree dirty
   at session open.
-- **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
+- **Adopting `obra/Superpowers` over our craft flow** — no per-task level routing; trigger imported instead.
 - **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): prompt, judge and self-report died on evidence;
   only a parser or solver refuses, so it is research — `academy/papers/back2dsl`.
 - **A research map as a plan block here, and one review yaml per kept source** — 2026-09-13: the first grows our most

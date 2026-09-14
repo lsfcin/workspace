@@ -1,5 +1,5 @@
 # test
-> The verify-fast suite: every Tier 0 check plus the tool unit tests. Zero-token, no network.
+> The verify-fast suite: every Level 0 check plus the tool unit tests. Zero-token, no network.
 
 <!-- routing:start -->
 ## Routing

@@ -23,7 +23,7 @@ MAX_FILE_SIZE = 500_000  # 500KB
 
 # The id the SDK path falls back to, overridable with CAVEMAN_MODEL. Named here as DATA —
 # it is which model this call goes to, not an instruction to any agent reading the file.
-# The tier is upstream's choice and is kept: compression is mechanical, and moving it is a
+# The level is upstream's choice and is kept: compression is mechanical, and moving it is a
 # spend decision that belongs to whoever runs the tool, not to the session that repaired
 # the id. What was broken is only that `claude-sonnet-4-5` no longer resolves.
 DEFAULT_MODEL = "claude-sonnet-5"

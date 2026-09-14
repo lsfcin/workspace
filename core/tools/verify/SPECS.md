@@ -1,12 +1,12 @@
 # Verification Specifications
-> Verification contract + patterns for all code projects: tiers T0-T3, script names, dump-oracle rules. Reference:
+> Verification contract + patterns for all code projects: levels T0-T3, script names, dump-oracle rules. Reference:
 > code/isoroll-module/test/.
 
 `verify:fast` (T0+T1, every commit) and `verify:full` (T2+T3, pre-merge/on demand/`/roundup`) are
 the two scripts every `code/` project declares. The pre-commit gate blocks a missing or red
 `verify:fast` and names the fix when it fires.
 
-## Tier ladder
+## Level ladder
 
 - **T0 static** — compiler + linter.
 - **T1 unit** — vitest/pytest + property tests (fast-check/hypothesis) over pure or cheaply

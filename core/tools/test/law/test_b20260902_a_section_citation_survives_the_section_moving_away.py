@@ -44,7 +44,7 @@ def _norm(text: str) -> str:
 
 
 # A heading names itself and then explains itself: `### AD-16 — Doubt is not charged`,
-# `## Placement: tier × read-frequency`. A citation is written against the naming half, so the
+# `## Placement: level × read-frequency`. A citation is written against the naming half, so the
 # half before the first separator is a section name in its own right.
 _LEAD = re.compile(r'\s—|:|\s\(')
 
@@ -74,7 +74,7 @@ def section_hits(files: list, root: Path) -> list:
 
     A citation is matched by NAME PREFIX in both directions: `§ AD-16 band 1` points inside
     `### AD-16 — Doubt is not charged when asserting`, and `§ Placement` points at
-    `## Placement: tier × read-frequency`. Both are honest pointers and neither is an exact match.
+    `## Placement: level × read-frequency`. Both are honest pointers and neither is an exact match.
     """
     hits = []
     for path in files:

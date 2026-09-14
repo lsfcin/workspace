@@ -1,6 +1,6 @@
 # refs/research-summary.yaml
 # Research findings on prompt optimization and model selection.
-# Tier-2 promoted ref; curated from initial exploration.
+# Level-2 promoted ref; curated from initial exploration.
 
 papers:
   - title: "RouteLLM: Learning Routes for LLM Routing"

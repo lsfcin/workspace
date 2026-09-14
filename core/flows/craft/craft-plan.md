@@ -4,7 +4,7 @@ args: <carry file>
 ---
 ## Loop 0 — Clarify
 
-**Tier:** high (max if ambitious/innovative). **Input:** the raw request + user interview. **Output:** `0-clarify.md`.
+**Level:** high (max if ambitious/innovative). **Input:** the raw request + user interview. **Output:** `0-clarify.md`.
 The only interactive loop.
 
 **Spec precedes code (SDD).** If any target module under `code/` is spec-locked — its `CONTEXT.md` carries `> spec:
@@ -47,7 +47,7 @@ module/step I/O boundary before I implement? (default no)"; (2) "Should I run th
 never, once per feature, or as a periodic sweep? (default never)"; (3) if arch-review ≠ none, "Do you want to check that
 review yourself, or let me? (default me)".
 
-**Padaria shortcut:** verdict `padaria` → skip Loops 1, 3, 3.5, 4a, 5. One medium-tier session does: append a ≤5-line
+**Padaria shortcut:** verdict `padaria` → skip Loops 1, 3, 3.5, 4a, 5. One medium-level session does: append a ≤5-line
 micro-plan to `0-clarify.md`, execute Loop 2 (branch), edit, run the **existing** test suite, execute Loop 6. Two files
 total (`0-clarify.md`, `6-ship.md`). The flow must never cost more than the task.
 
@@ -56,11 +56,13 @@ flow.
 
 ## Loop 1 — Plan
 
-**Tier:** high. **Input:** `0-clarify.md`. **Output:** `1-plan.md`.
+**Level:** high. **Input:** `0-clarify.md`. **Output:** `1-plan.md`.
 
 Plan, then **adversarially review your own plan assuming smaller models will execute it**: every task row must be
-executable by its assigned tier from the row text + Carry block alone — no implied context, no "as discussed". Ambiguity
-that a medium-tier model would trip on is a FATAL. Fix or escalate row tiers, then re-review — **exit when a pass leaves
+executable by its assigned level from the row text + Carry block alone — no implied context, no "as discussed".
+Ambiguity
+that a medium-level model would trip on is a FATAL. Fix or escalate row levels, then re-review — **exit when a pass
+leaves
 zero unresolved FATALs; iteration cap: at most 3 passes.** At the cap, stop and carry the surviving FATALs into `## Plan
 Review` as `verdict: FAIL` with each one named — an adversary can always find something, so the bound is what keeps this
 a review instead of a hang (`core/flows/CONTEXT.md` § Rules that hold for every flow). Copy the final task rows into the
@@ -73,12 +75,12 @@ to the project's `ROADMAP.md` (workspace policy).
 
 ## Plan
 branch: <name>
-| id | task | files | done-when | tier | effort |
+| id | task | files | done-when | level | effort |
 |----|------|-------|-----------|------|--------|
 | T1 | ...  | ...   | <objective check> | medium | medium |
 
 ## Plan Review (adversarial, assume small executors)
-- <risk found> → <fix applied | tier raised on Tn>
+- <risk found> → <fix applied | level raised on Tn>
 verdict: PASS | FAIL
 ```
 
@@ -87,7 +89,7 @@ rows → `RETURN loop=0 reason=split-needed` (feature too big for one flow run).
 
 ## Loop 2 — Ground
 
-**Tier:** low. **Input:** `1-plan.md`. **Output:** `2-ground.md`.
+**Level:** low. **Input:** `1-plan.md`. **Output:** `2-ground.md`.
 
 Mechanical grounding: create the branch from the correct base; verify every path in the plan's `files` column exists (or
 its parent dir does, for new files); verify `test-cmd` actually runs (may be red, must not error out).

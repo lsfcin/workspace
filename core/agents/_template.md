@@ -1,16 +1,16 @@
 ---
 name: agent-name
 description: One line — what evidence or output this worker produces.
-tier: medium
+level: medium
 tools: read, write, edit, bash, grep, find, ls
 output: agent-name.md
 defaultProgress: true
 ---
 <!--
 Agent template. Fill frontmatter per core/SCHEMA.md.
-  tier   : low | medium | high | max  (provider-agnostic; NEVER a model name like haiku/opus)
-  worker  → tier + tools + output all required (tools is a locked-down allowlist)
-  orchestrator (like lead) → keep name + description + tier only; delete tools/output/defaultProgress
+  level   : low | medium | high | max  (provider-agnostic; NEVER a model name like haiku/opus)
+  worker  → level + tools + output all required (tools is a locked-down allowlist)
+  orchestrator (like lead) → keep name + description + level only; delete tools/output/defaultProgress
 Body = the operating context loaded as this agent's system prompt.
 -->
 

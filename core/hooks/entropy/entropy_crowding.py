@@ -4,7 +4,7 @@
 # The rule is not new. A files-per-directory threshold has always existed, and
 # `context_synchronizer.sync` has always warned when a directory crosses it — but it warned
 # to stdout, during a sync nobody reads, so the tail grew unopposed. This module is that
-# same law, surfaced where the other Tier 0 checks are read. Both the threshold and the
+# same law, surfaced where the other Level 0 checks are read. Both the threshold and the
 # definition of "code file" are imported from limits.env / file_law.py, never restated:
 # a second copy of a limit is the drift these checks exist to catch.
 #

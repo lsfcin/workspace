@@ -15,7 +15,7 @@ mirroring, and the folder-shaped global-skill pattern (`caveman/`): [`SPECS.md`]
 |--------------|-------------|
 | [`caveman/`](caveman/CONTEXT.md) | Ultra-compressed communication mode — vendored suite: router skill, mode subfiles, hooks, scripts. |
 | [`foundry/`](foundry/CONTEXT.md) | Foundry VTT v14 module dev reference — skill suite. |
-| [`prepare/`](prepare/CONTEXT.md) | Prepare a raw prompt for an agent: optimize, contextualize, and recommend tier/effort settings. |
+| [`prepare/`](prepare/CONTEXT.md) | Prepare a raw prompt for an agent: optimize, contextualize, and recommend level/effort settings. |
 
 | File | Description |
 |------|-------------|

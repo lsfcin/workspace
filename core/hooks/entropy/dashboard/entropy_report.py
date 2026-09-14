@@ -55,9 +55,9 @@ SECTIONS = (
      'a generator asked a question — answer it at the source, never by cutting the marker'),
     ('stores', 'Doubt stores missing their own discipline',
      'an experiment states its Method, Results, What changed and Limitations; a judged reference '
-     'carries a source tier'),
-    ('vendor', 'Lists naming a model where they mean a tier',
-     'which model fills a tier is data — core/flows/craft/routing.md'),
+     'carries a source level'),
+    ('vendor', 'Lists naming a model where they mean a level',
+     'which model fills a level is data — core/flows/craft/routing.md'),
     ('fields', 'Header fields naming code that is not there',
      'a field naming our own tree is a claim, and it is checked before a later session inherits '
      'it as fact — core/SCHEMA.md § Every field that names our own code is verified'),

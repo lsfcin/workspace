@@ -30,7 +30,7 @@ ties → PIXI insertion order) unresolvable without a mechanical oracle.
    force-fed by the harness. Advisory text does not steer agents.
 2. **Oracle over eyes.** Correctness checked by machine. Human checks novel visuals once,
    at feature birth; then golden-locked.
-3. **State dump over pixels.** Assert on structured JSON dumps; pixels are the last tier.
+3. **State dump over pixels.** Assert on structured JSON dumps; pixels are the last level.
 4. **Diagnostics call live-path functions, never re-derive.** A debug view with its own
    math is a second implementation that can lie (06-30 debug-label saga).
 5. **Every visually-confirmed bug exports its scene as a committed fixture.** Reproducible
@@ -49,9 +49,9 @@ ties → PIXI insertion order) unresolvable without a mechanical oracle.
 | jscpd | Full block, no baseline file. Clones touching staged files block the commit |
 | Pilot order | isoroll-module (long road), then apptime |
 
-## Verification Tier Ladder
+## Verification Level Ladder
 
-| Tier | What | Catches | Speed |
+| Level | What | Catches | Speed |
 |------|------|---------|-------|
 | T0 | tsc + eslint (exists) | type/style | s |
 | T1 | unit + property tests on pure math (vitest + fast-check) | B32-class (geometry/logic) | s |

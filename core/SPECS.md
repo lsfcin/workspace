@@ -221,13 +221,13 @@ caution but **where caution becomes a gate**. Three bands:
 module.** Owning a detector and charging for it are separate facts.
 
 ### AD-17 — Delegation is mandatory where an executor reads the assignment; elsewhere it is advice (2026-08-17)
-The ask was a guaranteed way to route cheap work to a cheaper tier, with the **plan** as the trigger —
+The ask was a guaranteed way to route cheap work to a cheaper level, with the **plan** as the trigger —
 the moment work is cut into tasks is the cheap point to decide who executes each one. **That trigger
-is already built**: the Loop 1 plan table in `core/flows/craft/craft.md` carries `tier` and `effort`
-per task row, and that loop's adversarial review charges that each row be executable by its tier.
+is already built**: the Loop 1 plan table in `core/flows/craft/craft.md` carries `level` and `effort`
+per task row, and that loop's adversarial review charges that each row be executable by its level.
 
 **What is missing is an executor that reads it.** Inside `/craft` there is one; outside it nothing
-reads the tag, so it is advice. **Hence the reading of the expensive-tier-heavy split: it measures how
+reads the tag, so it is advice. **Hence the reading of the expensive-level-heavy split: it measures how
 much work bypasses the flow that routes**, not per-task indiscipline. The lever is routing more work
 through `/craft`, not building a second router beside it. **Delegating ≠ parallelising**: offered a
 shape with parallel workers Lucas chose **no parallelism** (2026-08-17).

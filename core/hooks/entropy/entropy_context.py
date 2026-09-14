@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Tier 0 CONTEXT.md rules, parsed from core/SCHEMA.md. Zero-token, deterministic.
+# Level 0 CONTEXT.md rules, parsed from core/SCHEMA.md. Zero-token, deterministic.
 #
 # Split out of type-gate.py 2026-07-30 when the goal-link check joined the inventory
 # check: type-gate.py is the ratchet that decides WHEN to run a check, these are the

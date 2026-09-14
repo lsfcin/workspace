@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Tier 0: a roadmap item number is not a citable identifier outside the roadmap family.
+# Level 0: a roadmap item number is not a citable identifier outside the roadmap family.
 #
 # Why this is a check and not a paragraph. Completion is deletion in this workspace, so the
 # day an item closes, every `Front 4.1` pointing at it becomes a pointer to nothing — or
@@ -10,7 +10,7 @@
 #
 # It lives here rather than in entropy/ because the crowding gate said so: entropy/ was already
 # at eight code files and the ratchet refused a ninth. That was the right refusal — the check
-# belongs beside type-gate.py, which is the other Tier 0 vocabulary gate, and being here made
+# belongs beside type-gate.py, which is the other Level 0 vocabulary gate, and being here made
 # it a commit-time BLOCK instead of one more line in a report nobody is obliged to read.
 #
 # Not a ratchet, unlike type-gate.py: the corpus was swept to zero on 2026-08-16, so every

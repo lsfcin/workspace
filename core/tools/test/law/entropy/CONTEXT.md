@@ -28,14 +28,14 @@ it is the same ambiguity the reader has.
 
 | File | Interface | Description |
 |------|-----------|-------------|
-| [`test_entropy_context.py`](test_entropy_context.py) | [`test_entropy_context.pyi`](test_entropy_context.pyi) | T0 CONTEXT.md rules (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
-| [`test_entropy_crowding.py`](test_entropy_crowding.py) | [`test_entropy_crowding.pyi`](test_entropy_crowding.pyi) | T0 directory crowding (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_context.py`](test_entropy_context.py) | [`test_entropy_context.pyi`](test_entropy_context.pyi) | T0 CONTEXT.md rules (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_crowding.py`](test_entropy_crowding.py) | [`test_entropy_crowding.pyi`](test_entropy_crowding.pyi) | T0 directory crowding (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
 | [`test_entropy_fields.py`](test_entropy_fields.py) | [`test_entropy_fields.pyi`](test_entropy_fields.pyi) | T0 the header-field check (core/SCHEMA.md § Every field that names our own code is verified): a field naming our own code names something that is there. Zero-token, runs in verify-fast. |
-| [`test_entropy_inventory.py`](test_entropy_inventory.py) | [`test_entropy_inventory.pyi`](test_entropy_inventory.pyi) | T0 no-hand-inventory rule (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
-| [`test_entropy_list.py`](test_entropy_list.py) | [`test_entropy_list.pyi`](test_entropy_list.pyi) | T0 list and vocabulary checks (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
-| [`test_entropy_naming.py`](test_entropy_naming.py) | [`test_entropy_naming.pyi`](test_entropy_naming.pyi) | T0 naming and placement (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_inventory.py`](test_entropy_inventory.py) | [`test_entropy_inventory.pyi`](test_entropy_inventory.pyi) | T0 no-hand-inventory rule (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_list.py`](test_entropy_list.py) | [`test_entropy_list.pyi`](test_entropy_list.pyi) | T0 list and vocabulary checks (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
+| [`test_entropy_naming.py`](test_entropy_naming.py) | [`test_entropy_naming.pyi`](test_entropy_naming.pyi) | T0 naming and placement (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast. |
 | [`test_entropy_placeholders.py`](test_entropy_placeholders.py) | [`test_entropy_placeholders.pyi`](test_entropy_placeholders.pyi) | T0 unanswered scaffold placeholders (first-line-comment rule, core/hooks/SPECS.md). Zero-token, runs in verify-fast. |
 | [`test_entropy_retired.py`](test_entropy_retired.py) | [`test_entropy_retired.pyi`](test_entropy_retired.pyi) | T0 the retired-token check (core/SCHEMA.md § Retired tokens): a rename is finished only when its old spelling appears nowhere. Zero-token, runs in verify-fast. |
-| [`test_entropy_stores.py`](test_entropy_stores.py) | [`test_entropy_stores.pyi`](test_entropy_stores.pyi) | T0 the two doubt stores (core/SPECS.md § AD-16 band 1): an experiment states its own format, and a judged reference carries a source tier. Zero-token, runs in verify-fast. |
-| [`test_entropy_vendor.py`](test_entropy_vendor.py) | [`test_entropy_vendor.pyi`](test_entropy_vendor.pyi) | T0 the vendor-name guard (core/SCHEMA.md): a list assigns a TIER, never a model. Zero-token, runs in verify-fast. |
+| [`test_entropy_stores.py`](test_entropy_stores.py) | [`test_entropy_stores.pyi`](test_entropy_stores.pyi) | T0 the two doubt stores (core/SPECS.md § AD-16 band 1): an experiment states its own format, and a judged reference carries a source level. Zero-token, runs in verify-fast. |
+| [`test_entropy_vendor.py`](test_entropy_vendor.py) | [`test_entropy_vendor.pyi`](test_entropy_vendor.pyi) | T0 the vendor-name guard (core/SCHEMA.md): a list assigns a LEVEL, never a model. Zero-token, runs in verify-fast. |
 <!-- routing:end -->

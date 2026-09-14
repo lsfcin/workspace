@@ -78,7 +78,7 @@ def test_the_drafts_that_started_this_are_the_ones_now_carried() -> None:
 
 def test_a_model_named_in_a_filename_is_not_what_the_vendor_check_forbids() -> None:
     """The ruling, made checkable. The norm bans a list assigning a MODEL where it should assign
-    a tier — a bolded `**model: …**` directive — not the word appearing as data. If this ever fails,
+    a level — a bolded `**model: …**` directive — not the word appearing as data. If this ever fails,
     someone has widened the check into a token ban, and the three-way comparison in brain/drafts/
     loses the labels that are its whole point."""
     import entropy_vendor

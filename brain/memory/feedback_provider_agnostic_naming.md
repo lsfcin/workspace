@@ -1,6 +1,6 @@
 ---
 name: feedback-provider-agnostic-naming
-description: "Provider/model names are banned as a DIRECTIVE (assigning work, naming a tier, coupling code to a vendor) and fine as DATA (a measurement, a quoted id, which harness produced a draft) — position, not presence"
+description: "Provider/model names are banned as a DIRECTIVE (assigning work, naming a level, coupling code to a vendor) and fine as DATA (a measurement, a quoted id, which harness produced a draft) — position, not presence"
 metadata: 
   node_type: memory
   type: feedback
@@ -10,7 +10,7 @@ metadata:
 User feedback (2026-07-07, isoroll multiview session): "we are doing a lot of work to make our workspace agnostic to
 specific providers/models... putting nb in the name of the files seems a bit too much".
 
-**Why:** the workspace invests heavily in provider-agnostic structure (core/ skills, flows, tier→model mapping
+**Why:** the workspace invests heavily in provider-agnostic structure (core/ skills, flows, level→model mapping
 volatile). A leading model is fine; baking it into file names couples code to a vendor.
 
 **How to apply:** name modules/verbs/dirs by FUNCTION (imagegen_client, multiview_commands, mv-tile, gen-inbox), keep
@@ -20,7 +20,7 @@ Related: [[fable-quota-strategy]].
 **Widened 2026-08-17, and it is not only filenames.** Lucas reacted to me saying *"sonnet wires it"* about a roadmap
 step: *"nothing in WOS should be tied to a specific vendor/company/model."* The rule covers **work assignments and how I
 speak to him**, not just paths. Both lists carried 26 routing directives reading `model: sonnet` / `model: opus`; they
-now read `tier: high|medium|low`, and which model fills a tier is data in `core/flows/craft/routing.md`.
+now read `level: high|medium|low`, and which model fills a level is data in `core/flows/craft/routing.md`.
 
 The line that decides a given mention: **directive vs data.** Assigning work by model name is the violation; a
 *measured* split ("opus-5 56.5%, sonnet 7.7%") or a quoted stale model id inside a bug report is legitimate, because

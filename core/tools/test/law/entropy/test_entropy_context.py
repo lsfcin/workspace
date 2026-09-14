@@ -1,4 +1,4 @@
-# T0 CONTEXT.md rules (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
+# T0 CONTEXT.md rules (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
 #
 # The goal-link check was written AFTER the backfill, not before: all 14 projects already
 # declared line 3, so the check could go straight to blocking instead of warning. That

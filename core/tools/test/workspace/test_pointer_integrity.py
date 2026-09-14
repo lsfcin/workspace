@@ -1,4 +1,4 @@
-# T0 pointer-integrity check (Tier 0): every relative
+# T0 pointer-integrity check (Level 0): every relative
 # ](path) link across CONTEXT.md / ROADMAP*.md / SCHEMA.md / AGENTS.md (repo) and
 # MEMORY.md (auto-memory) must resolve. Zero-token, runs in verify-fast.
 #
@@ -17,7 +17,7 @@ from platform_law import rel
 # The auto-memory store lives IN the workspace as of 2026-08-15; the harness path
 # ~/.claude/projects/<slug>/memory is a symlink to this directory, so every memory the
 # harness writes lands in git and can be trimmed like any other file. This used to reach
-# into $HOME and hardcode the project slug — a Tier 0 gate that read a path outside the
+# into $HOME and hardcode the project slug — a Level 0 gate that read a path outside the
 # repo it guards, and that no clone of this workspace could satisfy.
 MEMORY_DIR = WORKSPACE_ROOT / "brain/memory"
 
@@ -48,7 +48,7 @@ def _strip_fences(text: str) -> str:
     # Auto-generated routing tables (AGENTS.md: "do not edit manually") hoist a
     # child CONTEXT.md's line-2 description verbatim, links and all; staleness
     # there is a sync-tool bug (dead pointer, or an unrewritten relative path
-    # one level up), not a hand-authored one — out of scope for this Tier-0 gate.
+    # one level up), not a hand-authored one — out of scope for this Level-0 gate.
     text = ROUTING_BLOCK_RE.sub(" ", text)
     # Inline single-backtick spans quote literal syntax for documentation
     # (e.g. `` `[[slug]]` `` describing the convention itself) — not real refs.

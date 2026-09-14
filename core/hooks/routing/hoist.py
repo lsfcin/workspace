@@ -44,7 +44,7 @@ def md_blurb(path: Path) -> str:
     author who wrote more got no credit for it. Now the whole `>` block is one description,
     stopping at the first FIELD line — `priority:`, `goal:`, `spec:`, `governs:`,
     `blocked-by:` are data the table has its own columns for, and reading them as prose is
-    how "Tier 0 checks…" would have become "Tier 0 checks… priority: essential".
+    how "Level 0 checks…" would have become "Level 0 checks… priority: essential".
     """
     try:
         lines = path.read_text(encoding='utf-8', errors='ignore').splitlines()
@@ -108,7 +108,7 @@ def truncate_outside_links(text: str, limit: int) -> str:
     """Cut to `limit`, never mid-link and never mid-word, and say that you cut.
 
     Mid-link, because a half-copied `[REFS.md](RE` is a broken pointer and the
-    pointer-integrity check would be right to fail on it. Mid-word, because `Tier 0 checks
+    pointer-integrity check would be right to fail on it. Mid-word, because `Level 0 checks
     t` reads as a typo rather than as a truncation — the reader cannot tell a cut from a
     mistake, which is half of why these descriptions read badly. The ellipsis is what makes
     the difference visible.

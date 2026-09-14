@@ -1,4 +1,4 @@
-# T0 naming and placement (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
+# T0 naming and placement (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
 #
 # The whole-tree test is a RATCHET, not a green light: it asserts the live violations are
 # a subset of a named baseline, so a new one fails the build while the three inherited

@@ -14,7 +14,7 @@ from mirror import is_skill
 
 FLOW_TYPES = ('research-brief', 'utility', 'domain')
 CONFIRMS = ('plan', 'none')
-TIERS = ('low', 'medium', 'high', 'max')
+LEVELS = ('low', 'medium', 'high', 'max')
 
 
 def _lines(path: Path) -> list:
@@ -82,7 +82,7 @@ def _flow_files(workspace: Path) -> list:
 def validate_flows(workspace: Path) -> list:
     """description, args, type ∈ enum, confirm ∈ enum (core/SCHEMA-layers.md § Layer: flow).
 
-    Exempt: CONTEXT.md, and flows/craft/ — the engineering cluster declares tier routing directly
+    Exempt: CONTEXT.md, and flows/craft/ — the engineering cluster declares level routing directly
     and has no `type` in the enum. A DOT-DIRECTORY under flows/ is a STORE, not a flow: nothing in
     it is invocable, and without the exemption core/flows/.craft-skills/ blocked every commit.
     """
@@ -179,8 +179,8 @@ def validate_flow_dag(workspace: Path) -> list:
 
 
 def validate_agents(workspace: Path) -> list:
-    """name, description, tier ∈ enum; workers also need tools + output. `lead` is the one
-    orchestrator (tier-only). _template excluded like skills."""
+    """name, description, level ∈ enum; workers also need tools + output. `lead` is the one
+    orchestrator (level-only). _template excluded like skills."""
     problems = []
     for path in sorted((workspace / 'core' / 'agents').glob('*.md')):
         if path.stem in ('CONTEXT', '_template'):
@@ -190,10 +190,10 @@ def validate_agents(workspace: Path) -> list:
             problems.append(f'INVALID agent (no YAML frontmatter): {path}')
             continue
         problems += _missing(block, path, 'agent', ('name', 'description'))
-        problems += _enum(block, path, 'agent', 'tier', TIERS)
+        problems += _enum(block, path, 'agent', 'level', LEVELS)
         if any(re.match(r'^(model|thinking):', line) for line in block):
             problems.append('INVALID agent (model:/thinking: forbidden in core source — use '
-                            f'tier:): {path}')
+                            f'level:): {path}')
         if path.stem != 'lead':
             problems += _missing(block, path, 'agent', ('tools', 'output'), prefix='worker ')
     return problems

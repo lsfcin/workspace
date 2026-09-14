@@ -24,7 +24,7 @@ def header_fields(lines: list) -> dict:
     below would have verified two of three while reporting the field clean.
 
     Continuation only counts AFTER a field has been seen: the `>` lines before the first one are the
-    description, which hoist.md_blurb owns, and gluing those onto a value is how "Tier 0 checks…"
+    description, which hoist.md_blurb owns, and gluing those onto a value is how "Level 0 checks…"
     would have become part of `priority`.
     """
     facts, field = {}, None

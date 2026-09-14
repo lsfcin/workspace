@@ -18,7 +18,8 @@ verify: none
   suppresses punctuation, not merely at the tail. Measured on Lucas's chuveiro voice note: sentences-then-list 0.0
   marks/100 words, list-then-sentences 1.1, jargon dissolved into the sentences 22.5. The prompt is prose end to end.
 - On voice-out: the delivered turn text `result.text: str` (plain-stripped via `format.plain`, clipped to a sane cap).
-- `stt.run` accepts an injectable `model` (the C1/C3 test boundary); `tts.encode_ogg` accepts a synthetic numpy waveform +
+- `stt.run` accepts an injectable `model` (the C1/C3 test boundary); `tts.encode_ogg` accepts a synthetic numpy waveform
+  +
   `sample_rate: int` (the C5 test boundary).
 
 ## Outputs

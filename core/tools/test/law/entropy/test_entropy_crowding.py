@@ -1,4 +1,4 @@
-# T0 directory crowding (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
+# T0 directory crowding (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
 #
 # The law is not new: a files-per-directory threshold has always existed and
 # context_synchronizer.sync has always warned on it — to stdout, during a sync nobody

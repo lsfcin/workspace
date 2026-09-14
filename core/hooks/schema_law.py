@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# The law parser. Every Tier 0 check reads core/SCHEMA.md through this module, and none
+# The law parser. Every Level 0 check reads core/SCHEMA.md through this module, and none
 # of them restates it — a second copy of the law inside a checker is the exact drift the
 # checks exist to catch.
 #

@@ -8,7 +8,7 @@
 # Rates come from the claude-api skill — update them there and here together.
 #
 # A MODEL WE HAVE NO RATE FOR COSTS `UNPRICED`, NEVER OPUS. This defaulted to (5.0, 25.0), so any
-# stamp outside the table below was billed at the most expensive tier in it and nothing said so:
+# stamp outside the table below was billed at the most expensive level in it and nothing said so:
 # eight minimax-m3 sessions on this disk were priced at $5/$25 per Mtok on 2026-09-05, and a ZCode
 # session on GLM-5.3-flash was reported as opus-5 at 100% of spend. A number nobody can check is
 # the shape this file's own header is about — see b20260905 and session_turns.trusted_model().
