@@ -44,6 +44,21 @@ matching regression spec exists and passes.
   legitimate reasons, one refusal, and they want opposite behaviour. Either Lucas rules which cost
   is worse (a bounced HEAD, or a `main` that stays behind), or the merge happens somewhere HEAD is
   not — a throwaway `git worktree`, which satisfies both and is the only cure nobody has costed.
+  **The cheap sidestep, ruled by Lucas 2026-09-14: commit the stray files.** The refusal asks
+  whether the tree is DIRTY, so a session that lands its pending edits before closing never meets
+  it — which is what unblocked the fourth close in a row. A workaround and not the cure: it holds
+  only while the dirty files are ones this session may commit.
+
+- The entropy block's *"safe to delete, and outward-facing"* branch list is a SNAPSHOT presented as
+  a standing instruction, and it goes stale inside the session that reads it. Found 2026-09-14 by
+  nearly running it: the block named `feature/legibility-identifiers` among three branches merged
+  into `main`, but two commits had since landed on it — the post-commit auto-push had carried them
+  to the remote, so the command the report offered would have deleted unmerged work. The report is
+  regenerated at close and read at open, which is exactly the window auto-push writes into. Nothing
+  in the line says how old it is. Two cures, and they compose: re-check `git merge-base
+  --is-ancestor origin/<branch> origin/main` at the moment of deletion rather than trusting the
+  block, and have `branch_debt.py` exclude any branch whose tip this session moved. The first is
+  what saved it by hand this time.
 
 - `core/tools/paper/papers` has no working arm: Semantic Scholar returns HTTP 429 and arXiv times
   out, both re-confirmed 2026-09-13. The tool itself is honest — it prints `{"error": ...}` to
@@ -101,7 +116,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/hook-scoreboard is 4 ahead of main
+- . — feature/hook-scoreboard is 5 ahead of main
 - . — feature/legibility-identifiers is 2 ahead of main
 
 <!-- entropy:end -->
