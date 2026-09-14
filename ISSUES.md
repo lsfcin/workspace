@@ -29,6 +29,14 @@ matching regression spec exists and passes.
   only for a bare audit run. Same shape as the entropy bug fixed this session — a check reporting on
   something other than what it guards.
 
+- `close/branches.py` refuses a real merge under `--leave-dirty` on the wrong question. It asks
+  *is the tree dirty*, when what makes the checkout unsafe is *do the dirty paths differ between
+  the two branches*. They usually do not: a file someone is editing is uncommitted, so it is
+  identical on both sides and git carries it across untouched. Cost three consecutive closes an
+  unpromoted `main` (2026-09-12/13/14), each reported as a finding against the next session. The
+  cure is to compare `git diff <target> <source> -- <dirty paths>` and refuse only on an overlap;
+  promoted by hand on 2026-09-14 after checking exactly that, which is the check to move into code.
+
 - `core/tools/paper/papers` has no working arm: Semantic Scholar returns HTTP 429 and arXiv times
   out, both re-confirmed 2026-09-13. The tool itself is honest — it prints `{"error": ...}` to
   stderr and exits 1 — and the cause is outside this workspace, so nothing here can fix it. What
@@ -67,10 +75,10 @@ matching regression spec exists and passes.
 | Header fields naming code that is not there | 0 |
 | Truncated routing descriptions | 0 |
 | Constraints trapped in a CONTEXT.md head | 0 |
-| Local branches holding unpromoted work | 2 |
+| Local branches holding unpromoted work | 0 |
 | Work that exists on this disk and nowhere else | 0 |
-| Local branches already merged into their base | 0 |
-| Remote branches already merged into their base | 0 |
+| Local branches already merged into their base | 1 |
+| Remote branches already merged into their base | 1 |
 
 *A check with no findings is the `0` in that table and nothing more. Only a check with something to show gets a section below.*
 
@@ -80,12 +88,17 @@ matching regression spec exists and passes.
 
 - academy/teaching/SPECS-disciplinas.md — 9 line(s) over the 120-column cap (first at line 8)
 
-### Local branches holding unpromoted work
+### Local branches already merged into their base
 
-*promote when the work is green, or say which reason applies — /roundup Phase 5*
+*safe to delete, and purely local — `git -C <repo> branch -d <branch>`*
 
-- . — feature/confident-wrongness is 8 ahead of main
-- . — feature/legibility-sitting is 15 ahead of main
+- . — 1 merged into main: git -C . branch -d feature/confident-wrongness
+
+### Remote branches already merged into their base
+
+*safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
+
+- . — 2 merged into main: git -C . push origin --delete feature/confident-wrongness feature/legibility-sitting
 
 <!-- entropy:end -->
 
