@@ -116,7 +116,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/hook-scoreboard is 6 ahead of main
+- . — feature/hook-scoreboard is 7 ahead of main
 - . — feature/legibility-identifiers is 2 ahead of main
 
 <!-- entropy:end -->
