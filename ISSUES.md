@@ -79,7 +79,7 @@ matching regression spec exists and passes.
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/confident-wrongness is 8 ahead of main
-- . — feature/legibility-sitting is 12 ahead of main
+- . — feature/legibility-sitting is 13 ahead of main
 
 <!-- entropy:end -->
 

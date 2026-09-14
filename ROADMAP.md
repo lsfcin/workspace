@@ -68,13 +68,12 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 
 ## Legibility — can Lucas still read what he owns
 
-**🟢 the audit's twelve words also name code, and the rename is unfinished until they follow**
-*What* — `ledger` `probe` `fanout` `seam` `shard` `slug` `scaffold` gone from identifiers too, then
-their rows in `core/SCHEMA.md` § Retired tokens; plus `tier` → `level`, which Lucas ruled and which
-is a parsed column value in `core/permissions.txt` and 9 modules.
-*Why* — `retired_hits` matches filenames as well as text, so a row added while `entropy_ledger.py`
-exists turns the suite red on our own modules. The writing is swept; the rename is half-done.
-*Done when* — every row is in § Retired tokens and the entropy scan finds zero survivors.
+**🟢 the audit's words also name code, and the rename is unfinished until identifiers follow**
+*What* — `ledger` `probe` `fanout` `seam` `shard` `slug` out of identifiers, plus `tier` → `level`
+(ruled; a parsed value in `core/permissions.txt` and 9 modules), then every row in § Retired tokens.
+*Why* — `retired_hits` matches filenames, so a row added while `entropy_ledger.py` exists reds the
+suite on our own modules. Never sweep a bracketed slug or Lucas's pt-br goal files: both cost a revert.
+*Done when* — the entropy scan finds zero survivors of every row.
 
 **🟡 the health picture: keep what Lucas reads at a glance, cut the rest**
 *What* — one page answering *is this well tied, and what is missing* — not an inventory.
@@ -88,7 +87,7 @@ exists turns the suite red on our own modules. The writing is swept; the rename 
 raising the cap, which moves the line and not the mass.
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every
 line; that is a reason to pay, not a reason not to.
-*Done when* — the net since 2026-09-01 is negative under `core/run tools/wos/size --scope scaffold`.
+*Done when* — the net since 2026-09-01 is negative under `core/run tools/wos/size --scope repo`.
 The debt is this repo's: absorbing a project's own writing neither creates nor pays it.
 
 **🔴 the platform boundary owes three answers, and one of them is a secret**
@@ -104,7 +103,7 @@ The debt is this repo's: absorbing a project's own writing neither creates nor p
 ## Brain — the part that serves Lucas rather than the code
 
 **🟡 measure which `UPPERCASE.md` files are read, then decide what to do about goal files**
-*What* — per-type rollup of reads and cost; then goal↔roadmap warning and goal-format audit.
+*What* — per-type summary of reads and cost; then goal↔roadmap warning and goal-format audit.
 *Why* — verify whether goal files are dead weight before redesigning fields.
 *Done when* — numbers are in `core/experiments/` and downstream steps decide based on data.
 
@@ -116,46 +115,35 @@ The debt is this repo's: absorbing a project's own writing neither creates nor p
 
 ## Rejected
 
-- **The one-root hypothesis, that legibility, self-description and confident wrongness are three
-  faces of one root** — 2026-09-14, ruled on the audit's evidence. Two of the three are: every word
-  the audit found dead (`rollup`, `front`, `corpse`) died because the structure moved and the text
-  did not follow, which is the self-description failure exactly, and both halves take the same cure —
-  a check that fails when text and referent disagree. The third is not, and had already left on
-  2026-09-13: confident wrongness is about claims on the OUTSIDE world, it needs a parser or a
-  solver, and it is `academy/papers/back2dsl`. The falsification path written in `ee9104f` was run.
-- **`gate` → `block`** — 2026-09-14: `block` already names a delimited region of a generated file
-  AND is the verb a gate uses, so the swap would make *"a gate blocks"* read *"a block blocks"* —
-  one word for three things, which is the rule inverted. Lucas ruled it conditional on no ambiguity.
-- **Flattening the eight personification verbs** (`lives` `owns` `carries` `touches` `says` `asks`
-  `answers` `fires`) — 2026-09-14 (Lucas): 478 uses that the detector ranked as house language, and
-  they read. A consistent voice is not jargon, and flattening it costs more than it pays.
-- **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree this repo's own checks skip
-  is an asymmetry nobody can see, and it cost four findings aiwbot already carried.
-- **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Set before
-  anyone measured, and the arithmetic never closed. `core/norms/reduce.md` governs; read cost cuts.
-- **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first
-  prompt, and a tree already dirty when the session opens.
+- **The one-root hypothesis** — 2026-09-14: two of three. Dead words die when structure moves and text does not follow,
+  which is self-description; the third left and is `back2dsl`.
+- **`gate` → `block`** — 2026-09-14: `block` already names a generated region AND is the gate's verb, so the swap reads
+  *"a block blocks"*.
+- **Flattening the eight personification verbs** — 2026-09-14 (Lucas): 478 uses, and they read. A consistent voice is
+  not jargon.
+- **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree our own checks skip is an invisible asymmetry;
+  it cost four findings.
+- **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." `core/norms/reduce.md` governs; read
+  cost picks the cut.
+- **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first prompt, and a tree dirty
+  at session open.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
-- **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): prompt, LLM judge and
-  self-report were killed by evidence; of the three mechanisms the 42-source survey left standing,
-  none passes a cost test. Only a parser or a solver refuses, which makes it research —
-  `academy/papers/back2dsl`, with `spacemantics` and `wos-ablation` as its instances.
-- **Writing a research map as a plan block in this file, and one review yaml per kept source** —
-  2026-09-13: the first grows the most re-read file we own, against a `scout` step that asks for it;
-  the second would breach the `core/refs/` crowding block. A topical `REFS-<slug>.md` file does both jobs.
+- **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): prompt, judge and self-report died on evidence;
+  only a parser or solver refuses, so it is research — `academy/papers/back2dsl`.
+- **A research map as a plan block here, and one review yaml per kept source** — 2026-09-13: the first grows our most
+  re-read file; the second breaches the `core/refs/` crowding block. A `REFS-<slug>.md` does both.
 - **A preliminary cut of features before the ablation** — 2026-08-21: cutting on hunches is a guess.
 - **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
 - **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
 - **A second compaction shim for copilot** — no copilot session has ever run here.
-- **Raising the line block by half** — moves the queue; a file needing room needs a boundary. **Partly
-  reversed 2026-09-06 (Lucas)**: three over-cap files were law files being asked to delete reasons
-  nothing else held. Over the cap a file is still CUT, not split.
+- **Raising the line block by half** — moves the queue; a file needing room needs a boundary. **Partly reversed
+  2026-09-06 (Lucas)** for law files; over the cap a file is still CUT, not split.
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
-- **Narrowing the pre-commit to the touched tests** — 2026-09-01: the only speed-up that weakens the
-  gate holding both clones, and parallelising paid four-fold without it.
-- **A check asking only whether a `TYPE-<slug>.md` is tracked** — 2026-09-01: the real defect is any
-  routing row naming a file git does not carry.
-- **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's
-  clone then cannot install, and strangers are who the file is for.
-- **Deleting a dated `*-backup-*.md` as a dead item** — `academy/lab/CONTEXT.md` declares those
-  captured, not authored; the untracked *law* beside them was the real bug.
+- **Narrowing the pre-commit to the touched tests** — 2026-09-01: the only speed-up that weakens the gate holding both
+  clones, and parallelising paid four-fold without it.
+- **A check asking only whether a `TYPE-<slug>.md` is tracked** — 2026-09-01: the real defect is any routing row naming
+  a file git does not carry.
+- **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's clone cannot install,
+  and strangers are who the file is for.
+- **Deleting a dated `*-backup-*.md` as a dead item** — `academy/lab/CONTEXT.md` declares those captured, not authored;
+  the untracked *law* beside them was the bug.
