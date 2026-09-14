@@ -118,8 +118,8 @@ The debt is this repo's: absorbing a project's own writing neither creates nor p
 
 ## Rejected
 
-- **Exempting Lucas's own writing from the retired-token check** — 2026-09-14 (Lucas): a sentence where a retired
-  spelling means something the rename does not cover gets rewritten. A blind spot is worse than a word.
+- **Exempting Lucas's own writing from the rename check** — 2026-09-14 (Lucas): a sentence where an old spelling
+  means something the rename does not cover gets rewritten. A blind spot is worse than a word.
 - **The one-root hypothesis** — 2026-09-14: two of three. Dead words die when structure moves and text does not follow,
   which is self-description; the third left and is `back2dsl`.
 - **`gate` → `block`** — 2026-09-14: `block` already names a generated region AND is the gate's verb, so the swap reads
