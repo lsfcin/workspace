@@ -25,18 +25,18 @@ def git(root, *args):
     return r.stdout if r.returncode == 0 else ''
 
 
-# The scaffold: the workspace describing itself. Content trees (academy/, branches/, code/,
+# The repo: the workspace describing itself. Content trees (academy/, branches/, code/,
 # models/) grow because Lucas is doing his work, and so do his own files inside brain/ — goals,
-# memories, drafts and saved attachments are what the scaffold serves rather than part of it
+# memories, drafts and saved attachments are what this repo serves rather than part of it
 # (Lucas, 2026-09-11, when the size target they inflated was rejected). What is left is the part a
 # stranger cloning this repo would get.
-SCOPES = {'scaffold': ('core/', 'brain/')}
-EXCLUDED = {'scaffold': ('brain/goals/', 'brain/memory/', 'brain/drafts/', 'brain/attachments/')}
+SCOPES = {'repo': ('core/', 'brain/')}
+EXCLUDED = {'repo': ('brain/goals/', 'brain/memory/', 'brain/drafts/', 'brain/attachments/')}
 
 
 def in_scope(rel, scope):
     """Root files plus the named prefixes, less the content the scope excludes. A root `.md` is
-    scaffold by definition — there is nothing else at the top of this tree."""
+    this repo by definition — there is nothing else at the top of this tree."""
     if not scope:
         return True
     if rel.startswith(EXCLUDED[scope]):
@@ -90,8 +90,8 @@ def delta(root, base, scope=''):
     """+/- authored .md lines between base and HEAD, and which directories moved.
 
     Scoped through the SAME `in_scope` the corpus counter uses. It was unscoped until 2026-09-12,
-    so `--scope scaffold --since` counted 199 scaffold files and then credited that scaffold with
-    every line a content tree had moved — two answers to "what is the scaffold" in one file, which
+    so `--scope repo --since` counted 199 repo files and then credited that repo with
+    every line a content tree had moved — two answers to "what is this repo" in one file, which
     is the drift every other law module here is built to prevent.
     """
     added = removed = 0
@@ -123,7 +123,7 @@ def main():
     ap.add_argument('--since', help='base commit for the delta, instead of --session')
     ap.add_argument('--root', default='.', help='repo to measure (default: cwd)')
     ap.add_argument('--scope', choices=sorted(SCOPES),
-                    help='restrict to one part of the tree (scaffold: root + core/ + brain/)')
+                    help='restrict to one part of the tree (repo: root + core/ + brain/)')
     args = ap.parse_args()
 
     root = Path(git(Path(args.root).resolve(), 'rev-parse', '--show-toplevel').strip() or '')

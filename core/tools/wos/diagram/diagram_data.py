@@ -122,7 +122,7 @@ def fan_in(rows: list, by: str = 'path') -> tuple:
 
 def unwired(rows: list) -> list:
     """Features no file switches off. `core/tools/wos/features --findings` counts these; the
-    picture shows them, because a feature entangled with the scaffold is invisible in a diagram
+    picture shows them, because a feature entangled with this repo is invisible in a diagram
     of wiring and that invisibility is the finding."""
     return [row for row in rows if not row['areas']]
 

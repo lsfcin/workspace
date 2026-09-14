@@ -1,6 +1,6 @@
 # Fila de download (cin → workspace local)
 
-> scaffold done. download each folder, then triage loose/Unorganized items.
+> repo done. download each folder, then triage loose/Unorganized items.
 
 Goal (o porquê e as decisões ainda abertas):
 [`brain/goals/google-migration.md`](../../brain/goals/google-migration.md) — `[fila-academy]`,

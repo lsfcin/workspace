@@ -40,12 +40,12 @@ live in goal files (AGENTS.md).
 > refiled there, not held here**; **an item that does not gate v1 is a candidate for the Rejected
 > list, not the backlog**; and a finding worth keeping goes into the `SPECS.md` or `SCHEMA.md`
 > section that owns the rule, because writing the rule there is what closing an item *is*. The
-> scaffold is a means. Time spent on it past v1 is time not spent on the work it exists to serve.
+> repo is a means. Time spent on it past v1 is time not spent on the work it exists to serve.
 >
 > **Sharpened 2026-08-25, and this is the version to read first.** Lucas: *"semanas completas
 > estourando o uso do claude code com o opus 5 para um progresso duvidoso… realmente vejo que o WOS
 > virou um problema por si só."* The measurement backs the feeling: 50 commits in 30 days, nearly all
-> in `core/` and the roadmaps, **zero in `code/`**. The scaffold spent the month maintaining itself.
+> in `core/` and the roadmaps, **zero in `code/`**. The repo spent the month maintaining itself.
 >
 > **What v1.0 means from here, in his words:** zero loose ends · minimum coupling · hooks and tools
 > working as advertised on zero-token strategies · small `.md` files · roadmaps small enough that a
@@ -59,7 +59,7 @@ live in goal files (AGENTS.md).
 >
 > **How the work gets pulled, Lucas 2026-08-27:** *"a partir de cada demanda da vida resolver não somente a demanda mas
 > toda a infraestrutura relacionada a ela e assim seguimos progredindo no micro e no macro."* A real demand is what
-> opens a session; the scaffold it touches is fixed in the same pass. Nothing here is worked for its own sake.
+> opens a session; the repo it touches is fixed in the same pass. Nothing here is worked for its own sake.
 >
 > **Two things he ruled are NOT on the table**, both because they cut capability rather than fat:
 > deleting a harness (multi-harness is essential — optimise the copy, never the function) and cutting
@@ -149,5 +149,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-13  ·  trend: advancing  ·  touches: 470/650/677/677/677/677
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 472/652/679/679/679/679
 <!-- stats:end -->

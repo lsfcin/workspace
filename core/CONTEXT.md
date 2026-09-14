@@ -16,7 +16,7 @@ and spawns the specialist workers beside it.
 | [`hooks/`](hooks/CONTEXT.md) | The enforcement layer: git hooks, agent lifecycle hooks, and the Tier 0 checks they run. |
 | [`norms/`](norms/CONTEXT.md) | Rules obeyed rather than enforced. One file each; `AGENTS.md`'s rule block is generated from them. |
 | [`prompts/`](prompts/CONTEXT.md) | Prepared session prompts — copy-paste into parallel agent sessions. Each file notes target tier/effort and deliverable. |
-| [`refs/`](refs/CONTEXT.md) | Captured references for the agent library / workspace-os scaffold — tier-1 links in [REFS.md](refs/REFS.md). |
+| [`refs/`](refs/CONTEXT.md) | Captured references for the agent library / workspace-os repo — tier-1 links in [REFS.md](refs/REFS.md). |
 | [`skills/`](skills/CONTEXT.md) | Agent skills — provider-agnostic workflows invoked as slash commands or by instruction. |
 | [`tools/`](tools/CONTEXT.md) | CLI tools callable via bash, one directory per family; routing block auto-synced on save. |
 

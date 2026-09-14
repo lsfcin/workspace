@@ -1,7 +1,7 @@
 # Core Library Roadmap
 
 > What is still unsound about the agent library itself — skills, agents, flows, tools and their
-> schema. Workspace scaffold work is the wos list's, [/ROADMAP.md](../ROADMAP.md); an item belongs
+> schema. Workspace repo work is the wos list's, [/ROADMAP.md](../ROADMAP.md); an item belongs
 > to exactly one of the two. Same cap, same three fields, same deletion policy, same
 > refusal to write HOW: [/ROADMAP.md](../ROADMAP.md) states both once.
 
@@ -75,7 +75,7 @@ alongside another reason rather than on its own.
 
 ## Deferred — flows and agents, findings kept, nothing spent
 
-Lucas, 2026-08-25: the layer waits until the v1 scaffold is tight. These were found by *running* the
+Lucas, 2026-08-25: the layer waits until the v1 repo is tight. These were found by *running* the
 flow on 2026-08-24, so they are evidence rather than review notes and are kept at one line each.
 None is worked until the layer reopens.
 

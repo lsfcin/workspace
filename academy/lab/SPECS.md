@@ -85,7 +85,7 @@ to 14 in week one. Finding out late costs a semester.
 ## The `passo a passo` runs in two lanes
 
 Generic first — what to do, any student, any assistant. Then the **com o WOS** lane inline, with the
-real command. The public scaffold repo students clone does not exist yet ([`ROADMAP.md`](../../ROADMAP.md)),
+real command. The public repo students clone does not exist yet ([`ROADMAP.md`](../../ROADMAP.md)),
 so the WOS lane is written and inert until it does.
 
 ## What the markdown round trip does

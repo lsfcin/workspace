@@ -24,7 +24,7 @@ chain into the `feature` folder with this ADR as an input constraint.
 - Directory: `<project>/.craft/<decision-slug>/`. Files append-only. Carry block copied verbatim between steps (same
   discipline as the feature folder).
 - The **durable output** is an ADR entry, NOT the `.craft/` trail: by default a new `### <NNNN> <Decision>` subsection
-  under the project's own `SPECS.md`, in its Architecture Decisions section (the scaffold in
+  under the project's own `SPECS.md`, in its Architecture Decisions section (the repo in
   [`code/_templates/SPECS.md`](../../../code/_templates/SPECS.md) already defines it); for a large/standalone
   decision, a `docs/adr/<NNNN>-<slug>.md` file instead. `.craft/<decision-slug>/` is deleted on record unless
   `keep-trail: yes`.

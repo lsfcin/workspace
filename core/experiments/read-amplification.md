@@ -70,7 +70,7 @@ between family members, and nothing here shows it lowered the total.
 - **This is the measurement behind cutting the list.** A line removed from `ROADMAP.md` is not
   removed once; at 2.5 reads per session it is removed 2.5 times per session, forever. The drain
   on 2026-08-17 took the file 971 → 828 lines in one sitting.
-- **It is also the instrument that replaced the scaffold size target** (2026-09-11). The target
+- **It is also the instrument that replaced the repo size target** (2026-09-11). The target
   counted files and lines; this counts what a session is served, and the two disagree — a skill body
   is ~2 tokens at turn 1 while the gate-mandated `CONTEXT.md` chain is 43% of every char served.
   What gets cut is now read off the top of this list.

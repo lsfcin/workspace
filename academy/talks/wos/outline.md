@@ -1,6 +1,6 @@
 # Talk — workspace-os (WOS) @ SENAI
 
-> Invited by Rafael. Minimum scaffold — build out when prep starts. WOS = workspace-os
+> Invited by Rafael. Minimum repo — build out when prep starts. WOS = workspace-os
 > (Lucas's file-as-source-of-truth personal operating system for driving AI coding agents).
 
 ## Status

@@ -1,6 +1,6 @@
 # Workspace roadmap
 
-> Everything still open in the workspace scaffold, in one file. A finished item is deleted; a killed
+> Everything still open in the workspace repo, in one file. A finished item is deleted; a killed
 > one gets **one line** under § Rejected so it cannot come back looking new.
 >
 > **Three fields per item, no fourth.** *What* will exist · *Why* it is worth building · *Done when*,
@@ -61,8 +61,8 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 *Why* — 71 features are on and none has a scoreboard, so every cut is a guess and kept rules paid on faith.
 *Done when* — after two weeks of ordinary use a feature × fired × blocked table exists.
 
-**🟡 the ablation — the scaffold has never been measured against its own absence**
-*What* — variants of the public scaffold, one feature off in each, against one synthetic task suite.
+**🟡 the ablation — the repo has never been measured against its own absence**
+*What* — variants of the public repo, one feature off in each, against one synthetic task suite.
 *Why* — this workspace compensates for model failures; a rule that outlives its failure is pure cost.
 *Done when* — a **per-feature** verdict is readable. Runs outside this workspace (`academy/papers/wos-ablation/`).
 
@@ -86,14 +86,14 @@ raising the cap, which moves the line and not the mass.
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every
 line; that is a reason to pay, not a reason not to.
 *Done when* — the net since 2026-09-01 is negative under `core/run tools/wos/size --scope scaffold`.
-The debt is the scaffold's: absorbing a project's own writing neither creates nor pays it.
+The debt is this repo's: absorbing a project's own writing neither creates nor pays it.
 
 **🔴 the platform boundary owes three answers, and one of them is a secret**
 *What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.
 *Why* — secret convention needs ACL equivalence; dep checks must verify function, not bare import.
 *Done when* — boundary writes secrets tight on all systems and no check falsely greens.
 
-**🟡 the public scaffold repo his students clone**
+**🟡 the public repo his students clone**
 *What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
 *Why* — students asked for it; hard precondition for ablation study.
 *Done when* — a student clones it and gets a working workspace.
@@ -107,20 +107,20 @@ The debt is the scaffold's: absorbing a project's own writing neither creates no
 
 ## Deferred — real work, deliberately not now
 
-- **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 scaffold is tight.
+- **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 repo is tight.
 - **Anything a nested repo owns** — each keeps its own `ISSUES.md` and fixes its own findings.
-- **`[gdrive-integration]`, `[offline-resilience]`, serious OCR** — content/infrastructure, not scaffold.
+- **`[gdrive-integration]`, `[offline-resilience]`, serious OCR** — content/infrastructure, not repo.
 
 ## Rejected
 
 - **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree this repo's own checks skip
   is an asymmetry nobody can see, and it cost four findings aiwbot already carried.
-- **A scaffold target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Set before
+- **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Set before
   anyone measured, and the arithmetic never closed. `core/norms/reduce.md` governs; read cost cuts.
 - **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first
   prompt, and a tree already dirty when the session opens.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
-- **Curing confident wrongness inside this scaffold** — 2026-09-13 (Lucas): prompt, LLM judge and
+- **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): prompt, LLM judge and
   self-report were killed by evidence; of the three mechanisms the 42-source survey left standing,
   none passes a cost test. Only a parser or a solver refuses, which makes it research —
   `academy/papers/back2dsl`, with `spacemantics` and `wos-ablation` as its instances.

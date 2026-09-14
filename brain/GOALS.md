@@ -4,12 +4,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-09-14 13:06
+last-updated: 2026-09-14 13:12
 
 >**areas** — last 14 days  
 ```
-health       ██████████   219 touches
-career       ██░░░░░░░░   48 touches
+health       ██████████   220 touches
+career       ██░░░░░░░░   49 touches
 finances     █░░░░░░░░░   27 touches
 fun          ██░░░░░░░░   58 touches
 spiritual    ░░░░░░░░░░   0 touches
@@ -21,7 +21,7 @@ CONTEXT                  ░░░░░░░░░░   2 touches
 burocracia-academica     ░░░░░░░░░░   8 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              █░░░░░░░░░   37 touches
+craft-flows              █░░░░░░░░░   38 touches
 cria                     ███░░░░░░░   76 touches
 dance                    ░░░░░░░░░░   0 touches
 ecovila                  ░░░░░░░░░░   0 touches
@@ -49,11 +49,11 @@ spacemantics             ██░░░░░░░░   56 touches
 spec-driven-development  ░░░░░░░░░░   3 touches
 startapps                ████░░░░░░   105 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       █░░░░░░░░░   26 touches
+teaching-materials       █░░░░░░░░░   27 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   219 touches
+workspace-os             ██████████   220 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

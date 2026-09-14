@@ -32,7 +32,7 @@ rather than a story about code.
 |---|---|---|---|---|---|
 | 2026-09-12 | 31 | 29 | 18 | 1 | months |
 
-Three of the 29 files sit outside the scaffold, in `code/aiwbot/` and `academy/papers/`.
+Three of the 29 files sit outside the repo, in `code/aiwbot/` and `academy/papers/`.
 
 What caught each of the 18, for the 2026-09-12 run:
 

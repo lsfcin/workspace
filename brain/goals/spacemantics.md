@@ -54,7 +54,7 @@ profile 2.5D (mais reuso do isoroll). 10 min relendo §6 antes de escrever a gra
 ## done
 
 <!-- done:start -->
-> [x] [m0-scaffold] 2026-07-12: 4 casas criadas (goal, code/spacemantics, academy/papers/spacemantics,
+> [x] [m0-repo] 2026-07-12: 4 casas criadas (goal, code/spacemantics, academy/papers/spacemantics,
 >   +core/skills planejado M1), routing sincronizado, semente [visual-semantics] promovida; DSL nomeada **texpace**  
 > [x] [m05-research] 2026-07-12: deepresearch (5 subagentes Q1-Q5) → `outputs/texpace-foundations.md` + provenance;
 >   veredito: aposta SUSTENTADA; texpace core: `{DIR(frame),DIST,TOP,PATH}×{AT|OVER}+{SEQ,PAR,ALT}+{REPEAT,HOLD}`;
@@ -63,5 +63,5 @@ profile 2.5D (mais reuso do isoroll). 10 min relendo §6 antes de escrever a gra
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: steady  ·  touches: 19/43/43/43/43/43
+last-touch: 2026-09-04  ·  trend: advancing  ·  touches: 59/87/87/87/87/87
 <!-- stats:end -->
