@@ -43,9 +43,9 @@ instead of spending them: N cheap short sessions instead of one long expensive o
 - **Small.** Soft cap ~80 lines per file. A loop file that wants to exceed the cap is a smell: the task is too big —
   raise `FLAG: RETURN loop=1 reason=split-needed`.
 - **Carry block.** Every loop file starts with a `## Carry` block **copied verbatim** from the previous file (Loop 0
-  creates it). It holds: short name, branch, project root, test command, criticality, acceptance-criteria digest, context
-  pointers (project `CONTEXT.md`/`AGENTS.md` paths). This is what makes "read exactly one file" true — no loop ever
-  needs to chase earlier files.
+  creates it). It holds: short name, branch, project root, test command, criticality, acceptance-criteria
+  digest, context pointers (project `CONTEXT.md`/`AGENTS.md` paths). This is what makes "read exactly one
+  file" true — no loop ever chases earlier files.
 - `.craft/` is committed on the feature branch during the flow (audit trail, survives crashes). Loop 6 folds the durable
   outcome into the project's `ROADMAP.md` (workspace policy: plans live in roadmaps) and deletes `.craft/<slug>/` in the
   final commit unless Loop 0 recorded `keep-trail: yes`.
@@ -119,8 +119,8 @@ FLAG: RETURN loop=<N> reason=<slug> evidence=<one line>
 
 ## Orchestration
 
-The orchestrator (lead session) holds only: short name, current loop number, verdicts, flags, and **the provider + tier-map
-resolved in Loop 0**.
+The orchestrator (lead session) holds only: short name, current loop, verdicts, flags, and **the provider +
+tier-map resolved in Loop 0**.
 
 **Routing is structural, not discretionary:** spawn via the pinned executor agent types `craft-low` / `craft-medium` /
 `craft-high` (Claude Code: `.claude/agents/craft-*.md`; opencode: `.opencode/agents/craft-*.md`). The pinned executors
@@ -189,9 +189,9 @@ bullet and the table → the bullet wins. That is why they stay here and not in 
   prompt from 4b on, and make Loop 6 list them under `extras: pre-existing-dirty` instead of flagging. Never let an
   executor "helpfully" commit or revert them.
 - **RETURN into a high-tier loop lands on max = the orchestrator.** Don't spawn; rule inline (append `## Amendment` to
-  the target loop file with the ruling + sharpened boundaries + re-entry route). Distinguish design-wrong from boundary-gap: if
-  the architecture already specifies the missing behavior, don't redesign — sharpen boundaries so 4a must cover it, re-run
-  4a→4b at default tiers.
+  the target loop file with the ruling + sharpened boundaries + re-entry route). Design-wrong is not
+  boundary-gap: if the architecture already specifies the missing behavior, don't redesign — sharpen
+  boundaries so 4a must cover it, re-run 4a→4b at default tiers.
 - **Executor death mid-4b (session limit) is cheap to recover**: fresh executor reads 4a + partial 4b, re-runs test-cmd
   for ground truth, continues append-only. Budget hint: 4b is the expensive loop (~150–260k tokens); near a quota
   boundary, hand off at the 4a→4b boundary rather than starting it.

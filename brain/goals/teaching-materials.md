@@ -138,7 +138,8 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 > genérico, melhor vídeo tem 229 views) e *WebXR multiusuário* (vídeo com 133 views). Cortar é uma edição no JSON e um
 > republish  
 > [ ] [arvore-url-excalidraw] `lucassf.pages.dev/techedu/draw` aponta para a sala ao vivo do Excalidraw, que expira por
-> natureza — no dia em que morrer, o short name manda a turma pra lugar nenhum e nada avisa. Salvar o quadro como arquivo e
+> natureza — no dia em que morrer, o short name manda a turma pra lugar nenhum e nada avisa. Salvar o quadro como
+> arquivo e
 > repontar a linha  
 
 > [ ] [acessibilidade-edson] preparar uma versão acessível das missões E do site da disciplina para o Edson — os dois
@@ -179,5 +180,5 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 54/81/81/81/81/81
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 55/82/82/82/82/82
 <!-- stats:end -->

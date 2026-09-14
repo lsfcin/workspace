@@ -4,12 +4,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-09-14 13:12
+last-updated: 2026-09-14 13:16
 
 >**areas** — last 14 days  
 ```
-health       ██████████   220 touches
-career       ██░░░░░░░░   49 touches
+health       ██████████   221 touches
+career       ██░░░░░░░░   50 touches
 finances     █░░░░░░░░░   27 touches
 fun          ██░░░░░░░░   58 touches
 spiritual    ░░░░░░░░░░   0 touches
@@ -21,18 +21,18 @@ CONTEXT                  ░░░░░░░░░░   2 touches
 burocracia-academica     ░░░░░░░░░░   8 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              █░░░░░░░░░   38 touches
+craft-flows              █░░░░░░░░░   39 touches
 cria                     ███░░░░░░░   76 touches
 dance                    ░░░░░░░░░░   0 touches
 ecovila                  ░░░░░░░░░░   0 touches
 exercise                 ░░░░░░░░░░   1 touches
 finances                 ░░░░░░░░░░   1 touches
-google-migration         ░░░░░░░░░░   6 touches
+google-migration         ░░░░░░░░░░   7 touches
 guitar                   ░░░░░░░░░░   1 touches
 hair                     ░░░░░░░░░░   1 touches
 home-casinhas            █░░░░░░░░░   26 touches
 instituto                █░░░░░░░░░   26 touches
-lih-dd                   █░░░░░░░░░   28 touches
+lih-dd                   █░░░░░░░░░   29 touches
 local-ai                 ██░░░░░░░░   58 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
@@ -45,7 +45,7 @@ reading                  ░░░░░░░░░░   0 touches
 rpg-isoroll              ██░░░░░░░░   57 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
-spacemantics             ██░░░░░░░░   56 touches
+spacemantics             ██░░░░░░░░   57 touches
 spec-driven-development  ░░░░░░░░░░   3 touches
 startapps                ████░░░░░░   105 touches
 surf                     ░░░░░░░░░░   0 touches
@@ -53,7 +53,7 @@ teaching-materials       █░░░░░░░░░   27 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   220 touches
+workspace-os             ██████████   221 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

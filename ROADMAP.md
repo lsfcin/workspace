@@ -68,10 +68,13 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 
 ## Legibility — can Lucas still read what he owns
 
-**🔴 the legibility sitting: the jargon audit and the one-root test**
-*What* — plain-word replacement per surviving term; verdict on legibility/self-description/confident-wrongness.
-*Why* — previous sweeps were downstream attempts at an unnamed legibility problem.
-*Done when* — survivors defined in `core/SCHEMA.md` and rest replaced. Precise word wins, simpler breaks ties.
+**🟢 the audit's twelve words also name code, and the rename is unfinished until they follow**
+*What* — `ledger` `probe` `fanout` `seam` `shard` `slug` `scaffold` gone from identifiers too, then
+their rows in `core/SCHEMA.md` § Retired tokens; plus `tier` → `level`, which Lucas ruled and which
+is a parsed column value in `core/permissions.txt` and 9 modules.
+*Why* — `retired_hits` matches filenames as well as text, so a row added while `entropy_ledger.py`
+exists turns the suite red on our own modules. The writing is swept; the rename is half-done.
+*Done when* — every row is in § Retired tokens and the entropy scan finds zero survivors.
 
 **🟡 the health picture: keep what Lucas reads at a glance, cut the rest**
 *What* — one page answering *is this well tied, and what is missing* — not an inventory.
@@ -113,6 +116,19 @@ The debt is this repo's: absorbing a project's own writing neither creates nor p
 
 ## Rejected
 
+- **The one-root hypothesis, that legibility, self-description and confident wrongness are three
+  faces of one root** — 2026-09-14, ruled on the audit's evidence. Two of the three are: every word
+  the audit found dead (`rollup`, `front`, `corpse`) died because the structure moved and the text
+  did not follow, which is the self-description failure exactly, and both halves take the same cure —
+  a check that fails when text and referent disagree. The third is not, and had already left on
+  2026-09-13: confident wrongness is about claims on the OUTSIDE world, it needs a parser or a
+  solver, and it is `academy/papers/back2dsl`. The falsification path written in `ee9104f` was run.
+- **`gate` → `block`** — 2026-09-14: `block` already names a delimited region of a generated file
+  AND is the verb a gate uses, so the swap would make *"a gate blocks"* read *"a block blocks"* —
+  one word for three things, which is the rule inverted. Lucas ruled it conditional on no ambiguity.
+- **Flattening the eight personification verbs** (`lives` `owns` `carries` `touches` `says` `asks`
+  `answers` `fires`) — 2026-09-14 (Lucas): 478 uses that the detector ranked as house language, and
+  they read. A consistent voice is not jargon, and flattening it costs more than it pays.
 - **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree this repo's own checks skip
   is an asymmetry nobody can see, and it cost four findings aiwbot already carried.
 - **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Set before

@@ -16,7 +16,8 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Review this AI research artifact: $@
 
-Derive a short name from the artifact name (lowercase, hyphens, no filler words, ≤5 words). Use this short name for all files
+Derive a short name from the artifact name (lowercase, hyphens, no filler words, ≤5 words). Use this short name for all
+files
 in this run.
 
 This is an execution request, not a request to explain or implement the workflow instructions. Carry out the workflow

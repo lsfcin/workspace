@@ -22,7 +22,8 @@ vanilla.**
 
 ## Why this exists (the real win)
 
-Subagent tool results get injected into main context verbatim. A vanilla `Explore` that returns 2k tokens of writing costs
+Subagent tool results get injected into main context verbatim. A vanilla `Explore` that returns 2k tokens of writing
+costs
 2k tokens of main-context budget every time. The same finding from `cavecrew-investigator` returns ~700 tokens. Across
 20 delegations in one session that's the difference between context exhaustion and finishing the task.
 

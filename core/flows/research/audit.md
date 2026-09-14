@@ -16,7 +16,8 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Audit the paper and codebase for: $@
 
-Derive a short name from the audit target (lowercase, hyphens, no filler words, ≤5 words). Use this short name for all files
+Derive a short name from the audit target (lowercase, hyphens, no filler words, ≤5 words). Use this short name for all
+files
 in this run.
 
 ## Required Artifacts

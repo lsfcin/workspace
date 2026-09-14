@@ -7,7 +7,8 @@ args: <carry file>
 **Tier:** high (max if critico). **Input:** `2-ground.md`. **Output:** `3-arch.md`.
 
 Design the high-level shape: folders, files, classes, responsibilities, key function signatures. Then a same-session
-adversarial evaluation pass: does every criterion C1..Cn have a home and a **testable boundary**? Would a medium-tier model
+adversarial evaluation pass: does every criterion C1..Cn have a home and a **testable boundary**? Would a medium-tier
+model
 implementing file-by-file make a wrong guess anywhere? Fix before writing the verdict.
 
 **Concept-Symmetry Review (recurrent · runs per Carry `supervision: arch-review`).** When `arch-review=per-feature`, run
@@ -82,7 +83,8 @@ criterion has no home in any module contract → `RETURN loop=1 reason=criterion
 
 **Tier:** medium. **Input:** `3b-contracts.md`. **Output:** `4a-tests.md`.
 
-TDD: write functional/unit tests **before** implementation code, one or more per criterion, placed at the boundaries named in
+TDD: write functional/unit tests **before** implementation code, one or more per criterion, placed at the boundaries
+named in
 the architecture. Run them; confirm they fail for the right reason (missing behavior, not syntax/import errors).
 
 ```markdown
@@ -95,7 +97,8 @@ the architecture. Run them; confirm they fail for the right reason (missing beha
 red-run: <n> failed as expected | wrong-failures: <none or list>
 ```
 
-**Flags:** a criterion is untestable at the designed boundaries → `RETURN loop=3 reason=no-seam`; untestable as *written*
+**Flags:** a criterion is untestable at the designed boundaries → `RETURN loop=3 reason=no-seam`; untestable as
+*written*
 regardless of design → `RETURN loop=1 reason=criterion-untestable`.
 
 ## Loop 4b — Code Until Green

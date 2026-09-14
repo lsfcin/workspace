@@ -16,7 +16,8 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Find implementable ML training recipes for: $@
 
-Derive a short name from the task (lowercase, hyphens, no filler words, ≤5 words). Use this short name for all files in this
+Derive a short name from the task (lowercase, hyphens, no filler words, ≤5 words). Use this short name for all files in
+this
 run.
 
 This is an execution request. Continue immediately.
