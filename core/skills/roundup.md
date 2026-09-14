@@ -1,6 +1,6 @@
 ---
 name: roundup
-description: Full session-close ritual: drain the ledgers, route session knowledge to durable files, then verify and hand off. Use at session end.
+description: Full session-close ritual: drain the lists, route session knowledge to durable files, then verify and hand off. Use at session end.
 ---
 
 # Roundup skill
@@ -27,7 +27,7 @@ so padding is what the next session inherits and acts on.
 
 ---
 
-## Phase 1 — Clear completed work out of the ledgers
+## Phase 1 — Clear completed work out of the lists
 
 ```bash
 find . -maxdepth 3 \( -name "ROADMAP.md" -o -name "ISSUES.md" \) 2>/dev/null | sort
@@ -42,7 +42,7 @@ completed item's record is its commit; re-writing it into an archive file only g
 opens. So: delete completed `ROADMAP.md` items (`- [x]`, "done", "shipped", "merged", "✅") and
 resolved `ISSUES.md` items (`- [x]`, "fixed", "resolved", "closed"). For a bug, the regression spec
 (`test/**/b<N>-*`) is the durable proof it is dead — that is what
-[`core/hooks/checks/issues-gate.py`](../hooks/checks/issues-gate.py) enforces, and it outlives any prose.
+[`core/hooks/checks/issues-gate.py`](../hooks/checks/issues-gate.py) enforces, and it outlives any writing.
 
 **The one thing that must not be deleted.** An approach the session **tried and rejected** was never
 committed, so git cannot hold it. Write **one line** under `## Rejected` in the relevant
@@ -133,7 +133,7 @@ finished and no next action it deletes `outputs/handoff.md` and writes nothing, 
 rule applied to itself. Do not pre-empt that judgment here, and do not write a block by hand if it
 declines. Then report, in this order, **omitting every line with nothing behind it**:
 
-- what was deleted, from which ledger — one line, only if something was
+- what was deleted, from which list — one line, only if something was
 - what was written, one line per file — only files actually written this phase
 - every line Phase 4 printed, verbatim
 

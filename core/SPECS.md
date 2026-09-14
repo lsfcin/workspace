@@ -14,7 +14,7 @@
   outright, so doing it first shrinks the sweep instead of moving pointers that are about to vanish.
   Corollary: **a rule only a careful reader applies is one the corpus outruns.**
 - **A finding older than a week is a hypothesis — re-run it before spending a decision on it**
-  (2026-08-14). **A ledger keeps the command that produced a finding, never the list.**
+  (2026-08-14). **A list keeps the command that produced a finding, never the list.**
 - **The entropy dashboard verifies a rename; `git grep` only finds where to start** (2026-08-17) —
   `git grep` reads *this* repo and every project under `code/` is a separate one. Corollary: **an
   incomplete rename is indistinguishable from entropy in the leaves, and is fixable only in the
@@ -22,7 +22,7 @@
 - **One number answering two questions is the same bug as two numbers answering one** (2026-09-06),
   and only the second shape is obvious. Before moving a constant, read every caller: a shared one is
   not a single source of truth, it is two rules that happen to agree so far.
-- **A ruling that lives only in prose gets re-reported forever** — either the data file carries the
+- **A ruling that lives only in writing gets re-reported forever** — either the data file carries the
   decision or expect to make it again (AD-16 band 1 → 2, cheapest form).
 - **A check proving something *happened* beats one proving nothing errored** (2026-08-14). Bugs that
   exit 0, block with no message, or write a file nobody re-reads survive precisely by being mute, so
@@ -95,7 +95,7 @@ just that."*).
 ### AD-09 — Session close: judgment in the skill, determinism in the script (2026-08-14)
 `core/tools/wos/roundup` and `core/skills/roundup.md` are one ritual a level apart; a second word for
 the same thing *is* the drift. Judgment stays in the skill, anything with a right answer stays in the
-script, where it costs one call instead of reasoned prose in the session's most expensive turns. Which
+script, where it costs one call instead of reasoned writing in the session's most expensive turns. Which
 lines the script prints is the script's business — the skills copy verbatim and name none.
 
 - **A phase with nothing to say contributes no line**, and that applies to the hand-off itself: with
@@ -119,7 +119,7 @@ workspaces, the skills against re-inlining work the script already owns.
 ### AD-10 — `core/tools/` classifies by capability; the provider is the leaf (2026-08-14)
 **Directory = what the tool does, file = who provides it** (`mail/gmail`, `files/gdrive`), so changing
 provider changes a leaf and never a family; a folder named for a manufacturer classifies on the wrong
-axis. Two refinements stop it becoming a fanout own-goal: **create the family only when the tool
+axis. Two refinements stop it becoming a crowding own-goal: **create the family only when the tool
 arrives**, and **write a `CONTEXT.md` only from the second file on**, since the routing generator
 folds a sub-threshold directory into its parent unless it declares itself. Declared cost: this was
 the **second** time every `core/tools/` path changed, and a third is not free.
@@ -139,12 +139,12 @@ consequences the CLI carries are rules about tools, so they live with the tools:
 ### AD-13 — A subagent skips the context gate; whoever invokes it delivers the context (2026-08-15)
 A worker handed **an explicit path** never needed the `CONTEXT.md` chain, and forcing it is a large
 share of a small start, re-read every turn. It replaces an exemption that already existed **by
-accident** — a worker inheriting its parent's seen-set skipped the gate only in subtrees the parent
+accident** — a worker inheriting its parent's seen-set skipped the gate only in folders the parent
 happened to have visited. The gate protecting contracts still fires for everyone; which field tells a
 worker apart is `hook_input.is_subagent`'s own docstring.
 
 The duty moved to the orchestrator and a hook discharges it: `read/agent-context.py` reads the paths
-cited in the `Agent` prompt and hands the worker each subtree's `>` line. **It induces, never blocks.**
+cited in the `Agent` prompt and hands the worker each folder's `>` line. **It induces, never blocks.**
 The briefing is **per turn** rather than per worker, so several workers in one turn get the union of
 cited paths: too broad, never wrong, and unsolvable otherwise — a worker's only id is born after the
 prompt has passed. The join and its measurement: `core/experiments/subagent-context-chain.md`.
@@ -178,25 +178,25 @@ feature crossing layers is honest only when every layer consults the law** (2026
 switched off is not switched off.
 
 **The honesty test asks ONE question — would switching this off change anything? — and answers it the
-strongest way each row allows**, because searching for the literal slug inside the named file has
+strongest way each row allows**, because searching for the literal short name inside the named file has
 nowhere to land for a shared wiring point. That is what **makes one legal**: a group with an invokable
-seam is probed by behaviour rather than by grep, which passes on a guard in an unreachable branch. How
+boundary is checked by behaviour rather than by grep, which passes on a guard in an unreachable branch. How
 each row is answered is `test_features_wiring.py`, and that is the only place it should be written.
 
 ### AD-15 — What an always-loaded rule must prove to keep its place (2026-08-17)
 Applies to text loaded in **every session**: `AGENTS.md`, `CONTEXT.md` heads, always-listed skills. The
 question is **not length**. It is: *could this be a tool parameter, an enum, or a hook's error message
-instead of prose?*
+instead of writing?*
 
 | column | when | what happens |
 |---|---|---|
-| **delete** | a **blocking, ratcheted** gate already applies it | the prose goes; the hook is the rule |
-| **move** | a check *could* apply it, but none does today | **stays in the prose** until a gate blocks |
+| **delete** | a **blocking, ratcheted** gate already applies it | the writing goes; the hook is the rule |
+| **move** | a check *could* apply it, but none does today | **stays in the writing** until a gate blocks |
 | **keep** | judgment no check can hold | stays, and its reason stays with it |
 
 **The discriminator between `delete` and `move` is blocking, not the existence of a detector.**
 `UPPERCASE.md = a type` left `AGENTS.md` because `type-gate.py` stops the commit; `DONE WORK IS
-DELETED` stayed, because the finished-work detector never reached a blocking gate — deleting prose on
+DELETED` stayed, because the finished-work detector never reached a blocking gate — deleting writing on
 the strength of a report trades enforcement for nothing.
 
 **Counterweights, because indiscriminate pruning is the one way this makes things worse:** context is
@@ -204,7 +204,7 @@ never cruft, **no deletion is justified by character count alone**, and this gov
 text only. It is not a cost item — the gain is enforcement, not tokens.
 
 ### AD-16 — Doubt is not charged when asserting; it is charged when storing (2026-08-17)
-Asking for doubt in prose is the cheap half and has already been tried: this workspace is thick with
+Asking for doubt in writing is the cheap half and has already been tried: this workspace is thick with
 *re-run it, never quote it*, and that prevented neither the wrong number that steered a front for three
 weeks nor four asserted-then-retracted explanations of one hook. The question is not how to request
 caution but **where caution becomes a gate**. Three bands:

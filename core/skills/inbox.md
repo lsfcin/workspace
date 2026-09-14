@@ -13,7 +13,7 @@ Arguments: $ARGUMENTS
 
 Every route targets a doc that loads **only when needed**: `ROADMAP.md`, `ISSUES.md`, `refs/REFS.md`, goal files.
 
-**NEVER route an entry into a `CONTEXT.md`.** CONTEXT.md loads every session for its whole subtree — every line there
+**NEVER route an entry into a `CONTEXT.md`.** CONTEXT.md loads every session for its whole folder — every line there
 costs tokens on every task. Ideas, bugs, and references go to on-demand docs. This is the rule that keeps capture cheap
 without flooding always-loaded context.
 
@@ -48,7 +48,7 @@ command, INBOX vs. instructions is not the boundary. What the tag decides is **p
 
 ## Reference routing (route-by-domain)
 
-A `ref` goes to the **nearest owning subtree's** `refs/REFS.md` — never a central brain file, never CONTEXT.md.
+A `ref` goes to the **nearest owning folder's** `refs/REFS.md` — never a central brain file, never CONTEXT.md.
 
 | ref kind | home |
 |----------|------|
@@ -147,7 +147,7 @@ For each entry:
    - **task** → name the goal backlog and the exact line to append (or, if it's pure capture, that it stays in INBOX)
    - **ref** → name the target `refs/REFS.md` and the exact tier-1 line
    - **project** → name the target file (ROADMAP / ISSUES), the exact line, and the repo
-   - **draft** → propose filename slug and one-line description of the draft
+   - **draft** → propose filename short name and one-line description of the draft
    - **delete** → one-line reason
 3. Present all proposed routes first. Wait for confirmation. Act only after Lucas confirms.
 

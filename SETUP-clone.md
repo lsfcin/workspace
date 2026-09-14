@@ -1,7 +1,7 @@
 # Setup — a working clone
 > What must exist before anything else in this workspace runs: the permission level the installing
 > agent works under, the interpreter every tool is spawned with, and the gates that fire on commit.
-> Run these in order and stop at the first probe that will not pass.
+> Run these in order and stop at the first check that will not pass.
 > feature: permissions, declared-deps, github-auth, git-hooks, skill-mirrors
 > enforced-by: core/tools/test/workspace/test_setup_executable.py
 
@@ -63,7 +63,7 @@ system prefix.
 > feature: `declared-deps` · agent: yes
 
 [`core/tools/deps.txt`](core/tools/deps.txt) declares every external dependency with its install
-command, its probe, and **what its absence looks like** — a missing dep makes a tool return a worse
+command, its check, and **what its absence looks like** — a missing dep makes a tool return a worse
 answer rather than an error. The rule: [`core/tools/SPECS.md`](core/tools/SPECS.md) § Declared
 dependencies.
 

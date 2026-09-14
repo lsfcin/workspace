@@ -35,7 +35,11 @@ runtime-specific mappings.
 
 - Web: `core/tools/web/search` (flags `--type neural|keyword`, `--since`, `--domains`, `--content`)
 - Academia: `core/tools/paper/papers` (`--ss` reports `venue` + `peer_reviewed`; `--reviewed` drops
-  preprints; `--min-cit N` drops noise)
+  preprints; `--min-cit N` drops noise). **It answers `{"error": ...}` and exits 1 when the service
+  is down — check with `core/run tools/wos/deps --feature latex` before trusting an empty result.**
+  Both arms were dead on 2026-09-13; the run that proved the way through reached every source with
+  `core/tools/web/search` targeted at venue hosts, which keeps the peer-review discipline but makes
+  `venue` and `citations` something you establish per page rather than read off a field.
 - Repos: `core/tools/web/code-search`
 - Fetch a URL: `core/tools/web/fetch`
 - Agent delegation: use `subagent` when available
@@ -47,7 +51,7 @@ PDF exists, cite the PDF URL from search metadata and mark full-text parsing as 
 
 ## Required Artifacts
 
-Derive a short slug from the field: lowercase, hyphenated, no filler, at most 5 words.
+Derive a short name from the field: lowercase, hyphenated, no filler, at most 5 words.
 
 Every run must leave on disk:
 - `outputs/.plans/<slug>.md` — the plan
@@ -72,7 +76,7 @@ Write `outputs/.plans/<slug>.md` immediately. It must state:
 - key questions and the evidence that would answer them
 - the target `<refs dir>`
 - the scale decision (below), made before owners are assigned
-- a task ledger, a verification log, and a decision log
+- a task list, a verification log, and a decision log
 
 Then stop, summarize briefly, and ask:
 

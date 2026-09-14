@@ -74,7 +74,7 @@ threshold.
 
 - **Linux only.** The Windows clone is where Lucas reports the problem is worse, and no row here
   is from it. The mechanism is known and needs no OS branch to explain: nothing on the hook path
-  asks which operating system this is — only the platform seam may, and it is not on that path —
+  asks which operating system this is — only the platform boundary may, and it is not on that path —
   so the penalty is MSYS's emulated `fork()` against the 4-6 forks each `core/run` invocation
   makes. Unmeasured there. **Run this on that clone and add the row.**
 - **A bench is not a session.** `hooktime` spawns hooks back to back on a warm cache; a real call

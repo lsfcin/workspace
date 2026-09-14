@@ -15,7 +15,7 @@ docstring explains why it disagrees with what it just asked. A module here reach
 Applied globally via `core.hooksPath`, so it fires on every `git commit` in **every** repo under this
 workspace. Stage order and the one place a commit is refused: [`commit/CONTEXT.md`](commit/CONTEXT.md).
 
-- Warns and then blocks on the length of any authored file, code and prose alike, via
+- Warns and then blocks on the length of any authored file, code and writing alike, via
   `checks/line_counts.py` over staged files — the same module that runs standalone. Both thresholds
   are [`limits.env`](limits.env)'s answer and which files are authored is
   [`file_law.py`](file_law.py)'s, never a checker's: the copy that stood here named the old pair for
@@ -95,18 +95,18 @@ stdout is parsed as a single document and a second would be heard by nobody.
 
 | Script | Selected by | Behaviour |
 |--------|-------------|-----------|
-| `read/context-gate.py` | read, write | **Blocks** until the target subtree's `CONTEXT.md` chain was Read this session; on a read it also names the current stub, so one batch clears both read gates. Session-deduped; `CONTEXT.md`/`AGENTS.md` exempt |
+| `read/context-gate.py` | read, write | **Blocks** until the target folder's `CONTEXT.md` chain was Read this session; on a read it also names the current stub, so one batch clears both read gates. Session-deduped; `CONTEXT.md`/`AGENTS.md` exempt |
 | `read/pre-read.py` | read | **Blocks** reading a source file while its interface is current, naming the unread chain alongside it — both read gates exit 2 on one read and the harness reports only the first, so each names the whole set. Warns when the interface is stale; reading it unlocks the source |
 | `checks/pre-edit.py` | write | **Blocks** an edit pushing an authored file past the block cap, and a new file with no first-line description comment |
 | `facade/facade-scan.py` | write | **Informs** — the exports the target module's facade already declares; warns if that list is empty |
 | `facade/facade-gate.py` | write | **Blocks** edits to a `code/` module file until the nearest facade was Read this session |
 | `checks/issues-gate.py` | write | **Blocks** flipping a bug to FIXED, or deleting its section, without a matching `test/**/b<N>-*` regression spec |
 | `read/spec-read-gate.py` | write | **Blocks** editing a spec-locked module (`CONTEXT.md` `> spec:` + `SPECS.md` `status: locked`) until its `SPECS.md` was Read this session; nudges on new files in spec-less `code/` modules |
-| `read/bash-context-gate.py` | shell | **Blocks** commands naming workspace files in subtrees whose chain is unread — this closes the `cat`/`grep` bypass |
+| `read/bash-context-gate.py` | shell | **Blocks** commands naming workspace files in folders whose chain is unread — this closes the `cat`/`grep` bypass |
 | `checks/heredoc-gate.py` | shell | **Warns, never blocks** — a heredoc writing a workspace file meets none of the write gates. Silent for stdin-to-an-interpreter, which writes nothing |
 
 Registered on their own moments, outside the table: `read/agent-context.py` (PreToolUse `Agent`,
-SubagentStart) **induces, never blocks**, handing a worker the `>` line of each subtree its prompt
+SubagentStart) **induces, never blocks**, handing a worker the `>` line of each folder its prompt
 names — its exemption from the chain gate is [`../SPECS.md`](../SPECS.md) § AD-13;
 `facade/facade-tracker.py` and `read/context-tracker.py` (PostToolUse) record the reads the gates
 above consume; `post-edit.sh` (PostToolUse) regenerates interfaces, scaffolds `jsconfig.json` /
@@ -147,12 +147,12 @@ span, and every reader asks it rather than spelling the markers. A finding there
 hand-editing one is forbidden outright — so reporting it is reporting what nobody can act on. Five
 checks learned that separately on 2026-09-11, all on `ISSUES.md`'s quoted red-suite log.
 
-**Finished-work prose is blocked on what a commit adds.** `entropy/entropy_ledger.py` carries the
+**Finished-work writing is blocked on what a commit adds.** `entropy/entropy_ledger.py` carries the
 detector and `checks/type-gate.py` calls it on `staged_added_files()`, so a file **arriving** with a
-corpse is rejected while the inherited queue stays the dashboard's, under
+dead item is rejected while the inherited queue stays the dashboard's, under
 `test_corpus_ratchet.py`'s ceiling. That split is the rule for every Tier 0 check here: **a gate that
 fails on the day it lands trains its reader to ignore it.** [`core/SPECS.md`](../SPECS.md) § AD-15
-makes blocking — not the mere existence of a detector — what licenses deleting the prose.
+makes blocking — not the mere existence of a detector — what licenses deleting the writing.
 
 ## Canonical behaviour, and the contract a new agent's shim must satisfy
 

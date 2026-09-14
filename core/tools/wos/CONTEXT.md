@@ -1,5 +1,5 @@
 # wos
-> Tools that act on the workspace itself: spec ledger, contract check, skill mirrors.
+> Tools that act on the workspace itself: spec list, contract check, skill mirrors.
 
 <!-- routing:start -->
 ## Routing

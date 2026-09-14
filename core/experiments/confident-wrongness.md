@@ -23,7 +23,7 @@ incidents carry no marker at all, so the marker count is a floor on the incident
 estimate of it. The classification is judgment and is not reproducible by the command above.
 
 Hand-check, as `SPECS.md` requires of a new instrument: three incidents were traced to real commits
-with `git log -S` on the identifier each one names, confirming the prose describes code that changed
+with `git log -S` on the identifier each one names, confirming the writing describes code that changed
 rather than a story about code.
 
 ## Results
@@ -32,14 +32,14 @@ rather than a story about code.
 |---|---|---|---|---|---|
 | 2026-09-12 | 31 | 29 | 18 | 1 | months |
 
-Three of the 29 files sit outside the scaffold, in `code/aiwbot/` and `academy/papers/`.
+Three of the 29 files sit outside the repo, in `code/aiwbot/` and `academy/papers/`.
 
 What caught each of the 18, for the 2026-09-12 run:
 
 | What caught it | Count | The clearest instance |
 |---|---|---|
-| Reading our own stored artifact later | 4 | a close wrote `green (1 passed, 695 deselected)` into the ledger |
-| A second machine or clone disagreed | 3 | probes spelled the POSIX venv path, so every other clone reported the dependency missing |
+| Reading our own stored artifact later | 4 | a close wrote `green (1 passed, 695 deselected)` into the list |
+| A second machine or clone disagreed | 3 | checks spelled the POSIX venv path, so every other clone reported the dependency missing |
 | Re-measuring with a better lens | 3 | *nothing has ever been delegated* was an artifact of the lens, not a fact |
 | A hand audit against raw data | 2 | the output-cost number was wrong by 2x for three weeks while two implementations agreed |
 | A dedicated review sitting | 2 | the two rules cited as proof we knew how to doubt had gone unverified for months |
@@ -49,8 +49,19 @@ What caught each of the 18, for the 2026-09-12 run:
 
 ## What changed
 
-`nothing yet` — the mechanism is Lucas's ruling, in the dedicated session the `ROADMAP.md` item
-names. What the numbers hand that sitting:
+**The item left this workspace** (2026-09-13, Lucas). The sitting ran, and its ruling was that none
+of the three mechanisms the 42-source survey left standing is worth building here: gating at
+generation only reaches output expressible as a grammar, admission control on the two stores costs
+seconds on every commit while nothing has ever measured whether the cheaper format check catches
+anything, and designing for the second clone does not close as a gate because it needs the second
+machine to be running. The survey's own verdict is why that is not a retreat — *every mechanism
+found that can actually refuse is a parser or a solver, never a judge* — so the question is about
+interfaces, and it became `academy/papers/back2dsl`, which carries the survey and its provenance.
+
+**This file stays here and is not moved.** It measures this workspace, and the store owns it; the
+paper cites these numbers rather than copying them.
+
+What the numbers handed that sitting, and now hand the paper:
 
 - **One of eighteen** was caught by a check this workspace runs. Seventeen needed a second machine, a
   hand audit, a later read, or a sitting. The `ROADMAP.md` item's claim that *nothing catches it* is

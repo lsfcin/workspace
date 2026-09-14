@@ -67,9 +67,9 @@ Measured on RTX 3050 6GB Laptop: ~4.3GB VRAM peak, fp16, ~1.7s/frame after model
 config data (`model_id` param), swap freely.
 
 ## Image posts / carousels — the gallery-dl path
-`video_images.py`. yt-dlp is a *video* downloader: an Instagram `/p/` carousel probes as a hard
+`video_images.py`. yt-dlp is a *video* downloader: an Instagram `/p/` carousel checks as a hard
 failure ("No video formats found" per sub-item), which read like an auth problem for days but
-never was. `assemble()` now retries through **gallery-dl** whenever the yt-dlp probe fails, so the
+never was. `assemble()` now retries through **gallery-dl** whenever the yt-dlp check fails, so the
 fallback costs nothing on video links and needs no flag.
 
 gallery-dl carries its own metadata (`-j`): description, uploader, image count — so image posts

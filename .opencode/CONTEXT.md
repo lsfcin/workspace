@@ -23,9 +23,9 @@ session-stable id — `opencode${process.pid}`, the Copilot `copilot<host-pid>`
 pattern — so the seen-markers dedupe per session; `hook_input.py`'s ppid
 fallback lands on the terminal, which leaks "already seen" across every session
 that terminal ever ran. Every spawn asks `core/run --python` for the
-interpreter (the platform seam): the bare word `python3` is the spelling that
+interpreter (the platform boundary): the bare word `python3` is the spelling that
 silently switched the whole plugin off on a Windows clone — the Store alias
-prints an advert, exits 9009, and the feature probe read as "feature off".
+prints an advert, exits 9009, and the feature check read as "feature off".
 
 Design lifted from the parallel `core/hooks/copilot/copilot-pre-tool.py` and
 `core/hooks/copilot/copilot-post-tool.py`, which already solve the same translation
@@ -74,7 +74,7 @@ Other opencode tools (`glob`, `webfetch`, `skill`, `todowrite`, …) are not
 mapped and pass through untouched. `glob` is ungated on Claude too — parity, not
 an omission. opencode exposes no spawn event for `agent-context.py` (Claude
 gates it on `Agent`/`SubagentStart`), so a spawned worker is not handed its
-subtree briefings here.
+folder briefings here.
 
 ### stdin vs env-var schema (per script, verified by reading each)
 
@@ -133,7 +133,7 @@ as `copilot-pre-tool.py`'s `gate()` chain).
 To validate inside a real opencode session, start opencode at the workspace root
 and run the test plan from the resume prompt: try to read a `.py` with a current
 `.pyi` (expect block), write a new `.py` without a first-line comment (expect
-block), edit a `.py` past `BLOCK_LINES` (expect block), grep a workspace subtree
+block), edit a `.py` past `BLOCK_LINES` (expect block), grep a workspace folder
 before reading its `CONTEXT.md` chain (expect block — target is the `path` arg),
 edit a `.py` (expect `.pyi` timestamp updates), edit a `CONTEXT.md`-adjacent dir
 (expect `context_synchronizer` runs), and after `/compact` the chain gate asks

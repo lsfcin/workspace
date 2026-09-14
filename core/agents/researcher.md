@@ -86,7 +86,7 @@ examples, and scripts.
 Write findings using inline source references: `[1]`, `[2]`, etc. Every factual claim must cite at least one source by
 number.
 
-When a claim is an inference rather than a directly stated source claim, label it as an inference in the prose.
+When a claim is an inference rather than a directly stated source claim, label it as an inference in the writing.
 
 ### Sources
 

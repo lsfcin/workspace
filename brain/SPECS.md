@@ -37,7 +37,7 @@ while `GOALS.md` built its dashboard from git directly.
 **A goal file is written in whatever language Lucas thinks in.** The rest of the durable `.md`
 corpus is English because an agent re-reads it every session; a goal file's reader is Lucas, and
 translating his own motivation into a second language costs him the thing that makes it work.
-Exempt, ruled 2026-08-31, and out of the scaffold scope entirely since 2026-09-11.
+Exempt, ruled 2026-08-31, and out of the repo scope entirely since 2026-09-11.
 `brain/goals/CONTEXT.md`'s routing table inherits the exemption — it is generated from these
 files' first lines.
 
@@ -82,7 +82,7 @@ Synthesis on top of fears:
 - Done items = move to `## done` section, **no topo do bloco**: `compress_done` mantém as três
   primeiras linhas e descarta o resto no próximo commit, sem avisar. Uma conquista escrita no fim do
   bloco desaparece silenciosamente — foi o que aconteceu em 2026-08-28. O bloco é mais-novo-primeiro.
-- Achievement format: `[short-id] description` — short-id is 2–4 word kebab-case slug
+- Achievement format: `[short-id] description` — short-id is 2–4 word kebab-case short name
 - Optional inline timing: `> [ ] [id] description — Jun 01`
 - On check-off: use `/compass` (the "close a win" move — folds the retired `/brain-finished`)
 

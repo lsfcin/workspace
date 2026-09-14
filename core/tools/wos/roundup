@@ -155,12 +155,17 @@ def main(argv: list) -> int:
     # Both generated blocks land in ISSUES.md, so they settle once, in one commit. Workspace repo
     # only: the dashboard scans the whole tree, nested repos included.
     entropy = diagram = drawn = ''
+    # ASKED BEFORE THE BLOCK IS WRITTEN, because the block has to know it: the close used to publish
+    # a finding that its own branch was ahead of main, seconds before merging it. All four facts are
+    # in hand here (--leave-dirty too: promote() refuses under it). Why: branch_debt.
+    gitflow = branches.gitflow(WORKSPACE, root)
+    promoting = branch if (verdict != 'red' and not no_promote and gitflow
+                           and not leave_dirty) else ''
     if root == WORKSPACE:
         artifacts.verify_block(root / 'ISSUES.md', label, verdict, log)
-        entropy, diagram = artifacts.regenerate(root, leave_dirty, clean)
+        entropy, diagram = artifacts.regenerate(root, leave_dirty, clean, promoting)
         drawn = redraw(root, leave_dirty)   # before promotion, so the map rides into develop
 
-    gitflow = branches.gitflow(WORKSPACE, root)
     git(root, 'fetch', '--quiet')
     git(root, 'push', '-q', 'origin', branch)   # post-commit already does this for feature/*
     code = 0

@@ -1,5 +1,5 @@
 ---
-description: Architecture-decision subtree of the craft tree — turn a design/technology choice into a recorded decision (problem → options → trade-offs → decision → ADR). Produces a durable decision record, not code.
+description: Architecture-decision folder of the craft tree — turn a design/technology choice into a recorded decision (problem → options → trade-offs → decision → ADR). Produces a durable decision record, not code.
 args: <the decision to make>
 ---
 ## Tool Discipline (Read First)
@@ -12,19 +12,19 @@ Decide: $@
 This is an execution request. Produce a recorded decision, not a discussion. Reached via [`route.md`](route.md) with
 `subtree: architecture`; see [`tree.md`](tree.md).
 
-## When this subtree runs
+## When this folder runs
 
 A task that *chooses between designs, patterns, or technologies* — "Redis vs in-memory", "how should module boundaries
 split", "sync or event-driven". Distinct shape from `feature` (which builds) and `research` (which gathers): its output
 is a **decision with a rationale, recorded durably** so it is not re-litigated. If the decision then needs building,
-chain into the `feature` subtree with this ADR as an input constraint.
+chain into the `feature` folder with this ADR as an input constraint.
 
 ## File protocol
 
 - Directory: `<project>/.craft/<decision-slug>/`. Files append-only. Carry block copied verbatim between steps (same
-  discipline as the feature subtree).
+  discipline as the feature folder).
 - The **durable output** is an ADR entry, NOT the `.craft/` trail: by default a new `### <NNNN> <Decision>` subsection
-  under the project's own `SPECS.md`, in its Architecture Decisions section (the scaffold in
+  under the project's own `SPECS.md`, in its Architecture Decisions section (the repo in
   [`code/_templates/SPECS.md`](../../../code/_templates/SPECS.md) already defines it); for a large/standalone
   decision, a `docs/adr/<NNNN>-<slug>.md` file instead. `.craft/<decision-slug>/` is deleted on record unless
   `keep-trail: yes`.
@@ -34,7 +34,7 @@ chain into the `feature` subtree with this ADR as an input constraint.
 Interview until you can state: the decision (one sentence), why now, the **constraints** it must satisfy, the
 **criteria** it will be judged on (C1..Cn — e.g. latency, cost, operability, fit with existing patterns), criticality,
 and whether the user wants to approve the final decision (`decision-signoff: yes|no`, default **no** — recommended
-permissive, mirrors the feature subtree panel). Stop if the decision or its criteria can't be stated — it isn't ready.
+permissive, mirrors the feature folder panel). Stop if the decision or its criteria can't be stated — it isn't ready.
 
 ## Step A1 — Options  ·  **Output:** `1-options.md`
 
@@ -72,7 +72,7 @@ Architecture Decisions section:
 Then: update `ROADMAP.md` if the decision spawns work; delete `.craft/<decision-slug>/` unless `keep-trail: yes`; commit
 on a `feature/*` branch (the gitflow gate applies). Do not merge — the user's call.
 
-**Chain-out:** if the decision requires implementation, hand the ADR to the `feature` subtree as an input constraint for
+**Chain-out:** if the decision requires implementation, hand the ADR to the `feature` folder as an input constraint for
 its Loop 3.5 Contract Layout — the ADR bounds the module contracts.
 
 Never end with chat-only: the ADR must exist on disk.

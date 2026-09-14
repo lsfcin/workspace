@@ -16,7 +16,8 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Find implementable ML training recipes for: $@
 
-Derive a short slug from the task (lowercase, hyphens, no filler words, ≤5 words). Use this slug for all files in this
+Derive a short name from the task (lowercase, hyphens, no filler words, ≤5 words). Use this short name for all files in
+this
 run.
 
 This is an execution request. Continue immediately.
@@ -31,7 +32,7 @@ This is an execution request. Continue immediately.
 ## Workflow
 
 1. **Plan** — Write `outputs/.plans/<slug>-recipe.md` with the target task, benchmark or desired behavior, candidate
-   source types, feasibility constraints, and a task ledger. Continue automatically after writing the plan.
+   source types, feasibility constraints, and a task list. Continue automatically after writing the plan.
 2. **Research** — Use the `researcher` subagent when the task needs a broad paper/code sweep. For narrow tasks, gather
    evidence directly. The research must start from evidence of results, not from example scripts alone.
 3. **Recipe extraction** — For each promising approach, link the observed result to the exact recipe that produced it:

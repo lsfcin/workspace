@@ -7,10 +7,10 @@ text, this one turns a *chat export* into text. The workspace could already read
 video and was deaf to WhatsApp — which is where the obra, the feirinha and the instituto actually
 happen, so the facts lived in audio nobody could grep.
 
-**Priming is the caller's, not the tool's.** `--prompt-file` takes prose in the speakers' own
+**Priming is the caller's, not the tool's.** `--prompt-file` takes writing in the speakers' own
 register, and the domain vocabulary has to be *inside the sentences*: a bare word list anywhere in
 the prompt suppresses punctuation — measured 0.0 marks per 100 words against 22.5 for the same
-jargon dissolved into prose. Without the flag it primes for punctuation only and teaches no words.
+jargon dissolved into writing. Without the flag it primes for punctuation only and teaches no words.
 A live example is [`code/obra/hotwords_obra.py`](../../../code/obra/hotwords_obra.py), which primes
 for cartório and construction terms.
 

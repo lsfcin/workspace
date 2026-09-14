@@ -26,6 +26,6 @@ Per-file format, the rule that keeps a stored number honest, and the reporting d
 | [`hook-latency.md`](hook-latency.md) | What does the enforcement layer cost per tool call, and how much of that is work nobody asked for? |
 | [`output-cost.md`](output-cost.md) | Output tokens are more expensive than input — by how much, and where are ours? |
 | [`read-amplification.md`](read-amplification.md) | Do our own gates make a session read the same file more than once — and what does that cost? |
-| [`subagent-context-chain.md`](subagent-context-chain.md) | Does forcing an agent to read a subtree's CONTEXT.md chain change what it does — and should a subagent be forced at all? |
+| [`subagent-context-chain.md`](subagent-context-chain.md) | Does forcing an agent to read a folder's CONTEXT.md chain change what it does — and should a subagent be forced at all? |
 | [`zcode-hook-protocol.md`](zcode-hook-protocol.md) | Will ZCode execute this workspace's hook registration in `.zcode/config.json`, and what does a fired hook actually receive? |
 <!-- routing:end -->

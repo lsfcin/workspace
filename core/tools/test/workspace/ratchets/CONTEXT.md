@@ -7,7 +7,7 @@ That is why a ceiling is paired with a staleness test in each file: a ratchet no
 a baseline, and a baseline is where drift hides.
 
 One ceiling per defect, never one shared. Until 2026-08-15 the placeholder marker was counted as
-finished-work prose, so seventy markers could have masked seventy new corpses without the number
+finished-work writing, so seventy markers could have masked seventy new dead items without the number
 moving.
 
 <!-- routing:start -->

@@ -51,7 +51,7 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 > <https://askubuntu.com/questions/1368874/can-google-drive-desktop-be-used-on-ubuntu>, e junto vem a pergunta
 > conceitual: como fica o "versionamento híbrido" entre WOS, subpastas, git e Drive  
 > [ ] [apagar-sondas] apagar duas sondas no Drive pessoal, criadas por engano: o deck `__probe_delete_me` (INBOX
-> 2026-08-24) e o doc "probe-formato-checkpoints" (INBOX 2026-08-26). Nenhuma das duas CLIs apaga — é na mão, na
+> 2026-08-24) e o doc "check-formato-checkpoints" (INBOX 2026-08-26). Nenhuma das duas CLIs apaga — é na mão, na
 > lixeira do Drive  
 > [ ] [ensino-mapa] mapear a parte de ensino da vida dentro do WOS e migrá-la inteira para lsf.cin@gmail.com — **o mapa
 > vem antes da migração**: hoje o ensino está espalhado entre `academy/classes/`, a fila de download e a conta do cin.
@@ -78,5 +78,5 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-03  ·  trend: advancing  ·  touches: 13/13/13/13/13/13
+last-touch: 2026-09-07  ·  trend: advancing  ·  touches: 14/14/14/14/14/14
 <!-- stats:end -->

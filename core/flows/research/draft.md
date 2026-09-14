@@ -16,7 +16,8 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Write a paper-style draft for: $@
 
-Derive a short slug from the topic (lowercase, hyphens, no filler words, ≤5 words). Use this slug for all files in this
+Derive a short name from the topic (lowercase, hyphens, no filler words, ≤5 words). Use this short name for all files in
+this
 run.
 
 ## Required Artifacts

@@ -40,7 +40,7 @@ arch-review: <none|per-feature|periodic>   # recurrent concept-symmetry review c
 arch-review-supervised: <yes|no>           # human checks the arch review — default NO
 ```
 
-**Permission-panel interview (feature subtree).** After the criteria are settled, ask the user three short questions and
+**Permission-panel interview (feature folder).** After the criteria are settled, ask the user three short questions and
 record the answers above; the **recommended defaults are permissive** so the agent runs unattended and cheap. The
 contract itself is never optional — only *human sign-off on it* is. Ask: (1) "Do you want to acknowledge each
 module/step I/O boundary before I implement? (default no)"; (2) "Should I run the concept-symmetry architecture review —

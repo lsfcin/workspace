@@ -113,7 +113,7 @@ After initial setup, subsequent refresh calls find values correct and skip → n
 `token.visible` is a transient PIXI property. Foundry sets it to `false` during:
 - Token drag (mid-drag, while preview clone exists)
 - Canvas layer switches (switching from tokens to tiles layer etc.)
-- Any state where Foundry temporarily hides the token's PIXI subtree
+- Any state where Foundry temporarily hides the token's PIXI folder
 
 **Never use `token.visible` to drive clone visibility** — clone will flicker and disappear during drag.
 

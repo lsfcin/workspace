@@ -19,7 +19,8 @@ Compare sources for: $@
 This is an execution request, not a request to explain the workflow. Your first actions should be tool calls that write
 the plan artifact.
 
-Derive a short slug from the comparison topic (lowercase, hyphens, no filler words, ≤5 words). Use this slug for all
+Derive a short name from the comparison topic (lowercase, hyphens, no filler words, ≤5 words). Use this short name for
+all
 files in this run.
 
 ## Required Artifacts

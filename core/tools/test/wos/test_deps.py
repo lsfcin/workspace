@@ -72,7 +72,7 @@ def test_every_third_party_import_is_declared():
 
 def test_every_declared_row_is_complete():
     for row in _rows():
-        assert row['kind'] in {'pip', 'apt', 'system', 'npm', 'npx', 'binary'}, row
+        assert row['kind'] in {'pip', 'apt', 'system', 'npm', 'npx', 'binary', 'service'}, row
         assert row['probe'].strip(), f"{row['name']} declares no probe"
         assert row['feature'].strip(), f"{row['name']} declares no feature"
         assert len(row['breaks'].split()) >= 5, (

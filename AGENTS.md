@@ -14,12 +14,15 @@ link, never the mapping.
 (structure). if it ain't feasible to do it on this session, WRITE ISSUES DOWN at the end of INBOX.md
 - DON'T ASSUME, interview user if in doubt about his idea or intent.
 - EXPAND ACRONYMS on first use. Aliases: [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary.
+- PLAIN WORD OVER JARGON: most precise wins, simpler breaks the tie, and a word survives only if the
+sentence reads worse without it. ONE IDEA, ONE WORD. A replaced word gets a row in
+[`core/SCHEMA.md`](core/SCHEMA.md) § Retired tokens, which is what finishes the rename.
 - EDIT > CREATE: refine / improve **wins over** creating new, except for prototyping. Avoid scattering.
 - A FILE OVER THE CAP IS CUT, NOT SPLIT. A `TYPE-<slug>.md` sibling is a last resort, and Lucas's
 explicit OK. The line cap outranks the column cap (ruled 2026-08-31): wrapping to fit the column
 never justifies a file over the line cap — the way out is cutting, not reflowing.
 - SYMMETRY IS A CORE VALUE, semantic and structural. When you find an asymmetry, write it down.
-- **DONE WORK IS DELETED. GIT IS THE HISTORY.** No strikethrough, no annotated corpses.
+- **DONE WORK IS DELETED. GIT IS THE HISTORY.** No strikethrough, no annotated dead items.
 - USE OUR TOOLS: we want those to be useful and perfected.
 - REDUCING IS THE WAY: improve/extend by cutting size; growing the workspace takes Lucas's OK first.
 Cut where a line is READ, not where it merely sits — `core/run tools/wos/session/reads` ranks that.

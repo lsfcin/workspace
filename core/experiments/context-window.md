@@ -23,7 +23,7 @@ measured **per turn** rather than an assumed constant. Sources the transcript do
 
 The instrument above cannot decompose the residual, so a source suspected of living there is
 measured by **building it and not building it**. Each arm is an empty scratch directory holding
-nothing but the `.claude/` subtree under test; one headless turn is run in each and turn-1 is read
+nothing but the `.claude/` folder under test; one headless turn is run in each and turn-1 is read
 back with the same definition the table uses (`input + cache_read + cache_creation`):
 
 ```bash
@@ -79,14 +79,14 @@ CLI 2.1.234, opus-5, empty scratch dirs. `.claude/` held only what the arm colum
 
 **Two results, and the second is the one that decides.** B−C = **2 tokens** for 53,493 bytes of
 command bodies: what a session loads at turn 1 is the frontmatter, and a body is read when the
-command is invoked. Had the bodies been folded in, 56 KB of prose would have cost ~16,000 tokens —
+command is invoked. Had the bodies been folded in, 56 KB of writing would have cost ~16,000 tokens —
 the suspicion was wrong by three orders of magnitude. Then F−E = **0**: in the layout we actually
 run, the mirror is not merely small, it is free. `mirror.sh` copies each skill file whole, so the
 command inherits the skill's `name:`, and the harness lists that name once. G is the control that
 names the mechanism rather than assuming it — the same 14 files, renamed `zz*`, cost **+872**.
 
 The 842 tokens are the listing itself, and they are paid by the skills whether or not the mirror
-exists. Only ~97 of that is names; the other ~745 is description prose — the same lever the
+exists. Only ~97 of that is names; the other ~745 is description writing — the same lever the
 2026-08-15 row already pulled for ~138 tokens.
 
 ## What changed
@@ -105,7 +105,7 @@ exists. Only ~97 of that is names; the other ~745 is description prose — the s
   mirror would save 0 tokens and lose every slash command. This is the second time this file has
   recorded that a scoped cut was smaller than feared, and the first time the honest answer was
   *zero* — the row exists so the next session stops re-suspecting it.
-- **The one live constraint the probe found is a naming one.** The mirror is free *because* the
+- **The one live constraint the check found is a naming one.** The mirror is free *because* the
   command keeps the skill's `name:`. Anything that renames a command away from its skill starts
   charging ~60 tokens per entry, so `mirror.sh` copying the file whole is load-bearing, not lazy.
 - **A method was added, not just a number.** Method 2 is the general answer to "is X hiding in the
@@ -113,7 +113,7 @@ exists. Only ~97 of that is names; the other ~745 is description prose — the s
 
 ## Limitations
 
-- **Shares are of *logged* material.** At 2.23 chars/token against a prose rate of 3.8, ~41% of
+- **Shares are of *logged* material.** At 2.23 chars/token against a writing rate of 3.8, ~41% of
   growth is material the transcript never records. It is spread across the reported rows in
   proportion, so any single row is an upper bound.
 - **A source riding along with that unlogged material claims tokens it never brought.** The
@@ -138,4 +138,4 @@ exists. Only ~97 of that is names; the other ~745 is description prose — the s
   absolute turn-1 figures must never be quoted as a workspace session's cost.
 - **Observational only.** No arm, no control; nothing here shows a change *caused* anything. See
   [`subagent-context-chain.md`](subagent-context-chain.md) for the one real ablation.
-- **One project slug per run.** The tool prints what it skipped.
+- **One project short name per run.** The tool prints what it skipped.

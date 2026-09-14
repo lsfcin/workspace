@@ -17,6 +17,10 @@ Tool names are literal; use only tools visible in the current tool set. Gatherin
 `core/tools/web/search` (web), `core/tools/web/code-search` (repos), `core/tools/paper/papers` (academia,
 `--ss`/`--reviewed`/`--min-cit` for venue filtering), `core/tools/web/fetch` (URL). If a tool
 returns `Tool not found`, map to the canonical visible tool or record the capability as blocked.
+A tool that RUNS and answers `{"error": ...}` is the other failure and is not the same thing:
+`papers` was dead on both arms on 2026-09-13, so check with `core/run tools/wos/deps --feature
+latex` before reading an empty result as "the field is quiet", and route through
+`core/tools/web/search` aimed at venue hosts when it is down.
 
 ## Required Artifacts
 
@@ -83,7 +87,7 @@ steps. Every step carries three things:
 
 - **impact flag** — 🔴 `decide-first` (changes shared policy or touches security; needs Lucas's
   sign-off + more evidence before coding — usually with an open question), 🟡 `pilot-first`
-  (prove on one subtree, measure, then generalize), 🟢 `safe` (mechanical/additive, low blast
+  (prove on one folder, measure, then generalize), 🟢 `safe` (mechanical/additive, low blast
   radius). A frente that changes workspace-wide behavior **opens** with a 🔴 step.
 - **model tier** — the *floor* tier that suffices: `haiku` (mechanical), `sonnet` (normal
   engineering/writing), `opus` (design, security, cross-cutting judgment). Bigger always works,

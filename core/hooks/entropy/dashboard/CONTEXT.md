@@ -2,7 +2,7 @@
 > The entropy report: running every check over one repo, and what the findings look like.
 
 Split from [`../`](../CONTEXT.md) 2026-08-18, when an eighth check pushed that directory past the
-fanout signal. The seam was already the parent's own one-line description — *the dashboard **and**
+crowding signal. The boundary was already the parent's own one-line description — *the dashboard **and**
 the checks it runs* — so the split cost no new idea, only the hop.
 
 A check lives next door, not here: one that moved in would become invisible to the commit gate,

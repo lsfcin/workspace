@@ -2,7 +2,7 @@
 > Coverage for the session-close ritual: what the script really does, and what the skills claim.
 
 Split from [`../`](../CONTEXT.md) 2026-08-25, when the size tool pushed that directory past the
-fanout signal — the same mirroring rule [`../diagram/`](../diagram/CONTEXT.md) follows, so the file
+crowding signal — the same mirroring rule [`../diagram/`](../diagram/CONTEXT.md) follows, so the file
 testing a surface is found by knowing the name of the surface. What stayed next door asks whether
 the workspace's **declarations** agree with each other; everything here asks what happens when a
 session ends.

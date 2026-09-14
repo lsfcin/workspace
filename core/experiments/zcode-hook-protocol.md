@@ -4,7 +4,7 @@
 
 ## Method
 
-Register probe hooks in `.zcode/config.json` (`hooks.enabled: true`, all four usable events,
+Register check hooks in `.zcode/config.json` (`hooks.enabled: true`, all four usable events,
 no matcher): `core/hooks/zcode/probe.sh` dumps stdin + filtered env + cwd + ppid to
 `/tmp/zcode_probe/`; `probe-deny.sh` (plain-text stdout + exit 2) rides a sacrificial
 `WebFetch` matcher. Run the battery in a fresh ZCode session: Read, Bash, Write, Edit, Agent
@@ -17,7 +17,7 @@ deleted after Sonda 2 (done work; restore from git history to re-run).
 | Date | Run | Hooks fired | WebFetch blocked | Verdict |
 |---|---|---|---|---|
 | 2026-08-21 | Sonda 1 — fresh scheduled session, config created mid-session of another | **0** (`/tmp/zcode_probe/` never created) | no (deny never ran) | config read + parsed, execution blocked by workspace-trust gate |
-| 2026-09-04 | Sonda 2 — trusted session (trust accepted after Sonda 1) | **yes** (probe dump written at session start; canonical gates visibly blocked) | **yes**, plain text verbatim | hooks fire post-trust; direct registration (2A) confirmed |
+| 2026-09-04 | Sonda 2 — trusted session (trust accepted after Sonda 1) | **yes** (check dump written at session start; canonical gates visibly blocked) | **yes**, plain text verbatim | hooks fire post-trust; direct registration (2A) confirmed |
 
 Run detail (2026-08-21, ZCode 3.8.1):
 
@@ -36,12 +36,12 @@ Run detail (2026-08-21, ZCode 3.8.1):
 - `zcode` binary is the Electron desktop launcher — no headless session spawn from Bash.
 - Doc discrepancy: zcode-plugin skill `diagnosing-hooks` claims non-plugin config hooks have
   "no trust gate … run unconditionally" — contradicted for project scope by this run. User
-  scope untested (a user-scope probe config was created for a Sonda 2, then removed without
+  scope untested (a user-scope check config was created for a Sonda 2, then removed without
   running: its WebFetch-deny would block every workspace).
 
 Run detail (2026-09-04, ZCode 3.8.1, trusted):
 
-- SessionStart probe fired at startup: `probe.sh` executed through the expanded
+- SessionStart check fired at startup: `probe.sh` executed through the expanded
   `${ZCODE_PROJECT_DIR}` and wrote `/tmp/zcode_probe/000_SessionStart.txt` — variable
   expansion works, and the env carries **both** spellings (`ZCODE_PROJECT_DIR` and
   `CLAUDE_PROJECT_DIR`, plus `ZCODE_SESSION_ID`/`CLAUDE_SESSION_ID`).
@@ -50,28 +50,28 @@ Run detail (2026-09-04, ZCode 3.8.1, trusted):
   `transcript_path`/`transcriptPath` — plus `cwd`, `permission_mode`, `source`, `model`,
   `traceId`, `turnId`. `session_id` is present, so no PPID fallback is needed;
   `hook_input.py` tolerates the shape as-is.
-- Exit-2 fidelity: the WebFetch deny probe's plain-text stdout reason
+- Exit-2 fidelity: the WebFetch deny check's plain-text stdout reason
   (`PROBE-DENY-PLAIN: …`) reached the agent **verbatim** as the tool error. 2A stands —
   no adapter `zcode-hook.py` is needed.
 - Canonical gates fired under ZCode in the same session: the Read context-gate and the Bash
   context-gate both blocked exactly as they do under Claude Code; the pre-edit chain fired on
   the B5 edits themselves, and the SessionStart list (prune, branch marker, mirror-heal,
-  nudges) ran with the probe.
+  nudges) ran with the check.
 
 ## What changed
 
 - Direct registration (2A) **confirmed** by Sonda 2: the canonical `core/hooks/*` scripts spawn
   through `core/run` with `${ZCODE_PROJECT_DIR}`, no adapter was ever needed, and
-  `core/hooks/zcode/` was deleted — done work, git holds the probes.
-- Both probe registrations removed from `.zcode/config.json` (2026-09-04): WebFetch is
+  `core/hooks/zcode/` was deleted — done work, git holds the checks.
+- Both check registrations removed from `.zcode/config.json` (2026-09-04): WebFetch is
   unblocked and `/tmp/zcode_probe/` stays empty. `.zcode/SPECS.md` § Measured answers
   holds the three of them; the B5 section left ISSUES.md behind its regression spec.
 - `test_shim_paths.py` reads `.zcode/config.json` in SHIMS (2026-08-28-style path check) and
-  `test_port_ratchet.py` dropped the two probe shells when the directory died.
+  `test_port_ratchet.py` dropped the two check shells when the directory died.
 
 ## Limitations
 
-- Only SessionStart got a probe **dump** — the other events were verified indirectly, by the
+- Only SessionStart got a check **dump** — the other events were verified indirectly, by the
   gates' visible behavior (blocks, nudges), not by payload capture. Per-event stdin for
   PreToolUse/PostToolUse is assumed Claude-compatible from the SessionStart schema, not dumped.
 - One machine, one ZCode version (3.8.1, Linux); the trust gate's UI wording/flow was not

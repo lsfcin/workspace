@@ -48,5 +48,6 @@ pre	write	30	facade/facade-scan.py	informs
 pre	write	40	facade/facade-gate.py	blocks
 pre	write	50	checks/issues-gate.py	blocks
 pre	write	60	read/spec-read-gate.py	blocks
+post	write	10	checks/retired-gate.py	informs
 post	read	10	facade/facade-tracker.py	informs
 post	read	20	read/context-tracker.py	informs

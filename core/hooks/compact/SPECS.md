@@ -27,7 +27,7 @@ count sends the untouched payload to `rtk hook claude` and passes its verdict th
 
 **The bail is always the safe direction.** Failing to compact costs tokens; corrupting a command
 costs correctness. The live example the tests hold: a commit message quoted across two lines, whose
-second line begins with a word that is also a command name — split naively, prose becomes an
+second line begins with a word that is also a command name — split naively, writing becomes an
 executable. Risk cases in `core/tools/test/workspace/gates/test_bash_compact_rewrite.py` deliberately
 outnumber success cases.
 
@@ -43,7 +43,7 @@ two competing `updatedInput` values for a payload both could rewrite, with no do
 
 Registering globally also covers sessions started **inside nested `code/*` repos**, which carry no
 project settings of their own and would otherwise get line-1-only compaction. The one-line
-registration and the probe that verifies it: [`SETUP-compaction.md`](../../../SETUP-compaction.md)
+registration and the check that verifies it: [`SETUP-compaction.md`](../../../SETUP-compaction.md)
 § RTK — Claude Code registration.
 
 ## Three undocumented harness facts this rests on
@@ -51,7 +51,7 @@ registration and the probe that verifies it: [`SETUP-compaction.md`](../../../SE
 All verified by experiment on Claude Code 2.1.218, none stated in the hooks documentation:
 
 1. `PreToolUse` **does** apply `hookSpecificOutput.updatedInput`.
-2. It does so **without** requiring `permissionDecision: "allow"` — checked with two probe hooks
+2. It does so **without** requiring `permissionDecision: "allow"` — checked with two check hooks
    differing in exactly that field; both rewrote. This matters beyond convenience: setting `allow`
    to buy a rewrite would auto-approve every command the shim touches, so not needing it keeps
    compaction out of the permission system entirely.
@@ -67,7 +67,7 @@ of being left to it.
 ## Compaction is invisible in the chat, by design
 
 Nothing tells the model to type `rtk grep` — `rtk init --show` reports `RTK.md: not found` and both
-`CLAUDE.md` files as unconfigured, because commit `804ab0a` moved that prose out. The model sends a
+`CLAUDE.md` files as unconfigured, because commit `804ab0a` moved that writing out. The model sends a
 plain command, the hook rewrites it afterwards, and the UI renders **what was sent**. So a session
 shows no sign of compaction even when it is working perfectly.
 

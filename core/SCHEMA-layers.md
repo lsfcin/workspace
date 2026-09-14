@@ -1,6 +1,6 @@
 # The agent-library layers
 > The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law
-> — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this shard is the
+> — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this part is the
 > prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two
 > different contracts.
 > answers: what fields each layer requires, which layer may point at which

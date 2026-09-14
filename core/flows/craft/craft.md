@@ -10,13 +10,13 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Engineer this task in loops: $@
 
-Execute, do not explain. Derive a feature slug (lowercase, hyphens, ≤5 words), and ask for no
+Execute, do not explain. Derive a feature short name (lowercase, hyphens, ≤5 words), and ask for no
 confirmation beyond the Loop 0 interview.
 
-> **This is the `feature` subtree of the craft tree** ([`route.md`](route.md), [`tree.md`](tree.md)). Reach it via the
+> **This is the `feature` folder of the craft tree** ([`route.md`](route.md), [`tree.md`](tree.md)). Reach it via the
 > router, which pins `subtree: feature`. It is **contract-first**: Loop 0 sets a supervision panel, Loop 3.5 lays out
 > every module/step I/O contract before any code, Loop 3 runs a recurrent concept-symmetry review. Research and
-> architecture-decision tasks belong to other subtrees.
+> architecture-decision tasks belong to other folders.
 
 ## Core Principle — Files, Not Conversation
 
@@ -32,7 +32,7 @@ instead of spending them: N cheap short sessions instead of one long expensive o
 ### File protocol
 
 - Directory: `<project>/.craft/<feature-slug>/` inside the target project's own repo.
-- Files: `0-clarify.md`, `1-plan.md`, `2-ground.md`, `3-arch.md`, `3b-contracts.md` (feature subtree), `4a-tests.md`,
+- Files: `0-clarify.md`, `1-plan.md`, `2-ground.md`, `3-arch.md`, `3b-contracts.md` (feature folder), `4a-tests.md`,
   `4b-code.md`, `5-user.md`, `6-ship.md`.
 - **Append-only.** Executors add sections; never rewrite prior content. Corrections are new appended sections.
 - **Executor self-report.** Every appended section ends with `executor: <agent-type> model=<provider/model-id>
@@ -43,9 +43,9 @@ instead of spending them: N cheap short sessions instead of one long expensive o
 - **Small.** Soft cap ~80 lines per file. A loop file that wants to exceed the cap is a smell: the task is too big —
   raise `FLAG: RETURN loop=1 reason=split-needed`.
 - **Carry block.** Every loop file starts with a `## Carry` block **copied verbatim** from the previous file (Loop 0
-  creates it). It holds: slug, branch, project root, test command, criticality, acceptance-criteria digest, context
-  pointers (project `CONTEXT.md`/`AGENTS.md` paths). This is what makes "read exactly one file" true — no loop ever
-  needs to chase earlier files.
+  creates it). It holds: short name, branch, project root, test command, criticality, acceptance-criteria
+  digest, context pointers (project `CONTEXT.md`/`AGENTS.md` paths). This is what makes "read exactly one
+  file" true — no loop ever chases earlier files.
 - `.craft/` is committed on the feature branch during the flow (audit trail, survives crashes). Loop 6 folds the durable
   outcome into the project's `ROADMAP.md` (workspace policy: plans live in roadmaps) and deletes `.craft/<slug>/` in the
   final commit unless Loop 0 recorded `keep-trail: yes`.
@@ -70,7 +70,7 @@ per-provider table in [`routing.md`](routing.md)) fills the chain's tiers — us
 delegation it may differ (e.g. `provider: openrouter` + `tier-map: nvidia` means the openrouter orchestrator runs every
 loop on nvidia subagents to save credits — see [`routing.md`](routing.md) § Provider delegation). `chain-deleg:` records
 the delegation edge if one was applied. ALL THREE fields must be filled — a chain without an explicit provider+map is
-undefined and Loop 0 must escalate to the user. The orchestrator runs the `opencode models | awk -F/` probe **before**
+undefined and Loop 0 must escalate to the user. The orchestrator runs the `opencode models | awk -F/` check **before**
 filling these so the row actually exists in this runtime.
 
 Loops 0–1 may fill TBD Carry fields (branch, test-cmd, tasks); from Loop 2 on the block is frozen and copied verbatim.
@@ -99,7 +99,7 @@ still fails, do not retry — raise a RETURN flag. Never de-escalate mid-loop.
 — max-tier quota is scarce and spending it is the user's call. The user either runs that loop in a max-tier session or
 overrides the escalation.
 
-**Which concrete model fills a tier** is in [`routing.md`](routing.md) — the availability probe, the per-provider tier
+**Which concrete model fills a tier** is in [`routing.md`](routing.md) — the availability check, the per-provider tier
 maps, the benchmarks, and the downward-only delegation rule. The **orchestrator** reads it once, before Loop 0, to fill
 the Carry `provider:` / `tier-map:` fields. Executors do not: they are handed a resolved `model=` in the spawn prompt.
 
@@ -119,8 +119,8 @@ FLAG: RETURN loop=<N> reason=<slug> evidence=<one line>
 
 ## Orchestration
 
-The orchestrator (lead session) holds only: slug, current loop number, verdicts, flags, and **the provider + tier-map
-resolved in Loop 0**.
+The orchestrator (lead session) holds only: short name, current loop, verdicts, flags, and **the provider +
+tier-map resolved in Loop 0**.
 
 **Routing is structural, not discretionary:** spawn via the pinned executor agent types `craft-low` / `craft-medium` /
 `craft-high` (Claude Code: `.claude/agents/craft-*.md`; opencode: `.opencode/agents/craft-*.md`). The pinned executors
@@ -177,7 +177,7 @@ bullet and the table → the bullet wins. That is why they stay here and not in 
 | Pin branch base in spawn prompt | Loop 2 — branch (implicit, low) | Orchestrator names `base:` non-discretionally when lineage is non-obvious; saves a full plan re-ground |
 | Dirty-tree fence | Loop 6 — diff scope | Pre-existing dirty paths listed under `extras: pre-existing-dirty`, not flagged as `RETURN loop=4b reason=dirty-tree` |
 | RETURN into high-tier → orchestrator-max inline | Escalation rules + max-gate | RETURN to a high-eligible loop → orchestrator amends target file at `max` inline instead of spawning a max executor; only sanctioned structural relaxation |
-| Executor death mid-4b → fresh executor continues | Loop 4b escalation clock | Recovery primitive at 4a→4b seam; red-run clock resets from new ground truth after recovery |
+| Executor death mid-4b → fresh executor continues | Loop 4b escalation clock | Recovery primitive at 4a→4b boundary; red-run clock resets from new ground truth after recovery |
 
 - **Loop 0 inline when context is hot.** If the orchestrator session already holds the user's decisions (approved plan,
   fresh interview), author `0-clarify.md` directly instead of spawning — the interview is the one thing executors can't
@@ -189,11 +189,11 @@ bullet and the table → the bullet wins. That is why they stay here and not in 
   prompt from 4b on, and make Loop 6 list them under `extras: pre-existing-dirty` instead of flagging. Never let an
   executor "helpfully" commit or revert them.
 - **RETURN into a high-tier loop lands on max = the orchestrator.** Don't spawn; rule inline (append `## Amendment` to
-  the target loop file with the ruling + sharpened seams + re-entry route). Distinguish design-wrong from seam-gap: if
-  the architecture already specifies the missing behavior, don't redesign — sharpen seams so 4a must cover it, re-run
-  4a→4b at default tiers.
+  the target loop file with the ruling + sharpened boundaries + re-entry route). Design-wrong is not
+  boundary-gap: if the architecture already specifies the missing behavior, don't redesign — sharpen
+  boundaries so 4a must cover it, re-run 4a→4b at default tiers.
 - **Executor death mid-4b (session limit) is cheap to recover**: fresh executor reads 4a + partial 4b, re-runs test-cmd
   for ground truth, continues append-only. Budget hint: 4b is the expensive loop (~150–260k tokens); near a quota
-  boundary, hand off at the 4a→4b seam rather than starting it.
+  boundary, hand off at the 4a→4b boundary rather than starting it.
 - **Two loops, one repo = worktree fight.** Same-repo loops run sequentially (branch checkouts collide); cross-repo
   loops parallelize freely.

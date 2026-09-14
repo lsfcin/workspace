@@ -1,6 +1,6 @@
 # Setup — context compaction
 > The two halves of what shrinks a session: rtk compresses tool output before it reaches the
-> context, caveman compresses the agent's own prose. Each needs a binary and a registration, and in
+> context, caveman compresses the agent's own writing. Each needs a binary and a registration, and in
 > both cases the registration is the part that silently reverts.
 > feature: rtk-compaction, caveman
 > enforced-by: core/tools/test/workspace/test_setup_executable.py
@@ -96,7 +96,7 @@ p.write_text(json.dumps(d, indent=2) + '\n')
 PATCH
 ```
 
-**Verify** — the same end-to-end probe as the Claude section; expect `split-rewrote` in the
+**Verify** — the same end-to-end check as the Claude section; expect `split-rewrote` in the
 `/tmp/claude_rtk_compact_probe.tsv` counter. Config alone proves nothing.
 
 ## RTK — other agents

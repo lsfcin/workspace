@@ -4,7 +4,7 @@
 
 Companion to [`CONTEXT.md`](CONTEXT.md), which says what this directory *is* and routes into it.
 These are the constraints. They live here rather than in the head because `CONTEXT.md` is the only
-enforced-read type — every session touching this subtree pays for its head, while this file is read
+enforced-read type — every session touching this folder pays for its head, while this file is read
 on demand (core/SCHEMA.md § Placement).
 
 ## Naming: the directory is the feature, the file is the provider
@@ -76,8 +76,8 @@ a tool that works on one machine's runtime and returns nothing on another's.
 ## Declared dependencies
 
 Every external thing the tool surface needs is one row in [`deps.txt`](deps.txt): what installs it,
-what probes it, which feature owns it, and **what its absence looks like**. `core/tools/wos/deps`
-runs the probes; `core/tools/test/wos/test_deps.py` fails on any third-party import missing a row.
+what checks it, which feature owns it, and **what its absence looks like**. `core/tools/wos/deps`
+runs the checks; `core/tools/test/wos/test_deps.py` fails on any third-party import missing a row.
 
 **Why the `breaks` column is the point.** These deps were found because four of them had been
 installed by hand into `.venv` and never written down, so a fresh clone lost the feature
@@ -89,7 +89,7 @@ that only names packages would not have saved that session; one that names the *
 **The import half is enforced, the binary half is declared.** An ast walk cannot be fooled about
 imports, so a new `import` fails the suite until it is declared. A binary invoked through a shell
 string (`pandoc`, `ffmpeg`, `pdftotext`, `flutter`) cannot be found by any scan, so those rows are
-kept honest by their probe alone. Do not let the file imply otherwise.
+kept honest by their check alone. Do not let the file imply otherwise.
 
 ## The interpreter
 
@@ -121,7 +121,7 @@ definition.
 turns a mandatory step into N decisions, and an agent mid-thread will take the exit at some N.
 
 The evidence cost two rounds of wording. `core/skills/inbox.md` ordered link extraction in
-emphatic prose — *"not optional and not a judgement call"*, plus an explicit instruction to loop
+emphatic writing — *"not optional and not a judgement call"*, plus an explicit instruction to loop
 in a single bash call — and the step was still skipped, because `core/tools/video/video` took
 `args[0]` and a drain with eight links was eight invocations. **The instruction was never the
 defect.** Rewriting it a third time would have failed the same way; the tool learned `--from

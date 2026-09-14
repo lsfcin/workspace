@@ -4,36 +4,36 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-09-08 13:22
+last-updated: 2026-09-14 13:16
 
 >**areas** — last 14 days  
 ```
-health       ██████████   195 touches
-career       ██░░░░░░░░   53 touches
-finances     █░░░░░░░░░   31 touches
-fun          ██░░░░░░░░   57 touches
+health       ██████████   221 touches
+career       ██░░░░░░░░   50 touches
+finances     █░░░░░░░░░   27 touches
+fun          ██░░░░░░░░   58 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
 >**goals** — last 14 days  
 ```
 CONTEXT                  ░░░░░░░░░░   2 touches
-burocracia-academica     ░░░░░░░░░░   11 touches
+burocracia-academica     ░░░░░░░░░░   8 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              █░░░░░░░░░   36 touches
+craft-flows              █░░░░░░░░░   39 touches
 cria                     ███░░░░░░░   76 touches
 dance                    ░░░░░░░░░░   0 touches
 ecovila                  ░░░░░░░░░░   0 touches
 exercise                 ░░░░░░░░░░   1 touches
 finances                 ░░░░░░░░░░   1 touches
-google-migration         ░░░░░░░░░░   9 touches
-guitar                   ░░░░░░░░░░   2 touches
+google-migration         ░░░░░░░░░░   7 touches
+guitar                   ░░░░░░░░░░   1 touches
 hair                     ░░░░░░░░░░   1 touches
-home-casinhas            █░░░░░░░░░   30 touches
+home-casinhas            █░░░░░░░░░   26 touches
 instituto                █░░░░░░░░░   26 touches
 lih-dd                   █░░░░░░░░░   29 touches
-local-ai                 ████░░░░░░   84 touches
+local-ai                 ██░░░░░░░░   58 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
@@ -42,18 +42,18 @@ paper-megatruth          ░░░░░░░░░░   1 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
 reading                  ░░░░░░░░░░   0 touches
-rpg-isoroll              ██░░░░░░░░   55 touches
+rpg-isoroll              ██░░░░░░░░   57 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
-spacemantics             ██░░░░░░░░   56 touches
-spec-driven-development  ░░░░░░░░░░   4 touches
-startapps                █████░░░░░   105 touches
+spacemantics             ██░░░░░░░░   57 touches
+spec-driven-development  ░░░░░░░░░░   3 touches
+startapps                ████░░░░░░   105 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       █░░░░░░░░░   29 touches
+teaching-materials       █░░░░░░░░░   27 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   195 touches
+workspace-os             ██████████   221 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

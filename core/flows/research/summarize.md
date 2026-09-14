@@ -16,8 +16,8 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Summarize the following source: $@
 
-Derive a short slug from the source filename or URL domain (lowercase, hyphens, no filler words, ≤5 words). Use this
-slug for all files in this run.
+Derive a short name from the source filename or URL domain (lowercase, hyphens, no filler words, ≤5 words). Use this
+short name for all files in this run.
 
 ## Why this uses the RLM pattern
 

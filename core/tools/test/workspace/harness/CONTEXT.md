@@ -1,7 +1,7 @@
 # harness
 > The suite's own preconditions: nothing about the workspace, everything about the runner.
 
-Split from [`../`](../CONTEXT.md) 2026-08-19 at the fanout signal, and the cut is a real one rather
+Split from [`../`](../CONTEXT.md) 2026-08-19 at the crowding signal, and the cut is a real one rather
 than a way to get under a number. Every other test here asks whether the **workspace** is in order;
 these two ask whether the **suite** can be believed when it answers. A test that runs under a lying
 `sys.path` or a lying environment reports on something other than what it names, so these run before

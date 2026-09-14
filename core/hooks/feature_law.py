@@ -147,7 +147,7 @@ def wired_paths(row: dict) -> list:
 def findings() -> list:
     """Rows with no switch and no reason: features that cannot be turned off at all.
 
-    This is the audit, not a warning list. A feature entangled with the scaffold rather than
+    This is the audit, not a warning list. A feature entangled with this repo rather than
     sitting on it is invisible to an ablation, so the count is the number the ablation study has
     to drive down before it can measure anything (core/SPECS.md § AD-14). Its target is zero,
     which is only honest because `n/a` carries the rows where a switch cannot exist.

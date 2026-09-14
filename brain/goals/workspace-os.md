@@ -15,7 +15,7 @@ transformative · essential · thrilled
 immersed mode · advancing motion · intrinsic source  
 2026-07-22 compass: highest wind + in-flow this session — mvp-gaps localized then closed, gitflow enforced, gitlinks
 killed, `/compass` shipped. Lucas ordered it #1: make v1 strong (gaps 1&2 cleanup) + finish aiwbot.  
-2026-07-29: the work is no longer *discovering* what to fix — it is draining a known list. Ledgers collapsed to one
+2026-07-29: the work is no longer *discovering* what to fix — it is draining a known list. Lists collapsed to one
 entrypoint, v1 given an explicit 4-criterion gate. Momentum now depends on the gate staying honest, not on new
 insight.  
 2026-08-13 compass: **confirmed #1 for a second cycle, and the numbers back it — 29 of 29 workspace commits in 14 days
@@ -25,10 +25,10 @@ asserts, the session got a size meter, the INBOX drained to zero. The gate held 
 that was false. What is left is not build — it is **one decision and one mechanical front**. This is a finish.
 
 ## selected next achievement
-    [v1] pass the four-criterion v1 gate — Tier 0 anti-entropy live · one ledger, no duplicates · everything pushed and
+    [v1] pass the four-criterion v1 gate — Tier 0 anti-entropy live · one list, no duplicates · everything pushed and
     gitflow-shaped · clonable by a student
 
-**All build work lives in [/ROADMAP.md](../../ROADMAP.md)** — the single wos ledger, each step tagged
+**All build work lives in [/ROADMAP.md](../../ROADMAP.md)** — the single wos list, each step tagged
 with model tier and impact flag. This file holds only why, signals, dynamics, and timing. Plans do not
 live in goal files (AGENTS.md).
 
@@ -36,16 +36,16 @@ live in goal files (AGENTS.md).
 > quanto antes. já usamos demasiado tempo e esforço na infraestrutura."*
 >
 > This outranks completeness. It is not a request to work faster — it is a filter on what may be in
-> the ledger at all. Three consequences, in the order they bite: **an item that another repo owns is
+> the list at all. Three consequences, in the order they bite: **an item that another repo owns is
 > refiled there, not held here**; **an item that does not gate v1 is a candidate for the Rejected
 > list, not the backlog**; and a finding worth keeping goes into the `SPECS.md` or `SCHEMA.md`
 > section that owns the rule, because writing the rule there is what closing an item *is*. The
-> scaffold is a means. Time spent on it past v1 is time not spent on the work it exists to serve.
+> repo is a means. Time spent on it past v1 is time not spent on the work it exists to serve.
 >
 > **Sharpened 2026-08-25, and this is the version to read first.** Lucas: *"semanas completas
 > estourando o uso do claude code com o opus 5 para um progresso duvidoso… realmente vejo que o WOS
 > virou um problema por si só."* The measurement backs the feeling: 50 commits in 30 days, nearly all
-> in `core/` and the roadmaps, **zero in `code/`**. The scaffold spent the month maintaining itself.
+> in `core/` and the roadmaps, **zero in `code/`**. The repo spent the month maintaining itself.
 >
 > **What v1.0 means from here, in his words:** zero loose ends · minimum coupling · hooks and tools
 > working as advertised on zero-token strategies · small `.md` files · roadmaps small enough that a
@@ -59,14 +59,14 @@ live in goal files (AGENTS.md).
 >
 > **How the work gets pulled, Lucas 2026-08-27:** *"a partir de cada demanda da vida resolver não somente a demanda mas
 > toda a infraestrutura relacionada a ela e assim seguimos progredindo no micro e no macro."* A real demand is what
-> opens a session; the scaffold it touches is fixed in the same pass. Nothing here is worked for its own sake.
+> opens a session; the repo it touches is fixed in the same pass. Nothing here is worked for its own sake.
 >
 > **Two things he ruled are NOT on the table**, both because they cut capability rather than fat:
 > deleting a harness (multi-harness is essential — optimise the copy, never the function) and cutting
 > any hook before a scoreboard of what it actually blocked exists.
 
 **ease-start**  
-**All four v1 criteria are green, and nothing in the ledger is waiting on you.** The drain is agent
+**All four v1 criteria are green, and nothing in the list is waiting on you.** The drain is agent
 work now: the remaining items carry their own model tier and none of them is blocked on a decision.
 So the easy start is not a decision to make — it is a session to hand off.
 
@@ -77,7 +77,7 @@ sitting. Neither belongs at the end of a drain session. Put one on the calendar;
 
 The genuinely free move, when you want the number to fall without spending judgment: open
 [/ROADMAP.md](../../ROADMAP.md), take the mechanical items, and hand them to a sonnet
-session. The ledger's length is the measure, and those items shorten it without you in the loop.
+session. The list's length is the measure, and those items shorten it without you in the loop.
 
 **Known risk — dataset with no live backup:** `datasets/relativistic_raytracer` (5.8 GB) is the sole
 surviving copy of its data — Zenodo record 20240662 returns HTTP 410 ("personal-data"), gone since
@@ -100,7 +100,7 @@ fallback · iterate — MVP can always be extended*
 > [ ] [mvp-validate] use the system daily for 30 days, then assess: does it reduce mental load? By definition post-v1 —
 > this is the achievement v1 exists to make measurable  
 > [ ] [daily-use] the practical layer actually gets used — TODO redesign, dashboard freshness, mobile capture (ROADMAP §
-> The ledger discipline)  
+> The list discipline)  
 > [ ] [domain-coverage] `branches/` covers all active life domains and every `GOALS.md` stub has a real goal file
 > (ROADMAP § the .md type system)  
 > [ ] [content-in] course materials and Google Drive brought in under a decided strategy (ROADMAP § Parked, until v1)  
@@ -144,10 +144,10 @@ fallback · iterate — MVP can always be extended*
 >   (2) workspace-root cruft, (3) gentle-resurfacing rhythm → shipped as `/compass`. Closed via `/compass`.
 > [x] [v1-strong] DONE 2026-07-29 — superseded by explicit [v1] gate. Cruft reclaimed (6.6 GB), hooks
 >   de-overengineered, telegram_daemon retired into `code/aiwbot`.
-> [x] [roadmap-entrypoint] DONE 2026-07-29 — wos work collapsed from four overlapping ledgers into one: `/ROADMAP.md`.
+> [x] [roadmap-entrypoint] DONE 2026-07-29 — wos work collapsed from four overlapping lists into one: `/ROADMAP.md`.
 >   Deletion policy set: hard delete, git is the history.<!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-06  ·  trend: advancing  ·  touches: 437/569/589/589/589/589
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 472/652/679/679/679/679
 <!-- stats:end -->

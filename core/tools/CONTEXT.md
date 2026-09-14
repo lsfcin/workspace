@@ -33,7 +33,7 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`verify/`](verify/CONTEXT.md) | Verification contract + patterns for all code projects: tiers T0-T3, script names, dump-oracle rules. Reference |
 | [`video/`](video/CONTEXT.md) | Link to navigable text — metadata, captions, transcript, OCR, VLM caption. |
 | [`web/`](web/CONTEXT.md) | Reach the open web: search, fetch a page as text, browse and search code hosts. |
-| [`wos/`](wos/CONTEXT.md) | Tools that act on the workspace itself: spec ledger, contract check, skill mirrors. |
+| [`wos/`](wos/CONTEXT.md) | Tools that act on the workspace itself: spec list, contract check, skill mirrors. |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|

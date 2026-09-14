@@ -43,6 +43,7 @@ toggle	first-line-comment	on
 toggle	duplication-gate	on
 toggle	facade-discipline	on
 toggle	type-gate	on
+toggle	retired-tokens	on
 toggle	citation-gate	on
 toggle	issues-gate	on
 toggle	spec-read-gate	on
@@ -104,6 +105,7 @@ toggle	secrets	on
 toggle	improve	on
 toggle	interview	on
 toggle	acronyms	on
+toggle	language	on
 toggle	edit	on
 toggle	cap	on
 toggle	symmetry	on

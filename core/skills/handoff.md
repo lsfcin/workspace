@@ -89,7 +89,7 @@ the alternative is still live. The durable record is [`roundup.md`](roundup.md) 
 design decision goes to `SPECS.md` → Architecture Decisions, Context / Decision / Consequences);
 this section only makes sure he *sees* the ones nobody asked him about.
 
-**Say it once.** If a fact is already in a ledger — a `ROADMAP.md` item, a `ISSUES.md` entry, a
+**Say it once.** If a fact is already in a list — a `ROADMAP.md` item, a `ISSUES.md` entry, a
 `SPECS.md` decision — point at the file; do not restate it. The next session reads those anyway,
 and a hand-off that duplicates them is a second copy to keep in sync.
 
@@ -127,7 +127,7 @@ After printing:
 > Resume prompt ready — written to `outputs/handoff.md`. Open a new session (`/clear` or a fresh
 > window) and start it with: `Read outputs/handoff.md and plan what you'll do in this session.`
 > **Plan, never "continue"** — ruled 2026-08-16 (Lucas). "Continue" makes a session start at the
-> next action this file names and never look up; planning forces it to read the whole ledger first,
+> next action this file names and never look up; planning forces it to read the whole list first,
 > which is what surfaces blocked decisions and cross-item ordering. The session that ruled it opened
 > that way and closed six decision items that had been open for weeks because nobody had asked which
 > ones were blocking. Pasting the block itself

@@ -51,7 +51,7 @@ slides and sheets too — the successor to `workspace-gmail-499605` for anything
 One project serves every account: the project owns the *app*, an account only consents to it, so a
 second account needs a row under *Audience → Test users* rather than a second project.
 
-## `apply` is the general seam
+## `apply` is the general boundary
 
 The Forms API is itself a list of typed requests, so the CLI wraps that list rather than inventing
 a DSL that goes stale the moment Google adds a request type. `new` is the convenience over it, and

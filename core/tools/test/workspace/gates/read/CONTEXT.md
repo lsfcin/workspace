@@ -1,5 +1,5 @@
 # read
-> Coverage for `core/hooks/read/`: who must read what before touching a subtree, and who gets handed
+> Coverage for `core/hooks/read/`: who must read what before touching a folder, and who gets handed
 > it instead.
 
 A gate here and the tracker that clears it are one subject and are tested together on purpose —

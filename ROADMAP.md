@@ -1,6 +1,6 @@
 # Workspace roadmap
 
-> Everything still open in the workspace scaffold, in one file. A finished item is deleted; a killed
+> Everything still open in the workspace repo, in one file. A finished item is deleted; a killed
 > one gets **one line** under § Rejected so it cannot come back looking new.
 >
 > **Three fields per item, no fourth.** *What* will exist · *Why* it is worth building · *Done when*,
@@ -15,7 +15,7 @@
 **🟡 four numeric laws have no home, and `core/hooks/limits.env` is not theirs**
 *What* — one home per number, or a written reason why a local one is right. The citation gate
 covers the line/file/column law and deliberately stops there; the craft loop file's soft size, a
-research output's length and a commit subject's width are each declared in the prose that uses them.
+research output's length and a commit subject's width are each declared in the writing that uses them.
 *Why* — the same copy-paste that made eight files name a stale warn, one layer out.
 *Done when* — each of the four is either parsed from one file or carries its reason where it sits.
 
@@ -38,7 +38,7 @@ research output's length and a commit subject's width are each declared in the p
 
 **🟡 anything the agent needs Lucas to physically do is said where he never sees it**
 *What* — one channel reaching him at the *end* of a response, and at the moment a session parks.
-*Why* — close offers and auth-consent requests land in agent-facing prose at prompt-submit time, and
+*Why* — close offers and auth-consent requests land in agent-facing writing at prompt-submit time, and
 a session blocked on an `AskUserQuestion` while he is elsewhere is the same defect's third instance.
 *Done when* — all three reach him without interrupting the thread, with measured token cost.
 
@@ -61,22 +61,19 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 *Why* — 71 features are on and none has a scoreboard, so every cut is a guess and kept rules paid on faith.
 *Done when* — after two weeks of ordinary use a feature × fired × blocked table exists.
 
-**🟡 the ablation — the scaffold has never been measured against its own absence**
-*What* — variants of the public scaffold, one feature off in each, against one synthetic task suite.
+**🟡 the ablation — the repo has never been measured against its own absence**
+*What* — variants of the public repo, one feature off in each, against one synthetic task suite.
 *Why* — this workspace compensates for model failures; a rule that outlives its failure is pure cost.
 *Done when* — a **per-feature** verdict is readable. Runs outside this workspace (`academy/papers/wos-ablation/`).
 
-**🔴 the agent is confidently wrong: the research has run, the ruling has not**
-*What* — Lucas picks a mechanism from those the evidence leaves standing, and the store criteria with it.
-*Why* — the field's default checker scores and never refuses; and a third store is forbidden scatter.
-*Done when* — he has ruled from `core/experiments/confident-wrongness.md` and `core/refs/REFS.md`.
-
 ## Legibility — can Lucas still read what he owns
 
-**🔴 the legibility sitting: the jargon audit and the one-root test**
-*What* — plain-word replacement per surviving term; verdict on legibility/self-description/confident-wrongness.
-*Why* — previous sweeps were downstream attempts at an unnamed legibility problem.
-*Done when* — survivors defined in `core/SCHEMA.md` and rest replaced. Precise word wins, simpler breaks ties.
+**🟢 the audit's words also name code, and the rename is unfinished until identifiers follow**
+*What* — `ledger` `probe` `fanout` `seam` `shard` `slug` out of identifiers, plus `tier` → `level`
+(ruled; a parsed value in `core/permissions.txt` and 9 modules), then every row in § Retired tokens.
+*Why* — `retired_hits` matches filenames, so a row added while `entropy_ledger.py` exists reds the
+suite on our own modules. Never sweep a bracketed slug or Lucas's pt-br goal files: both cost a revert.
+*Done when* — the entropy scan finds zero survivors of every row.
 
 **🟡 the health picture: keep what Lucas reads at a glance, cut the rest**
 *What* — one page answering *is this well tied, and what is missing* — not an inventory.
@@ -85,27 +82,20 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 
 ## Portability — would this work on a machine that is not Lucas's
 
-**🟡 the five warn exemptions are reviewed, or they hollow the warn out**
-*What* — a verdict on each file carrying `warn-exempt:`, kept or cut. Ask the instrument —
-`core/run hooks/checks/line_counts.py` with no arguments audits every tracked file.
-*Why* — the marker was added with the warn's scope; an exemption nobody revisits is the cap moved
-by hand, one file at a time, which is what the block cap exists to prevent.
-*Done when* — each marker is either gone or carries a reason a second reader agrees with.
-
 **🟡 the port grew the workspace and the payment is still short**
 *What* — the cut that funds the port. Every named candidate has been tried; the rest was paid by
 raising the cap, which moves the line and not the mass.
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every
 line; that is a reason to pay, not a reason not to.
-*Done when* — the net since 2026-09-01 is negative under `core/run tools/wos/size --scope scaffold`.
-The debt is the scaffold's: absorbing a project's own prose neither creates nor pays it.
+*Done when* — the net since 2026-09-01 is negative under `core/run tools/wos/size --scope repo`.
+The debt is this repo's: absorbing a project's own writing neither creates nor pays it.
 
-**🔴 the platform seam owes three answers, and one of them is a secret**
+**🔴 the platform boundary owes three answers, and one of them is a secret**
 *What* — `secure_dir()` / `secure_file()`; dep ceilings in `core/tools/deps.txt`; manager names for 4 `apt` rows.
-*Why* — secret convention needs ACL equivalence; dep probes must verify function, not bare import.
-*Done when* — seam writes secrets tight on all systems and no probe falsely greens.
+*Why* — secret convention needs ACL equivalence; dep checks must verify function, not bare import.
+*Done when* — boundary writes secrets tight on all systems and no check falsely greens.
 
-**🟡 the public scaffold repo his students clone**
+**🟡 the public repo his students clone**
 *What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
 *Why* — students asked for it; hard precondition for ablation study.
 *Done when* — a student clones it and gets a working workspace.
@@ -113,42 +103,47 @@ The debt is the scaffold's: absorbing a project's own prose neither creates nor 
 ## Brain — the part that serves Lucas rather than the code
 
 **🟡 measure which `UPPERCASE.md` files are read, then decide what to do about goal files**
-*What* — per-type rollup of reads and cost; then goal↔roadmap warning and goal-format audit.
+*What* — per-type summary of reads and cost; then goal↔roadmap warning and goal-format audit.
 *Why* — verify whether goal files are dead weight before redesigning fields.
 *Done when* — numbers are in `core/experiments/` and downstream steps decide based on data.
 
 ## Deferred — real work, deliberately not now
 
-- **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 scaffold is tight.
+- **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 repo is tight.
 - **Anything a nested repo owns** — each keeps its own `ISSUES.md` and fixes its own findings.
-- **`[gdrive-integration]`, `[offline-resilience]`, serious OCR** — content/infrastructure, not scaffold.
+- **`[gdrive-integration]`, `[offline-resilience]`, serious OCR** — content/infrastructure, not repo.
 
 ## Rejected
 
-- **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree this repo's own checks skip
-  is an asymmetry nobody can see, and it cost four findings aiwbot already carried.
-- **A scaffold target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Set before
-  anyone measured, and the arithmetic never closed. `core/norms/reduce.md` governs; read cost cuts.
-- **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first
-  prompt, and a tree already dirty when the session opens.
+- **The one-root hypothesis** — 2026-09-14: two of three. Dead words die when structure moves and text does not follow,
+  which is self-description; the third left and is `back2dsl`.
+- **`gate` → `block`** — 2026-09-14: `block` already names a generated region AND is the gate's verb, so the swap reads
+  *"a block blocks"*.
+- **Flattening the eight personification verbs** — 2026-09-14 (Lucas): 478 uses, and they read. A consistent voice is
+  not jargon.
+- **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree our own checks skip is an invisible asymmetry;
+  it cost four findings.
+- **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." `core/norms/reduce.md` governs; read
+  cost picks the cut.
+- **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first prompt, and a tree dirty
+  at session open.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
-- **Curing confident wrongness by prompt, by LLM judge, or by self-report** — evidence kills all three.
-- **Writing a research map as a plan block in this file, and one review yaml per kept source** —
-  2026-09-13: the first grows the most re-read file we own, against a `scout` step that asks for it;
-  the second would breach the `core/refs/` fanout block. A topical `REFS-<slug>.md` shard does both jobs.
+- **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): prompt, judge and self-report died on evidence;
+  only a parser or solver refuses, so it is research — `academy/papers/back2dsl`.
+- **A research map as a plan block here, and one review yaml per kept source** — 2026-09-13: the first grows our most
+  re-read file; the second breaches the `core/refs/` crowding block. A `REFS-<slug>.md` does both.
 - **A preliminary cut of features before the ablation** — 2026-08-21: cutting on hunches is a guess.
 - **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
 - **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
 - **A second compaction shim for copilot** — no copilot session has ever run here.
-- **Raising the line block by half** — moves the queue; a file needing room needs a seam. **Partly
-  reversed 2026-09-06 (Lucas)**: three over-cap files were law files being asked to delete reasons
-  nothing else held. Over the cap a file is still CUT, not split.
+- **Raising the line block by half** — moves the queue; a file needing room needs a boundary. **Partly reversed
+  2026-09-06 (Lucas)** for law files; over the cap a file is still CUT, not split.
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
-- **Narrowing the pre-commit to the touched tests** — 2026-09-01: the only speed-up that weakens the
-  gate holding both clones, and parallelising paid four-fold without it.
-- **A check asking only whether a `TYPE-<slug>.md` is tracked** — 2026-09-01: the real defect is any
-  routing row naming a file git does not carry.
-- **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's
-  clone then cannot install, and strangers are who the file is for.
-- **Deleting a dated `*-backup-*.md` as a corpse** — `academy/lab/CONTEXT.md` declares those
-  captured, not authored; the untracked *law* beside them was the real bug.
+- **Narrowing the pre-commit to the touched tests** — 2026-09-01: the only speed-up that weakens the gate holding both
+  clones, and parallelising paid four-fold without it.
+- **A check asking only whether a `TYPE-<slug>.md` is tracked** — 2026-09-01: the real defect is any routing row naming
+  a file git does not carry.
+- **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's clone cannot install,
+  and strangers are who the file is for.
+- **Deleting a dated `*-backup-*.md` as a dead item** — `academy/lab/CONTEXT.md` declares those captured, not authored;
+  the untracked *law* beside them was the bug.

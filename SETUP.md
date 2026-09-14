@@ -1,11 +1,11 @@
 # Workspace Setup
 > How to make this environment work on a new machine: toolchain install and per-machine config.
-> The steps live in the shards; this file is what is true of all of them.
+> The steps live in the parts; this file is what is true of all of them.
 
 What the workspace *is* and what each feature buys you: [`README.md`](README.md). What the gates
 enforce: [`core/hooks/SPECS.md`](core/hooks/SPECS.md). This file is only the install.
 
-**This is a procedure an agent executes, not prose a human reads and improvises from.** You cloned
+**This is a procedure an agent executes, not writing a human reads and improvises from.** You cloned
 the repo and opened your own coding agent; *that agent* is the installer. There is no `curl | sh`
 and there is not going to be one — an installer would have to be ported to every harness, while a
 procedure works on whichever one you already opened. `/install` is a doorway into this file for
@@ -23,7 +23,7 @@ independent of each other; the table below is alphabetical, not an order.
 | `> substrate: yes` | installs no feature — it installs what every feature *runs on*. Switching off the interpreter the switch itself executes on produces no ablation signal, so there is nothing to ablate and no registry row |
 | **Precondition** | a command that says whether the step is *already done*. Run it first, always |
 | **Install** | idempotent. Running it twice must be a no-op, never a second copy |
-| **Verify** | a command proving the thing works. **A step is done when its probe passes, never when its config looks right** |
+| **Verify** | a command proving the thing works. **A step is done when its check passes, never when its config looks right** |
 
 `agent: no` marks the short list an agent cannot finish **alone** — an API key, a consent screen, a
 device pairing. It has never meant the agent steps back: it runs everything it can, then hands the
@@ -33,13 +33,13 @@ happens next, and verifies afterwards. The human receives **one action, not an i
 step that leaves someone reading documentation has not been installed, it has been delegated.
 
 Third-party machine state this workspace does not author is a step plus a `core/tools/deps.txt`
-line, never a feature. Everything in the shards is per-machine state git cannot carry; everything
+line, never a feature. Everything in the parts is per-machine state git cannot carry; everything
 else is versioned, because the file system is the source of truth.
 
 ## Already wired — nothing to do
 
 Versioned, and they activate on their own after a clone. Listed so a newcomer does not go looking
-for an install step; they are not steps and have no probes.
+for an install step; they are not steps and have no checks.
 
 | Feature | Why nothing is needed |
 |---|---|
@@ -63,7 +63,7 @@ core/run tools/wos/features --off <slug>    # one you do not want; its install s
 
 ## Verification
 
-Does the install work? This is the whole-install probe; each step's own Verify is in its shard.
+Does the install work? This is the whole-install check; each step's own Verify is in its part.
 
 ```bash
 core/run tools/wos/deps --check                           # every declared dependency present
@@ -93,10 +93,10 @@ cannot be inferred from its code carries its own `SETUP.md`.
 <!-- routing:start -->
 ## Routing
 
-| Shard | Description | Feature | Enforced by |
+| Part | Description | Feature | Enforced by |
 |-------|-------------|---------|-------------|
 | [`SETUP-accounts.md`](SETUP-accounts.md) | Everything that reaches a service off this machine: web search, the shared Google OAuth behind six tools, the Forms API's separate project, the Telegram capture bridge, and the CIn VPN. Five of the six need a human for one browser action or one password, and each says exactly which one. | web-search, google-auth, forms, telegram-capture, vpn-cin | core/tools/test/workspace/test_setup_executable.py |
-| [`SETUP-clone.md`](SETUP-clone.md) | What must exist before anything else in this workspace runs: the permission level the installing agent works under, the interpreter every tool is spawned with, and the gates that fire on commit. Run these in order and stop at the first probe that will not pass. | permissions, declared-deps, github-auth, git-hooks, skill-mirrors | core/tools/test/workspace/test_setup_executable.py |
-| [`SETUP-compaction.md`](SETUP-compaction.md) | The two halves of what shrinks a session: rtk compresses tool output before it reaches the context, caveman compresses the agent's own prose. Each needs a binary and a registration, and in both cases the registration is the part that silently reverts. | rtk-compaction, caveman | core/tools/test/workspace/test_setup_executable.py |
+| [`SETUP-clone.md`](SETUP-clone.md) | What must exist before anything else in this workspace runs: the permission level the installing agent works under, the interpreter every tool is spawned with, and the gates that fire on commit. Run these in order and stop at the first check that will not pass. | permissions, declared-deps, github-auth, git-hooks, skill-mirrors | core/tools/test/workspace/test_setup_executable.py |
+| [`SETUP-compaction.md`](SETUP-compaction.md) | The two halves of what shrinks a session: rtk compresses tool output before it reaches the context, caveman compresses the agent's own writing. Each needs a binary and a registration, and in both cases the registration is the part that silently reverts. | rtk-compaction, caveman | core/tools/test/workspace/test_setup_executable.py |
 | [`SETUP-interfaces.md`](SETUP-interfaces.md) | The outside programs the edit-time and commit-time gates shell out to: the stub generators that produce what the read gate hands an agent instead of a source file, the TypeScript linter, and the LaTeX toolchain the paper checks need. Skip one and its gate stops firing rather than failing. | interface-stubs, lint-typescript, latex | core/tools/test/workspace/test_setup_executable.py |
 <!-- routing:end -->

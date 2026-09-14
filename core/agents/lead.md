@@ -30,14 +30,14 @@ Operating rules:
 - Never answer a latest/current question from paper search alone.
 - For AI model or product claims, prefer official docs/vendor pages plus recent web sources over old papers.
 - If a tool, package, source, or network route is unavailable, record the specific failed capability and still write the
-  requested durable artifact with a clear `Blocked / Unverified` status instead of stopping with chat-only prose.
+  requested durable artifact with a clear `Blocked / Unverified` status instead of stopping with chat-only writing.
 - This system ships project subagents for research work. Prefer the `researcher`, `writer`, `verifier`, and `reviewer`
   subagents for larger research tasks when decomposition clearly helps.
 - Use subagents when decomposition meaningfully reduces context pressure or lets you parallelize evidence gathering. For
   detached long-running work, prefer background subagent execution.
 - For deep research, act like a lead researcher by default: plan first, use hidden worker batches only when breadth
   justifies them, synthesize batch results, and finish with a verification pass.
-- For long workflows, externalize state to disk early. Treat the plan artifact as working memory and keep a task ledger
+- For long workflows, externalize state to disk early. Treat the plan artifact as working memory and keep a task list
   plus verification log there as the run evolves.
 - For long-running or resumable work, use `CHANGELOG.md` in the workspace root as a lab notebook when it exists. Read it
   before resuming substantial work and append concise entries after meaningful progress, failed approaches, major

@@ -8,12 +8,17 @@
 #
 # Tab-separated. Columns:
 #   name     the installable name, exactly as the install command spells it
-#   kind     pip | system | apt | npm | npx | binary — how it arrives, which fixes how it is
+#   kind     pip | system | apt | npm | npx | binary | service — how it arrives, which fixes how it is
 #            installed. `system` asks platform_law.package_install which manager this machine has;
 #            `apt` names one. A row earns `system` only when its name is VERIFIED to resolve on the
 #            others — ffmpeg does (winget Gyan.FFmpeg, checked 2026-08-30), tesseract-ocr,
 #            poppler-utils and ddgr do not, so they stay `apt` rather than claim a portability
-#            nobody probed.
+#            nobody probed. `service` is the one kind NOTHING INSTALLS: a remote API this surface
+#            depends on, which is present or absent by someone else's decision. It was added
+#            2026-09-13 because every other row here asks whether a module IMPORTS, and a whole
+#            research run found core/tools/paper/papers dead on both arms while `deps` reported
+#            all declared dependencies present — the first measured instance of ROADMAP.md
+#            § Portability's *no probe falsely greens*. A probe that cannot fail is not a probe.
 #   import   the python module it provides, or - for anything not imported by our code.
 #            THIS IS THE JOIN KEY: test_deps.py fails on any third-party import missing from here.
 #   probe    HOW to ask whether the dep is here, as `<verb>:<arg>`. Three verbs, dispatched in
@@ -58,3 +63,5 @@ typescript	npm	-	cmd:tsc --version	interface-stubs	.d.ts stubs stop regenerating
 jscpd	npx	-	cmd:npx --yes jscpd --version	duplication-gate	the copy-paste gate SKIPS instead of blocking, printing one warning line that is easy to miss — a gate that silently stops gating
 rtk	binary	-	cmd:rtk --version	rtk-compaction	tool output reaches the context raw; nothing breaks, the session just costs 60-90% more
 gh	system	-	cmd:gh auth status	github-auth	auto-push fails on every feature/* commit, /roundup cannot promote, and the agent loses PRs and issues
+arxiv-api	service	-	cmd:core/run tools/paper/papers quantum --n 1	latex	core/tools/paper/papers returns {"error": "The read operation timed out"} on its DEFAULT arm, so a sota or scout run silently loses arXiv and falls back to web search — the JSON still parses, it just has no results
+semantic-scholar-api	service	-	cmd:core/run tools/paper/papers quantum --n 1 --ss	latex	core/tools/paper/papers --ss returns {"error": "HTTP Error 429: "}, so a run loses the venue, peer_reviewed and citations fields the tool exists to supply and has to establish venue by fetching every page by hand

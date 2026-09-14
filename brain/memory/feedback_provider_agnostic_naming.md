@@ -19,7 +19,7 @@ Related: [[fable-quota-strategy]].
 
 **Widened 2026-08-17, and it is not only filenames.** Lucas reacted to me saying *"sonnet wires it"* about a roadmap
 step: *"nothing in WOS should be tied to a specific vendor/company/model."* The rule covers **work assignments and how I
-speak to him**, not just paths. Both ledgers carried 26 routing directives reading `model: sonnet` / `model: opus`; they
+speak to him**, not just paths. Both lists carried 26 routing directives reading `model: sonnet` / `model: opus`; they
 now read `tier: high|medium|low`, and which model fills a tier is data in `core/flows/craft/routing.md`.
 
 The line that decides a given mention: **directive vs data.** Assigning work by model name is the violation; a

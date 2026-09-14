@@ -126,7 +126,7 @@ def test_the_attribution_names_the_directory_that_moved_most(tmp_path):
 
 
 def test_the_delta_obeys_the_same_scope_the_corpus_does(tmp_path):
-    """b20260912 — `--scope scaffold` filtered the corpus and not the delta, so the scaffold's own
+    """b20260912 — `--scope repo` filtered the corpus and not the delta, so this repo's own
     debt was reported with every line a content tree had moved folded into it. The roadmap item
     that debt belongs to names this exact command as its observable, which made it unverifiable."""
     ws = _repo(tmp_path)
@@ -138,7 +138,7 @@ def test_the_delta_obeys_the_same_scope_the_corpus_does(tmp_path):
     (ws / 'code/thing/doc.md').write_text('x\n' * 40, encoding='utf-8', newline='\n')
     _commit(ws, 'grow the content tree')
 
-    scoped = _run(ws, '--scope', 'scaffold', '--since', base).stdout
+    scoped = _run(ws, '--scope', 'repo', '--since', base).stdout
     assert 'session +0/-0 = +0' in scoped, scoped
     assert '+39/-0 = +39' in _run(ws, '--since', base).stdout
 

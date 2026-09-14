@@ -1,7 +1,7 @@
 # 6 — Ship
 
 ## Carry
-slug: commands-mirror-cost | branch: feature/roundup-md-cap (shared, not created) | root: /mnt/workspace
+short name: commands-mirror-cost | branch: feature/roundup-md-cap (shared, not created) | root: /mnt/workspace
 verdict: padaria | criteria: C1 C2 C3 C4 — all met
 
 ## Outcome

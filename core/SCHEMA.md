@@ -12,7 +12,7 @@
 ## The `.md` type system
 
 **`UPPERCASE.md` is a type. `lowercase.md` is an instance.** A type means the same thing in every
-subtree, so uppercase names are a **closed set** — inventing one is a deliberate act (one line added
+folder, so uppercase names are a **closed set** — inventing one is a deliberate act (one line added
 below), never an accident. Each type answers exactly one question; if you cannot say which, it does
 not get a type.
 
@@ -100,13 +100,13 @@ Four axes, **deliberately separate** — conflating them produced the wrong "fla
 | **depth** | cap hops to content, not file count; **measure** before adding a routing level | judgement |
 | **fanout** | `WARN_FILES` asks for a look, `BLOCK_FILES` is the cap | `entropy_fanout.py`, dashboard |
 | **routing** | a subdirectory under `FOLD_FILES` is folded into its parent's table, not linked | `workspace_scanner.py` |
-| **document size** | `BLOCK_LINES` caps one authored `.md`; a root that sheds shards routes to them | `pre-edit.py`, dashboard |
+| **document size** | `BLOCK_LINES` caps one authored `.md`; a root that sheds parts routes to them | `pre-edit.py`, dashboard |
 
 Splitting an over-full directory *adds a hop*, so fanout and depth trade directly: pay the hop only
 when the split removes more table than it adds — a directory in the dozens pays, one just over the
 signal does not. Numbers live in [`limits.env`](hooks/limits.env), never in a second copy — this
 table named four of them until 2026-09-06 and every one went stale the day they moved; offenders
-live in [`ISSUES.md`](../ISSUES.md). Prose is capped at the same number as code, but a shard's readers are
+live in [`ISSUES.md`](../ISSUES.md). Prose is capped at the same number as code, but a part's readers are
 *sessions deciding whether to read it*, so the index must carry enough to decide without opening
 anything. Also: **no session reads the corpus, it reads a chain**, so a routing table costs row
 *count* per chain.
@@ -141,14 +141,14 @@ type's rule says lives in one place, and the generated routing table. The check 
 possible" checkable: **a reader who has read only the index names the sibling that answers their
 question, and is never wrong.**
 
-### What a shard publishes about itself
+### What a part publishes about itself
 
-A shard's header exists for one reader — the index's generated table — and every field answers *should
-I open this file?*, never *what does it say?* **The two errors are not symmetric:** skipping a shard
+A part's header exists for one reader — the index's generated table — and every field answers *should
+I open this file?*, never *what does it say?* **The two errors are not symmetric:** skipping a part
 that held what the task needed is silent, opening one that was not is a visible read, so a field that
 only saves a read is cut. **The header is `>` lines under the H1, not YAML frontmatter**, and **a
 wrapped field is one field**: a `>` line that is not itself a `key:` continues the one above it, parsed
-for everyone by [`routing/header.py`](hooks/routing/header.py). Every shard opens with two to three
+for everyone by [`routing/header.py`](hooks/routing/header.py). Every part opens with two to three
 sentences and no key; then `priority` and `blocked-by` on ROADMAP, `answers` on SCHEMA, `governs` on
 SPECS (the same job as a `> spec:` line), `feature` on SETUP, `enforced-by` on both.
 
@@ -175,7 +175,7 @@ skill and `core/flows/craft/`; **Front** is a top-level workstream in `ROADMAP.m
 number nor a bug number is a citable identifier** — closed items are deleted, so the number is a dead
 pointer the day the work lands. Numbering is legal only inside `ROADMAP.md` / `ROADMAP-<slug>.md` and
 in commit messages; **a bug id is never reused** (ruled 2026-08-31), new ids are durable slugs
-`b<YYYYMMDD>-<slug>`, and a bug cited outside its ledger is named by slug.
+`b<YYYYMMDD>-<slug>`, and a bug cited outside its list is named by slug.
 
 ### Terms with one meaning
 
@@ -213,7 +213,7 @@ correct prose trains people to ignore the check, so `/loops` and `.loop` are row
 ### A vendor's model name is data, never a directive
 
 **Ruled 2026-08-17 (Lucas): *"nothing in WOS should be tied to a specific vendor/company/model."*** A
-ledger assigns a **tier** — `low` · `medium` · `high` — and which model fills it is data, in
+list assigns a **tier** — `low` · `medium` · `high` — and which model fills it is data, in
 [`flows/craft/routing.md`](flows/craft/routing.md) and nowhere else. **A shape, not a token:**
 `**model: opus**` is a directive and forbidden; `` `model: opus` `` in prose reporting a measurement is
 data. `entropy_vendor.py` matches the bolded assignment and nothing else.
@@ -221,7 +221,7 @@ data. `entropy_vendor.py` matches the bolded assignment and nothing else.
 <!-- routing:start -->
 ## Routing
 
-| Shard | Description | Answers | Enforced by |
+| Part | Description | Answers | Enforced by |
 |-------|-------------|---------|-------------|
-| [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this shard is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts. | what fields each layer requires, which layer may point at which | core/tools/wos/skills/validate.py |
+| [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this part is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts. | what fields each layer requires, which layer may point at which | core/tools/wos/skills/validate.py |
 <!-- routing:end -->

@@ -35,7 +35,7 @@ who captures, the capture mechanism.
 
 ## Required artifacts
 
-Derive a short slug from the `ralo` (lowercase, hyphens, ≤5 words). Every round must leave on disk:
+Derive a short name from the `ralo` (lowercase, hyphens, ≤5 words). Every round must leave on disk:
 
 - `outputs/.plans/<slug>.md` — plan plus the queue-rule check
 - `outputs/.drafts/<slug>-gen-{1,2,3}.md` — candidates per persona
@@ -53,7 +53,7 @@ Before any generation:
 2. **Corpus check** (`researcher`) — retrieve the 5-8 precedents closest to the `ralo` from the
    corpus (`academy/papers/mechanism-search/refs/`). If the corpus is empty: run `/research lit`
    first (stage 0).
-3. Write `outputs/.plans/<slug>.md` (ralo, precedents, chosen personas, ledger). Summarize and ask
+3. Write `outputs/.plans/<slug>.md` (ralo, precedents, chosen personas, list). Summarize and ask
    for explicit confirmation before spawning generators.
 
 ## Agents and sequence

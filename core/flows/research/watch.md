@@ -15,7 +15,8 @@ Tool names are literal. Use only tools visible in the current tool set. See `cor
 
 Create a research watch for: $@
 
-Derive a short slug from the watch topic (lowercase, hyphens, no filler words, ≤5 words). Use this slug for all files in
+Derive a short name from the watch topic (lowercase, hyphens, no filler words, ≤5 words). Use this short name for all
+files in
 this run.
 
 Requirements:

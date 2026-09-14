@@ -18,7 +18,7 @@ a partir de dados e de uma análise mais coerente."*
 **Why:** both answers have the same shape — he refuses to cut a **capability** to buy tidiness.
 Multi-harness is the workspace's thesis (nothing that matters lives in a vendor's directory), and an
 automatic hook is the central bet (zero-token beats prompt). The waste he will attack is the
-**copying** and the **prose**, never the function.
+**copying** and the **writing**, never the function.
 
 **How to apply:**
 

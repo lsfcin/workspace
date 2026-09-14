@@ -38,7 +38,7 @@ Gate behavior, the agent-shim contract, and how a module reaches the root law:
 | [`facade/`](facade/CONTEXT.md) | The facade discipline: read the facade before editing, never import around it. |
 | [`git/`](git/CONTEXT.md) | Gates and self-heals about git state itself: branch shape, gitlinks, .gitignore. |
 | [`postedit/`](postedit/CONTEXT.md) | Sourced post-edit stages: regenerate interfaces, remind, sync, lint. |
-| [`read/`](read/CONTEXT.md) | Who must read what before touching a subtree — and who gets handed it instead. |
+| [`read/`](read/CONTEXT.md) | Who must read what before touching a folder — and who gets handed it instead. |
 | [`routing/`](routing/CONTEXT.md) | The CONTEXT.md routing-table generator, and the delimited-block writer every generator shares. |
 | [`session/`](session/CONTEXT.md) | Session lifecycle: start, prune, precompact wipe, and the SessionStart nudges. |
 | [`stubgen/`](stubgen/CONTEXT.md) | Interface stubs and paper scaffolding, generated on save and on commit. |

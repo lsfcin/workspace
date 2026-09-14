@@ -1,5 +1,5 @@
 # Craft — Provider Routing
-> Which concrete model fills each tier, per provider; the availability probe; the delegation
+> Which concrete model fills each tier, per provider; the availability check; the delegation
 > direction; and how to refresh the table. **VOLATILE** — model ids and prices go stale.
 
 Load this **once per chain**, in the orchestrator, before Loop 0 — it is what fills the Carry
@@ -36,7 +36,7 @@ Carry block can record it (see `## Carry` `provider:` field).
 
 A provider exists for routing **only if it appears in `opencode models`** (i.e. its API key is configured and at least
 one model resolves). Pinning a tier to an unavailable model fails the loop with `Tool not found` / `model_not_found`. So
-the very first orchestrator action — before Loop 0 — is the availability probe:
+the very first orchestrator action — before Loop 0 — is the availability check:
 
 ```bash
 opencode models 2>&1 | awk -F/ '{print $1}' | sort -u     # which providers responded with keys
@@ -76,7 +76,7 @@ into a tier — those exist on nvidia et al. but cannot run code loops.**
 | **google / ollama-cloud** | (per their `opencode models` listings) | ... | ... | ... | mixed | Fill only if a chain explicitly runs on these providers; defaults below assume nvidia/openrouter/opencode. |
 
 **Default provider per orchestrator runtime (chicken-egg resolved):** the orchestrator inherits its own runtime's
-provider — Claude Code → anthropic, Copilot CLI → copilot, opencode → detected via the probe above (nvidia by default in
+provider — Claude Code → anthropic, Copilot CLI → copilot, opencode → detected via the check above (nvidia by default in
 this workspace, as the active model is `nvidia/z-ai/glm-5.2`).
 
 **Benchmarks driving tier selection (ArtificialAnalysis indices: intelligence / coding / agentic / cost $/1M-out, source
@@ -131,7 +131,7 @@ openrouter  →  anthropic  →  copilot  →  nvidia
 ## Provider routing provenance
 
 The `Tier → provider → model` table above is filled from `openrouter.ai/api/v1/models` benchmarks + the local `opencode
-models` availability probe, on the date stamped in the table. To refresh quarterly (or when a provider adds/removes a
+models` availability check, on the date stamped in the table. To refresh quarterly (or when a provider adds/removes a
 model):
 
 ```bash

@@ -4,7 +4,7 @@
 Asked by Lucas (2026-08-15): *"does a session, due to our hooks/gates, re-read the same context file
 more than once?"* It is the sharpest question anyone has put to the enforcement layer, because it
 points at a cost this workspace **imposes** rather than one it inherits. `context-gate.py` demands a
-whole `CONTEXT.md` chain before any file access in a subtree and `pre-read.py` redirects a source
+whole `CONTEXT.md` chain before any file access in a folder and `pre-read.py` redirects a source
 read to its stub; both exist to *save* context and neither had ever been measured doing it.
 
 ## Method
@@ -32,18 +32,18 @@ By what was served (2026-08-17):
 | What | files | reads | chars | reads per file |
 |---|---|---|---|---|
 | `CONTEXT.md` chain | 159 | 1,077 | 3,134k | 6.8x |
-| other `UPPERCASE.md` (the ledgers) | 85 | 586 | 2,708k | 6.9x |
+| other `UPPERCASE.md` (the lists) | 85 | 586 | 2,708k | 6.9x |
 | source | 374 | 996 | 2,297k | 2.7x |
-| prose (lowercase `.md`) | 79 | 236 | 1,091k | 3.0x |
+| writing (lowercase `.md`) | 79 | 236 | 1,091k | 3.0x |
 | interface stub | 166 | 339 | 159k | 2.0x |
 
 **The chain is not the amplifier, and that is the answer to the question as asked.** Its 6.8x is
 across 80 sessions — **per session it is 1.0-1.2x** for every chain file in the top of the list
 (`core/tools/CONTEXT.md` 1.1, `core/skills/CONTEXT.md` 1.0, `core/hooks/CONTEXT.md` 1.0,
-`brain/CONTEXT.md` 1.1). That is the gate working exactly as designed: one orientation per subtree
+`brain/CONTEXT.md` 1.1). That is the gate working exactly as designed: one orientation per folder
 per session, not one per file touched.
 
-**The amplifier is the ledger.** `ROADMAP.md` is the single most expensive read in the workspace —
+**The amplifier is the list.** `ROADMAP.md` is the single most expensive read in the workspace —
 **101 reads, 877k chars, 3.0 times per session**, more than twice the chars of any other file and
 three times the per-session repeat rate of the chain it is usually blamed alongside. Next is
 `code/aiwbot/ROADMAP.md` at 3.2/session and `brain/goals/workspace-os.md` at 2.3.
@@ -51,26 +51,26 @@ three times the per-session repeat rate of the chain it is usually blamed alongs
 **Stubs are cheap and are being served.** 339 stub reads for 159k chars — 470 chars each against
 2,300 for a source read — so the redirect is both live and paying.
 
-## Did sharding the ledger lower its read cost? — unanswerable, and it stays that way
+## Did sharding the list lower its read cost? — unanswerable, and it stays that way
 
-Lucas, watching a session open all seven shards: *"we splited those to avoid reading too much,
+Lucas, watching a session open all seven parts: *"we splited those to avoid reading too much,
 clearly the split wasn't enough."* Settling it needed ~2 weeks of ordinary sessions and a comparison
 of chars served for the whole `ROADMAP*` family, not the root alone. **Those two weeks are not
-available.** The shards lived seven days and the family is one file again (`cfe8833`, nine roadmaps
+available.** The parts lived seven days and the family is one file again (`cfe8833`, nine roadmaps
 become one), so the arm the comparison needs does not exist and cannot be had without re-splitting a
 file that is under its cap.
 
 What the corpus does hold, read on 2026-09-11 over 97 sessions: the whole family cost **1,743k
-chars**, `ROADMAP.md` 1,127k of it, and every shard shows 1.0–2.2 reads per session in its one week
+chars**, `ROADMAP.md` 1,127k of it, and every part shows 1.0–2.2 reads per session in its one week
 alive. A session really did open several of them, which is what Lucas saw. Sharding moves cost
 between family members, and nothing here shows it lowered the total.
 
 ## What changed
 
-- **This is the measurement behind cutting the ledger.** A line removed from `ROADMAP.md` is not
+- **This is the measurement behind cutting the list.** A line removed from `ROADMAP.md` is not
   removed once; at 2.5 reads per session it is removed 2.5 times per session, forever. The drain
   on 2026-08-17 took the file 971 → 828 lines in one sitting.
-- **It is also the instrument that replaced the scaffold size target** (2026-09-11). The target
+- **It is also the instrument that replaced the repo size target** (2026-09-11). The target
   counted files and lines; this counts what a session is served, and the two disagree — a skill body
   is ~2 tokens at turn 1 while the gate-mandated `CONTEXT.md` chain is 43% of every char served.
   What gets cut is now read off the top of this list.
@@ -79,7 +79,7 @@ between family members, and nothing here shows it lowered the total.
 
 ## Limitations
 
-- **Chars, not tokens.** No per-turn ratio is available for a single `tool_result`, and prose and
+- **Chars, not tokens.** No per-turn ratio is available for a single `tool_result`, and writing and
   source do not convert at the same rate. Compare shares, not totals.
 - **Population is every transcript on this machine**, so it grows with every session: shares are
   comparable across rows, totals are not.
@@ -89,6 +89,6 @@ between family members, and nothing here shows it lowered the total.
 - **`Read` only.** A file pulled in by `grep`, `cat` through Bash, or a hook payload is invisible to
   this lens even though it lands in the same context window.
 - **The first run of this instrument was wrong, and its own test caught it** — `'ROADMAP.md'.isupper()`
-  is `False`, so every ledger read was filed under `prose` and the most expensive file in the
+  is `False`, so every list read was filed under `prose` and the most expensive file in the
   workspace hid inside the largest bucket. The numbers above are the corrected run; the discipline
   that produced the check is [`SPECS.md`](SPECS.md) § The corollary the cost work paid for twice.
