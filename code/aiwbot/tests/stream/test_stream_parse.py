@@ -125,7 +125,7 @@ def test_claude_only_asks_for_stream_json_when_streaming():
 
 
 def test_the_fake_stream_really_yields_over_time():
-    """Guards the new test seam itself: if `send` collected first and yielded after, every
+    """Guards the new test boundary itself: if `send` collected first and yielded after, every
     streaming test below would pass while proving nothing."""
     events = deltas("a", "b") + [result()]
     seen = []

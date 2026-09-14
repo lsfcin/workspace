@@ -111,7 +111,7 @@ def stable_prefix(text: str) -> tuple[str, str]:
     everything up to the last blank line that is not inside an open code fence.
 
     The fence test is a parity count, not a regex, because an unclosed fence means every
-    paragraph break after it is inside a code block and none of them are safe seams (F4)."""
+    paragraph break after it is inside a code block and none of them are safe boundaries (F4)."""
     lines = text.split("\n")
     cut = 0
     fences = 0

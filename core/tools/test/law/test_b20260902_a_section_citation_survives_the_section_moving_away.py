@@ -15,7 +15,7 @@
 # WHY HERE AND NOT IN citation-gate.py, which owns the other half of the same rule (a number is
 # not a citable identifier — point at the section that owns it): that file reached the 200-line
 # cap, and the law says a file over the cap is CUT, never squeezed. The cut put this beside
-# test_pointer_integrity.py instead, which is the honest seam — that check resolves the `](path)`
+# test_pointer_integrity.py instead, which is the honest boundary — that check resolves the `](path)`
 # half of a pointer and this one resolves the `§` half, and pre-commit runs both.
 #
 # NOT A RATCHET. The corpus was swept to zero when this landed, so every tracked .md is checked

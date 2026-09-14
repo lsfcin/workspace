@@ -55,7 +55,7 @@ def _published_skills(off: str = '') -> set:
 
 def test_a_row_claiming_to_be_wired_really_is():
     """The honesty check: would turning this off change anything? Answered the strongest way each
-    row allows, which is what lets a group share one wiring point. A group with an invocable seam
+    row allows, which is what lets a group share one wiring point. A group with an invocable boundary
     is switched off for real and its observable must move — which a guard on an unreachable branch
     cannot fake. A row owning its call site must name the slug there.
 
@@ -138,7 +138,7 @@ def _strip_comments(body: str, target: str) -> str:
 
 
 def test_the_wired_gates_actually_consult_the_law(tmp_path):
-    """Both seams, end to end: a shell gate and a node hook reach the same law module.
+    """Both boundaries, end to end: a shell gate and a node hook reach the same law module.
 
     They are in different languages on purpose — the `--enabled` CLI arm is what lets a third
     harness wire a gate without a second implementation of the registry. A `core/tools`

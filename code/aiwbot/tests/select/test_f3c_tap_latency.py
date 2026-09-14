@@ -92,7 +92,7 @@ def test_a_dimension_with_nothing_to_offer_alerts_without_redrawing(store):
 
 def test_warm_asks_every_backend_for_its_declaration(monkeypatch):
     """The 839 ms `opencode models` shell belongs to startup, not to Lucas's first tap. Asked
-    through the seam, so a third backend is warmed by existing rather than by editing this."""
+    through the boundary, so a third backend is warmed by existing rather than by editing this."""
     asked = []
 
     class _Counting(Fake):

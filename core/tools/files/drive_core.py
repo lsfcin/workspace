@@ -1,4 +1,4 @@
-# drive_core.py — Google Drive read+write seam (account-agnostic) for Core/tools/files/gdrive
+# drive_core.py — Google Drive read+write boundary (account-agnostic) for Core/tools/files/gdrive
 import pathlib
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload, MediaFileUpload

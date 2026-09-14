@@ -109,7 +109,7 @@ def _is_emptied_index(path: Path) -> bool:
 
 
 def sync(target: Path):
-    # The one seam for `routing-tables` (core/SPECS.md § AD-14): pre-commit
+    # The one boundary for `routing-tables` (core/SPECS.md § AD-14): pre-commit
     # (generators/routing.sh) and post-edit (postedit/sync.sh) both arrive here, so one
     # guard switches both moments off. The two fragments keep separate call sites because
     # only the pre-commit one stages the result — a difference in what they do with the

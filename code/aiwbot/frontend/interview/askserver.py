@@ -13,7 +13,7 @@ from . import ask
 # What the CLI negotiated in the check. Echoed back rather than dictated: the client sends the
 # version it wants, and it re-sends `initialize` several times per invocation.
 PROTOCOL = "2025-06-18"
-# The name is the seam's, not this server's: every backend writes it into its own config (AD-31).
+# The name is the boundary's, not this server's: every backend writes it into its own config (AD-31).
 SERVER_NAME = ASK_SERVER_NAME
 TOOL_NAME = "ask_user"
 # Loopback only. The turn token in the path is what tells two concurrent turns apart — an MCP
@@ -54,7 +54,7 @@ _port = 0
 
 
 def url(token: str, at_port: int) -> str:
-    """Where one turn reaches this server: its own path, on loopback. This is all the seam carries —
+    """Where one turn reaches this server: its own path, on loopback. This is all the boundary carries —
     the config that names it is per-provider, in shape AND in road, so it belongs to each backend
     (AD-31: claude takes JSON on the argv, opencode takes it in the environment)."""
     return f"http://{HOST}:{at_port}/mcp/{token}"

@@ -2,7 +2,7 @@
 # How big a file got, and whether anything can read its interface. Zero-token, deterministic.
 #
 # Moved out of dashboard/entropy-dashboard.py 2026-08-20, when that file hit the 200-line block.
-# The gate was right and the seam was already written down: dashboard/CONTEXT.md says the checks
+# The gate was right and the boundary was already written down: dashboard/CONTEXT.md says the checks
 # stay next door and that directory owns nobody's rule — but these two were rules, living in the
 # renderer. Every sibling here answers one question about the corpus and hands back findings; so do
 # these, now from the same place.

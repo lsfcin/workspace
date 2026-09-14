@@ -54,7 +54,7 @@ def test_the_check_spawns_nothing_while_it_runs():
     fork reached any other way — `os.system`, `os.posix_spawn`, a helper they import that does it
     for them — and the defect this file exists for was 300 forks, not one import. So run `check()`
     in-process with every spawn primitive booby-trapped: it is read-only over WORKSPACE_ROOT, which
-    is why it needs no `serial` marker and no seam."""
+    is why it needs no `serial` marker and no boundary."""
     import os
 
     # An explicit SourceFileLoader, because `sync-skills` has no extension and nothing can infer a

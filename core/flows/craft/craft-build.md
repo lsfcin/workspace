@@ -31,7 +31,7 @@ If `arch-review-supervised=yes`, present the findings and wait for the user's ca
 
 ## Evaluation
 criteria-coverage: C1→<where> ... Cn→<where>
-seams: <how each criterion will be tested>
+boundaries: <how each criterion will be tested>
 verdict: PASS | FAIL <reason>
 
 ## Concept-Symmetry Review (omit if arch-review=none)
@@ -97,7 +97,7 @@ the architecture. Run them; confirm they fail for the right reason (missing beha
 red-run: <n> failed as expected | wrong-failures: <none or list>
 ```
 
-**Flags:** a criterion is untestable at the designed boundaries → `RETURN loop=3 reason=no-seam`; untestable as
+**Flags:** a criterion is untestable at the designed boundaries → `RETURN loop=3 reason=no-boundary`; untestable as
 *written*
 regardless of design → `RETURN loop=1 reason=criterion-untestable`.
 

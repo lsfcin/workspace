@@ -1,4 +1,4 @@
-# base.py — the provider-agnostic seam: AgentEvent + AgentBackend contract + shared primitives.
+# base.py — the provider-agnostic boundary: AgentEvent + AgentBackend contract + shared primitives.
 from __future__ import annotations
 import json
 from dataclasses import dataclass

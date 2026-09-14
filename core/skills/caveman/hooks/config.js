@@ -52,7 +52,7 @@ function getConfigPath() {
 // so `status === 1` was false and the feature read as ON no matter what the profile said. Caveman
 // could not be switched off through the registry on the one platform the bug lived on — and the
 // fail-open design is what hid it, because failing open is also what a healthy absent law looks
-// like. `core/run --python` prints this clone's venv interpreter (the platform seam); an empty
+// like. `core/run --python` prints this clone's venv interpreter (the platform boundary); an empty
 // answer means no venv, which is the absent-law case and stays open.
 //
 // The law is NOT run through `core/run` directly: that launcher exits 1 when it cannot find an

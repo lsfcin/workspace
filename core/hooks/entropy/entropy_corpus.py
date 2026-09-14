@@ -148,7 +148,7 @@ MIRRORS = ('.claude/', '.opencode/', '.github/', '.zcode/skills/')
 
 
 def is_generated_mirror(path: Path) -> bool:
-    # Matched against the SEAM's spelling, never str(). These markers carry `/`, so on a clone
+    # Matched against the BOUNDARY's spelling, never str(). These markers carry `/`, so on a clone
     # where a path stringifies with `\` not one of them matched and every mirror was judged as
     # authored prose — findings against files nobody can edit, in the report that exists to list
     # only what someone can act on.

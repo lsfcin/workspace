@@ -2,7 +2,7 @@
 import sys, json, pathlib, argparse
 
 _HERE = pathlib.Path(__file__).resolve().parent
-# Seams sit beside the CLI; gauth is its own family, shared by every provider tool.
+# Boundaries sit beside the CLI; gauth is its own family, shared by every provider tool.
 sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
@@ -65,7 +65,7 @@ def cmd_read(account: str, form_id: str, as_json: bool) -> None:
 
 
 def cmd_apply(account: str, form_id: str, path: str) -> None:
-    """The general seam: a JSON array of Forms API requests, applied atomically."""
+    """The general boundary: a JSON array of Forms API requests, applied atomically."""
     alias = gauth.resolve_alias(account)
     reqs = json.loads(pathlib.Path(path).read_text(encoding='utf-8'))
     forms_core.apply(alias, form_id, reqs)

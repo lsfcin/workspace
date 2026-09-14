@@ -37,7 +37,7 @@ def main() -> int:
         return 0
 
     # The switch, read through feature_law rather than a second reading of the registry -- same
-    # law, one parser, same seam as git/gitflow_gate.py. Off means the commit stays local.
+    # law, one parser, same boundary as git/gitflow_gate.py. Off means the commit stays local.
     if not feature_law.is_enabled('auto-push'):
         return 0
 

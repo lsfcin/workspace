@@ -111,7 +111,7 @@ def harvest(repo):
     Merges emit no --name-only output and drop out here, which is what we want: the
     develop/main promotions in core/tools/wos/roundup add no authorship of their own.
 
-    The `brain-attention` seam (core/SPECS.md § AD-14). This module has no main(); every
+    The `brain-attention` boundary (core/SPECS.md § AD-14). This module has no main(); every
     path into it — Attention.__init__, and through it brain_stats and the dashboard —
     reaches history through this one call, so switching it off here leaves every caller
     intact with nothing harvested, rather than raising somewhere up the chain.

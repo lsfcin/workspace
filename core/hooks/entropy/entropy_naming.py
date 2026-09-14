@@ -19,7 +19,7 @@ from entropy_context import ROUTING_END, ROUTING_START  # noqa: E402
 from platform_law import posix, rel  # noqa: E402
 
 # A finding is TEXT: it lands in ISSUES.md and is matched against baselines spelled with `/`.
-# Spelled by the seam so the same file produces the same finding on every machine — a `\` here
+# Spelled by the boundary so the same file produces the same finding on every machine — a `\` here
 # silently un-baselined every waiver and reported reviewed exceptions as new violations.
 def _head(path) -> str:
     return posix(path)

@@ -1,4 +1,4 @@
-# notion_core.py — Notion REST seam (workspace-agnostic) for Core/tools/notes/notion
+# notion_core.py — Notion REST boundary (workspace-agnostic) for Core/tools/notes/notion
 import pathlib, re, sys
 import requests
 

@@ -7,7 +7,7 @@ verify: none
 <!-- Scope: the voice surface added by feature/audio-in-out (STT in, TTS out) over the existing
      Telegram frontend. Non-voice files (bot text routing, dispatch, format, inbox, reply text
      paths) keep their prior behavior; this contract governs the new/changed voice boundaries.
-     Loop 6 folds the Carry criteria + Loop-3 seams here and flips status -> locked. -->
+     Loop 6 folds the Carry criteria + Loop-3 boundaries here and flips status -> locked. -->
 
 ## Inputs
 - A Telegram voice note: `voice.file_id: str` reaching `bot._handle_message`.
@@ -18,8 +18,8 @@ verify: none
   suppresses punctuation, not merely at the tail. Measured on Lucas's chuveiro voice note: sentences-then-list 0.0
   marks/100 words, list-then-sentences 1.1, jargon dissolved into the sentences 22.5. The prompt is prose end to end.
 - On voice-out: the delivered turn text `result.text: str` (plain-stripped via `format.plain`, clipped to a sane cap).
-- `stt.run` accepts an injectable `model` (the C1/C3 test seam); `tts.encode_ogg` accepts a synthetic numpy waveform +
-  `sample_rate: int` (the C5 test seam).
+- `stt.run` accepts an injectable `model` (the C1/C3 test boundary); `tts.encode_ogg` accepts a synthetic numpy waveform +
+  `sample_rate: int` (the C5 test boundary).
 
 ## Outputs
 - `hotwords.as_prompt() -> str` — the CARRIER sentences and nothing else, fed to faster-whisper's `initial_prompt=` (was

@@ -1,4 +1,4 @@
-# docs_core.py — Google Docs read+write seam (account-agnostic) for Core/tools/docs/gdocs
+# docs_core.py — Google Docs read+write boundary (account-agnostic) for Core/tools/docs/gdocs
 import pathlib, sys
 
 _HERE = pathlib.Path(__file__).resolve().parent

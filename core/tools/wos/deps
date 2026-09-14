@@ -44,7 +44,7 @@ def _install_line(row: dict) -> str:
 
     So the miss is named instead. NOT by rewriting the row — deps.txt forbids claiming a portability
     nobody checked, and the three were checked on 2026-09-01 and are genuinely absent from winget — and
-    NOT by asking which OS this is, which would put a platform fork outside the seam. `apt-get` is
+    NOT by asking which OS this is, which would put a platform fork outside the boundary. `apt-get` is
     asked of the filesystem, the way find_tsc() asks for tsc: shutil already knows the difference.
     """
     if row['kind'] == 'service':

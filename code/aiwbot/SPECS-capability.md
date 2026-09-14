@@ -14,7 +14,7 @@ the window. So for the `/resume` list the frontend pairs transcript usage with a
 live turns (`sessions.remember_context_window`, keyed by model) instead of hardcoding per-model
 constants. Unknown model → the `%` bit is simply omitted, never guessed.
 
-### AD-10 — Both CLIs expose mode, model AND effort; the seam can carry all three
+### AD-10 — Both CLIs expose mode, model AND effort; the boundary can carry all three
 Verified live 2026-07-23 (`claude --help`, `opencode run --help`, `opencode agent list`,
 `opencode models`), settling the "unverified" note that was blocking the backend/model/effort design.
 
@@ -34,14 +34,14 @@ Consequences for the design:
    aliases, opencode's is 478 — so the model picker cannot be one flat keyboard. Provider→model
    drill-down, or a curated favourites list plus a typed escape hatch.
 3. **Effort values do not share a vocabulary** (`low..max` vs `minimal|high|max`), which is exactly why
-   it belongs behind the seam as provider data — the frontend offers whatever the backend declares.
+   it belongs behind the boundary as provider data — the frontend offers whatever the backend declares.
 
 ### AD-11 — Capability declaration: the frontend offers only what a backend declares
 Shipped with P2 (plan + measurements: [ROADMAP-p2.md](ROADMAP-p2.md)). AD-10 established that both
 CLIs expose mode, model and effort; AD-11 is how that reaches a keyboard without the frontend
 learning any provider's vocabulary.
 
-**The seam gained two declarations and two knobs.** `TurnOptions` carries `model` + `effort`
+**The boundary gained two declarations and two knobs.** `TurnOptions` carries `model` + `effort`
 (opaque strings), and `AgentBackend` answers `capabilities() -> Capabilities(modes, favourites,
 groups)` plus `efforts(model) -> list[str]`. The frontend renders exactly what comes back and
 invents nothing, so a value the CLI would reject can't be tapped.

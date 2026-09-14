@@ -207,6 +207,7 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `fanout` | `crowding` | 2026-09-14 |
 | `shard` | `part` | 2026-09-14 |
 | `ledger` | `list` | 2026-09-14 |
+| `seam` | `boundary` | 2026-09-14 |
 
 **A rename whose old spelling is also a real word needs a shape, not a token** — a row that fails on
 correct prose trains people to ignore the check, so `/loops` and `.loop` are rows while `Frente`→

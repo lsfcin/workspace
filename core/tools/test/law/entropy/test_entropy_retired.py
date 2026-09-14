@@ -1,7 +1,7 @@
 # T0 the retired-token check (core/SCHEMA.md § Retired tokens): a rename is finished only
 # when its old spelling appears nowhere. Zero-token, runs in verify-fast.
 #
-# Split from test_entropy_list.py 2026-08-24 at the 200-line cap. The seam was already there —
+# Split from test_entropy_list.py 2026-08-24 at the 200-line cap. The boundary was already there —
 # `entropy_list.py` answers several questions and this is the one that asserts against the LIVE
 # workspace and is meant to be green at all times rather than baselined.
 from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine

@@ -40,7 +40,7 @@ sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks/entropy'))
 from entropy_corpus import tracked_files  # noqa: E402
 from file_law import is_tool_entrypoint  # noqa: E402
 
-SEAM = 'core/hooks/platform_law.py'
+BOUNDARY = 'core/hooks/platform_law.py'
 MODE_CHARS = set('rwxab+t')
 SUBPROCESS_CALLS = {'run', 'Popen', 'check_output', 'call', 'check_call'}
 
@@ -155,4 +155,4 @@ def test_the_declared_line_ending_is_the_one_this_asserts():
     declared = (WORKSPACE_ROOT / '.gitattributes').read_text(encoding='utf-8')
     assert 'eol=lf' in declared, (
         '.gitattributes no longer declares LF, so the newline half of this check is asserting '
-        f'something the workspace stopped saying. Settle it there first, then here and in {SEAM}')
+        f'something the workspace stopped saying. Settle it there first, then here and in {BOUNDARY}')

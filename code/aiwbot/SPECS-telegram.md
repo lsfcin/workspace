@@ -89,7 +89,7 @@ The rule that follows: **one tap issues one `answerCallbackQuery` and at most on
 `editMessageReplyMarkup`, concurrently.** `panel._redraw` is the single place both are sent, via
 `asyncio.gather`; `_route` threads a choice's toast through as an argument so no branch is tempted
 to answer a second time. Anything a backend computes to draw a keyboard is warmed at startup
-(`choices.warm`, through the seam) rather than lazily on the button.
+(`choices.warm`, through the boundary) rather than lazily on the button.
 
 This is a floor, not a target: a Telegram client renders an inline keyboard purely from server
 state, so no local echo or optimistic client update exists to beat one round trip. The button's
@@ -142,7 +142,7 @@ both are the point rather than side effects.
 
 **Mode is coerced, not offered.** `registry.mode_for` returns `build` whatever is stored, so a
 session started on the PC in plan mode and continued from the phone silently becomes a build
-turn instead of inheriting a mode the bot cannot honour. The knob survives on the seam
+turn instead of inheriting a mode the bot cannot honour. The knob survives on the boundary
 (`TurnOptions.mode`, each backend's mapping) — restoring plan is one line if a future CLI stops
 blocking MCP in it — but nothing in the bot writes anything else.
 

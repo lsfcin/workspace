@@ -8,7 +8,7 @@ from memory. Full landscape + the pivot rationale: [`brain/goals/workspace-os.md
 | # | Pattern | Example | Verdict |
 |---|---------|---------|---------|
 | A | CLI-wrapper subprocess | our old bot (`core/tools/telegram_daemon.py`) | superseded — fork/divergence |
-| B | Agent-SDK single-process | linuz90/claude-telegram-bot | **chosen shape**, rebuilt in Python behind a swappable seam |
+| B | Agent-SDK single-process | linuz90/claude-telegram-bot | **chosen shape**, rebuilt in Python behind a swappable boundary |
 | C | Session-native official | Remote Control, Channels | rejected — 100% Claude Code lock-in |
 
 ## B — linuz90/claude-telegram-bot (the reference)

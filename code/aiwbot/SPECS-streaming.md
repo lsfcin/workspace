@@ -42,13 +42,13 @@ always visibly wrong*. One real session summed to a perfectly plausible 62% when
 5%. A bug that only sometimes looks like a bug is one that survives review, so the rule is
 structural rather than a range check.
 
-It lives on the seam, as `CliBackend.occupancy(session_id, cwd)` — every CLI records a
+It lives on the boundary, as `CliBackend.occupancy(session_id, cwd)` — every CLI records a
 per-message token breakdown in its own store, so each backend reads occupancy from there and the
 run's summary object is never trusted for it. claude takes the transcript's last assistant
 message; opencode takes `ocstore.last_turn`, which is also the first time an opencode answer
 reports a percentage at all. `ocstore.py` had documented this exact trap for opencode's
 accumulating `tokens_*` columns and the claude path walked into it anyway — one backend
-remembering a rule is not the same as the seam enforcing it.
+remembering a rule is not the same as the boundary enforcing it.
 
 Belt and braces on top: `format.context_pct` withholds any share above 100%, because a share of
 the window cannot exceed the window. A visibly missing number is a better bug report than a
@@ -60,7 +60,7 @@ Painting an answer as it arrives could easily have contradicted AD-23, which say
 several bubbles and every one of them is repliable. It does the opposite — it makes AD-23
 *continuous* — and the reason is a property, not a convention:
 
-**`split_html` is prefix-stable.** Its loop is a single forward pass whose seams are decided only
+**`split_html` is prefix-stable.** Its loop is a single forward pass whose boundaries are decided only
 from lines already consumed, so appending text can change nothing but the **last** chunk.
 Property-tested over 25 corpora × every line-boundary prefix of each: zero violations. Therefore
 every chunk but the last is already final, and a bubble can be sent the moment it appears and

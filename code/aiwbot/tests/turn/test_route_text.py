@@ -158,7 +158,7 @@ def testrun_and_deliver_not_spoken_never_sends_voice(store, monkeypatch):
 def test_bot_no_longer_owns_running_a_turn():
     """Stage 0 of F4: `bot.py` is PTB wiring + routing, `runner.py` runs a turn and puts its
     answer on screen. F4 changes only the latter, so the two must not re-fuse — if `bot` starts
-    importing `dispatch` again, the seam the streaming work needs has been lost."""
+    importing `dispatch` again, the boundary the streaming work needs has been lost."""
     assert not hasattr(bot, "dispatch")
     assert not hasattr(bot, "answer")
     assert hasattr(runner, "dispatch")

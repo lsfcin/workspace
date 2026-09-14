@@ -21,7 +21,7 @@ def _answer(paras: int, seed: int) -> str:
 
 
 def test_split_html_is_prefix_stable_at_line_boundaries():
-    """THE load-bearing invariant of Stage 3. `split_html` is a single forward pass whose seams
+    """THE load-bearing invariant of Stage 3. `split_html` is a single forward pass whose boundaries
     are decided only from lines already consumed, so appending text can change nothing but the
     LAST chunk. That is what lets a bubble be sealed and sent while the answer is still being
     written — without it, sealing would contradict AD-23 by rewriting bubbles Lucas has read."""
@@ -149,7 +149,7 @@ def test_sealing_can_be_turned_off_without_touching_the_streaming_knob():
 
 
 def test_finish_lands_the_answer_without_duplicating_sealed_bubbles():
-    """The integration seam: bubbles the painter already sent are final and on screen, so the
+    """The integration boundary: bubbles the painter already sent are final and on screen, so the
     finished delivery must write only the live one onward. Re-sending them would post the answer
     twice, which is the obvious way this stage could go wrong in the chat and not in a test."""
     p, origin, _ = _run(_long_deltas())

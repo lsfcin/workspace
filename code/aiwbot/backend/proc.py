@@ -30,7 +30,7 @@ def child_env(extra_env: dict | None, cwd: str) -> dict:
 
     PWD is not decoration. Measured 2026-07-29: opencode reads it in preference to its real
     working directory, so a daemon launched from `/home/lucas` ran every opencode turn's tools —
-    and FILED every opencode session — in his home directory while the seam, and the `/resume`
+    and FILED every opencode session — in his home directory while the boundary, and the `/resume`
     picker, believed the workspace root. `cwd=` on the subprocess is necessary and was never
     sufficient, because a shell exports PWD and children trust it over `getcwd()`."""
     env = dict(os.environ)

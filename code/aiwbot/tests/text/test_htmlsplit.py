@@ -15,7 +15,7 @@ def _long_pre(lines: int) -> str:
     return f"<pre>{body}</pre>"
 
 
-def test_open_tag_is_closed_and_reopened_across_the_seam():
+def test_open_tag_is_closed_and_reopened_across_the_boundary():
     """The bug this exists for: the old splitter cut every 4096 chars blind to tags, so a
     cut inside <pre> produced HTML Telegram rejects — and the message was silently dropped."""
     chunks = split_html(_long_pre(40), 200)

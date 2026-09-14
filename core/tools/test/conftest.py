@@ -138,7 +138,7 @@ def _no_test_dirties_the_real_tree(request):
                          | {k for k in set(before) & set(after) if before[k] != after[k]})
         pytest.fail(
             f'this test changed the real workspace tree: {changed[:8]}. Build what you need under '
-            f'tmp_path, or mark the case `serial` if it genuinely has no seam -- see '
+            f'tmp_path, or mark the case `serial` if it genuinely has no boundary -- see '
             f'core/tools/test/wos/CONTEXT.md and b20260902.')
 
 

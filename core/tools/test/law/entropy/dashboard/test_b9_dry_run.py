@@ -4,7 +4,7 @@
 # which rewrote ISSUES.md (and every nested repo's local list) on each check — measured 2026-08-30
 # blocking two merges in one session, because git refuses to start one over a dirty tracked file.
 # The dashboard now reports without writing when it sees --dry-run, WOS_DRY_RUN, or the LAW_CHECK
-# environment the wiring check already exports. This spec holds that seam: a check-shaped run must
+# environment the wiring check already exports. This spec holds that boundary: a check-shaped run must
 # leave the working tree byte-identical.
 import os
 import subprocess

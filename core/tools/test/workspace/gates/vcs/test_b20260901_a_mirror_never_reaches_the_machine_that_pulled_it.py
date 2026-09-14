@@ -48,7 +48,7 @@ def test_a_mirror_dirtied_by_a_merge_is_healed_in_one_line():
     """What a `git pull` does: the SOURCE arrives changed and the copies do not follow. Nothing on
     the receiving machine regenerates them, which is the whole bug.
 
-    SERIAL, because there is no seam to seed the drift anywhere but the real tree: mirror-heal.py
+    SERIAL, because there is no boundary to seed the drift anywhere but the real tree: mirror-heal.py
     and sync-skills both work on WORKSPACE_ROOT with nothing to point elsewhere. Restoring in a
     `finally` closes the window afterwards and not during, and a parallel worker inside it reads a
     workspace that is genuinely out of sync — which is a true answer to the wrong question.

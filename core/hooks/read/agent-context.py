@@ -41,7 +41,7 @@ def collect(data: dict) -> int:
 	for path in sorted(paths_in(text, str(data.get('cwd') or WORKSPACE_ROOT))):
 		for ctx in context_chain(path):
 			summary = summary_of(ctx)
-			# The briefing is TEXT a worker reads, so the path is spelled by the seam rather than
+			# The briefing is TEXT a worker reads, so the path is spelled by the boundary rather than
 			# stripped by hand: a str().replace() of one machine's prefix left the whole absolute
 			# path in place on every other clone, and this line is the one the worker actually sees.
 			shown = rel(ctx)

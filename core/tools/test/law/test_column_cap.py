@@ -1,7 +1,7 @@
 # T0 column cap: how wide one authored .md line may be, and the four shapes exempt from it.
 # Zero-token, runs in verify-fast.
 #
-# Split from test_file_law.py 2026-08-24 at the 200-line gate. The seam is the one that file
+# Split from test_file_law.py 2026-08-24 at the 200-line gate. The boundary is the one that file
 # already declares in its own header: it exists because "a code file" was defined five times, so
 # it answers WHAT A FILE IS. How wide a line may be is a different question with different
 # exemptions, and it had no coverage at all — both of the cap's original exemptions were untested

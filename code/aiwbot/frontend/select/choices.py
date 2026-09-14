@@ -78,7 +78,7 @@ def warm() -> None:
     "button feels slow" complaint on a restarted daemon, and it is the only part of a tap that
     was ever ours to lose: warm, every path measures under 1 ms (F3c).
 
-    Provider-agnostic on purpose — it asks the seam, never opencode's catalogue directly, so a
+    Provider-agnostic on purpose — it asks the boundary, never opencode's catalogue directly, so a
     third backend with its own expensive declaration is warmed by existing."""
     for name in backend_names():
         backend = get_backend(name)

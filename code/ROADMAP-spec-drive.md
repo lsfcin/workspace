@@ -88,7 +88,7 @@ Git Flow is enforced alongside (`core/hooks/git/gitflow_gate.py`, pre-commit 1e;
 
 ### P3 — Loop integration ✅ 2026-07-17
 - `core/flows/craft/craft.md`: Loop 0 reads a spec-locked target module's SPEC.md and folds its
-  `## Invariants` into `criteria:` (spec precedes). Loop 6 promotes the shipped chain's criteria/seams
+  `## Invariants` into `criteria:` (spec precedes). Loop 6 promotes the shipped chain's criteria/boundaries
   into the module's SPEC.md and sets `status: locked` before deleting `.craft/` (durable per-module
   contract). Loop 3's second-opinion verifier already audits criteria-coverage.
 

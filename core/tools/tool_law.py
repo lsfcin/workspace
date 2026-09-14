@@ -11,7 +11,7 @@
 # off is the mirror refusing to publish it. A tool is not markdown. It is a CLI this
 # workspace owns, so it HAS a moment of its own — the moment it is invoked — and refusing
 # there is a stronger observable than anything a shared publisher could offer. So these
-# rows take a guard per family rather than a group seam, and the behavioural check in
+# rows take a guard per family rather than a group boundary, and the behavioural check in
 # test_features.py gets a per-row answer instead of one answer covering seven.
 import pathlib as _pathlib
 import sys as _sys

@@ -2,7 +2,7 @@
 import sys, json, pathlib, argparse
 
 _HERE = pathlib.Path(__file__).resolve().parent
-# Seams sit beside the CLI; gauth and gcli are shared, one hop up.
+# Boundaries sit beside the CLI; gauth and gcli are shared, one hop up.
 sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
@@ -62,7 +62,7 @@ def cmd_push(account: str, document_id: str, md_path: str) -> None:
 
 
 def cmd_apply(account: str, document_id: str, path: str, force: bool) -> None:
-    """The general seam: a JSON array of Docs API requests, applied atomically."""
+    """The general boundary: a JSON array of Docs API requests, applied atomically."""
     alias = gauth.resolve_alias(account)
     requests = json.loads(pathlib.Path(path).read_text(encoding='utf-8'))
     revision = docs_core.get_document(alias, document_id).get("revisionId", "")

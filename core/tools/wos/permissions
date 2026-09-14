@@ -31,7 +31,7 @@ CLAUDE = {
     'run-readonly': ['Bash(git status:*)', 'Bash(git log:*)', 'Bash(git diff:*)',
                      'Bash(git show:*)', 'Bash(git branch:*)', 'Bash(ls:*)',
                      # BOTH spellings on purpose: the rendered config is versioned and serves two
-                     # machines, so this row cannot ask which one is running. It asks the seam for
+                     # machines, so this row cannot ask which one is running. It asks the boundary for
                      # the two names instead of spelling them — same data, one home.
                      f'Bash({platform_law.POSIX_VENV_BIN}/pytest:*)',
                      f'Bash({platform_law.WINDOWS_VENV_BIN}/pytest.exe:*)'],

@@ -107,7 +107,7 @@ def normalise(raw: str) -> str:
 # had just read, on the turn it did the right thing.
 #
 # Creating a DISTINCT file is atomic on both systems: no lock, no retry, and nothing here has to ask
-# the seam what an operating system is. The entry's name is a digest of the path so the same mark
+# the boundary what an operating system is. The entry's name is a digest of the path so the same mark
 # twice is the same file, which is also what makes marking idempotent and lets every caller drop its
 # read-before-write guard.
 def store(session_id: str, kind: str) -> Path:

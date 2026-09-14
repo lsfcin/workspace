@@ -3,7 +3,7 @@
 #
 # The split only holds if the skill keeps *not* doing the script's work. Prose has no compiler, so
 # a later session re-inlining `make entropy` or the merges — the exact shape this frente deleted —
-# would pass every other check in the suite. These guard the seam and the hand-off's agreed shape.
+# would pass every other check in the suite. These guard the boundary and the hand-off's agreed shape.
 import re
 
 from conftest import WORKSPACE_ROOT

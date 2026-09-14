@@ -17,7 +17,7 @@ from conftest import WORKSPACE_ROOT
 from platform_law import interpreter, posix
 
 GATE = WORKSPACE_ROOT / 'core/hooks/checks/heredoc-gate.py'
-# The cases below need this clone's root spelled INSIDE a shell command, which is the seam's
+# The cases below need this clone's root spelled INSIDE a shell command, which is the boundary's
 # `posix` case exactly. They were an absolute path on one machine, so on any other clone the gate
 # correctly found no workspace file and the test read as a gate that had stopped firing.
 WS = posix(WORKSPACE_ROOT)

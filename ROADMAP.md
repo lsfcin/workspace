@@ -69,7 +69,7 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 ## Legibility — can Lucas still read what he owns
 
 **🟢 the audit's words also name code, and the rename is unfinished until identifiers follow**
-*What* — `seam` `slug` out of identifiers, plus `tier` → `level` (ruled; a parsed value in
+*What* — `boundary` `slug` out of identifiers, plus `tier` → `level` (ruled; a parsed value in
 `core/permissions.txt` and 9 modules), then every row in § Retired tokens. **`probe` owes its row
 and cannot have one**: `brain/goals/lih-dd.md` uses the word in Lucas's research sense, in his own
 pt-br, and a row would red the suite on his writing. Ask him, or give goal files an exemption.

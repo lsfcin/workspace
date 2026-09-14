@@ -34,7 +34,7 @@ writing, project's commit conventions) and push the feature branch. Do not merge
 
 **Spec promotion (SDD).** Before deleting `.craft/<slug>/`, if the chain touched a `code/` module, distill its durable
 contract into the module's `SPEC.md` (create from `code/_templates/module.SPEC.md` if absent): fold the Carry `criteria`
-C1..Cn and Loop 3's `seams` into the spec's `## Invariants`/`## Examples`, point `## Examples` at the new tests
+C1..Cn and Loop 3's `boundaries` into the spec's `## Invariants`/`## Examples`, point `## Examples` at the new tests
 (`4a-tests.md`), and set the `CONTEXT.md` `> spec: SPEC.md` line + `status: locked`. This converts the ephemeral
 per-feature journal into a durable per-module contract — a new module born this way satisfies the `1d` new-module gate
 on the same commit. See `code/ROADMAP-spec-drive.md`.
