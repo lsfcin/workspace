@@ -92,7 +92,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/legibility-identifiers is 5 ahead of main
+- . — feature/legibility-identifiers is 6 ahead of main
 
 ### Local branches already merged into their base
 

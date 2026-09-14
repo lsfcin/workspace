@@ -69,14 +69,13 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 ## Legibility — can Lucas still read what he owns
 
 **🟢 the audit's words also name code, and the rename is unfinished until identifiers follow**
-*What* — `slug` out of identifiers, then every row in § Retired tokens. **Two words owe a row and
-cannot have one**, because the check matches a spelling and a word has senses: `probe` survives in
-`brain/goals/lih-dd.md` (Lucas's research sense, his pt-br), and `tier` in `paper-jarbinhas.md` ("a
-lower-tier venue") and `code/freeai/CONTEXT.md` ("free tier", the pricing plan). Ask Lucas, or give
-his own writing the exemption a URL already has.
-*Why* — `retired_hits` matches filenames, so a row added while a module still carries the word reds
-the suite on our own code. Never sweep a bracketed short name, Lucas's pt-br goal files, or a word
-carrying a second sense elsewhere in the tree. Each of the three costs a revert.
+*What* — `slug` out of identifiers, then its row in § Retired tokens. Five of seven are done. The
+sixth, `probe`, is renamed everywhere and owes only its row: `brain/goals/google-migration.md` names
+a Drive deck `__probe_delete_me` that no rename of ours can reach, so the row lands the moment
+Lucas deletes that deck — which is what the line beside it already asks him to do.
+*Why* — the check matches filenames, so a row added while a module still carries the word reds the
+suite on our own code. Never sweep a bracketed short name, or a word carrying a second sense
+elsewhere in the tree — each costs a revert, and one word had three senses in one tree.
 *Done when* — the entropy scan finds zero survivors of every row.
 
 **🟡 the health picture: keep what Lucas reads at a glance, cut the rest**

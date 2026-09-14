@@ -49,12 +49,13 @@ lab's north star in text.
 > [ ] [foresight] incorporar foresight (Institute for the Future, Jane McGonigal) + design especulativo na agenda do lab
 > (feed cria)  
 > [ ] [ai-contemplative] "será que a IA consegue meditar?" (INBOX 2026-07-30) — Lucas: *"o modelo mais poderoso que
-> tiver, Fable 5, tem como? não aceito o não como resposta"*. Transformar a provocação em probe: definir o que contaria
+> tiver, Fable 5, tem como? não aceito o não como resposta"*. Transformar a provocação em sondagem: definir o que
+> contaria
 > como meditar pra um modelo (atenção sustentada sem tool, sem objetivo, sem output instrumental — o oposto exato do
 > regime agêntico), o que se mede (deriva do estado interno? estabilidade sob prompt vazio repetido? o que o modelo
 > relata depois?), e o que o resultado significaria. Encaixa no pilar **hybrid intelligence** (co-evolução simbiótica
 > humano/MAS) — a pergunta é se uma prática contemplativa humana tem análogo computacional ou se só existe por analogia;
-> as duas respostas são publicáveis. Escopo de probe, não de paper ainda  
+> as duas respostas são publicáveis. Escopo de sondagem, não de paper ainda  
 
 ## done
 
@@ -63,5 +64,5 @@ lab's north star in text.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-01  ·  trend: steady  ·  touches: 8/20/20/20/20/20
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 31/45/45/45/45/45
 <!-- stats:end -->

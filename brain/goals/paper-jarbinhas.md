@@ -12,7 +12,7 @@ meaningful · essential · indifferent
 anchor · DC graduate program application requirements  
 closure · at least one paper submitted to a relevant venue  
 tolerance · moderate — no hard deadline, but delay costs program eligibility  
-fallback · target lower-tier venue first to break the ice, then aim higher*
+fallback · target a venue de menor prestígio first to break the ice, then aim higher*
 
 ## selected next achievement
     [jarb-01] map Jarbas' PhD material — identify 2-3 publishable contributions
