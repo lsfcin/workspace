@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# Directory fanout: how many files one directory asks a reader to hold at once.
+# Directory crowding: how many files one directory asks a reader to hold at once.
 #
 # The rule is not new. A files-per-directory threshold has always existed, and
 # `context_synchronizer.sync` has always warned when a directory crosses it — but it warned
 # to stdout, during a sync nobody reads, so the tail grew unopposed. This module is that
-# same law, surfaced where the other Tier 0 checks are read. Both the threshold and the
+# same law, surfaced where the other Level 0 checks are read. Both the threshold and the
 # definition of "code file" are imported from limits.env / file_law.py, never restated:
 # a second copy of a limit is the drift these checks exist to catch.
 #
@@ -22,7 +22,7 @@ from file_law import is_authored, load_limits  # noqa: E402
 from platform_law import rel as _rel  # noqa: E402
 
 
-def fanout_counts(files: list, root: Path) -> Counter:
+def crowding_counts(files: list, root: Path) -> Counter:
     """Directory -> number of code files, using the one definition in file_law.
 
     Deliberately not every file: a flat collection of documents is a legitimate shape
@@ -37,21 +37,21 @@ def fanout_counts(files: list, root: Path) -> Counter:
     return counts
 
 
-def fanout_signals(files: list, root: Path, limit: int = None) -> list:
+def crowding_signals(files: list, root: Path, limit: int = None) -> list:
     """Directories whose routing table is large because the directory is.
 
-    Switched off by the `fanout-limit` feature, one of the four the ablation names. The switch
+    Switched off by the `crowding-limit` feature, one of the four the ablation names. The switch
     sits here rather than at the dashboard's call site so that counting stays available to
     anything that wants the number without the judgement — off means this workspace stops
-    *asking* about fanout, not that it stops being able to see it.
+    *asking* about crowding, not that it stops being able to see it.
     """
-    if not feature_law.is_enabled('fanout-limit'):
+    if not feature_law.is_enabled('crowding-limit'):
         return []
     limits = load_limits()
     warn = limits['WARN_FILES'] if limit is None else limit
     block = limits['BLOCK_FILES']
     signals = []
-    for directory, count in fanout_counts(files, root).items():
+    for directory, count in crowding_counts(files, root).items():
         if count <= warn:
             continue
         rel = _rel(directory, root)

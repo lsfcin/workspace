@@ -1,5 +1,5 @@
-# Every external dependency the core/tools surface needs, declared: what installs it, what probes it, and what its absence breaks. Read by core/tools/wos/deps
-# (the probe runner) and by core/tools/test/wos/test_deps.py (the class check).
+# Every external dependency the core/tools surface needs, declared: what installs it, what checks it, and what its absence breaks. Read by core/tools/wos/deps
+# (the check runner) and by core/tools/test/wos/test_deps.py (the class check).
 #
 # WHY THIS FILE EXISTS: four features were installed straight into .venv to unblock a tool and
 # never written down, so a fresh clone lost them SILENTLY — the tool did not crash, it returned a
@@ -13,28 +13,28 @@
 #            `apt` names one. A row earns `system` only when its name is VERIFIED to resolve on the
 #            others — ffmpeg does (winget Gyan.FFmpeg, checked 2026-08-30), tesseract-ocr,
 #            poppler-utils and ddgr do not, so they stay `apt` rather than claim a portability
-#            nobody probed. `service` is the one kind NOTHING INSTALLS: a remote API this surface
+#            nobody checked. `service` is the one kind NOTHING INSTALLS: a remote API this surface
 #            depends on, which is present or absent by someone else's decision. It was added
 #            2026-09-13 because every other row here asks whether a module IMPORTS, and a whole
 #            research run found core/tools/paper/papers dead on both arms while `deps` reported
 #            all declared dependencies present — the first measured instance of ROADMAP.md
-#            § Portability's *no probe falsely greens*. A probe that cannot fail is not a probe.
+#            § Portability's *no check falsely greens*. A check that cannot fail is not a check.
 #   import   the python module it provides, or - for anything not imported by our code.
 #            THIS IS THE JOIN KEY: test_deps.py fails on any third-party import missing from here.
-#   probe    HOW to ask whether the dep is here, as `<verb>:<arg>`. Three verbs, dispatched in
+#   check    HOW to ask whether the dep is here, as `<verb>:<arg>`. Three verbs, dispatched in
 #            core/tools/wos/deps:
 #              import:<module>      import it with this clone's interpreter (platform_law)
 #              venv-script:<name>   a console script installed INTO the venv (platform_law)
 #              cmd:<command>        a binary on PATH; run from the workspace root
 #            IT USED TO BE A RAW SHELL COMMAND, and 17 of 27 rows spelled the POSIX venv bin directory -- a
 #            directory that is `.venv/Scripts` on Windows. So on any clone but the authoring one
-#            every one of those probes failed to RUN and the tool reported the dependency MISSING:
+#            every one of those checks failed to RUN and the tool reported the dependency MISSING:
 #            the same false answer the old `make verify-fast` gate gave. The registry's own rule is
 #            that a dependency has one name; a per-machine spelling per row broke it.
 #   feature  the feature slug that owns it — same slugs SETUP.md declares per step
 #   breaks   what stops working without it, written in the words the FAILURE uses
 #
-name	kind	import	probe	feature	breaks
+name	kind	import	check	feature	breaks
 pytest	pip	pytest	import:pytest	verify-suite	verify.py cannot run the suite at all, so the pre-commit gate has nothing to check
 pytest-xdist	pip	xdist	import:xdist	verify-suite	verify.py fast falls over on the -n auto it passes; without it the suite is serial and a commit costs 167 s instead of 45 s
 mypy	pip	-	venv-script:stubgen	interface-stubs	interface stubs stop regenerating on save; the .pyi files go stale without anything saying so

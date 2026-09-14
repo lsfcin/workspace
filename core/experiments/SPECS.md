@@ -21,7 +21,7 @@ So: **a new instrument owes one hand-check against raw data before anything is q
 a stored number its own tool can no longer reproduce is **deleted, not softened**.
 
 Its sibling, earned 2026-08-17: **a claim about our own enforcement layer is checked at the call
-site, never at the module.** `entropy_ledger.py` carries a finished-work detector, but the commit
+site, never at the module.** `entropy_list.py` carries a finished-work detector, but the commit
 gate imports only its wiki-link half — stopping at *"the module has the check"* would have deleted a
 workspace rule that nothing actually blocks. Owning a detector and charging for it are separate facts.
 

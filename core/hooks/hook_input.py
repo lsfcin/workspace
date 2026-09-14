@@ -107,7 +107,7 @@ def normalise(raw: str) -> str:
 # had just read, on the turn it did the right thing.
 #
 # Creating a DISTINCT file is atomic on both systems: no lock, no retry, and nothing here has to ask
-# the seam what an operating system is. The entry's name is a digest of the path so the same mark
+# the boundary what an operating system is. The entry's name is a digest of the path so the same mark
 # twice is the same file, which is also what makes marking idempotent and lets every caller drop its
 # read-before-write guard.
 def store(session_id: str, kind: str) -> Path:
@@ -164,7 +164,7 @@ def mark_seen(session_id: str, path: str) -> None:
 	_mark(session_id, 'ctx_seen', path)
 
 
-# The interface marker is the same session-scoped ledger one store over, and it lived privately in
+# The interface marker is the same session-scoped list one store over, and it lived privately in
 # read/context-tracker.py — which no gate can import, because a hyphen is not an identifier. That is
 # the whole reason context-tracker grew a query CLI arm, now deleted with the shell caller that
 # needed it. Beside its twin, both readers just call it. The facade pair is the third of the same

@@ -26,7 +26,7 @@
 from conftest import git_lines as _git
 from platform_law import AUTHORING_ROOT, POSIX_VENV_BIN
 
-SEAM = 'core/hooks/platform_law.py'
+BOUNDARY = 'core/hooks/platform_law.py'
 
 
 def _files(*args) -> list:
@@ -42,16 +42,16 @@ def _files(*args) -> list:
     """
     return sorted({line.partition(':')[0] for line in _git('grep', '-n', *args)})
 
-# THE NEEDLES COME FROM THE SEAM, WHICH IS WHY THESE ARE NUMBERS AND NOT BUDGETS (2026-08-30).
+# THE NEEDLES COME FROM THE BOUNDARY, WHICH IS WHY THESE ARE NUMBERS AND NOT BUDGETS (2026-08-30).
 #
 # Both counts used to sit at 44 and 19 with a comment predicting "a floor somewhere above zero made
 # of the documents that have to name both spellings". That floor was not a fact about the problem,
 # it was the shape of the answer: platform_law.py branched on these two strings without EXPORTING
-# them, so every consumer re-spelled the literal -- deps.txt in 17 probe rows, wos/deps,
+# them, so every consumer re-spelled the literal -- deps.txt in 17 check rows, wos/deps,
 # wos/permissions, and these tests. The ceilings were counting that duplication.
 #
-# The seam publishes its data now, the consumers ask, and what is left is one file each:
-MACHINE_PATH_CEILING = 1   # the seam, which names the authoring root so a checker can search for it
+# The boundary publishes its data now, the consumers ask, and what is left is one file each:
+MACHINE_PATH_CEILING = 1   # the boundary, which names the authoring root so a checker can search for it
 VENV_POSIX_CEILING = 1     # core/run, below -- and it is a paradox, not an exemption
 
 # A ceiling of one with a named holder is a law; a ceiling of nineteen is an allowance a real defect
@@ -68,7 +68,7 @@ VENV_POSIX_CEILING = 1     # core/run, below -- and it is a paradox, not an exem
 # is a page saved from the university's site — not ours to rewrite at all.
 RECORDS = (':!core/experiments/**', ':!.craft/**', ':!*.log', ':!brain/**', ':!academy/**/*.html')
 
-# The venv seam, and exempt from the venv ceiling for the reason platform_law.py is exempt from the
+# The venv boundary, and exempt from the venv ceiling for the reason platform_law.py is exempt from the
 # sys.platform one: naming both layouts is this file's entire job. A hooks config is data, read
 # before any of our code runs, so it cannot ask a Python function which interpreter to use -- the
 # launcher is where that question gets answered once for every harness shim in the tree, and since
@@ -109,30 +109,30 @@ def test_no_per_os_script_sits_beside_the_python():                             
     assert not forks, (
         f'per-OS script forks are back: {forks}. Porting bash to Python removes the per-OS axis, '
         'it does not add a Windows arm -- all three forks this workspace ever had were broken by '
-        f'the time the port found them. A platform difference goes in {SEAM}')
+        f'the time the port found them. A platform difference goes in {BOUNDARY}')
 
 
-def test_only_the_seam_knows_what_an_os_is():                                                # I2
+def test_only_the_boundary_knows_what_an_os_is():                                                # I2
     knowing = sorted({f for f in _git('grep', '-lF', 'sys.platform', '--')
-                      + _git('grep', '-lF', 'platform.system', '--') if f != SEAM})
+                      + _git('grep', '-lF', 'platform.system', '--') if f != BOUNDARY})
     assert not knowing, (
-        f'these name an operating system outside the seam: {knowing}. Ask {SEAM} instead, and '
+        f'these name an operating system outside the boundary: {knowing}. Ask {BOUNDARY} instead, and '
         'add the answer there if it does not have one yet')
 
 
-def test_a_path_that_becomes_data_is_spelled_by_the_seam():                                  # AD-8
+def test_a_path_that_becomes_data_is_spelled_by_the_boundary():                                  # AD-8
     hand_rolled = sorted({f for f in _files('str(.*relative_to', '--')
-                          if f != SEAM})
+                          if f != BOUNDARY})
     assert not hand_rolled, (
         f'these spell a relative path by hand: {hand_rolled}. str() of a relative_to hands back a '
-        f'backslash on one machine and a slash on another; {SEAM} rel() is the one spelling')
+        f'backslash on one machine and a slash on another; {BOUNDARY} rel() is the one spelling')
 
 
-def test_no_setup_shard_is_named_for_an_operating_system():                                  # I3
-    shards = [f for f in _git('ls-files', 'SETUP-*.md')
+def test_no_setup_part_is_named_for_an_operating_system():                                  # I3
+    parts = [f for f in _git('ls-files', 'SETUP-*.md')
               if any(name in f.lower() for name in ('windows', 'linux', 'macos', 'darwin'))]
-    assert not shards, (
-        f'SETUP shards are per FEATURE, never per OS: {shards}. A shard named for a system '
+    assert not parts, (
+        f'SETUP parts are per FEATURE, never per OS: {parts}. A part named for a system '
         'declares that system the exception and another the default')
 
 
@@ -141,14 +141,14 @@ def test_a_machine_path_does_not_spread():                                      
     assert len(live) <= MACHINE_PATH_CEILING, (
         f'{len(live)} versioned files hardcode the authoring machine\'s root, over '
         f'{MACHINE_PATH_CEILING}: {live}. Resolve the root at run time -- every tool here already '
-        f'does -- or ask {SEAM} for the string if you must name it')
+        f'does -- or ask {BOUNDARY} for the string if you must name it')
 
 
 def test_a_posix_only_venv_path_does_not_spread():                                           # I6
-    live = [f for f in _files('-F', POSIX_VENV_BIN, '--', *RECORDS) if f != SEAM]
+    live = [f for f in _files('-F', POSIX_VENV_BIN, '--', *RECORDS) if f != BOUNDARY]
     assert len(live) <= VENV_POSIX_CEILING, (
         f'{len(live)} versioned files name the POSIX venv bin directory, over '
-        f'{VENV_POSIX_CEILING}: {live}. It is {SEAM}\'s WINDOWS_VENV_BIN elsewhere -- ask '
+        f'{VENV_POSIX_CEILING}: {live}. It is {BOUNDARY}\'s WINDOWS_VENV_BIN elsewhere -- ask '
         '`venv_script(name)` for a console script, or the two constants if you need both names')
 
 
@@ -161,10 +161,10 @@ def test_the_launcher_is_the_only_thing_that_cannot_ask():
     somebody did not want to fix -- and it is worth one test of its own, because the honest floor
     of a ratchet is a claim that should fail loudly if it stops being true.
     """
-    live = [f for f in _files('-F', POSIX_VENV_BIN, '--', *RECORDS) if f != SEAM]
+    live = [f for f in _files('-F', POSIX_VENV_BIN, '--', *RECORDS) if f != BOUNDARY]
     assert live == [LAUNCHER], (
         f'expected the launcher alone to name the venv layout, found {live}. If a NEW file needs '
-        f'it, it almost certainly wants {SEAM}.venv_script() instead')
+        f'it, it almost certainly wants {BOUNDARY}.venv_script() instead')
 
 
 REGISTRATION_GLOBS = ('*.json', '*.js', '*.toml')
@@ -190,7 +190,7 @@ def test_no_shell_hook_spawns_the_bare_word_python3():                          
     registrations spelled `python3` and `python` and nothing looked. A registration is a
     registration whatever file type it lives in. Two arms, because command position is spelled
     differently: a shell file runs a bare word, a config quotes one. Neither matches `--python`,
-    `python()` or a `python` variable — which is how .opencode/ and caveman ask the seam by name.
+    `python()` or a `python` variable — which is how .opencode/ and caveman ask the boundary by name.
     """
     live = (_spawns(SHELL_SPAWN, ('*.sh',)) + _spawns(QUOTED_SPAWN, REGISTRATION_GLOBS))
     assert not live, (

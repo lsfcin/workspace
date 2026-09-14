@@ -8,7 +8,7 @@
 # technique.
 #
 # IMPORTED, NOT SOURCED, since the 2026-09-01 port. The validator was a shell fragment that
-# `sync-skills` supplied $WORKSPACE to, so a probe had to spawn `bash -c 'WORKSPACE=…; source …'`
+# `sync-skills` supplied $WORKSPACE to, so a check had to spawn `bash -c 'WORKSPACE=…; source …'`
 # and spell both paths as POSIX text -- the Windows spelling arrived with every separator eaten,
 # bash reported the validator missing, and the case read as the rule having stopped firing. The
 # functions take their root as an argument now, so a throwaway tree is just an argument.
@@ -58,7 +58,7 @@ def test_a_loop_with_a_numeric_cap_passes(tmp_path):
 
 def test_a_loop_with_no_number_is_rejected(tmp_path):
     """"Until the review passes" is exactly the wording that made this workspace's own adversarial
-    review the unbounded case, so it is the wording the probe uses."""
+    review the unbounded case, so it is the wording the check uses."""
     problems = _validate(tmp_path, {'unbounded.md': UNBOUNDED})
     assert len(problems) == 1
     assert 'unbounded.md' in problems[0]
@@ -79,11 +79,11 @@ def test_the_files_that_state_the_rule_are_not_judged_by_it(tmp_path):
                                 'SPECS.md': STATES_THE_RULE}) == []
 
 
-def test_a_sharded_flow_is_checked_against_its_whole_family(tmp_path):
+def test_a_cut_flow_is_checked_against_its_whole_family(tmp_path):
     """The unit is the FLOW, not the file: a flow that outgrew the line cap and split still has one
-    cap, and it may be stated in any shard."""
-    assert _validate(tmp_path, {'shard.md': UNBOUNDED,
-                                'shard-two.md': 'Iteration cap: at most 4 passes.\n'}) == []
+    cap, and it may be stated in any part."""
+    assert _validate(tmp_path, {'part.md': UNBOUNDED,
+                                'part-two.md': 'Iteration cap: at most 4 passes.\n'}) == []
 
 
 def test_the_real_flow_corpus_is_clean():

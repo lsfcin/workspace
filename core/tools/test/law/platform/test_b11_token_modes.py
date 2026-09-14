@@ -2,7 +2,7 @@
 #
 # The Google token directories landed at 775 with 664 token files: any local account could read
 # a live refresh token, and nothing in the workspace set a mode when it wrote. platform_law owns
-# the seam (secure_dir / secure_file) and gauth applies it where it writes. Ruling 2026-08-31
+# the boundary (secure_dir / secure_file) and gauth applies it where it writes. Ruling 2026-08-31
 # (Lucas): tightening must not break multi-user local use — tokens live per-HOME, so another
 # account's own tool runs keep working; what stops is every other account reading THIS one's.
 import os
@@ -17,7 +17,7 @@ from platform_law import is_owner_only, secure_dir, secure_file  # noqa: E402
 
 posix_only = pytest.mark.skipif(os.name != 'posix',
                                 reason='mode bits are the POSIX answer; an ACL system owes the '
-                                       'seam its own and this file must not fake one')
+                                       'boundary its own and this file must not fake one')
 
 
 @posix_only

@@ -25,7 +25,7 @@ Every INBOX entry lands in exactly one place:
 |-------|-------------|--------|
 | **goal** | new goal file in `brain/goals/` or backlog item in an existing goal | `goal` |
 | **task** | commitment → backlog item in the goal it serves (`brain/goals/*.md`); capture with no clear goal → stays in `INBOX.md` | `task` |
-| **ref** | domain `refs/REFS.md` — one tier-1 line (routing table + convention below) | `ref` |
+| **ref** | domain `refs/REFS.md` — one level-1 line (routing table + convention below) | `ref` |
 | **project** | `code/<proj>/ROADMAP.md` `## Backlog` (idea) or `ISSUES.md` (bug) | `proj: <name>` |
 | **draft** | new file in `branches/writing/drafts/[slug].md` | `draft` |
 | **delete** | gone | `delete` |
@@ -61,11 +61,11 @@ A `ref` goes to the **nearest owning folder's** `refs/REFS.md` — never a centr
 | AI / agent / model tooling to evaluate | `core/refs/REFS.md` |
 | no clear owner yet | `core/refs/REFS.md` (if tooling) — else ask Lucas |
 
-### refs/ two-tier convention
+### refs/ two-level convention
 
-- **Tier 1 — capture (default, zero-friction):** append one line to `refs/REFS.md`:
+- **Level 1 — capture (default, zero-friction):** append one line to `refs/REFS.md`:
   `- [what it is](url) — one-phrase why it matters`. This is **all** `/inbox` ever does for a ref.
-- **Tier 2 — promote (manual, deliberate):** when a ref earns real study or citation, a human promotes it to
+- **Level 2 — promote (manual, deliberate):** when a ref earns real study or citation, a human promotes it to
   `refs/<slug>.yaml` (schema = `academy/papers/*/refs/CONTEXT.md`). Triage NEVER auto-creates a yaml.
 - **Lazy creation:** the first ref routed to a domain births `refs/REFS.md` (and a minimal `refs/CONTEXT.md`: line 2 =
   `> Captured references for <domain>.`). Do NOT pre-seed empty `refs/` folders across projects.
@@ -145,7 +145,7 @@ For each entry:
    - **goal (new)** → suggest `# [ area | subarea | horizon ] title` + first backlog item + ease-start
    - **goal (existing)** → name the goal file and the exact backlog line to append
    - **task** → name the goal backlog and the exact line to append (or, if it's pure capture, that it stays in INBOX)
-   - **ref** → name the target `refs/REFS.md` and the exact tier-1 line
+   - **ref** → name the target `refs/REFS.md` and the exact level-1 line
    - **project** → name the target file (ROADMAP / ISSUES), the exact line, and the repo
    - **draft** → propose filename short name and one-line description of the draft
    - **delete** → one-line reason

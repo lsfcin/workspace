@@ -104,9 +104,9 @@ A standard large model (e.g., Claude Opus, GPT-4) operating on a full, uncurated
 A Context Folding architecture decouples these tasks. The Context Manager, which can be a larger, slower, and more deliberate model, handles the heavy lifting of filtering and retrieval. The Interaction Agent, now operating on a much smaller, highly relevant, and precisely curated context window (e.g., 20K-50K tokens), can be a **smaller, faster, and cheaper model** (e.g., Kimi K2.5, GLM-5.2, or a distilled local model).
 
 ### 5.2. Recommended Model Tiering
-Based on the Letta Model Leaderboard and general industry benchmarks, we propose the following model tiers for a Context Folding prototype:
+Based on the Letta Model Leaderboard and general industry benchmarks, we propose the following model levels for a Context Folding prototype:
 
-| Agent Role | Recommended Model Tier | Rationale |
+| Agent Role | Recommended Model Level | Rationale |
 |---|---|---|
 | **Interaction Agent** | **Efficient Frontier** (e.g., Kimi K2.5, Claude Haiku, GPT-4o-mini) | Must be fast and cheap for real-time interaction. Relies on curated context for accuracy. |
 | **ContexteredFrontier** (e.g., Claude Sonnet, GPT-4o) | Needs strong comprehension to build and query the graph accurately. Can tolerate higher latency. |

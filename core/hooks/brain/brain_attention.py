@@ -75,26 +75,26 @@ def governing_repo(rel_path):
     target = (WORKSPACE / rel_path).resolve()
     if not target.exists():
         return None
-    probe = target if target.is_dir() else target.parent
+    here = target if target.is_dir() else target.parent
     while True:
-        if (probe / ".git").exists():
-            within = workspace_rel(target, probe)
+        if (here / ".git").exists():
+            within = workspace_rel(target, here)
             # Resolving to a repo is not the same as having history in it. `branches/*`
             # and `code/*` are gitignored by the workspace repo, so a path under one that
             # is not itself a repo would silently count zero forever — the exact failure
             # mode this module exists to end.
             ignored = subprocess.run(
-                ["git", "-C", str(probe), "check-ignore", "-q", within],
+                ["git", "-C", str(here), "check-ignore", "-q", within],
                 capture_output=True,
             ).returncode == 0
-            return None if ignored else (probe, within)
-        if probe == WORKSPACE or probe.parent == probe:
+            return None if ignored else (here, within)
+        if here == WORKSPACE or here.parent == here:
             return None
-        probe = probe.parent
+        here = here.parent
 
 
 def _is_bookkeeping(paths):
-    """True when a commit only rearranged the ledger that records attention.
+    """True when a commit only rearranged the list that records attention.
 
     Reads *what changed*, never the commit message, so no amount of commit-style
     discipline (or its absence) can move a goal's number.
@@ -111,7 +111,7 @@ def harvest(repo):
     Merges emit no --name-only output and drop out here, which is what we want: the
     develop/main promotions in core/tools/wos/roundup add no authorship of their own.
 
-    The `brain-attention` seam (core/SPECS.md § AD-14). This module has no main(); every
+    The `brain-attention` boundary (core/SPECS.md § AD-14). This module has no main(); every
     path into it — Attention.__init__, and through it brain_stats and the dashboard —
     reaches history through this one call, so switching it off here leaves every caller
     intact with nothing harvested, rather than raising somewhere up the chain.

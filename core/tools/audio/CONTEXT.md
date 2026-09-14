@@ -11,5 +11,5 @@ punctuation; write it as writing someone could have said.
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`stt.py`](stt.py) | [`stt.pyi`](stt.pyi) | `model`, `confident`, `run` | stt.py — speech-to-text boundary: faster-whisper large-v3-turbo, lazy-loaded; fails safe to "" . Priming is the CALLER's data — a domain passes its own carrier writing to `run`, because the prompt is what buys both vocabulary and punctuation, and no two domains share one. |
+| [`stt.py`](stt.py) | [`stt.pyi`](stt.pyi) | `model`, `confident`, `run` | stt.py — speech-to-text boundary: faster-whisper large-v3-turbo, lazy-loaded; fails safe to "" . Priming is the CALLER's data — a domain passes its own carrier prose to `run`, because the prompt is what buys both vocabulary and punctuation, and no two domains share one. |
 <!-- routing:end -->

@@ -5,7 +5,7 @@
 # automatic — an ast walk cannot be fooled. The BINARY half (pandoc, ffmpeg, flutter, gallery-dl,
 # invoked through a shell string) is declaration-only, because deciding which binaries a program
 # shells out to is not decidable by a scan. Those rows are kept honest by `core/tools/wos/deps`
-# probing them, not by this file.
+# checking them, not by this file.
 import ast
 import subprocess
 import sys
@@ -73,7 +73,7 @@ def test_every_third_party_import_is_declared():
 def test_every_declared_row_is_complete():
     for row in _rows():
         assert row['kind'] in {'pip', 'apt', 'system', 'npm', 'npx', 'binary', 'service'}, row
-        assert row['probe'].strip(), f"{row['name']} declares no probe"
+        assert row['check'].strip(), f"{row['name']} declares no check"
         assert row['feature'].strip(), f"{row['name']} declares no feature"
         assert len(row['breaks'].split()) >= 5, (
             f"{row['name']}'s `breaks` must say what the failure looks like, not name the dep")
@@ -95,7 +95,7 @@ def test_every_tool_runs_under_the_workspace_venv():
         'interpreter, instead of giving them a shebang.')
 
 
-def test_the_probe_runner_agrees_with_this_file():
+def test_the_check_runner_agrees_with_this_file():
     """One parser, not two. If `deps` drifts from deps.txt, the install steps stop being checkable."""
     out = subprocess.run([sys.executable, str(WORKSPACE_ROOT / 'core/tools/wos/deps'), '--feature',
                           'verify-suite'], capture_output=True, text=True, cwd=WORKSPACE_ROOT, encoding='utf-8')

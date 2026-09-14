@@ -6,7 +6,7 @@
 ## Overview
 One `AgentBackend` interface normalizes every coding-agent CLI into a stream of `AgentEvent`s,
 so the frontend (Telegram) never knows which provider runs underneath — provider is data, not code.
-Phase A (current) proves the seam against claude + opencode with a bare harness + free fixture tests,
+Phase A (current) proves the boundary against claude + opencode with a bare harness + free fixture tests,
 before any Telegram wiring.
 
 `make test` runs the free fixture tests; `make smoke` runs one live prompt through each backend
@@ -19,8 +19,8 @@ feature's install already lives.
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`backend/`](backend/CONTEXT.md) | Provider-agnostic seam: each coding-agent CLI → normalized AgentEvent stream; one class per provider. |
-| [`frontend/`](frontend/CONTEXT.md) | Telegram frontend on the AgentBackend seam — /new + reply-to-continue + INBOX capture. |
+| [`backend/`](backend/CONTEXT.md) | Provider-agnostic boundary: each coding-agent CLI → normalized AgentEvent stream; one class per provider. |
+| [`frontend/`](frontend/CONTEXT.md) | Telegram frontend on the AgentBackend boundary — /new + reply-to-continue + INBOX capture. |
 | [`tests/`](tests/CONTEXT.md) | Free unit tests — pure-logic fixtures/parsers/formatting, no network or cost. |
 
 | File | Interface | Description |
@@ -30,9 +30,9 @@ feature's install already lives.
 | [`ROADMAP-p2.md`](ROADMAP-p2.md) | — | aiwbot — P2: backend + model + effort selection |
 | [`ROADMAP-p3.md`](ROADMAP-p3.md) | — | aiwbot — P3: Telegram output fidelity + `/resume` stability |
 | [`ROADMAP.md`](ROADMAP.md) | — | aiwbot — Roadmap |
+| [`SPECS-boundary.md`](SPECS-boundary.md) | — | The one interface every coding-agent CLI becomes, and what it must pin. |
 | [`SPECS-capability.md`](SPECS-capability.md) | — | What a backend declares it can do, and how mode, model and effort are offered. |
 | [`SPECS-questions.md`](SPECS-questions.md) | — | An agent that asks: how the question is carried, positioned, and answered. |
-| [`SPECS-seam.md`](SPECS-seam.md) | — | The one interface every coding-agent CLI becomes, and what it must pin. |
 | [`SPECS-sessions.md`](SPECS-sessions.md) | — | Where a session lives, who can see it, and how a resume keeps one lineage. |
 | [`SPECS-streaming.md`](SPECS-streaming.md) | — | How an answer arrives bubble by bubble, what is sealed, and what spend means. |
 | [`SPECS-telegram.md`](SPECS-telegram.md) | — | Panels, buttons, tables and speech-to-text: what the chat client can render. |

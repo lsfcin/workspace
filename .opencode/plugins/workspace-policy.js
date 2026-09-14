@@ -14,7 +14,7 @@
 // out of plugins/ so opencode does not auto-load them as a plugin).
 //
 // Every payload carries a session-stable id (`opencode<host-pid>`, the Copilot
-// pattern) and every spawn asks core/run for the interpreter — the platform seam —
+// pattern) and every spawn asks core/run for the interpreter — the platform boundary —
 // never the bare word python3. Full event->script mapping, stdin-vs-env schema,
 // and the warning-surfacing limitation are documented in ../CONTEXT.md.
 
@@ -33,9 +33,9 @@ export const WorkspacePolicy = async ({ client }) => {
   // feature_law.py's --enabled arm, which exists so a second harness reaches the same
   // registry without a second implementation of it. Off = register no hooks at all,
   // which is the honest observable: opencode runs with none of the canonical gates.
-  // The interpreter comes from core/run --python (the platform seam): the bare word
+  // The interpreter comes from core/run --python (the platform boundary): the bare word
   // `python3` is the spelling that silently disables the whole plugin on a Windows
-  // clone — the Store alias prints an advert, exits 9009, and the probe reads as "off".
+  // clone — the Store alias prints an advert, exits 9009, and the check reads as "off".
   const py = python()
   if (!py) return {}
   const on = spawnSync(py, [`${HOOKS}/feature_law.py`, "--enabled", "opencode-plugin"], {

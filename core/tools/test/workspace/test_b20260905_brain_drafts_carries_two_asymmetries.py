@@ -15,7 +15,7 @@
 #
 # A DRAFT LEAVES RATHER THAN ACCUMULATES. What survives is promoted to whatever owns it — a goal
 # file, academy/teaching/SPECS-aulas.md, core/refs/REFS.md — and the draft is deleted, git being
-# the history. A directory of drafts nobody promotes is a second ledger wearing a folder. This rule
+# the history. A directory of drafts nobody promotes is a second list wearing a folder. This rule
 # lives here rather than in the CONTEXT.md head because CONTEXT.md is the one enforced-read type
 # and a contract in its head is a finding (core/SCHEMA.md § Placement); the head points here.
 #
@@ -77,8 +77,8 @@ def test_the_drafts_that_started_this_are_the_ones_now_carried() -> None:
 
 
 def test_a_model_named_in_a_filename_is_not_what_the_vendor_check_forbids() -> None:
-    """The ruling, made checkable. The norm bans a ledger assigning a MODEL where it should assign
-    a tier — a bolded `**model: …**` directive — not the word appearing as data. If this ever fails,
+    """The ruling, made checkable. The norm bans a list assigning a MODEL where it should assign
+    a level — a bolded `**model: …**` directive — not the word appearing as data. If this ever fails,
     someone has widened the check into a token ban, and the three-way comparison in brain/drafts/
     loses the labels that are its whole point."""
     import entropy_vendor

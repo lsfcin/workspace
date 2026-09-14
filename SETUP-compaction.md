@@ -59,7 +59,7 @@ PATCH
 
 **Verify** — end to end. **Config alone proves nothing.**
 ```bash
-printf '%s' '{"hook_event_name":"PreToolUse","tool_name":"Bash","session_id":"probe",
+printf '%s' '{"hook_event_name":"PreToolUse","tool_name":"Bash","session_id":"check",
 "tool_input":{"command":"cd core\ngit status\nls -la"}}' \
   | sh core/run hooks/compact/bash-compact-rewrite.py
 # expect: cd core / rtk git status / rtk ls -la  — lines 2 and 3 are what raw rtk drops
@@ -97,7 +97,7 @@ PATCH
 ```
 
 **Verify** — the same end-to-end check as the Claude section; expect `split-rewrote` in the
-`/tmp/claude_rtk_compact_probe.tsv` counter. Config alone proves nothing.
+`/tmp/claude_rtk_compact_check.tsv` counter. Config alone proves nothing.
 
 ## RTK — other agents
 > feature: `rtk-compaction` · agent: yes

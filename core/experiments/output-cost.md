@@ -127,9 +127,9 @@ deleted RTK.md and lost the instruction"*; *"the hook only tracks"*; *"the hook 
 all"* — measured as `rtk gain` delta 0; and *"PreToolUse cannot mutate tool input"*, the hypothesis
 that delta implied. What is true: `PreToolUse` **does** apply `updatedInput` without requiring
 `permissionDecision: "allow"`, and **rtk parses the first line of a payload and nothing else**. The
-delta-0 test was submitted as one multi-line Bash call, so its probe commands sat on lines 2 and 3
-and never reached rtk. **A negative result is a claim about the probe before it is a claim about the
-system** — vary the probe's shape before believing it. Details:
+delta-0 test was submitted as one multi-line Bash call, so its check commands sat on lines 2 and 3
+and never reached rtk. **A negative result is a claim about the check before it is a claim about the
+system** — vary the check's shape before believing it. Details:
 [`core/hooks/compact/SPECS.md`](../hooks/compact/SPECS.md).
 
 **3. The instrument built to end the guessing was itself wrong** (2026-08-16), in two independent

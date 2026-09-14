@@ -26,7 +26,7 @@ which is the arc itself.
 The ask was *"have adversarials as our standards, maybe enforced — e.g. a plan that doesn't have any
 adversarial steps is rejected"*. Two findings move it, and the second inverts what gets built.
 
-**The standard already exists here.** Loop 1 is an adversarial plan review with FATALs and tier
+**The standard already exists here.** Loop 1 is an adversarial plan review with FATALs and level
 escalation, and Loop 3 runs a second adversarial pass at architecture. What the ask describes is the
 flow's default, not a gap — for work that goes through `/craft`.
 
@@ -68,7 +68,7 @@ per feature rather than a branch, splits into ~15 independently-triggering skill
 spine, ships named `systematic-debugging` / `verification-before-completion` workflows we lack, and
 packages itself for 14 harnesses.
 
-**What we have that it does not, and why that decides it.** Per-task **tier and effort with
+**What we have that it does not, and why that decides it.** Per-task **level and effort with
 escalation rules** — cost-aware model routing, absent from its uniform subagent-per-task dispatch —
 and the **file-relayed Carry**, where a fresh session reads exactly one file. Both exist because this
 workspace's binding constraint is quota, not developer time. Adopting Superpowers wholesale would

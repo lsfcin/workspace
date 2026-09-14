@@ -36,7 +36,7 @@ def test_truncation_never_cuts_a_link_in_half() -> None:
 
 
 def test_truncation_never_cuts_a_word_in_half() -> None:
-    """`the Tier 0 checks t` read as a typo, not as a cut. Retreat to the last whole word
+    """`the Level 0 checks t` read as a typo, not as a cut. Retreat to the last whole word
     and mark the cut, so the reader can tell truncation from a mistake."""
     assert truncate_outside_links("alpha beta gamma delta", 14) == "alpha beta…"
 
@@ -55,7 +55,7 @@ def test_hoisted_row_points_into_the_child(tmp_path: Path) -> None:
     sub = tmp_path / "refs"
     sub.mkdir()
     (sub / "CONTEXT.md").write_text(
-        "# refs\n> Captured references — tier-1 links in [REFS.md](REFS.md).\n", encoding="utf-8"
+        "# refs\n> Captured references — level-1 links in [REFS.md](REFS.md).\n", encoding="utf-8"
     , newline='\n')
     (sub / "REFS.md").write_text("# refs\n", encoding="utf-8", newline='\n')
     row = build_sub_rows([sub], {})

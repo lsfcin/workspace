@@ -4,7 +4,7 @@
 Each file here is one workflow of the `research` skill ([`core/skills/research.md`](../../skills/research.md)).
 The skill is the dispatcher; these are the protocols it reads and executes. **The filename is the
 command tail**: `core/flows/research/scout.md` ⟺ `research scout`. Do not invoke these directly —
-go through the `research` skill so the shared tool-discipline and source-tier rules load.
+go through the `research` skill so the shared tool-discipline and source-level rules load.
 
 Ownership rule (see [`core/SCHEMA.md`](../../SCHEMA.md)): a flow owned by a dispatcher skill lives in
 `core/flows/<skill>/` and its filename equals the command tail; unowned flows stay flat at `core/flows/`.

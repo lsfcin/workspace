@@ -14,7 +14,7 @@
 # PORTED FROM BASH 2026-08-29, and ISSUES.md B9 is why: the gate shelled `make`, which this machine
 # does not have, so the close exited before writing either generated block — and § Verification went
 # on asserting `green (572 passed)` while the suite measured 516/78. A close that cannot run is a
-# ledger that cannot be corrected, which is why that block was never the thing to edit by hand.
+# list that cannot be corrected, which is why that block was never the thing to edit by hand.
 import sys
 from pathlib import Path
 
@@ -59,7 +59,7 @@ def verify(root: Path) -> tuple:
     # EVERY PASS, NOT THE LAST ONE. verify.py runs the suite twice when xdist is present — the cases
     # that dirty the real tree alone, then the rest in parallel — and `counts[-1]` reported whichever
     # finished last as if it were the whole run. It recorded `green (1 passed, 695 deselected)` into
-    # the ledger on 2026-09-02: a measured number, in the file whose own head forbids a copied count.
+    # the list on 2026-09-02: a measured number, in the file whose own head forbids a copied count.
     counts = [line.strip() for line in log.splitlines() if ' passed' in line]
     return (f'green ({" · ".join(counts)})' if counts else 'green'), declared[0], log
 

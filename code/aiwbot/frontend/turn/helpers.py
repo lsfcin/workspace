@@ -1,5 +1,5 @@
 # helpers.py — turn plumbing: friendly errors, /new arg parsing, sticky options, persistence.
-# Extracted out of bot.py (size gate) — pure helpers with no test-visible monkeypatch seam.
+# Extracted out of bot.py (size gate) — pure helpers with no test-visible monkeypatch boundary.
 from __future__ import annotations
 from backend import TurnOptions, get_backend
 from ..interview import ask, askserver

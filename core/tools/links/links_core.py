@@ -1,4 +1,4 @@
-# links_core.py — the slug map read+write seam, and the redirect file it emits, for links/cfpages
+# links_core.py — the slug map read+write boundary, and the redirect file it emits, for links/cfpages
 #
 # The mapping is the source of truth and lives HERE, in the workspace, versioned like every other
 # registry in core/ (features.txt, profile.txt, deps.txt, harnesses.txt are the same shape). What

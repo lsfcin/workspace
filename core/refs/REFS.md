@@ -1,6 +1,6 @@
 # References
 > What external material exists for the workspace-os / agent-library scaffold, and how much weight does each hold?
-> One line per ref, carrying tier markers `[A] [B] [P] [V] [C]`. Citation discipline: [CONTEXT.md](CONTEXT.md).
+> One line per ref, carrying level markers `[A] [B] [P] [V] [C]`. Citation discipline: [CONTEXT.md](CONTEXT.md).
 
 ## Context engineering & progressive disclosure
 - `[V]` [Effective context
@@ -28,7 +28,7 @@
 - `[A]` [Lost in the Middle](https://aclanthology.org/2024.tacl-1.9/)
   (TACL 2024) — positional degradation underlying context rot.
 
-## Model tier, cost & execution interface
+## Model level, cost & execution interface
 - `[A]` [SWE-agent](https://arxiv.org/abs/2405.15793)
   (NeurIPS 2024) — agent-computer interfaces enable automated SWE; executable enforcement/gates beat prose instructions.
 - `[A]` [Token-Budget-Aware Reasoning](https://aclanthology.org/2412.18547)
@@ -36,7 +36,7 @@
 - `[A]` [Harness Engineering for Coding Tools](https://arxiv.org/abs/2602.14690)
   (AIware 2026) — empirical survey across 2,853 repos showing executable hooks are rare and high-leverage.
 - `[P]` [A Unified Approach to Routing and Cascading](https://arxiv.org/abs/2410.10347)
-  — multi-tier model cascading foundations.
+  — multi-level model cascading foundations.
 - `[P]` [UCCI: Calibrated Uncertainty for Cascade Routing](https://arxiv.org/abs/2605.18796)
   (2026) — escalate on calibrated uncertainty rather than static labels.
 - `[V]` Opus 5 Guidance (Anthropic)
@@ -98,7 +98,7 @@
 - [KittenTTS](https://github.com/KittenML/KittenTTS) — compact CPU TTS model.
 - [ByteDance OpenViking](https://github.com/ByteDance/OpenViking) · [NVIDIA
   Switchyard](https://github.com/NVIDIA/Switchyard)
-  — context browsing and cheap-tier model routing.
+  — context browsing and cheap-level model routing.
 - [GPT-6 Astra](https://openai.com/index/gpt-6-astra/)
   — flagship OpenAI release; its example slide decks are far better than ours — study what makes
   them better (assessment task in `brain/goals/teaching-materials.md` [astra-slides]).

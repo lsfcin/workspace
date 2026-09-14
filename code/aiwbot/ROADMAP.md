@@ -4,7 +4,7 @@
 Provider-agnostic rebuild of the workspace Telegram bot. The old bot (core/tools/telegram_daemon.py)
 shells `claude -p` per message (fork/divergence). Official Anthropic Remote Control + Channels solve
 sync but lock us 100% into Claude Code — against the provider-agnostic principle. Direction: streaming,
-single-lineage, with a swappable backend seam (linuz90's architecture, rebuilt in Python). Providers
+single-lineage, with a swappable backend boundary (linuz90's architecture, rebuilt in Python). Providers
 become interchangeable data. Full design + research: brain/goals/workspace-os.md.
 
 Design of everything already shipped lives in the [SPECS.md](SPECS.md) family (AD-1…AD-33); the P2/P3 plans
@@ -81,7 +81,7 @@ concrete session's cost makes it worth more than it costs.
 
 ## Housekeeping
 - [~] **`backend/providers/opencode.py` is at 194/200** after the ask config landed, and `claude.py` at 176.
-      Both warn, neither blocks. The seam the next touch should cut along is already visible: the
+      Both warn, neither blocks. The boundary the next touch should cut along is already visible: the
       **config/env** half (`_ask_config`, `env`, `supports_ask`, the timeout) is a different
       responsibility from the **parsing** half (`parse_events`, `LineStream`, `_line_to_event`), and
       claude already splits exactly that way (`claudeparse.py`). Do it when something needs adding,
@@ -109,8 +109,8 @@ Tried or measured, then dropped — recorded so a dead idea does not resurface l
 <!-- routing:start -->
 ## Routing
 
-| Shard | Description |
-|-------|-------------|
+| Part | Description |
+|------|-------------|
 | [`ROADMAP-p2.md`](ROADMAP-p2.md) | ← add description |
 | [`ROADMAP-p3.md`](ROADMAP-p3.md) | ← add description |
 <!-- routing:end -->

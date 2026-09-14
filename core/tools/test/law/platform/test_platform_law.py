@@ -1,9 +1,9 @@
-# T0/T1 the platform seam: the one module allowed to know what an operating system is, and until
+# T0/T1 the platform boundary: the one module allowed to know what an operating system is, and until
 # now the only law module with no test of its own.
 #
 # WHAT THESE CAN AND CANNOT ASSERT. A test running on one machine sees one arm of every branch here,
 # so asserting "apt on Linux" from Windows is impossible and pretending otherwise would be the
-# weaker kind of check this workspace names. What IS assertable everywhere is the property the seam
+# weaker kind of check this workspace names. What IS assertable everywhere is the property the boundary
 # exists for: whatever machine this is, the answer is non-empty, it is the same shape, and callers
 # never have to spell a platform themselves. That is what each case below pins.
 import subprocess
@@ -14,7 +14,7 @@ from conftest import WORKSPACE_ROOT
 
 
 def test_the_install_command_is_answered_on_whatever_machine_this_is():
-    """The failure this guards is a seam that silently has no answer for the host it runs on."""
+    """The failure this guards is a boundary that silently has no answer for the host it runs on."""
     argv = platform_law.package_install('gh')
     assert argv and all(isinstance(part, str) and part for part in argv), argv
     assert argv[0] != 'gh', 'the first word is the package manager, not the package'
@@ -22,11 +22,11 @@ def test_the_install_command_is_answered_on_whatever_machine_this_is():
 
 
 def test_one_dependency_name_serves_every_package_manager():
-    """core/tools/deps.txt gives a dependency ONE name. The seam is what makes that true.
+    """core/tools/deps.txt gives a dependency ONE name. The boundary is what makes that true.
 
     Its `name` column claims to be spelled "exactly as the install command spells it" -- a contract
     that held only while one kind of machine read the file. Three managers spell things three ways,
-    so either every row forks per OS or the seam absorbs it. This pins the second.
+    so either every row forks per OS or the boundary absorbs it. This pins the second.
     """
     for name in ('gh', 'ffmpeg'):
         assert name in platform_law.package_install(name)

@@ -1,8 +1,8 @@
-# The backend seam
+# The backend boundary
 > The one interface every coding-agent CLI becomes, and what it must pin.
 > governs: backend/
 
-### AD-1 — The seam is `AgentBackend.send() -> AsyncIterator[AgentEvent]`
+### AD-1 — The boundary is `AgentBackend.send() -> AsyncIterator[AgentEvent]`
 Every backend is a CLI subprocess emitting JSON we normalize into `AgentEvent(kind, text, tool,
 session_id, cost_usd)`. `kind ∈ {text, thinking, tool, result, error}`. Minimum contract
 (`check_contract`): ≥1 `text` event AND a terminal `result` carrying `session_id`. This is the ONLY
@@ -22,7 +22,7 @@ locked the session id and refused a plain `--resume`. Phase B dropped `--bg`: `s
 `--resume` succeeds (verified live). Forking was producing cumulative VSCode sessions (N forks = N
 entries) for no benefit, so it's gone — this also matches linuz90's SDK design (plain resume, capture
 id once; see [[reference_linuz90_bot]]). The frontend still stores the latest `result.session_id` each
-turn and the seam surfaces it uniformly — that contract is unchanged and cheap insurance even though
+turn and the boundary surfaces it uniformly — that contract is unchanged and cheap insurance even though
 both ids now happen to be stable. **Edge case**: plain `--resume` IS refused if that exact session is
 concurrently open live elsewhere (interactive VSCode / a still-running agent) — the frontend detects
 the busy/not-found error and shows a "close it there first" message rather than a raw error.

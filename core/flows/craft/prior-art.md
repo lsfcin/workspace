@@ -5,26 +5,27 @@
 
 ## Research provenance
 
-The (b-refined) tier-alias + active-model-swap decision — strip `model:` provider short names from
-`.opencode/agents/craft-*.md`, keep `model: opus|sonnet|haiku` tier aliases in `.claude/agents/craft-*.md`, resolve the
-active provider once at Loop 0, spawn each loop with `opencode run -m <resolved> --agent craft-<tier> --auto` — is
+The (b-refined) level-alias + active-model-swap decision — strip `model:` provider short names from
+`.opencode/agents/craft-*.md`, keep `model: opus|sonnet|haiku` level aliases in `.claude/agents/craft-*.md`, resolve the
+active provider once at Loop 0, spawn each loop with `opencode run -m <resolved> --agent craft-<level> --auto` — is
 grounded in a deep-research run (2026-07-16) surveying academic routing/cascade papers (2023–2026) and production agent
 frameworks (Anthropic, OpenAI Agents SDK, AutoGen, CrewAI, Aider, OpenRouter, LangGraph). The dominant pattern across
 both corpora is **call-site/orchestrator-driven model injection**, not per-(role×model) pinning. Kulkarni&Kulkarni 2026
 empirically refutes the role-parametric layout on cost-Pareto (reflexive 2.3× cost for 0.943 F1 vs hierarchical 1.15×
 for 0.921, hybrid routing recovers 89% at 1.15×). Anthropic's strategic "Building Effective Agents" endorses
-Routing/Orchestrator-Workers as named patterns; Anthropic's shipped Claude Code uses `model: opus` tier-alias
-frontmatter — intra-Anthropic consistency confirms (b-refined). Voyager's single-GPT-4 pin is the negative case for tier
+Routing/Orchestrator-Workers as named patterns; Anthropic's shipped Claude Code uses `model: opus` level-alias
+frontmatter — intra-Anthropic consistency confirms (b-refined). Voyager's single-GPT-4 pin is the negative case for
+level
 diversity; Aider's architect/editor is the closest production precedent to /craft (2-loop cross-provider cascade,
 benched).
 
 Canonical artifacts (read before changing the routing):
 
-- `outputs/agent-tier-routing-agnostic.md` — the cited decision brief (22 sources, decision matrix, risk table, open
+- `outputs/agent-level-routing-agnostic.md` — the cited decision brief (22 sources, decision matrix, risk table, open
   niches)
-- `outputs/agent-tier-routing-agnostic.provenance.md` — provenance sidecar (URL + access-date + decision-relevance per
+- `outputs/agent-level-routing-agnostic.provenance.md` — provenance sidecar (URL + access-date + decision-relevance per
   source)
-- `core/flows/refs/agent-tier-routing-REFS.md` — tier-1 index pointing to per-source YAMLs in `core/flows/refs/`
+- `core/flows/refs/agent-level-routing-REFS.md` — level-1 index pointing to per-source YAMLs in `core/flows/refs/`
 - `core/flows/refs/research-summary.yaml` — synthesis-summary YAML (the solution bulleted into a single file)
 
 ## Prior Art
@@ -66,7 +67,7 @@ on 2026-07) is the textbook demonstration of why the loop exists. Loop 5 (`5-use
 `wall_schema.validate_manifest` can emit its designed `[FAIL]+exit 1` — so a missing asset crashed with an uncaught
 `FileNotFoundError` instead of reaching the graceful validation path. The unit suite (Loop 4a) could not see this: T4
 only fed `validate_manifest` a manually-mutated dict, never drove `build_manifest` against a kit_dir with a genuinely
-missing PNG. The orchestrator took the `RETURN loop=3 reason=integration-gap`, ruled inline at max tier
+missing PNG. The orchestrator took the `RETURN loop=3 reason=integration-gap`, ruled inline at max level
 (`3-arch.md:93-122`), split `load_kit_meta` out of `load_kit`, the medium re-ran 4a→4b→5, all 6 e2e steps passed, ship.
 This is **Cognition Principle 2 in the wild**: action A (`load_kit` reused in `build_manifest`) carried an implicit
 decision ("I will PIL-open every asset") that conflicted with T2's contract, and the flow caught it at the user-test

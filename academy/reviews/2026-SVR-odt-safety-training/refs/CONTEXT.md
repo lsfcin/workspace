@@ -1,5 +1,5 @@
 # References
-> SOTA map for the review — one YAML per source read, tier-marked in [REFS.md](REFS.md).
+> SOTA map for the review — one YAML per source read, level-marked in [REFS.md](REFS.md).
 
 <!-- routing:start -->
 ## Routing

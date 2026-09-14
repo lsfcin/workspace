@@ -36,7 +36,7 @@ instead of spending them: N cheap short sessions instead of one long expensive o
   `4b-code.md`, `5-user.md`, `6-ship.md`.
 - **Append-only.** Executors add sections; never rewrite prior content. Corrections are new appended sections.
 - **Executor self-report.** Every appended section ends with `executor: <agent-type> model=<provider/model-id>
-  tier=<tier> deleg=<none|from→to>` — after a run, `grep executor .craft/<slug>/*.md` audits whether routing actually
+  level=<level> deleg=<none|from→to>` — after a run, `grep executor .craft/<slug>/*.md` audits whether routing actually
   happened *and* which provider paid for each loop. The `model=` field MUST include the provider prefix (e.g.
   `model=nvidia/z-ai/glm-5.2`, not bare `model=glm-5.2`) so the per-provider cost split is recoverable from the chain
   alone, without the session log.
@@ -56,18 +56,18 @@ instead of spending them: N cheap short sessions instead of one long expensive o
 ## Carry
 slug: <feature-slug> | branch: <branch-name> | root: <project path>
 provider: <orchestrator provider, e.g. nvidia | openrouter | opencode | anthropic | copilot> | chain-deleg: <none | deleg=<from>→<to>>
-tier-map: <one of: nvidia | openrouter | opencode | anthropic | copilot> | verified-on: <date>
+level-map: <one of: nvidia | openrouter | opencode | anthropic | copilot> | verified-on: <date>
 test-cmd: <exact command, e.g. `npm test`> | e2e-cmd: <or "none">
 criticality: <low|normal|critical> | verdict: <padaria|standard|critico>
 subtree: <padaria|feature|research|architecture> | supervision: io-signoff=<yes|no> arch-review=<none|per-feature|periodic> arch-review-supervised=<yes|no>
 criteria: <one line per acceptance criterion, numbered C1..Cn>
-tasks: <filled by Loop 1 — one line per row: Tn — task — files — tier>
+tasks: <filled by Loop 1 — one line per row: Tn — task — files — level>
 context: <paths to project CONTEXT.md / AGENTS.md the executor must read>
 ```
 
-`provider:` is the orchestrator's chosen provider for the chain. `tier-map:` names which per-provider table row (the
-per-provider table in [`routing.md`](routing.md)) fills the chain's tiers — usually equals `provider`, but for downward
-delegation it may differ (e.g. `provider: openrouter` + `tier-map: nvidia` means the openrouter orchestrator runs every
+`provider:` is the orchestrator's chosen provider for the chain. `level-map:` names which per-provider table row (the
+per-provider table in [`routing.md`](routing.md)) fills the chain's levels — usually equals `provider`, but for downward
+delegation it may differ (e.g. `provider: openrouter` + `level-map: nvidia` means the openrouter orchestrator runs every
 loop on nvidia subagents to save credits — see [`routing.md`](routing.md) § Provider delegation). `chain-deleg:` records
 the delegation edge if one was applied. ALL THREE fields must be filled — a chain without an explicit provider+map is
 undefined and Loop 0 must escalate to the user. The orchestrator runs the `opencode models | awk -F/` check **before**
@@ -77,10 +77,10 @@ Loops 0–1 may fill TBD Carry fields (branch, test-cmd, tasks); from Loop 2 on 
 
 ## Autorouting
 
-Tiers are provider-agnostic. Loop 1 assigns a tier + effort **per task row** in the plan; loops without a plan row use
+Levels are provider-agnostic. Loop 1 assigns a level + effort **per task row** in the plan; loops without a plan row use
 the defaults below.
 
-| Task type | Tier | Effort | Escalate to next tier when |
+| Task type | Level | Effort | Escalate to next level when |
 |---|---|---|---|
 | Loop 0 — clarify interview, criticality gate | high | high | ambition high, or innovation/creativity demanded → max |
 | Loop 1 — plan + adversarial plan review | high | high | review leaves ≥1 unresolved FATAL → max |
@@ -91,17 +91,17 @@ the defaults below.
 | Loop 5 — automated user test | medium | medium | 2 environment/flake failures → high |
 | Loop 6 — commit, push, ship notes | low | low | never |
 
-**Escalation rules (general):** escalate exactly one tier at a time; append `ESCALATED from=<tier> to=<tier>
-reason=<evidence>` to the current loop file; the escalated session reads the same single input file. If the **max** tier
+**Escalation rules (general):** escalate exactly one level at a time; append `ESCALATED from=<level> to=<level>
+reason=<evidence>` to the current loop file; the escalated session reads the same single input file. If the **max** level
 still fails, do not retry — raise a RETURN flag. Never de-escalate mid-loop.
 
-**Max tier is never auto-spawned.** Escalation to `max` pauses the flow and surfaces to the user with the evidence line
-— max-tier quota is scarce and spending it is the user's call. The user either runs that loop in a max-tier session or
+**Max level is never auto-spawned.** Escalation to `max` pauses the flow and surfaces to the user with the evidence line
+— max-level quota is scarce and spending it is the user's call. The user either runs that loop in a max-level session or
 overrides the escalation.
 
-**Which concrete model fills a tier** is in [`routing.md`](routing.md) — the availability check, the per-provider tier
+**Which concrete model fills a level** is in [`routing.md`](routing.md) — the availability check, the per-provider level
 maps, the benchmarks, and the downward-only delegation rule. The **orchestrator** reads it once, before Loop 0, to fill
-the Carry `provider:` / `tier-map:` fields. Executors do not: they are handed a resolved `model=` in the spawn prompt.
+the Carry `provider:` / `level-map:` fields. Executors do not: they are handed a resolved `model=` in the spawn prompt.
 
 ## Return Flags
 
@@ -114,18 +114,18 @@ FLAG: RETURN loop=<N> reason=<slug> evidence=<one line>
 - The executor **raises**; the orchestrator **routes**. A return of ≤1 loop backwards is honored automatically.
 - Two consecutive returns to the same loop, or any `RETURN loop=0`, stops the flow and goes to the **user** — the intent
   itself is in question.
-- The receiving loop re-runs at **one tier above** its default (the cheap tier already failed to produce a survivable
+- The receiving loop re-runs at **one level above** its default (the cheap level already failed to produce a survivable
   artifact).
 
 ## Orchestration
 
 The orchestrator (lead session) holds only: short name, current loop, verdicts, flags, and **the provider +
-tier-map resolved in Loop 0**.
+level-map resolved in Loop 0**.
 
 **Routing is structural, not discretionary:** spawn via the pinned executor agent types `craft-low` / `craft-medium` /
 `craft-high` (Claude Code: `.claude/agents/craft-*.md`; opencode: `.opencode/agents/craft-*.md`). The pinned executors
 pin **one model per runtime**, set in frontmatter (so routing cannot drift inside that runtime). For runtimes that
-support per-spawn model override (opencode's `task`/`subagent` literal-a-models), the orchestrator passes the tier's
+support per-spawn model override (opencode's `task`/`subagent` literal-a-models), the orchestrator passes the level's
 model **from the active provider's row** of [`routing.md`](routing.md), NOT the frontmatter default — the frontmatter
 default is just the fallback when the orchestrator doesn't resolve a provider. Spawn each loop with this prompt —
 nothing more:
@@ -136,7 +136,7 @@ that holds your loop: craft-plan.md (0-2), craft-build.md (3-4b), craft-ship.md
 (5-6.5). Read no other loop file. Then read
 <project>/.craft/<slug>/<input-file>. Execute Loop <N>. Append your output to
 <project>/.craft/<slug>/<output-file> following the embedded template. End your
-section with `executor: craft-<tier> model=<provider/model-id> tier=<tier>
+section with `executor: craft-<level> model=<provider/model-id> level=<level>
 deleg=<none|from→to>`. Reply with ONE line:
 OK <verdict> | FLAG <flag line> | BLOCKED <reason>.
 ```
@@ -149,13 +149,13 @@ Code `Agent` tool, Copilot CLI, and the portability table. Read only the section
 the first spawn.
 
 No runtime `subagent`/`Agent`/`task` tool → the user opens a fresh session per loop with the same prompt and picks the
-model per the active tier-map; the flow is unchanged.
+model per the active level-map; the flow is unchanged.
 
 ---
 
 ## Cost Gate
 
-- Standard path ≈ 8 short sessions. If the task would take a single medium-tier session <30 min end-to-end, it must be
+- Standard path ≈ 8 short sessions. If the task would take a single medium-level session <30 min end-to-end, it must be
   `padaria` — re-check the gate before proceeding.
 - Any loop file hitting the ~80-line cap → the task is too big; split via `RETURN loop=1 reason=split-needed`.
 - The orchestrator context must stay near-empty: verdict lines only. If you find yourself pasting loop file contents
@@ -176,7 +176,7 @@ bullet and the table → the bullet wins. That is why they stay here and not in 
 | Loop 0 inline when hot | Loop 0 — clarify (high) | Orchestrator can author `0-clarify.md` directly at `max` instead of spawning a craft-high session for the interview |
 | Pin branch base in spawn prompt | Loop 2 — branch (implicit, low) | Orchestrator names `base:` non-discretionally when lineage is non-obvious; saves a full plan re-ground |
 | Dirty-tree fence | Loop 6 — diff scope | Pre-existing dirty paths listed under `extras: pre-existing-dirty`, not flagged as `RETURN loop=4b reason=dirty-tree` |
-| RETURN into high-tier → orchestrator-max inline | Escalation rules + max-gate | RETURN to a high-eligible loop → orchestrator amends target file at `max` inline instead of spawning a max executor; only sanctioned structural relaxation |
+| RETURN into high-level → orchestrator-max inline | Escalation rules + max-gate | RETURN to a high-eligible loop → orchestrator amends target file at `max` inline instead of spawning a max executor; only sanctioned structural relaxation |
 | Executor death mid-4b → fresh executor continues | Loop 4b escalation clock | Recovery primitive at 4a→4b boundary; red-run clock resets from new ground truth after recovery |
 
 - **Loop 0 inline when context is hot.** If the orchestrator session already holds the user's decisions (approved plan,
@@ -188,10 +188,10 @@ bullet and the table → the bullet wins. That is why they stay here and not in 
 - **Dirty-tree fence.** Pre-existing uncommitted changes in the target repo: name the contaminated paths in every spawn
   prompt from 4b on, and make Loop 6 list them under `extras: pre-existing-dirty` instead of flagging. Never let an
   executor "helpfully" commit or revert them.
-- **RETURN into a high-tier loop lands on max = the orchestrator.** Don't spawn; rule inline (append `## Amendment` to
+- **RETURN into a high-level loop lands on max = the orchestrator.** Don't spawn; rule inline (append `## Amendment` to
   the target loop file with the ruling + sharpened boundaries + re-entry route). Design-wrong is not
   boundary-gap: if the architecture already specifies the missing behavior, don't redesign — sharpen
-  boundaries so 4a must cover it, re-run 4a→4b at default tiers.
+  boundaries so 4a must cover it, re-run 4a→4b at default levels.
 - **Executor death mid-4b (session limit) is cheap to recover**: fresh executor reads 4a + partial 4b, re-runs test-cmd
   for ground truth, continues append-only. Budget hint: 4b is the expensive loop (~150–260k tokens); near a quota
   boundary, hand off at the 4a→4b boundary rather than starting it.

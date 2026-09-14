@@ -37,7 +37,7 @@ toggle	routing-tables	on
 toggle	agent-context-brief	on
 toggle	subtree-read-tracking	on
 toggle	line-limit	on
-toggle	fanout-limit	on
+toggle	crowding-limit	on
 toggle	context-head-budget	on
 toggle	first-line-comment	on
 toggle	duplication-gate	on

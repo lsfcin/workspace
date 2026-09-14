@@ -31,7 +31,7 @@
   provider-UI clicks, consent screens, minting a secret; pasted secrets go in via builtin pipe, never argv
 - [Feedback: context in the question](feedback_question_context.md) — every choice put to Lucas explains context,
   problem and tradeoffs in the question itself and in each option; he "passa direto" past what is not there
-- [Feedback: plain language](feedback_plain_language.md) — plain words over jargon (ledger/seam/probe are out); one idea
+- [Feedback: plain language](feedback_plain_language.md) — plain words over jargon (list/boundary/check are out); one idea
   one word; language IS the system when the reader is an LLM; say what a session decided alone
 - [Feedback: concise WOS](feedback_concise_wos.md) — every session must leave FEWER lines than it found; a new
   feature pays with the cut that funds it; never summarize a law until it stops holding

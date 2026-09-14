@@ -1,5 +1,5 @@
 # frontend
-> Telegram frontend on the AgentBackend seam — /new + reply-to-continue + INBOX capture.
+> Telegram frontend on the AgentBackend boundary — /new + reply-to-continue + INBOX capture.
 > spec: SPECS.md
 
 ## Shape — the root is the bot itself, every subdirectory is one surface
@@ -40,7 +40,7 @@ Tests mirror these names one for one under [`tests/`](../tests/CONTEXT.md).
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
-| [`__init__.py`](__init__.py) | [`__init__.pyi`](__init__.pyi) | — | **facade** — __init__.py — facade: Telegram frontend on the AgentBackend seam. Import frontend only through here. |
+| [`__init__.py`](__init__.py) | [`__init__.pyi`](__init__.pyi) | — | **facade** — __init__.py — facade: Telegram frontend on the AgentBackend boundary. Import frontend only through here. |
 | [`SPECS.md`](SPECS.md) | — | — | SPEC: frontend — audio-in-out voice pipeline |
 | [`bot.py`](bot.py) | [`bot.pyi`](bot.pyi) | `main` | bot.py — PTB wiring: allowlist, /new + reply-to-continue dispatch, plain text/media -> INBOX. |
 | [`config.py`](config.py) | [`config.pyi`](config.pyi) | `config_dir`, `load_config`, `save_config`, `bot_token`, `allowed_chat_id` | config.py — aiwbot's own Telegram config dir (separate token/storage from the old workspace bot). |

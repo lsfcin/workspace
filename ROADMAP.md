@@ -22,7 +22,7 @@ research output's length and a commit subject's width are each declared in the w
 ## Cost — what a session costs, and which of it is avoidable
 
 **🟢 cheaper models where the work is mechanical**
-*What* — mechanical work routed off the most expensive tier.
+*What* — mechanical work routed off the most expensive level.
 *Why* — the measured split is opus-heavy and some of that is typing, not thinking.
 *Done when* — the split moves and work still lands. Context size is a 4.2x multiplier routing cannot beat.
 
@@ -69,10 +69,13 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 ## Legibility — can Lucas still read what he owns
 
 **🟢 the audit's words also name code, and the rename is unfinished until identifiers follow**
-*What* — `ledger` `probe` `fanout` `seam` `shard` `slug` out of identifiers, plus `tier` → `level`
-(ruled; a parsed value in `core/permissions.txt` and 9 modules), then every row in § Retired tokens.
-*Why* — `retired_hits` matches filenames, so a row added while `entropy_ledger.py` exists reds the
-suite on our own modules. Never sweep a bracketed slug or Lucas's pt-br goal files: both cost a revert.
+*What* — `slug` out of identifiers, then its row in § Retired tokens. Five of seven are done. The
+sixth, `probe`, is renamed everywhere and owes only its row: `brain/goals/google-migration.md` names
+a Drive deck `__probe_delete_me` that no rename of ours can reach, so the row lands the moment
+Lucas deletes that deck — which is what the line beside it already asks him to do.
+*Why* — the check matches filenames, so a row added while a module still carries the word reds the
+suite on our own code. Never sweep a bracketed short name, or a word carrying a second sense
+elsewhere in the tree — each costs a revert, and one word had three senses in one tree.
 *Done when* — the entropy scan finds zero survivors of every row.
 
 **🟡 the health picture: keep what Lucas reads at a glance, cut the rest**
@@ -115,6 +118,8 @@ The debt is this repo's: absorbing a project's own writing neither creates nor p
 
 ## Rejected
 
+- **Exempting Lucas's own writing from the rename check** — 2026-09-14 (Lucas): a sentence where an old spelling
+  means something the rename does not cover gets rewritten. A blind spot is worse than a word.
 - **The one-root hypothesis** — 2026-09-14: two of three. Dead words die when structure moves and text does not follow,
   which is self-description; the third left and is `back2dsl`.
 - **`gate` → `block`** — 2026-09-14: `block` already names a generated region AND is the gate's verb, so the swap reads
@@ -127,7 +132,7 @@ The debt is this repo's: absorbing a project's own writing neither creates nor p
   cost picks the cut.
 - **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first prompt, and a tree dirty
   at session open.
-- **Adopting `obra/Superpowers` over our craft flow** — no per-task tier routing; trigger imported instead.
+- **Adopting `obra/Superpowers` over our craft flow** — no per-task level routing; trigger imported instead.
 - **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): prompt, judge and self-report died on evidence;
   only a parser or solver refuses, so it is research — `academy/papers/back2dsl`.
 - **A research map as a plan block here, and one review yaml per kept source** — 2026-09-13: the first grows our most

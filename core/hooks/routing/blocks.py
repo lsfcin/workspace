@@ -60,7 +60,7 @@ def replace_block(text: str, body: str, start: str, end: str, at_end: bool = Fal
 
 
 def main() -> int:
-    """`blocks.py <file> <name> < body` — the seam for shell generators.
+    """`blocks.py <file> <name> < body` — the boundary for shell generators.
 
     A block written from bash would otherwise be a second implementation of the marker convention,
     in a language with no way to find a sentinel that stands on its own line. The body arrives on

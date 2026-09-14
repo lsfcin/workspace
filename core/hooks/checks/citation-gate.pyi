@@ -3,7 +3,7 @@ from pathlib import Path
 
 CITATION: Incomplete
 RETIRED_SPELLING: Incomplete
-LEDGER_NAMES: Incomplete
+LIST_NAMES: Incomplete
 LIMIT_CLAIM: Incomplete
 GENERATED_BLOCK: Incomplete
 LIMIT_OWNERS: Incomplete

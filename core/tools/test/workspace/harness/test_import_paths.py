@@ -1,7 +1,7 @@
 # T0 harness invariant: the suite's sys.path cannot silently shadow a module.
 #
 # conftest.py walks core/hooks and core/tools and inserts every directory, so the suite can
-# `import entropy_fanout` or `import video_core` without knowing which family owns them.
+# `import entropy_crowding` or `import video_core` without knowing which family owns them.
 # That convenience has one failure mode: two modules with the same basename in different
 # directories resolve by insertion order, and the loser is never imported — silently, with
 # the tests still green because they exercised the wrong file.

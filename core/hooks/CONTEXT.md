@@ -1,5 +1,5 @@
 # hooks
-> The enforcement layer: git hooks, agent lifecycle hooks, and the Tier 0 checks they run.
+> The enforcement layer: git hooks, agent lifecycle hooks, and the Level 0 checks they run.
 
 Wired globally via `core.hooksPath` ([`SETUP-clone.md`](../../SETUP-clone.md) § Git hook), so
 `pre-commit` fires in **every** repo under this workspace, and by absolute path from
@@ -34,7 +34,7 @@ Gate behavior, the agent-shim contract, and how a module reaches the root law:
 | [`commit/`](commit/CONTEXT.md) | The git pre-commit and post-commit pipeline: what runs on every commit, in what order, and the one place a commit is refused. |
 | [`compact/`](compact/CONTEXT.md) | Shrink tool output before it reaches the context — the input-side twin of caveman. |
 | [`copilot/`](copilot/CONTEXT.md) | Provider shim: translates Copilot hook payloads onto the canonical gates. |
-| [`entropy/`](entropy/CONTEXT.md) | The Tier 0 checks that count what the tree has drifted into. One question each. |
+| [`entropy/`](entropy/CONTEXT.md) | The Level 0 checks that count what the tree has drifted into. One question each. |
 | [`facade/`](facade/CONTEXT.md) | The facade discipline: read the facade before editing, never import around it. |
 | [`git/`](git/CONTEXT.md) | Gates and self-heals about git state itself: branch shape, gitlinks, .gitignore. |
 | [`postedit/`](postedit/CONTEXT.md) | Sourced post-edit stages: regenerate interfaces, remind, sync, lint. |
@@ -51,16 +51,16 @@ Gate behavior, the agent-shim contract, and how a module reaches the root law:
 | [`dispatch.py`](dispatch.py) | [`dispatch.pyi`](dispatch.pyi) | `table_path`, `load_table`, `run_gate`, `emit`, `collect` | PreToolUse, PostToolUse: one process for every gate — read stdin once, ask the moment and the capability once, run what they select. |
 | [`extensionless.txt`](extensionless.txt) | — | — | Files allowed to have no extension because something OUTSIDE this workspace dictates the name — enforced by test_every_extensionless_tracked_file_is_explained. |
 | [`feature_law.py`](feature_law.py) | [`feature_law.pyi`](feature_law.pyi) | `load_registry`, `slugs`, `load_profile`, `is_enabled`, `setting` | What is switched ON: which features are live. The registry is core/features.txt, the answers are core/profile.txt, and neither is restated here. |
-| [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_tool_entrypoint`, `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: that module parses core/SCHEMA.md, this one owns the file-shape law every size, fanout and line-count check reads. |
+| [`file_law.py`](file_law.py) | [`file_law.pyi`](file_law.pyi) | `is_tool_entrypoint`, `is_code_file`, `load_limits`, `allowed_extensionless`, `is_vendored` | What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py: that module parses core/SCHEMA.md, this one owns the file-shape law every size, crowding and line-count check reads. |
 | [`gates.txt`](gates.txt) | — | — | Every lifecycle gate, the moment and the capability that select it. Read by core/hooks/dispatch.py (which runs them) and by core/hooks/trigger/trigger_law.py (which reports when they fire). |
 | [`generated.txt`](generated.txt) | — | — | Files this workspace GENERATES, each entry naming its generator. Exempt from every authoring rule; what the exemption covers and why it is safe: core/hooks/SPECS.md § Generated artifacts. |
 | [`gitignore-exceptions.txt`](gitignore-exceptions.txt) | — | — | One "<domain>/<dir>" per line: a CONTEXT.md-bearing subdir Lucas deliberately wants left out of the .gitignore allowlist (reviewed, not an oversight). gitignore-self-heal.sh skips any name listed here instead of re-adding its `!<domain>/<dir>/` line. |
 | [`hook_input.py`](hook_input.py) | [`hook_input.pyi`](hook_input.pyi) | `parse_stdin`, `capability`, `is_subagent`, `normalise`, `store` | Shared parser for Claude Code hook stdin JSON — nested (current) and flat (legacy shim) schemas. |
 | [`limits.env`](limits.env) | — | — | Every numeric limit in the workspace, in one file. Read through core/hooks/file_law.py, the one reader, by every gate and instrument that holds a file to a number — same file, one law. |
-| [`platform_law.py`](platform_law.py) | [`platform_law.pyi`](platform_law.pyi) | `venv_script`, `interpreter`, `session_state`, `install_command`, `package_install` | The platform seam: the one file in this workspace allowed to know what an operating system is. |
+| [`platform_law.py`](platform_law.py) | [`platform_law.pyi`](platform_law.pyi) | `venv_script`, `interpreter`, `session_state`, `install_command`, `package_install` | The platform boundary: the one file in this workspace allowed to know what an operating system is. |
 | [`post-commit`](post-commit) | — | — | auto-push feature/*. Same handoff as pre-commit beside it. Never blocks: git ignores a post-commit's exit status, and every failure here is a warning. |
 | [`post-edit.sh`](post-edit.sh) | — | — | PostToolUse, capability `write` — regenerates interfaces, checks first-line comment, syncs CONTEXT.md |
 | [`pre-commit`](pre-commit) | — | — | Workspace pre-commit hook. Applied globally: git config --global core.hooksPath <this directory> |
-| [`schema_law.py`](schema_law.py) | [`schema_law.pyi`](schema_law.pyi) | `load_law`, `load_scopes`, `load_retired` | The law parser. Every Tier 0 check reads core/SCHEMA.md through this module, and none of them restates it — a second copy of the law inside a checker is the exact drift the checks exist to catch. |
+| [`schema_law.py`](schema_law.py) | [`schema_law.pyi`](schema_law.pyi) | `load_law`, `load_scopes`, `load_retired` | The law parser. Every Level 0 check reads core/SCHEMA.md through this module, and none of them restates it — a second copy of the law inside a checker is the exact drift the checks exist to catch. |
 | [`vendored.txt`](vendored.txt) | — | — | Third-party files we did not author, exempt from every authoring rule for the reason core/hooks/SPECS.md § Generated artifacts gives. |
 <!-- routing:end -->

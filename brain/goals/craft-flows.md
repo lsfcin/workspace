@@ -74,7 +74,7 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 > Aplicar ao `/craft`: quais números o otimizador NÃO pode tocar? Hoje o Loop 6 dá verdict sem contra-métrica nenhuma;
 > [B1] second-opinion verifier é meio caminho, mas verificador ≠ contra-métrica. Fonte:
 > https://www.instagram.com/p/DbBDnp6DcKV/ (INBOX 2026-07-23)  
-> [ ] [tier-briefing] padrão "three-lane": modelo barato lê TUDO (emails, docs, transcripts) e comprime num briefing
+> [ ] [level-briefing] padrão "three-lane": modelo barato lê TUDO (emails, docs, transcripts) e comprime num briefing
 > curto; modelo caro só toca o briefing. É o mesmo princípio do autorouting do `/craft` (craft-low/medium/high) aplicado
 > à *ingestão* em vez da execução — hoje o roteamento decide quem executa, não quem lê. Casa com `/gmail` triage e com o
 > dreno do INBOX. Ref em `core/refs/REFS.md` (INBOX 2026-07-23)  
@@ -131,5 +131,5 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-12  ·  trend: advancing  ·  touches: 58/84/124/124/124/124
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 64/90/130/130/130/130
 <!-- stats:end -->

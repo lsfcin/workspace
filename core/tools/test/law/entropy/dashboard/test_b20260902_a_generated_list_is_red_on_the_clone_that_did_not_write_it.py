@@ -1,4 +1,4 @@
-# b20260902 regression — the workspace's own ledger describes the workspace, never this disk.
+# b20260902 regression — the workspace's own list describes the workspace, never this disk.
 #
 # verify.py full failed here on two cases against an ISSUES.md the session had not touched: the
 # block was generated on the Windows clone, which has none of the 27 nested repos this one holds,
@@ -22,7 +22,7 @@ sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks/entropy'))
 from entropy_corpus import nested_repos, tracked_files  # noqa: E402
 from platform_law import rel  # noqa: E402  (the one spelling of a relative path)
 
-LEDGER = WORKSPACE_ROOT / 'ISSUES.md'
+ISSUES = WORKSPACE_ROOT / 'ISSUES.md'
 HEADER = re.compile(r'\*\*(?P<here>\d+) findings here\*\*')
 
 
@@ -30,7 +30,7 @@ def _block() -> str:
 	"""The GENERATED half alone. The hand-written bugs above it may name a project freely — a
 	person writing about isoroll is not a machine claiming to have counted it."""
 	from entropy_report import END, START
-	text = LEDGER.read_text(encoding='utf-8')
+	text = ISSUES.read_text(encoding='utf-8')
 	return text.split(START, 1)[1].split(END, 1)[0] if START in text else ''
 
 
@@ -43,7 +43,7 @@ def test_the_generated_block_names_no_nested_project() -> None:
 	assert not named, f'the generated block counts projects the root git ignores: {named}'
 
 
-def test_the_root_ledger_carries_no_collected_total() -> None:
+def test_the_root_list_carries_no_collected_total() -> None:
 	"""The sum over nested repos was the number that could not be true on both machines."""
 	block = _block()
 	assert '**collected**' not in block
@@ -53,7 +53,7 @@ def test_the_root_ledger_carries_no_collected_total() -> None:
 def test_the_header_counts_what_this_repo_tracks() -> None:
 	"""`here` is a fact about the repo, so it must be derivable from what the repo tracks —
 	which is the same set on every clone, and the property the old table lacked."""
-	assert HEADER.search(LEDGER.read_text(encoding='utf-8')), 'no header count in the ledger'
+	assert HEADER.search(ISSUES.read_text(encoding='utf-8')), 'no header count in the list'
 	scanned = tracked_files(WORKSPACE_ROOT, nested=False)
 	assert scanned, 'the root scan must see the root repo'
 	assert not any(str(p).startswith(str(repo)) for p in scanned

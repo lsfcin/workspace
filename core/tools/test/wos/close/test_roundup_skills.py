@@ -3,7 +3,7 @@
 #
 # The split only holds if the skill keeps *not* doing the script's work. Prose has no compiler, so
 # a later session re-inlining `make entropy` or the merges — the exact shape this frente deleted —
-# would pass every other check in the suite. These guard the seam and the hand-off's agreed shape.
+# would pass every other check in the suite. These guard the boundary and the hand-off's agreed shape.
 import re
 
 from conftest import WORKSPACE_ROOT
@@ -127,7 +127,7 @@ def test_the_template_caps_what_it_repeats():
     ROADMAP.md. The caps are the fix; losing them is how it grows back."""
     assert '≤3 bullets' in HANDOFF_SKILL
     assert re.search(r'≤2 files', HANDOFF_SKILL)
-    assert 'no ledger already holds' in HANDOFF_SKILL
+    assert 'no list already holds' in HANDOFF_SKILL
 
 
 def test_both_skills_agree_on_which_phase_promotes():

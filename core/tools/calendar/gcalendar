@@ -3,7 +3,7 @@ import sys, pathlib, argparse
 from datetime import datetime, timezone, timedelta
 
 _HERE = pathlib.Path(__file__).resolve().parent
-# Seams sit beside the CLI; gauth is its own family, shared by every provider tool.
+# Boundaries sit beside the CLI; gauth is its own family, shared by every provider tool.
 sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
 import calendar_fetch, gauth

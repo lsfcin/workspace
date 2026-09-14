@@ -14,14 +14,14 @@ the window. So for the `/resume` list the frontend pairs transcript usage with a
 live turns (`sessions.remember_context_window`, keyed by model) instead of hardcoding per-model
 constants. Unknown model → the `%` bit is simply omitted, never guessed.
 
-### AD-10 — Both CLIs expose mode, model AND effort; the seam can carry all three
+### AD-10 — Both CLIs expose mode, model AND effort; the boundary can carry all three
 Verified live 2026-07-23 (`claude --help`, `opencode run --help`, `opencode agent list`,
 `opencode models`), settling the "unverified" note that was blocking the backend/model/effort design.
 
 | knob | claude | opencode |
 |------|--------|----------|
 | mode | `--permission-mode plan\|bypassPermissions\|acceptEdits\|auto\|manual` | `--agent <name>`; `build` and `plan` are both **primary** agents (also `compaction`, `summary`, `title`; `explore`/`general` are subagents) |
-| model | `--model` — alias (`opus`, `sonnet`, `fable`) or full id | `-m provider/model`; `opencode models` lists **478** across providers (`anthropic/*`, `google/*`, `alibaba-coding-plan/*`, free `opencode/*` tiers…) |
+| model | `--model` — alias (`opus`, `sonnet`, `fable`) or full id | `-m provider/model`; `opencode models` lists **478** across providers (`anthropic/*`, `google/*`, `alibaba-coding-plan/*`, free `opencode/*` levels…) |
 | effort | `--effort low\|medium\|high\|xhigh\|max` | `--variant` — "provider-specific reasoning effort, e.g. high, max, minimal" |
 | title | `--name` | `--title` |
 | fork | (dropped, AD-3) | `--fork` |
@@ -34,14 +34,14 @@ Consequences for the design:
    aliases, opencode's is 478 — so the model picker cannot be one flat keyboard. Provider→model
    drill-down, or a curated favourites list plus a typed escape hatch.
 3. **Effort values do not share a vocabulary** (`low..max` vs `minimal|high|max`), which is exactly why
-   it belongs behind the seam as provider data — the frontend offers whatever the backend declares.
+   it belongs behind the boundary as provider data — the frontend offers whatever the backend declares.
 
 ### AD-11 — Capability declaration: the frontend offers only what a backend declares
 Shipped with P2 (plan + measurements: [ROADMAP-p2.md](ROADMAP-p2.md)). AD-10 established that both
 CLIs expose mode, model and effort; AD-11 is how that reaches a keyboard without the frontend
 learning any provider's vocabulary.
 
-**The seam gained two declarations and two knobs.** `TurnOptions` carries `model` + `effort`
+**The boundary gained two declarations and two knobs.** `TurnOptions` carries `model` + `effort`
 (opaque strings), and `AgentBackend` answers `capabilities() -> Capabilities(modes, favourites,
 groups)` plus `efforts(model) -> list[str]`. The frontend renders exactly what comes back and
 invents nothing, so a value the CLI would reject can't be tapped.
@@ -115,6 +115,6 @@ that name daily and prefers `nv·dsv4f`, which is a preference no algorithm shou
 recency, intersected with the configured catalogue (a model whose provider vanished stops being
 offered rather than failing at dispatch). The curated "cheap and good" guess it replaced was wrong
 by a wide margin: it offered models used once each while the real top three had 91, 42 and 15
-sessions. A machine with no history falls back to the cheap tiers.
+sessions. A machine with no history falls back to the cheap levels.
 
 The source is one query over `session.model` + `time_updated`, which opencode indexes anyway.

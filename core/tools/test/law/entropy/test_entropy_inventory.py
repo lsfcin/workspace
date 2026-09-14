@@ -1,4 +1,4 @@
-# T0 no-hand-inventory rule (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
+# T0 no-hand-inventory rule (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
 #
 # Split out of law/test_type_gate.py 2026-08-15 at the size gate, and the split fixes a
 # misfiling: `check_inventory` lives in `entropy_context.py` with the goal-link and

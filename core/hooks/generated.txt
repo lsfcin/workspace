@@ -35,7 +35,7 @@ outputs/*
 
 # Every ISSUES.md, at the root and in each code repo. The pattern used to be anchored to the root
 # one, on the reasoning that every other ISSUES.md was hand-written from its first line to its last;
-# the entropy scatter (ruled 2026-08-20) ended that — each code repo's ledger now carries the same
+# the entropy scatter (ruled 2026-08-20) ended that — each code repo's list now carries the same
 # generated entropy block the root does, holding its own findings.
 #
 # The root additionally carries the verify block (core/tools/wos/roundup). Together these are
@@ -46,6 +46,6 @@ outputs/*
 # detail: the hand-written issues above the blocks lose the size signal too. Accepted because the
 # alternative is a per-block cap — a second numeric law, answering a question BLOCK_LINES already
 # answers, which is the drift file_law.py exists to prevent. If a hand-written half ever grows past
-# a screen, it shards like any other type and the shards are ordinary capped files.
+# a screen, it is cut like any other type and the parts are ordinary capped files.
 ISSUES.md
 */ISSUES.md

@@ -76,7 +76,7 @@ def test_a_model_no_longer_configured_is_not_offered(monkeypatch):
     assert catalog.favourites() == ["nvidia/a"]
 
 
-def test_no_history_falls_back_to_the_cheap_tiers(monkeypatch):
+def test_no_history_falls_back_to_the_cheap_levels(monkeypatch):
     ids = ["openrouter/x", "alibaba-coding-plan/glm-5", "opencode/a", "opencode/b", "opencode/c"]
     monkeypatch.setattr(catalog, "_ids", ids)
     monkeypatch.setattr(catalog.ocstore, "recent_models", lambda cutoff: [])

@@ -4,7 +4,7 @@
 #
 # It sits in git/ rather than beside the other entropy checks because it is the one that reads
 # git state instead of file content — every module in entropy/ takes a list of files, this one
-# takes a root and shells out. That difference is also what put entropy/ over the fanout cap
+# takes a root and shells out. That difference is also what put entropy/ over the crowding cap
 # when it briefly lived there, which is the check doing its job.
 #
 # Warn-only, like every other dashboard section. Widened 2026-08-31 after a hand audit found what
@@ -74,7 +74,7 @@ def _deletable(repo: Path, base: str) -> list:
 def repos(root: Path) -> list:
     """The repos these four signals answer for: exactly the one asked about.
 
-    It was `[root] + nested_repos(root)` until 2026-09-04, so the workspace's own ledger carried
+    It was `[root] + nested_repos(root)` until 2026-09-04, so the workspace's own list carried
     the branch debt of 27 projects its git ignores — a count that described THIS DISK, red on the
     clone that has none of them (b20260902). Each project now answers for itself, in its own
     ISSUES.md, and the cross-repo sweep that PUSHES them lives in `core/tools/wos/roundup`, where
@@ -175,7 +175,7 @@ def unpushed_work(root: Path) -> list:
 def merged_remote_branches(root: Path) -> list:
     """Remote `feature/*` labels whose every commit is already in the base branch.
 
-    Deleting one is an outward-facing act, so this counts and never acts. It was a ledger note
+    Deleting one is an outward-facing act, so this counts and never acts. It was a list note
     saying eleven such branches were waiting for Lucas; by the time anything read it again the
     real number was six times that, across seventeen repos. A count that regenerates cannot rot
     the way that note did.

@@ -1,4 +1,4 @@
-# Usage: core/tools/wos/deps [--check] [--feature <slug>] — probe every dependency declared in core/tools/deps.txt, reporting what each miss breaks; --check exits 1 on any miss
+# Usage: core/tools/wos/deps [--check] [--feature <slug>] — check every dependency declared in core/tools/deps.txt, reporting what each miss breaks; --check exits 1 on any miss
 from __future__ import annotations
 
 import argparse
@@ -17,11 +17,11 @@ import tool_law  # noqa: E402
 
 # `apt` names one machine's package manager and `system` asks which one is here. Both are kept: the
 # rows still spelled `apt` were declared before this tool could tell the difference, and rewriting
-# them blind would claim a portability nobody probed. A row moves to `system` when someone verifies
+# them blind would claim a portability nobody checked. A row moves to `system` when someone verifies
 # the same name resolves on all three managers, which is exactly what `gh` needed.
 #
-# The three remaining `apt` rows were probed on 2026-09-01 and stay: `winget show --moniker` finds
-# no poppler-utils, no tesseract-ocr and no ddgr. Recorded so the next reader does not re-probe them
+# The three remaining `apt` rows were checked on 2026-09-01 and stay: `winget show --moniker` finds
+# no poppler-utils, no tesseract-ocr and no ddgr. Recorded so the next reader does not re-check them
 # to reach the same answer — what _install_line does about it is below.
 INSTALL = {
     'pip': '{pip} install {name}',
@@ -43,8 +43,8 @@ def _install_line(row: dict) -> str:
     rows at a time, and the reader is left to work out that the tool meant a different computer.
 
     So the miss is named instead. NOT by rewriting the row — deps.txt forbids claiming a portability
-    nobody probed, and the three were probed on 2026-09-01 and are genuinely absent from winget — and
-    NOT by asking which OS this is, which would put a platform fork outside the seam. `apt-get` is
+    nobody checked, and the three were checked on 2026-09-01 and are genuinely absent from winget — and
+    NOT by asking which OS this is, which would put a platform fork outside the boundary. `apt-get` is
     asked of the filesystem, the way find_tsc() asks for tsc: shutil already knows the difference.
     """
     if row['kind'] == 'service':
@@ -71,12 +71,12 @@ def rows() -> list[dict]:
     return [dict(zip(header, ln.split('\t'))) for ln in lines[1:]]
 
 
-def probe(spec: str) -> bool:
-    """Present = the probe exits 0. Never trust config; run the thing.
+def check(spec: str) -> bool:
+    """Present = the check exits 0. Never trust config; run the thing.
 
-    `spec` is `<verb>:<arg>` (core/tools/deps.txt § probe). The two venv-shaped verbs ask
+    `spec` is `<verb>:<arg>` (core/tools/deps.txt § check). The two venv-shaped verbs ask
     platform_law where this clone keeps things, which is the whole point: the column used to spell
-    the POSIX venv bin directory per row, so on a Windows clone the probe could not run and every dep
+    the POSIX venv bin directory per row, so on a Windows clone the check could not run and every dep
     reported MISSING -- a wrong answer that reads exactly like a real one.
     """
     verb, _, arg = spec.partition(':')
@@ -90,7 +90,7 @@ def probe(spec: str) -> bool:
     elif verb == 'cmd':
         cmd = arg
     else:
-        raise SystemExit(f'core/tools/deps.txt: unknown probe verb {verb!r} in {spec!r}')
+        raise SystemExit(f'core/tools/deps.txt: unknown check verb {verb!r} in {spec!r}')
     try:
         r = subprocess.run(cmd, shell=isinstance(cmd, str), cwd=ROOT,
                            capture_output=True, timeout=60)
@@ -103,7 +103,7 @@ def main() -> int:
     tool_law.require('declared-deps')  # before argparse: off means off, including --help
     ap = argparse.ArgumentParser(add_help=True)
     ap.add_argument('--check', action='store_true', help='exit 1 if anything is missing')
-    ap.add_argument('--feature', help='probe only the deps owned by one feature slug')
+    ap.add_argument('--feature', help='check only the deps owned by one feature slug')
     args = ap.parse_args()
 
     wanted = [r for r in rows() if not args.feature or r['feature'] == args.feature]
@@ -113,7 +113,7 @@ def main() -> int:
 
     missing = []
     for r in wanted:
-        ok = probe(r['probe'])
+        ok = check(r['check'])
         print(f"{'ok     ' if ok else 'MISSING'}  {r['name']:26s} {r['feature']}")
         if not ok:
             missing.append(r)

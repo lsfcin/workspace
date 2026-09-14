@@ -1,14 +1,14 @@
 # b20260831 regression — a project's commits reach its remote, and the session close is where.
 #
-# Committing in the workspace made the ledger scatter write AND commit a regenerated ISSUES.md into
+# Committing in the workspace made the list scatter write AND commit a regenerated ISSUES.md into
 # every nested repo it touched — 25 in one go on 2026-08-31 — and push none. The commits were
 # correct; they simply stayed on this disk, which is exactly what code/SPECS-git.md § Push policy
 # forbids. Worse, it happened BEHIND the session: nobody typed those commits, so nobody thought to
 # push them, and the audit that found it had to push 25 repos by hand twenty minutes after
 # declaring the tree clean.
 #
-# Ruled 2026-09-04 (Lucas): the ghost commit is gone — each repo writes and stages its own ledger
-# in its own commit (test_b5_ledger_commits.py) — and the push is a sweep at session close, where a
+# Ruled 2026-09-04 (Lucas): the ghost commit is gone — each repo writes and stages its own list
+# in its own commit (test_b5_list_commits.py) — and the push is a sweep at session close, where a
 # person is present to read what happened. A repo with no remote is NAMED, never silently skipped:
 # that one cannot be fixed from here, and the old failure was precisely a repo nothing reported on.
 #
@@ -91,7 +91,7 @@ def _gitflow_workspace(tmp_path) -> Path:
 	_git(project, 'checkout', '-qB', 'main')
 	_git(project, 'push', '-q', '--set-upstream', 'origin', 'main')
 	_git(project, 'checkout', '-qb', 'develop')
-	_commit(project, 'x = 2', 'chore(issues): regenerate the entropy ledger')
+	_commit(project, 'x = 2', 'chore(issues): regenerate the entropy list')
 	return root
 
 

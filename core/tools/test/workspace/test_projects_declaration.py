@@ -22,7 +22,7 @@ def declared_in_gitignore() -> set:
 
 	Restating the parse here is what this file is built to catch one level up: a second copy of a
 	rule is where two readers start disagreeing. entropy_corpus.declared_projects is the one copy,
-	and the pre-commit's ledger stage asks it the same question.
+	and the pre-commit's list stage asks it the same question.
 	"""
 	from entropy_corpus import declared_projects
 	return declared_projects(WORKSPACE_ROOT)

@@ -3,7 +3,7 @@
 # Ids here used to be positional; completion deleted them and every close renumbered, so a
 # citation of "B6" resolved to a bug that no longer was the one meant (the ZCode trust gate
 # citation was the sighting). Since 2026-08-31 new ids are slugs, `b<YYYYMMDD>-<slug>`; a numeric
-# id dies with its fix. The gate matches ids to specs across the hyphen/underscore seam — a slug
+# id dies with its fix. The gate matches ids to specs across the hyphen/underscore boundary — a slug
 # id and its test_b<...> file name are the same string in two notations — and an id ends at a
 # non-alphanumeric boundary, so b1 never borrows b19's proof.
 from issues_gate_harness import edit_issue, repo_with, spec_file
@@ -19,7 +19,7 @@ def test_a_slug_id_is_a_valid_id(tmp_path):
     assert SLUG in out.stderr, 'the message must name the slug, not an eaten version of it'
 
 
-def test_a_slug_spec_satisfies_its_slug_across_the_notation_seam(tmp_path):
+def test_a_slug_spec_satisfies_its_slug_across_the_notation_boundary(tmp_path):
     issues = repo_with(tmp_path, SECTION)
     spec_file(tmp_path, f'test_{SLUG.replace("-", "_")}.py')
     out = edit_issue(tmp_path, issues, old=SECTION, new='')

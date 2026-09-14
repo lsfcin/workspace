@@ -27,9 +27,9 @@ def _tool():
 
 def test_every_level_declares_what_it_means_and_what_it_costs():
     """A level with no sentences cannot be offered to anyone, which is the step's whole job."""
-    tiers = _tool().tiers()
-    assert set(tiers) == LEVELS
-    for name, spec in tiers.items():
+    levels = _tool().levels()
+    assert set(levels) == LEVELS
+    for name, spec in levels.items():
         assert spec['summary'].strip(), f'{name} has no summary to read out'
         assert spec['tradeoff'].strip(), f'{name} names no cost — a level with no cost is a lie'
         assert spec['mode'].strip(), f'{name} declares no default mode'
@@ -46,9 +46,9 @@ def test_the_levels_really_are_ordered_by_how_much_they_permit():
 def test_only_the_open_level_stops_asking_about_secrets():
     """Reading a credential is the one thing the two cautious levels must never do silently."""
     render = _tool().render_claude
-    for tier in ('guarded', 'standard'):
-        assert any('.credentials' in p for p in render(tier)['deny']), \
-            f'{tier} does not deny credential reads'
+    for level in ('guarded', 'standard'):
+        assert any('.credentials' in p for p in render(level)['deny']), \
+            f'{level} does not deny credential reads'
 
 
 def test_a_harness_pattern_never_appears_in_the_registry():
@@ -72,13 +72,13 @@ def test_a_rendered_config_is_not_versioned():
 
 
 def test_check_notices_a_config_that_no_longer_matches(tmp_path):
-    """--check is the step's Verify probe, so it has to actually catch a drifted file.
+    """--check is the step's Verify check, so it has to actually catch a drifted file.
 
     Both halves are written against whatever level THIS machine answered, never a hard-coded one:
-    a probe that only passes on the author's profile is the drift it was built to catch.
+    a check that only passes on the author's profile is the drift it was built to catch.
     """
     module = _tool()
-    declared = module.law.setting('permissions', module.DEFAULT_TIER)
+    declared = module.law.setting('permissions', module.DEFAULT_LEVEL)
     other = next(iter(LEVELS - {declared}))
     target = tmp_path / 'settings.local.json'
     module._target = lambda: target

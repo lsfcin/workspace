@@ -77,7 +77,7 @@ def test_a_real_anthropic_turn_is_still_priced(project) -> None:
 
 def test_a_model_we_hold_no_rate_for_is_unpriced_even_with_a_request_id(project) -> None:
 	"""The other half of the rule. `minimax-m3` stamps honestly and had no rate, so RATES' old
-	(5.0, 25.0) default billed 8 sessions on this disk at the most expensive tier it knows."""
+	(5.0, 25.0) default billed 8 sessions on this disk at the most expensive level it knows."""
 	slug = project([response('minimax-m3', 'req_011Cabc')])
 	assert next(iter(turns(slug)))[2].startswith(UNPRICED)
 

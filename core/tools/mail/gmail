@@ -3,7 +3,7 @@
 import sys, json, pathlib, argparse
 
 _HERE = pathlib.Path(__file__).resolve().parent
-# Seams sit beside the CLI. Two shared modules hang off the tools root: auth/gauth.py
+# Boundaries sit beside the CLI. Two shared modules hang off the tools root: auth/gauth.py
 # (every provider tool) and attachments_util.py (shared with video/).
 sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent))

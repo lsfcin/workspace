@@ -26,7 +26,7 @@ With clarified intent, classify the task:
 Produce the final structured response:
 - `optimized_prompt`: rewritten, specific, contextualized prompt (incorporating the interview answers) and asking for a
   plan
-- `tier`: recommended model tier (`low`/`medium`/`high`/`max`)
+- `level`: recommended model level (`low`/`medium`/`high`/`max`)
 - `effort`: recommended effort level (`low`/`medium`/`high`/`max`)
 - `rationale`: one-sentence justification
 - `interview`: leave opened the space for interviews if the agent needs 
@@ -36,7 +36,7 @@ If the task is a multi-file coding feature (new behavior, not a trivial fix), re
 craft flow, `core/flows/craft/craft.md`) instead of a single optimized prompt — it handles clarify/plan/TDD/ship with
 per-task model routing.
 
-### Tier guide
+### Level guide
 - `low` / e.g., `haiku`: trivial fixes, one-liners, simple searches
 - `medium` / e.g., `sonnet`: standard coding, debug, refactor
 - `high` / e.g., `opus`: complex architecture, multi-file, deep reasoning

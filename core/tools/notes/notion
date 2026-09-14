@@ -83,7 +83,7 @@ def _write(account: str, operations: list, dry_run: bool, done_line: str) -> Non
 
 
 def cmd_apply(account: str, path: str, dry_run: bool) -> None:
-    """The general seam: a JSON array of operations, each one an id-addressed write."""
+    """The general boundary: a JSON array of operations, each one an id-addressed write."""
     operations = notion_write.load(path)
     _write(account, operations, dry_run, f"Applied {len(operations)} operation(s) on {account}")
 

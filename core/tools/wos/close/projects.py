@@ -30,9 +30,9 @@ def push(repo, branch: str) -> str:
 def sweep(root: Path) -> str:
     """Push and promote every nested project, and say what happened. Silent about the quiet ones.
 
-    Ruled 2026-09-04 (Lucas). The workspace's ledger stopped counting these projects, because they
+    Ruled 2026-09-04 (Lucas). The workspace's list stopped counting these projects, because they
     are IGNORED by its git and a count of them described this disk rather than the repo (b20260902).
-    Each project now writes and commits its own ledger at its own pre-commit; what was missing was
+    Each project now writes and commits its own list at its own pre-commit; what was missing was
     the push, and a session close is where a person is present to see it. A repo with no remote is
     named, never pushed: that one cannot be fixed from here.
     """

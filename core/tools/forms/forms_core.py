@@ -1,4 +1,4 @@
-# forms_core.py — Google Forms read+write seam (account-agnostic) for Core/tools/forms/gforms
+# forms_core.py — Google Forms read+write boundary (account-agnostic) for Core/tools/forms/gforms
 import pathlib
 import sys
 

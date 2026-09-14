@@ -2,7 +2,7 @@
 # defects no link-checker can see. Zero-token, runs in verify-fast.
 #
 # These sit here rather than beside the checks they call because they assert something
-# about the WHOLE TREE, not about one piece of machinery: test_entropy_ledger.py and
+# about the WHOLE TREE, not about one piece of machinery: test_entropy_list.py and
 # test_entropy_context.py own whether each check fires correctly, this owns whether the
 # backlog is shrinking. Same split as test_pointer_integrity.py beside it.
 #
@@ -17,7 +17,7 @@
 # counted as finished-work prose, and 70 markers could have masked 70 new corpses without the
 # number moving. One ratchet per thing the report names.
 import entropy_context
-import entropy_ledger
+import entropy_list
 import entropy_naming
 from conftest import WORKSPACE_ROOT
 from file_law import load_limits
@@ -54,17 +54,17 @@ ROUTING_SLACK = 5
 
 
 def _files() -> list:
-    return entropy_ledger.tracked_files(WORKSPACE_ROOT)
+    return entropy_list.tracked_files(WORKSPACE_ROOT)
 
 
 def _finished() -> int:
-    return len(entropy_ledger.finished_work_hits(
-        _files(), entropy_ledger.enforcement_paths(WORKSPACE_ROOT)))
+    return len(entropy_list.finished_work_hits(
+        _files(), entropy_list.enforcement_paths(WORKSPACE_ROOT)))
 
 
 def _undescribed() -> int:
-    return len(entropy_ledger.unanswered_placeholders(
-        _files(), entropy_ledger.enforcement_paths(WORKSPACE_ROOT)))
+    return len(entropy_list.unanswered_placeholders(
+        _files(), entropy_list.enforcement_paths(WORKSPACE_ROOT)))
 
 
 def _routing() -> int:

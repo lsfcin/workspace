@@ -15,13 +15,13 @@ confident = shared.confident
 
 
 def _model():
-    """Lazy-cached WhisperModel — faster_whisper is imported inside the shared seam, so
+    """Lazy-cached WhisperModel — faster_whisper is imported inside the shared boundary, so
     importing this module still succeeds with the dep uninstalled (C6)."""
     return shared.model()
 
 
 def run(path: pathlib.Path, model, hotwords: str | None = None) -> str:
-    """Transcribe one file with an injectable model — the C1/C3 test seam. Failure and a
+    """Transcribe one file with an injectable model — the C1/C3 test boundary. Failure and a
     transcript the model itself doubts both degrade to ""."""
     return shared.run(path, model, hotwords_data.as_prompt() if hotwords is None else hotwords)
 

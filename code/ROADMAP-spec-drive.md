@@ -88,13 +88,13 @@ Git Flow is enforced alongside (`core/hooks/git/gitflow_gate.py`, pre-commit 1e;
 
 ### P3 — Loop integration ✅ 2026-07-17
 - `core/flows/craft/craft.md`: Loop 0 reads a spec-locked target module's SPEC.md and folds its
-  `## Invariants` into `criteria:` (spec precedes). Loop 6 promotes the shipped chain's criteria/seams
+  `## Invariants` into `criteria:` (spec precedes). Loop 6 promotes the shipped chain's criteria/boundaries
   into the module's SPEC.md and sets `status: locked` before deleting `.craft/` (durable per-module
   contract). Loop 3's second-opinion verifier already audits criteria-coverage.
 
-### P4 — Ratchet propagation + ledger ✅ 2026-07-17
+### P4 — Ratchet propagation + list ✅ 2026-07-17
 - `_templates/CONTEXT.md` ships `> spec:` (default `none`, opt-in lock) so new projects are born aware.
-- `core/tools/spec-scan` — the coverage ledger (`locked|draft|MISSING|optout|none` per module). Baseline
+- `core/tools/spec-scan` — the coverage list (`locked|draft|MISSING|optout|none` per module). Baseline
   at rollout: **1/88 locked** (spacemantics/dsl), 87 grandfathered.
 - Hook table + coverage table rows (ENFORCED) — now `core/hooks/SPECS.md`.
 
@@ -123,11 +123,11 @@ industry)."* So v1 adds, over the v0 five sections:
   against something before code exists.
 
 Precondition: a real research pass, **industry and academia**, acknowledged venues and not arXiv
-alone, plus existing libraries and formats. Captures go to `core/refs/REFS.md` with tier markers.
+alone, plus existing libraries and formats. Captures go to `core/refs/REFS.md` with level markers.
 `github/spec-kit` is one input and is **not** the answer on its own — it is guidance-only, with no
 hooks, gates or CI, while ours is enforced at five points; adopting it wholesale would trade
 ENFORCED for INDUCED. Read what its `constitution` / `clarify` / `converge` steps do that our
-Loop 3.5 does not, and steal only that. → **tier: high** for the contract, with Lucas.
+Loop 3.5 does not, and steal only that. → **level: high** for the contract, with Lucas.
 
 **P5b — arm the block, once v1 exists.** `spec-read-gate.py` today blocks editing a *locked* module;
 P5b extends the block to **any** `code/` module on contact — edit it, and it needs a spec. Ship it
@@ -148,4 +148,4 @@ Sequence the 116 grandfathered modules by contact frequency, not by directory or
 | Date | Event |
 |------|-------|
 | 2026-07-17 | Plan approved (ratchet enforcement, spacemantics/dsl pilot). P0+P1+P3+P4 shipped; P2 convention set, extractor deferred. Gates live + tested in 3 runtimes. Baseline coverage 1/88. |
-| 2026-08-17 | **Resumed by ruling, not drifted into.** Coverage 9/125 (7%), all growth from one `/craft` run on `aiwbot/frontend`. Target set to enforce-on-contact; P5a (SPEC v1: WHAT/WHY, rounds, result sketch, research pass) gates P5b (arm the block). The wos ledger's decision item is closed and deleted — this file owns the work now. |
+| 2026-08-17 | **Resumed by ruling, not drifted into.** Coverage 9/125 (7%), all growth from one `/craft` run on `aiwbot/frontend`. Target set to enforce-on-contact; P5a (SPEC v1: WHAT/WHY, rounds, result sketch, research pass) gates P5b (arm the block). The wos list's decision item is closed and deleted — this file owns the work now. |

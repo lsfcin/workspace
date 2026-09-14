@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Which files the Tier 0 checks look at, and which of them are allowed to name what the
-# checks forbid. Split from entropy_ledger.py 2026-07-30 at the 150-line warn: enumerating
+# Which files the Level 0 checks look at, and which of them are allowed to name what the
+# checks forbid. Split from entropy_list.py 2026-07-30 at the 150-line warn: enumerating
 # the corpus is a different job from asserting things about it.
 import re
 import subprocess
@@ -26,7 +26,7 @@ SKIP_DIRS = {'.venv', 'node_modules', '.mypy_cache', '.pytest_cache', '.Trash-10
              'Downloads'}
 
 def staged_added_files() -> list:
-    """Only files this commit ADDS — the ratchet every Tier 0 gate shares.
+    """Only files this commit ADDS — the ratchet every Level 0 gate shares.
 
     Renames count as adds of the new name: a file arriving under a new name is arriving,
     and the gates that read this all ask about the name and the content it lands with.
@@ -131,7 +131,7 @@ def declared_projects(root: Path) -> set:
     from an ignored working directory (`outputs/`), the glob from a subtree rule (`academy/*`).
     Tracked, so it reads the same on every clone whether or not a project is checked out, which is
     why PROJECTS.md takes its row set from here and never from the disk. A nested repo NOT in this
-    set is a target — somewhere the workspace publishes to, keeping no ledger of its own.
+    set is a target — somewhere the workspace publishes to, keeping no list of its own.
     """
     lines = (root / '.gitignore').read_text(encoding='utf-8').splitlines()
     return {line.strip() for line in lines
@@ -148,7 +148,7 @@ MIRRORS = ('.claude/', '.opencode/', '.github/', '.zcode/skills/')
 
 
 def is_generated_mirror(path: Path) -> bool:
-    # Matched against the SEAM's spelling, never str(). These markers carry `/`, so on a clone
+    # Matched against the BOUNDARY's spelling, never str(). These markers carry `/`, so on a clone
     # where a path stringifies with `\` not one of them matched and every mirror was judged as
     # authored prose — findings against files nobody can edit, in the report that exists to list
     # only what someone can act on.
@@ -162,20 +162,20 @@ def is_generated_mirror(path: Path) -> bool:
 # because an issue is often ABOUT a name that should no longer exist.
 ENFORCEMENT = ('core/SCHEMA.md', 'ISSUES.md')
 
-# The ledger check's own tests, found by name instead of by path: spelling the path out is what
+# The list check's own tests, found by name instead of by path: spelling the path out is what
 # broke this exemption the moment core/tools/test was split (2026-07-31).
-_CHECKER_TESTS = ('core/tools/test/**/test_entropy_ledger.py*',
+_CHECKER_TESTS = ('core/tools/test/**/test_entropy_list.py*',
                   'core/tools/test/**/test_entropy_retired.py*')
 
 # The checker and its stub are SIBLINGS of this file, so they are derived rather than spelled out —
 # a hard-coded path stopped exempting them the day the hooks moved into `core/`.
-_CHECKER = ('entropy_ledger.py', 'entropy_ledger.pyi')
+_CHECKER = ('entropy_list.py', 'entropy_list.pyi')
 
-# Every nested repo's ledger carries the same generated block the root's does, so the exemption
+# Every nested repo's list carries the same generated block the root's does, so the exemption
 # follows the report into all of them. Not a courtesy: that block's own notes name a retired token
-# and spell `[[slug]]` literally, so an unexempt ledger is flagged by the text the tool wrote into
+# and spell `[[slug]]` literally, so an unexempt list is flagged by the text the tool wrote into
 # it. Derived from nested_repos rather than a `code/*` glob, which is how it survived the scatter.
-_LOCAL_LEDGER = 'ISSUES.md'
+_LOCAL_LIST = 'ISSUES.md'
 
 
 def enforcement_paths(root: Path) -> set:
@@ -183,7 +183,7 @@ def enforcement_paths(root: Path) -> set:
     return ({(root / name).resolve() for name in ENFORCEMENT}
             | {here / name for name in _CHECKER}
             | {p.resolve() for pattern in _CHECKER_TESTS for p in root.glob(pattern)}
-            | {(repo / _LOCAL_LEDGER).resolve() for repo in nested_repos(root)})
+            | {(repo / _LOCAL_LIST).resolve() for repo in nested_repos(root)})
 
 
 # brain/memory holds cross-session agent memory, and its `[[slug]]` names ANOTHER MEMORY rather

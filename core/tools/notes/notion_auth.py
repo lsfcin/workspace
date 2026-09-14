@@ -20,7 +20,7 @@ class NotShared(RuntimeError):
 def config_dir() -> pathlib.Path:
     d = pathlib.Path.home() / ".config" / f"workspace-{SERVICE}"
     d.mkdir(parents=True, exist_ok=True)
-    # Asked of the seam, never chmod'd here. On Windows chmod(0o700) accepts the number, returns
+    # Asked of the boundary, never chmod'd here. On Windows chmod(0o700) accepts the number, returns
     # cleanly and changes nothing about who may enter — a false green on a directory holding a
     # secret, which is worse than no call at all because the caller is told it is protected.
     secure_dir(d)

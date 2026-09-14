@@ -102,7 +102,7 @@ def test_a_feature_field_names_the_registry(tmp_path):
 
 
 def test_an_install_step_is_accepted_where_it_is_not_a_slug(tmp_path):
-    """The join core/features.txt declares is to its INSTALL column: a SETUP shard names steps, and
+    """The join core/features.txt declares is to its INSTALL column: a SETUP part names steps, and
     `git-hooks` is one step four features share. Holding the field to the slug column would report
     the registry's own vocabulary as wrong."""
     assert _doc(tmp_path, '> feature: git-hooks, declared-deps', name='SETUP-thing.md') == []

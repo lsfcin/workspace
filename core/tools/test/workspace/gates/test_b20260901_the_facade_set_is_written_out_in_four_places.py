@@ -66,5 +66,5 @@ def test_a_facade_is_never_gated_on_its_own_stub() -> None:
 	from chain import interface_state
 
 	for name in FACADES:
-		state, iface = interface_state(WORKSPACE_ROOT / f'code/probe/{name}')
+		state, iface = interface_state(WORKSPACE_ROOT / f'code/check/{name}')
 		assert (state, iface) == ('none', None), f'{name} was treated as a gateable source'

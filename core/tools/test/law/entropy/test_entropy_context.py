@@ -1,4 +1,4 @@
-# T0 CONTEXT.md rules (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
+# T0 CONTEXT.md rules (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
 #
 # The goal-link check was written AFTER the backfill, not before: all 14 projects already
 # declared line 3, so the check could go straight to blocking instead of warning. That
@@ -158,7 +158,7 @@ def test_only_context_files_are_checked(tmp_path):
 
 
 def test_the_generated_block_is_not_part_of_the_head(tmp_path):
-    """The routing table's size is the fanout signal's business, not this check's."""
+    """The routing table's size is the crowding signal's business, not this check's."""
     doc = tmp_path / 'CONTEXT.md'
     doc.write_text('# t\n<!-- routing:start -->\n' + 'x' * (HEAD_WARN * 8), encoding='utf-8', newline='\n')
     assert entropy_context.context_head(doc).strip() == '# t'

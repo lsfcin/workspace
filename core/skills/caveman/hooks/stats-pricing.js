@@ -13,7 +13,7 @@ const COMPRESSION = { 'full': 0.65 };
 // Approximate Anthropic public output-token pricing, USD per million.
 // Match by model id prefix so this stays correct across point releases
 // (e.g. claude-sonnet-4-20250514, claude-sonnet-4-7). Update from
-// https://www.anthropic.com/pricing if a release changes the tier.
+// https://www.anthropic.com/pricing if a release changes the level.
 const MODEL_OUTPUT_PRICE_PER_M = [
   ['claude-opus-4',     75.00],
   ['claude-sonnet-4',   15.00],

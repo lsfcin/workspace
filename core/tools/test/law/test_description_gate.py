@@ -7,7 +7,7 @@
 # `← add first-line comment` inside the enforcement directory itself.
 #
 # It rides in type-gate.py rather than in a gate of its own: `core/hooks/checks/` is at the
-# fanout cap, and a second standalone gate over the same staged-add set would have been a new
+# crowding cap, and a second standalone gate over the same staged-add set would have been a new
 # file to say "and also this" — the ratchet, the corpus filters and the failure format are
 # already there.
 from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine

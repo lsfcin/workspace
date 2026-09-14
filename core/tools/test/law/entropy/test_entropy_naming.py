@@ -1,4 +1,4 @@
-# T0 naming and placement (Tier 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
+# T0 naming and placement (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
 #
 # The whole-tree test is a RATCHET, not a green light: it asserts the live violations are
 # a subset of a named baseline, so a new one fails the build while the three inherited
@@ -11,7 +11,7 @@ from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
 # sys.path for the enforcement layer is set once, by conftest.py — a second copy
 # here would go stale the next time core/hooks is split.
 
-import entropy_ledger  # noqa: E402
+import entropy_list  # noqa: E402
 import entropy_naming  # noqa: E402
 import schema_law  # noqa: E402
 
@@ -23,7 +23,7 @@ def _live_violations():
     allowed, _ = schema_law.load_law()
     scopes = schema_law.load_scopes()
     found = set()
-    for path in entropy_ledger.tracked_files(WORKSPACE_ROOT):
+    for path in entropy_list.tracked_files(WORKSPACE_ROOT):
         for failure in (entropy_naming.check_shape(path, allowed),
                         entropy_naming.check_dirs(path, WORKSPACE_ROOT),
                         entropy_naming.check_placement(path, scopes, WORKSPACE_ROOT)):

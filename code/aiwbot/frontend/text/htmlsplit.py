@@ -67,7 +67,7 @@ def _sealed(prefix: str, body: list[str], stack: list[tuple[str, str]]) -> str:
 
 
 def _has_text(lines: list[str]) -> bool:
-    """Any actual content, ignoring blank lines and the tags carried across a seam. Telegram
+    """Any actual content, ignoring blank lines and the tags carried across a boundary. Telegram
     rejects an empty message, so a run of blank lines must never seal a chunk of its own."""
     joined = "".join(lines)
     stripped = _TAG_RE.sub("", joined)
@@ -85,7 +85,7 @@ def _wants_break(grown: str, line: str, soft: int | None, body: list[str]) -> bo
 
 
 def split_html(text: str, limit: int, soft: int | None = None) -> list[str]:
-    """Chunk formatted HTML on line boundaries, carrying open tags across the seam: whatever
+    """Chunk formatted HTML on line boundaries, carrying open tags across the boundary: whatever
     is still open is closed at the end of a chunk and reopened at the start of the next.
 
     `limit` is Telegram's hard cap and is never exceeded. `soft`, when given, is the size past

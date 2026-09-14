@@ -9,7 +9,7 @@ sys.path.insert(0, str(_HOOKS / 'entropy'))
 from entropy_corpus import ignored_here, is_generated_mirror  # noqa: E402
 from file_law import FACADES, is_code_file, load_limits  # noqa: E402
 from hoist import hoist, md_blurb  # noqa: E402
-from shard_table import EMPTY_CELL, render_table  # noqa: E402
+from part_table import EMPTY_CELL, render_table  # noqa: E402
 from workspace_meta import (  # noqa: E402
     ALL_EXTS, PLACEHOLDER, extract_api, file_description, interface_for,
 )
@@ -17,7 +17,7 @@ from workspace_meta import (  # noqa: E402
 # The number lives in limits.env, never here — this file held the only copy for months
 # while three other checkers each invented their own (see file_law.py). FOLD_FILES since
 # 2026-09-06: this asks whether a directory is substantial enough to route TO, which is not
-# the question WARN_FILES asks, and sharing one constant meant raising the fanout signal
+# the question WARN_FILES asks, and sharing one constant meant raising the crowding signal
 # would have folded every 7-9-file directory into its parent as a side effect.
 SPLIT_THRESHOLD = load_limits()['FOLD_FILES']
 _ROOT        = _HOOKS.parents[1]

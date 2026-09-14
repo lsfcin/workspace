@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Tier 0 naming and placement, parsed from core/SCHEMA.md. Zero-token, deterministic.
+# Level 0 naming and placement, parsed from core/SCHEMA.md. Zero-token, deterministic.
 #
 # Scope is AUTHORED files only. The 91 tracked paths carrying spaces and accents are all
 # received documents (.docx/.pdf/.html from the PPC process) whose names are their
@@ -8,7 +8,7 @@
 #
 # "Full words, not truncations" is NOT here: it is undecidable in general, so it is
 # enforced by declaration instead — core/SCHEMA.md § Retired tokens, checked by
-# entropy_ledger.py. A truncation becomes catchable the moment someone retires it.
+# entropy_list.py. A truncation becomes catchable the moment someone retires it.
 import re
 import sys
 from pathlib import Path
@@ -19,7 +19,7 @@ from entropy_context import ROUTING_END, ROUTING_START  # noqa: E402
 from platform_law import posix, rel  # noqa: E402
 
 # A finding is TEXT: it lands in ISSUES.md and is matched against baselines spelled with `/`.
-# Spelled by the seam so the same file produces the same finding on every machine — a `\` here
+# Spelled by the boundary so the same file produces the same finding on every machine — a `\` here
 # silently un-baselined every waiver and reported reviewed exceptions as new violations.
 def _head(path) -> str:
     return posix(path)
@@ -80,7 +80,7 @@ def untracked_routing_targets(files: list, root: Path) -> list:
     """A routing table pointing at a file git does not carry.
 
     The general form of the TYPE_SLUG question above, and it sits here for that reason: the shape
-    law says a `TYPE-<slug>.md` is a real shard of its type, and this says the tree really has one.
+    law says a `TYPE-<slug>.md` is a real part of its type, and this says the tree really has one.
     A name that passes `check_shape` and a file a clone never receives are the same defect read
     from two ends.
 
@@ -117,7 +117,7 @@ def untracked_routing_targets(files: list, root: Path) -> list:
                 continue
             if not target.is_file() or owning_repo(target, root) != root.resolve():
                 # A broken link, another repo's file, or a bare directory. The first is
-                # test_pointer_integrity's, the second is that repo's own ledger's, and git has
+                # test_pointer_integrity's, the second is that repo's own list's, and git has
                 # no object for the third — none of them is a routing table carrying a lie.
                 continue
             findings.append(

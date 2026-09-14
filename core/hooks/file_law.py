@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # What a file IS, and which rules apply to it. The numeric-law sibling of schema_law.py:
-# that module parses core/SCHEMA.md, this one owns the file-shape law every size, fanout
+# that module parses core/SCHEMA.md, this one owns the file-shape law every size, crowding
 # and line-count check reads.
 #
 # Why it exists (2026-07-31): "a code file" was defined in four checkers, no two agreeing, so the
@@ -17,7 +17,7 @@ GENERATED_FILE = HERE / 'generated.txt'
 EXTENSIONLESS_FILE = HERE / 'extensionless.txt'
 DESCRIBED_FILE = HERE / 'described.txt'
 
-# Things the line cap and the fanout signal apply to. `.md` is not here: is_authored_prose below
+# Things the line cap and the crowding signal apply to. `.md` is not here: is_authored_prose below
 # answers for it. `.tex` is code on purpose — a paper section file is authored under the same line
 # rule (academy/papers/SPECS.md § File size).
 CODE_EXTS = {'.js', '.jsx', '.ts', '.tsx', '.py', '.dart', '.sh',
@@ -187,7 +187,7 @@ def over_column_cap(text: str, cols: int) -> list:
 def is_authored_prose(path: Path, root: Path) -> bool:
     """The prose twin, for the gates that hold .md to the same line cap (2026-08-18).
 
-    A separate predicate rather than a wider is_authored, because entropy_fanout counts MODULES in
+    A separate predicate rather than a wider is_authored, because entropy_crowding counts MODULES in
     a directory — a flat collection of documents is a legitimate shape, and brain/goals/ is 57
     files. It lives here rather than in the gates that ask it, for the reason the whole module
     exists: the same question answered in two files drifts.

@@ -21,6 +21,9 @@ directory exceeds `WARN_FILES` direct files. Those are two numbers because they 
 
 **Never edit inside the `<!-- routing:start/end -->` sentinels** — the next sync overwrites it.
 **Renames are not tracked**: the old entry disappears and the new file arrives with a placeholder.
+**`<!-- x:start -->` does not mean generated.** `routing` `projects` `entropy` `verify` `norms`
+`stats` `done` `goals` have writers; `steps` and `data` are delimited so a *test* can parse them
+and a **human** writes them. A sweep that skips every marker skips real writing (2026-09-14).
 
 **Every description is bounded at `DESC_LIMIT`; only a `.md`'s is also rebased.** A `.md` blurb and a
 subdirectory blurb were written to sit under their own heading, so [`hoist.py`](hoist.py) rewrites

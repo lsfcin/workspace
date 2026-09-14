@@ -31,7 +31,7 @@ def check(commit):
         return
 
     # `--show-current`, not `rev-parse --abbrev-ref`: on a branch with no commit yet the latter
-    # answers nothing, and the gate then refused `feature/probe` as a branch named ''. The bash had
+    # answers nothing, and the gate then refused `feature/check` as a branch named ''. The bash had
     # the same hole -- the first commit into a fresh project repo was blocked by a message naming a
     # branch the operator could see was right. `--show-current` names an unborn branch, and prints
     # nothing on a detached HEAD, which is the case the next line was already written for.

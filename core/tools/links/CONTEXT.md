@@ -31,6 +31,6 @@ The short name grammar, the private-folder refusal, why Cloudflare rather than G
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | Why the redirect is Cloudflare's and not GitHub's, why a private folder gets no short name, and what makes a map that grows forever stay cheap. |
 | [`cfpages`](cfpages) | — | — | named short links: add, find, rm, build, check |
-| [`links.txt`](links.txt) | — | — | Every short link this workspace hands out: the short name someone is told out loud, and where it really goes. Read by core/tools/links/links_core.py; published as _redirects by `cfpages build`. |
-| [`links_core.py`](links_core.py) | [`links_core.pyi`](links_core.pyi) | `base`, `Refused`, `load`, `preamble`, `save` | links_core.py — the short name map read+write boundary, and the redirect file it emits, for links/cfpages |
+| [`links.txt`](links.txt) | — | — | Every short link this workspace hands out: the slug someone is told out loud, and where it really goes. Read by core/tools/links/links_core.py; published as _redirects by `cfpages build`. |
+| [`links_core.py`](links_core.py) | [`links_core.pyi`](links_core.pyi) | `base`, `Refused`, `load`, `preamble`, `save` | links_core.py — the slug map read+write boundary, and the redirect file it emits, for links/cfpages |
 <!-- routing:end -->

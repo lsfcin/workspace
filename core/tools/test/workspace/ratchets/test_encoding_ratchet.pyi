@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from pathlib import Path as Path
 
-SEAM: str
+BOUNDARY: str
 MODE_CHARS: Incomplete
 SUBPROCESS_CALLS: Incomplete
 

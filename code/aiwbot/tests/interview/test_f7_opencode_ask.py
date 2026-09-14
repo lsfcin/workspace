@@ -36,7 +36,7 @@ def _server_entry(options: TurnOptions) -> dict:
 
 
 def test_the_ask_url_becomes_each_clis_own_config():
-    """One URL in, two providers' real shapes out. The seam carries the URL and nothing else,
+    """One URL in, two providers' real shapes out. The boundary carries the URL and nothing else,
     because "the JSON its CLI's config flag takes" was only provider-agnostic while claude was the
     single provider: opencode's config is a different shape AND arrives by a different road."""
     options = _options()

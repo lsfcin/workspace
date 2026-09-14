@@ -24,8 +24,8 @@ BROKEN_JSON = ('{"hooks": {"PreToolUse": [{"command": "python3 core/hooks/copilo
                ' "windows": "python core/hooks/copilot/x.py"}]}}\n')
 FIXED_JSON = '{"hooks": {"PreToolUse": [{"command": "sh core/run hooks/copilot/x.py"}]}}\n'
 BROKEN_SH = '#!/bin/sh\npython3 "$ROOT/core/hooks/x.py"\n'
-# The shape that must stay legal: asking the seam, and naming the word in a comment.
-SEAM_JS = ('// the bare word python3 is banned here\n'
+# The shape that must stay legal: asking the boundary, and naming the word in a comment.
+BOUNDARY_JS = ('// the bare word python3 is banned here\n'
            'const r = spawnSync("sh", [`${W}/core/run`, "--python"])\n')
 
 
@@ -75,14 +75,14 @@ def test_the_shell_arm_still_catches_what_it_always_did(tmp_path):
     assert _live_files(_grep(repo, shell, ('*.sh',))) == {'hook.sh'}
 
 
-def test_asking_the_seam_is_not_a_finding(tmp_path):
+def test_asking_the_boundary_is_not_a_finding(tmp_path):
     """`--python` and a commented mention must both pass, or the ratchet fails on the fix itself
     and on every file that explains why the ban exists. The `-` before `python` saves the first;
     the comment filter saves the second."""
     _shell, quoted, globs = _patterns()
-    repo = _planted(tmp_path, {'seam.js': SEAM_JS})
+    repo = _planted(tmp_path, {'boundary.js': BOUNDARY_JS})
     live = _live_files(_grep(repo, quoted, globs))
-    assert not live, f'the seam spelling reads as a spawn: {live}'
+    assert not live, f'the boundary spelling reads as a spawn: {live}'
 
 
 def test_every_shim_reaches_the_trackers_through_the_table():

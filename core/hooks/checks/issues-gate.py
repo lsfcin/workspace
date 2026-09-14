@@ -95,7 +95,7 @@ def main() -> int:
 	if not missing:
 		return 0
 
-	print('ISSUES GATE - leaving the ledger needs executable proof.', file=sys.stderr)
+	print('ISSUES GATE - leaving the list needs executable proof.', file=sys.stderr)
 	for b in missing:
 		print(f'   {b}: no regression spec found (expected a test/ file naming the id, e.g. test_{b.replace("-", "_")}_*.py).', file=sys.stderr)
 	print('   Write the regression spec first, verify it passes, then flip or delete the section.', file=sys.stderr)

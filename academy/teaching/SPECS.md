@@ -41,7 +41,7 @@ Agentes que manipulam materiais de ensino neste repositório devem seguir este p
 ## Routing
 
 | Part | Description | Governs |
-|-------|-------------|---------|
+|------|-------------|---------|
 | [`SPECS-aulas.md`](SPECS-aulas.md) | Contrato de planejamento e auditoria para aulas teóricas e práticas (nível micro). | toda aula teórica ou prática ministrada por Lucas |
 | [`SPECS-disciplinas.md`](SPECS-disciplinas.md) | Metodologia macro semestral de condução, ciclos de projeto, avaliação e acompanhamento. | todas as disciplinas de graduação e pós ministradas por Lucas (TecEdu, AI4Good) |
 <!-- routing:end -->

@@ -25,7 +25,7 @@ Standard summarization injects the full document into context. Above ~15k tokens
 fills (context rot). This workflow keeps the document on disk as an external variable and reads only bounded windows —
 so context pressure is proportional to the window size, not the document size.
 
-Tier 1 (below the Tier-1 threshold) is a deliberate exception: direct injection is safe for short inputs.
+Level 1 (below the Level-1 threshold) is a deliberate exception: direct injection is safe for short inputs.
 
 ## Runtime knobs
 
@@ -49,26 +49,26 @@ window=<w> overlap=<o> tier1=<t1> tier2=<t2>`.
 
 Measure decoded text characters. Log: `[summarize] source=<source> slug=<slug> chars=<count>`
 
-## Step 2 — Choose tier
+## Step 2 — Choose level
 
-| Chars | Tier | Strategy |
+| Chars | Level | Strategy |
 |---|---|---|
 | < tier1-threshold | 1 | Direct read |
 | tier1 – tier2 | 2 | RLM-lite — windowed bash extraction |
 | > tier2-threshold | 3 | Full RLM — bash chunking + parallel researcher subagents |
 
-Log: `[summarize] tier=<N> chars=<count>`
+Log: `[summarize] level=<N> chars=<count>`
 
-## Tier 1 — Direct read
+## Level 1 — Direct read
 
 Read `outputs/.notes/<slug>-raw.txt` in full. Summarize directly. Write to `outputs/<slug>-summary.md`.
 
-## Tier 2 — RLM-lite windowed read
+## Level 2 — RLM-lite windowed read
 
 Extract `<window-size>`-char windows via bash, using char-offset reads (not line offsets). For each window: extract key
 claims and evidence, append to `outputs/.notes/<slug>-notes.md`. Synthesize notes into `outputs/<slug>-summary.md`.
 
-## Tier 3 — Full RLM parallel chunks
+## Level 3 — Full RLM parallel chunks
 
 Chunk the document with overlap, dispatch one `researcher` subagent per chunk (reads only its chunk file, no web
 search), aggregate summaries, deduplicate boundary claims, write `outputs/<slug>-summary.md`.
@@ -80,14 +80,14 @@ Read ONLY outputs/.notes/<slug>-chunk-NNN.txt. Extract: (1) key claims, (2) meth
 
 ## Output format
 
-All tiers produce the same artifact at `outputs/<slug>-summary.md`:
+All levels produce the same artifact at `outputs/<slug>-summary.md`:
 
 ```markdown
 # Summary: [document title or source filename]
 
 **Source:** [URL or file path]
 **Date:** [YYYY-MM-DD]
-**Tier:** [1 / 2 (N windows) / 3 (N chunks)]
+**Level:** [1 / 2 (N windows) / 3 (N chunks)]
 
 ## Key Claims
 [3-7 most important assertions]
@@ -104,7 +104,7 @@ All tiers produce the same artifact at `outputs/<slug>-summary.md`:
 ## Sources
 1. [Title or filename] — [URL or file path]
 
-## Coverage gaps *(Tier 3 only)*
+## Coverage gaps *(Level 3 only)*
 [Missing chunk indices]
 ```
 

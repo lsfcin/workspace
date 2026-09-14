@@ -7,7 +7,7 @@
 # throughout, because test_pointer_integrity.py resolves the `](path)` half and a link whose FILE
 # exists and whose SECTION does not reads as healthy. They were found by grep, by hand.
 #
-# IT PREDATES THE SHARD. `SETUP.md § Workspace path` had pointed at a section deleted 2026-08-29,
+# IT PREDATES THE PART. `SETUP.md § Workspace path` had pointed at a section deleted 2026-08-29,
 # and `SETUP.md §12` — a numbered citation core/SPECS.md forbids outright — sat in a tool's
 # first-line comment where the routing generator republished it. Renaming one heading in
 # `.zcode/SPECS.md` killed two more citations on 2026-09-04, while this check was being written.
@@ -15,7 +15,7 @@
 # WHY HERE AND NOT IN citation-gate.py, which owns the other half of the same rule (a number is
 # not a citable identifier — point at the section that owns it): that file reached the 200-line
 # cap, and the law says a file over the cap is CUT, never squeezed. The cut put this beside
-# test_pointer_integrity.py instead, which is the honest seam — that check resolves the `](path)`
+# test_pointer_integrity.py instead, which is the honest boundary — that check resolves the `](path)`
 # half of a pointer and this one resolves the `§` half, and pre-commit runs both.
 #
 # NOT A RATCHET. The corpus was swept to zero when this landed, so every tracked .md is checked
@@ -44,7 +44,7 @@ def _norm(text: str) -> str:
 
 
 # A heading names itself and then explains itself: `### AD-16 — Doubt is not charged`,
-# `## Placement: tier × read-frequency`. A citation is written against the naming half, so the
+# `## Placement: level × read-frequency`. A citation is written against the naming half, so the
 # half before the first separator is a section name in its own right.
 _LEAD = re.compile(r'\s—|:|\s\(')
 
@@ -74,7 +74,7 @@ def section_hits(files: list, root: Path) -> list:
 
     A citation is matched by NAME PREFIX in both directions: `§ AD-16 band 1` points inside
     `### AD-16 — Doubt is not charged when asserting`, and `§ Placement` points at
-    `## Placement: tier × read-frequency`. Both are honest pointers and neither is an exact match.
+    `## Placement: level × read-frequency`. Both are honest pointers and neither is an exact match.
     """
     hits = []
     for path in files:

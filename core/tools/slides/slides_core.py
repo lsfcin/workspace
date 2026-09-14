@@ -1,4 +1,4 @@
-# slides_core.py — Google Slides read+write seam (account-agnostic) for Core/tools/slides/gslides
+# slides_core.py — Google Slides read+write boundary (account-agnostic) for Core/tools/slides/gslides
 import pathlib, sys
 
 _HERE = pathlib.Path(__file__).resolve().parent

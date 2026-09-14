@@ -11,10 +11,10 @@ from pathlib import Path
 
 # Two to three sentences, ruled by Lucas 2026-08-19: *"a 'Description' tão bem sucinta e muitas
 # vezes não explica de que se trata o arquivo"*. It was 80, which cannot hold a question and its
-# object, so the bound wrote the prose — thirty-odd shard descriptions were shaped to fit it, and
+# object, so the bound wrote the prose — thirty-odd part descriptions were shaped to fit it, and
 # `core/tools/wos/session/reads` advertised itself as "which files a", cut mid-word.
 #
-# 360 is MEASURED, not chosen: the eight rewritten shard descriptions run 304-347 characters at
+# 360 is MEASURED, not chosen: the eight rewritten part descriptions run 304-347 characters at
 # three sentences each. 240 was a guess at "two to three sentences" and truncated all eight, which
 # would have made the bound write the prose a second time — the exact failure, one size up.
 #
@@ -44,7 +44,7 @@ def md_blurb(path: Path) -> str:
     author who wrote more got no credit for it. Now the whole `>` block is one description,
     stopping at the first FIELD line — `priority:`, `goal:`, `spec:`, `governs:`,
     `blocked-by:` are data the table has its own columns for, and reading them as prose is
-    how "Tier 0 checks…" would have become "Tier 0 checks… priority: essential".
+    how "Level 0 checks…" would have become "Level 0 checks… priority: essential".
     """
     try:
         lines = path.read_text(encoding='utf-8', errors='ignore').splitlines()
@@ -108,7 +108,7 @@ def truncate_outside_links(text: str, limit: int) -> str:
     """Cut to `limit`, never mid-link and never mid-word, and say that you cut.
 
     Mid-link, because a half-copied `[REFS.md](RE` is a broken pointer and the
-    pointer-integrity check would be right to fail on it. Mid-word, because `Tier 0 checks
+    pointer-integrity check would be right to fail on it. Mid-word, because `Level 0 checks
     t` reads as a typo rather than as a truncation — the reader cannot tell a cut from a
     mistake, which is half of why these descriptions read badly. The ellipsis is what makes
     the difference visible.

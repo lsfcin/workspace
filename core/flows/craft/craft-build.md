@@ -4,10 +4,10 @@ args: <carry file>
 ---
 ## Loop 3 — Architecture
 
-**Tier:** high (max if critico). **Input:** `2-ground.md`. **Output:** `3-arch.md`.
+**Level:** high (max if critico). **Input:** `2-ground.md`. **Output:** `3-arch.md`.
 
 Design the high-level shape: folders, files, classes, responsibilities, key function signatures. Then a same-session
-adversarial evaluation pass: does every criterion C1..Cn have a home and a **testable boundary**? Would a medium-tier
+adversarial evaluation pass: does every criterion C1..Cn have a home and a **testable boundary**? Would a medium-level
 model
 implementing file-by-file make a wrong guess anywhere? Fix before writing the verdict.
 
@@ -31,7 +31,7 @@ If `arch-review-supervised=yes`, present the findings and wait for the user's ca
 
 ## Evaluation
 criteria-coverage: C1→<where> ... Cn→<where>
-seams: <how each criterion will be tested>
+boundaries: <how each criterion will be tested>
 verdict: PASS | FAIL <reason>
 
 ## Concept-Symmetry Review (omit if arch-review=none)
@@ -47,7 +47,7 @@ reason=criterion-infeasible`; two criteria contradict → `RETURN loop=0 reason=
 
 ## Loop 3.5 — Contract Layout (feature folder · mandatory · contract-first)
 
-**Tier:** high. **Input:** `3-arch.md`. **Output:** `3b-contracts.md`.
+**Level:** high. **Input:** `3-arch.md`. **Output:** `3b-contracts.md`.
 
 This is the heart of the feature folder: **lay out every module/step I/O contract before any implementation**, so the
 connection graph is defined in advance and the code merely fills the placeholders. The contract is mandatory regardless
@@ -81,7 +81,7 @@ criterion has no home in any module contract → `RETURN loop=1 reason=criterion
 
 ## Loop 4a — Tests First
 
-**Tier:** medium. **Input:** `3b-contracts.md`. **Output:** `4a-tests.md`.
+**Level:** medium. **Input:** `3b-contracts.md`. **Output:** `4a-tests.md`.
 
 TDD: write functional/unit tests **before** implementation code, one or more per criterion, placed at the boundaries
 named in
@@ -97,13 +97,13 @@ the architecture. Run them; confirm they fail for the right reason (missing beha
 red-run: <n> failed as expected | wrong-failures: <none or list>
 ```
 
-**Flags:** a criterion is untestable at the designed boundaries → `RETURN loop=3 reason=no-seam`; untestable as
+**Flags:** a criterion is untestable at the designed boundaries → `RETURN loop=3 reason=no-boundary`; untestable as
 *written*
 regardless of design → `RETURN loop=1 reason=criterion-untestable`.
 
 ## Loop 4b — Code Until Green
 
-**Tier:** medium (per plan-row tiers). **Input:** `4a-tests.md`. **Output:** `4b-code.md`.
+**Level:** medium (per plan-row levels). **Input:** `4a-tests.md`. **Output:** `4b-code.md`.
 
 Implement plan tasks until `test-cmd` is fully green. Append one `attempt` line per red run — this log is the escalation
 evidence. **Never edit a test to make it pass**; a wrong test is a flag, not a patch.
@@ -120,6 +120,6 @@ green: yes run: <test-cmd output last line>
 touched: <files>
 ```
 
-**Flags:** 3 red attempts at default tier + 3 more at escalated tier → decide by evidence: failing test contradicts a
+**Flags:** 3 red attempts at default level + 3 more at escalated level → decide by evidence: failing test contradicts a
 Carry criterion → `RETURN loop=4a reason=test-wrong`; test is right but the design fights it → `RETURN loop=3
 reason=design-fights-tests`.

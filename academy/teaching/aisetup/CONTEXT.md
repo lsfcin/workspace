@@ -8,7 +8,7 @@ rota de modelo, e o aluno precisa de apenas uma delas.
 
 | Rota | Custo | Volume | Dados usados para treino? | Dificuldade |
 |------|-------|--------|---------------------------|-------------|
-| **Gemini** | R$ 0 | 1.500 req/dia por aluno | **Sim** (free tier) | Fácil |
+| **Gemini** | R$ 0 | 1.500 req/dia por aluno | **Sim** (free level) | Fácil |
 | **Zen** | R$ 0 | ~200 req/dia, dinâmico e instável | **Sim** (modelos free) | Trivial |
 | **OpenRouter** | R$ 0 | 50 req/dia | Varia por modelo | Fácil |
 | **NVIDIA NIM** | R$ 0 | ~1.000 créditos iniciais, 40 req/min | **Logs de uso** (NVIDIA) | Fácil |
@@ -26,7 +26,7 @@ rota de modelo, e o aluno precisa de apenas uma delas.
 > **NUNCA** cole código sensível, senhas, dados pessoais ou trabalho proprietário em **nenhum** modelo gratuito. Todos
 > podem usar seus dados para melhorar os modelos:
 >
-> - Gemini free tier e OpenCode Zen free: **explicitamente** usam seus dados para treino.
+> - Gemini free level e OpenCode Zen free: **explicitamente** usam seus dados para treino.
 > - NVIDIA NIM: registra o uso para segurança e melhoria de produtos.
 >
 > Exercícios e projetos da disciplina: ok. Segredos de empresa ou do seu trabalho: nunca.

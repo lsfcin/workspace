@@ -11,7 +11,7 @@ file, and it is versioned.
 ## Running it
 
 ```bash
-./verify.py fast     # every Tier 0 check + unit tests. The global pre-commit gate runs this.
+./verify.py fast     # every Level 0 check + unit tests. The global pre-commit gate runs this.
 ./verify.py full     # adds the network-marked tests
 core/run hooks/entropy/dashboard/entropy-dashboard.py   # the drift report → ISSUES.md
 ```

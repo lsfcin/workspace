@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Tier 0: a roadmap item number is not a citable identifier outside the roadmap family.
+# Level 0: a roadmap item number is not a citable identifier outside the roadmap family.
 #
 # Why this is a check and not a paragraph. Completion is deletion in this workspace, so the
 # day an item closes, every `Front 4.1` pointing at it becomes a pointer to nothing — or
@@ -8,9 +8,9 @@
 # files, including two pointing at Fronts 2 and 6, which have never existed. The rule was
 # INDUCED; this is the ENFORCED half.
 #
-# It lives here rather than in entropy/ because the fanout gate said so: entropy/ was already
+# It lives here rather than in entropy/ because the crowding gate said so: entropy/ was already
 # at eight code files and the ratchet refused a ninth. That was the right refusal — the check
-# belongs beside type-gate.py, which is the other Tier 0 vocabulary gate, and being here made
+# belongs beside type-gate.py, which is the other Level 0 vocabulary gate, and being here made
 # it a commit-time BLOCK instead of one more line in a report nobody is obliged to read.
 #
 # Not a ratchet, unlike type-gate.py: the corpus was swept to zero on 2026-08-16, so every
@@ -40,10 +40,10 @@ CITATION = re.compile(r'(?<!\w)Front \d+(?:\.\d+[a-z]?)?(?!\w)')
 # finished only when the old spelling appears nowhere.
 RETIRED_SPELLING = re.compile(r'(?<!\w)Frente \d+(?:\.\d+[a-z]?)?(?!\w)')
 
-# The ledger family may number its own items: that is what numbering is FOR, and a commit
+# The list family may number its own items: that is what numbering is FOR, and a commit
 # message may cite one too, because git keeps commits forever. Matched on filename, not path,
 # so a `ROADMAP-<slug>.md` in any repo under the workspace is covered without enumeration.
-LEDGER_NAMES = re.compile(r'^ROADMAP(-[a-z0-9-]+)?\.md$')
+LIST_NAMES = re.compile(r'^ROADMAP(-[a-z0-9-]+)?\.md$')
 
 # THE SECOND DEAD POINTER, the same defect wearing numbers. `core/hooks/limits.env` owns every
 # numeric limit and `file_law.py` is its only parser, because a checker that restates the law is
@@ -96,7 +96,7 @@ WORKSPACE_ROOT = Path(__file__).resolve().parents[3]
 def citation_exempt_paths(root: Path) -> set:
     """Files allowed to contain a Front number: the law, the report, and this check itself.
 
-    A shard of an exempt file inherits the exemption, derived rather than listed. Enumerating
+    A part of an exempt file inherits the exemption, derived rather than listed. Enumerating
     them would fail the first time one of these documents outgrew the line cap, which is exactly
     what happened to `core/hooks/SPECS.md` — its § Git pre-commit section, which has to name the
     shape this gate forbids, moved into a sibling and stopped being exempt on arrival.
@@ -135,7 +135,7 @@ def citation_hits(files: list, exempt: set) -> list:
                 f'   core/SCHEMA.md § Vocabulary.\n'
                 f'   Rename it, then apply the rule below: a number is legal only in ROADMAP*.md.')
             continue
-        if LEDGER_NAMES.match(path.name):
+        if LIST_NAMES.match(path.name):
             continue
         if match := CITATION.search(text):
             line = text[:match.start()].count('\n') + 1

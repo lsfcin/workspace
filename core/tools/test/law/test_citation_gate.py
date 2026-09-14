@@ -27,7 +27,7 @@ def test_no_item_number_is_cited_outside_a_roadmap():
 
 def test_a_citation_in_source_is_a_hit(tmp_path):
     source = tmp_path / 'gate.py'
-    source.write_text('# Tier 0 gate (Front 4.1): the allowlist.\n', encoding='utf-8', newline='\n')
+    source.write_text('# Level 0 gate (Front 4.1): the allowlist.\n', encoding='utf-8', newline='\n')
     hits = entropy_citations.citation_hits([source], set())
     assert len(hits) == 1
     assert "'Front 4.1'" in hits[0]
@@ -47,16 +47,16 @@ def test_a_lettered_subitem_is_a_hit(tmp_path):
 
 
 def test_a_roadmap_may_number_its_own_items(tmp_path):
-    ledger = tmp_path / 'ROADMAP.md'
-    ledger.write_text('See Front 4.1 above.\n', encoding='utf-8', newline='\n')
-    assert entropy_citations.citation_hits([ledger], set()) == []
+    roadmap = tmp_path / 'ROADMAP.md'
+    roadmap.write_text('See Front 4.1 above.\n', encoding='utf-8', newline='\n')
+    assert entropy_citations.citation_hits([roadmap], set()) == []
 
 
 def test_a_scoped_roadmap_may_too(tmp_path):
     """ROADMAP-<slug>.md is the same type wearing a scope suffix, so it carries the same right."""
-    ledger = tmp_path / 'ROADMAP-verify.md'
-    ledger.write_text('Advances Front 3.1.\n', encoding='utf-8', newline='\n')
-    assert entropy_citations.citation_hits([ledger], set()) == []
+    roadmap = tmp_path / 'ROADMAP-verify.md'
+    roadmap.write_text('Advances Front 3.1.\n', encoding='utf-8', newline='\n')
+    assert entropy_citations.citation_hits([roadmap], set()) == []
 
 
 def test_a_lookalike_name_is_not_a_roadmap(tmp_path):
@@ -68,9 +68,9 @@ def test_a_lookalike_name_is_not_a_roadmap(tmp_path):
 
 def test_the_retired_spelling_is_a_hit_even_in_a_roadmap(tmp_path):
     """The number exemption is for the current spelling only — a rename must reach everywhere."""
-    ledger = tmp_path / 'ROADMAP.md'
-    ledger.write_text('See Frente 4.1 above.\n', encoding='utf-8', newline='\n')
-    hits = entropy_citations.citation_hits([ledger], set())
+    roadmap = tmp_path / 'ROADMAP.md'
+    roadmap.write_text('See Frente 4.1 above.\n', encoding='utf-8', newline='\n')
+    hits = entropy_citations.citation_hits([roadmap], set())
     assert len(hits) == 1
     assert 'renamed to `Front`' in hits[0]
 
@@ -108,18 +108,18 @@ def test_the_documents_stating_the_rule_may_quote_it():
     assert (WORKSPACE_ROOT / 'core/hooks/SPECS.md').resolve() in exempt
 
 
-def test_a_shard_of_an_exempt_document_inherits_the_exemption():
+def test_a_part_of_an_exempt_document_inherits_the_exemption():
     """Derived, never listed. `core/hooks/SPECS.md` outgrew the line cap and its § Git pre-commit
     section — which has to name the shape this gate forbids — moved into a sibling and stopped
-    being exempt on arrival. Enumerating shards would fail again at the next split."""
+    being exempt on arrival. Enumerating parts would fail again at the next split."""
     exempt = entropy_citations.citation_exempt_paths(WORKSPACE_ROOT)
-    for shard in (WORKSPACE_ROOT / 'core/hooks').glob('SPECS-*.md'):
-        assert shard.resolve() in exempt, shard
+    for part in (WORKSPACE_ROOT / 'core/hooks').glob('SPECS-*.md'):
+        assert part.resolve() in exempt, part
 
 
 def test_no_prose_restates_a_number_the_numeric_law_owns():
     """The live assertion, green at all times. It was red when written: eight authored files still
-    named 150/200 six days after the law moved to 200/250, and one named the fanout law's previous
+    named 150/200 six days after the law moved to 200/250, and one named the crowding law's previous
     pair. Ruled by Lucas 2026-09-12, scope the law only — a measured number in prose is a separate
     question with a separate owner."""
     hits = entropy_citations.limit_hits(

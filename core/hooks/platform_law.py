@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-# The platform seam: the one file in this workspace allowed to know what an operating system is.
+# The platform boundary: the one file in this workspace allowed to know what an operating system is.
 #
 # Sibling of file_law.py / schema_law.py / feature_law.py — one module owns one question so the
 # answer cannot drift. file_law says what a file IS, schema_law what a name MAY BE, feature_law
 # what is ON, this one what the machine underneath is.
 #
-# WHY A SEAM AND NOT A PER-OS FORK. Porting bash to Python removes the per-OS axis rather than
+# WHY A BOUNDARY AND NOT A PER-OS FORK. Porting bash to Python removes the per-OS axis rather than
 # adding a Windows arm: all three per-OS forks this workspace ever had were broken by the time the
 # port found them. So `sys.platform` appears HERE and nowhere else, held at zero by
 # core/tools/test/workspace/test_port_ratchet.py.
@@ -24,14 +24,14 @@ WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
 _WINDOWS = sys.platform == 'win32'
 _DARWIN = sys.platform == 'darwin'
 
-POSIX_VENV_BIN = '.venv/bin'         # the seam publishes its DATA, not only its behaviour: these
+POSIX_VENV_BIN = '.venv/bin'         # the boundary publishes its DATA, not only its behaviour: these
 WINDOWS_VENV_BIN = '.venv/Scripts'   # were re-spelled in 20 files, which is what the ceilings count
 AUTHORING_ROOT = '/mnt/workspace'    # named ONCE, so a checker can search without self-finding
 
 
 def venv_script(name: str) -> Path:
     """A console script inside the venv — pytest, stubgen, yt-dlp, pip. Two differences in one
-    answer: the directory (bin vs Scripts) and the suffix; by hand, a probe misreports a present dep."""
+    answer: the directory (bin vs Scripts) and the suffix; by hand, a check misreports a present dep."""
     return WORKSPACE_ROOT / (WINDOWS_VENV_BIN if _WINDOWS else POSIX_VENV_BIN) / (
         f'{name}.exe' if _WINDOWS else name)
 
@@ -51,7 +51,7 @@ def interpreter() -> str:
 def session_state(name: str) -> Path:
     """A session-scoped scratch file — the markers a gate writes in one hook and reads in the next.
 
-    WHY THIS IS A SEAM QUESTION AND NOT A CONSTANT. Six hooks spelled `/tmp/claude_<x>_<sid>.txt`
+    WHY THIS IS A BOUNDARY QUESTION AND NOT A CONSTANT. Six hooks spelled `/tmp/claude_<x>_<sid>.txt`
     by hand. `/tmp` is not a directory Windows has: Python anchors a leading slash to the current
     drive, so every one of those writes aimed at `C:\\tmp`, which does not exist. The write raised
     inside a PostToolUse hook, whose exit status nothing reads, and the matching read then found
@@ -70,7 +70,7 @@ def session_state(name: str) -> Path:
 def install_command(directory, name: str, source: str) -> None:
     """Put python `source` in `directory` so the bare word `name` runs it once that dir is on PATH.
 
-    WHY THIS IS THE SEAM'S AND NOT THE CALLER'S. Faking a binary is POSIX muscle memory — write a
+    WHY THIS IS THE BOUNDARY'S AND NOT THE CALLER'S. Faking a binary is POSIX muscle memory — write a
     file, give it a shebang, chmod +x — and none of the three mechanisms exists on Windows: the
     execute bit is not a permission there, a shebang is inert, and CreateProcess resolves a bare
     name only through PATHEXT, so an extensionless file is not findable at all. The caller does not
@@ -94,7 +94,7 @@ def package_install(name: str) -> list:
     THE POINT IS THAT `name` DOES NOT CHANGE. core/tools/deps.txt says a dependency's name is spelled
     "exactly as the install command spells it" -- a contract that was only ever true because one kind
     of machine had read the file. Three managers, three spellings, and the row would have to fork.
-    So the seam absorbs the difference and the registry keeps one name per dependency.
+    So the boundary absorbs the difference and the registry keeps one name per dependency.
 
     WHY THE WINDOWS ARM PINS ITS SOURCE. `winget install gh` is ambiguous and refuses: the msstore
     source offers unrelated apps matching those letters, and winget exits asking the caller to refine

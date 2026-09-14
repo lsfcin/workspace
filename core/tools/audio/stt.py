@@ -1,4 +1,4 @@
-# stt.py — speech-to-text seam: faster-whisper large-v3-turbo, lazy-loaded; fails safe to "" .
+# stt.py — speech-to-text boundary: faster-whisper large-v3-turbo, lazy-loaded; fails safe to "" .
 # Priming is the CALLER's data — a domain passes its own carrier prose to `run`, because the
 # prompt is what buys both vocabulary and punctuation, and no two domains share one.
 from __future__ import annotations
@@ -37,7 +37,7 @@ def confident(segments: list) -> bool:
 
 
 def run(path: pathlib.Path, whisper, hotwords: str, lang: str = "pt") -> str:
-    """Transcribe one file with an injectable model — the test seam. Any failure (bad audio,
+    """Transcribe one file with an injectable model — the test boundary. Any failure (bad audio,
     model error) degrades to "" rather than raising: the fail-safe invariant. A transcript the
     model itself doubts degrades the same way."""
     text = ""

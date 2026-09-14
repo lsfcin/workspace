@@ -18,7 +18,7 @@ plus the `uses:` DAG and is wired into `core/hooks/pre-commit`, so nothing here 
 ### Layer: skill — `core/skills/<name>.md`
 
 `name` (kebab-case, matching the filename) and `description` (actionable, drives the menu, ends with
-"Invoke with /name [args]."); optionally `flow`, what a THIN skill dispatches to. **No `model`, `tier`,
+"Invoke with /name [args]."); optionally `flow`, what a THIN skill dispatches to. **No `model`, `level`,
 `tools` or `subagents`** — execution detail, pushed down. THIN and FAT are both valid. A skill's
 `refs/` folder sits **beside the skill file**, never under `.claude/` or `.opencode/`, which are
 mirrors `sync-skills` prunes. **Sub-skills group into a suite folder**: the parent stays flat and is
@@ -26,10 +26,10 @@ the only file mirrored, and sub-skills drop the parent's prefix from their filen
 
 ### Layer: agent — `core/agents/<name>.md`
 
-`name`, `description` (what evidence or output this worker produces) and `tier` — `low` | `medium` |
+`name`, `description` (what evidence or output this worker produces) and `level` — `low` | `medium` |
 `high` | `max`, the provider-agnostic effort ladder. **Workers** also declare `tools` and `output`,
 plus `defaultProgress` when long-running; an **orchestrator** carries the first three only, inheriting
-the full toolset and owning no single artifact. `tier` is the source of truth and a runtime needing a
+the full toolset and owning no single artifact. `level` is the source of truth and a runtime needing a
 concrete model sets it **by hand** per mirror — there is no generator. **No `thinking:` and no
 `model:` in source.**
 

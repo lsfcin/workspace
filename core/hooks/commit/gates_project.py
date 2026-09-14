@@ -43,7 +43,7 @@ def _contract(commit) -> list:
     """Which verify:fast contract this project declares, if any.
 
     Asked of core/tools/verify/contract.py, which is the one definition of what counts as declared —
-    shared with core/tools/wos/roundup, which asks the same question one tier up. Two copies of an
+    shared with core/tools/wos/roundup, which asks the same question one level up. Two copies of an
     ordered discovery list is exactly how the gate and the close would come to disagree about
     whether a project has a contract at all.
     """

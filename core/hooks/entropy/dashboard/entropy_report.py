@@ -22,7 +22,7 @@ SEED = ('# Workspace issues\n'
 
 
 def local_seed(repo: str) -> str:
-    """The same head, for a code repo's own ledger — created on the first scatter, then authored."""
+    """The same head, for a code repo's own list — created on the first scatter, then authored."""
     return (f'# {repo.split("/")[-1]} issues\n'
             '> What is currently untrue that we know about in this repo: hand-written issues\n'
             '> first, every measured number inside its own generated block.\n')
@@ -43,11 +43,11 @@ SECTIONS = (
     ('retired', 'Retired tokens still alive', 'a rename is unfinished until these are zero'),
     ('citations', 'Roadmap item numbers cited outside a roadmap',
      'a closed item is deleted — cite the SPECS.md/SCHEMA.md section that owns the rule'),
-    ('duplicates', 'Items claimed by two ledgers', 'v1 criterion 2 — an item lives in one place'),
+    ('duplicates', 'Items claimed by two lists', 'v1 criterion 2 — an item lives in one place'),
     ('size', 'Size signals', 'a signal for review, never a cap — do not summarize to fit'),
     ('stubs', 'Source files with no interface stub',
      'the read gate only fires when a stub exists — a missing one turns it off silently'),
-    ('fanout', 'Directories holding too many files',
+    ('crowding', 'Directories holding too many files',
      'splitting costs one hop — pay it only when it removes more table than it adds'),
     ('finished', 'Prose describing finished work',
      'git is the history — cut it, or rewrite it as present-tense state'),
@@ -55,9 +55,9 @@ SECTIONS = (
      'a generator asked a question — answer it at the source, never by cutting the marker'),
     ('stores', 'Doubt stores missing their own discipline',
      'an experiment states its Method, Results, What changed and Limitations; a judged reference '
-     'carries a source tier'),
-    ('vendor', 'Ledgers naming a model where they mean a tier',
-     'which model fills a tier is data — core/flows/craft/routing.md'),
+     'carries a source level'),
+    ('vendor', 'Lists naming a model where they mean a level',
+     'which model fills a level is data — core/flows/craft/routing.md'),
     ('fields', 'Header fields naming code that is not there',
      'a field naming our own tree is a claim, and it is checked before a later session inherits '
      'it as fact — core/SCHEMA.md § Every field that names our own code is verified'),

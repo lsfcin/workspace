@@ -5,7 +5,7 @@ surfaces measured on 2026-07-23 and records the UX decisions Lucas made the same
 
 ## Why this ranks here
 It is a **money lever**, not a nicety: a claude turn costs ~$0.11 even when trivial, and this
-workspace has 6 configured opencode providers including free `opencode/*` tiers. Routing a throwaway
+workspace has 6 configured opencode providers including free `opencode/*` levels. Routing a throwaway
 phone question to a free model must cost **one tap**, which is what fixes the ranking of every UX
 decision below.
 
@@ -66,8 +66,8 @@ values the CLI will reject.
 
 ## Steps
 
-- [x] **1 — seam.** `TurnOptions` gains `model` + `effort`. New `backend/caps.py` with
-      `Capabilities(modes, favourites, groups)`; seam gains `capabilities()` and `efforts(model)`,
+- [x] **1 — boundary.** `TurnOptions` gains `model` + `effort`. New `backend/caps.py` with
+      `Capabilities(modes, favourites, groups)`; boundary gains `capabilities()` and `efforts(model)`,
       defaulting to empty in `CliBackend`. New `backend/providers/catalog.py` memoizes `opencode models` and
       reads `models.json` for `reasoning_options` + `limit.context`.
 - [x] **2 — build_args.** claude maps `--model`/`--effort`; opencode maps `-m`/`--variant`/
@@ -81,7 +81,7 @@ values the CLI will reject.
 - [x] **5 — opencode picker parity.** `_row_to_item` fills `model`, `mode`, `context_used`,
       `context_window`, `preview` from the table above.
 - [~] **6 — frontend split.** 14 files + the panel is past the point the size hook nudges at.
-      Seams: Telegram primitives (`reply`, `htmlsplit`) / text (`format`, `markdown`, `inline`,
+      Boundaries: Telegram primitives (`reply`, `htmlsplit`) / text (`format`, `markdown`, `inline`,
       `phrases`) / interaction (the rest). Pure moves, done last so nothing gets moved twice.
 - [x] **7 — docs + ship.** SPECS AD-11 (capability declaration + D3 semantics), ROADMAP, CONTEXT
       routing, `make test` green, merge to develop → main.
@@ -92,14 +92,14 @@ lever actually saves money.
 
 ## What the build changed about the plan
 
-1. **Step 6 landed on a different seam.** The layer split (`tg/` + `text/`) was never what the
+1. **Step 6 landed on a different boundary.** The layer split (`tg/` + `text/`) was never what the
    size gate was complaining about — `sessions.py` was, at 194 lines. Cutting it by responsibility
    (`registry.py` = what the bot remembers, `sessions.py` = what the providers report) fixed the
    real pressure; the folder grouping stays open in ROADMAP Housekeeping as optional layout work.
 2. **Context % for opencode was nearly wrong.** `session.tokens_*` looked like the obvious source
    and read 175% of the window on a real session: they accumulate over the whole session. Occupancy
    had to come off the last assistant message, which is a query — hence the new `session_detail`
-   seam method and the "list is an index, the page pays for detail" rule (SPECS AD-12).
+   boundary method and the "list is an index, the page pays for detail" rule (SPECS AD-12).
 3. **Effort is per model, not per backend.** The plan already suspected this; `models.json`
    confirmed four `reasoning_options` shapes and half a dozen different value sets. `efforts(model)`
    takes the model for that reason.

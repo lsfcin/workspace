@@ -28,4 +28,4 @@ mechanism control: arm G (same files, renamed `zz*`) costs +872 — so the name-
 ## Not done here
 The ROADMAP row is left standing. The orchestrating session deletes it.
 
-executor: orchestrator (padaria, inline) model=anthropic/claude-opus-5 tier=max deleg=none
+executor: orchestrator (padaria, inline) model=anthropic/claude-opus-5 level=max deleg=none

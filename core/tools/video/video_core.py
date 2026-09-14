@@ -31,7 +31,7 @@ def source_of(url):
     return "web"
 
 
-def probe(url, runner=None):
+def metadata(url, runner=None):
     """L0 — metadata only, no download. Returns {ok, title, uploader, description, subs...}."""
     r = _run(["--dump-json", "--skip-download", url], runner)
     out = (getattr(r, "stdout", "") or "").strip()
@@ -114,16 +114,16 @@ def _bundle(url, meta, parts, methods, ok, save, base):
 
 
 def assemble(url, level="auto", save=False, base=None,
-             _probe=None, _captions=None, _media=None, _images=None):
+             _metadata=None, _captions=None, _media=None, _images=None):
     """Escalate L0->L1->L2->L3->L4, stopping once text is found (auto); explicit
     levels force a layer. Returns a text bundle."""
-    meta = (_probe or probe)(url)
+    meta = (_metadata or metadata)(url)
     ok = bool(meta.get("ok"))
     parts, methods = [], []
 
-    # yt-dlp reads video only; an image post probes as a failure.
-    # A mixed carousel (video slide 1 + images) probes ok from yt-dlp, but misses later slides.
-    # For Instagram or failed video probe, gather image slides through gallery-dl.
+    # yt-dlp reads video only; an image post reads as a failure.
+    # A mixed carousel (video slide 1 + images) reads ok from yt-dlp, but misses later slides.
+    # For Instagram or failed video metadata, gather image slides through gallery-dl.
     images = _images or __import__("video_images")
     if not ok:
         imeta, iparts, imethods = images.gather(url, level=level)

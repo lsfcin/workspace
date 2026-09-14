@@ -11,7 +11,7 @@
 Tarefa de pesquisa/síntese pedagógica profunda, não código: exige varredura ampla de literatura em
 ciência da aprendizagem, julgamento crítico sobre o que tem sustento empírico real vs. o que é
 framework popular sem evidência forte, e produção de uma proposta estruturada e original. Não tem
-resposta única testável, então cabe tier alto (raciocínio profundo, comparação de fontes) e effort
+resposta única testável, então cabe level alto (raciocínio profundo, comparação de fontes) e effort
 alto (múltiplas buscas, checagem cruzada de citações, sem pressa pra fechar cedo).
 
 ---

@@ -32,7 +32,7 @@ hidden. Setting `CLAUDE_CODE_ENTRYPOINT=claude-vscode` on the subprocess makes a
 appear in the native VSCode/terminal picker like any other. Verified live: two headless `-p` sessions
 created seconds apart, one with the var (`8c5aabce`, origin `claude-vscode`) and one without
 (`26d440e7`, origin `sdk-cli`) — the first is listed by `claude --resume`, the second is skipped.
-`ClaudeBackend.env()` now returns it (the seam gained `CliBackend.env()` + `run_capture(extra_env=…)`,
+`ClaudeBackend.env()` now returns it (the boundary gained `CliBackend.env()` + `run_capture(extra_env=…)`,
 so this stays provider-specific data, not a global). The value `cli` is **rejected** — it silently
 falls back to `sdk-cli`; only `claude-vscode` works.
 
@@ -82,7 +82,7 @@ Two traps, both hit live:
 2. **`part` rows of `type=text` include the user's message and injected system-reminders.**
    Filtering by the parent message's `role` is what stops the preview quoting Lucas back at himself.
 
-Because those two need a query per session, the seam gained `session_detail(session_id, cwd)`:
+Because those two need a query per session, the boundary gained `session_detail(session_id, cwd)`:
 `list_sessions` stays the cheap index, and the picker asks for detail only on the page it renders
 — 3 sessions, not the 59 that exist.
 
@@ -105,7 +105,7 @@ previously 0. The count differs slightly from a shell's 478 because a couple of 
 environment the service does not inherit — which is correct behaviour, since the picker should
 offer only what the process running the turn can actually reach.
 
-### AD-31 — opencode asks through its config, not through a flag (2026-07-29, probed live)
+### AD-31 — opencode asks through its config, not through a flag (2026-07-29, checked live)
 
 Measured against opencode 1.18.7 before any code was written, the same way AD-27 was measured, and
 it contradicted three of the audit's guesses. Everything below is from the binary and from three
@@ -141,7 +141,7 @@ it contradicted three of the audit's guesses. Everything below is from the binar
   turn grows continuously. Nothing to fix — throttle, sealing and pacing all treat whole segments
   correctly (`partial=False`) — but do not promise the two providers feel the same.
 
-Two seam consequences, both of which are why this is a decision and not a patch. `CliBackend.env()`
+Two boundary consequences, both of which are why this is a decision and not a patch. `CliBackend.env()`
 takes no options, so a **per-turn** env value has nowhere to come from — it becomes `env(options)`,
 because stashing the turn on the backend breaks as soon as two turns overlap, and they do.
 And `TurnOptions.mcp_config` is claude's JSON under a provider-agnostic name; the honest field is

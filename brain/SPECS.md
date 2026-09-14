@@ -151,7 +151,7 @@ When the compass/inbox skill lacks a real link or path, it must **go fetch or as
 Optional per-goal hints so a session on this goal starts at the right power/cost. Vocabulary is shared with
 `core/skills/prepare.md` — provider-agnostic (function in the name, model as data):
 
-- **tier**: `low` / `medium` / `high` / `max` — capability class (e.g. haiku / sonnet / opus / fable). Maps to Lucas's
+- **level**: `low` / `medium` / `high` / `max` — capability class (e.g. haiku / sonnet / opus / fable). Maps to Lucas's
   "decide → write → execute" split: `max`/`high` decides & writes, `medium`/`low` executes.
 - **effort**: `low` / `medium` / `high` / `max` — reasoning depth / thoroughness for the run.
 

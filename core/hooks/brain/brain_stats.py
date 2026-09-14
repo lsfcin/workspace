@@ -149,7 +149,7 @@ def pre_commit():
 
     # Dashboard aggregates live git history for ALL goals — always fresh. GOALS.md
     # churn is not itself a measured signal, so refreshing it every commit is safe.
-    # The `brain-dashboard` seam (core/SPECS.md § AD-14). brain_dashboard.py has no main()
+    # The `brain-dashboard` boundary (core/SPECS.md § AD-14). brain_dashboard.py has no main()
     # and two public writers, and it sits on the 200-line cap with no room for a guard in
     # each; this is its only caller, so one gate here switches the whole render off.
     if feature_law.is_enabled('brain-dashboard'):

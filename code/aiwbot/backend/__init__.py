@@ -1,4 +1,4 @@
-# __init__.py — facade: seam types + backend registry. Import backends only through here.
+# __init__.py — facade: boundary types + backend registry. Import backends only through here.
 from .base import ASK_SERVER_NAME, AgentEvent, AgentBackend, EventKind, TurnOptions
 from .caps import Capabilities
 from .providers import ClaudeBackend, OpencodeBackend

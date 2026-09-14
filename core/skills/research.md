@@ -49,8 +49,8 @@ Back-compat aliases: `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`ex
    returns almost only preprints, which are *not peer reviewed*. Every round must also hit
    published venues (ACL/EMNLP anthology, ACM DL, IEEE, OpenReview with an accepted venue).
    `core/tools/paper/papers --ss` reports `venue` + `peer_reviewed` per hit; `--reviewed` drops
-   preprints, `--min-cit N` drops noise. Tag every delivered reference with its tier and
-   record it in the relevant `refs/REFS.md`. Tier table + full rule: [`core/refs/CONTEXT.md`](../refs/CONTEXT.md).
+   preprints, `--min-cit N` drops noise. Tag every delivered reference with its level and
+   record it in the relevant `refs/REFS.md`. Level table + full rule: [`core/refs/CONTEXT.md`](../refs/CONTEXT.md).
 5. For steps that require specialist agents, spawn workers using:
    - `core/agents/researcher.md` — evidence gathering
    - `core/agents/reviewer.md` — peer review

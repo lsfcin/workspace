@@ -149,7 +149,7 @@ def test_antigravity_spawns_only_scripts_that_exist():
     assert not dead, f'antigravity shim spawns paths that do not resolve: {dead}'
 
 
-def test_opencode_shim_resolves_the_interpreter_through_the_seam():
+def test_opencode_shim_resolves_the_interpreter_through_the_boundary():
     """The positive half of the ban: this shim must still ASK, not merely fail to spell.
 
     The prohibition itself moved out on 2026-09-06. It was a `spawnSync('python3')` search over
@@ -161,7 +161,7 @@ def test_opencode_shim_resolves_the_interpreter_through_the_seam():
     for source in SHIMS['opencode'][0]:
         text = source.read_text(encoding='utf-8')
         assert 'core/run' in text and '--python' in text, (
-            f'{source.name} no longer resolves the interpreter through the platform seam'
+            f'{source.name} no longer resolves the interpreter through the platform boundary'
         )
 
 

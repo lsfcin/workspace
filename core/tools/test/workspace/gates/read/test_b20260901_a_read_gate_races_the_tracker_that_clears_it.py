@@ -43,7 +43,7 @@ def _batch(tracker, session: str, paths: list) -> None:
 
 def test_a_parallel_batch_of_context_reads_loses_no_mark() -> None:
 	session = f'test-{uuid.uuid4()}'
-	_batch(TRACKER, session, [str(WORKSPACE_ROOT / f'probe{i}/CONTEXT.md') for i in range(BATCH)])
+	_batch(TRACKER, session, [str(WORKSPACE_ROOT / f'check{i}/CONTEXT.md') for i in range(BATCH)])
 	assert len(load_seen(session)) == BATCH, (
 		f'{BATCH} concurrent trackers left {len(load_seen(session))} marks. The gate will re-demand '
 		"a CONTEXT.md that was read — see this file's header for what a lost mark costs")
@@ -52,7 +52,7 @@ def test_a_parallel_batch_of_context_reads_loses_no_mark() -> None:
 def test_a_parallel_batch_of_interface_reads_loses_no_mark() -> None:
 	"""The stub marker is the same store one over, and it unlocks a source read the same way."""
 	session = f'test-{uuid.uuid4()}'
-	_batch(TRACKER, session, [str(WORKSPACE_ROOT / f'probe{i}/subject.pyi') for i in range(BATCH)])
+	_batch(TRACKER, session, [str(WORKSPACE_ROOT / f'check{i}/subject.pyi') for i in range(BATCH)])
 	assert len(load_iface_seen(session)) == BATCH
 
 
@@ -61,7 +61,7 @@ def test_a_parallel_batch_of_facade_reads_loses_no_mark() -> None:
 	losing marks for exactly as long, silently, because nothing had ever pointed a batch at it."""
 	session = f'test-{uuid.uuid4()}'
 	_batch(FACADE_TRACKER, session,
-	       [str(WORKSPACE_ROOT / f'code/probe{i}/__init__.py') for i in range(BATCH)])
+	       [str(WORKSPACE_ROOT / f'code/check{i}/__init__.py') for i in range(BATCH)])
 	assert len(load_facades(session)) == BATCH
 
 
@@ -69,6 +69,6 @@ def test_marking_the_same_path_twice_is_one_mark() -> None:
 	"""Idempotence is what let every caller drop its read-before-write guard — the read half of the
 	read-modify-write that made the window wide enough to lose a mark in the first place."""
 	session = f'test-{uuid.uuid4()}'
-	target = str(WORKSPACE_ROOT / 'probe/CONTEXT.md')
+	target = str(WORKSPACE_ROOT / 'check/CONTEXT.md')
 	_batch(TRACKER, session, [target] * 4)
 	assert load_seen(session) == {target}

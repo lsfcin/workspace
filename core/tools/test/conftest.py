@@ -88,7 +88,7 @@ def _inside_generated_block(hit: str) -> bool:
 import pytest  # noqa: E402 — after the env scrub above, which must run before anything imports git
 
 # THE SUBTREES A TEST MAY NOT LEAVE CHANGED, and why these two. `core/skills/` is where the proven
-# offender seeded drift, `code/` is where two others created a real probe directory and removed it.
+# offender seeded drift, `code/` is where two others created a real check directory and removed it.
 # Both are scanned by other cases while a case is inside that window, which is what made the suite
 # a coin flip. Kept to two directories on purpose: the guard runs around EVERY test, so it has to
 # cost microseconds -- os.scandir over two directories, no subprocess, no git.
@@ -138,7 +138,7 @@ def _no_test_dirties_the_real_tree(request):
                          | {k for k in set(before) & set(after) if before[k] != after[k]})
         pytest.fail(
             f'this test changed the real workspace tree: {changed[:8]}. Build what you need under '
-            f'tmp_path, or mark the case `serial` if it genuinely has no seam -- see '
+            f'tmp_path, or mark the case `serial` if it genuinely has no boundary -- see '
             f'core/tools/test/wos/CONTEXT.md and b20260902.')
 
 

@@ -1,6 +1,6 @@
 # REFS — ODTs in immersive VR for safety-critical training
 
-Sota map para revisão do paper SVR #31894. Tier markers: [A] arXiv/preprint (não revisado), [B] blog/web
+Sota map para revisão do paper SVR #31894. Level markers: [A] arXiv/preprint (não revisado), [B] blog/web
 não-acadêmico, [P] paper preprint, [V] venue peer-reviewed (revista/conferência revisada), [C]
 code/dataset. Manter só fontes que de fato foram lidas (mesmo que via abstract+referências).
 

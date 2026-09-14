@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from googleapiclient.errors import HttpError  # noqa: F401 (re-exported for drive_migrate.py)
-# Drive read+write ops live in the shared seam; re-exported for drive_migrate.py.
+# Drive read+write ops live in the shared boundary; re-exported for drive_migrate.py.
 from drive_core import (  # noqa: F401
     get_service,
     list_folder,
@@ -53,7 +53,7 @@ FOLDER_MAP = {
 STATE_FILE = Path("academy_migration_state.json")
 MAP_FILE   = Path("academy_migration_map.json")
 
-# ── Auth (migration-specific account wrappers over the shared seam) ────────────
+# ── Auth (migration-specific account wrappers over the shared boundary) ────────────
 
 def get_cin_service():
     return get_service("cin")                 # cin = source, read-only

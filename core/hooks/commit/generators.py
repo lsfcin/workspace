@@ -94,34 +94,34 @@ def _typescript(commit, staged):
         print(f'✓ .d.ts generated: {project}')
 
 
-def _keeps_a_ledger(commit) -> bool:
+def _keeps_a_list(commit) -> bool:
     """A PROJECT keeps its own findings; a TARGET keeps none.
 
     core/tools/links/SPECS.md gives that as the reason the redirect clone is a target. This hook is
-    global, so it fired there anyway and shipped a ledger into a public repo on every build. Asked
+    global, so it fired there anyway and shipped a list into a public repo on every build. Asked
     of the same .gitignore the project map reads, so nothing here holds a second list of names.
     """
     if commit.is_workspace:
         return True
     here = rel(commit.toplevel, commit.root)
-    if Path(here).is_absolute():   # outside the workspace: it borrows the hook and owns its ledger
+    if Path(here).is_absolute():   # outside the workspace: it borrows the hook and owns its list
         return True
     sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'entropy'))
     from entropy_corpus import declared_projects  # noqa: PLC0415
     return here in declared_projects(commit.root)
 
 
-def ledger(commit):
+def issues(commit):
     """This repo's own entropy findings, written into its own ISSUES.md and staged.
 
     Ruled 2026-09-04 (Lucas): each repo counts only itself, and writes where its reader is. Scanning
-    the nested projects from outside committed ledgers nobody typed and nobody pushed
-    (b20260831-scattered-ledgers-never-push), against a table that described one disk (b20260902).
+    the nested projects from outside committed lists nobody typed and nobody pushed
+    (b20260831-scattered-lists-never-push), against a table that described one disk (b20260902).
     WRITES AND WARNS, never refuses: a gate here would refuse commits over a debt they did not make.
     """
     if not feature_law.is_enabled('entropy-dashboard'):
         return
-    if not _keeps_a_ledger(commit):
+    if not _keeps_a_list(commit):
         return
     if spawn(commit, 'core/hooks/entropy/dashboard/entropy-dashboard.py',
              '--repo', str(commit.toplevel)).returncode == 0:
