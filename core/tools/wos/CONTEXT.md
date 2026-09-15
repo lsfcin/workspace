@@ -14,6 +14,7 @@
 |------|-----------|-----|-------------|
 | [`deps`](deps) | — | — | check every dependency declared in core/tools/deps.txt, reporting what each miss breaks; --check exits 1 on any miss |
 | [`features`](features) | — | — | list every toggleable feature from core/features.txt with its answer in core/profile.txt; --findings counts what cannot be switched off; --check exits 1 on any registry/profile disagreement; --scoreboard reports what each feature actually did |
+| [`levels`](levels) | — | — | print the work→level map from core/levels.txt with the level each agent definition declares; --set re-renders every harness's agent files from those declarations; --check exits 1 when a rendered file no longer matches the declaration. |
 | [`permissions`](permissions) | — | — | print the permission levels declared in core/permissions.txt with the one this machine answered in core/profile.txt; --set switches level and re-renders every harness config; --check exits 1 when a rendered config no longer matches the answer |
 | [`roundup`](roundup) | — | — | the deterministic half of the /roundup ritual. Verification gate, entropy regen, branch promotion. Prints the state facts /handoff copies and anything that needs a decision; nothing else. |
 | [`size`](size) | — | — | how big the authored .md corpus is, and how much of it this session added or removed, and where. Zero-token, no network. Called by core/tools/wos/roundup at every close (ROADMAP.md § Cost: "every session reports whether the workspace got smaller"), and runnable alone any time. |

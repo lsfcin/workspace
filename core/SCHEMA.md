@@ -225,8 +225,10 @@ correct prose trains people to ignore the check, so `/loops` and `.loop` are row
 ### A vendor's model name is data, never a directive
 
 **Ruled 2026-08-17 (Lucas): *"nothing in WOS should be tied to a specific vendor/company/model."*** A
-list assigns a **level** — `low` · `medium` · `high` — and which model fills it is data, in
-[`flows/craft/routing.md`](flows/craft/routing.md) and nowhere else. **A shape, not a token:**
+list assigns a **level** — `low` · `medium` · `high` — and which KIND of work earns which level is
+[`levels.txt`](levels.txt). Which model FILLS a level is data, in two places and nowhere else:
+[`tools/wos/levels`](tools/wos/levels) per harness, [`flows/craft/routing.md`](flows/craft/routing.md)
+per provider. **A shape, not a token:**
 `**model: opus**` is a directive and forbidden; `` `model: opus` `` in prose reporting a measurement is
 data. `entropy_vendor.py` matches the bolded assignment and nothing else.
 

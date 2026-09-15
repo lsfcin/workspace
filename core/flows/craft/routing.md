@@ -8,7 +8,13 @@ block's `provider:` / `level-map:` fields. Executors never need it: they are han
 session that loads these tables pays for them eight times.
 
 Level semantics (low/medium/high/max) and the escalation rules live in
-[`craft.md`](craft.md) § Autorouting. This file only maps level → concrete model.
+[`craft.md`](craft.md) § Autorouting. This file only maps level → concrete model, **per provider**.
+
+Two other files hold the axes this one does not, and none of the three restates another:
+[`/core/levels.txt`](../../levels.txt) maps KIND OF WORK → level, for every session rather than for
+a craft chain; [`/core/tools/wos/levels`](../../tools/wos/levels) maps level → what one HARNESS
+calls it, and renders each agent definition from that. A chain picks a provider, so it needs this
+file; a spawned agent does not, so it needs that one.
 
 ## Level → provider → model mapping — VOLATILE
 
@@ -73,7 +79,7 @@ into a level — those exist on nvidia et al. but cannot run code loops.**
 | **nvidia** | `nvidia/deepseek-ai/deepseek-v4-flash` | `nvidia/deepseek-ai/deepseek-v4-pro` | `nvidia/z-ai/glm-5.2` | `nvidia/nvidia/nemotron-3-ultra-550b-a55b` | free (rate/time-limited) | **No Kimi, no Claude on nvidia** — only the deepseek-v4 family + glm-5.2 + nemotron-3 line qualify for coding levels. All other nvidia models (qwen-coder, mistral, gpt-oss, step, minimax, llama) are *available* but rank below on agentic_index, so they are reserves, not defaults. |
 | **openrouter** | `openrouter/deepseek/deepseek-v4-flash` (or `opencode/deepseek/deepseek-v4-flash:free` for free quota) | `openrouter/deepseek/deepseek-v4-pro` · alt `openrouter/moonshotai/kimi-k2.6` (kimi has higher coding_index 61.8 vs ds-pro 59.4 but far weaker agentic 30.3 vs 36.4 — pick kimi for purely-coding medium loops, ds-pro for agent work) | `openrouter/z-ai/glm-5.2` | `openrouter/anthropic/claude-opus-4.8` (or `openrouter/nvidia/nemotron-3-ultra-550b-a55b:free` for free max) | credits (per-token) | Widest selection; **most expensive**. Always prefer downward delegation when running here. |
 | **opencode (Zen, free)** | `opencode/deepseek-v4-flash-free` | `opencode/mimo-v2.5-free` · alt `opencode/hy3-free` | `opencode/north-mini-code-free` | `opencode/nemotron-3-ultra-free` | free (Zen) | All-Zen keeps the chain free; treat like nvidia (rate-limited, hard ceiling at its own max). |
-| **anthropic (Claude Code runtime only)** | `anthropic/claude-haiku-4.5` | `anthropic/claude-sonnet-5` | `anthropic/claude-opus-4.8` | Fable-class, gated | flat-fee monthly | Reachable ONLY under Claude Code. Inside opencode, anthropic models come via `openrouter/anthropic/*` on credits — never silently pulled. |
+| **anthropic (Claude Code runtime only)** | \| | \| | \| | Fable-class, gated | flat-fee monthly | **The one row that is not spelled here** — `core/tools/wos/levels` holds it, as harness ALIASES the runtime resolves itself, so it cannot go stale the week a build is retired. It did: this row read `claude-opus-4.8` at high while opus-5 was live. Reachable ONLY under Claude Code; inside opencode, anthropic models come via `openrouter/anthropic/*` on credits — never silently pulled. |
 | **copilot (Copilot CLI runtime only)** | (GitHub Models free level) | (GitHub Models free level) | (GitHub Models free level) | — | included w/ Copilot sub | Reachable ONLY under Copilot CLI; stands between anthropic and nvidia in delegation rank because of its free-ish allocation. |
 | **alibaba-coding-plan** | (per alibaba-coding-plan `opencode models` list — qwen/glm/kimi re-sellers) | ... | ... | ... | per-plan | Filled from its `opencode models` listing — qwen3-coder-next, glm-5, kimi-k2.5, minimax-m2.5. Map levels the same way (agentic_index first), verify availability before relying. |
 | **google / ollama-cloud** | (per their `opencode models` listings) | ... | ... | ... | mixed | Fill only if a chain explicitly runs on these providers; defaults below assume nvidia/openrouter/opencode. |

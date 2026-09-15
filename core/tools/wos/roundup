@@ -43,9 +43,12 @@ WORKSPACE = SCRIPT_DIR.parents[2]
 # without failing anything, which is how both skills promised three while this printed six.
 # Ruled 2026-08-25: cost and size lead, because they are the two facts Lucas reads the block for and
 # the rest is state the next session needs. Both print bare — they are sentences, not labelled state.
-STATE = ('cost', 'size', 'verify', 'sync', 'projects', 'map', 'entropy', 'diagram', 'compaction',
-         'permissions')
-BARE = ('cost', 'size')
+# `trace` sits with them from 2026-09-15, ruled by Lucas: the close prints every spawn, the clock
+# split and the loudest tools, always. It is bare for the same reason the other two are — it writes
+# its own labelled lines, and a label around a labelled block would read twice.
+STATE = ('cost', 'size', 'trace', 'verify', 'sync', 'projects', 'map', 'entropy', 'diagram',
+         'compaction', 'permissions')
+BARE = ('cost', 'size', 'trace')
 
 
 def verify(root: Path) -> tuple:
@@ -109,12 +112,20 @@ def compaction(sid: str) -> str:
 
 
 def report(root: Path, sid: str) -> tuple:
-    """(cost, size) — both best-effort, both spawned through interpreter() rather than by path."""
+    """(cost, size, trace) — all best-effort, all spawned through interpreter() rather than by path.
+
+    Best-effort is the whole contract: a close must never fail because a report did. The two
+    transcript readers need a session id and return nothing without one, which is also what a close
+    run outside a harness gets.
+    """
     size = spawn(root, interpreter(), str(SCRIPT_DIR / 'size'), *(['--session', sid] if sid else []))
     cost = spawn(root, interpreter(), str(SCRIPT_DIR / 'session/usage'), '--session', sid) \
         if sid else None
+    trace = spawn(root, interpreter(), str(SCRIPT_DIR / 'session/trace'), '--session', sid) \
+        if sid else None
     return ((cost.stdout.strip() if cost and cost.returncode == 0 else ''),
-            (size.stdout.strip() if size.returncode == 0 else ''))
+            (size.stdout.strip() if size.returncode == 0 else ''),
+            (trace.stdout.strip() if trace and trace.returncode == 0 else ''))
 
 
 def main(argv: list) -> int:
@@ -180,8 +191,9 @@ def main(argv: list) -> int:
         sync, code = (refused, 1) if refused else (branches.promoted_line(root, branch), 0)
 
     sid = session_id(root)
-    cost, size = report(root, sid)
-    said = {'cost': cost, 'size': size, 'verify': verdict, 'sync': sync, 'entropy': entropy,
+    cost, size, trace = report(root, sid)
+    said = {'cost': cost, 'size': size, 'trace': trace,
+            'verify': verdict, 'sync': sync, 'entropy': entropy,
             'projects': sweep(root) if root == WORKSPACE else '', 'map': drawn,
             'diagram': diagram, 'compaction': compaction(sid) if sid else '',
             'permissions': perms}

@@ -57,7 +57,8 @@ SECTIONS = (
      'an experiment states its Method, Results, What changed and Limitations; a judged reference '
      'carries a source level'),
     ('vendor', 'Lists naming a model where they mean a level',
-     'which model fills a level is data — core/flows/craft/routing.md'),
+     'which kind of work earns a level is core/levels.txt; which model fills one is data — '
+     'core/tools/wos/levels per harness, core/flows/craft/routing.md per provider'),
     ('fields', 'Header fields naming code that is not there',
      'a field naming our own tree is a claim, and it is checked before a later session inherits '
      'it as fact — core/SCHEMA.md § Every field that names our own code is verified'),

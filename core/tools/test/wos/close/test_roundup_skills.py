@@ -83,7 +83,11 @@ def _state_labels() -> list:
     Read from the script rather than restated here for the same reason the skills may not name
     them: a second copy of this list rots without failing anything.
     """
-    declared = re.search(r'^STATE = \(([^)]*)\)', TOOL, re.MULTILINE)
+    return _declared('STATE')
+
+
+def _declared(name: str) -> list:
+    declared = re.search(rf'^{name} = \(([^)]*)\)', TOOL, re.MULTILINE)
     return re.findall(r"'([a-z]+)'", declared.group(1)) if declared else []
 
 
@@ -106,10 +110,16 @@ def test_the_state_block_is_whatever_the_tool_printed():
 def test_what_the_session_cost_prints_before_the_state():
     """Ruled 2026-08-25: the cost line printed fifth and was read last, though it is the fact that
     opened the whole cost frente. What the session spent and whether the workspace shrank lead;
-    verify/sync/entropy follow, because those are for the next session rather than for Lucas."""
-    printed = _state_labels()
-    assert printed[:2] == ['cost', 'size'], f'the close no longer leads with what it cost: {printed}'
-    assert printed[2:4] == ['verify', 'sync'], printed
+    verify/sync/entropy follow, because those are for the next session rather than for Lucas.
+
+    The rule is which GROUP leads, so that is what this asserts. It used to assert two fixed indices
+    instead, which made adding a third Lucas-facing line (`trace`, 2026-09-15) fail a case about
+    ordering — the count of lines Lucas reads first was never the ruling.
+    """
+    printed, lucas = _state_labels(), _declared('BARE')
+    assert lucas and printed[:len(lucas)] == lucas, (
+        f'the close no longer leads with what Lucas reads it for: {printed} against {lucas}')
+    assert printed[len(lucas):len(lucas) + 2] == ['verify', 'sync'], printed
 
 
 def test_the_inbox_phase_counts_instead_of_draining():

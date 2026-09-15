@@ -63,6 +63,30 @@ three times the per-session repeat rate of the chain it is usually blamed alongs
 **Stubs are cheap and are being served.** 339 stub reads for 159k chars — 470 chars each against
 2,300 for a source read — so the redirect is both live and paying.
 
+## Are goal files dead weight? — 26 of 39 have never been opened
+
+The `other UPPERCASE.md` row above is the second most expensive per file, and the wos list asked
+whether `brain/goals/` is part of that before anyone redesigned its fields. 2026-09-15, 88 sessions:
+
+| goal files on disk | ever read | reads | chars served | reads per session |
+|---:|---:|---:|---:|---:|
+| 39 | 13 | 83 | 338k | 0.94 |
+
+**And the 13 are not 13.** `brain/goals/CONTEXT.md` is 147k of that 338k and is the routing file the
+read gate demands, not a goal; `teaching-materials.md` is another 118k. Every remaining goal file
+put together is ~73k over 88 sessions — under 1k a session. The 26 never opened once are
+`burocracia-academica`, `career-ufrpe`, `corporal-expressiveness`, `cria`, `ecovila`, `exercise`,
+`hair`, `instituto`, `lih-dd`, `local-ai`, `make-in-time`, `pandeiro`, the three `paper-*`,
+`prompt-opt-automation`, `reading`, `rpg-isoroll`, `sleep-regularity`, `smartphone-addiction`,
+`spacemantics`, `spec-driven-development`, `startapps`, `travel`, `vipassana`, `voice`.
+
+**Both downstream steps are refused on this number, and that is what closes the item.** A
+goal↔roadmap drift warning would scan every session to protect files no session opens, and a
+goal-format audit would redesign fields nobody reads — each is work aimed at a file that costs
+nothing to read. What the number does NOT say is whether those 26 are dead to *Lucas*: reads measure
+what an agent opened, and a goal he re-reads in his own head leaves no trace here. That half is a
+`/compass` question, not a check.
+
 ## Did cutting the list lower its read cost? — unanswerable, and it stays that way
 
 Lucas, watching a session open all seven parts: *"we splited those to avoid reading too much,

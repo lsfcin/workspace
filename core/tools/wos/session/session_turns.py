@@ -57,6 +57,43 @@ def paths_for(project: str, session: str = '') -> list:
 	return paths
 
 
+def responses(path: Path, sidechain: bool = False) -> dict:
+	"""One transcript's API responses, merged by `requestId`: the rule, in one place.
+
+	`sidechain` selects the population, exactly as `session_log.walk` does and for the same reason:
+	a parent transcript mixes both and its subagent turns must be skipped, while a worker's OWN
+	transcript under `<session>/subagents/` marks EVERY record `isSidechain: true`, so the skip that
+	is right for the parent silently empties the worker. A caller that re-derived the merge instead
+	of calling this is what `usage` did, and it billed every response 1.97 times.
+	"""
+	merged: dict = {}
+	with path.open(errors='replace', encoding='utf-8') as handle:
+		for line in handle:
+			if '"usage"' not in line:
+				continue
+			try:
+				event = json.loads(line)
+			except json.JSONDecodeError:
+				continue
+			if event.get('type') != 'assistant' or bool(event.get('isSidechain')) != sidechain:
+				continue
+			message = event.get('message') or {}
+			usage = message.get('usage') or {}
+			model = message.get('model') or ''
+			if not usage or model.startswith('<'):
+				continue
+			model = trusted_model(event, model)
+			key = event.get('requestId') or f'_{len(merged)}'
+			if key not in merged:
+				context = (usage.get('input_tokens', 0)
+				           + usage.get('cache_read_input_tokens', 0)
+				           + usage.get('cache_creation_input_tokens', 0))
+				merged[key] = [context, turn_components(model, usage), model, path.stem,
+				               usage.get('output_tokens', 0), 0.0]
+			merged[key][5] += output_chars(message) / CHARS_PER_TOKEN
+	return merged
+
+
 def turns(project: str, session: str = ''):
 	"""Every main-chain API response: (context, cost, model, session, output tok, logged tok).
 
@@ -65,30 +102,5 @@ def turns(project: str, session: str = ''):
 	spread over them; `usage` is read from the first record and never added twice.
 	"""
 	for path in paths_for(project, session):
-		merged: dict = {}
-		with path.open(errors='replace', encoding='utf-8') as handle:
-			for line in handle:
-				if '"usage"' not in line:
-					continue
-				try:
-					event = json.loads(line)
-				except json.JSONDecodeError:
-					continue
-				if event.get('type') != 'assistant' or event.get('isSidechain'):
-					continue
-				message = event.get('message') or {}
-				usage = message.get('usage') or {}
-				model = message.get('model') or ''
-				if not usage or model.startswith('<'):
-					continue
-				model = trusted_model(event, model)
-				key = event.get('requestId') or f'_{len(merged)}'
-				if key not in merged:
-					context = (usage.get('input_tokens', 0)
-					           + usage.get('cache_read_input_tokens', 0)
-					           + usage.get('cache_creation_input_tokens', 0))
-					merged[key] = [context, turn_components(model, usage), model, path.stem,
-					               usage.get('output_tokens', 0), 0.0]
-				merged[key][5] += output_chars(message) / CHARS_PER_TOKEN
-		for row in merged.values():
+		for row in responses(path).values():
 			yield tuple(row)

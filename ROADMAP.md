@@ -12,60 +12,20 @@
 
 ## Cost — what a session costs, and which of it is avoidable
 
-**🔴 cheaper models where the work is mechanical, and the map of which case gets which**
-*What* — a written mapping from KIND OF WORK to level, and a way to apply it that survives the
-harness changing. Re-graded from 🟢 on 2026-09-14: the one-line fix — a default subagent model in
-`.claude/settings.json` — was refused as too narrow. *"quero fazer isso decentemente, e não só pro
-claude code … quais casos usar qual e como fazer isso de forma segura e precisa"* (Lucas).
-*Why* — the split is 99.4% opus over 94 sessions and $2,002, and some of that is typing. The only
-live routing is inside `/craft`, whose executors declare haiku/sonnet/opus by level; every other
-subagent inherits the parent, so a read-only search runs at the dearest level.
-*Done when* — the split moves, the work still lands, and the mapping reaches every harness rather
-than one settings file. Context size is a 4.2x multiplier routing cannot beat.
-
-**🟡 the close cannot say which models and agents a session actually spent**
-*What* — what the close's report should carry, ruled, then built. *"quantos subagentes foram
-spawnados … os custos de cada"* (Lucas, 2026-09-14). Today it prints `session/usage --session` plus
-`size`, and says nothing about subagents; `core/experiments/delegation.md` asks the spawn-rate half
-and no tool answers the cost half. Nothing needs new instrumenting — `subagent_type`, the spawn
-prompt, each worker's own `usage` and every record's `timestamp` are already on disk.
-Four candidates, and the ruling is which of them the report carries (Lucas defers to a later
-session, 2026-09-14): one line per spawn (type, model, cost, turns, task); the main-thread against
-subagent split, which is the number that says whether delegating pays; wall-clock working against
-waiting; and the ten loudest tools by bytes returned. The report is a last response and not carried
-into the handoff, so its length is not paid by later sessions — that is not an argument against any
-of the four.
-*Why* — the item above is a routing decision that cannot be made, or checked afterwards, without it.
-The third candidate is the § Cost wall-clock instrument, which the channel item waits on, so three
-roadmap items meet here and share one `timestamp` read.
-*Done when* — the ruling is written, a close prints what it chose, and the numbers reconcile with
-`session/usage`.
-
-**🟡 what our own tools print has never been measured, and it is read by an agent**
-*What* — a number for what the tools' output costs per session, then the cuts it justifies.
-*Why* — output enters the context whether read or not; `core/hooks/compact/` exists as a threshold question.
-*Done when* — the ten loudest tools are ranked by bytes returned and each one's floor is a decision.
-
 **🟡 the meter shows two thresholds; the ask is the trend between them**
 *What* — context growth visible continuously, most likely a statusline.
 *Why* — Lucas cannot watch the window fill and only learns at a crossing.
 *Done when* — he reads growth without asking and the hook still costs zero tokens until a crossing.
 
 **🟡 anything the agent needs Lucas to physically do is said where he never sees it**
-*What* — one channel reaching him at the *end* of a response, and at the moment a session parks.
+*What* — one channel reaching him at the *end* of a response, and when a session parks, which
+`core/tools/wos/session/trace` can now name: a gap past its declared idle threshold.
 *Why* — close offers and auth-consent requests land in agent-facing writing at prompt-submit time, and
 a session blocked on an `AskUserQuestion` while he is elsewhere is the same defect's third instance.
 A harness that auto-compacted a session and said so only at the end is the fourth (INBOX 2026-09-14),
 and an expired Instagram cookie that cost a triage 8 of 26 entries is the fifth — both are things
 only Lucas can act on, and neither reached him.
 *Done when* — all five reach him without interrupting the thread, with measured token cost.
-
-**🟡 a session's wall-clock has never been split into working and waiting**
-*What* — a fourth `core/tools/wos/session/` instrument: how much of a span the machine was busy and
-what the idle gaps were parked on, plus the `core/experiments/` file that makes it a trend.
-*Why* — the three tools there measure what a session *costs*, none how long it *took*, so "ran ten
-hours" has never been separable from "Lucas was away for eight". The item above waits on this.
-*Done when* — the instrument runs from a transcript and `core/experiments/` carries its first rows.
 
 **🟡 thinking is 65% of billed output and no instrument here can see it**
 *What* — a number for what thinking effort costs and whether lowering it breaks the work.
@@ -77,7 +37,8 @@ hours" has never been separable from "Lucas was away for eight". The item above 
 **🟡 the scoreboard is running and owes its first reading**
 *What* — the two-week reading, and the cuts it justifies. The instrument runs and the clock is
 running with it: `core/run tools/wos/features --scoreboard`, into
-`core/experiments/hook-scoreboard.md`.
+`core/experiments/hook-scoreboard.md`. **The store's first row is 2026-09-14, so the reading is due
+2026-09-28** — checked 2026-09-15 and it is not yet time; the tool prints the start date itself.
 *Why* — 82 features are on, so every cut is a guess and kept rules are paid on faith.
 *Done when* — the table is read after two weeks of ordinary use and each silent feature is a decision.
 
@@ -121,13 +82,6 @@ for, because the failure is a distro shipping something too old, never a release
 *Why* — students asked for it; hard precondition for ablation study.
 *Done when* — a student clones it and gets a working workspace.
 
-## Brain — the part that serves Lucas rather than the code
-
-**🟡 measure which `UPPERCASE.md` files are read, then decide what to do about goal files**
-*What* — per-type summary of reads and cost; then goal↔roadmap warning and goal-format audit.
-*Why* — verify whether goal files are dead weight before redesigning fields.
-*Done when* — numbers are in `core/experiments/` and downstream steps decide based on data.
-
 ## Deferred — real work, deliberately not now
 
 - **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 repo is tight.
@@ -143,6 +97,7 @@ for, because the failure is a distro shipping something too old, never a release
 - **`gate` → `block`** — 2026-09-14: `block` already names a generated region AND is the verb: *"a block blocks"*.
 - **Flattening the eight personification verbs** — 2026-09-14 (Lucas): 478 uses and they read; a voice is not jargon.
 - **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree our checks skip is an invisible asymmetry.
+- **A goal↔roadmap warning, and a goal-format audit** — 2026-09-15: 26 of 39 goal files have never been opened.
 - **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Read cost picks the cut.
 - **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first prompt; tree dirty.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task level routing; trigger imported instead.
