@@ -50,48 +50,46 @@
 
 ---
 
-## 3. anatomia das entregas (metodologia e materiais)
+## 3. entregas (metodologia e materiais)
 
 toda entrega (checkpoint) de disciplina é direcionada por dois documentos canônicos (metodologia e materiais), gerados a partir de modelos-base em markdown (.md) estruturados por artefatos:
 
-1. **metodologia (`templates/template-metodologia.md`):**
+### anatomia
+
+* **metodologia (`templates/template-metodologia.md`):**
    - grafo de dependência entre os artefatos da entrega (entradas e saídas encadeadas).
    - para cada artefato a ser produzido:
       - racional pedagógico ancorado (Chão $\to$ Horizonte, Doshi & Hauser).
       - entrada, o que precisa estar pronto antes de começar.
       - etapas, construção passo a passo por artefato a ser produzido naquela entrega.
       - saída, o que é esperado do produto, qual sua utilidade.
-2. **materiais (`templates/template-materiais.md`):**
+* **materiais (`templates/template-materiais.md`):**
    - para cada artefato a ser produzido:
       - **modelo:** material de modelo com espaços / lacunas estruturadas com conteúdo guia indicando como deve ser preenchido.
       - **exemplo excelente:** versão do modelo preenchido de forma excelente, gerado através dos passos indicados na metodologia.
       - **exemplo que parece bom mas não é:** versão do modelo preenchido, cumprindo superficialmente o que foi solicitado, alcançando um potencial estado de "entregue" porém sem substância ("sem alma"), entrando na lógica da "educação faz de conta" em que o aluno finge que faz e o professor finge que acredita.
 
-      
-3. **Distribuição, Visualização Rica & Edição Online (Stack Leve):**
-   - **Fonte Canônica:** Arquivos `.md` mantidos em `academy/teaching/<disciplina>/` no workspace do professor.
-   - **Distribuição (Cloudflare Pages):** Espelhamento estático no repositório público `lsf-links` (`outputs/links/`).
-   - **Visualização Rica (Humano/Mobile):** `https://lucassf.pages.dev/<disciplina>/<name>` renderizado pelo
-     visualizador nativo (`viewer.js` + `viewer.css` + `marked.min.js`), com suporte a alertas GitHub, tabelas
-     responsivas e tema dark/light, sem dependências de CDN externa.
-   - **Visualização Direta (IAs/Harnesses):** `https://lucassf.pages.dev/<disciplina>/<name>.md` (ou botão "Copiar p/
-     Agente (RAW)" no topo da página), permitindo ingestão via `curl -s` ou cópia com 1 clique.
-   - **Edição Online (Zero Custo / Zero Limites):** Botão "Editar (github.dev)" na barra superior, abrindo o VS Code no
-     navegador diretamente no arquivo no GitHub. Commits vão direto para a branch `main` e o Cloudflare Pages
-     atualiza em segundos.
+*nota: em cada ponto relevante é recomendado que adicionemos trechos focados no uso de agentes (IAs, harness). tanto no macro quanto no micro, prompts, subprompts, instruções de leitura focadas na IA, instruções de acesso, de forma geral estes documentos são guias explícitos para humanos e para IAs.*
 
-   - Guia explícito para IAs & Agentes (harness dos alunos) atuarem como tutores sem dar respostas prontas.
+### acesso e edição
+
+em ambos os casos usamos arquivos markdown com **visualização rica** e **edição online**. a **fonte canônica** dos arquivos `.md` fica em `academy/teaching/<disciplina>/` no workspace do professor. a **distribuição** é feita pelo Cloudflare Pages, sendo um espelhamento estático no repositório público `lsf-links` (`outputs/links/`). 
+
+a **visualização rica** focada em humanos e também útil para mobile é acessível online no formato `https://lucassf.pages.dev/<disciplina>/<name>`, sendo renderizado pelo visualizador nativo (`viewer.js` + `viewer.css` + `marked.min.js`), com suporte a alertas GitHub, tabelas responsivas e tema dark/light, sem dependências de CDN externa. também é fornecida uma **visualização direta** pensada para IAs /harnesses, acessível no formato `https://lucassf.pages.dev/<disciplina>/<name>.md` (ou botão "Copiar p/ Agente (RAW)" no topo da página), permitindo ingestão via `curl -s` ou cópia com 1 clique.
+
+a **edição online** (zero custo / zero Limites) é fornecida pelo botão "Editar (github.dev)" na barra superior, abrindo o VS Code no navegador diretamente no arquivo no GitHub. commits vão direto para a branch `main` e o Cloudflare Pages atualiza em segundos.
+
 ---
 
-## 4. Acompanhamento & Maestria ("XP Sério")
+## 4. acompanhamento ("pontos, experiência")
 
-1. **Privacidade do Painel (Estritamente Privado):**
-   * Cada aluno visualiza **exclusivamente a sua própria barra** e a da sua equipe (via link seguro ou token).
-   * Proibido projetar rankings ou comparações nominais em sala (risco de desmotivação e evasão, Rogers & Feller).
-   * Comparações externas limitam-se à mediana agregada da turma, sem identificação.
-2. **Dupla Camada de Progresso:**
-   * *Progresso da Missão (Equipe):* Conquista dos Gates 1, 2 e 3 (base do projeto).
-   * *Maestria Individual:* Alimentada semanalmente pelos formulários de retenção (QR Code das aulas teóricas)
+* **painel:**
+   - Cada aluno visualiza **sua barra** e a da sua equipe (via link seguro ou token).
+   - Proibido projetar rankings ou comparações nominais em sala (risco de desmotivação e evasão, Rogers & Feller).
+   - Comparações externas limitam-se à mediana agregada da turma, sem identificação.
+* **Dupla Camada de Progresso:**
+   - *Progresso da Missão (Equipe):* Conquista dos Gates 1, 2 e 3 (base do projeto).
+   - *Maestria Individual:* Alimentada semanalmente pelos formulários de retenção (QR Code das aulas teóricas)
      e avaliação por pares intragrupo calibrada.
 3. **Avaliação Binária nas Etapas Intermediárias:** Eliminação de notas fracionadas soltas (ex.: 7,3 ou 8,1).
    O marco é classificado como `Completo/Aprovado` ou `Revisão Pendente` com base no checklist.
