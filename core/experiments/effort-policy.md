@@ -69,9 +69,10 @@ the target with `update-ref` rather than a checkout. Independent convergence at 
 and by a human-directed session is stronger evidence that this task did not need headroom than the
 cost table alone can be. And the `low` arm's test was the strictest of the three: only it asserted
 that the throwaway worktree is **unregistered**, not merely deleted — a leak invisible on the close
-that causes it. That assertion was the one thing worth salvaging and is now in the landed test; the
-arms are kept as `experiment/worktree-cure-low` and `experiment/worktree-cure-high` for anyone
-re-reading the run, not as work awaiting a merge.
+that causes it. That assertion was the one thing worth salvaging and is now in the landed test. The
+arm branches were then deleted rather than kept: three superseded refs cost every later session six
+entropy findings, and what they proved is written here. Their tips were `3fa21520` (low) and
+`81ee713f` (high) while the reflog still holds them.
 
 **What the instrument check settled, and it governs every row after it.**
 
