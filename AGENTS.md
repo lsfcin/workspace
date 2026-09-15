@@ -19,8 +19,8 @@ sentence reads worse without it. ONE IDEA, ONE WORD. A replaced word gets a row 
 [`core/SCHEMA.md`](core/SCHEMA.md) § Retired tokens, which is what finishes the rename.
 - EDIT > CREATE: refine / improve **wins over** creating new, except for prototyping. Avoid scattering.
 - A FILE OVER THE CAP IS CUT, NOT SPLIT. A `TYPE-<name>.md` sibling is a last resort, and Lucas's
-explicit OK. The line cap outranks the column cap (ruled 2026-08-31): wrapping to fit the column
-never justifies a file over the line cap — the way out is cutting, not reflowing.
+explicit OK. Reflowing is not cutting (ruled 2026-08-31): a file is held to lines AND to characters,
+so reshaping the same words satisfies neither — the way out is deleting.
 - SYMMETRY IS A CORE VALUE, semantic and structural. When you find an asymmetry, write it down.
 - **DONE WORK IS DELETED. GIT IS THE HISTORY.** No strikethrough, no annotated dead items.
 - USE OUR TOOLS: we want those to be useful and perfected.

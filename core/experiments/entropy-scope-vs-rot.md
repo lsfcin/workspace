@@ -24,8 +24,9 @@ print({k:len(v) for k,v in d.collect(tracked_files(R,nested=True)).items()})"
 
 **The measurement** is the count restricted to the nine checks that existed on 2026-08-13,
 compared against that day's 95. Everything outside that set is scope, not drift. `size` is split by
-sub-check, because the column cap (`BLOCK_COLS`) was born 2026-08-18 and the line cap was not — the
-same check name covers two different questions on either side of that date.
+sub-check, because its width half was born 2026-08-18 and the line cap was not — the same check name
+covers two different questions on either side of that date, and a third since 2026-09-14, when that
+half became a document measure (`BLOCK_CHARS`) and stopped counting per line at all.
 
 ## Results
 

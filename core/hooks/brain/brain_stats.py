@@ -49,8 +49,8 @@ def build_stats_block(name, attention):
     lt     = attention.last_touch(name)
 
     # The six periods are named once, in brain/SPECS.md, instead of on 36 goal files. Spelling
-    # them here costs 43 characters a line and puts the row over the 120-column cap as soon as a
-    # count reaches three digits — and it is the same restatement the table was.
+    # them here costs 43 characters a line across 36 files — and it is the same restatement the
+    # table was.
     return (
         "<!-- stats:start -->\n"
         f"last-touch: {lt or '—'}  ·  trend: {trend_label(counts)}  ·  touches: "

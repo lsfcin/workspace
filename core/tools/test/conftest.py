@@ -77,7 +77,7 @@ def _inside_generated_block(hit: str) -> bool:
     ratchet forbids, and rewriting it would falsify rather than fix. ISSUES.md's `verify:` block
     QUOTES the last red suite log, so a traceback naming the venv path made four ratchets red over
     a record — and the only fix would have been to hand-edit a generated block, which
-    core/SCHEMA.md forbids outright. `core/tools/wos/wrap` already skips these spans (2026-09-11).
+    core/SCHEMA.md forbids outright.
 
     Scoped to the block, never the file: the hand-written half stays held to every rule. A hit with
     no line number cannot be placed and is kept, so the tolerant direction reports rather than hides.

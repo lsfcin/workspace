@@ -19,14 +19,6 @@ research output's length and a commit subject's width are each declared in the w
 *Why* — the same copy-paste that made eight files name a stale warn, one layer out.
 *Done when* — each of the four is either parsed from one file or carries its reason where it sits.
 
-**🔴 the size law counts lines and columns, and Lucas asks whether it should count the document**
-*What* — a ruling on the unit: stay with 250 lines + 120 columns, or measure the whole document in
-characters, words or tokens. *"essa quebra de linha em 120 chars é bem artificial"* (INBOX 2026-09-14).
-*Why* — the unit decides what a file is cut for, and two rules already bend around it: the line cap
-outranks the column cap (2026-08-31) precisely because reflowing to fit a column is not a cut, and
-law files won a higher line cap (2026-09-06). A document measure would make both unnecessary.
-*Done when* — the unit is ruled in `core/SCHEMA.md`, and whatever loses is a line under § Rejected.
-
 ## Cost — what a session costs, and which of it is avoidable
 
 **🟢 cheaper models where the work is mechanical**
@@ -139,6 +131,8 @@ for, because the failure is a distro shipping something too old, never a release
 
 ## Rejected
 
+- **Tokens as the size unit** — 2026-09-14: 216 ms of vocabulary against a 273 ms write, and no Anthropic tokenizer offline.
+- **Measuring one line's width** — 2026-09-14 (Lucas): four exemptions, because it asked about syntax, not size.
 - **Exempting Lucas's own writing from the rename check** — 2026-09-14 (Lucas): a blind spot is worse than a word.
 - **The one-root hypothesis** — 2026-09-14: two of three; words die when structure moves and text does not follow.
 - **`gate` → `block`** — 2026-09-14: `block` already names a generated region AND is the verb: *"a block blocks"*.

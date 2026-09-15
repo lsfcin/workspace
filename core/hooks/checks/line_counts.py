@@ -66,6 +66,7 @@ def report(paths, root=None, staged=False) -> tuple:
     """
     limits = file_law.load_limits()
     warn, block = int(limits['WARN_LINES']), int(limits['BLOCK_LINES'])
+    warn_chars, block_chars = int(limits['WARN_CHARS']), int(limits['BLOCK_CHARS'])
     root = Path(root) if root else Path.cwd()
     lines, blocked, warned = [], False, False
     for path in paths:
@@ -86,10 +87,22 @@ def report(paths, root=None, staged=False) -> tuple:
         elif count >= warn and not WARN_EXEMPT.search(text):
             lines.append(f'⚠ WARN: {path} ({count} lines)')
             warned = True
+        # The document cap, at the same two levels and through the same waiver. It is the half that
+        # stops the line count being satisfied by writing longer lines, so it is asked of every
+        # authored file this loop already admitted -- never of a different set.
+        size = len(text)
+        if size >= block_chars:
+            lines.append(f'🚨 BLOCK: {path} ({size} characters)')
+            blocked = True
+        elif size >= warn_chars and not WARN_EXEMPT.search(text):
+            lines.append(f'⚠ WARN: {path} ({size} characters)')
+            warned = True
     if blocked:
-        lines.append(f'\nOne or more authored files exceed the block threshold ({block} lines).')
+        lines.append(f'\nOne or more authored files exceed a block threshold '
+                     f'({block} lines, {block_chars} characters).')
     elif warned:
-        lines.append(f'\nOne or more authored files exceed the warn threshold ({warn} lines).')
+        lines.append(f'\nOne or more authored files exceed a warn threshold '
+                     f'({warn} lines, {warn_chars} characters).')
     else:
         lines.append('No authored files exceed thresholds.')
     return lines, blocked

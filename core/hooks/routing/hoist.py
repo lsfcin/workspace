@@ -18,9 +18,9 @@ from pathlib import Path
 # three sentences each. 240 was a guess at "two to three sentences" and truncated all eight, which
 # would have made the bound write the prose a second time — the exact failure, one size up.
 #
-# A routing block is exempt from the 120-column cap (only lines OUTSIDE the markers are counted),
-# which is why this can grow without turning every CONTEXT.md into a column-cap violation and
-# without restructuring the table into something else. Checked before changing it, not assumed.
+# Nothing measures a line's width since 2026-09-14 (limits.env § chars), so a long row costs only
+# the characters it weighs, against a document cap no CONTEXT.md comes near. This can grow without
+# restructuring the table into something else. Checked before changing it, not assumed.
 DESC_LIMIT = 360
 SCAFFOLD_BLURB = '← add description'
 LINK_RE = re.compile(r'\[([^\]]*)\]\(([^)]+)\)')

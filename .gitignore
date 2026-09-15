@@ -2,6 +2,11 @@
 **/__pycache__/
 **/*.pyc
 
+# pytest's own cache. Not merely untracked noise: its v/cache/nodeids is an EXTENSIONLESS file, and
+# file_law.is_tool_entrypoint calls any extensionless file under core/tools/ a CLI — so a bare
+# pytest run under core/tools/test/ made the gauth scan report a CLI named `nodeids`.
+**/.pytest_cache/
+
 # Vendor / dependency directories — never tracked, workspace-wide.
 **/node_modules/
 

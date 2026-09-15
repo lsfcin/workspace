@@ -14,8 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from entropy_corpus import is_generated_mirror  # noqa: E402
 from file_law import (FACADES, is_authored, is_authored_prose,  # noqa: E402
-                      is_generated_artifact, is_vendored, load_limits,
-                      over_column_cap)
+                      is_generated_artifact, is_vendored, load_limits)
 from platform_law import rel  # noqa: E402
 from schema_law import WORKSPACE_ROOT  # noqa: E402
 
@@ -38,14 +37,18 @@ def _added_by(path: Path) -> str:
 
 
 def size_signals(files: list) -> list:
-    """Authored files over the line cap, and .md lines over the column cap.
+    """Authored files over the line cap, and over the document character cap.
 
     One number for both kinds since 2026-08-18. Prose used to carry its own DOC_SIGNAL_LINES=300,
     a second number answering the question BLOCK_LINES already answers, which is the drift
     file_law.py exists to prevent — and it reported a file it never held to anything.
+
+    The second signal measured one LINE's width until 2026-09-14; it now weighs the whole document,
+    so it fires once per file rather than once per line and applies to code as well as prose.
+    limits.env § chars says why the unit moved.
     """
     limits = load_limits()
-    block, cols = limits['BLOCK_LINES'], limits['BLOCK_COLS']
+    block, chars = limits['BLOCK_LINES'], limits['BLOCK_CHARS']
     signals = []
     for path in files:
         if is_generated_mirror(path):
@@ -61,10 +64,8 @@ def size_signals(files: list) -> list:
         if len(lines) > block:
             signals.append(f'{_rel(path)} — {len(lines)} lines, over the {block} cap; '
                            f'introduced by {_added_by(path)}')
-        long = over_column_cap(text, cols) if prose else []
-        if long:
-            signals.append(f'{_rel(path)} — {len(long)} line(s) over the {cols}-column cap '
-                           f'(first at line {long[0]})')
+        if len(text) > chars:
+            signals.append(f'{_rel(path)} — {len(text)} characters, over the {chars} cap')
     return signals
 
 
