@@ -62,9 +62,16 @@ files / 197 insertions against 8 / 173) and 8 more turns. `core/levels.txt` call
 `test` and claims medium; both neighbours of medium scored full marks, which is the first evidence
 against any row in that file — and evidence that the rows are worth testing rather than trusted.
 
-Both arms' work is preserved as `experiment/worktree-cure-low` and `experiment/worktree-cure-high`
-in this repo: real green cures for an [`ISSUES.md`](../../ISSUES.md) item, awaiting Lucas's review
-rather than merged by the session that generated them as a by-product.
+**An accident supplied the control this design could not.** While the arms ran on a clone pinned
+before it, a parallel session landed its own cure for the same defect — `b49a8e67`, human-directed,
+on the same branch. All three chose the **same mechanism**: merge in a throwaway worktree, advance
+the target with `update-ref` rather than a checkout. Independent convergence at both effort levels
+and by a human-directed session is stronger evidence that this task did not need headroom than the
+cost table alone can be. And the `low` arm's test was the strictest of the three: only it asserted
+that the throwaway worktree is **unregistered**, not merely deleted — a leak invisible on the close
+that causes it. That assertion was the one thing worth salvaging and is now in the landed test; the
+arms are kept as `experiment/worktree-cure-low` and `experiment/worktree-cure-high` for anyone
+re-reading the run, not as work awaiting a merge.
 
 **What the instrument check settled, and it governs every row after it.**
 

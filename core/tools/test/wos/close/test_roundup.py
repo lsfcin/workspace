@@ -200,6 +200,9 @@ def test_foreign_dirty_file_survives_real_merge_untouched_and_uncommitted(tmp_pa
     assert 'theirs.md' not in dev_files
     main_files = _git(ws, 'log', '--name-only', '--pretty=format:', 'main').stdout
     assert 'theirs.md' not in main_files
+    # The throwaway worktree must be unregistered as well as deleted. A leaked entry costs nothing
+    # visible on the close that leaked it and accumulates in `git worktree list` forever after.
+    assert not (ws / '.git/worktrees').exists(), 'the throwaway worktree was left registered'
 
 
 def test_red_verify_blocks_promotion(tmp_path):

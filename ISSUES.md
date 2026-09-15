@@ -17,22 +17,6 @@ matching regression spec exists and passes.
 
 ## Open
 
-- **No tracked file in this repo is executable, so the first command of the first install step
-  cannot run on a fresh clone.** `git ls-files -s` records **0** files as `100755` and 1,388 as
-  `100644` that this machine's tree has at `777`; `core.fileMode=false` here hides the mismatch, and
-  git config does not travel with a clone. [`SETUP-clone.md`](SETUP-clone.md) declares itself first,
-  always, and its opening command is a bare `core/run tools/wos/permissions --check`, which exits on
-  a permission error naming no cure. The one step in that file spelled `sh core/run` is the
-  interpreter step — the one somebody evidently debugged — so the workaround exists and was never
-  generalised. Measured 2026-09-15 by cloning this repo and running it: green in the parent tree,
-  dead on the first line in the clone. [`.gitattributes`](.gitattributes) exists for exactly this
-  class of defect and says so in its head — *"a machine setting is not a fact about this
-  workspace"* — and covers line endings only. **This defeats the § Portability done-when in
-  [`ROADMAP.md`](ROADMAP.md)** (*"a student clones it and gets a working workspace"*): the missing
-  `.venv` and skill mirrors a clone also lacks are documented `/install` steps, but the bit is not
-  installable — the index is the only place it can live. No test covers it;
-  `test_setup_executable.py` is about SETUP steps being a procedure rather than prose.
-
 - The entropy block's *"safe to delete, and outward-facing"* branch list is a SNAPSHOT presented as
   a standing instruction, and it goes stale inside the session that reads it. Found 2026-09-14 by
   nearly running it: the block named `feature/legibility-identifiers` among three branches merged
@@ -96,7 +80,7 @@ matching regression spec exists and passes.
 - . — experiment/worktree-cure-high is 3 ahead of main
 - . — experiment/worktree-cure-low is 3 ahead of main
 - . — feature/promote-in-a-worktree is 3 ahead of main
-- . — feature/roadmap-drain is 4 ahead of main
+- . — feature/roadmap-drain is 5 ahead of main
 
 ### Work that exists on this disk and nowhere else
 
