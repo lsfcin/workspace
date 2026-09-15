@@ -13,52 +13,64 @@
 ## Measurement — does any of this earn its keep
 
 **🟡 the scoreboard is running and owes its first reading**
-*What* — the two-week reading, and the cuts it justifies. The instrument runs and the clock is
-running with it: `core/run tools/wos/features --scoreboard`, into
-`core/experiments/hook-scoreboard.md`. **The store's first row is 2026-09-14, so the reading is due
-2026-09-28** — checked 2026-09-15 and it is not yet time; the tool prints the start date itself.
+*What* — the two-week reading, and the cuts it justifies: `core/run tools/wos/features --scoreboard`,
+into `core/experiments/hook-scoreboard.md`. **Due 2026-09-28**; the tool prints its own start date,
+so check it rather than this line.
 *Why* — 82 features are on, so every cut is a guess and kept rules are paid on faith.
 *Done when* — the table is read after two weeks of ordinary use and each silent feature is a decision.
+
+**🟡 the public repo his students clone** — *the ablation's precondition, so it comes first*
+*What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
+*Why* — students asked for it, and the ablation needs variants of it to turn a feature off in.
+*Done when* — a student clones it and gets a working workspace.
 
 **🟡 the ablation — the repo has never been measured against its own absence**
 *What* — variants of the public repo, one feature off in each, against one synthetic task suite.
 *Why* — this workspace compensates for model failures; a rule that outlives its failure is pure cost.
+It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is what says which
+mechanism earns its keep: public repo → ablation → cuts.
 *Done when* — a **per-feature** verdict is readable. Runs outside this workspace (`academy/papers/wos-ablation/`).
 
 ## Legibility — can Lucas still read what he owns
 
-**🟡 the health picture: keep what Lucas reads at a glance, cut the rest**
-*What* — one page answering *is this well tied, and what is missing* — not an inventory.
-*Why* — three drawings answered *what is there*; he needs a glanceable health picture.
-*Done when* — he reads it at a glance and failing shapes are deleted.
+**🔴 the health picture is built and does not land — redesign it**
+*What* — `ARCHITECTURE.html` redrawn as a list ordered by colour and symbol, where the page now puts
+a big mostly-empty table. Next deliverable is the Claude Design prompt for that session, and it has
+to resolve one conflict: Lucas wants per-file reads per session on this page, and that is the one
+number that breaks its determinism — it is regenerated at every close and must change only when the
+workspace does.
+*Why* — three drawings answered *what is there*; Lucas read this one 2026-09-15 and ruled it an
+inventory with better manners.
+*Done when* — he reads it at a glance and the shapes that fail are deleted.
 
 ## Portability — would this work on a machine that is not Lucas's
 
-**🟡 the port grew the workspace and the payment is still short**
-*What* — the cut that funds the port, taken from the top of `core/run tools/wos/session/reads` down.
-This line used to say no named candidate was left; the instrument names one, and it is **this file**.
-So draining the roadmap and paying the debt are one job. The ranking and what it costs:
-`core/experiments/read-amplification.md`.
+**🟡 the port grew the workspace and the payment is still short** — *after the ablation, not before*
+*What* — the cut that funds the port, from the top of `core/run tools/wos/size --weighted` down. The
+instrument names the candidate and it is **this file**, so draining the roadmap and paying the debt
+are one job.
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every
 line; that is a reason to pay, not a reason not to.
-*Done when* — the net since 2026-09-01 is negative under `core/run tools/wos/size --scope repo`.
-Several sessions of cutting rather than one; re-run it rather than quoting a figure from here.
-The debt is this repo's: absorbing a project's own writing neither creates nor pays it.
+*Done when* — the **weighted** total falls: lines SERVED per session, not lines on disk. The disk
+number can be paid by deleting a file nobody opens, which nearly took `core/experiments/` — 11% of
+the lines, zero reads in 88 sessions, and **the WOS paper's data. The cut never comes from there**
+(Lucas, 2026-09-15). Several sessions; re-run the instrument rather than quoting a figure here.
 
-**🔴 the platform boundary's last answer needs a Windows machine, and there is none**
+**🟡 the platform boundary's last answer needs one session run from inside Windows**
 *What* — manager names for the 3 `apt` rows (`poppler-utils`, `tesseract-ocr`, `ddgr`). The file's
 own head only lets a row claim `system` once the name is VERIFIED on the other managers.
 *Why* — a row claiming a portability nobody checked is the false green these checks exist to end.
+Unblocked 2026-09-15: the machine is dual boot and `/mnt/windows` is that install mounted, so the
+block was never "no Windows" but "not booted into it". From **WSL2** on that side the hooks run
+unchanged — they are `sh core/run` — and `winget.exe` is reachable by interop. A native port with no
+WSL is a different item, blocked on the `sh` in each shim.
 *Done when* — each of the three is `system` with a verified name, or stays `apt` with the reason.
-*Blocked* — Lucas has no Windows access, for an unknown stretch (2026-09-14). Nothing else unblocks it.
+One session from Windows does it: WSL2 + Ubuntu, clone, `/install`, read the names out of
+`winget.exe search` / `choco search`. `SETUP.md` names no operating system today, so what that
+session discovers goes back into it as a step.
 The other two answers are in: `is_owner_only()` reads the ACL back rather than trusting `st_mode`,
-and `core/tools/deps.txt` now carries a `floor` column — a floor, not the ceiling this line asked
-for, because the failure is a distro shipping something too old, never a release from the future.
-
-**🟡 the public repo his students clone**
-*What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
-*Why* — students asked for it; hard precondition for ablation study.
-*Done when* — a student clones it and gets a working workspace.
+and `core/tools/deps.txt` carries a `floor` column — a floor, not a ceiling, because the failure is
+a distro shipping something too old, never a release from the future.
 
 ## Deferred — real work, deliberately not now
 
@@ -83,6 +95,5 @@ for, because the failure is a distro shipping something too old, never a release
 - **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): only a parser or solver refuses; research.
 - **A research map here, and one review yaml per kept source** — 2026-09-13: a `REFS-<name>.md` does both.
 - Eleven killed before 2026-09-11 are in git, not here: `git log -S'## Rejected' -- ROADMAP.md`. A
-  tombstone stops a dead item coming back looking new, and stops earning that while nobody who
-  might revive it remembers it — this is the most-read file in the workspace per
-  `core/run tools/wos/session/reads`, and a tombstone nobody needs is read by everyone.
+  tombstone stops earning its line once nobody who might revive the item remembers it, and this is
+  the heaviest file in the workspace — one nobody needs is read by everyone.

@@ -1,4 +1,4 @@
-# Usage: core/tools/wos/session/trace [--project <name>] [--session <id>] — what a session did
+# Usage: core/tools/wos/session/trace [--project <name>] [--session <id>] [--commands] — what a session did
 # rather than what it cost: every subagent it spawned and what that one spent, the clock split into
 # working and waiting, and which tools returned the most bytes. Reads the local transcripts; no
 # network, no model.
@@ -19,10 +19,12 @@ from pathlib import Path
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from session_commands import commands
 from session_log import project_name
 from session_trace import IDLE_SECONDS, clock, loudest, main_cost, spawns
 
 TOP = 10
+SHAPES = 30
 
 
 def hours(seconds: float) -> str:
@@ -78,6 +80,21 @@ def loud_lines(ranked: list) -> list:
 	return lines
 
 
+def command_lines(rows: list, calls: int) -> list:
+	"""What we keep typing, ranked. Behind --commands and not in the close: this answers a design
+	question about which shapes deserve a command of their own, and asking it every session would
+	print thirty rows nobody acts on."""
+	if not rows:
+		return ['commands: no bash call in this population']
+	stages = sum(n for _s, n, _c in rows)
+	lines = [f'bash by shape — {calls:,} calls · {stages:,} stages · {len(rows)} distinct shapes',
+	         '  a shape with many stages and few bytes wants a command of its own; many stages AND '
+	         'many bytes wants better compression']
+	for name, n, chars in rows[:SHAPES]:
+		lines.append(f'  {name:<30} {n:>5} stages  {chars:>10,} chars  {chars // n:>7,} avg')
+	return lines
+
+
 def main() -> None:
 	args = sys.argv[1:]
 	project = args[args.index('--project') + 1] if '--project' in args else project_name()
@@ -89,6 +106,8 @@ def main() -> None:
 	printed = (spawn_lines(rows, main_turns, main_spend)
 	           + [clock_line(clock(project, session))]
 	           + loud_lines(loudest(project, session)))
+	if '--commands' in args:
+		printed += command_lines(*commands(project, session))
 	print('\n'.join(printed))
 
 

@@ -28,7 +28,6 @@ not get a type.
 | `SKILL.md` | What procedure does the agent follow when invoked? |
 | `GOALS.md` | Which goals have wind right now? (dashboard + router) |
 | `INBOX.md` | Raw capture, zero taxonomy, drained to empty |
-| `USER.md` | Who is Lucas, and how does he fail? |
 | `MEMORY.md` | Which memories exist, and what is each about? (index + router, `brain/memory/` only) |
 | `SETUP.md` | How do I make this environment work? (toolchain install + config) |
 | `PROJECTS.md` | Where does each internal project live — here, and outside? (root only) |

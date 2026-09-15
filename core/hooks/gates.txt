@@ -64,6 +64,7 @@ pre	write	20	checks/first-line-gate.py	blocks	first-line-comment
 pre	write	25	checks/size-gate.py	blocks	line-limit
 pre	write	30	facade/facade-scan.py	informs	facade-discipline
 pre	write	40	facade/facade-gate.py	blocks	facade-discipline
+pre	write	45	brain/memory-gate.py	blocks	memory-gate
 pre	write	50	checks/issues-gate.py	blocks	issues-gate
 pre	write	60	read/spec-read-gate.py	blocks	spec-read-gate
 post	write	10	checks/retired-gate.py	informs	retired-tokens

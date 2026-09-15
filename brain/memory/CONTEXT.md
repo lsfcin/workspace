@@ -12,23 +12,25 @@ What cannot be controlled is the agent *deciding* to write one. That is fine —
 
 | File | Role |
 |------|------|
-| `MEMORY.md` | The index. One line per memory; loaded into every session, so its length is a real cost (~1,198 tok — measured, see below). |
+| `MEMORY.md` | The index. One line per memory, loaded into every session — so its length is a real cost, re-read from `core/run tools/wos/session/context` rather than quoted here. |
 | `<name>.md` | One fact each, with `name` / `description` / `metadata.type` frontmatter. |
 
-The profile is **not** a file here. It was a symlink to [`../USER.md`](../USER.md) until 2026-09-04,
-and a symlink is a text file on Windows: `core.symlinks=false` gave that clone a 10-byte file whose
-whole content was the string `../USER.md`, which is what a reader following the index got. The index
-routes straight to `../USER.md` now, the way the head above already described the profile — workspace
-content first, a memory second.
+The profile is **not** a file here, and is no longer a file at all. It was a symlink to `../USER.md`
+until 2026-09-04 — and a symlink is a text file on Windows: `core.symlinks=false` gave that clone a
+10-byte file whose whole content was the string `../USER.md`, which is what a reader following the
+index got. The index routed straight to the real path after that, and on 2026-09-15 the profile was
+measured at **zero reads in 88 sessions** and cut: what only it carried is eight lines at the top of
+[`../CONTEXT.md`](../CONTEXT.md), which every Brain task already opens.
 
 Types are `user` · `feedback` · `reference`. Bodies link to each other with `[[name]]`,
 and a `[[name]]` with no matching file is allowed on purpose: it marks a memory worth writing.
 That is why `test_pointer_integrity` gates `](path)` links here but **not** `[[name]]` ones.
 
-**Cost, measured rather than assumed:** the index is ~1,198 tok of a ~27.6k session start, less than
-half the skill listing. The long-standing suspicion that this store duplicates `USER.md` + `goals/`
-enough to be worth folding was tested and **rejected on the numbers** —
-[`core/experiments/context-window.md`](../../core/experiments/context-window.md).
+**Cost, measured rather than assumed.** The index is a share of every session's opening context,
+reported by `core/run tools/wos/session/context` as its own row. The old suspicion that this store
+duplicates the profile and `goals/` enough to be worth folding was tested and rejected on the numbers
+([`core/experiments/context-window.md`](../../core/experiments/context-window.md)) — and then half
+came true from the other side: the profile was the copy, and on 2026-09-15 it went instead.
 
 <!-- routing:start -->
 ## Routing
@@ -36,23 +38,19 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | File | Description |
 |------|-------------|
 | [`MEMORY.md`](MEMORY.md) | Memory Index |
-| [`fable_quota_strategy.md`](fable_quota_strategy.md) | How Lucas spends remaining Fable 5 quota (won't renew) — Fable decides, Opus writes, Sonnet executes; multiview session DONE 2026-07-07 |
 | [`feedback_additive_course_material.md`](feedback_additive_course_material.md) | in Lucas's course material, contributing means ADDING and refining in place — never replacing, skipping or reordering what he made |
 | [`feedback_agent_runs_auth.md`](feedback_agent_runs_auth.md) | Agent runs every auth command itself; Lucas only does what has no command form (provider-UI clicks, consent screens, minting a secret) |
 | [`feedback_attention_and_token_price.md`](feedback_attention_and_token_price.md) | Never design anything that pulls Lucas's attention; and price a feature in always-loaded tokens before proposing it always-on |
 | [`feedback_background_bash_reliability.md`](feedback_background_bash_reliability.md) | Backgrounded Bash tool calls (run_in_background) can die silently across a ScheduleWakeup boundary, with no completion notification and no error in the redirected log. |
-| [`feedback_bug_tracking.md`](feedback_bug_tracking.md) | isoroll-module bugs go in ISSUES.md, not memory |
 | [`feedback_concise_wos.md`](feedback_concise_wos.md) | Lucas wants each session to leave the workspace with FEWER total lines than it found; a new feature owes the cut that pays for it |
 | [`feedback_delete_weak_features.md`](feedback_delete_weak_features.md) | Lucas deletes a feature that only produces weak signal rather than keeping it as a hint — remove it from every file and mention, leaving only a short rejection note |
 | [`feedback_explore_before_cutting.md`](feedback_explore_before_cutting.md) | while a design question is still open, keep every variant; delete only after Lucas rules — the exploration-phase exception to delete-weak-features |
 | [`feedback_full_workflow_thinking.md`](feedback_full_workflow_thinking.md) | plan isoroll (and similar) work from the full user workflow, not from artifacts — loose ends are the recurring failure |
-| [`feedback_inbox_ref_task_pairing.md`](feedback_inbox_ref_task_pairing.md) | /inbox — an actionable ref must also spawn an assessment task, never land as ref-only |
+| [`feedback_measure_before_cutting.md`](feedback_measure_before_cutting.md) | A file's cost is lines SERVED per session, never lines on disk — and the ablation runs before the cutting campaign, not after |
 | [`feedback_multiharness_essential.md`](feedback_multiharness_essential.md) | Multi-harness is ESSENTIAL to Lucas — optimize the copying, never delete a harness; and no hook dies without a scoreboard |
 | [`feedback_parallel_sessions.md`](feedback_parallel_sessions.md) | How to work safely when multiple Claude/opencode sessions edit /mnt/workspace at once |
 | [`feedback_plain_language.md`](feedback_plain_language.md) | Write WOS in plain words — Lucas loses the thread when jargon accumulates, and language IS the system when the reader is an LLM |
 | [`feedback_provider_agnostic_naming.md`](feedback_provider_agnostic_naming.md) | Provider/model names are banned as a DIRECTIVE (assigning work, naming a level, coupling code to a vendor) and fine as DATA (a measurement, a quoted id, which harness produced a draft) — position, not presence |
 | [`feedback_question_context.md`](feedback_question_context.md) | every choice put to Lucas carries the context, the problem and the tradeoffs in the question itself and in each option |
 | [`feedback_visual_eyeball_gate.md`](feedback_visual_eyeball_gate.md) | Every image-producing pipeline step needs Lucas's visual review (artifact board) before advancing — loops passing their own tests is not enough for visual work |
-| [`reference_linuz90_bot.md`](reference_linuz90_bot.md) | linuz90/claude-telegram-bot source read — the reference design for aiwbot; how it does session lineage + its UX feature set |
-| [`reference_texpace_is_spacemantics.md`](reference_texpace_is_spacemantics.md) | texpace" routes to the spacemantics project — same thing for /inbox routing |
 <!-- routing:end -->
