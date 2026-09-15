@@ -20,7 +20,9 @@ so check it rather than this line.
 *Done when* — the table is read after two weeks of ordinary use and each silent feature is a decision.
 
 **🟡 the public repo his students clone** — *the ablation's precondition, so it comes first*
-*What* — public repo checked out at `code/wos/`, one-way sync, allowlist-driven, shipping research subset.
+*What* — the checkout at `code/wos/` and the sync that writes it. The rule deciding what crosses now
+exists and reports itself (`core/run tools/wos/publish/repo`); nothing crosses unclaimed, so what
+remains is the claims that reading says are missing, then the repo, then the push.
 *Why* — students asked for it, and the ablation needs variants of it to turn a feature off in.
 *Done when* — a student clones it and gets a working workspace.
 
@@ -51,6 +53,9 @@ instrument names the candidate and it is **this file**, so draining the roadmap 
 are one job.
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every
 line; that is a reason to pay, not a reason not to.
+The instrument that names candidates arrived early, from the item above: `publish/repo --orphans`
+lists every tracked file no feature claims, which is a stronger question than "who reads this" —
+`size --weighted` ranks what a session opens, this ranks what nothing can say a purpose for.
 *Done when* — the **weighted** total falls: lines SERVED per session, not lines on disk. The disk
 number can be paid by deleting a file nobody opens, which nearly took `core/experiments/` — 11% of
 the lines, zero reads in 88 sessions, and **the WOS paper's data. The cut never comes from there**
