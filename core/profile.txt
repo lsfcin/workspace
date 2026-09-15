@@ -98,6 +98,7 @@ toggle	dedup	on
 toggle	install	on
 toggle	permissions	on
 toggle	levels	on
+toggle	publish	on
 toggle	github-auth	on
 toggle	gmail	on
 toggle	calendar	on
