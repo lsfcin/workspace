@@ -17,19 +17,21 @@ matching regression spec exists and passes.
 
 ## Open
 
-- `close/branches.py` refuses a real merge under `--leave-dirty` whenever the tree is dirty, and two
-  legitimate reasons sit behind that one refusal wanting opposite behaviour: the dirty paths are
-  usually identical on both branches and git would carry them across untouched, but the merge checks
-  the target out and back, so a parallel session inside that window sees the wrong branch
-  (`test_a_real_merge_is_refused_while_the_tree_is_not_ours`). A path-overlap check addresses the
-  first and not the second; one session tried it on 2026-09-14 and backed out.
-  **Ruled by Lucas 2026-09-14, twice: commit the stray files.** What dirties a close is this
-  session's own regenerated blocks, which it may always commit — that unblocked the fourth close in
-  a row, and re-asked on 2026-09-14 the answer was the same. It stays a workaround, and the case it
-  does not cover arrived the same day: Lucas was hand-editing `academy/teaching/SPECS-disciplinas.md`
-  while a session ran, and that is a dirty file the session may **not** commit. Sessions partition by
-  folder, so this is ordinary rather than exotic. The cure nobody has costed is still the throwaway
-  `git worktree`, which merges where HEAD is not and satisfies both reasons at once.
+- **No tracked file in this repo is executable, so the first command of the first install step
+  cannot run on a fresh clone.** `git ls-files -s` records **0** files as `100755` and 1,388 as
+  `100644` that this machine's tree has at `777`; `core.fileMode=false` here hides the mismatch, and
+  git config does not travel with a clone. [`SETUP-clone.md`](SETUP-clone.md) declares itself first,
+  always, and its opening command is a bare `core/run tools/wos/permissions --check`, which exits on
+  a permission error naming no cure. The one step in that file spelled `sh core/run` is the
+  interpreter step — the one somebody evidently debugged — so the workaround exists and was never
+  generalised. Measured 2026-09-15 by cloning this repo and running it: green in the parent tree,
+  dead on the first line in the clone. [`.gitattributes`](.gitattributes) exists for exactly this
+  class of defect and says so in its head — *"a machine setting is not a fact about this
+  workspace"* — and covers line endings only. **This defeats the § Portability done-when in
+  [`ROADMAP.md`](ROADMAP.md)** (*"a student clones it and gets a working workspace"*): the missing
+  `.venv` and skill mirrors a clone also lacks are documented `/install` steps, but the bit is not
+  installable — the index is the only place it can live. No test covers it;
+  `test_setup_executable.py` is about SETUP steps being a procedure rather than prose.
 
 - The entropy block's *"safe to delete, and outward-facing"* branch list is a SNAPSHOT presented as
   a standing instruction, and it goes stale inside the session that reads it. Found 2026-09-14 by
@@ -91,7 +93,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/roadmap-drain is 1 ahead of main
+- . — feature/roadmap-drain is 2 ahead of main
 
 ### Local branches already merged into their base
 

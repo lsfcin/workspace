@@ -9,6 +9,13 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/p/DcyBvhTiaSC/?stkn=NTc4MTIwNjQ2YQ==
+será que SDD vale a pena mesmo? a gente tem que parar pra analisar isso com calma, pesquisar a fundo, analisar o SOTA e ver como implantamos (se valer a pena) de forma prática e inexcapável o SDD. será que temos que fazer o TDD também? acho que vale incluir no bolo, na pesquisa
+
+será que o MEMORY.md é lido em todas as sessões? será que vale uma higiene nele também?
+
+acho que vale auditar mais uma vez o AGENTS.md e ver o que realmente é útil vs o que é ignorado. o mesmo vale para os CONTEXT.md
+
 faz sentido auditar nossos 890 testes? pensei que como são muitos e vários são antigos, talvez alguns não façam mais sentido.
 
 https://www.instagram.com/p/DdTPiUUDK6a/?stkn=NTc4MTIwNjQ2YQ==
