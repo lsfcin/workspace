@@ -1,0 +1,69 @@
+# Usage: core/run tools/wos/publish/repo [--orphans] [--check] — what crosses into the public repo, what no feature claims, and whether anything crossing carries a credential
+#
+# THE SECRET GATE RUNS HERE AND NOWHERE ELSE, and that is a decision rather than an omission. Once
+# a credential is in the target's working tree it is one `git add -A` from being permanent, so the
+# only moment a refusal still works is before the copy. A second copy at commit time would guard
+# against hand-edits in the target, and hand-edits in the target are already forbidden: the sync is
+# one-way and rebuilds the target from this side. Do not add the second gate.
+from __future__ import annotations
+import sys, pathlib, argparse
+
+_HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(_HERE))
+sys.path.insert(0, str(_HERE.parents[1]))
+import tool_law  # noqa: E402
+import secret_law  # noqa: E402
+import crossing as core  # noqa: E402
+
+
+def _lines(paths) -> int:
+    total = 0
+    for path in paths:
+        try:
+            total += (core.ROOT / path).read_text(encoding='utf-8').count('\n')
+        except (OSError, UnicodeDecodeError):
+            pass
+    return total
+
+
+def show(rep: core.Report, floor: core.Floor) -> None:
+    print(f'target  {floor.target.relative_to(core.ROOT)}'
+          f'{"" if floor.target.exists() else "   (not checked out)"}')
+    print(f'crossing  {len(rep.crossing)} files · {_lines(rep.crossing):,} lines'
+          f'  ·  claimed by {len(rep.by_feature)} features')
+    print(f'orphans   {len(rep.orphans)} files · {_lines(rep.orphans):,} lines'
+          '  — eligible and tracked, claimed by nobody')
+    for path, name in rep.unclaimed_imports:
+        print(f'  ESCAPES  {path} imports {name}, which the floor refuses')
+
+
+def check(rep: core.Report) -> int:
+    findings = secret_law.scan_all([core.ROOT / p for p in sorted(rep.crossing)])
+    if not findings:
+        print(f'secret gate: clean over {len(rep.crossing)} crossing files')
+        return 0
+    print(f'secret gate: {len(findings)} finding(s) — REFUSING')
+    for finding in findings:
+        print(f'  {finding}')
+    return 1
+
+
+def main() -> int:
+    tool_law.require('publish')  # before argparse: off means off, including --help
+    ap = argparse.ArgumentParser(add_help=True)
+    ap.add_argument('--orphans', action='store_true',
+                    help='list every eligible tracked file no feature claims')
+    ap.add_argument('--check', action='store_true',
+                    help='exit 1 if anything crossing carries a credential')
+    args = ap.parse_args()
+    rep, floor = core.report(), core.floor()
+    if args.orphans:
+        for path in sorted(rep.orphans):
+            print(path)
+        return 0
+    show(rep, floor)
+    return check(rep) if args.check else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

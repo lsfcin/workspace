@@ -3,6 +3,11 @@
 from __future__ import annotations
 import sys, pathlib, re
 
+# The redaction rule moved to core/tools/secret_law.py when publish/ came to need it too: a
+# credential is the same credential whichever family is about to write it out.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+from secret_law import redact  # noqa: E402
+
 ATTACHED = re.compile(r"‎?([\w.\- ]+\.opus) \(arquivo anexado\)")
 # A chat robot re-sends the same greeting and menu on every inbound message. Four copies of a menu
 # is not conversation, and it buries the two lines a human actually typed.
@@ -28,37 +33,6 @@ def fold(line: str, media: pathlib.Path) -> list[str]:
 
 def is_noise(line: str) -> bool:
     return any(marker in line for marker in BOT_NOISE)
-
-
-# core/norms/secrets.md: the versioned text carries the label, never the value.
-#
-# A bare 11-digit run is NOT enough to call something a CPF — a Brazilian mobile with area code is
-# eleven digits too. So bare digits are redacted only near a line that says CPF; a punctuated one
-# is unambiguous and goes anywhere.
-FORMATTED_CPF = re.compile(r"\b\d{3}\.\d{3}\.\d{3}-\d{2}\b")
-BARE_CPF = re.compile(r"\b\d{11}\b")
-PASSWORD = re.compile(r"(?i)(senha\W{0,3})\d{6,}")
-CPF_LABEL = "‹CPF em segredos.env›"
-
-
-# How many lines a mention of "CPF" keeps colouring. In chat the number arrives a turn or two after
-# the request — "Me informa o seu CPF" / "o meu é ..." — so a line-local test misses the real case.
-CPF_WINDOW = 3
-
-
-def redact_line(line: str, in_cpf_context: bool) -> str:
-    out = PASSWORD.sub(r"\1‹em segredos.env›", FORMATTED_CPF.sub(CPF_LABEL, line))
-    return BARE_CPF.sub(CPF_LABEL, out) if in_cpf_context else out
-
-
-def redact(text: str) -> str:
-    out, countdown = [], 0
-    for line in text.split("\n"):
-        if "cpf" in line.lower():
-            countdown = CPF_WINDOW
-        out.append(redact_line(line, countdown > 0))
-        countdown -= 1
-    return "\n".join(out)
 
 
 def stitch(export: pathlib.Path, media: pathlib.Path) -> str:
