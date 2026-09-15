@@ -167,6 +167,22 @@ def test_the_launcher_is_the_only_thing_that_cannot_ask():
         f'it, it almost certainly wants {BOUNDARY}.venv_script() instead')
 
 
+def test_the_launcher_is_executable_in_the_index():
+    """A clone takes its file modes from the index, never from the tree that authored it.
+
+    `core.fileMode=false` on the authoring machine hides a launcher recorded `100644`, and git
+    config does not travel with a clone -- so SETUP-clone.md's own opening command, a bare
+    `core/run ...`, died on a permission error naming no cure on every fresh clone until
+    2026-09-15. The tree here reads `777` and said nothing. `.gitattributes` exists to make line
+    endings travel for exactly this reason; a mode can only travel in the index, so this is the
+    one place the answer can live.
+    """
+    mode = _git('ls-files', '-s', '--', LAUNCHER)[0].split()[0]
+    assert mode == '100755', (
+        f'{LAUNCHER} is {mode} in the index, so a fresh clone cannot execute the one command that '
+        f'runs everything. Fix it with `git update-index --chmod=+x {LAUNCHER}`')
+
+
 REGISTRATION_GLOBS = ('*.json', '*.js', '*.toml')
 # NAMED so b20260905's spec can drive these same two patterns over a planted repo. A second copy
 # there would let the ban and its own regression test disagree about what the ban matches.

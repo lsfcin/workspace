@@ -96,7 +96,7 @@ matching regression spec exists and passes.
 - . — experiment/worktree-cure-high is 3 ahead of main
 - . — experiment/worktree-cure-low is 3 ahead of main
 - . — feature/promote-in-a-worktree is 3 ahead of main
-- . — feature/roadmap-drain is 3 ahead of main
+- . — feature/roadmap-drain is 4 ahead of main
 
 ### Work that exists on this disk and nowhere else
 
