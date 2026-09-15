@@ -83,11 +83,10 @@ def _mirror(harness: str, name: str) -> Path:
 def render(source: Path, alias: str) -> str:
 	"""One harness's definition: the frontmatter it needs, and a pointer to the role itself.
 
-	A POINTER, NOT A COPY. Rendering each role whole duplicated 460 lines of operating context into
-	`.claude/`, which is a second definition of every worker — two files to keep agreeing, and the
-	one thing this tool exists to prevent. The harness needs three fields to LIST and ROUTE a
-	worker; what the worker must know is a file in the same repo, and reading it is the first thing
-	every agent here does anyway.
+	A POINTER, NOT A COPY. Rendering each role whole duplicated 460 lines into `.claude/` — a second
+	definition of every worker, which is the drift this tool exists to prevent. The harness needs
+	three fields to list and route one; what the worker must KNOW is a file in the same repo, and
+	reading it is the first thing every agent here does anyway.
 	"""
 	front = frontmatter(source)
 	where = source.relative_to(ROOT).as_posix()
@@ -101,9 +100,8 @@ def render(source: Path, alias: str) -> str:
 
 
 def _shown(path: Path) -> str:
-	"""A path relative to the repo when it is inside it, and whole when it is not. `relative_to`
-	RAISES on a path outside ROOT, so a tool that only ever prints the short form crashes the moment
-	it is pointed anywhere else — which is the first thing a test does."""
+	"""Relative to the repo inside it, whole outside. `relative_to` RAISES on a path outside ROOT,
+	so a tool printing only the short form crashes the moment it is pointed elsewhere."""
 	try:
 		return path.relative_to(ROOT).as_posix()
 	except ValueError:
