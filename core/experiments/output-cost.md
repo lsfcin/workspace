@@ -174,8 +174,10 @@ only from re-deriving the tool's own output by hand. Do that once before quoting
   estimate even after the fix.
 - **Absolute spend is list price**, and does not reflect a subscription. Ratios are the trustworthy
   part; the ROADMAP § Cost & model routing caveat about the absolute total still stands.
-- **Subagent turns are excluded** — they are billed in their own transcripts under
-  `<session>/subagents/`, which this measurement does not open.
+- **Subagent turns are excluded from the rows above** — they are billed in their own transcripts
+  under `<session>/subagents/`, which `usage` does not open. No longer unmeasured:
+  `core/tools/wos/session/trace` reads them, and the share they carry is in
+  [`delegation.md`](delegation.md).
 - **A row will not re-run to the same counts.** The population is every transcript on this machine
   and it grows with every session, so re-running the Method reproduces the *shares* and drifts the
   totals upward. Compare shares across rows; treat turn counts as of their date.

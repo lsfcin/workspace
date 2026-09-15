@@ -89,6 +89,34 @@ The 842 tokens are the listing itself, and they are paid by the skills whether o
 exists. Only ~97 of that is names; the other ~745 is description writing — the same lever the
 2026-08-15 row already pulled for ~138 tokens.
 
+### Results 3 — what the tools RETURN, and which floors are ours to set
+
+*"What our own tools print has never been measured, and it is read by an agent"* (ROADMAP § Cost,
+closed here). `core/run tools/wos/session/trace` ranks tool results by bytes returned; a Bash call
+running one of our own tools is attributed to that tool rather than to Bash, which is the whole
+point — a ranking that says `Bash` and stops answers a question about the harness.
+
+2026-09-15, 96 sessions, **23.0M chars returned over 309 tool names**:
+
+| Tool | Chars | Share | Calls | Avg | The floor, and whose it is |
+|---|---:|---:|---:|---:|---|
+| `Read` | 12.3M | 53.3% | 4,127 | 2,974 | **Ours, and already being paid down.** The interface-stub gate exists to serve a `.pyi` where a source was asked for; [`read-amplification.md`](read-amplification.md) owns the per-file cut. |
+| `Bash` | 6.1M | 26.6% | 5,529 | 1,108 | **Ours.** `core/hooks/compact/` rewrites 56% of calls today; the floor is whatever the rewritten command still prints. |
+| `ExitPlanMode` | 831k | 3.6% | 98 | 8,479 | Harness. A plan comes back in full as a tool result — 8.5 KB a time, the highest average on the board. Not ours to set. |
+| `Edit` | 461k | 2.0% | 2,878 | 160 | **At its floor.** 160 chars is a confirmation; nothing to cut. |
+| `WebSearch` · `AskUserQuestion` | 404k | 1.7% | 242 | — | Harness. |
+| `core/tools/slides/gslides` | 183k | 0.8% | 80 | 2,282 | **Our loudest tool.** A deck read as navigable text; the volume is the deck. Keep. |
+| `core/tools/test` | 182k | 0.8% | 196 | 926 | **Cut already taken** — the compaction shim floors a green run at one line (`Pytest: 139 passed`). The 926 average is history, not the present. |
+| `Agent` | 166k | 0.7% | 51 | 3,249 | A worker's final report. Its real cost is its own transcript — [`delegation.md`](delegation.md). |
+| `core/tools/wos/roundup` | 122k | 0.5% | 179 | 680 | **At its floor by ruling.** Every line is a state fact the next session needs, and which lines exist is the script's own list. |
+| `core/tools/web/fetch` · `files/gdrive` | 220k | 1.0% | 163 | — | The fetched thing is the payload. Keep. |
+
+**Two tools are 80% of everything returned, and both are the harness's, not ours.** Every tool this
+workspace wrote is **11.2% of returned bytes across 295 names** — a long tail whose largest member
+is 0.8%. So the answer to "what do our own tools cost an agent to read" is: less than one `Read` in
+nine, and there is no single cut worth taking inside it. The lever is `Read` and `Bash`, which is
+where the gates already point.
+
 ## What changed
 
 - **The memory-store question is answered: do not fold it.** At ~1,198 tok it is not where the cost
