@@ -33,7 +33,7 @@ def source_quality(commit):
     """
     if not commit.staged or not feature_law.is_enabled('line-limit'):
         return
-    lines, blocked = line_counts.report(commit.staged, root=commit.toplevel)
+    lines, blocked = line_counts.report(commit.staged, root=commit.toplevel, staged=True)
     if blocked:
         raise Blocked('\n'.join(lines))
     print('\n'.join(lines))

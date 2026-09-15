@@ -37,31 +37,48 @@ for _stream in (sys.stdout, sys.stderr):
 WARN_EXEMPT = re.compile(r'^\s*(?:#|//|%|<!--)\s*warn-exempt:', re.M)
 
 
-def report(paths, root=None) -> tuple:
+def _content(path, root, staged):
+    """What the caller is actually asking about, or None when there is nothing to read.
+
+    THE GATE MUST WEIGH THE BLOB GIT WILL COMMIT, NOT THE FILE ON DISK. Those differ whenever a trim
+    is written but not staged, and the gate then answers a question about a file nobody is
+    committing -- which is how `git/branch_debt.py` and `tools/wos/roundup` landed at 202 and 201
+    lines against WARN_LINES=200 while printing `No authored files exceed thresholds` (ISSUES.md,
+    found 2026-09-13). It failed in both directions: silent on what it should warn about, and noisy
+    about a fix already staged. A bare audit run has no index to consult and reads the disk, which
+    is the right answer for that caller and the wrong one for the pipeline.
+    """
+    if staged:
+        done = subprocess.run(['git', 'show', f':{path}'], cwd=root, capture_output=True,
+                              text=True, encoding='utf-8', errors='replace')
+        return done.stdout if done.returncode == 0 else None
+    target = root / path
+    return target.read_text(encoding='utf-8', errors='replace') if target.is_file() else None
+
+
+def report(paths, root=None, staged=False) -> tuple:
     """(lines of report, blocked) for `paths`. Never raises, never prints -- the caller decides.
 
     Returned rather than printed because the pre-commit pipeline must fold this into its own single
     reject path, and a checker that prints its own verdict cannot be composed into one.
+
+    `staged` says the paths came from the index, so read them from there -- see `_content`.
     """
     limits = file_law.load_limits()
     warn, block = int(limits['WARN_LINES']), int(limits['BLOCK_LINES'])
     root = Path(root) if root else Path.cwd()
     lines, blocked, warned = [], False, False
     for path in paths:
-        target = root / path
         # Code or prose, asked of the law rather than of a suffix. is_authored answers for our own
-        # code and is_authored_prose for our own .md; both already waive vendored and generated.
-        if not target.is_file() or not (file_law.is_authored(Path(path), root)
-                                        or file_law.is_authored_prose(Path(path), root)):
+        # code and is_authored_prose for our own .md; both already waive vendored AND generated, so
+        # a tool's own output is out here without a third question -- `generated.txt` promises the
+        # cap is waived, and a separate check restating that had drifted into asking it twice.
+        if not (file_law.is_authored(Path(path), root)
+                or file_law.is_authored_prose(Path(path), root)):
             continue
-        # A tool wrote it, so no authoring rule applies — the third answer file_law holds, and the
-        # one this gate never asked for. `generated.txt` promises the cap is waived and the entropy
-        # dashboard honours that; this did not, so the session close regenerated ARCHITECTURE.html
-        # and was then refused permission to commit it. A generator that cannot settle its own
-        # output leaves the artifact dirty on every close.
-        if file_law.is_generated_artifact(target, root):
+        text = _content(path, root, staged)
+        if text is None:
             continue
-        text = target.read_text(encoding='utf-8', errors='replace')
         count = len(text.splitlines())
         if count >= block:
             lines.append(f'🚨 BLOCK: {path} ({count} lines)')
