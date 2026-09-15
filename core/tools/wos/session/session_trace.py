@@ -67,27 +67,22 @@ def _stamps(path: Path) -> list:
 	return sorted(found)
 
 
-def _priced(rows) -> tuple:
-	"""(turns, cost, {model: turns}) for one worker's responses. Unpriced models keep their name."""
-	cost = 0.0
-	models: dict = defaultdict(int)
-	for _context, components, model, _stem, _out, _logged in rows:
-		cost += sum(components.values())
-		models[model] += 1
-	return len(rows), cost, dict(models)
-
-
 # What a worker no spawn record claims is called on screen. One spelling: the report counts these
 # rows separately and must recognise them without re-deriving the rule.
 UNCLAIMED = 'continued'
 
 
 def _worker(path: Path, agent: str) -> dict:
-	"""One worker's own numbers, read from its own transcript."""
+	"""One worker's own numbers, read from its own transcript. An unpriced model keeps its name, so
+	a worker we cannot price is visible rather than averaged in as free."""
 	file = path.parent / path.stem / 'subagents' / f'agent-{agent}.jsonl'
-	count, cost, models = (_priced(list(responses(file, True).values()))
-	                       if file.is_file() else (0, 0.0, {}))
-	return {'agent': agent, 'turns': count, 'cost': cost, 'models': models,
+	cost = 0.0
+	models: dict = defaultdict(int)
+	rows = list(responses(file, True).values()) if file.is_file() else []
+	for _context, components, model, _stem, _out, _logged in rows:
+		cost += sum(components.values())
+		models[model] += 1
+	return {'agent': agent, 'turns': len(rows), 'cost': cost, 'models': dict(models),
 	        'session': path.stem, 'transcript': file.is_file()}
 
 

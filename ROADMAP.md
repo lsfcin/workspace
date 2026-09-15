@@ -81,13 +81,6 @@ for, because the failure is a distro shipping something too old, never a release
 *Why* — students asked for it; hard precondition for ablation study.
 *Done when* — a student clones it and gets a working workspace.
 
-## Brain — the part that serves Lucas rather than the code
-
-**🟡 measure which `UPPERCASE.md` files are read, then decide what to do about goal files**
-*What* — per-type summary of reads and cost; then goal↔roadmap warning and goal-format audit.
-*Why* — verify whether goal files are dead weight before redesigning fields.
-*Done when* — numbers are in `core/experiments/` and downstream steps decide based on data.
-
 ## Deferred — real work, deliberately not now
 
 - **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 repo is tight.
@@ -103,6 +96,7 @@ for, because the failure is a distro shipping something too old, never a release
 - **`gate` → `block`** — 2026-09-14: `block` already names a generated region AND is the verb: *"a block blocks"*.
 - **Flattening the eight personification verbs** — 2026-09-14 (Lucas): 478 uses and they read; a voice is not jargon.
 - **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree our checks skip is an invisible asymmetry.
+- **A goal↔roadmap warning, and a goal-format audit** — 2026-09-15: 26 of 39 goal files have never been opened.
 - **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Read cost picks the cut.
 - **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first prompt; tree dirty.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task level routing; trigger imported instead.
