@@ -49,12 +49,10 @@
 # facade-gate.py — the tracker records exactly what the gate consults, and the scan advises about
 # exactly what the import check blocks, so one switch is the honest answer for all three.
 #
-# ONE ROW IS LEFT, AND IT IS NOT THE SAME SHAPE. checks/pre-edit.py blocks for THREE reasons — a
-# missing CONTEXT.md description, a missing first-line comment, and the size cap — and those belong
-# to two features (first-line-comment, line-limit). One column cannot attribute them, so naming
-# either one here would make the other's ablation row a lie, which is the defect this column exists
-# to end. The fix is to split the file by responsibility, not to fill the cell; until then the `-`
-# says truthfully that no single feature owns this gate.
+# THE LAST ONE WAS CURED BY SPLITTING, NOT BY FILLING THE CELL (2026-09-14). checks/pre-edit.py
+# blocked for three reasons owned by two features, so naming either made the other's ablation row a
+# lie. It is now checks/first-line-gate.py and checks/size-gate.py, one feature each, sharing
+# checks/write_payload.py so neither re-derives the payload. No row carries a `-`.
 #
 # moment	capability	order	path	class	feature
 pre	shell	10	read/bash-context-gate.py	blocks	context-chain
@@ -62,7 +60,8 @@ pre	shell	20	checks/heredoc-gate.py	informs	heredoc-gate
 pre	read	10	read/context-gate.py	blocks	context-chain
 pre	read	20	read/pre-read.py	blocks	interface-first-reads
 pre	write	10	read/context-gate.py	blocks	context-chain
-pre	write	20	checks/pre-edit.py	blocks	-
+pre	write	20	checks/first-line-gate.py	blocks	first-line-comment
+pre	write	25	checks/size-gate.py	blocks	line-limit
 pre	write	30	facade/facade-scan.py	informs	facade-discipline
 pre	write	40	facade/facade-gate.py	blocks	facade-discipline
 pre	write	50	checks/issues-gate.py	blocks	issues-gate

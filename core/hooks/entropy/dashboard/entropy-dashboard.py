@@ -7,7 +7,7 @@
 # a commit ADDS, which is why a repo that inherited violations is not blocked on every
 # commit. Everything it lets through historically shows up here, once, with a count.
 #
-# Nothing here blocks. The cap that does live in checks/pre-edit.py; this file reports what the
+# Nothing here blocks. The cap that does lives in checks/size-gate.py; this file reports what the
 # tree already carries, including the files a ratchet let through before the cap reached them.
 # Crossing a threshold asks for a CUT, never for a summary — forced brevity is the trap, and
 # core/SCHEMA.md § A type that outgrows the cap is cut says what a cut may

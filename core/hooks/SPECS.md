@@ -97,7 +97,8 @@ stdout is parsed as a single document and a second would be heard by nobody.
 |--------|-------------|-----------|
 | `read/context-gate.py` | read, write | **Blocks** until the target folder's `CONTEXT.md` chain was Read this session; on a read it also names the current stub, so one batch clears both read gates. Session-deduped; `CONTEXT.md`/`AGENTS.md` exempt |
 | `read/pre-read.py` | read | **Blocks** reading a source file while its interface is current, naming the unread chain alongside it — both read gates exit 2 on one read and the harness reports only the first, so each names the whole set. Warns when the interface is stale; reading it unlocks the source |
-| `checks/pre-edit.py` | write | **Blocks** an edit pushing an authored file past the block cap, and a new file with no first-line description comment |
+| `checks/first-line-gate.py` | write | **Blocks** a new file whose first line does not say what it is, and a new `CONTEXT.md` with no `>` description on line 2 |
+| `checks/size-gate.py` | write | **Blocks** an edit pushing an authored code file past either block cap, lines or characters |
 | `facade/facade-scan.py` | write | **Informs** — the exports the target module's facade already declares; warns if that list is empty |
 | `facade/facade-gate.py` | write | **Blocks** edits to a `code/` module file until the nearest facade was Read this session |
 | `checks/issues-gate.py` | write | **Blocks** flipping a bug to FIXED, or deleting its section, without a matching `test/**/b<N>-*` regression spec |

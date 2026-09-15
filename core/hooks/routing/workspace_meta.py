@@ -102,7 +102,7 @@ def file_description(path: Path) -> str:
         lines = path.read_text(encoding='utf-8', errors='ignore').splitlines()
         # A shebang is a comment to the regex but not a description — every executable
         # module was advertising its interpreter path in the routing table. Take the
-        # real first-line comment, which the pre-edit gate already requires below it.
+        # real first-line comment, which checks/first-line-gate.py already requires below it.
         if lines and lines[0].startswith('#!'):
             lines = lines[1:]
         first = lines[0]

@@ -36,11 +36,11 @@ table, which `entropy_context.check_truncation` asserts at zero.
 ## First-line descriptions
 
 Every scanned file begins with a one-line description, because `context_synchronizer.py` reads it as
-the canonical description. Enforced at **Write** (`checks/pre-edit.py` blocks), at **Edit** (a
+the canonical description. Enforced at **Write** (`checks/first-line-gate.py` blocks), at **Edit** (a
 reminder prints, the edit stands), and at **commit** — `entropy_context.check_description`, run by
 `checks/type-gate.py` over the files the commit adds.
 
-**The commit gate is the load-bearing one.** `pre-edit.py` only fires under
+**The commit gate is the load-bearing one.** `first-line-gate.py` only fires under
 `if not os.path.exists(file_path)`, so a file written by a generator, a heredoc, `git checkout` or an
 agent not running our hooks is never asked. **An edit-time check only covers the harness path; the
 staged set is what covers everyone.**

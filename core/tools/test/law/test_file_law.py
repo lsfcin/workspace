@@ -66,9 +66,9 @@ def test_every_checker_resolves_the_workspace_root_to_the_workspace() -> None:
 
     `vendored.txt` patterns are workspace-relative, so a checker whose WORKSPACE_ROOT is
     `core/` matches none of them: is_vendored() returns False for every path and the
-    exemption silently stops existing. pre-edit.py carried exactly that bug — `parents[2]`
-    from `core/hooks/checks/` — so editing a vendored file past the cap was blocked by the
-    gate `vendored.txt` was written to waive. Nothing failed; the waiver just never applied.
+    exemption silently stops existing. The write gates' own root carried exactly that bug —
+    `parents[2]` from `core/hooks/checks/` — so editing a vendored file past the cap was blocked
+    by the gate `vendored.txt` was written to waive. Nothing failed; the waiver never applied.
 
     Asserted against the marker file rather than a hardcoded depth, so moving a checker
     breaks this test instead of silently disabling its exemptions.
@@ -86,8 +86,12 @@ def test_every_checker_resolves_the_workspace_root_to_the_workspace() -> None:
 
 
 def test_the_vendored_waiver_reaches_the_edit_gate() -> None:
-    """The end-to-end version of the above: a real vendored file, through pre-edit's own root."""
-    gate = HOOKS / 'checks/pre-edit.py'
+    """The end-to-end version: a real vendored file, through the size gate's own root.
+
+    It follows the SIZE half of the 2026-09-14 split, because the cap is what the waiver waives —
+    `write_payload.py` declares the root and `size-gate.py` is the caller that spends it.
+    """
+    gate = HOOKS / 'checks/write_payload.py'
     depth = int(re.search(r'WORKSPACE_ROOT = Path\(__file__\)\.resolve\(\)\.parents\[(\d+)\]',
                           gate.read_text(encoding='utf-8')).group(1))
     root = gate.resolve().parents[depth]

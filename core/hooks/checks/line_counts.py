@@ -11,7 +11,7 @@
 #
 # PROSE JOINED IT 2026-09-12 (Lucas: every folder, every authored type). limits.env has held one
 # number for code and prose alike since 2026-08-18, but only the BLOCK half reached .md -- through
-# pre-edit.py at write time and the entropy dashboard after the fact -- so the WARN, the half that
+# the write gate and the entropy dashboard after the fact -- so the WARN, the half that
 # asks for a look before a file is unreadable, existed for code alone.
 import re
 import subprocess

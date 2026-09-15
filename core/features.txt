@@ -40,8 +40,8 @@
 #                and they are the reason the column exists: six are automatic and enforce nothing
 #                (rtk-compaction, subtree-read-tracking, precompact-wipe, brain-attention,
 #                opencode-plugin, and caveman, which activates itself from a SessionStart hook);
-#                five are on-demand and still push (crowding-limit, context-head-budget,
-#                first-line-comment, declared-deps, diagram). The subcategory of an on-demand
+#                four are on-demand and still push (crowding-limit, context-head-budget,
+#                declared-deps, diagram). The subcategory of an on-demand
 #                feature is its `group` and no third column is needed: a skill is typed as /name,
 #                a tool is called by path. Named `automatic`/`on-demand` rather than
 #                `passive`/`active` because this registry's other job is saying which features are
@@ -83,10 +83,10 @@ interface-stubs	hooks	automatic	interface-stubs	generates	general	core/hooks/com
 routing-tables	hooks	automatic	-	generates	general	core/hooks/routing/context_synchronizer.py	Each directory's file list writes itself from first-line comments; nobody maintains an index, and an index nobody maintains is the one that lies
 agent-context-brief	hooks	automatic	-	advises	general	core/hooks/read/agent-context.py	A spawned subagent is handed its subtree's CONTEXT.md chain instead of being gated on it, so briefing a worker stops being a discipline the orchestrator has to remember
 subtree-read-tracking	hooks	automatic	-	none	general	core/hooks/read/context-tracker.py	Records which CONTEXT.md a session has already read, which is what lets the chain gate fire once per subtree instead of once per file
-line-limit	hooks	automatic	-	blocks	general	core/hooks/checks/line_counts.py	Forces graph-shaped design: small single-responsibility files with explicit imports, because an agent that cannot grow a file has to actually decompose it
+line-limit	hooks	automatic	-	blocks	general	core/hooks/checks/line_counts.py,core/hooks/checks/size-gate.py	Forces graph-shaped design: small single-responsibility files with explicit imports, because an agent that cannot grow a file has to actually decompose it
 crowding-limit	hooks	on-demand	-	warns	general	core/hooks/entropy/entropy_crowding.py	Counts how many files one directory asks a reader to hold at once; a split costs one routing hop, so the warn sits where that hop starts to pay for itself
 context-head-budget	hooks	on-demand	-	warns	general	core/hooks/entropy/entropy_context.py	A token in a CONTEXT.md head is paid by every session that touches the subtree, so the head is asked to justify its length rather than capped
-first-line-comment	hooks	on-demand	-	warns	general	core/hooks/entropy/entropy_context.py	Every code file opens with a line saying what it is, and that line is what the routing generator publishes, so the index writes itself
+first-line-comment	hooks	automatic	-	blocks	general	core/hooks/entropy/entropy_context.py,core/hooks/checks/first-line-gate.py	Every code file opens with a line saying what it is, and that line is what the routing generator publishes, so the index writes itself
 duplication-gate	hooks	automatic	declared-deps	blocks	general	core/hooks/checks/check-duplication.py	jscpd blocks a commit whose staged files clone existing logic; copy-paste is the failure mode agents are fastest at
 facade-discipline	hooks	automatic	-	blocks	general	core/hooks/facade/check-facade-imports.py,core/hooks/facade/facade-gate.py,core/hooks/facade/facade-scan.py,core/hooks/facade/facade-tracker.py	Cross-module imports that reach around index / __init__ are blocked, so module boundaries stay real and a rename does not become an archaeology project
 type-gate	hooks	automatic	-	blocks	general	core/hooks/checks/type-gate.py	UPPERCASE.md names are a closed allowlist, ratcheted on what a commit adds, so inventing a file type is a deliberate act instead of an accident
