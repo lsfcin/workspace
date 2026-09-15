@@ -12,10 +12,34 @@
 
 ## Cost — what a session costs, and which of it is avoidable
 
-**🟢 cheaper models where the work is mechanical**
-*What* — mechanical work routed off the most expensive level.
-*Why* — the measured split is opus-heavy and some of that is typing, not thinking.
-*Done when* — the split moves and work still lands. Context size is a 4.2x multiplier routing cannot beat.
+**🔴 cheaper models where the work is mechanical, and the map of which case gets which**
+*What* — a written mapping from KIND OF WORK to level, and a way to apply it that survives the
+harness changing. Re-graded from 🟢 on 2026-09-14: the one-line fix — a default subagent model in
+`.claude/settings.json` — was refused as too narrow. *"quero fazer isso decentemente, e não só pro
+claude code … quais casos usar qual e como fazer isso de forma segura e precisa"* (Lucas).
+*Why* — the split is 99.4% opus over 94 sessions and $2,002, and some of that is typing. The only
+live routing is inside `/craft`, whose executors declare haiku/sonnet/opus by level; every other
+subagent inherits the parent, so a read-only search runs at the dearest level.
+*Done when* — the split moves, the work still lands, and the mapping reaches every harness rather
+than one settings file. Context size is a 4.2x multiplier routing cannot beat.
+
+**🟡 the close cannot say which models and agents a session actually spent**
+*What* — what the close's report should carry, ruled, then built. *"quantos subagentes foram
+spawnados … os custos de cada"* (Lucas, 2026-09-14). Today it prints `session/usage --session` plus
+`size`, and says nothing about subagents; `core/experiments/delegation.md` asks the spawn-rate half
+and no tool answers the cost half. Nothing needs new instrumenting — `subagent_type`, the spawn
+prompt, each worker's own `usage` and every record's `timestamp` are already on disk.
+Four candidates, and the ruling is which of them the report carries (Lucas defers to a later
+session, 2026-09-14): one line per spawn (type, model, cost, turns, task); the main-thread against
+subagent split, which is the number that says whether delegating pays; wall-clock working against
+waiting; and the ten loudest tools by bytes returned. The report is a last response and not carried
+into the handoff, so its length is not paid by later sessions — that is not an argument against any
+of the four.
+*Why* — the item above is a routing decision that cannot be made, or checked afterwards, without it.
+The third candidate is the § Cost wall-clock instrument, which the channel item waits on, so three
+roadmap items meet here and share one `timestamp` read.
+*Done when* — the ruling is written, a close prints what it chose, and the numbers reconcile with
+`session/usage`.
 
 **🟡 what our own tools print has never been measured, and it is read by an agent**
 *What* — a number for what the tools' output costs per session, then the cuts it justifies.
