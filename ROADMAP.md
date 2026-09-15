@@ -12,60 +12,20 @@
 
 ## Cost — what a session costs, and which of it is avoidable
 
-**🔴 cheaper models where the work is mechanical, and the map of which case gets which**
-*What* — a written mapping from KIND OF WORK to level, and a way to apply it that survives the
-harness changing. Re-graded from 🟢 on 2026-09-14: the one-line fix — a default subagent model in
-`.claude/settings.json` — was refused as too narrow. *"quero fazer isso decentemente, e não só pro
-claude code … quais casos usar qual e como fazer isso de forma segura e precisa"* (Lucas).
-*Why* — the split is 99.4% opus over 94 sessions and $2,002, and some of that is typing. The only
-live routing is inside `/craft`, whose executors declare haiku/sonnet/opus by level; every other
-subagent inherits the parent, so a read-only search runs at the dearest level.
-*Done when* — the split moves, the work still lands, and the mapping reaches every harness rather
-than one settings file. Context size is a 4.2x multiplier routing cannot beat.
-
-**🟡 the close cannot say which models and agents a session actually spent**
-*What* — what the close's report should carry, ruled, then built. *"quantos subagentes foram
-spawnados … os custos de cada"* (Lucas, 2026-09-14). Today it prints `session/usage --session` plus
-`size`, and says nothing about subagents; `core/experiments/delegation.md` asks the spawn-rate half
-and no tool answers the cost half. Nothing needs new instrumenting — `subagent_type`, the spawn
-prompt, each worker's own `usage` and every record's `timestamp` are already on disk.
-Four candidates, and the ruling is which of them the report carries (Lucas defers to a later
-session, 2026-09-14): one line per spawn (type, model, cost, turns, task); the main-thread against
-subagent split, which is the number that says whether delegating pays; wall-clock working against
-waiting; and the ten loudest tools by bytes returned. The report is a last response and not carried
-into the handoff, so its length is not paid by later sessions — that is not an argument against any
-of the four.
-*Why* — the item above is a routing decision that cannot be made, or checked afterwards, without it.
-The third candidate is the § Cost wall-clock instrument, which the channel item waits on, so three
-roadmap items meet here and share one `timestamp` read.
-*Done when* — the ruling is written, a close prints what it chose, and the numbers reconcile with
-`session/usage`.
-
-**🟡 what our own tools print has never been measured, and it is read by an agent**
-*What* — a number for what the tools' output costs per session, then the cuts it justifies.
-*Why* — output enters the context whether read or not; `core/hooks/compact/` exists as a threshold question.
-*Done when* — the ten loudest tools are ranked by bytes returned and each one's floor is a decision.
-
 **🟡 the meter shows two thresholds; the ask is the trend between them**
 *What* — context growth visible continuously, most likely a statusline.
 *Why* — Lucas cannot watch the window fill and only learns at a crossing.
 *Done when* — he reads growth without asking and the hook still costs zero tokens until a crossing.
 
 **🟡 anything the agent needs Lucas to physically do is said where he never sees it**
-*What* — one channel reaching him at the *end* of a response, and at the moment a session parks.
+*What* — one channel reaching him at the *end* of a response, and when a session parks, which
+`core/tools/wos/session/trace` can now name: a gap past its declared idle threshold.
 *Why* — close offers and auth-consent requests land in agent-facing writing at prompt-submit time, and
 a session blocked on an `AskUserQuestion` while he is elsewhere is the same defect's third instance.
 A harness that auto-compacted a session and said so only at the end is the fourth (INBOX 2026-09-14),
 and an expired Instagram cookie that cost a triage 8 of 26 entries is the fifth — both are things
 only Lucas can act on, and neither reached him.
 *Done when* — all five reach him without interrupting the thread, with measured token cost.
-
-**🟡 a session's wall-clock has never been split into working and waiting**
-*What* — a fourth `core/tools/wos/session/` instrument: how much of a span the machine was busy and
-what the idle gaps were parked on, plus the `core/experiments/` file that makes it a trend.
-*Why* — the three tools there measure what a session *costs*, none how long it *took*, so "ran ten
-hours" has never been separable from "Lucas was away for eight". The item above waits on this.
-*Done when* — the instrument runs from a transcript and `core/experiments/` carries its first rows.
 
 **🟡 thinking is 65% of billed output and no instrument here can see it**
 *What* — a number for what thinking effort costs and whether lowering it breaks the work.
