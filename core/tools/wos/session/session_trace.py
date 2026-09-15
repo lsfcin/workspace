@@ -26,19 +26,30 @@ from session_turns import paths_for, responses
 # together; what it can never do is invent time the span does not contain.
 IDLE_SECONDS = 120.0
 
-# A Bash call that runs one of our own tools is that tool's output, not Bash's. Without this the
+# A Bash call that RUNS one of our own tools is that tool's output, not Bash's. Without this the
 # loudest-tools ranking says `Bash` and stops, which answers a question about the harness where the
 # ROADMAP asked one about us. `core/run tools/…` and a direct `core/tools/…` are the same call.
-OURS = re.compile(r'core/(?:run\s+)?tools/([\w.\-/]+)')
+#
+# ANCHORED AT THE START OF A COMMAND, because running a tool and READING ITS SOURCE are opposite
+# facts and a bare search cannot tell them apart. `sed -n 1,200p core/tools/wos/roundup` reported
+# 11,003 chars as roundup's own output on the first run of this report; the path is an argument to
+# sed there, and sed is the tool that printed.
+OURS = re.compile(r'^core/(?:run\s+)?tools/([\w.\-/]+)')
+# Words that may precede the path and still leave it the thing being run.
+RUNNERS = re.compile(r'^(?:\w+=\S+\s+|(?:python3?|sh|bash|uv\s+run|exec)\s+)+')
+SEGMENT = re.compile(r'\|\||&&|[|;\n]')
 
 
 def _tool_name(name: str, command: str) -> str:
 	"""One tool, one name. A path's trailing slash and a pytest `::case` suffix are the same call as
 	the path without them, and left alone they split one tool's volume across two rows."""
-	found = OURS.search(command) if name == 'Bash' else None
-	if not found:
+	if name != 'Bash':
 		return name
-	return f'core/tools/{found.group(1).split("::")[0].rstrip("/")}'
+	for segment in SEGMENT.split(command):
+		bare = RUNNERS.sub('', segment.strip())
+		if found := OURS.match(bare):
+			return f'core/tools/{found.group(1).split("::")[0].rstrip("/")}'
+	return name
 
 
 def _stamps(path: Path) -> list:

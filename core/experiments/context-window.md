@@ -96,26 +96,36 @@ closed here). `core/run tools/wos/session/trace` ranks tool results by bytes ret
 running one of our own tools is attributed to that tool rather than to Bash, which is the whole
 point — a ranking that says `Bash` and stops answers a question about the harness.
 
-2026-09-15, 96 sessions, **23.0M chars returned over 309 tool names**:
+2026-09-15, 96 sessions, **23.1M chars returned over 75 tool names**:
 
 | Tool | Chars | Share | Calls | Avg | The floor, and whose it is |
 |---|---:|---:|---:|---:|---|
-| `Read` | 12.3M | 53.3% | 4,127 | 2,974 | **Ours, and already being paid down.** The interface-stub gate exists to serve a `.pyi` where a source was asked for; [`read-amplification.md`](read-amplification.md) owns the per-file cut. |
-| `Bash` | 6.1M | 26.6% | 5,529 | 1,108 | **Ours.** `core/hooks/compact/` rewrites 56% of calls today; the floor is whatever the rewritten command still prints. |
+| `Read` | 12.3M | 53.3% | 4,145 | 2,973 | **Ours, and already being paid down.** The interface-stub gate exists to serve a `.pyi` where a source was asked for; [`read-amplification.md`](read-amplification.md) owns the per-file cut. |
+| `Bash` | 8.1M | 35.0% | 7,643 | 1,059 | **Ours.** `core/hooks/compact/` rewrites 56% of calls today; the floor is whatever the rewritten command still prints. |
 | `ExitPlanMode` | 831k | 3.6% | 98 | 8,479 | Harness. A plan comes back in full as a tool result — 8.5 KB a time, the highest average on the board. Not ours to set. |
-| `Edit` | 461k | 2.0% | 2,878 | 160 | **At its floor.** 160 chars is a confirmation; nothing to cut. |
+| `Edit` | 464k | 2.0% | 2,900 | 159 | **At its floor.** 159 chars is a confirmation; nothing to cut. |
 | `WebSearch` · `AskUserQuestion` | 404k | 1.7% | 242 | — | Harness. |
-| `core/tools/slides/gslides` | 183k | 0.8% | 80 | 2,282 | **Our loudest tool.** A deck read as navigable text; the volume is the deck. Keep. |
-| `core/tools/test` | 182k | 0.8% | 196 | 926 | **Cut already taken** — the compaction shim floors a green run at one line (`Pytest: 139 passed`). The 926 average is history, not the present. |
 | `Agent` | 166k | 0.7% | 51 | 3,249 | A worker's final report. Its real cost is its own transcript — [`delegation.md`](delegation.md). |
-| `core/tools/wos/roundup` | 122k | 0.5% | 179 | 680 | **At its floor by ruling.** Every line is a state fact the next session needs, and which lines exist is the script's own list. |
-| `core/tools/web/fetch` · `files/gdrive` | 220k | 1.0% | 163 | — | The fetched thing is the payload. Keep. |
+| `core/tools/notes/notion` | 110k | 0.5% | 25 | 4,410 | **Our loudest tool, by average and by total.** A page read as navigable text; the volume is the page. Keep. |
+| `core/tools/wos/roundup` | 63k | 0.3% | 113 | 556 | **At its floor by ruling.** Every line is a state fact the next session needs, and which lines exist is the script's own list. |
+| `core/tools/web/fetch` · `slides/gslides` | 122k | 0.5% | 49 | — | The fetched page and the deck ARE the payload. Keep. |
+| `core/tools/wos/features` | 43k | 0.2% | 76 | 564 | A row per feature, and the registry is the point. Keep. |
 
-**Two tools are 80% of everything returned, and both are the harness's, not ours.** Every tool this
-workspace wrote is **11.2% of returned bytes across 295 names** — a long tail whose largest member
-is 0.8%. So the answer to "what do our own tools cost an agent to read" is: less than one `Read` in
-nine, and there is no single cut worth taking inside it. The lever is `Read` and `Bash`, which is
-where the gates already point.
+**Two tools are 88% of everything returned, and both are the harness's, not ours.** Every tool this
+workspace wrote is **2.8% of returned bytes across 61 names**, and the largest is 0.5%. So the
+answer to *"what do our own tools cost an agent to read"* is: about one twentieth of what `Read`
+alone costs, with no single cut worth taking inside it. **The item is closed by the measurement
+refusing it** — the lever is `Read` and `Bash`, which is where the gates already point.
+
+**The first run of this table said 11.2% across 295 names, and it was wrong the way every other
+number in this directory has been wrong at least once.** The attribution searched a Bash command for
+one of our paths anywhere in it, so `sed -n 1,200p core/tools/wos/roundup` billed 11,003 chars to
+roundup — reading a tool's SOURCE counted as that tool printing, and 234 of the 295 "tool names"
+were paths that had merely been grepped. The fix anchors the match at the start of a command
+segment; the 8.4 points went back to `Bash`, where they were always spent. Guarded by
+`test_reading_a_tool_s_source_is_not_that_tool_printing`. This is the third time an instrument here
+printed a startling number that did not survive re-deriving it by hand — see § Three corrections in
+[`output-cost.md`](output-cost.md), whose lesson is exactly this one.
 
 ## What changed
 

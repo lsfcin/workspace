@@ -153,6 +153,22 @@ def test_our_own_tool_is_ranked_under_its_own_name_not_under_bash(project):
 	assert ranked['Read'] == (200, 1)
 
 
+def test_reading_a_tool_s_source_is_not_that_tool_printing(project):
+	"""Running a tool and reading its source are opposite facts, and a bare path search cannot tell
+	them apart: `sed -n 1,200p core/tools/wos/roundup` billed 11,003 chars to roundup on this
+	report's first run. The path is sed's argument there, and sed is what printed."""
+	name = project({'s1': [
+		*call('t1', 'Bash', {'command': 'sed -n 1,200p core/tools/wos/roundup'}, 'a' * 500),
+		*call('t2', 'Bash', {'command': 'grep -n STATE core/tools/wos/roundup'}, 'b' * 100),
+		*call('t3', 'Bash', {'command': 'python3 core/tools/wos/roundup --leave-dirty'}, 'c' * 40),
+		*call('t4', 'Bash', {'command': 'git status && core/run tools/wos/size'}, 'd' * 20),
+	]})
+	ranked = dict((n, (c, calls)) for n, c, calls in loudest(name))
+	assert ranked['Bash'] == (600, 2), 'sed and grep printed, not the file they were pointed at'
+	assert ranked['core/tools/wos/roundup'] == (40, 1), 'an interpreter still leaves the tool running'
+	assert ranked['core/tools/wos/size'] == (20, 1), 'a tool after && is still the tool that ran'
+
+
 def test_a_read_is_sized_by_what_came_back_not_by_what_was_asked(project):
 	"""session_log rule 1, inherited: the JSON envelope is not the text, and an offset read costs
 	what it was served. Sizing the request would rank a one-line Read beside a whole file."""

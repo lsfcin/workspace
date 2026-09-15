@@ -62,8 +62,9 @@ def clock_line(split: dict) -> str:
 	if not split['span']:
 		return 'clock: one event — no span to split'
 	waiting = split['waiting'] / split['span']
+	gaps = split['gaps']
 	return (f'clock: {hours(split["span"])} span · {hours(split["working"])} working · '
-	        f'{waiting:.0%} waiting in {split["gaps"]} gaps over {IDLE_SECONDS:.0f}s')
+	        f'{waiting:.0%} waiting in {gaps} gap{"" if gaps == 1 else "s"} over {IDLE_SECONDS:.0f}s')
 
 
 def loud_lines(ranked: list) -> list:

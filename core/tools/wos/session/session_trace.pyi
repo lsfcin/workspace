@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 
 IDLE_SECONDS: float
 OURS: Incomplete
+RUNNERS: Incomplete
+SEGMENT: Incomplete
 UNCLAIMED: str
 
 def spawns(project: str, session: str = '') -> list: ...
