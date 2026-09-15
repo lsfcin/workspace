@@ -10,13 +10,6 @@
 >
 > 🔴 Lucas decides · 🟡 an agent can rule alone · 🟢 mechanical. Items are named, never numbered.
 
-## Cost — what a session costs, and which of it is avoidable
-
-**🟡 thinking is 65% of billed output and no instrument here can see it**
-*What* — a number for what thinking effort costs and whether lowering it breaks the work.
-*Why* — it is the largest slice of billed output; every composition figure describes the other 35%.
-*Done when* — one task has run at two effort levels with billed output *and* correctness compared.
-
 ## Measurement — does any of this earn its keep
 
 **🟡 the scoreboard is running and owes its first reading**
@@ -84,15 +77,12 @@ for, because the failure is a distro shipping something too old, never a release
 - **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree our checks skip is an invisible asymmetry.
 - **A goal↔roadmap warning, and a goal-format audit** — 2026-09-15: 26 of 39 goal files have never been opened.
 - **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Read cost picks the cut.
-- **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first prompt; tree dirty.
+- **An effort table built from `agy --print`** — 2026-09-15: its print mode writes to its own scratch dir and reports success, so every arm would have been a false green.
 - **A phone-push channel (ntfy, or the harness's own)** — 2026-09-15 (Lucas): phone addiction is a real cost to him; a channel that fetches him is a loss even when its content is right. Telegram, silent, opened on his schedule.
 - **A `Stop` hook for the close offer** — 2026-09-15: fires at the end of every response, so it would have to invent a reason to stay quiet. The crossing already has a once-per-threshold moment.
 - **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): only a parser or solver refuses; research.
 - **A research map here, and one review yaml per kept source** — 2026-09-13: a `REFS-<name>.md` does both.
-- **Narrowing the pre-commit to the touched tests** — 2026-09-01: parallelising paid four-fold without weakening it.
-- **A check asking only whether a `TYPE-<name>.md` is tracked** — 2026-09-01: any row naming an untracked file is.
-- **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's clone cannot install.
-- Eight killed before 2026-09-01 are in git, not here: `git log -S'## Rejected' -- ROADMAP.md`. A
+- Eleven killed before 2026-09-11 are in git, not here: `git log -S'## Rejected' -- ROADMAP.md`. A
   tombstone stops a dead item coming back looking new, and stops earning that while nobody who
   might revive it remembers it — this is the most-read file in the workspace per
   `core/run tools/wos/session/reads`, and a tombstone nobody needs is read by everyone.

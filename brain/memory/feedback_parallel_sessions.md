@@ -58,4 +58,13 @@ of a skill left a dangling mirror symlink another session's opencode choked on a
   `git show` the concurrent commit, then merge — never re-Write from the pre-error snapshot.
   Corollary: the other session may also have *committed* mid-session, so `git log --oneline -5`
   is worth a look before assuming your base is what you branched from.
+- **Partitioning by folder does NOT stop two sessions taking the same ITEM.** Incident 2026-09-15:
+  this session ran a 40-minute experiment whose task was the first open `ISSUES.md` item (the
+  `promote()` merge refusal) while a parallel session fixed that very item and landed it on the same
+  branch — `b49a8e67`, arriving between this session's own two commits. Both sessions were "in
+  `core/`", so no folder rule was broken, and the collision surfaced only as a merge conflict whose
+  HEAD side already held a cure nobody here wrote. **Re-read the list entry and `git log -3` on the
+  file immediately before starting work on a shared-list item, not when you picked it** — a long
+  task is a long window. Nothing was lost: the duplicate work was discarded and only a stricter
+  assertion it had found was salvaged.
 - Ties into [[feedback-provider-agnostic-naming]] and the [[project-verify-roadmap]] enforcement work.

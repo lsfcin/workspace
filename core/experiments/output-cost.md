@@ -156,7 +156,7 @@ only from re-deriving the tool's own output by hand. Do that once before quoting
   "what counts as one API response" moved to `session_turns.py` with eight tests
   ([`core/tools/test/wos/test_usage.py`](../tools/test/wos/test_usage.py)).
 - The output line now prints its logged/unlogged split, so the half that is paid once is visible.
-- `ROADMAP.md` § Cost & model routing and `core/hooks/limits.env` had the withdrawn numbers deleted,
+- `ROADMAP.md` and `core/hooks/limits.env` had the withdrawn numbers deleted,
   not softened; the side roadmap built on them was drained into that section and this file.
 - The re-emit gate was **demoted from a cost item to a governance item**: at 1.9x it is worth ~1% of
   spend, and the ungated-write hole is the whole of its remaining case.

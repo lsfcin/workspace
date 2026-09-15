@@ -22,6 +22,7 @@ Per-file format, the rule that keeps a stored number honest, and the reporting d
 | [`confident-wrongness.md`](confident-wrongness.md) | When this workspace has been confidently wrong, what caught it — and how much of that was one of our own checks? |
 | [`context-window.md`](context-window.md) | What fills a session's context window, split by source, and how much of it the workspace controls. |
 | [`delegation.md`](delegation.md) | How often does this workspace actually spawn a subagent, which agent definitions get used, and what does the delegated half cost? |
+| [`effort-policy.md`](effort-policy.md) | Which effort level does which kind of work need, per harness — and what does the headroom cost? |
 | [`entropy-scope-vs-rot.md`](entropy-scope-vs-rot.md) | When the entropy count climbs, is the tree drifting or is the check set growing? |
 | [`hook-latency.md`](hook-latency.md) | What does the enforcement layer cost per tool call, and how much of that is work nobody asked for? |
 | [`hook-scoreboard.md`](hook-scoreboard.md) | Which features ever actually fire, and which of those ever actually block anything? |

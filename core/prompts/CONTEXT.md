@@ -10,5 +10,6 @@ deliverable lands.
 
 | File | Description |
 |------|-------------|
+| [`effort-zcode.md`](effort-zcode.md) | The ZCode arm of [`core/experiments/effort-policy.md`](../experiments/effort-policy.md). Delete this file once its rows land. |
 | [`metodologia-aulas-opus.md`](metodologia-aulas-opus.md) | metodologia-aulas-opus |
 <!-- routing:end -->

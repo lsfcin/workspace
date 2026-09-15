@@ -39,6 +39,7 @@ enough to be worth folding was tested and **rejected on the numbers** —
 | [`fable_quota_strategy.md`](fable_quota_strategy.md) | How Lucas spends remaining Fable 5 quota (won't renew) — Fable decides, Opus writes, Sonnet executes; multiview session DONE 2026-07-07 |
 | [`feedback_additive_course_material.md`](feedback_additive_course_material.md) | in Lucas's course material, contributing means ADDING and refining in place — never replacing, skipping or reordering what he made |
 | [`feedback_agent_runs_auth.md`](feedback_agent_runs_auth.md) | Agent runs every auth command itself; Lucas only does what has no command form (provider-UI clicks, consent screens, minting a secret) |
+| [`feedback_attention_and_token_price.md`](feedback_attention_and_token_price.md) | Never design anything that pulls Lucas's attention; and price a feature in always-loaded tokens before proposing it always-on |
 | [`feedback_background_bash_reliability.md`](feedback_background_bash_reliability.md) | Backgrounded Bash tool calls (run_in_background) can die silently across a ScheduleWakeup boundary, with no completion notification and no error in the redirected log. |
 | [`feedback_bug_tracking.md`](feedback_bug_tracking.md) | isoroll-module bugs go in ISSUES.md, not memory |
 | [`feedback_concise_wos.md`](feedback_concise_wos.md) | Lucas wants each session to leave the workspace with FEWER total lines than it found; a new feature owes the cut that pays for it |

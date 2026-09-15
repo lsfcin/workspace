@@ -4,6 +4,8 @@
 # Imported by core/tools/wos/roundup, which keeps the sequence and the decisions. Same scope as
 # core/hooks/git/gitflow_gate.py — the workspace repo and code/* project repos promote; every other
 # nested repo just pushes its current branch.
+import tempfile
+
 from artifacts import git, out
 
 
@@ -28,23 +30,25 @@ def promote(root, branch: str, leave_dirty: bool) -> str:
         behind = out(root, 'rev-list', '--count', f'{target}..origin/{target}')
         if behind.isdigit() and int(behind) > 0:
             return f'{target} is behind origin — a parallel session is mid-flight; not promoted'
-        # A fast-forward needs no checkout, so it never touches the working tree — which is what
-        # makes promoting past another session's dirt safe. Only a real merge needs HEAD to move.
-        if target != branch and git(root, 'merge-base', '--is-ancestor',
-                                    target, source).returncode == 0:
-            if git(root, 'fetch', '-q', '.', f'{source}:{target}').returncode != 0:
-                return f'fast-forward of {target} failed; not promoted'
-        elif leave_dirty and target != branch:
-            return (f'{target} needs a real merge — not promoted while the tree holds another '
-                    "session's work")
+        # A fast-forward needs no checkout, so it never touches the working tree. Real merges run
+        # in a throwaway worktree so HEAD in the caller's working tree never moves.
+        if target != branch:
+            if git(root, 'merge-base', '--is-ancestor', target, source).returncode == 0:
+                if git(root, 'fetch', '-q', '.', f'{source}:{target}').returncode != 0:
+                    return f'fast-forward of {target} failed; not promoted'
+            else:
+                with tempfile.TemporaryDirectory() as wt:
+                    if git(root, 'worktree', 'add', '-q', wt, target).returncode != 0:
+                        return f'checkout of {target} failed; not promoted'
+                    try:
+                        if git(wt, 'merge', '--no-edit', '-q', source).returncode != 0:
+                            return f'conflict merging {source} → {target} — aborted, branches untouched'
+                    finally:
+                        git(root, 'worktree', 'remove', '--force', wt)
         else:
-            if git(root, 'checkout', '-q', target).returncode != 0:
-                return f'checkout of {target} failed; not promoted'
             if git(root, 'merge', '--no-edit', '-q', source).returncode != 0:
                 git(root, 'merge', '--abort')
-                git(root, 'checkout', '-q', branch)
                 return f'conflict merging {source} → {target} — aborted, branches untouched'
-            git(root, 'checkout', '-q', branch)
         if git(root, 'push', '-q', 'origin', target).returncode != 0:
             return f'{target} merged but push failed'
     return ''

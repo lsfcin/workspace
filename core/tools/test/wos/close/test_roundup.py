@@ -160,9 +160,9 @@ def test_a_red_suite_reports_itself_in_the_verify_block(tmp_path):
     assert '**red**' in (ws / 'ISSUES.md').read_text(encoding='utf-8')
 
 
-def test_a_real_merge_is_refused_while_the_tree_is_not_ours(tmp_path):
-    """Only a fast-forward avoids a checkout. Moving HEAD under a live parallel session is what
-    --leave-dirty exists to avoid, so a diverged target is reported, never merged."""
+def test_a_real_merge_lands_even_while_the_tree_holds_another_sessions_work(tmp_path):
+    """A real merge runs inside a throwaway git worktree so HEAD in the session's own tree never
+    moves, allowing diverged branches to merge even while the tree holds another session's work."""
     ws = _workspace(tmp_path)
     _git(ws, 'checkout', '-q', 'develop')
     (ws / 'diverged.txt').write_text('elsewhere\n', encoding='utf-8', newline='\n')
@@ -172,8 +172,37 @@ def test_a_real_merge_is_refused_while_the_tree_is_not_ours(tmp_path):
     _git(ws, 'checkout', '-q', 'feature/x')
     _dirty(ws)
     r = _run(ws, '--leave-dirty')
-    assert r.returncode == 1
-    assert 'real merge' in r.stdout and 'not promoted' in r.stdout
+    assert r.returncode == 0, r.stdout
+    assert 'promoted' in r.stdout
+    assert _git(ws, 'rev-parse', '--abbrev-ref', 'HEAD').stdout.strip() == 'feature/x'
+    assert _git(ws, 'log', '--oneline', 'develop').stdout.count('Merge') == 1
+    assert _git(ws, 'rev-parse', 'main').stdout == _git(ws, 'rev-parse', 'develop').stdout
+
+
+def test_foreign_dirty_file_survives_real_merge_untouched_and_uncommitted(tmp_path):
+    """Foreign dirty files (both staged and unstaged) must remain untouched in the working tree
+    and must not be swept into the real merge commit on develop or main."""
+    ws = _workspace(tmp_path)
+    _git(ws, 'checkout', '-q', 'develop')
+    (ws / 'diverged.txt').write_text('elsewhere\n', encoding='utf-8', newline='\n')
+    _git(ws, 'add', '-A')
+    _git(ws, 'commit', '-q', '--no-verify', '-m', 'chore: diverge')
+    _git(ws, 'push', '-q', 'origin', 'develop')
+    _git(ws, 'checkout', '-q', 'feature/x')
+    _dirty(ws)
+    before_status = _git(ws, 'status', '--porcelain').stdout
+    r = _run(ws, '--leave-dirty')
+    assert r.returncode == 0, r.stdout
+    assert _git(ws, 'status', '--porcelain').stdout == before_status
+    assert (ws / 'theirs.md').read_text(encoding='utf-8') == 'their draft\n'
+    assert (ws / 'shipped.txt').read_text(encoding='utf-8') == 'their edit\n'
+    dev_files = _git(ws, 'log', '--name-only', '--pretty=format:', 'develop').stdout
+    assert 'theirs.md' not in dev_files
+    main_files = _git(ws, 'log', '--name-only', '--pretty=format:', 'main').stdout
+    assert 'theirs.md' not in main_files
+    # The throwaway worktree must be unregistered as well as deleted. A leaked entry costs nothing
+    # visible on the close that leaked it and accumulates in `git worktree list` forever after.
+    assert not (ws / '.git/worktrees').exists(), 'the throwaway worktree was left registered'
 
 
 def test_red_verify_blocks_promotion(tmp_path):
