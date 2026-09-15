@@ -5,19 +5,18 @@
 # usually made late. This reads the size the API already reported on the last assistant
 # turn (input + cache read + cache write) and announces the two thresholds in limits.env.
 # Zero model tokens until a threshold is crossed, and it never blocks a prompt.
-import json
-import os
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # notify.py and transcript.py, beside this
 
 import feature_law  # noqa: E402
+import notify  # noqa: E402
+import transcript  # noqa: E402
 from file_law import load_limits  # noqa: E402
 from hook_input import parse_stdin  # noqa: E402
 from platform_law import session_state  # noqa: E402
-
-TAIL_BYTES = 512 * 1024
 
 # The meter names /roundup and nothing else. Where the resume prompt lands is the skill's
 # business (core/skills/handoff.md → outputs/handoff.md); repeating the path here would put
@@ -44,43 +43,6 @@ def mark(session_id: str, threshold: int) -> None:
 		pass
 
 
-def find_transcript(raw: dict, session_id: str, cwd: str) -> str:
-	"""The payload names it when it can; otherwise it is <cwd-name>/<session_id>.jsonl."""
-	given = raw.get('transcript_path')
-	if given and os.path.isfile(given):
-		return given
-	name = cwd.replace('/', '-')
-	candidate = Path.home() / '.claude' / 'projects' / name / f'{session_id}.jsonl'
-	return str(candidate) if candidate.is_file() else ''
-
-
-def last_context(path: str) -> int:
-	"""Context carried by the most recent main-chain assistant turn, in tokens."""
-	try:
-		with open(path, 'rb') as f:
-			f.seek(0, os.SEEK_END)
-			f.seek(max(0, f.tell() - TAIL_BYTES))
-			chunk = f.read()
-	except OSError:
-		return 0
-	for line in reversed(chunk.split(b'\n')):
-		if b'"usage"' not in line:
-			continue
-		try:
-			event = json.loads(line)
-		except (json.JSONDecodeError, UnicodeDecodeError):
-			continue
-		if event.get('type') != 'assistant' or event.get('isSidechain'):
-			continue
-		usage = (event.get('message') or {}).get('usage') or {}
-		if not usage:
-			continue
-		return (usage.get('input_tokens', 0)
-		        + usage.get('cache_read_input_tokens', 0)
-		        + usage.get('cache_creation_input_tokens', 0))
-	return 0
-
-
 def message(ctx: int, crossed: int, loud: int) -> str:
 	size = f'{ctx // 1000}k'
 	if crossed >= loud:
@@ -95,10 +57,10 @@ def main() -> None:
 	if not feature_law.is_enabled('context-meter'):
 		return  # switched off: the session crosses its bands without being told
 	raw, _tool, _tool_input, session_id, cwd = parse_stdin()
-	path = find_transcript(raw, session_id, cwd)
+	path = transcript.find(raw, session_id, cwd)
 	if not path:
 		return
-	ctx = last_context(path)
+	ctx = transcript.last_context(path)
 	limits = load_limits()
 	warn, loud = limits.get('CTX_WARN', 0), limits.get('CTX_LOUD', 0)
 	crossed = max((t for t in (warn, loud) if t and ctx >= t), default=0)
@@ -106,6 +68,13 @@ def main() -> None:
 		return
 	mark(session_id, crossed)
 	print(message(ctx, crossed, loud))
+	# The close offer is one of the five things that only ever reached agent-facing writing
+	# (/ROADMAP.md § Cost). It is already once-per-threshold here, so it needs no moment of its
+	# own — and a hook at the end of every response would have to invent a reason to stay quiet.
+	# The two wordings differ because the two readers do: the line above is an instruction to an
+	# agent mid-thread, this one is a fact for Lucas wherever he is.
+	notify.tell(f'{Path(cwd).name or "workspace"}: contexto em {ctx // 1000}k — daqui pra frente '
+	            f'cada turno custa mais e não volta a baratear. Hora de fechar com /roundup.')
 
 
 if __name__ == '__main__':

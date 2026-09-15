@@ -64,7 +64,9 @@ toggle	brain-attention	on
 toggle	inbox-nudge	on
 toggle	compass-nudge	on
 toggle	telegram-capture	on
+toggle	notify	off
 toggle	context-meter	on
+toggle	statusline	on
 toggle	precompact-wipe	on
 toggle	entropy-dashboard	on
 toggle	hook-scoreboard	on

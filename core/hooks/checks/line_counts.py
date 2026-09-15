@@ -97,12 +97,16 @@ def report(paths, root=None, staged=False) -> tuple:
         elif size >= warn_chars and not WARN_EXEMPT.search(text):
             lines.append(f'⚠ WARN: {path} ({size} characters)')
             warned = True
+    # EACH SUMMARY SAYS WHAT HAPPENED, not which number was crossed (2026-09-15). The warn line
+    # used to name only its own threshold, so a reader with the whole tree in context still read
+    # it as the cap and cut a file that was 46 lines clear of refusal. A gate that reports a
+    # number and not a verdict leaves the verdict to be guessed.
     if blocked:
-        lines.append(f'\nOne or more authored files exceed a block threshold '
-                     f'({block} lines, {block_chars} characters).')
+        lines.append(f'\nREFUSED — over the cap of {block} lines / {block_chars} characters. '
+                     f'Cut the file; a sibling needs Lucas\'s OK (core/norms/cap.md).')
     elif warned:
-        lines.append(f'\nOne or more authored files exceed a warn threshold '
-                     f'({warn} lines, {warn_chars} characters).')
+        lines.append(f'\nNOT REFUSED — this is the warning at {warn} lines / {warn_chars} '
+                     f'characters. Nothing stops until {block} lines / {block_chars} characters.')
     else:
         lines.append('No authored files exceed thresholds.')
     return lines, blocked

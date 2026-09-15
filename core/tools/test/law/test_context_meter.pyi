@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
-spec: Incomplete
 context_meter: Incomplete
+transcript: Incomplete
 LIMITS: Incomplete
 
 def test_thresholds_come_from_limits_env() -> None: ...

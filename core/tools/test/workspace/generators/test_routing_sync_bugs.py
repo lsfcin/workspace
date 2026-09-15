@@ -155,6 +155,17 @@ def test_no_tracked_context_has_a_doubled_facade_prefix() -> None:
     assert not offenders, f"facade prefix accumulated in: {offenders}"
 
 
+def _routed(tool: str) -> bool:
+    """Is this tool named in the nearest table above it? A family with its own CONTEXT.md spells
+    the row by bare name; one that folded into its parent spells it by the path from there."""
+    for directory in (WORKSPACE_ROOT / tool).parents:
+        table = directory / "CONTEXT.md"
+        if table.exists():
+            row = Path(tool).relative_to(directory.relative_to(WORKSPACE_ROOT)).as_posix()
+            return f"[`{row}`](" in table.read_text(encoding="utf-8")
+    return False
+
+
 def test_every_extensionless_tool_keeps_its_routing_row() -> None:
     """A tool that lost its shebang must not lose its row — the port's silent regression.
 
@@ -168,6 +179,11 @@ def test_every_extensionless_tool_keeps_its_routing_row() -> None:
 
     Whole-tree, not a fixture: the fixture version passes against a scanner that reads the
     right law for the wrong reason. This asks the live tables.
+
+    THE TABLE IS NOT ALWAYS THE TOOL'S OWN DIRECTORY (2026-09-15). This opened
+    `<tool dir>/CONTEXT.md` alone, restating the opposite of core/tools/SPECS.md § Adding a tool:
+    a one-tool family gets NO CONTEXT.md and folds into its parent's table. The first such family
+    failed here with a FileNotFoundError on a tree the generator had laid out as specified.
     """
     tools = [
         p for p in subprocess.run(
@@ -177,11 +193,7 @@ def test_every_extensionless_tool_keeps_its_routing_row() -> None:
         if p and "." not in Path(p).name and "/test/" not in p
     ]
     assert tools, "found no extensionless core/tools CLI — the query is wrong, not the tree"
-    missing = [
-        p for p in tools
-        if f"[`{Path(p).name}`](" not in
-        (WORKSPACE_ROOT / Path(p).parent / "CONTEXT.md").read_text(encoding="utf-8")
-    ]
+    missing = [p for p in tools if not _routed(p)]
     assert not missing, (
         f"these tools have no routing row: {missing}. `is_scanned` must ask "
         "file_law.is_code_file about an extensionless file, never re-derive it from a shebang")
