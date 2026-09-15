@@ -9,6 +9,12 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/Dc13ZNUFMHz/?stkn=NTc4MTIwNjQ2YQ==
+será que é melhor que o que temos
+
+https://www.instagram.com/reel/DdCOtl_kQsQ/?stkn=NTc4MTIwNjQ2YQ==
+acho que eu deveria fazer uma curadoria melhor para os alunos de techedu, ter as techs já disponibilizadas em gits meus. demonstrar todas elas
+
 https://www.instagram.com/reel/DdSoy2Wu8F_/?stkn=NTc4MTIwNjQ2YQ==
 de andrew ng! vale muito a pena a gente consultar
 — via aiwbot · 2026-09-14
