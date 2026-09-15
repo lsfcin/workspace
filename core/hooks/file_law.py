@@ -125,8 +125,6 @@ def is_authored(path: Path, root: Path) -> bool:
             and not is_generated_artifact(path, root))
 
 
-LINK_TOKEN = re.compile(r'<[^>\s]+>|\]\([^)\s]+\)|(?<![\w])[a-z][a-z0-9+.-]*://\S+')
-
 BLOCK_OPEN = re.compile(r'^\s*<!--\s*[\w-]+:start\s*-->')
 BLOCK_CLOSE = re.compile(r'^\s*<!--\s*[\w-]+:end\s*-->')
 
@@ -152,36 +150,6 @@ def generated_spans(text: str) -> list:
 def is_generated_line(text: str, number: int) -> bool:
     """Whether one 1-indexed line of an authored file sits inside a generated block."""
     return any(start <= number <= end for start, end in generated_spans(text))
-
-
-def over_column_cap(text: str, cols: int) -> list:
-    """Line numbers of prose lines longer than `cols`. The one definition every reader uses.
-
-    FOUR shapes are exempt: a **markdown table row**, anything inside a **fenced code block**, the
-    **leading YAML frontmatter block**, and a line that fits once its **link targets** are taken
-    out. Why each, and why none is a hollow-out: limits.env § BLOCK_COLS.
-    """
-    over, fenced = [], False
-    lines = text.splitlines()
-    end = 0
-    if lines and lines[0].strip() == '---':
-        for number, line in enumerate(lines[1:], 2):
-            if line.strip() == '---':
-                end = number
-                break
-    for number, line in enumerate(lines, 1):
-        if number <= end:  # the leading frontmatter block, closed by its own `---`
-            continue
-        if line.lstrip().startswith('```'):
-            fenced = not fenced
-            continue
-        if fenced or line.lstrip().startswith('|') or len(line) <= cols:
-            continue
-        # A URL and a relative path are single tokens no rewrap shortens. Measured with the targets
-        # removed, so the AUTHORED half is still held to the full width.
-        if len(LINK_TOKEN.sub('', line)) > cols:
-            over.append(number)
-    return over
 
 
 def is_authored_prose(path: Path, root: Path) -> bool:

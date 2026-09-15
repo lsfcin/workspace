@@ -77,7 +77,7 @@ LIMIT_CLAIM = re.compile(
 GENERATED_BLOCK = re.compile(r'(?m)^<!-- \w+:start -->$.*?^<!-- \w+:end -->$', re.DOTALL)
 # The law's own file, its only parser, and the two checks that apply it may all name a number.
 LIMIT_OWNERS = ('core/hooks/limits.env', 'core/hooks/file_law.py',
-                'core/hooks/checks/line_counts.py', 'core/hooks/checks/pre-edit.py')
+                'core/hooks/checks/line_counts.py', 'core/hooks/checks/size-gate.py')
 
 # The two documents that state the rule, the report that quotes findings, and this checker
 # with its tests all have to be able to NAME the shape they forbid. Nothing else may.

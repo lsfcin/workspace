@@ -114,3 +114,21 @@
 - [AI 2027](https://ai-2027.com)
   — forecast/scenario site; Lucas asks whether it serves us (task in
   `brain/goals/teaching-materials.md` [ai2027-material]).
+- [Fortress](https://www.instagram.com/reel/DdMgKczjl3g/) — [src: web:instagram.com] pitched as a browser engine that
+  keeps scrapers from being blocked, the fixes inside the browser and one line to change. Test it against the failure
+  that found it: 8 INBOX links died on Instagram login-gating, 2026-09-14 (task in
+  `brain/goals/workspace-os.md` [extracao-bloqueada]; — via aiwbot).
+- [mattpocock/skills](https://github.com/mattpocock/skills) — small, composable, model-agnostic agent skills, shipped
+  both as a Claude Code plugin and as editable copies. Lucas: *"talvez seja útil pra gente, avaliar"* — weigh against
+  the ruling that rejected `obra/Superpowers` for carrying no per-task level routing (task in
+  `brain/goals/workspace-os.md` [skills-externas]).
+- [ELI5 skill](https://www.instagram.com/reel/DdHFEu1O92_/) — [src: web:instagram.com] a skill that turns a document
+  into a one-page picture explainer, big diagrams and almost no text. Lucas: *"talvez até pra trocar a forma como
+  fazemos alguns procedimentos"* (task in `brain/goals/workspace-os.md` [eli5-explicador]; — via aiwbot).
+- [ffmpeg-skill](https://www.instagram.com/reel/DdJ5rfDjEoH/) — [src: web:instagram.com] gives an agent a local video
+  editor — cut, join, caption. Sibling to `core/tools/video/` (task in `brain/goals/workspace-os.md` [ffmpeg-skill];
+  — via aiwbot).
+- [kem_glitch — three habits](https://www.instagram.com/reel/DdG848DNm3p/) — [src: web:instagram.com] tests first,
+  never start from scratch, have the model draw the process. Two we already do; the third is new here — **mutation
+  testing**: break a passing test on purpose, and a suite that stays green has no teeth (task in
+  `brain/goals/workspace-os.md` [mutation-testing]; — via aiwbot).

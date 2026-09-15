@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import feature_law  # noqa: E402
 from hook_input import capability, parse_stdin
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 
@@ -25,6 +26,12 @@ FACADE_FOR = {
     '.py': '__init__.py',
     '.dart': 'index.dart',
 }
+
+# The advisory third of facade-discipline: it names the exports a new sibling should reach for,
+# where facade-gate.py forces the read and check-facade-imports.py blocks the bypass. All three
+# answer to one switch, so turning the feature off leaves none of them talking.
+if not feature_law.is_enabled('facade-discipline'):
+    sys.exit(0)
 
 _, tool, data, _, _ = parse_stdin()
 # By capability, never by name. An Edit is a write too, and is filtered a line below by the

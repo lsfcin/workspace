@@ -39,6 +39,12 @@ counts. Start from what was actually fun.
 > [ ] [form-details] calisthenics form details for pull-ups / push-ups / dips / pike push-ups
 > ([reel](https://www.instagram.com/reel/DbRrzFQpJgV/), INBOX 2026-07-28) — read when a bodyweight rhythm actually
 > exists, not before  
+> [ ] [rotacao-fixa] material pra [home-plan] com a mesma tese em dois posts: uma lista curta e fixa, rodada um
+> exercício por dia. Kace Hollingsworth rotaciona 8 exercícios em treinos de 20–30min
+> ([reel](https://www.instagram.com/reel/DcpDEyzp7m4/), Lucas: *"um conjunto fixo de 8 exercícios poderia facilitar a
+> minha vida"*); o desafio de calistenia da floripacalistenia é 15min em casa sem equipamento
+> ([reel](https://www.instagram.com/reel/DbBVIMJRj5X/), Lucas: *"esse bloco pode entrar na minha lista de
+> exercícios"*). Nenhum dos dois posts diz quais são os exercícios — estão no vídeo (— via aiwbot 2026-09-06)  
 
 ## done
 
@@ -47,5 +53,5 @@ counts. Start from what was actually fun.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: steady  ·  touches: 3/10/10/10/10/10
+last-touch: 2026-09-07  ·  trend: steady  ·  touches: 4/11/11/11/11/11
 <!-- stats:end -->

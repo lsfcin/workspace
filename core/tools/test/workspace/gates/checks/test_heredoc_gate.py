@@ -1,6 +1,6 @@
 # T0 the heredoc gate: a shell write to a workspace file must not walk past the file gates.
 #
-# `pre-edit.py` and the other file checks are `PreToolUse: Edit|Write`, so `cat > f << 'EOF'` met
+# The write gates and the other file checks are `PreToolUse: Edit|Write`, so `cat > f << 'EOF'` met
 # none of them — 128 such calls in this workspace's transcripts, among them brain/INBOX.md and
 # HISTORY.md, both written past the size gate and the first-line-comment check.
 #

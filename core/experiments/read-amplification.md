@@ -26,6 +26,18 @@ worker re-reading a chain its parent already read is a different question.
 | 2026-08-17 | 80 | 3,234 | 863 | 9,389k chars | 2,371 (73%) | 7,520k (80%) |
 | 2026-08-19 | 86 | 3,510 | 873 | 9,943k chars | 2,637 (75%) | 8,033k (81%) |
 | 2026-09-11 | 97 | 4,254 | 900 | 12,495k chars | 3,354 (79%) | 10,620k (85%) |
+| 2026-09-14 | 89 | 4,126 | 873 | 12,233k chars | 3,253 (79%) | 10,340k (85%) |
+
+**The population SHRANK, and the limitation below said it could not.** 97 sessions became 89 in three
+days, because `core/hooks/session/` prunes old transcripts — so a row is a window over what is still
+on disk, not a running total, and two rows are only comparable as shares. Nothing about the tree
+changed to produce the drop.
+
+`ROADMAP.md` stays the most expensive file in the workspace on this reading — 119 reads, 905k chars,
+2.3 per session, still ahead of `core/hooks/CONTEXT.md` (602k) by half again. The chain holds at
+1.0–1.1 per session, so the 2026-08-17 verdict survives a month and a prune: **the list is the
+amplifier, the chain is not.** The two files above 1.0 that are not lists are `core/hooks/SPECS.md`
+(1.6) and `ISSUES.md` (1.3), which is the order the cut follows after this file.
 
 By what was served (2026-08-17):
 
@@ -81,8 +93,8 @@ between family members, and nothing here shows it lowered the total.
 
 - **Chars, not tokens.** No per-turn ratio is available for a single `tool_result`, and writing and
   source do not convert at the same rate. Compare shares, not totals.
-- **Population is every transcript on this machine**, so it grows with every session: shares are
-  comparable across rows, totals are not.
+- **Population is every transcript still on this machine**, which prune makes smaller as well as
+  larger: shares are comparable across rows, totals are not (demonstrated 2026-09-14, 97 → 89).
 - **A re-read is not automatically waste.** The same file at turn 3 and turn 300 may be an honest
   re-grounding after compaction; this measurement cannot see compaction boundaries.
 - **Subagent reads are excluded**, so a workflow that fans out looks cheaper here than it is.

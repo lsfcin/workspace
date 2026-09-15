@@ -20,17 +20,18 @@ import pytest
 from conftest import WORKSPACE_ROOT
 from platform_law import interpreter, rel
 
-PRE_EDIT = WORKSPACE_ROOT / "core/hooks/checks/pre-edit.py"
 # Any file under a subtree carrying a CONTEXT.md chain; its content is irrelevant.
 DEEP_FILE = WORKSPACE_ROOT / "core/hooks/brain/brain_attention.py"
 
 # SERIAL: `payload()` builds a real module under code/ and removes it. b20260902's third case.
 pytestmark = pytest.mark.serial
 
-# Every gate wired as a blocking PreToolUse hook. pre-edit.py was the only one of the six
-# on stdout, which is why this went unnoticed for so long: five siblings were correct.
+# Every gate wired as a blocking PreToolUse hook. The write pair were one file, pre-edit.py, until
+# 2026-09-14, and it was the only one of six on stdout — which is why this went unnoticed for so
+# long: five siblings were correct. They split so gates.txt could attribute a block to a feature.
 BLOCKING_GATES = (
-    "core/hooks/checks/pre-edit.py",
+    "core/hooks/checks/first-line-gate.py",
+    "core/hooks/checks/size-gate.py",
     "core/hooks/checks/issues-gate.py",
     "core/hooks/read/context-gate.py",
     "core/hooks/read/bash-context-gate.py",
@@ -38,12 +39,13 @@ BLOCKING_GATES = (
     "core/hooks/facade/facade-gate.py",
 )
 
-
-def _run(payload: dict) -> subprocess.CompletedProcess:
-    return subprocess.run(
-        [interpreter(), str(PRE_EDIT)], input=json.dumps(payload),
-        capture_output=True, text=True, encoding='utf-8'
-    )
+# The two halves of the former pre-edit.py, plus the module they share. Every message in all three
+# is a rejection, so none of them belongs on stdout.
+WRITE_GATE_SOURCES = (
+    "core/hooks/checks/first-line-gate.py",
+    "core/hooks/checks/size-gate.py",
+    "core/hooks/checks/write_payload.py",
+)
 
 
 def _run_gate(gate: str, payload: dict) -> subprocess.CompletedProcess:
@@ -66,9 +68,13 @@ def _blocking_case(gate: str, tmp_path: Path):
     # "context-gate.py", so a suffix test silently handed the Bash gate a Read payload and
     # the case passed by not blocking. Found while writing this, 2026-08-24.
     name = gate.rsplit("/", 1)[-1]
-    if name == "pre-edit.py":
+    if name == "first-line-gate.py":
         yield {"tool_name": "Write", "tool_input": {
             "file_path": str(tmp_path / "p.py"), "content": "x = 1\n"}}, "FIRST-LINE MISSING"
+    elif name == "size-gate.py":
+        yield {"tool_name": "Write", "tool_input": {
+            "file_path": str(tmp_path / "big.py"),
+            "content": "# big\n" + "x = 1\n" * 400}}, "SIZE GATE"
     elif name == "issues-gate.py":
         subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
         yield {"tool_name": "Write", "tool_input": {
@@ -159,33 +165,45 @@ def test_facade_scan_emits_valid_hook_json(tmp_path: Path) -> None:
     assert "alpha" in payload["additionalContext"]
 
 
-def test_no_bare_print_survives_in_pre_edit() -> None:
-    """Every message here is a rejection; none of them belongs on stdout."""
-    body = PRE_EDIT.read_text(encoding="utf-8")
-    bare = [l.strip() for l in body.splitlines()
-            if re.match(r'\s*print\(', l) and "stderr" not in l]
-    assert not bare, f"pre-edit.py prints to stdout again: {bare}"
+@pytest.mark.parametrize("source", WRITE_GATE_SOURCES)
+def test_no_bare_print_survives_in_a_write_gate(source: str) -> None:
+    """Every message here is a rejection; none of them belongs on stdout.
+
+    Asked of all three because the split multiplied the surface: the rule was proved once against
+    one file, and a copy of `block()` landing in either half would be exactly the regression the
+    original case was written for.
+    """
+    body = (WORKSPACE_ROOT / source).read_text(encoding="utf-8")
+    bare = [line.strip() for line in body.splitlines()
+            if re.match(r'\s*print\(', line) and "stderr" not in line]
+    assert not bare, f"{source} prints to stdout again: {bare}"
 
 
-# Three rejections, one shape. They were three copies of these six lines until 2026-09-05, when
-# the file hit its cap and the duplication was the cheapest thing in it to spend.
-@pytest.mark.parametrize("name, content, reason", [
-    ("p.py", "x = 1\n", "FIRST-LINE MISSING"),
-    ("CONTEXT.md", "# t\nno blockquote\n", "CONTEXT.md DESCRIPTION MISSING"),
-    ("big.py", "# big\n" + "x = 1\n" * 400, "SIZE GATE"),
+# Four rejections, one shape. They were three copies of these six lines until 2026-09-05, when the
+# file hit its cap and the duplication was the cheapest thing in it to spend. The fourth arrived
+# 2026-09-14 with the document cap: few lines, many characters, so it can only trip the new half.
+@pytest.mark.parametrize("gate, name, content, reason", [
+    ("first-line-gate.py", "p.py", "x = 1\n", "FIRST-LINE MISSING"),
+    ("first-line-gate.py", "CONTEXT.md", "# t\nno blockquote\n",
+     "CONTEXT.md DESCRIPTION MISSING"),
+    ("size-gate.py", "big.py", "# big\n" + "x = 1\n" * 400, "SIZE GATE"),
+    ("size-gate.py", "wide.py", "# wide\nx = '" + "a" * 19000 + "'\n", "characters"),
 ])
-def test_a_write_rejection_lands_on_stderr(tmp_path: Path, name, content, reason) -> None:
-    r = _run({"tool_name": "Write",
-              "tool_input": {"file_path": str(tmp_path / name), "content": content}})
+def test_a_write_rejection_lands_on_stderr(tmp_path: Path, gate, name, content, reason) -> None:
+    r = _run_gate(f"core/hooks/checks/{gate}", {
+        "tool_name": "Write",
+        "tool_input": {"file_path": str(tmp_path / name), "content": content}})
     assert r.returncode == 2
     assert reason in r.stderr
     assert not r.stdout.strip()
 
 
-def test_an_allowed_edit_is_silent_and_exits_zero(tmp_path: Path) -> None:
+@pytest.mark.parametrize("gate", ["first-line-gate.py", "size-gate.py"])
+def test_an_allowed_edit_is_silent_and_exits_zero(tmp_path: Path, gate: str) -> None:
     ok = tmp_path / "ok.py"
     ok.write_text("# ok\nx = 1\n", encoding="utf-8", newline='\n')
-    r = _run({"tool_name": "Edit",
-              "tool_input": {"file_path": str(ok), "old_string": "x", "new_string": "y"}})
+    r = _run_gate(f"core/hooks/checks/{gate}", {
+        "tool_name": "Edit",
+        "tool_input": {"file_path": str(ok), "old_string": "x", "new_string": "y"}})
     assert r.returncode == 0
     assert not r.stdout.strip() and not r.stderr.strip()

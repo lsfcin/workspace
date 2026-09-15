@@ -100,7 +100,7 @@ Four axes, **deliberately separate** — conflating them produced the wrong "fla
 | **depth** | cap hops to content, not file count; **measure** before adding a routing level | judgement |
 | **crowding** | `WARN_FILES` asks for a look, `BLOCK_FILES` is the cap | `entropy_crowding.py`, dashboard |
 | **routing** | a subdirectory under `FOLD_FILES` is folded into its parent's table, not linked | `workspace_scanner.py` |
-| **document size** | `BLOCK_LINES` caps one authored `.md`; a root that sheds parts routes to them | `pre-edit.py`, dashboard |
+| **document size** | `BLOCK_LINES` and `BLOCK_CHARS` both cap one authored file; a root that sheds parts routes to them | `line_counts.py`, dashboard |
 
 Splitting an over-full directory *adds a hop*, so crowding and depth trade directly: pay the hop only
 when the split removes more table than it adds — a directory in the dozens pays, one just over the
@@ -211,6 +211,7 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `tier` | `level` | 2026-09-14 |
 | `slug` | `name` | 2026-09-14 |
 | `probe` | `metadata` | 2026-09-14 |
+| `column cap` | `document cap` | 2026-09-14 |
 
 **One retired token can owe four replacements, and the cell holds only the commonest.** `slug` names
 four ideas, and they do not flatten into one: a link's `short name`, a feature's or file's `name`, a

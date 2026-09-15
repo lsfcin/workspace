@@ -28,6 +28,6 @@ switched **off** for its files — `read/pre-read.py` says so out loud rather th
 ## Lifting the size cap while you work
 
 **Edit `BLOCK_LINES` in [`../limits.env`](../limits.env), do the operation, revert.** Both
-`checks/pre-edit.py` and `checks/line_counts.py` read it immediately, so there is no second switch
+`checks/size-gate.py` and `checks/line_counts.py` read it immediately, so there is no second switch
 and no per-file exemption to forget to remove. That is the only supported bypass: a marker on the
 file would outlive the operation, which is how an exemption becomes a permanent one.

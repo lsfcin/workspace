@@ -10,21 +10,36 @@
 >
 > 🔴 Lucas decides · 🟡 an agent can rule alone · 🟢 mechanical. Items are named, never numbered.
 
-## Shape — does the tree still look like what we say it does
-
-**🟡 four numeric laws have no home, and `core/hooks/limits.env` is not theirs**
-*What* — one home per number, or a written reason why a local one is right. The citation gate
-covers the line/file/column law and deliberately stops there; the craft loop file's soft size, a
-research output's length and a commit subject's width are each declared in the writing that uses them.
-*Why* — the same copy-paste that made eight files name a stale warn, one layer out.
-*Done when* — each of the four is either parsed from one file or carries its reason where it sits.
-
 ## Cost — what a session costs, and which of it is avoidable
 
-**🟢 cheaper models where the work is mechanical**
-*What* — mechanical work routed off the most expensive level.
-*Why* — the measured split is opus-heavy and some of that is typing, not thinking.
-*Done when* — the split moves and work still lands. Context size is a 4.2x multiplier routing cannot beat.
+**🔴 cheaper models where the work is mechanical, and the map of which case gets which**
+*What* — a written mapping from KIND OF WORK to level, and a way to apply it that survives the
+harness changing. Re-graded from 🟢 on 2026-09-14: the one-line fix — a default subagent model in
+`.claude/settings.json` — was refused as too narrow. *"quero fazer isso decentemente, e não só pro
+claude code … quais casos usar qual e como fazer isso de forma segura e precisa"* (Lucas).
+*Why* — the split is 99.4% opus over 94 sessions and $2,002, and some of that is typing. The only
+live routing is inside `/craft`, whose executors declare haiku/sonnet/opus by level; every other
+subagent inherits the parent, so a read-only search runs at the dearest level.
+*Done when* — the split moves, the work still lands, and the mapping reaches every harness rather
+than one settings file. Context size is a 4.2x multiplier routing cannot beat.
+
+**🟡 the close cannot say which models and agents a session actually spent**
+*What* — what the close's report should carry, ruled, then built. *"quantos subagentes foram
+spawnados … os custos de cada"* (Lucas, 2026-09-14). Today it prints `session/usage --session` plus
+`size`, and says nothing about subagents; `core/experiments/delegation.md` asks the spawn-rate half
+and no tool answers the cost half. Nothing needs new instrumenting — `subagent_type`, the spawn
+prompt, each worker's own `usage` and every record's `timestamp` are already on disk.
+Four candidates, and the ruling is which of them the report carries (Lucas defers to a later
+session, 2026-09-14): one line per spawn (type, model, cost, turns, task); the main-thread against
+subagent split, which is the number that says whether delegating pays; wall-clock working against
+waiting; and the ten loudest tools by bytes returned. The report is a last response and not carried
+into the handoff, so its length is not paid by later sessions — that is not an argument against any
+of the four.
+*Why* — the item above is a routing decision that cannot be made, or checked afterwards, without it.
+The third candidate is the § Cost wall-clock instrument, which the channel item waits on, so three
+roadmap items meet here and share one `timestamp` read.
+*Done when* — the ruling is written, a close prints what it chose, and the numbers reconcile with
+`session/usage`.
 
 **🟡 what our own tools print has never been measured, and it is read by an agent**
 *What* — a number for what the tools' output costs per session, then the cuts it justifies.
@@ -40,7 +55,10 @@ research output's length and a commit subject's width are each declared in the w
 *What* — one channel reaching him at the *end* of a response, and at the moment a session parks.
 *Why* — close offers and auth-consent requests land in agent-facing writing at prompt-submit time, and
 a session blocked on an `AskUserQuestion` while he is elsewhere is the same defect's third instance.
-*Done when* — all three reach him without interrupting the thread, with measured token cost.
+A harness that auto-compacted a session and said so only at the end is the fourth (INBOX 2026-09-14),
+and an expired Instagram cookie that cost a triage 8 of 26 entries is the fifth — both are things
+only Lucas can act on, and neither reached him.
+*Done when* — all five reach him without interrupting the thread, with measured token cost.
 
 **🟡 a session's wall-clock has never been split into working and waiting**
 *What* — a fourth `core/tools/wos/session/` instrument: how much of a span the machine was busy and
@@ -63,13 +81,6 @@ running with it: `core/run tools/wos/features --scoreboard`, into
 *Why* — 82 features are on, so every cut is a guess and kept rules are paid on faith.
 *Done when* — the table is read after two weeks of ordinary use and each silent feature is a decision.
 
-**🟢 three gates consult no switch, so an ablation cannot turn them off**
-*What* — `checks/pre-edit.py`, `facade/facade-scan.py` and `facade/facade-tracker.py` calling
-`feature_law.is_enabled()`. They carry `-` in `core/hooks/gates.txt` § feature, which is a finding.
-*Why* — a gate that keeps running with its feature off makes that feature's ablation row a lie, and
-its blocks are counted against nobody.
-*Done when* — no row in `gates.txt` carries `-`.
-
 **🟡 the ablation — the repo has never been measured against its own absence**
 *What* — variants of the public repo, one feature off in each, against one synthetic task suite.
 *Why* — this workspace compensates for model failures; a rule that outlives its failure is pure cost.
@@ -85,11 +96,14 @@ its blocks are counted against nobody.
 ## Portability — would this work on a machine that is not Lucas's
 
 **🟡 the port grew the workspace and the payment is still short**
-*What* — the cut that funds the port. Every named candidate has been tried; the rest was paid by
-raising the cap, which moves the line and not the mass.
+*What* — the cut that funds the port, taken from the top of `core/run tools/wos/session/reads` down.
+This line used to say no named candidate was left; the instrument names one, and it is **this file**.
+So draining the roadmap and paying the debt are one job. The ranking and what it costs:
+`core/experiments/read-amplification.md`.
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every
 line; that is a reason to pay, not a reason not to.
 *Done when* — the net since 2026-09-01 is negative under `core/run tools/wos/size --scope repo`.
+Several sessions of cutting rather than one; re-run it rather than quoting a figure from here.
 The debt is this repo's: absorbing a project's own writing neither creates nor pays it.
 
 **🔴 the platform boundary's last answer needs a Windows machine, and there is none**
@@ -122,37 +136,25 @@ for, because the failure is a distro shipping something too old, never a release
 
 ## Rejected
 
-- **Exempting Lucas's own writing from the rename check** — 2026-09-14 (Lucas): a sentence where an old spelling
-  means something the rename does not cover gets rewritten. A blind spot is worse than a word.
-- **The one-root hypothesis** — 2026-09-14: two of three. Dead words die when structure moves and text does not follow,
-  which is self-description; the third left and is `back2dsl`.
-- **`gate` → `block`** — 2026-09-14: `block` already names a generated region AND is the gate's verb, so the swap reads
-  *"a block blocks"*.
-- **Flattening the eight personification verbs** — 2026-09-14 (Lucas): 478 uses, and they read. A consistent voice is
-  not jargon.
-- **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree our own checks skip is an invisible asymmetry;
-  it cost four findings.
-- **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." `core/norms/reduce.md` governs; read
-  cost picks the cut.
-- **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first prompt, and a tree dirty
-  at session open.
+- **Tokens as the size unit** — 2026-09-14: 216 ms of vocabulary against a 273 ms write, and no Anthropic tokenizer offline.
+- **Measuring one line's width** — 2026-09-14 (Lucas): four exemptions, because it asked about syntax, not size.
+- **Exempting Lucas's own writing from the rename check** — 2026-09-14 (Lucas): a blind spot is worse than a word.
+- **The one-root hypothesis** — 2026-09-14: two of three; words die when structure moves and text does not follow.
+- **`gate` → `block`** — 2026-09-14: `block` already names a generated region AND is the verb: *"a block blocks"*.
+- **Flattening the eight personification verbs** — 2026-09-14 (Lucas): 478 uses and they read; a voice is not jargon.
+- **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree our checks skip is an invisible asymmetry.
+- **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Read cost picks the cut.
+- **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first prompt; tree dirty.
 - **Adopting `obra/Superpowers` over our craft flow** — no per-task level routing; trigger imported instead.
-- **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): prompt, judge and self-report died on evidence;
-  only a parser or solver refuses, so it is research — `academy/papers/back2dsl`.
-- **A research map as a plan block here, and one review yaml per kept source** — 2026-09-13: the first grows our most
-  re-read file; the second breaches the `core/refs/` crowding block. A `REFS-<name>.md` does both.
+- **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): only a parser or solver refuses; research.
+- **A research map here, and one review yaml per kept source** — 2026-09-13: a `REFS-<name>.md` does both.
 - **A preliminary cut of features before the ablation** — 2026-08-21: cutting on hunches is a guess.
 - **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
 - **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
 - **A second compaction shim for copilot** — no copilot session has ever run here.
-- **Raising the line block by half** — moves the queue; a file needing room needs a boundary. **Partly reversed
-  2026-09-06 (Lucas)** for law files; over the cap a file is still CUT, not split.
+- **Raising the line block by half** — moves the queue. **Partly reversed 2026-09-06 (Lucas)** for law files.
 - **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
-- **Narrowing the pre-commit to the touched tests** — 2026-09-01: the only speed-up that weakens the gate holding both
-  clones, and parallelising paid four-fold without it.
-- **A check asking only whether a `TYPE-<name>.md` is tracked** — 2026-09-01: the real defect is any routing row naming
-  a file git does not carry.
-- **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's clone cannot install,
-  and strangers are who the file is for.
-- **Deleting a dated `*-backup-*.md` as a dead item** — `academy/lab/CONTEXT.md` declares those captured, not authored;
-  the untracked *law* beside them was the bug.
+- **Narrowing the pre-commit to the touched tests** — 2026-09-01: parallelising paid four-fold without weakening it.
+- **A check asking only whether a `TYPE-<name>.md` is tracked** — 2026-09-01: any row naming an untracked file is.
+- **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's clone cannot install.
+- **Deleting a dated `*-backup-*.md` as a dead item** — `academy/lab/` declares those captured, not authored.

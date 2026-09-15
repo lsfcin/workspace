@@ -23,5 +23,4 @@
 | [`spec-scan`](spec-scan) | — | — | list of module SPEC.md status (locked|draft|optout|none) Spec-driven-development coverage ratchet. A module = a dir with a CONTEXT.md under code/. See code/ROADMAP-spec-drive.md. |
 | [`sync-global-skills`](sync-global-skills) | — | — | link workspace-vendored global skills into $HOME |
 | [`sync-skills`](sync-skills) | — | — | regenerate skill mirrors from core/skills/*.md |
-| [`wrap`](wrap) | — | — | rewrap authored .md prose to the column cap; --apply writes, default reports, --check exits 1 |
 <!-- routing:end -->

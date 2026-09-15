@@ -81,8 +81,6 @@ disciplinas e por isso bloqueia o modelo comum.
 > [ ] [folha-ai4good] a VA2 do AI4Good não tem folha de banca e a do TE tem; banca estruturada
 > α=.75–.80 contra α=.50 solta. Rascunho pronto em `outputs/ai4good-folha-de-avaliacao.md` — decidir
 > pesos, escala (o TE usa três níveis no grid de pares e quatro na banca) e se vira formulário  
-> [ ] [refs-no-teto] `academy/refs/REFS.md` está em 197 de 200 linhas; a próxima captura não cabe.
-> Candidato a corte: a seção de reels do topo, cuja prosa longa duplica as tarefas já pareadas aqui  
 > [ ] [gforms-token] token do `gforms` da conta `personal` expirou — reconsentimento abre navegador
 > na máquina de Lucas; bloqueia ler a folha de pitch como spec e alimentar painel sem digitação  
 > [ ] [planilha-canonica] duas cópias da planilha de pares do TE com o mesmo nome (`16iG7bh…` está
@@ -172,6 +170,18 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 > restante é da turma anterior — rotular "turma 2026.1" ou remover; (4) depois de aprovar, deletar os slides marcados
 > "SKIPPED —" nos dois decks; (5) o slide "impacto das funções de ativação" (ex-163) foi deletado junto com sua cópia
 > corrigida — se era pra manter, refazer a correção de pontuação  
+> [ ] [universidade-gratuita] Duryea et al. 2023 (*Econ of Educ Review* 95:102423) — quem de fato se beneficia da
+> universidade pública gratuita de elite no Brasil. Lucas: *"esse estudo tem que entrar na minha aula"*, sem dizer
+> qual: decidir entre Tecnologias na Educação (política educacional é o eixo) e AI4Good (desigualdade de acesso). Ref
+> em `academy/refs/REFS.md` (INBOX 2026-09-14)  
+> [ ] [amodei-loving-grace] "Machines of Loving Grace" nas aulas — as cinco áreas do ensaio, e três delas
+> (desenvolvimento econômico e pobreza, paz e governança, trabalho e sentido) são o próprio programa de AI4Good.
+> Decidir se entra como leitura, como estrutura de um encontro, ou como contraponto otimista ao material de risco.
+> Ref em `academy/refs/REFS.md` (INBOX 2026-09-09)  
+> [ ] [memoria-e-contexto] aula sobre memória de agente = gerenciamento de contexto: o modelo não lembra, o harness
+> reenvia a conversa toda a cada chamada, cache é releitura barata e não memória; daí context poisoning e context rot.
+> Casa com material que já temos e com os itens de § Cost do `/ROADMAP.md`. Ref em `academy/refs/REFS.md`
+> (INBOX 2026-09-12)  
 
 ## done
 
@@ -180,5 +190,5 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 55/82/82/82/82/82
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 62/90/90/90/90/90
 <!-- stats:end -->

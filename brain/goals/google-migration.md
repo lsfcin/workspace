@@ -37,6 +37,11 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 
 > [ ] [brave-conta-padrao] mudar a conta Google padrão do Brave para lsf.cin@gmail.com — primeiro passo da migração, e o
 > único que não depende de decidir nada (INBOX 2026-08-18)  
+> [ ] [casinhas-sync] `branches/casinhas` mantém a pasta espelho no Drive à mão, e o motor declarativo já existe: um
+> `drive_sync.json` na raiz do projeto (como o de `academy/teaching/ai4good`) faria o `core/run tools/files/gdrive sync`
+> alcançar a pasta, e o mapa em `PROJECTS.md` passaria a mostrar `sync` em vez de um link cru. **A decisão vem antes do
+> arquivo**: vale sincronizar de verdade, ou o espelho manual é intencional porque a pasta tem material que não deve
+> subir? Depende de [drive-sync-method], que decide a forma pra todo o resto  
 > [ ] [github-email-primario] trocar o e-mail primário do GitHub de `lsf@cin.ufpe.br` para `lsf.cin@gmail.com` —
 > Settings → Emails, **clique de UI**: a API REST não expõe endpoint para primário (só visibilidade), então é a mão do
 > Lucas. Os três e-mails já estão verificados na conta, e o `git config` global já assina com o pessoal, então isto só
@@ -75,5 +80,5 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 16/16/16/16/16/16
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 17/17/17/17/17/17
 <!-- stats:end -->
