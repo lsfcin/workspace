@@ -21,7 +21,7 @@
 
 ---
 
-## 2. calendário canônico (4 arcos: ~30 encontros | 15 semanas)
+## 2. calendário (4 arcos: ~30 encontros | 15 semanas)
 
 ```
 [ARCO 1: INICIALIZAÇÃO] (semanas 01–02)
@@ -56,14 +56,14 @@ toda entrega (checkpoint) de disciplina é direcionada por dois documentos canô
 
 ### anatomia
 
-* **metodologia (`templates/template-metodologia.md`):**
+- **metodologia (`templates/template-metodologia.md`):**
    - grafo de dependência entre os artefatos da entrega (entradas e saídas encadeadas).
    - para cada artefato a ser produzido:
       - racional pedagógico ancorado (Chão $\to$ Horizonte, Doshi & Hauser).
       - entrada, o que precisa estar pronto antes de começar.
       - etapas, construção passo a passo por artefato a ser produzido naquela entrega.
       - saída, o que é esperado do produto, qual sua utilidade.
-* **materiais (`templates/template-materiais.md`):**
+- **materiais (`templates/template-materiais.md`):**
    - para cada artefato a ser produzido:
       - **modelo:** material de modelo com espaços / lacunas estruturadas com conteúdo guia indicando como deve ser preenchido.
       - **exemplo excelente:** versão do modelo preenchido de forma excelente, gerado através dos passos indicados na metodologia.
@@ -83,41 +83,13 @@ a **edição online** (zero custo / zero Limites) é fornecida pelo botão "Edit
 
 ## 4. acompanhamento ("pontos, experiência")
 
-* **painel:**
-   - Cada aluno visualiza **sua barra** e a da sua equipe (via link seguro ou token).
-   - Proibido projetar rankings ou comparações nominais em sala (risco de desmotivação e evasão, Rogers & Feller).
-   - Comparações externas limitam-se à mediana agregada da turma, sem identificação.
-* **Dupla Camada de Progresso:**
-   - *Progresso da Missão (Equipe):* Conquista dos Gates 1, 2 e 3 (base do projeto).
-   - *Maestria Individual:* Alimentada semanalmente pelos formulários de retenção (QR Code das aulas teóricas)
-     e avaliação por pares intragrupo calibrada.
-3. **Avaliação Binária nas Etapas Intermediárias:** Eliminação de notas fracionadas soltas (ex.: 7,3 ou 8,1).
-   O marco é classificado como `Completo/Aprovado` ou `Revisão Pendente` com base no checklist.
+- **painel:**
+   - as entregas estarão organizadas e disponibilizadas em um painel (google sheets) para todos
+   - o painel irá conter para cada entrega itens de verificação, escrita clara, feito ou não feito, e uma vez feito acréscimo direto nos pontos do aluno ou da equipe
 
 ---
 
-## 5. Equalização TecEdu ↔ AI4Good
-
-1. **Unificação da Grade de Critérios:** O AI4Good adota a mesma grade de 3 critérios objetivos ($A/AP/NA$) por entrega
-   já praticada nas missões do TecEdu.
-2. **Folha de Banca Estruturada:** O AI4Good adota obrigatoriamente a folha estruturada de critérios para a banca
-   examinadora (`outputs/ai4good-folha-de-avaliacao.md`), garantindo concordância interavaliadores ($\alpha \ge 0.75$).
-3. **Unificação Semântica dos Rótulos de Nota:**
-   * **`VA1`:** *Ciclo de Processo & Descoberta* (Gates 1 e 2 + grade de critérios verificados).
-   * **`VA2`:** *Ciclo de Produto & Artigo Final* (Gate 3 com Banca examinadora, Demo WOW e Artigo).
-
----
-
-## 6. Regra de Transição para 2026.2 (~27 Encontros Restantes)
-
-* O calendário oficial já publicado no Notion é preservado integralmente.
-* A exigência do par *Exemplo Bom / Ruim* e a régua de 3 critérios objetivos passam a valer para as entregas
-  remanescentes do semestre.
-* A folha de banca estruturada entra em vigor para os seminários e defesas finais de ambas as turmas.
-
----
-
-## 7. Contrato para Agentes (Auditoria e Planejamento de Disciplinas)
+## 5. Contrato para Agentes (Auditoria e Planejamento de Disciplinas)
 
 Ao auditar ou planejar a condução de uma disciplina, o agente deve validar:
 1. `[ ]` Cada entrega do calendário possui o par de `.md` estruturado pelos modelos canônicos

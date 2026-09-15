@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DdSoy2Wu8F_/?stkn=NTc4MTIwNjQ2YQ==
+de andrew ng! vale muito a pena a gente consultar
+— via aiwbot · 2026-09-14
+
 > **As 8 abaixo sobreviveram à triagem de 2026-09-14 por um motivo só: o cookie do Instagram
 > venceu.** Todas são posts `/p/` (carrossel ou imagem), e o Instagram responde *empty media
 > response* mesmo com `~/.config/workspace-video/cookies.txt` no lugar — testado no `--level full` e
