@@ -35,5 +35,7 @@
   one word; language IS the system when the reader is an LLM; say what a session decided alone
 - [Feedback: concise WOS](feedback_concise_wos.md) — every session must leave FEWER lines than it found; a new
   feature pays with the cut that funds it; never summarize a law until it stops holding
+- [Feedback: attention and token price](feedback_attention_and_token_price.md) — never build anything that
+  pulls his attention (phone addiction is a real cost); price always-loaded prose before proposing always-on
 - [Feedback: multi-harness is essential](feedback_multiharness_essential.md) — never delete a harness (optimize the
   copying, not the function); and no hook dies without a scoreboard of what it fired on
