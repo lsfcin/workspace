@@ -172,6 +172,18 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 > restante é da turma anterior — rotular "turma 2026.1" ou remover; (4) depois de aprovar, deletar os slides marcados
 > "SKIPPED —" nos dois decks; (5) o slide "impacto das funções de ativação" (ex-163) foi deletado junto com sua cópia
 > corrigida — se era pra manter, refazer a correção de pontuação  
+> [ ] [universidade-gratuita] Duryea et al. 2023 (*Econ of Educ Review* 95:102423) — quem de fato se beneficia da
+> universidade pública gratuita de elite no Brasil. Lucas: *"esse estudo tem que entrar na minha aula"*, sem dizer
+> qual: decidir entre Tecnologias na Educação (política educacional é o eixo) e AI4Good (desigualdade de acesso). Ref
+> em `academy/refs/REFS.md` (INBOX 2026-09-14)  
+> [ ] [amodei-loving-grace] "Machines of Loving Grace" nas aulas — as cinco áreas do ensaio, e três delas
+> (desenvolvimento econômico e pobreza, paz e governança, trabalho e sentido) são o próprio programa de AI4Good.
+> Decidir se entra como leitura, como estrutura de um encontro, ou como contraponto otimista ao material de risco.
+> Ref em `academy/refs/REFS.md` (INBOX 2026-09-09)  
+> [ ] [memoria-e-contexto] aula sobre memória de agente = gerenciamento de contexto: o modelo não lembra, o harness
+> reenvia a conversa toda a cada chamada, cache é releitura barata e não memória; daí context poisoning e context rot.
+> Casa com material que já temos e com os itens de § Cost do `/ROADMAP.md`. Ref em `academy/refs/REFS.md`
+> (INBOX 2026-09-12)  
 
 ## done
 
@@ -180,5 +192,5 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 55/82/82/82/82/82
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 61/89/89/89/89/89
 <!-- stats:end -->

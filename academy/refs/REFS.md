@@ -69,6 +69,29 @@
   argues indigenous ecological knowledge is best placed to lead the movement. Same solarpunk cluster; captured without
   a note.
 
+- [Duryea, Ribas, Sampaio, Sampaio & Trevisan — Who benefits from tuition-free, top-quality
+  universities?](https://doi.org/10.1016/j.econedurev.2023.102423) — *Economics of Education Review* 95:102423, 2023.
+  Evidence from Brazil on who the free elite university actually reaches. Reached via
+  [reel](https://www.instagram.com/reel/DdPgPgYxjaV/) by econometriafacil; Lucas: *"esse estudo tem que entrar na minha
+  aula"* — which discipline is still open (task in `brain/goals/teaching-materials.md` [universidade-gratuita]).
+- [Amodei — Machines of Loving Grace](https://darioamodei.com/essay/machines-of-loving-grace) — [src:
+  web:darioamodei.com] October 2024 essay sketching the upside of powerful AI across five areas: biology and physical
+  health, neuroscience and mental health, economic development and poverty, peace and governance, work and meaning.
+  Three of the five *are* the AI4Good syllabus. Lucas: *"falar disso nas minhas aulas"* (task in
+  `brain/goals/teaching-materials.md` [amodei-loving-grace]).
+- [kem_glitch — Memory = Context Management](https://www.instagram.com/reel/DdME5hsNRju/) — [src: web:instagram.com]
+  practitioner explainer: the model has no memory, the harness re-sends the whole conversation every call, and caching
+  is a cheaper re-read rather than memory. Names **context poisoning** (a wrong or superseded read lands, stays, and
+  shapes every later answer) and **context rot** (more tokens, thinner slice of attention on what matters). Divulgação,
+  not primary source. Lucas: *"colocar na minha aula"* (task in `brain/goals/teaching-materials.md`
+  [memoria-e-contexto]; — via aiwbot).
+- [Menezes et al. — Manacá-1B](https://arxiv.org/abs/2608.30114) — [src: web:arxiv.org] `[P]` preprint, 2026-08-31. An
+  open 1.72B decoder-only model trained from scratch for Brazilian Portuguese, fully containerized, every comparison
+  carrying a standard error and a paired test. Documents a concrete evaluation trap: converting a SentencePiece
+  tokenizer with case-folding to the HuggingFace fast format silently drops the normalizer and sent LAMBADA-PT from
+  45.3 to 25.0, invisible in aggregate metrics. Lucas: *"a gente TEM que olhar isso! não deixar pra mt longe"* (task in
+  `brain/goals/local-ai.md` [manaca-1b]).
+
 ## IA e aprendizagem — o eixo novo de Tecnologias na Educação (2026-08-19)
 
 Lidos e usados na aula 02; todos com número citável em sala.

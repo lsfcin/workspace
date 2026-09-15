@@ -19,6 +19,14 @@ research output's length and a commit subject's width are each declared in the w
 *Why* — the same copy-paste that made eight files name a stale warn, one layer out.
 *Done when* — each of the four is either parsed from one file or carries its reason where it sits.
 
+**🔴 the size law counts lines and columns, and Lucas asks whether it should count the document**
+*What* — a ruling on the unit: stay with 250 lines + 120 columns, or measure the whole document in
+characters, words or tokens. *"essa quebra de linha em 120 chars é bem artificial"* (INBOX 2026-09-14).
+*Why* — the unit decides what a file is cut for, and two rules already bend around it: the line cap
+outranks the column cap (2026-08-31) precisely because reflowing to fit a column is not a cut, and
+law files won a higher line cap (2026-09-06). A document measure would make both unnecessary.
+*Done when* — the unit is ruled in `core/SCHEMA.md`, and whatever loses is a line under § Rejected.
+
 ## Cost — what a session costs, and which of it is avoidable
 
 **🟢 cheaper models where the work is mechanical**
@@ -40,7 +48,10 @@ research output's length and a commit subject's width are each declared in the w
 *What* — one channel reaching him at the *end* of a response, and at the moment a session parks.
 *Why* — close offers and auth-consent requests land in agent-facing writing at prompt-submit time, and
 a session blocked on an `AskUserQuestion` while he is elsewhere is the same defect's third instance.
-*Done when* — all three reach him without interrupting the thread, with measured token cost.
+A harness that auto-compacted a session and said so only at the end is the fourth (INBOX 2026-09-14),
+and an expired Instagram cookie that cost a triage 8 of 26 entries is the fifth — both are things
+only Lucas can act on, and neither reached him.
+*Done when* — all five reach him without interrupting the thread, with measured token cost.
 
 **🟡 a session's wall-clock has never been split into working and waiting**
 *What* — a fourth `core/tools/wos/session/` instrument: how much of a span the machine was busy and

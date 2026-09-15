@@ -125,7 +125,10 @@ fallback · iterate — MVP can always be extended*
 > [ ] [jcode-custo] averiguar o JCode — reimplementação em Rust do harness do Claude Code, com multi-agente no mesmo
 > projeto; duas perguntas separadas, e a segunda vale mais: (1) a ferramenta presta? (2) é mesmo o harness que deixa
 > tudo caro, ou o custo é do modelo? — a (2) dá pra medir aqui sem instalar nada, comparando tokens de scaffolding vs
-> tokens de conteúdo numa sessão nossa. Ref em `core/refs/REFS.md` § Tooling (INBOX 2026-07-31)  
+> tokens de conteúdo numa sessão nossa. Ref em `core/refs/REFS.md` § Tooling (INBOX 2026-07-31). Lucas repõe a mesma
+> pergunta um nível abaixo: *"será que vale a gente usar rust ao invés de python?"* — não o harness, mas as nossas
+> próprias ferramentas em `core/tools/`. Responder as duas juntas, porque a resposta é a mesma medição (INBOX
+> 2026-09-06)  
 > [ ] [zcode-trust] aceitar o trust do workspace no ZCode (Settings, ou o prompt ao abrir /mnt/workspace) — **só o Lucas
 > pode**; sem isso os hooks do shim ficam inertes. Depois abrir sessão nova e re-rodar a sonda de
 > `core/experiments/zcode-hook-protocol.md`, que decide se o registro direto fica ou vira adaptador (INBOX 2026-08-21)  
@@ -135,6 +138,35 @@ fallback · iterate — MVP can always be extended*
 > porque os modelos e harnesses melhoraram — o WOS existe para contornar fraquezas do modelo, então cada fraqueza
 > corrigida upstream é código nosso que virou peso morto. Mesmo raciocínio do estudo de ablação, em cadência menor
 > (INBOX 2026-08-21)  
+> [ ] [mutation-testing] quebrar de propósito um teste que passa e ver se a suíte fica verde — se ficar, o teste não
+> tem dente. Vale rodar como auditoria da nossa suíte inteira, não como gate: o bug do `line_counts.py` (ISSUES § Open)
+> passou justamente por ter teste sem dente. Ref em `core/refs/REFS.md` (INBOX 2026-09-10)  
+> [ ] [extracao-bloqueada] a extração de link do Instagram depende de um cookie que vence em silêncio, e o `video`
+> reporta o vencimento como `(no text extracted)` — a mesma saída de um post sem texto. Duas coisas: reexportar o
+> cookie (só o Lucas), e fazer o tool distinguir as duas falhas. Custou 8 das 26 entradas da triagem de 2026-09-14.
+> Avaliar o Fortress como cura da primeira metade; ref em `core/refs/REFS.md`  
+> [ ] [skills-externas] avaliar `mattpocock/skills` — skills pequenas, componíveis, model-agnostic, em plugin ou em
+> cópia editável. Pesar contra a regra que já rejeitou `obra/Superpowers` (sem roteamento de nível por tarefa): a
+> pergunta é se essas trazem o que faltava lá, ou se de novo só o trigger vale ser importado. Ref em
+> `core/refs/REFS.md` (INBOX 2026-09-10)  
+> [ ] [eli5-explicador] avaliar a skill ELI5 — documento vira explicador visual de uma página. Lucas: *"talvez até pra
+> trocar a forma como fazemos alguns procedimentos"*. O candidato óbvio é o que a gente já desenha (o diagrama de
+> roteamento, o quadro de saúde do § Legibility do ROADMAP). Ref em `core/refs/REFS.md` (INBOX 2026-09-08)  
+> [ ] [ffmpeg-skill] avaliar `ffmpeg-skill` — editor de vídeo local pro agente (cortar, juntar, legendar). Irmão do
+> `core/tools/video/`, que hoje só extrai. Ref em `core/refs/REFS.md` (INBOX 2026-09-08)  
+> [ ] [md-preview-vscode] deixar a visualização formatada de `.md` como default no VSCode, e descobrir se dá pra
+> **editar** nessa visualização. Config do harness/editor, não do workspace — mesma forma do `[plan-mode-default]`
+> (INBOX 2026-09-09)  
+> [ ] [hookspath-fora-da-arvore] o gate de tipo do pre-commit recusou um repositório de teste descartável porque
+> `core.hooksPath` é global e alcança qualquer repo criado sob o workspace, inclusive um `tmp_path` do pytest. Hoje
+> cada teste contorna apontando `core.hooksPath` pra um diretório vazio. Decidir: o pre-commit deveria se recusar a
+> rodar num repo fora da árvore do workspace, em vez de cada teste ter de lembrar de desligá-lo?  
+> [ ] [deriva-roteamento-academy] regerar toda tabela de roteamento de uma vez revelou duas derivas em `academy/`, as
+> duas piorando o que está publicado: (1) um `.json` sem sintaxe de comentário ganha `← add first-line comment`, dívida
+> que ninguém pode pagar naquele arquivo — `core/hooks/described.txt` existe pra isso e o gerador não o consulta nesse
+> caso; (2) em `tecnologias-na-educacao/`, o blurb do próprio arquivo vence a descrição escrita à mão, e
+> `cp01-materiais.md` passa a anunciar o id da Planilha Mestre em vez da frase que dizia o que o arquivo é. Revertido
+> em 2026-09-11 sem commitar; volta na próxima vez que alguém salvar naqueles diretórios  
 
 ## done
 
@@ -149,5 +181,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 483/665/692/692/692/692
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 492/681/708/708/708/708
 <!-- stats:end -->
