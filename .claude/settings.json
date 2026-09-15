@@ -60,12 +60,26 @@
         ]
       }
     ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/notify.py"
+          }
+        ]
+      }
+    ],
     "PreCompact": [
       {
         "hooks": [
           {
             "type": "command",
             "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/precompact-wipe.py"
+          },
+          {
+            "type": "command",
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/notify.py"
           }
         ]
       }

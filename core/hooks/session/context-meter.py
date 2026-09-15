@@ -11,8 +11,10 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # notify.py, the out-of-band channel
 
 import feature_law  # noqa: E402
+import notify  # noqa: E402
 from file_law import load_limits  # noqa: E402
 from hook_input import parse_stdin  # noqa: E402
 from platform_law import session_state  # noqa: E402
@@ -105,7 +107,12 @@ def main() -> None:
 	if not crossed or crossed <= announced(session_id):
 		return
 	mark(session_id, crossed)
-	print(message(ctx, crossed, loud))
+	said = message(ctx, crossed, loud)
+	print(said)
+	# The close offer is one of the five things that only ever reached agent-facing writing
+	# (/ROADMAP.md § Cost). It is already once-per-threshold here, so it needs no moment of its
+	# own — and a hook at the end of every response would have to invent a reason to stay quiet.
+	notify.tell(said)
 
 
 if __name__ == '__main__':

@@ -29,7 +29,7 @@ every session's prompt rather than merely marking it inactive.
 | [`edit.md`](edit.md) | Refining an existing file beats adding one, so the tree stops scattering. |
 | [`filesystem.md`](filesystem.md) | The filesystem is the source of truth; nothing is answered from memory or assumption. |
 | [`improve.md`](improve.md) | Every session leaves the workspace better than it found it, and files what it could not fix. |
-| [`interview.md`](interview.md) | Doubt about intent is resolved by asking Lucas, never by guessing. |
+| [`interview.md`](interview.md) | Doubt about intent is resolved by asking Lucas, never by guessing; what needs his hands reaches him out of band. |
 | [`language.md`](language.md) | The most precise word wins and the simpler one breaks the tie; one idea gets one word. |
 | [`links.md`](links.md) | A link handed to people gets a named short link, and its target is recorded in one place. |
 | [`reduce.md`](reduce.md) | Increasing workspace size is only allowed by Lucas, reducing is the way even when improving/extending. |

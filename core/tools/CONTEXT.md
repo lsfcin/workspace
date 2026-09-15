@@ -42,6 +42,7 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`auth/gauth.py`](auth/gauth.py) | [`auth/gauth.pyi`](auth/gauth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `AuthExpired` | gauth.py — Google's leaf of the auth family: shared OAuth2 for every Google-backed tool |
 | [`deps.txt`](deps.txt) | — | — | Every external dependency the core/tools surface needs, declared: what installs it, what checks it, and what its absence breaks. Read by core/tools/wos/deps (the check runner) and by core/tools/test/wos/test_deps.py (the class check). |
 | [`gcli.py`](gcli.py) | [`gcli.pyi`](gcli.pyi) | `run`, `aliases`, `auth_command` | gcli.py — the two things every Google-backed CLI does identically: consent, and fan out over accounts |
+| [`notify/telegram`](notify/telegram) | — | — | tell Lucas, on the chat he already reads |
 | [`short_name.py`](short_name.py) | [`short_name.pyi`](short_name.pyi) | `mint` | short_name.py — the one line a tool spends on offering `--short-name`: mint a short link for what it created |
 | [`tool_law.py`](tool_law.py) | [`tool_law.pyi`](tool_law.pyi) | `require` | tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls |
 <!-- routing:end -->
