@@ -42,6 +42,8 @@ def vendor_directive_hits(files: list, exempt: set) -> list:
             if match := DIRECTIVE.search(line):
                 hits.append(
                     f'{path}: names a model where it should name a level (line {number}).\n'
-                    f'   `model: {match.group(1).strip()}` → `level: low|medium|high`. Which model\n'
-                    f'   fills a level is data, and lives in core/flows/craft/routing.md.')
+                    f'   `model: {match.group(1).strip()}` → `level: low|medium|high`. Which KIND\n'
+                    f'   of work earns which level is core/levels.txt; which model FILLS a level is\n'
+                    f'   data — core/tools/wos/levels per harness, core/flows/craft/routing.md per\n'
+                    f'   provider.')
     return hits

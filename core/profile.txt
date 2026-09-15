@@ -94,6 +94,7 @@ toggle	prepare	on
 toggle	dedup	on
 toggle	install	on
 toggle	permissions	on
+toggle	levels	on
 toggle	github-auth	on
 toggle	gmail	on
 toggle	calendar	on
