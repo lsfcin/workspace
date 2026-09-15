@@ -12,21 +12,6 @@
 
 ## Cost — what a session costs, and which of it is avoidable
 
-**🟡 the meter shows two thresholds; the ask is the trend between them**
-*What* — context growth visible continuously, most likely a statusline.
-*Why* — Lucas cannot watch the window fill and only learns at a crossing.
-*Done when* — he reads growth without asking and the hook still costs zero tokens until a crossing.
-
-**🟡 anything the agent needs Lucas to physically do is said where he never sees it**
-*What* — one channel reaching him at the *end* of a response, and when a session parks, which
-`core/tools/wos/session/trace` can now name: a gap past its declared idle threshold.
-*Why* — close offers and auth-consent requests land in agent-facing writing at prompt-submit time, and
-a session blocked on an `AskUserQuestion` while he is elsewhere is the same defect's third instance.
-A harness that auto-compacted a session and said so only at the end is the fourth (INBOX 2026-09-14),
-and an expired Instagram cookie that cost a triage 8 of 26 entries is the fifth — both are things
-only Lucas can act on, and neither reached him.
-*Done when* — all five reach him without interrupting the thread, with measured token cost.
-
 **🟡 thinking is 65% of billed output and no instrument here can see it**
 *What* — a number for what thinking effort costs and whether lowering it breaks the work.
 *Why* — it is the largest slice of billed output; every composition figure describes the other 35%.
@@ -100,16 +85,12 @@ for, because the failure is a distro shipping something too old, never a release
 - **A goal↔roadmap warning, and a goal-format audit** — 2026-09-15: 26 of 39 goal files have never been opened.
 - **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Read cost picks the cut.
 - **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first prompt; tree dirty.
-- **Adopting `obra/Superpowers` over our craft flow** — no per-task level routing; trigger imported instead.
 - **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): only a parser or solver refuses; research.
 - **A research map here, and one review yaml per kept source** — 2026-09-13: a `REFS-<name>.md` does both.
-- **A preliminary cut of features before the ablation** — 2026-08-21: cutting on hunches is a guess.
-- **An ensemble router** — spend driven by context size; multiple models over large context multiply cost.
-- **A global terseness rule, and `effort` as a *length* lever** — wrong budget degrades accuracy.
-- **A second compaction shim for copilot** — no copilot session has ever run here.
-- **Raising the line block by half** — moves the queue. **Partly reversed 2026-09-06 (Lucas)** for law files.
-- **`core/` and `brain/` getting their own `ISSUES.md`** — both are WOS; neither holds hand-written bugs.
 - **Narrowing the pre-commit to the touched tests** — 2026-09-01: parallelising paid four-fold without weakening it.
 - **A check asking only whether a `TYPE-<name>.md` is tracked** — 2026-09-01: any row naming an untracked file is.
 - **Paying the cap by deleting SETUP steps** — 2026-09-02: every step is a feature a stranger's clone cannot install.
-- **Deleting a dated `*-backup-*.md` as a dead item** — `academy/lab/` declares those captured, not authored.
+- Eight killed before 2026-09-01 are in git, not here: `git log -S'## Rejected' -- ROADMAP.md`. A
+  tombstone stops a dead item coming back looking new, and stops earning that while nobody who
+  might revive it remembers it — this is the most-read file in the workspace per
+  `core/run tools/wos/session/reads`, and a tombstone nobody needs is read by everyone.
