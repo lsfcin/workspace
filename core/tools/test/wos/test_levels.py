@@ -70,18 +70,18 @@ def test_every_agent_declares_a_level_the_registry_defines():
 		assert level in live, f'core/agents/{name}.md declares level {level!r}, undeclared'
 
 
-def test_a_rendered_definition_is_a_function_of_its_source(tmp_path):
-	"""The mirror carries the source's own text with the level line swapped for the harness's. A
-	mirror that is anything MORE than that is a second definition of the worker to maintain, which
-	is the drift this tool exists to prevent."""
+def test_a_rendered_definition_points_at_the_role_instead_of_copying_it():
+	"""A mirror carries the three fields a harness needs to list and route a worker, and a pointer
+	to the one file that defines it. Copying the role whole put 460 lines of operating context into
+	`.claude/` — a second definition of every worker, which is the drift this tool exists to prevent.
+	Run against a real role, because the pointer has to resolve on disk."""
 	module = _tool()
-	source = tmp_path / 'w.md'
-	source.write_text('---\nname: w\ndescription: d\nlevel: medium\n---\n\nbody stays.\n',
-	                  encoding='utf-8', newline='\n')
+	source = AGENTS / 'writer.md'
 	rendered = module.render(source, 'sonnet')
-	assert 'model: sonnet' in rendered and 'level:' not in rendered
-	assert 'body stays.' in rendered, 'the mirror dropped the source it is supposed to carry'
-	assert 'description: d' in rendered
+	assert 'model: sonnet' in rendered and '\nlevel:' not in rendered
+	assert 'core/agents/writer.md' in rendered, 'the mirror does not say where the role is'
+	assert len(rendered) < len(source.read_text(encoding='utf-8')), \
+		'the mirror is not smaller than the role it points at — it is copying again'
 
 
 def test_check_notices_a_rendered_definition_that_drifted(tmp_path, monkeypatch):

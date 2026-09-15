@@ -81,14 +81,23 @@ def _mirror(harness: str, name: str) -> Path:
 
 
 def render(source: Path, alias: str) -> str:
-	"""One harness's definition, as a function of the provider-agnostic one beside it.
+	"""One harness's definition: the frontmatter it needs, and a pointer to the role itself.
 
-	The whole file, with the `level:` line swapped for the `model:` line that harness reads. A
-	mirror that is anything MORE than a function of its source is a second definition to maintain,
-	and the one thing this tool exists to prevent is two places disagreeing about a worker.
+	A POINTER, NOT A COPY. Rendering each role whole duplicated 460 lines of operating context into
+	`.claude/`, which is a second definition of every worker — two files to keep agreeing, and the
+	one thing this tool exists to prevent. The harness needs three fields to LIST and ROUTE a
+	worker; what the worker must know is a file in the same repo, and reading it is the first thing
+	every agent here does anyway.
 	"""
-	text = source.read_text(encoding='utf-8')
-	return re.sub(r'^level:.*$', f'model: {alias}', text, count=1, flags=re.MULTILINE)
+	front = frontmatter(source)
+	where = source.relative_to(ROOT).as_posix()
+	return (f'---\nname: {front["name"]}\ndescription: {front["description"]}\n'
+	        f'model: {alias}\n---\n\n'
+	        f'Your operating context is [`{where}`]({"../../" + where}) — read it in full before '
+	        f'anything else, then do the work it describes.\n\n'
+	        f'That file is the only definition of this role. This one is rendered from it by '
+	        f'`core/run tools/wos/levels --set`, carries no instruction of its own, and is not the '
+	        f'place to edit one.\n')
 
 
 def _shown(path: Path) -> str:

@@ -37,7 +37,8 @@ only Lucas can act on, and neither reached him.
 **🟡 the scoreboard is running and owes its first reading**
 *What* — the two-week reading, and the cuts it justifies. The instrument runs and the clock is
 running with it: `core/run tools/wos/features --scoreboard`, into
-`core/experiments/hook-scoreboard.md`.
+`core/experiments/hook-scoreboard.md`. **The store's first row is 2026-09-14, so the reading is due
+2026-09-28** — checked 2026-09-15 and it is not yet time; the tool prints the start date itself.
 *Why* — 82 features are on, so every cut is a guess and kept rules are paid on faith.
 *Done when* — the table is read after two weeks of ordinary use and each silent feature is a decision.
 
