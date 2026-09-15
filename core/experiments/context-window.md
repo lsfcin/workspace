@@ -148,6 +148,11 @@ printed a startling number that did not survive re-deriving it by hand — see �
   charging ~60 tokens per entry, so `mirror.sh` copying the file whole is load-bearing, not lazy.
 - **A method was added, not just a number.** Method 2 is the general answer to "is X hiding in the
   residual": build an arm without X. The residual stays opaque, but it is no longer unfalsifiable.
+- **One norm line in `AGENTS.md` has a price now: 285 chars ≈ 71 tok, ≈0.026% of a 216-turn
+  session** (2026-09-15, opus-5 cache read at `session_cost.py`'s rates). Measured by publishing
+  one norm with its switch on and off — `core/hooks/routing/norms.py` makes that a one-command
+  diff, which is what a norm being switchable buys. Reusable: this prices EVERY future norm, and
+  it is the number that let `notify` be decided on evidence rather than on taste.
 
 ## Limitations
 

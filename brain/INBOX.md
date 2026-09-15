@@ -9,6 +9,11 @@
 
 <!-- add entries below, newest first -->
 
+faz sentido auditar nossos 890 testes? pensei que como são muitos e vários são antigos, talvez alguns não façam mais sentido.
+
+https://www.instagram.com/p/DdTPiUUDK6a/?stkn=NTc4MTIwNjQ2YQ==
+incluir esses cases na minha aula sobre agência
+
 https://www.instagram.com/reel/Dc13ZNUFMHz/?stkn=NTc4MTIwNjQ2YQ==
 será que é melhor que o que temos
 

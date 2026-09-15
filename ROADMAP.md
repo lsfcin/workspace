@@ -85,6 +85,8 @@ for, because the failure is a distro shipping something too old, never a release
 - **A goal↔roadmap warning, and a goal-format audit** — 2026-09-15: 26 of 39 goal files have never been opened.
 - **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Read cost picks the cut.
 - **Regenerating the entropy block on receipt** — 2026-09-04: a full tree scan before the first prompt; tree dirty.
+- **A phone-push channel (ntfy, or the harness's own)** — 2026-09-15 (Lucas): phone addiction is a real cost to him; a channel that fetches him is a loss even when its content is right. Telegram, silent, opened on his schedule.
+- **A `Stop` hook for the close offer** — 2026-09-15: fires at the end of every response, so it would have to invent a reason to stay quiet. The crossing already has a once-per-threshold moment.
 - **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): only a parser or solver refuses; research.
 - **A research map here, and one review yaml per kept source** — 2026-09-13: a `REFS-<name>.md` does both.
 - **Narrowing the pre-commit to the touched tests** — 2026-09-01: parallelising paid four-fold without weakening it.
