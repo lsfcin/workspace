@@ -116,6 +116,28 @@ def delta(root, base, scope=''):
     return added, removed, [m for m in movers[:2] if m[1]]
 
 
+def weighted(root, scope=''):
+    """The corpus priced in ATTENTION rather than in disk: lines served per session.
+
+    The disk number can be "paid" by deleting a file no session ever opens, which is exactly the
+    cut this workspace nearly made to core/experiments/ — 1,403 lines, 0 reads in 88 sessions, and
+    the WOS paper's data (Lucas, 2026-09-15). This number cannot be paid that way: a line that
+    nobody is served costs nothing here, so only cutting what IS read moves it.
+
+    Weights come from core/tools/wos/session/session_reads.py; the arithmetic lives there, once.
+
+    IMPORTED HERE, not at the top. The corpus count is this tool's job and runs in any git repo —
+    including the throwaway ones the suite builds — while the transcript readers need a harness
+    project to exist. Loading them eagerly made every `size` run in a tmp repo print nothing at all.
+    """
+    sys.path.insert(0, str(Path(__file__).resolve().parent / 'session'))
+    from session_reads import PROJECT, file_reads, weights
+    files, sessions = file_reads(PROJECT)
+    weighed = weights(files, len(sessions), root)
+    rows = [(rel, weighed[rel]['weight']) for rel in authored_md(root, scope) if rel in weighed]
+    return sorted(rows, key=lambda r: -r[1]), len(sessions)
+
+
 def main():
     tool_law.require('size')  # before argparse: off means off, including --help
     ap = argparse.ArgumentParser(description=__doc__)
@@ -124,6 +146,9 @@ def main():
     ap.add_argument('--root', default='.', help='repo to measure (default: cwd)')
     ap.add_argument('--scope', choices=sorted(SCOPES),
                     help='restrict to one part of the tree (repo: root + core/ + brain/)')
+    ap.add_argument('--weighted', action='store_true',
+                    help='price the corpus in lines served per session instead of lines on disk')
+    ap.add_argument('--top', type=int, default=12, help='rows to list under --weighted')
     args = ap.parse_args()
 
     root = Path(git(Path(args.root).resolve(), 'rev-parse', '--show-toplevel').strip() or '')
@@ -146,6 +171,16 @@ def main():
             parts.append(', '.join(f'{d} {n:+d}' for d, n in movers))
 
     print('size: ' + ' · '.join(parts))
+
+    if args.weighted:
+        rows, population = weighted(root, scope)
+        total = sum(w for _, w in rows)
+        print(f'weight: {total:,.0f} lines served per session over {population} sessions · '
+              f'{len(rows)} of {files} files were ever opened')
+        for rel, w in rows[:args.top]:
+            print(f'  {w:>7.1f}  {rel}')
+        print('  a file missing from this list weighs 0 — no session opened it, which is a fact '
+              'about reading and not a licence to delete')
     return 0
 
 

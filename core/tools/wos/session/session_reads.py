@@ -12,6 +12,8 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[4] / 'core' / 'hooks'))
+import platform_law
 from session_log import _result_chars, blocks, project_name
 from session_turns import paths_for
 
@@ -68,3 +70,34 @@ def file_reads(project: str = PROJECT, session: str = '') -> tuple:
 					stat['sessions'].add(path.stem)
 					sessions.add(path.stem)
 	return dict(files), sessions
+
+
+def weights(files: dict, population: int, root: Path) -> dict:
+	"""Lines served per session — what a file costs the workspace's ATTENTION, not its disk.
+
+	`size` counts a line once, wherever it sits. This counts it once per time a session was
+	actually served it: `lines on disk × reads ÷ sessions`. The divisor is the WHOLE population,
+	never the sessions that happened to open the file — read three times inside one session out of
+	88 is nearly free per session, and dividing by 1 would call it the most expensive file we own.
+
+	**A weight of 0 is a statement about READING, never a licence to delete.** `core/experiments/`
+	weighs 0 and is the WOS paper's data (Lucas, 2026-09-15). Whoever prints this number prints the
+	population beside it, so nobody reads a 0 without knowing what it is 0 out of.
+	"""
+	out: dict = {}
+	for path, stat in files.items():
+		p = Path(path)
+		if not p.is_absolute() or root not in p.parents:
+			continue
+		try:
+			# STRICT decode, unlike every other reader here: a weight is a count of LINES, and a
+			# PNG's newline bytes are not lines. Read as `replace` a screenshot outweighed
+			# ROADMAP.md on this report's first run. What has no lines gets no weight.
+			lines = p.read_text(encoding='utf-8').count('\n')
+		except (OSError, UnicodeDecodeError):
+			continue  # deleted since, or not text — a weight nobody can pay
+		out[platform_law.rel(p, root)] = {
+			'lines': lines, 'count': stat['count'],
+			'weight': lines * stat['count'] / max(1, population),
+		}
+	return out

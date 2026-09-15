@@ -1,5 +1,6 @@
-# Usage: core/tools/wos/session/reads [--project <name>] [--session <id>] [--top N] — which files a
-# session reads, how often, and how much each re-read cost. Reads the local transcripts; no network.
+# Usage: core/tools/wos/session/reads [--project <name>] [--session <id>] [--top N | --all]
+# [--sort weight|reads|chars] — which files a session reads, how often, and how much each re-read
+# cost. Reads the local transcripts; no network.
 #
 # The question is ours, not the harness's: `context-gate.py` demands a whole CONTEXT.md chain before
 # any file access in a subtree, and `pre-read.py` redirects a source read to its stub. Both exist to
@@ -14,20 +15,33 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[4] / 'core' / 'hooks'))
+import platform_law
 from session_log import median
-from session_reads import PROJECT, file_reads, kind_of
+from session_reads import PROJECT, file_reads, kind_of, weights
 
 TOP = 12
+SORTS = ('weight', 'reads', 'chars')
 
 
 def _arg(flag: str, fallback: str = '') -> str:
 	return sys.argv[sys.argv.index(flag) + 1] if flag in sys.argv else fallback
 
 
+def _rel(path: str, root: Path) -> str:
+	"""The key `weights` filed this read under. `platform_law.rel` is the ONE spelling of a relative
+	path here — it already hands back an outside path whole, which is what this needs."""
+	return platform_law.rel(path, root)
+
+
 def main() -> int:
 	project = _arg('--project', PROJECT)
 	session = _arg('--session')
-	top = int(_arg('--top', str(TOP)))
+	top = 0 if '--all' in sys.argv else int(_arg('--top', str(TOP)))
+	sort = _arg('--sort', 'chars')
+	if sort not in SORTS:
+		print(f'--sort must be one of {", ".join(SORTS)}')
+		return 64
 	files, sessions = file_reads(project, session)
 	if not files:
 		print('no reads found — check --project / --session')
@@ -54,12 +68,27 @@ def main() -> int:
 	for kind, (nfiles, count, chars) in sorted(by_kind.items(), key=lambda k: -k[1][2]):
 		print(f'  {kind:<22}{nfiles:>7}{count:>8}{chars / 1000:>9.0f}k{count / nfiles:>8.1f}x')
 
-	print(f'\n  most re-read files (a chain file once per session is the design; the rest is cost)')
-	worst = sorted(repeated.items(), key=lambda kv: -(kv[1]['chars'] - kv[1]['chars'] // kv[1]['count']))
-	for path, stat in worst[:top]:
+	root = Path(__file__).resolve().parents[4]
+	weighed = weights(files, len(sessions), root)
+
+	if sort == 'chars':
+		title = 'most re-read files (a chain file once per session is the design; the rest is cost)'
+		rows = sorted(repeated.items(),
+		              key=lambda kv: -(kv[1]['chars'] - kv[1]['chars'] // kv[1]['count']))
+	else:
+		title = (f'every file read, by {sort} · weight = lines on disk × reads ÷ {len(sessions)} '
+		         f'sessions, so 0 means no session opened it — not that it is safe to delete')
+		key = (lambda kv: -weighed.get(_rel(kv[0], root), {}).get('weight', 0.0)) \
+			if sort == 'weight' else (lambda kv: -kv[1]['count'])
+		rows = sorted(files.items(), key=key)
+
+	print(f'\n  {title}')
+	for path, stat in (rows if top == 0 else rows[:top]):
 		per_session = stat['count'] / max(1, len(stat['sessions']))
+		w = weighed.get(_rel(path, root), {}).get('weight')
+		weight = f'{w:>7.1f}' if w is not None else f'{"—":>7}'
 		print(f'  {stat["count"]:>4}x  {stat["chars"] / 1000:>6.0f}k  {per_session:>4.1f}/session  '
-		      f'{path}')
+		      f'{weight}  {path}')
 	print()
 	return 0
 
