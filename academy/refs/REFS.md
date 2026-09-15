@@ -9,65 +9,37 @@
 - [World Inequality Lab — Global Justice Report](https://www.instagram.com/p/DbGep4CDGtk/) — first fully-quantified plan
   for equality + prosperity within planetary boundaries (income/wealth/power inequality reduction as a condition for
   shared prosperity, compatible with decarbonization). Lucas: usar nas aulas, provavelmente ai4good
-- [Luciano da Luz — "mandato coletivo" reel](https://www.instagram.com/reel/DaIgvighjQ6/) — [src: web:instagram.com]
-  pitches a participatory-mandate model (constituents vote on bills, track spending, propose amendments alongside an
-  elected rep); Lucas: sobre mechanism design — assessment task in `brain/goals/cria.md` `[mandato-coletivo]`
-- [Han Shlomo — "this feels like a book burning" reel](https://www.instagram.com/reel/DbW7yCzkeqX/) — [src:
-  web:instagram.com] frames a current AI/knowledge-destruction moment in those terms. Lucas: *"investigar e usar nas
-  minhas aulas de ai4good"* → task in `brain/goals/teaching-materials.md` `[ai4good-book-burning]`. The reel is the
-  hook, not the argument: find the underlying event before using it in class.
+Every reel below is `[src: web:instagram.com]`, and each carries its paired task in
+`brain/goals/teaching-materials.md` under the name at the end of its line — the task holds what to do, so
+these lines hold only what the reel is and what to distrust about it.
 
-- [RammCodes — face-recognition library reel](https://www.instagram.com/reel/Db03NOvo6B0/) — [src: web:instagram.com] a
-  free, open-source Python library putting face detection, recognition, tracking, landmarks, gaze estimation, face
-  parsing and anti-spoofing behind one API. Lucas: *"incluir nas minhas aulas"* (INBOX 2026-08-16) — plausible fit for
-  the 3D CV / vision course material. **The reel never names the library**, so the first step is finding it;
-  anti-spoofing and gaze in the same package is the distinguishing feature to search on.
-
-- [Dr. Alvaro Cintas — arXiv Visuals reel](https://www.instagram.com/reel/DcJQd0TRewZ/) — [src: web:instagram.com]
-  claims any arXiv paper becomes a narrated motion-graphics explainer by changing two letters in the URL, produced by
-  three agents (one reads the paper, one designs the lesson, one animates). The interesting design claim is pedagogical,
-  not technical: it says it **finds the hardest concept first and builds the explanation around teaching that**, rather
-  than summarising front to back. Built in a day, won a large hackathon. Lucas (INBOX 2026-08-17): *"this IS for me"* —
-  paired task in `brain/goals/teaching-materials.md` `[arxiv-visuals]`. **The link is comment-gated** (*"Comment 'PAPER'
-  and I'll send you the link"*), so the tool has to be found independently; and the claim to test is whether the
-  hardest-concept-first ordering survives contact with a paper he already knows well.
-
-- [Kem / GlitchCatClub — "pacing the frontier" reel](https://www.instagram.com/reel/DbsJYiotcLj/) — [src:
-  web:instagram.com] an AI-agents post whose caption reads *"Pacing the frontier? - well no sheet! About time!"* (#ai
-  #aiagent #machinelearning #openai). Lucas: *"pras minhas aulas de ai4good"* (INBOX 2026-08-17) — paired task in
-  `brain/goals/teaching-materials.md` `[ai4good-pacing-frontier]`. **Extraction returned the caption only**, so what the
-  reel actually argues is unknown; the caption suggests a frontier-pace / regulation angle worth one look before it
-  earns class time.
-
-- [eluna.ai — Yann LeCun reel](https://www.instagram.com/reel/Dbd8XDWSM1A/) — [src: web:instagram.com] LeCun spent
-  decades on neural networks while the field held they would not work; now argues for AI that models how the world
-  works rather than predicting the next word (credits: Pioneer Works). Lucas: *"colocar em alguma das minhas aulas de
-  ai4good"* (INBOX 2026-08-24) — paired task in `brain/goals/teaching-materials.md` `[ai4good-lecun]`.
-
-- [theaifield — books scanned for training data](https://www.instagram.com/p/DcQ1847jA8l/) — [src: web:instagram.com]
-  says physical books are prime training data because they are edited human writing from before generated text, and
-  names Anthropic's reported *"Project Panama"* — books bought, unbound, scanned, recycled — against non-destructive
-  scanning (Treventus ScanRobot 2.0), destructive winning on speed and cost. Same case as the book-burning ref above;
-  both feed `[ai4good-book-burning]`. **A post, not a source** — confirm the case before it is taught.
-
-- [Asha Zimmerman — "we are pro integration" reel](https://www.instagram.com/reel/DcOxARouQxF/) — [src:
-  web:instagram.com] argues frontier labs chase replacement because their growth promises to investors demand constant
-  revenue, and positions AI as a tool to iterate faster instead: *"we think replacement is a horrible idea for AI, but
-  we are pro integration"*. Ends on local models and a hardware pitch, so the founder is selling something. Lucas:
-  *"essa é a mentalidade de AI4good, talvez encaixe em algum lugar"* (INBOX 2026-08-28) — paired task in
-  `brain/goals/teaching-materials.md` `[ai4good-integracao]`.
-
-- [Joseph Gordon-Levitt — optimism reel](https://www.instagram.com/reel/DcRMN_hM537/) — [src: web:instagram.com] asks
-  whether optimism is naive or necessary, and holds that the challenges of AI and democracy can be named without
-  concluding nothing can be done. Lucas: *"adicionar nas minhas aulas"* (INBOX 2026-08-28) — paired task in
-  `brain/goals/teaching-materials.md` `[ai4good-otimismo]`.
-
-- [LJ — 10 solarpunk games](https://www.instagram.com/p/Db8TS-UFC8N/) — [src: web:instagram.com] games about restoring
-  ecosystems and building sustainable communities (Terra Nil, Loddlenaut). Lucas: *"solarpunk é a vibe de ai4good"*
-  (INBOX 2026-08-24) — positioning for the course, not a task.
-- [ria — indigenous knowledge leads solarpunk](https://www.instagram.com/reel/DY2wj1svR_m/) — [src: web:instagram.com]
-  argues indigenous ecological knowledge is best placed to lead the movement. Same solarpunk cluster; captured without
-  a note.
+- [Luciano da Luz — mandato coletivo](https://www.instagram.com/reel/DaIgvighjQ6/) — participatory mandate: constituents
+  vote on bills and track spending alongside an elected rep. Mechanism design → `brain/goals/cria.md`
+  `[mandato-coletivo]`.
+- [Han Shlomo — "this feels like a book burning"](https://www.instagram.com/reel/DbW7yCzkeqX/) — frames a current
+  AI/knowledge-destruction moment. **Hook, not argument** — find the underlying event first. `[ai4good-book-burning]`
+- [theaifield — books scanned for training data](https://www.instagram.com/p/DcQ1847jA8l/) — physical books as prime
+  training data; names Anthropic's reported *"Project Panama"* (bought, unbound, scanned, recycled) against
+  non-destructive scanning. **A post, not a source** — confirm before teaching. Same `[ai4good-book-burning]`.
+- [RammCodes — face-recognition library](https://www.instagram.com/reel/Db03NOvo6B0/) — one API over detection,
+  recognition, tracking, landmarks, gaze, parsing, anti-spoofing; fits the 3D CV material. **The reel never names it** —
+  search on gaze + anti-spoofing in one package.
+- [Dr. Alvaro Cintas — arXiv Visuals](https://www.instagram.com/reel/DcJQd0TRewZ/) — turns an arXiv paper into a
+  narrated explainer via three agents, and claims to find the **hardest concept first** and build around teaching that.
+  **Comment-gated link** — find the tool independently. `[arxiv-visuals]`
+- [Kem / GlitchCatClub — pacing the frontier](https://www.instagram.com/reel/DbsJYiotcLj/) — **caption only extracted**,
+  so the argument is unknown; suggests a frontier-pace / regulation angle. `[ai4good-pacing-frontier]`
+- [eluna.ai — Yann LeCun](https://www.instagram.com/reel/Dbd8XDWSM1A/) — argues for AI that models how the world works
+  rather than predicting the next word. `[ai4good-lecun]`
+- [Asha Zimmerman — "we are pro integration"](https://www.instagram.com/reel/DcOxARouQxF/) — labs chase replacement
+  because investor growth promises demand it; integration as the alternative. **The founder is selling hardware.**
+  `[ai4good-integracao]`
+- [Joseph Gordon-Levitt — optimism](https://www.instagram.com/reel/DcRMN_hM537/) — the challenges of AI and democracy
+  can be named without concluding nothing can be done. `[ai4good-otimismo]`
+- [LJ — 10 solarpunk games](https://www.instagram.com/p/Db8TS-UFC8N/) · [ria — indigenous knowledge leads
+  solarpunk](https://www.instagram.com/reel/DY2wj1svR_m/) — restoring ecosystems, sustainable communities (Terra Nil,
+  Loddlenaut); indigenous ecological knowledge as the movement's lead. *"solarpunk é a vibe de ai4good"* — positioning
+  for the course, no task.
 
 - [Duryea, Ribas, Sampaio, Sampaio & Trevisan — Who benefits from tuition-free, top-quality
   universities?](https://doi.org/10.1016/j.econedurev.2023.102423) — *Economics of Education Review* 95:102423, 2023.

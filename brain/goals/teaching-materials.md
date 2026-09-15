@@ -81,8 +81,6 @@ disciplinas e por isso bloqueia o modelo comum.
 > [ ] [folha-ai4good] a VA2 do AI4Good não tem folha de banca e a do TE tem; banca estruturada
 > α=.75–.80 contra α=.50 solta. Rascunho pronto em `outputs/ai4good-folha-de-avaliacao.md` — decidir
 > pesos, escala (o TE usa três níveis no grid de pares e quatro na banca) e se vira formulário  
-> [ ] [refs-no-teto] `academy/refs/REFS.md` está em 197 de 200 linhas; a próxima captura não cabe.
-> Candidato a corte: a seção de reels do topo, cuja prosa longa duplica as tarefas já pareadas aqui  
 > [ ] [gforms-token] token do `gforms` da conta `personal` expirou — reconsentimento abre navegador
 > na máquina de Lucas; bloqueia ler a folha de pitch como spec e alimentar painel sem digitação  
 > [ ] [planilha-canonica] duas cópias da planilha de pares do TE com o mesmo nome (`16iG7bh…` está
@@ -192,5 +190,5 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 61/89/89/89/89/89
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 62/90/90/90/90/90
 <!-- stats:end -->

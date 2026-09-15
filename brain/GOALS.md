@@ -4,12 +4,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-09-14 21:03
+last-updated: 2026-09-14 21:05
 
 >**areas** — last 14 days  
 ```
-health       ██████████   220 touches
-career       ██░░░░░░░░   45 touches
+health       ██████████   221 touches
+career       ██░░░░░░░░   46 touches
 finances     █░░░░░░░░░   25 touches
 fun          ██░░░░░░░░   49 touches
 spiritual    ░░░░░░░░░░   0 touches
@@ -25,15 +25,15 @@ craft-flows              █░░░░░░░░░   37 touches
 cria                     ███░░░░░░░   69 touches
 dance                    ░░░░░░░░░░   0 touches
 ecovila                  ░░░░░░░░░░   1 touches
-exercise                 ░░░░░░░░░░   1 touches
+exercise                 ░░░░░░░░░░   2 touches
 finances                 ░░░░░░░░░░   0 touches
-google-migration         ░░░░░░░░░░   8 touches
+google-migration         ░░░░░░░░░░   9 touches
 guitar                   ░░░░░░░░░░   0 touches
 hair                     ░░░░░░░░░░   1 touches
 home-casinhas            █░░░░░░░░░   24 touches
 instituto                █░░░░░░░░░   24 touches
 lih-dd                   █░░░░░░░░░   28 touches
-local-ai                 ██░░░░░░░░   57 touches
+local-ai                 ██░░░░░░░░   58 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
@@ -49,11 +49,11 @@ spacemantics             ██░░░░░░░░   49 touches
 spec-driven-development  ░░░░░░░░░░   4 touches
 startapps                ████░░░░░░   92 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       █░░░░░░░░░   31 touches
+teaching-materials       █░░░░░░░░░   32 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   220 touches
+workspace-os             ██████████   221 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
