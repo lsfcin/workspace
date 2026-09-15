@@ -10,15 +10,6 @@
 >
 > 🔴 Lucas decides · 🟡 an agent can rule alone · 🟢 mechanical. Items are named, never numbered.
 
-## Shape — does the tree still look like what we say it does
-
-**🟡 four numeric laws have no home, and `core/hooks/limits.env` is not theirs**
-*What* — one home per number, or a written reason why a local one is right. The citation gate
-covers the line/file/column law and deliberately stops there; the craft loop file's soft size, a
-research output's length and a commit subject's width are each declared in the writing that uses them.
-*Why* — the same copy-paste that made eight files name a stale warn, one layer out.
-*Done when* — each of the four is either parsed from one file or carries its reason where it sits.
-
 ## Cost — what a session costs, and which of it is avoidable
 
 **🟢 cheaper models where the work is mechanical**
@@ -65,16 +56,6 @@ running with it: `core/run tools/wos/features --scoreboard`, into
 `core/experiments/hook-scoreboard.md`.
 *Why* — 82 features are on, so every cut is a guess and kept rules are paid on faith.
 *Done when* — the table is read after two weeks of ordinary use and each silent feature is a decision.
-
-**🟡 one gate blocks for two features, so neither can be attributed**
-*What* — `checks/pre-edit.py` split by responsibility. It refuses a write for three reasons owned by
-two features (`first-line-comment`, `line-limit`), and `gates.txt` gives a row one feature cell, so
-naming either makes the other's ablation row a lie. It is the last `-` in the table, and the only
-one that a switch call cannot fix.
-*Why* — a gate that keeps running with its feature off makes that feature's ablation row a lie, and
-its blocks are counted against nobody.
-*Done when* — no row in `gates.txt` carries `-`, and each block is counted against the feature that
-asked for it.
 
 **🟡 the ablation — the repo has never been measured against its own absence**
 *What* — variants of the public repo, one feature off in each, against one synthetic task suite.

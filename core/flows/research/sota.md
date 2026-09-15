@@ -23,8 +23,8 @@ imply for a decision we are about to make?"*
 It produces **two artifacts for two different readers**, and both are required:
 - **machine-facing** — `refs/REFS.md` lines plus one `refs/<key>.yaml` review per kept paper.
   Later flows read these; this is what makes the next pass over a neighbouring field cheap.
-- **human-facing** — a **≤200-line** summary written to support a decision. Not a related-work
-  section, not an exhaustive brief. Lucas reads 200 lines; the yaml holds the rest.
+- **human-facing** — a summary written to support a decision, capped at Step 5's number. Not a
+  related-work section, not an exhaustive brief. Lucas reads it; the yaml holds the rest.
 
 The artifact is the memory. A run that leaves only a chat answer produced nothing.
 
@@ -140,8 +140,9 @@ Skim-only hits stay as REFS.md lines and get no yaml. Say in the summary how man
 
 ## Step 5 — Write the ≤200-line decision summary (human-facing artifact)
 
-Write `outputs/<name>-sota.md`. **Hard cap: 200 lines.** If it does not fit, cut — the yaml holds
-the detail. Structure:
+Write `outputs/<name>-sota.md`. **Hard cap: 200 lines**, and this is the one place it is declared —
+it is what Lucas will read in one sitting, not the file-shape law in `core/hooks/limits.env`, which
+no reader of this flow consults. If it does not fit, cut — the yaml holds the detail. Structure:
 
 1. **Verdict** — 3–8 lines. Where the field actually stands, and what that means for the decision
    named in the plan. Lead with the answer.

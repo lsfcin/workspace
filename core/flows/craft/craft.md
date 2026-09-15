@@ -41,7 +41,9 @@ instead of spending them: N cheap short sessions instead of one long expensive o
   `model=nvidia/z-ai/glm-5.2`, not bare `model=glm-5.2`) so the per-provider cost split is recoverable from the chain
   alone, without the session log.
 - **Small.** Soft cap ~80 lines per file. A loop file that wants to exceed the cap is a smell: the task is too big —
-  raise `FLAG: RETURN loop=1 reason=split-needed`.
+  raise `FLAG: RETURN loop=1 reason=split-needed`. **Declared here and nowhere else, deliberately**: this is a budget
+  for what ONE fresh session should be handed, not the file-shape law in `core/hooks/limits.env` — no gate reads it and
+  no instrument measures it, so a row over there would be a number with no reader.
 - **Carry block.** Every loop file starts with a `## Carry` block **copied verbatim** from the previous file (Loop 0
   creates it). It holds: short name, branch, project root, test command, criticality, acceptance-criteria
   digest, context pointers (project `CONTEXT.md`/`AGENTS.md` paths). This is what makes "read exactly one
@@ -157,7 +159,7 @@ model per the active level-map; the flow is unchanged.
 
 - Standard path ≈ 8 short sessions. If the task would take a single medium-level session <30 min end-to-end, it must be
   `padaria` — re-check the gate before proceeding.
-- Any loop file hitting the ~80-line cap → the task is too big; split via `RETURN loop=1 reason=split-needed`.
+- Any loop file hitting the soft cap above → the task is too big; split via `RETURN loop=1 reason=split-needed`.
 - The orchestrator context must stay near-empty: verdict lines only. If you find yourself pasting loop file contents
   into the orchestrator, the flow is being run wrong.
 

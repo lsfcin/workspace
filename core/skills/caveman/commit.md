@@ -10,7 +10,9 @@ Write commit messages terse and exact. Conventional Commits format. No fluff. Wh
 - `<type>(<scope>): <imperative summary>` — `<scope>` optional
 - Types: `feat`, `fix`, `refactor`, `perf`, `docs`, `test`, `chore`, `build`, `ci`, `style`, `revert`
 - Imperative mood: "add", "fix", "remove" — not "added", "adds", "adding"
-- ≤50 chars when possible, hard cap 72
+- ≤50 chars when possible, hard cap 72 — **git's own numbers, not this workspace's**: `git log
+  --oneline` and every forge truncate there, so `core/hooks/limits.env` does not own them and
+  changing them here would only disagree with the tools that render the log
 - No trailing period
 - Match project convention for capitalization after the colon
 
