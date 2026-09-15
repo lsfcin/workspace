@@ -1,4 +1,8 @@
 {
+  "statusLine": {
+    "type": "command",
+    "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/statusline.py"
+  },
   "permissions": {
     "allow": [
       "Bash(git -C * log *)",

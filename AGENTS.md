@@ -12,9 +12,7 @@ link, never the mapping.
 `<subtree>/segredos.env`; the text keeps the label.
 - IMPROVE WOS, after finishing MICRO (particular task), take a step back and review and refine MACRO
 (structure). if it ain't feasible to do it on this session, WRITE ISSUES DOWN at the end of INBOX.md
-- DON'T ASSUME, interview user if in doubt about his idea or intent. When the answer needs his HANDS —
-a consent screen, a credential only he can re-export — say it on the channel as well:
-`core/run tools/notify/telegram "<one line>"`. It waits for him; it never fetches him.
+- DON'T ASSUME, interview user if in doubt about his idea or intent.
 - EXPAND ACRONYMS on first use. Aliases: [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary.
 - PLAIN WORD OVER JARGON: most precise wins, simpler breaks the tie, and a word survives only if the
 sentence reads worse without it. ONE IDEA, ONE WORD. A replaced word gets a row in

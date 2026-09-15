@@ -59,13 +59,20 @@ def muted(session_id: str, cooldown: int) -> bool:
 
 
 def line(raw: dict, cwd: str) -> str:
-	"""One line, naming the workspace so a second session is not mistaken for this one."""
+	"""One line, naming the workspace so a second session is not mistaken for this one.
+
+	IN PORTUGUESE, unlike every other string in this tree (Lucas, 2026-09-15). The rest of the
+	workspace is written for an agent and `lang` answers `en`; this is the one surface whose
+	whole audience is Lucas, and a channel he reads at a glance should not ask him to translate.
+	The harness's own `message` is relayed as it came — quoting it wrong is worse than quoting
+	it in English.
+	"""
 	where = Path(cwd).name or 'workspace'
 	if raw.get('hook_event_name') == 'PreCompact':
-		return (f'{where}: the session compacted itself. What it carried is summarised now, '
-		        f'so re-ground it before trusting an answer that predates this.')
+		return (f'{where}: a sessão se compactou. O que ela carregava virou resumo — peça pra ela '
+		        f'se reancorar antes de confiar em resposta anterior a isto.')
 	said = (raw.get('message') or '').strip()
-	return f'{where}: parked — {said}' if said else f'{where}: parked, waiting on you.'
+	return f'{where}: parada, esperando você — {said}' if said else f'{where}: parada, esperando você.'
 
 
 def tell(text: str) -> None:
@@ -82,6 +89,8 @@ def tell(text: str) -> None:
 
 
 def main() -> None:
+	if not feature_law.is_enabled('notify'):
+		return  # switched off: the moments pass and only the session knows they happened
 	raw, _tool, _tool_input, session_id, cwd = parse_stdin()
 	cooldown = load_limits().get('NOTIFY_COOLDOWN', 0)
 	if muted(session_id, cooldown):

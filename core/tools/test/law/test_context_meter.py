@@ -12,10 +12,18 @@ import re
 
 from conftest import WORKSPACE_ROOT
 
-spec = importlib.util.spec_from_file_location(
-    'context_meter', WORKSPACE_ROOT / 'core/hooks/session/context-meter.py')
-context_meter = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(context_meter)
+def _module(name, path):
+    spec = importlib.util.spec_from_file_location(name, WORKSPACE_ROOT / path)
+    loaded = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(loaded)
+    return loaded
+
+
+context_meter = _module('context_meter', 'core/hooks/session/context-meter.py')
+# The tail scan moved to transcript.py when the statusline became its second reader
+# (2026-09-15). The meter still owns the thresholds and the once-per-crossing rule; reading
+# the transcript is now a question with one answer for both, so it is asked of its own module.
+transcript = _module('transcript', 'core/hooks/session/transcript.py')
 
 LIMITS = WORKSPACE_ROOT / 'core/hooks/limits.env'
 
@@ -55,20 +63,20 @@ def test_declared_in_limits_env():
 
 def test_reads_the_most_recent_turn(tmp_path):
     path = _transcript(tmp_path, [_turn(40_000), _turn(310_000)])
-    assert context_meter.last_context(path) == 310_000
+    assert transcript.last_context(path) == 310_000
 
 
 def test_subagent_turns_are_not_the_session(tmp_path):
     """A sidechain turn carries its own small context — it is not what the session holds."""
     path = _transcript(tmp_path, [_turn(310_000), _turn(9_000, sidechain=True)])
-    assert context_meter.last_context(path) == 310_000
+    assert transcript.last_context(path) == 310_000
 
 
 def test_missing_or_unreadable_transcript_is_silent(tmp_path):
-    assert context_meter.last_context(str(tmp_path / 'absent.jsonl')) == 0
+    assert transcript.last_context(str(tmp_path / 'absent.jsonl')) == 0
     garbage = tmp_path / 'garbage.jsonl'
     garbage.write_text('not json at all\n{"usage": broken\n', encoding='utf-8', newline='\n')
-    assert context_meter.last_context(str(garbage)) == 0
+    assert transcript.last_context(str(garbage)) == 0
 
 
 def test_each_threshold_announces_once(tmp_path, monkeypatch):
@@ -147,7 +155,19 @@ def test_the_handoff_artifact_is_not_an_uppercase_type():
 
 
 def test_the_meter_never_spawns_a_session():
-    """Decided 2026-08-13 (core/SPECS.md § AD-09): a successor cannot take the terminal, so none is spawned."""
+    """Decided 2026-08-13 (core/SPECS.md § AD-09): a successor cannot take the terminal, so none
+    is spawned.
+
+    THE RULE IS ABOUT A SESSION, NOT ABOUT A PROCESS (2026-09-15). This used to forbid the word
+    `subprocess` anywhere in the source, which stopped being the same question the moment the
+    meter started reaching the out-of-band channel through notify.py — the ban held on the
+    literal text while a process was being spawned one import away. A test that passes by
+    indirection is worse than no test. So the session spawns are named, and the one process the
+    meter may reach is named with them.
+    """
     source = (WORKSPACE_ROOT / 'core/hooks/session/context-meter.py').read_text(encoding='utf-8')
-    for forbidden in ('--bg', 'subprocess', 'claude -p', 'os.system'):
-        assert forbidden not in source, f'{forbidden} in a hook that must only ever print'
+    for forbidden in ('--bg', 'claude -p', 'os.system', 'Popen'):
+        assert forbidden not in source, f'{forbidden} in a hook that must never take the terminal'
+    assert 'subprocess' not in source, (
+        'the meter reaches a process only through notify.py, which owns the timeout and the '
+        'failure stance — spawning one here would be a second copy of both')
