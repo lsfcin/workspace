@@ -46,6 +46,7 @@ toggle	type-gate	on
 toggle	retired-tokens	on
 toggle	citation-gate	on
 toggle	issues-gate	on
+toggle	memory-gate	on
 toggle	spec-read-gate	on
 toggle	heredoc-gate	on
 toggle	verify-suite	on

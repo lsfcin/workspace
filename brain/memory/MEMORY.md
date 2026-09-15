@@ -1,41 +1,22 @@
 # Memory Index
 
-- [User Profile](../USER.md) — Lucas, CS professor at UFRPE/CIn-UFPE, research in Hybrid Intelligence, Mechanism
-  Design, AR, 3D CV — workspace content first, memory second, so the index routes straight to it
-- [Feedback: bug tracking](feedback_bug_tracking.md) — isoroll bugs go in code/isoroll-module/ISSUES.md, not memory
-- [Feedback: parallel sessions](feedback_parallel_sessions.md) — partition workspace by folder across concurrent
-  sessions; check git status AND the current branch right before committing; stage explicitly, commit often
-- [Feedback: visual eyeball gate](feedback_visual_eyeball_gate.md) — image-producing steps need Lucas's visual OK
-  (artifact board) before advancing; shortest path to visible content
-- [Fable Quota Strategy](fable_quota_strategy.md) — "Fable decides, Opus writes, Sonnet executes"; multiview is
-  consumed, its F1 spine lives on develop; instituto prompt is in its final window
-- [Feedback: provider-agnostic naming](feedback_provider_agnostic_naming.md) — position, not presence: a model name is
-  banned as a DIRECTIVE, fine as DATA (a measurement, a quoted id, which harness wrote a draft)
-- [Feedback: background bash reliability](feedback_background_bash_reliability.md) — backgrounded Bash chains can die
-  silently across a ScheduleWakeup pause; prefer foreground or unchained calls for sweeps the user is waiting on
-- [Feedback: delete weak features](feedback_delete_weak_features.md) — weak signal = delete outright (code, docs,
-  deps, mentions), leaving only a short rejection note; never keep it demoted to a "hint"
-- [Feedback: course material is additive](feedback_additive_course_material.md) — in Lucas's deck, interleave and
-  refine in place; never replace, skip or reorder
-- [Feedback: explore before cutting](feedback_explore_before_cutting.md) — while the design decision is open, keep
-  every variant; cut only after Lucas rules
-- [Reference linuz90 bot](reference_linuz90_bot.md) — linuz90/claude-telegram-bot source read: SDK plain-resume
-  single-lineage design + UX feature set; the aiwbot reference
-- [Feedback: full-workflow thinking](feedback_full_workflow_thinking.md) — plan from the user workflow not artifacts;
-  loose ends are isoroll's recurring failure; convert every eye-catch into a code invariant
-- [Feedback: inbox ref→task pairing](feedback_inbox_ref_task_pairing.md) — actionable refs must spawn a paired
-  assessment task, never land ref-only; policy in core/skills/inbox.md
-- [Reference: texpace = spacemantics](reference_texpace_is_spacemantics.md) — route "texpace" captures to
-  code/spacemantics
-- [Feedback: agent runs auth](feedback_agent_runs_auth.md) — agent runs every auth command itself; ask Lucas only for
-  provider-UI clicks, consent screens, minting a secret; pasted secrets go in via builtin pipe, never argv
-- [Feedback: context in the question](feedback_question_context.md) — every choice put to Lucas explains context,
-  problem and tradeoffs in the question itself and in each option; he "passa direto" past what is not there
-- [Feedback: plain language](feedback_plain_language.md) — plain words over jargon (list/boundary/check are out); one idea
-  one word; language IS the system when the reader is an LLM; say what a session decided alone
-- [Feedback: concise WOS](feedback_concise_wos.md) — every session must leave FEWER lines than it found; a new
-  feature pays with the cut that funds it; never summarize a law until it stops holding
-- [Feedback: attention and token price](feedback_attention_and_token_price.md) — never build anything that
-  pulls his attention (phone addiction is a real cost); price always-loaded prose before proposing always-on
-- [Feedback: multi-harness is essential](feedback_multiharness_essential.md) — never delete a harness (optimize the
-  copying, not the function); and no hook dies without a scoreboard of what it fired on
+Every line here is loaded into every session, including the ones it has nothing to do with, so a
+line earns its place by changing what an agent DOES. Cut to 15 entries on 2026-09-15: the profile
+moved to [`../CONTEXT.md`](../CONTEXT.md), two entries restated a law that already holds elsewhere,
+and two were project references that now live in the project.
+
+- [parallel sessions](feedback_parallel_sessions.md) — partition by folder; check git status AND branch right before committing; stage explicitly, commit often
+- [visual eyeball gate](feedback_visual_eyeball_gate.md) — image-producing steps need Lucas's visual OK before advancing
+- [provider-agnostic naming](feedback_provider_agnostic_naming.md) — a model name is banned as a DIRECTIVE, fine as DATA
+- [background bash reliability](feedback_background_bash_reliability.md) — backgrounded Bash chains die silently across a pause; prefer foreground
+- [delete weak features](feedback_delete_weak_features.md) — weak signal = delete outright, leaving a short rejection note
+- [course material is additive](feedback_additive_course_material.md) — in Lucas's deck, interleave and refine in place; never replace or reorder
+- [explore before cutting](feedback_explore_before_cutting.md) — while the design decision is open, keep every variant
+- [full-workflow thinking](feedback_full_workflow_thinking.md) — plan from the user workflow, not artifacts; convert every eye-catch into a code invariant
+- [agent runs auth](feedback_agent_runs_auth.md) — the agent runs every auth command itself; ask Lucas only for provider-UI clicks
+- [context in the question](feedback_question_context.md) — every choice put to Lucas carries context, problem and tradeoffs, in the question and in each option
+- [plain language](feedback_plain_language.md) — plain words over jargon; one idea, one word; language IS the system when the reader is an LLM
+- [concise WOS](feedback_concise_wos.md) — a session leaves fewer lines than it found; a new feature pays with the cut that funds it
+- [attention and token price](feedback_attention_and_token_price.md) — never build what pulls his attention; price always-loaded prose before proposing always-on
+- [multi-harness is essential](feedback_multiharness_essential.md) — never delete a harness; and no hook dies without a scoreboard
+- [measure before cutting](feedback_measure_before_cutting.md) — weight a file by lines served per session, never by lines on disk

@@ -9,6 +9,7 @@
 # Bash need Developer Mode, a privilege out of proportion to this workspace. The skill mirrors became
 # copies then; this one file never followed. The class check is the point — a symlink is invisible on
 # the machine that creates it and only misreads on the other one, so nothing local ever reports it.
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -36,11 +37,19 @@ def test_no_tracked_file_is_a_symlink() -> None:
         'Point the reader at the real path, or generate a copy — SETUP-clone.md § Skill mirrors.')
 
 
-def test_the_memory_index_routes_to_the_profile_that_is_really_there() -> None:
-    """The half the class check cannot see: the link the index hands a reader must resolve."""
+def test_the_memory_index_routes_to_files_that_are_really_there() -> None:
+    """The half the class check cannot see: every link the index hands a reader must resolve.
+
+    It was pinned to `brain/USER.md` until 2026-09-15, when that file was cut for zero reads in 88
+    sessions and the assertion would have gone green on a broken index for the wrong reason. The
+    invariant was never about the profile — it is that the index never routes to a name that is not
+    there, which is exactly what the dead symlink did.
+    """
     index = ROOT / 'brain/memory/MEMORY.md'
-    assert 'user_profile.md' not in index.read_text(encoding='utf-8')
-    assert (ROOT / 'brain/USER.md').is_file()
+    text = index.read_text(encoding='utf-8')
+    assert 'user_profile.md' not in text
+    missing = [t for t in re.findall(r']\(([^)]+)\)', text) if not (index.parent / t).exists()]
+    assert not missing, f'the memory index routes to files that are not there: {missing}'
 
 
 if __name__ == '__main__':
