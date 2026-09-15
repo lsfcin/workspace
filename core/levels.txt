@@ -8,11 +8,16 @@
 # subagent outside that flow inherits its parent, so 16 read-only searches ran at the dearest level
 # there is. Numbers: core/experiments/delegation.md.
 #
-# WHAT THIS FILE CANNOT DO, said here so nobody reads it as the cost answer: delegated work is 2.5%
-# of spend. Routing every spawn to the cheapest level saves under 2% of the bill. The other 97.5% is
-# the main thread, and the main thread's level is chosen when a session is LAUNCHED — no config file
-# reaches it. So this is a map a reader applies, and the rendered agent files are the half a machine
-# can enforce.
+# WHERE THE MONEY IS: delegated work is 2.5% of spend, so routing every spawn to the cheapest level
+# saves under 2% of the bill. The other 97.5% is the main thread — and its level IS reachable, which
+# this file denied until 2026-09-15: `claude --effort <level>` at launch, `effortLevel` in settings,
+# `CLAUDE_CODE_EFFORT_LEVEL` in the environment, and a running session can audit its own level from
+# `$CLAUDE_EFFORT`. A level here is therefore a claim about the main thread too, not only a map for
+# spawns and rendered agent files.
+#
+# THE ROWS BELOW ARE CLAIMS, NOT SETTLED LAW. The `why` column is falsifiable and one pair has now
+# been tested: on a `test`-shaped task, low and high both scored full marks and high cost 2.1x —
+# core/experiments/effort-policy.md. Test a row before paying for its headroom.
 #
 # `max` is not in this table and that is deliberate: it is an ESCALATION target, reached when a
 # level below it failed twice, never a kind of work anyone picks up front (core/flows/craft/craft.md

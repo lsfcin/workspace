@@ -1,8 +1,8 @@
 # Effort policy
 > Which effort level does which kind of work need, per harness — and what does the headroom cost?
 
-Opened 2026-09-15 to close [/ROADMAP.md](../../ROADMAP.md) § Cost, whose one item said *thinking is
-65% of billed output and no instrument here can see it*. The session before it did not attempt the
+Opened 2026-09-15 to close the last cost item in [/ROADMAP.md](../../ROADMAP.md), which said
+*thinking is 65% of billed output and no instrument here can see it*. The session before it did not attempt the
 item and named the risk: effort might not be settable per run from here. It is, in three harnesses,
 and one of them reports thinking directly.
 
@@ -46,6 +46,25 @@ against a written rubric and are labelled self-reported.
 | 2026-09-15 | agy 3.8-flash | bat-and-ball | low | 3 | 164 / 143 / 95 | 3/3 | Instrument check only — see below |
 | 2026-09-15 | agy 3.8-flash | bat-and-ball | medium | 4 | 160 / 139 / 149 / 155 | 4/4 | — |
 | 2026-09-15 | agy 3.8-flash | bat-and-ball | high | 4 | 147 / 170 / 170 / 146 | 4/4 | — |
+| 2026-09-15 | claude opus-5 | worktree cure | low | 1 | 62.7% of $0.25 output | **4/4** | 34 turns · $1.79 |
+| 2026-09-15 | claude opus-5 | worktree cure | high | 1 | 74.2% of $0.66 output | **4/4** | 42 turns · $3.80 |
+
+**The pair that answers the roadmap item.** One real task, two effort levels, billed output and
+correctness both compared. `high` cost **2.1x** the total, **2.6x** the billed output, and an
+estimated **3.1x** the thinking dollars ($0.49 against $0.16 — output times the unlogged share).
+Correctness was **identical, and full marks both times**: each arm renamed the target test to
+assert the new law rather than deleting it, added a regression test, left the suite at 891 passed,
+and bypassed no gate. The `low` arm's regression test was the stronger of the two — it also
+asserts that the throwaway worktree is not left registered, which the prompt never asked for.
+
+So on this task the headroom bought nothing and cost double. What it did buy is *more* diff (10
+files / 197 insertions against 8 / 173) and 8 more turns. `core/levels.txt` calls this task shape
+`test` and claims medium; both neighbours of medium scored full marks, which is the first evidence
+against any row in that file — and evidence that the rows are worth testing rather than trusted.
+
+Both arms' work is preserved as `experiment/worktree-cure-low` and `experiment/worktree-cure-high`
+in this repo: real green cures for an [`ISSUES.md`](../../ISSUES.md) item, awaiting Lucas's review
+rather than merged by the session that generated them as a by-product.
 
 **What the instrument check settled, and it governs every row after it.**
 
@@ -62,6 +81,18 @@ against a written rubric and are labelled self-reported.
 - **On a task the bottom level already solves, headroom buys nothing.** 11/11 correct across all
   three levels, for ~18% more thinking from low to high. That is the shape `core/levels.txt`
   asserts for its `search`/`sweep`/`verify` rows, on one toy task and nothing more.
+
+**`agy --print` cannot be an arm for a coding task, and fails silently.** Measured 2026-09-15: a
+Task H run at `low` spent 530 s, 726k input tokens and 22,181 thinking tokens, then replied `DONE 2
+tests changed, suite green` — with **zero** changes in its clone: no commit, clean tree, the word
+`worktree` absent from the file it was asked to fix. Varying the check before believing it (
+[`output-cost.md`](output-cost.md) correction 2) found the cause is the harness, not the effort
+level: asked to write one file with one word, it reports `SUCCESS` and writes into
+`~/.gemini/antigravity-cli/scratch/` instead of the working directory. Neither `--add-dir .` nor
+`--mode accept-edits` moves the write. So in print mode it is usable only where the deliverable is
+the **reply text** — the rows above — and a repo-changing arm has to be driven from the IDE by
+hand. **Any effort table built from `agy --print` on a coding task would have been all false
+greens**, which is the failure this experiment was most at risk of producing.
 
 ## What changed
 
