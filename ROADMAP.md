@@ -74,12 +74,15 @@ running with it: `core/run tools/wos/features --scoreboard`, into
 *Why* — 82 features are on, so every cut is a guess and kept rules are paid on faith.
 *Done when* — the table is read after two weeks of ordinary use and each silent feature is a decision.
 
-**🟢 three gates consult no switch, so an ablation cannot turn them off**
-*What* — `checks/pre-edit.py`, `facade/facade-scan.py` and `facade/facade-tracker.py` calling
-`feature_law.is_enabled()`. They carry `-` in `core/hooks/gates.txt` § feature, which is a finding.
+**🟡 one gate blocks for two features, so neither can be attributed**
+*What* — `checks/pre-edit.py` split by responsibility. It refuses a write for three reasons owned by
+two features (`first-line-comment`, `line-limit`), and `gates.txt` gives a row one feature cell, so
+naming either makes the other's ablation row a lie. It is the last `-` in the table, and the only
+one that a switch call cannot fix.
 *Why* — a gate that keeps running with its feature off makes that feature's ablation row a lie, and
 its blocks are counted against nobody.
-*Done when* — no row in `gates.txt` carries `-`.
+*Done when* — no row in `gates.txt` carries `-`, and each block is counted against the feature that
+asked for it.
 
 **🟡 the ablation — the repo has never been measured against its own absence**
 *What* — variants of the public repo, one feature off in each, against one synthetic task suite.

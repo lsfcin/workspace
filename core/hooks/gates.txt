@@ -43,10 +43,18 @@
 # is_enabled() call was refused for the reason core/hooks/CONTEXT.md gives: a checker that restates
 # the law is the drift the checkers exist to catch. So it is declared here, once.
 #
-# A `-` IS A FINDING, not an exemption, and the three rows carrying one are why the column earns its
-# place: checks/pre-edit.py, facade/facade-scan.py and facade/facade-tracker.py consult no switch at
-# all, so an ablation run that turns their feature off leaves them running. That was invisible until
-# this column asked every row the question.
+# A `-` IS A FINDING, not an exemption. Three rows carried one when the column landed, which is why
+# it earns its place: those gates consulted no switch at all, so an ablation turning their feature
+# off left them running. The two facade rows were wired to facade-discipline on 2026-09-14, joining
+# facade-gate.py — the tracker records exactly what the gate consults, and the scan advises about
+# exactly what the import check blocks, so one switch is the honest answer for all three.
+#
+# ONE ROW IS LEFT, AND IT IS NOT THE SAME SHAPE. checks/pre-edit.py blocks for THREE reasons — a
+# missing CONTEXT.md description, a missing first-line comment, and the size cap — and those belong
+# to two features (first-line-comment, line-limit). One column cannot attribute them, so naming
+# either one here would make the other's ablation row a lie, which is the defect this column exists
+# to end. The fix is to split the file by responsibility, not to fill the cell; until then the `-`
+# says truthfully that no single feature owns this gate.
 #
 # moment	capability	order	path	class	feature
 pre	shell	10	read/bash-context-gate.py	blocks	context-chain
@@ -55,10 +63,10 @@ pre	read	10	read/context-gate.py	blocks	context-chain
 pre	read	20	read/pre-read.py	blocks	interface-first-reads
 pre	write	10	read/context-gate.py	blocks	context-chain
 pre	write	20	checks/pre-edit.py	blocks	-
-pre	write	30	facade/facade-scan.py	informs	-
+pre	write	30	facade/facade-scan.py	informs	facade-discipline
 pre	write	40	facade/facade-gate.py	blocks	facade-discipline
 pre	write	50	checks/issues-gate.py	blocks	issues-gate
 pre	write	60	read/spec-read-gate.py	blocks	spec-read-gate
 post	write	10	checks/retired-gate.py	informs	retired-tokens
-post	read	10	facade/facade-tracker.py	informs	-
+post	read	10	facade/facade-tracker.py	informs	facade-discipline
 post	read	20	read/context-tracker.py	informs	subtree-read-tracking
