@@ -211,6 +211,7 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `slug` | `name` | 2026-09-14 |
 | `probe` | `metadata` | 2026-09-14 |
 | `column cap` | `document cap` | 2026-09-14 |
+| `mail-triage` | `mail` | 2026-09-16 |
 
 **One retired token can owe four replacements, and the cell holds only the commonest.** `slug` names
 four ideas, and they do not flatten into one: a link's `short name`, a feature's or file's `name`, a

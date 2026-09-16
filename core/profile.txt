@@ -78,7 +78,7 @@ toggle	web-search	on
 toggle	google-auth	on
 toggle	forms	on
 toggle	vpn-cin	on
-toggle	mail-triage	on
+toggle	mail	on
 toggle	notes-notion	on
 toggle	link-shortener	on
 toggle	links	on
@@ -100,7 +100,8 @@ toggle	permissions	on
 toggle	levels	on
 toggle	publish	on
 toggle	github-auth	on
-toggle	gmail	on
+toggle	docs	on
+toggle	slides	on
 toggle	calendar	on
 toggle	drive	on
 toggle	foundry	on

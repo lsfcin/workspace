@@ -50,7 +50,7 @@ pytest-xdist	pip	xdist	import:xdist	verify-suite	-	verify.py fast falls over on 
 mypy	pip	-	venv-script:stubgen	interface-stubs	-	interface stubs stop regenerating on save; the .pyi files go stale without anything saying so
 pyyaml	pip	yaml	import:yaml	latex	-	core/tools/paper/terms dies on import, so the pre-commit term-consistency gate silently skips every paper
 requests	pip	requests	import:requests	notes-notion	-	core/tools/notes/notion cannot reach the API
-anthropic	pip	anthropic	import:anthropic	mail-triage	-	gmail attachment + triage paths lose their model calls
+anthropic	pip	anthropic	import:anthropic	mail	-	gmail attachment + triage paths lose their model calls
 pillow	pip	PIL	import:PIL	asset-inspect	-	core/tools/assets/inspect cannot open an image; the video OCR and VLM paths lose frame handling
 google-auth	pip	google	import:google.oauth2.credentials	google-auth	-	every Google-backed tool (mail, calendar, files, slides, forms, docs) fails before it reaches the network
 google-auth-oauthlib	pip	google_auth_oauthlib	import:google_auth_oauthlib	google-auth	-	the first-run OAuth consent flow cannot start, so no account can be added

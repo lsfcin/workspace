@@ -37,14 +37,20 @@ matching regression spec exists and passes.
   to nobody. The asymmetry, not the exemption, is the bug: a file can be exempt from a RULE without
   being exempt from a MEASUREMENT, and `size` conflates the two by reading one list for both.
 
-- **Eight feature names disobey the rule their own tools live under.** `core/tools/CONTEXT.md`
+- **Seven feature names disobey the rule their own tools live under.** `core/tools/CONTEXT.md`
   says the family directory is the feature and the file is the provider — function in the
   directory, vendor at the leaf — and the registry then spells the same features `google-auth`,
-  `mail-triage`, `notes-notion`, `link-shortener`, `wazip`, `video-text`, `asset-inspect` and
-  `vpn-cin`, while the directories are already `auth/`, `mail/`, `notes/`, `links/`, `chat/`,
+  `notes-notion`, `link-shortener`, `wazip`, `video-text`, `asset-inspect` and
+  `vpn-cin`, while the directories are already `auth/`, `notes/`, `links/`, `chat/`,
   `video/`, `assets/` and none. Found 2026-09-15 by Lucas, from `vpn-cin` carrying an institution
   inside a directive. `forms/gforms` is the row that already obeys, so the fix is to DROP the
-  vendor, never to spread it. **One of the eight cannot be fixed the obvious way**: `link-shortener`
+  vendor, never to spread it. **The eighth was paid 2026-09-16**, and the way it was paid is the
+  pattern for the rest: `mail-triage` → `mail` collided with the skill row `gmail`, because the
+  tool half and the skill half of ONE capability were two rows. They merged into one `tools+skills`
+  row, which is the shape `forms` already had — so the sweep pays rows rather than spending them.
+  The same pass ruled (Lucas) that a skill takes the FAMILY name: `gdocs`/`gslides` were never
+  spelled with the vendor, and `core/skills/gmail.md` became `mail.md`.
+  **One of the seven cannot be fixed the obvious way**: `link-shortener`
   → `links` collides with the norm named `links`, which owns the name by the same law
   (`core/norms/links.md`), and the registry key set is flat. That collision is the asymmetry worth
   writing down — two namespaces share one key space, and `group` already distinguishes them
@@ -108,7 +114,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/roadmap-drain is 2 ahead of main
+- . — feature/roadmap-drain is 3 ahead of main
 
 ### Local branches already merged into their base
 
