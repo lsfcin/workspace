@@ -2,7 +2,7 @@
 > metodologia macro semestral de condução, ciclos de projeto, avaliação e acompanhamento.
 > governs: todas as disciplinas de graduação e pós ministradas por Lucas (techedu, ai4good, etc)
 
-## 1. objetivos
+## objetivos
 
 1. **visão de mundo e de contribuição**
    - *cenário micro:* escutar os alunos, suas histórias, experiências, dificuldades, desejos, visões, como funcionam, como aprendem, quais os perfis.
@@ -21,7 +21,7 @@
 
 ---
 
-## 2. calendário (4 arcos: ~30 encontros | 15 semanas)
+## calendário (4 arcos: ~30 encontros | 15 semanas)
 
 ```
 [ARCO 1: INICIALIZAÇÃO] (semanas 01–02)
@@ -50,7 +50,7 @@
 
 ---
 
-## 3. entregas (metodologia e materiais)
+## entregas (metodologia e materiais)
 
 toda entrega (checkpoint) de disciplina é direcionada por dois documentos canônicos (metodologia e materiais), gerados a partir de modelos-base em markdown (.md) estruturados por artefatos:
 
@@ -69,7 +69,7 @@ toda entrega (checkpoint) de disciplina é direcionada por dois documentos canô
       - **exemplo excelente:** versão do modelo preenchido de forma excelente, gerado através dos passos indicados na metodologia.
       - **exemplo que parece bom mas não é:** versão do modelo preenchido, cumprindo superficialmente o que foi solicitado, alcançando um potencial estado de "entregue" porém sem substância ("sem alma"), entrando na lógica da "educação faz de conta" em que o aluno finge que faz e o professor finge que acredita.
 
-*nota: em cada ponto relevante é recomendado que adicionemos trechos focados no uso de agentes (IAs, harness). tanto no macro quanto no micro, prompts, subprompts, instruções de leitura focadas na IA, instruções de acesso, de forma geral estes documentos são guias explícitos para humanos e para IAs.*
+*nota: em cada ponto relevante é recomendado que adicionemos trechos focados no uso de agentes (IAs, harness). tanto no macro quanto no micro, prompts, subprompts, instruções de leitura focadas na IA, instruções de acesso, de forma geral estes documentos são guias explícitos para humanos e para IAs. como os humanos não precisam visualizar a parte específica para as IAs estes trechos devem ser escritos como comentários*
 
 ### acesso e edição
 
@@ -81,26 +81,22 @@ a **edição online** (zero custo / zero Limites) é fornecida pelo botão "Edit
 
 ---
 
-## 4. acompanhamento ("pontos, experiência")
+## acompanhamento ("pontos, experiência")
 
 - **painel:**
-   - as entregas estarão organizadas e disponibilizadas em um painel (google sheets) para todos
-   - o painel irá conter para cada entrega itens de verificação, escrita clara, feito ou não feito, e uma vez feito acréscimo direto nos pontos do aluno ou da equipe
+   - as entregas estarão organizadas e disponibilizadas em um painel para todos.
+   - o painel irá conter para cada entrega itens de verificação, escrita clara, feito ou não feito, e uma vez feito acréscimo direto nos pontos do aluno ou da equipe.
+   - o painel centraliza toda a parte prática da disciplina, datas, instruções, verificações e pontos. por isso deve se ter um cuidado para garantir acesso e usabilidade para o painel.
 
 ---
 
-## 5. Contrato para Agentes (Auditoria e Planejamento de Disciplinas)
+## análise usando agentes
 
-Ao auditar ou planejar a condução de uma disciplina, o agente deve validar:
-1. `[ ]` Cada entrega do calendário possui o par de `.md` estruturado pelos modelos canônicos
+ao auditar ou planejar a condução de uma disciplina, o agente (harness) deve validar:
+1. `[ ]` cada entrega do calendário possui o par de `.md` guiado pelos modelos canônicos
    (`templates/template-metodologia.md` e `templates/template-materiais.md`)?
-2. `[ ]` A Metodologia decompõe a entrega em artefatos com entradas e saídas explícitas e traz a seção `Guia para IAs &
-   Agentes`?
-3. `[ ]` O documento de Materiais cobre a Tríade (Modelo, Exemplo Positivo e Exemplo Negativo) acompanhada de anotações
-   críticas do professor para cada artefato?
-4. `[ ]` O sequenciamento respeita a regra: ferramentas com andaime prévio, conceitos novos com PS-I?
-5. `[ ]` O acompanhamento de notas opera com visibilidade estritamente privada por aluno/equipe?
-6. `[ ]` A banca final possui folha estruturada com subitens explícitos vinculados a pesos objetivos?
-7. `[ ]` Há alinhamento do requisito "Um passo a mais" (declaração da alavanca e do óbvio abandonado)?
-8. `[ ]` Os artefatos estão publicados no Cloudflare Pages com páginas de visualização rica e endpoints RAW para
-   harnesses de agentes?
+2. `[ ]` a metodologia decompõe a entrega em artefatos com entradas e saídas explícitas e inclui guias para IAs onde é pertinente?
+3. `[ ]` o documento de materiais cobre a tríade modelo, exemplo excelente e exemplo quase bom, acompanhada de anotações críticas do professor para cada artefato?
+4. `[ ]` o fluxo prático macro está consistente? entradas e saídas entre entregas se encaixam bem?
+5. `[ ]` o fluxo didático macr está consistente? conteúdos teóricos estão vinculados corretamente à prática? 
+6. `[ ]` todos os conteúdos estão publicados no com páginas de visualização rica e endpoints RAW para harnesses de agentes?

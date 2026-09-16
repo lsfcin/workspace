@@ -58,4 +58,7 @@ por turma.
 | [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | O questionário de rotina e setup da turma 2026.2, escrito como spec e aplicado por gforms new. |
 | [`AI4Good - Prática extra para abono de faltas .md`](AI4Good - Prática extra para abono de faltas .md) | Prática extra para abono de faltas da disciplina  Tópicos Avançados em IA \- Turma 2 (AI4Good) |
 | [`drive_sync.json`](drive_sync.json) | Estado do sync desta pasta com o Drive, escrito por core/tools/files/drive_sync.py — não é um formulário. |
+| [`painel.html`](painel.html) | ← add first-line comment |
+| [`painel.md`](painel.md) | Acompanhamento de entregas, critérios e submissões da turma 2026.2 (UFRPE). Planilha mestre original: `1IgBJWxItjmolBgwsnjlER894V6BP9nns8dFcc-NhStY` Acesso web: `lucassf.pages.dev/ai4good/painel` |
+| [`transformers-guia-acessivel-slides.md`](transformers-guia-acessivel-slides.md) | **Material Didático Acessível & Roteiro Pareado de Aula** **Disciplina:** Tópicos em IA – Turma 2 | AI4Good | UFRPE **Professor:** Lucas Silva Figueiredo **Slides de Referência:** [Apresentação Google Slides (106 telas)](https://docs.google.com/presentation/d/1xw1QMYfhase1Su0dlT8bYHlYaLouiPOFT2poTHX0i0k/edit?usp=sharing) **Público-alvo:** Estudantes de… |
 <!-- routing:end -->
