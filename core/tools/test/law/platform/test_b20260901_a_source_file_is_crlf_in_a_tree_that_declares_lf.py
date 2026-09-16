@@ -25,7 +25,7 @@
 import subprocess
 
 import pytest
-from conftest import WORKSPACE_ROOT
+from conftest import WORKSPACE_ROOT, needs
 
 RESPONSES = WORKSPACE_ROOT / 'academy/teaching/tecnologias-na-educacao/respostas'
 # What each export held before the renormalisation, counted with the csv module. A pass that
@@ -86,6 +86,7 @@ def test_no_declared_text_file_is_crlf_in_this_working_tree() -> None:
 @pytest.mark.parametrize('name, shape', sorted(EXPORTS.items()))
 def test_a_renormalised_export_still_parses_to_the_same_table(name, shape) -> None:
     """Line endings are data in a CSV whose free-text answers contain newlines of their own."""
+    needs('academy/teaching')
     import csv
     import io
     raw = (RESPONSES / name).read_bytes()

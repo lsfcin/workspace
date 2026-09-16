@@ -12,7 +12,7 @@ import subprocess
 import sys
 
 import feature_law as law
-from conftest import WORKSPACE_ROOT
+from conftest import WORKSPACE_ROOT, carries
 from platform_law import interpreter
 
 sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools/wos/skills'))
@@ -67,6 +67,12 @@ def test_a_row_claiming_to_be_wired_really_is():
     for row in law.load_registry():
         for target in law.wired_paths(row):
             path = WORKSPACE_ROOT / target
+            # A switch inside a tree this checkout does not carry is unanswerable here, not broken:
+            # `telegram-capture` is wired into code/aiwbot, its own repo, and the public clone has
+            # no code/ at all. Judged by the TREE and not the file, so a row whose switch was
+            # deleted from a tree that IS here still reports.
+            if not carries(target):
+                continue
             if not path.exists():
                 broken.append(f"{row['name']}: {target} does not exist")
             elif target not in GROUP_PUBLISHERS and row['name'] not in path.read_text(encoding='utf-8'):
@@ -157,6 +163,8 @@ def test_the_wired_gates_actually_consult_the_law(tmp_path):
     silent, ran = [], 0
     for row in law.load_registry():
         for target in law.wired_paths(row):
+            if not carries(target):
+                continue   # same tree rule as the case above
             body = (WORKSPACE_ROOT / target).read_text(encoding='utf-8')
             # A standalone hook ends by running main() on stdin; those we can observe.
             if target.endswith('.py') and 'sys.exit(main())' in body:

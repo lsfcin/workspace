@@ -6,7 +6,7 @@
 # which is the cutting campaign's input (ROADMAP.md § Portability). So nothing crosses by default
 # and "unowned" is reported rather than waved through (Lucas, 2026-09-15).
 from __future__ import annotations
-import ast, pathlib, subprocess
+import ast, fnmatch, pathlib, re, subprocess
 from typing import NamedTuple
 
 ROOT = pathlib.Path(__file__).resolve().parents[4]
@@ -18,11 +18,12 @@ class Floor(NamedTuple):
     target: pathlib.Path
     roots: tuple[str, ...]
     files: tuple[str, ...]
+    trees: tuple[str, ...]
     absent: dict[str, str]
 
 
 def floor() -> Floor:
-    target, roots, files, absent = None, [], [], {}
+    target, roots, files, trees, absent = None, [], [], [], {}
     for line in FLOOR.read_text(encoding='utf-8').split('\n'):
         if line.startswith('#') or not line.strip() or line.startswith('kind\t'):
             continue
@@ -33,10 +34,12 @@ def floor() -> Floor:
             roots.append(path)
         elif kind == 'file':
             files.append(path)
+        elif kind == 'tree':
+            trees.append(path)
         elif kind == 'absent':
             absent[path] = reason
     assert target is not None, f'{FLOOR} names no target'
-    return Floor(target, tuple(roots), tuple(files), absent)
+    return Floor(target, tuple(roots), tuple(files), tuple(trees), absent)
 
 
 def tracked() -> list[str]:
@@ -48,9 +51,12 @@ def tracked() -> list[str]:
 
 
 def eligible(f: Floor) -> set[str]:
-    """Tracked AND under the floor. Still not crossing — nothing crosses until a feature claims it."""
-    return {p for p in tracked() if p and
-            (p in f.files or any(p.startswith(r + '/') for r in f.roots))}
+    """Tracked, under the floor, and not named absent. Still not crossing — nothing crosses until a
+    feature claims it. Absent is checked HERE, before any claim, so a refusal a reader can see in
+    the floor cannot be undone by a pointer somewhere in the registry."""
+    return {p for p in tracked() if p
+            and (p in f.files or any(p.startswith(r + '/') for r in f.roots))
+            and not any(p == a or p.startswith(a + '/') for a in f.absent)}
 
 
 class Claim(NamedTuple):
@@ -58,23 +64,72 @@ class Claim(NamedTuple):
     feature: str
 
 
-def claims() -> list[Claim]:
-    """Every file a general-scoped feature names as its switch. A `lucas` row claims nothing: the
-    capability is bound to one of Lucas's projects, so the public repo has no use for its files."""
-    rows = REGISTRY.read_text(encoding='utf-8').split('\n')
+def _registry() -> list[dict[str, str]]:
+    """Read by COLUMN NAME, the way core/hooks/feature_law.py reads the same file. Two readers of one
+    table, one by name and one by position, is how the next column added breaks the quiet one."""
+    lines = [ln for ln in REGISTRY.read_text(encoding='utf-8').split('\n')
+             if ln.strip() and not ln.startswith('#')]
+    header = lines[0].split('\t')
+    return [dict(zip(header, ln.split('\t'))) for ln in lines[1:]]
+
+
+def claims(scope: str = 'general') -> list[Claim]:
+    """Every file a feature names: `wired` names its switch, `ships` the rest of the tree that
+    switch cannot run without. Only `general` rows feed the crossing set — a `lucas` capability is
+    bound to one of his projects and the public repo has no use for its files. It is still read,
+    under `scope='lucas'`, and for the opposite purpose: a file that row names is NOT an orphan,
+    because a feature said what it is for, and the orphan list asks only that question."""
     out = []
-    for line in rows:
-        if line.startswith('#') or '\t' not in line or line.startswith('name\t'):
+    for row in _registry():
+        if row.get('scope') != scope:
             continue
-        col = line.split('\t')
-        if len(col) < 7 or col[5] != 'general':
-            continue
-        for path in col[6].split(','):
-            path = path.strip()
-            # `n/a <reason>` is machine state no code here authors, and `-` is a finding the
-            # registry already counts. Neither names a file.
-            if path and path != '-' and not path.startswith('n/a'):
-                out.append(Claim(path, col[0]))
+        for column in ('wired', 'ships'):
+            for path in row.get(column, '').split(','):
+                path = path.strip()
+                # `n/a <reason>` is machine state no code here authors, and `-` is a finding the
+                # registry already counts. Neither names a file.
+                if path and path != '-' and not path.startswith('n/a'):
+                    out.append(Claim(path, row['name']))
+    return out
+
+
+def expand(seeds: list[Claim], pool: set[str]) -> list[Claim]:
+    """A `ships` entry may be a glob, because a feature owning a directory should say so once rather
+    than relist it at every file added. A pattern matching nothing stays as itself, so the claim
+    still shows up as the dangling pointer it is rather than vanishing."""
+    out = []
+    for claim in seeds:
+        if any(ch in claim.path for ch in '*?['):
+            out += [Claim(p, claim.feature) for p in pool if fnmatch.fnmatch(p, claim.path)]
+        else:
+            out.append(claim)
+    return out
+
+
+def _literals(rel: str) -> set[str]:
+    """Paths this file names outright. The import graph is only half of what a file cannot run
+    without: every law module in this workspace holds its answer in a data file and reaches it by a
+    literal — core/SCHEMA.md, limits.env, gates.txt, features.txt. Reading those literals is the
+    same move as reading the imports, and it is why neither the floor nor the registry has to grow
+    a row for data a crossing file already points at."""
+    try:
+        text = (ROOT / rel).read_text(encoding='utf-8')
+    except (OSError, UnicodeDecodeError):
+        return set()
+    here = pathlib.PurePosixPath(rel).parent
+    try:
+        found = [n.value for n in ast.walk(ast.parse(text))
+                 if isinstance(n, ast.Constant) and isinstance(n.value, str) and n.value]
+    except SyntaxError:
+        # Not Python. A harness registers its hooks in JSON and a shim in shell, and a path named
+        # there is a dependency the same way an import is — the copilot shims and session-prune
+        # reached the target only once this branch existed. Any path-shaped token, checked against
+        # the pool, which is what makes a wrong guess cost nothing.
+        found = re.findall(r'[\w.$/{}-]+/[\w.-]+', text)
+    out = set()
+    for value in found:
+        bare = value.rsplit('/', 1)[0] if value.endswith('/') else value
+        out.update({bare.lstrip('/'), f'{here}/{bare}'})
     return out
 
 
@@ -95,18 +150,17 @@ def _imports(path: pathlib.Path) -> set[str]:
     return names
 
 
-# Where a sibling module is looked for. These are the directories the tools and hooks insert into
-# sys.path themselves, so the list is a reading of what the code does rather than a policy.
-SEARCH = ('core/tools', 'core/hooks', 'core/tools/wos', 'core/tools/verify')
-
-
 def _resolve(name: str, importer: str, pool: set[str]) -> str | None:
-    here = str(pathlib.PurePosixPath(importer).parent)
-    for directory in (here, *SEARCH):
-        candidate = f'{directory}/{name}.py'
-        if candidate in pool:
-            return candidate
-    return None
+    """The importer's own directory first, then anywhere in the pool when the basename is UNIQUE.
+    There was a list of sys.path dirs above this; it named four and the tree has more, because most
+    files COMPUTE their insert rather than spelling it, and a static list chasing those is one
+    import behind forever. A unique basename is the answer Python would reach anyway; an ambiguous
+    one is a finding, and staying unresolved is how it surfaces."""
+    here = f'{pathlib.PurePosixPath(importer).parent}/{name}.py'
+    if here in pool:
+        return here
+    found = [p for p in pool if p.endswith(f'/{name}.py')]
+    return found[0] if len(found) == 1 else None
 
 
 def closure(seeds: list[str], pool: set[str]) -> set[str]:
@@ -123,6 +177,7 @@ def closure(seeds: list[str], pool: set[str]) -> set[str]:
             found = _resolve(name, current, pool)
             if found and found not in reached:
                 queue.append(found)
+        queue += [p for p in _literals(current) & pool if p not in reached]
     return reached
 
 
@@ -149,15 +204,30 @@ def _paired(crossing: set[str], pool: set[str]) -> set[str]:
     return out
 
 
+# A CONTEXT.md is not authored by a feature either — it describes the directory holding it, and this
+# workspace's own read gate refuses a file in a subtree whose CONTEXT.md is not loaded. A clone with
+# a hole in that chain blocks its own agent, so the chain crosses whole: every parent up to the
+# floor, never only the leaf.
+def _described(crossing: set[str], pool: set[str]) -> set[str]:
+    out = set()
+    for path in crossing:
+        for parent in pathlib.PurePosixPath(path).parents:
+            if (candidate := f'{parent}/CONTEXT.md') in pool:
+                out.add(candidate)
+    return out
+
+
 def report() -> Report:
     f = floor()
     pool = eligible(f)
-    seeds = claims()
-    # A `file` row is substrate: SETUP.md § substrate names the category — what every feature runs
-    # on, which installs no feature and gets no registry row. The floor names each one with its
-    # reason, and that IS the claim; asking a feature to claim verify.py would invent an owner.
-    crossing = closure([c.path for c in seeds] + list(f.files), pool)
+    seeds = expand(claims(), pool)
+    # A `file` or `tree` row is substrate: SETUP.md § substrate names the category — what every
+    # feature runs on, which installs no feature and gets no registry row. The floor names each one
+    # with its reason, and that IS the claim; asking a feature to claim verify.py would invent owner.
+    substrate = list(f.files) + [p for p in pool if any(p.startswith(t + '/') for t in f.trees)]
+    crossing = closure([c.path for c in seeds] + substrate, pool)
     crossing |= _paired(crossing, pool)
+    crossing |= _described(crossing, pool)
     by_feature: dict[str, set[str]] = {}
     for claim in seeds:
         if claim.path in pool:
@@ -169,4 +239,5 @@ def report() -> Report:
         for name in _imports(ROOT / path):
             if _resolve(name, path, pool) is None and (ROOT / f'{name}.py').exists():
                 escaping.append((path, name))
-    return Report(crossing, pool - crossing, escaping, by_feature)
+    private = {c.path for c in expand(claims('lucas'), pool)}
+    return Report(crossing, pool - crossing - private, escaping, by_feature)

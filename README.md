@@ -110,5 +110,5 @@ worse answer. `core/tools/wos/deps` checks them all.
 Installing only a **subset** works: every feature is declared in
 [`core/features.txt`](core/features.txt), the answers for this machine live in
 [`core/profile.txt`](core/profile.txt), and `core/tools/wos/features --on|--off <name>` is how one is
-switched. Still open: what crosses into a public copy, and what stays private —
-[`ROADMAP.md`](ROADMAP.md) § Portability.
+switched. What crosses into the public copy and what never does is
+[`core/public.txt`](core/public.txt), which carries its own reasons.

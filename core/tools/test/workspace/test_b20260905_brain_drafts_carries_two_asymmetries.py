@@ -30,7 +30,7 @@
 import subprocess
 
 import pytest
-from conftest import WORKSPACE_ROOT
+from conftest import WORKSPACE_ROOT, needs
 from platform_law import rel
 
 BRAIN = WORKSPACE_ROOT / 'brain'
@@ -50,6 +50,7 @@ def declared_subtrees() -> list:
 
 def test_brain_declares_subtrees_at_all() -> None:
     """The floor. A glob that matched nothing would make every case below vacuously true."""
+    needs('brain')
     assert len(declared_subtrees()) >= 3, [str(p) for p in declared_subtrees()]
 
 
@@ -69,6 +70,7 @@ def test_a_declared_brain_subtree_is_carried_by_git(subtree) -> None:
 def test_the_drafts_that_started_this_are_the_ones_now_carried() -> None:
     """Named rather than left to the class check: these six files were the exposure, and a class
     check that passed because the directory had been deleted would be the wrong kind of green."""
+    needs('brain/drafts')
     carried = tracked()
     names = {p.name for p in DRAFTS.glob('*.md')}
     assert 'CONTEXT.md' in names, 'brain/drafts/ lost the declaration that tracks it'

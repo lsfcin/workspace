@@ -2,7 +2,7 @@
 import json
 
 import pytest
-from conftest import WORKSPACE_ROOT
+from conftest import WORKSPACE_ROOT, needs
 
 import forms_spec
 
@@ -75,6 +75,7 @@ def test_every_form_lucas_applies_still_compiles():
     Discovered by glob rather than listed, because a spec is added per discipline and a
     listed path would leave the next turma's form untested without saying so.
     """
+    needs('academy/teaching')
     assert SPECS, 'no form spec found under academy/teaching/*/'
     for path in SPECS:
         spec = json.loads(path.read_text(encoding='utf-8'))

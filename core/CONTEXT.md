@@ -31,5 +31,6 @@ and spawns the specialist workers beside it.
 | [`levels.txt`](levels.txt) | What KIND OF WORK gets which level. The horizontal axis; core/tools/wos/levels is the vertical one — which concrete model fills a level, per harness — and that is the ONLY place a model id appears. A level is a capacity, never a vendor's product name (core/hooks/entropy/entropy_vendor.py). |
 | [`permissions.txt`](permissions.txt) | Neutral permission levels: what an agent may do without asking. Tab-separated columns: kind   level | rule level   guarded | standard | open key    summary | tradeoff | mode (for kind=level); allow | ask | deny (for kind=rule) value  prose (for kind=level); neutral action name (for kind=rule) |
 | [`profile.txt`](profile.txt) | Which features are switched on by default, and the settings that are not switches. The registry is core/features.txt; this file holds only the answers. Read by core/hooks/feature_law.py. |
+| [`public.txt`](public.txt) | Which trees may cross into the public repo at all, and where it is checked out. Read by core/tools/wos/publish/crossing.py; the per-feature half of the answer lives in core/features.txt. |
 | [`run`](run) | The one command that runs anything in core/: find this clone's interpreter, then exec with it. |
 <!-- routing:end -->

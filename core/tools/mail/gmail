@@ -115,7 +115,7 @@ def cmd_attachments(email_id: str | None) -> None:
 
 
 def main():
-    tool_law.require('mail-triage')  # before argparse: off means off, including --help
+    tool_law.require('mail')  # before argparse: off means off, including --help
     p = argparse.ArgumentParser(prog="gmail")
     sub = p.add_subparsers(dest="cmd")
 

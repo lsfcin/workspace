@@ -8,7 +8,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
+from conftest import WORKSPACE_ROOT, needs  # the depth lives in one file, not nine
 # sys.path for the enforcement layer is set once, by conftest.py — a second copy
 # here would go stale the next time core/hooks is split.
 
@@ -91,6 +91,7 @@ def test_the_vendored_waiver_reaches_the_edit_gate() -> None:
     It follows the SIZE half of the 2026-09-14 split, because the cap is what the waiver waives —
     `write_payload.py` declares the root and `size-gate.py` is the caller that spends it.
     """
+    needs('academy')
     gate = HOOKS / 'checks/write_payload.py'
     depth = int(re.search(r'WORKSPACE_ROOT = Path\(__file__\)\.resolve\(\)\.parents\[(\d+)\]',
                           gate.read_text(encoding='utf-8')).group(1))

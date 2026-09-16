@@ -107,21 +107,24 @@ por turma.
 
 As especificações de entrega não usam slides: residem como pares `.md` versionados e servidos via shortlink.
 
-| Checkpoint | Data | Metodologia (`.md`) | Materiais & Tríade (`.md`) |
-|---|---|---|---|
-| CP-01: Problem-Tech Fit | 16/09/2026 | [`cp01-metodologia.md`](cp01-metodologia.md) (`techedu/cp01`) | [`cp01-materiais.md`](cp01-materiais.md) (`techedu/cp01-materiais`) |
+| Checkpoint | Data | Metodologia (`.md`) | Materiais & Tríade (`.md`) | Painel (`.md`) |
+|---|---|---|---|---|
+| CP-01: Problem-Tech Fit | 16/09/2026 | [`cp01-metodologia.md`](cp01-metodologia.md) (`techedu/cp01`) | [`cp01-materiais.md`](cp01-materiais.md) (`techedu/cp01-materiais`) | [`painel.md`](painel.md) (`techedu/painel`) |
 
 <!-- routing:start -->
 ## Routing
 
 | File | Interface | API | Description |
-|---|---|---|---|
-| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | — | — | O questionário de rotina e setup da turma 2026.2, aplicado por gforms new. |
+|------|-----------|-----|-------------|
+| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | — | — | O questionário de rotina e setup da turma 2026.2, escrito como spec e aplicado por gforms new. |
 | [`add_aula02.py`](add_aula02.py) | [`add_aula02.pyi`](add_aula02.pyi) | `build` | Aula 02: intercala slides novos no deck existente e refina dois slides. |
 | [`aula02_conteudo.py`](aula02_conteudo.py) | [`aula02_conteudo.pyi`](aula02_conteudo.pyi) | — | Conteudo da aula 02 — o que entra no deck e onde. |
-| [`build_excalidraw.py`](build_excalidraw.py) | [`build_excalidraw.pyi`](build_excalidraw.pyi) | `frame`, `rect`, `ellipse`, `text`, `bloco` | Gera o quadro da aula 02: um frame por equipe + frame de exemplo preenchido. |
-| [`build_tecnologias.py`](build_tecnologias.py) | [`build_tecnologias.pyi`](build_tecnologias.pyi) | `par`, `toggle`, `folha`, `blocos`, `ops` | Gera a seção Tecnologias Emergentes do Notion a partir de tecnologias.json. |
-| [`cp01-materiais.md`](cp01-materiais.md) | — | — | Tríade de materiais para a entrega CP-01 (Starter Kit, Exemplo Bom e Exemplo Ruim). |
-| [`cp01-metodologia.md`](cp01-metodologia.md) | — | — | Metodologia da entrega CP-01: grafo de artefatos, pipeline e matriz A/AP/NA. |
-| [`tecnologias.json`](tecnologias.json) | — | — | A árvore de tecnologias da disciplina, lida por build_tecnologias.py. |
+| [`build_excalidraw.py`](build_excalidraw.py) | [`build_excalidraw.pyi`](build_excalidraw.pyi) | `frame`, `rect`, `ellipse`, `text`, `bloco` | Gera o quadro da aula 02: um frame por equipe + um frame de exemplo preenchido. |
+| [`build_tecnologias.py`](build_tecnologias.py) | [`build_tecnologias.pyi`](build_tecnologias.pyi) | `par`, `toggle`, `folha`, `blocos`, `ops` | Gera a seção Tecnologias Emergentes do Notion a partir de tecnologias.json: toggle por eixo, toggle por folha. |
+| [`cp01-materiais.md`](cp01-materiais.md) | — | — | Tecnologias na Educação · 2026.2 · Entrega: 16/09/2026 (Quarta-feira, 23h59) Planilha Mestre: `1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU` (Coluna K, Linha 20) Metodologia & Critérios: `lucassf.pages.dev/techedu/cp01` |
+| [`cp01-metodologia.md`](cp01-metodologia.md) | — | — | Tecnologias na Educação · 2026.2 · Entrega: 16/09/2026 (Quarta-feira, 23h59) Planilha Mestre: `1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU` (Coluna F, Linha 20) Materiais & Tríade: `lucassf.pages.dev/techedu/cp01-materiais` |
+| [`cp02-metodologia.md`](cp02-metodologia.md) | — | — | Metodologia · CP-02: Concorrentes |
+| [`painel.html`](painel.html) | — | — | Painel interativo de entregas e critérios da turma 2026.2 (Tecnologias na Educação) |
+| [`painel.md`](painel.md) | — | — | Acompanhamento de entregas, critérios e submissões da turma 2026.2 (UFRPE). Planilha mestre original: `1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU` Versão local para avaliação de layout e responsividade. |
+| [`tecnologias.json`](tecnologias.json) | — | — | A árvore de tecnologias da disciplina, lida por build_tecnologias.py — não é um formulário. |
 <!-- routing:end -->

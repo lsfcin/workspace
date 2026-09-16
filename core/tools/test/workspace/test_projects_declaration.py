@@ -11,7 +11,7 @@ import re
 import sys
 from pathlib import Path
 
-from conftest import WORKSPACE_ROOT
+from conftest import WORKSPACE_ROOT, needs
 
 PROJECTS = WORKSPACE_ROOT / 'PROJECTS.md'
 ROW = re.compile(r'^\|\s*`([^`]+)`\s*\|', re.MULTILINE)
@@ -33,6 +33,7 @@ def listed_in_projects() -> set:
 
 
 def test_every_declared_project_has_a_row() -> None:
+	needs('PROJECTS.md')
 	missing = sorted(declared_in_gitignore() - listed_in_projects())
 	assert not missing, (
 		f'{missing} are declared in .gitignore and absent from PROJECTS.md — a project nobody can '
@@ -40,6 +41,7 @@ def test_every_declared_project_has_a_row() -> None:
 
 
 def test_every_row_names_a_declared_project() -> None:
+	needs('PROJECTS.md')
 	"""The other direction, and the one a rename breaks: a row whose path git never ignores is
 	pointing at a directory that either moved or was never a project."""
 	stale = sorted(listed_in_projects() - declared_in_gitignore())
@@ -47,6 +49,7 @@ def test_every_row_names_a_declared_project() -> None:
 
 
 def test_the_table_reads_the_same_on_every_clone() -> None:
+	needs('PROJECTS.md')
 	"""Nothing here may depend on what is checked out. The trap this file was written to avoid is
 	the one b20260902 sprang: a tracked table that describes one machine's disk."""
 	assert declared_in_gitignore(), 'no projects declared — the parse rule has drifted'

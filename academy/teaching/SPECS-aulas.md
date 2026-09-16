@@ -68,7 +68,7 @@ Ao revisar um deck ou roteiro de aula, o agente deve auditar:
 5. `[ ]` Há micro-pausas ativas (discussão em par) previstas entre tópicos?
 6. `[ ]` Existe glossário/resumo visual de fechamento e gatilho para a prática?
 7. `[ ]` Na prática: há Alvo claro, Exemplo Bom vs. Ruim, Modelo, Roteiro e Checklist?
-8. `[ ]` Há versão acessível gerada (roteiro para áudio/podcast ou audiodescrição)?
+8. `[ ]` Há versão acessível gerada no padrão Tri-Bloco (via skill `accessible-deck` para leitor de tela e podcast no Google NotebookLM)?
 
 ### Modo 2: Planejar Nova Aula
 Ao planejar uma nova aula do zero, o agente deve gerar:
@@ -76,4 +76,4 @@ Ao planejar uma nova aula do zero, o agente deve gerar:
 2. **Roteiro dos Slides:** Estrutura slide a slide associando cada tela a um nó e ao ângulo correspondente.
 3. **Spec do Formulário de Retenção:** Arquivo `.json` compatível com o gerador `gforms`.
 4. **Pacote Prático (se aplicável):** Alvo, Starter Template, Exemplo Bom/Ruim e Checklist.
-5. **Roteiro Acessível:** Base textual para gerar o áudio/podcast da aula via IA.
+5. **Roteiro Acessível:** Base textual pareada aos slides no padrão Tri-Bloco (Resumo Conceitual, Audiodescrição Estrutural de Diagramas e Exemplos Práticos Extras) gerada via [`core/skills/accessible-deck.md`](../../core/skills/accessible-deck.md), pronta para áudio/podcast no NotebookLM.

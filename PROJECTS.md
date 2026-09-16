@@ -57,6 +57,7 @@ keeps whatever the machine that has it wrote.
 | `code/spacemantics` | [github](https://github.com/lsfcin/spacemantics) | — |
 | `code/statem` | — | — |
 | `code/voti` | [github](https://github.com/lsfcin/voti) | — |
+| `code/wos` | [github](https://github.com/lsfcin/wos) | — |
 <!-- projects:end -->
 
 `code/isoroll-module` is the one path whose repo carries another name: the remote is `lsfcin/isoroll`.

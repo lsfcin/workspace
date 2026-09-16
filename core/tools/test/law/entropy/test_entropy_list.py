@@ -7,7 +7,7 @@
 import sys
 from pathlib import Path
 
-from conftest import WORKSPACE_ROOT  # the depth lives in one file, not nine
+from conftest import WORKSPACE_ROOT, needs  # the depth lives in one file, not nine
 # sys.path for the enforcement layer is set once, by conftest.py — a second copy
 # here would go stale the next time core/hooks is split.
 import entropy_corpus  # noqa: E402
@@ -112,6 +112,7 @@ def test_memory_links_are_exempt_but_its_retired_tokens_are_not():
     Only that check is relaxed. Retired tokens stay enforced there, which is not hypothetical: the
     day the store moved into the workspace it was still telling sessions to write to KNOWN-ISSUES.md.
     """
+    needs('brain/memory')
     exempt = entropy_corpus.wiki_exempt_paths(WORKSPACE_ROOT)
     memory = {p.resolve() for p in (WORKSPACE_ROOT / 'brain/memory').rglob('*.md')}
     assert memory and memory <= exempt

@@ -9,6 +9,32 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DdXZkT3ulY6/?stkn=NTc4MTIwNjQ2YQ==
+talvez sirva pros nossos testes. to curioso sobre
+— via aiwbot · 2026-09-16
+
+https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance?view=azure-devops
+https://www.markdownguide.org/basic-syntax/
+markdowns parecem dar suporte a muito mais coisa do que imaginava. cogitando fortemente abandonar o notion e as planilhas e ficar só com markdowns pras minhas disciplinas.
+
+https://www.instagram.com/reel/DdWLJa2tjq6/?utm_source=ig_web_copy_link
+essa é uma ideia antiga, vale a pena checar
+— via aiwbot · 2026-09-16
+
+https://www.instagram.com/reel/DdSGzyohGXt/?utm_source=ig_web_copy_link
+referência pra obra das casinhas
+— via aiwbot · 2026-09-16
+
+trocar a palavra hatchet por outra melhor, mais simples
+
+ARCHITECTURE.html pode melhorar muito. tabela gigante e vazia não ajuda, poderia ser talvez uma lista ordenada por cores e/ou símbolos e seria mais fácil de entender... tenho que relembrar o propósito profundo desse painel, entender o que ele pode entregar de valor por que não senti que entrega agora, e daí jogar novamente no claude design pra iterar mais uma vez e melhorar aqui.
+
+trocar a palavra "gate" por "block" no WOS, acho que encaixa melhor, mais direta retratando o impacto. trocar inclusive nos nomes dos arquivos. achar um sinônimo também pra palavra "nudge" e que facilite a tradução, já aconteceu numa conversa do agente falando português soltar um 'nudge' no meio da conversa.
+
+https://www.instagram.com/p/DdGDp-MlKkE/?utm_source=ig_web_copy_link
+checar
+— via aiwbot · 2026-09-15
+
 https://www.instagram.com/p/DcyBvhTiaSC/?stkn=NTc4MTIwNjQ2YQ==
 será que SDD vale a pena mesmo? a gente tem que parar pra analisar isso com calma, pesquisar a fundo, analisar o SOTA e ver como implantamos (se valer a pena) de forma prática e inexcapável o SDD. será que temos que fazer o TDD também? acho que vale incluir no bolo, na pesquisa
 

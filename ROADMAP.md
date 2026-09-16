@@ -19,18 +19,12 @@ so check it rather than this line.
 *Why* — 82 features are on, so every cut is a guess and kept rules are paid on faith.
 *Done when* — the table is read after two weeks of ordinary use and each silent feature is a decision.
 
-**🟡 the public repo his students clone** — *the ablation's precondition, so it comes first*
-*What* — the checkout at `code/wos/` and the sync that writes it. The rule deciding what crosses now
-exists and reports itself (`core/run tools/wos/publish/repo`); nothing crosses unclaimed, so what
-remains is the claims that reading says are missing, then the repo, then the push.
-*Why* — students asked for it, and the ablation needs variants of it to turn a feature off in.
-*Done when* — a student clones it and gets a working workspace.
-
 **🟡 the ablation — the repo has never been measured against its own absence**
 *What* — variants of the public repo, one feature off in each, against one synthetic task suite.
 *Why* — this workspace compensates for model failures; a rule that outlives its failure is pure cost.
 It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is what says which
-mechanism earns its keep: public repo → ablation → cuts.
+mechanism earns its keep. Unblocked 2026-09-16: the repo it varies is `lsfcin/wos`, public, synced
+one way by `core/run tools/wos/publish/repo` and green on its own suite.
 *Done when* — a **per-feature** verdict is readable. Runs outside this workspace (`academy/papers/wos-ablation/`).
 
 ## Legibility — can Lucas still read what he owns
@@ -53,9 +47,10 @@ instrument names the candidate and it is **this file**, so draining the roadmap 
 are one job.
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every
 line; that is a reason to pay, not a reason not to.
-The instrument that names candidates arrived early, from the item above: `publish/repo --orphans`
-lists every tracked file no feature claims, which is a stronger question than "who reads this" —
-`size --weighted` ranks what a session opens, this ranks what nothing can say a purpose for.
+The instrument that names candidates is `publish/repo --orphans`: every tracked file no feature
+claims, a stronger question than "who reads this" — `size --weighted` ranks what a session opens,
+this ranks what nothing can say a purpose for. It read 659 on 2026-09-15 and **10** on 2026-09-16,
+because most of those were claims the registry had not written; what is left is the real list.
 *Done when* — the **weighted** total falls: lines SERVED per session, not lines on disk. The disk
 number can be paid by deleting a file nobody opens, which nearly took `core/experiments/` — 11% of
 the lines, zero reads in 88 sessions, and **the WOS paper's data. The cut never comes from there**
@@ -77,6 +72,16 @@ The other two answers are in: `is_owner_only()` reads the ACL back rather than t
 and `core/tools/deps.txt` carries a `floor` column — a floor, not a ceiling, because the failure is
 a distro shipping something too old, never a release from the future.
 
+**🔴 `code/aiwbot` is part of WOS and is filed as a stranger to it**
+*What* — the hierarchy fixed rather than labelled. `telegram-capture` is the only registry row whose
+switch lives outside this repo, and the wiring check now has to skip it; Lucas ruled 2026-09-16 that
+aiwbot belongs inside WOS and **may be public**, which makes it the second repo the one-way sync
+could write.
+*Why* — a feature whose switch nothing here can throw cannot be ablated, and it is the one row the
+honesty check cannot answer.
+*Done when* — the row's `wired` names a file this repo carries, and the skip in
+`test_features_wiring.py` is deleted rather than kept.
+
 ## Deferred — real work, deliberately not now
 
 - **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 repo is tight.
@@ -91,14 +96,10 @@ a distro shipping something too old, never a release from the future.
 - **The one-root hypothesis** — 2026-09-14: two of three; words die when structure moves and text does not follow.
 - **`gate` → `block`** — 2026-09-14: `block` already names a generated region AND is the verb: *"a block blocks"*.
 - **Flattening the eight personification verbs** — 2026-09-14 (Lucas): 478 uses and they read; a voice is not jargon.
-- **Excluding `code/aiwbot` from the entropy scan** — 2026-09-12: a tree our checks skip is an invisible asymmetry.
 - **A goal↔roadmap warning, and a goal-format audit** — 2026-09-15: 26 of 39 goal files have never been opened.
-- **A repo target of ≤170 `.md` files** — 2026-09-11 (Lucas): "não tem base real." Read cost picks the cut.
 - **An effort table built from `agy --print`** — 2026-09-15: its print mode writes to its own scratch dir and reports success, so every arm would have been a false green.
 - **A phone-push channel (ntfy, or the harness's own)** — 2026-09-15 (Lucas): phone addiction is a real cost to him; a channel that fetches him is a loss even when its content is right. Telegram, silent, opened on his schedule.
 - **A `Stop` hook for the close offer** — 2026-09-15: fires at the end of every response, so it would have to invent a reason to stay quiet. The crossing already has a once-per-threshold moment.
-- **Curing confident wrongness inside this repo** — 2026-09-13 (Lucas): only a parser or solver refuses; research.
-- **A research map here, and one review yaml per kept source** — 2026-09-13: a `REFS-<name>.md` does both.
-- Eleven killed before 2026-09-11 are in git, not here: `git log -S'## Rejected' -- ROADMAP.md`. A
+- Sixteen killed before 2026-09-14 are in git, not here: `git log -S'## Rejected' -- ROADMAP.md`. A
   tombstone stops earning its line once nobody who might revive the item remembers it, and this is
   the heaviest file in the workspace — one nobody needs is read by everyone.
