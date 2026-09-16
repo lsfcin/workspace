@@ -94,6 +94,32 @@ def _inside_generated_block(hit: str) -> bool:
 
 import pytest  # noqa: E402 — after the env scrub above, which must run before anything imports git
 
+
+def needs(*paths: str) -> None:
+    """Skip when the SUBJECT of the test is not in this checkout.
+
+    This suite runs in two repos now. The workspace has brain/, branches/, academy/ and code/; the
+    public repo core/tools/wos/publish syncs into does not, by a refusal written in core/public.txt,
+    and a test asserting about a directory that was deliberately left out is not a red suite, it is
+    a question with no subject. Ruled 2026-09-16 (Lucas): the test declares the precondition, rather
+    than the floor carrying a list of tests to withhold — an exception the floor cannot see rots,
+    because nothing tells it when a NEW test should join.
+
+    It buys something here too. These cases read green in the workspace by luck of the tree being
+    there, and nothing said they depended on it: delete brain/drafts/ and the red would name an
+    assertion, never the missing precondition."""
+    missing = [p for p in paths if not carries(p)]
+    if missing:
+        pytest.skip(f'subject not in this checkout: {", ".join(missing)} — see core/public.txt')
+
+
+def carries(path: str) -> bool:
+    """Does this checkout carry the tree `path` sits in? Asked of GIT, not of the filesystem: a
+    test that builds a scratch directory under code/ makes `code/` exist for the length of a run, and
+    a guard reading the disk answers yes to a tree with nothing in it. Judged at the top segment,
+    so a row pointing at a file deleted from a tree that IS here still reports."""
+    return bool(git_lines('ls-files', '--', path.split('/')[0]))
+
 # THE SUBTREES A TEST MAY NOT LEAVE CHANGED, and why these two. `core/skills/` is where the proven
 # offender seeded drift, `code/` is where two others created a real check directory and removed it.
 # Both are scanned by other cases while a case is inside that window, which is what made the suite

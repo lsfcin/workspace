@@ -23,9 +23,6 @@ class Claim(NamedTuple):
 
 def claims(scope: str = 'general') -> list[Claim]: ...
 def expand(seeds: list[Claim], pool: set[str]) -> list[Claim]: ...
-
-SEARCH: Incomplete
-
 def closure(seeds: list[str], pool: set[str]) -> set[str]: ...
 
 class Report(NamedTuple):

@@ -14,6 +14,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from conftest import needs
+
 ROOT = Path(__file__).resolve().parents[5]
 GIT_SYMLINK_MODE = '120000'
 
@@ -45,6 +47,7 @@ def test_the_memory_index_routes_to_files_that_are_really_there() -> None:
     invariant was never about the profile — it is that the index never routes to a name that is not
     there, which is exactly what the dead symlink did.
     """
+    needs('brain/memory/MEMORY.md')
     index = ROOT / 'brain/memory/MEMORY.md'
     text = index.read_text(encoding='utf-8')
     assert 'user_profile.md' not in text

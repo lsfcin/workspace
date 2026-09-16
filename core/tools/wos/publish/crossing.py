@@ -51,9 +51,12 @@ def tracked() -> list[str]:
 
 
 def eligible(f: Floor) -> set[str]:
-    """Tracked AND under the floor. Still not crossing — nothing crosses until a feature claims it."""
-    return {p for p in tracked() if p and
-            (p in f.files or any(p.startswith(r + '/') for r in f.roots))}
+    """Tracked, under the floor, and not named absent. Still not crossing — nothing crosses until a
+    feature claims it. Absent is checked HERE, before any claim, so a refusal a reader can see in
+    the floor cannot be undone by a pointer somewhere in the registry."""
+    return {p for p in tracked() if p
+            and (p in f.files or any(p.startswith(r + '/') for r in f.roots))
+            and not any(p == a or p.startswith(a + '/') for a in f.absent)}
 
 
 class Claim(NamedTuple):
@@ -147,22 +150,15 @@ def _imports(path: pathlib.Path) -> set[str]:
     return names
 
 
-# Where a sibling module is looked for. These are the directories the tools and hooks insert into
-# sys.path themselves, so the list is a reading of what the code does rather than a policy.
-SEARCH = ('core/tools', 'core/hooks', 'core/tools/wos', 'core/tools/verify')
-
-
 def _resolve(name: str, importer: str, pool: set[str]) -> str | None:
-    here = str(pathlib.PurePosixPath(importer).parent)
-    for directory in (here, *SEARCH):
-        candidate = f'{directory}/{name}.py'
-        if candidate in pool:
-            return candidate
-    # Last: anywhere in the pool, when the basename is UNIQUE. The dirs above are the ones files
-    # insert into sys.path with a literal; the rest compute the path, and a static list chasing
-    # those is one import behind forever — core/hooks/trigger/trigger_law.py, imported by the
-    # diagram and reached by a computed insert, is what taught this. A unique basename is the same
-    # answer Python would reach; an ambiguous one is a finding and stays unresolved.
+    """The importer's own directory first, then anywhere in the pool when the basename is UNIQUE.
+    There was a list of sys.path dirs above this; it named four and the tree has more, because most
+    files COMPUTE their insert rather than spelling it, and a static list chasing those is one
+    import behind forever. A unique basename is the answer Python would reach anyway; an ambiguous
+    one is a finding, and staying unresolved is how it surfaces."""
+    here = f'{pathlib.PurePosixPath(importer).parent}/{name}.py'
+    if here in pool:
+        return here
     found = [p for p in pool if p.endswith(f'/{name}.py')]
     return found[0] if len(found) == 1 else None
 

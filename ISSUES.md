@@ -54,7 +54,7 @@ matching regression spec exists and passes.
   → `links` collides with the norm named `links`, which owns the name by the same law
   (`core/norms/links.md`), and the registry key set is flat. That collision is the asymmetry worth
   writing down — two namespaces share one key space, and `group` already distinguishes them
-  everywhere else. The other seven ripple into `SETUP-accounts.md`'s `> feature:` lines, the
+  everywhere else. The other six ripple into `SETUP-accounts.md`'s `> feature:` lines, the
   `install` column, `core/tools/deps.txt` and `core/profile.txt` through the three-way join, and
   each pays a `core/SCHEMA.md` § Retired tokens row. Deferred from the session that found it:
   it corrects the registry, it does not unblock anything.
@@ -114,7 +114,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/roadmap-drain is 3 ahead of main
+- . — feature/roadmap-drain is 4 ahead of main
 
 ### Local branches already merged into their base
 

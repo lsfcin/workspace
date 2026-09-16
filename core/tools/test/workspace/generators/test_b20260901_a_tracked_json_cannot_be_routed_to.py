@@ -14,7 +14,7 @@
 import sys
 from pathlib import Path
 
-from conftest import WORKSPACE_ROOT
+from conftest import WORKSPACE_ROOT, carries
 
 from file_law import described  # noqa: E402
 from workspace_meta import ALL_EXTS, file_description  # noqa: E402
@@ -42,7 +42,11 @@ def test_every_declared_path_is_really_tracked() -> None:
 	done = subprocess.run(['git', '-C', str(WORKSPACE_ROOT), 'ls-files', '--', *described()],
 	                      capture_output=True, text=True, encoding='utf-8')
 	carried_paths = {line.strip() for line in done.stdout.splitlines() if line.strip()}
-	assert set(described()) <= carried_paths, sorted(set(described()) - carried_paths)
+	# A row naming a tree this checkout does not carry is unanswerable, not stale: the list crosses
+	# whole into the public repo, which has no academy/ or code/ to describe. Judged by the TREE,
+	# so a row pointing at a file deleted from a tree that IS here still fails.
+	here = {p for p in described() if carries(p)}
+	assert here <= carried_paths, sorted(here - carried_paths)
 
 
 def test_the_list_stays_narrow() -> None:

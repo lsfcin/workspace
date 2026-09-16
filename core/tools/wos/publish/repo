@@ -10,7 +10,7 @@
 # machine. `--sync` is reversible — it rebuilds a working tree this side already holds. `--push` is
 # not, and it is the only step here that is Lucas's call rather than the tool's.
 from __future__ import annotations
-import shutil, subprocess, sys, pathlib, argparse
+import argparse, pathlib, re, shutil, subprocess, sys
 
 _HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))
@@ -68,6 +68,7 @@ __pycache__/
 .pytest_cache/
 outputs/
 core/scoreboard.tsv
+core/profile.local.txt
 .claude/skills/*/
 .claude/commands/*.md
 .opencode/skills/*/
@@ -79,6 +80,18 @@ core/scoreboard.tsv
 # absent keeps the pointer check green here without rewriting a line of the text upstream —
 # test_pointer_integrity asks `git check-ignore` in the repo being checked.
 """
+
+
+# A GENERATED BLOCK IS THE TARGET'S, not the sync's. AGENTS.md crosses whole and its routing table
+# is rewritten in the target by the same generator that wrote it here — correctly, because the
+# public tree has one subdirectory and this one has six. Comparing those bytes makes the file STALE
+# forever and the sync copy it back every run, which is an oscillation rather than a difference.
+_BLOCK = re.compile(rb'<!-- \w+:start -->.*?<!-- \w+:end -->', re.S)
+
+
+def _same(source: pathlib.Path, destination: pathlib.Path) -> bool:
+    left, right = source.read_bytes(), destination.read_bytes()
+    return left == right or _BLOCK.sub(b'', left) == _BLOCK.sub(b'', right)
 
 
 def _present(target: pathlib.Path) -> set[str]:
@@ -100,15 +113,21 @@ def sync(rep: core.Report, floor: core.Floor, act: bool) -> int:
     if act and check(rep):   # refuse before the first byte, never redact after it
         return 1
     if act:   # first, because it is what decides which of the target's files the sync owns at all
+        # The orphans belong here beside the floor's refusals, and for the same reason: a file no
+        # feature claims is deliberately absent, not missing. Prose that crossed still points at
+        # some of them, and this is what lets the pointer check agree without editing that prose.
+        # SELF is subtracted: ROADMAP.md and ISSUES.md are absent FROM THE SYNC and present in the
+        # target, which writes its own. Listing them here ignored the target's copies, and a repo
+        # whose ISSUES.md git does not carry cannot run the gate that watches writes to it.
+        absent = sorted((set(floor.absent) | rep.orphans) - set(SELF))
         (floor.target / '.gitignore').write_text(
-            IGNORE_HEAD + ''.join(f'/{p}\n' for p in sorted(floor.absent)),
-            encoding='utf-8', newline='\n')
+            IGNORE_HEAD + ''.join(f'/{p}\n' for p in absent), encoding='utf-8', newline='\n')
     present, verdicts = _present(floor.target), []
     for name in sorted(rep.crossing):
         source, destination = core.ROOT / name, floor.target / name
         if name not in present:
             verdicts.append(('MISSING', name))
-        elif destination.read_bytes() != source.read_bytes():
+        elif not _same(source, destination):
             verdicts.append(('STALE', name))
         else:
             continue
@@ -119,11 +138,27 @@ def sync(rep: core.Report, floor: core.Floor, act: bool) -> int:
         verdicts.append(('ORPHAN', name))
         if act:
             (floor.target / name).unlink()
+    if act:
+        _modes(floor, rep.crossing)
     for verdict, name in verdicts:
         print(f'  {verdict:8} {name}')
     print(f'{"synced" if act else "check"}: {len(verdicts)} difference(s) over '
           f'{len(rep.crossing)} crossing files')
     return 0 if act or not verdicts else 1
+
+
+def _modes(floor: core.Floor, names: set[str]) -> None:
+    """Carry the executable bit through the INDEX, not the filesystem. A working tree on a mount
+    that reports 777 for everything says nothing, and what a clone gets is the index: core/run
+    landed 100644 in the target, so the one command that runs everything could not be run."""
+    source = subprocess.run(['git', '-C', str(core.ROOT), 'ls-files', '-s'],
+                            capture_output=True, text=True, encoding='utf-8', check=True)
+    runnable = [line.split('\t', 1)[1] for line in source.stdout.split('\n')
+                if line.startswith('100755\t') or line.startswith('100755 ')]
+    wanted = [n for n in runnable if n in names]
+    if wanted:
+        subprocess.run(['git', '-C', str(floor.target), 'update-index', '--add', '--chmod=+x',
+                        *wanted], check=True)
 
 
 def push(floor: core.Floor) -> int:

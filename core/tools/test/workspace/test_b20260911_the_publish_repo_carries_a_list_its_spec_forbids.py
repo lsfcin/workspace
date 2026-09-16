@@ -11,7 +11,7 @@
 import sys
 from pathlib import Path
 
-from conftest import WORKSPACE_ROOT
+from conftest import WORKSPACE_ROOT, needs
 from platform_law import rel
 
 sys.path.insert(0, str(WORKSPACE_ROOT / 'core/hooks/entropy'))
@@ -27,6 +27,7 @@ def test_the_redirect_clone_is_not_a_declared_project():
 def test_every_project_that_keeps_a_list_is_one_git_declares():
     """The other direction: the set is non-empty and names real project paths, so a parse rule that
     silently drifted to matching nothing would switch every nested list OFF unnoticed."""
+    needs('PROJECTS.md')
     declared = declared_projects(WORKSPACE_ROOT)
     assert declared, 'no projects declared — the parse rule has drifted'
     assert any(name.startswith('code/') for name in declared), sorted(declared)
