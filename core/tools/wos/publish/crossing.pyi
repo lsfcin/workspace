@@ -10,6 +10,7 @@ class Floor(NamedTuple):
     target: pathlib.Path
     roots: tuple[str, ...]
     files: tuple[str, ...]
+    trees: tuple[str, ...]
     absent: dict[str, str]
 
 def floor() -> Floor: ...
@@ -20,7 +21,8 @@ class Claim(NamedTuple):
     path: str
     feature: str
 
-def claims() -> list[Claim]: ...
+def claims(scope: str = 'general') -> list[Claim]: ...
+def expand(seeds: list[Claim], pool: set[str]) -> list[Claim]: ...
 
 SEARCH: Incomplete
 

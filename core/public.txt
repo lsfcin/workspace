@@ -1,5 +1,5 @@
 # Which trees may cross into the public repo at all, and where it is checked out. Read by
-# core/tools/wos/publish_core.py; the per-feature half of the answer lives in core/features.txt.
+# core/tools/wos/publish/crossing.py; the per-feature half of the answer lives in core/features.txt.
 #
 # THIS FILE IS THE FLOOR, NOT THE ALLOWLIST. A path crossing clears three separate bars and this is
 # only the first: it must sit under a root here, it must be tracked by git, and some feature must
@@ -15,6 +15,9 @@
 #            commit gate both need it and two spellings of a path is how they drift apart.
 #   root     a directory whose tracked contents are eligible to cross.
 #   file     one file at the repo root, eligible to cross.
+#   tree     a directory whose tracked contents CROSS, unclaimed. The directory form of `file`, and
+#            substrate for the same reason SETUP.md § substrate gives: it installs no feature, there
+#            is nothing in it to ablate, and asking a feature to claim it would invent an owner.
 #   absent   named REFUSALS. They change nothing — anything not allowed is already refused — and
 #            they are here because a reader asking "why is brain/ not in the public repo" deserves
 #            the answer in the file that decided it rather than in a git log.
@@ -26,6 +29,9 @@ root	.opencode	same, for opencode
 root	.zcode	same, for zcode
 root	.agents	same, for the Antigravity / Gemini shim
 root	.github	inert hook config until Copilot is installed, per SETUP.md
+file	core/hooks/pre-commit	the entrypoint git dictates the name of; every gate rides it and none can claim it
+file	core/hooks/post-commit	the same, after the commit
+tree	core/tools/test	the suite verify.py runs; SETUP.md's last step is the clone proving itself. Safe while no `lucas` feature has a test — one that did would fail on a clone that cannot install it
 file	AGENTS.md	the always-loaded rule block, generated from core/norms/
 file	CLAUDE.md	one line, pointing at AGENTS.md
 file	GEMINI.md	one line, pointing at AGENTS.md

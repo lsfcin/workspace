@@ -6,7 +6,7 @@
 # which is the cutting campaign's input (ROADMAP.md § Portability). So nothing crosses by default
 # and "unowned" is reported rather than waved through (Lucas, 2026-09-15).
 from __future__ import annotations
-import ast, pathlib, subprocess
+import ast, fnmatch, pathlib, subprocess
 from typing import NamedTuple
 
 ROOT = pathlib.Path(__file__).resolve().parents[4]
@@ -18,11 +18,12 @@ class Floor(NamedTuple):
     target: pathlib.Path
     roots: tuple[str, ...]
     files: tuple[str, ...]
+    trees: tuple[str, ...]
     absent: dict[str, str]
 
 
 def floor() -> Floor:
-    target, roots, files, absent = None, [], [], {}
+    target, roots, files, trees, absent = None, [], [], [], {}
     for line in FLOOR.read_text(encoding='utf-8').split('\n'):
         if line.startswith('#') or not line.strip() or line.startswith('kind\t'):
             continue
@@ -33,10 +34,12 @@ def floor() -> Floor:
             roots.append(path)
         elif kind == 'file':
             files.append(path)
+        elif kind == 'tree':
+            trees.append(path)
         elif kind == 'absent':
             absent[path] = reason
     assert target is not None, f'{FLOOR} names no target'
-    return Floor(target, tuple(roots), tuple(files), absent)
+    return Floor(target, tuple(roots), tuple(files), tuple(trees), absent)
 
 
 def tracked() -> list[str]:
@@ -58,23 +61,63 @@ class Claim(NamedTuple):
     feature: str
 
 
-def claims() -> list[Claim]:
-    """Every file a general-scoped feature names as its switch. A `lucas` row claims nothing: the
-    capability is bound to one of Lucas's projects, so the public repo has no use for its files."""
-    rows = REGISTRY.read_text(encoding='utf-8').split('\n')
+def _registry() -> list[dict[str, str]]:
+    """Read by COLUMN NAME, the way core/hooks/feature_law.py reads the same file. Two readers of one
+    table, one by name and one by position, is how the next column added breaks the quiet one."""
+    lines = [ln for ln in REGISTRY.read_text(encoding='utf-8').split('\n')
+             if ln.strip() and not ln.startswith('#')]
+    header = lines[0].split('\t')
+    return [dict(zip(header, ln.split('\t'))) for ln in lines[1:]]
+
+
+def claims(scope: str = 'general') -> list[Claim]:
+    """Every file a feature names: `wired` names its switch, `ships` the rest of the tree that
+    switch cannot run without. Only `general` rows feed the crossing set — a `lucas` capability is
+    bound to one of his projects and the public repo has no use for its files. It is still read,
+    under `scope='lucas'`, and for the opposite purpose: a file that row names is NOT an orphan,
+    because a feature said what it is for, and the orphan list asks only that question."""
     out = []
-    for line in rows:
-        if line.startswith('#') or '\t' not in line or line.startswith('name\t'):
+    for row in _registry():
+        if row.get('scope') != scope:
             continue
-        col = line.split('\t')
-        if len(col) < 7 or col[5] != 'general':
-            continue
-        for path in col[6].split(','):
-            path = path.strip()
-            # `n/a <reason>` is machine state no code here authors, and `-` is a finding the
-            # registry already counts. Neither names a file.
-            if path and path != '-' and not path.startswith('n/a'):
-                out.append(Claim(path, col[0]))
+        for column in ('wired', 'ships'):
+            for path in row.get(column, '').split(','):
+                path = path.strip()
+                # `n/a <reason>` is machine state no code here authors, and `-` is a finding the
+                # registry already counts. Neither names a file.
+                if path and path != '-' and not path.startswith('n/a'):
+                    out.append(Claim(path, row['name']))
+    return out
+
+
+def expand(seeds: list[Claim], pool: set[str]) -> list[Claim]:
+    """A `ships` entry may be a glob, because a feature owning a directory should say so once rather
+    than relist it at every file added. A pattern matching nothing stays as itself, so the claim
+    still shows up as the dangling pointer it is rather than vanishing."""
+    out = []
+    for claim in seeds:
+        if any(ch in claim.path for ch in '*?['):
+            out += [Claim(p, claim.feature) for p in pool if fnmatch.fnmatch(p, claim.path)]
+        else:
+            out.append(claim)
+    return out
+
+
+def _literals(rel: str) -> set[str]:
+    """Paths this file names outright. The import graph is only half of what a file cannot run
+    without: every law module in this workspace holds its answer in a data file and reaches it by a
+    literal — core/SCHEMA.md, limits.env, gates.txt, features.txt. Reading those literals is the
+    same move as reading the imports, and it is why neither the floor nor the registry has to grow
+    a row for data a crossing file already points at."""
+    try:
+        tree = ast.parse((ROOT / rel).read_text(encoding='utf-8'))
+    except (OSError, SyntaxError, UnicodeDecodeError):
+        return set()
+    here = pathlib.PurePosixPath(rel).parent
+    out = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Constant) and isinstance(node.value, str) and node.value:
+            out.update({node.value.lstrip('/'), f'{here}/{node.value}'})
     return out
 
 
@@ -123,6 +166,7 @@ def closure(seeds: list[str], pool: set[str]) -> set[str]:
             found = _resolve(name, current, pool)
             if found and found not in reached:
                 queue.append(found)
+        queue += [p for p in _literals(current) & pool if p not in reached]
     return reached
 
 
@@ -149,15 +193,30 @@ def _paired(crossing: set[str], pool: set[str]) -> set[str]:
     return out
 
 
+# A CONTEXT.md is not authored by a feature either — it describes the directory holding it, and this
+# workspace's own read gate refuses a file in a subtree whose CONTEXT.md is not loaded. A clone with
+# a hole in that chain blocks its own agent, so the chain crosses whole: every parent up to the
+# floor, never only the leaf.
+def _described(crossing: set[str], pool: set[str]) -> set[str]:
+    out = set()
+    for path in crossing:
+        for parent in pathlib.PurePosixPath(path).parents:
+            if (candidate := f'{parent}/CONTEXT.md') in pool:
+                out.add(candidate)
+    return out
+
+
 def report() -> Report:
     f = floor()
     pool = eligible(f)
-    seeds = claims()
-    # A `file` row is substrate: SETUP.md § substrate names the category — what every feature runs
-    # on, which installs no feature and gets no registry row. The floor names each one with its
-    # reason, and that IS the claim; asking a feature to claim verify.py would invent an owner.
-    crossing = closure([c.path for c in seeds] + list(f.files), pool)
+    seeds = expand(claims(), pool)
+    # A `file` or `tree` row is substrate: SETUP.md § substrate names the category — what every
+    # feature runs on, which installs no feature and gets no registry row. The floor names each one
+    # with its reason, and that IS the claim; asking a feature to claim verify.py would invent owner.
+    substrate = list(f.files) + [p for p in pool if any(p.startswith(t + '/') for t in f.trees)]
+    crossing = closure([c.path for c in seeds] + substrate, pool)
     crossing |= _paired(crossing, pool)
+    crossing |= _described(crossing, pool)
     by_feature: dict[str, set[str]] = {}
     for claim in seeds:
         if claim.path in pool:
@@ -169,4 +228,5 @@ def report() -> Report:
         for name in _imports(ROOT / path):
             if _resolve(name, path, pool) is None and (ROOT / f'{name}.py').exists():
                 escaping.append((path, name))
-    return Report(crossing, pool - crossing, escaping, by_feature)
+    private = {c.path for c in expand(claims('lucas'), pool)}
+    return Report(crossing, pool - crossing - private, escaping, by_feature)
