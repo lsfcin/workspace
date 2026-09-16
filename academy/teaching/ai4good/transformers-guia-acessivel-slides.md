@@ -1,9 +1,10 @@
 # Transformers: Do Mecanismo de Atenção aos Grandes Modelos de Linguagem
-> **Material Didático Acessível & Roteiro Pareado de Aula**  
-> **Disciplina:** Tópicos em IA – Turma 2 | AI4Good | UFRPE  
-> **Professor:** Lucas Silva Figueiredo  
-> **Slides de Referência:** [Apresentação Google Slides (106 telas)](https://docs.google.com/presentation/d/1xw1QMYfhase1Su0dlT8bYHlYaLouiPOFT2poTHX0i0k/edit?usp=sharing)  
-> **Público-alvo:** Estudantes de Inteligência Artificial, alunos com deficiência visual (otimizado para leitores de tela e display braille) e base textual para geração de podcast via **Google NotebookLM**.
+> Material didático acessível e roteiro pareado aos 106 slides da aula, com audiodescrição estrutural e preparação para NotebookLM.
+
+- **Disciplina:** Tópicos em IA – Turma 2 | AI4Good | UFRPE
+- **Professor:** Lucas Silva Figueiredo
+- **Slides de Referência:** [Apresentação Google Slides (106 telas)](https://docs.google.com/presentation/d/1xw1QMYfhase1Su0dlT8bYHlYaLouiPOFT2poTHX0i0k/edit?usp=sharing)
+- **Público-alvo:** Estudantes de IA, alunos com deficiência visual e base para podcast via Google NotebookLM.
 
 ---
 

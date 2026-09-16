@@ -124,7 +124,7 @@ As especificações de entrega não usam slides: residem como pares `.md` versio
 | [`cp01-materiais.md`](cp01-materiais.md) | — | — | Tecnologias na Educação · 2026.2 · Entrega: 16/09/2026 (Quarta-feira, 23h59) Planilha Mestre: `1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU` (Coluna K, Linha 20) Metodologia & Critérios: `lucassf.pages.dev/techedu/cp01` |
 | [`cp01-metodologia.md`](cp01-metodologia.md) | — | — | Tecnologias na Educação · 2026.2 · Entrega: 16/09/2026 (Quarta-feira, 23h59) Planilha Mestre: `1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU` (Coluna F, Linha 20) Materiais & Tríade: `lucassf.pages.dev/techedu/cp01-materiais` |
 | [`cp02-metodologia.md`](cp02-metodologia.md) | — | — | Metodologia · CP-02: Concorrentes |
-| [`painel.html`](painel.html) | — | — | ← add first-line comment |
+| [`painel.html`](painel.html) | — | — | Painel interativo de entregas e critérios da turma 2026.2 (Tecnologias na Educação) |
 | [`painel.md`](painel.md) | — | — | Acompanhamento de entregas, critérios e submissões da turma 2026.2 (UFRPE). Planilha mestre original: `1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU` Versão local para avaliação de layout e responsividade. |
 | [`tecnologias.json`](tecnologias.json) | — | — | A árvore de tecnologias da disciplina, lida por build_tecnologias.py — não é um formulário. |
 <!-- routing:end -->
