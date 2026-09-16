@@ -29,6 +29,8 @@ root	.opencode	same, for opencode
 root	.zcode	same, for zcode
 root	.agents	same, for the Antigravity / Gemini shim
 root	.github	inert hook config until Copilot is installed, per SETUP.md
+file	core/hooks/session/mirror-heal.py	skill-mirror machinery: it publishes skills, it is not one. Fourteen `skills` rows share one wiring point and no row names the machine under it
+file	core/tools/wos/sync-global-skills	the same machinery, for the mirrors that live in $HOME
 file	core/hooks/pre-commit	the entrypoint git dictates the name of; every gate rides it and none can claim it
 file	core/hooks/post-commit	the same, after the commit
 tree	core/tools/test	the suite verify.py runs; SETUP.md's last step is the clone proving itself. Safe while no `lucas` feature has a test — one that did would fail on a clone that cannot install it
@@ -37,6 +39,9 @@ file	CLAUDE.md	one line, pointing at AGENTS.md
 file	GEMINI.md	one line, pointing at AGENTS.md
 file	README.md	what the workspace is and what each feature buys
 file	SETUP.md	the install contract every student runs
+file	SETUP-clone.md	its first part, and nothing else runs until it is done
+file	SETUP-compaction.md	its part for the tool-output compactor
+file	SETUP-interfaces.md	its part for the interface-stub toolchain
 file	verify.py	the suite that contract's last step calls
 file	verify.pyi	its generated interface
 file	.gitattributes	line endings, which differ by machine and not by person

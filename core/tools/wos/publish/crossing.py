@@ -6,7 +6,7 @@
 # which is the cutting campaign's input (ROADMAP.md § Portability). So nothing crosses by default
 # and "unowned" is reported rather than waved through (Lucas, 2026-09-15).
 from __future__ import annotations
-import ast, fnmatch, pathlib, subprocess
+import ast, fnmatch, pathlib, re, subprocess
 from typing import NamedTuple
 
 ROOT = pathlib.Path(__file__).resolve().parents[4]
@@ -110,14 +110,23 @@ def _literals(rel: str) -> set[str]:
     same move as reading the imports, and it is why neither the floor nor the registry has to grow
     a row for data a crossing file already points at."""
     try:
-        tree = ast.parse((ROOT / rel).read_text(encoding='utf-8'))
-    except (OSError, SyntaxError, UnicodeDecodeError):
+        text = (ROOT / rel).read_text(encoding='utf-8')
+    except (OSError, UnicodeDecodeError):
         return set()
     here = pathlib.PurePosixPath(rel).parent
+    try:
+        found = [n.value for n in ast.walk(ast.parse(text))
+                 if isinstance(n, ast.Constant) and isinstance(n.value, str) and n.value]
+    except SyntaxError:
+        # Not Python. A harness registers its hooks in JSON and a shim in shell, and a path named
+        # there is a dependency the same way an import is — the copilot shims and session-prune
+        # reached the target only once this branch existed. Any path-shaped token, checked against
+        # the pool, which is what makes a wrong guess cost nothing.
+        found = re.findall(r'[\w.$/{}-]+/[\w.-]+', text)
     out = set()
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Constant) and isinstance(node.value, str) and node.value:
-            out.update({node.value.lstrip('/'), f'{here}/{node.value}'})
+    for value in found:
+        bare = value.rsplit('/', 1)[0] if value.endswith('/') else value
+        out.update({bare.lstrip('/'), f'{here}/{bare}'})
     return out
 
 
@@ -149,7 +158,13 @@ def _resolve(name: str, importer: str, pool: set[str]) -> str | None:
         candidate = f'{directory}/{name}.py'
         if candidate in pool:
             return candidate
-    return None
+    # Last: anywhere in the pool, when the basename is UNIQUE. The dirs above are the ones files
+    # insert into sys.path with a literal; the rest compute the path, and a static list chasing
+    # those is one import behind forever — core/hooks/trigger/trigger_law.py, imported by the
+    # diagram and reached by a computed insert, is what taught this. A unique basename is the same
+    # answer Python would reach; an ambiguous one is a finding and stays unresolved.
+    found = [p for p in pool if p.endswith(f'/{name}.py')]
+    return found[0] if len(found) == 1 else None
 
 
 def closure(seeds: list[str], pool: set[str]) -> set[str]:

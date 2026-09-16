@@ -98,10 +98,20 @@ def scan_text(text: str, path: pathlib.Path) -> list[Finding]:
     return found
 
 
+# THE FILES THIS SCANNER CANNOT SCAN: the cases that prove it. They are synthetic by rule — a test
+# fixing a real leak would block the fix for it — and they are the only evidence the patterns below
+# work, so a repo that refuses them is a repo that can ship this module or prove it, never both.
+# NAMES, not a pattern: `test_*` would exempt every test in the workspace, which is the wide switch
+# someone reaches for after one false alarm. A new case file is added here by hand, deliberately.
+FIXTURES = ('test_secret_law.py', 'test_chat_stitch.py')
+
+
 def scan(path: pathlib.Path) -> list[Finding]:
     """Every reason this one file may not cross. A file that cannot be read as text carries no
     finding: a binary is refused by the crossing rule, not by this one, and guessing at bytes here
     would produce findings nobody can act on."""
+    if path.name in FIXTURES:
+        return []
     if path.name == SECRET_FILE:
         return [Finding(path, 0, f"named {SECRET_FILE}")]
     try:
