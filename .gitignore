@@ -221,6 +221,7 @@ code/shortvid
 code/spacemantics
 code/voti
 code/statem
+code/wos
 
 # Plain content dirs (no nested repo) — fully trackable.
 !code/prog1/
