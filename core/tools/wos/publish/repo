@@ -73,7 +73,8 @@ core/profile.local.txt
 .claude/skills/*/
 .claude/commands/*.md
 .opencode/skills/*/
-.zcode/skills/
+.zcode/skills/*/
+.zcode/skills/CONTEXT.md
 .zcode/plans/
 .agents/skills/*/
 
