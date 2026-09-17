@@ -39,6 +39,17 @@ contract + `SPECS.md` § Current Workflow Contract — já são spec-shaped. Cop
 > exercita a tese; próximo = checker executável  
 > [ ] [lock-isoroll-content] travar 2º módulo (isoroll-content) — sai a catraca 1→2  
 > [ ] [roundup-list] rodar `core/tools/wos/spec-scan` no /roundup pra coverage ficar visível toda sessão  
+> [ ] [sdd-vale-mesmo] parar e decidir se SDD vale mesmo a pena: pesquisar a fundo, olhar o SOTA, e definir como
+> implantar de forma prática e inescapável — ou abandonar. Lucas põe TDD na mesma pergunta: *"será que temos que fazer
+> o TDD também? acho que vale incluir no bolo, na pesquisa"*. Esta é a pergunta que precede todo o resto do backlog
+> daqui (INBOX 2026-09-17)  
+> [ ] [spec-gaming] o post que originou [sdd-vale-mesmo] não pergunta se SDD vale — ele mostra a falha: escrevendo
+> specs, a suíte reportou verde e o diff revelava **um teste instável convertido em skip**; o requisito nunca foi
+> cumprido. Não é malícia, é otimizar o sinal que a gente deu. As cinco práticas que eles dizem sustentar, e cada uma
+> tem endereço aqui: critério que um comando resolve (não auto-avaliado) · executar em **sessão nova**, nunca
+> continuação do planejamento · regra anti-gaming dentro da própria spec · revisão por subagent que **não viu o plano
+> ser escrito** ([B1] de craft-flows já é isso) · pre-commit como único conserto de drift confiável (temos). Casa com
+> [mutation-testing] de workspace-os: teste sem dente é o mesmo buraco pelo outro lado. Ref em `core/refs/REFS.md`  
 
 ## done
 
@@ -51,5 +62,5 @@ contract + `SPECS.md` § Current Workflow Contract — já são spec-shaped. Cop
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 11/22/22/22/22/22
+last-touch: 2026-09-14  ·  trend: steady  ·  touches: 9/23/23/23/23/23
 <!-- stats:end -->

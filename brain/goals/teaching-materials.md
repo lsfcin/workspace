@@ -106,20 +106,13 @@ disciplinas e por isso bloqueia o modelo comum.
 > `academy/teaching/ai4good/` e `academy/teaching/tecnologias-na-educacao/`; antes, abrir cada link, responder uma vez
 > de teste e apagar a resposta; depois da aula, ler com `core/tools/forms/gforms responses --account personal <form_id>`
 > e decidir o formato das sextas  
-> [ ] [ai4good-book-burning] investigar o caso por trás do reel "this feels like a book burning" e decidir se entra nas
-> aulas de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-07-28). Um segundo post (@theaifield, INBOX 2026-08-21)
-> dá nome ao caso — a "Project Panama" atribuída à Anthropic, livros comprados, descosturados, escaneados e reciclados —
-> e o contraponto técnico, o ScanRobot 2.0 da Treventus, que digitaliza sem destruir; conferir na fonte antes de usar  
-> [ ] [ai4good-integracao] decidir se o argumento "integração, não substituição" entra numa aula de
-> ai4good — ref em `academy/refs/REFS.md`; a fundadora vende hardware no fim do reel, então o
-> argumento vale sem a fonte (INBOX 2026-08-28)  
-> [ ] [ai4good-otimismo] decidir se o reel do Gordon-Levitt (otimismo é ingênuo ou necessário?) abre
-> uma aula de ai4good — ref em `academy/refs/REFS.md` (INBOX 2026-08-28)  
-> [ ] [ai4good-lecun] decidir se o reel do LeCun entra numa aula de ai4good — décadas em redes neurais quando a aposta
-> era tida como morta, hoje em world models e não em prever a próxima palavra; ref em `academy/refs/REFS.md` (INBOX
-> 2026-08-24)  
-> [ ] [ai4good-pacing-frontier] assistir o reel "pacing the frontier" e decidir se entra nas aulas — ref em
-> `academy/refs/REFS.md`; a extração só trouxe a legenda, então o conteúdo ainda é desconhecido (INBOX 2026-08-17)  
+> [ ] [ai4good-candidatos] **uma sessão decide todos de uma vez** — sete capturas esperando a mesma pergunta, "isso
+> entra numa aula de ai4good, e em qual encontro?". Cada uma tem linha em `academy/refs/REFS.md` com o que desconfiar:
+> *book burning* / Project Panama (livros comprados, descosturados, escaneados — e o ScanRobot que digitaliza sem
+> destruir) · Anna's Archive escrevendo um recado amigável para os LLMs que a visitam · "integração, não substituição"
+> (a fundadora vende hardware) · o otimismo do Gordon-Levitt · o LeCun dos world models · *pacing the frontier* (só a
+> legenda extraiu) · dados egocêntricos: costureiras indianas de câmera na cabeça a ₹250/h treinando robôs humanoides,
+> que é consentimento, propriedade e quem fica com o valor numa história só. Conferir cada um na fonte antes da sala  
 > [ ] [arxiv-visuals] achar e testar o arXiv Visuals (paper → explainer animado; link é comment-gated, então achar por
 > fora) — ref em `academy/refs/REFS.md`; teste honesto: rodar num paper que você conhece a fundo e ver se a ordem
 > "conceito mais difícil primeiro" se sustenta ou se é sumarização com narração; se sustentar, decidir dois usos
@@ -156,24 +149,20 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 > [ ] [front-design-plugins] testar os cinco plugins de design front-end do Claude Code (auditoria
 > de UI, design system, imagem→código, teste em browser) nos nossos slides — ref em
 > `core/refs/REFS.md` (INBOX 2026-09-05)  
-> [ ] [diploma-causalidade] falar desse estudo nas aulas — mobilidade social e diploma ainda
-> demonstram causalidade (Duryea et al. 2023, Economics of Education Review; — via aiwbot
-> 2026-09-02)  
 > [ ] [tributacao-trabalho-capital] discutir nas aulas: taxamos as pessoas erradas? — argumento do
 > David Friedberg de que renda do trabalho não deveria ser tributada e ganho de capital sim (— via
 > aiwbot 2026-09-02)  
 > [ ] [ai2027-material] decidir se ai-2027.com serve pra gente — como material de aula ou leitura
 > de pesquisa (INBOX 2026-09-05, pergunta aberta do Lucas)  
-> [ ] [ai4good-revisao-sobras] sobras da revisão dos decks História/ML/MLP + Prática MLP (2026-08-21): (1) checar
-> visualmente a timeline da parte 3 — cobre Dartmouth 1956, inverno da IA, backprop 1986, AlexNet 2012? decidir se sobe
-> pra parte 1 ou ganha recap; (2) slide-ponte no fim da aula amarrando os dois decks; (3) o único slide de resultados
-> restante é da turma anterior — rotular "turma 2026.1" ou remover; (4) depois de aprovar, deletar os slides marcados
-> "SKIPPED —" nos dois decks; (5) o slide "impacto das funções de ativação" (ex-163) foi deletado junto com sua cópia
-> corrigida — se era pra manter, refazer a correção de pontuação  
+> [ ] [ai4good-revisao-sobras] sobras da revisão dos decks História/ML/MLP + Prática MLP (2026-08-21): olhar a timeline
+> da parte 3 (Dartmouth, inverno, backprop, AlexNet) e decidir se sobe pra parte 1; slide-ponte entre os dois decks;
+> o slide de resultados da turma anterior — rotular ou remover; deletar os slides "SKIPPED —" depois de aprovados; e
+> refazer o slide "impacto das funções de ativação", deletado junto com a cópia corrigida  
 > [ ] [universidade-gratuita] Duryea et al. 2023 (*Econ of Educ Review* 95:102423) — quem de fato se beneficia da
-> universidade pública gratuita de elite no Brasil. Lucas: *"esse estudo tem que entrar na minha aula"*, sem dizer
-> qual: decidir entre Tecnologias na Educação (política educacional é o eixo) e AI4Good (desigualdade de acesso). Ref
-> em `academy/refs/REFS.md` (INBOX 2026-09-14)  
+> universidade pública gratuita de elite no Brasil, e o diploma ainda demonstrando causalidade na mobilidade social
+> (capturado duas vezes, 02/09 e 14/09). Lucas: *"esse estudo tem que entrar na minha aula"*, sem dizer qual: decidir
+> entre Tecnologias na Educação (política educacional é o eixo) e AI4Good (desigualdade de acesso). Ref em
+> `academy/refs/REFS.md`  
 > [ ] [amodei-loving-grace] "Machines of Loving Grace" nas aulas — as cinco áreas do ensaio, e três delas
 > (desenvolvimento econômico e pobreza, paz e governança, trabalho e sentido) são o próprio programa de AI4Good.
 > Decidir se entra como leitura, como estrutura de um encontro, ou como contraponto otimista ao material de risco.
@@ -181,7 +170,37 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 > [ ] [memoria-e-contexto] aula sobre memória de agente = gerenciamento de contexto: o modelo não lembra, o harness
 > reenvia a conversa toda a cada chamada, cache é releitura barata e não memória; daí context poisoning e context rot.
 > Casa com material que já temos e com os itens de § Cost do `/ROADMAP.md`. Ref em `academy/refs/REFS.md`
-> (INBOX 2026-09-12)  
+> (INBOX 2026-09-12). **A metade técnica chegou em 2026-09-17**: os quatro caches do serving — KV, prefixo, prompt
+> cache do provedor (custo a ~10%) e cache semântico, que pula a chamada quando a pergunta nova quer dizer o mesmo —
+> são o "por que releitura é barata" com nome e número; ref em `core/refs/REFS.md`  
+> [ ] [aula-risco-existencial] roundtable do Diary of a CEO sobre risco existencial de IA — dois convidados dizem que o
+> mundo enfim leva a sério, dois dizem que falta evidência; o gancho é um aviso viral de ex-OpenAI/Anthropic. Decidir se
+> abre uma aula de ai4good; ref em `academy/refs/REFS.md` (— via aiwbot 2026-09-17). **Uma segunda captura é o mesmo
+> evento por outro ângulo**: pesquisador da Anthropic pede demissão dizendo que estão *"apostando com nossas vidas"*,
+> 65M de views no tweet — dois posts, um caso; achar o tweet e a carta antes de levar pra sala (INBOX 2026-09-17)  
+> [ ] [cases-robos] 15 casos de robôs já operando em fábricas, armazéns, fazendas e hotéis — *"incluir esses cases na
+> minha aula sobre agência"*. Post de agregador: conferir cada caso na fonte. Ref em `academy/refs/REFS.md`  
+> [ ] [markdown-so-disciplinas] decidir se as disciplinas saem do Notion e das planilhas e ficam só em markdown — Lucas:
+> *"markdowns parecem dar suporte a muito mais coisa do que imaginava"*. O contrapeso está construído do outro lado:
+> calendário e árvore de 68 folhas publicados no Notion, e a planilha de pares que alimenta a avaliação. Refs em
+> `core/refs/REFS.md` (INBOX 2026-09-16)  
+> [ ] [curadoria-techs-git] curadoria melhor das techs pros alunos de techedu — cada uma num git do Lucas e demonstrada,
+> não só listada; nasce da árvore de 68 folhas. Gatilho foi o VoiceStudio, ref em `core/refs/REFS.md` (— via aiwbot)  
+> [ ] [claude-slides-nativo] o Claude passa a criar, editar, apresentar e exportar slides e documentos dentro da própria
+> conversa — ver o que dá pra importar pro nosso fluxo de slides. Irmão de [astra-slides] e [slides-dois-caminhos]; ref
+> em `core/refs/REFS.md` (— via aiwbot 2026-09-17)  
+> [ ] [aula-nome-de-modelo] aula que decodifica um nome de modelo — `Qwen3-30B-A3B-Instruct-2507-gguf-q2ks`: o que 7B/
+> 70B querem dizer, denso vs MoE (e por que A3B não é um 3B), base vs instruct, FP16/BF16, níveis de quantização,
+> GGUF. É vocabulário de escolher modelo local, casa com [local-ai] e serve techedu direto. Ref em
+> `academy/refs/REFS.md` (— via aiwbot 2026-09-17)  
+> [ ] [aula-embedding-nao-anonimiza] inversão de embeddings como aula de privacidade: pesquisa de Cornell recupera 92%
+> de entradas de 32 tokens a partir do vetor — adivinha frase, embeda, compara, ajusta, nunca decodifica — e tirou
+> nomes de pacientes de notas clínicas. Cai bem em ai4good e em qualquer conversa sobre RAG: um banco vetorial não é
+> cópia anonimizada. Limites honestos na ref (`academy/refs/REFS.md`, — via aiwbot 2026-09-17)  
+> [ ] [aula-dream-rsi] decidir se o Dream-RSI do DeepMind entra nas aulas — o agente transforma o histórico das próprias
+> descobertas num simulador e "sonha" milhares de estratégias antes de gastar chamada real. **O que o post quase
+> esconde:** não há mudança de pesos, só a política de exploração melhora. Bom justamente por isso, pra separar
+> auto-melhoria de mito. Ref em `academy/refs/REFS.md` (— via aiwbot 2026-09-17)  
 
 ## done
 
@@ -190,5 +209,5 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 62/90/90/90/90/90
+last-touch: 2026-09-16  ·  trend: advancing  ·  touches: 64/93/96/96/96/96
 <!-- stats:end -->

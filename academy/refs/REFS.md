@@ -16,26 +16,25 @@ these lines hold only what the reel is and what to distrust about it.
 - [Luciano da Luz — mandato coletivo](https://www.instagram.com/reel/DaIgvighjQ6/) — participatory mandate: constituents
   vote on bills and track spending alongside an elected rep. Mechanism design → `brain/goals/cria.md`
   `[mandato-coletivo]`.
-- [Han Shlomo — "this feels like a book burning"](https://www.instagram.com/reel/DbW7yCzkeqX/) — frames a current
-  AI/knowledge-destruction moment. **Hook, not argument** — find the underlying event first. `[ai4good-book-burning]`
-- [theaifield — books scanned for training data](https://www.instagram.com/p/DcQ1847jA8l/) — physical books as prime
-  training data; names Anthropic's reported *"Project Panama"* (bought, unbound, scanned, recycled) against
-  non-destructive scanning. **A post, not a source** — confirm before teaching. Same `[ai4good-book-burning]`.
+Seven of them wait on one decision, `[ai4good-candidatos]`, and each line below says only what to distrust:
+[book burning](https://www.instagram.com/reel/DbW7yCzkeqX/) — hook, not argument, find the event · [books scanned for
+training](https://www.instagram.com/p/DcQ1847jA8l/) — names Anthropic's reported *"Project Panama"* against
+non-destructive scanning; a post, not a source · [Anna's Archive greets the
+LLMs](https://www.instagram.com/p/Dc9g2R7E-T5/) — points crawlers at its code, metadata and torrents instead of
+blocking them, and asks for support; read it as the archive's own voice · [egocentric training
+data](https://www.instagram.com/p/DdQ3fXJjXDG/) — Indian garment workers wearing head cameras at a reported ₹250/h to
+teach humanoids; the post itself says the figures are unverified · [pro
+integration](https://www.instagram.com/reel/DcOxARouQxF/) — the founder is selling hardware · [Gordon-Levitt on
+optimism](https://www.instagram.com/reel/DcRMN_hM537/) · [LeCun on world
+models](https://www.instagram.com/reel/Dbd8XDWSM1A/) · [pacing the
+frontier](https://www.instagram.com/reel/DbsJYiotcLj/) — caption only, argument unknown.
+
 - [RammCodes — face-recognition library](https://www.instagram.com/reel/Db03NOvo6B0/) — one API over detection,
   recognition, tracking, landmarks, gaze, parsing, anti-spoofing; fits the 3D CV material. **The reel never names it** —
   search on gaze + anti-spoofing in one package.
 - [Dr. Alvaro Cintas — arXiv Visuals](https://www.instagram.com/reel/DcJQd0TRewZ/) — turns an arXiv paper into a
   narrated explainer via three agents, and claims to find the **hardest concept first** and build around teaching that.
   **Comment-gated link** — find the tool independently. `[arxiv-visuals]`
-- [Kem / GlitchCatClub — pacing the frontier](https://www.instagram.com/reel/DbsJYiotcLj/) — **caption only extracted**,
-  so the argument is unknown; suggests a frontier-pace / regulation angle. `[ai4good-pacing-frontier]`
-- [eluna.ai — Yann LeCun](https://www.instagram.com/reel/Dbd8XDWSM1A/) — argues for AI that models how the world works
-  rather than predicting the next word. `[ai4good-lecun]`
-- [Asha Zimmerman — "we are pro integration"](https://www.instagram.com/reel/DcOxARouQxF/) — labs chase replacement
-  because investor growth promises demand it; integration as the alternative. **The founder is selling hardware.**
-  `[ai4good-integracao]`
-- [Joseph Gordon-Levitt — optimism](https://www.instagram.com/reel/DcRMN_hM537/) — the challenges of AI and democracy
-  can be named without concluding nothing can be done. `[ai4good-otimismo]`
 - [LJ — 10 solarpunk games](https://www.instagram.com/p/Db8TS-UFC8N/) · [ria — indigenous knowledge leads
   solarpunk](https://www.instagram.com/reel/DY2wj1svR_m/) — restoring ecosystems, sustainable communities (Terra Nil,
   Loddlenaut); indigenous ecological knowledge as the movement's lead. *"solarpunk é a vibe de ai4good"* — positioning
@@ -53,16 +52,32 @@ these lines hold only what the reel is and what to distrust about it.
   `brain/goals/teaching-materials.md` [amodei-loving-grace]).
 - [kem_glitch — Memory = Context Management](https://www.instagram.com/reel/DdME5hsNRju/) — [src: web:instagram.com]
   practitioner explainer: the model has no memory, the harness re-sends the whole conversation every call, and caching
-  is a cheaper re-read rather than memory. Names **context poisoning** (a wrong or superseded read lands, stays, and
-  shapes every later answer) and **context rot** (more tokens, thinner slice of attention on what matters). Divulgação,
-  not primary source. Lucas: *"colocar na minha aula"* (task in `brain/goals/teaching-materials.md`
-  [memoria-e-contexto]; — via aiwbot).
+  is a cheaper re-read rather than memory; names **context poisoning** and **context rot**. Divulgação, not primary
+  source (task in `brain/goals/teaching-materials.md` [memoria-e-contexto]; — via aiwbot).
 - [Menezes et al. — Manacá-1B](https://arxiv.org/abs/2608.30114) — [src: web:arxiv.org] `[P]` preprint, 2026-08-31. An
   open 1.72B decoder-only model trained from scratch for Brazilian Portuguese, fully containerized, every comparison
-  carrying a standard error and a paired test. Documents a concrete evaluation trap: converting a SentencePiece
-  tokenizer with case-folding to the HuggingFace fast format silently drops the normalizer and sent LAMBADA-PT from
-  45.3 to 25.0, invisible in aggregate metrics. Lucas: *"a gente TEM que olhar isso! não deixar pra mt longe"* (task in
-  `brain/goals/local-ai.md` [manaca-1b]).
+  carrying a standard error and a paired test; also documents a tokenizer-conversion trap that hides in aggregate
+  metrics (task in `brain/goals/local-ai.md` [manaca-1b], which holds the trap).
+- [Diary of a CEO — roundtable sobre risco existencial de IA](https://www.instagram.com/reel/DdYtAYQMnql/) — dois
+  convidados dizem que o mundo enfim leva o risco a sério, dois dizem que falta evidência para a afirmação extrema. O
+  gancho é um aviso viral de um ex-OpenAI/Anthropic. **Recorte de podcast, não argumento** — achar o episódio e o post
+  originais antes de usar. `[aula-risco-existencial]`
+- [theaifield — 15 robôs já trabalhando](https://www.instagram.com/p/DdTPiUUDK6a/) — casos em fábricas, armazéns,
+  fazendas e hotéis, onde a tarefa é repetitiva, física ou difícil de contratar. Post de agregador: conferir cada caso
+  na fonte antes de levar pra sala. `[cases-robos]`
+- [The Claude Portfolio — pesquisador da Anthropic pede demissão](https://www.instagram.com/p/DdEhCWsDg3W/) — *"estão
+  apostando com nossas vidas"*, 65M de views. Mesmo caso do roundtable acima, por outro ângulo; o post vem com
+  disclaimer de anúncio colado no fim. Achar o tweet e a carta. `[aula-risco-existencial]`
+- [Analytics Vidhya — decodificando nomes de modelo](https://www.instagram.com/p/DdYbeDKFLLz/) — carrossel: 7B/70B,
+  denso vs MoE, A3B, base vs instruct, FP16/BF16, Q4–Q8, GGUF. Material didático direto, sem afirmação a verificar.
+  `[aula-nome-de-modelo]`
+- [The Artificial Intelligence — inversão de embeddings](https://www.instagram.com/p/DdGCA8yAVsV/) — pesquisa de
+  Cornell recupera 92% de entradas de 32 tokens a partir do vetor (reproduzido a 94%), e tirou nomes de pacientes de
+  notas clínicas; cai para ~8% a quatro vezes o comprimento e exige acesso de consulta ao modelo. **Divulgação: achar o
+  paper antes de citar o número.** `[aula-embedding-nao-anonimiza]`
+- [Vyzual AI — Dream-RSI, DeepMind](https://www.instagram.com/p/DdYz1zlDS6m/) — histórico de descobertas vira
+  simulador, o agente "sonha" estratégias de exploração e só as boas viram chamada real; os pesos não mudam, a política
+  de exploração sim. Números de comparação vêm do post. `[aula-dream-rsi]`
 
 ## IA e aprendizagem — o eixo novo de Tecnologias na Educação (2026-08-19)
 
@@ -99,9 +114,8 @@ Lidos e usados na aula 02; todos com número citável em sala.
   Horse Prototype** (fase obrigatória de perseguir a ideia arriscada — efeito wow institucionalizado), **SGM check-ins**
   (equipe apresenta e é obrigada a assistir à de outra) e contagem dura de contato com usuário (*"three new people"*). O
   relatório é **cumulativo** Fall→Winter→Spring, template Overleaf, e termina arquivado na biblioteca — projeto e artigo
-  são a mesma peça crescendo. Ver também [Fall
-  Documentation](https://our310.stanford.edu/index.php/Assignments/FallDocumentation), que nomeia os modos de falhar
-  ("personas superficiais ou estereotipadas", "no cartoons please").
+  são a mesma peça crescendo. A [Fall
+  Documentation](https://our310.stanford.edu/index.php/Assignments/FallDocumentation) nomeia os modos de falhar.
 - [MIT NEET — instructor's guide (OCW
   SP.248)](https://ocw.mit.edu/courses/sp-248-the-neet-experience-fall-2025/pages/instructors-guide/) — declara a carga
   no papel: 60 min de aula + 120 min fora por semana.
@@ -111,25 +125,16 @@ Lidos e usados na aula 02; todos com número citável em sala.
 
 ## Simulação de população para pesquisa e para aula (2026-08-20)
 
-- **MatrAIx / Persona 8B** (Harvard + MIT) — dataset de **8,3 bilhões de perfis digitais** montado a
-  partir de dados reais e sintéticos, cobrindo psicologia, hábitos de consumo e estilo de vida (1290
-  dimensões por persona). As personas interagem em surveys, chats, navegação e apps simulados;
-  reportam mais de **18.000 trials** em comércio e saúde. Arquitetura anunciada em três blocos:
-  construir a população → infraestrutura de avaliação com usuário simulado → tarefas e produtos de
-  aplicação. Lucas, INBOX 2026-08-20: *"matraix deve entrar nas minhas aulas."*
+- **MatrAIx / Persona 8B** (Harvard + MIT) — **8,3 bilhões de perfis digitais** de dados reais e sintéticos, 1290
+  dimensões por persona, que interagem em surveys, chats e apps simulados; mais de **18.000 trials** reportados em
+  comércio e saúde. Lucas, INBOX 2026-08-20: *"matraix deve entrar nas minhas aulas."*
 
-  **Vale mais do que material de aula, e é aí que precisa de cuidado.** Um simulador de população é
-  exatamente o instrumento que [`megatruth`](../papers/megatruth/CONTEXT.md) (agregação de verdade em
-  multidão), [`2027-CHI-cria`](../papers/2027-CHI-cria/CONTEXT.md) (estudo de ideação com turma) e
-  [`mechanism-search`](../papers/mechanism-search/CONTEXT.md) usariam para pilotar um desenho antes de
-  gastar participantes reais — e é também exatamente o instrumento que **substitui evidência por
-  plausibilidade** se alguém aceitar o resultado simulado como achado. Se entrar em qualquer um dos
-  três, entra como *piloto de desenho*, nunca como dado.
-
-  ⚠ Capturado de um carrossel de agregador, sem link para paper ou release; nada aqui foi verificado
-  na fonte primária. Buscar a publicação de Harvard/MIT antes de citar ou de levar para sala.
-  **A disciplina de destino ainda não foi decidida** — a nota do Lucas diz "minhas aulas" sem dizer
-  qual, e `academy/teaching/` tem treze.
+  **Vale mais do que material de aula, e é aí que precisa de cuidado.** [`megatruth`](../papers/megatruth/CONTEXT.md),
+  [`2027-CHI-cria`](../papers/2027-CHI-cria/CONTEXT.md) e [`mechanism-search`](../papers/mechanism-search/CONTEXT.md)
+  usariam um simulador de população para pilotar um desenho antes de gastar participantes reais — e é o mesmo
+  instrumento que **substitui evidência por plausibilidade** se o resultado simulado for aceito como achado. Entra como
+  *piloto de desenho*, nunca como dado. ⚠ Carrossel de agregador, sem link para paper: achar a publicação de
+  Harvard/MIT antes de citar. Disciplina de destino ainda não decidida.
 
 ## Candidatos a substituir o vídeo do carrinho da IDEO (2026-08-19)
 

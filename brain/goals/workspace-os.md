@@ -108,10 +108,8 @@ fallback · iterate — MVP can always be extended*
 > Parked)  
 > [ ] [checkup-metodo] checkup de rotina do workspace (INBOX 2026-07-30) — rodar `core/tools/test/verify-fast`, ler
 > `ISSUES.md` § Entropy (a contagem, nunca uma cópia), e auditar os 4 critérios de v1 no `/ROADMAP.md` contra o que é
-> verdade hoje; sessão de leitura + medição, o que virar trabalho vira item de lá, não daqui. E o checkup precisa de um
-> método (INBOX 2026-08-13: *"tô com bastante vontade de testar as nossas features do wos. tem que ver uma forma válida
-> de fazer isso"*) — usar as features de verdade, não só verificar que passam; a forma de exercitá-las é parte do que
-> essa sessão tem que descobrir  
+> verdade hoje; o que virar trabalho vira item de lá, não daqui. E precisa de método: *"testar as nossas features do
+> wos… uma forma válida de fazer isso"* — usar as features de verdade, não só verificar que passam  
 > [ ] [fable-credito] confirmar se o crédito Fable (100 usd até setembro) ainda consome do limite por turno/semanal, ou
 > se é isento (INBOX 2026-07-24)  
 > [ ] [plan-mode-default] deixar o plan mode como default de sessão nova na extensão VSCode do Claude Code (INBOX
@@ -122,13 +120,10 @@ fallback · iterate — MVP can always be extended*
 > vão pro ar (gira, voti, ppc) — vários já cobertos (secret-scan no pre-commit, skill `security-review`); o que sobra é
 > auth server-side, RLS, rate-limit e headers, que nenhum gate nosso vê. Ref em `core/refs/REFS.md`,
 > na linha sobre shipping de app escrito por agente (INBOX 2026-08-13)  
-> [ ] [jcode-custo] averiguar o JCode — reimplementação em Rust do harness do Claude Code, com multi-agente no mesmo
-> projeto; duas perguntas separadas, e a segunda vale mais: (1) a ferramenta presta? (2) é mesmo o harness que deixa
-> tudo caro, ou o custo é do modelo? — a (2) dá pra medir aqui sem instalar nada, comparando tokens de scaffolding vs
-> tokens de conteúdo numa sessão nossa. Ref em `core/refs/REFS.md` § Tooling (INBOX 2026-07-31). Lucas repõe a mesma
-> pergunta um nível abaixo: *"será que vale a gente usar rust ao invés de python?"* — não o harness, mas as nossas
-> próprias ferramentas em `core/tools/`. Responder as duas juntas, porque a resposta é a mesma medição (INBOX
-> 2026-09-06)  
+> [ ] [jcode-custo] o JCode (harness do Claude Code reescrito em Rust) levanta duas perguntas, e a segunda vale mais:
+> a ferramenta presta, e **é o harness que deixa caro ou é o modelo?** A segunda se mede aqui sem instalar nada —
+> tokens de scaffolding vs tokens de conteúdo numa sessão nossa. Responder junto com *"vale usar rust em vez de
+> python"* nas nossas `core/tools/`, que é a mesma medição. Ref em `core/refs/REFS.md`  
 > [ ] [zcode-trust] aceitar o trust do workspace no ZCode (Settings, ou o prompt ao abrir /mnt/workspace) — **só o Lucas
 > pode**; sem isso os hooks do shim ficam inertes. Depois abrir sessão nova e re-rodar a sonda de
 > `core/experiments/zcode-hook-protocol.md`, que decide se o registro direto fica ou vira adaptador (INBOX 2026-08-21)  
@@ -141,10 +136,18 @@ fallback · iterate — MVP can always be extended*
 > [ ] [mutation-testing] quebrar de propósito um teste que passa e ver se a suíte fica verde — se ficar, o teste não
 > tem dente. Vale rodar como auditoria da nossa suíte inteira, não como gate: o bug do `line_counts.py` (ISSUES § Open)
 > passou justamente por ter teste sem dente. Ref em `core/refs/REFS.md` (INBOX 2026-09-10)  
-> [ ] [extracao-bloqueada] a extração de link do Instagram depende de um cookie que vence em silêncio, e o `video`
-> reporta o vencimento como `(no text extracted)` — a mesma saída de um post sem texto. Duas coisas: reexportar o
-> cookie (só o Lucas), e fazer o tool distinguir as duas falhas. Custou 8 das 26 entradas da triagem de 2026-09-14.
-> Avaliar o Fortress como cura da primeira metade; ref em `core/refs/REFS.md`  
+> [ ] [extracao-bloqueada] **resolvido em 2026-09-17, e o que sobra é o alarme.** O jar de cookies tinha os dez
+> cookies anônimos do Instagram e **nenhum `sessionid`**, então reel público passava (metadata anônima) e post `/p/`
+> caía em `/accounts/login/` — o que fez a falha parecer seletiva e não parecer auth por três triagens, custando 8
+> entradas em 14/09 e 12 em 17/09. Reexportar do Brave trouxe o `sessionid` e as 12 leram na hora. Falta a lição:
+> `video` reporta jar inútil como `(no text extracted)`, igual a um post sem texto. Fazer o tool **checar o
+> `sessionid` e dizer o nome da falha**; o teste é `awk -F'\t' '$6=="sessionid"' ~/.config/workspace-video/cookies.txt`
+> vir vazio. Avaliar o Fortress só depois disso; ref em `core/refs/REFS.md`  
+> [ ] [ocr-lixo-nao-e-texto] **o mesmo buraco da parada precoce, um nível abaixo, achado ao OCRar os 24 links de
+> 17/09.** Em carrossel de design pesado o tesseract devolve só título e marca d'água — `[2/8] @ Autopilot` sete
+> vezes, `A/ Bnalytics` — e o `auto` trata isso como texto encontrado, então **nunca escala pro VLM**, que é
+> justamente quem leria aquele slide. O corpo do post fica invisível com a escada inteira verde. Decidir o critério
+> de "texto de verdade" (o mesmo nome repetido em todo slide não é conteúdo) e escalar quando ele não for atingido  
 > [ ] [skills-externas] avaliar `mattpocock/skills` — skills pequenas, componíveis, model-agnostic, em plugin ou em
 > cópia editável. Pesar contra a regra que já rejeitou `obra/Superpowers` (sem roteamento de nível por tarefa): a
 > pergunta é se essas trazem o que faltava lá, ou se de novo só o trigger vale ser importado. Ref em
@@ -161,12 +164,41 @@ fallback · iterate — MVP can always be extended*
 > `core.hooksPath` é global e alcança qualquer repo criado sob o workspace, inclusive um `tmp_path` do pytest. Hoje
 > cada teste contorna apontando `core.hooksPath` pra um diretório vazio. Decidir: o pre-commit deveria se recusar a
 > rodar num repo fora da árvore do workspace, em vez de cada teste ter de lembrar de desligá-lo?  
-> [ ] [deriva-roteamento-academy] regerar toda tabela de roteamento de uma vez revelou duas derivas em `academy/`, as
-> duas piorando o que está publicado: (1) um `.json` sem sintaxe de comentário ganha `← add first-line comment`, dívida
-> que ninguém pode pagar naquele arquivo — `core/hooks/described.txt` existe pra isso e o gerador não o consulta nesse
-> caso; (2) em `tecnologias-na-educacao/`, o blurb do próprio arquivo vence a descrição escrita à mão, e
-> `cp01-materiais.md` passa a anunciar o id da Planilha Mestre em vez da frase que dizia o que o arquivo é. Revertido
-> em 2026-09-11 sem commitar; volta na próxima vez que alguém salvar naqueles diretórios  
+> [ ] [deriva-roteamento-academy] regerar todas as tabelas de roteamento de uma vez piorou duas coisas em `academy/`:
+> um `.json` ganha `← add first-line comment`, dívida impagável naquele arquivo porque o gerador não consulta
+> `core/hooks/described.txt` nesse caso; e em `tecnologias-na-educacao/` o blurb do arquivo vence a descrição escrita à
+> mão (`cp01-materiais.md` passa a anunciar um id de planilha). Revertido em 2026-09-11 sem commitar; volta no próximo
+> save naqueles diretórios  
+> [ ] [memory-higiene] medir se `brain/memory/MEMORY.md` é mesmo lido em toda sessão e, se for, fazer higiene nele —
+> mesma régua de `core/run tools/wos/session/reads`: linha que não muda o que o agente faz, sai (INBOX 2026-09-17)  
+> [ ] [auditar-sempre-lido] auditar `AGENTS.md` e os `CONTEXT.md`: o que é de fato obedecido vs o que é ignorado. Custo
+> é por sessão, então medir antes de cortar; irmão de [memory-higiene] (INBOX 2026-09-17)  
+> [ ] [auditar-testes] auditar os ~890 testes — são muitos e vários são antigos, então alguns podem não descrever mais o
+> que o workspace faz. Casa com [mutation-testing]: teste sem dente e teste obsoleto são o mesmo custo (INBOX
+> 2026-09-17)  
+> [ ] [vocabulario-gate-nudge] trocar "gate" por "block" no WOS, inclusive nos nomes de arquivo — mais direto sobre o
+> impacto — e achar substituto pra "nudge" que traduza (o agente já soltou 'nudge' no meio de uma conversa em
+> português). Cada troca ganha linha em `core/SCHEMA.md` § Retired tokens, que é o que fecha a renomeação. A terceira
+> palavra do pedido já foi aposentada nessa tabela em 17/09 — estava em zero arquivos, só na fala do agente, e o
+> workspace já tinha o verbo simples pra ela (INBOX 2026-09-17)  
+> [ ] [painel-arquitetura] `ARCHITECTURE.html` entrega pouco: tabela gigante e vazia não ajuda. Relembrar o propósito
+> profundo do painel e o valor que ele pode dar, trocar a tabela por lista ordenada por cor e/ou símbolo, e iterar de
+> novo no Claude Design (INBOX 2026-09-17)  
+> [ ] [agente-ve-imagem] avaliar o toolkit que dá visão — imagens e screenshots — a agente text-only; Lucas: *"será que
+> é melhor que o que temos"*, e o que temos é o caption VLM do `core/tools/video`. Ref em `core/refs/REFS.md` (— via
+> aiwbot)  
+> [ ] [archify-diagramas] **`tt-ali/archify`** (rank 04, com `cathrynlavery/diagram-design`): skills que viram conversa
+> em diagrama html/svg limpo, *"from plain English to architecture in seconds"*. É o pedido do Lucas e encaixa exato em
+> [painel-arquitetura] e no diagrama de roteamento — testar nos nossos dois painéis antes de redesenhar à mão  
+> [ ] [github-trending-agosto] o resto do top 10 de agosto/2026, tudo na camada acima do modelo:
+> `DietrichGebert/ponytail` (rank 05, skill que impede o agente de over-engineerar — 54% menos código; o irmão direto
+> da nossa norma de reduzir), `deepseek-ai/deepseek-harness` (rank 07), `mattpocock/skills` (rank 02, já rastreado em
+> [skills-externas]), `firecrawl/anydoc` + parser de PDF que pula OCR (rank 06, encosta em `core/tools/paper/parse`),
+> `diegosouzapw/OmniRoute` (rank 08, gateway sobre 352 provedores), `TencentCloud/TencentDB-Agent-Memory`,
+> `earendil-works/pi`, `PrimeIntellect-ai/prime-agent`. Ref em `core/refs/REFS.md` (— via aiwbot 2026-09-17)  
+> [ ] [omarchy-vs-ubuntu] comparar o Omarchy com o Ubuntu e decidir se vale trocar — a tese do post é que ele passa
+> Windows e Mac em 18 meses porque a IA deixa qualquer um customizar o sistema. É hype de criador de conteúdo, então o
+> comparativo é o trabalho: o que muda pro nosso uso real. Ref em `core/refs/REFS.md` (— via aiwbot 2026-09-05)  
 
 ## done
 
@@ -181,5 +213,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 492/681/708/708/708/708
+last-touch: 2026-09-17  ·  trend: advancing  ·  touches: 453/732/767/767/767/767
 <!-- stats:end -->

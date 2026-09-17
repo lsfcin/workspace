@@ -22,6 +22,7 @@
 | [`home-casinhas.md`](home-casinhas.md) | [ finances | home | year ] casinhas construction |
 | [`instituto.md`](instituto.md) | [ craft | innovation | dream ] instituto |
 | [`lih-dd.md`](lih-dd.md) | [ craft | research | year ] LIH.DD — research lab |
+| [`listenreading.md`](listenreading.md) | [ fun | learning | year ] listenreading |
 | [`local-ai.md`](local-ai.md) | [ craft | research | year ] always-on autonomous local AI |
 | [`magic-places.md`](magic-places.md) | [ fun | travel | dream ] magic places |
 | [`make-in-time.md`](make-in-time.md) | [ health | mind | now ] make in time |
@@ -30,7 +31,6 @@
 | [`paper-megatruth.md`](paper-megatruth.md) | [ craft | research | near ] paper megatruth |
 | [`paper-scattercode.md`](paper-scattercode.md) | [ craft | research | near ] paper scattercode |
 | [`prompt-opt-automation.md`](prompt-opt-automation.md) | [ career | now ] prompt optimization automation |
-| [`reading.md`](reading.md) | [ fun | learning | near ] reading |
 | [`rpg-isoroll.md`](rpg-isoroll.md) | [ fun | rpg | near ] isoroll |
 | [`sleep-regularity.md`](sleep-regularity.md) | [ health | body | near ] sleep regularity |
 | [`smartphone-addiction.md`](smartphone-addiction.md) | [ health | mental | near ] smartphone addiction |
