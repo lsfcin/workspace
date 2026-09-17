@@ -1,5 +1,6 @@
 # Code
 > Software projects developed under this workspace
+> spec: none
 
 You are a SENIOR software architect, your code WILL be evaluated!
 
@@ -46,6 +47,7 @@ is auto-managed — never edit it by hand.
 | [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for experimenting with LC/UFRPE curriculum redesign |
 | [`spacemantics/`](spacemantics/CONTEXT.md) | Verifiable spatial DSL (texpace) + deterministic checker that lift LLM spatial capability across 2D/2.5D/3D/4D |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records — ARCHIVED as a spec |
+| [`wos/`](wos/CONTEXT.md) | — |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
