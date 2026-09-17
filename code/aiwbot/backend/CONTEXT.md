@@ -1,5 +1,6 @@
 # backend
 > Provider-agnostic boundary: each coding-agent CLI → normalized AgentEvent stream; one class per provider.
+> spec: ../SPECS-boundary.md
 
 ## Shape — the root is provider-agnostic, `providers/` is where a provider's name may appear
 
