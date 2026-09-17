@@ -1,16 +1,13 @@
 # templates
-> Modelos-base canônicos para documentos gerados em disciplinas (metodologia e materiais de entregas).
+> modelos-base canônicos para documentos de checkpoints de disciplina (metodologia e materiais de entregas).
 
-Governado por [`../SPECS-disciplinas.md`](../SPECS-disciplinas.md)
-§ 3. A Anatomia da Entrega (A Tríade Fechada & O Par de .md), que diz o que cada entrega produz, e
-§ 7. Contrato para Agentes (Auditoria e Planejamento de Disciplinas), que diz o que um agente deve
-auditar nela.
+governado por [`../SPECS-disciplinas.md`](../SPECS-disciplinas.md) § entregas (metodologia e materiais) e § análise por agentes.
 
 <!-- routing:start -->
-## Routing
+## routing
 
-| File | Description |
-|------|-------------|
-| [`template-materiais.md`](template-materiais.md) | [NOME_DA_DISCIPLINA] · [SEMESTRE] · Entrega: [DATA_DA_ENTREGA] Link da Planilha Mestre: [URL_DA_PLANILHA] (Coluna K, Linha [LINHA]) |
-| [`template-metodologia.md`](template-metodologia.md) | [NOME_DA_DISCIPLINA] · [SEMESTRE] · Entrega: [DATA_DA_ENTREGA] Link da Planilha Mestre: [URL_DA_PLANILHA] (Coluna F, Linha [LINHA]) |
+| arquivo | descrição |
+|---|---|
+| [`template-metodologia.md`](template-metodologia.md) | modelo canônico para roteiros de entrega: racional, grafo de dependência, pipeline por artefato e matriz binária de critérios. |
+| [`template-materiais.md`](template-materiais.md) | modelo canônico para pacotes de suporte: links polimórficos de entregáveis e a tríade modelo, exemplo excelente e exemplo quase bom / sem alma. |
 <!-- routing:end -->
