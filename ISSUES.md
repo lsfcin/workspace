@@ -58,6 +58,22 @@ matching regression spec exists and passes.
   each pays a `core/SCHEMA.md` § Retired tokens row. Deferred from the session that found it:
   it corrects the registry, it does not unblock anything.
 
+- **The feature is called `bot` and the directory is called `code/aiwbot/`.** `core/tools/CONTEXT.md`
+  says a family directory IS the feature, and this is the one crossing tree where the two spellings
+  disagree — the registry dropped the vendor on 2026-09-17 and the directory kept it. What closes it
+  is renaming the tree, 281 tracked paths and every pointer into them, which did not fit beside the
+  crossing work. The rename is cheap to describe and expensive to do, which is exactly why it is
+  written down rather than remembered.
+
+- **The wiring check's name witness passes on any word the file already uses.**
+  `test_features_wiring.py` asks `row['name'] not in path.read_text()` over RAW text, comments
+  included — the same weakness that let `symmetry` pass on the word *asymmetry*. The `bot` row is
+  the live case: the word is in every other line of `code/aiwbot/frontend/bot.py`, so that arm
+  proves nothing for it, and only the behavioural arm beside it still does. Measured 2026-09-17:
+  64 of the 68 wired points name themselves inside `require('<name>')` or `is_enabled('<name>')`,
+  so demanding the QUOTED name would hold everywhere but the four `.sh` and `.js` points, which
+  spell the call differently. The fix is one line plus a shape for those four.
+
 - **The read gate charges a session twice for one enforcement layer.** `code/wos` now holds 81
   `CONTEXT.md` byte-identical to this repo's, and the gate keys on the PATH, so a session that has
   oriented in `core/tools/wos/publish/` here is refused again the moment its working directory is
@@ -121,7 +137,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/bot-crossing is 1 ahead of main
+- . — feature/bot-crossing is 2 ahead of main
 
 ### Local branches already merged into their base
 
