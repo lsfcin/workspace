@@ -60,7 +60,7 @@ file	.claudeignore	a context-cost filter, not a privacy boundary
 file	opencode.json	harness config
 file	.agentrc.json	harness config
 file	.zcode/SPECS.md	the registration contract for the third harness shim, the same class as opencode.json and .agentrc.json below. NOT a feature row: core/experiments/zcode-hook-protocol.md has not yet verified that ZCode executes the registration at all, and a feature declared before its own verification claims a switch over something nobody has seen fire
-file	.zcode/skills/CONTEXT.md	what that harness reads the skill mirrors out of — the directory is generated and gitignored, and this one file is what says so
+absent	.zcode/skills	the index of a generated, gitignored mirror directory: worthless in a clone that regenerates it, and its routing block NAMES every skill including the private ones, so it publishes the list even while the files stay refused. It crossed for one run on 2026-09-17 and the target's own project-contract gate refused the commit, because every CONTEXT.md under code/ must declare a `> spec:` there
 file	code/CONTEXT.md	the head of the tree the crossing project lives in. Nothing in the clone routed to code/aiwbot until this crossed, because the routing generator needs a CONTEXT.md to make a row — and the 16 private projects it lists are inside the generated block, which the TARGET rewrites from its own tree (core/tools/wos/publish/rebuild.py). Its head names no project
 file	code/SPECS-git.md	the law gitflow-gate enforces, and AGENTS.md sends every session to read it. The gate crosses; a refusal whose rule the clone cannot open is the false green these checks exist to end
 file	code/SPECS.md	engineering conventions for a project under code/, cited by the head above
