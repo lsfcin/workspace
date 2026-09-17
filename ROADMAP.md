@@ -80,16 +80,8 @@ a distro shipping something too old, never a release from the future.
 
 ## Rejected
 
-- **Tokens as the size unit** — 2026-09-14: 216 ms of vocabulary against a 273 ms write, and no Anthropic tokenizer offline.
-- **Measuring one line's width** — 2026-09-14 (Lucas): four exemptions, because it asked about syntax, not size.
-- **Exempting Lucas's own writing from the rename check** — 2026-09-14 (Lucas): a blind spot is worse than a word.
-- **The one-root hypothesis** — 2026-09-14: two of three; words die when structure moves and text does not follow.
-- **`gate` → `block`** — 2026-09-14: `block` already names a generated region AND is the verb: *"a block blocks"*.
-- **Flattening the eight personification verbs** — 2026-09-14 (Lucas): 478 uses and they read; a voice is not jargon.
-- **A goal↔roadmap warning, and a goal-format audit** — 2026-09-15: 26 of 39 goal files have never been opened.
-- **An effort table built from `agy --print`** — 2026-09-15: its print mode writes to its own scratch dir and reports success, so every arm would have been a false green.
-- **A phone-push channel (ntfy, or the harness's own)** — 2026-09-15 (Lucas): phone addiction is a real cost to him; a channel that fetches him is a loss even when its content is right. Telegram, silent, opened on his schedule.
-- **A `Stop` hook for the close offer** — 2026-09-15: fires at the end of every response, so it would have to invent a reason to stay quiet. The crossing already has a once-per-threshold moment.
-- Sixteen killed before 2026-09-14 are in git, not here: `git log -S'## Rejected' -- ROADMAP.md`. A
-  tombstone stops earning its line once nobody who might revive the item remembers it, and this is
-  the heaviest file in the workspace — one nobody needs is read by everyone.
+Twenty-six killed items are in git, not here: `git log -S'## Rejected' -- ROADMAP.md`. A tombstone
+stops earning its line once nobody who might revive the item remembers it, and this is the heaviest
+file in the workspace — one nobody needs is read by everyone. The six of 2026-09-14 and the four of
+2026-09-15 joined them on 2026-09-17 (Lucas): the git log IS the other place, and this section keeps
+the pointer rather than the list.

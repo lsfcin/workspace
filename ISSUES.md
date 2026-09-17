@@ -65,6 +65,14 @@ matching regression spec exists and passes.
   crossing work. The rename is cheap to describe and expensive to do, which is exactly why it is
   written down rather than remembered.
 
+- **Nothing in the public clone routes to the project it now carries.** `code/aiwbot` crossed on
+  2026-09-17 and `code/CONTEXT.md` did not, because it is an inventory of sixteen private projects.
+  The read gate is fine — it asks `is_file()` and simply skips a link that is not there — but the
+  ROUTING generator needs a `CONTEXT.md` to make a row, so the clone's `AGENTS.md` still lists
+  `core/` alone and an agent there finds the bot only by knowing it exists. The shapes that could
+  close it: a `code/CONTEXT.md` the TARGET authors, the way it already authors its own `ROADMAP.md`
+  and `ISSUES.md`; or a floor that can publish a file's head without its generated block.
+
 - **The wiring check's name witness passes on any word the file already uses.**
   `test_features_wiring.py` asks `row['name'] not in path.read_text()` over RAW text, comments
   included — the same weakness that let `symmetry` pass on the word *asymmetry*. The `bot` row is
@@ -137,7 +145,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/bot-crossing is 3 ahead of main
+- . — feature/bot-crossing is 4 ahead of main
 
 ### Local branches already merged into their base
 
