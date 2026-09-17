@@ -156,6 +156,11 @@ async def _post_init(app: Application) -> None:
 
 
 def main() -> None:
+    # The `bot` switch at the one moment that stops everything: the process refuses to start.
+    # Imported HERE and not at the top because the sys.path hop to core/tools is inbox's, and it
+    # has run by the time this is called — the other half of the same switch lives there.
+    import tool_law
+    tool_law.require('bot')
     app = Application.builder().token(config.bot_token()).post_init(_post_init).build()
     app.add_handler(CallbackQueryHandler(ask.handle_callback, pattern="^a:"))
     app.add_handler(CallbackQueryHandler(panel.handle_callback, pattern="^p:"))

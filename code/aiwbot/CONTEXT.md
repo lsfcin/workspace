@@ -10,9 +10,12 @@ Phase A (current) proves the boundary against claude + opencode with a bare harn
 before any Telegram wiring.
 
 `make test` runs the free fixture tests; `make smoke` runs one live prompt through each backend
-(~$0.20). Installing and operating the systemd service is one step of
-[`SETUP-accounts.md`](../../SETUP-accounts.md) § Telegram bot, where every other account-bound
-feature's install already lives.
+(~$0.20). Installing and operating the systemd service is
+[`SETUP-telegram.md`](../../SETUP-telegram.md); the token and the chat pairing are an account, and
+live with every other one.
+
+This tree is the `bot` feature of the workspace registry, and the only project under `code/` that
+crosses into the public repo — the switch is read at `main()` and again at the INBOX write.
 
 <!-- routing:start -->
 ## Routing

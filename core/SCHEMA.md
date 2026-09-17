@@ -195,7 +195,6 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `loop-engineering` | `craft` | 2026-07-23 |
 | `loop-router` | `route` | 2026-07-23 |
 | `loop-architecture` | `architect` | 2026-07-23 |
-| `LOOP-TREE` | `tree.md` | 2026-07-23 |
 | `KNOWN-BUGS` | `ISSUES.md` | 2026-07-30 |
 | `/loops` | `/craft` | 2026-08-17 |
 | `BUGS.md` | `ISSUES.md` | 2026-08-19 |
@@ -213,6 +212,7 @@ the moment a rename lands, and delete the prose that would otherwise explain it.
 | `column cap` | `document cap` | 2026-09-14 |
 | `mail-triage` | `mail` | 2026-09-16 |
 | `hatchet` | `cut` | 2026-09-17 |
+| `telegram-capture` | `bot` | 2026-09-17 |
 
 **One retired token can owe four replacements, and the cell holds only the commonest.** `slug` names
 four ideas, and they do not flatten into one: a link's `short name`, a feature's or file's `name`, a

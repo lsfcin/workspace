@@ -1,8 +1,8 @@
 # Setup — outside accounts
 > Everything that reaches a service off this machine: web search, the shared Google OAuth behind six
-> tools, the Forms API's separate project, the Telegram capture bridge, and the CIn VPN. Five of the
-> six need a human for one browser action or one password, and each says exactly which one.
-> feature: web-search, google-auth, forms, telegram-capture, vpn-cin
+> tools, the Forms API's separate project, the chat bot's token, and the CIn VPN. Five of the six
+> need a human for one browser action or one password, and each says exactly which one.
+> feature: web-search, google-auth, forms, bot, vpn-cin
 > enforced-by: core/tools/test/workspace/test_setup_executable.py
 
 The five-part contract, and the rule for what the agent hands over: [`SETUP.md`](SETUP.md). Secrets
@@ -86,33 +86,28 @@ core/run tools/forms/gforms auth personal --write        # prompts the consent f
 
 **Verify** `core/tools/forms/gforms new --account personal <spec.json>`
 
-## Telegram bot — `code/aiwbot`
-> feature: `telegram-capture` · agent: no
+## Telegram bot — the account half
+> feature: `bot` · agent: no
 
-The Telegram bridge lives in [`code/aiwbot`](code/aiwbot/CONTEXT.md) as the systemd `--user` service
-`aiwbot`: it captures text, photo, voice and document into `brain/INBOX.md` and drives coding agents
-remotely.
+The service itself is [`SETUP-telegram.md`](SETUP-telegram.md), which is generic and public. What
+stays here is the account: a bot token from BotFather, and the pairing — he must message the bot
+once so its `allowed_chat_id` is captured. Tokens are guessable by username, so that allowlist is
+the only thing between a stranger and writes into `brain/INBOX.md`.
 
-**Needs you:** a bot token from BotFather, and the pairing — he must message the bot once so its
-`allowed_chat_id` is captured. Tokens are guessable by username, so that allowlist is the only thing
-between a stranger and writes into `brain/INBOX.md`. Ask for the token; write
-`~/.config/workspace-aiwbot/config.json` yourself, dir `700` / file `600`.
+**Needs you:** the token. Ask for it; write `~/.config/workspace-aiwbot/config.json` yourself, dir
+`700` / file `600`.
 
-**Precondition** `systemctl --user status aiwbot --no-pager | head -3`
+**Precondition** `test -s ~/.config/workspace-aiwbot/config.json && echo paired`
 
-**Install** — the unit lives outside the repo, at `~/.config/systemd/user/aiwbot.service`. It must
-carry `Environment=PYTHONUNBUFFERED=1`: the journal is a pipe, so Python block-buffers stdout and
-every diagnostic sits in an 8 KB buffer until the process exits, which made the bot's logs invisible
-exactly while it was running (2026-07-27). `Restart=always` self-heals a crash, and the unit does
-not survive a reboot without a login session unless `loginctl enable-linger lucas` is set (sudo, not
-currently set). Switching branches or pulling takes effect only on restart.
+**Install** — write the file, then run the service step in [`SETUP-telegram.md`](SETUP-telegram.md).
+`loginctl enable-linger lucas` is the one sudo line there and is **not currently set** on this
+machine, so the bot does not survive a reboot without a login session.
 ```bash
-systemctl --user daemon-reload
-systemctl --user enable --now aiwbot
+install -d -m 700 ~/.config/workspace-aiwbot
+install -m 600 /dev/null ~/.config/workspace-aiwbot/config.json   # then write the token into it
 ```
 
-**Verify** — send a message from the paired chat and confirm the entry lands in `brain/INBOX.md`;
-`journalctl --user -u aiwbot -n 50` if it does not.
+**Verify** — send a message from the paired chat and confirm the entry lands in `brain/INBOX.md`.
 
 ## VPN do CIn
 > feature: `vpn-cin` · agent: no

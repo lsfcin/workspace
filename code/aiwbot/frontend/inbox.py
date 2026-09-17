@@ -17,13 +17,10 @@ INBOX_MARKER = "<!-- add entries below, newest first -->"
 
 
 def append_entry(entry: str) -> None:
-    # The switch, at the moment the feature does its one job: writing into the workspace.
-    # `telegram-capture` read `-` in core/features.txt for as long as this code lived in a repo
-    # the workspace did not version, because a wiring path into a nested repo would have made a
-    # Level 0 test of the workspace assert on a stranger. Absorbing aiwbot is what made the line
-    # writable (2026-09-12). It guards here rather than at the bot's entrypoint so switching the
-    # feature off stops the CAPTURE without stopping the bot's other surfaces.
-    tool_law.require('telegram-capture')
+    # The switch, at the moment the feature does its one job: writing into the workspace. bot.py
+    # carries the same one at start, and the registry names BOTH in `wired`: a switched-off bot
+    # must not reach the workspace even if something else starts the process.
+    tool_law.require('bot')
     text = INBOX_FILE.read_text(encoding='utf-8')
     marker_pos = text.index(INBOX_MARKER) + len(INBOX_MARKER)
     updated = text[:marker_pos] + f"\n\n{entry}" + text[marker_pos:]

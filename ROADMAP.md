@@ -72,16 +72,6 @@ The other two answers are in: `is_owner_only()` reads the ACL back rather than t
 and `core/tools/deps.txt` carries a `floor` column — a floor, not a ceiling, because the failure is
 a distro shipping something too old, never a release from the future.
 
-**🔴 `code/aiwbot` is part of WOS and is filed as a stranger to it**
-*What* — the hierarchy fixed rather than labelled. `telegram-capture` is the only registry row whose
-switch lives outside this repo, and the wiring check now has to skip it; Lucas ruled 2026-09-16 that
-aiwbot belongs inside WOS and **may be public**, which makes it the second repo the one-way sync
-could write.
-*Why* — a feature whose switch nothing here can throw cannot be ablated, and it is the one row the
-honesty check cannot answer.
-*Done when* — the row's `wired` names a file this repo carries, and the skip in
-`test_features_wiring.py` is deleted rather than kept.
-
 ## Deferred — real work, deliberately not now
 
 - **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 repo is tight.
