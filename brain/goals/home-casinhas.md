@@ -59,6 +59,9 @@ fallback · even a partial map beats starting from zero again*
 > (S8–S9)  
 > [ ] [janela-moldura] considerar a "janela moldura" do Paulo Trigo nas janelas das casinhas —
 > ([reel](https://www.instagram.com/reel/Dc0okrDRp2z/), — via aiwbot 2026-09-03, INBOX)  
+> [ ] [laje-vigota-protendida] avaliar laje de vigota protendida nas casinhas — o engenheiro do reel alega 30–40% menos
+> concreto, montagem mais rápida e mais segura, com diferença de custo pequena contra a laje tradicional; pesquisar
+> fornecedor na região e cotar ([reel](https://www.instagram.com/reel/DdSGzyohGXt/), — via aiwbot 2026-09-16)  
 > [ ] [complementares] rascunhar estrutural/hidráulico/elétrico com guias IA no Bonsai; engenheiro valida/assina
 > (S12+)  
 
@@ -77,5 +80,5 @@ fallback · even a partial map beats starting from zero again*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-04  ·  trend: advancing  ·  touches: 40/56/56/56/56/56
+last-touch: 2026-09-07  ·  trend: advancing  ·  touches: 33/56/57/57/57/57
 <!-- stats:end -->

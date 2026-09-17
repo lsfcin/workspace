@@ -72,6 +72,16 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 > (2) a armadilha de tokenizer que o paper documenta (SentencePiece com case-folding → HF fast derruba o normalizer,
 > LAMBADA-PT 45.3 → 25.0, invisível na métrica agregada) é um erro que a gente pode cometer em qualquer avaliação
 > nossa, independente de adotar o modelo. Ref em `academy/refs/REFS.md`  
+> [ ] [layerwise-70b] avaliar a lib Python que roda modelos de 70B carregando camada por camada do disco, com flash
+> attention e memória quase plana — Lucas: *"talvez sirva pros nossos testes"*. Mesmo gênero de fonte de
+> [cpu-inference-engine], então ir na fonte primária antes do número. Ref em `core/refs/REFS.md` (— via aiwbot)  
+> [ ] [openworker] olhar o OpenWorker do Andrew Ng — co-worker que executa tarefas em vez de conversar, roda local,
+> conecta 40+ apps e aceita qualquer modelo. Lucas: *"vale muito a pena a gente consultar"*. Ref em
+> `core/refs/REFS.md` (— via aiwbot)  
+> [ ] [nvidia-pair] olhar o PAIR da Nvidia — aberto, junta a capacidade ociosa de várias máquinas da mesma casa
+> (Windows, Linux, macOS) para uma carga local de IA. Lucas: *"será que consigo usar de alguma forma?"*. A pergunta
+> concreta daqui: somar a RTX 3050 a outra máquina muda o teto de [local-setup] e [tiny-quant], ou o gargalo continua
+> sendo VRAM numa placa só? Ref em `core/refs/REFS.md` (— via aiwbot)  
 
 ## done
 
@@ -80,5 +90,5 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 70/97/97/97/97/97
+last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 69/97/98/98/98/98
 <!-- stats:end -->

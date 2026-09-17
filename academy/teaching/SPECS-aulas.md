@@ -1,42 +1,76 @@
-# SPECS | Aulas
-> Contrato de planejamento e auditoria para aulas teóricas e práticas (nível micro).
+# SPECS | aulas
+> contrato de planejamento e auditoria para aulas teóricas e práticas (nível micro).
 > governs: toda aula teórica ou prática ministrada por Lucas
 
-## 1. Princípio & Ritmo
+## princípio & ritmo
 
-Toda aula parte do chão (ancoragem em dores reais) e aponta para o horizonte (direção emancipatória).
-Duração padrão de encontro: **70 a 90 minutos**.
+toda aula parte de um contexto real, conexão com problemática fáceil de se relacionar e aponta para o um horizonte positivo, deixar fácil, mastigado, entender por que a gente está alí reunido dedicando nosso tempo estudando.
 
----
+então é encorajdo em todas as aulas, sem excessão, trazer os alunos pra junto, falar de problemas da realidade deles e falar do impacto daquele conteúdo na formação deles, como aquilo pode ajudar eles no futuro próximo, quais oportunidades se relacionam com aquilo, como eles podem se tornar mais capazes de se diferenciar e de ajudar o entorno.
 
-## 2. Aula Teórica (até 20% de prática)
-
-Estruturada em 5 blocos rítmicos com timebox visível:
-
-```
-[00-10 min] Kickoff & Escuta (Dilema real, cena problemática, escuta autêntica de 2 a 3 alunos)
-[10-15 min] QR Code de Retenção (Abertura do formulário de acompanhamento contínuo)
-[15-55 min] Núcleo Conceitual (1 a 3 tópicos da Árvore Didática: WHY-WHAT-HOW + Ângulos)
-[55-65 min] Síntese & Glossário (Fechamento da árvore, mapa visual e termos novos)
-[65-75 min] Gatilho da Prática (Apresentação do alvo e preparação das equipes)
-```
-
-### Regras dos Blocos Teóricos
-1. **Kickoff (10 min cravados):** Abre com dilema autêntico. Ouve 2 a 3 alunos antes de conceituar.
-2. **Formulário de Retenção (QR Code):** 3 a 5 itens objetivos/reflexivos. Fica aberto até o final do dia.
-   Automação obrigatória via especificação `gforms` integrada à planilha mestre. Bonificação, não punição.
-3. **Núcleo Conceitual (35 a 40 min):** Fluxo WHY-WHAT-HOW. Pausa ativa de 2 min para debate em dupla
-   (Peer Instruction).
-4. **Biblioteca de Ângulos (Dupla Codificação):** Selecionar 3 a 4 ângulos por conceito (narrativa, semântica,
-   formalização, diagramas, evidência empírica, imagens, animações/transições, casos de uso, experimentação).
-5. **Síntese & Glossário (10 min):** Amarra a árvore didática e fixa o vocabulário técnico novo.
-6. **Gatilho da Prática (10 min):** Alinha papéis, detalha a entrega da próxima aula prática e dependências de ambiente.
+duração padrão de encontro: **70 a 90 minutos**.
 
 ---
 
-## 3. Aula Prática (até 20% de teoria)
+## aulas teóricas (até 20% de prática)
+
+o fluxo narrativo das aulas teóricas é crítico, deve ser muito bem conectado. para cada aula selecionar se o fluxo será linear (ex.: linha do tempo), macro -> micro ou micro -> macro. a aula tem que fechar com o que começou, conectar as duas pontas.
+
+estruturada em 5 blocos rítmicos com timebox visível:
+
+```
+[15 min] QR code de retenção + kickoff
+abertura do formulário com questões, usado para acréscimo da nota e para a validar a frequência / chamada. fica aberto até o final da aula. tornar obrigatória a automação usando `gforms` da criação do form, adicição do qr code no material das aulas, abertura e fechamento do form, análise dos resultados e pontuação na planilha de notas.
+incluir QR code visível nos slides durante a parte do kickoff, disponível.
+no kickoff trazer um dilema real que ressoe nos alunos, cena problemática, notícias, estatísticas, histórias pessoais, escuta autêntica de alguns alunos. ter cuidado para não soar superficial, fake, ou como coach.
+
+[50 min] núcleo conceitual
+em 1 a 3 blocos com tópicos do grafo de conhecimento da disciplina, decidir fluxo dos blocos (linear, macro -> micro, micro -> macro) e para cada item e subitem usar os passos WHY-WHAT-HOW. é muito importante explorar diferentes formatos de apresentação de conteúdos visto que cada aluno pode ter mais facilidade com um ou com outro, então aqui buscamos redundância e sinergia. diria que o ideal é usar pelo menos 3 formatos para cada item. exemplos de formatos são:
+- evidência empírica, 
+- fórmulas, definições, formalizações, 
+- lógica,
+- narrativa, histórias, 
+- diagramas,
+- imagens, animações/transições, vídeos
+- casos de uso, 
+- experimentação, testes
+- dinâmicas, grupos, indivíduos
+
+[5 min] síntese & glossário
+fechamento da árvore, mapa visual e termos novos. amarra a ao grafo de conhecimento da disciplina e fixa o vocabulário técnico novo.
+
+[10 min] gatilho da prática 
+apresentação do alvo e preparação das equipes. alinha papéis, detalha a entrega da próxima aula prática e dependências de ambiente.
+```
+
+---
+
+## aulas práticas (até 20% de teoria)
 
 Estruturada para eliminar desorientação e garantir entrega funcional incremental:
+
+```
+[00-10 min] Alvo & Especificação Enxuta (Critério de aceite claro: 1 frase testável no quadro)
+[10-20 min] Modelagem com Contraste (Demonstração think-aloud + Exemplo Bom vs. Exemplo Ruim)
+[20-65 min] Sprints Guiados com Checklist (Execução em blocos de 15 a 20 min com cronômetro)
+[65-75 min] Verificação de Compartilhamento & Fecho (Garantia de acesso ao artefato e demo relâmpago)
+```
+
+### Regras dos Blocos Práticos
+1. **Alvo Enxuto:** O que vai existir hoje que não existia antes e como sabemos que está pronto.
+2. **Modelagem com Contraste (Obrigatória):** O professor demonstra a primeira fatia pensando em voz alta
+   e exibe o par **Exemplo Bom vs. Exemplo Ruim** para antecipar armadilhas frequentes.
+3. **Modelo e Roteiro Obrigatórios:** Nenhuma prática inicia sem Starter Template (código/documento/Excalidraw)
+   e roteiro passo a passo com tempo estimado por micro-etapa.
+4. **Sprints & Checklist Binário:** Trabalho em blocos temporizados com critérios binários (Sim/Não).
+5. **Verificação de Compartilhamento:** Validação obrigatória de permissão de acesso ao repositório ou documento.
+6. **Fecho (5 a 10 min):** Demonstração relâmpago de 60 segundos de 1 ou 2 equipes para reforçar autoeficácia.
+
+---
+
+## aulas avaliativas
+
+momento em que os estudantes apresentam resultados e são avaliados
 
 ```
 [00-10 min] Alvo & Especificação Enxuta (Critério de aceite claro: 1 frase testável no quadro)

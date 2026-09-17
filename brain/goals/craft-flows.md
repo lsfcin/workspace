@@ -100,6 +100,13 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 > [ ] [graph-native] avaliar a orquestração graph-native de agentes do Claude Code contra o que `code/flows` já faz — e
 > checar se o tal "Graph Engineering" (Microsoft/Stanford/Anthropic) existe de fato; o próprio post diz que só um dos
 > dois é real (ref em `core/refs/REFS.md`, INBOX 2026-07-29)  
+> [ ] [router-tarefa-modelo] checar o router de tarefa→modelo do reel (o artefato mora num canal de broadcast) contra o
+> que `core/tools/wos/levels` e o autorouting do `/craft` já fazem — Lucas: *"essa é uma ideia antiga, vale a pena
+> checar"*. Irmão de [level-briefing]; ref em `core/refs/REFS.md` (— via aiwbot 2026-09-16). **O caso sério do mesmo
+> tema é o HydraFusion do GitHub** (*"temos que testar isso"*, INBOX 2026-09-05): três fluxos — SINGLE, CASCADE
+> (barato tenta, caro assume se não passar a régua) e CRITIQUE (um escreve, outro revisa, o primeiro corrige) — com
+> 67% menos custo e qualidade acima do nosso nível alto num benchmark, mas **abaixo em dois outros**, o que é o dado
+> que interessa. CASCADE e CRITIQUE são exatamente [B1] second-opinion e o autorouting; medir contra eles  
 
 ## seed (INBOX 2026-07 — insumo da sessão Fable)
 
@@ -131,5 +138,5 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 65/91/131/131/131/131
+last-touch: 2026-09-15  ·  trend: advancing  ·  touches: 61/94/134/134/134/134
 <!-- stats:end -->
