@@ -76,6 +76,8 @@ absent	models	weights, which no clone should carry and no git should hold
 absent	code	his software projects, each its own repo — including the one this file publishes
 absent	ROADMAP.md	his plan for his workspace; the public repo writes its own
 absent	core/ROADMAP.md	the same, for the agent library, and it links into brain/goals/
+absent	core/skills/prof.md	his teaching method, and the skill is only the router: every protocol in it cites academy/teaching/prof/dossie-evidencias.md, which the `absent academy` line below refuses. A clone would get the shell without the base it argues from. NOT refused for being pedagogy — refused until Lucas decides to publish the evidence with it (2026-09-17)
+absent	core/skills/prof	the ten subskills under that router, for the same reason. TWO LINES because a refusal matches a path or a path plus `/`, so the `.md` and the directory beside it are two prefixes and neither covers the other
 absent	core/experiments	what HE measured about HIS workspace, and the WOS paper's data
 absent	core/prompts	a prepared session of his, deleted once its deliverable lands — the same fact about CONTENT as the line above, and its twin: the two that sat here pointed into core/experiments/ and into his course material. A refusal is a PREFIX, so the directory's own CONTEXT.md goes with it and the clone simply has no core/prompts/ — better than an empty directory explaining a pattern with no instance in it
 absent	ISSUES.md	per-repo by the 2026-09-04 ruling; the target writes its own

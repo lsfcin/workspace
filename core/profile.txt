@@ -108,6 +108,7 @@ toggle	calendar	on
 toggle	drive	on
 toggle	foundry	on
 toggle	iso-visual	on
+toggle	prof	on
 toggle	filesystem	on
 toggle	storage	on
 toggle	secrets	on
