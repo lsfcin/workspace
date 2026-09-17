@@ -41,7 +41,7 @@ ZCode's **user scope** (`~/.zcode/cli/config.json`,
 | PostToolUse `Read` | same | `facade/facade-tracker.py`, `read/context-tracker.py` |
 | UserPromptSubmit | same | `session/context-meter.py` |
 | SessionStart `^compact$` | **PreCompact** | `session/precompact-wipe.py` |
-| SessionStart (no matcher) | SessionStart | `session/session-prune.py`, `git/branch_marker.py record`, `session/mirror-heal.py`, `session/inbox-nudge.py`, `session/compass-nudge.py` |
+| SessionStart (no matcher) | SessionStart | `session/session-prune.py`, `git/branch_marker.py record`, `session/mirror-heal.py`, `session/nudges.py` |
 
 Event differences vs Claude Code, and how they are covered:
 

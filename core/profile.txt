@@ -64,6 +64,7 @@ toggle	brain-dashboard	on
 toggle	brain-attention	on
 toggle	inbox-nudge	on
 toggle	compass-nudge	on
+toggle	publish-nudge	on
 toggle	bot	on
 toggle	notify	off
 toggle	context-meter	on
@@ -95,6 +96,7 @@ toggle	compass	on
 toggle	research	on
 toggle	prepare	on
 toggle	dedup	on
+toggle	accessible-deck	on
 toggle	install	on
 toggle	permissions	on
 toggle	levels	on

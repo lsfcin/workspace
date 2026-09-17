@@ -8,6 +8,7 @@
 |--------------|-------------|
 | [`ai4good/`](ai4good/CONTEXT.md) | Disciplina AI4Good — material e questionários da turma. Espelha `teaching/ai4good/` no Drive pessoal. |
 | [`aisetup/`](aisetup/CONTEXT.md) | Modelos de IA grátis no OpenCode: material de setup para alunos, Windows e Linux, uma rota por arquivo. |
+| [`prof/`](prof/CONTEXT.md) | Dossiê de evidências e fundamentação científica da pedagogia transformadora e prática docente. |
 | [`tecnologias-na-educacao/`](tecnologias-na-educacao/CONTEXT.md) | Disciplina Tecnologias na Educação — material e questionários da turma. Espelha `teaching/tecnologias-na-educacao/` no Drive pessoal. |
 | [`templates/`](templates/CONTEXT.md) | Modelos-base canônicos (.md) para metodologia e materiais de entregas/checkpoints. |
 

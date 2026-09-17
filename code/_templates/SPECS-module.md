@@ -30,4 +30,4 @@ verify: none
      `verify:` names a runner. Prefer examples that map 1:1 to a test in the project's suite. -->
 
 ## Notes
-<!-- Rationale, links to the goal ([[spec-driven-development]]), .craft provenance, sibling SPEC.md. -->
+<!-- Rationale, a wiki-link to this project's own goal, .craft provenance, sibling SPEC.md. -->

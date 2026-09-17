@@ -8,3 +8,11 @@
 ---
 
 <!-- add entries below, newest first -->
+
+https://www.instagram.com/p/DdZK4y9jFHW/?stkn=NTc4MTIwNjQ2YQ==
+talvez encaixe nas minhas aulas
+— via aiwbot · 2026-09-17
+
+https://www.instagram.com/p/DdZCjCyDSjD/?stkn=NTc4MTIwNjQ2YQ==
+incluir nas aulas
+— via aiwbot · 2026-09-17

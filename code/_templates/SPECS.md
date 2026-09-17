@@ -30,3 +30,11 @@
 ## Conventions
 <!-- Naming patterns, file layout rules, or coding contracts not derivable from the code.
      Only the things that would catch a new contributor off guard. -->
+
+<!-- routing:start -->
+## Routing
+
+| Part | Description |
+|------|-------------|
+| [`SPECS-module.md`](SPECS-module.md) | ← add description |
+<!-- routing:end -->
