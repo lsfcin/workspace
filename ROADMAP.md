@@ -72,6 +72,15 @@ The other two answers are in: `is_owner_only()` reads the ACL back rather than t
 and `core/tools/deps.txt` carries a `floor` column — a floor, not a ceiling, because the failure is
 a distro shipping something too old, never a release from the future.
 
+**🟡 six brain features cross into a clone that has nowhere to run them**
+*What* — `brain/`'s SCAFFOLD crossing while its CONTENT stays refused, by the precedence rule
+`core/public.txt` gained 2026-09-17: the goal-file format, the dashboard's shape and the INBOX
+marker, with no goal, draft or entry of his.
+*Why* — `brain-dashboard`, `brain-attention`, `inbox-nudge`, `compass-nudge`, `inbox` and `compass`
+already reach the public repo and all six read a directory that is not there. It is the `bot`
+asymmetry pointed the other way, found 2026-09-17 by Lucas asking whether brain could be optional.
+*Done when* — a clone can run one of the six and see it do something, with none of his content in it.
+
 ## Deferred — real work, deliberately not now
 
 - **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 repo is tight.
@@ -85,3 +94,8 @@ stops earning its line once nobody who might revive the item remembers it, and t
 file in the workspace — one nobody needs is read by everyone. The six of 2026-09-14 and the four of
 2026-09-15 joined them on 2026-09-17 (Lucas): the git log IS the other place, and this section keeps
 the pointer rather than the list.
+
+- **A repo of its own for `code/aiwbot`** — 2026-09-17 (Lucas): it would not have closed the item.
+  The wos clone would still carry a registry row naming a file it does not have.
+- **A `needs` column in the feature registry** — 2026-09-17: one `bot` row means no dependency left
+  to declare, and a column with zero filled values is worse than one with a single case.
