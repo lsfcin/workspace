@@ -1,6 +1,7 @@
 ---
 name: publish
-description: Rebuild the public repo from this workspace and push it — what crosses, what the target regenerates, and the target's own suite as the gate. One way: nothing is ever edited on the far side.
+description: >
+  Rebuild the public repo from this workspace and push it — what crosses, what the target regenerates, and the target's own suite as the gate. One way: nothing is ever edited on the far side.
 ---
 
 # Publish skill

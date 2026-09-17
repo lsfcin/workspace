@@ -1,6 +1,7 @@
 ---
 name: roundup
-description: Full session-close ritual: drain the lists, route session knowledge to durable files, then verify and hand off. Use at session end.
+description: >
+  Full session-close ritual: drain the lists, route session knowledge to durable files, then verify and hand off. Use at session end.
 ---
 
 # Roundup skill

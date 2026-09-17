@@ -9,6 +9,8 @@
 
 <!-- add entries below, newest first -->
 
+acho que a instalação do WOS deveria ser feita através de um chatbot determinístico de instalação, tipo uma árvore de decisão, que com poucas respostas iria mapear tudo que o usuário quer instalar e montar um plano executado em N sessões do harness dele
+
 https://www.instagram.com/p/DdZK4y9jFHW/?stkn=NTc4MTIwNjQ2YQ==
 talvez encaixe nas minhas aulas
 — via aiwbot · 2026-09-17

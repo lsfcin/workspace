@@ -1,6 +1,7 @@
 ---
 name: dedup
-description: Semantic duplication audit for a code project, defaulting to the one in the working directory: near-duplicate logic that the verbatim-clone gate misses.
+description: >
+  Semantic duplication audit for a code project, defaulting to the one in the working directory: near-duplicate logic that the verbatim-clone gate misses.
 ---
 
 # Dedup skill

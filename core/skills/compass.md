@@ -1,6 +1,7 @@
 ---
 name: compass
-description: Gentle strategic review of Brain: what has good wind, reorder by motivation, ditch guilt-free, close wins, next easy start.
+description: >
+  Gentle strategic review of Brain: what has good wind, reorder by motivation, ditch guilt-free, close wins, next easy start.
 ---
 
 A gentle strategic review of Brain — a thinking partner, not a taskmaster. Surface what has good
