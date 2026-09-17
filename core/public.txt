@@ -51,6 +51,7 @@ file	SETUP.md	the install contract every student runs
 file	SETUP-clone.md	its first part, and nothing else runs until it is done
 file	SETUP-compaction.md	its part for the tool-output compactor
 file	SETUP-interfaces.md	its part for the interface-stub toolchain
+file	SETUP-telegram.md	its part for the chat bot's service; the token and the pairing stay in SETUP-accounts.md
 file	verify.py	the suite that contract's last step calls
 file	verify.pyi	its generated interface
 file	.gitattributes	line endings, which differ by machine and not by person
