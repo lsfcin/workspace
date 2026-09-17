@@ -57,8 +57,15 @@
 #                copy", and answering that question with this one would have stripped a student's
 #                clone of caveman, the skill wrappers, the OAuth and the link shortener. Privacy is
 #                a fact about CONTENT — brain/, branches/, academy/, models/, segredos.env, and the
-#                floor of what git tracks at all — and that is where the sync reads it. Two rows
-#                are `lucas`, both references bound to one of his projects.
+#                floor of what git tracks at all — and that is where the sync reads it.
+#                NO ROW IS `lucas` TODAY, and the two that were are why: `foundry` and `iso-visual`
+#                were marked private and CROSSED ANYWAY for weeks, because this column is read by
+#                nobody in the sync — it only removes a file from the orphan list, which is the
+#                opposite of refusing it (found 2026-09-17, Lucas: "não devem ir pro público").
+#                They left the registry rather than gaining a refusal here, because a registry that
+#                crosses whole cannot name a file the clone does not have: the target's own suite
+#                refuses that commit, correctly. The cost is that all three lost their switch, and
+#                ISSUES.md carries the fix — filter this file as it crosses, and give them back.
 #   wired        path of the file that calls feature_law.is_enabled(), or `n/a <reason>`, or - .
 #                COMMA-SEPARATED when the feature spans layers, and the plural is load-bearing
 #                rather than tidy: `latex` is a pre-commit gate AND the tool family that gate
@@ -167,9 +174,6 @@ docs	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.py
 slides	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.py	core/skills/slides.md,core/tools/slides/*	Reads and edits a Slides deck in place across every configured account, the deck arriving as navigable text
 calendar	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.py	core/skills/calendar.md,core/tools/calendar/*	Lists upcoming events and queries date ranges across every configured calendar account
 drive	skills	on-demand	skill-mirrors	none	general	core/tools/wos/skills/mirror.py	core/skills/drive.md,core/tools/files/*	Lists, searches and downloads files from Google Drive across every configured account
-foundry	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.py	core/skills/foundry.md,core/skills/foundry/*	Foundry VTT module development reference, loaded only when that work is in front of us
-iso-visual	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.py	core/skills/iso-visual.md	The isoroll visual-semantics reference: image-to-text conventions and known model failure modes
-prof	skills	on-demand	skill-mirrors	none	lucas	core/tools/wos/skills/mirror.py	core/skills/prof.md,core/skills/prof/*	Ten pedagogy subskills for planning, running and auditing a class. `lucas` because the router's every protocol cites academy/teaching/prof/dossie-evidencias.md, which core/public.txt refuses as his teaching — a clone would get eleven files pointing at one it cannot have
 filesystem	norms	automatic	-	advises	general	core/hooks/routing/norms.py	core/norms/filesystem.md	An agent answers from the tree in front of it instead of from what it remembers, which is what makes a stale belief impossible to act on
 storage	norms	automatic	-	advises	general	core/hooks/routing/norms.py	core/norms/storage.md	Nothing that matters is written into a vendor directory, so the workspace stays portable across harnesses instead of hostage to one
 links	norms	automatic	-	advises	general	core/hooks/routing/norms.py	core/norms/links.md	A link handed to a room is named where it is created and its target recorded in one file, so the short link is sayable and the mapping never scatters into the documents that quote it
