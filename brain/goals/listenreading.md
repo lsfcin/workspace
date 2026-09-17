@@ -1,7 +1,9 @@
-# [ fun | learning | near ] reading
+# [ fun | learning | year ] listenreading
 
-Ler todo dia. A consistent daily reading habit — not a volume target, not a list to complete. Reading as a default for
-idle time, as an alternative to phone, as a way of inhabiting thought.
+Ler e escutar todo dia. Um hábito só, duas portas: um livro e um disco. Não é meta de volume nem
+lista a completar — é o que ocupa o tempo ocioso no lugar do telefone, e a forma de habitar um
+pensamento inteiro em vez de mil fragmentos. Ouvir um álbum do começo ao fim é a mesma prática que
+ler um capítulo: atenção longa numa coisa só.
 
 >**signals**  
 meaningful · expected · motivated
@@ -10,7 +12,8 @@ meaningful · expected · motivated
     [pick-book] pick one book and read one page today
 
 **ease-start**  
-Pick a book you already own that you've wanted to read. Open it. Read one page. Put it somewhere visible.
+Pick a book you already own that you've wanted to read. Open it. Read one page. Put it somewhere
+visible. No disco à mão? Começa pelo Clube da Esquina, que abre a lista dos 49.
 
 >**timing**  
 *target · daily reading established within 1 month  
@@ -28,6 +31,10 @@ fallback · articles or long-form essays count — reading is reading*
 > [ ] [visible-book] keep a current book somewhere physically visible — not on a shelf  
 > [ ] [week-1] read every day for 7 days — even 5 minutes counts  
 > [ ] [month-1] reading as a natural daily default — no tracking needed  
+> [ ] [49-albuns] escutar os 49 álbuns brasileiros da lista do The Albums Colector — um por artista,
+> Clube da Esquina ao lado de Racionais e Sepultura, psicodelia dos 70 e funk espiritual. Lucas:
+> *"quero escutar todos esses álbuns"*. Sem meta por semana: um disco inteiro de cada vez é a prática
+> ([post](https://www.instagram.com/p/Dc-eScZjdmL/), — via aiwbot 2026-09-11)  
 
 ## done
 
@@ -36,5 +43,5 @@ fallback · articles or long-form essays count — reading is reading*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: decelerating  ·  touches: 1/7/7/7/7/7
+last-touch: —  ·  trend: new  ·  touches: 0/0/0/0/0/0
 <!-- stats:end -->

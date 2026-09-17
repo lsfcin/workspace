@@ -4,36 +4,37 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-09-14 21:05
+last-updated: 2026-09-17 10:49
 
 >**areas** — last 14 days  
 ```
-health       ██████████   221 touches
-career       ██░░░░░░░░   46 touches
-finances     █░░░░░░░░░   25 touches
-fun          ██░░░░░░░░   49 touches
+health       ██████████   227 touches
+career       █░░░░░░░░░   27 touches
+finances     ░░░░░░░░░░   10 touches
+fun          ░░░░░░░░░░   19 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
 >**goals** — last 14 days  
 ```
 CONTEXT                  ░░░░░░░░░░   1 touches
-burocracia-academica     ░░░░░░░░░░   4 touches
+burocracia-academica     ░░░░░░░░░░   2 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              █░░░░░░░░░   37 touches
-cria                     ███░░░░░░░   69 touches
+craft-flows              █░░░░░░░░░   23 touches
+cria                     █░░░░░░░░░   24 touches
 dance                    ░░░░░░░░░░   0 touches
 ecovila                  ░░░░░░░░░░   1 touches
 exercise                 ░░░░░░░░░░   2 touches
 finances                 ░░░░░░░░░░   0 touches
-google-migration         ░░░░░░░░░░   9 touches
+google-migration         ░░░░░░░░░░   5 touches
 guitar                   ░░░░░░░░░░   0 touches
 hair                     ░░░░░░░░░░   1 touches
-home-casinhas            █░░░░░░░░░   24 touches
-instituto                █░░░░░░░░░   24 touches
-lih-dd                   █░░░░░░░░░   28 touches
-local-ai                 ██░░░░░░░░   58 touches
+home-casinhas            ░░░░░░░░░░   9 touches
+instituto                ░░░░░░░░░░   8 touches
+lih-dd                   ░░░░░░░░░░   11 touches
+listenreading            ░░░░░░░░░░   0 touches
+local-ai                 █░░░░░░░░░   28 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
@@ -41,19 +42,18 @@ paper-jarbinhas          ░░░░░░░░░░   1 touches
 paper-megatruth          ░░░░░░░░░░   1 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
-reading                  ░░░░░░░░░░   0 touches
-rpg-isoroll              ██░░░░░░░░   49 touches
+rpg-isoroll              ░░░░░░░░░░   19 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
-spacemantics             ██░░░░░░░░   49 touches
-spec-driven-development  ░░░░░░░░░░   4 touches
-startapps                ████░░░░░░   92 touches
+spacemantics             ░░░░░░░░░░   17 touches
+spec-driven-development  ░░░░░░░░░░   3 touches
+startapps                █░░░░░░░░░   32 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       █░░░░░░░░░   32 touches
+teaching-materials       █░░░░░░░░░   33 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   221 touches
+workspace-os             ██████████   227 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
@@ -108,6 +108,7 @@ reproaches into one 2-minute choice. Gap type: deliberate-park.
 | casinhas construction | finances | year | Marcelo | [teste-absorcao] conseguir o Teste de Absorção do Solo … | [→](goals/home-casinhas.md) |
 | instituto | craft | dream | none external — th… | [coffee-1] text one trusted person from the board list … | [→](goals/instituto.md) |
 | LIH.DD — research lab | craft | year | DC/UFRPE postgrad … | [research-statement] write a 3-sentence research statem… | [→](goals/lih-dd.md) |
+| listenreading | fun | year | none external | [pick-book] pick one book and read one page today | [→](goals/listenreading.md) |
 | always-on autonomous local AI | craft | year | — | [read-weft] read the weft implementation paper and repo… | [→](goals/local-ai.md) |
 | magic places | fun | dream | — | [name-3] name 3 places that genuinely call you — gut le… | [→](goals/magic-places.md) |
 | make in time | health | now | — | [mit-01] identify 3 recurring late scenarios and map th… | [→](goals/make-in-time.md) |
@@ -116,7 +117,6 @@ reproaches into one 2-minute choice. Gap type: deliberate-park.
 | paper megatruth | craft | near | — | [mega-01] schedule team meeting — show up with a clear … | [→](goals/paper-megatruth.md) |
 | paper scattercode | craft | near | — | [design-experiment] write one-page experiment design: h… | [→](goals/paper-scattercode.md) |
 | prompt optimization automation | career | now | — | — | [→](goals/prompt-opt-automation.md) |
-| reading | fun | near | none external | [pick-book] pick one book and read one page today | [→](goals/reading.md) |
 | isoroll | fun | near | — | [playable] paint a room in live Foundry, walk a token, … | [→](goals/rpg-isoroll.md) |
 | sleep regularity | health | near | none external | [streak-3] 3 consecutive days on target — in bed by 00:… | [→](goals/sleep-regularity.md) |
 | smartphone addiction | health | near | none external | [map-usage] track phone pickups for 3 days without chan… | [→](goals/smartphone-addiction.md) |
