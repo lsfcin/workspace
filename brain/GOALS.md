@@ -4,25 +4,25 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-09-18 17:17
+last-updated: 2026-09-18 18:35
 
 >**areas** — last 14 days  
 ```
-health       ██████████   243 touches
-career       ░░░░░░░░░░   22 touches
-finances     ░░░░░░░░░░   6 touches
-fun          ░░░░░░░░░░   11 touches
+health       ░░░░░░░░░░   3 touches
+career       ░░░░░░░░░░   19 touches
+craft        ██████████   242 touches
+finances     ░░░░░░░░░░   3 touches
+fun          ░░░░░░░░░░   6 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
 >**goals** — last 14 days  
 ```
-CONTEXT                  ░░░░░░░░░░   2 touches
 burocracia-academica     ░░░░░░░░░░   2 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              ░░░░░░░░░░   18 touches
-cria                     ░░░░░░░░░░   9 touches
+craft-flows              ░░░░░░░░░░   15 touches
+cria                     ░░░░░░░░░░   0 touches
 dance                    ░░░░░░░░░░   0 touches
 ecovila                  ░░░░░░░░░░   1 touches
 exercise                 ░░░░░░░░░░   2 touches
@@ -30,11 +30,11 @@ finances                 ░░░░░░░░░░   0 touches
 google-migration         ░░░░░░░░░░   5 touches
 guitar                   ░░░░░░░░░░   0 touches
 hair                     ░░░░░░░░░░   1 touches
-home-casinhas            ░░░░░░░░░░   5 touches
-instituto                ░░░░░░░░░░   3 touches
-lih-dd                   ░░░░░░░░░░   6 touches
+home-casinhas            ░░░░░░░░░░   2 touches
+instituto                ░░░░░░░░░░   0 touches
+lih-dd                   ░░░░░░░░░░   3 touches
 listenreading            ░░░░░░░░░░   1 touches
-local-ai                 ░░░░░░░░░░   21 touches
+local-ai                 ░░░░░░░░░░   16 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
@@ -42,18 +42,18 @@ paper-jarbinhas          ░░░░░░░░░░   1 touches
 paper-megatruth          ░░░░░░░░░░   1 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
-rpg-isoroll              ░░░░░░░░░░   10 touches
+rpg-isoroll              ░░░░░░░░░░   5 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
-spacemantics             ░░░░░░░░░░   7 touches
+spacemantics             ░░░░░░░░░░   1 touches
 spec-driven-development  ░░░░░░░░░░   4 touches
-startapps                ░░░░░░░░░░   12 touches
+startapps                ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       █░░░░░░░░░   36 touches
+teaching-materials       █░░░░░░░░░   35 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   243 touches
+workspace-os             ██████████   242 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
@@ -128,7 +128,7 @@ reproaches into one 2-minute choice. Gap type: deliberate-park.
 | travel | fun | near | — | [one-trip] escolher UMA viagem para os próximos 12 mese… | [→](goals/travel.md) |
 | vipassana | spiritual | year | none external | [sit-5] sit in silence for 5 minutes — no guidance, no … | [→](goals/vipassana.md) |
 | voice | spiritual | near | — | [voice-map] identify one scenario where not being heard… | [→](goals/voice.md) |
-| workspace OS | health | year | none external | [v1] pass the four-criterion v1 gate — Tier 0 anti-entr… | [→](goals/workspace-os.md) |
+| workspace OS | craft | year | none external | [v1] pass the four-criterion v1 gate — Tier 0 anti-entr… | [→](goals/workspace-os.md) |
 | yoga | spiritual | year | none external | [mat-today] practice once this week with no goal — just… | [→](goals/yoga.md) |
 <!-- goals:end -->
 

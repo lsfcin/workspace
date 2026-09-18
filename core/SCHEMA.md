@@ -176,6 +176,20 @@ pointer the day the work lands. Numbering is legal only inside `ROADMAP.md` / `R
 in commit messages; **a bug id is never reused** (ruled 2026-08-31), new ids are durable names
 `b<YYYYMMDD>-<name>`, and a bug cited outside its list is named by id.
 
+### A leading underscore marks a shape, never an instance
+
+`_template.md` for one file, `_templates/` for a directory of them — and the underscore is the
+marker four separate mechanisms read, not decoration: it is what keeps a `_template.md` out of the
+goal list (`brain_stats.py`), a template `README.md` from claiming its directory is a repo
+(`entropy_naming.py`), a `CONTEXT.md` under it from being held to the rules for a real one
+(`entropy_context.py`), and both out of routing and API extraction (`workspace_meta.py`).
+
+Written here 2026-09-18 because it was folklore in those four files and stated in none, which is
+how a third spelling arrived without anyone noticing it was a third. A template directory that
+skips the underscore is read as a directory of instances, and every one of the four treats it
+wrong. **Lucas dislikes the underscore and ruled it stays** — the marker is cheap, and teaching
+the four a new one is its own session.
+
 ### Terms with one meaning
 
 | Term | Definition |

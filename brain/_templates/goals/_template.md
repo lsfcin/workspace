@@ -1,12 +1,14 @@
 # [ area | subarea | horizon ] goal title
-<!-- area can be health, craft, finances, fun, or spiritual -->
+<!-- area is one of the six in brain/SPECS.md § Goal File Structure: health, career, craft,
+     finances, fun, spiritual. Named there and listed here, which is one place too many — this
+     line and that one had each dropped a DIFFERENT area until 2026-09-18 -->
 <!-- subarea can be anything, patterns will stablish with usage -->
 <!-- horizon can be now / near / year / dream -->
 <!-- 
 paths
 related list of subfolders
 -->
-*related files at /workspace/code/ppc/*
+*related files at `<the directories this goal owns>`*
 
 <!--
 DESCRIPTION 

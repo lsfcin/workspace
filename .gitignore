@@ -158,11 +158,8 @@ datasets/relativistic_raytracer/*
 
 brain/*
 !brain/CONTEXT.md
-!brain/FOUNDATIONS.md
 !brain/SPECS.md
 !brain/GOALS.md
-!brain/ARCHIVE.md
-!brain/USER.md
 !brain/INBOX.md
 !brain/.log/
 !brain/attachments/
@@ -272,3 +269,4 @@ code/wos
 # Google Drive hybrid sync local cache
 .drive-manifest-cache.json
 _material/previews/
+!brain/_templates/

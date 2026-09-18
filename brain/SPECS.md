@@ -12,9 +12,15 @@ Goal files grow from seed to full. No section required at creation.
 ```
 
 Area — `health` body, sleep, exercise, checkups · `career` research, papers, teaching, academic
-positioning, grants · `finances` money, taxes, admin, investments · `fun` hobbies, play,
-exploration, anything done for its own sake · `spiritual` reflection, meaning, inner life, values.
+positioning, grants · `craft` the things being built for their own sake as work — research
+projects, software, the workspace itself · `finances` money, taxes, admin, investments · `fun`
+hobbies, play, exploration, anything done for its own sake · `spiritual` reflection, meaning,
+inner life, values.
 Horizon: `now` / `near` / `year` / `dream`
+
+`craft` was in nine goal files and in none of the five areas this list declared until 2026-09-18,
+found by the dashboard counting every workspace commit as `health` — the goals were right and the
+list was short.
 
 **Growth triggers** — add section when useful, not before:
 
@@ -34,9 +40,9 @@ the periods in `core/hooks/brain/brain_common.py`. Named here once rather than o
 it was a six-row table in each of them until 2026-08-31, ~320 lines of the corpus that nothing read,
 while `GOALS.md` built its dashboard from git directly.
 
-**A goal file is written in whatever language Lucas thinks in.** The rest of the durable `.md`
-corpus is English because an agent re-reads it every session; a goal file's reader is Lucas, and
-translating his own motivation into a second language costs him the thing that makes it work.
+**A goal file is written in whatever language its owner thinks in.** The rest of the durable `.md`
+corpus is English because an agent re-reads it every session; a goal file's reader is the owner, and
+translating their own motivation into a second language costs the thing that makes it work.
 Exempt, ruled 2026-08-31, and out of the repo scope entirely since 2026-09-11.
 `brain/goals/CONTEXT.md`'s routing table inherits the exemption — it is generated from these
 files' first lines.
@@ -77,7 +83,7 @@ Synthesis on top of fears:
 ## Backlog Ordering Policy
 
 - Selected achievement = always first unchecked `[ ]` item in backlog
-- Remaining unchecked = ordered by Lucas's judgment — **by live motivation first, deadlines second**
+- Remaining unchecked = ordered by the owner's judgment — **by live motivation first, deadlines second**
   (ordering wins over pressure; see § Rationale below). Deadlines are a gentle nudge, never the organizing axis.
 - Done items = move to `## done` section, **no topo do bloco**: `compress_done` mantém as três
   primeiras linhas e descarta o resto no próximo commit, sem avisar. Uma conquista escrita no fim do
@@ -89,7 +95,7 @@ Synthesis on top of fears:
 ## Compass Interview — outputs & moves
 
 `/compass` is a gentle strategic *interview*, not a report. Beyond diagnostics it writes back what
-Lucas decides, using these moves:
+the owner decides, using these moves:
 
 - **almost-there** — a goal a step from a milestone/mvp/finish. No dedicated field: inferred from
   backlog `[x]`/`[ ]` ratio + `motion: advancing` + recent git touches + `closure` proximity. Compass
@@ -133,7 +139,7 @@ Ease-start always filled, never blank.
 
 ### Ease-start quality bar (agent-written)
 
-An ease-start is a **do-it-now launcher**, not a vague nudge. Lucas's rule: *don't tell him to "go look" — hand him the
+An ease-start is a **do-it-now launcher**, never a vague reminder. The rule: *don't say "go look" — hand over the
 thing already loaded.* Every ease-start must carry, when they exist:
 
 - **the exact link/handle** — the real URL, phone number, WhatsApp contact, file path, app name (not "open the portal"
@@ -151,7 +157,7 @@ When the compass/inbox skill lacks a real link or path, it must **go fetch or as
 Optional per-goal hints so a session on this goal starts at the right power/cost. Vocabulary is shared with
 `core/skills/prepare.md` — provider-agnostic (function in the name, model as data):
 
-- **level**: `low` / `medium` / `high` / `max` — capability class (e.g. haiku / sonnet / opus / fable). Maps to Lucas's
+- **level**: `low` / `medium` / `high` / `max` — capability class. Maps to the
   "decide → write → execute" split: `max`/`high` decides & writes, `medium`/`low` executes.
 - **effort**: `low` / `medium` / `high` / `max` — reasoning depth / thoroughness for the run.
 

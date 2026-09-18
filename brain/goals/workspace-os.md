@@ -1,4 +1,4 @@
-# [ health | mental | year ] workspace OS
+# [ craft | workspace | year ] workspace OS
 
 A centralized personal operating system: all thoughts, projects, demands, full-life organization in one place. Automated
 setup that eases how life gets managed, reduces mental pressure, and enables goals and dreams to move from idea to
