@@ -20,7 +20,7 @@ Back-compat aliases: `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`ex
 |---------|-----------|----------|
 | `literature` | `core/flows/research/literature.md` | literature review on a topic (alias: `lit`) |
 | `sota` | `core/flows/research/sota.md` | map the state of the art of a **field**: fill `refs/REFS.md` + one review yaml per kept paper, emit a ≤200-line decision summary (aliases: `deep`, `deepresearch`) |
-| `scout` | `core/flows/research/scout.md` | `sota` **plus** a plan: research a topic in rounds, then write a model-tiered, impact-flagged action plan into the target ROADMAP (use when the research serves a decision about our own system) |
+| `scout` | `core/flows/research/scout.md` | `sota` **plus** a plan: research a topic in rounds, then write an action plan carrying a model level and an impact flag per step into the target ROADMAP (use when the research serves a decision about our own system) |
 | `review` | `core/flows/research/review.md` | peer-review simulation of a document or claim |
 | `draft` | `core/flows/research/draft.md` | draft a section or document from evidence |
 | `compare` | `core/flows/research/compare.md` | compare two papers or approaches |

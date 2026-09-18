@@ -1,5 +1,5 @@
 ---
-description: Scout a topic across web + repos + academia in refined rounds, then convert the findings into a model-tiered, impact-flagged action plan written into the target project's ROADMAP. For "research X, then tell me what we should do about it in our own system".
+description: Scout a topic across web + repos + academia in refined rounds, then convert the findings into an action plan carrying a model level and an impact flag per step, written into the target project's ROADMAP. For "research X, then tell me what we should do about it in our own system".
 args: <topic> [target ROADMAP path]
 type: domain
 confirm: plan
@@ -33,7 +33,7 @@ Never end chat-only after Step 2 begins. If gathering is blocked, write a partia
 `BLOCKED` and say what failed. Read every source before summarizing it; never invent sources,
 venues, levels, or results.
 
-## Composition — `scout = sota + map-to-our-system + tiered plan`
+## Composition — `scout = sota + map-to-our-system + levelled plan`
 
 `scout` **uses** [`sota`](sota.md) for its whole gathering half. That is a declared edge
 (`uses: sota` in the frontmatter), not a suggestion: do not reimplement search, level discipline,
@@ -47,7 +47,7 @@ Keep both entrypoints straight:
 | the field map **and** what we should do about it | `scout` |
 | a brief on a topic that is not a whole field | `literature`, `compare`, `summarize` |
 
-The distinctive part of `scout` is the back half — map-to-system → tiered plan → ROADMAP.
+The distinctive part of `scout` is the back half — map-to-system → levelled plan → ROADMAP.
 
 ## Step 1 — Frame
 
@@ -80,7 +80,7 @@ For each finding, state plainly: does it **confirm** what we do, **contradict** 
 confirmations become a short "we are already aligned on X" note (equally valuable — it stops us
 re-solving solved problems).
 
-## Step 4 — Write the tiered, flagged plan into the ROADMAP
+## Step 4 — Write the levelled, flagged plan into the ROADMAP
 
 Organize the plan as **frentes** (fronts), each a self-contained line of work with numbered
 steps. Every step carries three things:

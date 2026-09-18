@@ -29,6 +29,18 @@ one way by `core/run tools/wos/publish/repo` and green on its own suite.
 
 ## Legibility — can Lucas still read what he owns
 
+**🟡 `scaffold` is one word doing three jobs, and nothing ever retired it**
+*What* — the word gone from this repo, one replacement per sense, and the row in `core/SCHEMA.md`
+§ Retired tokens that is what finishes a rename. Measured 2026-09-18: 96 occurrences in ~45 tracked
+files. The three senses are the empty file a generator writes, the shape of a place without its
+content, and a placeholder nobody answered — pick one word each rather than one for all three.
+*Why* — Lucas asked why it came back (2026-09-18); it came back because no row forbade it, which is
+the same shape as the three renames that were silently unfinished until the check learned to read
+inflections the same day.
+*Done when* — the row is in the table and the suite is green with it, which is one assertion.
+Not a single session: `core/hooks/stubgen/paper-scaffold.py` is a FILENAME embedded in generated
+headers across ten paper repos, and two files under `academy/` carry the word as well.
+
 **🔴 the health picture is built and does not land — redesign it**
 *What* — `ARCHITECTURE.html` redrawn as a list ordered by colour and symbol, where the page now puts
 a big mostly-empty table. Next deliverable is the Claude Design prompt for that session, and it has
