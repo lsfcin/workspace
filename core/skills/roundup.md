@@ -82,6 +82,23 @@ quick-start command needed at the *next* session's start, that fits nowhere abov
 
 **Memory**: only if the knowledge is homeless across every file above. Filesystem is source of truth.
 
+### The boundary question — what belongs in the WOS at all
+
+One pass over what this session actually touched, asking the question the routing table above never
+asks: **should this be in the workspace, and in this shape?** (Lucas, 2026-09-18.) Three answers
+worth writing down, and only a real one:
+
+- **Does not belong here** — it is a project's, a nested repo's, or nobody's. Say where it goes.
+- **Belongs, wrong shape** — right tree, wrong file, wrong type, or a word doing two jobs. An
+  asymmetry found is written down even when it is not fixed (`AGENTS.md`).
+- **Could be a satellite repo** — a subtree big enough and separate enough to own its own git, the
+  way every `code/*` and `academy/papers/*` already does. Costed by what it would BREAK: how many
+  hooks name its path, how many goal files point into it, and what the pointer check stops being
+  able to follow.
+
+Nothing to say → say nothing, by the output rule at the top. This phase is a question, not a
+deliverable, and a session that touched one file owes one sentence or none.
+
 ---
 
 ## Phase 3 — Count the INBOX, do not drain it

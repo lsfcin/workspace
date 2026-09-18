@@ -29,17 +29,20 @@ one way by `core/run tools/wos/publish/repo` and green on its own suite.
 
 ## Legibility — can Lucas still read what he owns
 
-**🟡 `scaffold` is one word doing three jobs, and nothing ever retired it**
-*What* — the word gone from this repo, one replacement per sense, and the row in `core/SCHEMA.md`
-§ Retired tokens that is what finishes a rename. Measured 2026-09-18: 96 occurrences in ~45 tracked
-files. The three senses are the empty file a generator writes, the shape of a place without its
-content, and a placeholder nobody answered — pick one word each rather than one for all three.
-*Why* — Lucas asked why it came back (2026-09-18); it came back because no row forbade it, which is
+**🟡 two words the legibility pass missed, and no row ever forbade either**
+*What* — `scaffold` and `nudge` gone from this repo, with their rows in `core/SCHEMA.md` § Retired
+tokens, which is what finishes a rename. Measured 2026-09-18: `scaffold` 96 occurrences in ~45
+tracked files, one word doing three jobs — the empty file a generator writes, the shape of a place
+without its content, and a placeholder nobody answered, so it owes three replacements rather than
+one. `nudge` is 114 in 36 files and means **reminder**.
+*Why* — Lucas asked why both came back (2026-09-18); they came back because no row forbade them,
 the same shape as the three renames that were silently unfinished until the check learned to read
 inflections the same day.
-*Done when* — the row is in the table and the suite is green with it, which is one assertion.
-Not a single session: `core/hooks/stubgen/paper-scaffold.py` is a FILENAME embedded in generated
-headers across ten paper repos, and two files under `academy/` carry the word as well.
+*Done when* — both rows are in the table and the suite is green with them, which is one assertion.
+Neither is one session, and for the same reason: the word is in NAMES, not only prose.
+`core/hooks/stubgen/paper-scaffold.py` is a filename embedded in generated headers across ten paper
+repos; `nudge` is in three feature names (`inbox-nudge`, `compass-nudge`, `publish-nudge`) carried
+by `core/features.txt`, `core/profile.txt`, the scoreboard's history and `ARCHITECTURE.html`.
 
 **🔴 the health picture is built and does not land — redesign it**
 *What* — `ARCHITECTURE.html` redrawn as a list ordered by colour and symbol, where the page now puts
@@ -106,6 +109,13 @@ asymmetry pointed the other way, found 2026-09-17 by Lucas asking whether brain 
 
 ## Deferred — real work, deliberately not now
 
+- **`academy/` as a satellite repo** (Lucas, 2026-09-18) — **reopen when the ablation has a
+  per-feature verdict**, not before. What it would buy is an independent commit lane, which is a
+  real cost paid today: two sessions share one index, and one session's half-written tree refuses
+  the other's commits. What it would cost, measured: 20 hook and tool files name `academy/`
+  directly, 10 of 38 goal files point into it, and `brain/goals/teaching-materials.md` — third-most
+  served file in the workspace — is built out of pointers into it. The only argument available now
+  is lines on disk (18% of the corpus), which is the number this workspace rejects.
 - **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 repo is tight.
 - **Anything a nested repo owns** — each keeps its own `ISSUES.md` and fixes its own findings.
 - **`[gdrive-integration]`, `[offline-resilience]`, serious OCR** — content/infrastructure, not repo.
