@@ -9,12 +9,7 @@
 
 <!-- add entries below, newest first -->
 
-acho que a instalação do WOS deveria ser feita através de um chatbot determinístico de instalação, tipo uma árvore de decisão, que com poucas respostas iria mapear tudo que o usuário quer instalar e montar um plano executado em N sessões do harness dele
+a gente mudou uma regra do WOS para n ter mais limite de chars por linha, ao invés disso temos limite de chars no arquivo. só que por conta do limite que existia antes várias quebras de linha artificiais eram realizadas. será que a gente consegue detectar todas essas automaticamente? e corrigir isso em todo o workspace sem explodir o uso de tokens? 
 
-https://www.instagram.com/p/DdZK4y9jFHW/?stkn=NTc4MTIwNjQ2YQ==
-talvez encaixe nas minhas aulas
-— via aiwbot · 2026-09-17
+fiz uma mudança na estratégia das disciplinas, os templates de materiais e metodologia não serão mais para uma entrega mas sim para gerar um artefato específico. ou seja, temos que dar um jeito de encaixar nas entregas mais de um artefato. na verdade unifiquei o template de materiais e metodologia em um único .md template-artefato.md
 
-https://www.instagram.com/p/DdZCjCyDSjD/?stkn=NTc4MTIwNjQ2YQ==
-incluir nas aulas
-— via aiwbot · 2026-09-17

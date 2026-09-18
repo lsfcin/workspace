@@ -58,6 +58,13 @@ the views. Walls, vision, fog and z-order must be right; the art is deliberately
 > [ ] [8dir-sprites] 8-direction views per character — after tiles ship (NB cardinal weakness returns for tokens)  
 > [ ] [anim-pipeline] animate characters: idle, attack, defend, hurt, cast, crouch  
 > [ ] [sprite-atlas] atlas packing for Foundry export  
+> [ ] [higgsfield-asset-gen] avaliar se algum pipeline do Higgsfield serve à geração de asset daqui — e checar primeiro
+> se não bate de frente com a decisão congelada de que o pixel sai do bake offline em Python e nada que gira é gerado.
+> Se bater, o veredito é curto e fica escrito. Irmão de [higgsfield-o-que-roda-aqui] em `local-ai.md`. Ref em
+> `core/refs/REFS.md` (— via aiwbot)  
+> [ ] [capcut-um-take] avaliar o CapCut pro isoroll — o gancho é um take único virando muitos cortes, o que serve a
+> divulgação e a vídeo de mesa, não a sprite. Separar as duas perguntas antes de testar. Ref e tarefa espelhadas em
+> `code/isoroll-content/` (INBOX 2026-09-18)  
 > [ ] [nvidia-imagegen] testar geração de imagem via opencode + chave NVIDIA — nanobanana com a key falhou algumas
 > vezes; validar esse caminho alternativo (INBOX 2026-07-24)  
 
@@ -68,5 +75,5 @@ the views. Walls, vision, fog and z-order must be right; the art is deliberately
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: steady  ·  touches: 75/340/669/669/669/669
+last-touch: 2026-09-17  ·  trend: steady  ·  touches: 74/283/671/671/671/671
 <!-- stats:end -->

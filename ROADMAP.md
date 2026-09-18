@@ -56,6 +56,17 @@ number can be paid by deleting a file nobody opens, which nearly took `core/expe
 the lines, zero reads in 88 sessions, and **the WOS paper's data. The cut never comes from there**
 (Lucas, 2026-09-15). Several sessions; re-run the instrument rather than quoting a figure here.
 
+**🔴 the install is a document a person executes, and it should be an interview**
+*What* — `SETUP.md` driven as a deterministic decision tree: a fixed set of questions that maps what
+this person actually wants installed, then emits a plan their own harness executes across however
+many sessions it takes. Lucas, INBOX 2026-09-18.
+*Why* — the contract today is prose the reader has to route themselves, and every branch in it is a
+question only they can answer (which harness, which of the 82 features, what is already on the
+machine). `/install` already checks and executes; what is missing is the part that asks. Deterministic
+and not a chat: the same answers must produce the same plan, or it is one more thing to verify.
+*Done when* — a person who has never seen this workspace answers the questions and gets a plan naming
+every step, and `/install` runs it.
+
 **🟡 the platform boundary's last answer needs one session run from inside Windows**
 *What* — manager names for the 3 `apt` rows (`poppler-utils`, `tesseract-ocr`, `ddgr`). The file's
 own head only lets a row claim `system` once the name is VERIFIED on the other managers.

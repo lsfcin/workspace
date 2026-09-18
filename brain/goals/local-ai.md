@@ -78,6 +78,10 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 > [ ] [openworker] olhar o OpenWorker do Andrew Ng — co-worker que executa tarefas em vez de conversar, roda local,
 > conecta 40+ apps e aceita qualquer modelo. Lucas: *"vale muito a pena a gente consultar"*. Ref em
 > `core/refs/REFS.md` (— via aiwbot)  
+> [ ] [higgsfield-o-que-roda-aqui] a pergunta estreita sobre o Higgsfield: o que da stack dele roda **aqui**, se é que
+> algo roda. O post é patrocinado e fala em acesso por API na nuvem, então a resposta honesta pode ser "nada" — e um
+> "não" curto, escrito, vale mais que a pergunta voltando a cada captura. Irmão de [higgsfield-asset-gen] em
+> `rpg-isoroll.md`. Ref em `core/refs/REFS.md` (— via aiwbot)  
 > [ ] [nvidia-pair] olhar o PAIR da Nvidia — aberto, junta a capacidade ociosa de várias máquinas da mesma casa
 > (Windows, Linux, macOS) para uma carga local de IA. Lucas: *"será que consigo usar de alguma forma?"*. A pergunta
 > concreta daqui: somar a RTX 3050 a outra máquina muda o teto de [local-setup] e [tiny-quant], ou o gargalo continua
@@ -90,5 +94,5 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 69/97/98/98/98/98
+last-touch: 2026-09-17  ·  trend: advancing  ·  touches: 72/100/101/101/101/101
 <!-- stats:end -->

@@ -13,16 +13,10 @@ transformative · essential · thrilled
 
 >**dynamics**  
 immersed mode · advancing motion · intrinsic source  
-2026-07-22 compass: highest wind + in-flow this session — mvp-gaps localized then closed, gitflow enforced, gitlinks
-killed, `/compass` shipped. Lucas ordered it #1: make v1 strong (gaps 1&2 cleanup) + finish aiwbot.  
-2026-07-29: the work is no longer *discovering* what to fix — it is draining a known list. Lists collapsed to one
-entrypoint, v1 given an explicit 4-criterion gate. Momentum now depends on the gate staying honest, not on new
-insight.  
 2026-08-13 compass: **confirmed #1 for a second cycle, and the numbers back it — 29 of 29 workspace commits in 14 days
-landed here.** Hooks became a root of law plus families, 37 tools became eight, the verify suite split by what it
-asserts, the session got a size meter, the INBOX drained to zero. The gate held honest under all of it: criterion 3 went
-*backwards* on purpose when a re-audit across 25 repos found three remotes missing, rather than staying a green tick
-that was false. What is left is not build — it is **one decision and one mechanical front**. This is a finish.
+landed here.** The gate held honest under all of it: criterion 3 went *backwards* on purpose when a re-audit across 25
+repos found three remotes missing, rather than staying a green tick that was false. What is left is not build — it is
+**one decision and one mechanical front**. This is a finish.
 
 ## selected next achievement
     [v1] pass the four-criterion v1 gate — Tier 0 anti-entropy live · one list, no duplicates · everything pushed and
@@ -196,6 +190,15 @@ fallback · iterate — MVP can always be extended*
 > [skills-externas]), `firecrawl/anydoc` + parser de PDF que pula OCR (rank 06, encosta em `core/tools/paper/parse`),
 > `diegosouzapw/OmniRoute` (rank 08, gateway sobre 352 provedores), `TencentCloud/TencentDB-Agent-Memory`,
 > `earendil-works/pi`, `PrimeIntellect-ai/prime-agent`. Ref em `core/refs/REFS.md` (— via aiwbot 2026-09-17)  
+> [ ] [compaction-injection] o resumo de compactação é canal de entrada, e o nosso está aberto: a Astra escreveu uma
+> instrução de persona no próprio resumo e o contexto seguinte a herdou (27 casos). Aqui,
+> `core/hooks/session/precompact-wipe.py` está **desligado** — a própria descrição dele diz que os marcadores sobrevivem
+> à compactação e a cadeia não é relida. Decidir o que o resumo pode carregar e o que é sempre relido da árvore; o
+> `/handoff` é o mesmo canal por outro nome. Ref em `core/refs/REFS.md` (— via aiwbot 2026-09-17)  
+> [ ] [teto-de-gasto-agente] o teto de gasto de um agente nosso é o que a chave permite, não o que a gente disse a ele.
+> Conferir se alguma chave em uso aqui tem limite duro no provedor, e se existe log de execução legível — o relato do
+> agente sobre o que fez não serve de prova. Nasce de um caso relatado, não medido aqui. Ref em `core/refs/REFS.md`
+> (— via aiwbot)  
 > [ ] [omarchy-vs-ubuntu] comparar o Omarchy com o Ubuntu e decidir se vale trocar — a tese do post é que ele passa
 > Windows e Mac em 18 meses porque a IA deixa qualquer um customizar o sistema. É hype de criador de conteúdo, então o
 > comparativo é o trabalho: o que muda pro nosso uso real. Ref em `core/refs/REFS.md` (— via aiwbot 2026-09-05)  
@@ -213,5 +216,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-17  ·  trend: advancing  ·  touches: 453/732/767/767/767/767
+last-touch: 2026-09-17  ·  trend: advancing  ·  touches: 445/752/792/792/792/792
 <!-- stats:end -->

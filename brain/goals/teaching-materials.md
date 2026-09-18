@@ -27,20 +27,10 @@ material fora do alcance do workspace.
 `core/tools/files` · `core/tools/mail` · `core/tools/calendar`  
 `academy/teaching`
 
-**A conectividade caiu em 2026-08-19.** O gargalo que este goal declarava — "material fora do
-alcance do workspace" — não existe mais para Tecnologias na Educação: o Notion lê (integração "WOS"
-viva, página `0bd17453-ea83-4019-ba38-22a79d0114ce`), o Drive pessoal lê, e o `gslides` **escreveu
-de verdade num deck real de aula** — 20 slides intercalados e 3 refinados no deck de Design
-Thinking, na véspera da aula. `[roundtrip-one]` está feito. A ordem "alcançar → organizar → só
-depois trocar o formato" avançou uma casa: o próximo degrau é **organizar**, não conectar.
-
-**O WOS escreve no Notion desde 2026-08-26**, e a primeira coisa que escreveu foi o calendário
-2026.2 de Tecnologias na Educação: 34 encontros conferidos contra o calendário oficial da UFRPE,
-com link nomeado em cada linha, apontando para o Drive pessoal. As três seções de chips mudos
-morreram junto, e o AI4Good levou o mesmo tratamento. O ciclo achou e pagou uma dívida escondida:
-**a cópia de Drive de junho tinha congelado e o semestre continuou do lado do cin** — seis decks
-recopiados, nove arquivos que nunca haviam sido migrados. As duas disciplinas estão inteiras no
-pessoal; o que resta é deletar do lado do cin, em [google-migration](google-migration.md).
+**Conectar está feito** (agosto/2026): o Notion e o Drive pessoal leem e escrevem, o `gslides` editou
+decks reais de aula, e o calendário 2026.2 das duas disciplinas está publicado. A ordem
+"alcançar → organizar → trocar o formato" avançou uma casa — **o degrau agora é organizar**. A única
+sobra é deletar as cópias do lado do cin, em [google-migration](google-migration.md).
 
 ## selected next achievement
     [metodologia-tecedu] desenhar a metodologia completa de Tecnologias na Educação
@@ -55,7 +45,7 @@ o formato.
 ## backlog
 
 > [ ] [metodologia-tecedu] semana-padrão (quarta e sexta com papéis fixos, uma pergunta e um produto por encontro), as 9
-> etapas mapeadas nos 34 encontros reais (números em `academy/teaching/tecnologias-na-educacao/CONTEXT.md`), avaliação
+> etapas mapeadas nos 34 encontros reais (números em `academy/teaching/classes/techedu/CONTEXT.md`), avaliação
 > nova, dashboard que substitui as duas planilhas Google, e o padrão MODELO+EXEMPLO em toda entrega. Inclui **como cada
 > encontro abre e como cada conteúdo é mostrado** — a metodologia é dita antes do conteúdo (INBOX 2026-08-27)  
 > [ ] [fecho-de-aula] fechar toda aula com dois blocos: (1) **vocabulário** — que palavras a turma passou a ter, o que
@@ -95,7 +85,7 @@ disciplinas e por isso bloqueia o modelo comum.
 > [ ] [pick-format] pick a target format or tool — one concrete candidate to prototype with  
 > [ ] [migrate-one] convert one existing lecture to the new format as a test  
 > [ ] [full-migration] define migration plan for remaining course materials  
-> [ ] [excalidraw-aula02] abrir `academy/teaching/tecnologias-na-educacao/aula02-problemas.excalidraw` no excalidraw.com
+> [ ] [excalidraw-aula02] abrir `academy/teaching/classes/techedu/aula02-problemas.excalidraw` no excalidraw.com
 > e confirmar que carrega (o JSON foi montado à mão, nunca foi aberto); depois, Live collaboration → copiar o link →
 > trocar `[EXCALIDRAW]` no slide 69 do deck; confirmar se são mesmo 8 equipes (o quadro tem 8 frames)  
 > [ ] [video-carrinho] decidir o vídeo do slot do carrinho — trecho de 4 min do Dietz, ou perguntar à turma "o que
@@ -103,7 +93,7 @@ disciplinas e por isso bloqueia o modelo comum.
 > [ ] [medir-redesenho] anotar dois números depois da aula — quantos alunos falaram no bloco de abertura, e quantos
 > grupos saíram com o frame preenchido; é o teste honesto do redesenho  
 > [ ] [questionarios-sextas] mandar os dois questionários pras turmas — links de resposta nos `CONTEXT.md` de
-> `academy/teaching/ai4good/` e `academy/teaching/tecnologias-na-educacao/`; antes, abrir cada link, responder uma vez
+> `academy/teaching/classes/ai4good/` e `academy/teaching/classes/techedu/`; antes, abrir cada link, responder uma vez
 > de teste e apagar a resposta; depois da aula, ler com `core/tools/forms/gforms responses --account personal <form_id>`
 > e decidir o formato das sextas  
 > [ ] [ai4good-candidatos] **uma sessão decide todos de uma vez** — sete capturas esperando a mesma pergunta, "isso
@@ -122,7 +112,7 @@ disciplinas e por isso bloqueia o modelo comum.
 
 **A árvore de tecnologias entrou no ar em 2026-09-02**: 12 eixos, 68 folhas, cada folha com vídeo
 e repositório próprios, publicada como toggles aninhados na § Tecnologias Emergentes do Notion.
-Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobras:
+Fonte em `academy/teaching/classes/techedu/tecnologias.json`. Três sobras:
 > [ ] [arvore-excalidraw] gerar o quadro do top-10 — um frame por equipe com coluna numerada 1 a 10, reusando
 > `build_excalidraw.py`; é onde a equipe entrega a ordenação, já que não há formulário  
 > [ ] [arvore-folhas-fracas] decidir duas folhas que subiram sem veredito: *Painel de learning analytics* (Metabase é BI
@@ -197,6 +187,17 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 > de entradas de 32 tokens a partir do vetor — adivinha frase, embeda, compara, ajusta, nunca decodifica — e tirou
 > nomes de pacientes de notas clínicas. Cai bem em ai4good e em qualquer conversa sobre RAG: um banco vetorial não é
 > cópia anonimizada. Limites honestos na ref (`academy/refs/REFS.md`, — via aiwbot 2026-09-17)  
+> [ ] [aula-memoria-injetada] o resumo de compactação como canal de ataque: a Astra escreveu uma instrução de persona no
+> próprio resumo e o contexto seguinte a herdou, 27 casos. Fecha o par com [memoria-e-contexto], e o desmentido da
+> OpenAI é metade da lição. Ref em `core/refs/REFS.md`  
+> [ ] [aula-agente-gastou-chave] responsabilidade quando o agente gasta: a chave não distingue pedido do dono de pedido
+> do agente, e o relato do agente não é prova. Serve AI4Good (quem paga o erro) e techedu (o aluno vai dar chave pro
+> harness dele). Ref em `core/refs/REFS.md`  
+> [ ] [aula-agente-desanimado] decidir se o run de 14h da Astra no Minecraft entra numa aula — sob o antropomorfismo, a
+> pergunta é o que as notas que o agente escreve pra si mesmo fazem com o comportamento seguinte. Ref em
+> `core/refs/REFS.md`  
+> [ ] [aula-abrir-o-moat] decidir se o caso Higgsfield vira aula de economia de IA — abrir o pipeline como estratégia,
+> não generosidade. Conferir os números na fonte: o post é patrocinado. Ref em `core/refs/REFS.md`  
 > [ ] [aula-dream-rsi] decidir se o Dream-RSI do DeepMind entra nas aulas — o agente transforma o histórico das próprias
 > descobertas num simulador e "sonha" milhares de estratégias antes de gastar chamada real. **O que o post quase
 > esconde:** não há mudança de pesos, só a política de exploração melhora. Bom justamente por isso, pra separar
@@ -209,5 +210,5 @@ Fonte em `academy/teaching/tecnologias-na-educacao/tecnologias.json`. Três sobr
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-16  ·  trend: advancing  ·  touches: 64/93/96/96/96/96
+last-touch: 2026-09-17  ·  trend: advancing  ·  touches: 64/95/100/100/100/100
 <!-- stats:end -->

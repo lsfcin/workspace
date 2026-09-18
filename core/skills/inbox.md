@@ -19,7 +19,12 @@ without flooding always-loaded context.
 
 ## Routes
 
-Every INBOX entry lands in exactly one place:
+Every INBOX entry lands in at least one place, and **a reference or an idea may land in several**
+(Lucas, 2026-09-18): *"pode pecar por excesso e incluir em todos os lugares pertinentes… muito pior
+é a gente perder a ref pra algum dos caminhos"*. A duplicated ref costs a line in two backlogs; a
+ref filed under the one goal that never gets opened is gone. So when an entry serves two goals,
+write the task in both and let each ref line point at the other. **Commitments still land once** —
+a task in two backlogs is done twice or nowhere.
 
 | route | destination | signal |
 |-------|-------------|--------|
