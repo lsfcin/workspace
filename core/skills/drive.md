@@ -12,9 +12,7 @@ Arguments: $ARGUMENTS
 
 ## Overview
 
-Access Google Drive across 3 accounts via `core/tools/files/gdrive` — read *and* write. Reads use the
-`drive` token, `mkdir`/`put` use a separate `drive-write` one, so a read re-consent leaves the write
-token dead: `gdrive auth <alias> --write --reauth` is a different command.
+Access Google Drive across 3 accounts via `core/tools/files/gdrive` — read *and* write. Reads use the `drive` token, `mkdir`/`put` use a separate `drive-write` one, so a read re-consent leaves the write token dead: `gdrive auth <alias> --write --reauth` is a different command.
 
 ## Commands
 

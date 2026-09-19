@@ -1,15 +1,9 @@
 # read
 > Who must read what before touching a folder — and who gets handed it instead.
 
-Two directions, one subject. **Gates force a read**: the CONTEXT.md chain, the interface stub, the
-module spec. **[`agent-context.py`](agent-context.py) supplies one** — subagents are exempt from the
-chain gate ([`SPECS.md`](../SPECS.md), ruled 2026-08-15), which moves the duty of briefing a worker onto
-the orchestrator, and that hook is what stops the duty being a discipline nobody keeps. It induces,
-never blocks.
+Two directions, one subject. **Gates force a read**: the CONTEXT.md chain, the interface stub, the module spec. **[`agent-context.py`](agent-context.py) supplies one** — subagents are exempt from the chain gate ([`SPECS.md`](../SPECS.md), ruled 2026-08-15), which moves the duty of briefing a worker onto the orchestrator, and that hook is what stops the duty being a discipline nobody keeps. It induces, never blocks.
 
-[`chain.py`](chain.py) holds the one definition both directions need: a path's CONTEXT.md chain, the
-workspace paths named in a blob of text, and a CONTEXT.md's own `>` summary line. It was two copies
-before, already drifted on whether the chain starts at the target or its parent.
+[`chain.py`](chain.py) holds the one definition both directions need: a path's CONTEXT.md chain, the workspace paths named in a blob of text, and a CONTEXT.md's own `>` summary line. It was two copies before, already drifted on whether the chain starts at the target or its parent.
 
 <!-- routing:start -->
 ## Routing

@@ -1,17 +1,9 @@
 # dashboard
-> The checks that are about the REPORT rather than about the tree: what a list may claim, and
-> what the count was last time.
+> The checks that are about the REPORT rather than about the tree: what a list may claim, and what the count was last time.
 
-Split from [`../`](../CONTEXT.md) 2026-08-25, when the parent passed the hard file cap. The boundary is
-the one [`core/hooks/entropy/dashboard/`](../../../../../hooks/entropy/dashboard/CONTEXT.md) already
-uses next door: every check in `core/hooks/entropy/` answers one question about the tree, and these
-modules ask all of them and render the answer. A test of the rendering belongs with the rendering.
+Split from [`../`](../CONTEXT.md) 2026-08-25, when the parent passed the hard file cap. The boundary is the one [`core/hooks/entropy/dashboard/`](../../../../../hooks/entropy/dashboard/CONTEXT.md) already uses next door: every check in `core/hooks/entropy/` answers one question about the tree, and these modules ask all of them and render the answer. A test of the rendering belongs with the rendering.
 
-**A list reports its own repo and nothing else** (ruled 2026-09-04). The root used to sum every
-nested project into a table it committed, and those projects are repos its git ignores — so the
-number described a disk, and the clone without them read the same commit as red. Each one recomputes
-what it checks rather than reading what was written: the trend's baseline comes from git, never from
-yesterday's memory, because a count anything else could write into is the drift these checks catch.
+**A list reports its own repo and nothing else** (ruled 2026-09-04). The root used to sum every nested project into a table it committed, and those projects are repos its git ignores — so the number described a disk, and the clone without them read the same commit as red. Each one recomputes what it checks rather than reading what was written: the trend's baseline comes from git, never from yesterday's memory, because a count anything else could write into is the drift these checks catch.
 
 <!-- routing:start -->
 ## Routing

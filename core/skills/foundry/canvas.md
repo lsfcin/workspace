@@ -33,9 +33,7 @@ Key rule: **`canvas.environment.primary.background` = rendered bg sprite in v14.
 
 ## VisibilityFilter on canvas.primary
 
-`canvas.primary` has a `VisibilityFilter` applied. It **hard-clips** the rendered output to the token/tile's grid
-footprint bounding box — any sprite pixels outside the footprint are discarded. This causes visual issues for isometric
-sprites taller or wider than their footprint (volume sprites, counter-transformed tiles).
+`canvas.primary` has a `VisibilityFilter` applied. It **hard-clips** the rendered output to the token/tile's grid footprint bounding box — any sprite pixels outside the footprint are discarded. This causes visual issues for isometric sprites taller or wider than their footprint (volume sprites, counter-transformed tiles).
 
 **There is no in-place fix.** VisibilityFilter operates at the GPU shader level on the entire PrimaryCanvasGroup output.
 The only escape: add a separate `PIXI.Container` directly to `canvas.stage` (outside canvas.primary entirely).
@@ -51,17 +49,14 @@ Clones in this external layer share texture handles with originals in canvas.pri
 
 ## canvas.visibility (global fog compositing)
 
-**Separate** from VisibilityFilter. `canvas.visibility` is a global compositing pass that darkens/hides pixels
-EVERYWHERE on `canvas.stage` based on the vision polygon — including external layers added to canvas.stage. Two distinct
-problems:
+**Separate** from VisibilityFilter. `canvas.visibility` is a global compositing pass that darkens/hides pixels EVERYWHERE on `canvas.stage` based on the vision polygon — including external layers added to canvas.stage. Two distinct problems:
 
 | System | What it does | Affects |
 |--------|-------------|---------|
 | `VisibilityFilter` on `canvas.primary` | Hard-clips sprite pixels to footprint bounding box | Only children of canvas.primary |
 | `canvas.visibility` | Darkens pixels outside vision polygon (fog of war) | Entire canvas.stage |
 
-**`IsoSpriteLayer`** is isoroll's external container added to `canvas.stage` — it escapes the VisibilityFilter clip. A
-separate fog compositing pass (`canvas.visibility`) handles the darkening of overflow pixels on this layer.
+**`IsoSpriteLayer`** is isoroll's external container added to `canvas.stage` — it escapes the VisibilityFilter clip. A separate fog compositing pass (`canvas.visibility`) handles the darkening of overflow pixels on this layer.
 
 ## Depth Sort
 
@@ -71,8 +66,7 @@ Use `PrimaryCanvasGroup` API, assign `zIndex` on objects or add custom foregroun
 ## mesh.alpha = 0 — hide without losing interactivity
 
 Setting `mesh.alpha = 0` on a `PrimarySpriteMesh` makes it invisible but leaves it fully present in canvas.primary —
-Foundry continues to use it for hit detection, HUD positioning, and mechanics. Used when moving visual rendering to an
-external layer while keeping Foundry's interaction system intact.
+Foundry continues to use it for hit detection, HUD positioning, and mechanics. Used when moving visual rendering to an external layer while keeping Foundry's interaction system intact.
 
 ```typescript
 // Hide original — stays interactive, hit-detectable, used by Foundry internals
@@ -86,8 +80,7 @@ externalLayer.addChild(clone);
 
 **Restore on destroy:** `mesh.alpha = docAlpha(doc)` when the clone is removed (e.g. on `destroyToken`).
 
-**Do NOT read `mesh.alpha` back for clone state** — we set it to 0, so copying it kills the clone. Clone alpha must come
-from `doc.alpha`, not from mesh.
+**Do NOT read `mesh.alpha` back for clone state** — we set it to 0, so copying it kills the clone. Clone alpha must come from `doc.alpha`, not from mesh.
 
 ## Native Handle Suppression
 
@@ -116,6 +109,5 @@ g.x = corrected.x; g.y = corrected.y;
 g.eventMode = "static"; g.cursor = "default";
 layer.addChild(g);
 ```
-Key: **`layer.toLocal(globalPos)`** converts screen → canvas coords; `getBounds()` gives screen-space size → divide by
-zoom for canvas-space radius.
+Key: **`layer.toLocal(globalPos)`** converts screen → canvas coords; `getBounds()` gives screen-space size → divide by zoom for canvas-space radius.
 Blocker must be in layer added AFTER all Foundry layers (use `bringToTop()`) to intercept events.

@@ -1,17 +1,12 @@
 # publish
 > Coverage for the one-way sync: what the floor refuses, and what the destination is left holding.
 
-Split out of [`../`](../CONTEXT.md) 2026-09-18 at the crowding signal, and named for the code it
-covers the way [`../close/`](../close/CONTEXT.md) and [`../diagram/`](../diagram/CONTEXT.md) are —
-so a surface and its coverage stay one word apart. What stayed next door asks whether the workspace
-agrees with its own declarations; these ask what happened at the other end of a copy.
+Split out of [`../`](../CONTEXT.md) 2026-09-18 at the crowding signal, and named for the code it covers the way [`../close/`](../close/CONTEXT.md) and [`../diagram/`](../diagram/CONTEXT.md) are —
+so a surface and its coverage stay one word apart. What stayed next door asks whether the workspace agrees with its own declarations; these ask what happened at the other end of a copy.
 
-Both cases are regressions from 2026-09-17, the day the first project crossed, and both are about a
-verdict that read clean while something was wrong: a refusal that could not let one project out, and
-a sync that copied bytes and stopped.
+Both cases are regressions from 2026-09-17, the day the first project crossed, and both are about a verdict that read clean while something was wrong: a refusal that could not let one project out, and a sync that copied bytes and stopped.
 
-Zero-token, no network. Each builds its own repo and bare origin; nothing touches the real
-workspace.
+Zero-token, no network. Each builds its own repo and bare origin; nothing touches the real workspace.
 
 <!-- routing:start -->
 ## Routing

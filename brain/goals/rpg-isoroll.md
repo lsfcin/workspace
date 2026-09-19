@@ -1,13 +1,8 @@
 # [ fun | rpg | near ] isoroll
 
 Foundry extension for isometric perspective with automated content generation. Look target revised 2026-07-29:
-**Dead-Cells production model** (geometry rendered offline to sprites), Feather-3D / Tiny Glade aesthetic — not literal
-Hades, which is hand-painted at artist cost. **REPLAN 2026-07-29 (MVP-first)**: renderer boundary frozen, content
-strategy
-demoted from prerequisite to an A/B behind it, after four review rounds stalled on arm-A stair enclosure masks. Order:
-freeze boundary → **playable in Foundry with ugly pixels and all 8+1 views** → content bake-off (kit-sprite vs
-scene-cell
-render vs NB textures) → props/lighting. Painter grammar stays FROZEN @ feel-rig v16.2 (19 rounds). Live plan:
+**Dead-Cells production model** (geometry rendered offline to sprites), Feather-3D / Tiny Glade aesthetic — not literal Hades, which is hand-painted at artist cost. **REPLAN 2026-07-29 (MVP-first)**: renderer boundary frozen, content strategy demoted from prerequisite to an A/B behind it, after four review rounds stalled on arm-A stair enclosure masks. Order:
+freeze boundary → **playable in Foundry with ugly pixels and all 8+1 views** → content bake-off (kit-sprite vs scene-cell render vs NB textures) → props/lighting. Painter grammar stays FROZEN @ feel-rig v16.2 (19 rounds). Live plan:
 `code/isoroll-content/ROADMAP.md`; spec: `SCENE-CREATION.md`; grammar log: `design/PAINTER-UX.md`.
 
 >**signals**  
@@ -22,51 +17,33 @@ pragmatic mode · stalled motion · intrinsic source
 >**fears**  
 *what · losing progress again — spending time rebuilding what was already built  
 when · looking at recovered files without the context of what they were doing  
-why · setup loss erases the environment but not the memory — the gap between what you had and what you can immediately
-run is frustrating  
+why · setup loss erases the environment but not the memory — the gap between what you had and what you can immediately run is frustrating
 how · avoiding the rebuild because it feels like repetition, not progress*
 
 >**analysis**  
 Stalled by a concrete obstacle — not motivation, not clarity, just a missing environment. The rebuild is the gate.
-Documenting the setup this time is the real lesson: this shouldn't be able to happen twice. Get ComfyUI running,
-document the workflow, then return to where the code was.
+Documenting the setup this time is the real lesson: this shouldn't be able to happen twice. Get ComfyUI running, document the workflow, then return to where the code was.
 
 ## selected next achievement
     [playable] paint a room in live Foundry, walk a token, rotate all 9 views — ugly pixels accepted, look judged later
 
 **ease-start**  
-Nothing to set up on your side. The boundary freeze + cabin fixture run in `code/isoroll-content` (ROADMAP § BOUNDARY),
-then the
-module work closes the painter. Your part is one checkpoint: open Foundry, paint a room, walk a token, rotate through
-the views. Walls, vision, fog and z-order must be right; the art is deliberately ugly at that gate.
+Nothing to set up on your side. The boundary freeze + cabin fixture run in `code/isoroll-content` (ROADMAP § BOUNDARY), then the module work closes the painter. Your part is one checkpoint: open Foundry, paint a room, walk a token, rotate through the views. Walls, vision, fog and z-order must be right; the art is deliberately ugly at that gate.
 
 ## backlog
 
-> [ ] [playable] = ROADMAP § PLAYABLE — painter MVP + manifest walls/vision/fog + 8+1 view switching + DepthSorter +
-> 8-dir token selection  
-> [ ] [bakeoff] content arms compared behind the frozen boundary: A kit-sprite (baseline) vs B scene-cell world-uv
-> render
-> (continuity by construction) vs C NB-painted textures — your style score 1–5 decides, boarded side by side on the same
-> cabin  
-> [ ] [props-mesh] props + characters via image→3D → render 9 views (Hunyuan3D / TripoSR) — multiview by geometry, never
-> by generation  
-> [ ] [lighting] baked AO + ink + edge highlight + colour grade + clutter — where the perceived style budget actually
-> lives; refs captured 2026-07-23 in `code/isoroll-content/refs/REFS.md` § Technique (seamless tileable painting, normal
-> maps on 2D sprites)  
-> [ ] [alpha-pipeline] background transparency — largely resolved for tiles (per-cell rembg, S0-E6-fix5); still open for
-> characters  
+> [ ] [playable] = ROADMAP § PLAYABLE — painter MVP + manifest walls/vision/fog + 8+1 view switching + DepthSorter + 8-dir token selection  
+> [ ] [bakeoff] content arms compared behind the frozen boundary: A kit-sprite (baseline) vs B scene-cell world-uv render (continuity by construction) vs C NB-painted textures — your style score 1–5 decides, boarded side by side on the same cabin  
+> [ ] [props-mesh] props + characters via image→3D → render 9 views (Hunyuan3D / TripoSR) — multiview by geometry, never by generation  
+> [ ] [lighting] baked AO + ink + edge highlight + colour grade + clutter — where the perceived style budget actually lives; refs captured 2026-07-23 in `code/isoroll-content/refs/REFS.md` § Technique (seamless tileable painting, normal maps on 2D sprites)  
+> [ ] [alpha-pipeline] background transparency — largely resolved for tiles (per-cell rembg, S0-E6-fix5); still open for characters  
 > [ ] [8dir-sprites] 8-direction views per character — after tiles ship (NB cardinal weakness returns for tokens)  
 > [ ] [anim-pipeline] animate characters: idle, attack, defend, hurt, cast, crouch  
 > [ ] [sprite-atlas] atlas packing for Foundry export  
-> [ ] [higgsfield-asset-gen] avaliar se algum pipeline do Higgsfield serve à geração de asset daqui — e checar primeiro
-> se não bate de frente com a decisão congelada de que o pixel sai do bake offline em Python e nada que gira é gerado.
-> Se bater, o veredito é curto e fica escrito. Irmão de [higgsfield-o-que-roda-aqui] em `local-ai.md`. Ref em
-> `core/refs/REFS.md` (— via aiwbot)  
-> [ ] [capcut-um-take] avaliar o CapCut pro isoroll — o gancho é um take único virando muitos cortes, o que serve a
-> divulgação e a vídeo de mesa, não a sprite. Separar as duas perguntas antes de testar. Ref e tarefa espelhadas em
-> `code/isoroll-content/` (INBOX 2026-09-18)  
-> [ ] [nvidia-imagegen] testar geração de imagem via opencode + chave NVIDIA — nanobanana com a key falhou algumas
-> vezes; validar esse caminho alternativo (INBOX 2026-07-24)  
+> [ ] [higgsfield-asset-gen] avaliar se algum pipeline do Higgsfield serve à geração de asset daqui — e checar primeiro se não bate de frente com a decisão congelada de que o pixel sai do bake offline em Python e nada que gira é gerado.
+> Se bater, o veredito é curto e fica escrito. Irmão de [higgsfield-o-que-roda-aqui] em `local-ai.md`. Ref em `core/refs/REFS.md` (— via aiwbot)  
+> [ ] [capcut-um-take] avaliar o CapCut pro isoroll — o gancho é um take único virando muitos cortes, o que serve a divulgação e a vídeo de mesa, não a sprite. Separar as duas perguntas antes de testar. Ref e tarefa espelhadas em `code/isoroll-content/` (INBOX 2026-09-18)  
+> [ ] [nvidia-imagegen] testar geração de imagem via opencode + chave NVIDIA — nanobanana com a key falhou algumas vezes; validar esse caminho alternativo (INBOX 2026-07-24)  
 
 ## done
 

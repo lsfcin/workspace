@@ -1,12 +1,7 @@
 # memory
 > What the agent learned across sessions and nothing else records. Harness-written, workspace-owned.
 
-**The harness path is a symlink into here** — `~/.claude/projects/<name>/memory` →
-`brain/memory/` — so every memory written by the agent lands in the workspace by construction,
-shows up in `git status`, and can be trimmed like any other file. This gives both properties at
-once: **locality** (the content is in the repo) and **control** (we can edit or delete
-it). Per-file symlinks would have given only the first, leaving each *new* memory outside until
-someone adopted it.
+**The harness path is a symlink into here** — `~/.claude/projects/<name>/memory` → `brain/memory/` — so every memory written by the agent lands in the workspace by construction, shows up in `git status`, and can be trimmed like any other file. This gives both properties at once: **locality** (the content is in the repo) and **control** (we can edit or delete it). Per-file symlinks would have given only the first, leaving each *new* memory outside until someone adopted it.
 
 What cannot be controlled is the agent *deciding* to write one. That is fine — it lands in a diff.
 
@@ -15,22 +10,12 @@ What cannot be controlled is the agent *deciding* to write one. That is fine —
 | `MEMORY.md` | The index. One line per memory, loaded into every session — so its length is a real cost, re-read from `core/run tools/wos/session/context` rather than quoted here. |
 | `<name>.md` | One fact each, with `name` / `description` / `metadata.type` frontmatter. |
 
-The profile is **not** a file here, and is no longer a file at all. It was a symlink to `../USER.md`
-until 2026-09-04 — and a symlink is a text file on Windows: `core.symlinks=false` gave that clone a
-10-byte file whose whole content was the string `../USER.md`, which is what a reader following the
-index got. The index routed straight to the real path after that, and on 2026-09-15 the profile was
-measured at **zero reads in 88 sessions** and cut: what only it carried is eight lines at the top of
-[`../CONTEXT.md`](../CONTEXT.md), which every Brain task already opens.
+The profile is **not** a file here, and is no longer a file at all. It was a symlink to `../USER.md` until 2026-09-04 — and a symlink is a text file on Windows: `core.symlinks=false` gave that clone a 10-byte file whose whole content was the string `../USER.md`, which is what a reader following the index got. The index routed straight to the real path after that, and on 2026-09-15 the profile was measured at **zero reads in 88 sessions** and cut: what only it carried is eight lines at the top of [`../CONTEXT.md`](../CONTEXT.md), which every Brain task already opens.
 
-Types are `user` · `feedback` · `reference`. Bodies link to each other with `[[name]]`,
-and a `[[name]]` with no matching file is allowed on purpose: it marks a memory worth writing.
+Types are `user` · `feedback` · `reference`. Bodies link to each other with `[[name]]`, and a `[[name]]` with no matching file is allowed on purpose: it marks a memory worth writing.
 That is why `test_pointer_integrity` gates `](path)` links here but **not** `[[name]]` ones.
 
-**Cost, measured rather than assumed.** The index is a share of every session's opening context,
-reported by `core/run tools/wos/session/context` as its own row. The old suspicion that this store
-duplicates the profile and `goals/` enough to be worth folding was tested and rejected on the numbers
-([`core/experiments/context-window.md`](../../core/experiments/context-window.md)) — and then half
-came true from the other side: the profile was the copy, and on 2026-09-15 it went instead.
+**Cost, measured rather than assumed.** The index is a share of every session's opening context, reported by `core/run tools/wos/session/context` as its own row. The old suspicion that this store duplicates the profile and `goals/` enough to be worth folding was tested and rejected on the numbers ([`core/experiments/context-window.md`](../../core/experiments/context-window.md)) — and then half came true from the other side: the profile was the copy, and on 2026-09-15 it went instead.
 
 <!-- routing:start -->
 ## Routing

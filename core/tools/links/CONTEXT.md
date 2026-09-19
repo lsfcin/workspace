@@ -18,11 +18,9 @@ lucassf.pages.dev/rva-chico      a one-off, flat and hyphenated
 ```
 
 [`links.txt`](links.txt) records every short name's target, one tab-separated row, queried with `find`.
-`gforms new`, `gslides new`, `gdocs new` and `gdrive share` each take `--short-name`, through
-[`../short_name.py`](../short_name.py), so a link is named where it is created.
+`gforms new`, `gslides new`, `gdocs new` and `gdrive share` each take `--short-name`, through [`../short_name.py`](../short_name.py), so a link is named where it is created.
 
-The short name grammar, the private-folder refusal, why Cloudflare rather than GitHub Pages, and what
-`check` watches: [`SPECS.md`](SPECS.md).
+The short name grammar, the private-folder refusal, why Cloudflare rather than GitHub Pages, and what `check` watches: [`SPECS.md`](SPECS.md).
 
 <!-- routing:start -->
 ## Routing

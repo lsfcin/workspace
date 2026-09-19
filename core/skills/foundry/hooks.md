@@ -10,8 +10,7 @@ Foundry VTT v14 — hooks reference table, key patterns, gridSize detection.
 
 ## Hook-Registry Convention
 
-All `Hooks.on/once` calls live in **`src/core/hook-registry.ts`** — one central file, grouped by event, with explicit
-handler execution order. **Never add `Hooks.on` to a subsystem file.** The pre-commit hook enforces this.
+All `Hooks.on/once` calls live in **`src/core/hook-registry.ts`** — one central file, grouped by event, with explicit handler execution order. **Never add `Hooks.on` to a subsystem file.** The pre-commit hook enforces this.
 
 `hook-registry.ts` imports through each module's `index.ts` façade, never directly from internal files (e.g.
 `'../render'` not `'../render/render-gate'`).
@@ -69,16 +68,13 @@ Key patterns:
   `createTile` receives the updated values. BUT calling `doc.update()` again in `createTile` with the same data triggers
   a full PIXI sprite redraw, causing a visible blink. Skip the `createTile` update when `preCreateTile` already applied
   the data (use a shared in-memory cache to detect this).
-- `Hooks.on("updateScene", (scene, changes) => { if (scene.id !== canvas.scene?.id) return; ... })` — always guard for
-  current scene
+- `Hooks.on("updateScene", (scene, changes) => { if (scene.id !== canvas.scene?.id) return; ... })` — always guard for current scene
 - Render hooks for AppV2 sheets fire after DOM built; html already in document
-- **`destroyTile`/`destroyToken`**: preview clones share the same `id` as the original — guard with `isPreviewClone(t)`
-  to avoid triggering cleanup on the original when the clone is destroyed
+- **`destroyTile`/`destroyToken`**: preview clones share the same `id` as the original — guard with `isPreviewClone(t)` to avoid triggering cleanup on the original when the clone is destroyed
 
 ## Detecting gridSize Changes
 
-`preUpdateScene` fires before the update — `scene.grid.size` = old value, `changes.grid?.size` = new value. Capture
-ratio there; apply in `updateScene`. Only GM should write embedded document updates.
+`preUpdateScene` fires before the update — `scene.grid.size` = old value, `changes.grid?.size` = new value. Capture ratio there; apply in `updateScene`. Only GM should write embedded document updates.
 
 ```typescript
 let pendingRescale: { sceneId: string; ratio: number } | null = null;

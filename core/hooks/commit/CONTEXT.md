@@ -1,22 +1,14 @@
 # Commit
-> The git pre-commit and post-commit pipeline: what runs on every commit, in what order, and the
-> one place a commit is refused.
+> The git pre-commit and post-commit pipeline: what runs on every commit, in what order, and the one place a commit is refused.
 
 Contract and what each gate blocks: [`../SPECS.md`](../SPECS.md) § Git pre-commit.
 
-Applied globally via `core.hooksPath`, so this fires in **every** repo under the workspace — which
-is why `pre_commit.Commit` carries two roots and no module recomputes either. `root` is where the
-machinery lives; `toplevel` is the repo being committed. They are different directories whenever a
-project under `code/` commits, and conflating them is how this pipeline breaks.
+Applied globally via `core.hooksPath`, so this fires in **every** repo under the workspace — which is why `pre_commit.Commit` carries two roots and no module recomputes either. `root` is where the machinery lives; `toplevel` is the repo being committed. They are different directories whenever a project under `code/` commits, and conflating them is how this pipeline breaks.
 
-A **gate** may refuse the commit by raising `Blocked`; a **generator** writes artifacts and stages
-them. That split dates to the 2026-07-31 reorganisation, when a single 385-line file had drifted out
-of its own execution order. Order is fixed in `pre_commit.stages()` and is not alphabetical:
+A **gate** may refuse the commit by raising `Blocked`; a **generator** writes artifacts and stages them. That split dates to the 2026-07-31 reorganisation, when a single 385-line file had drifted out of its own execution order. Order is fixed in `pre_commit.stages()` and is not alphabetical:
 `lint` runs last because ESLint needs the `.d.ts` that `interfaces` writes.
 
-`Blocked` is the only unhappy way out, and that is the design: `core/hooks/SPECS.md` promises a hook
-that blocks names its fix, and a second exit path is what once let a rejection reach the agent as
-"No stderr output" — a refusal with no reason attached, costing a round of investigation each time.
+`Blocked` is the only unhappy way out, and that is the design: `core/hooks/SPECS.md` promises a hook that blocks names its fix, and a second exit path is what once let a rejection reach the agent as "No stderr output" — a refusal with no reason attached, costing a round of investigation each time.
 
 <!-- routing:start -->
 ## Routing

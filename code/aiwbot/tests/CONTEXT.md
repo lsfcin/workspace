@@ -4,25 +4,13 @@
 
 ## Shape — the root holds the kits, every subdirectory holds one subject
 
-Split 2026-08-01 at 51 files in one flat directory. Only the shared scaffolding stays at the
-root: `conftest.py` and the three kits (`chatkit` Telegram fakes, `panelkit` keyboard readers,
-`streamkit` async-stream fakes). Everything else routes through the table below, grouped by
-*what it asserts*, not by which release named it — a `test_f6_*` file sits with the behaviour it
-pins, so a bug in the live bubble is one directory to read, not a grep across the whole suite.
+Split 2026-08-01 at 51 files in one flat directory. Only the shared scaffolding stays at the root: `conftest.py` and the three kits (`chatkit` Telegram fakes, `panelkit` keyboard readers, `streamkit` async-stream fakes). Everything else routes through the table below, grouped by *what it asserts*, not by which release named it — a `test_f6_*` file sits with the behaviour it pins, so a bug in the live bubble is one directory to read, not a grep across the whole suite.
 
-Two directories cover the backend boundary (`boundary/` the contract and its parsers, `store/` what a
-provider already wrote for itself); the other seven carry the same names as
-[`frontend/`](../frontend/CONTEXT.md)'s own surfaces, so a source directory and its tests are
-one word apart.
+Two directories cover the backend boundary (`boundary/` the contract and its parsers, `store/` what a provider already wrote for itself); the other seven carry the same names as [`frontend/`](../frontend/CONTEXT.md)'s own surfaces, so a source directory and its tests are one word apart.
 
-A subdirectory under `WARN_FILES` folds back into this table unless it carries its own
-`CONTEXT.md`, so each one declares itself and this table went 51 rows → 12. Moving files
-without paying that cost would satisfy the crowding count while leaving the reader exactly as
-much to hold.
+A subdirectory under `WARN_FILES` folds back into this table unless it carries its own `CONTEXT.md`, so each one declares itself and this table went 51 rows → 12. Moving files without paying that cost would satisfy the crowding count while leaving the reader exactly as much to hold.
 
-**Scaffolding is imported from a kit, never from a sibling test.** `FakeMsg`/`FakeReplyAnchor`
-lived in `test_route_text.py` and were imported by a voice test; the split turned that into a
-cross-directory import and they moved to `chatkit.py`, where they belonged.
+**Scaffolding is imported from a kit, never from a sibling test.** `FakeMsg`/`FakeReplyAnchor` lived in `test_route_text.py` and were imported by a voice test; the split turned that into a cross-directory import and they moved to `chatkit.py`, where they belonged.
 
 <!-- routing:start -->
 ## Routing

@@ -1,8 +1,6 @@
 # [ fun | music | near ] pandeiro
 
-Aprender o pandeiro e as percussões. Unlock rhythm — in the head, the hand, and the foot. There's already a concrete
-access point: Pandeirada, a pandeiro course in Várzea, classes on Saturdays. This is in the neighborhood. The only
-barrier is showing up.
+Aprender o pandeiro e as percussões. Unlock rhythm — in the head, the hand, and the foot. There's already a concrete access point: Pandeirada, a pandeiro course in Várzea, classes on Saturdays. This is in the neighborhood. The only barrier is showing up.
 
 >**signals**  
 meaningful · expected · motivated
@@ -14,8 +12,7 @@ pragmatic mode · advancing motion · intrinsic source
     [show-up] go to Pandeirada next Saturday
 
 **ease-start**  
-Look up the Pandeirada schedule and confirm the time and location for this Saturday. Then put it in the calendar. That's
-it — just make the appointment with yourself.
+Look up the Pandeirada schedule and confirm the time and location for this Saturday. Then put it in the calendar. That's it — just make the appointment with yourself.
 
 >**timing**  
 *target · 3 months of regular Saturday practice  

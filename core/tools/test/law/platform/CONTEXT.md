@@ -1,11 +1,7 @@
 # platform
-> The platform boundary's coverage: the one module allowed to know what an operating system is, and
-> the credential-tightness ruling that rides on it.
+> The platform boundary's coverage: the one module allowed to know what an operating system is, and the credential-tightness ruling that rides on it.
 
-Split from [`../`](../CONTEXT.md) 2026-08-31 at the crowding signal, on a boundary the directory's own
-head already names: the file-shape law (what a file is, what a name may be) is a different
-responsibility from what machine this is. The regression spec for the token modes lives beside the
-boundary tests because the ruling is about the boundary's answer, not about Google.
+Split from [`../`](../CONTEXT.md) 2026-08-31 at the crowding signal, on a boundary the directory's own head already names: the file-shape law (what a file is, what a name may be) is a different responsibility from what machine this is. The regression spec for the token modes lives beside the boundary tests because the ruling is about the boundary's answer, not about Google.
 
 <!-- routing:start -->
 ## Routing

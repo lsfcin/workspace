@@ -1,8 +1,6 @@
 # [ health | mind | now ] make in time
 
-Chronic pattern of arriving late, delivering late, making people wait. Likely ADHD-adjacent: poor time estimation,
-underestimating transit/prep, difficulty tolerating the boredom of arriving early. The fix isn't punishment — it's
-redesigning commitments. Commit to comfortable times and arrive early, rather than committing tight and arriving late.
+Chronic pattern of arriving late, delivering late, making people wait. Likely ADHD-adjacent: poor time estimation, underestimating transit/prep, difficulty tolerating the boredom of arriving early. The fix isn't punishment — it's redesigning commitments. Commit to comfortable times and arrive early, rather than committing tight and arriving late.
 This is a character trait worth building: showing up on time is a form of respect.
 
 >**signals**  
@@ -18,18 +16,14 @@ why · difficulty tolerating unstructured waiting; possibly ADHD time-blindness;
 how · commit to tight windows, tell myself "it'll be fine", consistently arrive late*
 
 >**analysis**  
-Time-blindness in ADHD is real and documented: the brain underweights future discomfort (being late) relative to present
-discomfort (boredom of waiting early). The fix is structural, not motivational. Key shifts: (1) add a fixed buffer — if
-you think it'll take 20 min, plan for 30; (2) reframe "arriving early" as protected transition time, not wasted time;
-(3) commit to the comfortable time publicly, not the optimistic one. Self-compassion matters here — shame loops make
-avoidance worse.
+Time-blindness in ADHD is real and documented: the brain underweights future discomfort (being late) relative to present discomfort (boredom of waiting early). The fix is structural, not motivational. Key shifts: (1) add a fixed buffer — if you think it'll take 20 min, plan for 30; (2) reframe "arriving early" as protected transition time, not wasted time;
+(3) commit to the comfortable time publicly, not the optimistic one. Self-compassion matters here — shame loops make avoidance worse.
 
 ## selected next achievement
     [mit-01] identify 3 recurring late scenarios and map the planning gap
 
 **ease-start**  
-Think of the last 3 times you were late. For each: what time did you think you'd leave vs. when you actually left? Write
-that gap down. That number is your buffer baseline.
+Think of the last 3 times you were late. For each: what time did you think you'd leave vs. when you actually left? Write that gap down. That number is your buffer baseline.
 
 ## backlog
 

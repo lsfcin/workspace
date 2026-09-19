@@ -1,16 +1,9 @@
 # workspace
 > Level 0 workspace-wide invariants: pointers resolve, .gitignore self-heals, imports do not shadow.
 
-Split 2026-08-15 at 8 files and again 2026-09-06 at 15. What stays is what holds for the **whole
-tree** rather than for one piece of machinery: every relative link resolves, a new domain
-subdirectory does not fall out of the `.gitignore` allowlist, and the suite's `sys.path` cannot
-silently shadow a module.
+Split 2026-08-15 at 8 files and again 2026-09-06 at 15. What stays is what holds for the **whole tree** rather than for one piece of machinery: every relative link resolves, a new domain subdirectory does not fall out of the `.gitignore` allowlist, and the suite's `sys.path` cannot silently shadow a module.
 
-Three subdirectories are named for the code they cover, so a surface and its coverage are one word
-apart — [`gates/`](gates/CONTEXT.md), [`generators/`](generators/CONTEXT.md) and
-[`shims/`](shims/CONTEXT.md). Two are named for a **question** instead, because no single directory
-owns it: [`ratchets/`](ratchets/CONTEXT.md) asks whether the backlog is shrinking, and
-[`harness/`](harness/CONTEXT.md) asks what the runner itself needs before any of this can run.
+Three subdirectories are named for the code they cover, so a surface and its coverage are one word apart — [`gates/`](gates/CONTEXT.md), [`generators/`](generators/CONTEXT.md) and [`shims/`](shims/CONTEXT.md). Two are named for a **question** instead, because no single directory owns it: [`ratchets/`](ratchets/CONTEXT.md) asks whether the backlog is shrinking, and [`harness/`](harness/CONTEXT.md) asks what the runner itself needs before any of this can run.
 
 <!-- routing:start -->
 ## Routing

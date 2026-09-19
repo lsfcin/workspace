@@ -13,9 +13,7 @@
 
 ## Done
 
-> One line per goal that reached its closure, with what shipped and when. The goal file itself is
-> deleted — done work is deleted, git is the history (`AGENTS.md`). Git recovers the file; it does
-> not recover the fact that this one *landed*, so that is what the line is for.
+> One line per goal that reached its closure, with what shipped and when. The goal file itself is deleted — done work is deleted, git is the history (`AGENTS.md`). Git recovers the file; it does not recover the fact that this one *landed*, so that is what the line is for.
 
 ## Ditched
 

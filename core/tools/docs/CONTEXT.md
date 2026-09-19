@@ -11,19 +11,11 @@ core/run tools/docs/gdocs apply    --account personal <document_id> requests.jso
 core/run tools/docs/gdocs comments --account personal <document_id>
 ```
 
-**Two ways in, and the choice is whole-document versus surgical.** `read`/`push` carry Markdown, so a
-`.md` in this repo and the live Doc are the same document — Drive converts both directions and a
-`push` keeps the id, URL and sharing. `apply` is the real boundary for anything smaller; `text` and
-`replace` are conveniences over it.
+**Two ways in, and the choice is whole-document versus surgical.** `read`/`push` carry Markdown, so a `.md` in this repo and the live Doc are the same document — Drive converts both directions and a `push` keeps the id, URL and sharing. `apply` is the real boundary for anything smaller; `text` and `replace` are conveniences over it.
 
-**`read --outline` prints body indices on purpose** — they are what a `batchUpdate` request needs, so
-reading a document hands back the handles for editing it. Unlike a Slides object id, **an index goes
-stale the moment anything is inserted or deleted before it**, so a batch is built highest index
-first and `apply` refuses one that is not. Pass the revision back and a document someone else moved
-rejects the batch instead of misplacing the edit.
+**`read --outline` prints body indices on purpose** — they are what a `batchUpdate` request needs, so reading a document hands back the handles for editing it. Unlike a Slides object id, **an index goes stale the moment anything is inserted or deleted before it**, so a batch is built highest index first and `apply` refuses one that is not. Pass the revision back and a document someone else moved rejects the batch instead of misplacing the edit.
 
-Why `push` can orphan comments, what Markdown loses in the round trip, the index algebra, and the
-two auth grants (the same split as [`../files/`](../files/CONTEXT.md)): [`SPECS.md`](SPECS.md).
+Why `push` can orphan comments, what Markdown loses in the round trip, the index algebra, and the two auth grants (the same split as [`../files/`](../files/CONTEXT.md)): [`SPECS.md`](SPECS.md).
 
 <!-- routing:start -->
 ## Routing

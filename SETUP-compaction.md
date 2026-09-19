@@ -1,12 +1,8 @@
 # Setup — context compaction
-> The two halves of what shrinks a session: rtk compresses tool output before it reaches the
-> context, caveman compresses the agent's own writing. Each needs a binary and a registration, and in
-> both cases the registration is the part that silently reverts.
-> feature: rtk-compaction, caveman
-> enforced-by: core/tools/test/workspace/test_setup_executable.py
+> The two halves of what shrinks a session: rtk compresses tool output before it reaches the context, caveman compresses the agent's own writing. Each needs a binary and a registration, and in both cases the registration is the part that silently reverts.
+> feature: rtk-compaction, caveman enforced-by: core/tools/test/workspace/test_setup_executable.py
 
-The five-part contract: [`SETUP.md`](SETUP.md). Both features are optional and cost only tokens when
-skipped. Read the ⚠ blocks first — each names a command that undoes a step in this file.
+The five-part contract: [`SETUP.md`](SETUP.md). Both features are optional and cost only tokens when skipped. Read the ⚠ blocks first — each names a command that undoes a step in this file.
 
 <!-- steps:start -->
 

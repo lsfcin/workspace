@@ -1,7 +1,6 @@
 # [ fun | sports | year ] surf
 
-Aprender a surfar. Recife has ocean within reach — Boa Viagem, Candeias, Piedade. This is one of those things that lives
-in the imagination as something that fits: body, movement, water, presence.
+Aprender a surfar. Recife has ocean within reach — Boa Viagem, Candeias, Piedade. This is one of those things that lives in the imagination as something that fits: body, movement, water, presence.
 
 >**signals**  
 useful · optional · motivated
@@ -10,8 +9,7 @@ useful · optional · motivated
     [find-school] find a surf school in Recife — Boa Viagem or Piedade area
 
 **ease-start**  
-Search for surf schools near Recife this week. Find one with beginner classes. See what a first lesson would look like
-and cost.
+Search for surf schools near Recife this week. Find one with beginner classes. See what a first lesson would look like and cost.
 
 ## backlog
 

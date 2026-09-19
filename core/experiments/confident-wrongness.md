@@ -3,9 +3,7 @@
 
 ## Method
 
-The reproducible half is a count of **retraction markers**: lines where our own record states that a
-belief we held turned out false. The regex is frozen as of 2026-09-12 and must not be edited to fit a
-later corpus — a widened pattern would report drift as improvement.
+The reproducible half is a count of **retraction markers**: lines where our own record states that a belief we held turned out false. The regex is frozen as of 2026-09-12 and must not be edited to fit a later corpus — a widened pattern would report drift as improvement.
 
 ```sh
 RE='was wrong (in every claim|by)|was (still )?wrong by|was an artifact|read as confirmation|went unverified for months|first (run|version) .{0,40}was wrong|reported .{0,30}MISSING|stayed green|read green on .{0,30}red|could not see|overruled twice'
@@ -13,18 +11,11 @@ git grep -nIE "$RE" | wc -l    # marker lines
 git grep -lIE "$RE" | wc -l    # files carrying at least one
 ```
 
-Whole tracked tree, no extension filter. An earlier draft filtered on `*.md`/`*.py`/`*.txt` and
-missed the extensionless entrypoints, `core/tools/wos/roundup` among them — so the scope is now
-"every text file git tracks" and nothing narrower.
+Whole tracked tree, no extension filter. An earlier draft filtered on `*.md`/`*.py`/`*.txt` and missed the extensionless entrypoints, `core/tools/wos/roundup` among them — so the scope is now "every text file git tracks" and nothing narrower.
 
-The judged half is the **incident set**: distinct events behind those markers, deduplicated, each
-read in place and each classified by *what caught it*. Several markers describe one incident and some
-incidents carry no marker at all, so the marker count is a floor on the incident count, never an
-estimate of it. The classification is judgment and is not reproducible by the command above.
+The judged half is the **incident set**: distinct events behind those markers, deduplicated, each read in place and each classified by *what caught it*. Several markers describe one incident and some incidents carry no marker at all, so the marker count is a floor on the incident count, never an estimate of it. The classification is judgment and is not reproducible by the command above.
 
-Hand-check, as `SPECS.md` requires of a new instrument: three incidents were traced to real commits
-with `git log -S` on the identifier each one names, confirming the writing describes code that changed
-rather than a story about code.
+Hand-check, as `SPECS.md` requires of a new instrument: three incidents were traced to real commits with `git log -S` on the identifier each one names, confirming the writing describes code that changed rather than a story about code.
 
 ## Results
 
@@ -49,47 +40,20 @@ What caught each of the 18, for the 2026-09-12 run:
 
 ## What changed
 
-**The item left this workspace** (2026-09-13, Lucas). The sitting ran, and its ruling was that none
-of the three mechanisms the 42-source survey left standing is worth building here: gating at
-generation only reaches output expressible as a grammar, admission control on the two stores costs
-seconds on every commit while nothing has ever measured whether the cheaper format check catches
-anything, and designing for the second clone does not close as a gate because it needs the second
-machine to be running. The survey's own verdict is why that is not a retreat — *every mechanism
-found that can actually refuse is a parser or a solver, never a judge* — so the question is about
-interfaces, and it became `academy/papers/back2dsl`, which carries the survey and its provenance.
+**The item left this workspace** (2026-09-13, Lucas). The sitting ran, and its ruling was that none of the three mechanisms the 42-source survey left standing is worth building here: gating at generation only reaches output expressible as a grammar, admission control on the two stores costs seconds on every commit while nothing has ever measured whether the cheaper format check catches anything, and designing for the second clone does not close as a gate because it needs the second machine to be running. The survey's own verdict is why that is not a retreat — *every mechanism found that can actually refuse is a parser or a solver, never a judge* — so the question is about interfaces, and it became `academy/papers/back2dsl`, which carries the survey and its provenance.
 
-**This file stays here and is not moved.** It measures this workspace, and the store owns it; the
-paper cites these numbers rather than copying them.
+**This file stays here and is not moved.** It measures this workspace, and the store owns it; the paper cites these numbers rather than copying them.
 
 What the numbers handed that sitting, and now hand the paper:
 
-- **One of eighteen** was caught by a check this workspace runs. Seventeen needed a second machine, a
-  hand audit, a later read, or a sitting. The `ROADMAP.md` item's claim that *nothing catches it* is
-  now a measured floor rather than an impression.
-- **The largest category is the slowest.** Reading our own stored artifact later caught four, and
-  each of those was published as a fact first. That is `core/SPECS.md` AD-16 band 1 exactly: a rule
-  written with nothing checking.
-- **Three were caught only because a second clone exists.** Two machines share this workspace for
-  reasons that have nothing to do with doubt, and that accident is the second most effective catcher
-  on the table. Nothing designs for it, nothing would notice if one clone went away, and no check
-  asks whether a claim holds on both.
+- **One of eighteen** was caught by a check this workspace runs. Seventeen needed a second machine, a hand audit, a later read, or a sitting. The `ROADMAP.md` item's claim that *nothing catches it* is now a measured floor rather than an impression.
+- **The largest category is the slowest.** Reading our own stored artifact later caught four, and each of those was published as a fact first. That is `core/SPECS.md` AD-16 band 1 exactly: a rule written with nothing checking.
+- **Three were caught only because a second clone exists.** Two machines share this workspace for reasons that have nothing to do with doubt, and that accident is the second most effective catcher on the table. Nothing designs for it, nothing would notice if one clone went away, and no check asks whether a claim holds on both.
 
 ## Limitations
 
-- **The marker count is a floor and cannot be a trend.** It matches phrasing, and a future incident
-  worded differently is invisible to it. A falling count is therefore not evidence of improvement,
-  and must never be read as one. The frozen regex protects the comparison, not the coverage.
-- **Only documented retractions are visible.** An incident nobody wrote down is absent by
-  construction, and the ones most likely to go unwritten are the ones nothing caught — so the true
-  denominator is larger and the "caught by our own checks" share is an **upper** bound.
-- **The classification is judgment, not measurement.** A second reader could move an incident between
-  *re-measuring with a better lens* and *a hand audit against raw data*; the two shade into each
-  other. The category that matters to the ruling — caught by an automated check of ours, or not — is
-  the one with the least room to argue.
-- **Latency is recorded only where the source states it.** "Months" and "three weeks" are quoted from
-  the record; most incidents carry no date for when the belief formed, so no mean is computable and
-  none is offered.
-- **Self-reference is unavoidable.** This file is a claim about how bad we are at claims, assembled by
-  the agent whose confidence is the subject. It has no second implementation, and by its own
-  finding — two implementations of one misunderstanding are one measurement — a second one would not
-  settle it either.
+- **The marker count is a floor and cannot be a trend.** It matches phrasing, and a future incident worded differently is invisible to it. A falling count is therefore not evidence of improvement, and must never be read as one. The frozen regex protects the comparison, not the coverage.
+- **Only documented retractions are visible.** An incident nobody wrote down is absent by construction, and the ones most likely to go unwritten are the ones nothing caught — so the true denominator is larger and the "caught by our own checks" share is an **upper** bound.
+- **The classification is judgment, not measurement.** A second reader could move an incident between *re-measuring with a better lens* and *a hand audit against raw data*; the two shade into each other. The category that matters to the ruling — caught by an automated check of ours, or not — is the one with the least room to argue.
+- **Latency is recorded only where the source states it.** "Months" and "three weeks" are quoted from the record; most incidents carry no date for when the belief formed, so no mean is computable and none is offered.
+- **Self-reference is unavoidable.** This file is a claim about how bad we are at claims, assembled by the agent whose confidence is the subject. It has no second implementation, and by its own finding — two implementations of one misunderstanding are one measurement — a second one would not settle it either.

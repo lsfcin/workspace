@@ -11,8 +11,7 @@ Arguments: $ARGUMENTS
 
 Parse the arguments as `<workflow> [query or path]`. If no workflow is given, print the menu below and stop.
 The flow filename is the command tail: `research <workflow>` → `core/flows/research/<workflow>.md`.
-Back-compat aliases: `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`explore`, `lit`→`literature`
-(resolve to the canonical command).
+Back-compat aliases: `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`explore`, `lit`→`literature` (resolve to the canonical command).
 
 ## Workflows
 
@@ -33,8 +32,7 @@ Back-compat aliases: `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`ex
 
 ## Execution protocol
 
-1. Read the flow file for the requested workflow (`core/flows/research/<workflow>.md`; resolve aliases
-   `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`explore`, `lit`→`literature` first).
+1. Read the flow file for the requested workflow (`core/flows/research/<workflow>.md`; resolve aliases `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`explore`, `lit`→`literature` first).
 2. Read `core/tools/CONTEXT.md` to know which tools are available and how to call them.
 3. Execute the workflow step by step. Use bash to invoke tools:
    - `core/tools/paper/papers "<query>"` — arXiv / Semantic Scholar
@@ -45,9 +43,7 @@ Back-compat aliases: `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`ex
    - `core/tools/paper/parse <file>` — extract text from PDF/DOCX
    - `core/tools/web/code list|read|search <owner/repo>` — GitHub
    - `core/tools/paper/annotate set|get|list <id> [note]` — annotation store
-4. **Source discipline** — arXiv is the easiest surface to search, so an unguarded pass
-   returns almost only preprints, which are *not peer reviewed*. Every round must also hit
-   published venues (ACL/EMNLP anthology, ACM DL, IEEE, OpenReview with an accepted venue).
+4. **Source discipline** — arXiv is the easiest surface to search, so an unguarded pass returns almost only preprints, which are *not peer reviewed*. Every round must also hit published venues (ACL/EMNLP anthology, ACM DL, IEEE, OpenReview with an accepted venue).
    `core/tools/paper/papers --ss` reports `venue` + `peer_reviewed` per hit; `--reviewed` drops
    preprints, `--min-cit N` drops noise. Tag every delivered reference with its level and
    record it in the relevant `refs/REFS.md`. Level table + full rule: [`core/refs/CONTEXT.md`](../refs/CONTEXT.md).

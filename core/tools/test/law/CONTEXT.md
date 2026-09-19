@@ -1,10 +1,7 @@
 # law
 > Level 0: what a file is, what a name may be, and how big a session may get.
 
-What stays here is the law **itself** — the definitions every other check reads through, and the
-gate that admits a filename. The checks that consume it moved into
-[`entropy/`](entropy/CONTEXT.md) on 2026-08-15, so this directory answers *what is legal* and that
-one answers *what the tree actually contains*.
+What stays here is the law **itself** — the definitions every other check reads through, and the gate that admits a filename. The checks that consume it moved into [`entropy/`](entropy/CONTEXT.md) on 2026-08-15, so this directory answers *what is legal* and that one answers *what the tree actually contains*.
 
 <!-- routing:start -->
 ## Routing

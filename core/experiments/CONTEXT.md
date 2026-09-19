@@ -3,11 +3,7 @@
 
 **Why this exists.** *"No feature in this workspace has ever been measured"*
 ([/ROADMAP.md](../../ROADMAP.md)). Every instrument we own —
-[`session/context`](../tools/wos/session/context), [`session/usage`](../tools/wos/session/usage),
-[`ISSUES.md`](../../ISSUES.md) — prints the present and forgets; git holds the past but not a
-readable trend. This directory is the readable half, and differs on purpose from
-`core/SCAFFOLD-LOG.md` ([/ROADMAP.md](../../ROADMAP.md) § Rejected): that logged narrated
-**changes**, redundant with git; this records **measurements over time**, which git cannot give you.
+[`session/context`](../tools/wos/session/context), [`session/usage`](../tools/wos/session/usage), [`ISSUES.md`](../../ISSUES.md) — prints the present and forgets; git holds the past but not a readable trend. This directory is the readable half, and differs on purpose from `core/SCAFFOLD-LOG.md` ([/ROADMAP.md](../../ROADMAP.md) § Rejected): that logged narrated **changes**, redundant with git; this records **measurements over time**, which git cannot give you.
 
 Per-file format, the rule that keeps a stored number honest, and the reporting discipline:
 [`SPECS.md`](SPECS.md).
@@ -28,6 +24,7 @@ Per-file format, the rule that keeps a stored number honest, and the reporting d
 | [`hook-scoreboard.md`](hook-scoreboard.md) | Which features ever actually fire, and which of those ever actually block anything? |
 | [`output-cost.md`](output-cost.md) | Output tokens are more expensive than input — by how much, and where are ours? |
 | [`read-amplification.md`](read-amplification.md) | Do our own gates make a session read the same file more than once — and what does that cost? |
+| [`reflow-not-cutting.md`](reflow-not-cutting.md) | How many lines does undoing the dead width limit remove, and why does none of it count as reduction? |
 | [`session-clock.md`](session-clock.md) | How long does a session take, and how much of that was the machine working rather than waiting? |
 | [`subagent-context-chain.md`](subagent-context-chain.md) | Does forcing an agent to read a folder's CONTEXT.md chain change what it does — and should a subagent be forced at all? |
 | [`zcode-hook-protocol.md`](zcode-hook-protocol.md) | Will ZCode execute this workspace's hook registration in `.zcode/config.json`, and what does a fired hook actually receive? |

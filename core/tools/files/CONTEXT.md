@@ -1,13 +1,11 @@
 # files
 > Remote file storage: list, search, download, upload. Provider leaf: `gdrive`.
 
-Auth is two tokens, not one: reads use the `drive` token (`drive.readonly`), and `mkdir` / `put`
-use a separate `drive-write` one. A read re-consent therefore leaves the write token dead —
+Auth is two tokens, not one: reads use the `drive` token (`drive.readonly`), and `mkdir` / `put` use a separate `drive-write` one. A read re-consent therefore leaves the write token dead —
 `gdrive auth <alias> --write --reauth` is a different command, and the recovery message says so.
 Downloads land in `Downloads/workspace-drive` at the workspace root.
 
-`drive_migrate.py` is not part of the CLI — it is a standing account-to-account copy (`cin` →
-`personal`), idempotent, run by path.
+`drive_migrate.py` is not part of the CLI — it is a standing account-to-account copy (`cin` → `personal`), idempotent, run by path.
 
 <!-- routing:start -->
 ## Routing

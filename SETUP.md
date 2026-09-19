@@ -2,18 +2,11 @@
 > How to make this environment work on a new machine: toolchain install and per-machine config.
 > The steps live in the parts; this file is what is true of all of them.
 
-What the workspace *is* and what each feature buys you: [`README.md`](README.md). What the gates
-enforce: [`core/hooks/SPECS.md`](core/hooks/SPECS.md). This file is only the install.
+What the workspace *is* and what each feature buys you: [`README.md`](README.md). What the gates enforce: [`core/hooks/SPECS.md`](core/hooks/SPECS.md). This file is only the install.
 
-**This is a procedure an agent executes, not writing a human reads and improvises from.** You cloned
-the repo and opened your own coding agent; *that agent* is the installer. There is no `curl | sh`
-and there is not going to be one — an installer would have to be ported to every harness, while a
-procedure works on whichever one you already opened. `/install` is a doorway into this file for
-agents that support skills; it adds nothing, and this file never depends on it.
+**This is a procedure an agent executes, not writing a human reads and improvises from.** You cloned the repo and opened your own coding agent; *that agent* is the installer. There is no `curl | sh` and there is not going to be one — an installer would have to be ported to every harness, while a procedure works on whichever one you already opened. `/install` is a doorway into this file for agents that support skills; it adds nothing, and this file never depends on it.
 
-**[`SETUP-clone.md`](SETUP-clone.md) is first, always** — nothing else runs until it is done, and the
-permission level it sets decides how often every later step has to stop and ask. The other three are
-independent of each other; the table below is alphabetical, not an order.
+**[`SETUP-clone.md`](SETUP-clone.md) is first, always** — nothing else runs until it is done, and the permission level it sets decides how often every later step has to stop and ask. The other three are independent of each other; the table below is alphabetical, not an order.
 
 **Every step has the same parts, and an agent runs them in this order:**
 
@@ -25,21 +18,13 @@ independent of each other; the table below is alphabetical, not an order.
 | **Install** | idempotent. Running it twice must be a no-op, never a second copy |
 | **Verify** | a command proving the thing works. **A step is done when its check passes, never when its config looks right** |
 
-`agent: no` marks the short list an agent cannot finish **alone** — an API key, a consent screen, a
-device pairing. It has never meant the agent steps back: it runs everything it can, then hands the
-human one remaining part, already set up and named as a single action. A **secret** the agent asks
-for and writes itself; an **act only a person can perform** it reduces to one exact click, says what
-happens next, and verifies afterwards. The human receives **one action, not an investigation** — a
-step that leaves someone reading documentation has not been installed, it has been delegated.
+`agent: no` marks the short list an agent cannot finish **alone** — an API key, a consent screen, a device pairing. It has never meant the agent steps back: it runs everything it can, then hands the human one remaining part, already set up and named as a single action. A **secret** the agent asks for and writes itself; an **act only a person can perform** it reduces to one exact click, says what happens next, and verifies afterwards. The human receives **one action, not an investigation** — a step that leaves someone reading documentation has not been installed, it has been delegated.
 
-Third-party machine state this workspace does not author is a step plus a `core/tools/deps.txt`
-line, never a feature. Everything in the parts is per-machine state git cannot carry; everything
-else is versioned, because the file system is the source of truth.
+Third-party machine state this workspace does not author is a step plus a `core/tools/deps.txt` line, never a feature. Everything in the parts is per-machine state git cannot carry; everything else is versioned, because the file system is the source of truth.
 
 ## Already wired — nothing to do
 
-Versioned, and they activate on their own after a clone. Listed so a newcomer does not go looking
-for an install step; they are not steps and have no checks.
+Versioned, and they activate on their own after a clone. Listed so a newcomer does not go looking for an install step; they are not steps and have no checks.
 
 | Feature | Why nothing is needed |
 |---|---|
@@ -50,11 +35,9 @@ for an install step; they are not steps and have no checks.
 | Copilot hook registration | `.github/hooks/workspace-policy.json` and `.github/hooks/rtk-rewrite.json` are inert config files until Copilot itself is installed |
 | The feature registry | `core/features.txt` and `core/profile.txt` are versioned, and `core/hooks/feature_law.py` reads them where they sit |
 
-The one exception is rtk for Claude Code: its code is versioned but its registration is not, which
-is why [`SETUP-compaction.md`](SETUP-compaction.md) § RTK — Claude Code registration is a step.
+The one exception is rtk for Claude Code: its code is versioned but its registration is not, which is why [`SETUP-compaction.md`](SETUP-compaction.md) § RTK — Claude Code registration is a step.
 
-**Before running the steps, read your profile** — it decides which of them you need, and
-`core/features.txt` says what each feature buys, so a step is judged before it is run.
+**Before running the steps, read your profile** — it decides which of them you need, and `core/features.txt` says what each feature buys, so a step is judged before it is run.
 
 ```bash
 core/run tools/wos/features                 # every feature, grouped, with your answer
@@ -78,13 +61,11 @@ The suite runs in parallel (`pytest-xdist`, `-n auto`) because it is bound by pr
 rather than by work, and the pre-commit gate runs all of it on every commit at the workspace root.
 Without xdist it still runs, serial, and says so.
 
-Whether each *gate* then behaves as promised is a different question, answered by
-[`core/hooks/SPECS.md`](core/hooks/SPECS.md) § One dispatcher, and the table it reads.
+Whether each *gate* then behaves as promised is a different question, answered by [`core/hooks/SPECS.md`](core/hooks/SPECS.md) § One dispatcher, and the table it reads.
 
 ## Per-project setup
 
-Each project under `code/` is its own git repo and owns its environment. A project whose setup
-cannot be inferred from its code carries its own `SETUP.md`.
+Each project under `code/` is its own git repo and owns its environment. A project whose setup cannot be inferred from its code carries its own `SETUP.md`.
 
 - [`code/SETUP.md`](code/SETUP.md) — per-language quick start, facade templates, codegraph
 - [`academy/SETUP.md`](academy/SETUP.md) — LaTeX toolchain, paper compilation

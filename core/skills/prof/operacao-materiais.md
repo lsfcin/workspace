@@ -13,7 +13,7 @@ description: >
 ## Fundamentos & Evidências Científicas
 
 - **Princípios de Engenharia Aplicados à Docência**:
-  - **Git como Fonte Única da Verdade**: Todos os materiais de disciplina nascem e vivem como arquivos Markdown (`.md`) no workspace do professor (`academy/teaching/<disciplina>/`). Zero dependência de LMSs proprietários lentos, opacos ou que exigem autenticações burocráticas que travam a dinâmica de sala de aula.
+  - **Git como Fonte Única da Verdade**: Todos os materiais de disciplina nascem e vivem como arquivos Markdown (`.md`) no workspace do professor (`academy/teaching/classes/<disciplina>/`). Zero dependência de LMSs proprietários lentos, opacos ou que exigem autenticações burocráticas que travam a dinâmica de sala de aula.
   - **Distribuição Descentralizada e de Baixa Latência**: Espelhamento estático no Cloudflare Pages via repositório público `lsf-links` (`outputs/links/`). Deploys em segundos, zero custo de infraestrutura e imunidade a oscilações de rede da universidade.
   - **Arquitetura Dual-View Nativa**: A mesma fonte `.md` atende simultaneamente às necessidades cognitivas humanas (estética rica, responsividade mobile, temas) e aos harnesses de agentes autônomos (endpoints limpos e ingestão direta via `curl`).
 
@@ -43,17 +43,15 @@ description: >
   - Botão *"Editar (github.dev)"* na barra de navegação da página.
   - Abre instantaneamente o VS Code Web no navegador diretamente no arquivo do GitHub, permitindo que o professor ou monitores façam correções em sala de aula com commits imediatos.
 
-### 2. Pacote Canônico de Entrega por Checkpoint
-Toda entrega da disciplina é regida pelo par de documentos canônicos gerados a partir dos templates em `academy/teaching/templates/`:
-1. **Metodologia (`template-metodologia.md`)**:
-   - Enquadramento pedagógico (Chão $\to$ Horizonte).
-   - Mapa e grafo de dependência dos artefatos da entrega.
-   - Entradas necessárias, etapas construtivas passo a passo e saídas esperadas.
-   - Matriz de critérios de aceitação atômicos.
-2. **Materiais (`template-materiais.md`)**:
-   - Modelo canônico com campos delimitados.
-   - Exemplo excelente com rigor e autoria.
-   - Exemplo quase bom / sem alma com anotações críticas do professor.
+### 2. Arquitetura Canônica em Dois Níveis
+O ecossistema da disciplina opera a partir dos modelos canônicos em `academy/teaching/structure/templates/`:
+1. **Página-Mestre da Disciplina (`template-disciplina.md`)**:
+   - Centraliza banner visual, canais de comunicação rápida, propósito (Chão $\to$ Horizonte) e grafo do conhecimento.
+   - Calendário cronológico de encontros e catálogo de entregas com links para os artefatos.
+   - Sistema de pontos acumulados, avaliação intergrupos (+1 ponto) e hall da fama.
+2. **Artefatos Modulares Autocontidos (`template-artefato.md`)**:
+   - Reúne em um só arquivo a tríade de materiais (modelo, excelente, quase bom/sem alma) e a metodologia construtiva passo a passo com ciclo de 8 etapas.
+   - Define de 1 a 3 pontos de verificação objetivos (feito / não feito) para compor a nota na planilha mestre e no SIGAA.
 
 ### 3. Automação de Recursos de Sala de Aula
 - **Formulários Automatizados via `gforms`**:
@@ -71,6 +69,6 @@ Toda entrega da disciplina é regida pelo par de documentos canônicos gerados a
 - `[ ]` O arquivo `.md` está na pasta canônica da disciplina e versionado no Git?
 - `[ ]` A página está publicada no Cloudflare Pages com visualização rica e botão RAW para agentes?
 - `[ ]` O link para edição online no navegador (`github.dev`) está ativo e funcional?
-- `[ ]` O par Metodologia + Materiais está completo e consistente entre si?
+- `[ ]` A página da disciplina (`disciplina.md`) e os artefatos modulares (`artefatos/art-*.md`) estão consistentes e devidamente vinculados?
 - `[ ]` O formulário da aula (`gforms`) e o QR code correspondente estão prontos e testados?
 - `[ ]` Há resumo em áudio acessível gerado para estudo assíncrono?

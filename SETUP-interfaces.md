@@ -1,12 +1,8 @@
 # Setup — interface generators and linters
-> The outside programs the edit-time and commit-time gates shell out to: the stub generators that
-> produce what the read gate hands an agent instead of a source file, the TypeScript linter, and the
-> LaTeX toolchain the paper checks need. Skip one and its gate stops firing rather than failing.
-> feature: interface-stubs, lint-typescript, latex
-> enforced-by: core/tools/test/workspace/test_setup_executable.py
+> The outside programs the edit-time and commit-time gates shell out to: the stub generators that produce what the read gate hands an agent instead of a source file, the TypeScript linter, and the LaTeX toolchain the paper checks need. Skip one and its gate stops firing rather than failing.
+> feature: interface-stubs, lint-typescript, latex enforced-by: core/tools/test/workspace/test_setup_executable.py
 
-The five-part contract: [`SETUP.md`](SETUP.md). A missing generator turns its gate off **silently**,
-which is why each Verify below produces output rather than a version string.
+The five-part contract: [`SETUP.md`](SETUP.md). A missing generator turns its gate off **silently**, which is why each Verify below produces output rather than a version string.
 
 <!-- steps:start -->
 

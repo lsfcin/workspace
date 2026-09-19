@@ -1,16 +1,11 @@
 # Setup — the chat bot
-> The bot that puts this workspace in a chat: a thought captured into `brain/INBOX.md` from away
-> from the PC, and a coding agent driven from the same thread. One process, one switch, one service.
-> feature: bot
-> enforced-by: core/tools/test/workspace/test_setup_executable.py
+> The bot that puts this workspace in a chat: a thought captured into `brain/INBOX.md` from away from the PC, and a coding agent driven from the same thread. One process, one switch, one service.
+> feature: bot enforced-by: core/tools/test/workspace/test_setup_executable.py
 
 The five-part contract: [`SETUP.md`](SETUP.md). The bot itself is [`code/aiwbot`](code/aiwbot/CONTEXT.md)
 — its shape, its provider boundary and its specs live there, and nothing about them is restated here.
 
-**This file installs the service; it does not create the account.** A bot token comes from BotFather
-and pairs with one chat, and whoever installs this has their own. Where Lucas keeps his, and the
-tightness rules a credential file is written under, is `SETUP-accounts.md` § Telegram bot — private
-to his clone by `core/public.txt`.
+**This file installs the service; it does not create the account.** A bot token comes from BotFather and pairs with one chat, and whoever installs this has their own. Where Lucas keeps his, and the tightness rules a credential file is written under, is `SETUP-accounts.md` § Telegram bot — private to his clone by `core/public.txt`.
 
 <!-- steps:start -->
 

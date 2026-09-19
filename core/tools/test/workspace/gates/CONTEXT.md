@@ -1,19 +1,12 @@
 # gates
-> What a blocking gate must say, and who it must fire for. One subdirectory per `core/hooks/`
-> directory covered; what stays at this level belongs to no single one.
+> What a blocking gate must say, and who it must fire for. One subdirectory per `core/hooks/` directory covered; what stays at this level belongs to no single one.
 
-Split 2026-09-06 at 21 files, which **retires the mismatch this head used to declare**: the name
-said `core/hooks/gates/` and the contents were `read/`, `checks/`, `git/` and `compact/` as well.
-Each subdirectory is now named for the hook directory it covers — the shape `law/entropy/` and
-`generators/` already have — and the exception is spelled out in [`vcs/`](vcs/CONTEXT.md)'s own head.
+Split 2026-09-06 at 21 files, which **retires the mismatch this head used to declare**: the name said `core/hooks/gates/` and the contents were `read/`, `checks/`, `git/` and `compact/` as well.
+Each subdirectory is now named for the hook directory it covers — the shape `law/entropy/` and `generators/` already have — and the exception is spelled out in [`vcs/`](vcs/CONTEXT.md)'s own head.
 
-What stays here crosses all of them: the two `stubgen/` cases, the facade set, the bash-compaction
-shim, and the two b20260905 cases that ask what EVERY registration costs rather than what one gate
-does.
+What stays here crosses all of them: the two `stubgen/` cases, the facade set, the bash-compaction shim, and the two b20260905 cases that ask what EVERY registration costs rather than what one gate does.
 
-The questions here are independent, which is why they are separate files: a hook can block the right
-agent for the wrong reason, the wrong agent with a perfect message, or rewrite shell it had no
-business touching.
+The questions here are independent, which is why they are separate files: a hook can block the right agent for the wrong reason, the wrong agent with a perfect message, or rewrite shell it had no business touching.
 
 Why each one exists, and the one place a test reads source instead of running it: [`SPECS.md`](SPECS.md).
 

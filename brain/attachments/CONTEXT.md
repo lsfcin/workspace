@@ -1,8 +1,7 @@
 # attachments
 > Files captured from Gmail and Telegram, filed by month — the raw material, not a list.
 
-Gmail attachments arrive with a companion `.summary.md` carrying generated metadata and a content
-summary; Telegram files (photo, voice, document) are saved raw, with no summary yet.
+Gmail attachments arrive with a companion `.summary.md` carrying generated metadata and a content summary; Telegram files (photo, voice, document) are saved raw, with no summary yet.
 
 <!-- routing:start -->
 ## Routing

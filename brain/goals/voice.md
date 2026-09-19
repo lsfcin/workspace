@@ -1,8 +1,6 @@
 # [ spiritual | body | near ] voice
 
-Trabalhar a voz — conseguir conversar em ambientes barulhentos sem esforço, não forçar a garganta em shows, não precisar
-de um timbre esguichado para ser ouvido. Sentir-se escutado. Falar com paz e com propósito — olhando, presente,
-comunicando de verdade. Not about performance — about ease and presence in the act of speaking.
+Trabalhar a voz — conseguir conversar em ambientes barulhentos sem esforço, não forçar a garganta em shows, não precisar de um timbre esguichado para ser ouvido. Sentir-se escutado. Falar com paz e com propósito — olhando, presente, comunicando de verdade. Not about performance — about ease and presence in the act of speaking.
 
 >**signals**  
 transformative · expected · motivated
@@ -14,16 +12,13 @@ why · if you have to force the voice, it means you're not being met — rejecti
 how · compensating with volume or strained timbre instead of something more fundamental*
 
 >**analysis**  
-Voice strain in noisy environments usually comes from competing with noise instead of cutting through it — projection
-and resonance, not volume. The goals here layer: practical (protect throat at shows), functional (be understood in
-noise), relational (feel heard, communicate truly). They share one root: confidence in the voice as it is.
+Voice strain in noisy environments usually comes from competing with noise instead of cutting through it — projection and resonance, not volume. The goals here layer: practical (protect throat at shows), functional (be understood in noise), relational (feel heard, communicate truly). They share one root: confidence in the voice as it is.
 
 ## selected next achievement
     [voice-map] identify one scenario where not being heard costs you most — noisy room, show, or meeting
 
 **ease-start**  
-Next time you're in a loud environment, don't try to fix anything. Just notice: what does your voice do? Does it get
-higher? Louder? Do you stop talking? Observe once before changing anything.
+Next time you're in a loud environment, don't try to fix anything. Just notice: what does your voice do? Does it get higher? Louder? Do you stop talking? Observe once before changing anything.
 
 ## backlog
 
