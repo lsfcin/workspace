@@ -18,9 +18,9 @@ matching regression spec exists and passes.
 ## Open
 
 - **The template-naming law is written and nothing enforces it, which is the defect `core/SPECS.md`
-  § AD-16 names.** `core/SCHEMA.md` § A leading underscore marks a shape gained the rule on
-  2026-09-18 after four separate modules were found reading that underscore and none of them
-  stating it. The rule is now induced wearing the costume of enforced: no check fails a template
+  § AD-16 names.** The rule landed in `core/SCHEMA.md` on 2026-09-18, in the section
+  *A leading underscore marks a shape, never an instance*, after four separate modules were found
+  reading that underscore and none of them stating it. The rule is now induced wearing the costume of enforced: no check fails a template
   directory that skips the marker, and one already does —
   `academy/teaching/structure/templates/`, which a parallel session was restructuring the same day,
   so renaming it would have collided. Two halves, and they are separable: rename that directory when
