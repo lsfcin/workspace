@@ -60,7 +60,7 @@ of the supervision panel; only the *human sign-off* on it is optional.
 2. Generate the interface skeleton (the `.pyi`/`.d.ts`/`.dart.api` stubs the post-edit hook already emits) so the
    boundaries exist as types before bodies.
 3. Wire the **connection graph**: for each planned edge `A → B`, assert `A.outputs` type matches `B.inputs` type. Run
-   `core/tools/wos/spec-contract-check <project>` — it fails if any planned module lacks a contract or any edge's types
+   `core/tools/wos/spec/contract-check <project>` — it fails if any planned module lacks a contract or any edge's types
    mismatch.
 4. **Human gate:** if Carry `supervision: io-signoff=yes`, present the I/O map (modules, their in/out, the edges) and
    wait for an explicit OK before Loop 4a; otherwise proceed.
@@ -72,7 +72,7 @@ of the supervision panel; only the *human sign-off* on it is optional.
 ## Contracts
 modules: <module — SPEC.md path — status: draft|locked>
 edges: <A.output:type → B.input:type — MATCH|MISMATCH>
-contract-check: <core/tools/wos/spec-contract-check output last line>
+contract-check: <core/tools/wos/spec/contract-check output last line>
 io-signoff: <n/a | requested → APPROVED by user | pending>
 ```
 

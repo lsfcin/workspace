@@ -1,7 +1,7 @@
 # Project structure
 > How a project is laid out: its files, its module specs, and its facade.
 > governs: code/<project>/
-> enforced-by: core/hooks/facade/, core/tools/wos/spec-scan
+> enforced-by: core/hooks/facade/, core/tools/wos/spec/scan
 
 ## Project File Structure
 

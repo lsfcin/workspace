@@ -58,7 +58,7 @@ The gates above guard the *output*. The *authoring workflow* that produces spec-
 **`feature` subtree of the loop tree** ([core/flows/craft/tree.md](../core/flows/craft/tree.md),
 [route.md](../core/flows/craft/route.md)). Its **Loop 3.5 Contract Layout** lays out every module's
 `SPEC.md` + interface stubs + a type-matched connection graph *before* any code (checked by
-`core/tools/spec-contract-check`), with an optional human sign-off configured in the Loop 0 permission
+`core/tools/wos/spec/contract-check`), with an optional human sign-off configured in the Loop 0 permission
 panel. A `feature` run is therefore what *fills the ratchet* — each shipped module leaves a locked spec.
 Git Flow is enforced alongside (`core/hooks/git/gitflow_gate.py`, pre-commit 1e; see
 `SPECS-git.md` § Git Branching).
@@ -94,7 +94,7 @@ Git Flow is enforced alongside (`core/hooks/git/gitflow_gate.py`, pre-commit 1e;
 
 ### P4 — Ratchet propagation + list ✅ 2026-07-17
 - `_templates/CONTEXT.md` ships `> spec:` (default `none`, opt-in lock) so new projects are born aware.
-- `core/tools/spec-scan` — the coverage list (`locked|draft|MISSING|optout|none` per module). Baseline
+- `core/tools/wos/spec/scan` — the coverage list (`locked|draft|MISSING|optout|none` per module). Baseline
   at rollout: **1/88 locked** (spacemantics/dsl), 87 grandfathered.
 - Hook table + coverage table rows (ENFORCED) — now `core/hooks/SPECS.md`.
 
@@ -138,7 +138,7 @@ Sequence the 116 grandfathered modules by contact frequency, not by directory or
 
 ### Carried forward from P2/P4
 
-- Run `core/tools/wos/spec-scan` in `/roundup` so coverage is visible each session.
+- Run `core/tools/wos/spec/scan` in `/roundup` so coverage is visible each session.
 - P2 extractor (`core/tools/wos/spec-examples`) when a spec first embeds literal example pairs.
 - `core/flows` module dirs have no `verify:fast` concept, so their conformance half needs its own
   design. Decide it inside P5a rather than deferring again.

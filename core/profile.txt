@@ -78,6 +78,7 @@ toggle	precompact-wipe	on
 toggle	entropy-dashboard	on
 toggle	hook-scoreboard	on
 toggle	diagram	on
+toggle	reflow	on
 toggle	size	on
 toggle	rtk-compaction	on
 toggle	web-search	on
