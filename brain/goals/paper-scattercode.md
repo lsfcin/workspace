@@ -1,8 +1,6 @@
 # [ craft | research | near ] paper scattercode
 
-Experiment testing impact of code modularization on LLM coding ability. Metrics: assertiveness, precision, speed, total
-code size, and others. Test across different programming languages. Hypothesis: modular code structure changes agent
-performance in measurable, reproducible ways.
+Experiment testing impact of code modularization on LLM coding ability. Metrics: assertiveness, precision, speed, total code size, and others. Test across different programming languages. Hypothesis: modular code structure changes agent performance in measurable, reproducible ways.
 
 >**signals**  
 useful · optional · motivated

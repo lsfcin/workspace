@@ -5,8 +5,7 @@
 > feature: rtk-compaction, caveman
 > enforced-by: core/tools/test/workspace/test_setup_executable.py
 
-The five-part contract: [`SETUP.md`](SETUP.md). Both features are optional and cost only tokens when
-skipped. Read the ⚠ blocks first — each names a command that undoes a step in this file.
+The five-part contract: [`SETUP.md`](SETUP.md). Both features are optional and cost only tokens when skipped. Read the ⚠ blocks first — each names a command that undoes a step in this file.
 
 <!-- steps:start -->
 

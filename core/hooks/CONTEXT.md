@@ -1,23 +1,11 @@
 # hooks
 > The enforcement layer: git hooks, agent lifecycle hooks, and the Level 0 checks they run.
 
-Wired globally via `core.hooksPath` ([`SETUP-clone.md`](../../SETUP-clone.md) § Git hook), so
-`pre-commit` fires in **every** repo under this workspace, and by absolute path from
-`.claude/settings.json` for the agent-side gates.
+Wired globally via `core.hooksPath` ([`SETUP-clone.md`](../../SETUP-clone.md) § Git hook), so `pre-commit` fires in **every** repo under this workspace, and by absolute path from `.claude/settings.json` for the agent-side gates.
 
-**The law lives in this root, not in any checker.** Each law module below reads its answer out of a
-data file rather than holding one, and **a checker that restates any of them is the drift the
-checkers exist to catch** — the incidents behind that rule are in [`SPECS.md`](SPECS.md), and why a
-gate skipping `feature_law` is a finding is [`core/SPECS.md`](../SPECS.md) § AD-14. When a
-switched-on feature fires is answered in [`trigger/`](trigger/CONTEXT.md).
+**The law lives in this root, not in any checker.** Each law module below reads its answer out of a data file rather than holding one, and **a checker that restates any of them is the drift the checkers exist to catch** — the incidents behind that rule are in [`SPECS.md`](SPECS.md), and why a gate skipping `feature_law` is a finding is [`core/SPECS.md`](../SPECS.md) § AD-14. When a switched-on feature fires is answered in [`trigger/`](trigger/CONTEXT.md).
 
-**Shape.** Only the law modules, the stdin parser and the three entrypoints whose names git and
-`.claude/settings.json` dictate stay at the root; everything else is a subdirectory with one
-responsibility. Two axes before you route. `gates/`, `generators/` and `postedit/` hold fragments
-`source`d by `pre-commit` / `post-edit.sh` and share its shell state; every other directory holds
-standalone programs run by path. A gate exits non-zero and stops the commit or the edit; a
-generator writes an artifact and stages it. `entropy/` does neither — it reports into
-[`ISSUES.md`](../../ISSUES.md), so read that report instead of re-scanning the tree.
+**Shape.** Only the law modules, the stdin parser and the three entrypoints whose names git and `.claude/settings.json` dictate stay at the root; everything else is a subdirectory with one responsibility. Two axes before you route. `gates/`, `generators/` and `postedit/` hold fragments `source`d by `pre-commit` / `post-edit.sh` and share its shell state; every other directory holds standalone programs run by path. A gate exits non-zero and stops the commit or the edit; a generator writes an artifact and stages it. `entropy/` does neither — it reports into [`ISSUES.md`](../../ISSUES.md), so read that report instead of re-scanning the tree.
 
 Gate behavior, the agent-shim contract, and how a module reaches the root law:
 [`SPECS.md`](SPECS.md). Why the `code/` gates exist:

@@ -73,8 +73,7 @@ The `-=` prefix is Foundry's convention for flag deletion (equivalent to `unsetF
 await scene.createEmbeddedDocuments("Wall", dataWithIds, { keepId: true, isUndo: true });
 ```
 
-Critical when a custom undo stack records original IDs (e.g. for "create" undo that must find walls by ID). Without
-`keepId: true`, walls get new IDs and the undo entry's ID list becomes stale → crash.
+Critical when a custom undo stack records original IDs (e.g. for "create" undo that must find walls by ID). Without `keepId: true`, walls get new IDs and the undo entry's ID list becomes stale → crash.
 
 ---
 
@@ -99,13 +98,11 @@ If you capture at drag-end, the document is already modified — undo restores l
 
 ## Dual-Stack Ordering (WallHistory + Tile History)
 
-When a module maintains a custom stack alongside Foundry's native layer history, Ctrl+Z must
-respect chronological order across both stacks.
+When a module maintains a custom stack alongside Foundry's native layer history, Ctrl+Z must respect chronological order across both stacks.
 
 **Pattern:**
 1. Each custom entry records `tileHistLen = canvas.tiles.history.length` at push time.
-2. Ctrl+Z interceptor: if `canvas.tiles.history.length > WallHistory.topTileHistLen`, defer to Foundry (tile op is more
-   recent). Otherwise, handle in custom stack.
+2. Ctrl+Z interceptor: if `canvas.tiles.history.length > WallHistory.topTileHistLen`, defer to Foundry (tile op is more recent). Otherwise, handle in custom stack.
 
 ```typescript
 window.addEventListener("keydown", (e) => {
@@ -120,8 +117,7 @@ window.addEventListener("keydown", (e) => {
 ```
 
 Limitation: multiple separate history arrays have no shared chronological ordering.
-The `tileHistLen` trick works for one pair of stacks (tiles + custom), but breaks if the user
-performs custom ops → tile drags → custom ops (Ctrl+Z would undo drags before second custom op).
+The `tileHistLen` trick works for one pair of stacks (tiles + custom), but breaks if the user performs custom ops → tile drags → custom ops (Ctrl+Z would undo drags before second custom op).
 Accepted design tradeoff for isoroll.
 
 ---

@@ -2,21 +2,11 @@
 > What each entropy check counts, and where it must stay silent. **One file per check, not one per
 > module** — so a name here answers to a question, and only sometimes to a file next door.
 
-Split from `law/` 2026-08-15, one word apart from the surface it covers — and that naming holds only
-where a module IS one check (ruled 2026-08-25, after `ISSUES.md` carried the shortfall as a bug for
-calling this a mirror it never was). `entropy_list.py` and `entropy_context.py` each answer several
-questions, so `inventory`, `placeholders` and `retired` are named for the check. `entropy_corpus.py`
-and `entropy_size.py` have no file because neither is a check — one picks the files the others may
-look at, the other measures what they find — so both are reached through the tests importing them.
+Split from `law/` 2026-08-15, one word apart from the surface it covers — and that naming holds only where a module IS one check (ruled 2026-08-25, after `ISSUES.md` carried the shortfall as a bug for calling this a mirror it never was). `entropy_list.py` and `entropy_context.py` each answer several questions, so `inventory`, `placeholders` and `retired` are named for the check. `entropy_corpus.py` and `entropy_size.py` have no file because neither is a check — one picks the files the others may look at, the other measures what they find — so both are reached through the tests importing them.
 
-These own whether each check **fires correctly**, and the boundaries are the design: every one is a
-case where two things look identical and mean opposite things — a tick is a dead item in a list and a
-legend marker in a spec. Whether the **backlog is shrinking** is a different question, owned by the
-ratchets in [`../../workspace/`](../../workspace/CONTEXT.md).
+These own whether each check **fires correctly**, and the boundaries are the design: every one is a case where two things look identical and mean opposite things — a tick is a dead item in a list and a legend marker in a spec. Whether the **backlog is shrinking** is a different question, owned by the ratchets in [`../../workspace/`](../../workspace/CONTEXT.md).
 
-Write the glyphs these checks hunt for **only inside a test**, never in this head: the checks read
-writing literally, and a `CONTEXT.md` quoting a marker is indistinguishable from one that never
-answered it — to the check and to a reader skimming it. That is not a false positive to exempt away;
+Write the glyphs these checks hunt for **only inside a test**, never in this head: the checks read writing literally, and a `CONTEXT.md` quoting a marker is indistinguishable from one that never answered it — to the check and to a reader skimming it. That is not a false positive to exempt away;
 it is the same ambiguity the reader has.
 
 <!-- routing:start -->

@@ -2,39 +2,25 @@
 > Testing-discipline rollout for `code/` projects: make agents verify their own results (no human
 > eye per prompt) and enforce code centralization. Pilot: isoroll-module. Second: apptime.
 
-**Lifecycle: transient initiative doc** (REFACTOR.md species, one level up — lives beside
-`code/CONTEXT.md` instead of inside one project) — NOT workspace structure. Linked from root
-`SETUP.md` and `code/CONTEXT.md` on purpose (this is where the verify:fast contract those files
-enforce is tracked). Endstate: once every `code/` project has a real contract and A1 (apptime)
+**Lifecycle: transient initiative doc** (REFACTOR.md species, one level up — lives beside `code/CONTEXT.md` instead of inside one project) — NOT workspace structure. Linked from root `SETUP.md` and `code/CONTEXT.md` on purpose (this is where the verify:fast contract those files enforce is tracked). Endstate: once every `code/` project has a real contract and A1 (apptime)
 completes, surviving durable rules stay in `core/tools/verify/CONTEXT.md` (already done at W3)
 and this file is deleted (git keeps it).
 
-**Scope note:** the workspace-wide hook infrastructure this plan once carried (context-gate,
-bash-gate) is the enforcement layer's own contract now —
-[`core/hooks/SPECS.md`](../core/hooks/SPECS.md) — and not tracked here. What this
-file scopes is the `code/` testing-pyramid rollout: brain/ and academy/ have no `verify:fast`
-concept.
+**Scope note:** the workspace-wide hook infrastructure this plan once carried (context-gate, bash-gate) is the enforcement layer's own contract now —
+[`core/hooks/SPECS.md`](../core/hooks/SPECS.md) — and not tracked here. What this file scopes is the `code/` testing-pyramid rollout: brain/ and academy/ have no `verify:fast` concept.
 
-Origin: assessment session 2026-07-02. Diagnosis: workspace over-invests in context transfer
-(docs, skills, codegraph, facades), zero in behavior verification. No test suite anywhere.
-Fixes verified by human eyes in live sessions; verification evaporates at session end
-(B32 puppeteer harness built, used once, thrown away). A line-count gate without a duplication
-gate manufactures copies (z-order walk found in 5 places). Nondeterministic bugs (zIndex
-ties → PIXI insertion order) unresolvable without a mechanical oracle.
+Origin: assessment session 2026-07-02. Diagnosis: workspace over-invests in context transfer (docs, skills, codegraph, facades), zero in behavior verification. No test suite anywhere.
+Fixes verified by human eyes in live sessions; verification evaporates at session end (B32 puppeteer harness built, used once, thrown away). A line-count gate without a duplication gate manufactures copies (z-order walk found in 5 places). Nondeterministic bugs (zIndex ties → PIXI insertion order) unresolvable without a mechanical oracle.
 
 ---
 
 ## Principles
 
-1. **Gate or injection — never induction.** Every rule either hard-blocks (exit 2) or is
-   force-fed by the harness. Advisory text does not steer agents.
-2. **Oracle over eyes.** Correctness checked by machine. Human checks novel visuals once,
-   at feature birth; then golden-locked.
+1. **Gate or injection — never induction.** Every rule either hard-blocks (exit 2) or is force-fed by the harness. Advisory text does not steer agents.
+2. **Oracle over eyes.** Correctness checked by machine. Human checks novel visuals once, at feature birth; then golden-locked.
 3. **State dump over pixels.** Assert on structured JSON dumps; pixels are the last level.
-4. **Diagnostics call live-path functions, never re-derive.** A debug view with its own
-   math is a second implementation that can lie (06-30 debug-label saga).
-5. **Every visually-confirmed bug exports its scene as a committed fixture.** Reproducible
-   scene beats any description of "sometimes."
+4. **Diagnostics call live-path functions, never re-derive.** A debug view with its own math is a second implementation that can lie (06-30 debug-label saga).
+5. **Every visually-confirmed bug exports its scene as a committed fixture.** Reproducible scene beats any description of "sometimes."
 6. **Bug status flips only with executable proof.** FIXED requires a regression test.
 
 ## Locked Decisions (2026-07-02)
@@ -58,16 +44,13 @@ ties → PIXI insertion order) unresolvable without a mechanical oracle.
 | T2 | headless functional: real app, scripted actions, assertions on structured state dumps | B33/B25/B2/B27-class (lifecycle, hooks, timing) | 30–60 s |
 | T3 | deterministic screenshots + pixelmatch goldens; diff PNG artifact on failure (agent-readable) | render bugs invisible to state dumps | s/scene |
 
-Contract script names (all code projects): **`verify:fast`** = T0+T1 (runs per commit),
-**`verify:full`** = T2+T3 (pre-merge / on demand / roundup).
+Contract script names (all code projects): **`verify:fast`** = T0+T1 (runs per commit), **`verify:full`** = T2+T3 (pre-merge / on demand / roundup).
 
 ---
 
 ## Phase I4 — isoroll Unit Coverage Expansion 🔲
 
-I1 covers the pure-math core only (iso-tile-depth, iso-tile-geom, coord-map). Expand T1 to
-every module that is pure or cheaply fakeable; leave PIXI/DOM/hook-lifecycle behavior to T2
-(unit-mocking Foundry there tests the mocks, not the code).
+I1 covers the pure-math core only (iso-tile-depth, iso-tile-geom, coord-map). Expand T1 to every module that is pure or cheaply fakeable; leave PIXI/DOM/hook-lifecycle behavior to T2 (unit-mocking Foundry there tests the mocks, not the code).
 
 Unit-testable targets (pure / fake-with-TileMeshCoord-style stubs):
 - `walls/wall-coords.ts` — anchor↔canvas roundtrips, elevation/imageOffset factoring
@@ -79,8 +62,7 @@ Unit-testable targets (pure / fake-with-TileMeshCoord-style stubs):
 - `walls/wall-crud.ts` — generateBaseWallDefs geometry (defs only, no documents)
 - shadows — `draw/shadow.ts` shadowAlpha/shadowTexture params
 
-T2-only (do NOT unit-mock): UI/HUD injection, gizmo drag handlers, sprite clones,
-layer z-order at runtime, occluder fades, linked-wall document sync, undo stacks.
+T2-only (do NOT unit-mock): UI/HUD injection, gizmo drag handlers, sprite clones, layer z-order at runtime, occluder fades, linked-wall document sync, undo stacks.
 
 Also: wire `vitest --coverage` into `verify:fast` reporting (not gating) so gaps stay visible.
 
@@ -93,8 +75,7 @@ After isoroll road. Contract + T1 first; T2 adapter designed against apptime's a
 ## Sequence
 
 `I4 → A1` is what remains; § Status Log holds the dated record of everything before them.
-The workspace-wide half of the rollout is the enforcement layer's own contract
-([`core/hooks/SPECS.md`](../core/hooks/SPECS.md)), not a phase of this plan.
+The workspace-wide half of the rollout is the enforcement layer's own contract ([`core/hooks/SPECS.md`](../core/hooks/SPECS.md)), not a phase of this plan.
 
 ## Status Log
 
@@ -115,14 +96,7 @@ The workspace-wide half of the rollout is the enforcement layer's own contract
 
 - Test subagent marker inheritance in practice (same `session_id` assumption).
 - Decide permission-deny belt for `cat|head|tail` after field testing.
-- tsc --noEmit as T0 gate (G7) — **bigger than scoped, not landed yet.** Root cause of the
-  `Tile`/`TileDocument`/`canvas`/`Token`/`Hooks`/`PIXI`/`JQuery`/`game` "cannot find name"
-  errors (606 of 645 lines) was `tsconfig.json`'s `typeRoots` pointing at
-  `foundry-vtt-types/src` directly instead of letting normal package resolution find its
-  `index.d.mts`, combined with `"types": []` disabling auto-inclusion entirely — fixed by
-  replacing both with `"types": ["@league-of-foundry-developers/foundry-vtt-types"]`. That
-  fix is landed (real, low-risk, worth keeping regardless). But it unmasks **304 genuine
-  strict-mode errors** (TS18048 `possibly undefined` on `canvas`/etc., TS2345, TS2353, …) —
+- tsc --noEmit as T0 gate (G7) — **bigger than scoped, not landed yet.** Root cause of the `Tile`/`TileDocument`/`canvas`/`Token`/`Hooks`/`PIXI`/`JQuery`/`game` "cannot find name" errors (606 of 645 lines) was `tsconfig.json`'s `typeRoots` pointing at `foundry-vtt-types/src` directly instead of letting normal package resolution find its `index.d.mts`, combined with `"types": []` disabling auto-inclusion entirely — fixed by replacing both with `"types": ["@league-of-foundry-developers/foundry-vtt-types"]`. That fix is landed (real, low-risk, worth keeping regardless). But it unmasks **304 genuine strict-mode errors** (TS18048 `possibly undefined` on `canvas`/etc., TS2345, TS2353, …) —
   real Foundry-nullability and type-mismatch issues needing per-call-site judgment, not a
   config fix. Adding `tsc --noEmit` to `verify:fast` now would hard-block every isoroll
   commit on 304 pre-existing errors — too large to absorb into this rollout session.
@@ -130,14 +104,10 @@ The workspace-wide half of the rollout is the enforcement layer's own contract
   the gate can land. `code/_templates` already defaults new projects to a clean
   `tsc --noEmit` from day one, so this debt doesn't recur elsewhere.
 - B2 GridConfig-path spec variant (direct-path spec passes; dialog path unreproduced).
-- Phase I4 (unit coverage expansion) + merge decision for isoroll `feature/verify-harness`
-  (contains B32 fix branch history) — Lucas reviews.
-- Human verification pass: Lucas confirms B32 visually in Foundry once, closing the loop
-  between oracle and eyes.
-- code/SETUP.md + code/SPECS.md: fold verification contract mention (only _templates and
-  `core/hooks/SPECS.md` carry it so far).
-- File-size hook: scope the .frag/.txt exemption by PATH, not extension — exempt
-  design/** prototype/artifact dirs, gate everything under src/ regardless of extension.
+- Phase I4 (unit coverage expansion) + merge decision for isoroll `feature/verify-harness` (contains B32 fix branch history) — Lucas reviews.
+- Human verification pass: Lucas confirms B32 visually in Foundry once, closing the loop between oracle and eyes.
+- code/SETUP.md + code/SPECS.md: fold verification contract mention (only _templates and `core/hooks/SPECS.md` carry it so far).
+- File-size hook: scope the .frag/.txt exemption by PATH, not extension — exempt design/** prototype/artifact dirs, gate everything under src/ regardless of extension.
   Rationale (2026-07-14 isoroll session, Lucas-raised): rig.frag exemption is correct
   (single-file Artifact constraint, frozen design reference, no product future) but a
   blanket extension exemption is a loophole for dodging the gate in product code.

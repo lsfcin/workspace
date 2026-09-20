@@ -3,9 +3,7 @@
 > repo done. download each folder, then triage loose/Unorganized items.
 
 Goal (o porquê e as decisões ainda abertas):
-[`brain/goals/google-migration.md`](../../brain/goals/google-migration.md) — `[fila-academy]`,
-`[fila-branches]`, `[fila-triagem]`. A forma de sincronizar ainda não está decidida
-(`[drive-sync-method]`): esta fila hoje pressupõe download manual.
+[`brain/goals/google-migration.md`](../../brain/goals/google-migration.md) — `[fila-academy]`, `[fila-branches]`, `[fila-triagem]`. A forma de sincronizar ainda não está decidida (`[drive-sync-method]`): esta fila hoje pressupõe download manual.
 
 ### academy/
 - [ ] cv/ ← Professional/Curriculo/
@@ -19,7 +17,7 @@ Goal (o porquê e as decisões ainda abertas):
 - [ ] classes/motores-graficos/_material ← UFRPE/Disciplinas/Motores Graficos/
 - [ ] classes/gerencia-de-projetos/_material ← UFRPE/Disciplinas/PGP/
 - [ ] classes/ai4good/_material ← UFRPE/Disciplinas/AI4Good/
-- [ ] classes/tecnologias-na-educacao/_material ← UFRPE/Disciplinas/Tec. na Educacao/
+- [ ] classes/techedu/_material ← UFRPE/Disciplinas/Tec. na Educacao/
 - [ ] classes/intro-informatica/_material ← UFRPE/Disciplinas/Intro a Informatica/
 - [ ] students/active/ + students/past/ ← Professional/Alunos/ (classify first)
 - [ ] lab/neoeduc/ ← UFRPE/Projetos/NeoEduc/

@@ -1,9 +1,6 @@
 # [ health | mental | near ] smartphone addiction
 
-Not surface-level reduction — profound, structural freedom. The model is how the Dota addiction faded: it stopped making
-sense at the identity level, not through willpower. The goal is to build a version of self where compulsive phone use
-doesn't make sense anymore — where idle moments have other attractive defaults, where the need the phone is filling has
-been met differently. Practical strategies alongside deep investigation of what the phone is actually compensating for.
+Not surface-level reduction — profound, structural freedom. The model is how the Dota addiction faded: it stopped making sense at the identity level, not through willpower. The goal is to build a version of self where compulsive phone use doesn't make sense anymore — where idle moments have other attractive defaults, where the need the phone is filling has been met differently. Practical strategies alongside deep investigation of what the phone is actually compensating for.
 
 >**signals**  
 transformative · essential · motivated
@@ -15,19 +12,15 @@ why · social validation loop; FOMO architecture; dopamine cycle built by design
 how · phone as default gap-filler — any unstructured moment becomes screen time*
 
 >**analysis**  
-Smartphone addiction research shows the mechanism isn't willpower failure — it's that phones fill legitimate
-psychological needs (connection, stimulation, autonomy) faster than any alternative. The Dota comparison is exact:
-addiction faded when those needs found better satisfaction elsewhere, not when he resisted harder. Strategy: don't fight
-the phone — identify what it's giving you (boredom relief? social proof? autonomy? control?) and build competing
-alternatives that actually satisfy those needs. "Conter a busca incessante por dopamina" — containment, not elimination.
+Smartphone addiction research shows the mechanism isn't willpower failure — it's that phones fill legitimate psychological needs (connection, stimulation, autonomy) faster than any alternative. The Dota comparison is exact:
+addiction faded when those needs found better satisfaction elsewhere, not when he resisted harder. Strategy: don't fight the phone — identify what it's giving you (boredom relief? social proof? autonomy? control?) and build competing alternatives that actually satisfy those needs. "Conter a busca incessante por dopamina" — containment, not elimination.
 Map the function first.
 
 ## selected next achievement
     [map-usage] track phone pickups for 3 days without changing behavior — just count
 
 **ease-start**  
-Today: every time you pick up the phone, put a tally mark somewhere visible. Don't change anything — just create the
-data. At the end of the day, count. That number is your baseline.
+Today: every time you pick up the phone, put a tally mark somewhere visible. Don't change anything — just create the data. At the end of the day, count. That number is your baseline.
 
 >**timing**  
 *target · 3 months to build a meaningfully different relationship  

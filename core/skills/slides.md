@@ -22,13 +22,9 @@ core/run tools/slides/gslides apply   --account personal <presentation_id> reque
 
 ## How to edit
 
-1. `read` first — it prints element ids on purpose; those ids are exactly what a `batchUpdate`
-   request needs, so one read hands back the handles for the edit.
-2. Build the request list as a JSON file. `apply` is the real boundary — every other write command is a
-   convenience over it, and the API's own shape (a list of typed requests) is the format. `read
-   --json` shows the input side of the same shape.
-3. `apply`, then `read` again to verify, and `preview` when the question is visual (layout,
-   overlap, glyph density) rather than textual.
+1. `read` first — it prints element ids on purpose; those ids are exactly what a `batchUpdate` request needs, so one read hands back the handles for the edit.
+2. Build the request list as a JSON file. `apply` is the real boundary — every other write command is a convenience over it, and the API's own shape (a list of typed requests) is the format. `read --json` shows the input side of the same shape.
+3. `apply`, then `read` again to verify, and `preview` when the question is visual (layout, overlap, glyph density) rather than textual.
 
 ## Notes
 

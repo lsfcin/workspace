@@ -1,13 +1,9 @@
 # generators
 > What the generators must produce, and what they must never produce. Mirrors `core/hooks/generators/`.
 
-A generator writes an artifact and stages it, so its failures are **silent by construction** — it
-exits 0 having written nothing, or having written the right thing in the wrong place. That is why
-these tests ask *"what does this produce, and is it there?"* rather than watching for an exception.
+A generator writes an artifact and stages it, so its failures are **silent by construction** — it exits 0 having written nothing, or having written the right thing in the wrong place. That is why these tests ask *"what does this produce, and is it there?"* rather than watching for an exception.
 
-Every case here is a bug that shipped. The JS declaration path emitted nothing **for years**, and
-stubgen wrote into a mirror of its own path; neither ever failed loudly. Silent failure is the
-failure mode this workspace actually has: [/ROADMAP.md](../../../../../ROADMAP.md).
+Every case here is a bug that shipped. The JS declaration path emitted nothing **for years**, and stubgen wrote into a mirror of its own path; neither ever failed loudly. Silent failure is the failure mode this workspace actually has: [/ROADMAP.md](../../../../../ROADMAP.md).
 
 <!-- routing:start -->
 ## Routing

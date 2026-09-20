@@ -45,8 +45,7 @@ Other AppV2 gotchas:
 ## AppV2 Stale `tabGroups` Bug
 
 When `stopPropagation` on custom tab click (prevents AppV2 calling `changeTab`), AppV2 never updates `tabGroups[group]`.
-Next native tab click: `changeTab()` compares `tabGroups[group] === clickedTab` — if group was already on that tab,
-returns early without activating content `<div>`.
+Next native tab click: `changeTab()` compares `tabGroups[group] === clickedTab` — if group was already on that tab, returns early without activating content `<div>`.
 
 Fix: in "other tab clicked" handler, **explicitly add `active` class** to clicked tab's content section:
 ```typescript
@@ -60,9 +59,7 @@ $nav.on("click", `a[data-tab]:not([data-tab="${TAB}"])`, (e) => {
 
 ## AppV2 Partial Re-render: Nav Items Wiped, Tab Content Persists
 
-AppV2 re-renders the sheet on every document change (e.g. GridConfig live-preview calls `scene.update()` on each form
-edit). The re-render does a **partial DOM update**: nav `<a>` items are wiped and replaced, but injected tab content
-`<div class="tab">` elements are preserved.
+AppV2 re-renders the sheet on every document change (e.g. GridConfig live-preview calls `scene.update()` on each form edit). The re-render does a **partial DOM update**: nav `<a>` items are wiped and replaced, but injected tab content `<div class="tab">` elements are preserved.
 
 **Consequence for injected tabs:**
 - Guard idempotency on the **content div** (`.tab[data-tab="${TAB}"]`) — NOT the nav item
@@ -89,10 +86,7 @@ function addIsorollTab($html, label, fieldsetContent, onFirstInject) {
 }
 ```
 
-**Multiple same-name inputs bug**: if guard fires on nav item (always 0 after wipe), content divs accumulate — multiple
-copies of every `<input name="flags.X.Y">` in the form. `FormDataExtended` collects all values; Foundry stores them as
-arrays. Next render reads e.g. `"false,false,false"` — truthy string → checkbox appears checked. Fix: guard on content
-div + sanitize flag reads with `=== true` / `typeof === "number"` etc.
+**Multiple same-name inputs bug**: if guard fires on nav item (always 0 after wipe), content divs accumulate — multiple copies of every `<input name="flags.X.Y">` in the form. `FormDataExtended` collects all values; Foundry stores them as arrays. Next render reads e.g. `"false,false,false"` — truthy string → checkbox appears checked. Fix: guard on content div + sanitize flag reads with `=== true` / `typeof === "number"` etc.
 
 **Flag read sanitization after corruption:**
 ```typescript

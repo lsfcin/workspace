@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from file_law import is_vendored  # noqa: E402
 from platform_law import posix  # noqa: E402
 
 # What a markdown link looks like, defined once. Two checks ask different questions of the same
@@ -179,11 +180,17 @@ _LOCAL_LIST = 'ISSUES.md'
 
 
 def enforcement_paths(root: Path) -> set:
+    # A VENDORED FILE IS EXEMPT FOR THE OPPOSITE REASON to everything above it: those may name a
+    # retired token because they are the law about it, this one because the words are not ours to
+    # rename. core/hooks/vendored.txt already promises exemption from every authoring rule and
+    # this check never read it, so a draft another harness wrote sat in the report as a finding
+    # nobody could clear — the fix would have edited the artifact being compared (2026-09-18).
     here = Path(__file__).resolve().parent
     return ({(root / name).resolve() for name in ENFORCEMENT}
             | {here / name for name in _CHECKER}
             | {p.resolve() for pattern in _CHECKER_TESTS for p in root.glob(pattern)}
-            | {(repo / _LOCAL_LIST).resolve() for repo in nested_repos(root)})
+            | {(repo / _LOCAL_LIST).resolve() for repo in nested_repos(root)}
+            | {p.resolve() for p in tracked_files(root) if is_vendored(p, root)})
 
 
 # brain/memory holds cross-session agent memory, and its `[[name]]` names ANOTHER MEMORY rather

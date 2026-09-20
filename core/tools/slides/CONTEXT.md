@@ -12,20 +12,13 @@ core/run tools/slides/gslides export <url_or_id> --format pdf                # p
 core/run tools/slides/gslides sample <url_id_or_pdf> --out dir --max-samples 25 # keyframe visual clustering
 ```
 
-**`read` prints element ids on purpose** — they are exactly what a `batchUpdate` request needs, so
-reading a deck hands back the handles for editing it, no second raw-JSON fetch.
+**`read` prints element ids on purpose** — they are exactly what a `batchUpdate` request needs, so reading a deck hands back the handles for editing it, no second raw-JSON fetch.
 
-**`sample` clusters progressive animations and outputs key slides** — inspect visual diagrams without
-saturating model context.
+**`sample` clusters progressive animations and outputs key slides** — inspect visual diagrams without saturating model context.
 
-**`apply` is the real boundary; the other write commands are conveniences over it.** The Slides API is
-itself a list of typed requests, so the CLI wraps that list rather than inventing a DSL that would
-go stale the moment Google adds a request type. `--json` on `read` gives the input side of the
-same shape.
+**`apply` is the real boundary; the other write commands are conveniences over it.** The Slides API is itself a list of typed requests, so the CLI wraps that list rather than inventing a DSL that would go stale the moment Google adds a request type. `--json` on `read` gives the input side of the same shape.
 
-Two auth grants (same split as [`../files/`](../files/CONTEXT.md)), the rendering facts the API
-doesn't document, per-frame motion via `batchUpdate`, and why Slidev is gone: all in
-[`SPECS.md`](SPECS.md).
+Two auth grants (same split as [`../files/`](../files/CONTEXT.md)), the rendering facts the API doesn't document, per-frame motion via `batchUpdate`, and why Slidev is gone: all in [`SPECS.md`](SPECS.md).
 
 <!-- routing:start -->
 ## Routing

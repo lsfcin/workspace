@@ -4,24 +4,14 @@
 
 ## Shape — the root is the bot itself, every subdirectory is one surface
 
-Split 2026-08-01 at 38 files in one flat directory, where `stt.py` sat beside `msgmap.py`
-beside `table.py` and nothing but the filename said which was which. Only five things stay at
-the root: the PTB wiring (`bot`), the config file (`config`), the Telegram send primitives
-(`reply`), the phrase banks (`phrases`), and the $0 INBOX capture (`inbox`) — each used by
-every surface below and owned by none of them.
+Split 2026-08-01 at 38 files in one flat directory, where `stt.py` sat beside `msgmap.py` beside `table.py` and nothing but the filename said which was which. Only five things stay at the root: the PTB wiring (`bot`), the config file (`config`), the Telegram send primitives (`reply`), the phrase banks (`phrases`), and the $0 INBOX capture (`inbox`) — each used by every surface below and owned by none of them.
 
-The routing table names the surfaces. Two are worth telling apart before you route: `stream/`
-is the answer *arriving* (which bubbles are open, when they may move), `text/` is what any of
-it *looks like* (markdown → Telegram HTML) and knows nothing about messages. `turn/` runs one
-message end to end and is the only surface that talks to a backend.
+The routing table names the surfaces. Two are worth telling apart before you route: `stream/` is the answer *arriving* (which bubbles are open, when they may move), `text/` is what any of it *looks like* (markdown → Telegram HTML) and knows nothing about messages. `turn/` runs one message end to end and is the only surface that talks to a backend.
 
 Two modules were renamed on the way in, because `turn.turnrun` says the same word twice:
 `turnrun` → [`turn/runner.py`](turn/runner.py), `turnhelpers` → [`turn/helpers.py`](turn/helpers.py).
 
-Each subdirectory carries its own `CONTEXT.md`, without which the routing generator folds it
-back into this table and the split buys the reader nothing: this table went 38 rows → 12. Each
-also re-declares `> spec: ../SPECS.md`, because the spec gate stops at the nearest ancestor that
-declares one — a subdirectory saying `spec: none` would have quietly unlocked it.
+Each subdirectory carries its own `CONTEXT.md`, without which the routing generator folds it back into this table and the split buys the reader nothing: this table went 38 rows → 12. Each also re-declares `> spec: ../SPECS.md`, because the spec gate stops at the nearest ancestor that declares one — a subdirectory saying `spec: none` would have quietly unlocked it.
 
 Tests mirror these names one for one under [`tests/`](../tests/CONTEXT.md).
 

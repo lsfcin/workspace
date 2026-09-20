@@ -5,8 +5,7 @@
 > feature: web-search, google-auth, forms, bot, vpn-cin
 > enforced-by: core/tools/test/workspace/test_setup_executable.py
 
-The five-part contract, and the rule for what the agent hands over: [`SETUP.md`](SETUP.md). Secrets
-are asked for and written by the agent; only the click is the human's.
+The five-part contract, and the rule for what the agent hands over: [`SETUP.md`](SETUP.md). Secrets are asked for and written by the agent; only the click is the human's.
 
 <!-- steps:start -->
 

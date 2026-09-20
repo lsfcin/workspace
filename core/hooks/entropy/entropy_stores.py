@@ -25,7 +25,7 @@ SECTIONS = ('## Method', '## Results', '## What changed', '## Limitations')
 
 # A reference is a bullet carrying a link. The level comes first so a reader can sort by weight
 # without reading the line — core/refs/SPECS.md § Source levels.
-TIERED = re.compile(r'^- `\[[ABPVC]\]`')
+LEVELLED = re.compile(r'^- `\[[ABPVC]\]`')
 LINKED = re.compile(r'\]\(https?://')
 
 
@@ -81,7 +81,7 @@ def ref_level_hits(files: list) -> list:
             if line.startswith('## '):
                 unjudged = 'njudged' in line
             elif not unjudged and line.startswith('- ') and LINKED.search(line) \
-                    and not TIERED.match(line):
+                    and not LEVELLED.match(line):
                 hits.append(f'{path}:{number}: reference carries no source level.\n'
                             f'   Open the line with `[A]`/`[B]`/`[P]`/`[V]`/`[C]`, or leave it in\n'
                             f'   the Unjudged queue until it is judged (core/refs/SPECS.md).')

@@ -1,9 +1,6 @@
 # Memory Index
 
-Every line here is loaded into every session, including the ones it has nothing to do with, so a
-line earns its place by changing what an agent DOES. Cut to 15 entries on 2026-09-15: the profile
-moved to [`../CONTEXT.md`](../CONTEXT.md), two entries restated a law that already holds elsewhere,
-and two were project references that now live in the project.
+Every line here is loaded into every session, including the ones it has nothing to do with, so a line earns its place by changing what an agent DOES. Cut to 15 entries on 2026-09-15: the profile moved to [`../CONTEXT.md`](../CONTEXT.md), two entries restated a law that already holds elsewhere, and two were project references that now live in the project.
 
 - [parallel sessions](feedback_parallel_sessions.md) — partition by folder; check git status AND branch right before committing; stage explicitly, commit often
 - [visual eyeball gate](feedback_visual_eyeball_gate.md) — image-producing steps need Lucas's visual OK before advancing

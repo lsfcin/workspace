@@ -170,7 +170,7 @@
 - Padrões operacionais do workspace: Git como fonte única da verdade, entrega estática desacoplada via Cloudflare Pages, dual-view nativa, zero dependência de plataformas opacas.
 
 ### Mecanismos Práticos
-- **Fonte Canônica em Git**: Materiais versionados em Markdown limpo (`academy/teaching/<disciplina>/`).
+- **Fonte Canônica em Git**: Materiais versionados em Markdown limpo (`academy/teaching/classes/<disciplina>/`).
 - **Distribuição Estática e Veloz**: Espelhamento estático no Cloudflare Pages via repositório público `lsf-links` (`outputs/links/`).
 - **Dual-View (Humanos vs. Agentes)**:
   - *Visualização Rica (Humanos & Mobile)*: URL limpa `https://lucassf.pages.dev/<disciplina>/<name>`, renderizada por visualizador nativo (`viewer.js` + `marked.min.js`) com alertas GitHub, tabelas responsivas e temas claro/escuro.

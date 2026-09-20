@@ -2,7 +2,7 @@
 #
 # b20260902-a-section-citation-survives-the-section-moving-away regression. core/SPECS.md requires
 # a section be cited BY NAME because a number ages silently — and the named form ages silently too,
-# in the one operation this workspace has now blessed. Sharding SETUP.md moved 17 of its 21 steps
+# in the one operation this workspace has now blessed. Cutting SETUP.md into parts moved 17 of its 21 steps
 # into siblings; nine tracked files went on citing `SETUP.md § <step>`, and the suite was green
 # throughout, because test_pointer_integrity.py resolves the `](path)` half and a link whose FILE
 # exists and whose SECTION does not reads as healthy. They were found by grep, by hand.

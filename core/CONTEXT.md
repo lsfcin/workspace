@@ -1,9 +1,7 @@
 # Core
 > Agent library: skills, agents, prompts, flows, tools. Provider-agnostic.
 
-**Runtime-agnostic** — no provider-specific code. Skills invoke via `/skill-name`. Tools call via
-bash. Flows orchestrate agents. `agents/lead.md` is the entrypoint for any research task; it plans
-and spawns the specialist workers beside it.
+**Runtime-agnostic** — no provider-specific code. Skills invoke via `/skill-name`. Tools call via bash. Flows orchestrate agents. `agents/lead.md` is the entrypoint for any research task; it plans and spawns the specialist workers beside it.
 
 <!-- routing:start -->
 ## Routing

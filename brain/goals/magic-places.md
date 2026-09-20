@@ -1,7 +1,6 @@
 # [ fun | travel | dream ] magic places
 
-Conhecer os lugares mágicos que têm por aí. Not tourism — places that carry something, places where the world feels
-different. An open-ended life goal: to have been in places that change you.
+Conhecer os lugares mágicos que têm por aí. Not tourism — places that carry something, places where the world feels different. An open-ended life goal: to have been in places that change you.
 
 >**signals**  
 meaningful · optional · motivated
@@ -10,8 +9,7 @@ meaningful · optional · motivated
     [name-3] name 3 places that genuinely call you — gut level, not bucket list
 
 **ease-start**  
-Write 3 place names that give you a sensation just from thinking about them. Not places you "should" visit — places that
-pull you.
+Write 3 place names that give you a sensation just from thinking about them. Not places you "should" visit — places that pull you.
 
 ## backlog
 

@@ -2,16 +2,9 @@
 > The harness fleet: every provider's registration resolves, reaches the dispatcher, and declares
 > itself in the one place the mirror list lives.
 
-Coverage for `core/hooks/copilot/`, `core/hooks/antigravity/`, the `.opencode/` plugin and each
-harness's own registration file — plus `core/harnesses.txt`, which is the declaration all of them
-are checked against.
+Coverage for `core/hooks/copilot/`, `core/hooks/antigravity/`, the `.opencode/` plugin and each harness's own registration file — plus `core/harnesses.txt`, which is the declaration all of them are checked against.
 
-**What these prove is that a path RESOLVES, never that a gate FIRES.** Said plainly because this
-workspace's own rule is that a check proving a name is present is the weaker kind. Every failure
-this directory has ever caught was the same shape and none of it was behavioural: a shim pointing
-at a script that had moved, a registration spelling an interpreter it should have asked for, a
-mirror list kept in a bash array. Each was invisible precisely because the coverage was claimed in
-a table rather than read by anything.
+**What these prove is that a path RESOLVES, never that a gate FIRES.** Said plainly because this workspace's own rule is that a check proving a name is present is the weaker kind. Every failure this directory has ever caught was the same shape and none of it was behavioural: a shim pointing at a script that had moved, a registration spelling an interpreter it should have asked for, a mirror list kept in a bash array. Each was invisible precisely because the coverage was claimed in a table rather than read by anything.
 
 <!-- routing:start -->
 ## Routing

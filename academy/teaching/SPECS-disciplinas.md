@@ -52,24 +52,27 @@
 
 ---
 
-## entregas (metodologia e materiais)
+## entregas (disciplina e artefatos modulares)
 
-toda entrega (checkpoint) de disciplina é direcionada por dois documentos canônicos (metodologia e materiais), gerados a partir de modelos-base em markdown (.md) estruturados por artefatos:
+a arquitetura opera em **dois níveis limpos**: a **página-mestre da disciplina** (`disciplina.md`), que centraliza a visão macro e orquestra o calendário, e os **artefatos modulares autocontidos** (`artefatos/art-[nome].md`), gerados a partir dos modelos-base em markdown (.md):
 
 ### anatomia
 
-- **metodologia (`templates/template-metodologia.md`):**
-  - grafo de dependência entre os artefatos da entrega (entradas e saídas encadeadas).
-  - para cada artefato a ser produzido:
-    - racional pedagógico ancorado (chão $\to$ horizonte).
-    - entrada: o que precisa estar pronto antes de começar.
-    - etapas: construção passo a passo do artefato naquela entrega.
-    - saída: o que é esperado do produto e qual a sua utilidade real.
-- **materiais (`templates/template-materiais.md`):**
-  - para cada artefato a ser produzido:
-    - **modelo:** material de modelo com lacunas e espaços estruturados com conteúdo-guia indicando o que preencher.
-    - **exemplo excelente:** versão do modelo preenchida com padrão-ouro, gerada através dos passos indicados na metodologia.
-    - **exemplo quase bom / sem alma:** versão que cumpre superficialmente o enunciado, atingindo um estado aparente de "entregue", mas sem substância (ai slop / clichês pasteurizados), caindo na "educação faz-de-conta" onde o aluno finge que faz e o professor finge que acredita.
+- **página-mestre da disciplina (`templates/template-disciplina.md`):**
+  - substitui o Notion como centro da disciplina: banner visual, canais rápidos de comunicação e ferramentas colaborativas.
+  - propósito & visão (o chão da dor real e o horizonte da transformação).
+  - grafo do conhecimento interativo em Mermaid antes do calendário.
+  - calendário cronológico de aulas, tópicos, feriados e marcos.
+  - lista de entregas com links diretos para os artefatos convocados e o critério de avaliação intergrupos (+1 ponto).
+  - regras transparentes de pontos acumulados, dinâmica intergrupos e calibração intragrupo.
+  - hall da fama com projetos inspiradores de turmas anteriores e referências adicionais.
+- **artefato autocontido (`templates/template-artefato.md`):**
+  - reúne integralmente o ciclo de vida daquele entregável (materiais + metodologia):
+    - **princípio & racional (chão $\to$ horizonte):** dor real e competência duradoura visada.
+    - **entradas & dependências:** pré-requisitos necessários antes de iniciar.
+    - **tríade de materiais:** modelo (starter kit), exemplo excelente (padrão-ouro com notas críticas) e exemplo quase bom / sem alma (anti-modelo anti-slop).
+    - **metodologia construtiva:** passos práticos no imperativo com ciclo de 8 etapas, acompanhados do protocolo de co-criação socrática para IAs (`<!-- guia-ia -->`).
+    - **pontos de verificação (critérios de aceite: feito / não feito):** 1 a 3 condições comprováveis de feito/não feito (1 ponto por critério cumprido).
 
 ### regra de sequenciamento de entregas
 
@@ -80,7 +83,7 @@ nenhum artefato é solicitado sem que suas entradas tenham sido geradas em check
 ### acesso, distribuição e edição
 
 em ambos os casos usamos arquivos markdown com **visualização rica** e **edição online**:
-- a **fonte canônica** dos arquivos `.md` fica em `academy/teaching/<disciplina>/` no workspace do professor.
+- a **fonte canônica** dos arquivos `.md` fica em `academy/teaching/classes/<disciplina>/` no workspace do professor.
 - a **distribuição** é feita pelo Cloudflare Pages, via espelhamento estático no repositório público `lsf-links` (`outputs/links/`).
 - a **visualização rica** focada em humanos e mobile fica em `https://lucassf.pages.dev/<disciplina>/<name>`, renderizada pelo visualizador nativo (`viewer.js` + `viewer.css` + `marked.min.js`), com suporte a alertas github, tabelas responsivas e temas claro/escuro.
 - a **visualização direta para ias / harnesses** é acessível no formato `https://lucassf.pages.dev/<disciplina>/<name>.md` (ou botão "Copiar p/ Agente (RAW)" no topo da página), permitindo ingestão instantânea via `curl -s` ou cópia com um clique.
@@ -110,9 +113,9 @@ a banca externa de defesa pública opera com uma folha padronizada com critério
 ## análise por agentes
 
 ao auditar ou planejar a condução de uma disciplina, o agente (harness) deve validar:
-1. `[ ]` cada entrega do calendário possui o par de `.md` guiado pelos modelos canônicos (`template-metodologia.md` e `template-materiais.md`)?
-2. `[ ]` a metodologia decompõe a entrega em artefatos com entradas e saídas encadeadas (regra de sequenciamento)?
-3. `[ ]` os materiais cobrem a tríade modelo, exemplo excelente e exemplo quase bom / sem alma, com anotações críticas do professor?
+1. `[ ]` a disciplina possui a página-mestre (`disciplina.md`, via `template-disciplina.md`) com banner, canais, propósito, grafo, calendário e catálogo de entregas?
+2. `[ ]` cada artefato exigido possui arquivo modular próprio (`artefatos/art-*.md`, via `template-artefato.md`) com 1 a 3 pontos de verificação objetivos?
+3. `[ ]` as dependências entre artefatos respeitam a regra de sequenciamento (entradas geradas previamente)?
 4. `[ ]` há uma vitória de domínio rápida (quick win) garantida no primeiro encontro (arco 1)?
 5. `[ ]` há previsão de suporte e acolhimento intensivo contra a queda de motivação na 4ª semana (arco 2)?
 6. `[ ]` a banca examinadora do arco 4 conta com folha padronizada de avaliação cobrindo as 4 dimensões canônicas?

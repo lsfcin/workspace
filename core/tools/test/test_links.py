@@ -43,7 +43,7 @@ def test_the_file_recording_the_link_can_refuse_it_too():
     """The URL cannot say whether a document is private; where it is being written down can."""
     with pytest.raises(links_core.Refused):
         links_core.check_private('planta', home='branches/casinhas/projeto.md')
-    links_core.check_private('setup', home='academy/teaching/ai4good/CONTEXT.md')
+    links_core.check_private('setup', home='academy/teaching/classes/ai4good/CONTEXT.md')
 
 
 def test_a_taken_short_name_is_refused_rather_than_moved(mapfile):
