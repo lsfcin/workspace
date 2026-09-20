@@ -217,7 +217,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/bot-crossing is 11 ahead of main
+- . — feature/bot-crossing is 12 ahead of main
 
 ### Local branches already merged into their base
 
