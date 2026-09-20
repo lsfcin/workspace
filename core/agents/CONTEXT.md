@@ -1,11 +1,9 @@
 # Agents
 > Agent definitions; load as system prompt to spawn a specialist worker.
 
-Each file is a complete operating context for one agent role. In Claude Code, spawn a worker by
-passing the file content as the system prompt via the Agent tool.
+Each file is a complete operating context for one agent role. In Claude Code, spawn a worker by passing the file content as the system prompt via the Agent tool.
 
-**One pipeline, in order: `writer` drafts from evidence `researcher` gathered, `verifier` adds the
-citations afterward, `reviewer` grades the result.** Who each one is, is the routing table's job —
+**One pipeline, in order: `writer` drafts from evidence `researcher` gathered, `verifier` adds the citations afterward, `reviewer` grades the result.** Who each one is, is the routing table's job —
 it reads their frontmatter, which is the same text their spawner gets.
 
 <!-- routing:start -->

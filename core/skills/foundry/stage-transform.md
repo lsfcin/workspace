@@ -31,11 +31,9 @@ Counter-transform constants (dimetric 2:1):
 
 ## PIXI worldTransform Cache — Initial Load Gotcha
 
-PIXI only recomputes `stage.worldTransform` during its render loop. After setting `stage.rotation` / `stage.skew.set()`
-in `canvasReady`, `worldTransform` is still **identity** until the next render frame.
+PIXI only recomputes `stage.worldTransform` during its render loop. After setting `stage.rotation` / `stage.skew.set()` in `canvasReady`, `worldTransform` is still **identity** until the next render frame.
 
-Additionally, Foundry sets `#hud style.left = wt.tx` / `style.top = wt.ty` **only inside `canvasPan`**. On initial load,
-`canvasPan` never fires, so `#hud` is misaligned after `applyStage()` changes `wt.tx/ty`.
+Additionally, Foundry sets `#hud style.left = wt.tx` / `style.top = wt.ty` **only inside `canvasPan`**. On initial load, `canvasPan` never fires, so `#hud` is misaligned after `applyStage()` changes `wt.tx/ty`.
 
 **Fix — call after `applyCurrentState()` in `onCanvasReady`:**
 
@@ -53,8 +51,7 @@ private static syncHudAfterStageApply(): void {
 }
 ```
 
-> `stage.updateTransform()` crashes when `stage.parent` is null (which it is during `canvasReady`). Use the two-step
-> alternative: `updateLocalTransform()` then `copyFrom(localTransform)`.
+> `stage.updateTransform()` crashes when `stage.parent` is null (which it is during `canvasReady`). Use the two-step alternative: `updateLocalTransform()` then `copyFrom(localTransform)`.
 
 ## Background Counter-Transform
 
@@ -75,15 +72,11 @@ bg.position.set(scene.width / 2 + paddingX, scene.height / 2 + paddingY);
 
 ## GridConfig Preview Tool
 
-`GridConfig` (Scene Config → Basics → grid wrench) adds preview overlay via `#createPreview()` directly on
-`canvas.stage`. Hook: `renderGridConfig` fires after `_onRender` completes (AppV2 async `_doEvent`). Hook
-`closeGridConfig` fires in `_onClose`.
+`GridConfig` (Scene Config → Basics → grid wrench) adds preview overlay via `#createPreview()` directly on `canvas.stage`. Hook: `renderGridConfig` fires after `_onRender` completes (AppV2 async `_doEvent`). Hook `closeGridConfig` fires in `_onClose`.
 
 **Preview container structure** (find by searching stage children in reverse for last plain `PIXI.Container`):
 
-> **CRITICAL**: search for the preview container BEFORE adding any overlay PIXI.Container layer of your own — your layer
-> would be found first (also a plain `PIXI.Container`). Cache the reference at `renderGridConfig` time; reuse on
-> subsequent calls.
+> **CRITICAL**: search for the preview container BEFORE adding any overlay PIXI.Container layer of your own — your layer would be found first (also a plain `PIXI.Container`). Cache the reference at `renderGridConfig` time; reuse on subsequent calls.
 ```typescript
 // children[0] = black fill (screen-space, always correct)
 // children[1] = background Sprite  ← position/scale reset by #refreshPreview on every form change
@@ -94,14 +87,11 @@ for (let i = stage.children.length - 1; i >= 0; i--) {
 }
 ```
 
-`#refreshPreview()` resets on every form change: `bg.position.set(sceneX, sceneY)`, `bg.width = sceneWidth` (sets
-`scale.x = sceneWidth / texture.width`).
+`#refreshPreview()` resets on every form change: `bg.position.set(sceneX, sceneY)`, `bg.width = sceneWidth` (sets `scale.x = sceneWidth / texture.width`).
 
 ### Counter-Transform Pattern (updateTransform Override)
 
-Override bg sprite's `updateTransform` with **save→apply→origUpdate→restore** so `#refreshPreview` per-change resets
-picked up cleanly each frame, no accumulation. Do NOT transform container — grid mesh must inherit stage isometric
-transform, camera position stays stable.
+Override bg sprite's `updateTransform` with **save→apply→origUpdate→restore** so `#refreshPreview` per-change resets picked up cleanly each frame, no accumulation. Do NOT transform container — grid mesh must inherit stage isometric transform, camera position stays stable.
 
 ```typescript
 const origUpdate = bg.updateTransform.bind(bg);
@@ -131,15 +121,11 @@ const origUpdate = bg.updateTransform.bind(bg);
 };
 ```
 
-> **Centering invariant**: if you apply an extra Y multiplier (e.g. `bgYScale`) to `scale.set()`, you **must** also use
-> the same multiplied `scY` in the position formula. Using `scY` without `bgYScale` in position while `scale.set` uses
-> it will shift the visual center upward as the scale decreases — image anchors to its top edge instead of scaling
-> around center.
+> **Centering invariant**: if you apply an extra Y multiplier (e.g. `bgYScale`) to `scale.set()`, you **must** also use the same multiplied `scY` in the position formula. Using `scY` without `bgYScale` in position while `scale.set` uses it will shift the visual center upward as the scale decreases — image anchors to its top edge instead of scaling around center.
 
 ### GridConfig Form Fields
 
-Native form elements (accessible via `this.form.elements.<name>` inside GridConfig, or `form.elements.namedItem(n)` from
-outside):
+Native form elements (accessible via `this.form.elements.<name>` inside GridConfig, or `form.elements.namedItem(n)` from outside):
 
 | Name | Meaning | Units | Dispatch |
 |------|---------|-------|---------|
@@ -152,8 +138,7 @@ Trigger preview update from code: `el.value = newVal; el.dispatchEvent(new Event
 
 ### GridConfig `_processSubmitData` — Non-Native Fields
 
-`_processSubmitData` only calls `super._processSubmitData` (→ `document.update`) if one of the 7 native fields above
-changed. Module-specific form fields are silently skipped.
+`_processSubmitData` only calls `super._processSubmitData` (→ `document.update`) if one of the 7 native fields above changed. Module-specific form fields are silently skipped.
 
 **Workaround**: patch the instance at `renderGridConfig` time:
 ```typescript
@@ -166,5 +151,4 @@ if (typeof app._processSubmitData === 'function') {
   };
 }
 ```
-This runs after Foundry's native save (or even if Foundry skipped saving). Safe to do on every re-render because the
-patch is on the instance, not the prototype.
+This runs after Foundry's native save (or even if Foundry skipped saving). Safe to do on every re-render because the patch is on the instance, not the prototype.

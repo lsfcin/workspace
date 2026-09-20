@@ -4,15 +4,13 @@ description: >
   Foundry VTT v14 — coordinate systems: canvas space, screen space, HUD CSS space, canvas.dimensions, tile/token document coords.
 ---
 
-Foundry VTT v14 — coordinate systems: canvas space, screen space, HUD CSS space, canvas.dimensions, tile/token document
-coords.
+Foundry VTT v14 — coordinate systems: canvas space, screen space, HUD CSS space, canvas.dimensions, tile/token document coords.
 
 ---
 
 ## Coordinate Systems
 
-- **Canvas coords** — scene pixel space, origin = scene top-left (includes padding). `token.document.x/y` /
-  `tile.document.x/y`.
+- **Canvas coords** — scene pixel space, origin = scene top-left (includes padding). `token.document.x/y` / `tile.document.x/y`.
 - **Stage local space** = canvas coords. Stage transform maps canvas → screen.
 - **PIXI global / screen coords** — `stage.worldTransform.apply({x,y})` = where canvas point appears in screen pixels.
 - **`canvas.clientCoordinatesFromCanvas(pt)`** — calls `stage.worldTransform.apply(pt)`. Includes full matrix (rotation
@@ -21,8 +19,7 @@ coords.
 
 ## `canvas.dimensions` vs Scene Flags for Scene-Space Positioning
 
-`scene.width/height/padding` are static document values — do NOT update when Scene Offset changes. Use
-`canvas.dimensions` for dynamic scene content bounds:
+`scene.width/height/padding` are static document values — do NOT update when Scene Offset changes. Use `canvas.dimensions` for dynamic scene content bounds:
 
 | Need | Wrong | Right |
 |------|-------|-------|
@@ -40,8 +37,7 @@ Scene offset (GridConfig "Scene Offset" field) reflected in `dims.sceneX/Y`, nev
 
 ## v14 CRITICAL: `tile.x/y` ≠ canvas position; `document.x/y` = CENTER
 
-In Foundry v14, `Tile` (and `PlaceableObject` subclasses) park PIXI container at `(0, 0)`. Actual canvas-space position
-is in **document**: `tile.document.x`, `tile.document.y`. `tile.x`/`tile.y` returns 0 — **wrong**.
+In Foundry v14, `Tile` (and `PlaceableObject` subclasses) park PIXI container at `(0, 0)`. Actual canvas-space position is in **document**: `tile.document.x`, `tile.document.y`. `tile.x`/`tile.y` returns 0 — **wrong**.
 
 `tile.document.x/y` = **CENTER** of tile (not top-left). Top-left:
 ```typescript

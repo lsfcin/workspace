@@ -1,8 +1,7 @@
 # 6 — Ship
 
 ## Carry
-short name: commands-mirror-cost | branch: feature/roundup-md-cap (shared, not created) | root: /mnt/workspace
-verdict: padaria | criteria: C1 C2 C3 C4 — all met
+short name: commands-mirror-cost | branch: feature/roundup-md-cap (shared, not created) | root: /mnt/workspace verdict: padaria | criteria: C1 C2 C3 C4 — all met
 
 ## Outcome
 question: does `.claude/commands/` (14 files, 56,376 B) cost turn-1 context?
@@ -13,17 +12,14 @@ mechanism control: arm G (same files, renamed `zz*`) costs +872 — so the name-
   not an assumption about it.
 
 ## Files
-- `core/experiments/context-window.md` — Method 2 (the ablation recipe), Results 2 (7 arms),
-  a `What changed` verdict, 4 new `Limitations` bullets replacing the now-answered residual bullet.
+- `core/experiments/context-window.md` — Method 2 (the ablation recipe), Results 2 (7 arms), a `What changed` verdict, 4 new `Limitations` bullets replacing the now-answered residual bullet.
 - nothing else. `ISSUES.md`, `ROADMAP*.md`, `core/hooks/**`, `brain/**` untouched (concurrent session).
 
 ## Gates
 - `entropy_stores.experiment_hits` → clean (all four required sections present)
 - `check-line-counts.sh` → under both thresholds `core/hooks/limits.env` declares
-- branch: NOT created. `feature/roundup-md-cap` reused; a checkout would collide with the session
-  holding this worktree (craft.md § Field Practice, "two loops, one repo = worktree fight").
-- staging: explicit paths only. `extras: pre-existing-dirty` = ISSUES.md, core/hooks/entropy/**,
-  core/tools/test/law/entropy/** — another session's work, neither committed nor reverted.
+- branch: NOT created. `feature/roundup-md-cap` reused; a checkout would collide with the session holding this worktree (craft.md § Field Practice, "two loops, one repo = worktree fight").
+- staging: explicit paths only. `extras: pre-existing-dirty` = ISSUES.md, core/hooks/entropy/**, core/tools/test/law/entropy/** — another session's work, neither committed nor reverted.
 
 ## Not done here
 The ROADMAP row is left standing. The orchestrating session deletes it.

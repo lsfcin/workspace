@@ -1,8 +1,6 @@
 # [ craft | research | near ] paper jarbinhas
 
-Jarbas finished his PhD on a design space for advanced coding tools in 3D scenes. Lots of material, nothing published
-yet. Lucas wants to enter the DC graduate program — needs relevant publications. Goal: be strategic, extract one or more
-strong papers from the PhD material.
+Jarbas finished his PhD on a design space for advanced coding tools in 3D scenes. Lots of material, nothing published yet. Lucas wants to enter the DC graduate program — needs relevant publications. Goal: be strategic, extract one or more strong papers from the PhD material.
 
 >**signals**  
 meaningful · essential · indifferent

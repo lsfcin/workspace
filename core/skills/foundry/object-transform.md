@@ -20,20 +20,15 @@ const meshReset = !flags || flags["refreshMesh"] || flags["refreshSize"]
 ```
 
 **v14 CRITICAL — `setFlag` does NOT trigger meshReset flags.**
-`tile.document.setFlag(MODULE_ID, "someFlag", value)` fires `refreshTile` with flags
-`{refreshPosition: true, refreshPerception: true}` — meshReset = **false**.
+`tile.document.setFlag(MODULE_ID, "someFlag", value)` fires `refreshTile` with flags `{refreshPosition: true, refreshPerception: true}` — meshReset = **false**.
 Code guarded by `if (meshReset)` skipped for custom-flag updates.
 
-**`mesh.scale.set()` safe on every refresh** — absolute assignment (not `*=`), no accumulation risk. Remove
-`isMeshReset` guard from `mesh.scale.set()` calls if they need to respond to flag changes. Only guard `mesh.scale *=
-...` patterns.
+**`mesh.scale.set()` safe on every refresh** — absolute assignment (not `*=`), no accumulation risk. Remove `isMeshReset` guard from `mesh.scale.set()` calls if they need to respond to flag changes. Only guard `mesh.scale *= ...` patterns.
 
 **v14 CRITICAL — token animations fire `refreshMesh` every frame, NOT `refreshPosition`.**
-Foundry's hide/show animation (alpha lerp) and other non-movement animations call
-`_onAnimationUpdate` each tick: sets `refreshMesh: true`, never `refreshPosition`.
+Foundry's hide/show animation (alpha lerp) and other non-movement animations call `_onAnimationUpdate` each tick: sets `refreshMesh: true`, never `refreshPosition`.
 `_refreshMesh()` updates only anchor/alpha/tint — does NOT reset `mesh.x/y`.
-If hook overrides `mesh.x/y` and captures "natural base" on `refreshMesh`,
-offset bakes in and re-adds every animation frame → image drifts off screen.
+If hook overrides `mesh.x/y` and captures "natural base" on `refreshMesh`, offset bakes in and re-adds every animation frame → image drifts off screen.
 
 **`refreshPosition` flag — what actually sets it:**
 
@@ -41,8 +36,7 @@ Only `x` or `y` in update payload triggers `refreshPosition`:
 - ✅ fires: movement (x/y update), movement animation frames (via `_onAnimationUpdate` with positionChanged=true)
 - ❌ does NOT fire: `setFlag()`, elevation changes (`update({ elevation })`), other doc property changes
 
-Consequence: **elevation changes update document but do NOT reset `mesh.x/y`**. Offsets only on `refreshPosition` →
-elevation drags silently break. Apply offsets on ALL refresh frames using cached tokenBase.
+Consequence: **elevation changes update document but do NOT reset `mesh.x/y`**. Offsets only on `refreshPosition` → elevation drags silently break. Apply offsets on ALL refresh frames using cached tokenBase.
 
 **Safe pattern for `mesh.x/y` override with elevation + image offset:**
 ```typescript
@@ -65,14 +59,11 @@ mesh.y = base.y + hdy * E + imgOff.y;
 
 ## PIXI Overlay Drag-Drop Blink Guard
 
-`refreshTile` hooks that redraw PIXI overlays (bounding boxes, gizmos, etc.) keyed by `tile.id` will cause a **1-frame
-blink** after drag-drop if they don't guard against the preview-clone lifecycle:
+`refreshTile` hooks that redraw PIXI overlays (bounding boxes, gizmos, etc.) keyed by `tile.id` will cause a **1-frame blink** after drag-drop if they don't guard against the preview-clone lifecycle:
 
 **What happens:**
 1. During drag, the *clone* (isPreview=true) fires `refreshTile` — doc.x/y track cursor. Overlay draws at cursor. ✓
-2. On drop, server confirms → doc.x/y update to new position → Foundry fires `refreshState+refreshVisibility` (no
-   `refreshPosition`) on the *original* tile **while the clone still exists** (`hasPreview=true`). At this point
-   `tile.document.x/y` is still the **old pre-drag position** — overlay redraws there. ← **the blink**
+2. On drop, server confirms → doc.x/y update to new position → Foundry fires `refreshState+refreshVisibility` (no `refreshPosition`) on the *original* tile **while the clone still exists** (`hasPreview=true`). At this point `tile.document.x/y` is still the **old pre-drag position** — overlay redraws there. ← **the blink**
 3. Clone is destroyed → original fires full refresh at correct new position. ✓
 
 `hasPreview=true` identifies step 2 (original tile, clone still alive). Fix: skip overlay redraw in that state.
@@ -86,13 +77,11 @@ private static onRefreshTile(tile: Tile, flags?: Record<string, boolean>): void 
 }
 ```
 
-Clone's `refreshTile` fires with `isPreview=true` (not `hasPreview`), so it still updates the overlay during drag. Guard
-only suppresses the premature original-tile refresh.
+Clone's `refreshTile` fires with `isPreview=true` (not `hasPreview`), so it still updates the overlay during drag. Guard only suppresses the premature original-tile refresh.
 
 ## PIXI Mutation Guards — Prevent Dirty-Signal Feedback Loops
 
-Setting PIXI props (`mesh.scale`, `mesh.rotation`, `mesh.anchor`) unconditionally on every `refreshToken` generates PIXI
-dirty signals → additional render-flag processing each frame. Guard before mutating:
+Setting PIXI props (`mesh.scale`, `mesh.rotation`, `mesh.anchor`) unconditionally on every `refreshToken` generates PIXI dirty signals → additional render-flag processing each frame. Guard before mutating:
 ```typescript
 const EPS = 1e-6;
 if (Math.abs(mesh.rotation - reverseRotation) > EPS) mesh.rotation = reverseRotation;
@@ -129,8 +118,7 @@ Same applies to tiles: `tile.visible` is transient, `tile.document.hidden` is st
 
 ## Clone Sync Pattern — geometry only, alpha from document
 
-When cloning a `PrimarySpriteMesh` to an external layer (see `canvas.md` — VisibilityFilter escape), split sync into two
-separate operations:
+When cloning a `PrimarySpriteMesh` to an external layer (see `canvas.md` — VisibilityFilter escape), split sync into two separate operations:
 
 **`syncSprite(clone, mesh)`** — geometry ONLY, called on every refresh:
 ```typescript
@@ -150,8 +138,7 @@ clone.alpha   = typeof doc.alpha === "number" ? doc.alpha : 1;
 clone.visible = !doc.hidden;
 ```
 
-Always call both in sequence on `refreshToken`/`refreshTile`. After geometry sync, set `mesh.alpha = 0` again (Foundry
-may have reset it to 1 during its own refresh pass).
+Always call both in sequence on `refreshToken`/`refreshTile`. After geometry sync, set `mesh.alpha = 0` again (Foundry may have reset it to 1 during its own refresh pass).
 
 ## Token (Undistorted)
 

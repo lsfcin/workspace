@@ -8,7 +8,7 @@ indices calculados sobre o deck original continuem validos durante o batch.
 Conteudo (o que entra e onde): aula02_conteudo.py
 """
 import json, sys
-from aula02_conteudo import INSERCOES, REFINOS
+from academy.teaching.classes.techedu.aula02_conteudo import INSERCOES, REFINOS
 
 
 def build():

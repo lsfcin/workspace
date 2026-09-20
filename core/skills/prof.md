@@ -15,7 +15,7 @@ Arguments: $ARGUMENTS
 1. Identificar o tipo de tarefa pedagógica solicitada (planejamento de aula, desenho de projeto, publicação de material, arquitetura de avaliação, auditoria contra AI slop ou acolhimento).
 2. Carregar as subskills relevantes da tabela abaixo (`core/skills/prof/<subskill>.md`). Quando a tarefa envolver múltiplas dimensões, combinar 2 ou mais subskills.
 3. Se invocado com argumento específico (`/prof transformacao`, `/prof pbl-cbl`, etc.), carregar diretamente a subskill correspondente.
-4. Para aprofundamento empírico e citações primárias, consultar o dossiê canônico em [`academy/teaching/prof/dossie-evidencias.md`](../../academy/teaching/prof/dossie-evidencias.md).
+4. Para aprofundamento empírico e citações primárias, consultar o dossiê canônico em [`academy/teaching/structure/fundamentals/dossie-evidencias.md`](../../academy/teaching/structure/fundamentals/dossie-evidencias.md).
 
 ---
 

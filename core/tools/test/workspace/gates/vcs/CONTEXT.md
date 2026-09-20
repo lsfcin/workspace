@@ -1,21 +1,11 @@
 # vcs
 > Coverage for `core/hooks/git/`: branch shape, push diagnosis, and the mirror a pull leaves stale.
 
-What these share is that the operator learns the result here or not at all — a push that failed and
-a branch that moved under a running session are both silent in git's own output, so what the hook
-names as the cause is the whole of what anyone knows.
+What these share is that the operator learns the result here or not at all — a push that failed and a branch that moved under a running session are both silent in git's own output, so what the hook names as the cause is the whole of what anyone knows.
 
-**Named `vcs/` and not `git/`, which would match the hook directory.** pytest puts the parent
-`gates/` on `sys.path` for the test files that stay there, and a bare `git/` directory under it is
-an importable namespace package (PEP 420) — so `import git` inside this repo would reach these
-tests instead of GitPython the day anything depends on it. A shadowing trap that fires years later
-is worth one word of convention.
+**Named `vcs/` and not `git/`, which would match the hook directory.** pytest puts the parent `gates/` on `sys.path` for the test files that stay there, and a bare `git/` directory under it is an importable namespace package (PEP 420) — so `import git` inside this repo would reach these tests instead of GitPython the day anything depends on it. A shadowing trap that fires years later is worth one word of convention.
 
-**It fired again on 2026-09-13**, which is why shared fixtures here live in `vcs_repos.py` and not
-in a `conftest.py`: three files in this directory import `WORKSPACE_ROOT` from the ROOT conftest by
-bare name, so a `conftest.py` beside them wins on `sys.path` and collection dies for the whole
-directory. Same trap, second mechanism — pytest's fixture merging is not what breaks, the bare
-import is.
+**It fired again on 2026-09-13**, which is why shared fixtures here live in `vcs_repos.py` and not in a `conftest.py`: three files in this directory import `WORKSPACE_ROOT` from the ROOT conftest by bare name, so a `conftest.py` beside them wins on `sys.path` and collection dies for the whole directory. Same trap, second mechanism — pytest's fixture merging is not what breaks, the bare import is.
 
 <!-- routing:start -->
 ## Routing

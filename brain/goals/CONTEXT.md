@@ -42,6 +42,6 @@
 | [`travel.md`](travel.md) | [ fun | travel | near ] travel |
 | [`vipassana.md`](vipassana.md) | [ spiritual | mind | year ] vipassana |
 | [`voice.md`](voice.md) | [ spiritual | body | near ] voice |
-| [`workspace-os.md`](workspace-os.md) | [ health | mental | year ] workspace OS |
+| [`workspace-os.md`](workspace-os.md) | [ craft | workspace | year ] workspace OS |
 | [`yoga.md`](yoga.md) | [ spiritual | body | year ] yoga |
 <!-- routing:end -->

@@ -1,14 +1,10 @@
 # ratchets
 > Whether the backlog is shrinking — one ceiling per defect, and every ceiling only ever goes down.
 
-These answer a different question from the checks they call. `law/entropy/` owns whether each check
-**fires correctly**; these own whether the tree is **carrying less of what it finds** than it was.
-That is why a ceiling is paired with a staleness test in each file: a ratchet nobody lowers is just
-a baseline, and a baseline is where drift hides.
+These answer a different question from the checks they call. `law/entropy/` owns whether each check **fires correctly**; these own whether the tree is **carrying less of what it finds** than it was.
+That is why a ceiling is paired with a staleness test in each file: a ratchet nobody lowers is just a baseline, and a baseline is where drift hides.
 
-One ceiling per defect, never one shared. Until 2026-08-15 the placeholder marker was counted as
-finished-work writing, so seventy markers could have masked seventy new dead items without the number
-moving.
+One ceiling per defect, never one shared. Until 2026-08-15 the placeholder marker was counted as finished-work writing, so seventy markers could have masked seventy new dead items without the number moving.
 
 <!-- routing:start -->
 ## Routing

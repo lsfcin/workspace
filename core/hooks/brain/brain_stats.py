@@ -94,9 +94,12 @@ def load_goal_files():
     files = {}
     for f in sorted(GOALS_DIR.glob("*.md")):
         name = f.stem
-        # `_`-prefixed files are scaffolding, never goals. This replaces an
-        # ALL-CAPS skip that only worked while the template was ARCHETYPE.md.
-        if name.startswith("_"):
+        # `_`-prefixed files are a shape, never a goal — core/SCHEMA.md § A leading underscore
+        # marks a shape, never an instance. The ALL-CAPS skip beside it is NOT redundant and was
+        # dropped once, when this replaced a skip that only worked while the template was
+        # ARCHETYPE.md: an uppercase name is a document TYPE by the same law, so `brain/goals/
+        # CONTEXT.md` came back as a goal called `CONTEXT` with a row and a bar of its own.
+        if name.startswith("_") or name.isupper():
             continue
         files[name] = f
     return files

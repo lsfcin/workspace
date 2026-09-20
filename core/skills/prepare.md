@@ -25,17 +25,14 @@ With clarified intent, classify the task:
 - **Ambiguity**: well-defined vs open-ended
 
 Produce the final structured response:
-- `optimized_prompt`: rewritten, specific, contextualized prompt (incorporating the interview answers) and asking for a
-  plan
+- `optimized_prompt`: rewritten, specific, contextualized prompt (incorporating the interview answers) and asking for a plan
 - `level`: recommended model level (`low`/`medium`/`high`/`max`)
 - `effort`: recommended effort level (`low`/`medium`/`high`/`max`)
 - `rationale`: one-sentence justification
 - `interview`: leave opened the space for interviews if the agent needs 
 
 ### Flow routing
-If the task is a multi-file coding feature (new behavior, not a trivial fix), recommend running it through `/craft` (the
-craft flow, `core/flows/craft/craft.md`) instead of a single optimized prompt — it handles clarify/plan/TDD/ship with
-per-task model routing.
+If the task is a multi-file coding feature (new behavior, not a trivial fix), recommend running it through `/craft` (the craft flow, `core/flows/craft/craft.md`) instead of a single optimized prompt — it handles clarify/plan/TDD/ship with per-task model routing.
 
 ### Level guide
 - `low` / e.g., `haiku`: trivial fixes, one-liners, simple searches

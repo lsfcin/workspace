@@ -121,7 +121,7 @@ def test_the_ablation_switch_turns_one_feature_off(monkeypatch):
 
 
 def _asks_the_law(hook: str, tmp_path) -> set:
-    """Slugs the hook really asks about — recorded from a run, not read off the source.
+    """Names the hook really asks about — recorded from a run, not read off the source.
 
     A sitecustomize wraps `feature_law.is_enabled` before the hook's own code loads, so the
     hook's law consultation lands in the log. The payload has to carry a command AND a

@@ -34,8 +34,16 @@ def retired_hits(files: list, retired: dict, exempt: set) -> list:
     # as much inside `fable-loop-engineering.md` or `entropy_ledger.py` as standing alone, and
     # that compound form is how an unfinished rename hides at the leaves. `\w` covered the
     # hyphen and missed the underscore until 2026-09-14, blinding this to every identifier.
-    patterns = {token: re.compile(rf'(?<![A-Za-z0-9]){re.escape(token)}(?![A-Za-z0-9])')
-                for token in retired}
+    #
+    # AN INFLECTION IS THE SAME WORD, and until 2026-09-18 none of them counted: the exact token
+    # alone was matched, so `tiers`, `sharding` and `Slugs` sat in tracked files while the check
+    # reported zero and the table claimed three finished renames. A rename nobody can see is
+    # unfinished is worse than no rename — the row is what makes it true, so the row has to be
+    # able to fail. A trailing `e` is dropped before suffixing so `probe` reaches `probing`.
+    patterns = {token: re.compile(
+        rf'(?<![A-Za-z0-9])(?:{re.escape(token)}'
+        rf'|{re.escape(token[:-1] if token.endswith("e") else token)}(?:s|es|d|ed|ing))'
+        rf'(?![A-Za-z0-9])') for token in retired}
     hits = []
     for path in files:
         if path.resolve() in exempt:
@@ -57,7 +65,7 @@ def retired_hits(files: list, retired: dict, exempt: set) -> list:
 
 
 def item_ids(path: Path) -> set:
-    """Slugs this file claims as items — bracketed, in item position."""
+    """Item ids this file claims — bracketed, in item position."""
     try:
         return set(ITEM_ID.findall(path.read_text(encoding='utf-8')))
     except (OSError, UnicodeDecodeError):

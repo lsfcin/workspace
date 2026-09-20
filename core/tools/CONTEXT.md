@@ -1,11 +1,9 @@
 # Tools
 > CLI tools callable via bash, one directory per family; routing block auto-synced on save.
 
-**A family directory is the feature; the tool inside it is the provider.** `mail/gmail`,
-`calendar/gcalendar`, `files/gdrive` — swapping a provider changes a leaf, never a family.
+**A family directory is the feature; the tool inside it is the provider.** `mail/gmail`, `calendar/gcalendar`, `files/gdrive` — swapping a provider changes a leaf, never a family.
 
-Naming rules, the auth-failure protocol, how to add a tool, and the one capability here with no CLI
-wrapper: [`SPECS.md`](SPECS.md).
+Naming rules, the auth-failure protocol, how to add a tool, and the one capability here with no CLI wrapper: [`SPECS.md`](SPECS.md).
 
 Call any tool via bash — `core/run tools/<family>/<provider> <args>`:
 ```

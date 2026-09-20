@@ -1,9 +1,6 @@
 # [ career | ai | now ] craft flows
 
-Levar a sério e aplicar craft flows: desenvolvimento em loops explícitos (clarificar → planejar → branch → arquitetura →
-TDD → codificar → user-test → commit), com autorouting — o plano de cada feature designa qual modelo/agente executa cada
-etapa e com qual esforço. Comunicação entre loops gravada em arquivos (`.craft/`), pra sessões de modelos menores
-carregarem só o necessário, nunca o histórico da conversa. Meta: economizar tokens, não gastar mais.
+Levar a sério e aplicar craft flows: desenvolvimento em loops explícitos (clarificar → planejar → branch → arquitetura → TDD → codificar → user-test → commit), com autorouting — o plano de cada feature designa qual modelo/agente executa cada etapa e com qual esforço. Comunicação entre loops gravada em arquivos (`.craft/`), pra sessões de modelos menores carregarem só o necessário, nunca o histórico da conversa. Meta: economizar tokens, não gastar mais.
 
 >**signals**  
 transformative · essential · thrilled
@@ -11,14 +8,8 @@ transformative · essential · thrilled
 >**owns**  
 `core/flows/craft` · `core/skills/craft.md` · `code/flows`
 
-> **Vocabulário: o termo canônico é *flow*, não *loop*.** Racional e modelo de composição
-> (flows compõem flows via `uses:`, grafo **acíclico**, ciclo só em execução com teto de
-> iterações) em [`core/SCHEMA-layers.md`](../../core/SCHEMA-layers.md) § *Composition and cycles*; as grafias
-> aposentadas estão em § *Retired tokens* e são verificadas por hook. Os flows vivem em
-> [`core/flows/craft/`](../../core/flows/craft/CONTEXT.md), executados por `craft-{low,medium,high}`.
-> **A renomeação fechou em 2026-08-20**: a skill virou `/craft` em 2026-08-17 e o dir de estado
-> virou `.craft/<name>/`. Ambas as grafias aposentadas já têm linha na tabela § *Retired tokens*,
-> então a volta do termo agora quebra o build em vez de virar entropia.
+> **Vocabulário: o termo canônico é *flow*, não *loop*.** Racional e modelo de composição (flows compõem flows via `uses:`, grafo **acíclico**, ciclo só em execução com teto de iterações) em [`core/SCHEMA-layers.md`](../../core/SCHEMA-layers.md) § *Composition and cycles*; as grafias aposentadas estão em § *Retired tokens* e são verificadas por hook. Os flows vivem em [`core/flows/craft/`](../../core/flows/craft/CONTEXT.md), executados por `craft-{low,medium,high}`.
+> **A renomeação fechou em 2026-08-20**: a skill virou `/craft` em 2026-08-17 e o dir de estado virou `.craft/<name>/`. Ambas as grafias aposentadas já têm linha na tabela § *Retired tokens*, então a volta do termo agora quebra o build em vez de virar entropia.
 
 ## selected next achievement
     [opencode-reliability] (A2) executar UM chain completo no opencode (menor feature isoroll) com MESMO modelo via
@@ -27,91 +18,36 @@ transformative · essential · thrilled
 
 **ease-start**  
 Abrir `core/flows/craft/craft.md` `## Field Practice` (7 runs auditados, A1 DONE nesta sessão 2026-07-16). Setup mínima:
-um `.craft/` chain de feature isoroll pequena, mesmo modelo (z-ai/glm-5.2 ou viewport) em opencode e Claude Code, em
-paralelo. Compara só os artefatos finais + verdict do Loop 6.
+um `.craft/` chain de feature isoroll pequena, mesmo modelo (z-ai/glm-5.2 ou viewport) em opencode e Claude Code, em paralelo. Compara só os artefatos finais + verdict do Loop 6.
 
 ## backlog
 
-> [x] [iterate] ajustar flags de retorno e tabela de roteamento após 7 usos reais — DONE 2026-07-16 (A1; ver [A1] em `##
-> done`)
+> [x] [iterate] ajustar flags de retorno e tabela de roteamento após 7 usos reais — DONE 2026-07-16 (A1; ver [A1] em `## done`)
 > [x] [skill-tree] montar árvore de loops pessoais — DONE 2026-07-18: craft tree = router (`core/flows/craft/route.md`)
-> + 4 folders (padaria/feature/research/architecture); mapa em `core/flows/craft/TREE.md`. Feature folder = SDD
-> contract-first (painel de permissão no Loop 0, Loop 3.5 Contract Layout, revisão de simetria de conceitos no Loop
-> 3).  
-> [x] [craft-flows] executar os 8 passos do item craft-flows de `core/ROADMAP.md` — DONE 2026-07-23: passos 1–6
-> (renomeação
-> loop→flow + `flows/craft/` + goal→`craft-flows.md`; `sota` redefinido; `scout uses: sota`; template canônico; guarda
-> de DAG no `validate_flows`). passo 7 (split do monolito `craft.md` em craft/routing/runtimes/prior-art) e passo 8
-> (suite caveman trazida pra dentro do workspace em `core/skills/caveman/`, links globais via
-> `core/tools/wos/sync-global-skills`). Casa com [loop-anchors] (grafo de flows) e [prompt-dsl] (contrato tipado na
-> aresta entre flows)  
-> [ ] [prompt-dsl] DSLs como contratos entre agentes: cada agente especializado usa uma DSL própria; prompt só é
-> repassado se o parsing é perfeito (sem ambiguidade). Questão aberta: LLMs lidam bem com gramáticas novas? Avaliar
-> acoplar tools à LLM pra facilitar parse DSL (ver [C-C] skill-library; spacemantics texpace é o caso-teste concreto)  
-> [ ] [A2] [opencode-reliability] executar UM chain completo no opencode (menor feature isoroll) com MESMO modelo via
-> openrouter em paralelo com uma run Claude Code; comparar verdicts/files; decidir: ajustar plugin OU trocar provider OU
-> scope /craft ao Claude Code só. Dados: NENHUMA run `.craft/` em opencode hoje (todos os executor: tags são
-> craft-low/medium/high/claude-fable-5 via Claude Code)  
+> + 4 folders (padaria/feature/research/architecture); mapa em `core/flows/craft/TREE.md`. Feature folder = SDD contract-first (painel de permissão no Loop 0, Loop 3.5 Contract Layout, revisão de simetria de conceitos no Loop 3).  
+> [x] [craft-flows] executar os 8 passos do item craft-flows de `core/ROADMAP.md` — DONE 2026-07-23: passos 1–6 (renomeação loop→flow + `flows/craft/` + goal→`craft-flows.md`; `sota` redefinido; `scout uses: sota`; template canônico; guarda de DAG no `validate_flows`). passo 7 (split do monolito `craft.md` em craft/routing/runtimes/prior-art) e passo 8 (suite caveman trazida pra dentro do workspace em `core/skills/caveman/`, links globais via `core/tools/wos/sync-global-skills`). Casa com [loop-anchors] (grafo de flows) e [prompt-dsl] (contrato tipado na aresta entre flows)  
+> [ ] [prompt-dsl] DSLs como contratos entre agentes: cada agente especializado usa uma DSL própria; prompt só é repassado se o parsing é perfeito (sem ambiguidade). Questão aberta: LLMs lidam bem com gramáticas novas? Avaliar acoplar tools à LLM pra facilitar parse DSL (ver [C-C] skill-library; spacemantics texpace é o caso-teste concreto)  
+> [ ] [A2] [opencode-reliability] executar UM chain completo no opencode (menor feature isoroll) com MESMO modelo via openrouter em paralelo com uma run Claude Code; comparar verdicts/files; decidir: ajustar plugin OU trocar provider OU scope /craft ao Claude Code só. Dados: NENHUMA run `.craft/` em opencode hoje (todos os executor: tags são craft-low/medium/high/claude-fable-5 via Claude Code)  
 > [ ] [A3] adicionar `.craft/<name>/STATUS.md` por chain (active | blocked-flag-pending-user | abandoned | shipped) —
 > Loop 0 cria, Loop 6 muta; `/craft --status` = `cat code/*/.craft/*/STATUS.md`. Motivação:
-> `isoroll-module/.craft/floor-fog-spike` e `.craft/painter-mvp-1` pararam sem 6-ship e sem status visível
-> [ ] [B1] second-opinion verifier em Loop 3 + Loop 6 (sessão fresh haiku, retorna `OK crit-covered:` | `GAP <id>`).
-> Fecha o gap vs. Voyager (Wang 2023) e vs. Anthropic best-practices ("fresh subagent context... not the reasoning that
-> produced the change"). ESPEC em `core/flows/craft/craft.md` `## Second-opinion verifier`
-> [ ] [B2] separar `## Field Practice` das field notes (LOAD-BEARING) — feito neste commit (nova seção com tabela de
-> overrides)
-> [ ] [B3] extrair `export-manifest` integration-gap catch num `## Case Study` no flow file — feito neste commit
-> [ ] [C1] research-loops: variante do flow para `core/flows/research/{deep,literature,explore}` — mesmo mecanismo
-> Carry; onde a parallel fan-out dobra é a extensão natural (Voyager continua: skill library + auto-curriculum)
-> [ ] [C2] testar o flow: um tagged-fixture repo synth em `core/flows/__loop-fixture__/` + assertion que 8 loop files
-> aparecem com executor tags corretos pós dry-run; CI-runnable
-> [ ] [loop-anchors] contra-métricas e âncoras duras pro próprio flow de loops — tese de um carrossel que estava travado
-> no INBOX desde 20/07 ("craft flows is dead, o pessoal está migrando pra um *grafo* de loops"): loop único falha
-> estruturalmente, não por acidente (lei de Goodhart, cegueira a alvos ruins, conflito entre loops, decaimento da
-> medição). O remédio que ML de produção já usa: métricas pareadas, hierarquia sobre alvos, arbitragem explícita, e
-> loops de auditoria que o otimizador nunca vê. **A pegadinha que interessa aqui**: um grafo totalmente cabeado ainda
-> pode ser circular — consistente, tudo verde, e desconectado da realidade — a menos que algo nele seja âncora dura.
+> `isoroll-module/.craft/floor-fog-spike` e `.craft/painter-mvp-1` pararam sem 6-ship e sem status visível [ ] [B1] second-opinion verifier em Loop 3 + Loop 6 (sessão fresh haiku, retorna `OK crit-covered:` | `GAP <id>`).
+> Fecha o gap vs. Voyager (Wang 2023) e vs. Anthropic best-practices ("fresh subagent context... not the reasoning that produced the change"). ESPEC em `core/flows/craft/craft.md` `## Second-opinion verifier` [ ] [B2] separar `## Field Practice` das field notes (LOAD-BEARING) — feito neste commit (nova seção com tabela de overrides)
+> [ ] [B3] extrair `export-manifest` integration-gap catch num `## Case Study` no flow file — feito neste commit [ ] [C1] research-loops: variante do flow para `core/flows/research/{deep,literature,explore}` — mesmo mecanismo Carry; onde a parallel fan-out dobra é a extensão natural (Voyager continua: skill library + auto-curriculum)
+> [ ] [C2] testar o flow: um tagged-fixture repo synth em `core/flows/__loop-fixture__/` + assertion que 8 loop files aparecem com executor tags corretos pós dry-run; CI-runnable [ ] [loop-anchors] contra-métricas e âncoras duras pro próprio flow de loops — tese de um carrossel que estava travado no INBOX desde 20/07 ("craft flows is dead, o pessoal está migrando pra um *grafo* de loops"): loop único falha estruturalmente, não por acidente (lei de Goodhart, cegueira a alvos ruins, conflito entre loops, decaimento da medição). O remédio que ML de produção já usa: métricas pareadas, hierarquia sobre alvos, arbitragem explícita, e loops de auditoria que o otimizador nunca vê. **A pegadinha que interessa aqui**: um grafo totalmente cabeado ainda pode ser circular — consistente, tudo verde, e desconectado da realidade — a menos que algo nele seja âncora dura.
 > Aplicar ao `/craft`: quais números o otimizador NÃO pode tocar? Hoje o Loop 6 dá verdict sem contra-métrica nenhuma;
 > [B1] second-opinion verifier é meio caminho, mas verificador ≠ contra-métrica. Fonte:
 > https://www.instagram.com/p/DbBDnp6DcKV/ (INBOX 2026-07-23)  
-> [ ] [level-briefing] padrão "three-lane": modelo barato lê TUDO (emails, docs, transcripts) e comprime num briefing
-> curto; modelo caro só toca o briefing. É o mesmo princípio do autorouting do `/craft` (craft-low/medium/high) aplicado
-> à *ingestão* em vez da execução — hoje o roteamento decide quem executa, não quem lê. Casa com `/gmail` triage e com o
-> dreno do INBOX. Ref em `core/refs/REFS.md` (INBOX 2026-07-23)  
-> [ ] [C-C] Loop 6.5 Skill Extraction (Voyager skill-library primitive) — spec no flow file; pilot em 1 chain real com
-> `keep-trail: yes`
-> [ ] [D1] `last-reviewed: 2026-07` + `next-review-by: 2026-10` na tabela volátil de modelos — feito neste commit
-> [ ] [D2] cross-ref dobra ↔ loops: kinship Voyager/LATM; "artifact is the memory" thesis compartilhada — feito neste
-> commit (`code/dobra/CONTEXT.md` Overview)
+> [ ] [level-briefing] padrão "three-lane": modelo barato lê TUDO (emails, docs, transcripts) e comprime num briefing curto; modelo caro só toca o briefing. É o mesmo princípio do autorouting do `/craft` (craft-low/medium/high) aplicado à *ingestão* em vez da execução — hoje o roteamento decide quem executa, não quem lê. Casa com `/gmail` triage e com o dreno do INBOX. Ref em `core/refs/REFS.md` (INBOX 2026-07-23)  
+> [ ] [C-C] Loop 6.5 Skill Extraction (Voyager skill-library primitive) — spec no flow file; pilot em 1 chain real com `keep-trail: yes` [ ] [D1] `last-reviewed: 2026-07` + `next-review-by: 2026-10` na tabela volátil de modelos — feito neste commit [ ] [D2] cross-ref dobra ↔ loops: kinship Voyager/LATM; "artifact is the memory" thesis compartilhada — feito neste commit (`code/dobra/CONTEXT.md` Overview)
 > [x] [iterate] ajustar flags de retorno e tabela de roteamento após 3 usos reais → DONE 2026-07-16 (ver [A1] acima;
 > feito aos 7 usos, não aos 3)
-> [ ] [opencode-reliability] investigar se drift (idioma, contexto, reasoning louco mesmo em Kimi 2.6) é do opencode ou
-> do modelo — testar mesmo modelo via claude code/openrouter; decidir: ajustar opencode OU trocar de ferramenta pros
-> loops não-Claude → ver [A2] acima
-> [ ] [verify-step] etapa de verificação (verify) explícita no flow — usar /verify no loop 5 (user-test) → coberto por
-> [B1] second-opinion verifier
-> [ ] [skills-scan] etapa no flow: revisar melhores skills disponíveis online antes de executar
-> [ ] [research-loops] variante de pesquisa do flow de loops (falta) — integrar
-> core/flows/research/{deep,literature,explore} ao padrão .craft/ → ver [C1] acima
-> [ ] [pipeline-step-review] adicionar etapa de pipeline dedicada (visual/usabilidade) + revisá-la
-> [ ] [arch-algo-vs-lib] etapa de arquitetura: decidir algoritmo ANTES de escolher biblioteca
-> [ ] [simplicity-gap] investigar por que agente (mesmo Fable) produz soluções mais complexas/tortuosas que o design
-> humano — ex. tinyglade-like no isoroll (etapas humanas eram simples/didáticas); motiva etapas arquitetura+review  
-> [ ] [graph-native] avaliar a orquestração graph-native de agentes do Claude Code contra o que `code/flows` já faz — e
-> checar se o tal "Graph Engineering" (Microsoft/Stanford/Anthropic) existe de fato; o próprio post diz que só um dos
-> dois é real (ref em `core/refs/REFS.md`, INBOX 2026-07-29)  
-> [ ] [router-tarefa-modelo] checar o router de tarefa→modelo do reel (o artefato mora num canal de broadcast) contra o
-> que `core/tools/wos/levels` e o autorouting do `/craft` já fazem — Lucas: *"essa é uma ideia antiga, vale a pena
-> checar"*. Irmão de [level-briefing]; ref em `core/refs/REFS.md` (— via aiwbot 2026-09-16). **O caso sério do mesmo
-> tema é o HydraFusion do GitHub** (*"temos que testar isso"*, INBOX 2026-09-05): três fluxos — SINGLE, CASCADE
-> (barato tenta, caro assume se não passar a régua) e CRITIQUE (um escreve, outro revisa, o primeiro corrige) — com
-> 67% menos custo e qualidade acima do nosso nível alto num benchmark, mas **abaixo em dois outros**, o que é o dado
-> que interessa. CASCADE e CRITIQUE são exatamente [B1] second-opinion e o autorouting; medir contra eles  
+> [ ] [opencode-reliability] investigar se drift (idioma, contexto, reasoning louco mesmo em Kimi 2.6) é do opencode ou do modelo — testar mesmo modelo via claude code/openrouter; decidir: ajustar opencode OU trocar de ferramenta pros loops não-Claude → ver [A2] acima [ ] [verify-step] etapa de verificação (verify) explícita no flow — usar /verify no loop 5 (user-test) → coberto por [B1] second-opinion verifier [ ] [skills-scan] etapa no flow: revisar melhores skills disponíveis online antes de executar [ ] [research-loops] variante de pesquisa do flow de loops (falta) — integrar core/flows/research/{deep,literature,explore} ao padrão .craft/ → ver [C1] acima [ ] [pipeline-step-review] adicionar etapa de pipeline dedicada (visual/usabilidade) + revisá-la [ ] [arch-algo-vs-lib] etapa de arquitetura: decidir algoritmo ANTES de escolher biblioteca [ ] [simplicity-gap] investigar por que agente (mesmo Fable) produz soluções mais complexas/tortuosas que o design humano — ex. tinyglade-like no isoroll (etapas humanas eram simples/didáticas); motiva etapas arquitetura+review  
+> [ ] [graph-native] avaliar a orquestração graph-native de agentes do Claude Code contra o que `code/flows` já faz — e checar se o tal "Graph Engineering" (Microsoft/Stanford/Anthropic) existe de fato; o próprio post diz que só um dos dois é real (ref em `core/refs/REFS.md`, INBOX 2026-07-29)  
+> [ ] [router-tarefa-modelo] checar o router de tarefa→modelo do reel (o artefato mora num canal de broadcast) contra o que `core/tools/wos/levels` e o autorouting do `/craft` já fazem — Lucas: *"essa é uma ideia antiga, vale a pena checar"*. Irmão de [level-briefing]; ref em `core/refs/REFS.md` (— via aiwbot 2026-09-16). **O caso sério do mesmo tema é o HydraFusion do GitHub** (*"temos que testar isso"*, INBOX 2026-09-05): três fluxos — SINGLE, CASCADE (barato tenta, caro assume se não passar a régua) e CRITIQUE (um escreve, outro revisa, o primeiro corrige) — com 67% menos custo e qualidade acima do nosso nível alto num benchmark, mas **abaixo em dois outros**, o que é o dado que interessa. CASCADE e CRITIQUE são exatamente [B1] second-opinion e o autorouting; medir contra eles  
 
 ## seed (INBOX 2026-07 — insumo da sessão Fable)
 
-- loop 0 — clarificar: intenção, motivação, refs, arquivos, resultado esperado, ambição, criticidade/tolerância,
-  critérios, inovação vs padaria
+- loop 0 — clarificar: intenção, motivação, refs, arquivos, resultado esperado, ambição, criticidade/tolerância, critérios, inovação vs padaria
 - loop 1 — planejar; revisar plano assumindo que modelos menores executarão; flag de retorno
 - loop 2 — branch da feature; garantir lugar/código corretos
 - loop 3 — arquitetura de alto nível + avaliação; flag de retorno
@@ -119,8 +55,7 @@ paralelo. Compara só os artefatos finais + verdict do Loop 6.
 - loop 4b — codificar até passar; rodar testes; flag de retorno
 - loop 5 — teste de usuário complexo automatizado; avaliar; flag de retorno
 - loop 6 — commit e push
-- autorouting: o plano designa agente/modelo por etapa (INBOX: "um agente planeja e no plano já aparece qual outro
-  agente deveria executar cada parte")
+- autorouting: o plano designa agente/modelo por etapa (INBOX: "um agente planeja e no plano já aparece qual outro agente deveria executar cada parte")
 
 ## done
 

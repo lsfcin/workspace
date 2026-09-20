@@ -2,7 +2,7 @@
 import json, pathlib, sys, tempfile
 
 AQUI = pathlib.Path(__file__).resolve().parent
-sys.path.insert(0, str(AQUI.parents[2] / "core" / "tools" / "notes"))
+sys.path.insert(0, str(AQUI.parents[3] / "core" / "tools" / "notes"))
 import notion_lines  # noqa: E402
 
 PAGINA = "0bd17453-ea83-4019-ba38-22a79d0114ce"
