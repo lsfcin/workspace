@@ -1,5 +1,6 @@
 # References
-> Captured references for the ecovila lot — construction technique, ecological building, terrain. Level-1 links in `refs/REFS.md`.
+> Captured references for the ecovila lot — construction technique, ecological building, terrain. Level-1 links in
+> `refs/REFS.md`.
 
 <!-- routing:start -->
 ## Routing

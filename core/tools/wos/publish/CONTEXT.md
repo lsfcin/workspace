@@ -1,5 +1,6 @@
 # publish
-> What crosses into the public repo his students clone, what no feature claims, and the refusal that runs before the first byte is copied.
+> What crosses into the public repo his students clone, what no feature claims, and the refusal
+> that runs before the first byte is copied.
 
 ```
 core/run tools/wos/publish/repo             # what crosses, what does not, what escapes

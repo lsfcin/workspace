@@ -1,5 +1,6 @@
 # VERIFY — Agent Verification & Enforcement Roadmap
-> Testing-discipline rollout for `code/` projects: make agents verify their own results (no human eye per prompt) and enforce code centralization. Pilot: isoroll-module. Second: apptime.
+> Testing-discipline rollout for `code/` projects: make agents verify their own results (no human
+> eye per prompt) and enforce code centralization. Pilot: isoroll-module. Second: apptime.
 
 **Lifecycle: transient initiative doc** (REFACTOR.md species, one level up — lives beside `code/CONTEXT.md` instead of inside one project) — NOT workspace structure. Linked from root `SETUP.md` and `code/CONTEXT.md` on purpose (this is where the verify:fast contract those files enforce is tracked). Endstate: once every `code/` project has a real contract and A1 (apptime)
 completes, surviving durable rules stay in `core/tools/verify/CONTEXT.md` (already done at W3)

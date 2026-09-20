@@ -1,5 +1,6 @@
 # routing — Specs
-> What the routing generator writes into an authored document, and where every file's one-line description has to come from.
+> What the routing generator writes into an authored document, and where every file's one-line
+> description has to come from.
 
 Companion to [`CONTEXT.md`](CONTEXT.md), which routes into this directory. Moved out of [`../SPECS.md`](../SPECS.md) on 2026-09-05: the enforcement layer's spec had grown to 376 lines against a 200 cap, and a rule about what a generator writes belongs beside the generator rather than in the root's law.
 

@@ -1,6 +1,7 @@
 # Style and size
 > How a file is written, how big it may get, and when a directory splits.
-> governs: every file under code/ enforced-by: core/hooks/checks/, eslint.shared.js
+> governs: every file under code/
+> enforced-by: core/hooks/checks/, eslint.shared.js
 
 ## Style Rules (R1-R6)
 

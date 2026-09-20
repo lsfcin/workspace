@@ -1,5 +1,6 @@
 # ZCode hook protocol
-> Will ZCode execute this workspace's hook registration in `.zcode/config.json`, and what does a fired hook actually receive?
+> Will ZCode execute this workspace's hook registration in `.zcode/config.json`, and what does a fired hook actually
+> receive?
 
 ## Method
 

@@ -1,7 +1,9 @@
 # Setup — a working clone
-> What must exist before anything else in this workspace runs: the permission level the installing agent works under, the interpreter every tool is spawned with, and the gates that fire on commit.
+> What must exist before anything else in this workspace runs: the permission level the installing
+> agent works under, the interpreter every tool is spawned with, and the gates that fire on commit.
 > Run these in order and stop at the first check that will not pass.
-> feature: permissions, declared-deps, github-auth, git-hooks, skill-mirrors enforced-by: core/tools/test/workspace/test_setup_executable.py
+> feature: permissions, declared-deps, github-auth, git-hooks, skill-mirrors
+> enforced-by: core/tools/test/workspace/test_setup_executable.py
 
 The five-part contract, and the handover rule for the one step marked `agent: no`: [`SETUP.md`](SETUP.md).
 

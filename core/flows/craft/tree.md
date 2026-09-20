@@ -1,5 +1,7 @@
 # The Craft Tree
-> Canonical map of `/craft`: a router classifies each task and dispatches to a folder whose step-sequence fits the work. Goals: [craft-flows](../../../brain/goals/craft-flows.md), [spec-driven-development](../../../brain/goals/spec-driven-development.md).
+> Canonical map of `/craft`: a router classifies each task and dispatches to a folder whose step-sequence fits the
+> work. Goals: [craft-flows](../../../brain/goals/craft-flows.md),
+> [spec-driven-development](../../../brain/goals/spec-driven-development.md).
 
 `/craft` is not one pipeline — it is a **tree**. Different task *types* need different step *sequences*, so the trunk ([`route.md`](route.md)) classifies the task and hands off to the right folder. This file is the map.
 

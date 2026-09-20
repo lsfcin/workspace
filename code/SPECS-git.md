@@ -1,6 +1,7 @@
 # Git Flow
 > Which branches exist, what may be committed where, and when work is pushed.
-> governs: every repo under code/, and the workspace repo itself enforced-by: core/hooks/git/gitflow_gate.py, core/hooks/post-commit
+> governs: every repo under code/, and the workspace repo itself
+> enforced-by: core/hooks/git/gitflow_gate.py, core/hooks/post-commit
 
 ## Git Branching (Git Flow)
 
@@ -24,6 +25,13 @@ All projects under `code/` follow Git Flow:
 
 **Scope of the gate** (moved here from `AGENTS.md` 2026-07-30, when the always-loaded root stopped restating rules a hook already enforces): the gate covers every `code/*` repo **and the workspace repo itself**. Paper repos (`academy/papers/*`) and other nested repos are **exempt** —
 Overleaf is authoritative there and co-authors commit straight to the default branch.
+
+**Two sessions share one index, so `git commit` is not scoped to what you staged.** It commits
+everything in the index, including whatever a parallel session left there. Use `git commit -- <paths>`
+whenever `git status` is not clean, and **write the pathspec before the message, not after**: on
+2026-09-18 three commits used it correctly and the fourth dropped it while a long message was being
+composed, landing 48 files of another session's reorg under an unrelated subject. Recovery is a soft
+reset plus `--force-with-lease`, which is safe only while nobody has committed on top.
 
 **The bypass leaves no trace** outside the commit message, which is the only reason it is dangerous. So when using `--no-verify`: state the reason in the commit message, and file a TODO to pay it back. An undocumented bypass is indistinguishable from the gate never having run.
 

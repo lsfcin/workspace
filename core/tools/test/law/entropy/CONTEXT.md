@@ -1,5 +1,6 @@
 # entropy
-> What each entropy check counts, and where it must stay silent. **One file per check, not one per module** — so a name here answers to a question, and only sometimes to a file next door.
+> What each entropy check counts, and where it must stay silent. **One file per check, not one per
+> module** — so a name here answers to a question, and only sometimes to a file next door.
 
 Split from `law/` 2026-08-15, one word apart from the surface it covers — and that naming holds only where a module IS one check (ruled 2026-08-25, after `ISSUES.md` carried the shortfall as a bug for calling this a mirror it never was). `entropy_list.py` and `entropy_context.py` each answer several questions, so `inventory`, `placeholders` and `retired` are named for the check. `entropy_corpus.py` and `entropy_size.py` have no file because neither is a check — one picks the files the others may look at, the other measures what they find — so both are reached through the tests importing them.
 

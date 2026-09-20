@@ -68,6 +68,21 @@ def test_frontmatter_is_untouched():
     assert reflow_tool.reflow(text) == (text, 0)
 
 
+def test_the_header_block_is_untouched():
+    """`> key: value` lines are FIELDS, and joining two loses one silently.
+
+    header.py reads the first `key:` on a line and treats the rest as that field's value, so a
+    fused pair reports clean while the second field has stopped existing — 18 files, first run.
+    """
+    text = ('# Title\n> a description that wraps\n> onto a second line\n'
+            '> governs: every repo under code/\n> enforced-by: core/hooks/git/gitflow_gate.py\n\n'
+            'body that wraps\nonto two lines.\n')
+    new, removed = reflow_tool.reflow(text)
+    assert removed == 1                                  # the body only
+    assert '> governs: every repo under code/\n> enforced-by:' in new
+    assert '> a description that wraps\n> onto a second line\n' in new
+
+
 def test_a_table_is_untouched():
     text = '| a | b |\n|---|---|\n| one | two |\n'
     assert reflow_tool.reflow(text) == (text, 0)

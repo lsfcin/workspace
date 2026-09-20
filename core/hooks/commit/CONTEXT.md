@@ -1,5 +1,6 @@
 # Commit
-> The git pre-commit and post-commit pipeline: what runs on every commit, in what order, and the one place a commit is refused.
+> The git pre-commit and post-commit pipeline: what runs on every commit, in what order, and the
+> one place a commit is refused.
 
 Contract and what each gate blocks: [`../SPECS.md`](../SPECS.md) § Git pre-commit.
 

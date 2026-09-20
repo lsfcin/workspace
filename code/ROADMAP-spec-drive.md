@@ -1,5 +1,6 @@
 # SPEC-DRIVE — Spec-Driven Development Rollout
-> Enforcement rollout making the spec the contract for `code/` modules: verifiable inputs/outputs/invariants that precede and govern the code. Goal: [spec-driven-development](../brain/goals/spec-driven-development.md).
+> Enforcement rollout making the spec the contract for `code/` modules: verifiable inputs/outputs/invariants that
+> precede and govern the code. Goal: [spec-driven-development](../brain/goals/spec-driven-development.md).
 
 **Lifecycle: transient initiative doc** (ROADMAP-verify.md species — lives beside `code/CONTEXT.md`, not workspace structure). Endstate: once the ratchet has converted the modules that matter and the convention is durable in `code/SPECS.md` + `_templates/`, the surviving rules stay there and this file is deleted (git keeps it). Sibling: [`ROADMAP-verify.md`](ROADMAP-verify.md) (the test-discipline rollout this extends).
 

@@ -1,5 +1,6 @@
 # Tools — Specs
-> What must be true of a `core/tools/` feature, and why: how a family is named, what a failure has to hand back, and what work is the agent's rather than Lucas's.
+> What must be true of a `core/tools/` feature, and why: how a family is named, what a
+> failure has to hand back, and what work is the agent's rather than Lucas's.
 
 Companion to [`CONTEXT.md`](CONTEXT.md), which says what this directory *is* and routes into it.
 These are the constraints. They live here rather than in the head because `CONTEXT.md` is the only enforced-read type — every session touching this folder pays for its head, while this file is read on demand (core/SCHEMA.md § Placement).

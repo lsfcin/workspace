@@ -1,7 +1,10 @@
 # Core Library Schema
-> The law about `.md` documents: which types exist, where a file belongs, how one that outgrew the cap is cut, and which words are canonical. The **tables here are load-bearing** —
+> The law about `.md` documents: which types exist, where a file belongs, how one that outgrew the cap
+> is cut, and which words are canonical. The **tables here are load-bearing** —
 > [`schema_law.py`](hooks/schema_law.py) parses them and no checker restates them. Drift is a bug.
-> answers: what type a file is, where it lives, how it splits, what a word means enforced-by: core/hooks/checks/type-gate.py, core/hooks/entropy/entropy_naming.py, core/hooks/entropy/entropy_list.py, core/tools/wos/skills/validate.py
+> answers: what type a file is, where it lives, how it splits, what a word means
+> enforced-by: core/hooks/checks/type-gate.py, core/hooks/entropy/entropy_naming.py,
+> core/hooks/entropy/entropy_list.py, core/tools/wos/skills/validate.py
 
 <!-- warn-exempt: the tables here are parsed, not read, so a cut moves law rather than prose — and
      the rows a reader needs least are the ones a checker needs most. The block cap still applies. -->

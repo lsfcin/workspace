@@ -1,5 +1,7 @@
 # Craft — Prior Art, Provenance, and Case Study
-> Where this flow comes from, what evidence backs its routing decisions, and one worked failure it caught. **Nothing here is needed to run the flow** — load it when changing the flow, defending it, or writing about it.
+> Where this flow comes from, what evidence backs its routing decisions, and one worked failure it
+> caught. **Nothing here is needed to run the flow** — load it when changing the flow, defending it,
+> or writing about it.
 
 ## Research provenance
 

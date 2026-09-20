@@ -55,11 +55,6 @@ Unblocked 2026-09-15: the machine is dual boot and `/mnt/windows` is that instal
 One session from Windows does it: WSL2 + Ubuntu, clone, `/install`, read the names out of `winget.exe search` / `choco search`. `SETUP.md` names no operating system today, so what that session discovers goes back into it as a step.
 The other two answers are in: `is_owner_only()` reads the ACL back rather than trusting `st_mode`, and `core/tools/deps.txt` carries a `floor` column — a floor, not a ceiling, because the failure is a distro shipping something too old, never a release from the future.
 
-**🟡 six brain features cross into a clone that has nowhere to run them**
-*What* — `brain/`'s SCAFFOLD crossing while its CONTENT stays refused, by the precedence rule `core/public.txt` gained 2026-09-17: the goal-file format, the dashboard's shape and the INBOX marker, with no goal, draft or entry of his.
-*Why* — `brain-dashboard`, `brain-attention`, `inbox-nudge`, `compass-nudge`, `inbox` and `compass` already reach the public repo and all six read a directory that is not there. It is the `bot` asymmetry pointed the other way, found 2026-09-17 by Lucas asking whether brain could be optional.
-*Done when* — a clone can run one of the six and see it do something, with none of his content in it.
-
 ## Deferred — real work, deliberately not now
 
 - **`academy/` as a satellite repo** (Lucas, 2026-09-18) — **reopen when the ablation has a per-feature verdict**, not before. What it would buy is an independent commit lane, which is a real cost paid today: two sessions share one index, and one session's half-written tree refuses the other's commits. What it would cost, measured: 20 hook and tool files name `academy/` directly, 10 of 38 goal files point into it, and `brain/goals/teaching-materials.md` — third-most served file in the workspace — is built out of pointers into it. The only argument available now is lines on disk (18% of the corpus), which is the number this workspace rejects.

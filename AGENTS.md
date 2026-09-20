@@ -35,7 +35,7 @@ open issues, the entropy findings, the last verification result: [`ISSUES.md`](I
 | [`academy/`](academy/CONTEXT.md) | Research, teaching, academic work |
 | [`brain/`](brain/CONTEXT.md) | Personal OS: goals, attention, ideas, life. Agent collaborates here. |
 | [`branches/`](branches/CONTEXT.md) | Personal life management — health, finances, and home construction |
-| [`code/`](code/CONTEXT.md) | Software projects developed under this workspace spec: none |
+| [`code/`](code/CONTEXT.md) | Software projects developed under this workspace |
 | [`core/`](core/CONTEXT.md) | Agent library: skills, agents, prompts, flows, tools. Provider-agnostic. |
 | [`models/`](models/CONTEXT.md) | Local model checkpoints and weights used across research and code projects |
 <!-- routing:end -->

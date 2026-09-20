@@ -1,5 +1,6 @@
 # Forms — Specs
-> The spec format a form is written in, the two grants it authenticates with, and the failure that reads like a permission bug and is not one.
+> The spec format a form is written in, the two grants it authenticates with, and the failure
+> that reads like a permission bug and is not one.
 
 Companion to [`CONTEXT.md`](CONTEXT.md), which says what this directory is and how to call it.
 

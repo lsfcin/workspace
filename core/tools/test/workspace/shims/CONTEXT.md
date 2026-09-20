@@ -1,5 +1,6 @@
 # shims
-> The harness fleet: every provider's registration resolves, reaches the dispatcher, and declares itself in the one place the mirror list lives.
+> The harness fleet: every provider's registration resolves, reaches the dispatcher, and declares
+> itself in the one place the mirror list lives.
 
 Coverage for `core/hooks/copilot/`, `core/hooks/antigravity/`, the `.opencode/` plugin and each harness's own registration file — plus `core/harnesses.txt`, which is the declaration all of them are checked against.
 

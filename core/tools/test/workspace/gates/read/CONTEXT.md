@@ -1,5 +1,6 @@
 # read
-> Coverage for `core/hooks/read/`: who must read what before touching a folder, and who gets handed it instead.
+> Coverage for `core/hooks/read/`: who must read what before touching a folder, and who gets handed
+> it instead.
 
 A gate here and the tracker that clears it are one subject and are tested together on purpose —
 b20260901 was a race between exactly those two, and a suite that filed them apart could not have seen it. The bash arm belongs here for the same reason: the command is a way of reaching a file, so what it must have read first is this directory's question, not the shell's.

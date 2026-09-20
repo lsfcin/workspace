@@ -1,5 +1,7 @@
 # [Project Name]
-> Project scaffolding templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skeletons goal: none spec: none
+> Project scaffolding templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skeletons
+> goal: none
+> spec: none
 <!-- goal: [name](../../brain/goals/<name>.md) — required on line 3 by pre-commit 1c, or 'none'.
      spec: flip to 'SPECS.md' once this module has a contract (author from _templates/SPECS-module.md);
      'none' opts out. New modules under code/ MUST declare a spec — see code/ROADMAP-spec-drive.md. -->

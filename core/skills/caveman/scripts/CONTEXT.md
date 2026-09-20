@@ -1,5 +1,6 @@
 # scripts
-> Compression CLI behind `/caveman compress <file>` — detect file type, call the model, validate, retry. Upstream-synced (adapted, not verbatim).
+> Compression CLI behind `/caveman compress <file>` — detect file type, call the model, validate, retry. Upstream-synced
+> (adapted, not verbatim).
 
 Run from the parent directory: `python3 -m scripts <absolute-filepath>`.
 

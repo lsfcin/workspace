@@ -1,5 +1,6 @@
 # Delegation
-> How often does this workspace actually spawn a subagent, which agent definitions get used, and what does the delegated half cost?
+> How often does this workspace actually spawn a subagent, which agent definitions get used, and
+> what does the delegated half cost?
 
 ## Method
 

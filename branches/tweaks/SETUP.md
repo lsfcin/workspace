@@ -1,5 +1,6 @@
 # tweaks
-> Como deixar as máquinas e os apps do jeito que o Lucas usa. Um ajuste por bloco: o que fazer, e o que já foi decidido.
+> Como deixar as máquinas e os apps do jeito que o Lucas usa. Um ajuste por bloco: o que fazer, e o
+> que já foi decidido.
 
 Um ajuste entra aqui quando sobrevive a formatar a máquina — se é para fazer uma vez e esquecer, é tarefa, não tweak. Ajuste ainda não decidido fica em `## a decidir` até virar passo.
 

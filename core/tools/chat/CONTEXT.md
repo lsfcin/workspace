@@ -1,5 +1,6 @@
 # chat
-> Exported conversation to navigable text — voice notes transcribed inline, bot noise dropped, secrets redacted. Provider leaf: `wazip` (WhatsApp).
+> Exported conversation to navigable text — voice notes transcribed inline, bot noise dropped,
+> secrets redacted. Provider leaf: `wazip` (WhatsApp).
 
 The sibling of [`../video/`](../video/CONTEXT.md), one input apart: that one turns a *link* into text, this one turns a *chat export* into text. The workspace could already read a mailbox and a video and was deaf to WhatsApp — which is where the obra, the feirinha and the instituto actually happen, so the facts lived in audio nobody could grep.
 

@@ -1,6 +1,10 @@
 # The agent-library layers
-> The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this part is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts.
-> answers: what fields each layer requires, which layer may point at which enforced-by: core/tools/wos/skills/validate.py
+> The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law
+> — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this part is the
+> prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two
+> different contracts.
+> answers: what fields each layer requires, which layer may point at which
+> enforced-by: core/tools/wos/skills/validate.py
 
 
 **Execution metadata lives on the executor (agent), never on the skill.** A skill is a trigger, a flow is a procedure, an agent is the thing that runs. The graph is a **sparse typed DAG**, one direction;

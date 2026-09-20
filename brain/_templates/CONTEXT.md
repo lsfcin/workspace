@@ -1,5 +1,6 @@
 # Brain
-> The shape of a brain/ — CONTEXT.md, GOALS.md, INBOX.md and two goal shapes, with nobody's content in them.
+> The shape of a brain/ — CONTEXT.md, GOALS.md, INBOX.md and two goal shapes, with nobody's content
+> in them.
 
 <!-- TWO THINGS AT ONCE, the way code/_templates/CONTEXT.md is: line 2 describes this directory and
      feeds the parent's routing row, and everything below is the template of brain/CONTEXT.md. A

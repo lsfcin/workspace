@@ -1,5 +1,6 @@
 # dashboard
-> The checks that are about the REPORT rather than about the tree: what a list may claim, and what the count was last time.
+> The checks that are about the REPORT rather than about the tree: what a list may claim, and
+> what the count was last time.
 
 Split from [`../`](../CONTEXT.md) 2026-08-25, when the parent passed the hard file cap. The boundary is the one [`core/hooks/entropy/dashboard/`](../../../../../hooks/entropy/dashboard/CONTEXT.md) already uses next door: every check in `core/hooks/entropy/` answers one question about the tree, and these modules ask all of them and render the answer. A test of the rendering belongs with the rendering.
 

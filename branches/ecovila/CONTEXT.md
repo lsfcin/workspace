@@ -1,5 +1,6 @@
 # Ecovila
-> Cockpit da ecovila Santuário dos Jatobás: lote de 200 m² comprado com o pai numa área loteada para casas ecológicas longe de Recife. Goal: [ecovila](../../brain/goals/ecovila.md).
+> Cockpit da ecovila Santuário dos Jatobás: lote de 200 m² comprado com o pai numa área loteada para casas ecológicas
+> longe de Recife. Goal: [ecovila](../../brain/goals/ecovila.md).
 
 Área grande comprada por amigos do pai (e outras pessoas), loteada para construção de casas ecologicamente amigáveis —
 preservar o verde, técnicas agroecológicas, longe da cidade. O lote do Lucas (com o pai, 200 m², boa vista) será um ponto de construção futuro; interesse técnico em mapeamento 3D do terreno.

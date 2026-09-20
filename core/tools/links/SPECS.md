@@ -1,5 +1,6 @@
 # links — Specs
-> Why the redirect is Cloudflare's and not GitHub's, why a private folder gets no short name, and what makes a map that grows forever stay cheap.
+> Why the redirect is Cloudflare's and not GitHub's, why a private folder gets no short name, and what
+> makes a map that grows forever stay cheap.
 
 Companion to [`CONTEXT.md`](CONTEXT.md), which says what this family *is* and how to call it.
 

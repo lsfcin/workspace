@@ -1,5 +1,6 @@
 # The CONTEXT.md chain and who pays for it
-> Does forcing an agent to read a folder's CONTEXT.md chain change what it does — and should a subagent be forced at all?
+> Does forcing an agent to read a folder's CONTEXT.md chain change what it does — and should a
+> subagent be forced at all?
 
 Two runs, one question. The 2026-07-23 ablation asked whether the gate makes an agent *safer*; the 2026-08-15 check asked whether the gate even *fires* for a subagent. The second answer reframes the first: the gate was never protecting workers in the way it was assumed to.
 

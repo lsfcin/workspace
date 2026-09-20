@@ -1,5 +1,6 @@
 # Craft — Provider Routing
-> Which concrete model fills each level, per provider; the availability check; the delegation direction; and how to refresh the table. **VOLATILE** — model ids and prices go stale.
+> Which concrete model fills each level, per provider; the availability check; the delegation
+> direction; and how to refresh the table. **VOLATILE** — model ids and prices go stale.
 
 Load this **once per chain**, in the orchestrator, before Loop 0 — it is what fills the Carry block's `provider:` / `level-map:` fields. Executors never need it: they are handed a resolved `model=` in the spawn prompt. Keeping it out of [`craft.md`](craft.md) is the point — a per-loop session that loads these tables pays for them eight times.
 

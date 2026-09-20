@@ -1,5 +1,6 @@
 # Google Migration
-> Cockpit da migração Google: conta `lsf@cin.ufpe.br` → `lsf.cin@gmail.com` e a fila de download do Drive do cin para o workspace local. Goal: [google-migration](../../brain/goals/google-migration.md).
+> Cockpit da migração Google: conta `lsf@cin.ufpe.br` → `lsf.cin@gmail.com` e a fila de download do Drive do cin para o
+> workspace local. Goal: [google-migration](../../brain/goals/google-migration.md).
 
 A fila de download vive em [ROADMAP.md](ROADMAP.md): 31 linhas, cada uma com o par `local ← Drive path` e o seu próprio estado (marcada/não marcada). O par é uma decisão que não se re-deriva de nenhum dos dois lados sozinho, então as linhas são estado, não resumo.
 
