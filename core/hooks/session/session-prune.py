@@ -28,7 +28,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from platform_law import session_state  # noqa: E402
 
 MAX_AGE_SECONDS = 2 * 24 * 60 * 60
-KINDS = ('ctx_seen', 'iface_seen', 'facades', 'cg_nudged', 'nostub', 'branch', 'ctx_meter',
+KINDS = ('ctx_seen', 'iface_seen', 'facades', 'cg_reminded', 'nostub', 'branch', 'ctx_meter',
          'agent_ctx')
 
 

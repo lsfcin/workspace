@@ -88,7 +88,7 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/nudges.py"
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/reminders.py"
             }
           ]
         }

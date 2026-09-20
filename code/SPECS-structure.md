@@ -35,7 +35,7 @@ when its `CONTEXT.md` carries a `> spec: <path>` line (mirroring the `> goal:` l
 - New module dir (new `CONTEXT.md` under `code/`) → must ship a `SPEC.md` or an explicit `> spec:
   none` opt-out (`pre-commit` block).
 - Editing a spec-locked module's files without reading its SPEC.md this session → hard-blocked (`spec-read-gate`, clone of `context-gate`).
-- Editing a legacy module with no spec → non-blocking nudge only. Coverage grows as modules are touched.
+- Editing a legacy module with no spec → non-blocking reminder only. Coverage grows as modules are touched.
 
 Pilot: [`spacemantics/dsl/SPEC.md`](spacemantics/dsl/SPEC.md) (`status: locked`, `verify: make verify-fast`).
 

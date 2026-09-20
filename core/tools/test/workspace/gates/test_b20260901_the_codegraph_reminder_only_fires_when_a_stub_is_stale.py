@@ -1,7 +1,7 @@
-# b20260901-the-codegraph-nudge-only-fires-when-a-stub-is-stale regression — a suggestion about the
+# b20260901-the-codegraph-reminder-only-fires-when-a-stub-is-stale regression — a suggestion about the
 # PROJECT fires for the project, not for the one file whose stub happens to be out of date.
 #
-# The nudge sat at the foot of the shell gate, reachable on exactly ONE path: a source whose stub was
+# The reminder sat at the foot of the shell gate, reachable on exactly ONE path: a source whose stub was
 # stale. Every other state returned before it — a facade, a type with no interface convention, an
 # absent or empty stub, a stub already read, and a current stub, which blocks before line 89. Its own
 # comment said "one-time per project per session", which describes neither.
@@ -13,7 +13,7 @@
 # failure being fixed on 2026-08-30: a branch that cannot fire is indistinguishable from one with no
 # reason to, twice over, in the same twenty lines.
 #
-# It is NOT emitted on the blocking branch. The harness shows stderr on exit 2, so a nudge printed to
+# It is NOT emitted on the blocking branch. The harness shows stderr on exit 2, so a reminder printed to
 # stdout there would mark itself said on a turn nobody saw it — the same defect one layer down.
 import json
 import shutil
@@ -29,7 +29,7 @@ MARKER = 'codegraph indexed'
 
 # SERIAL, and this file is the second case b20260902 recorded. Every case here creates a real
 # directory under code/ and removes it, so a worker walking that tree beside them hits a path that
-# vanished mid-walk: test_present_tense_state_is_not_a_corpse died on `code/_nudgeprobe5b974581`
+# vanished mid-walk: test_present_tense_state_is_not_a_corpse died on `code/_remindercheck5b974581`
 # exactly that way. The marker was missing until 2026-09-05 because nothing checked the law —
 # core/tools/test/conftest.py's tree guard is what checks it now.
 pytestmark = pytest.mark.serial
@@ -42,7 +42,7 @@ def indexed_project():
 	Built on disk rather than mocked: the defect WAS the guard's reading of a real path, and a fake
 	one would have passed against the shell it replaced.
 	"""
-	project = WORKSPACE_ROOT / f'code/_nudgeprobe{uuid.uuid4().hex[:8]}'
+	project = WORKSPACE_ROOT / f'code/_remindercheck{uuid.uuid4().hex[:8]}'
 	(project / '.codegraph').mkdir(parents=True)
 	(project / 'mod.py').write_text('def g():\n    return 2\n', encoding='utf-8', newline='\n')
 	yield project
@@ -66,7 +66,7 @@ def _stub(project, mtime: str) -> None:
 
 
 @pytest.mark.parametrize('state', ['absent', 'stale'])
-def test_the_nudge_fires_on_every_state_that_lets_the_read_through(indexed_project, state) -> None:
+def test_the_reminder_fires_on_every_state_that_lets_the_read_through(indexed_project, state) -> None:
 	if state == 'stale':
 		_stub(indexed_project, 'stale')
 	result = _read(indexed_project / 'mod.py', f'test-{uuid.uuid4()}')
@@ -77,7 +77,7 @@ def test_the_nudge_fires_on_every_state_that_lets_the_read_through(indexed_proje
 		f'was not made:\n{result.stdout!r}')
 
 
-def test_the_nudge_names_the_project_root_not_the_file(indexed_project) -> None:
+def test_the_reminder_names_the_project_root_not_the_file(indexed_project) -> None:
 	result = _read(indexed_project / 'mod.py', f'test-{uuid.uuid4()}')
 	assert str(indexed_project) in result.stdout
 	assert 'mod.py' not in result.stdout.split(MARKER, 1)[1]
@@ -92,11 +92,11 @@ def test_it_is_said_once_per_project_per_session(indexed_project) -> None:
 	second = _read(indexed_project / 'other.py', session)
 
 	assert MARKER in first.stdout
-	assert MARKER not in second.stdout, 'a per-project nudge repeated for a second file'
+	assert MARKER not in second.stdout, 'a per-project reminder repeated for a second file'
 
 
-def test_a_blocked_read_does_not_spend_the_nudge(indexed_project) -> None:
-	"""Exit 2 shows stderr, so a stdout nudge there is marked said and never seen. The next read
+def test_a_blocked_read_does_not_spend_the_reminder(indexed_project) -> None:
+	"""Exit 2 shows stderr, so a stdout reminder there is marked said and never seen. The next read
 	that actually goes through is the one that must carry it."""
 	_stub(indexed_project, 'current')
 	session = f'test-{uuid.uuid4()}'

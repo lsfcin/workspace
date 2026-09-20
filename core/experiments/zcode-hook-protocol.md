@@ -34,7 +34,7 @@ Run detail (2026-09-04, ZCode 3.8.1, trusted):
   `hook_input.py` tolerates the shape as-is.
 - Exit-2 fidelity: the WebFetch deny check's plain-text stdout reason (`CHECK-DENY-PLAIN: …`) reached the agent **verbatim** as the tool error. 2A stands —
   no adapter `zcode-hook.py` is needed.
-- Canonical gates fired under ZCode in the same session: the Read context-gate and the Bash context-gate both blocked exactly as they do under Claude Code; the pre-edit chain fired on the B5 edits themselves, and the SessionStart list (prune, branch marker, mirror-heal, nudges) ran with the check.
+- Canonical gates fired under ZCode in the same session: the Read context-gate and the Bash context-gate both blocked exactly as they do under Claude Code; the pre-edit chain fired on the B5 edits themselves, and the SessionStart list (prune, branch marker, mirror-heal, reminders) ran with the check.
 
 ## What changed
 
@@ -44,6 +44,6 @@ Run detail (2026-09-04, ZCode 3.8.1, trusted):
 
 ## Limitations
 
-- Only SessionStart got a check **dump** — the other events were verified indirectly, by the gates' visible behavior (blocks, nudges), not by payload capture. Per-event stdin for PreToolUse/PostToolUse is assumed Claude-compatible from the SessionStart schema, not dumped.
+- Only SessionStart got a check **dump** — the other events were verified indirectly, by the gates' visible behavior (blocks, reminders), not by payload capture. Per-event stdin for PreToolUse/PostToolUse is assumed Claude-compatible from the SessionStart schema, not dumped.
 - One machine, one ZCode version (3.8.1, Linux); the trust gate's UI wording/flow was not observed, only its log signature.
 - Sonda 1 could not separate "config re-read at session start" from "diagnostics emitted per event" — both are consistent with the log.

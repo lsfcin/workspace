@@ -67,9 +67,9 @@ toggle	opencode-plugin	on
 toggle	antigravity-hooks	on
 toggle	brain-dashboard	on
 toggle	brain-attention	on
-toggle	inbox-nudge	on
-toggle	compass-nudge	on
-toggle	publish-nudge	on
+toggle	inbox-reminder	on
+toggle	compass-reminder	on
+toggle	publish-reminder	on
 toggle	bot	on
 toggle	notify	off
 toggle	context-meter	on

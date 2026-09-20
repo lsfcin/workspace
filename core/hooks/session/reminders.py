@@ -3,18 +3,18 @@
 # what has not reached the public repo. One file, three switches, and at most one message.
 #
 # THREE FILES BECAME ONE ON 2026-09-17, and the reason is in the prose the third would have copied.
-# compass-nudge.py ended with an instruction to the agent: *"if the INBOX nudge already fired, fold
-# both into a single gentle line (never stack nudges)"* — a structural problem being solved by
-# asking a model nicely, once per sibling, and an instruction that gets weaker with every nudge
-# added. Here the folding is the code: main() collects and prints ONCE. Adding a fourth costs a
-# function, not another plea.
+# The compass file of the day ended with an instruction to the agent: *"if the INBOX one already
+# fired, fold both into a single gentle line (never stack them)"* — a structural problem being
+# solved by asking a model nicely, once per sibling, and an instruction that gets weaker with every
+# sibling added. Here the folding is the code: main() collects and prints ONCE. Adding a fourth
+# costs a function, not another plea.
 #
 # It also paid for itself. core/hooks/session/ was at the crowding signal, and the honest options
 # were split the directory, grow a baseline the check says may only shrink, or stop writing one file
 # per reminder. Three reminders were never three responsibilities.
 #
 # TONE IS LOAD-BEARING AND LIVES IN brain/FOUNDATIONS.md — *what has good wind*, never guilt. A
-# nudge is ignorable by design: it says the number and offers the command, and never asks twice.
+# reminder is ignorable by design: it says the number, offers the command, and never asks twice.
 import os
 import re
 import subprocess
@@ -96,7 +96,7 @@ def publish() -> str:
     ASKED OF GIT, NOT OF THE SYNC. The honest question — which crossing files differ — is
     `publish/repo --check`, and it walks 1150 files for 3.1 s. A SessionStart is paid by EVERY
     session (core/experiments/hook-latency.md), so three seconds to tell most of them nothing is not
-    a price this may charge. Two `git log` calls cost 16 ms and answer what a NUDGE needs: has work
+    a price this may charge. Two `git log` calls cost 16 ms and answer what a REMINDER needs: has work
     landed that COULD have crossed. /roundup asks the exact question once, at the end.
 
     The target's last commit is the timestamp, because the target is rebuilt and never edited: its
@@ -123,7 +123,7 @@ def publish() -> str:
 
 # Feature name → the question it asks. The registry switches each one independently, which is what
 # keeps three reminders in one file from becoming one feature with three reasons.
-ASKS = (('inbox-nudge', inbox), ('compass-nudge', compass), ('publish-nudge', publish))
+ASKS = (('inbox-reminder', inbox), ('compass-reminder', compass), ('publish-reminder', publish))
 
 
 def main() -> int:
@@ -131,7 +131,7 @@ def main() -> int:
             if feature_law.is_enabled(name) and (text := ask())]
     if not said:
         return 0
-    sys.stdout.write('NUDGE — mention what fits, in ONE gentle line, and never insist:\n'
+    sys.stdout.write('REMINDER — mention what fits, in ONE gentle line, and never insist:\n'
                      + '\n'.join(f'  {line}' for line in said) + '\n')
     return 0
 

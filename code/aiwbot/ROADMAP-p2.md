@@ -60,7 +60,7 @@ Filtering by role matters: `part` rows of `type=text` also carry the **user's** 
       same root markup.
 - [x] **5 — opencode picker parity.** `_row_to_item` fills `model`, `mode`, `context_used`,
       `context_window`, `preview` from the table above.
-- [~] **6 — frontend split.** 14 files + the panel is past the point the size hook nudges at.
+- [~] **6 — frontend split.** 14 files + the panel is past the point the size hook warns at.
       Boundaries: Telegram primitives (`reply`, `htmlsplit`) / text (`format`, `markdown`, `inline`,
       `phrases`) / interaction (the rest). Pure moves, done last so nothing gets moved twice.
 - [x] **7 — docs + ship.** SPECS AD-11 (capability declaration + D3 semantics), ROADMAP, CONTEXT

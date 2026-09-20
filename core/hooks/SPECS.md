@@ -53,7 +53,7 @@ Four rules survive the collapse, and `test_b20260905_*` holds each. **A blocking
 | `facade/facade-scan.py` | write | **Informs** — the exports the target module's facade already declares; warns if that list is empty |
 | `facade/facade-gate.py` | write | **Blocks** edits to a `code/` module file until the nearest facade was Read this session |
 | `checks/issues-gate.py` | write | **Blocks** flipping a bug to FIXED, or deleting its section, without a matching `test/**/b<N>-*` regression spec |
-| `read/spec-read-gate.py` | write | **Blocks** editing a spec-locked module (`CONTEXT.md` `> spec:` + `SPECS.md` `status: locked`) until its `SPECS.md` was Read this session; nudges on new files in spec-less `code/` modules |
+| `read/spec-read-gate.py` | write | **Blocks** editing a spec-locked module (`CONTEXT.md` `> spec:` + `SPECS.md` `status: locked`) until its `SPECS.md` was Read this session; reminds on new files in spec-less `code/` modules |
 | `read/bash-context-gate.py` | shell | **Blocks** commands naming workspace files in folders whose chain is unread — this closes the `cat`/`grep` bypass |
 | `checks/heredoc-gate.py` | shell | **Warns, never blocks** — a heredoc writing a workspace file meets none of the write gates. Silent for stdin-to-an-interpreter, which writes nothing |
 

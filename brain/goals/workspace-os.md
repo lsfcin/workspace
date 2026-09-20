@@ -87,7 +87,7 @@ fallback · iterate — MVP can always be extended*
 > mesma régua de `core/run tools/wos/session/reads`: linha que não muda o que o agente faz, sai (INBOX 2026-09-17)  
 > [ ] [auditar-sempre-lido] auditar `AGENTS.md` e os `CONTEXT.md`: o que é de fato obedecido vs o que é ignorado. Custo é por sessão, então medir antes de cortar; irmão de [memory-higiene] (INBOX 2026-09-17)  
 > [ ] [auditar-testes] auditar os ~890 testes — são muitos e vários são antigos, então alguns podem não descrever mais o que o workspace faz. Casa com [mutation-testing]: teste sem dente e teste obsoleto são o mesmo custo (INBOX 2026-09-17)  
-> [ ] [vocabulario-gate-nudge] trocar "gate" por "block" no WOS, inclusive nos nomes de arquivo — mais direto sobre o impacto — e achar substituto pra "nudge" que traduza (o agente já soltou 'nudge' no meio de uma conversa em português). Cada troca ganha linha em `core/SCHEMA.md` § Retired tokens, que é o que fecha a renomeação. A terceira palavra do pedido já foi aposentada nessa tabela em 17/09 — estava em zero arquivos, só na fala do agente, e o workspace já tinha o verbo simples pra ela (INBOX 2026-09-17)  
+> [ ] [vocabulario-gate] trocar "gate" por "block" no WOS, inclusive nos nomes de arquivo — mais direto sobre o impacto. Cada troca ganha linha em `core/SCHEMA.md` § Retired tokens, que é o que fecha a renomeação. As outras duas palavras do pedido já estão nessa tabela: uma em 17/09, que estava em zero arquivos, e a que não traduzia em 20/09, agora `reminder` (INBOX 2026-09-17)  
 > [ ] [painel-arquitetura] `ARCHITECTURE.html` entrega pouco: tabela gigante e vazia não ajuda. Relembrar o propósito profundo do painel e o valor que ele pode dar, trocar a tabela por lista ordenada por cor e/ou símbolo, e iterar de novo no Claude Design (INBOX 2026-09-17)  
 > [ ] [agente-ve-imagem] avaliar o toolkit que dá visão — imagens e screenshots — a agente text-only; Lucas: *"será que é melhor que o que temos"*, e o que temos é o caption VLM do `core/tools/video`. Ref em `core/refs/REFS.md` (— via aiwbot)  
 > [ ] [archify-diagramas] **`tt-ali/archify`** (rank 04, com `cathrynlavery/diagram-design`): skills que viram conversa em diagrama html/svg limpo, *"from plain English to architecture in seconds"*. É o pedido do Lucas e encaixa exato em [painel-arquitetura] e no diagrama de roteamento — testar nos nossos dois painéis antes de redesenhar à mão  
@@ -111,5 +111,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-17  ·  trend: advancing  ·  touches: 445/752/792/792/792/792
+last-touch: 2026-09-20  ·  trend: advancing  ·  touches: 436/765/808/808/808/808
 <!-- stats:end -->
