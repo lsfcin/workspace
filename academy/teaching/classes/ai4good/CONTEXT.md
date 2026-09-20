@@ -1,11 +1,11 @@
 # ai4good
-> Disciplina AI4Good — material e questionários da turma. Espelha `teaching/ai4good/` no Drive pessoal.
+> Disciplina AI4Good — material e questionários da turma. Espelha `teaching/classes/ai4good/` no Drive pessoal.
 
 Aulas 2026.2: quarta 20h10 e sexta 18h30.
 
 ## Calendário 2026.2
 
-Mesmos números fixos de [`tecnologias-na-educacao`](../tecnologias-na-educacao/CONTEXT.md), que os
+Mesmos números fixos de [`techedu`](../techedu/CONTEXT.md), que os
 registra por inteiro: início 10/08 · término 12/12 · finais 14–18/12, e **34 encontros** depois de
 tirar 28/10 e 20/11, que são feriado. Publicado na página do Notion
 `25d1656e-2069-803e-a564-d510d9db8307`, um parágrafo por mês, `DD|DIA⇥Rótulo | Tema`, com o link
@@ -17,7 +17,7 @@ em 07 e 08/10 e **não derruba aula** — decisão de Lucas, igual no TE.
 
 ## Um passo a mais
 
-Mesmo requisito de [`tecnologias-na-educacao`](../tecnologias-na-educacao/CONTEXT.md), que o
+Mesmo requisito de [`techedu`](../techedu/CONTEXT.md), que o
 descreve por inteiro, aqui redigido para projeto de pesquisa: ao fechar o problema e ao fechar a
 abordagem, deslocar um dos dois com uma das sete alavancas, e **declarar qual alavanca e qual era o
 óbvio abandonado**. Num artigo isso tem nome — é a diferença entre mais um resultado e uma
@@ -26,7 +26,7 @@ contribuição. Mora dentro da seção `Metodologia` da página do Notion.
 ## Material da aula
 
 Os decks moram no Drive pessoal, em `material/aulas`
-(`11XkvpRtaougD_Bs726E97lS-PE1auLa6`) — o mesmo arranjo de `tecnologias-na-educacao`, que antes
+(`11XkvpRtaougD_Bs726E97lS-PE1auLa6`) — o mesmo arranjo de `techedu`, que antes
 não valia aqui: os arquivos estavam soltos em `material/`.
 
 **A cópia de junho tinha congelado.** Todo o trabalho de agosto seguiu no Drive do cin, então em
@@ -34,11 +34,11 @@ não valia aqui: os arquivos estavam soltos em `material/`.
 — entre eles as três planilhas, o documento e o form, que o migrador ignorava por não serem
 apresentação. As cópias velhas estão na lixeira do Drive, não deletadas.
 
-Questionários são specs versionados, aplicados por [`gforms`](../../../core/tools/forms/CONTEXT.md):
+Questionários são specs versionados, aplicados por [`gforms`](../../../../core/tools/forms/CONTEXT.md):
 
 ```bash
 core/run tools/forms/gforms new --account personal \
-  --folder 1uM6P5Zkj9iBh4StAzI2IcI8P9nldUdXf academy/teaching/ai4good/<spec>.json
+  --folder 1uM6P5Zkj9iBh4StAzI2IcI8P9nldUdXf academy/teaching/classes/ai4good/<spec>.json
 core/run tools/forms/gforms responses --account personal <form_id>
 ```
 
@@ -58,7 +58,6 @@ por turma.
 | [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | O questionário de rotina e setup da turma 2026.2, escrito como spec e aplicado por gforms new. |
 | [`AI4Good - Prática extra para abono de faltas .md`](AI4Good - Prática extra para abono de faltas .md) | Prática extra para abono de faltas da disciplina  Tópicos Avançados em IA \- Turma 2 (AI4Good) |
 | [`drive_sync.json`](drive_sync.json) | Estado do sync desta pasta com o Drive, escrito por core/tools/files/drive_sync.py — não é um formulário. |
-| [`painel.html`](painel.html) | Painel interativo de entregas e critérios da turma 2026.2 (AI4Good) |
 | [`painel.md`](painel.md) | Acompanhamento de entregas, critérios e submissões da turma 2026.2 (UFRPE). Planilha mestre original: `1IgBJWxItjmolBgwsnjlER894V6BP9nns8dFcc-NhStY` Acesso web: `lucassf.pages.dev/ai4good/painel` |
 | [`transformers-guia-acessivel-slides.md`](transformers-guia-acessivel-slides.md) | Material didático acessível e roteiro pareado aos 106 slides da aula, com audiodescrição estrutural e preparação para NotebookLM. |
 <!-- routing:end -->

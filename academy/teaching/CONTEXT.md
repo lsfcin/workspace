@@ -6,15 +6,12 @@
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`ai4good/`](ai4good/CONTEXT.md) | Disciplina AI4Good — material e questionários da turma. Espelha `teaching/ai4good/` no Drive pessoal. |
-| [`aisetup/`](aisetup/CONTEXT.md) | Modelos de IA grátis no OpenCode: material de setup para alunos, Windows e Linux, uma rota por arquivo. |
-| [`prof/`](prof/CONTEXT.md) | Dossiê de evidências e fundamentação científica da pedagogia transformadora e prática docente. |
-| [`tecnologias-na-educacao/`](tecnologias-na-educacao/CONTEXT.md) | Disciplina Tecnologias na Educação — material e questionários da turma. Espelha `teaching/tecnologias-na-educacao/` no Drive pessoal. |
-| [`templates/`](templates/CONTEXT.md) | Modelos-base canônicos (.md) para metodologia e materiais de entregas/checkpoints. |
+| [`classes/`](classes/CONTEXT.md) | Active and historical university courses taught by Lucas (materials, checkpoints, questionnaires). |
+| [`structure/`](structure/CONTEXT.md) | Pedagogical foundations, AI setup guides for students, and canonical checkpoint templates. |
 
 | File | Description |
 |------|-------------|
-| [`SPECS-aulas.md`](SPECS-aulas.md) | Contrato de planejamento e auditoria para aulas teóricas e práticas (nível micro). |
-| [`SPECS-disciplinas.md`](SPECS-disciplinas.md) | Metodologia macro semestral de condução, ciclos de projeto, avaliação e acompanhamento. |
-| [`SPECS.md`](SPECS.md) | O que deve ser verdade em toda aula teórica ou prática e em toda condução de disciplina. Contrato de planejamento e auditoria para o professor e agentes (Antigravity, Claude Code, etc.). |
+| [`SPECS-aulas.md`](SPECS-aulas.md) | contrato de planejamento e auditoria para aulas teóricas e práticas (nível micro). |
+| [`SPECS-disciplinas.md`](SPECS-disciplinas.md) | metodologia macro semestral de condução, ciclos de projeto, avaliação e acompanhamento. |
+| [`SPECS.md`](SPECS.md) | o que deve ser verdade em toda aula teórica ou prática e em toda condução de disciplina. contrato de planejamento e auditoria para o professor e agentes (antigravity, claude code, etc.). |
 <!-- routing:end -->

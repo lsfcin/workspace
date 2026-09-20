@@ -1,5 +1,5 @@
-# tecnologias-na-educacao
-> Disciplina Tecnologias na Educação — material e questionários da turma. Espelha `teaching/tecnologias-na-educacao/` no
+# techedu
+> Disciplina Tecnologias na Educação — material e questionários da turma. Espelha `teaching/classes/techedu/` no
 > Drive pessoal.
 
 Aulas 2026.2: quarta 18h30 e sexta 20h10.
@@ -39,7 +39,7 @@ usou e qual era o óbvio que abandonou*. Sem esse par, o passo não foi dado. Mo
 passos 3 e 4 da seção `Processo` da página do Notion — não em seção própria, porque a exigência
 tem de ser lida no momento da decisão, não num lugar que se visita uma vez.
 
-O argumento para a turma é [Doshi & Hauser](../../refs/REFS.md): ideias vindas de LLM deixam cada
+O argumento para a turma é [Doshi & Hauser](../../../refs/REFS.md): ideias vindas de LLM deixam cada
 texto mais criativo **e todos mais parecidos entre si**. Ancoragem institucional: o *Dark Horse
 Prototype* do Stanford ME310.
 
@@ -47,7 +47,7 @@ Prototype* do Stanford ME310.
 
 O deck de cada aula mora no Drive pessoal, em `material/aulas`
 (`18L_A9hTVyIQGYUouJg0qS9R_3jwQ8oWX`), e é editado no lugar por
-[`gslides`](../../../core/tools/slides/CONTEXT.md). **Contribuição em deck existente é aditiva**:
+[`gslides`](../../../../core/tools/slides/CONTEXT.md). **Contribuição em deck existente é aditiva**:
 slides novos entram entre os antigos, os antigos são refinados no lugar, nada é deletado nem pulado.
 
 | Aula | Deck | Gerador |
@@ -70,7 +70,7 @@ repositório próprios, mais estrelas e data do último commit **gravadas no dad
 deixa a árvore auditável no semestre seguinte. Publicar:
 
 ```bash
-core/run --python academy/teaching/tecnologias-na-educacao/build_tecnologias.py
+core/run --python academy/teaching/classes/techedu/build_tecnologias.py
 core/run tools/notes/notion apply --account personal /tmp/notion-ops-tecnologias.json
 ```
 
@@ -87,11 +87,11 @@ Três armadilhas de licença ficam ditas na folha porque a equipe descobriria ta
 Splatting** é não-comercial (Inria), e **YOLO** e **MiroFish** são AGPL-3.0 — publicar como serviço
 obriga a abrir o código.
 
-Questionários são specs versionados, aplicados por [`gforms`](../../../core/tools/forms/CONTEXT.md):
+Questionários são specs versionados, aplicados por [`gforms`](../../../../core/tools/forms/CONTEXT.md):
 
 ```bash
 core/run tools/forms/gforms new --account personal \
-  --folder 10tmlq_os3ltiS-UzdEMG8mj45ni5t45O academy/teaching/tecnologias-na-educacao/<spec>.json
+  --folder 10tmlq_os3ltiS-UzdEMG8mj45ni5t45O academy/teaching/classes/techedu/<spec>.json
 core/run tools/forms/gforms responses --account personal <form_id>
 ```
 
@@ -124,7 +124,6 @@ As especificações de entrega não usam slides: residem como pares `.md` versio
 | [`cp01-materiais.md`](cp01-materiais.md) | — | — | Tecnologias na Educação · 2026.2 · Entrega: 16/09/2026 (Quarta-feira, 23h59) Planilha Mestre: `1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU` (Coluna K, Linha 20) Metodologia & Critérios: `lucassf.pages.dev/techedu/cp01` |
 | [`cp01-metodologia.md`](cp01-metodologia.md) | — | — | Tecnologias na Educação · 2026.2 · Entrega: 16/09/2026 (Quarta-feira, 23h59) Planilha Mestre: `1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU` (Coluna F, Linha 20) Materiais & Tríade: `lucassf.pages.dev/techedu/cp01-materiais` |
 | [`cp02-metodologia.md`](cp02-metodologia.md) | — | — | Metodologia · CP-02: Concorrentes |
-| [`painel.html`](painel.html) | — | — | Painel interativo de entregas e critérios da turma 2026.2 (Tecnologias na Educação) |
 | [`painel.md`](painel.md) | — | — | Acompanhamento de entregas, critérios e submissões da turma 2026.2 (UFRPE). Planilha mestre original: `1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU` Versão local para avaliação de layout e responsividade. |
 | [`tecnologias.json`](tecnologias.json) | — | — | A árvore de tecnologias da disciplina, lida por build_tecnologias.py — não é um formulário. |
 <!-- routing:end -->

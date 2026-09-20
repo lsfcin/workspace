@@ -1,4 +1,4 @@
-# prof
+# fundamentals
 > Dossiê de evidências e fundamentação científica da metodologia de ensino e prática docente de Lucas.
 
 <!-- routing:start -->
