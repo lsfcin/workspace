@@ -22,22 +22,22 @@ matching regression spec exists and passes.
   *A leading underscore marks a shape, never an instance*, after four separate modules were found
   reading that underscore and none of them stating it. The rule is now induced wearing the costume of enforced: no check fails a template
   directory that skips the marker, and one already does —
-  `academy/teaching/structure/templates/`, which a parallel session was restructuring the same day,
-  so renaming it would have collided. Two halves, and they are separable: rename that directory when
-  its tree settles, and decide whether the rule earns a check at all. **It may not.** The four
+  `academy/teaching/structure/templates/`. That tree settled on 2026-09-20 and the rename is now
+  unblocked, so what is left is the half that was always the harder one: decide whether the rule
+  earns a check at all. **It may not.** The four
   mechanisms already behave correctly on a directory without the marker — they simply treat its
   contents as instances, which is the right answer for every directory except a template one, and
   the count of those in this workspace is three.
 
-- **One commit on 2026-09-18 used `--no-verify`, and the debt it names is still open.** Two suite
-  failures belonged entirely to a parallel session writing `academy/teaching/structure/templates/`
-  at the same time: three files CRLF on that disk while their blobs are LF, and a routing row naming
-  `template-disciplina.md`, which does not exist. Neither is reachable without editing another
-  session's in-flight files, and the change bypassing the gate was green in isolation (937 passed).
-  **Paid back by re-running `verify.py` once that tree settles** — if both are gone, delete this
-  entry; if either survives, it is that tree's bug and belongs to the session that owns it. The
-  deeper question is the one the bypass exposed and no rule answers: two sessions share one index
-  and one suite, so either can hold the other's commits hostage for as long as it is mid-edit.
+- **Two sessions share one index and one suite, so either can hold the other's commits hostage for
+  as long as it is mid-edit.** The question the 2026-09-18 `--no-verify` bypass exposed, and no rule
+  answers. The bypass itself is paid — the suite is green at 950 — and how it was paid is the
+  argument: neither failure it named survived contact. One was a CHECK BUG in this repo, not the
+  other session's tree (a staged delete leaves `w/` empty and the worktree arm read blank as CRLF,
+  so three deleted files were reported as CRLF). The other was two untracked routing targets, and
+  **one of the two was this session's own**, mis-attributed to the parallel tree by the handoff
+  that read the failure without opening it. A failure blamed on a tree nobody may touch is a
+  failure nobody diagnoses; that is what the shared index costs, more than the blocked commit.
 
 - The entropy block's *"safe to delete, and outward-facing"* branch list is a SNAPSHOT presented as
   a standing instruction, and it goes stale inside the session that reads it. Found 2026-09-14 by
@@ -217,7 +217,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/bot-crossing is 12 ahead of main
+- . — feature/bot-crossing is 13 ahead of main
 
 ### Local branches already merged into their base
 
