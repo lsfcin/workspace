@@ -20,6 +20,7 @@ Goal file format, the five areas, section specs, signals/dynamics/timing fields,
 
 | Subdirectory | Description |
 |--------------|-------------|
+| [`_templates/`](_templates/CONTEXT.md) | The shape of a brain/ — CONTEXT.md, GOALS.md, INBOX.md and two goal shapes, with nobody's content in them. |
 | [`attachments/`](attachments/CONTEXT.md) | Files captured from Gmail and Telegram, filed by month — the raw material, not a list. |
 | [`drafts/`](drafts/CONTEXT.md) | Work in progress that is not yet anywhere else: proposals being compared, and reports being read. |
 | [`goals/`](goals/CONTEXT.md) | One file per goal — organic growth from seed to full. Dashboard + router: [GOALS.md](goals/../GOALS.md). |

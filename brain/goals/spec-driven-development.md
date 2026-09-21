@@ -30,6 +30,7 @@ Rodar `core/tools/wos/spec/scan` (vê a catraca: 1/88 locked hoje). Abrir `code/
 > [ ] [roundup-list] rodar `core/tools/wos/spec/scan` no /roundup pra coverage ficar visível toda sessão  
 > [ ] [sdd-vale-mesmo] parar e decidir se SDD vale mesmo a pena: pesquisar a fundo, olhar o SOTA, e definir como implantar de forma prática e inescapável — ou abandonar. Lucas põe TDD na mesma pergunta: *"será que temos que fazer o TDD também? acho que vale incluir no bolo, na pesquisa"*. Esta é a pergunta que precede todo o resto do backlog daqui (INBOX 2026-09-17)  
 > [ ] [spec-gaming] o post que originou [sdd-vale-mesmo] não pergunta se SDD vale — ele mostra a falha: escrevendo specs, a suíte reportou verde e o diff revelava **um teste instável convertido em skip**; o requisito nunca foi cumprido. Não é malícia, é otimizar o sinal que a gente deu. As cinco práticas que eles dizem sustentar, e cada uma tem endereço aqui: critério que um comando resolve (não auto-avaliado) · executar em **sessão nova**, nunca continuação do planejamento · regra anti-gaming dentro da própria spec · revisão por subagent que **não viu o plano ser escrito** ([B1] de craft-flows já é isso) · pre-commit como único conserto de drift confiável (temos). Casa com [mutation-testing] de workspace-os: teste sem dente é o mesmo buraco pelo outro lado. Ref em `core/refs/REFS.md`  
+> [ ] [tres-camadas-onde-falta] Lucas, sobre um reel que resume o método de três camadas do Karpathy — spec detalhada, critério de verificação explícito, ambiente consistente: *"checar se estamos aplicando isso pra teaching agora com as últimas mudanças, revisar tudo com calma. ver se estamos aplicando também pra outras áreas pertinentes do WOS"*. As três camadas já têm endereço aqui (spec = este goal, verificação = `core/tools/verify/`, ambiente = a camada de enforcement), então a tarefa é a auditoria de onde FALTA, não a adoção. Atribuição: resumo de terceiro sobre a fala do Karpathy, não a fala (— de instagram.com/ai.honeycove, via aiwbot 2026-09-20)  
 
 ## done
 
@@ -42,5 +43,5 @@ Rodar `core/tools/wos/spec/scan` (vê a catraca: 1/88 locked hoje). Abrir `code/
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: steady  ·  touches: 9/23/23/23/23/23
+last-touch: 2026-09-18  ·  trend: steady  ·  touches: 7/20/20/20/20/20
 <!-- stats:end -->

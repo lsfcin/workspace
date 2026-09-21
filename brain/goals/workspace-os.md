@@ -97,6 +97,7 @@ fallback · iterate — MVP can always be extended*
 > [ ] [teto-de-gasto-agente] o teto de gasto de um agente nosso é o que a chave permite, não o que a gente disse a ele.
 > Conferir se alguma chave em uso aqui tem limite duro no provedor, e se existe log de execução legível — o relato do agente sobre o que fez não serve de prova. Nasce de um caso relatado, não medido aqui. Ref em `core/refs/REFS.md` (— via aiwbot)  
 > [ ] [omarchy-vs-ubuntu] comparar o Omarchy com o Ubuntu e decidir se vale trocar — a tese do post é que ele passa Windows e Mac em 18 meses porque a IA deixa qualquer um customizar o sistema. É hype de criador de conteúdo, então o comparativo é o trabalho: o que muda pro nosso uso real. Ref em `core/refs/REFS.md` (— via aiwbot 2026-09-05)  
+> [ ] [reflow-cobertura] rodar `reflow` no que a varredura de 2026-09-18 não listou  
 
 ## done
 
@@ -111,5 +112,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-20  ·  trend: advancing  ·  touches: 437/765/809/809/809/809
+last-touch: 2026-09-21  ·  trend: advancing  ·  touches: 446/774/818/818/818/818
 <!-- stats:end -->

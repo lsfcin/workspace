@@ -4,14 +4,14 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-09-21 12:44
+last-updated: 2026-09-21 17:14
 
 >**areas** — last 14 days  
 ```
-health       ░░░░░░░░░░   3 touches
-career       ░░░░░░░░░░   20 touches
-craft        ██████████   220 touches
-finances     ░░░░░░░░░░   5 touches
+health       ░░░░░░░░░░   2 touches
+career       ░░░░░░░░░░   19 touches
+craft        ██████████   227 touches
+finances     ░░░░░░░░░░   4 touches
 fun          ░░░░░░░░░░   7 touches
 spiritual    ░░░░░░░░░░   1 touches
 ```
@@ -22,24 +22,25 @@ burocracia-academica     ░░░░░░░░░░   2 touches
 career-ufrpe             ░░░░░░░░░░   1 touches
 corporal-expressiveness  ░░░░░░░░░░   1 touches
 craft-flows              ░░░░░░░░░░   16 touches
-cria                     ░░░░░░░░░░   1 touches
+cria                     ░░░░░░░░░░   2 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   3 touches
-exercise                 ░░░░░░░░░░   3 touches
+exercise                 ░░░░░░░░░░   2 touches
 finances                 ░░░░░░░░░░   1 touches
-google-migration         ░░░░░░░░░░   7 touches
+google-migration         ░░░░░░░░░░   6 touches
 guitar                   ░░░░░░░░░░   1 touches
 hair                     ░░░░░░░░░░   1 touches
-home-casinhas            ░░░░░░░░░░   3 touches
+health-skills            ░░░░░░░░░░   0 touches
+home-casinhas            ░░░░░░░░░░   2 touches
 instituto                ░░░░░░░░░░   1 touches
 lih-dd                   ░░░░░░░░░░   3 touches
 listenreading            ░░░░░░░░░░   2 touches
-local-ai                 ░░░░░░░░░░   18 touches
+local-ai                 ░░░░░░░░░░   20 touches
 magic-places             ░░░░░░░░░░   1 touches
 make-in-time             ░░░░░░░░░░   1 touches
 pandeiro                 ░░░░░░░░░░   1 touches
 paper-jarbinhas          ░░░░░░░░░░   2 touches
-paper-megatruth          ░░░░░░░░░░   2 touches
+paper-megatruth          ░░░░░░░░░░   1 touches
 paper-scattercode        ░░░░░░░░░░   1 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
 rpg-isoroll              ░░░░░░░░░░   6 touches
@@ -49,11 +50,11 @@ spacemantics             ░░░░░░░░░░   2 touches
 spec-driven-development  ░░░░░░░░░░   5 touches
 startapps                ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   1 touches
-teaching-materials       █░░░░░░░░░   34 touches
+teaching-materials       █░░░░░░░░░   33 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   1 touches
-workspace-os             ██████████   220 touches
+workspace-os             ██████████   226 touches
 yoga                     ░░░░░░░░░░   1 touches
 ```
 <!-- data:end -->
@@ -90,6 +91,7 @@ The one relational move stays one text message.
 | migração Google — conta cin → pessoal, e o Drive para o workspace | career | now | — | [brave-conta-padrao] mudar a conta Google padrão do Bra… | [→](goals/google-migration.md) |
 | guitar | fun | year | — | [free-play] pick up guitar and improvise for 10 minutes… | [→](goals/guitar.md) |
 | cabelo — conter e recuperar as entradas | health | year | — | [hair-research] pesquisa científica séria: estado da ev… | [→](goals/hair.md) |
+| assembleia de skills de saúde | health | near | — | [uma-skill-primeiro] escrever `/nutri` sozinha, com a b… | [→](goals/health-skills.md) |
 | casinhas construction | finances | year | Marcelo | [teste-absorcao] conseguir o Teste de Absorção do Solo … | [→](goals/home-casinhas.md) |
 | instituto | craft | dream | none external — th… | [coffee-1] text one trusted person from the board list … | [→](goals/instituto.md) |
 | LIH.DD — research lab | craft | year | DC/UFRPE postgrad … | [research-statement] write a 3-sentence research statem… | [→](goals/lih-dd.md) |

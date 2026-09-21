@@ -34,7 +34,7 @@ Tests mirror these names one for one under [`tests/`](../tests/CONTEXT.md).
 | [`SPECS.md`](SPECS.md) | — | — | SPEC: frontend — audio-in-out voice pipeline |
 | [`bot.py`](bot.py) | [`bot.pyi`](bot.pyi) | `main` | bot.py — PTB wiring: allowlist, /new + reply-to-continue dispatch, plain text/media -> INBOX. |
 | [`config.py`](config.py) | [`config.pyi`](config.pyi) | `config_dir`, `load_config`, `save_config`, `bot_token`, `allowed_chat_id` | config.py — aiwbot's own Telegram config dir (separate token/storage from the old workspace bot). |
-| [`inbox.py`](inbox.py) | [`inbox.pyi`](inbox.pyi) | `append_entry`, `build_entry`, `save_media` | inbox.py — capture plain text/media into brain/INBOX.md ($0, no backend call). |
+| [`inbox.py`](inbox.py) | [`inbox.pyi`](inbox.pyi) | `CaptureLost`, `append_entry`, `build_entry`, `save_media` | inbox.py — capture plain text/media into brain/INBOX.md ($0, no backend call). |
 | [`phrases.py`](phrases.py) | [`phrases.pyi`](phrases.pyi) | `pick`, `pin` | phrases.py — phrase banks (natural-language variants, picked at random per message) + help text. |
 | [`reply.py`](reply.py) | [`reply.pyi`](reply.pyi) | `safe_reply`, `send_typing`, `edit_text`, `send_voice`, `drop` | reply.py — Telegram send primitives: safe reply, chunking, edit-in-place delivery. |
 <!-- routing:end -->

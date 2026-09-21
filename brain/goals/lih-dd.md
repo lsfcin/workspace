@@ -41,6 +41,7 @@ Write 3 sentences: what LIH.DD is, why it matters, what it produces. No referenc
 > [ ] [foresight] incorporar foresight (Institute for the Future, Jane McGonigal) + design especulativo na agenda do lab (feed cria)  
 > [ ] [ai-contemplative] "será que a IA consegue meditar?" (INBOX 2026-07-30) — Lucas: *"o modelo mais poderoso que tiver, Fable 5, tem como? não aceito o não como resposta"*. Transformar a provocação em sondagem: definir o que contaria como meditar pra um modelo (atenção sustentada sem tool, sem objetivo, sem output instrumental — o oposto exato do regime agêntico), o que se mede (deriva do estado interno? estabilidade sob prompt vazio repetido? o que o modelo relata depois?), e o que o resultado significaria. Encaixa no pilar **hybrid intelligence** (co-evolução simbiótica humano/MAS) — a pergunta é se uma prática contemplativa humana tem análogo computacional ou se só existe por analogia;
 > as duas respostas são publicáveis. Escopo de sondagem, não de paper ainda  
+> [ ] [students-oficial] oficializar a parte de "students" do workspace, sem redundâncias — do lado do lab, "student" é o orientando, e `academy/lab/` já carrega o processo de checkpoint que cada um copia. Mesma linha em [`teaching-materials.md`](teaching-materials.md), onde "student" é quem assiste à aula; a decisão pendente é se o workspace nomeia as duas coisas com uma palavra ou com duas (INBOX 2026-09-21)  
 
 ## done
 
@@ -49,5 +50,5 @@ Write 3 sentences: what LIH.DD is, why it matters, what it produces. No referenc
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 31/45/45/45/45/45
+last-touch: 2026-09-18  ·  trend: advancing  ·  touches: 33/46/47/47/47/47
 <!-- stats:end -->
