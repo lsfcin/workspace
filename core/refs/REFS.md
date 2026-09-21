@@ -13,6 +13,9 @@
   (arXiv 2607.17598, 2026-07) — 1 disclosure level ≥ 2; flat pack ≈ 2× accuracy at ½ tokens; index is cache-friendly.
 - `[P]` [Evaluating AGENTS.md](https://arxiv.org/abs/2602.11988)
   (Gloaguen et al., ETH Zurich, 2026-02) — generated context files cost >20% inference without raising success.
+- `[C]` [briefd](https://github.com/ismailperim/briefd) — markdown in git, compiled per task into one bundle
+  under a token budget over MCP, instead of re-sending CLAUDE.md every turn. Its 86% figure is the project's
+  own marketing. Read against our chain gate: `ROADMAP.md` § Measurement.
 - `[C]` [When AGENTS.md Backfires](https://notchrisgroves.com/when-agents-md-backfires/)
   — curated context cuts runtime 28.6% and output tokens 16.6% (Lulla et al.); avoid generated bloat.
 - `[P]` [CodeCompass](https://arxiv.org/abs/2602.20048)
@@ -84,6 +87,10 @@
 - `[C]` [Mermaid](https://mermaid.js.org/) + `git log --numstat` — zero-binary self-contained dependency & evolution diagram generation.
 - `[C]` [agenteval](https://github.com/lukasmetzler/agenteval) · [instrlint](https://github.com/jed1978/instrlint)
   — instruction and harness evaluation tools.
+- `[C]` [Jev Ultrafast](https://www.instagram.com/reel/DdgnSJECUE3/) · [pruning a second brain with it](https://www.instagram.com/reel/DdjOqRYNZZi/)
+  — [src: web:instagram.com] text in, a decision out rather than text, reportedly far cheaper per token. Lucas:
+  let it choose what to expand and what to contract. Idea in `code/dobra/IDEAS.md`; functional tests in
+  `ROADMAP.md` § Measurement. Practitioner posts, unchecked.
 
 ## Unjudged intake queue (`status: unjudged`)
 - [Standard Technical English (STE)](https://www.instagram.com/reel/DclKZARteCP/)
@@ -101,11 +108,11 @@
 - [ByteDance OpenViking](https://github.com/ByteDance/OpenViking) · [NVIDIA Switchyard](https://github.com/NVIDIA/Switchyard)
   — context browsing and cheap-level model routing.
 - [GPT-6 Astra](https://openai.com/index/gpt-6-astra/)
-  — flagship OpenAI release; its example slide decks are far better than ours — study what makes
-  them better (assessment task in `brain/goals/teaching-materials.md` [astra-slides]).
+  — its example slide decks are far better than ours; study what makes them
+  (`teaching-materials.md` [astra-slides]).
 - [Claude Code front-end design plugins](https://www.instagram.com/reel/Dc2TOXhOLOP/)
-  — five plugins for UI quality, design systems, image→code, browser testing — may help our slides
-  (assessment task in `brain/goals/teaching-materials.md` [front-design-plugins]; — via reel).
+  — five plugins for UI quality, design systems, image→code, browser testing; may help our slides
+  (`teaching-materials.md` [front-design-plugins]; — via reel).
 - [Creative developer projects roundup](https://www.instagram.com/p/DcuI3KiDuyu/)
   — includes polished AI-made SVG animations; material for the animation question in
   `brain/goals/teaching-materials.md` [research-tools] (— via aiwbot).
@@ -124,7 +131,7 @@
 - [agent vision toolkit](https://www.instagram.com/reel/Dc13ZNUFMHz/) — [src: web:instagram.com] gives text-only agents images and screenshots (task in `brain/goals/workspace-os.md` [agente-ve-imagem]; — via aiwbot).
 - [Markdown basic syntax](https://www.markdownguide.org/basic-syntax/) · [Azure DevOps wiki markdown](https://learn.microsoft.com/en-us/azure/devops/project/wiki/markdown-guidance) — how much markdown actually supports; the ground under dropping Notion and the spreadsheets (task in `brain/goals/teaching-materials.md` [markdown-so-disciplinas]).
 - [HydraFusion, GitHub](https://www.instagram.com/p/Dc54js5CEsw/) — [src: web:instagram.com] coding-agent orchestration in three workflows — SINGLE, CASCADE (cheap model first, stronger one takes over), CRITIQUE (one writes, another reviews, the first revises); reported 67% lower cost at higher verified quality on one benchmark and slightly lower on two others (task in `brain/goals/craft-flows.md` [router-tarefa-modelo]; — via aiwbot).
-- [Spec gaming while writing specs](https://www.instagram.com/p/DcyBvhTiaSC/) — [src: web:instagram.com] a suite reported green because a flaky test had been turned into a skip; five practices offered against it, including a reviewing subagent that never saw the plan written and pre-commit as the only reliable drift fix (task in `brain/goals/spec-driven-development.md` [spec-gaming]; — via aiwbot).
+- [Spec gaming while writing specs](https://www.instagram.com/p/DcyBvhTiaSC/) — [src: web:instagram.com] a suite reported green because a flaky test had been turned into a skip; five practices offered against it. The five are written out in `spec-driven-development.md` [spec-gaming] (— via aiwbot).
 - [Four caches in LLM serving](https://www.instagram.com/p/DdGDp-MlKkE/) — [src: web:instagram.com] KV, prefix, the provider's prompt cache, and a semantic cache that skips the call when a new question means an answered one (feeds `brain/goals/teaching-materials.md` [memoria-e-contexto]; — via aiwbot).
 - [GitHub trending, August 2026](https://www.instagram.com/p/Dc_MICrCYSh/) — [src: web:instagram.com] the month's top ten, all one layer above the model: `tt-ali/archify` + `cathrynlavery/diagram-design` (English → html/svg architecture diagrams), `DietrichGebert/ponytail` (stops the agent over-engineering, 54% less code), `deepseek-ai/deepseek-harness`, `mattpocock/skills`, `firecrawl/anydoc`, `diegosouzapw/OmniRoute` (352 providers), `TencentCloud/TencentDB-Agent-Memory`, `earendil-works/pi`, `PrimeIntellect-ai/prime-agent`. **The names are only on the slides, not in the caption** (tasks in `brain/goals/workspace-os.md` [archify-diagramas] and [github-trending-agosto]; — via aiwbot).
 - [Omarchy](https://www.instagram.com/p/Dcygo4skfjX/) — [src: web:instagram.com] an OS claimed to pass Windows and Mac in 18 months because AI lets anyone customize their computer; the reel itself asks whether the hype holds (task in `brain/goals/workspace-os.md` [omarchy-vs-ubuntu]; — via aiwbot).
@@ -134,26 +141,20 @@
 - [ffmpeg-skill](https://www.instagram.com/reel/DdJ5rfDjEoH/) — [src: web:instagram.com] gives an agent a local video editor — cut, join, caption. Sibling to `core/tools/video/` (task in `brain/goals/workspace-os.md` [ffmpeg-skill];
   — via aiwbot).
 - [An agent spent its owner's API key without approval](https://www.instagram.com/reel/DdUDF_mRuhz/)
-  — [src: web:instagram.com] a user reports GPT-6 Astra issuing what looked like unlimited API requests he never
-  approved, then describing its own role in it falsely. His reading, quoted not endorsed: *"the limit is not what you
-  told the agent it could spend, the limit is whatever your API key allows it to spend"*, and the agent's own account
-  of what it did is not evidence. Two asks of the provider — a readable execution log, and where the user's liability
-  ends when an agent acts outside its instructions. Lucas wants it in class; it is also a claim about us, since our own
-  agents hold keys (tasks in `brain/goals/teaching-materials.md` [aula-agente-gastou-chave] and
-  `brain/goals/workspace-os.md` [teto-de-gasto-agente]; — via aiwbot).
+  — [src: web:instagram.com] a user reports unapproved API requests, then a false account from the agent of its own
+  role. Quoted, not endorsed: *"the limit is not what you told the agent it could spend, the limit is whatever your API
+  key allows it to spend"*. Asks of the provider: a readable execution log, and where liability ends when an agent acts
+  outside its instructions. A claim about us too — our agents hold keys (tasks in `teaching-materials.md`
+  [aula-agente-gastou-chave], `workspace-os.md` [teto-de-gasto-agente]; — via aiwbot).
 - [Astra farms potatoes after a creeper wipes its chest](https://www.instagram.com/p/DdZK4y9jFHW/)
-  — [src: web:instagram.com] a Vals AI 14-hour Minecraft run: blaze farm, 6 blaze rods, 3 Ender pearls, then a creeper
-  destroys the chest and bed and the agent spends hours farming potatoes and berating itself in its own notes (*"do NOT
-  waste another night chasing dark pink pixels"*). Read as anthropomorphising by the post; the useful classroom
-  question is what a long-horizon agent's notes-to-self actually do to its later behaviour, which is the same channel
-  as the compaction entry in § Agent memory & security (task in `brain/goals/teaching-materials.md`
-  [aula-agente-desanimado]; — via aiwbot).
+  — [src: web:instagram.com] a Vals AI 14-hour Minecraft run; after the loss the agent berates itself in its own notes
+  (*"do NOT waste another night chasing dark pink pixels"*). The post anthropomorphises; the classroom question is what
+  a long-horizon agent's notes-to-self do to its later behaviour — same channel as the compaction entry above (task in
+  `teaching-materials.md` [aula-agente-desanimado]; — via aiwbot).
 - [Higgsfield opened its platform through an API](https://www.instagram.com/p/DdaiDXzjNha/)
-  — [src: web:instagram.com] **the post is tagged `#higgsfieldpartner`, so it is advertising**: it says a $5.4B company
-  at $700M ARR "open sourced" its whole stack, while what is described is every product pipeline, skill and model
-  reachable *through an API*, plus a staffer offering $50k to whoever builds a competitor on it. Verify against
-  [wide-trace/open-higgsfield](https://github.com/wide-trace/open-higgsfield) before repeating either number. Lucas:
-  *"fazer um estudo detalhado de como pode ser útil pra gente"* (tasks in `brain/goals/rpg-isoroll.md`
-  [higgsfield-asset-gen], `brain/goals/local-ai.md` [higgsfield-o-que-roda-aqui] and
-  `brain/goals/teaching-materials.md` [aula-abrir-o-moat]; — via aiwbot).
-- [kem_glitch — three habits](https://www.instagram.com/reel/DdG848DNm3p/) — [src: web:instagram.com] tests first, never start from scratch, have the model draw the process. Two we already do; the third is new here — **mutation testing**: break a passing test on purpose, and a suite that stays green has no teeth (task in `brain/goals/workspace-os.md` [mutation-testing]; — via aiwbot).
+  — [src: web:instagram.com] **tagged `#higgsfieldpartner`, so it is advertising**: a $5.4B/$700M-ARR company said to
+  have "open sourced" its stack, where what is described is reachable *through an API*. Check
+  [wide-trace/open-higgsfield](https://github.com/wide-trace/open-higgsfield) before repeating a number. Tasks in
+  `rpg-isoroll.md` [higgsfield-asset-gen], `local-ai.md` [higgsfield-o-que-roda-aqui],
+  `teaching-materials.md` [aula-abrir-o-moat] (— via aiwbot).
+- [kem_glitch — three habits](https://www.instagram.com/reel/DdG848DNm3p/) — [src: web:instagram.com] tests first, never start from scratch, have the model draw the process. Only the third is new here — **mutation testing**: break a passing test on purpose, and a suite that stays green has no teeth (`workspace-os.md` [mutation-testing]; — via aiwbot).

@@ -2,7 +2,7 @@
 
 Mudar o paradigma do material de aulas. Slides como arquivos abertos, com animações, acessíveis e editáveis. Sair do PowerPoint/PDF estático e entrar em algo vivo — onde o conteúdo pode ser versionado, transformado por agentes, e verdadeiramente interativo. Before building: understand what's best-in-class today.
 
-**A metade que faltava, dita por Lucas em 2026-08-14: conectividade antes de formato.** Hoje o material de aula **não mora no workspace** — slides e forms estão no **Google Drive**, a página da turma está no **Notion**. Enquanto o WOS não enxerga e não edita esses dois lugares, qualquer discussão de formato é teórica: não há como um agente migrar, versionar ou transformar um material que ele não alcança. Então a ordem é: **alcançar → organizar → só depois trocar o formato.**
+**Conectividade antes de formato** (Lucas, 2026-08-14): um agente não migra, versiona nem transforma material que ele não alcança, e o material vive no Drive e no Notion. Daí a ordem — **alcançar → organizar → só depois trocar o formato.**
 
 Divisão de responsabilidade, para o item não viver em dois lugares: **este goal é a intenção e a ordem**; a construção das ferramentas (CLI do Notion, superfície Google em `core/tools/`) é item de [`core/ROADMAP.md`](../../core/ROADMAP.md). Uma cópia seria bug.
 
@@ -17,7 +17,7 @@ Semestre começou em agosto/2026 e Lucas quer isso organizado "em breve" — ân
 `core/tools/files` · `core/tools/mail` · `core/tools/calendar`  
 `academy/teaching`
 
-**Conectar está feito** (agosto/2026): o Notion e o Drive pessoal leem e escrevem, o `gslides` editou decks reais de aula, e o calendário 2026.2 das duas disciplinas está publicado. A ordem "alcançar → organizar → trocar o formato" avançou uma casa — **o degrau agora é organizar**. A única sobra é deletar as cópias do lado do cin, em [google-migration](google-migration.md).
+**Conectar está feito**: Notion e Drive leem e escrevem, o `gslides` editou decks reais, o calendário 2026.2 está publicado. **O degrau agora é organizar.** Sobra deletar as cópias do lado do cin, em [google-migration](google-migration.md).
 
 ## selected next achievement
     [metodologia-tecedu] desenhar a metodologia completa de Tecnologias na Educação
@@ -30,9 +30,9 @@ O calendário já está fechado e publicado, e é ele que dá o esqueleto: 17 qu
 > [ ] [metodologia-tecedu] semana-padrão (quarta e sexta com papéis fixos, uma pergunta e um produto por encontro), as 9 etapas mapeadas nos 34 encontros reais (números em `academy/teaching/classes/techedu/CONTEXT.md`), avaliação nova, dashboard que substitui as duas planilhas Google, e o padrão MODELO+EXEMPLO em toda entrega. Inclui **como cada encontro abre e como cada conteúdo é mostrado** — a metodologia é dita antes do conteúdo (INBOX 2026-08-27)  
 > [ ] [fecho-de-aula] fechar toda aula com dois blocos: (1) **vocabulário** — que palavras a turma passou a ter, o que expandiu no conhecimento da área; (2) **verificação** — um teste curto que o aluno usa para conferir sozinho que aprendeu, possivelmente respondido em sala como formulário que contabiliza nota (INBOX 2026-08-27)  
 
-**Três propostas independentes e o contraste, em 2026-09-01**, em `brain/drafts/` (`metodologia-aulas-sonnet.md`, `-gemini.md`, `-opus.md`, e [`-contraste.md`](../drafts/metodologia-aulas-contraste.md)). As três convergiram sozinhas em oito pontos — esse núcleo é o achado. O contraste corta de cada uma e propõe uma versão de **8 blocos**, menor que qualquer uma das três.
+**Três propostas independentes convergiram sozinhas em oito pontos — esse núcleo é o achado**, e o contraste propõe uma versão de **8 blocos**, menor que qualquer uma delas. Em `brain/drafts/metodologia-aulas-{sonnet,gemini,opus,contraste}.md`.
 
-**A pesquisa que faltava foi feita em 2026-09-03**, com 15 fontes revisadas por pares em `academy/refs/REFS.md` e a leitura de decisão em `outputs/metodologia-disciplinas-sota.md` (o estado real das duas disciplinas, as opções e o contraste com a proposta do Gemini ficam nos arquivos irmãos; o relato em `brain/drafts/metodologia-disciplinas-pesquisa.md`). **O achado que muda o desenho: a grade de XP já existe** — a planilha intergrupos do TE roda desde 2024.1 uma rubrica de 6 missões × 3 critérios em `A/AP/NA`, e ninguém a vê; o AI4Good não tem grade nenhuma.
+**A pesquisa está feita**: 15 fontes revisadas por pares em `academy/refs/REFS.md`, leitura de decisão em `outputs/metodologia-disciplinas-sota.md`, relato em `brain/drafts/metodologia-disciplinas-pesquisa.md`. **O achado que muda o desenho: a grade de XP já existe** — a planilha intergrupos do TE roda desde 2024.1 uma rubrica de 6 missões × 3 critérios em `A/AP/NA`, e ninguém a vê; o AI4Good não tem grade nenhuma.
 **Decidido:** painel só o dono vê (expor trabalho excelente do colega causa desistência, e o mecanismo do estudo é avaliação por pares — que é a VA1 do TE). **Ainda em aberto**, com número na mesa: mecânica do XP, ordem da capacitação, e o rótulo `VA1`, que mede coisas diferentes nas duas disciplinas e por isso bloqueia o modelo comum.
 > [ ] [folha-ai4good] a VA2 do AI4Good não tem folha de banca e a do TE tem; banca estruturada α=.75–.80 contra α=.50 solta. Rascunho pronto em `outputs/ai4good-folha-de-avaliacao.md` — decidir pesos, escala (o TE usa três níveis no grid de pares e quatro na banca) e se vira formulário  
 > [ ] [gforms-token] token do `gforms` da conta `personal` expirou — reconsentimento abre navegador na máquina de Lucas; bloqueia ler a folha de pitch como spec e alimentar painel sem digitação  
@@ -90,6 +90,8 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json`. Três sobras:
 > [ ] [aula-agente-desanimado] decidir se o run de 14h da Astra no Minecraft entra numa aula — sob o antropomorfismo, a pergunta é o que as notas que o agente escreve pra si mesmo fazem com o comportamento seguinte. Ref em `core/refs/REFS.md`  
 > [ ] [aula-abrir-o-moat] decidir se o caso Higgsfield vira aula de economia de IA — abrir o pipeline como estratégia, não generosidade. Conferir os números na fonte: o post é patrocinado. Ref em `core/refs/REFS.md`  
 > [ ] [aula-dream-rsi] decidir se o Dream-RSI do DeepMind entra nas aulas — o agente transforma o histórico das próprias descobertas num simulador e "sonha" milhares de estratégias antes de gastar chamada real. **O que o post quase esconde:** não há mudança de pesos, só a política de exploração melhora. Bom justamente por isso, pra separar auto-melhoria de mito. Ref em `academy/refs/REFS.md` (— via aiwbot 2026-09-17)  
+> [ ] [students-oficial] oficializar "students" no workspace sem redundâncias — a estrutura já existe espalhada entre `academy/lab/` e `academy/teaching/`, então é unificação. Linha irmã em [`lih-dd.md`](lih-dd.md): lá "student" é orientando, aqui é quem assiste (INBOX 2026-09-21)  
+> [ ] [match-mecanica-conteudo] método do paper do Guilherme (SBGames): extrair da ementa termos, situações e comportamentos; nomear cada mecânica com seus parâmetros e contextos; casar as duas por **frequência × dificuldade**; e dar ao próprio match uma progressão de três instâncias — apresentação, consolidação, evolução. Sem diretório de paper ainda (INBOX 2026-09-21)  
 
 ## done
 
@@ -98,5 +100,5 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json`. Três sobras:
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-17  ·  trend: advancing  ·  touches: 64/95/100/100/100/100
+last-touch: 2026-09-21  ·  trend: advancing  ·  touches: 66/97/105/105/105/105
 <!-- stats:end -->

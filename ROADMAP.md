@@ -19,6 +19,11 @@
 It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is what says which mechanism earns its keep. Unblocked 2026-09-16: the repo it varies is `lsfcin/wos`, public, synced one way by `core/run tools/wos/publish/repo` and green on its own suite.
 *Done when* — a **per-feature** verdict is readable. Runs outside this workspace (`academy/papers/wos-ablation/`).
 
+**🟡 two ways of not re-sending the same knowledge every turn, neither of them looked at**
+*What* — a reading of `briefd` and of the cheap decide-only model Lucas forwarded (`core/refs/REFS.md`), against what this workspace already does: does either beat the CONTEXT.md chain plus the interface-first read, and at what cost. `briefd` compiles a git-backed markdown corpus into one token-budgeted bundle per task over MCP; the other decides what to expand and what to contract, which is the same question answered per turn rather than per task. Lucas also asks whether the decide-only model automates functional tests here.
+*Why* — both attack the bill this workspace already knows it pays: `core/experiments/context-window.md` and `read-amplification.md` measure it, and the chain gate is the current answer. A third mechanism is worth a reading, not a port. INBOX 2026-09-18 and 2026-09-21.
+*Done when* — each has a verdict against a measured number of ours, and the losing one is deleted from `REFS.md` with its reason.
+
 ## Legibility — can Lucas still read what he owns
 
 **🔴 the health picture is built and does not land — redesign it**
@@ -62,3 +67,4 @@ Twenty-six killed items are in git, not here: `git log -S'## Rejected' -- ROADMA
 - **A repo of its own for `code/aiwbot`** — 2026-09-17 (Lucas): it would not have closed the item.
   The wos clone would still carry a registry row naming a file it does not have.
 - **A `needs` column in the feature registry** — 2026-09-17: one `bot` row means no dependency left to declare, and a column with zero filled values is worse than one with a single case.
+- **Rewriting the hooks in a faster language** — 2026-09-21 (Lucas, after the number): the complaint was real (*"toda vez o meu computador fica fritando"*), the cause is not language. `core/experiments/hook-latency.md` measures ~60% of any hook's cost as CPython *starting*, before a gate reads a byte, and says so in one line: the fix that pays is removing processes. The saving already banked came from collapsing PostToolUse into the dispatcher, 1.9x. What is left is `post-edit.sh` doing real work per write (0.155-0.172 s) and a 961-test suite the roundup runs — neither gets faster by being written in something else, and the suite is pytest.
