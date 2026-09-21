@@ -2,7 +2,7 @@
 > What is currently untrue that we know about: hand-written issues first, every measured number
 > inside its own generated block.
 
-The scope is the **workspace itself** — the enforcement layer, the tools, the scaffold. A bug in a
+The scope is the **workspace itself** — the enforcement layer, the tools, the structure. A bug in a
 project under `code/` belongs to that project's own `ISSUES.md`, and **the block below counts this
 repo alone** (ruled 2026-09-04): those projects are separate repos this one's git ignores, so a
 count of them was a fact about one machine's disk rather than about the workspace, and the same
@@ -236,7 +236,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/word-retirement is 2 ahead of main
+- . — feature/word-retirement is 3 ahead of main
 
 ### Local branches already merged into their base
 
