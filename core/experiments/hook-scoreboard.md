@@ -18,6 +18,8 @@ The store is `core/scoreboard.tsv`, gitignored and per machine, one row per even
 **The measurement is the pair, never either column alone.** A feature that fired ten thousand times and blocked nothing is either guarding something nobody violates or guarding nothing, and the registry cannot tell those apart. `-` under blocked means the feature does not block by declaration;
 `0` means it does and never has.
 
+**A THIRD READING OF `fired` HIGH / `blocked` 0, found 2026-09-21 and the one this pair cannot see: the gate is aimed at a shape its subject does not have.** `issues-gate` read 937 / 0, which looks like the first case — a rule nobody violates. It was neither. Its matcher wanted `## b<id>` headings and every `ISSUES.md` in the workspace is written in bullets, so it had never had anything to match and could not have blocked whatever anyone wrote. Nothing in the two columns says so; it took opening the regex. **So a `0` is a question for the reading, never an answer** — before a feature is cut for never blocking, check that it can see its subject at all, because a cut made on this evidence would have deleted a gate whose only fault was aim.
+
 ## Results
 
 | Date | Window | Features fired | Never fired | Blocks recorded | Notes |

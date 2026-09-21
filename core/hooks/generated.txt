@@ -42,11 +42,15 @@ outputs/*
 # hundreds of lines of generated prose that no split could improve, so the cap is waived for the
 # whole file.
 #
-# These are the one HALF-authored kind of entry in this list, and that is a real cost rather than a
-# detail: the hand-written issues above the blocks lose the size signal too. Accepted because the
-# alternative is a per-block cap — a second numeric law, answering a question BLOCK_LINES already
-# answers, which is the drift file_law.py exists to prevent. If a hand-written half ever grows past
-# a screen, it is cut like any other type and the parts are ordinary capped files.
+# These are the one HALF-authored kind of entry in this list, and a line here waives a RULE, never a
+# MEASUREMENT (2026-09-21). Conflating the two is what made this file's most-read entry weigh
+# nothing: `size` read this list to decide what to COUNT, so ISSUES.md — first in the weighted
+# ranking — was missing from it entirely. It is measured by file_law.authored_line_count now, which
+# charges a person for the prose outside the blocks and nobody for what is inside them.
+# What stays waived is the size CAP, and the alternative to waiving it is a per-block cap — a second
+# numeric law answering the question BLOCK_LINES already answers, which is the drift file_law.py
+# exists to prevent. If a hand-written half ever grows past a screen, it is cut like any other type
+# and the parts are ordinary capped files.
 ISSUES.md
 */ISSUES.md
 

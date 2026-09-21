@@ -21,6 +21,12 @@ from file_law import load_limits  # noqa: E402
 from platform_law import rel  # noqa: E402
 
 WARN = load_limits()['WARN_FILES']
+# THE RATCHET REFUSES AT THE CAP, NOT AT THE SIGNAL (Lucas, 2026-09-21: "WARN é WARN"). It keyed on
+# WARN until then, so a directory at 11 failed the suite while limits.env said nothing stopped until
+# 15 — one number reading as one law and acting as two, which misled Lucas and the agent in the same
+# session. A suite that fails IS a refusal, whatever the message calls it. Below the cap the entropy
+# report is the only consequence, and it now says so in the signal itself.
+CAP = load_limits()['BLOCK_FILES']
 
 # Inherited crowding, each a directory that owes a split. Nothing else may join.
 #
@@ -46,10 +52,10 @@ def _live() -> set:
     counts = entropy_crowding.crowding_counts(
         entropy_list.tracked_files(WORKSPACE_ROOT), WORKSPACE_ROOT)
     return {rel(d, WORKSPACE_ROOT)
-            for d, n in counts.items() if n > WARN}
+            for d, n in counts.items() if n > CAP}
 
 
-def test_no_new_directory_exceeds_the_crowding_signal() -> None:
+def test_no_new_directory_exceeds_the_crowding_cap() -> None:
     assert _live() <= BASELINE, (
         f'new over-full directories: {sorted(_live() - BASELINE)} — split by '
         f'responsibility, or add to BASELINE with the item that retires it')
@@ -73,14 +79,14 @@ def test_an_over_full_directory_is_flagged(tmp_path) -> None:
 
 
 def test_warn_and_block_are_reported_differently(tmp_path) -> None:
-    """Symmetric with the file pair: a WARN asks for a look, a BLOCK is the cap."""
-    block = load_limits()['BLOCK_FILES']
+    """Symmetric with the file pair: a WARN asks for a look, a BLOCK is the cap — and each says
+    which of the two happened rather than only which number it crossed."""
     warned = entropy_crowding.crowding_signals(
         [tmp_path / f'm{i}.py' for i in range(WARN + 1)], tmp_path)
     blocked = entropy_crowding.crowding_signals(
-        [tmp_path / f'm{i}.py' for i in range(block + 1)], tmp_path)
-    assert 'WARN_FILES signal' in warned[0]
-    assert 'BLOCK_FILES cap' in blocked[0]
+        [tmp_path / f'm{i}.py' for i in range(CAP + 1)], tmp_path)
+    assert 'NOT REFUSED' in warned[0]
+    assert 'REFUSED' in blocked[0] and 'NOT REFUSED' not in blocked[0]
 
 
 def test_a_flat_document_collection_is_not_crowding(tmp_path) -> None:
