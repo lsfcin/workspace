@@ -21,13 +21,6 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 
 ## Legibility — can Lucas still read what he owns
 
-**🟡 two words the legibility pass missed, and no row ever forbade either**
-*What* — `scaffold` and `nudge` gone from this repo, with their rows in `core/SCHEMA.md` § Retired tokens, which is what finishes a rename. Measured 2026-09-18: `scaffold` 96 occurrences in ~45 tracked files, one word doing three jobs — the empty file a generator writes, the shape of a place without its content, and a placeholder nobody answered, so it owes three replacements rather than one. `nudge` is 114 in 36 files and means **reminder**.
-*Why* — Lucas asked why both came back (2026-09-18); they came back because no row forbade them, the same shape as the three renames that were silently unfinished until the check learned to read inflections the same day.
-*Done when* — both rows are in the table and the suite is green with them, which is one assertion.
-Neither is one session, and for the same reason: the word is in NAMES, not only prose.
-`core/hooks/stubgen/paper-scaffold.py` is a filename embedded in generated headers across ten paper repos; `nudge` is in three feature names (`inbox-nudge`, `compass-nudge`, `publish-nudge`) carried by `core/features.txt`, `core/profile.txt`, the scoreboard's history and `ARCHITECTURE.html`.
-
 **🔴 the health picture is built and does not land — redesign it**
 *What* — `ARCHITECTURE.html` redrawn as a list ordered by colour and symbol, where the page now puts a big mostly-empty table. Next deliverable is the Claude Design prompt for that session, and it has to resolve one conflict: Lucas wants per-file reads per session on this page, and that is the one number that breaks its determinism — it is regenerated at every close and must change only when the workspace does.
 *Why* — three drawings answered *what is there*; Lucas read this one 2026-09-15 and ruled it an inventory with better manners.

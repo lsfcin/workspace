@@ -88,7 +88,7 @@ def test_uppercase_directory_is_flagged(tmp_path):
     assert 'not lowercase' in entropy_naming.check_dirs(target, tmp_path)
 
 
-def test_scaffolding_directory_is_allowed(tmp_path):
+def test_a_template_directory_is_allowed(tmp_path):
     target = tmp_path / '_templates' / 'notes.md'
     assert entropy_naming.check_dirs(target, tmp_path) is None
 

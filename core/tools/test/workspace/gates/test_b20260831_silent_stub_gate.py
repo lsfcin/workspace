@@ -49,14 +49,14 @@ def test_a_missing_stub_is_announced_and_the_read_is_allowed(tmp_path):
 
 
 def test_the_announcement_is_made_once_per_file_per_session(tmp_path):
-    """A loop over one file says this once — the codegraph nudge's rule, for the same reason."""
+    """A loop over one file says this once — the codegraph reminder's rule, for the same reason."""
     source = tmp_path / 'nostub.py'
     source.write_text('def f(x):\n    return x\n', encoding='utf-8', newline='\n')
 
     _read(source, 'dedup-session')
     again = _read(source, 'dedup-session')
 
-    assert again.stdout == '', f'the nudge repeated within one session:\n{again.stdout!r}'
+    assert again.stdout == '', f'the reminder repeated within one session:\n{again.stdout!r}'
 
 
 def test_an_empty_stub_counts_as_absent(tmp_path):

@@ -1,5 +1,5 @@
 # References
-> What external material exists for the workspace-os / agent-library scaffold, and how much weight does each hold?
+> What external material exists for the workspace-os agent library, and how much weight does each hold?
 > One line per ref, carrying level markers `[A] [B] [P] [V] [C]`. Citation discipline: [CONTEXT.md](CONTEXT.md).
 
 ## Context engineering & progressive disclosure
@@ -20,8 +20,8 @@
 - `[P]` [Agentic Context Engineering (ACE)](https://arxiv.org/abs/2510.04618)
   (Stanford/SambaNova, 2026-03) — contexts as evolving playbooks updated by incremental deltas.
 - `[P]` [Self-Improvements in Modern Agentic Systems](https://arxiv.org/abs/2607.13104)
-  (KAUST, 2026-07) — agent = model + scaffold (prompts, memory, tools, control logic); self-improvement updates
-  scaffold.
+  (KAUST, 2026-07) — agent = model + the layer around it (prompts, memory, tools, control logic); self-improvement updates
+  that layer.
 - `[A]` [Voyager](https://arxiv.org/abs/2305.16291)
   (TMLR 2023) — lifelong skill library persisted outside model weights.
 - `[A]` [Lost in the Middle](https://aclanthology.org/2024.tacl-1.9/)

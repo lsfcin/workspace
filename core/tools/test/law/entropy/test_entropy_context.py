@@ -110,7 +110,7 @@ def test_a_dead_goal_link_is_flagged(tmp_path):
     assert failure is not None and 'does not exist' in failure
 
 
-def test_scaffolding_is_not_a_project(tmp_path):
+def test_a_template_directory_is_not_a_project(tmp_path):
     templates = tmp_path / 'code' / '_templates'
     templates.mkdir(parents=True)
     target = templates / 'CONTEXT.md'

@@ -29,7 +29,7 @@ def _tracked(*patterns: str) -> list[Path]:
 
 
 def _templates(script: Path, name: str) -> list[str]:
-    """Heredoc bodies the script scaffolds into <dir>/<name>."""
+    """Heredoc bodies the script writes into <dir>/<name>."""
     body = script.read_text(encoding="utf-8")
     pattern = re.compile(
         r'cat > "\$dir/' + re.escape(name) + r'" << \'EOF\'\n(.*?)\nEOF', re.DOTALL
@@ -39,7 +39,7 @@ def _templates(script: Path, name: str) -> list[str]:
 
 def test_jsconfig_template_carries_no_emit_keys() -> None:
     templates = _templates(POSTEDIT, "jsconfig.json")
-    assert templates, "postedit/interfaces.sh no longer scaffolds a jsconfig.json"
+    assert templates, "postedit/interfaces.sh no longer writes a jsconfig.json"
     for raw in templates:
         opts = json.loads(raw).get("compilerOptions", {})
         offenders = EMIT_KEYS & set(opts)
@@ -60,7 +60,7 @@ def test_tracked_jsconfigs_carry_no_emit_keys() -> None:
         )
 
 
-def test_scaffolded_tsconfig_with_dot_outdir_declares_exclude() -> None:
+def test_a_written_tsconfig_with_dot_outdir_declares_exclude() -> None:
     """tsc appends outDir to the DEFAULT exclude list, so `"outDir": "."` excludes the
     config's own directory unless exclude is stated — TS18003, zero inputs, no output."""
     for raw in _templates(POSTEDIT, "tsconfig.json"):

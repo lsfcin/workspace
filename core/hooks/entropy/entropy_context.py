@@ -168,7 +168,7 @@ def check_truncation(path: Path) -> str | None:
 
 
 def is_project(path: Path) -> bool:
-    """A project = a directory sitting directly under code/. Scaffolding is not one."""
+    """A project = a directory sitting directly under code/. A template directory is not one."""
     return (path.name == 'CONTEXT.md' and path.parent.parent.name == 'code'
             and not path.parent.name.startswith('_'))
 

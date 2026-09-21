@@ -76,9 +76,9 @@ Nothing to say → say nothing, by the output rule at the top. This phase is a q
 
 **Counting is this phase; draining is the next session's first act.** A drain opens links with the video and web tools — the most expensive work the workspace does — and this is the most expensive turn it has. Ruled 2026-08-25, after a close that drained zero entries *because* of the price and left 19 sitting.
 
-**Run nothing.** The count is already in this session's context: `INBOX-NUDGE` printed it at SessionStart, and it prints *only* above the threshold, so no line means nothing to do. Re-counting here is a command bought at the worst price to learn what the session was told for free.
+**Run nothing.** The count is already in this session's context: `INBOX-REMINDER` printed it at SessionStart, and it prints *only* above the threshold, so no line means nothing to do. Re-counting here is a command bought at the worst price to learn what the session was told for free.
 
-So: if the nudge fired and `$ARGUMENTS` names no other focus, hand `/inbox` to Phase 5 as the next session's `Next action`, with the count. Otherwise this phase says nothing.
+So: if the reminder fired and `$ARGUMENTS` names no other focus, hand `/inbox` to Phase 5 as the next session's `Next action`, with the count. Otherwise this phase says nothing.
 
 ---
 

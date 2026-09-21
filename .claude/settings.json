@@ -105,7 +105,7 @@
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/nudges.py"
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/reminders.py"
           }
         ]
       }

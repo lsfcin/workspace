@@ -67,7 +67,7 @@ fallback · iterate — MVP can always be extended*
 > [ ] [security-gates] decidir quais dos 20 itens da checklist pré-lançamento viram gate de verdade para os projetos que vão pro ar (gira, voti, ppc) — vários já cobertos (secret-scan no pre-commit, skill `security-review`); o que sobra é auth server-side, RLS, rate-limit e headers, que nenhum gate nosso vê. Ref em `core/refs/REFS.md`, na linha sobre shipping de app escrito por agente (INBOX 2026-08-13)  
 > [ ] [jcode-custo] o JCode (harness do Claude Code reescrito em Rust) levanta duas perguntas, e a segunda vale mais:
 > a ferramenta presta, e **é o harness que deixa caro ou é o modelo?** A segunda se mede aqui sem instalar nada —
-> tokens de scaffolding vs tokens de conteúdo numa sessão nossa. Responder junto com *"vale usar rust em vez de python"* nas nossas `core/tools/`, que é a mesma medição. Ref em `core/refs/REFS.md`  
+> tokens de estrutura vs tokens de conteúdo numa sessão nossa. Responder junto com *"vale usar rust em vez de python"* nas nossas `core/tools/`, que é a mesma medição. Ref em `core/refs/REFS.md`  
 > [ ] [zcode-trust] aceitar o trust do workspace no ZCode (Settings, ou o prompt ao abrir /mnt/workspace) — **só o Lucas pode**; sem isso os hooks do shim ficam inertes. Depois abrir sessão nova e re-rodar a sonda de `core/experiments/zcode-hook-protocol.md`, que decide se o registro direto fica ou vira adaptador (INBOX 2026-08-21)  
 > [ ] [zero-sum-linhas] avaliar gate de orçamento zero-sum no WOS: nenhum commit adiciona linhas sem que diminua de outro canto — é viável medir e impor? (INBOX 2026-09-05)  
 > [ ] [ferramentas-obsoletas] de tempos em tempos, checar se alguma ferramenta nossa deve ser atualizada ou abandonada porque os modelos e harnesses melhoraram — o WOS existe para contornar fraquezas do modelo, então cada fraqueza corrigida upstream é código nosso que virou peso morto. Mesmo raciocínio do estudo de ablação, em cadência menor (INBOX 2026-08-21)  
@@ -87,7 +87,7 @@ fallback · iterate — MVP can always be extended*
 > mesma régua de `core/run tools/wos/session/reads`: linha que não muda o que o agente faz, sai (INBOX 2026-09-17)  
 > [ ] [auditar-sempre-lido] auditar `AGENTS.md` e os `CONTEXT.md`: o que é de fato obedecido vs o que é ignorado. Custo é por sessão, então medir antes de cortar; irmão de [memory-higiene] (INBOX 2026-09-17)  
 > [ ] [auditar-testes] auditar os ~890 testes — são muitos e vários são antigos, então alguns podem não descrever mais o que o workspace faz. Casa com [mutation-testing]: teste sem dente e teste obsoleto são o mesmo custo (INBOX 2026-09-17)  
-> [ ] [vocabulario-gate-nudge] trocar "gate" por "block" no WOS, inclusive nos nomes de arquivo — mais direto sobre o impacto — e achar substituto pra "nudge" que traduza (o agente já soltou 'nudge' no meio de uma conversa em português). Cada troca ganha linha em `core/SCHEMA.md` § Retired tokens, que é o que fecha a renomeação. A terceira palavra do pedido já foi aposentada nessa tabela em 17/09 — estava em zero arquivos, só na fala do agente, e o workspace já tinha o verbo simples pra ela (INBOX 2026-09-17)  
+> [ ] [vocabulario-gate] trocar "gate" por "block" no WOS, inclusive nos nomes de arquivo — mais direto sobre o impacto. Cada troca ganha linha em `core/SCHEMA.md` § Retired tokens, que é o que fecha a renomeação. As outras duas palavras do pedido já estão nessa tabela: uma em 17/09, que estava em zero arquivos, e a que não traduzia em 20/09, agora `reminder` (INBOX 2026-09-17)  
 > [ ] [painel-arquitetura] `ARCHITECTURE.html` entrega pouco: tabela gigante e vazia não ajuda. Relembrar o propósito profundo do painel e o valor que ele pode dar, trocar a tabela por lista ordenada por cor e/ou símbolo, e iterar de novo no Claude Design (INBOX 2026-09-17)  
 > [ ] [agente-ve-imagem] avaliar o toolkit que dá visão — imagens e screenshots — a agente text-only; Lucas: *"será que é melhor que o que temos"*, e o que temos é o caption VLM do `core/tools/video`. Ref em `core/refs/REFS.md` (— via aiwbot)  
 > [ ] [archify-diagramas] **`tt-ali/archify`** (rank 04, com `cathrynlavery/diagram-design`): skills que viram conversa em diagrama html/svg limpo, *"from plain English to architecture in seconds"*. É o pedido do Lucas e encaixa exato em [painel-arquitetura] e no diagrama de roteamento — testar nos nossos dois painéis antes de redesenhar à mão  
@@ -111,5 +111,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-17  ·  trend: advancing  ·  touches: 445/752/792/792/792/792
+last-touch: 2026-09-20  ·  trend: advancing  ·  touches: 437/765/809/809/809/809
 <!-- stats:end -->

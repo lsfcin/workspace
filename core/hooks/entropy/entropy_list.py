@@ -145,7 +145,7 @@ def unanswered_placeholders(files: list, exempt: set) -> list:
 
     Split out of finished_work_hits 2026-08-15, which carried the remediation "cut it; git is the
     history". That advice is wrong here and acting on it is worse than ignoring it: the marker is a
-    live request, not a record, and the generator writes it again on the next save. Three scaffolds
+    live request, not a record, and the generator writes it again on the next save. Three generators
     emit the same glyph, and all three are answered at the source.
 
     Counted per file rather than per row, so the number means "files that lie to a reader"

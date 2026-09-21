@@ -43,7 +43,7 @@ def build_stats_block(name, attention):
     files, ~320 lines of the corpus, and NOTHING read them: GOALS.md builds its dashboard straight
     from `brain_attention.harvest`, and no checker, tool or skill parses a goal file's stats. It was
     36 copies of a number that already lives on the dashboard. Every count survives here; only the
-    table scaffolding went.
+    table's frame went.
     """
     counts = {period: attention.count(name, days) for period, days in PERIODS}
     lt     = attention.last_touch(name)

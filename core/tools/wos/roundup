@@ -75,9 +75,9 @@ def public(root: Path) -> str:
     direction, and the one nothing was asking. A `--check` is read-only and costs no network.
 
     THE EXPENSIVE HALF OF A PAIR, and deliberately so. This walks 1150 files and costs 3.1 s, which
-    a close can afford once and a SessionStart cannot: core/hooks/session/publish-nudge.py asks the
+    a close can afford once and a SessionStart cannot: core/hooks/session/reminders.py asks the
     cheap question (16 ms of git log) at every start and this one asks the exact one at every end.
-    Same split the INBOX already has — the nudge counts, the ritual acts.
+    Same split the INBOX already has — the reminder counts, the ritual acts.
     """
     if root != WORKSPACE:
         return ''

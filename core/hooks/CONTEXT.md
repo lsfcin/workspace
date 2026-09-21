@@ -28,8 +28,8 @@ Gate behavior, the agent-shim contract, and how a module reaches the root law:
 | [`postedit/`](postedit/CONTEXT.md) | Sourced post-edit stages: regenerate interfaces, remind, sync, lint. |
 | [`read/`](read/CONTEXT.md) | Who must read what before touching a folder — and who gets handed it instead. |
 | [`routing/`](routing/CONTEXT.md) | The CONTEXT.md routing-table generator, and the delimited-block writer every generator shares. |
-| [`session/`](session/CONTEXT.md) | Session lifecycle: start, prune, precompact wipe, and the SessionStart nudges. |
-| [`stubgen/`](stubgen/CONTEXT.md) | Interface stubs and paper scaffolding, generated on save and on commit. |
+| [`session/`](session/CONTEXT.md) | Session lifecycle: start, prune, precompact wipe, and the SessionStart reminders. |
+| [`stubgen/`](stubgen/CONTEXT.md) | Interface stubs and paper templates, generated on save and on commit. |
 | [`trigger/`](trigger/CONTEXT.md) | When a feature fires, read from the registrations rather than from where its file sits. |
 
 | File | Interface | API | Description |

@@ -113,7 +113,7 @@ def test_both_messages_name_roundup_and_nothing_else():
 
 
 def test_the_warn_message_stays_ignorable():
-    """The first nudge exists to be ignorable — see brain/SPECS.md § Rationale. It may name
+    """The first reminder exists to be ignorable — see brain/SPECS.md § Rationale. It may name
     /roundup, but it must also say, in as many words, that finishing instead is fine."""
     limits = context_meter.load_limits()
     text = context_meter.message(limits['CTX_WARN'] + 4_000, limits['CTX_WARN'], limits['CTX_LOUD'])

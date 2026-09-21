@@ -5,7 +5,7 @@
 # denylist-first pattern -- `<domain>/*` plus explicit `!<domain>/<dir>/` allow lines -- so a
 # brand-new domain subdir is silently untracked until someone remembers to add its line. That
 # already bit core/refs/. A subdir with a CONTEXT.md is structural by construction (the existing
-# "this is workspace scaffold" signal): add its allow line and stage it, no human action. A subdir
+# "this is workspace structure" signal): add its allow line and stage it, no human action. A subdir
 # with no CONTEXT.md stays ignored, correctly project-internal. A subdir in
 # gitignore-exceptions.txt is a deliberate, reviewed exception.
 import re

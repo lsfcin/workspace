@@ -27,7 +27,7 @@ You are a SENIOR software architect, your code WILL be evaluated!
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`_templates/`](_templates/CONTEXT.md) | Project scaffolding templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skeletons |
+| [`_templates/`](_templates/CONTEXT.md) | Project templates — CONTEXT.md, README.md, SPECS.md, ROADMAP.md skeletons |
 | [`aiwbot/`](aiwbot/CONTEXT.md) | Provider-agnostic bot: control swappable coding agents (claude·opencode·copilot) from chat. |
 | [`apptime/`](apptime/CONTEXT.md) | Android app to reduce phone addiction through awareness, without blocking |
 | [`corpora/`](corpora/CONTEXT.md) | Real-time 3D computer vision pipeline — depth, pose, segmentation from webcam |
@@ -49,7 +49,7 @@ You are a SENIOR software architect, your code WILL be evaluated!
 |------|-----------|-----|-------------|
 | [`ROADMAP-spec-drive.md`](ROADMAP-spec-drive.md) | — | — | Enforcement rollout making the spec the contract for `code/` modules: verifiable inputs/outputs/invariants that precede and govern the code. Goal: [spec-driven-development](../brain/goals/spec-driven-development.md). |
 | [`ROADMAP-verify.md`](ROADMAP-verify.md) | — | — | Testing-discipline rollout for `code/` projects: make agents verify their own results (no human eye per prompt) and enforce code centralization. Pilot: isoroll-module. Second: apptime. |
-| [`SETUP.md`](SETUP.md) | — | — | Per-language setup, facade templates, and project scaffolding reference |
+| [`SETUP.md`](SETUP.md) | — | — | Per-language setup, facade templates, and project template reference |
 | [`SPECS-git.md`](SPECS-git.md) | — | — | Which branches exist, what may be committed where, and when work is pushed. |
 | [`SPECS-structure.md`](SPECS-structure.md) | — | — | How a project is laid out: its files, its module specs, and its facade. |
 | [`SPECS-style.md`](SPECS-style.md) | — | — | How a file is written, how big it may get, and when a directory splits. |

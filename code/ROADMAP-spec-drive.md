@@ -33,7 +33,7 @@ A module is **spec-locked** when its `CONTEXT.md` carries `> spec: <path>` and t
 
 | Surface | Fires on | Behavior | Impl |
 |---|---|---|---|
-| `spec-read-gate.py` | Edit/Write of a spec-locked module's files | **exit 2** unless its SPEC.md was Read this session (nudge on new files in spec-less `code/` modules) | clone of `context-gate.py`; reuses `context-tracker.py` marker |
+| `spec-read-gate.py` | Edit/Write of a spec-locked module's files | **exit 2** unless its SPEC.md was Read this session (reminder on new files in spec-less `code/` modules) | clone of `context-gate.py`; reuses `context-tracker.py` marker |
 | pre-commit block **1d** | commit adding a new `CONTEXT.md` under `code/` | **exit 1** unless it declares `> spec: <existing file>` or `> spec: none` | clone of block 1c + known-bugs glob |
 | `verify:fast` (block 1a) | commit with staged code | conformance rides it — a broken `## Examples` case is a red test = blocked | existing gate, unchanged |
 
@@ -54,7 +54,7 @@ Git Flow is enforced alongside (`core/hooks/git/gitflow_gate.py`, pre-commit 1e;
 
 ### P1 — The gates (enforcement) ✅ 2026-07-17
 - `.hooks/spec-read-gate.py` + pre-commit block 1d + settings.json wiring; opencode + Copilot parity.
-- Behavior-tested: block-when-unread, allow-after-read, exempt SPEC itself, out-of-scope pass, new-file nudge, and all four 1d branches (no-spec / optout / declared-missing / ok).
+- Behavior-tested: block-when-unread, allow-after-read, exempt SPEC itself, out-of-scope pass, new-file reminder, and all four 1d branches (no-spec / optout / declared-missing / ok).
 
 ### P2 — Conformance rides verify:fast ◐ 2026-07-17 (convention set; extractor deferred)
 - **Convention (done):** `## Examples` binds conformance in one of two modes — (a) *reference* existing test cases (the pilot does this: examples point at `tests/test_direction.py` etc., already run by `verify:fast`), or (b) *embed* literal input→output pairs for a future extractor to run.

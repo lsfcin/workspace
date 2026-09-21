@@ -11,8 +11,8 @@ Every save of a supported source file produces its interface unconditionally —
 | Language | Output | Tool | Notes |
 |----------|--------|------|-------|
 | Python | `.pyi` | `stubgen` | on every edit and every commit |
-| JavaScript | `.d.ts` | `tsc --allowJs --emitDeclarationOnly` | `jsconfig.json` auto-scaffolded if missing (IDE use only) |
-| TypeScript | `.d.ts` | `tsc --emitDeclarationOnly` | `tsconfig.json` auto-scaffolded if no ancestor config is found |
+| JavaScript | `.d.ts` | `tsc --allowJs --emitDeclarationOnly` | `jsconfig.json` created automatically if missing (IDE use only) |
+| TypeScript | `.d.ts` | `tsc --emitDeclarationOnly` | `tsconfig.json` created automatically if no ancestor config is found |
 | Dart | `.dart.api` | `dart-api-extract.py` | public class/mixin/method signatures; needs Python 3 only, no Dart SDK |
 | LaTeX | `.texif` | `tex-interface-gen.py` | structure, equations, floats, citations, TODOs, opening sentences. Also regenerates `labels.md`; a `.bib` edit warns about missing `reviews/<key>.yaml` |
 

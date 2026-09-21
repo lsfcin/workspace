@@ -6,7 +6,7 @@ primary; Overleaf is the sync/checkpoint for final validation.
 
 Every rule that constrains a paper — naming, file size, first-line comments, the `.texif` interface,
 the `refs/` schema and tag vocabulary, writing quality, evidence discipline, git — plus how to
-scaffold a new paper and how to build one: [SPECS.md](SPECS.md).
+create a new paper and how to build one: [SPECS.md](SPECS.md).
 
 ## Research
 
@@ -26,9 +26,9 @@ protocols: [core/flows/](../../core/flows/CONTEXT.md).
 | [`ai4good/`](ai4good/CONTEXT.md) | Visão + sistema + piloto: o papel moral da IA — da captura de atenção e da guerra à reconfiguração das lógicas sociais. Sessão Opus dedicada pendente. |
 | [`mechanism-search/`](mechanism-search/CONTEXT.md) | Paper embrião: busca de mecanismos sociais com LLMs ancorada em dados de fluxo financeiro — método do motor de ideação do instituto (`branches/instituto/MOTOR.md`), flagship metodológico do LIH.DD. Alvo: EAAMO / CSCW / Collective Intelligence. Estágio: pré-venue, sem LaTeX. |
 | [`mutual-credit-ai/`](mutual-credit-ai/CONTEXT.md) | Paper embrião: agentes de IA resolvendo a iliquidez de moedas complementares — clearing multi-hop e matching contínuo em circuito local (feira agroecológica). Twin de pesquisa do núcleo circuito (`branches/instituto/nucleo-circuito.md`) e de `code/gira`. Alvo: EAAMO / complexity econ. Estágio: pré-venue, sem LaTeX. |
-| [`pls-pix/`](pls-pix/CONTEXT.md) | Paper embrião: prize-linked savings via Pix contra o dreno das bets no Brasil — desenho de mecanismo + piloto. Twin de pesquisa do núcleo virada (`branches/instituto/nucleo-virada.md`). Alvo: EAAMO / dev econ. Estágio: pré-venue, sem LaTeX (rodar paper-scaffold.py ao promover). |
+| [`pls-pix/`](pls-pix/CONTEXT.md) | Paper embrião: prize-linked savings via Pix contra o dreno das bets no Brasil — desenho de mecanismo + piloto. Twin de pesquisa do núcleo virada (`branches/instituto/nucleo-virada.md`). Alvo: EAAMO / dev econ. Estágio: pré-venue, sem LaTeX (rodar paper-template.py ao promover). |
 | [`spacemantics/`](spacemantics/CONTEXT.md) | Benchmark+method paper: a verifiable spatial DSL lifts LLM spatial capability across 2D/2.5D/3D/4D and across models |
-| [`wos-ablation/`](wos-ablation/CONTEXT.md) | Paper embrião: does an enforced agent workspace actually make an AI coding agent better? Ablation over this repo's own gates, skills and hooks. Alvo: AIware / ICSE-SEIP / FSE-Industry. Estágio: pré-venue, sem LaTeX (rodar paper-scaffold.py ao promover). |
+| [`wos-ablation/`](wos-ablation/CONTEXT.md) | Paper embrião: does an enforced agent workspace actually make an AI coding agent better? Ablation over this repo's own gates, skills and hooks. Alvo: AIware / ICSE-SEIP / FSE-Industry. Estágio: pré-venue, sem LaTeX (rodar paper-template.py ao promover). |
 
 | File | Description |
 |------|-------------|

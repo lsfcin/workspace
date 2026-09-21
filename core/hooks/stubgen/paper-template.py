@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-# paper-scaffold.py: Initialize or adapt a paper directory to workspace standards.
+# paper-template.py: Initialize or adapt a paper directory to workspace standards.
 #   new <name>    — create academy/papers/<name>/ from template
-#   adapt <path>  — add missing scaffold files to an existing paper
+#   adapt <path>  — add missing template files to an existing paper
 # Both modes are safe: existing files are never overwritten (skipped with ~).
 from __future__ import annotations
 import re
@@ -135,7 +135,7 @@ canonical: {}  # ← replace {} with your term definitions
 """
 
 
-def scaffold(root: Path, name: str, dir_name: str, is_new: bool) -> None:
+def apply_template(root: Path, name: str, dir_name: str, is_new: bool) -> None:
     created: list[str] = []
     skipped: list[str] = []
 
@@ -169,13 +169,13 @@ def scaffold(root: Path, name: str, dir_name: str, is_new: bool) -> None:
     for f in skipped:
         print(f'  ~ {f} (exists — skipped)')
     if is_new:
-        print(f'\nNext steps:\n  cd {root}\n  git init && git remote add origin <overleaf-url>\n  git add . && git commit -m "Initial scaffold"')
+        print(f'\nNext steps:\n  cd {root}\n  git init && git remote add origin <overleaf-url>\n  git add . && git commit -m "Initial template"')
 
 
 def main() -> int:
     args = sys.argv[1:]
     if len(args) < 2 or args[0] not in ('new', 'adapt'):
-        print('Usage:\n  paper-scaffold.py new <name>\n  paper-scaffold.py adapt <path>', file=sys.stderr)
+        print('Usage:\n  paper-template.py new <name>\n  paper-template.py adapt <path>', file=sys.stderr)
         return 1
 
     if args[0] == 'new':
@@ -184,13 +184,13 @@ def main() -> int:
         if root.exists():
             print(f'Error: {root} already exists — use "adapt" to fill missing files.', file=sys.stderr)
             return 1
-        scaffold(root, _dir_to_title(dir_name), dir_name, is_new=True)
+        apply_template(root, _dir_to_title(dir_name), dir_name, is_new=True)
     else:
         root = Path(args[1]).resolve()
         if not root.exists():
             print(f'Error: {root} does not exist.', file=sys.stderr)
             return 1
-        scaffold(root, _dir_to_title(root.name), root.name, is_new=False)
+        apply_template(root, _dir_to_title(root.name), root.name, is_new=False)
 
     return 0
 

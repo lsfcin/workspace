@@ -148,6 +148,8 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | `mail-triage` | `mail` | 2026-09-16 |
 | `hatchet` | `cut` | 2026-09-17 |
 | `telegram-capture` | `bot` | 2026-09-17 |
+| `nudge` | `reminder` | 2026-09-20 |
+| `scaffold` | `template` | 2026-09-20 |
 
 **One retired token can owe four replacements, and the cell holds only the commonest.** `slug` names four ideas, and they do not flatten into one: a link's `short name`, a feature's or file's `name`, a bracketed `item id`, and a bug's `id`.
 

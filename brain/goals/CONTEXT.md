@@ -6,7 +6,6 @@
 
 | File | Description |
 |------|-------------|
-| [`_template.md`](_template.md) | [ area | subarea | horizon ] goal title |
 | [`burocracia-academica.md`](burocracia-academica.md) | [ career | admin | year ] burocracia acadêmica |
 | [`career-ufrpe.md`](career-ufrpe.md) | [ career | ufrpe | near ] carreira UFRPE — progressão e renda |
 | [`corporal-expressiveness.md`](corporal-expressiveness.md) | [ spiritual | body | dream ] corporal expressiveness |
