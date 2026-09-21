@@ -152,6 +152,24 @@ def is_generated_line(text: str, number: int) -> bool:
     return any(start <= number <= end for start, end in generated_spans(text))
 
 
+def authored_line_count(text: str) -> int:
+    """How many of a document's lines a person wrote — the blocks a generator owns, removed.
+
+    THE MEASUREMENT HALF OF is_generated_artifact, and the reason it is a second question
+    (2026-09-21). That predicate answers whether the AUTHORING RULES apply, and `generated.txt`
+    rightly declares every ISSUES.md generated: the blocks inside really are a tool's. But
+    `core/tools/wos/size` read the same list to decide what to MEASURE, so the most-read list in
+    the workspace weighed nothing at all — 52.8 lines served per session, missing from its own
+    ranking. A file can be exempt from a rule without being exempt from a number.
+
+    A wholly generated document has no line outside a block and counts zero, so nothing that was
+    already invisible becomes visible; only the half-authored files gain their authored half.
+    """
+    spans = generated_spans(text)
+    return sum(1 for number, _ in enumerate(text.splitlines(), 1)
+               if not any(start <= number <= end for start, end in spans))
+
+
 def is_authored_prose(path: Path, root: Path) -> bool:
     """The prose twin, for the gates that hold .md to the same line cap (2026-08-18).
 

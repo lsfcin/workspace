@@ -108,7 +108,12 @@ def check_misplaced_answer(path: Path, head_warn: int) -> str | None:
         return None
     sibling = path.parent / 'SPECS.md'
     verb = 'move them to the' if sibling.exists() else 'create a'
-    return (f'{path}: head is {tokens} tok carrying {modals} constraint(s).\n'
+    # Says WHAT HAPPENED, like every other threshold in this workspace (Lucas, 2026-09-21: every
+    # WARN names where the BLOCK is). This one names the absence of a block, because limits.env
+    # § CONTEXT_HEAD_WARN declares it WARN-only on purpose — a refusal here would just push
+    # constraint prose into a second file without answering whether it IS a constraint.
+    return (f'{path}: head is {tokens} tok carrying {modals} constraint(s), over the warning\n'
+            f'   at {head_warn}. NOT REFUSED, and nothing stops here — this signal has no cap.\n'
             f'   CONTEXT.md is the only enforced-read type, so this is charged to every\n'
             f'   session in the subtree. {verb} sibling SPECS.md and leave one pointer\n'
             f'   (core/SCHEMA.md § Placement, REDIRECT).')
