@@ -49,6 +49,15 @@ matching regression spec exists and passes.
   a feature's name is versioned and its measurements are not, so every future rename silently
   costs history on every machine that is not the one doing the renaming.
 
+- **A nested repo's entropy report only refreshes when someone commits in that repo, so a quiet one
+  ages with nothing saying so.** The close runs the dashboard on this repo alone, by design (one
+  repo per run, ruled 2026-09-04), and the only other trigger is that repo's own pre-commit. Found
+  2026-09-20: a one-word pointer fix in `academy/papers/ai4good/` regenerated a block dated
+  2026-09-04 and it moved 6 findings → 8, none of them caused by that commit. Seventeen days of
+  drift were invisible because nothing had been committed there. Same class as the branch-list
+  entry below — a report read as current while nothing says how old it is — and here the date IS
+  printed, which is the cheap half already done. The missing half is anything that reads it.
+
 - The entropy block's *"safe to delete, and outward-facing"* branch list is a SNAPSHOT presented as
   a standing instruction, and it goes stale inside the session that reads it. Found 2026-09-14 by
   nearly running it: the block named `feature/legibility-identifiers` among three branches merged
@@ -227,7 +236,7 @@ matching regression spec exists and passes.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/word-retirement is 1 ahead of main
+- . — feature/word-retirement is 2 ahead of main
 
 ### Local branches already merged into their base
 
