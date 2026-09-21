@@ -21,12 +21,6 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 
 ## Legibility — can Lucas still read what he owns
 
-**🟡 one word the legibility pass missed, and no row ever forbade it**
-*What* — `scaffold` gone from this repo, with its rows in `core/SCHEMA.md` § Retired tokens, which is what finishes a rename. Measured 2026-09-18 at 96 occurrences in ~45 tracked files. It owes **two** replacements, not the three that measurement guessed: the empty file a generator writes IS the placeholder nobody answered — `workspace_scanner.py` writes a `CONTEXT.md` whose body is `← add description` — so the senses are the SHAPE of a place without its content (`template`) and the PLACEHOLDER (`placeholder`), and the workspace already owns both words.
-*Why* — Lucas asked why it came back (2026-09-18); it came back because no row forbade it, the same shape as the three renames that were silently unfinished until the check learned to read inflections the same day.
-*Done when* — the rows are in the table and the suite is green with them, which is one assertion.
-Not one session, because the word is in NAMES, not only prose: `core/hooks/stubgen/paper-scaffold.py` is a filename embedded in generated headers across ten paper repos.
-
 **🔴 the health picture is built and does not land — redesign it**
 *What* — `ARCHITECTURE.html` redrawn as a list ordered by colour and symbol, where the page now puts a big mostly-empty table. Next deliverable is the Claude Design prompt for that session, and it has to resolve one conflict: Lucas wants per-file reads per session on this page, and that is the one number that breaks its determinism — it is regenerated at every close and must change only when the workspace does.
 *Why* — three drawings answered *what is there*; Lucas read this one 2026-09-15 and ruled it an inventory with better manners.

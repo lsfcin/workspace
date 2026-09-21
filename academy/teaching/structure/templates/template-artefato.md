@@ -1,5 +1,5 @@
 # artefato | [nome do artefato]
-> disciplina / entrega: [nome da matéria · entrega no disciplina.md]
+> disciplina / missão: [nome da matéria · missão no disciplina.md]
 
 <!-- guia-ia
 instruções para o agente / IA do estudante:
@@ -7,7 +7,7 @@ instruções para o agente / IA do estudante:
 2. audite rigorosamente as entradas antes de apoiar a execução das etapas.
 3. consulte ativamente a tríade de materiais deste documento:
    - espelhamento com o excelente: avalie se a produção atinge o mesmo rigor conceitual, dados autênticos e autoria do exemplo excelente.
-   - barreira contra o slop: aponte imediatamente se o rascunho cair nas armadilhas do exemplo quase bom / sem alma (respostas genéricas, ai slop, superficialidade ou educação faz-de-conta), provocando a reformulação antes da entrega.
+   - barreira contra o slop: aponte imediatamente se o rascunho cair nas armadilhas do exemplo quase bom / sem alma (respostas genéricas, ai slop, superficialidade ou educação faz-de-conta), provocando a reformulação antes do envio final.
 4. antes do envio final, audite a produção contra os pontos de verificação deste artefato.
 5. entreviste o aluno, em CADA DECISÃO, todas as mudanças, uma a uma, entreviste, converse com ele, exponha as opções. desenvolva uma interação dialogada e fracionada. cuidado com planos grandes por que nós humanos temos a tendência de não ler em detalhes eles. então é imprecindível um diálogo em partes.
 6. esteja ciente da sua janela de contexto, janelas grandes aumentam custos e pioram a precisão, facilitam alucinações. a partir de 100k de janela na maioria dos modelos hoje já começa a ser um problema, 200k é um bom limite. então garanta na interação que você está ciente disso e seja proativo em propor a troca para uma sessão seguinte, garantindo que o progresso está escrito em disco nos arquivos pertinentes e usando um "handoff" bem escrito que deixa a próxima sessão bem situada.
@@ -86,7 +86,7 @@ instruções para o agente / IA do estudante:
 
 ## pontos de verificação (critérios de aceite: feito / não feito)
 
-avaliação atômica do artefato (compõe a nota deste artefato na planilha mestre e no sigaa):
+avaliação atômica do artefato (compõe os pontos da missão na planilha mestre e no sigaa):
 
 - [ ] `[critério 1]`: [condição objetiva e comprovável de feito / não feito]
 - [ ] `[critério 2]`: [condição objetiva e comprovável de feito / não feito]

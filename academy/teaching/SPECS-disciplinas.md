@@ -52,31 +52,31 @@
 
 ---
 
-## entregas (disciplina e artefatos modulares)
+## missões (disciplina e artefatos modulares)
 
-a arquitetura opera em **dois níveis limpos**: a **página-mestre da disciplina** (`disciplina.md`), que centraliza a visão macro e orquestra o calendário, e os **artefatos modulares autocontidos** (`artefatos/art-[nome].md`), gerados a partir dos modelos-base em markdown (.md):
+a arquitetura opera em **dois níveis limpos**: a **página-mestre da disciplina** (`disciplina.md`), que centraliza a visão macro e orquestra o calendário por missões, e os **artefatos modulares autocontidos** (`artefatos/[xpts]artefato-[nome].md`), gerados a partir dos modelos-base em markdown (.md):
 
 ### anatomia
 
 - **página-mestre da disciplina (`templates/template-disciplina.md`):**
   - substitui o Notion como centro da disciplina: banner visual, canais rápidos de comunicação e ferramentas colaborativas.
-  - propósito & visão (o chão da dor real e o horizonte da transformação).
-  - grafo do conhecimento interativo em Mermaid antes do calendário.
-  - calendário cronológico de aulas, tópicos, feriados e marcos.
-  - lista de entregas com links diretos para os artefatos convocados e o critério de avaliação intergrupos (+1 ponto).
-  - regras transparentes de pontos acumulados, dinâmica intergrupos e calibração intragrupo.
+  - propósito & visão (a base da dor real e o horizonte da transformação).
+  - painel de progresso das missões por equipe/estudante em ordem estritamente alfabética.
+  - calendário estruturado em 4 mini-tabelas por arco, detalhando aulas, materiais e marcos de missões.
+  - regras transparentes de pontos acumulados, dinâmica de avaliação entre equipes (+1 ponto) e calibração intragrupo.
   - hall da fama com projetos inspiradores de turmas anteriores e referências adicionais.
+  - mapa de conceitos e vocabulário traduzido ao final, com links diretos para as páginas de slides correspondentes.
 - **artefato autocontido (`templates/template-artefato.md`):**
   - reúne integralmente o ciclo de vida daquele entregável (materiais + metodologia):
-    - **princípio & racional (chão $\to$ horizonte):** dor real e competência duradoura visada.
+    - **princípio & racional (base $\to$ horizonte):** dor real e competência duradoura visada.
     - **entradas & dependências:** pré-requisitos necessários antes de iniciar.
     - **tríade de materiais:** modelo (starter kit), exemplo excelente (padrão-ouro com notas críticas) e exemplo quase bom / sem alma (anti-modelo anti-slop).
     - **metodologia construtiva:** passos práticos no imperativo com ciclo de 8 etapas, acompanhados do protocolo de co-criação socrática para IAs (`<!-- guia-ia -->`).
     - **pontos de verificação (critérios de aceite: feito / não feito):** 1 a 3 condições comprováveis de feito/não feito (1 ponto por critério cumprido).
 
-### regra de sequenciamento de entregas
+### regra de sequenciamento de missões
 
-nenhum artefato é solicitado sem que suas entradas tenham sido geradas em checkpoints anteriores ou fornecidas explicitamente pelo professor. o fluxo de entregas respeita rigorosamente a topologia do grafo de artefatos da disciplina.
+nenhum artefato de missão é solicitado sem que suas entradas tenham sido geradas em missões anteriores ou fornecidas explicitamente pelo professor. o fluxo de aprendizagem respeita rigorosamente a topologia do mapa de habilidades da disciplina.
 
 *nota: em cada ponto relevante, adicionar blocos comentados como guias específicos para ias (`<!-- guia-ia -->`). como os humanos não precisam visualizar essas instruções operacionais, elas orientam os harnesses dos estudantes a atuarem com tutoria socrática sem poluir a leitura humana.*
 

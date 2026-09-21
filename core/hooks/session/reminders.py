@@ -44,7 +44,7 @@ def read_body(text: str) -> str:
 
 
 def count_entries(body: str) -> int:
-    """Blank lines separate entries; comments and rules are scaffolding, not capture."""
+    """Blank lines separate entries; comments and rules are structure, not capture."""
     entries = []
     for block in re.split(r'\n\s*\n', body):
         stripped = block.strip()

@@ -51,7 +51,7 @@ SECTIONS = (
      'splitting costs one hop — pay it only when it removes more table than it adds'),
     ('finished', 'Prose describing finished work',
      'git is the history — cut it, or rewrite it as present-tense state'),
-    ('undescribed', 'Unanswered scaffold placeholders',
+    ('undescribed', 'Unanswered placeholders',
      'a generator asked a question — answer it at the source, never by cutting the marker'),
     ('stores', 'Doubt stores missing their own discipline',
      'an experiment states its Method, Results, What changed and Limitations; a judged reference '

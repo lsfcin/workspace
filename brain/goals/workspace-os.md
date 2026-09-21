@@ -67,7 +67,7 @@ fallback · iterate — MVP can always be extended*
 > [ ] [security-gates] decidir quais dos 20 itens da checklist pré-lançamento viram gate de verdade para os projetos que vão pro ar (gira, voti, ppc) — vários já cobertos (secret-scan no pre-commit, skill `security-review`); o que sobra é auth server-side, RLS, rate-limit e headers, que nenhum gate nosso vê. Ref em `core/refs/REFS.md`, na linha sobre shipping de app escrito por agente (INBOX 2026-08-13)  
 > [ ] [jcode-custo] o JCode (harness do Claude Code reescrito em Rust) levanta duas perguntas, e a segunda vale mais:
 > a ferramenta presta, e **é o harness que deixa caro ou é o modelo?** A segunda se mede aqui sem instalar nada —
-> tokens de scaffolding vs tokens de conteúdo numa sessão nossa. Responder junto com *"vale usar rust em vez de python"* nas nossas `core/tools/`, que é a mesma medição. Ref em `core/refs/REFS.md`  
+> tokens de estrutura vs tokens de conteúdo numa sessão nossa. Responder junto com *"vale usar rust em vez de python"* nas nossas `core/tools/`, que é a mesma medição. Ref em `core/refs/REFS.md`  
 > [ ] [zcode-trust] aceitar o trust do workspace no ZCode (Settings, ou o prompt ao abrir /mnt/workspace) — **só o Lucas pode**; sem isso os hooks do shim ficam inertes. Depois abrir sessão nova e re-rodar a sonda de `core/experiments/zcode-hook-protocol.md`, que decide se o registro direto fica ou vira adaptador (INBOX 2026-08-21)  
 > [ ] [zero-sum-linhas] avaliar gate de orçamento zero-sum no WOS: nenhum commit adiciona linhas sem que diminua de outro canto — é viável medir e impor? (INBOX 2026-09-05)  
 > [ ] [ferramentas-obsoletas] de tempos em tempos, checar se alguma ferramenta nossa deve ser atualizada ou abandonada porque os modelos e harnesses melhoraram — o WOS existe para contornar fraquezas do modelo, então cada fraqueza corrigida upstream é código nosso que virou peso morto. Mesmo raciocínio do estudo de ablação, em cadência menor (INBOX 2026-08-21)  
@@ -111,5 +111,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-20  ·  trend: advancing  ·  touches: 436/765/808/808/808/808
+last-touch: 2026-09-20  ·  trend: advancing  ·  touches: 437/765/809/809/809/809
 <!-- stats:end -->

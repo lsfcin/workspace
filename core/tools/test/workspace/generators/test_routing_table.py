@@ -105,7 +105,7 @@ def test_frontmatter_still_outranks_the_blurb(tmp_path) -> None:
     assert 'the blurb' not in table
 
 
-def test_an_unanswered_scaffold_blurb_is_not_hoisted(tmp_path) -> None:
+def test_an_unanswered_placeholder_blurb_is_not_hoisted(tmp_path) -> None:
     """A generated marker is a question, not a description — hoisting one would answer it
     with itself, and the placeholder check would stop seeing it."""
     table = _table(tmp_path, **{'x.md': '# x\n> ← add description\n'})
@@ -184,7 +184,7 @@ def test_a_short_first_line_comment_is_untouched(tmp_path) -> None:
 
 def test_no_row_is_written_for_a_path_this_repo_is_told_to_ignore() -> None:
     """The table is generated from disk but SHIPS in git, so an ignored path is a row naming
-    what the reader does not have. Ten had accumulated by 2026-09-01, one of them a scaffold
+    what the reader does not have. Ten had accumulated by 2026-09-01, one of them a placeholder
     the generator wrote itself inside an ignored directory — it made both the row and its file."""
     kept = WORKSPACE_ROOT / 'core/CONTEXT.md'
     assert carried([WORKSPACE_ROOT / 'outputs/report.md']) == []

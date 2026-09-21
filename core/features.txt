@@ -72,7 +72,7 @@
 #                calls, so a switch that stopped only the tool would leave the gate reading the
 #                tool's refusal as a violation and BLOCK the commit it was meant to relax.
 #                A `-` IS A FINDING, counted by `core/tools/wos/features --findings`: a feature
-#                that cannot be switched off is entangled with the scaffold rather than sitting on
+#                that cannot be switched off is entangled with the workspace rather than sitting on
 #                it, and the target for that count is ZERO.
 #                `n/a` means NO IN-PROCESS SWITCH, never "exempt" — the feature is still ablatable,
 #                by building a clone variant without it (core/SPECS.md § AD-14). A row is n/a only
@@ -156,7 +156,7 @@ vpn-cin	tools	on-demand	vpn-cin	none	general	n/a a NetworkManager profile on the
 mail	tools+skills	on-demand	skill-mirrors	none	general	core/tools/mail/gmail,core/tools/wos/skills/mirror.py	core/skills/mail.md,core/tools/mail/*	Reads a mailbox and classifies it into workspace routes, so email arrives as INBOX entries rather than as a second place to keep track of things
 notes-notion	tools	on-demand	-	none	general	core/tools/notes/notion	core/tools/notes/*	Pages and note databases read as navigable text
 link-shortener	tools	on-demand	-	none	general	core/tools/links/cfpages	core/tools/links/*	A link gets a name a student can be told out loud and type from memory, so a deck or a form is handed to a room as one short sayable link instead of a Google URL nobody can transcribe
-latex	hooks+tools	automatic	latex	blocks	general	core/hooks/commit/gates.py,core/tools/paper/papers	core/tools/paper/*	Everything this workspace does with a paper: search and text extraction, the .texif scaffolding, and the term-consistency check that blocks a paper commit whose vocabulary drifted
+latex	hooks+tools	automatic	latex	blocks	general	core/hooks/commit/gates.py,core/tools/paper/papers	core/tools/paper/*	Everything this workspace does with a paper: search and text extraction, the .texif interfaces, and the term-consistency check that blocks a paper commit whose vocabulary drifted
 video-text	tools	on-demand	-	none	general	core/tools/video/video	core/tools/video/*	Turns a media link into navigable text through metadata, captions, transcript, OCR and visual captioning, which is what makes a link in the INBOX drainable
 wazip	tools	on-demand	-	none	general	core/tools/chat/wazip	core/tools/chat/*,core/tools/audio/*	Turns an exported chat into navigable text with the voice notes transcribed inline, which is what makes WhatsApp — where the obra, a feirinha and the instituto actually happen — readable by a session at all
 asset-inspect	tools	on-demand	-	none	general	core/tools/assets/inspect	core/tools/assets/*	Interface stubs for non-code assets, so an image or a CSV is readable without opening it

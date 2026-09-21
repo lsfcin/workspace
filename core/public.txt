@@ -66,7 +66,7 @@ file	code/SPECS-git.md	the law gitflow-gate enforces, and AGENTS.md sends every 
 file	code/SPECS.md	engineering conventions for a project under code/, cited by the head above
 file	code/SPECS-structure.md	how a project is laid out — its files, module specs and facade. Cited by the head above, and what facade-discipline blocks against
 file	code/SPECS-style.md	how a file is written and how big it may get. Cited by the head above, and the R1-R6 table lint-typescript renders
-file	code/SETUP.md	per-language setup and scaffolding, which the root SETUP.md hands the reader off to
+file	code/SETUP.md	per-language setup and templates, which the root SETUP.md hands the reader off to
 file	code/eslint.shared.js	the R1-R6 rules lint-typescript actually applies, and what code/SPECS-style.md declares as its `enforced-by`. A LINE HERE AND A `ships` ENTRY BOTH, because they answer different questions — eligibility is the floor's, and `absent` is checked before any claim, so the registry alone could never let it out; ownership is the registry's. The target's own suite is what found this, refusing a field that names our code and reaches nothing
 tree	code/_templates	the project skeletons the craft flow tells an agent to copy (core/flows/craft/architect.md); a flow that crossed pointing at a template that did not is that flow half-shipped
 absent	brain	his personal operating system: goals, attention, inbox, drafts

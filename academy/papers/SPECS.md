@@ -7,17 +7,17 @@
 ## Starting a new paper
 
 ```bash
-sh core/run hooks/stubgen/paper-scaffold.py new <paper-name>
+sh core/run hooks/stubgen/paper-template.py new <paper-name>
 ```
 
 Creates the full standard layout: `main.tex`, `.latexmkrc`, `.gitignore`, `labels.md`, and a
 `CONTEXT.md` for the root and for `sections/`, `refs/`, `lib/`, `images/`, `tables/`, `outputs/` —
 with `refs/CONTEXT.md` pre-filled with the tag schema and workflow.
 
-Add missing scaffold files to an **existing** paper without overwriting:
+Add missing template files to an **existing** paper without overwriting:
 
 ```bash
-sh core/run hooks/stubgen/paper-scaffold.py adapt <path-to-paper>
+sh core/run hooks/stubgen/paper-template.py adapt <path-to-paper>
 ```
 
 The `post-edit` hook warns with the `adapt` command if `refs/CONTEXT.md` is missing when a `.tex`
@@ -37,7 +37,7 @@ the PDF lands at the paper root.
 ## Folder and file naming
 
 - Paper folders: `YEAR-VENUE-paper_name` (e.g. `2026-JBCS-relativistic_raytracer`). Applies to
-  both `paper-scaffold.py new` and manual creation.
+  both `paper-template.py new` and manual creation.
 - Section files: numbered and ordered — `01_intro`, `02_background`, `03_methods`, …
 - `main.tex` carries **no prose**: preamble, `\input` of sections, bibliography. Orchestration only.
 - `lib/` is venue template material (cls, sty, bst, bib) and is **never** edited by hand.

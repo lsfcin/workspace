@@ -1,5 +1,5 @@
 # Code Setup
-> Per-language setup, facade templates, and project scaffolding reference
+> Per-language setup, facade templates, and project template reference
 
 ## Facade Templates
 

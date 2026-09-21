@@ -65,7 +65,7 @@ def _listing(rows: list) -> int:
 
 
 def _findings() -> int:
-    """A capability that cannot be switched off is entangled with the scaffold rather than sitting
+    """A capability that cannot be switched off is entangled with the workspace rather than sitting
     on it, so it is invisible to an ablation. The count is the number that has to come down."""
     rows = law.findings()
     for r in rows:
