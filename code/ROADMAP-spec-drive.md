@@ -4,7 +4,7 @@
 
 **Lifecycle: transient initiative doc** (ROADMAP-verify.md species — lives beside `code/CONTEXT.md`, not workspace structure). Endstate: once the ratchet has converted the modules that matter and the convention is durable in `code/SPECS.md` + `_templates/`, the surviving rules stay there and this file is deleted (git keeps it). Sibling: [`ROADMAP-verify.md`](ROADMAP-verify.md) (the test-discipline rollout this extends).
 
-**Origin:** assessment session 2026-07-17. The workspace had ~80% of the machinery (working `exit 2` hook culture, mandatory `verify:fast`, spec-shaped Loop-0/3 artifacts, per-module contract idioms) but **zero gated spec artifacts** — nothing forced spec-before-code. User's constraint: *"if not enforced it will simply not happen"* = the workspace's own Principle 1 (ROADMAP-verify.md): **gate-or-injection, never induction.** So the spine is a hard-blocking hook, not a convention doc.
+**Origin:** assessment session 2026-07-17. The workspace had ~80% of the machinery (working `exit 2` hook culture, mandatory `verify:fast`, spec-shaped Loop-0/3 artifacts, per-module contract idioms) but **zero gated spec artifacts** — nothing forced spec-before-code. User's constraint: *"if not enforced it will simply not happen"* = the workspace's own Principle 1 (ROADMAP-verify.md): **gate-or-injection, never induction.** So the mechanism is a hard-blocking hook, not a convention doc.
 
 ---
 

@@ -19,6 +19,6 @@ Each exports `render(...)` for the drawing and `legend(...)` for the writing ben
 | [`diagram_lifecycle.py`](diagram_lifecycle.py) | [`diagram_lifecycle.pyi`](diagram_lifecycle.pyi) | `render`, `legend` | The lifecycle sequence: which features fire at which moment of a session, in the order they run. |
 | [`diagram_matrix.py`](diagram_matrix.py) | [`diagram_matrix.pyi`](diagram_matrix.pyi) | `render`, `legend` | The enforcement matrix: every declared feature against every site that enforces it. |
 | [`diagram_overview.py`](diagram_overview.py) | [`diagram_overview.pyi`](diagram_overview.pyi) | `render` | The summary layer: the two questions answered before any detail arrives. |
-| [`diagram_spine.py`](diagram_spine.py) | [`diagram_spine.pyi`](diagram_spine.pyi) | `render`, `legend` | The routing spine: which directory routes to which, drawn from the auto-synced routing blocks. |
+| [`diagram_routing.py`](diagram_routing.py) | [`diagram_routing.pyi`](diagram_routing.pyi) | `render`, `legend` | The routing tree: which directory routes to which, drawn from the auto-synced routing blocks. |
 | [`diagram_treemap.py`](diagram_treemap.py) | [`diagram_treemap.pyi`](diagram_treemap.pyi) | `render`, `legend` | Folder mass: how much of the workspace each directory actually is, by tracked bytes. |
 <!-- routing:end -->

@@ -99,7 +99,7 @@ The orchestrator (lead session) holds only: short name, current loop, verdicts, 
 nothing more:
 
 ```
-Read core/flows/craft/craft.md — the spine, all of it — then the one loop file
+Read core/flows/craft/craft.md — the shared part, all of it — then the one loop file
 that holds your loop: craft-plan.md (0-2), craft-build.md (3-4b), craft-ship.md
 (5-6.5). Read no other loop file. Then read
 <project>/.craft/<name>/<input-file>. Execute Loop <N>. Append your output to

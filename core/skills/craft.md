@@ -36,7 +36,7 @@ Arguments: $ARGUMENTS
    `chain-deleg: deleg=<from>→<to>` in the Carry block. Fill the Carry `provider:` / `level-map:` / `chain-deleg:` fields
    at Loop 0 — a chain without them is undefined.
 
-2. Read `core/flows/craft/craft.md` in full — it is the spine (Core Principle, Carry, Autorouting, Return Flags, Orchestration, Loops 0–6.5, Cost Gate, Field Practice). Then read `core/flows/craft/routing.md` **once** (level → concrete model, delegation) and only your runtime's section of `core/flows/craft/runtimes.md` (spawn recipe). Do not load `prior-art.md` to run a chain.
+2. Read `core/flows/craft/craft.md` in full — it is the shared part (Core Principle, Carry, Autorouting, Return Flags, Orchestration, Loops 0–6.5, Cost Gate, Field Practice). Then read `core/flows/craft/routing.md` **once** (level → concrete model, delegation) and only your runtime's section of `core/flows/craft/runtimes.md` (spawn recipe). Do not load `prior-art.md` to run a chain.
 3. Execute it with the task: $ARGUMENTS. This session is the orchestrator. You hold only verdict lines and the chain's provider+map — never paste loop file contents here.
 4. Spawn each loop as a subagent per the flow's Orchestration section — pinned agent types `craft-low` / `craft-medium` / `craft-high`; pass the per-loop model from the resolved level-map (or rely on the frontmatter default). The executor's self-report tag is `executor: craft-<level> model=<provider/model-id> level=<level> deleg=<none|from→to>` —
    that is your per-loop cost/routing audit (`grep executor <project>/.craft/<name>/*.md`).

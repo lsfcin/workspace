@@ -1,7 +1,7 @@
-# The routing spine: which directory routes to which, drawn from the auto-synced routing blocks.
+# The routing tree: which directory routes to which, drawn from the auto-synced routing blocks.
 #
 # Node-link here and nowhere else, because this is the one relation in the workspace that is a
-# shallow tree — an agent walks it from the root, one hop per level, and path following is the
+# shallow tree — an agent walks it from the root, one step per level, and path following is the
 # task node-link drawings win. Depth is capped: the picture answers "where do I go next", and the
 # whole tree at once is the hairball the cap exists to prevent.
 from html import escape
@@ -38,8 +38,8 @@ def render(nodes: dict, edges: list, max_depth: int = 3) -> str:
     width = PAD * 2 + INDENT * (max_depth + 1) + _widest(rows)
     height = PAD * 2 + ROW * max(len(rows), 1)
 
-    lines = [f'<svg class="spine" viewBox="0 0 {width} {height}" width="{width}" '
-             f'height="{height}" role="img" aria-label="routing spine">']
+    lines = [f'<svg class="routing" viewBox="0 0 {width} {height}" width="{width}" '
+             f'height="{height}" role="img" aria-label="routing tree">']
     for node, depth in rows:
         if not node:
             continue
@@ -53,8 +53,8 @@ def render(nodes: dict, edges: list, max_depth: int = 3) -> str:
     hidden = len(nodes) - len(rows)
     if hidden > 0:
         lines.append(f'<p class="note">{hidden} directories sit deeper than level {max_depth} and '
-                     f'are not drawn. They are reached by the same chain, one hop at a time — '
-                     f'which is the point of the spine rather than a gap in it.</p>')
+                     f'are not drawn. They are reached by the same chain, one step at a time — '
+                     f'which is the point of the routing tree rather than a gap in it.</p>')
     return '\n'.join(lines)
 
 
