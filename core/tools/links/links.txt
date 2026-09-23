@@ -6,6 +6,10 @@
 # mapping; this is the one place the target is written down.
 # Root url = lucassf.pages.dev/
 short_name	url	owner	added
+ai4good/agencia	https://docs.google.com/presentation/d/12uqqaF05i5hs1B1Q4rH9odjlpF8M-QxT6sG_lkkKU1E/present	ai4good	2026-09-23
+ai4good/autoaprimoramento	https://docs.google.com/presentation/d/1mqFfYtF0yyQd2JAnQoaQ6TnJ0dqpWVmxZcmxEG1K67U/present	ai4good	2026-09-23
+ai4good/autopreservacao	https://docs.google.com/presentation/d/1o7MWYdm74XMNbwWRD7OWXsayB0UQLBTbrcshAkom3cM/present	ai4good	2026-09-23
+ai4good/language-models	https://docs.google.com/presentation/d/1ekjPPdj6sbkpNv3DGjE8HH9CntqY8S7HkIMrYNuspt0/present	ai4good	2026-09-23
 ai4good/painel	https://docs.google.com/spreadsheets/d/1IgBJWxItjmolBgwsnjlER894V6BP9nns8dFcc-NhStY/edit?gid=1005981620#gid=1005981620	ai4good	2026-09-16
 ai4good/setup	https://docs.google.com/forms/d/e/1FAIpQLSfESI8OWLI1JSALkpAAtbRkqRzKxP6az3NCd9mi5Mop_697kQ/viewform	ai4good	2026-09-06
 home	https://seasoned-bladder-7d0.notion.site/Lucas-S-Figueiredo-3695d139d7924e52b896d608086a68a5	home	2026-09-08

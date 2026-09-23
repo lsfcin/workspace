@@ -61,9 +61,15 @@ por turma.
 |------|-----------|-----|-------------|
 | [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | — | — | O questionário de rotina e setup da turma 2026.2, escrito como spec e aplicado por gforms new. |
 | [`AI4Good - Prática extra para abono de faltas .md`](AI4Good - Prática extra para abono de faltas .md) | — | — | Prática extra para abono de faltas da disciplina  Tópicos Avançados em IA \- Turma 2 (AI4Good) |
-| [`disciplina.md`](disciplina.md) | — | — | A página pública da disciplina (lucassf.pages.dev/ai4good): regras, cronograma, painel e habilidades. Abre com o banner, por isso a descrição mora aqui. |
+| [`agencia_conteudo.py`](agencia_conteudo.py) | [`agencia_conteudo.pyi`](agencia_conteudo.pyi) | `texto` | Conteúdo novo do deck "Aula - Agência" (aula de 23/09/2026), aplicado por slides_build.py. |
+| [`autoaprimoramento_conteudo.py`](autoaprimoramento_conteudo.py) | [`autoaprimoramento_conteudo.pyi`](autoaprimoramento_conteudo.pyi) | `texto` | Conteúdo novo do deck "Aula - Autoaprimoramento" (aula de 23/09/2026), aplicado por slides_build.py. |
+| [`autopreservacao_conteudo.py`](autopreservacao_conteudo.py) | [`autopreservacao_conteudo.pyi`](autopreservacao_conteudo.pyi) | `caixa`, `texto` | Conteúdo novo do deck "Aula - Autopreservação" (aula de 23/09/2026), aplicado por slides_build.py. |
+| [`disciplina.md`](disciplina.md) | — | — | a página pública da disciplina (lucassf.pages.dev/ai4good): regras, cronograma, painel e habilidades. |
 | [`drive_sync.json`](drive_sync.json) | — | — | Estado do sync desta pasta com o Drive, escrito por core/tools/files/drive_sync.py — não é um formulário. |
+| [`lm_conteudo.py`](lm_conteudo.py) | [`lm_conteudo.pyi`](lm_conteudo.pyi) | `fita` | Conteúdo novo do deck "Aula - Language Models" (aula de 23/09/2026), aplicado por slides_build.py. |
 | [`notion-port.md`](notion-port.md) | — | — | Tópicos em IA - AI4Good |
 | [`plano-refino.md`](plano-refino.md) | — | — | Decisões do diálogo de 2026-09-23 e as fases que faltam. Arquivo temporário: é apagado quando a última fase fechar. |
+| [`slides_build.py`](slides_build.py) | [`slides_build.pyi`](slides_build.pyi) | `rgb`, `frame`, `style_reqs`, `element`, `clone_elements` | Intercala slides novos num deck existente, ancorados no id do slide que os precede. |
+| [`slides_pecas.py`](slides_pecas.py) | [`slides_pecas.pyi`](slides_pecas.pyi) | `titulo`, `fonte`, `legenda`, `tokens`, `modelo` | Peças de desenho no estilo dos decks do Lucas (título minúsculo + termo em inglês, fonte no rodapé), para slides_build.py. |
 | [`transformers-guia-acessivel-slides.md`](transformers-guia-acessivel-slides.md) | — | — | Material didático acessível e roteiro pareado aos 106 slides da aula, com audiodescrição estrutural e preparação para NotebookLM. |
 <!-- routing:end -->
