@@ -21,7 +21,7 @@ Quote neither report from memory — re-run the command. The cost work's lesson 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`context`](context) | — | — | what fills the context window: what is already in it at turn 1, what the CONTEXT.md chain costs, what grows it turn over turn, and what a subagent starts with. Reads the local transcripts; no network, no model. |
-| [`reads`](reads) | — | — | which files a session reads, how often, and how much each re-read cost. Reads the local transcripts; no network. |
+| [`reads`](reads) | — | — | which files a session reads, how often, and how much each re-read cost. Reads the local transcripts; no network. `--span` reads the matrix instead, which is recorded at the read and therefore answers for every harness and across sessions. |
 | [`session_commands.py`](session_commands.py) | [`session_commands.pyi`](session_commands.pyi) | `shape`, `commands` | session_commands.py — what the agent actually RAN in bash, by shape rather than by tool. |
 | [`session_cost.py`](session_cost.py) | [`session_cost.pyi`](session_cost.pyi) | `priced`, `turn_components`, `turn_cost` | session_cost.py — the price of a turn. The one place rates live. |
 | [`session_log.py`](session_log.py) | [`session_log.pyi`](session_log.pyi) | `project_name`, `label`, `att_chars`, `blocks`, `output_chars` | session_log.py — replay a Claude Code transcript and attribute each turn's context growth. |
