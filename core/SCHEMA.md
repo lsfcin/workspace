@@ -150,6 +150,12 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | `telegram-capture` | `bot` | 2026-09-17 |
 | `nudge` | `reminder` | 2026-09-20 |
 | `scaffold` | `template` | 2026-09-20 |
+| `ratchet` | `ceiling` | 2026-09-23 |
+| `spine` | `routing` | 2026-09-23 |
+| `corpse` | `finished work` | 2026-09-23 |
+| `substrate` | `machine state` | 2026-09-23 |
+| `ledge` | `step` | 2026-09-23 |
+| `blacklist` | `forbidden list` | 2026-09-23 |
 
 **One retired token can owe several replacements, and the cell holds only the commonest** — `slug`, `ratchet` and `spine` each owe two or more, and the sense decides.
 
