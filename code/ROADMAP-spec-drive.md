@@ -2,7 +2,7 @@
 > Enforcement rollout making the spec the contract for `code/` modules: verifiable inputs/outputs/invariants that
 > precede and govern the code. Goal: [spec-driven-development](../brain/goals/spec-driven-development.md).
 
-**Lifecycle: transient initiative doc** (ROADMAP-verify.md species — lives beside `code/CONTEXT.md`, not workspace structure). Endstate: once the ratchet has converted the modules that matter and the convention is durable in `code/SPECS.md` + `_templates/`, the surviving rules stay there and this file is deleted (git keeps it). Sibling: [`ROADMAP-verify.md`](ROADMAP-verify.md) (the test-discipline rollout this extends).
+**Lifecycle: transient initiative doc** (ROADMAP-verify.md species — lives beside `code/CONTEXT.md`, not workspace structure). Endstate: once the gradual rollout has converted the modules that matter and the convention is durable in `code/SPECS.md` + `_templates/`, the surviving rules stay there and this file is deleted (git keeps it). Sibling: [`ROADMAP-verify.md`](ROADMAP-verify.md) (the test-discipline rollout this extends).
 
 **Origin:** assessment session 2026-07-17. The workspace had ~80% of the machinery (working `exit 2` hook culture, mandatory `verify:fast`, spec-shaped Loop-0/3 artifacts, per-module contract idioms) but **zero gated spec artifacts** — nothing forced spec-before-code. User's constraint: *"if not enforced it will simply not happen"* = the workspace's own Principle 1 (ROADMAP-verify.md): **gate-or-injection, never induction.** So the mechanism is a hard-blocking hook, not a convention doc.
 
@@ -12,7 +12,7 @@
 
 1. **Gate or injection — never induction.** The spec contract is enforced by `exit 2`, not advice.
 2. **Spec precedes code.** A spec-locked module's SPEC.md is read before its code is edited; loop runs read the spec as pre-set criteria (Loop 0) and promote outcomes back into it (Loop 6).
-3. **Ratchet, not big-bang.** Legacy modules are grandfathered; coverage grows as modules are touched.
+3. **Gradual, not big-bang.** Legacy modules are grandfathered; coverage grows as modules are touched.
    No wall of blocked commits.
 4. **The spec is the contract.** `## Invariants` are the properties code may never violate; `## Examples` are the executable conformance cases, checked by the module's existing `verify:fast`.
 5. **Per-module-directory granularity.** A module = a directory with a `CONTEXT.md`. Specs live beside it (`SPEC.md`), matching the existing idiom (`spacemantics/dsl/SPEC.md`, `isoroll-content/SCENE-CREATION.md`).
@@ -41,7 +41,7 @@ Parity: wired in all three runtimes — Claude Code (`.claude/settings.json`), o
 
 ## The authoring side — the loop tree (2026-07-18)
 
-The gates above guard the *output*. The *authoring workflow* that produces spec-first code is the **`feature` subtree of the loop tree** ([core/flows/craft/tree.md](../core/flows/craft/tree.md), [route.md](../core/flows/craft/route.md)). Its **Loop 3.5 Contract Layout** lays out every module's `SPEC.md` + interface stubs + a type-matched connection graph *before* any code (checked by `core/tools/wos/spec/contract-check`), with an optional human sign-off configured in the Loop 0 permission panel. A `feature` run is therefore what *fills the ratchet* — each shipped module leaves a locked spec.
+The gates above guard the *output*. The *authoring workflow* that produces spec-first code is the **`feature` subtree of the loop tree** ([core/flows/craft/tree.md](../core/flows/craft/tree.md), [route.md](../core/flows/craft/route.md)). Its **Loop 3.5 Contract Layout** lays out every module's `SPEC.md` + interface stubs + a type-matched connection graph *before* any code (checked by `core/tools/wos/spec/contract-check`), with an optional human sign-off configured in the Loop 0 permission panel. A `feature` run is therefore what *fills the coverage* — each shipped module leaves a locked spec.
 Git Flow is enforced alongside (`core/hooks/git/gitflow_gate.py`, pre-commit 1e; see `SPECS-git.md` § Git Branching).
 
 ## Phases
@@ -65,7 +65,7 @@ Git Flow is enforced alongside (`core/hooks/git/gitflow_gate.py`, pre-commit 1e;
 ### P3 — Loop integration ✅ 2026-07-17
 - `core/flows/craft/craft.md`: Loop 0 reads a spec-locked target module's SPEC.md and folds its `## Invariants` into `criteria:` (spec precedes). Loop 6 promotes the shipped chain's criteria/boundaries into the module's SPEC.md and sets `status: locked` before deleting `.craft/` (durable per-module contract). Loop 3's second-opinion verifier already audits criteria-coverage.
 
-### P4 — Ratchet propagation + list ✅ 2026-07-17
+### P4 — Gradual propagation + list ✅ 2026-07-17
 - `_templates/CONTEXT.md` ships `> spec:` (default `none`, opt-in lock) so new projects are born aware.
 - `core/tools/wos/spec/scan` — the coverage list (`locked|draft|MISSING|optout|none` per module). Baseline at rollout: **1/88 locked** (spacemantics/dsl), 87 grandfathered.
 - Hook table + coverage table rows (ENFORCED) — now `core/hooks/SPECS.md`.
@@ -99,5 +99,5 @@ Sequence the 116 grandfathered modules by contact frequency, not by directory or
 
 | Date | Event |
 |------|-------|
-| 2026-07-17 | Plan approved (ratchet enforcement, spacemantics/dsl pilot). P0+P1+P3+P4 shipped; P2 convention set, extractor deferred. Gates live + tested in 3 runtimes. Baseline coverage 1/88. |
+| 2026-07-17 | Plan approved (gradual enforcement, spacemantics/dsl pilot). P0+P1+P3+P4 shipped; P2 convention set, extractor deferred. Gates live + tested in 3 runtimes. Baseline coverage 1/88. |
 | 2026-08-17 | **Resumed by ruling, not drifted into.** Coverage 9/125 (7%), all growth from one `/craft` run on `aiwbot/frontend`. Target set to enforce-on-contact; P5a (SPEC v1: WHAT/WHY, rounds, result sketch, research pass) gates P5b (arm the block). The wos list's decision item is closed and deleted — this file owns the work now. |

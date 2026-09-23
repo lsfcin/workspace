@@ -23,7 +23,7 @@
 # Claude Code and ZCode hook in this workspace was spelled that way, so on a Windows clone the
 # enforcement layer had never once fired while the config read as correct.
 #
-# WHY THIS IS NOT THE PER-OS FORK THE RATCHET FORBIDS. There is one file here, not a pair, and it
+# WHY THIS IS NOT THE PER-OS FORK THE CEILING FORBIDS. There is one file here, not a pair, and it
 # asks the filesystem which venv layout is present rather than asking which operating system this
 # is. The platform question itself is still answered in exactly one module, platform_law.py, and no
 # .ps1/.bat sibling sits beside a .sh. The list below is ordered, not branched: the first candidate

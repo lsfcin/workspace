@@ -4,7 +4,7 @@
 # The rule, why a field rather than prose, and the limits it accepts:
 # core/SCHEMA.md § Every field that names our own code is verified.
 #
-# Total, like entropy_stores.py: no allowlist, no ratchet inside the module. The ratchet is the
+# Total, like entropy_stores.py: no allowlist, no ceiling inside the module. The ceiling is the
 # CALLER's — type-gate.py asks only about files a commit adds, the dashboard asks about all of them.
 import re
 import sys

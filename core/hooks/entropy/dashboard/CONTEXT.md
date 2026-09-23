@@ -8,7 +8,7 @@ A check lives next door, not here: one that moved in would become invisible to t
 
 One repo per run (ruled 2026-09-04, Lucas): no argument means this repo, `--repo <path>` names another. Which projects exist is [`PROJECTS.md`](../../../../PROJECTS.md).
 
-`core/tools/wos/roundup` runs it at every session close, into the `entropy:` block of that repo's `ISSUES.md`. The ratchet that keeps the counts falling is [`test_corpus_ratchet.py`](../../../tools/test/workspace/ratchets/test_corpus_ratchet.py).
+`core/tools/wos/roundup` runs it at every session close, into the `entropy:` block of that repo's `ISSUES.md`. The ceiling that keeps the counts falling is [`test_corpus_ceiling.py`](../../../tools/test/workspace/ceilings/test_corpus_ceiling.py).
 
 <!-- routing:start -->
 ## Routing

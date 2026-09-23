@@ -1,11 +1,11 @@
 # T0 the OS-agnostic port's invariants (AD-0): the tree may not re-acquire the defects the port
 # removed. Zero-token, runs in verify-fast.
 #
-# Split out of test_corpus_ratchet.py on 2026-08-29, which had carried these since the port began
+# Split out of test_corpus_ceiling.py on 2026-08-29, which had carried these since the port began
 #
 # warn-exempt: a suite file grows by CASE, and every case here is a defect that shipped. Cutting to
 # the warn deletes coverage, which is the one thing a line count may never buy. The block cap still
-# applies: past it this file is split by question, the way it was split from the corpus ratchet.
+# applies: past it this file is split by question, the way it was split from the corpus ceiling.
 # and said so: "they live here rather than in a file of their own ... they assert something about
 # the WHOLE TREE". That reason was right about the DIRECTORY and wrong about the file. Being
 # whole-tree is what puts both halves in workspace/; it is not what makes them one question. The
@@ -18,7 +18,7 @@
 # I5 -- one branch, one codebase -- is deliberately absent. It is not a property of any file, and a
 # test pretending to check it would be the weaker kind this workspace names.
 #
-# The encoding law is no longer owed: it is held next door by test_encoding_ratchet.py, which is
+# The encoding law is no longer owed: it is held next door by test_encoding_ceiling.py, which is
 # also where it is now WRITTEN, because the "AD-9" this file used to cite named no section that
 # existed. It was owed here with the guess "the corpus is clean". It was not -- the ast walk found
 # 304 inheriting call sites in 113 files the first time one was pointed at the tree, and two of them
@@ -78,8 +78,8 @@ LAUNCHER = 'core/run'
 
 # THE SHELL THAT MAY STAY IN THE ENFORCEMENT LAYER, named one by one. The bash ban was scoped to
 # core/tools/ (test_b20260901_a_bash_tool_costs...), leaving the hooks — the hot path, where a fork
-# costs ~50x more under Git Bash than here — with no ratchet at all. Two of them were still spelling
-# `/tmp` by hand on a mount claim nothing could check: that is what an unratcheted debt looks like.
+# costs ~50x more under Git Bash than here — with no ceiling at all. Two of them were still spelling
+# `/tmp` by hand on a mount claim nothing could check: that is what an unheld debt looks like.
 #
 # Two reasons earn a place, and neither is "it works": SPAWNED BY NAME by something outside this
 # workspace (git, .claude/settings.json, a harness), or SOURCED as a fragment into post-edit.sh,
@@ -159,7 +159,7 @@ def test_the_launcher_is_the_only_thing_that_cannot_ask():
     platform_law to learn where the interpreter lives, because importing anything requires the
     interpreter it exists to find. That is a bootstrap paradox, not an exemption granted to a file
     somebody did not want to fix -- and it is worth one test of its own, because the honest floor
-    of a ratchet is a claim that should fail loudly if it stops being true.
+    of a ceiling is a claim that should fail loudly if it stops being true.
     """
     live = [f for f in _files('-F', POSIX_VENV_BIN, '--', *RECORDS) if f != BOUNDARY]
     assert live == [LAUNCHER], (

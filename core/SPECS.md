@@ -100,7 +100,7 @@ Applies to text loaded in **every session**: `AGENTS.md`, `CONTEXT.md` heads, al
 
 | column | when | what happens |
 |---|---|---|
-| **delete** | a **blocking, ratcheted** gate already applies it | the writing goes; the hook is the rule |
+| **delete** | a **blocking** gate already applies it | the writing goes; the hook is the rule |
 | **move** | a check *could* apply it, but none does today | **stays in the writing** until a gate blocks |
 | **keep** | judgment no check can hold | stays, and its reason stays with it |
 

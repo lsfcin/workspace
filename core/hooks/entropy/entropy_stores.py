@@ -8,7 +8,7 @@
 # followed them, which is INDUCED wearing ENFORCED's costume (core/SPECS.md § AD-16 band 1).
 #
 # Both stores are small and closed, so the check is total rather than sampled: no allowlist, no
-# ratchet inside this module. The ratchet is the CALLER's — type-gate.py asks only about files a
+# ceiling inside this module. The ceiling is the CALLER's — type-gate.py asks only about files a
 # commit adds, the dashboard asks about all of them.
 import re
 from pathlib import Path

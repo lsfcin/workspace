@@ -3,17 +3,17 @@
 
 Split 2026-08-15 at 8 files and again 2026-09-06 at 15. What stays is what holds for the **whole tree** rather than for one piece of machinery: every relative link resolves, a new domain subdirectory does not fall out of the `.gitignore` allowlist, and the suite's `sys.path` cannot silently shadow a module.
 
-Three subdirectories are named for the code they cover, so a surface and its coverage are one word apart — [`gates/`](gates/CONTEXT.md), [`generators/`](generators/CONTEXT.md) and [`shims/`](shims/CONTEXT.md). Two are named for a **question** instead, because no single directory owns it: [`ratchets/`](ratchets/CONTEXT.md) asks whether the backlog is shrinking, and [`harness/`](harness/CONTEXT.md) asks what the runner itself needs before any of this can run.
+Three subdirectories are named for the code they cover, so a surface and its coverage are one word apart — [`gates/`](gates/CONTEXT.md), [`generators/`](generators/CONTEXT.md) and [`shims/`](shims/CONTEXT.md). Two are named for a **question** instead, because no single directory owns it: [`ceilings/`](ceilings/CONTEXT.md) asks whether the backlog is shrinking, and [`harness/`](harness/CONTEXT.md) asks what the runner itself needs before any of this can run.
 
 <!-- routing:start -->
 ## Routing
 
 | Subdirectory | Description |
 |--------------|-------------|
+| [`ceilings/`](ceilings/CONTEXT.md) | Whether the backlog is shrinking — one ceiling per defect, and every ceiling only ever goes down. |
 | [`gates/`](gates/CONTEXT.md) | What a blocking gate must say, and who it must fire for. One subdirectory per `core/hooks/` directory covered; what stays at this level belongs to no single one. |
 | [`generators/`](generators/CONTEXT.md) | What the generators must produce, and what they must never produce. Mirrors `core/hooks/generators/`. |
 | [`harness/`](harness/CONTEXT.md) | The suite's own preconditions: nothing about the workspace, everything about the runner. |
-| [`ratchets/`](ratchets/CONTEXT.md) | Whether the backlog is shrinking — one ceiling per defect, and every ceiling only ever goes down. |
 | [`shims/`](shims/CONTEXT.md) | The harness fleet: every provider's registration resolves, reaches the dispatcher, and declares itself in the one place the mirror list lives. |
 
 | File | Interface | API | Description |

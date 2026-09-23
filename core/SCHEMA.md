@@ -80,7 +80,7 @@ Splitting an over-full directory *adds a hop*, so crowding and depth trade direc
 An off-allowlist `UPPERCASE.md` is *unclassified*, not wrong. **Ask *is this still true* before *what type is this*.** Route what survives: **generated** or **hand-authored content** → lowercase instance · **hand-authored constraint** → `SPECS.md` · **a question no type answers** → a new type, which only `SETUP.md` ever qualified for.
 
 **A generated measurement goes where its question already has a type**, and lands in a tracked file —
-**a ratchet that is not tracked cannot ratchet**. **A declaration table takes none of these routes:**
+**a ceiling that is not tracked cannot fall**. **A declaration table takes none of these routes:**
 `features.txt`, `profile.txt`, `limits.env`, `deps.txt`, `vendored.txt`, `generated.txt` and `extensionless.txt` are hand-authored data read by exactly one law module, **never prose**. **The extension names the shape:**
 `.tsv` for a table with a header row, `.txt` for one value per line, `.env` for `key=value`.
 

@@ -18,7 +18,7 @@ import subprocess
 
 from conftest import WORKSPACE_ROOT
 
-RATCHET = WORKSPACE_ROOT / 'core/tools/test/workspace/ratchets/test_port_ratchet.py'
+CEILING = WORKSPACE_ROOT / 'core/tools/test/workspace/ceilings/test_port_ceiling.py'
 # The historical spellings, verbatim from the commit that shipped the defect.
 BROKEN_JSON = ('{"hooks": {"PreToolUse": [{"command": "python3 core/hooks/copilot/x.py",'
                ' "windows": "python core/hooks/copilot/x.py"}]}}\n')
@@ -30,16 +30,16 @@ BOUNDARY_JS = ('// the bare word python3 is banned here\n'
 
 
 def _patterns() -> tuple:
-    """The ratchet's own two regexes, loaded from its source. A second copy here would let the
+    """The ceiling's own two regexes, loaded from its source. A second copy here would let the
     check and its regression test disagree about what the ban even matches."""
-    spec = importlib.util.spec_from_file_location('port_ratchet_under_test', RATCHET)
+    spec = importlib.util.spec_from_file_location('port_ceiling_under_test', CEILING)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module.SHELL_SPAWN, module.QUOTED_SPAWN, module.REGISTRATION_GLOBS
 
 
 def _planted(tmp_path, files: dict):
-    """A throwaway git repo, because the ratchet's instrument is `git grep` and a check running a
+    """A throwaway git repo, because the ceiling's instrument is `git grep` and a check running a
     different instrument than the thing it guards proves nothing about the thing it guards."""
     for name, body in files.items():
         (tmp_path / name).write_text(body, encoding='utf-8', newline='\n')
@@ -55,14 +55,14 @@ def _grep(repo, pattern: str, globs: tuple) -> list:
 
 
 def _live_files(lines: list) -> set:
-    """The ratchet's own comment filter: a line that only NAMES the word is not a spawn."""
+    """The ceiling's own comment filter: a line that only NAMES the word is not a spawn."""
     return {line.split(':', 1)[0] for line in lines
             if not line.split(':', 2)[-1].lstrip().startswith(('#', '//'))}
 
 
 def test_the_registration_that_broke_it_is_caught(tmp_path):
     """Both spellings, in the file type that carried them. `python` without the 3 is the arm that
-    would have survived a fix aimed only at the word in the ratchet's own name."""
+    would have survived a fix aimed only at the word in the ceiling's own name."""
     _shell, quoted, globs = _patterns()
     repo = _planted(tmp_path, {'broken.json': BROKEN_JSON, 'fixed.json': FIXED_JSON})
     assert _live_files(_grep(repo, quoted, globs)) == {'broken.json'}
@@ -76,7 +76,7 @@ def test_the_shell_arm_still_catches_what_it_always_did(tmp_path):
 
 
 def test_asking_the_boundary_is_not_a_finding(tmp_path):
-    """`--python` and a commented mention must both pass, or the ratchet fails on the fix itself
+    """`--python` and a commented mention must both pass, or the ceiling fails on the fix itself
     and on every file that explains why the ban exists. The `-` before `python` saves the first;
     the comment filter saves the second."""
     _shell, quoted, globs = _patterns()

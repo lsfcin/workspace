@@ -1,6 +1,6 @@
 # T0 naming and placement (Level 0, law in core/SCHEMA.md). Zero-token, runs in verify-fast.
 #
-# The whole-tree test is a RATCHET, not a green light: it asserts the live violations are
+# The whole-tree test is a CEILING, not a green light: it asserts the live violations are
 # a subset of a named baseline, so a new one fails the build while the three inherited
 # ones stay visible with the item that will remove them. Shrinking the baseline is the
 # only edit this test should ever get.
@@ -42,7 +42,7 @@ def test_no_new_naming_violation():
 
 
 def test_baseline_is_not_stale():
-    """A baselined path that stopped violating must leave the baseline, or the ratchet
+    """A baselined path that stopped violating must leave the baseline, or the ceiling
     silently stops protecting whatever reuses that name."""
     live = _live_violations()
     unused = sorted(k for k in BASELINE if not any(k in f for f in live))

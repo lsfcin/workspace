@@ -31,7 +31,7 @@ when its `CONTEXT.md` carries a `> spec: <path>` line (mirroring the `> goal:` l
 | `verify: none` | `## Examples` checked by eye only |
 | `verify: make verify-fast` / `npm run verify:fast` | `## Examples` run inside the project's existing verify:fast — a broken example blocks the commit |
 
-**Enforcement (ratchet / boy-scout, not big-bang):**
+**Enforcement (gradual / boy-scout, not big-bang):**
 - New module dir (new `CONTEXT.md` under `code/`) → must ship a `SPEC.md` or an explicit `> spec:
   none` opt-out (`pre-commit` block).
 - Editing a spec-locked module's files without reading its SPEC.md this session → hard-blocked (`spec-read-gate`, clone of `context-gate`).

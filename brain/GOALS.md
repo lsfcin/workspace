@@ -61,7 +61,7 @@ yoga                     ░░░░░░░░░░   1 touches
 
 >**pareto** _(2026-08-13 compass — order by Lucas's live motivation)_  
 **workspace-os** _(#1, his call, second cycle running)_ — thrilled × transformative × immersed/advancing, and the wind is not close: **29 of 29 workspace commits in the last 14 days were wos infrastructure** (hooks → root of law + families, 37 tools → eight families, verify suite split, session meter, entropy, INBOX drained to zero). Nothing else moved, and that is the correct allocation, not a leak. Now a *finish*, not an exploration: the v1 gate is 4 rows and 2 are open — criterion 3 blocked on one decision (the 199 MB `.skp` in `branches/casinhas`), criterion 4 is clonability, both mechanical after the call is made.
-**spec-driven-development** _(#2)_ — rides the same wind for 10 minutes: `[lock-isoroll-content]` moves the lock ratchet 1→2 on material that is already spec-shaped. Cheapest visible progress on the board.
+**spec-driven-development** _(#2)_ — rides the same wind for 10 minutes: `[lock-isoroll-content]` moves the lock ceiling 1→2 on material that is already spec-shaped. Cheapest visible progress on the board.
 **home-casinhas** _(#3)_ — transformative × essential, leverage unchanged since 2026-07: still one phone call to the 7º Cartório RGI. Not competing for this cycle's energy by choice — kept here because its cost/benefit ratio is the best in Brain and it now also gates wos criterion 3 (the `.skp` lives in that repo).
 
 >**gap** _(2026-08-13 compass)_  

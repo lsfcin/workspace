@@ -1,7 +1,7 @@
 # b20260901 regression — a file the tree declares LF is LF, in the index AND on this disk.
 #
 # `.gitattributes` says `* text=auto eol=lf`, and its own head says LF is not "the Linux ending"
-# here but the workspace's. Nothing checked it. test_encoding_ratchet.py comes closest and reads
+# here but the workspace's. Nothing checked it. test_encoding_ceiling.py comes closest and reads
 # CALL SITES via AST — every open() naming `newline=` — which cannot see a file that is already
 # wrong, so the rule had a policy, a rationale, and no instrument.
 #

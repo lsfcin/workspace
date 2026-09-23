@@ -1,4 +1,4 @@
-# T0 corpus ratchets (core/SCHEMA.md § Placement): the .md corpus may not accumulate more of the three
+# T0 corpus ceilings (core/SCHEMA.md § Placement): the .md corpus may not accumulate more of the three
 # defects no link-checker can see. Zero-token, runs in verify-fast.
 #
 # These sit here rather than beside the checks they call because they assert something
@@ -6,16 +6,16 @@
 # test_entropy_context.py own whether each check fires correctly, this owns whether the
 # backlog is shrinking. Same split as test_pointer_integrity.py beside it.
 #
-# The OS-port invariants were here too until 2026-08-29 and are now test_port_ratchet.py. Being
+# The OS-port invariants were here too until 2026-08-29 and are now test_port_ceiling.py. Being
 # whole-tree is what puts both in this directory; it is not what makes them one file. The shared
 # `_git` moved to conftest.py as git_lines() rather than being copied.
 #
-# Every ceiling only ever goes down. Each is paired with a staleness test, because a ratchet
+# Every ceiling only ever goes down. Each is paired with a staleness test, because a ceiling
 # nobody lowers is just a baseline, and a baseline is where drift hides.
 #
 # A ceiling per defect, never one shared ceiling: until 2026-08-15 the placeholder marker was
-# counted as finished-work prose, and 70 markers could have masked 70 new corpses without the
-# number moving. One ratchet per thing the report names.
+# counted as finished-work prose, and 70 markers could have masked 70 new ones without the
+# number moving. One ceiling per thing the report names.
 import entropy_context
 import entropy_list
 import entropy_naming
@@ -24,8 +24,8 @@ from file_law import load_limits
 
 HEAD_WARN = load_limits()['CONTEXT_HEAD_WARN']
 
-# Inherited backlog: corpses and trapped heads (core/SCHEMA.md § Placement) plus generator markers.
-# The wos half of the corpse and head queues is drained; what remains in both is nested-repo
+# Inherited backlog: finished work and trapped heads (core/SCHEMA.md § Placement) plus generator
+# markers. The wos half of both queues is drained; what remains in both is nested-repo
 # work, which cannot ride a wos commit — so these two stop falling here.
 #
 # The marker queue fell 69 → 55 on 2026-08-15 without a single file being described by hand:
@@ -43,7 +43,7 @@ MISPLACED_CEILING = 0  # drained 2026-09-06: the dashboard head was the last one
 # to fix it. True, and the fix is in .gitignore instead — so it is reported here rather than
 # silently allowed. Drained to 0 on 2026-09-01: six targets were allowlisted and four stopped
 # being routed to, and workspace_scanner.carried now refuses to write the row at all, so this
-# ratchet guards a generator rather than a backlog.
+# ceiling guards a generator rather than a backlog.
 ROUTING_CEILING = 0
 
 # The margin lets one cut land without forcing a test edit; a real drain pass trips it.
@@ -113,7 +113,7 @@ def test_the_ceilings_are_not_stale():
     finished, undescribed, misplaced = _finished(), _undescribed(), _misplaced()
     assert FINISHED_CEILING - finished <= FINISHED_SLACK, (
         f'finished-work is down to {finished} — lower FINISHED_CEILING to match, so the '
-        f'ratchet keeps holding the new ground')
+        f'ceiling keeps holding the new ground')
     assert UNDESCRIBED_CEILING - undescribed <= UNDESCRIBED_SLACK, (
         f'placeholders are down to {undescribed} — lower UNDESCRIBED_CEILING to match')
     assert MISPLACED_CEILING - misplaced <= MISPLACED_SLACK, (

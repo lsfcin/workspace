@@ -3,7 +3,7 @@
 # SPEC.md header is `status: locked`) requires that SPEC.md be Read this session before editing the
 # module's files. See code/ROADMAP-spec-drive.md.
 #
-# Ratchet coverage: creating a new file in a code/ module with no spec prints a non-blocking reminder.
+# Gradual coverage: creating a new file in a code/ module with no spec prints a non-blocking reminder.
 # Session-dedup via the context-tracker marker.
 import re
 import sys

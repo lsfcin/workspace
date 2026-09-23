@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-RATCHET: Incomplete
+CEILING: Incomplete
 BROKEN_JSON: str
 FIXED_JSON: str
 BROKEN_SH: str

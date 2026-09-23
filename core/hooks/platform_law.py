@@ -8,7 +8,7 @@
 # WHY A BOUNDARY AND NOT A PER-OS FORK. Porting bash to Python removes the per-OS axis rather than
 # adding a Windows arm: all three per-OS forks this workspace ever had were broken by the time the
 # port found them. So `sys.platform` appears HERE and nowhere else, held at zero by
-# core/tools/test/workspace/test_port_ratchet.py.
+# core/tools/test/workspace/ceilings/test_port_ceiling.py.
 #
 # ONLY WHAT HAS A CALLER — an API written before its call site is a guess later readers mistake for
 # a decision. Every name below is imported or spawned from outside this file.
