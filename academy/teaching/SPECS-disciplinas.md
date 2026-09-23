@@ -75,7 +75,7 @@ a condução pedagógica e o painel de avaliação operam sobre conceitos rigoro
   - cada tópico apresenta seus **enigmas**: desafios investigativos estruturados no padrão `contexto → pistas → raciocínio → resposta → resolução`.
   - os enigmas avaliam domínio de vocabulário e fundamentos matemáticos/arquiteturais, permitindo pesquisa ativa na web (buscadores, documentações, artigos), mas com restrição estrita ao uso de IAs generativas como atalho para respostas prontas. cada enigma resolvido confere 2 pontos de verificação teórica (1 caixa no painel).
 
-*nota: em cada ponto relevante, adicionar blocos comentados como guias específicos para ias (`<!-- guia-ia -->`). como os humanos não precisam visualizar essas instruções operacionais, elas orientam os harnesses dos estudantes a atuarem com tutoria socrática sem poluir a leitura humana.*
+*nota: o bloco `<!-- guia-ia -->` fala só com o agente do aluno, invisível para humanos: a IA faz, o aluno domina — ela escreve código e texto, o aluno decide cada escolha e precisa explicar e defender tudo. manutenção (painel, publicação) mora no bloco `<!-- publicacao -->`, que é do professor.*
 
 ### acesso, distribuição e edição
 
@@ -85,7 +85,7 @@ em ambos os casos usamos arquivos markdown com **visualização rica** e **ediç
 - a **visualização rica** focada em humanos e mobile fica em `https://lucassf.pages.dev/<disciplina>/<name>`, renderizada pelo visualizador nativo (`viewer.js` + `viewer.css` + `marked.min.js`), com suporte a alertas github, tabelas responsivas e temas claro/escuro.
 - a **visualização direta para ias / harnesses** é acessível no formato `https://lucassf.pages.dev/<disciplina>/<name>.md` (ou botão neutro `copiar p/ agente (raw)` no rodapé da página), permitindo ingestão instantânea via `curl -s` ou cópia com um clique.
 - a **edição online com zero atrito** é fornecida pelo botão neutro `editar (github.dev)` no rodapé da página, abrindo o VS Code no navegador diretamente no arquivo do GitHub para correções imediatas em sala.
-- a **regra de auto-documentação de publicação (autonomia do professor):** todo arquivo `.md` canônico que é espelhado para links públicos no Cloudflare Pages deve conter obrigatoriamente no seu cabeçalho um bloco de comentário `<!-- publicacao ... -->` contendo os comandos exatos de terminal (`cp`, `git commit` e `git push`) e as URLs resultantes (web e raw). isso garante que o professor tenha total autonomia para atualizar qualquer documento ou link de aula sem depender de IA ou ferramentas externas.
+- a **regra de auto-documentação de publicação (autonomia do professor):** todo arquivo `.md` canônico que é espelhado para links públicos no Cloudflare Pages deve conter obrigatoriamente no seu cabeçalho um bloco de comentário `<!-- publicacao ... -->` contendo os comandos exatos de terminal (`painel.py`, `cp`, `git add`/`commit`/`push`) e as URLs resultantes (web e raw). isso garante que o professor tenha total autonomia para atualizar qualquer documento ou link de aula sem depender de IA ou ferramentas externas.
 - **padrões de estilo visual de links e tabelas:**
   - *cronograma:* 5 colunas canônicas (`data | # | tipo | descrição | materiais`). células sem material ficam em branco.
   - *links de materiais:* formatados como pílulas de código embutidas: `[`[n] tipo · nome`](artefatos/n-nome.md)`.

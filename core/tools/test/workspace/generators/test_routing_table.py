@@ -105,6 +105,12 @@ def test_frontmatter_still_outranks_the_blurb(tmp_path) -> None:
     assert 'the blurb' not in table
 
 
+def test_an_md_line_one_comment_describes_it(tmp_path) -> None:
+    """A published page opens with its banner, so the one place left to describe it is a comment."""
+    table = _table(tmp_path, **{'page.md': '<!-- the page -->\n![b](x)\n\n# t\n> prof\n'})
+    assert 'the page' in table
+
+
 def test_an_unanswered_placeholder_blurb_is_not_hoisted(tmp_path) -> None:
     """A generated marker is a question, not a description — hoisting one would answer it
     with itself, and the placeholder check would stop seeing it."""

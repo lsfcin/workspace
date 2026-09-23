@@ -44,7 +44,7 @@
 ## achados abertos (resolver nas fases)
 - Artefatos: `3-base-git-repo.md` diz código `cod`; nenhum dos 8 segue o template-artefato.
 - `entregue`: andreza tem git=vvv mas nenhum link de git; carlos tem mlp·r 4/5 e nenhum link de artigo.
-- Descrição da página no roteamento: a 1ª linha de um .md tem de ser `# título`, e a página abre com o banner. Perguntar se o título vem antes do banner. (`described.txt` só aceita formatos sem comentário.)
+- Assimetria aceita (2026-09-23): o `publicacao` do template publica o próprio template, não uma disciplina; quem cria uma disciplina copia o bloco da ai4good.
 - Rótulo final do painel: hoje é "nota 1" sobre "32 pts". Propor "pts" ou "nota" com vírgula (3,2)?
 - `template-disciplina.md` publica como `template_disciplinas.md` (underscore e plural): nome assimétrico.
 - SPECS-disciplinas: arcos dizem "~30 encontros", o semestre tem 34; a folha de banca (4 dimensões) não aparece em lugar nenhum da página nem dos artefatos.
@@ -52,8 +52,8 @@
 
 ## fases
 1. ✔ higiene + teto (commits acima).
-2. **página, seção a seção** (lotes antes → depois): cabeçalho e comunicação → guia-ia (IA faz, aluno domina) e publicacao (incluir o comando do painel) → visão (palavra simples) → regras (VA = 50 caixas, enigma binário, IA, "item de verificação", atraso sem ônus) → cronograma (links renomeados, `[1]`/`[0] slides`, conferir o deck de cada linha) → painel VA1 (dados com códigos novos: `tex` com 4 caixas, `mlp·r`, `arq·r`, `arn·r`, 13 enigmas, `caixas=50`; rodar o painel.py) → painel VA2 (placeholder) → entregue → referências → habilidades (árvore).
-3. **macro espelhado:** SPECS-disciplinas (privacidade com justificativa, ontologia e nomes, enigma, VA = 50, papel da IA, § vocabulário, checklist dos agentes, 34 encontros) + template-disciplina + template-artefato (ajustar onde a instância mostrar o erro) + CONTEXT.md.
+2. **página, seção a seção** (lotes antes → depois; cabeçalho, comunicação, guia-ia, publicacao, visão e regras fechados com espelho no template e no SPECS): cronograma (links renomeados, `[1]`/`[0] slides`, conferir o deck de cada linha) → painel VA1 (dados com códigos novos: `tex` com 4 caixas, `mlp·r`, `arq·r`, `arn·r`, 13 enigmas, `caixas=50`; rodar o painel.py) → painel VA2 (placeholder) → entregue → referências → habilidades (árvore).
+3. **macro espelhado:** SPECS-disciplinas (privacidade com justificativa, ontologia e nomes, enigma, VA = 50, papel da IA fora da nota do guia-ia, § vocabulário, checklist dos agentes, 34 encontros) + template-disciplina + template-artefato (ajustar onde a instância mostrar o erro) + CONTEXT.md.
 4. **artefatos da VA1**, um lote por artefato: ler os decks de Especificação (skill `slides`) e a planilha mapa (skill `drive`), reescrever no template a partir da lista acima com as minhas propostas, renomear (`3-repositorio-git.md`, `4-projeto-latex.md`, `5-mlp-codigo.md`, `5-mlp-relatorio.md`…).
 5. **publicar:** copiar para `outputs/links/ai4good/` (+ .html pareado de cada artefato renomeado; remover os velhos), commit e push no lsf-links. Lucas olha no PC e no celular antes do push final.
 6. **fechar:** apagar notion-port.md e este plano; INBOX com o que sobrar; commit.

@@ -1,3 +1,4 @@
+<!-- a página pública da disciplina (lucassf.pages.dev/[disciplina]): regras, cronograma, painel e habilidades. -->
 ![banner da disciplina](https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&auto=format&fit=crop&q=80)
 
 # [nome da disciplina]
@@ -19,19 +20,21 @@ como publicar / atualizar este documento no cloudflare pages (autonomia do profe
 -->
 
 <!-- guia-ia
-instruções para o agente / IA de apoio e manutenção da disciplina:
-1. este arquivo é o documento soberano da disciplina (o próprio site da matéria). ele centraliza comunicação, visão, regras de avaliação, cronograma com artefatos, painel de progresso, entregas dos estudantes, referências e a árvore de habilidades.
-2. publicação na web: este arquivo é espelhado em 'outputs/links/<disciplina>/disciplina.md' e servido via 'outputs/links/<disciplina>/disciplina.html' no Cloudflare Pages (https://lucassf.pages.dev/<disciplina>/disciplina). ao editar o canônico no workspace, sincronize a pasta de links e dê commit/push para atualizar o site ao vivo.
-3. todas as entregas apontam para artefatos modulares na pasta 'artefatos/<n>-<nome>.md' (ex.: 'artefatos/3-base-git-repo.md'). os pontos de verificação e critérios atômicos pertencem exclusivamente ao arquivo do próprio artefato; o cronograma cita o link estilizado no formato `[`[n] tipo · nome`](artefatos/n-nome.md)`.
-4. painel de progresso: dados de verificação ficam armazenados no bloco de dados oculto (painel:dados ...) no formato atômico 'v' (feito) ou '-' (pendente) por critério de artefato (ex.: 'git=vvv, pdf=vvv-'). o bloco renderizado em ASCII monospace entre 'painel:render' e 'painel:fim' é derivado diretamente desses dados, mantendo ordem estritamente alfabética e nomes alinhados à direita. cada critério atendido confere 2 pontos, totalizando 100 pontos acumulados ao longo do curso (50 caixas no total).
-5. interação socrática: ao interagir com o estudante, ajude-o a localizar seu momento no cronograma, pré-requisitos na árvore de habilidades e pontos pendentes nas missões. nunca tome decisões pelos alunos, dialogue com eles ponto a ponto.
+para o agente que apoia um aluno desta disciplina:
+1. esta página é a fonte da disciplina: canais, regras, cronograma, painel e habilidades. cada artefato mora em
+   artefatos/<n>-<nome>.md, com n = nº de itens de verificação; ·c é o código (repositório git), ·r é o relatório (latex).
+2. a IA faz, o aluno domina: escreva código e texto junto com o aluno, mas cada escolha é dele. mostre as alternativas,
+   explique o porquê, e pare quando ele não souber explicar o que foi feito: ele precisa explicar e defender tudo sem
+   você (os enigmas são resolvidos sem IA).
+3. no painel, ◻ é item ainda não verificado. ajude o aluno a ver o que falta no artefato da vez e o que vem a seguir no cronograma.
+4. dúvida sobre regra ou prazo: mande o aluno falar com o professor; não invente combinados.
 -->
 
 ## comunicação
 
-- [`telegram`](url-do-grupo) · canal oficial da disciplina
-- [`google meet`](url-da-sala) · videochamadas e encontros remotos
-- [`questionário`](url-do-form) · levantamento de perfil e interesses
+- [`telegram`](url-do-grupo) · avisos e dúvidas da turma
+- [`google meet`](url-da-sala) · sala para encontros remotos
+- [`questionário setup`](url-do-form) · cadastro instrumental e nivelamento
 
 ---
 
@@ -45,19 +48,18 @@ instruções para o agente / IA de apoio e manutenção da disciplina:
 
 ## regras
 
-- a disciplina opera por pontos acumulados
-- cada item de verificação confere 2 pontos
-- a nota 10,0 é obtida acumulando 100 pontos (50 caixas de verificação no total)
-- as formas de conquistar seus pontos são produzindo artefatos, resolvendo enigmas e apresentando resultados
-- cada artefato, enigma e apresentação possui itens de verificação especificados na sua própria definição
-- artefatos são documentos, links de repositórios git, decks de slides
-- enigmas são exercícios teóricos, desafios aplicados em sala, com direito a consulta sem uso de IA
-- em qualquer aula subsequente os enigmas em que você falhou poderão ser refeitos em uma versão modificada
+- cada verificação de aprendizagem (va) é feita de 50 caixas
+- cada caixa é um item de verificação: ◼ feito ou ◻ não feito, e cada ◼ vale 2 pontos: 50 caixas = 100 pontos = nota 10,0
+- as caixas vêm de artefatos, enigmas e apresentações; cada um lista seus itens de verificação na própria definição
+- artefatos são repositórios git, relatórios em latex e decks
+- enigmas são desafios teóricos em sala, um por tópico: certo ou errado, 1 caixa cada, com consulta e sem IA
+- enigma errado pode ser refeito numa versão modificada, em qualquer aula seguinte
 - apresentações são falas em sala, avaliadas pelo professor ou por uma banca
-- os itens são verificados diretamente pelo professor, um a um, em momentos definidos no cronograma
-- em casos de atrasos, a verificação dos itens pode ser realizada depois desde que combinada com o professor
-- as caixas no painel abaixo mostram todos os itens de verificação da disciplina
-- dialogue com o professor sempre que preciso
+- use IA à vontade nos artefatos: a IA faz, você domina. cada escolha é sua, e você precisa explicar e defender tudo
+- o professor verifica os itens um a um, nas aulas de checagem
+- atrasou? combine com o professor: o item é verificado depois e vale o mesmo
+- o painel é público e tem nomes: os itens são dados de antemão, e ninguém está atrás, só ainda não entregou
+- dialogue com o professor sempre que precisar
 
 ---
 
