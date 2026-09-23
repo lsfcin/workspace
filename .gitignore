@@ -134,6 +134,12 @@ core/*
 !core/SPECS-*.md
 !core/features.txt
 !core/profile.txt
+# The read matrix is per-machine BEHAVIOUR and still tracked, unlike core/scoreboard.tsv beside it.
+# Both are counts this machine made, but this one answers a question that outlives the machine —
+# what a file costs to keep, which is what every cut is argued from — and a window that resets on
+# each clone could never answer it. Its shape is what makes it committable: one row per file, one
+# column per day, fixed width, so a day's diff is the rows that were actually read.
+!core/read-matrix.tsv
 !core/permissions.txt
 !core/levels.txt
 !core/harnesses.txt

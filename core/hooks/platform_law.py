@@ -15,7 +15,6 @@
 import os
 import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
@@ -51,20 +50,24 @@ def interpreter() -> str:
 def session_state(name: str) -> Path:
     """A session-scoped scratch file — the markers a gate writes in one hook and reads in the next.
 
-    WHY THIS IS A BOUNDARY QUESTION AND NOT A CONSTANT. Six hooks spelled `/tmp/claude_<x>_<sid>.txt`
-    by hand. `/tmp` is not a directory Windows has: Python anchors a leading slash to the current
-    drive, so every one of those writes aimed at `C:\\tmp`, which does not exist. The write raised
-    inside a PostToolUse hook, whose exit status nothing reads, and the matching read then found
-    nothing — so the context gate could never be satisfied by reading anything, and no message
-    anywhere said why. A gate that can only ever block is the mirror of one that can only ever
-    pass, and it cost this session a deadlock against its own enforcement layer to find.
+    WHY THE REPOSITORY AND NOT THE TEMP DIRECTORY. **A session outlives a reboot; the temp directory
+    does not.** Measured 2026-09-22: a session opened the previous day was resumed after a 00:11
+    boot, found its marker store emptied by the operating system, and was made to re-read the whole
+    CONTEXT.md chain it still had whole in its window. The gate asks *did this session read it* and
+    was answered by a directory that had been wiped underneath it — a re-read the workspace pays for
+    in tokens and can never detect, because nothing is broken afterwards. `core/` is the one address
+    per-machine state has here, beside `core/scoreboard.tsv`, and `.gitignore` treats that directory
+    as an allowlist, so state lands outside git without a rule being written for it.
 
-    `tempfile.gettempdir()` is the same directory `/tmp` names on POSIX, so the markers do not move
-    there. Three shell halves kept spelling `/tmp` on the claim that Git Bash mounts it at %TEMP% --
-    a claim about the OTHER clone that neither machine can check from where it stands. All three are
-    Python since 2026-09-02, so nothing has to be true about a mount for these to agree.
+    WHY A FUNCTION AND NOT A CONSTANT. Six hooks spelled `/tmp/claude_<x>_<sid>.txt` by hand. `/tmp`
+    is not a directory Windows has: Python anchors a leading slash to the current drive, so every one
+    of those writes aimed at `C:\\tmp`, which does not exist — inside a PostToolUse hook, whose exit
+    status nobody reads. The gate could then never be satisfied by reading anything, and no message
+    anywhere said why. One owner of the name is what stops the second spelling.
     """
-    return Path(tempfile.gettempdir()) / name
+    folder = WORKSPACE_ROOT / 'core' / 'state'
+    folder.mkdir(parents=True, exist_ok=True)
+    return folder / name
 
 
 def install_command(directory, name: str, source: str) -> None:

@@ -41,6 +41,7 @@ toggle	interface-stubs	on
 toggle	routing-tables	on
 toggle	agent-context-brief	on
 toggle	subtree-read-tracking	on
+toggle	read-matrix	on
 toggle	line-limit	on
 toggle	crowding-limit	on
 toggle	context-head-budget	on

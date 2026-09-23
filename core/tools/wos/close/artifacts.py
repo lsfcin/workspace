@@ -141,6 +141,25 @@ def regenerate(root: Path, leave_dirty: bool, clean: bool, promoting: str = '') 
     entropy += settle(root, 'ISSUES.md', clean, 'chore(issues): regenerate the entropy and verify '
                       'blocks at session close', leave_dirty)
 
+    # THE MATRIX IS FOLDED BEFORE THE DIAGRAM, and the order is the whole answer to what looked like
+    # a conflict: the page must be a pure function of the repository, and a per-session number is
+    # not. Folded into a tracked file first, it becomes one — so the picture may read it and
+    # `architecture --check` still means what it meant. The hook only appends; this is the one
+    # place the matrix is written, which is what keeps parallel sessions from losing rows in it.
+    # BOTH PATHS COME FROM `root`, never from the module's own defaults: a fold that defaulted to
+    # WORKSPACE_ROOT would write the REAL matrix from inside a throwaway repo — the b20260902 shape,
+    # a test dirtying a tree it does not own. The guard is what makes the import safe to reach at
+    # all: this file is copied into sandboxes carrying only part of core/hooks/, and a sandbox has
+    # neither events nor a matrix, so there nothing runs and nothing is imported.
+    events, matrix = root / 'core/reads.tsv', root / 'core/read-matrix.tsv'
+    if events.exists() or matrix.exists():
+        sys.path.insert(0, str(WOS.parents[1] / 'hooks/read'))
+        import read_matrix
+        matrix_clean = git(root, 'diff', '--quiet', 'core/read-matrix.tsv').returncode == 0
+        read_matrix.fold(events, matrix)
+        settle(root, 'core/read-matrix.tsv', matrix_clean,
+               'chore(reads): fold this session\'s reads into the matrix', leave_dirty)
+
     was_clean = git(root, 'diff', '--quiet', 'ARCHITECTURE.html').returncode == 0
     drawn = spawn(root, interpreter(), str(WOS / 'diagram/architecture'))
     text = drawn.stdout + drawn.stderr

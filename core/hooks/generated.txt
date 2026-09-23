@@ -17,6 +17,12 @@
 # --repos (2026-08-31, see core/tools/wos/diagram/CONTEXT.md).
 ARCHITECTURE.html
 
+# How often each file was read, per day, over the last year — core/hooks/read/read_matrix.py,
+# folded by /roundup out of the events a PostToolUse hook appends. **Read it with
+# `core/run tools/wos/session/reads --span N`, never by opening it**: a year of rows is ~200k
+# tokens, and every question anyone has of it is a sum of columns the tool already does.
+core/read-matrix.tsv
+
 # The skill mirrors are deliberately NOT here, and since 2026-08-29 they no longer need to be:
 # git does not track them at all (.gitignore § the published units). The reason a glob here could
 # never have worked still holds and is worth keeping — every pattern in this file is matched against

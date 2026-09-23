@@ -7,13 +7,12 @@
 # runs the real script against a real git repo and reads its behaviour, rather than reading the
 # source for a branch that looks right: a guard on an unreachable path passes that reading.
 import subprocess
-import tempfile
 from pathlib import Path
 
 import pytest
 
 from conftest import WORKSPACE_ROOT
-from platform_law import interpreter
+from platform_law import interpreter, session_state
 
 MARKER = WORKSPACE_ROOT / 'core/hooks/git/branch_marker.py'
 
@@ -24,12 +23,12 @@ def marker_path(repo: Path) -> Path:
 	This is the one thing a test may duplicate from its subject: if the formula drifts, `record`
 	and `check` stop finding each other and every case below would pass while the feature was dead.
 
-	The FORMULA is restated; the temp directory is asked for. `/tmp` was spelled here literally
-	until the port, and it is not a directory Windows has -- so the marker went to a path that
-	could not exist, and the warning this file exists to prove could never have fired there.
+	The FORMULA is restated; WHERE state lives is asked of the boundary. Spelled literally here it
+	was wrong twice: `/tmp` is not a directory Windows has, and the temp directory does not survive
+	a reboot that a session survives (b20260922).
 	"""
 	sanitized = ''.join(c if c.isalnum() else '_' for c in str(repo.resolve()))
-	return Path(tempfile.gettempdir()) / f'claude_branch_{sanitized}.txt'
+	return session_state(f'claude_branch_{sanitized}.txt')
 
 
 @pytest.fixture
