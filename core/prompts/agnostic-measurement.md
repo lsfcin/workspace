@@ -1,7 +1,7 @@
 # ARCHITECTURE.html — one page, two purposes
 
-> Session plan. Frentes 1–3 landed 2026-09-22 (`f9d8ce0`, `46deda3`); what is left is below.
-> Delete this file when frente 4 lands.
+> The measurement this plan needed is in git and in `core/hooks/read/read_matrix.py`. What is left
+> is below. Delete this file when frente 4 lands.
 
 ## Context
 
