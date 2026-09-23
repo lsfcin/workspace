@@ -64,5 +64,6 @@ por turma.
 | [`disciplina.md`](disciplina.md) | — | — | A página pública da disciplina (lucassf.pages.dev/ai4good): regras, cronograma, painel e habilidades. Abre com o banner, por isso a descrição mora aqui. |
 | [`drive_sync.json`](drive_sync.json) | — | — | Estado do sync desta pasta com o Drive, escrito por core/tools/files/drive_sync.py — não é um formulário. |
 | [`notion-port.md`](notion-port.md) | — | — | Tópicos em IA - AI4Good |
+| [`plano-refino.md`](plano-refino.md) | — | — | Decisões do diálogo de 2026-09-23 e as fases que faltam. Arquivo temporário: é apagado quando a última fase fechar. |
 | [`transformers-guia-acessivel-slides.md`](transformers-guia-acessivel-slides.md) | — | — | Material didático acessível e roteiro pareado aos 106 slides da aula, com audiodescrição estrutural e preparação para NotebookLM. |
 <!-- routing:end -->
