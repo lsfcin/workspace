@@ -17,7 +17,7 @@
 #   file     one named file, eligible to cross. Mostly at the repo root; a path deeper in is how
 #            a single file is let out of an `absent` tree, by the longest-prefix rule below.
 #   tree     a directory whose tracked contents CROSS, unclaimed. The directory form of `file`, and
-#            substrate for the same reason SETUP.md § substrate gives: it installs no feature, there
+#            machine state for the same reason SETUP.md § machine state gives: it installs no feature,
 #            is nothing in it to ablate, and asking a feature to claim it would invent an owner.
 #   absent   named REFUSALS, and they REFUSE: a path under one never crosses, whatever claims it.
 #            THE LONGEST PREFIX WINS between the kinds above, so `root code/aiwbot` lets one project

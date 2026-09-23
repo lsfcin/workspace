@@ -39,14 +39,6 @@ The read counts are reachable now: `read_matrix.load()` and `read_matrix.span(ro
 [`core/hooks/read/read_matrix.py`](../hooks/read/read_matrix.py). **Never open
 `core/read-matrix.tsv`** — a year of rows is ~200k tokens.
 
-### 5 🟢 One retired token
-
-The 2026-09-14 rename that gave `list` its name survives in one tracked line:
-[`entropy_list.py:34`](../hooks/entropy/entropy_list.py#L34), a comment citing that file's own
-former name as its example of a retired token hiding inside a compound identifier. The checker is
-exempt from itself, so nothing fails. Any other example teaches the same lesson without carrying the
-corpse — and this plan tripped the check while describing it, which is the argument in one line.
-
 ## Deliberately not here
 
 A warning when a session re-reads a file it did not need to. Lucas, 2026-09-22: fix the bug, do not

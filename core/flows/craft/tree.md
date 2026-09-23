@@ -27,7 +27,7 @@
 
 ## The feature folder carries the SDD requirements
 
-The `feature` folder is the spec-driven pipeline. Its distinctive spine:
+The `feature` folder is the spec-driven pipeline. Its distinctive steps:
 
 1. **Step 0 permission panel** — the interview asks which human gates the user wants; **default permissive** (agent runs unattended, saves tokens). Records `supervision: io-signoff · arch-review · arch-review-supervised` in the Carry block.
 2. **Loop 3.5 Contract Layout (mandatory)** — every touched module's `SPEC.md` (Inputs/Outputs/Invariants) + interface stubs + the connection graph are laid out *before* any code; `core/tools/wos/spec/contract-check` verifies every module has a complete contract and every edge's types match. The contract is never optional; only human *sign-off* on it is (the panel's `io-signoff`).

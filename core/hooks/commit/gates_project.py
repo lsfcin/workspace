@@ -131,7 +131,7 @@ def _goal_link(commit):
 def _spec_declaration(commit):
     """A NEW module CONTEXT.md under code/ must declare '> spec: <file>' or '> spec: none'.
 
-    Ratchet / boy-scout: only files this commit ADDS, so existing modules are grandfathered and a
+    Gradual / boy-scout: only files this commit ADDS, so existing modules are grandfathered and a
     repo that inherited violations is not blocked on every commit. Mirrors the goal-link convention.
     """
     import re

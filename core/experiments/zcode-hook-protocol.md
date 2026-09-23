@@ -40,7 +40,7 @@ Run detail (2026-09-04, ZCode 3.8.1, trusted):
 
 - Direct registration (2A) **confirmed** by Sonda 2: the canonical `core/hooks/*` scripts spawn through `core/run` with `${ZCODE_PROJECT_DIR}`, no adapter was ever needed, and `core/hooks/zcode/` was deleted — done work, git holds the checks.
 - Both check registrations removed from `.zcode/config.json` (2026-09-04): WebFetch is unblocked and `/tmp/zcode_check/` stays empty. `.zcode/SPECS.md` § Measured answers holds the three of them; the B5 section left ISSUES.md behind its regression spec.
-- `test_shim_paths.py` reads `.zcode/config.json` in SHIMS (2026-08-28-style path check) and `test_port_ratchet.py` dropped the two check shells when the directory died.
+- `test_shim_paths.py` reads `.zcode/config.json` in SHIMS (2026-08-28-style path check) and `test_port_ceiling.py` dropped the two check shells when the directory died.
 
 ## Limitations
 

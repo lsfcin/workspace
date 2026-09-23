@@ -49,7 +49,7 @@ def test_a_posix_target_is_clean(tmp_path):
 
 
 def test_the_whole_workspace_is_clean():
-    """Not a ratchet: the corpus was swept when the two generators were fixed."""
+    """Not a ceiling: the corpus was swept when the two generators were fixed."""
     from conftest import WORKSPACE_ROOT
     from test_pointer_integrity import MEMORY_DIR
     failures = check_separators(WORKSPACE_ROOT, MEMORY_DIR)

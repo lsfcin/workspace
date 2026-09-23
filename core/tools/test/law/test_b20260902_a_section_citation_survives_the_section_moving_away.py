@@ -18,7 +18,7 @@
 # test_pointer_integrity.py instead, which is the honest boundary — that check resolves the `](path)`
 # half of a pointer and this one resolves the `§` half, and pre-commit runs both.
 #
-# NOT A RATCHET. The corpus was swept to zero when this landed, so every tracked .md is checked
+# NOT A CEILING. The corpus was swept to zero when this landed, so every tracked .md is checked
 # rather than only what a commit adds.
 import re
 import subprocess

@@ -10,7 +10,7 @@ metadata:
 
 Lucas, 2026-08-18: *"language is very important, semantical symmetry as well, I mean, this whole WOS is meant for LLMs, language IS the thing"* and *"more often than not I think our language choices can be simpler, better organized."*
 
-Words he named as ones he cannot parse instantly: **list, boundary, check**. Same family, found beside them: ratchet, corpus, substrate, crowding, hop, shim, spine, surface, law, drift, honesty test.
+**A word he names goes to [`core/SCHEMA.md`](../../core/SCHEMA.md) § Retired tokens, never to a memory.** The list he gave on 2026-08-18 sat here instead, and nothing reads this file looking for a rename to finish — so one of those words reached 47 tracked files before anyone acted. What is still unruled from it is an open item in `ISSUES.md`.
 
 **Why:** the WOS is written for two readers — Lucas and the model — and jargon fails both. He said the feature registry, the group rename and the `capability` sweep were all *downstream* of this one problem: he stops recognising his own workspace, and those renames were attempts to fix that without naming it. He also reports *"decisions I didn't recall making"*, which is the same failure one level up, at the process.
 

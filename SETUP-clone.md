@@ -40,7 +40,7 @@ The policy is versioned; the rendered `.claude/settings.local.json` is git-ignor
 versioned `bypassPermissions` would arrive switched on for whoever cloned next.
 
 ## The venv
-> substrate: yes · agent: yes
+> machine state: yes · agent: yes
 
 One virtualenv at the workspace root, shared by every tool and the suite. `code/*` repos own theirs.
 

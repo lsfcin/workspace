@@ -34,7 +34,7 @@ def project_name(root=None) -> str:
 
 	All three tools defaulted to the authoring machine's path in the harness's notation, so on any
 	other clone they read an empty directory and said "no such project" while the transcripts sat one
-	name over. The I6 ratchet missed it: it greps that path spelled with slashes, and this is the same
+	name over. The I6 ceiling missed it: it greps that path spelled with slashes, and this is the same
 	path spelled with dashes. The harness's rule is one substitution — every character outside
 	[A-Za-z0-9] becomes a dash — so a slash and a drive letter fall out of it alike, named nowhere.
 	"""

@@ -19,7 +19,7 @@
 #   * Two gate specs failed with `UnicodeDecodeError: 'charmap'` -- the child printed a glyph, the
 #     parent decoded cp1252, the reader thread raised, and `result.stdout` came back None. The gate
 #     under test was fine. Nothing in the failure said "encoding".
-#   * 304 call sites in 113 files were inheriting. The port's own ratchet had recorded this law as
+#   * 304 call sites in 113 files were inheriting. The port's own ceiling had recorded this law as
 #     owed and guessed "the corpus is clean"; it was not, and no check could see it.
 #
 # A CEILING OF ZERO IS AN ASSERT, and this one may not creep by one: a single inherited write is a
@@ -27,7 +27,7 @@
 #
 # NOT COVERED HERE, and deliberately: a program's OWN stdout. `core/run` exports PYTHONIOENCODING
 # for everything it spawns, which is every hook and every tool in production, and
-# platform_law.speak_utf8() is the answer for a program spawned any other way. A ratchet over that
+# platform_law.speak_utf8() is the answer for a program spawned any other way. A ceiling over that
 # would be counting the programs core/run already covers.
 import ast
 import sys
@@ -149,7 +149,7 @@ def test_no_text_read_or_write_inherits_the_os_answer():
 def test_the_declared_line_ending_is_the_one_this_asserts():
     """The law is only worth holding while .gitattributes still says LF for every clone.
 
-    A ratchet that outlives its own premise is the drift these checks exist to catch, so the
+    A ceiling that outlives its own premise is the drift these checks exist to catch, so the
     premise is read rather than remembered.
     """
     declared = (WORKSPACE_ROOT / '.gitattributes').read_text(encoding='utf-8')

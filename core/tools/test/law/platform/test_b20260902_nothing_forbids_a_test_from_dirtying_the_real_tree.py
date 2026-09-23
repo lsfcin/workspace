@@ -4,8 +4,8 @@
 # builds its own repo and bare origin; nothing touches the real workspace" — and nothing read that
 # sentence. Two of three full runs were red here on 2026-09-02 on a suite the Windows clone had
 # seen green three times, and the operator's evidence was always a failure in a file they had not
-# touched: the sync-skills check, the diagram's determinism, and test_present_tense_state_is_not_a
-# _corpse dying on `code/_remindercheck5b974581`.
+# touched: the sync-skills check, the diagram's determinism, and
+# test_present_tense_state_is_not_finished_work dying on `code/_remindercheck5b974581`.
 #
 # BESIDE THE b20260901 SIBLINGS, because the invisibility is the cross-clone kind this directory
 # covers: how wide the mutation window opens is a core count, so a green run on one machine says

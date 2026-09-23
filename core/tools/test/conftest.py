@@ -67,30 +67,30 @@ def floor_of(**kw):
 
 
 def git_lines(*args) -> list:
-    """Lines of a git query against the workspace, minus the ratchet files themselves.
+    """Lines of a git query against the workspace, minus the ceiling files themselves.
 
-    Shared because a ratchet necessarily NAMES what it forbids: a test asserting nobody spells the
+    Shared because a ceiling necessarily NAMES what it forbids: a test asserting nobody spells the
     authoring machine's absolute root has to spell it to search for it, and would otherwise be its
-    own only finding. Any path containing `_ratchet` is dropped for that reason — the rule is the
-    file kind, not a list of filenames, so splitting the ratchets into a second file cannot
+    own only finding. Any path containing `_ceiling` is dropped for that reason — the rule is the
+    file kind, not a list of filenames, so splitting the ceilings into a second file cannot
     silently make one of them count itself.
 
-    The ratchets get the needle itself from `platform_law.AUTHORING_ROOT` rather than spelling it,
+    The ceilings get the needle itself from `platform_law.AUTHORING_ROOT` rather than spelling it,
     so this docstring names it in words. That is not evasion of the count — it is the same rule
     ROADMAP.md § Portability already follows for the same reason.
     """
     import subprocess
     done = subprocess.run(['git', *args], cwd=WORKSPACE_ROOT, capture_output=True, text=True, encoding='utf-8')
-    hits = [line for line in done.stdout.splitlines() if line and '_ratchet' not in line]
+    hits = [line for line in done.stdout.splitlines() if line and '_ceiling' not in line]
     return [line for line in hits if not _inside_generated_block(line)]
 
 
 def _inside_generated_block(hit: str) -> bool:
     """Whether a `path:line:text` hit lands in a block no author wrote.
 
-    The same exemption `_ratchet` gets, for the same reason: the file necessarily carries what the
-    ratchet forbids, and rewriting it would falsify rather than fix. ISSUES.md's `verify:` block
-    QUOTES the last red suite log, so a traceback naming the venv path made four ratchets red over
+    The same exemption `_ceiling` gets, for the same reason: the file necessarily carries what the
+    ceiling forbids, and rewriting it would falsify rather than fix. ISSUES.md's `verify:` block
+    QUOTES the last red suite log, so a traceback naming the venv path made four ceilings red over
     a record — and the only fix would have been to hand-edit a generated block, which
     core/SCHEMA.md forbids outright.
 
@@ -206,5 +206,5 @@ def pytest_configure(config):
     # exports this. Declared once here rather than per spawn: a spec that runs a gate barer than the
     # harness ever does is testing a gate that does not exist, and it fails as a TypeError about
     # NoneType — the child writes a glyph, the parent cannot decode it, the reader thread dies and
-    # stdout comes back None. The law: core/tools/test/workspace/test_encoding_ratchet.py
+    # stdout comes back None. The law: core/tools/test/workspace/ceilings/test_encoding_ceiling.py
     os.environ['PYTHONIOENCODING'] = 'utf-8'

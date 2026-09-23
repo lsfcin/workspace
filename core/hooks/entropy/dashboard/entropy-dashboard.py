@@ -3,12 +3,12 @@
 # and writes one generated report, so agents and Lucas read a pre-computed file instead of
 # re-scanning the tree. Zero-token, no LLM.
 #
-# Division of labour with core/hooks/checks/type-gate.py: the gate is a ratchet and only blocks what
+# Division of labour with core/hooks/checks/type-gate.py: the gate is a ceiling and only blocks what
 # a commit ADDS, which is why a repo that inherited violations is not blocked on every
 # commit. Everything it lets through historically shows up here, once, with a count.
 #
 # Nothing here blocks. The cap that does lives in checks/size-gate.py; this file reports what the
-# tree already carries, including the files a ratchet let through before the cap reached them.
+# tree already carries, including the files a ceiling let through before the cap reached them.
 # Crossing a threshold asks for a CUT, never for a summary — forced brevity is the trap, and
 # core/SCHEMA.md § A type that outgrows the cap is cut says what a cut may
 # not throw away.
@@ -49,7 +49,7 @@ from platform_law import rel  # noqa: E402
 from schema_law import (SCHEMA, WORKSPACE_ROOT, load_law,  # noqa: E402
                         load_retired, load_scopes)
 
-# NAMED, NEVER INHERITED — the law is core/tools/test/workspace/test_encoding_ratchet.py. The status
+# NAMED, NEVER INHERITED — the law is ceilings/test_encoding_ceiling.py. The status
 # line here carries `→`. core/run exports PYTHONIOENCODING for what it spawns, which is every
 # production caller and not the suite: this was red under pytest and green through its own hook.
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')

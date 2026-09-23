@@ -14,7 +14,7 @@ import re
 import sys
 from pathlib import Path
 
-# NAMED, NEVER INHERITED — core/tools/test/workspace/test_encoding_ratchet.py. This report prints
+# NAMED, NEVER INHERITED — workspace/ceilings/test_encoding_ceiling.py. This report prints
 # `·`, and a console codepage cannot encode it: the tool would die mid-report, after doing the work.
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 

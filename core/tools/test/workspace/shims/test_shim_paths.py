@@ -73,7 +73,7 @@ SHIMS = {
 # both delegate to a shim, so neither config names a gate — what has to be true of them is that
 # they spawn through the launcher and that the adapter they name is on disk. Neither file was read
 # by anything until 2026-09-06, which is how .github/hooks/workspace-policy.json carried three
-# `python3` registrations for weeks past a ratchet that core/hooks/SPECS.md names as their enforcer
+# `python3` registrations for weeks past a ceiling that core/hooks/SPECS.md names as their enforcer
 # (b20260905). The same self-indictment as the `.claude/settings.json` note above, one shim over.
 REGISTRATIONS = {
     '.github/hooks/workspace-policy.json': 'copilot',

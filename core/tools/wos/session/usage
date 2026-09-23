@@ -8,7 +8,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-# NAMED, NEVER INHERITED — the law is core/tools/test/workspace/test_encoding_ratchet.py. This
+# NAMED, NEVER INHERITED — the law is workspace/ceilings/test_encoding_ceiling.py. This
 # report prints `→`, and a console codepage cannot encode it: the tool dies mid-report, after doing
 # all the work. The gates get this from core/run; a tool invoked directly says it itself.
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')

@@ -27,7 +27,7 @@ SKIP_DIRS = {'.venv', 'node_modules', '.mypy_cache', '.pytest_cache', '.Trash-10
              'Downloads'}
 
 def staged_added_files() -> list:
-    """Only files this commit ADDS — the ratchet every Level 0 gate shares.
+    """Only files this commit ADDS — the ceiling every Level 0 gate shares.
 
     Renames count as adds of the new name: a file arriving under a new name is arriving,
     and the gates that read this all ask about the name and the content it lands with.

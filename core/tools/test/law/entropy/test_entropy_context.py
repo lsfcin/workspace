@@ -128,7 +128,7 @@ def test_a_non_project_context_is_not_asked(tmp_path):
 
 # --- misplaced answers: a contract trapped in a CONTEXT.md head -------------------
 # SCHEMA says each type answers exactly one question; this is the first check that a file
-# answers only its OWN. The corpus-wide ratchet lives in test/workspace/. Size alone is a
+# answers only its OWN. The corpus-wide ceiling lives in test/workspace/. Size alone is a
 # weak signal — a long head may be honest navigation — so the boundary is what matters.
 from file_law import load_limits  # noqa: E402
 

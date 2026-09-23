@@ -119,10 +119,10 @@ def test_memory_links_are_exempt_but_its_retired_tokens_are_not():
     assert not memory & entropy_corpus.enforcement_paths(WORKSPACE_ROOT)
 
 
-# --- finished work: the corpse no link-checker can see ----------------------------
+# --- finished work: the one thing no link-checker can see -------------------------
 # Completion is deletion (core/SCHEMA.md § No archive types): a list's length should
-# measure remaining work. Corpus-wide ratchet: test/workspace/. These cover the boundaries,
-# where the design is — a tick is a corpse only in a list, a date alone is not a report.
+# measure remaining work. Corpus-wide cap: test/workspace/. These cover the boundaries,
+# where the design is — a tick is finished work only in a list, a date alone is not a report.
 
 
 def _doc(tmp_path, name, body):
@@ -131,24 +131,24 @@ def _doc(tmp_path, name, body):
     return doc
 
 
-def test_strikethrough_is_a_corpse(tmp_path):
+def test_strikethrough_is_finished_work(tmp_path):
     doc = _doc(tmp_path, 'NOTES.md', 'the plan ~~ship it Friday~~ is replaced\n')
     hits = entropy_list.finished_work_hits([doc], set())
     assert len(hits) == 1 and 'strikethrough' in hits[0]
 
 
-def test_a_dated_completion_report_is_a_corpse(tmp_path):
+def test_a_dated_completion_report_is_finished_work(tmp_path):
     doc = _doc(tmp_path, 'NOTES.md', 'The file law shipped 2026-07-31 after five tries.\n')
     assert 'dated completion report' in entropy_list.finished_work_hits([doc], set())[0]
 
 
-def test_a_date_without_a_completion_verb_is_not_a_corpse(tmp_path):
+def test_a_date_without_a_completion_verb_is_not_finished_work(tmp_path):
     """This workspace cites decisions by date. Only a *report* is history."""
     doc = _doc(tmp_path, 'NOTES.md', 'Decided 2026-07-30 by Lucas: types are closed.\n')
     assert entropy_list.finished_work_hits([doc], set()) == []
 
 
-def test_a_tick_is_a_corpse_only_in_a_list(tmp_path):
+def test_a_tick_is_finished_work_only_in_a_list(tmp_path):
     roadmap = _doc(tmp_path, 'ROADMAP.md', 'intro\n\nbody\n- [x] done\n')
     hit = entropy_list.finished_work_hits([roadmap], set())[0]
     assert 'ticked item' in hit

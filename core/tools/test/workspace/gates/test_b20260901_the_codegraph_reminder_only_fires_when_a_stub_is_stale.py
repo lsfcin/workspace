@@ -29,7 +29,8 @@ MARKER = 'codegraph indexed'
 
 # SERIAL, and this file is the second case b20260902 recorded. Every case here creates a real
 # directory under code/ and removes it, so a worker walking that tree beside them hits a path that
-# vanished mid-walk: test_present_tense_state_is_not_a_corpse died on `code/_remindercheck5b974581`
+# vanished mid-walk: test_present_tense_state_is_not_finished_work died on
+# `code/_remindercheck5b974581`
 # exactly that way. The marker was missing until 2026-09-05 because nothing checked the law —
 # core/tools/test/conftest.py's tree guard is what checks it now.
 pytestmark = pytest.mark.serial

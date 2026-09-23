@@ -5,7 +5,7 @@
 # reads, which is why the tail grew to 51 files in one directory. These tests hold the
 # same law where it is visible.
 #
-# The whole-tree test is a RATCHET: live violations must be a subset of a named baseline,
+# The whole-tree test is a CEILING: live violations must be a subset of a named baseline,
 # so a new one fails the build while the inherited ones stay visible. Shrinking the
 # baseline is the only edit this test should ever get.
 import sys
@@ -21,7 +21,7 @@ from file_law import load_limits  # noqa: E402
 from platform_law import rel  # noqa: E402
 
 WARN = load_limits()['WARN_FILES']
-# THE RATCHET REFUSES AT THE CAP, NOT AT THE SIGNAL (Lucas, 2026-09-21: "WARN é WARN"). It keyed on
+# THE CEILING REFUSES AT THE CAP, NOT AT THE SIGNAL (Lucas, 2026-09-21: "WARN é WARN"). It keyed on
 # WARN until then, so a directory at 11 failed the suite while limits.env said nothing stopped until
 # 15 — one number reading as one law and acting as two, which misled Lucas and the agent in the same
 # session. A suite that fails IS a refusal, whatever the message calls it. Below the cap the entropy
@@ -40,9 +40,9 @@ CAP = load_limits()['BLOCK_FILES']
 #
 # The other two were real, and were split rather than waved through: `workspace/gates/` at 21 held
 # tests for four different hook directories under a name claiming one, and `workspace/` at 15 held
-# the ratchets and the shim coverage beside the whole-tree invariants.
+# the ceilings and the shim coverage beside the whole-tree invariants.
 #
-# COST THE HOP BEFORE TAKING IT — a new directory is a CONTEXT.md the whole tree pays to read, and
+# COST THE STEP BEFORE TAKING IT — a new directory is a CONTEXT.md the whole tree pays to read, and
 # that is why raising the number was the cheaper answer for eight of these and no answer at all for
 # the other two.
 BASELINE = set()

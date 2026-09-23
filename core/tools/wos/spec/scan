@@ -1,5 +1,5 @@
 # Usage: core/tools/wos/spec-scan [code-dir] — list of module SPEC.md status (locked|draft|optout|none)
-# Spec-driven-development coverage ratchet. A module = a dir with a CONTEXT.md under code/.
+# Spec-driven-development coverage ceiling. A module = a dir with a CONTEXT.md under code/.
 # See code/ROADMAP-spec-drive.md.
 import re
 import sys
@@ -58,7 +58,7 @@ def main() -> int:
 	summary = ', '.join(f'{k}={v}' for k, v in sorted(counts.items()))
 	print(f'{total} modules · {summary}')
 	pct = (100 * covered / total) if total else 0
-	print(f'coverage (locked+draft): {covered}/{total} ({pct:.0f}%) · ratchet — grows on contact')
+	print(f'coverage (locked+draft): {covered}/{total} ({pct:.0f}%) · gradual — grows on contact')
 	return 0
 
 

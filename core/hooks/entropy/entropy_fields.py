@@ -4,7 +4,7 @@
 # The rule, why a field rather than prose, and the limits it accepts:
 # core/SCHEMA.md § Every field that names our own code is verified.
 #
-# Total, like entropy_stores.py: no allowlist, no ratchet inside the module. The ratchet is the
+# Total, like entropy_stores.py: no allowlist, no ceiling inside the module. The ceiling is the
 # CALLER's — type-gate.py asks only about files a commit adds, the dashboard asks about all of them.
 import re
 import sys
@@ -68,8 +68,8 @@ def _items(value: str, field: str) -> list:
     """The comma list, as the tokens this field can be held to. Empty for prose.
 
     A path and a name are each ONE word, so an item is its first token and whatever follows is a
-    human qualifier: `frontend/ streaming` names `frontend/`, and `substrate — nothing else runs
-    until these do` claims the name `substrate`. Reading the whole item would put a sentence in
+    human qualifier: `frontend/ streaming` names `frontend/`, and `venv — nothing else runs
+    until these do` claims the name `venv`. Reading the whole item would put a sentence in
     the finding and make the same wrong claim harder to see.
     """
     out = []

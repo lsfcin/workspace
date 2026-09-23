@@ -14,9 +14,9 @@ Applied globally via `core.hooksPath`, so it fires on every `git commit` in **ev
 - Auto-syncs each staged directory's `CONTEXT.md` routing block, and generates `.pyi`, `.d.ts` and `.dart.api` — all staged with the commit.
 - `verify:fast` contract: a project declaring that script must be green, or the commit is blocked.
 - `checks/check-duplication.py`: jscpd over the repo, blocking clones that involve a staged file.
-- Spec-driven module gate: a new `CONTEXT.md` under `code/` must declare `> spec: <file>` or `> spec: none`. Ratchet — existing modules are grandfathered.
-- `checks/type-gate.py`: a staged `.md` must be a known type or a well-shaped instance, sitting where its type is allowed. Ratchet — only what a commit **adds**. Law parsed from [`../SCHEMA.md`](../SCHEMA.md), never restated.
-- `checks/citation-gate.py`: a roadmap item number may not appear outside `ROADMAP*.md`. **Not a ratchet** — swept to zero 2026-08-16. Completion is deletion here, so a cited number points at nothing the day the item lands; cite the section instead, by its *shape* and never the bare word.
+- Spec-driven module gate: a new `CONTEXT.md` under `code/` must declare `> spec: <file>` or `> spec: none`. Gradual — existing modules are grandfathered.
+- `checks/type-gate.py`: a staged `.md` must be a known type or a well-shaped instance, sitting where its type is allowed. Gradual — only what a commit **adds**. Law parsed from [`../SCHEMA.md`](../SCHEMA.md), never restated.
+- `checks/citation-gate.py`: a roadmap item number may not appear outside `ROADMAP*.md`. **Not gradual** — swept to zero 2026-08-16. Completion is deletion here, so a cited number points at nothing the day the item lands; cite the section instead, by its *shape* and never the bare word.
 - `git/gitignore-self-heal.sh`: a new domain subdirectory carrying a `CONTEXT.md` gets its `!<domain>/<dir>/` allow line written, and **then stops the commit** if that directory holds files git could not see. Ruled 2026-08-19 (Lucas): **a commit hook that stages what the caller did not is worse than the bug it fixes.**
 
 ### Branch drift
@@ -72,7 +72,7 @@ What each generator writes is specified beside it: [`stubgen/SPECS.md`](stubgen/
 `generated.txt` answers for whole files; `file_law.generated_spans()` answers for the `:start`/`:end` span, and every reader asks it rather than spelling the markers. A finding there has no legal fix —
 hand-editing one is forbidden outright — so reporting it is reporting what nobody can act on. Five checks learned that separately on 2026-09-11, all on `ISSUES.md`'s quoted red-suite log.
 
-**Finished-work writing is blocked on what a commit adds.** `entropy/entropy_list.py` carries the detector and `checks/type-gate.py` calls it on `staged_added_files()`, so a file **arriving** with a dead item is rejected while the inherited queue stays the dashboard's, under `test_corpus_ratchet.py`'s ceiling. That split is the rule for every Level 0 check here: **a gate that fails on the day it lands trains its reader to ignore it.** [`core/SPECS.md`](../SPECS.md) § AD-15 makes blocking — not the mere existence of a detector — what licenses deleting the writing.
+**Finished-work writing is blocked on what a commit adds.** `entropy/entropy_list.py` carries the detector and `checks/type-gate.py` calls it on `staged_added_files()`, so a file **arriving** with a dead item is rejected while the inherited queue stays the dashboard's, under `test_corpus_ceiling.py`'s ceiling. That split is the rule for every Level 0 check here: **a gate that fails on the day it lands trains its reader to ignore it.** [`core/SPECS.md`](../SPECS.md) § AD-15 makes blocking — not the mere existence of a detector — what licenses deleting the writing.
 
 ## Canonical behaviour, and the contract a new agent's shim must satisfy
 

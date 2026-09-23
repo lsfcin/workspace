@@ -7,7 +7,7 @@
 #
 # What each one was:
 #   crowding   — the signal said which number was crossed and never that it had not refused, while
-#                the ratchet failed the suite at the WARN. One number reading as one law, acting
+#                the ceiling failed the suite at the WARN. One number reading as one law, acting
 #                as two. Lucas, 2026-09-21: "WARN é WARN" — every WARN names its BLOCK.
 #   size       — every ISSUES.md is declared generated, which is right for the authoring rules and
 #                dropped the file out of the corpus AND the weight. Exempt from a RULE is not
@@ -33,7 +33,7 @@ def _load(rel: str, name: str):
     """Import a module by PATH, never by name.
 
     Two of the four surfaces are not importable any other way: `core/tools/wos/size` has no
-    extension, and the crowding ratchet is a test module whose directory only reaches sys.path if
+    extension, and the crowding ceiling is a test module whose directory only reaches sys.path if
     pytest happens to have collected it first. A spec that depends on collection order proves
     nothing on the run where the order changes.
     """
@@ -64,11 +64,11 @@ def test_the_crowding_refusal_says_it_refused(tmp_path):
     assert 'REFUSED' in signal and 'NOT REFUSED' not in signal, signal
 
 
-def test_the_crowding_ratchet_holds_the_cap_not_the_signal():
-    """A suite that fails IS a refusal, whatever the message calls it. So the whole-tree ratchet
+def test_the_crowding_ceiling_holds_the_cap_not_the_signal():
+    """A suite that fails IS a refusal, whatever the message calls it. So the whole-tree ceiling
     keys on BLOCK_FILES; below that the report is the only consequence."""
-    ratchet = _load('core/tools/test/law/entropy/test_entropy_crowding.py', '_crowding_ratchet')
-    assert ratchet.CAP == CAP, 'the ratchet must refuse at the cap, not at the signal'
+    ceiling = _load('core/tools/test/law/entropy/test_entropy_crowding.py', '_crowding_ceiling')
+    assert ceiling.CAP == CAP, 'the ceiling must refuse at the cap, not at the signal'
 
 
 # --- size: a half-generated file is measured by its authored half -------------------------------

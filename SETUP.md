@@ -13,7 +13,7 @@ What the workspace *is* and what each feature buys you: [`README.md`](README.md)
 | Part | Contract |
 |---|---|
 | `> feature:` | which feature the step installs. Skip the step, lose exactly that feature |
-| `> substrate: yes` | installs no feature — it installs what every feature *runs on*. Switching off the interpreter the switch itself executes on produces no ablation signal, so there is nothing to ablate and no registry row |
+| `> machine state: yes` | installs no feature — it installs what every feature *runs on*. Switching off the interpreter the switch itself executes on produces no ablation signal, so there is nothing to ablate and no registry row |
 | **Precondition** | a command that says whether the step is *already done*. Run it first, always |
 | **Install** | idempotent. Running it twice must be a no-op, never a second copy |
 | **Verify** | a command proving the thing works. **A step is done when its check passes, never when its config looks right** |
