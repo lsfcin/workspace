@@ -120,7 +120,9 @@ Asking for doubt in writing is the cheap half and has already been tried: this w
 **Corollary: a claim about our own enforcement layer is checked at the call site, never at the module.** Owning a detector and charging for it are separate facts.
 
 ### AD-17 — Delegation is mandatory where an executor reads the assignment; elsewhere it is advice (2026-08-17)
-The ask was a guaranteed way to route cheap work to a cheaper level, with the **plan** as the trigger —
-the moment work is cut into tasks is the cheap point to decide who executes each one. **That trigger is already built**: the Loop 1 plan table in `core/flows/craft/craft.md` carries `level` and `effort` per task row, and that loop's adversarial review charges that each row be executable by its level.
+**The trigger is already built**: the Loop 1 plan table in `core/flows/craft/craft.md` carries `level` and `effort` per task row, and that loop's adversarial review charges that each row be executable by its level.
 
 **What is missing is an executor that reads it.** Inside `/craft` there is one; outside it nothing reads the tag, so it is advice. **Hence the reading of the expensive-level-heavy split: it measures how much work bypasses the flow that routes**, not per-task indiscipline. The lever is routing more work through `/craft`, not building a second router beside it. **Delegating ≠ parallelising**: offered a shape with parallel workers Lucas chose **no parallelism** (2026-08-17).
+
+### AD-18 — A measurement records the fact where it happens; it never reads a vendor's artifact (2026-09-22)
+**Archaeology serves one harness; instrumentation serves all.** Record a fact where it happens, and state there what the event cannot know. Replay a transcript only for what **only** a transcript answers — per-turn cost, model, cache.
