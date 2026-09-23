@@ -71,31 +71,26 @@ name. An entry without one is invisible to it.
   `b20260918-shared-index`
 
 - **A suite case rebuilds into the REAL public checkout, and the next run fails on what it left.**
-  `core/public.txt:34` declares `target code/wos`, and `test_a_rebuilt_target_settles_in_one_pass`
-  rebuilds there rather than into a throwaway — leaving eight-plus modified files and a
-  `code/wos/CONTEXT.md` with no goal line. Found 2026-09-23 by the signature: the suite alternates
-  green, red, green, red at 997 cases, because run N leaves the dirt that fails run N+1's
+  `core/public.txt` declares `target code/wos`, and `test_a_rebuilt_target_settles_in_one_pass`
+  rebuilds there rather than into a throwaway. Found 2026-09-23 by the signature: the suite
+  alternates green, red, green, red, because run N leaves the dirt that fails run N+1's
   `test_every_project_declares_its_goal`, and that run cleans it. Serial suite, no xdist — the
-  alternation is the proof. It breaks the law `b20260902` exists to hold, and the promise
-  `core/tools/test/wos/publish/CONTEXT.md:9` makes in its own words: *"nothing touches the real
+  alternation is the proof. It breaks the law `b20260902` exists to hold and the promise
+  `core/tools/test/wos/publish/CONTEXT.md` makes in its own words: *"nothing touches the real
   workspace"*. The autouse tree guard in `conftest.py` did not catch it, which is the second half of
   the finding — the guard watches the workspace tree and `code/wos` is a nested repo git ignores.
   `b20260923-publish-test-real-target`
 
-- **Eleven words Lucas named on 2026-08-18 as ones he cannot parse are still in the tree, and the
-  queue that held them was a memory nobody reads.** Six were retired 2026-09-23 (`ratchet` →
-  `ceiling`, `spine` → `routing`, `corpse` → `finished work`, `substrate` → `machine state`, plus
-  `ledge` and `blacklist` as speech-only rows) and the memory line that had held the list for five
-  weeks is gone. What is left, with tracked occurrences and the replacement each was costed at:
-  `shim` → `adapter` (181), `drift` → `divergence` (164), `corpus` → `tracked files` (130),
-  `crowding` → `files per folder` (76, Lucas's call 2026-09-23), `drain` → `empty` (61),
-  `sweep` → `scan` (56) — 233 files, one session's work. Then `whitelist` → `allowed list` (18,
-  several under the vendored `core/skills/caveman/`). **Not taken, and the reason is the finding**:
-  `list` (1406), `check` (1231), `law` (767), `harness` (439), `boundary` (221) and `surface` (80)
-  are 4,144 occurrences, and three of them — `list`, `boundary`, `crowding` — are replacements this
-  workspace CHOSE on 2026-09-14 off the same list of words he had already said he could not read.
-  `hop` stays unretired on purpose: `multi-hop` is domain vocabulary in the mutual-credit paper and
-  in `code/gira`, and `core/SCHEMA.md` § Retired tokens forbids a row that fails on correct prose.
+- **Words Lucas named on 2026-08-18 as ones he cannot parse are still in the tree; six of them are
+  out as of 2026-09-23 and the memory that had held the queue for five weeks is gone.** Replacements
+  already costed and ruled, each one session's work: `shim` → `adapter`, `drift` → `divergence`,
+  `corpus` → `tracked files`, `crowding` → `files per folder`, `drain` → `empty`, `sweep` → `scan`,
+  then `whitelist` → `allowed list`. Counts move; re-run `git grep`. **The finding is what was NOT
+  taken**: `list`, `check`, `law`, `harness`, `boundary` and `surface` are too many occurrences for
+  one pass, and three of them — `list`, `boundary`, `crowding` — are replacements this workspace
+  CHOSE on 2026-09-14 off the same list of words he had already said he could not read. `hop` stays
+  unretired: `multi-hop` is domain vocabulary in the mutual-credit paper and in `code/gira`, and
+  `core/SCHEMA.md` § Retired tokens forbids a row that fails on correct prose.
   `b20260923-vocabulary-queue`
 
 - **The other machine's scoreboard still records three features under names nothing answers to.**
@@ -285,7 +280,7 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/plain-vocabulary is 3 ahead of main
+- . — feature/plain-vocabulary is 4 ahead of main
 
 ### Local branches already merged into their base
 
