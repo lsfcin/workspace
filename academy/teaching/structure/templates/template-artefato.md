@@ -1,5 +1,21 @@
-# artefato | [nome do artefato]
-> disciplina / missão: [nome da matéria · missão no disciplina.md]
+# [<n>] artefato · [nome do artefato]
+
+> **código no painel:** `[código, ex.: git, pdf, rep, art]`  
+> **pontuação total:** [2*n] pontos ([n] itens de verificação · 2 pontos por item)
+
+<!-- publicacao
+como publicar / atualizar este artefato no cloudflare pages (autonomia do professor):
+1. sincronizar com a pasta publica da disciplina:
+   cp <caminho-canonico>/<n>-<nome>.md outputs/links/<disciplina>/artefatos/<n>-<nome>.md
+2. (se for o primeiro deploy do artefato) criar o viewer html pareado:
+   sed 's/disciplina.md/artefatos\/<n>-<nome>.md/g' outputs/links/<disciplina>/disciplina.html > outputs/links/<disciplina>/artefatos/<n>-<nome>.html
+3. commitar e enviar para o cloudflare pages:
+   git -C outputs/links commit -am "atualiza artefato <n>-<nome>" && git -C outputs/links push
+4. links resultantes no ar (instantaneo):
+   - visualizacao web (humano): https://lucassf.pages.dev/<disciplina>/artefatos/<n>-<nome>
+   - visualizacao raw (agente/ia): https://lucassf.pages.dev/<disciplina>/artefatos/<n>-<nome>.md
+   - edicao direta no navegador (sem terminal): botao 'editar (github.dev)' no rodape da pagina
+-->
 
 <!-- guia-ia
 instruções para o agente / IA do estudante:
@@ -14,7 +30,7 @@ instruções para o agente / IA do estudante:
 7. sempre que pertinente planeje antes de executar, um plano bem feito (sem edições, só leitura) pode aumentar muito a sua chance de sucesso. além do que a leitura é mais barata do que a escrita para modelos de IA de forma geral.
 -->
 
-## princípio & racional (base -> horizonte)
+## princípio & racional (base → horizonte)
 
 - **a base (a dor real):** [descrever o dilema, contradição ou necessidade autêntica que motiva este artefato]
 - **o horizonte (a direção):** [qual competência duradoura e impacto prático o estudante constrói ao finalizar]
@@ -86,10 +102,10 @@ instruções para o agente / IA do estudante:
 
 ## pontos de verificação (critérios de aceite: feito / não feito)
 
-avaliação atômica do artefato (compõe os pontos da missão na planilha mestre e no sigaa):
+avaliação atômica do artefato (2 pontos por critério comprovado no painel):
 
-- [ ] `[critério 1]`: [condição objetiva e comprovável de feito / não feito]
-- [ ] `[critério 2]`: [condição objetiva e comprovável de feito / não feito]
-- [ ] `[critério 3]`: [condição objetiva e comprovável de feito / não feito]
+1. [ ] **[critério 1]:** [condição objetiva e comprovável de existência/resultado binário, não passo de processo]
+2. [ ] **[critério 2]:** [condição objetiva e comprovável de existência/resultado binário, não passo de processo]
+3. [ ] **[critério 3]:** [condição objetiva e comprovável de existência/resultado binário, não passo de processo]
 
-cada artefato deve conter de 1 a 3 critérios de aceite (1 ponto por critério cumprido).
+cada artefato contém <n> itens de verificação (2 pontos por item cumprido, somando 2*n pontos no painel). os critérios devem ser condições de existência comprováveis e auditáveis com precisão binária (não passos de processo).

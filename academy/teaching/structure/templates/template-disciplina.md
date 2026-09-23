@@ -1,146 +1,153 @@
+![banner da disciplina](https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&auto=format&fit=crop&q=80)
+
 # [nome da disciplina]
-![banner da disciplina](https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&auto=format&fit=crop&q=80)
 
 > prof. lucas silva figueiredo  
-> [universidade / departamento]  
-> [semestre, ex.: 2026.2]  
-> [horário das aulas] · [sala física / laboratório]
+> ufrpe · departamento de computação (dc)  
+> [semestre, ex.: 2026.2] · [dias e horários, ex.: quartas às 20h10 e sextas às 18h30] · [sala física / laboratório, ex.: sala 37]
 
-<!-- guia-ia
-instruções para o agente / ia de apoio à disciplina:
-1. este arquivo é o documento soberano da disciplina (o próprio site da matéria). ele centraliza comunicação, propósito, calendário com missões, painel de progresso, regras de avaliação, referências e o mapa de vocabulário da disciplina.
-2. todas as missões apontam para artefatos modulares na pasta 'artefatos/[xpts]artefato-[nome].md'. nunca duplique os passos dos artefatos aqui; aponte para os links canônicos.
-3. ao interagir com o estudante, ajude-o a localizar seu momento no calendário, pré-requisitos no mapa conceitual e os pontos de verificação pendentes nas suas missões.
+<!-- publicacao
+como publicar / atualizar este documento no cloudflare pages (autonomia do professor):
+1. sincronizar com a pasta publica:
+   cp academy/teaching/structure/templates/template-disciplina.md outputs/links/teaching/template_disciplinas.md
+2. commitar e enviar para o cloudflare pages:
+   git -C outputs/links commit -am "atualiza template de disciplina" && git -C outputs/links push
+3. links resultantes no ar (instantaneo):
+   - visualizacao web (humano): https://lucassf.pages.dev/teaching/template_disciplinas
+   - visualizacao raw (agente/ia): https://lucassf.pages.dev/teaching/template_disciplinas.md
+   - edicao direta no navegador (sem terminal): botao 'editar (github.dev)' no rodape da pagina
 -->
 
-## canais & comunicação
+<!-- guia-ia
+instruções para o agente / IA de apoio e manutenção da disciplina:
+1. este arquivo é o documento soberano da disciplina (o próprio site da matéria). ele centraliza comunicação, visão, regras de avaliação, cronograma com artefatos, painel de progresso, entregas dos estudantes, referências e a árvore de habilidades.
+2. publicação na web: este arquivo é espelhado em 'outputs/links/<disciplina>/disciplina.md' e servido via 'outputs/links/<disciplina>/disciplina.html' no Cloudflare Pages (https://lucassf.pages.dev/<disciplina>/disciplina). ao editar o canônico no workspace, sincronize a pasta de links e dê commit/push para atualizar o site ao vivo.
+3. todas as entregas apontam para artefatos modulares na pasta 'artefatos/<n>-<nome>.md' (ex.: 'artefatos/3-base-git-repo.md'). os pontos de verificação e critérios atômicos pertencem exclusivamente ao arquivo do próprio artefato; o cronograma cita o link estilizado no formato `[`[n] tipo · nome`](artefatos/n-nome.md)`.
+4. painel de progresso: dados de verificação ficam armazenados no bloco de dados oculto (painel:dados ...) no formato atômico 'v' (feito) ou '-' (pendente) por critério de artefato (ex.: 'git=vvv, pdf=vvv-'). o bloco renderizado em ASCII monospace entre 'painel:render' e 'painel:fim' é derivado diretamente desses dados, mantendo ordem estritamente alfabética e nomes alinhados à direita. cada critério atendido confere 2 pontos, totalizando 100 pontos acumulados ao longo do curso (50 caixas no total).
+5. interação socrática: ao interagir com o estudante, ajude-o a localizar seu momento no cronograma, pré-requisitos na árvore de habilidades e pontos pendentes nas missões. nunca tome decisões pelos alunos, dialogue com eles ponto a ponto.
+-->
 
-- **grupo oficial da turma:** [link do whatsapp / telegram / discord]
-- **(opcional) videochamadas de acompanhamento:** [link do meet / discord]
-- **(opcional) espaços digitais colaborativos:** [link do excalidraw / miro]
+## comunicação
 
----
-
-## propósito & visão (base -> horizonte)
-
-- **a base (ponto de partida):** [descrever o dilema, a dor real ou o gargalo inicial que motiva a existência desta disciplina]
-- **o horizonte (onde queremos chegar):** [qual impacto concreto, autonomia e competências duradouras os estudantes constroem ao longo do semestre]
-
----
-
-## painel de progresso das missões
-
-acompanhamento transparente dos pontos acumulados em cada artefato ao longo do semestre. a tabela é estritamente alfabética (sem rankings):
-
-| equipe / estudante | missão 01 (9 pts) | missão 02 (6 pts) | missão 03 (9 pts) | missão 04 (6 pts) | pontos acumulados |
-|:---|:---:|:---:|:---:|:---:|:---:|
-| **equipe albatroz** | `3/3` · `3/3` · `3/3` · `+1` | `—` | `—` | `—` | 10 pts |
-| **equipe beta** | `3/3` · `2/3` · `3/3` · `+1` | `—` | `—` | `—` | 9 pts |
-| **equipe gamma** | `3/3` · `3/3` · `3/3` · `+1` | `—` | `—` | `—` | 10 pts |
-
-> [!TIP]
-> os pontos representam critérios atômicos validados publicamente em sala. caso algum artefato possua pendências, os critérios faltantes podem ser cumpridos e recuperados em revisões posteriores.
+- [`telegram`](url-do-grupo) · canal oficial da disciplina
+- [`google meet`](url-da-sala) · videochamadas e encontros remotos
+- [`questionário`](url-do-form) · levantamento de perfil e interesses
 
 ---
 
-## calendário das missões & encontros
+## visão
 
-o semestre é estruturado em 4 arcos complementares:
+**base** · [descrever o dilema, a dor real ou o gargalo inicial que motiva a existência desta disciplina]
 
-### arco 1: inicialização & setup (semanas 01–02)
-
-| data | descrição | materiais e atividades |
-|:---|:---|:---|
-| 18/08 (seg) | abertura e contrato pedagógico | [introdução à disciplina](slides-intro.html#1) · quick win |
-| 20/08 (qua) | setup instrumental e introdução a agentes | [configuração de ambiente](slides-setup.html#1) · [exercício 01](url) |
-| 25/08 (seg) | dores autênticas e alavancas contra o óbvio | [problemas na educação](slides-problemas.html#1) |
-| 27/08 (qua) | validação de código e apresentação da missão 01 | [3 pts] [quadro kanban](artefatos/[3pts]artefato-kanban.md)<br>[3 pts] [setup de ferramentas](artefatos/[3pts]artefato-setup.md)<br>[3 pts] [problemas fundamentados](artefatos/[3pts]artefato-problemas.md)<br>avaliação entre equipes (+1 pt) |
-
-### arco 2: ferramental & problematização (semanas 03–06)
-
-| data | descrição | materiais e atividades |
-|:---|:---|:---|
-| 01/09 (seg) | feriado | *sem encontro presencial* |
-| 03/09 (qua) | visão computacional: convolução e filtros | [convolução](slides-cnn.html#convolucao)<br>[kernels e bordas](slides-cnn.html#sobel)<br>[exercício 02](url) |
-| ... | ... | ... |
-| 17/09 (qua) | mapeamento de concorrentes e missão 02 | [3 pts] [artefato concorrentes](artefatos/[3pts]artefato-concorrentes.md)<br>[3 pts] [artefato benchmark](artefatos/[3pts]artefato-benchmark.md)<br>avaliação entre equipes (+1 pt) |
-
-### arco 3: construção incremental (semanas 07–12)
-
-| data | descrição | materiais e atividades |
-|:---|:---|:---|
-| ... | ... | ... |
-| 29/10 (qua) | protótipo funcional e missão 03 | [3 pts] [artefato protótipo](artefatos/[3pts]artefato-prototipo.md)<br>[3 pts] [artefato experimentos](artefatos/[3pts]artefato-experimentos.md)<br>[3 pts] [artefato métricas](artefatos/[3pts]artefato-metricas.md)<br>avaliação entre equipes (+1 pt) |
-
-### arco 4: fechamento & defesa pública (semanas 13–15)
-
-| data | descrição | materiais e atividades |
-|:---|:---|:---|
-| ... | ... | ... |
-| 03/12 (qua) | defesa pública perante banca examinadora | banca externa de pitch & encerramento |
+**horizonte** · [qual impacto concreto, autonomia e competências duradouras os estudantes constroem ao longo do semestre]
 
 ---
 
-## avaliação & regras do jogo
+## regras
 
-a disciplina opera com **pontos acumulados**: os estudantes e equipes partem do zero e constroem sua pontuação a cada critério validado:
-
-1. **pontuação por artefato:** cada artefato possui de 1 a 3 pontos de verificação atômicos dentro do seu arquivo (feito = 1 ponto, não feito = 0).
-2. **avaliação entre equipes:** +1 ponto extra por missão para equipes que realizam revisões de pares aprofundadas, coerentes e construtivas para os colegas.
-3. **calibração intragrupo:** formulário anônimo onde cada integrante avalia o engajamento e a contribuição dos pares da sua própria equipe, garantindo justiça interna e evitando caronas.
-4. **composição das avaliações (vas):**
-   - **va1:** total de pontos acumulados nas missões do arco 1 e 2.
-   - **va2:** total de pontos acumulados nas missões do arco 3 e apresentação do pitch final perante banca externa.
-   - **va3 / final:** prova escrita individual conforme regimento institucional, para quem necessitar de recuperação.
-
----
-
-## hall da fama (projetos inspiradores)
-
-conquistas e projetos desenvolvidos por turmas anteriores que se desdobraram em trabalhos de conclusão de curso, artigos publicados ou soluções em uso real:
-
-- **[nome do projeto a]** ([semestre])
-  - *destaque:* virou tcc defendido com nota 10 e aprovado no edital [nome do edital].
-  - *entregáveis:* [link do repositório / artigo / vídeo da demonstração]
-- **[nome do projeto b]** ([semestre])
-  - *destaque:* artigo completo aceito no congresso [nome do congresso / sbc].
-  - *entregáveis:* [link do repositório / artigo]
+- a disciplina opera por pontos acumulados
+- cada item de verificação confere 2 pontos
+- a nota 10,0 é obtida acumulando 100 pontos (50 caixas de verificação no total)
+- as formas de conquistar seus pontos são produzindo artefatos, resolvendo enigmas e apresentando resultados
+- cada artefato, enigma e apresentação possui itens de verificação especificados na sua própria definição
+- artefatos são documentos, links de repositórios git, decks de slides
+- enigmas são exercícios teóricos, desafios aplicados em sala, com direito a consulta sem uso de IA
+- em qualquer aula subsequente os enigmas em que você falhou poderão ser refeitos em uma versão modificada
+- apresentações são falas em sala, avaliadas pelo professor ou por uma banca
+- os itens são verificados diretamente pelo professor, um a um, em momentos definidos no cronograma
+- em casos de atrasos, a verificação dos itens pode ser realizada depois desde que combinada com o professor
+- as caixas no painel abaixo mostram todos os itens de verificação da disciplina
+- dialogue com o professor sempre que preciso
 
 ---
 
-## referências & materiais adicionais
+## cronograma
 
-leituras clássicas de base e recursos práticos mais inspiradores para suporte ao desenvolvimento:
+encontros cronológicos e marcos de validação.
 
-### materiais inspiradores & toolkits
-- **design toolkit (ideo):** `https://www.designkit.org/` — referências de ideação centrada no humano.
-- **toolkit de inovação (tcu):** ferramentas e dinâmicas colaborativas para projetos públicos e sociais.
-- **exemplos de pitch de excelência:** [links de gravações de demonstrações que causam encantamento].
+| data | # | tipo | descrição | materiais |
+|:---|:---:|:---|:---|:---|
+| 12/08 (qua) | 01 | teoria | acordos e enigma inaugural | [`[1] slides · introdução`](url) |
+| 14/08 (sex) | 02 | prática | configuração base para a disciplina | [`[3] artefato · base git repo`](artefatos/3-base-git-repo.md)<br>[`[4] artefato · latex project`](artefatos/4-latex-project.md) |
+| 19/08 (qua) | 03 | teoria | conceitos fundamentais e arquitetura | [`[1] slides · fundamentos`](url) |
+| 21/08 (sex) | 04 | prática | implementação inicial e relatório | [`[5] artefato · projeto git repo`](artefatos/5-projeto-git-repo.md)<br>[`[5] artefato · projeto tech report`](artefatos/5-projeto-tech-report.md) |
+| 26/08 (qua) | 05 | mentoria | acompanhamento e dúvidas | |
+| 28/08 (sex) | 06 | checagem | verificação de marcos e pontuação | |
 
-### livros e bibliografia recomendada
-- [livro 1 / autor / ano / por que vale a pena ler]
-- [livro 2 / autor / ano / por que vale a pena ler]
+- **teoria** · aula expositiva focada na aprendizagem de habilidades técnicas por seus componentes teóricos
+- **prática** · aula com acesso à infraestrutura para produção de artefatos
+- **mentoria** · aula de acompanhamento e auxílio sobre o desenvolvimento de uma determinada prática
+- **seminário** · aula em que os alunos apresentam de forma didática e direta os seus resultados
+- **checagem** · aulas avaliativas em que cada item de verificação é analisado e pontuado
 
 ---
 
-## mapa de conceitos & vocabulário traduzido
+## painel
 
-árvore semântica dos tópicos e habilidades técnicas desenvolvidas ao longo da disciplina. cada conceito aponta para o slide exato onde o fundamento é ensinado:
+acompanhamento transparente dos itens de verificação (2 pontos por critério · 50 caixas = 100 pontos no total). lista estritamente alfabética.
 
-- **redes neurais & representação visual**
-  - **[perceptrons & mlp](slides-mlp.html#1)** (redes neurais multicamadas de alimentação direta)
-    - `forward pass` ([slides-mlp.html#forward](slides-mlp.html#forward)) — passo de inferência e propagação direta
-    - `backpropagation` ([slides-mlp.html#backprop](slides-mlp.html#backprop)) — retropropagação do erro via regra da cadeia
-    - `loss function` ([slides-mlp.html#loss](slides-mlp.html#loss)) — função de perda / custo de calibração
-  - **[cnn (redes neurais convolucionais)](slides-cnn.html#1)**
-    - `convolução` ([slides-cnn.html#convolucao](slides-cnn.html#convolucao)) — operação de filtragem espacial deslizante
-      - `kernel` ([slides-cnn.html#kernel](slides-cnn.html#kernel)) — núcleo / matriz de pesos do filtro
-      - `laplace` ([slides-cnn.html#laplace](slides-cnn.html#laplace)) — operador de bordas omnidirecional
-      - `sobel` ([slides-cnn.html#sobel](slides-cnn.html#sobel)) — gradientes direcionais horizontal e vertical
-    - `stride` ([slides-cnn.html#stride](slides-cnn.html#stride)) — passo de deslocamento do kernel
-    - `padding` ([slides-cnn.html#padding](slides-cnn.html#padding)) — preenchimento de bordas para preservação dimensional
-    - `pooling` ([slides-cnn.html#pooling](slides-cnn.html#pooling)) — subamostragem e redução espacial
-  - **[autoencoders](slides-autoencoder.html#1)** (auto-codificadores)
-    - `encoder` ([slides-autoencoder.html#encoder](slides-autoencoder.html#encoder)) — codificador de compressão
-    - `bottleneck` ([slides-autoencoder.html#bottleneck](slides-autoencoder.html#bottleneck)) — gargalo / espaço latente comprimido
-    - `decoder` ([slides-autoencoder.html#decoder](slides-autoencoder.html#decoder)) — decodificador de reconstrução
+<!-- painel:dados
+formato: cada critério atômico do artefato é marcado como 'v' (feito) ou '-' (pendente).
+aluno-a: git=vvv, pdf=vvv-, rep=vvvvv, art=vvvvv
+aluno-b: git=vvv, pdf=vvv-, rep=vvvvv, art=vvvv-
+-->
+<!-- painel:render -->
+```text
+                 git pdf  rep   art   ...               total
+       aluno a   ◼◼◼ ◼◼◼◻ ◼◼◼◼◼ ◼◼◼◼◼ ◻◻◻◻◻◻◻◻◻◻◻◻◻◻   32 pts
+       aluno b   ◼◼◼ ◼◼◼◻ ◼◼◼◼◼ ◼◼◼◼◻ ◻◻◻◻◻◻◻◻◻◻◻◻◻◻   30 pts
+```
+<!-- painel:fim -->
+
+> **git:** base git repo · **pdf:** latex project · **rep:** projeto git repo · **art:** projeto tech report
+
+---
+
+## entregue
+
+repositórios e artigos científicos validados na turma atual.
+
+- **aluno a** | [`git`](url) · [`artigo`](url) · [`slides`](url)
+- **aluno b** | [`git`](url) · [`artigo`](url)
+- **aluno c** | -
+
+---
+
+## legado
+
+projetos de turmas anteriores.
+
+- **projeto a** | [`git`](url) · [`artigo`](url)
+- **projeto b** | [`git`](url) · [`artigo`](url)
+
+---
+
+## referências
+
+leituras de base e recursos de suporte.
+
+- [**referência 1**](url) — descrição da referência.
+- [**referência 2**](url) — descrição da referência.
+
+---
+
+## habilidades
+
+árvore de habilidades e conhecimento desenvolvida ao longo da disciplina. cada conceito aponta para o slide exato onde o fundamento é ensinado.
+
+- **[perceptrons & mlp](slides-mlp.html#1)** (redes neurais multicamadas de alimentação direta)
+  - **[forward pass](slides-mlp.html#forward)** — passo de inferência e propagação direta
+  - **[backpropagation](slides-mlp.html#backprop)** — retropropagação do erro via regra da cadeia
+  - **[loss function](slides-mlp.html#loss)** — função de perda / custo de calibração
+- **[cnn (redes neurais convolucionais)](slides-cnn.html#1)**
+  - **[convolução](slides-cnn.html#convolucao)** — operação de filtragem espacial deslizante
+    - **[kernel](slides-cnn.html#kernel)** — núcleo / matriz de pesos do filtro
+    - **[laplace](slides-cnn.html#laplace)** — operador de bordas omnidirecional
+    - **[sobel](slides-cnn.html#sobel)** — gradientes direcionais horizontal e vertical
+  - **[stride](slides-cnn.html#stride)** — passo de deslocamento do kernel
+  - **[padding](slides-cnn.html#padding)** — preenchimento de bordas para preservação dimensional
+  - **[pooling](slides-cnn.html#pooling)** — subamostragem e redução espacial
+- **[autoencoders](slides-autoencoder.html#1)** (auto-codificadores)
+  - **[encoder](slides-autoencoder.html#encoder)** — codificador de compressão
+  - **[bottleneck](slides-autoencoder.html#bottleneck)** — gargalo / espaço latente comprimido
+  - **[decoder](slides-autoencoder.html#decoder)** — decodificador de reconstrução
