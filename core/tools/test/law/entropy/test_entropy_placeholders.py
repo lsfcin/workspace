@@ -43,7 +43,7 @@ def test_only_context_files_carry_the_marker(tmp_path):
 
 
 def test_a_generated_mirror_has_no_placeholder_to_answer(tmp_path):
-    """Same rule as the corpse check: a mirror is fixed at its generator."""
+    """Same rule as the finished-work check: a mirror is fixed at its generator."""
     mirror = tmp_path / '.claude' / 'skills'
     mirror.mkdir(parents=True)
     assert entropy_list.unanswered_placeholders(

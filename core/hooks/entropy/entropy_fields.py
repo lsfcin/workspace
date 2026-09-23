@@ -68,8 +68,8 @@ def _items(value: str, field: str) -> list:
     """The comma list, as the tokens this field can be held to. Empty for prose.
 
     A path and a name are each ONE word, so an item is its first token and whatever follows is a
-    human qualifier: `frontend/ streaming` names `frontend/`, and `substrate — nothing else runs
-    until these do` claims the name `substrate`. Reading the whole item would put a sentence in
+    human qualifier: `frontend/ streaming` names `frontend/`, and `venv — nothing else runs
+    until these do` claims the name `venv`. Reading the whole item would put a sentence in
     the finding and make the same wrong claim harder to see.
     """
     out = []

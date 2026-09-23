@@ -181,7 +181,7 @@ def test_no_checker_carries_its_own_extension_list() -> None:
         f'If the set is a different population, add it to NOT_THE_CODE_LAW with the reason.')
 
 
-def test_the_exemption_list_has_no_corpses() -> None:
+def test_the_exemption_list_has_no_dead_entries() -> None:
     """An exemption that no longer names a real file stops exempting and starts hiding."""
     missing = sorted(name for name in NOT_THE_CODE_LAW if not (HOOKS / name).exists())
     assert not missing, f'NOT_THE_CODE_LAW names files that do not exist: {missing}'

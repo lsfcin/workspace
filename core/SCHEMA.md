@@ -116,7 +116,7 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 
 | Term | Definition |
 |------|------------|
-| **feature** | Something **this workspace authors** that can be switched off in-process, declared in [`features.txt`](features.txt) — one layer or a combination. Third-party machine state is not a feature; it is a `SETUP.md` step plus a `deps.txt` line. The test: if switching it off leaves nothing running to observe the difference, it is substrate |
+| **feature** | Something **this workspace authors** that can be switched off in-process, declared in [`features.txt`](features.txt) — one layer or a combination. Third-party machine state is not a feature; it is a `SETUP.md` step plus a `deps.txt` line. The test: if switching it off leaves nothing running to observe the difference, it is machine state |
 | **layer** | One of `hooks · tools · skills · agents · flows · norms` — each names a directory under `core/`, except `norms` |
 | **norm** | A rule that exists only as written words and is obeyed rather than enforced — the INDUCED half of the line whose ENFORCED half is `file_law.py` / `schema_law.py` / `feature_law.py`. A norm that acquires a checker becomes a hook |
 
@@ -151,12 +151,11 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | `nudge` | `reminder` | 2026-09-20 |
 | `scaffold` | `template` | 2026-09-20 |
 
-**One retired token can owe four replacements, and the cell holds only the commonest.** `slug` names four ideas, and they do not flatten into one: a link's `short name`, a feature's or file's `name`, a bracketed `item id`, and a bug's `id`.
+**One retired token can owe several replacements, and the cell holds only the commonest** — `slug`, `ratchet` and `spine` each owe two or more, and the sense decides.
 
-**A row can also aim at what the AGENT SAYS, not at what the tree holds.** `hatchet` was in no tracked file when it was retired (2026-09-17) — Lucas was hearing it in replies. It survives in English only inside idiom (*take a hatchet to*, *hatchet job*), which is the class of word that reads as nothing to someone who does not speak English, and the workspace already had the plain verb for it: a file over the cap is **cut**. The row cannot reach a spoken reply, but it stops the word from ever entering the tree, which is the half a check can hold.
+**A row can aim at what the AGENT SAYS, not only at what the tree holds.** `hatchet` and `ledge` were heard in replies, not read in files. The row cannot reach a spoken reply, but it stops the word entering the tree, which is the half a check can hold.
 
-**A rename whose old spelling is also a real word needs a shape, not a token** — a row that fails on correct prose trains people to ignore the check, so `/loops` and `.loop` are rows while `Frente`→ `Front` is a citation shape inside `citation-gate.py`. Not yet swept, so not yet listed:
-`SPEC.md`→`SPECS.md`.
+**A rename whose old spelling is also a real word needs a shape, not a token** — a row that fails on correct prose trains people to ignore the check, so `/loops` and `.loop` are rows while `Frente`→ `Front` is a citation shape inside `citation-gate.py`. Not swept, so not listed: `SPEC.md`→`SPECS.md`, and `hop`, whose `multi-hop` is domain vocabulary in two files.
 
 ### A vendor's model name is data, never a directive
 
