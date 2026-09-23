@@ -13,7 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from entropy_corpus import is_generated_mirror  # noqa: E402
-from file_law import (FACADES, is_authored, is_authored_prose,  # noqa: E402
+from file_law import (FACADES, authored_text, is_authored, is_authored_prose,  # noqa: E402
                       is_generated_artifact, is_vendored, load_limits)
 from platform_law import rel  # noqa: E402
 from schema_law import WORKSPACE_ROOT  # noqa: E402
@@ -57,7 +57,7 @@ def size_signals(files: list) -> list:
         if not prose and not is_authored(path, WORKSPACE_ROOT):
             continue
         try:
-            text = path.read_text(encoding='utf-8')
+            text = authored_text(path.read_text(encoding='utf-8'))
         except (OSError, UnicodeDecodeError):
             continue
         lines = text.splitlines()

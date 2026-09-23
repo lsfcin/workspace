@@ -53,11 +53,16 @@ por turma.
 <!-- routing:start -->
 ## Routing
 
-| File | Description |
-|------|-------------|
-| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | O questionário de rotina e setup da turma 2026.2, escrito como spec e aplicado por gforms new. |
-| [`AI4Good - Prática extra para abono de faltas .md`](AI4Good - Prática extra para abono de faltas .md) | Prática extra para abono de faltas da disciplina  Tópicos Avançados em IA \- Turma 2 (AI4Good) |
-| [`drive_sync.json`](drive_sync.json) | Estado do sync desta pasta com o Drive, escrito por core/tools/files/drive_sync.py — não é um formulário. |
-| [`painel.md`](painel.md) | Acompanhamento de entregas, critérios e submissões da turma 2026.2 (UFRPE). Planilha mestre original: `1IgBJWxItjmolBgwsnjlER894V6BP9nns8dFcc-NhStY` Acesso web: `lucassf.pages.dev/ai4good/painel` |
-| [`transformers-guia-acessivel-slides.md`](transformers-guia-acessivel-slides.md) | Material didático acessível e roteiro pareado aos 106 slides da aula, com audiodescrição estrutural e preparação para NotebookLM. |
+| Subdirectory | Description |
+|--------------|-------------|
+| [`artefatos/`](artefatos/CONTEXT.md) | Um arquivo por artefato da disciplina, `<n>-<nome>.md` com n = nº de itens de verificação; espelhado em lucassf.pages.dev/ai4good/artefatos. |
+
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`2026-2-rotina-e-setup.json`](2026-2-rotina-e-setup.json) | — | — | O questionário de rotina e setup da turma 2026.2, escrito como spec e aplicado por gforms new. |
+| [`AI4Good - Prática extra para abono de faltas .md`](AI4Good - Prática extra para abono de faltas .md) | — | — | Prática extra para abono de faltas da disciplina  Tópicos Avançados em IA \- Turma 2 (AI4Good) |
+| [`disciplina.md`](disciplina.md) | — | — | A página pública da disciplina (lucassf.pages.dev/ai4good): regras, cronograma, painel e habilidades. Abre com o banner, por isso a descrição mora aqui. |
+| [`drive_sync.json`](drive_sync.json) | — | — | Estado do sync desta pasta com o Drive, escrito por core/tools/files/drive_sync.py — não é um formulário. |
+| [`notion-port.md`](notion-port.md) | — | — | Tópicos em IA - AI4Good |
+| [`transformers-guia-acessivel-slides.md`](transformers-guia-acessivel-slides.md) | — | — | Material didático acessível e roteiro pareado aos 106 slides da aula, com audiodescrição estrutural e preparação para NotebookLM. |
 <!-- routing:end -->
