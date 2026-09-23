@@ -13,23 +13,25 @@
 # core/skills/roundup.md Phase 5 -- a checked-out worktree makes `git branch -d` refuse.
 import re
 import sys
-import tempfile
 from pathlib import Path
 
 _HOOKS = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(_HOOKS), str(_HOOKS / 'commit')]
+from platform_law import session_state  # noqa: E402
 from pre_commit import git  # noqa: E402
 
 
 def marker_for(repo) -> Path:
     """The marker file for one repo. The ONE place this path is spelled.
 
-    Asked of tempfile rather than spelled `/tmp`, which is not a directory Windows has -- the
-    marker was written to a path that could not exist, so the warning could never fire there.
+    Asked of the boundary, never built here. It spelled the temp directory itself until 2026-09-22,
+    which made it the SECOND answer to where session state lives — and the answer that was wrong the
+    same way: a marker in the temp directory does not survive a reboot, so a session that spanned one
+    forgot which branch it started on and the drift warning it exists to give could not fire.
     A test that restates this path instead of calling this function is testing its own copy.
     """
     name = re.sub(r'[^A-Za-z0-9]', '_', str(repo))
-    return Path(tempfile.gettempdir()) / f'claude_branch_{name}.txt'
+    return session_state(f'claude_branch_{name}.txt')
 
 
 def _current(repo) -> tuple:
