@@ -1,0 +1,10 @@
+# Reference for tufte1983
+key: tufte1983
+type: book
+year: 1983
+venue: "Graphics Press"
+url: "https://www.edwardtufte.com/book/the-visual-display-of-quantitative-information/"
+level: B
+contributions:
+  - "Data-ink ratio; small multiples; no chartjunk."
+tags: [infographics]

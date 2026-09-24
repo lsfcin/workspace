@@ -1,0 +1,10 @@
+# Reference for doumont-tmt
+key: doumont-tmt
+type: book
+year: 2009
+venue: "Principiae"
+url: "https://principiae.be/X0100.php/pdfs/TM&Th-2.0-summary.pdf"
+level: B
+contributions:
+  - "Adapt to the audience, maximize signal-to-noise, use effective redundancy."
+tags: [structure]

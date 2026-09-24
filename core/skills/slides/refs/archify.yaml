@@ -1,0 +1,10 @@
+# Reference for archify
+key: archify
+type: tool
+year: 2026
+venue: "GitHub tt-a1i"
+url: "https://github.com/tt-a1i/archify/blob/main/archify/SKILL.md"
+level: A
+contributions:
+  - "Numeric thresholds and a validate, deliver, visual-check gate."
+tags: [diagrams]

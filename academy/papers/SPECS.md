@@ -97,6 +97,10 @@ relevance: "..." # how this relates to the manuscript (required)
 notes: ~       # cross-paper lineage, group connections, anything cross-file
 ```
 
+A skill's refs (`core/skills/slides/refs/`) use a subset of this schema — `key type year venue url
+contributions tags` — plus `level` (the markers of `core/refs/SPECS.md`); `type` adds `web | tool | deck |
+talk`, and `tags` names the subskills that cite the ref.
+
 **Tags** are a flat list with role tags always first:
 - **Role** (1–2, mandatory): `foundational` · `survey` · `competing-work` · `baseline` ·
   `ground-truth` · `method-source` · `tool` · `application`

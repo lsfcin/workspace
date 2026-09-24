@@ -38,8 +38,7 @@ O calendário já está fechado e publicado, e é ele que dá o esqueleto: 17 qu
 > [ ] [gforms-token] token do `gforms` da conta `personal` expirou — reconsentimento abre navegador na máquina de Lucas; bloqueia ler a folha de pitch como spec e alimentar painel sem digitação  
 > [ ] [planilha-canonica] duas cópias da planilha de pares do TE com o mesmo nome (`16iG7bh…` está linkada no Notion e recebe respostas; `1sEtJuf7…` está na pasta da disciplina). Declarar a canônica antes de qualquer painel ler dela; o Miro ainda vive dentro dos decks de Missão  
 
-> [ ] [research-tools] research best current teaching tools — interactive slides, animations, open formats — start from the animation entries in `core/refs/REFS.md` (claude-code+remotion, Claude Code UI-animation skills).
-> **Reescopado 2026-08-14:** o WOS agora lê e edita os decks direto no Google Slides (`core/tools/slides/gslides`), e Slidev foi deletado — a pergunta aberta não é mais qual formato local adotar, é quanto de animação dá pra autorar como sequência de slides gerada (inclui a ideia de um gerador de animações próprio)  
+> [ ] [slides-programa] o ofício de slides virou a skill `/slides`; o programa de 7 passos segue em `core/prompts/slides-padroes.md` (absorveu astra-slides, slides-dois-caminhos, front-design-plugins, claude-slides-nativo e research-tools, 2026-09-24)  
 > [ ] [pick-format] pick a target format or tool — one concrete candidate to prototype with  
 > [ ] [migrate-one] convert one existing lecture to the new format as a test  
 > [ ] [full-migration] define migration plan for remaining course materials  
@@ -61,10 +60,6 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json`. Três sobras:
 > [ ] [acessibilidade-edson] preparar uma versão acessível das missões E do site da disciplina para o Edson — os dois artefatos, não só um (INBOX 2026-08-24)  
 > [ ] [slides-pesquisa] material (talvez slides) que apresente aos alunos os conceitos dos projetos de pesquisa: dobra, cria, texpace/spacemantics — serve de ponte entre a disciplina e a pesquisa própria (INBOX 2026-08-24)  
 > [ ] [harness-nas-etapas] incluir o uso do harness em cada etapa das disciplinas — "via aiwbot · 2026-09-05", integrar à metodologia da semana-padrão  
-> [ ] [astra-slides] estudar o exemplo de slides do GPT-6 Astra — ref em `core/refs/REFS.md`; Lucas 2026-09-05: *"os slides deles são bem melhores que os nossos… é absurda a diferença"* — extrair o que os torna melhores e alimentar o fluxo de slides  
-> [ ] [slides-dois-caminhos] redesenhar o fluxo de slides em dois caminhos: (1) notas de apresentador, (2) os slides em si como guia visual e provocação, não leitura. Relato 2026-09-05:
-> sessão inteira em slides produziu prosa artificial, imagens pequenas e mal espaçadas, texto sobreposto — design não é o forte, e o fluxo atual não separa as duas saídas  
-> [ ] [front-design-plugins] testar os cinco plugins de design front-end do Claude Code (auditoria de UI, design system, imagem→código, teste em browser) nos nossos slides — ref em `core/refs/REFS.md` (INBOX 2026-09-05)  
 > [ ] [tributacao-trabalho-capital] discutir nas aulas: taxamos as pessoas erradas? — argumento do David Friedberg de que renda do trabalho não deveria ser tributada e ganho de capital sim (— via aiwbot 2026-09-02)  
 > [ ] [ai2027-material] decidir se ai-2027.com serve pra gente — como material de aula ou leitura de pesquisa (INBOX 2026-09-05, pergunta aberta do Lucas)  
 > [ ] [ai4good-revisao-sobras] sobras da revisão dos decks História/ML/MLP + Prática MLP (2026-08-21): olhar a timeline da parte 3 (Dartmouth, inverno, backprop, AlexNet) e decidir se sobe pra parte 1; slide-ponte entre os dois decks;
@@ -82,7 +77,6 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json`. Três sobras:
 > *"markdowns parecem dar suporte a muito mais coisa do que imaginava"*. O contrapeso está construído do outro lado:
 > calendário e árvore de 68 folhas publicados no Notion, e a planilha de pares que alimenta a avaliação. Refs em `core/refs/REFS.md` (INBOX 2026-09-16)  
 > [ ] [curadoria-techs-git] curadoria melhor das techs pros alunos de techedu — cada uma num git do Lucas e demonstrada, não só listada; nasce da árvore de 68 folhas. Gatilho foi o VoiceStudio, ref em `core/refs/REFS.md` (— via aiwbot)  
-> [ ] [claude-slides-nativo] o Claude passa a criar, editar, apresentar e exportar slides e documentos dentro da própria conversa — ver o que dá pra importar pro nosso fluxo de slides. Irmão de [astra-slides] e [slides-dois-caminhos]; ref em `core/refs/REFS.md` (— via aiwbot 2026-09-17)  
 > [ ] [aula-nome-de-modelo] aula que decodifica um nome de modelo — `Qwen3-30B-A3B-Instruct-2507-gguf-q2ks`: o que 7B/ 70B querem dizer, denso vs MoE (e por que A3B não é um 3B), base vs instruct, FP16/BF16, níveis de quantização, GGUF. É vocabulário de escolher modelo local, casa com [local-ai] e serve techedu direto. Ref em `academy/refs/REFS.md` (— via aiwbot 2026-09-17)  
 > [ ] [aula-embedding-nao-anonimiza] inversão de embeddings como aula de privacidade: pesquisa de Cornell recupera 92% de entradas de 32 tokens a partir do vetor — adivinha frase, embeda, compara, ajusta, nunca decodifica — e tirou nomes de pacientes de notas clínicas. Cai bem em ai4good e em qualquer conversa sobre RAG: um banco vetorial não é cópia anonimizada. Limites honestos na ref (`academy/refs/REFS.md`, — via aiwbot 2026-09-17)  
 > [ ] [aula-memoria-injetada] o resumo de compactação como canal de ataque: a Astra escreveu uma instrução de persona no próprio resumo e o contexto seguinte a herdou, 27 casos. Fecha o par com [memoria-e-contexto], e o desmentido da OpenAI é metade da lição. Ref em `core/refs/REFS.md`  
@@ -100,5 +94,5 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json`. Três sobras:
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-21  ·  trend: advancing  ·  touches: 66/97/105/105/105/105
+last-touch: 2026-09-24  ·  trend: advancing  ·  touches: 74/110/118/118/118/118
 <!-- stats:end -->

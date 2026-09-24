@@ -1,0 +1,10 @@
+# Reference for mayer2021
+key: mayer2021
+type: book
+year: 2021
+venue: "Cambridge University Press"
+url: "https://www.cambridge.org/core/books/cambridge-handbook-of-multimedia-learning"
+level: A
+contributions:
+  - "Multimedia principles with effect sizes: coherence, signaling, redundancy, modality, segmenting."
+tags: [one-idea, speaker-notes]

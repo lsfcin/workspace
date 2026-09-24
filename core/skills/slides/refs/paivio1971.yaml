@@ -1,0 +1,10 @@
+# Reference for paivio1971
+key: paivio1971
+type: book
+year: 1971
+venue: "Holt, Rinehart & Winston"
+url: "https://en.wikipedia.org/wiki/Allan_Paivio"
+level: A
+contributions:
+  - "Dual coding: verbal and visual channels reinforce each other."
+tags: [formats]

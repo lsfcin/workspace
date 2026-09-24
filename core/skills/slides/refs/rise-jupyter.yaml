@@ -1,0 +1,10 @@
+# Reference for rise-jupyter
+key: rise-jupyter
+type: tool
+year: 2026
+venue: "RISE"
+url: "https://rise.readthedocs.io/en/latest/"
+level: B
+contributions:
+  - "Executable notebook slides."
+tags: [live-code]

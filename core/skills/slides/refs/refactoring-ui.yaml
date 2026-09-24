@@ -1,0 +1,10 @@
+# Reference for refactoring-ui
+key: refactoring-ui
+type: book
+year: 2018
+venue: "Wathan & Schoger"
+url: "https://www.refactoringui.com/"
+level: B
+contributions:
+  - "Hierarchy by weight and colour, generous spacing, fewer borders."
+tags: [layout]

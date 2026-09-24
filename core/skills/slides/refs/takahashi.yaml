@@ -1,0 +1,10 @@
+# Reference for takahashi
+key: takahashi
+type: web
+year: 2005
+venue: "Wikipedia"
+url: "https://en.wikipedia.org/wiki/Takahashi_method"
+level: C
+contributions:
+  - "Very few words in huge type, one per slide, many slides."
+tags: [visual-story]

@@ -1,0 +1,10 @@
+# Reference for ft-vocab
+key: ft-vocab
+type: web
+year: 2016
+venue: "Financial Times"
+url: "https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary"
+level: C
+contributions:
+  - "Choose a chart by the relation shown: deviation, correlation, ranking, flow."
+tags: [formats, infographics]

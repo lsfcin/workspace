@@ -1,0 +1,10 @@
+# Reference for puschel-guide
+key: puschel-guide
+type: web
+year: 2020
+venue: "ETH Zurich"
+url: "https://people.inf.ethz.ch/markusp/teaching/guides/guide-presentations.pdf"
+level: B
+contributions:
+  - "A research-talk checklist, including what to hold in reserve for questions."
+tags: [backup-and-qa]

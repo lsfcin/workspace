@@ -1,0 +1,10 @@
+# Reference for cuboulder-ppt
+key: cuboulder-ppt
+type: web
+year: 2026
+venue: "CU Boulder"
+url: "https://www.colorado.edu/digital-accessibility/resources/understanding-powerpoint-accessibility"
+level: B
+contributions:
+  - "Slide titles, reading order, alt text and captions for accessible decks."
+tags: [accessibility]

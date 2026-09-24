@@ -1,0 +1,10 @@
+# Reference for grid-8pt
+key: grid-8pt
+type: web
+year: 2026
+venue: "designsystems.com"
+url: "https://www.designsystems.com/space-grids-and-layouts/"
+level: C
+contributions:
+  - "Spacing on a fixed base unit keeps every layout on one rhythm."
+tags: [style-system]

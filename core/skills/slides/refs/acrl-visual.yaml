@@ -1,0 +1,10 @@
+# Reference for acrl-visual
+key: acrl-visual
+type: web
+year: 2011
+venue: "ACRL / ALA"
+url: "https://www.ala.org/acrl/standards/visualliteracy"
+level: B
+contributions:
+  - "Find, evaluate, use and credit images ethically."
+tags: [color-and-imagery]

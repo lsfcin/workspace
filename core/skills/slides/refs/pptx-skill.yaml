@@ -1,0 +1,10 @@
+# Reference for pptx-skill
+key: pptx-skill
+type: tool
+year: 2026
+venue: "Anthropic skills"
+url: "https://github.com/anthropics/skills/tree/main/skills/pptx"
+level: A
+contributions:
+  - "A QA loop: render the deck to images, inspect, fix, re-render."
+tags: [render-check]

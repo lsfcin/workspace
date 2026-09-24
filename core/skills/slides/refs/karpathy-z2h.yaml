@@ -1,0 +1,10 @@
+# Reference for karpathy-z2h
+key: karpathy-z2h
+type: talk
+year: 2023
+venue: "Andrej Karpathy"
+url: "https://karpathy.ai/zero-to-hero.html"
+level: B
+contributions:
+  - "Building the code live, one small step at a time, as the lecture."
+tags: [live-code]

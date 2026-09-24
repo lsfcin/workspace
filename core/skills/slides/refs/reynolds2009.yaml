@@ -1,0 +1,10 @@
+# Reference for reynolds2009
+key: reynolds2009
+type: book
+year: 2008
+venue: "New Riders"
+url: "https://presentationzen.com/"
+level: B
+contributions:
+  - "Restraint, full-bleed images, the slide as a visual cue rather than a document."
+tags: [visual-story]

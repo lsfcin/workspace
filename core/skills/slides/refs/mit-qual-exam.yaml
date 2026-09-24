@@ -1,0 +1,10 @@
+# Reference for mit-qual-exam
+key: mit-qual-exam
+type: web
+year: 2021
+venue: "MIT Communication Lab"
+url: "https://mitcommlab.mit.edu/meche/2021/04/20/practical-advice-for-preparing-your-qualifying-exam-presentation/"
+level: B
+contributions:
+  - "Anticipate committee questions and prepare backup slides for them."
+tags: [backup-and-qa]
