@@ -9,7 +9,7 @@
 
 <!-- add entries below, newest first -->
 
-temos que melhorar as instruções de publicação das disciplinas que a gente cola no disciplina.md. idealmente deveria ser só um comando (ou uma lista de comandos) que colo tudo de uma vez só no terminal e funciona sempre.
+temos uma seção "how to use" no readme do wos? dizendo do roundup, handoff, etc, as dicas gerais de uso
 
 na coluna de nota dos paineis das disciplinas (disciplina.md) dar um espaço extra pra caber o 100 pts alinhado
 ex.:

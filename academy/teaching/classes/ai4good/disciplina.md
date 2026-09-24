@@ -8,14 +8,9 @@
 > 2026.2 · quartas às 20h10 e sextas às 18h30 · sala 37
 
 <!-- publicacao
-para o professor (ou o agente dele), na raiz do workspace:
-1. marcar itens em painel:dados-va1 ('v' feito, '-' pendente) e redesenhar o painel (nunca à mão):
-   python3 academy/teaching/structure/painel.py academy/teaching/classes/ai4good/disciplina.md
-2. copiar página e artefatos para o espelho:
-   cp academy/teaching/classes/ai4good/disciplina.md outputs/links/ai4good/
-   cp academy/teaching/classes/ai4good/artefatos/*.md outputs/links/ai4good/artefatos/
-3. publicar (cloudflare pages, ~30 s):
-   git -C outputs/links add ai4good && git -C outputs/links commit -m "atualiza ai4good" && git -C outputs/links push
+para o professor (ou o agente dele), na raiz do workspace: marcar itens em painel:dados-va1 ('v' feito, '-' pendente),
+depois um comando só — redesenha o painel, espelha página e artefatos, publica (~30 s):
+   core/run tools/links/cfpages publish academy/teaching/classes/ai4good/disciplina.md
 web: https://lucassf.pages.dev/ai4good · raw: https://lucassf.pages.dev/ai4good/disciplina.md
 -->
 

@@ -3,15 +3,9 @@
 > Planilha Mestre: `1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU` (Coluna K, Linha 20)
 > Metodologia & Critérios: `lucassf.pages.dev/techedu/cp01`
 <!-- publicacao
-como publicar / atualizar este documento no cloudflare pages (autonomia do professor):
-1. sincronizar com a pasta publica:
-   cp academy/teaching/classes/techedu/cp01-materiais.md outputs/links/techedu/cp01-materiais.md
-2. commitar e enviar para o cloudflare pages:
-   git -C outputs/links commit -am "atualiza cp01-materiais techedu" && git -C outputs/links push
-3. links resultantes no ar (instantaneo):
-   - visualizacao web (humano): https://lucassf.pages.dev/techedu/cp01-materiais
-   - visualizacao raw (agente/ia): https://lucassf.pages.dev/techedu/cp01-materiais.md
-   - edicao direta no navegador (sem terminal): botao 'editar (github.dev)' no rodape da pagina
+para o professor (ou o agente dele), na raiz do workspace — espelha e publica (~30 s):
+   core/run tools/links/cfpages publish academy/teaching/classes/techedu/cp01-materiais.md
+web: https://lucassf.pages.dev/techedu/cp01-materiais · raw: https://lucassf.pages.dev/techedu/cp01-materiais.md
 -->
 
 ## Guia para IAs & Agentes (Harness dos Alunos)

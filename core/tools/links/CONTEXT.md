@@ -7,6 +7,7 @@ core/run tools/links/cfpages find ai4                  # query the map — never
 core/run tools/links/cfpages rm ai4good/setup
 core/run tools/links/cfpages build --push              # regenerate _redirects and deploy
 core/run tools/links/cfpages check                     # what is untrue about the map
+core/run tools/links/cfpages publish academy/teaching/classes/ai4good/disciplina.md   # a course page + artefatos, live
 ```
 
 Named short names, not codes — `ai4good`, not `x7f2q`. A short name is said out loud and typed from memory.
@@ -28,7 +29,8 @@ The short name grammar, the private-folder refusal, why Cloudflare rather than G
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | Why the redirect is Cloudflare's and not GitHub's, why a private folder gets no short name, and what makes a map that grows forever stay cheap. |
-| [`cfpages`](cfpages) | — | — | named short links: add, find, rm, build, check |
+| [`cfpages`](cfpages) | — | — | named short links: add, find, rm, build, check; publish a course page |
 | [`links.txt`](links.txt) | — | — | Every short link this workspace hands out: the short name someone is told out loud, and where it really goes. Read by core/tools/links/links_core.py; published as _redirects by `cfpages build`. |
 | [`links_core.py`](links_core.py) | [`links_core.pyi`](links_core.pyi) | `base`, `Refused`, `load`, `preamble`, `save` | links_core.py — the short name map read+write boundary, and the redirect file it emits, for links/cfpages |
+| [`pages.py`](pages.py) | [`pages.pyi`](pages.pyi) | `Refused`, `mirror_of`, `redraw`, `mirror`, `push` | pages.py — a course page and its artefacts mirrored into the publish repo and pushed, in one call, for links/cfpages |
 <!-- routing:end -->
