@@ -152,6 +152,21 @@ def is_generated_line(text: str, number: int) -> bool:
     return any(start <= number <= end for start, end in generated_spans(text))
 
 
+def authored_text(text: str) -> str:
+    """A document with the blocks a generator owns removed — what the SIZE CAP weighs (2026-09-23).
+
+    The cap's own remedy is "cut the file", and inside a generated block there is nothing a person
+    may cut. The case that forced it: a course page's progress panel, one box per verification item
+    per student, drawn from a data block by academy/teaching/structure/painel.py. Two panels weigh
+    ~2,000 characters each, and the second one would have pushed a public, deliberately single-file
+    page (16,493 characters with one) over the block.
+    Lines and characters both read this, so the two halves of the size law stay one measure.
+    """
+    spans = generated_spans(text)
+    return '\n'.join(line for number, line in enumerate(text.splitlines(), 1)
+                     if not any(start <= number <= end for start, end in spans))
+
+
 def authored_line_count(text: str) -> int:
     """How many of a document's lines a person wrote — the blocks a generator owns, removed.
 

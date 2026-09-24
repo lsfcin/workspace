@@ -54,31 +54,28 @@
 
 ## missões (disciplina e artefatos modulares)
 
-a arquitetura opera em **dois níveis limpos**: a **página-mestre da disciplina** (`disciplina.md`), que centraliza a visão macro e orquestra o calendário por missões, e os **artefatos modulares autocontidos** (`artefatos/[xpts]artefato-[nome].md`), gerados a partir dos modelos-base em markdown (.md):
+a arquitetura opera em **dois níveis limpos**: a **página-mestre da disciplina** (`disciplina.md`), que centraliza a visão macro e orquestra o calendário por missões, e os **artefatos modulares autocontidos** (`artefatos/<n>-<nome>.md`), gerados a partir dos modelos-base em markdown (.md):
 
-### anatomia
+### ontologia de entregas e artefatos
 
-- **página-mestre da disciplina (`templates/template-disciplina.md`):**
-  - substitui o Notion como centro da disciplina: banner visual, canais rápidos de comunicação e ferramentas colaborativas.
-  - propósito & visão (a base da dor real e o horizonte da transformação).
-  - painel de progresso das missões por equipe/estudante em ordem estritamente alfabética.
-  - calendário estruturado em 4 mini-tabelas por arco, detalhando aulas, materiais e marcos de missões.
-  - regras transparentes de pontos acumulados, dinâmica de avaliação entre equipes (+1 ponto) e calibração intragrupo.
-  - hall da fama com projetos inspiradores de turmas anteriores e referências adicionais.
-  - mapa de conceitos e vocabulário traduzido ao final, com links diretos para as páginas de slides correspondentes.
-- **artefato autocontido (`templates/template-artefato.md`):**
-  - reúne integralmente o ciclo de vida daquele entregável (materiais + metodologia):
-    - **princípio & racional (base $\to$ horizonte):** dor real e competência duradoura visada.
-    - **entradas & dependências:** pré-requisitos necessários antes de iniciar.
-    - **tríade de materiais:** modelo (starter kit), exemplo excelente (padrão-ouro com notas críticas) e exemplo quase bom / sem alma (anti-modelo anti-slop).
-    - **metodologia construtiva:** passos práticos no imperativo com ciclo de 8 etapas, acompanhados do protocolo de co-criação socrática para IAs (`<!-- guia-ia -->`).
-    - **pontos de verificação (critérios de aceite: feito / não feito):** 1 a 3 condições comprováveis de feito/não feito (1 ponto por critério cumprido).
+a condução pedagógica e o painel de avaliação operam sobre conceitos rigorosamente delimitados:
+- **entrega (marco temporal):** o evento avaliativo ou checkpoint no cronograma que agrega um pacote de entregáveis (ex.: entrega 1: configuração; entrega 2: mlp visualizável).
+- **artefato (a 'coisa' palpável):** o objeto concreto produzido e versionado pelos estudantes (um repositório git, um relatório técnico em LaTeX/Overleaf, um deck de slides, um vídeo executável). cada artefato é uma especificação modular autocontida nomeada como `<n>-<nome>.md`, onde `<n>` é o número de itens de verificação.
+- **padrão de nomenclatura no painel (sufixos canônicos):**
+  - configuração inicial de ambiente: `git` (repositório git) e `pdf` (projeto em LaTeX/Overleaf e acervo).
+  - artefatos de miniprojetos e experimentos: nomeados pelo prefixo temático seguido do sufixo de formato:
+    - `<nome>·c`: o subrepositório de código, dados e scripts no Git (ex.: `mlp·c`, `arq·c`, `arn·c`).
+    - `<nome>·p`: o artigo/relatório técnico formal em LaTeX no Overleaf (ex.: `mlp·p`, `arq·p`, `arn·p`).
+  - a largura do cabeçalho no painel espelha o nome do artefato, e a quantidade de caixas monospace (`◼`/`◻`) abaixo dele corresponde rigorosamente à quantidade de pontos de verificação daquele artefato.
+- **pontos de verificação (critérios comprováveis vs. etapas):**
+  - um ponto de verificação **não é uma etapa de processo** (ex.: evitar "rodar o modelo", "treinar a rede");
+  - um ponto de verificação é uma **condição de existência comprovável**, auditável com precisão binária de feito ou não feito (ex.: "script de inferência executando com predições válidas", "tabela comparativa tripla de métricas", "dedução matemática formal com equações em LaTeX"). cada critério atendido confere 2 pontos de progresso (totalizando 100 pontos acumulados no semestre = 50 caixas de verificação).
+- **enigmas teóricos (investigação em sala de aula):**
+  - as aulas expositivas são desacopladas em decks granulares por tópico conceitual.
+  - cada tópico apresenta seus **enigmas**: desafios investigativos estruturados no padrão `contexto → pistas → raciocínio → resposta → resolução`.
+  - os enigmas avaliam domínio de vocabulário e fundamentos matemáticos/arquiteturais, permitindo pesquisa ativa na web (buscadores, documentações, artigos), mas com restrição estrita ao uso de IAs generativas como atalho para respostas prontas. cada enigma resolvido confere 2 pontos de verificação teórica (1 caixa no painel).
 
-### regra de sequenciamento de missões
-
-nenhum artefato de missão é solicitado sem que suas entradas tenham sido geradas em missões anteriores ou fornecidas explicitamente pelo professor. o fluxo de aprendizagem respeita rigorosamente a topologia do mapa de habilidades da disciplina.
-
-*nota: em cada ponto relevante, adicionar blocos comentados como guias específicos para ias (`<!-- guia-ia -->`). como os humanos não precisam visualizar essas instruções operacionais, elas orientam os harnesses dos estudantes a atuarem com tutoria socrática sem poluir a leitura humana.*
+*nota: o bloco `<!-- guia-ia -->` fala só com o agente do aluno, invisível para humanos: a IA faz, o aluno domina — ela escreve código e texto, o aluno decide cada escolha e precisa explicar e defender tudo. manutenção (painel, publicação) mora no bloco `<!-- publicacao -->`, que é do professor.*
 
 ### acesso, distribuição e edição
 
@@ -86,8 +83,16 @@ em ambos os casos usamos arquivos markdown com **visualização rica** e **ediç
 - a **fonte canônica** dos arquivos `.md` fica em `academy/teaching/classes/<disciplina>/` no workspace do professor.
 - a **distribuição** é feita pelo Cloudflare Pages, via espelhamento estático no repositório público `lsf-links` (`outputs/links/`).
 - a **visualização rica** focada em humanos e mobile fica em `https://lucassf.pages.dev/<disciplina>/<name>`, renderizada pelo visualizador nativo (`viewer.js` + `viewer.css` + `marked.min.js`), com suporte a alertas github, tabelas responsivas e temas claro/escuro.
-- a **visualização direta para ias / harnesses** é acessível no formato `https://lucassf.pages.dev/<disciplina>/<name>.md` (ou botão "Copiar p/ Agente (RAW)" no topo da página), permitindo ingestão instantânea via `curl -s` ou cópia com um clique.
-- a **edição online com zero atrito** é fornecida pelo botão "Editar (github.dev)" na barra superior, abrindo o VS Code no navegador diretamente no arquivo do GitHub para correções imediatas em sala.
+- a **visualização direta para ias / harnesses** é acessível no formato `https://lucassf.pages.dev/<disciplina>/<name>.md` (ou botão neutro `copiar p/ agente (raw)` no rodapé da página), permitindo ingestão instantânea via `curl -s` ou cópia com um clique.
+- a **edição online com zero atrito** é fornecida pelo botão neutro `editar (github.dev)` no rodapé da página, abrindo o VS Code no navegador diretamente no arquivo do GitHub para correções imediatas em sala.
+- a **regra de auto-documentação de publicação (autonomia do professor):** todo arquivo `.md` canônico que é espelhado para links públicos no Cloudflare Pages deve conter obrigatoriamente no seu cabeçalho um bloco de comentário `<!-- publicacao ... -->` contendo os comandos exatos de terminal (`painel.py`, `cp`, `git add`/`commit`/`push`) e as URLs resultantes (web e raw). isso garante que o professor tenha total autonomia para atualizar qualquer documento ou link de aula sem depender de IA ou ferramentas externas.
+- **padrões de estilo visual de links e tabelas:**
+  - *cronograma:* 5 colunas canônicas (`data | # | tipo | descrição | materiais`). células sem material ficam em branco.
+  - *links de materiais:* formatados como pílulas de código embutidas: `[`[n] tipo · nome`](artefatos/n-nome.md)`.
+  - *links de entregas:* formatados como pílulas de código: `[`git`](...)` · `[`artigo`](...)` · `[`slides`](...)`.
+  - *links de referências:* links diretos em negrito sem backticks: `[**nome**](url) — descrição`.
+  - *links de comunicação:* links embutidos no nome em código: `[`telegram`](...)`.
+  - *painel monospace:* alinhamento à esquerda nos cabeçalhos, separador de 1 espaço entre colunas, legenda literal com nomes do cronograma.
 
 ---
 
@@ -113,8 +118,8 @@ a banca externa de defesa pública opera com uma folha padronizada com critério
 ## análise por agentes
 
 ao auditar ou planejar a condução de uma disciplina, o agente (harness) deve validar:
-1. `[ ]` a disciplina possui a página-mestre (`disciplina.md`, via `template-disciplina.md`) com banner, canais, propósito, grafo, calendário e catálogo de entregas?
-2. `[ ]` cada artefato exigido possui arquivo modular próprio (`artefatos/art-*.md`, via `template-artefato.md`) com 1 a 3 pontos de verificação objetivos?
+1. `[ ]` a disciplina possui a página-mestre (`disciplina.md`, via `template-disciplina.md`) com banner, canais, propósito, regras de 100 pts/50 caixas, cronograma de 5 colunas e catálogo de entregas?
+2. `[ ]` cada artefato exigido possui arquivo modular próprio (`artefatos/<n>-<nome>.md`, via `template-artefato.md`) com critérios de existência objetivos e binários?
 3. `[ ]` as dependências entre artefatos respeitam a regra de sequenciamento (entradas geradas previamente)?
 4. `[ ]` há uma vitória de domínio rápida (quick win) garantida no primeiro encontro (arco 1)?
 5. `[ ]` há previsão de suporte e acolhimento intensivo contra a queda de motivação na 4ª semana (arco 2)?
