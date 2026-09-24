@@ -24,14 +24,14 @@ _GMAIL_CONFIG = pathlib.Path.home() / ".config" / "workspace-gmail"
 # recovery flag yet, so its instruction is the manual equivalent: drop the token, re-run.
 # When a CLI gains the flag, add it here and its message upgrades itself.
 _REAUTH_CMD = {
-    "drive": "core/tools/files/gdrive auth {alias} --reauth",
-    "drive-write": "core/tools/files/gdrive auth {alias} --write --reauth",
-    "gmail": "core/tools/mail/gmail auth {alias} --reauth",
-    "calendar": "core/tools/calendar/gcalendar auth {alias} --reauth",
-    "slides": "core/tools/slides/gslides auth {alias} --reauth",
-    "slides-write": "core/tools/slides/gslides auth {alias} --write --reauth",
-    "docs": "core/tools/docs/gdocs auth {alias} --reauth",
-    "docs-write": "core/tools/docs/gdocs auth {alias} --write --reauth",
+    "drive": "core/run tools/files/gdrive auth {alias} --reauth",
+    "drive-write": "core/run tools/files/gdrive auth {alias} --write --reauth",
+    "gmail": "core/run tools/mail/gmail auth {alias} --reauth",
+    "calendar": "core/run tools/calendar/gcalendar auth {alias} --reauth",
+    "slides": "core/run tools/slides/gslides auth {alias} --reauth",
+    "slides-write": "core/run tools/slides/gslides auth {alias} --write --reauth",
+    "docs": "core/run tools/docs/gdocs auth {alias} --reauth",
+    "docs-write": "core/run tools/docs/gdocs auth {alias} --write --reauth",
 }
 
 

@@ -1,4 +1,4 @@
-# gdrive — Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put, copy, perms, share, rm, sync
+# gdrive — Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put, copy, rename, perms, share, rm, sync
 import sys, pathlib, argparse
 
 _HERE = pathlib.Path(__file__).resolve().parent
@@ -80,6 +80,11 @@ def cmd_copy(account: str, file_id: str, name: str, parent_id: str) -> None:
     res = drive_core.copy_file(svc, file_id, name, parent_id)
     print(f"Copied to '{name}' ({alias})  id:{res['id']}\n  {res.get('webViewLink', '')}")
 
+def cmd_rename(account: str, file_id: str, name: str) -> None:
+    alias = gauth.resolve_alias(account)
+    res = drive_core.rename_file(drive_core.get_service(alias, write=True), file_id, name)
+    print(f"Renamed to '{res['name']}' ({alias})  id:{res['id']}")
+
 def cmd_perms(account: str, file_id: str) -> None:
     alias = gauth.resolve_alias(account)
     for perm in drive_core.list_permissions(drive_core.get_service(alias), file_id):
@@ -155,6 +160,10 @@ def main():
     pc.add_argument("--parent", default="root")
     pc.add_argument("--name", required=True, help="name the copy carries")
     pc.add_argument("file_id")
+    pn = sub.add_parser("rename")
+    pn.add_argument("--account", required=True)
+    pn.add_argument("file_id")
+    pn.add_argument("name", help="new name; the id and every link to it stay the same")
     pe = sub.add_parser("perms")
     pe.add_argument("--account", required=True)
     pe.add_argument("file_id")
@@ -180,6 +189,7 @@ def main():
     elif args.cmd == "mkdir":    cmd_mkdir(args.account, args.name, args.parent)
     elif args.cmd == "put":      cmd_put(args.account, args.path, args.parent, args.gdoc, args.name)
     elif args.cmd == "copy":     cmd_copy(args.account, args.file_id, args.name, args.parent)
+    elif args.cmd == "rename":   cmd_rename(args.account, args.file_id, args.name)
     elif args.cmd == "perms":    cmd_perms(args.account, args.file_id)
     elif args.cmd == "share":    cmd_share(args.account, args.file_id, args.email, args.role, args.short_name)
     elif args.cmd == "rm":       cmd_rm(args.account, args.file_ids)

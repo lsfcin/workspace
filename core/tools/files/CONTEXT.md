@@ -16,5 +16,5 @@ Downloads land in `Downloads/workspace-drive` at the workspace root.
 | [`drive_migrate.py`](drive_migrate.py) | [`drive_migrate.pyi`](drive_migrate.pyi) | `migrate_recursive`, `run` | Migrate CIn Drive Disciplinas → personal Drive Academy/Teaching/ |
 | [`drive_migrate_core.py`](drive_migrate_core.py) | [`drive_migrate_core.pyi`](drive_migrate_core.pyi) | `get_cin_service`, `get_personal_service` | Auth, config, and low-level Drive ops shared by drive_migrate.py. |
 | [`drive_sync.py`](drive_sync.py) | [`drive_sync.pyi`](drive_sync.pyi) | `load_config`, `save_config`, `load_cache`, `save_cache`, `is_debounce_active` | drive_sync.py — Google Drive hybrid sync engine with debounce and manifest caching |
-| [`gdrive`](gdrive) | — | — | Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put, copy, perms, share, rm, sync |
+| [`gdrive`](gdrive) | — | — | Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put, copy, rename, perms, share, rm, sync |
 <!-- routing:end -->

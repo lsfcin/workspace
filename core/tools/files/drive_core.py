@@ -148,6 +148,11 @@ def copy_file(svc, file_id: str, name: str, parent_id: str) -> dict:
     ).execute()
 
 
+def rename_file(svc, file_id: str, name: str) -> dict:
+    """Rename in place: the id, and so every link already handed out, stays the same."""
+    return svc.files().update(fileId=file_id, body={"name": name}, fields="id, name").execute()
+
+
 def list_permissions(svc, file_id: str) -> list:
     """Who can reach this file, and how. Read before copying anything someone else edits —
     a copy starts private, so the other person silently loses the file unless this is replayed."""
