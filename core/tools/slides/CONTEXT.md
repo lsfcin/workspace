@@ -4,9 +4,11 @@
 ```bash
 core/run tools/slides/gslides list  --account personal --name "AI4Good"
 core/run tools/slides/gslides read  --account personal <presentation_id>     # deck as navigable text
+core/run tools/slides/gslides stats --account personal <presentation_id>     # style in numbers + archetype of each slide
+core/run tools/slides/gslides lint  --account personal <presentation_id>     # small text, off the slide, over the logo
 core/run tools/slides/gslides new   --account personal "Aula 3"
 core/run tools/slides/gslides text  --account personal --slide <slide_id> <presentation_id> "título"
-core/run tools/slides/gslides preview --account personal <presentation_id>   # download slide PNGs for visual inspection
+core/run tools/slides/gslides preview --account personal --sheet <presentation_id>   # slide PNGs + 20-per-image contact sheets
 core/run tools/slides/gslides apply --account personal <presentation_id> requests.json
 core/run tools/slides/gslides export <url_or_id> --format pdf                # public export fallback without OAuth
 core/run tools/slides/gslides sample <url_id_or_pdf> --out dir --max-samples 25 # keyframe visual clustering
@@ -27,8 +29,9 @@ Two auth grants (same split as [`../files/`](../files/CONTEXT.md)), the renderin
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | What the API actually returns, learned the expensive way — read alongside `CONTEXT.md`. |
 | [`deck_sample.py`](deck_sample.py) | [`deck_sample.pyi`](deck_sample.pyi) | `parse_slide_target`, `download_public_export`, `extract_slide_texts`, `clean_slide_lines`, `cluster_and_sample` | deck_sample.py — Ingestion, progressive clustering and visual sampling for slide decks |
-| [`gslides`](gslides) | — | — | Google Slides CLI: auth, list, read, new, add, text, apply, preview, export, sample |
+| [`gslides`](gslides) | — | — | Google Slides CLI: auth, list, read, stats, lint, new, add, text, apply, preview, export, sample |
 | [`slides_core.py`](slides_core.py) | [`slides_core.pyi`](slides_core.pyi) | `get_service`, `get_presentation`, `list_presentations`, `create`, `apply` | slides_core.py — Google Slides read+write boundary (account-agnostic) for Core/tools/slides/gslides |
 | [`slides_geom.py`](slides_geom.py) | [`slides_geom.pyi`](slides_geom.pyi) | `rotation_deg`, `eff_scale`, `compose_transforms`, `bounds` | slides_geom.py — Google Slides transform algebra: rotation, effective scale, composition, bounds |
 | [`slides_outline.py`](slides_outline.py) | [`slides_outline.pyi`](slides_outline.pyi) | `element_text`, `kind`, `outline` | slides_outline.py — a deck as navigable text: slide index, element ids, and the words on them |
+| [`slides_style.py`](slides_style.py) | [`slides_style.pyi`](slides_style.pyi) | `runs`, `archetype`, `stats`, `lint` | slides_style.py — a deck's style read back from its JSON: statistics, the archetype of each slide, and lint |
 <!-- routing:end -->

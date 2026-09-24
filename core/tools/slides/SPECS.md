@@ -29,6 +29,11 @@ Slides keeps hidden animation states as **zero-scaled copies** of real elements,
 - Lines with no explicit `solidFill.color` have **no color**, not black. Defaulting them to black renders invisible connector lines as spurious diagonals.
 - `CENTERED_TITLE` placeholders do not store paragraph alignment — it is inherited from the theme.
 
+## Rendering
+
+- **`getThumbnail` is an "expensive read"** with a per-minute quota: a 20-slide deck hits 429. `preview` exports one PDF through Drive and renders it locally.
+- **Drive refuses exports over ~10 MB** ("too large to be exported"); a link-shared deck still has the public `/export/pdf`, which `preview` falls back to.
+
 ## Writing
 
 - **Object ids must be at least 5 characters.** A shorter one fails the whole batch with `Invalid requests[N]: The object ID (x) length should not be less than 5`.
