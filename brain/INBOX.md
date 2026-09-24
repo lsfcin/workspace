@@ -9,6 +9,21 @@
 
 <!-- add entries below, newest first -->
 
+temos que melhorar as instruções de publicação das disciplinas que a gente cola no disciplina.md. idealmente deveria ser só um comando (ou uma lista de comandos) que colo tudo de uma vez só no terminal e funciona sempre.
+
+na coluna de nota dos paineis das disciplinas (disciplina.md) dar um espaço extra pra caber o 100 pts alinhado
+ex.:
+◻◻  00 pts
+◻◻ 100 pts
+
+na disciplina de ai4good, ao invés de 1 artefato sem pra seminário, teremos três, sem1, sem2, e sem3. o artefato da demonstração, do artigo e um extra do pitch devem somar o que falta pra fechar os 50 itens, pelas minhas contas essa soma dá 23, e aí pensei em fazer como demonstração 5, artigo 6, pitch 12 (aí pode rever as abreviações)
+
+nas especificações das disciplinas, talvez nos artefatos em si, incluir parágrafos de "comando/prompt: ..." em que faço sugestões de prompt ou pro artefato como um todo ou pra cada parte da metodologia (acho melhor essa segunda opção). outra coisa, sempre que listarmos algum termo em português que é mais conhecido por sua versão em inglês a gente inclui a tradução pra inglês em parênteses e em itálico (ex.: retropropagação - backpropagation). isso pra todos os materiais, slides, site, etc.
+
+pq o nome do repo publico do wos ficou wos-ablation? deveria ser só wos...
+
+o antigravity compacta sozinho, confesso que acho isso perigosíssimo... será que tem como impedir?
+
 NÃO MEXER ATÉ 2026-09-29 — nenhum /inbox deve rotear, resolver ou apagar esta entrada antes dessa
 data. dia 28/09 vence a primeira leitura do scoreboard (ROADMAP.md § Measurement), e é só depois
 dela que a gente pode mexer em como o core/scoreboard.tsv guarda as linhas. o scoreboard tá com
@@ -42,3 +57,12 @@ https://www.instagram.com/reel/Ddlr9B7DRmF/?utm_source=ig_web_copy_link
 incluir na rotina de exercícios
 — via aiwbot · 2026-09-22
 
+ai4good: sistema de enigmas (formulário, versões por enigma, rastreio de acesso e envio) a partir de 30/09; sessão da VA2 (50 caixas, esqueleto em academy/teaching/classes/ai4good/plano-refino.md) antes de 02/10; seção legado da página depois. — via claude · 2026-09-23
+
+techedu: como o painel e as caixas funcionam com equipes (ai4good é individual; ficou para outra sessão). — via claude · 2026-09-23
+
+ai4good, reels nos slides: pra cada reel usado nos 4 decks novos (Jev/Laya, DOAC, demissão Anthropic…), achar o vídeo original no YouTube e inserir no slide (createVideo). legenda/dublagem pt-br não dá pra fixar no slide: é escolha do player na hora (⚙ → legendas → traduzir; faixa de áudio só se o canal ativou dublagem). — via claude · 2026-09-23
+
+ai4good, refino que ficou pra depois da aula de 23/09: notas de apresentador nos slides ANTIGOS dos 4 decks, notas propostas pros slides só-imagem (autopreservação 44–60, 86–88; agência 92–99, 108–124) e correções visuais in loco. conteúdo em academy/teaching/classes/ai4good/*_conteudo.py. — via claude · 2026-09-23
+
+wos, slides (IMPROVE WOS): (1) não há guia de estilo visual dos decks do Lucas — inferido hoje: Open Sans, título minúsculo bold + termo inglês itálico, fonte 8pt no rodapé, azul #1A73E8 como único destaque; vive só em ai4good/slides_pecas.py. (2) par desenhado + fallback pulado virou convenção → candidato a regra em [slides-dois-caminhos]. (3) links de deck seguem `<disciplina>/<tema>` apontando pra /present. (4) gslides não tem subcomando pra separar deck, copiar slide entre decks (a API não copia: slides_build.py reconstrói), inserir nota ou imagem — ai4good/slides_build.py é candidato a subir pra core/tools/slides. (5) gdrive não tem `rename`. (6) a regra de truncamento do routing acusa qualquer "…" numa descrição, mesmo sem truncar. — via claude · 2026-09-23
