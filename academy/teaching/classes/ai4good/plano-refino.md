@@ -42,6 +42,7 @@
 - **arn·r:** 1 report-arena.tex; 2 arquitetura do experimento (papéis, fluxo); 3 condições técnicas (modelos, máquina, desempenho, tempo de execução); 4 resultados em tabelas e imagens claras; 5 discussão com destaques e subseção de limitações.
 
 ## achados abertos (resolver nas fases)
+- Versões dos decks (Lucas, 2026-09-23): há slide linkado "de outro canto". Conferir cada link do cronograma contra a cópia viva — os decks moram no Drive pessoal (`material/aulas`, ver CONTEXT.md), a cópia de junho congelou e o trabalho de agosto seguiu no Drive do cin; os 4 decks novos de 16–23/09 já usam link curto. Um deck = um tópico: vários `[1] slides` ainda apontam para o mesmo deck combinado.
 - Artefatos: `3-base-git-repo.md` diz código `cod`; nenhum dos 8 segue o template-artefato.
 - `entregue`: andreza tem git=vvv mas nenhum link de git; carlos tem mlp·r 4/5 e nenhum link de artigo.
 - Assimetria aceita (2026-09-23): o `publicacao` do template publica o próprio template, não uma disciplina; quem cria uma disciplina copia o bloco da ai4good.
