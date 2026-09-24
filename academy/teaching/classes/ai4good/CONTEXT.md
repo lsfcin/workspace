@@ -34,6 +34,11 @@ não valia aqui: os arquivos estavam soltos em `material/`.
 — entre eles as três planilhas, o documento e o form, que o migrador ignorava por não serem
 apresentação. As cópias velhas estão na lixeira do Drive, não deletadas.
 
+**Um deck por tema desde 2026-09-24**: `ai4good · <tema>`, 17 decks, cada um com link curto
+`ai4good/<tema sem acento>` (regras em [`SPECS-aulas.md`](../../SPECS-aulas.md) § slides). Os
+combinados, as práticas e as planilhas substituídas levam `[deprecated]` no nome — renomeados, não
+apagados, então links antigos seguem vivos. O Drive do cin não tem mais nenhum deck desta disciplina.
+
 Questionários são specs versionados, aplicados por [`gforms`](../../../../core/tools/forms/CONTEXT.md):
 
 ```bash

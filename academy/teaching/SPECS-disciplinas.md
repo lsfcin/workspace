@@ -71,7 +71,7 @@ a condução pedagógica e o painel de avaliação operam sobre conceitos rigoro
   - um ponto de verificação **não é uma etapa de processo** (ex.: evitar "rodar o modelo", "treinar a rede");
   - um ponto de verificação é uma **condição de existência comprovável**, auditável com precisão binária de feito ou não feito (ex.: "script de inferência executando com predições válidas", "tabela comparativa tripla de métricas", "dedução matemática formal com equações em LaTeX"). cada critério atendido confere 2 pontos de progresso (totalizando 100 pontos acumulados no semestre = 50 caixas de verificação).
 - **enigmas teóricos (investigação em sala de aula):**
-  - as aulas expositivas são desacopladas em decks granulares por tópico conceitual.
+  - as aulas expositivas são desacopladas em decks granulares por tópico conceitual: um deck = um tema, com nome, link curto, notas e blocos do template definidos em [`SPECS-aulas.md`](SPECS-aulas.md) § slides.
   - cada tópico apresenta seus **enigmas**: desafios investigativos estruturados no padrão `contexto → pistas → raciocínio → resposta → resolução`.
   - os enigmas avaliam domínio de vocabulário e fundamentos matemáticos/arquiteturais, permitindo pesquisa ativa na web (buscadores, documentações, artigos), mas com restrição estrita ao uso de IAs generativas como atalho para respostas prontas. cada enigma resolvido confere 2 pontos de verificação teórica (1 caixa no painel).
 
