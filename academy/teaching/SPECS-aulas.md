@@ -12,6 +12,15 @@ duração padrão de encontro: **70 a 90 minutos**.
 
 ---
 
+## slides
+
+- um deck = um tema. nome: `<disciplina> · <tema>`, em português; o link curto sai do nome, sem acento. deck substituído leva `[deprecated] ` no início do nome.
+- conteúdo em português. título, divisor de seção e slide de transição levam a versão em inglês, em itálico, na linha de baixo.
+- a nota do apresentador de todo slide abre com 3 linhas: `←` liga ao slide anterior · `●` o que este slide trabalha · `→` prepara o próximo.
+- todo deck de aula teórica traz os blocos abaixo como slides pulados enquanto vazios: kickoff logo depois de "aula de hoje"; no fim, síntese & glossário, e — se o deck tem enigma — gatilho da prática e enigma.
+
+---
+
 ## aulas teóricas (até 20% de prática)
 
 o fluxo narrativo das aulas teóricas é crítico e deve ser organicamente conectado. para cada aula, selecionar se o fluxo será linear (linha do tempo), macro $\to$ micro ou micro $\to$ macro. a aula sempre fecha com o que começou, conectando as duas pontas.
@@ -19,12 +28,13 @@ o fluxo narrativo das aulas teóricas é crítico e deve ser organicamente conec
 estruturada em 5 blocos rítmicos com timebox visível:
 
 ```
-[15 min] kickoff problematizador + termômetro de pulso
+[5–15 min] kickoff problematizador + termômetro de pulso
+15 min quando o deck abre a aula; 5 min quando é o 2º ou 3º deck do mesmo encontro.
 abertura do formulário de presença ativa e reflexão, projetando o qr code nos slides. fica aberto até o fechamento da aula.
 automação obrigatória usando `gforms`: criação do formulário com variações paramétricas, inserção do qr code no material, abertura/fechamento programado, análise dos dados e crédito na planilha de notas.
 no kickoff, trazer um dilema real que ressoe nos estudantes: cena problemática, notícias, estatísticas de impacto, contradições éticas ou histórias pessoais, abrindo escuta autêntica para 2 ou 3 alunos. proibição absoluta de discurso superficial, artificial ou motivacional vazio ("coach").
 
-[50 min] núcleo conceitual com pausa ativa
+[50 min] núcleo conceitual
 em 1 a 3 blocos ancorados no grafo de conhecimento (dag) da disciplina:
 1. fluxo narrativo: definir a direção dos blocos (linear, macro -> micro ou micro -> macro).
 2. ciclo why-what-how: para cada item e subitem, explicitar o propósito (why), a formalização rigorosa (what) e a aplicação prática (how).
@@ -38,13 +48,15 @@ em 1 a 3 blocos ancorados no grafo de conhecimento (dag) da disciplina:
    - casos de uso e aplicações industriais/sociais,
    - experimentação rápida de código e testes ao vivo,
    - dinâmicas ativas individuais ou em grupo.
-4. pausa ativa (peer instruction, 3 a 5 min): entre os blocos teóricos, destacar no telão uma questão conceitual desafiadora do formulário. os estudantes debatem a lógica em duplas ou trios; como o formulário traz variações paramétricas automáticas, a discussão foca no raciocínio e cada um submete sua resposta individual.
 
 [5 min] síntese & glossário
 fechamento da árvore conceitual, mapa visual e consolidação de termos novos. amarra o conteúdo ao grafo de conhecimento da disciplina e fixa o vocabulário técnico.
 
 [10 min] gatilho da prática
 apresentação do alvo prático da próxima sessão e preparação das equipes. alinha papéis, detalha a entrega da aula de estúdio e antecipa dependências de ambiente e ferramentas.
+
+[3–5 min] enigma
+no fim de cada deck, uma questão conceitual do formulário no telão. os estudantes debatem em duplas ou trios; como o formulário traz variações paramétricas, a discussão foca no raciocínio e cada um submete a sua resposta.
 ```
 
 ---
@@ -99,9 +111,8 @@ ao revisar ou planejar um deck ou roteiro de aula teórica, o agente deve valida
 4. `[ ]` o fluxo didático global é evidente (linear, macro $\to$ micro ou micro $\to$ macro)?
 5. `[ ]` cada tópico segue o ciclo why $\to$ what $\to$ how?
 6. `[ ]` cada conceito utiliza ao menos 3 formatos complementares para sinergia e redundância (udl)?
-7. `[ ]` a pausa ativa (peer instruction) de 3 a 5 min em duplas está prevista no núcleo de 50 min?
-8. `[ ]` há síntese visual de fechamento, glossário técnico e gatilho explícito para a prática?
-9. `[ ]` há versão acessível da aula em markdown limpo e resumo em áudio/podcast gerado via notebooklm (skill `accessible-deck`)?
+7. `[ ]` cada deck fecha com síntese visual e glossário e, se tem enigma, gatilho explícito da prática e o enigma de 3 a 5 min em duplas?
+8. `[ ]` há versão acessível da aula em markdown limpo e resumo em áudio/podcast gerado via notebooklm (skill `accessible-deck`)?
 
 ### práticas
 ao revisar ou planejar um roteiro de aula prática, o agente deve validar:

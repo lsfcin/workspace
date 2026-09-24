@@ -6,12 +6,26 @@
 # mapping; this is the one place the target is written down.
 # Root url = lucassf.pages.dev/
 short_name	url	owner	added
+ai4good/abertura	https://docs.google.com/presentation/d/1mhJFLULrPU_HoZ5emkeC7AiHCkw5HkHRLm-bCq3e_cE/present	ai4good	2026-09-24
 ai4good/agencia	https://docs.google.com/presentation/d/12uqqaF05i5hs1B1Q4rH9odjlpF8M-QxT6sG_lkkKU1E/present	ai4good	2026-09-23
 ai4good/autoaprimoramento	https://docs.google.com/presentation/d/1mqFfYtF0yyQd2JAnQoaQ6TnJ0dqpWVmxZcmxEG1K67U/present	ai4good	2026-09-23
+ai4good/autocodificadores	https://docs.google.com/presentation/d/1GZ2W2YAFJkd5Z5uJM8kjuQzZK8SsEPnzO2NWbk1Ji5w/present	ai4good	2026-09-24
 ai4good/autopreservacao	https://docs.google.com/presentation/d/1o7MWYdm74XMNbwWRD7OWXsayB0UQLBTbrcshAkom3cM/present	ai4good	2026-09-23
+ai4good/crises	https://docs.google.com/presentation/d/1PgIp_SX2wlMYEbGT3i5MMrciRB3NUC_xzDLvCU7O6B0/present	ai4good	2026-09-24
+ai4good/historia	https://docs.google.com/presentation/d/1MnhRGXDw31GqStyQ-FrsTDMTvfNNCk1w_GhnOKZInhA/present	ai4good	2026-09-24
 ai4good/language-models	https://docs.google.com/presentation/d/1ekjPPdj6sbkpNv3DGjE8HH9CntqY8S7HkIMrYNuspt0/present	ai4good	2026-09-23
+ai4good/memoria-longa-de-curto-prazo	https://docs.google.com/presentation/d/1HvBcciJFbiDK_wemiHYWhdKgnP7d8FCTp0h88yfNn7k/present	ai4good	2026-09-24
+ai4good/modelos-de-linguagem	https://docs.google.com/presentation/d/1ekjPPdj6sbkpNv3DGjE8HH9CntqY8S7HkIMrYNuspt0/present	ai4good	2026-09-24
 ai4good/painel	https://docs.google.com/spreadsheets/d/1IgBJWxItjmolBgwsnjlER894V6BP9nns8dFcc-NhStY/edit?gid=1005981620#gid=1005981620	ai4good	2026-09-16
+ai4good/perceptron-multicamadas	https://docs.google.com/presentation/d/1TRjPEFhnQy_j5W5P__X1m_LLPgTi1sHd0f4_3nDc2d8/present	ai4good	2026-09-24
+ai4good/professor-aluno	https://docs.google.com/presentation/d/1d7Kv8qkrdQC0i-1S_P2PXxGVzuQj0d64xp_sTwZ12QQ/present	ai4good	2026-09-24
+ai4good/redes-adversariais	https://docs.google.com/presentation/d/1ZwKk0oeow4-fI4jTbrQjbEfmtCgRByUh7RivOR9eUbA/present	ai4good	2026-09-24
+ai4good/redes-convolucionais	https://docs.google.com/presentation/d/1URlyhECYlbZ0Lg4Eq7GK_5GvpDZL5HX8FZ2_UUc7NcU/present	ai4good	2026-09-24
+ai4good/redes-de-grafos	https://docs.google.com/presentation/d/1K-_hzKBDIWuE66QOInEZ7bj_H0Ev6i_qbTLBevYEilE/present	ai4good	2026-09-24
+ai4good/redes-recorrentes	https://docs.google.com/presentation/d/1j8sGfqZkzol-nxFKWDsRLdfjKlYI6wM7K5h3Tw06Pbk/present	ai4good	2026-09-24
+ai4good/regressao-linear	https://docs.google.com/presentation/d/1XmA8_9dIaCdky66leSKl2UbE9N83fbZxINQADmlFKa8/present	ai4good	2026-09-24
 ai4good/setup	https://docs.google.com/forms/d/e/1FAIpQLSfESI8OWLI1JSALkpAAtbRkqRzKxP6az3NCd9mi5Mop_697kQ/viewform	ai4good	2026-09-06
+ai4good/transformers	https://docs.google.com/presentation/d/1xw1QMYfhase1Su0dlT8bYHlYaLouiPOFT2poTHX0i0k/present	ai4good	2026-09-24
 home	https://seasoned-bladder-7d0.notion.site/Lucas-S-Figueiredo-3695d139d7924e52b896d608086a68a5	home	2026-09-08
 p1	https://seasoned-bladder-7d0.notion.site/Programa-o-1-1d51656e2069803a8569e85611aa4dfb	p1	2026-09-08
 rva-chico	https://docs.google.com/presentation/d/1FrVUudBNRPUE4dJRAhyYRIyQigQBAa0mJ93ggmLZ1kQ/edit	rva-chico	2026-09-07

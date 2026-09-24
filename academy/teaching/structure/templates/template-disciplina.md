@@ -69,9 +69,9 @@ encontros cronológicos e marcos de validação.
 
 | data | # | tipo | descrição | materiais |
 |:---|:---:|:---|:---|:---|
-| 12/08 (qua) | 01 | teoria | acordos e enigma inaugural | [`[1] slides · introdução`](url) |
+| 12/08 (qua) | 01 | teoria | acordos e enigma inaugural | [`[1] slides · introdução`](https://lucassf.pages.dev/[disciplina]/introducao) |
 | 14/08 (sex) | 02 | prática | configuração base para a disciplina | [`[3] artefato · base git repo`](artefatos/3-base-git-repo.md)<br>[`[4] artefato · latex project`](artefatos/4-latex-project.md) |
-| 19/08 (qua) | 03 | teoria | conceitos fundamentais e arquitetura | [`[1] slides · fundamentos`](url) |
+| 19/08 (qua) | 03 | teoria | conceitos fundamentais e arquitetura | [`[1] slides · fundamentos`](https://lucassf.pages.dev/[disciplina]/fundamentos) |
 | 21/08 (sex) | 04 | prática | implementação inicial e relatório | [`[5] artefato · projeto git repo`](artefatos/5-projeto-git-repo.md)<br>[`[5] artefato · projeto tech report`](artefatos/5-projeto-tech-report.md) |
 | 26/08 (qua) | 05 | mentoria | acompanhamento e dúvidas | |
 | 28/08 (sex) | 06 | checagem | verificação de marcos e pontuação | |
