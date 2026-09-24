@@ -40,10 +40,10 @@ todo o material em teaching é projetado para consumo dual: por seres humanos e 
 - agentes que atuam como tutores devem desafiar o aluno a justificar escolhas conceituais, recusando a entrega de código mastigado sem diálogo reflexivo prévio.
 
 <!-- routing:start -->
-## routing
+## Routing
 
-| documento | descrição | governa |
-|-----------|-----------|---------|
-| [`SPECS-aulas.md`](SPECS-aulas.md) | contrato de planejamento e auditoria para aulas teóricas, práticas e avaliativas (nível micro). | toda aula teórica, prática ou avaliativa ministrada por lucas |
-| [`SPECS-disciplinas.md`](SPECS-disciplinas.md) | metodologia macro semestral de condução, ciclos de projeto em 4 arcos, avaliação formativa e acompanhamento via sigaa. | todas as disciplinas de graduação e pós ministradas por lucas (tecedu, ai4good) |
+| Part | Description | Governs |
+|------|-------------|---------|
+| [`SPECS-aulas.md`](SPECS-aulas.md) | contrato de planejamento e auditoria para aulas teóricas e práticas (nível micro). | toda aula teórica ou prática ministrada por lucas |
+| [`SPECS-disciplinas.md`](SPECS-disciplinas.md) | metodologia macro semestral de condução, ciclos de projeto, avaliação e acompanhamento. | todas as disciplinas de graduação e pós ministradas por lucas (tecedu, ai4good, etc.) |
 <!-- routing:end -->
