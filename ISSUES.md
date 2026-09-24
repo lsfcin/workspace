@@ -282,7 +282,7 @@ name. An entry without one is invisible to it.
 
 - . — feature/ai4good-disciplina is 1 ahead of main
 - . — feature/cfpages-publish is 2 ahead of main
-- . — feature/slides-skill is 3 ahead of main
+- . — feature/slides-skill is 4 ahead of main
 
 ### Local branches already merged into their base
 
