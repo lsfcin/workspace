@@ -109,13 +109,13 @@
   — context browsing and cheap-level model routing.
 - [GPT-6 Astra](https://openai.com/index/gpt-6-astra/)
   — its example slide decks are far better than ours; study what makes them
-  (`teaching-materials.md` [astra-slides]).
+  (`core/prompts/slides-padroes.md` step 3).
 - [Claude Code front-end design plugins](https://www.instagram.com/reel/Dc2TOXhOLOP/)
   — five plugins for UI quality, design systems, image→code, browser testing; may help our slides
-  (`teaching-materials.md` [front-design-plugins]; — via reel).
+  (`core/prompts/slides-padroes.md` step 3; — via reel).
 - [Creative developer projects roundup](https://www.instagram.com/p/DcuI3KiDuyu/)
   — includes polished AI-made SVG animations; material for the animation question in
-  `brain/goals/teaching-materials.md` [research-tools] (— via aiwbot).
+  `core/skills/slides/formats/animation.md` (— via aiwbot).
 - [FABLE 5.1 release take](https://www.instagram.com/reel/DcyNNHKtEsL/)
   — practitioner read on the biggest-impact change in FABLE 5.1; evaluate whether it applies here
   (`brain/goals/workspace-os.md` [ferramentas-obsoletas]; — via aiwbot).
@@ -123,7 +123,7 @@
   — forecast/scenario site; Lucas asks whether it serves us (task in
   `brain/goals/teaching-materials.md` [ai2027-material]).
 - [Fortress](https://www.instagram.com/reel/DdMgKczjl3g/) — [src: web:instagram.com] pitched as a browser engine that keeps scrapers from being blocked, the fixes inside the browser and one line to change. Test it against the failure that found it: 8 INBOX links died on Instagram login-gating, 2026-09-14 (task in `brain/goals/workspace-os.md` [extracao-bloqueada]; — via aiwbot).
-- [Claude unified / Cowork in chat](https://www.instagram.com/p/DdYzficDH9z/) — [src: web:instagram.com] reports Anthropic folding Cowork into the main Claude, with documents and presentations created, edited, presented and exported inside the conversation (task in `brain/goals/teaching-materials.md` [claude-slides-nativo]; — via aiwbot).
+- [Claude unified / Cowork in chat](https://www.instagram.com/p/DdYzficDH9z/) — [src: web:instagram.com] reports Anthropic folding Cowork into the main Claude, with documents and presentations created, edited, presented and exported inside the conversation (`core/prompts/slides-padroes.md` step 3; — via aiwbot).
 - [task→model router](https://www.instagram.com/reel/DdWLJa2tjq6/) — [src: web:instagram.com] a router that sends each task to the model that fits; the artifact itself sits behind a broadcast channel (task in `brain/goals/craft-flows.md` [router-tarefa-modelo]; — via aiwbot).
 - [layer-by-layer 70B runner](https://www.instagram.com/reel/DdXZkT3ulY6/) — [src: web:instagram.com] open-source Python lib claimed to run 70B models off disk one layer at a time, memory nearly flat (task in `brain/goals/local-ai.md` [layerwise-70b]; — via aiwbot).
 - [OpenWorker, Andrew Ng](https://www.instagram.com/reel/DdSoy2Wu8F_/) — [src: web:instagram.com] local AI co-worker that completes tasks, 40+ app connectors, any model (task in `brain/goals/local-ai.md` [openworker]; — via aiwbot).

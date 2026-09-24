@@ -101,3 +101,41 @@ def test_check_reads_the_file_rather_than_trusting_the_writer(mapfile):
 def test_the_real_map_is_clean():
     """The one this workspace ships. A finding here is a link handed to a room."""
     assert links_core.check(links_core.load()) == []
+
+
+# ── publish: a course page reaches the site whole, and nothing internal comes along ─────────────
+import pages  # noqa: E402
+
+
+@pytest.fixture
+def course(tmp_path):
+    """classes/<course>/ with a page, two artefacts and the CONTEXT.md every folder here carries."""
+    classes = tmp_path / 'classes'
+    (classes / 'ai4good' / 'artefatos').mkdir(parents=True)
+    (classes / 'ai4good' / 'disciplina.md').write_text('# page\n', encoding='utf-8', newline='\n')
+    for name in ('3-base.md', '5-arena.md', 'CONTEXT.md'):
+        (classes / 'ai4good' / 'artefatos' / name).write_text(name, encoding='utf-8', newline='\n')
+    return classes
+
+
+def test_a_course_page_lands_under_its_course_name(course, tmp_path):
+    page = course / 'ai4good' / 'disciplina.md'
+    assert pages.mirror_of(page, tmp_path / 'site', course) == tmp_path / 'site' / 'ai4good' / 'disciplina.md'
+
+
+@pytest.mark.parametrize('where', ['elsewhere/page.md', 'classes/ai4good/artefatos/3-base.md'])
+def test_a_file_that_is_not_a_course_page_has_no_public_place(course, tmp_path, where):
+    with pytest.raises(pages.Refused):
+        pages.mirror_of(tmp_path / where, tmp_path / 'site', course)
+
+
+def test_publishing_a_page_carries_its_artefacts_but_never_the_folder_notes(course, tmp_path):
+    """The glob the old hand-written steps used shipped artefatos/CONTEXT.md to the public repo."""
+    site = tmp_path / 'site'
+    pages.mirror(course / 'ai4good' / 'disciplina.md', site, course)
+    assert sorted(p.name for p in (site / 'ai4good' / 'artefatos').iterdir()) == ['3-base.md', '5-arena.md']
+    assert (site / 'ai4good' / 'disciplina.md').read_text(encoding='utf-8') == '# page\n'
+
+
+def test_a_page_without_a_drawn_block_runs_no_generator(course):
+    assert pages.redraw(course / 'ai4good' / 'disciplina.md') == []

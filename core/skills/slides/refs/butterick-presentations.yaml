@@ -1,0 +1,10 @@
+# Reference for butterick-presentations
+key: butterick-presentations
+type: web
+year: 2026
+venue: "Practical Typography"
+url: "https://practicaltypography.com/presentations.html"
+level: B
+contributions:
+  - "Presentation typography: fewer words, bigger type, no default fonts."
+tags: [typography]

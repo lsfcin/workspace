@@ -1,0 +1,10 @@
+# Reference for few2004
+key: few2004
+type: book
+year: 2004
+venue: "Analytics Press"
+url: "https://www.perceptualedge.com/library.php"
+level: B
+contributions:
+  - "Tables and graphs designed to be read, not decorated."
+tags: [charts]

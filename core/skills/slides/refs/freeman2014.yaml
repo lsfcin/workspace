@@ -1,0 +1,10 @@
+# Reference for freeman2014
+key: freeman2014
+type: article
+year: 2014
+venue: "PNAS"
+url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC4060654/"
+level: A
+contributions:
+  - "Active learning cuts failure rates versus lecturing (225 studies)."
+tags: [interactivity]

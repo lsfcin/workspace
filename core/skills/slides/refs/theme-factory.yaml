@@ -1,0 +1,10 @@
+# Reference for theme-factory
+key: theme-factory
+type: tool
+year: 2026
+venue: "Anthropic skills"
+url: "https://github.com/anthropics/skills/blob/main/skills/theme-factory/SKILL.md"
+level: A
+contributions:
+  - "A theme is chosen once as tokens and applied to every artifact."
+tags: [style-system]

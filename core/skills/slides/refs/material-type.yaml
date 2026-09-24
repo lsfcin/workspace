@@ -1,0 +1,10 @@
+# Reference for material-type
+key: material-type
+type: web
+year: 2026
+venue: "Material Design 3"
+url: "https://m3.material.io/styles/typography/applying-type"
+level: C
+contributions:
+  - "A named type scale with fixed roles."
+tags: [typography]

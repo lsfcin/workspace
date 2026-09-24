@@ -1,0 +1,10 @@
+# Reference for cleveland1984
+key: cleveland1984
+type: article
+year: 1984
+venue: "JASA"
+url: "https://www.jstor.org/stable/2288400"
+level: A
+contributions:
+  - "Perception ranking: position beats length beats angle beats area beats colour."
+tags: [charts]

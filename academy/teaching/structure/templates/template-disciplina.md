@@ -8,15 +8,10 @@
 > [semestre, ex.: 2026.2] · [dias e horários, ex.: quartas às 20h10 e sextas às 18h30] · [sala física / laboratório, ex.: sala 37]
 
 <!-- publicacao
-como publicar / atualizar este documento no cloudflare pages (autonomia do professor):
-1. sincronizar com a pasta publica:
-   cp academy/teaching/structure/templates/template-disciplina.md outputs/links/teaching/template_disciplinas.md
-2. commitar e enviar para o cloudflare pages:
-   git -C outputs/links commit -am "atualiza template de disciplina" && git -C outputs/links push
-3. links resultantes no ar (instantaneo):
-   - visualizacao web (humano): https://lucassf.pages.dev/teaching/template_disciplinas
-   - visualizacao raw (agente/ia): https://lucassf.pages.dev/teaching/template_disciplinas.md
-   - edicao direta no navegador (sem terminal): botao 'editar (github.dev)' no rodape da pagina
+para o professor (ou o agente dele), na raiz do workspace: marcar itens em painel:dados-<id>,
+depois um comando só — redesenha o painel, espelha página e artefatos, publica (~30 s):
+   core/run tools/links/cfpages publish academy/teaching/classes/<disciplina>/disciplina.md
+web: https://lucassf.pages.dev/<disciplina> · raw: https://lucassf.pages.dev/<disciplina>/disciplina.md
 -->
 
 <!-- guia-ia

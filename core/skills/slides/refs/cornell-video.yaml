@@ -1,0 +1,10 @@
+# Reference for cornell-video
+key: cornell-video
+type: web
+year: 2026
+venue: "Cornell IT"
+url: "https://it.cornell.edu/accessibility/accessibility-and-embedded-videos-helpful-guide"
+level: B
+contributions:
+  - "Embedded video needs captions and controls."
+tags: [video]

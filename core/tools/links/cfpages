@@ -1,4 +1,4 @@
-# Usage: core/run tools/links/cfpages <cmd> [args] — named short links: add, find, rm, build, check
+# Usage: core/run tools/links/cfpages <cmd> [args] — named short links: add, find, rm, build, check; publish a course page
 import argparse
 import pathlib
 import sys
@@ -11,6 +11,7 @@ import tool_law  # noqa: E402
 tool_law.require('link-shortener')
 
 import links_core  # noqa: E402
+import pages  # noqa: E402
 
 ROOT = _HERE.parents[2]
 # Under outputs/ and not code/: it holds no source, only what `build` regenerates from links.txt,
@@ -65,16 +66,19 @@ def cmd_build(publish: pathlib.Path, push: bool) -> None:
     if not push:
         print("  --push to commit and deploy")
         return
-    import subprocess
-    subprocess.run(['git', 'add', '_redirects', 'index.html'], cwd=publish, check=True)
-    # Nothing staged means nothing to COMMIT, never nothing to push: a commit made by an earlier
-    # run that failed at the push is exactly the state where the site is still stale.
-    if subprocess.run(['git', 'diff', '--cached', '--quiet'], cwd=publish).returncode:
-        subprocess.run(['git', 'commit', '-m', f'{len(rows)} redirects'], cwd=publish, check=True)
-    # -u origin HEAD: the same call works on the first push, when there is no upstream yet, and on
-    # every one after. A publish repo is re-cloned often enough that "first push" is not a one-off.
-    subprocess.run(['git', 'push', '-u', 'origin', 'HEAD'], cwd=publish, check=True)
+    pages.push(publish, ['_redirects', 'index.html'], f'{len(rows)} redirects')
     print(f"  pushed — Cloudflare Pages deploys in ~30s, then {links_core.base()}/<name> is live")
+
+
+def cmd_publish(page: pathlib.Path, publish: pathlib.Path) -> None:
+    for name in pages.redraw(page):
+        print(f"redrew {page.name} with {name}")
+    copied = pages.mirror(page, publish)
+    course = copied[0].parent.name
+    pages.push(publish, [publish / course], f"atualiza {course}/{page.stem}")
+    for f in copied:
+        print(f"{links_core.base()}/{f.relative_to(publish)}")
+    print("  pushed — Cloudflare Pages deploys in ~30s")
 
 
 def cmd_check() -> None:
@@ -108,6 +112,10 @@ def main():
 
     sub.add_parser("check")
 
+    pp = sub.add_parser("publish", help="redraw, mirror and push a course page and its artefatos/")
+    pp.add_argument("page", help="academy/teaching/classes/<course>/<file>.md")
+    pp.add_argument("--dir", dest="publish", default=str(PUBLISH))
+
     args = p.parse_args()
     try:
         if   args.cmd == "add":   cmd_add(args.short_name, args.url, args.owner, args.home)
@@ -115,8 +123,9 @@ def main():
         elif args.cmd == "rm":    cmd_rm(args.short_name)
         elif args.cmd == "build": cmd_build(pathlib.Path(args.publish), args.push)
         elif args.cmd == "check": cmd_check()
+        elif args.cmd == "publish": cmd_publish(pathlib.Path(args.page), pathlib.Path(args.publish))
         else:                     p.print_help()
-    except links_core.Refused as e:
+    except (links_core.Refused, pages.Refused) as e:
         # A refusal already names its own fix — printing a traceback over it buries the fix.
         print(e, file=sys.stderr)
         raise SystemExit(1)

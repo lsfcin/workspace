@@ -1,0 +1,10 @@
+# Reference for jmu-captions
+key: jmu-captions
+type: web
+year: 2026
+venue: "James Madison University"
+url: "https://www.jmu.edu/accessibility/digital-accessibility/guides/captioning/best-practices-instructors.shtml"
+level: B
+contributions:
+  - "Captioning practice for instructors."
+tags: [video]

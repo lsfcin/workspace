@@ -1,0 +1,10 @@
+# Reference for tversky2002
+key: tversky2002
+type: article
+year: 2002
+venue: "International Journal of Human-Computer Studies"
+url: "https://hci.stanford.edu/courses/cs448b/papers/Tversky_AnimationFacilitate.pdf"
+level: A
+contributions:
+  - "Animation must be apprehensible and congruent with the change it shows."
+tags: [animation]

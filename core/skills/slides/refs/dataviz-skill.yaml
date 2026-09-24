@@ -1,0 +1,10 @@
+# Reference for dataviz-skill
+key: dataviz-skill
+type: tool
+year: 2026
+venue: "Claude bundled skill"
+url: "https://claude.com/claude-code"
+level: A
+contributions:
+  - "Colour last, from roles, checked by a runnable palette validator."
+tags: [color-and-imagery]

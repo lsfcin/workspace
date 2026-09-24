@@ -1,0 +1,10 @@
+# Reference for alley-craft
+key: alley-craft
+type: book
+year: 2013
+venue: "Springer"
+url: "https://link.springer.com/book/10.1007/978-1-4419-8279-7"
+level: A
+contributions:
+  - "The craft of scientific presentations: assertion titles over visual evidence."
+tags: [papers-and-evidence]

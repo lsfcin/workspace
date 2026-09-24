@@ -1,0 +1,10 @@
+# Reference for diagram-design
+key: diagram-design
+type: tool
+year: 2026
+venue: "GitHub cathrynlavery"
+url: "https://github.com/cathrynlavery/diagram-design/blob/main/skills/diagram-design/SKILL.md"
+level: A
+contributions:
+  - "Complexity budgets, connector rules, a pre-output checklist."
+tags: [diagrams]

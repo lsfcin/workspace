@@ -1,0 +1,10 @@
+# Reference for williams-crap
+key: williams-crap
+type: book
+year: 1994
+venue: "Peachpit"
+url: "https://www.amazon.com/Non-Designers-Design-Book-Typographic-Principles/dp/1566091594"
+level: A
+contributions:
+  - "Contrast, repetition, alignment, proximity."
+tags: [layout, visuals]

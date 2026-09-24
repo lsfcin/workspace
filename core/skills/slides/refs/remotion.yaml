@@ -1,0 +1,10 @@
+# Reference for remotion
+key: remotion
+type: tool
+year: 2026
+venue: "Remotion"
+url: "https://www.remotion.dev/docs/ai/skills"
+level: B
+contributions:
+  - "Video as code, with an agent skill: motion rendered from a script."
+tags: [animation]

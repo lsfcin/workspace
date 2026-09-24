@@ -1,0 +1,10 @@
+# Reference for wcag-contrast
+key: wcag-contrast
+type: web
+year: 2023
+venue: "W3C WCAG 2.2"
+url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+level: A
+contributions:
+  - "Contrast at least 4.5:1 for text, 3:1 for large text."
+tags: [accessibility]

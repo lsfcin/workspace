@@ -1,0 +1,10 @@
+# Reference for slide-self-verify
+key: slide-self-verify
+type: preprint
+year: 2025
+venue: "arXiv"
+url: "https://arxiv.org/abs/2502.15412"
+level: P
+contributions:
+  - "A reviewer-refiner loop fixes generated slides from their rendered layout."
+tags: [render-check]

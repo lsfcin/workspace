@@ -1,0 +1,10 @@
+# Reference for academic-pptx
+key: academic-pptx
+type: tool
+year: 2026
+venue: "GitHub Gabberflast"
+url: "https://github.com/Gabberflast/academic-pptx-skill/blob/main/SKILL.md"
+level: A
+contributions:
+  - "Action titles, one exhibit per slide, the ghost-deck test."
+tags: [papers-and-evidence]

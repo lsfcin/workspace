@@ -1,0 +1,10 @@
+# Reference for mazur-pi
+key: mazur-pi
+type: article
+year: 2007
+venue: "PER Reviews"
+url: "http://www.per-central.org/per_reviews/media/volume1/PI-2007.pdf"
+level: B
+contributions:
+  - "Peer instruction: vote, discuss in pairs, vote again."
+tags: [interactivity]

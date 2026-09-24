@@ -1,0 +1,10 @@
+# Reference for spj-talk
+key: spj-talk
+type: web
+year: 2015
+venue: "Simon Peyton Jones"
+url: "https://simon.peytonjones.org/great-research-talk/"
+level: B
+contributions:
+  - "Motivate first, one key idea, examples before generality, no outline slide."
+tags: [structure]

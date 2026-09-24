@@ -4,17 +4,9 @@
 > **pontuação total:** [2*n] pontos ([n] itens de verificação · 2 pontos por item)
 
 <!-- publicacao
-como publicar / atualizar este artefato no cloudflare pages (autonomia do professor):
-1. sincronizar com a pasta publica da disciplina:
-   cp <caminho-canonico>/<n>-<nome>.md outputs/links/<disciplina>/artefatos/<n>-<nome>.md
-2. (se for o primeiro deploy do artefato) criar o viewer html pareado:
-   sed 's/disciplina.md/artefatos\/<n>-<nome>.md/g' outputs/links/<disciplina>/disciplina.html > outputs/links/<disciplina>/artefatos/<n>-<nome>.html
-3. commitar e enviar para o cloudflare pages:
-   git -C outputs/links commit -am "atualiza artefato <n>-<nome>" && git -C outputs/links push
-4. links resultantes no ar (instantaneo):
-   - visualizacao web (humano): https://lucassf.pages.dev/<disciplina>/artefatos/<n>-<nome>
-   - visualizacao raw (agente/ia): https://lucassf.pages.dev/<disciplina>/artefatos/<n>-<nome>.md
-   - edicao direta no navegador (sem terminal): botao 'editar (github.dev)' no rodape da pagina
+o artefato é publicado junto com a página da disciplina, na raiz do workspace (~30 s):
+   core/run tools/links/cfpages publish academy/teaching/classes/<disciplina>/disciplina.md
+web: https://lucassf.pages.dev/<disciplina>/artefatos/<n>-<nome> · raw: …/<n>-<nome>.md
 -->
 
 <!-- guia-ia

@@ -9,7 +9,9 @@
 
 <!-- add entries below, newest first -->
 
-temos que melhorar as instruções de publicação das disciplinas que a gente cola no disciplina.md. idealmente deveria ser só um comando (ou uma lista de comandos) que colo tudo de uma vez só no terminal e funciona sempre.
+aprimorar os templates (e talvez specs se fizer sentido) de teaching diznedo pra incluir nos artefatos instruções para os humanos sobre como usar e como não usar os agentes/ia
+
+temos uma seção "how to use" no readme do wos? dizendo do roundup, handoff, etc, as dicas gerais de uso
 
 na coluna de nota dos paineis das disciplinas (disciplina.md) dar um espaço extra pra caber o 100 pts alinhado
 ex.:
@@ -66,3 +68,7 @@ ai4good, reels nos slides: pra cada reel usado nos 4 decks novos (Jev/Laya, DOAC
 ai4good, refino que ficou pra depois da aula de 23/09: notas de apresentador nos slides ANTIGOS dos 4 decks, notas propostas pros slides só-imagem (autopreservação 44–60, 86–88; agência 92–99, 108–124) e correções visuais in loco. conteúdo em academy/teaching/classes/ai4good/*_conteudo.py. — via claude · 2026-09-23
 
 wos, slides (IMPROVE WOS): (1) não há guia de estilo visual dos decks do Lucas — inferido hoje: Open Sans, título minúsculo bold + termo inglês itálico, fonte 8pt no rodapé, azul #1A73E8 como único destaque; vive só em ai4good/slides_pecas.py. (2) par desenhado + fallback pulado virou convenção → candidato a regra em [slides-dois-caminhos]. (3) links de deck seguem `<disciplina>/<tema>` apontando pra /present. (4) gslides não tem subcomando pra separar deck, copiar slide entre decks (a API não copia: slides_build.py reconstrói), inserir nota ou imagem — ai4good/slides_build.py é candidato a subir pra core/tools/slides. (5) gdrive não tem `rename`. (6) a regra de truncamento do routing acusa qualquer "…" numa descrição, mesmo sem truncar. — via claude · 2026-09-23
+
+migrar o /prof para en-us, traduzindo E cortando ao mesmo tempo (como o /slides, que nasceu em inglês com os termos em pt entre crases) — decidido na sessão de slides de 2026-09-24
+
+wos (IMPROVE WOS, sessão de slides 2026-09-24): (1) os espelhos das skills copiam só o SKILL.md, então os links relativos do /prof e do /slides para as subskills (`prof/x.md`, `slides/x.md`) não resolvem dentro de `.claude/skills/` — o agente acha pelo caminho do core, mas o link está quebrado; (2) as pesquisas de uma sessão ficam em `outputs/.drafts/`, que é gitignored: a outra máquina não vê as 5 pesquisas de slides; (3) `cfpages publish` imprime todo artefato, uma linha cada — talvez só a página e a contagem

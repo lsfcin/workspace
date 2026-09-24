@@ -1,0 +1,10 @@
+# Reference for astra-index
+key: astra-index
+type: web
+year: 2026
+venue: "OpenAI"
+url: "https://openai.com/index/gpt-6-astra/"
+level: V
+contributions:
+  - "Example decks Lucas judged far better than ours (page returned 403 to the agent; unread)."
+tags: [taste]

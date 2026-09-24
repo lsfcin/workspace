@@ -1,0 +1,10 @@
+# Reference for berney2016
+key: berney2016
+type: article
+year: 2016
+venue: "Computers & Education"
+url: "https://tecfa.unige.ch/perso/sandra/pdf/Earli2016_berney_betrancourt_FINAL.pdf"
+level: A
+contributions:
+  - "Meta-analysis: animation helps modestly (g = 0.23), mostly when it shows change."
+tags: [animation]

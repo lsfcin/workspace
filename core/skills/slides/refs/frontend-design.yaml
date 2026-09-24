@@ -1,0 +1,10 @@
+# Reference for frontend-design
+key: frontend-design
+type: tool
+year: 2026
+venue: "Anthropic Claude Code plugin"
+url: "https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design"
+level: A
+contributions:
+  - "Interview before designing; an explicit list of AI-slop tells to avoid."
+tags: [taste]

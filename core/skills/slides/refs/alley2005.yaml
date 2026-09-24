@@ -1,0 +1,10 @@
+# Reference for alley2005
+key: alley2005
+type: article
+year: 2005
+venue: "IEEE IPCC"
+url: "https://writing.engr.psu.edu/ae_comprehension.pdf"
+level: A
+contributions:
+  - "Assertion-evidence slides beat topic-bullet slides on comprehension."
+tags: [word-choice]
