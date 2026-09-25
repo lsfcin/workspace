@@ -5,7 +5,7 @@
 core/run tools/slides/gslides list  --account personal --name "AI4Good"
 core/run tools/slides/gslides read  --account personal <presentation_id>     # deck as navigable text
 core/run tools/slides/gslides stats --account personal <presentation_id>     # style in numbers + archetype of each slide
-core/run tools/slides/gslides lint  --account personal <presentation_id>     # small text, off the slide, over the logo
+core/run tools/slides/gslides lint  --account personal <presentation_id>     # small text, off the slide, over the template, off the footer line
 core/run tools/slides/gslides new   --account personal "Aula 3"
 core/run tools/slides/gslides text  --account personal --slide <slide_id> <presentation_id> "título"
 core/run tools/slides/gslides preview --account personal --sheet <presentation_id>   # slide PNGs + 20-per-image contact sheets

@@ -24,6 +24,7 @@ core/run tools/slides/gslides apply   --account personal <presentation_id> reque
 
 - Two auth grants per account (read, write) — on a dead token the CLI names the exact command:
   `core/run tools/slides/gslides auth <alias> --reauth` (add `--write` for the write grant)
+- A layout cannot be created or duplicated: a template is a deck you copy, a new look an edit to its master/layouts
 - Per-frame motion goes through `batchUpdate`; there is no animation convenience
 - Rendering facts the API does not document (fonts, transforms, export quirks):
   `core/tools/slides/SPECS.md`
