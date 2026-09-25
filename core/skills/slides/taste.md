@@ -3,4 +3,6 @@
 
 Start: pick a profile (room & screen · audience & vibe · talk format), ask only what differs, write the brief. Middle: settle conflicts between subskills, propose better options. End: the refinement pass. Its own taste criteria are built by interviewing the owner over their real decks (step 2).
 
+Values the owner holds: the annotation sits on the element it explains, so the slide guides the speech visually (signaling + spatial contiguity, `mayer2021`); a teaching deck is dual-use — class and self-study — so it must read without the speaker.
+
 Refs: `frontend-design` · `kosslyn2007` · `astra-index`
