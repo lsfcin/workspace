@@ -156,6 +156,7 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | `substrate` | `machine state` | 2026-09-23 |
 | `ledge` | `step` | 2026-09-23 |
 | `blacklist` | `forbidden list` | 2026-09-23 |
+| `dial` | `criterion` | 2026-09-25 |
 
 **One retired token can owe several replacements, and the cell holds only the commonest** — `slug`, `ratchet` and `spine` each owe two or more, and the sense decides.
 
