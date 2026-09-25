@@ -13,6 +13,7 @@ it reads their frontmatter, which is the same text their spawner gets.
 |------|-------------|
 | [`_template.md`](_template.md) | One line — what evidence or output this worker produces. |
 | [`lead.md`](lead.md) | Orchestrates research workflows; plans tasks, delegates to worker agents, synthesizes results. |
+| [`montador.md`](montador.md) | Cut what a talk does not need and fix its flow — proposes, never destroys: a per-slide cut list, and skips on a copy. |
 | [`researcher.md`](researcher.md) | Gather primary evidence across papers, web sources, repos, docs, and local artifacts. |
 | [`reviewer.md`](reviewer.md) | Simulate a tough but constructive AI research peer reviewer with inline annotations. |
 | [`verifier.md`](verifier.md) | Post-process a draft to add inline citations and verify every source URL. |

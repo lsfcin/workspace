@@ -138,7 +138,7 @@ def main():
     pst.add_argument("--account", required=True)
     pst.add_argument("presentation_id")
 
-    pli = sub.add_parser("lint", help="small text, text off the slide, text over the logo")
+    pli = sub.add_parser("lint", help="small text, off the slide, over the template, off the footer line")
     pli.add_argument("--account", required=True)
     pli.add_argument("--min-pt", type=float, default=14, help="smallest text a room can read (default 14)")
     pli.add_argument("presentation_id")

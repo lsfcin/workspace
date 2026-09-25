@@ -148,6 +148,7 @@ def _deck(*slides, logo=(0.85, 0.9, 0.15, 0.1)):
 
 def test_a_run_styled_empty_takes_its_size_from_the_layout_it_inherits():
     body = _styled(_element("body1", 0.1, 0.3, text="nota"), fontSize={"magnitude": 10})
+    body["shape"]["placeholder"] = {"type": "BODY"}
     child = _element("t1", 0.1, 0.3, text="nota")
     child["shape"]["placeholder"] = {"type": "BODY", "parentObjectId": "body1"}
     deck = _deck([child])
@@ -162,7 +163,21 @@ def test_lint_names_what_a_room_cannot_read_and_spares_a_source_link():
     logo = _element("onlogo", 0.8, 0.88, text="por cima")
     problems = {oid: p for _, oid, p in slides_style.lint(_deck([small, link, off, logo]))}
     assert set(problems) == {"small", "off01", "onlogo"}
-    assert problems["off01"].startswith("off the slide") and problems["onlogo"].startswith("over the logo")
+    assert problems["off01"].startswith("off the slide") and problems["onlogo"].startswith("over the template")
+
+
+def test_footer_text_sits_on_the_template_footer_line_or_is_named():
+    author = _styled(_element("author", 0.6, 0.93, w=0.35, h=0.05, text="lucas"), fontSize={"magnitude": 10})
+    author["shape"]["shapeProperties"] = {"contentAlignment": "BOTTOM"}
+    def anchor(oid, y, align, pt=10):  # 10pt on purpose: the footer band is exempt from min_pt
+        el = _styled(_element(oid, 0.03, y, w=0.3, h=0.05, text="rnn"), fontSize={"magnitude": pt})
+        el["shape"]["shapeProperties"] = {"contentAlignment": align}
+        return el
+    deck = _deck([anchor("onit", 0.93, "BOTTOM"), anchor("middle", 0.93, "MIDDLE"), anchor("higher", 0.91, "BOTTOM"),
+                  anchor("bigger", 0.93, "BOTTOM", pt=11)])
+    deck["masters"][0]["pageElements"].append(author)
+    problems = {oid: p for _, oid, p in slides_style.lint(deck)}
+    assert set(problems) == {"middle", "higher", "bigger"} and all(p.startswith("off the footer line") for p in problems.values())
 
 
 def test_the_archetype_follows_what_fills_the_slide():
