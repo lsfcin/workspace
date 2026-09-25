@@ -3,7 +3,6 @@
 
 **The harness path is a symlink into here** — `~/.claude/projects/<name>/memory` → `brain/memory/` — so every memory written by the agent lands in the workspace by construction, shows up in `git status`, and can be trimmed like any other file. This gives both properties at once: **locality** (the content is in the repo) and **control** (we can edit or delete it). Per-file symlinks would have given only the first, leaving each *new* memory outside until someone adopted it.
 
-What cannot be controlled is the agent *deciding* to write one. That is fine — it lands in a diff.
 
 | File | Role |
 |------|------|

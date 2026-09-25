@@ -288,7 +288,7 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/slides-skill is 1 ahead of main
+- . — feature/slides-skill is 2 ahead of main
 
 ### Local branches already merged into their base
 

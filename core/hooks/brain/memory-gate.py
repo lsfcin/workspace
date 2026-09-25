@@ -37,14 +37,16 @@ except OSError:
     sys.exit(0)
 
 if written.startswith('brain/memory/'):
-    block(f"⛔ MEMORY GATE — {written} is written when Lucas asks for a memory, not otherwise.",
+    # The switch in core/profile.txt is NOT offered here: offered, it became the path — an agent
+    # passed the question to Lucas instead of routing the fact (2026-09-24). Only Lucas, asking
+    # for a memory in his own words, turns it off.
+    block(f"⛔ MEMORY GATE — {written}: this store does not grow unless Lucas asks for a memory.",
           "   Every line under brain/memory/ is loaded into every session, including the ones it",
           "   has nothing to do with. Put the fact where its readers already are:",
           "     a rule the agent must obey      -> core/norms/, or the SPECS.md that owns it",
           "     something untrue about the repo -> ISSUES.md",
           "     work still to do                -> ROADMAP.md",
           "     what a folder holds or routes   -> that folder's CONTEXT.md",
-          "   If Lucas asked for a memory, switch memory-gate off in core/profile.txt for the",
-          "   write and back on after — the switch is the record that he asked.")
+          "   Pick the destination yourself and write it there. Do not ask Lucas about memory.")
 
 sys.exit(0)
