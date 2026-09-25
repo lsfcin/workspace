@@ -15,6 +15,8 @@ duração padrão de encontro: **70 a 90 minutos**.
 ## slides
 
 - um deck = um tema. nome: `<disciplina> · <tema>`, em português; o link curto sai do nome, sem acento. deck substituído leva `[deprecated] ` no início do nome.
+- deck que o Lucas já montou é acervo, não rascunho: slide novo entra intercalado, o existente se refina no lugar; nunca substituir, pular ou reordenar o que é dele — remover é decisão dele.
+- títulos e âncoras em minúsculas, siglas inclusive (`rnn`, `ia`).
 - conteúdo em português. divisor de seção e slide de transição (uma afirmação) levam a versão em inglês, em itálico, na linha de baixo; o título é a âncora do rodapé, 1–3 palavras, só em português.
 - a afirmação traz o termo da ementa em **negrito** (um só), escrito igual ao nó da árvore de habilidades, que aponta para esse slide.
 - a nota do apresentador de todo slide abre com 3 linhas: `←` liga ao slide anterior · `●` o que este slide trabalha · `→` prepara o próximo.

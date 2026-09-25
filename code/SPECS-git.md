@@ -32,6 +32,8 @@ whenever `git status` is not clean, and **write the pathspec before the message,
 2026-09-18 three commits used it correctly and the fourth dropped it while a long message was being
 composed, landing 48 files of another session's reorg under an unrelated subject. Recovery is a soft
 reset plus `--force-with-lease`, which is safe only while nobody has committed on top.
+HEAD is shared too: check the branch right before committing, not at session start — a parallel
+session may have switched it, and the post-commit hook pushes to whatever branch it finds.
 
 **The bypass leaves no trace** outside the commit message, which is the only reason it is dangerous. So when using `--no-verify`: state the reason in the commit message, and file a TODO to pay it back. An undocumented bypass is indistinguishable from the gate never having run.
 
