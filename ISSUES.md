@@ -241,6 +241,14 @@ name. An entry without one is invisible to it.
   would spend the measurement to tidy the file it is measured from.
   `b20260922-state-stores`
 
+- **The rtk rewrite of `git commit` reported success for commits the pre-commit hook refused.**
+  Twice on 2026-09-24, `git commit -q …` (rewritten to `rtk git commit`) printed
+  `ok 7 files changed, 60 insertions(+)…` while verify:fast was red and no commit existed; the
+  files stayed staged and `git log` showed the old HEAD. The same commit run with its output sent
+  to a file showed the refusal. An agent that trusts the `ok` line pushes nothing and says it did.
+  Workaround until fixed: send commit output to a file and read `git log -1`.
+  `b20260924-rtk-commit-false-ok`
+
 <!-- entropy:start -->
 ## Entropy
 
@@ -280,7 +288,7 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/slides-skill is 1 ahead of main
+- . — feature/slides-skill is 2 ahead of main
 
 ### Local branches already merged into their base
 
