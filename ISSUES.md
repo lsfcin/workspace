@@ -303,36 +303,36 @@ name. An entry without one is invisible to it.
 
 *a rename is unfinished until these are zero*
 
-- ISSUES.md: retired token '.loop' survives (line 322).
-- ISSUES.md: retired token '/loops' survives (line 323).
-- ISSUES.md: retired token 'BUGS.md' survives (line 324).
-- ISSUES.md: retired token 'KNOWN-BUGS' survives (line 325).
-- ISSUES.md: retired token 'WATCHLIST.md' survives (line 326).
-- ISSUES.md: retired token 'blacklist' survives (line 327).
-- ISSUES.md: retired token 'column cap' survives (line 328).
-- ISSUES.md: retired token 'corpse' survives (line 329).
-- ISSUES.md: retired token 'dial' survives (line 330).
-- ISSUES.md: retired token 'fanout' survives (line 331).
-- ISSUES.md: retired token 'hatchet' survives (line 332).
-- ISSUES.md: retired token 'ledge' survives (line 333).
-- ISSUES.md: retired token 'ledger' survives (line 334).
-- ISSUES.md: retired token 'loop-architecture' survives (line 335).
-- ISSUES.md: retired token 'loop-engineering' survives (line 336).
-- ISSUES.md: retired token 'loop-router' survives (line 337).
+- ISSUES.md: retired token '.loop' survives (line 306).
+- ISSUES.md: retired token '/loops' survives (line 307).
+- ISSUES.md: retired token 'BUGS.md' survives (line 308).
+- ISSUES.md: retired token 'KNOWN-BUGS' survives (line 309).
+- ISSUES.md: retired token 'WATCHLIST.md' survives (line 310).
+- ISSUES.md: retired token 'blacklist' survives (line 311).
+- ISSUES.md: retired token 'column cap' survives (line 312).
+- ISSUES.md: retired token 'corpse' survives (line 313).
+- ISSUES.md: retired token 'dial' survives (line 314).
+- ISSUES.md: retired token 'fanout' survives (line 315).
+- ISSUES.md: retired token 'hatchet' survives (line 316).
+- ISSUES.md: retired token 'ledge' survives (line 317).
+- ISSUES.md: retired token 'ledger' survives (line 318).
+- ISSUES.md: retired token 'loop-architecture' survives (line 319).
+- ISSUES.md: retired token 'loop-engineering' survives (line 320).
+- ISSUES.md: retired token 'loop-router' survives (line 321).
 - ISSUES.md: retired token 'mail-triage' survives (line 143).
 - ISSUES.md: retired token 'nudge' survives (line 105).
-- ISSUES.md: retired token 'pre-read.sh' survives (line 340).
-- ISSUES.md: retired token 'probe' survives (line 341).
-- ISSUES.md: retired token 'ratchet' survives (line 342).
-- ISSUES.md: retired token 'scaffold' survives (line 343).
-- ISSUES.md: retired token 'seam' survives (line 344).
-- ISSUES.md: retired token 'shard' survives (line 345).
-- ISSUES.md: retired token 'sidecar' survives (line 346).
-- ISSUES.md: retired token 'slug' survives (line 347).
-- ISSUES.md: retired token 'spine' survives (line 348).
-- ISSUES.md: retired token 'substrate' survives (line 349).
-- ISSUES.md: retired token 'telegram-capture' survives (line 350).
-- ISSUES.md: retired token 'tier' survives (line 351).
+- ISSUES.md: retired token 'pre-read.sh' survives (line 324).
+- ISSUES.md: retired token 'probe' survives (line 325).
+- ISSUES.md: retired token 'ratchet' survives (line 326).
+- ISSUES.md: retired token 'scaffold' survives (line 327).
+- ISSUES.md: retired token 'seam' survives (line 328).
+- ISSUES.md: retired token 'shard' survives (line 329).
+- ISSUES.md: retired token 'sidecar' survives (line 330).
+- ISSUES.md: retired token 'slug' survives (line 331).
+- ISSUES.md: retired token 'spine' survives (line 332).
+- ISSUES.md: retired token 'substrate' survives (line 333).
+- ISSUES.md: retired token 'telegram-capture' survives (line 334).
+- ISSUES.md: retired token 'tier' survives (line 335).
 - brain/GOALS.md: retired token 'sidecar' survives (line 82).
 - brain/drafts/context-folding-report.md: retired token 'tier' survives (line 206).
 - brain/drafts/metodologia-aulas-gemini.md: retired token 'scaffold' survives (line 42).
@@ -385,7 +385,7 @@ name. An entry without one is invisible to it.
 
 *a closed item is deleted — cite the SPECS.md/SCHEMA.md section that owns the rule*
 
-- ISSUES.md: cites 'Frente 4.1' (line 403).
+- ISSUES.md: cites 'Frente 4.1' (line 388).
 - core/hooks/checks/citation-gate.py: cites 'Front 4.1' (line 5).
 - core/tools/test/law/test_citation_gate.py: cites 'Frente 4.1' (line 72).
 
@@ -413,9 +413,9 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/pdf-twin is 17 ahead of main
+- . — feature/pdf-twin is 18 ahead of main
 - . — feature/slides-skill is 7 ahead of main
-- . — feature/slides-taste is 12 ahead of main
+- . — feature/slides-taste is 13 ahead of main
 
 ### Work that exists on this disk and nowhere else
 

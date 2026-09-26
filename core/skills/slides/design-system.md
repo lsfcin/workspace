@@ -23,14 +23,21 @@ One **family** per section: a deck section gets one family, and one master per f
 | neutro | ink | grafite | `#3a3b40` | `#3a3b40` | white 11.2 |
 | neutro | ink | preto | `#000000` | `#000000` | white 21.0 |
 
-Page: white; body text: preto (triad t2: white ground and black text win in his rooms).
+Page: white with preto text by default (triad t2: it wins in his rooms — weak projector, glass board); a **dark ground** (preto or ardósia, white text) is offered too, per deck or per slide.
 
 **Use.** `main` is the section's bar, full fill and split block; `light` is a split's calm side or a fill behind a diagram; `dark` is emphasis inside the section (one bold term, one highlighted bar). **Ardósia** is the dark ground for impact slides and the neutral family's section. Footer text: ardósia.
 
 **Avoid.** Two families on one content slide unless the colour IS the comparison · a family's light and main as two different sections (they read as one) · urucum and terracota as two sections (same hue, 10°) · ametista and uva likewise · colour as the only signal: menta, céu and âmbar share a lightness (~2.1), so a colour-blind viewer needs the label or the position too · text on urucum below title size.
 
 ## Fonts
-Pending — round 3 on the taste page (`fonts` collection): one family for **text** (the lesson body; must read on a weak projector) and a short list for **impact** (section, one-sentence statement, a few moments per deck). Code: IBM Plex Mono. Until decided: Open Sans (text), Open Sans Light (footer).
+Two roles: **text** (the lesson body; must read on a weak projector) and **impact** (section, one-sentence statement, a few moments per deck). Round 3 votes (2026-09-26), final pick open:
+
+| role | yes | maybe | no | not voted |
+|---|---|---|---|---|
+| text | Atkinson Hyperlegible · Source Sans 3 ("easier to read") | Open Sans · Figtree | IBM Plex Sans | — |
+| impact | Anton | Archivo Black | Bebas Neue · Bricolage Grotesque · Syne | Unbounded · Fraunces · Big Shoulders Display |
+
+Code: IBM Plex Mono. Footer: the text family, light. Until the pick: Open Sans.
 
 ## Sizes (pt)
 display 54 · title 36 · statement 40 · body 24 · code 18 · footer 10. Text never shrinks to fit: overflow means a second slide.
@@ -43,7 +50,7 @@ Every family's master carries all of these. `split` names where the colour sits 
 | cover | course above (24, muted), topic below and larger (48, bold) |
 | section | full fill, English line in italic below, optional hook image |
 | split | 30 · 40 · 50 · 60 · 70 × left · right · top · bottom |
-| content | thin bar: none · left · bottom (optional, fine) · footer colour: muted · main |
+| content | thin bar: none · left · bottom (optional, fine); the bar never recolours the footer text |
 | statement | one sentence, one bold term |
 | number | numeral in main + stacked title |
 | quote | portrait bleeding off an edge, one sentence, author below |
