@@ -9,6 +9,7 @@
 | [`chat/`](chat/CONTEXT.md) | T1 coverage for the chat tool: what an audio line must keep, what noise must go, and what must never reach a versioned file. |
 | [`files/`](files/CONTEXT.md) | T1 coverage for files and drive sync tooling. |
 | [`law/`](law/CONTEXT.md) | Level 0: what a file is, what a name may be, and how big a session may get. |
+| [`pdf/`](pdf/CONTEXT.md) | T1 unit tests for the PDF twin. The PDFs are built in bytes and the engine is faked: no GPU, no network, no model. |
 | [`video/`](video/CONTEXT.md) | T1 unit tests for the video tool. Fixtures live here; network-marked cases are excluded from verify-fast. |
 | [`workspace/`](workspace/CONTEXT.md) | Level 0 workspace-wide invariants: pointers resolve, .gitignore self-heals, imports do not shadow. |
 | [`wos/`](wos/CONTEXT.md) | What the workspace declares about itself, and what the session-close ritual really does. |
@@ -17,6 +18,7 @@
 |------|-----------|-----|-------------|
 | [`conftest.py`](conftest.py) | [`conftest.pyi`](conftest.pyi) | `floor_of`, `git_lines`, `needs`, `carries`, `pytest_configure` | conftest.py — the one place the suite learns where things are: workspace root, core/tools, and the enforcement layer. Also registers the network marker for the video tests. |
 | [`test_caveman_compress.py`](test_caveman_compress.py) | [`test_caveman_compress.pyi`](test_caveman_compress.pyi) | — | T1 caveman compress: model output reaches disk as a text file, and the default id has one home. |
+| [`test_describe.py`](test_describe.py) | [`test_describe.pyi`](test_describe.pyi) | `backends` | T1 describe: an answer that ignores the image's own text is escalated, and a chain that runs out keeps its best answer flagged rather than nothing. Zero-token, no network. |
 | [`test_docs.py`](test_docs.py) | [`test_docs.pyi`](test_docs.pyi) | `paragraph` | T1 docs: an index a document reports must still mean that place when the edit is applied. |
 | [`test_forms.py`](test_forms.py) | [`test_forms.pyi`](test_forms.pyi) | — | T1 forms: a form written as JSON must reach the API as the form that was written. |
 | [`test_gauth.py`](test_gauth.py) | [`test_gauth.pyi`](test_gauth.pyi) | `accounts` | T1 auth recovery: a dead Google token must hand Lucas a runnable fix, not a traceback. |
