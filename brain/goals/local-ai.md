@@ -46,7 +46,7 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 > [ ] [finetune-libs] avaliar as 10 libs de fine-tuning local (Unsloth, LLaMA-Factory, PEFT, Axolotl, TRL, torchtune, LitGPT, SWIFT, DeepSpeed, AutoTrain) — quais servem ao runner de SLM do dobra na RTX 3050 6GB? ref em `core/refs/REFS.md` (INBOX 2026-07-27)  
 > [ ] [manaca-1b] olhar o Manacá-1B — 1.72B decoder-only aberto e reproduzível pra pt-BR, pesos e logs soltos. Lucas:
 > *"a gente TEM que olhar isso! não deixar pra mt longe"* (INBOX 2026-09-11), então **é o próximo daqui**. Duas coisas separadas: (1) cabe na RTX 3050 6GB e serve de base local em português — amarra em [local-setup] e [tiny-quant];
-> (2) a armadilha de tokenizer que o paper documenta (SentencePiece com case-folding → HF fast derruba o normalizer, LAMBADA-PT 45.3 → 25.0, invisível na métrica agregada) é um erro que a gente pode cometer em qualquer avaliação nossa, independente de adotar o modelo. Ref em `academy/refs/REFS.md`  
+> (2) a armadilha de tokenizer que o paper documenta (SentencePiece com case-folding → HF fast derruba o normalizer, LAMBADA-PT 45.3 → 25.0, invisível na métrica agregada) é um erro que a gente pode cometer em qualquer avaliação nossa, independente de adotar o modelo. Ref em `academy/teaching/REFS.md`  
 > [ ] [layerwise-70b] avaliar a lib Python que roda modelos de 70B carregando camada por camada do disco, com flash attention e memória quase plana — Lucas: *"talvez sirva pros nossos testes"*. Mesmo gênero de fonte de [cpu-inference-engine], então ir na fonte primária antes do número. Ref em `core/refs/REFS.md` (— via aiwbot)  
 > [ ] [openworker] olhar o OpenWorker do Andrew Ng — co-worker que executa tarefas em vez de conversar, roda local, conecta 40+ apps e aceita qualquer modelo. Lucas: *"vale muito a pena a gente consultar"*. Ref em `core/refs/REFS.md` (— via aiwbot)  
 > [ ] [higgsfield-o-que-roda-aqui] a pergunta estreita sobre o Higgsfield: o que da stack dele roda **aqui**, se é que algo roda. O post é patrocinado e fala em acesso por API na nuvem, então a resposta honesta pode ser "nada" — e um "não" curto, escrito, vale mais que a pergunta voltando a cada captura. Irmão de [higgsfield-asset-gen] em `rpg-isoroll.md`. Ref em `core/refs/REFS.md` (— via aiwbot)  
@@ -59,5 +59,5 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-17  ·  trend: advancing  ·  touches: 72/100/101/101/101/101
+last-touch: 2026-09-21  ·  trend: advancing  ·  touches: 73/105/106/106/106/106
 <!-- stats:end -->

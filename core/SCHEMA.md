@@ -25,13 +25,12 @@
 | `SKILL.md` | What procedure does the agent follow when invoked? |
 | `GOALS.md` | Which goals have wind right now? (dashboard + router) |
 | `INBOX.md` | Raw capture, zero taxonomy, drained to empty |
-| `MEMORY.md` | Which memories exist, and what is each about? (index + router, `brain/memory/` only) |
 | `SETUP.md` | How do I make this environment work? (toolchain install + config) |
 | `PROJECTS.md` | Where does each internal project live — here, and outside? (root only) |
 | `STATUS.md` | Is this craft chain still running, and where did it stop? (`.craft/<name>/` only) |
 | `SCHEMA.md` | This file: the law about types. |
 
-Anything else is rejected: *"add it to the allowlist if you mean it."* `STATUS.md` must stay one line of present-tense state; `MEMORY.md` is the one type the agent writes rather than authors, and is checked like any other file. **Where types nearly touch:** `CONTEXT.md` **never hand-lists files** —
+Anything else is rejected: *"add it to the allowlist if you mean it."* `STATUS.md` must stay one line of present-tense state. **There is no memory type**: what an agent learns goes to the norm, SPECS, list or CONTEXT.md that owns it (ruled 2026-09-15). **Where types nearly touch:** `CONTEXT.md` **never hand-lists files** —
 but ask why a hand list was written before deleting it, since it may point at what the generator cannot reach. Rules that *constrain code* go to `SPECS.md`, what the directory *is* stays in `CONTEXT.md`. `ISSUES.md` owns the issue text and `ROADMAP.md` cites it by id. Inside `ISSUES.md` the hand-written issues come first and every measurement sits in its own block — **never hand-edit inside a block, never write a measured number outside one.**
 
 ### The one exception: transient initiative docs
@@ -48,7 +47,7 @@ A **cross-project rollout** is **not a new type** (ruled 2026-08-14, Lucas): it 
 ## Placement: level × read-frequency
 
 The first test is **is it still true?** — against code, tests and `git log`, never memory; an untrue ESSENTIAL is the most expensive object here. Then level, per *section*: **ESSENTIAL** = work comes out wrong · **IMPORTANT** = work comes out slower · **DESIRABLE** = nothing changes, git holds it.
-Read-frequency is a property of the enforcement layer, not a guess: **HOT** = `CONTEXT.md` (the only enforced-read type), `AGENTS.md` and `MEMORY.md` (system prompt), `GOALS.md` and `ROADMAP.md` (induced-hot by the root `README.md`); **COLD** = everything else; **MACHINE-READ** = `SCHEMA.md`.
+Read-frequency is a property of the enforcement layer, not a guess: **HOT** = `CONTEXT.md` (the only enforced-read type), `AGENTS.md` (system prompt), `GOALS.md` and `ROADMAP.md` (induced-hot by the root `README.md`); **COLD** = everything else; **MACHINE-READ** = `SCHEMA.md`.
 Where the axes meet: hot+essential **KEEP** · cold+essential **PROMOTE**, it is arriving too late to prevent the error · hot+important **REDIRECT** behind one pointer line · cold+important **KEEP** · desirable **CUT**. **A provider's own directory is not a placement, it is an escape** — no type owns it, no check reads it, and it dies with the harness; symlink it in and it is an instance again.
 
 **The REDIRECT recipe, in order**, and the order is what pays: (1) delete what a hook already enforces — except a number that changes how you write *before* the hook can speak, so the size caps stay;
@@ -118,6 +117,7 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 |------|------------|
 | **feature** | Something **this workspace authors** that can be switched off in-process, declared in [`features.txt`](features.txt) — one layer or a combination. Third-party machine state is not a feature; it is a `SETUP.md` step plus a `deps.txt` line. The test: if switching it off leaves nothing running to observe the difference, it is machine state |
 | **layer** | One of `hooks · tools · skills · agents · flows · norms` — each names a directory under `core/`, except `norms` |
+| **twin** | The sibling folder a PDF gets, `<stem>/<stem>.md` plus its figures: the document in text, with the hash that says when it went stale ([`tools/pdf/`](tools/pdf/CONTEXT.md)). A file written *beside* another for a different purpose is named for that purpose — a transcript, a provenance file |
 | **norm** | A rule that exists only as written words and is obeyed rather than enforced — the INDUCED half of the line whose ENFORCED half is `file_law.py` / `schema_law.py` / `feature_law.py`. A norm that acquires a checker becomes a hook |
 
 ### Retired tokens
@@ -156,6 +156,8 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | `substrate` | `machine state` | 2026-09-23 |
 | `ledge` | `step` | 2026-09-23 |
 | `blacklist` | `forbidden list` | 2026-09-23 |
+| `dial` | `criterion` | 2026-09-25 |
+| `sidecar` | `twin` | 2026-09-25 |
 
 **One retired token can owe several replacements, and the cell holds only the commonest** — `slug`, `ratchet` and `spine` each owe two or more, and the sense decides.
 

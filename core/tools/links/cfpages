@@ -76,8 +76,16 @@ def cmd_publish(page: pathlib.Path, publish: pathlib.Path) -> None:
     copied = pages.mirror(page, publish)
     course = copied[0].parent.name
     pages.push(publish, [publish / course], f"atualiza {course}/{page.stem}")
-    for f in copied:
-        print(f"{links_core.base()}/{f.relative_to(publish)}")
+    main_target = copied[0]
+    artefacts = copied[1:]
+    if page.stem in ("disciplina", "index"):
+        web_url = f"{links_core.base()}/{course}"
+    else:
+        web_url = f"{links_core.base()}/{course}/{page.stem}"
+    raw_url = f"{links_core.base()}/{main_target.relative_to(publish).as_posix()}"
+    print(f"web: {web_url} · raw: {raw_url}")
+    if artefacts:
+        print(f"artefatos: {len(artefacts)} sincronizado(s)")
     print("  pushed — Cloudflare Pages deploys in ~30s")
 
 

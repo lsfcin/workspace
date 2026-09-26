@@ -49,11 +49,11 @@ Every run must leave on disk:
 - `<refs dir>/REFS.md` — level-tagged reference lines, appended
 - `<refs dir>/<key>.yaml` — one review per kept paper
 - `outputs/<name>-sota.md` — the ≤200-line decision summary
-- `outputs/<name>-sota.provenance.md` — the provenance sidecar
+- `outputs/<name>-sota.provenance.md` — the provenance file
 
 `<refs dir>` is the target project's `refs/` when the field serves a project, or `core/refs/` for workspace-level work. If not given, ask which one in Step 1 — refs with no home are lost work.
 
-After plan approval, never end with chat-only output. If a capability fails, continue degraded and still write the summary and sidecar with `Verification: BLOCKED`.
+After plan approval, never end with chat-only output. If a capability fails, continue degraded and still write the summary and provenance file with `Verification: BLOCKED`.
 
 ## Step 1 — Plan
 
@@ -127,7 +127,7 @@ State the evidence caveat once for the whole summary: where a conclusion leans o
 ## Step 6 — Verify
 
 If subagents were used, run the `verifier` agent against the summary before delivery; do not run `verifier` and `reviewer` in the same parallel call. For direct-mode runs, verify yourself:
-confirm each URL resolves, each level marker matches the venue, and each yaml's `relevance` is filled. Record findings in the provenance sidecar as FATAL / MAJOR / MINOR. Fix FATAL before delivering; note MAJOR under Gaps; accept MINOR.
+confirm each URL resolves, each level marker matches the venue, and each yaml's `relevance` is filled. Record findings in the provenance file as FATAL / MAJOR / MINOR. Fix FATAL before delivering; note MAJOR under Gaps; accept MINOR.
 
 Prove applied fixes on disk with grep/diff/stat — never claim a fix landed on the strength of having written it.
 

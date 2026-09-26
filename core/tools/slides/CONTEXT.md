@@ -1,5 +1,5 @@
 # slides
-> Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides API).
+> Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides API); `pptx` builds the masters and layouts the API cannot.
 
 ```bash
 core/run tools/slides/gslides list  --account personal --name "AI4Good"
@@ -12,6 +12,8 @@ core/run tools/slides/gslides preview --account personal --sheet <presentation_i
 core/run tools/slides/gslides apply --account personal <presentation_id> requests.json
 core/run tools/slides/gslides export <url_or_id> --format pdf                # public export fallback without OAuth
 core/run tools/slides/gslides sample <url_id_or_pdf> --out dir --max-samples 25 # keyframe visual clustering
+core/run tools/slides/pptx template spec.json --out t.pptx                     # one master per section colour, same layouts in each
+core/run tools/files/gdrive put --account personal --slides --name "template" t.pptx   # ...converted into Google Slides
 ```
 
 **`read` prints element ids on purpose** — they are exactly what a `batchUpdate` request needs, so reading a deck hands back the handles for editing it, no second raw-JSON fetch.
@@ -28,8 +30,13 @@ Two auth grants (same split as [`../files/`](../files/CONTEXT.md)), the renderin
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | What the API actually returns, learned the expensive way — read alongside `CONTEXT.md`. |
-| [`deck_sample.py`](deck_sample.py) | [`deck_sample.pyi`](deck_sample.pyi) | `parse_slide_target`, `download_public_export`, `extract_slide_texts`, `clean_slide_lines`, `cluster_and_sample` | deck_sample.py — Ingestion, progressive clustering and visual sampling for slide decks |
+| [`deck_sample.py`](deck_sample.py) | [`deck_sample.pyi`](deck_sample.pyi) | `parse_slide_target`, `download_public_export`, `render_pages`, `extract_slide_texts`, `clean_slide_lines` | deck_sample.py — Ingestion, progressive clustering and visual sampling for slide decks |
 | [`gslides`](gslides) | — | — | Google Slides CLI: auth, list, read, stats, lint, new, add, text, apply, preview, export, sample |
+| [`pptx`](pptx) | — | — | a slide template as real masters and layouts, for Drive to convert into Google Slides |
+| [`pptx_layouts.py`](pptx_layouts.py) | [`pptx_layouts.pyi`](pptx_layouts.pyi) | `section`, `split`, `content`, `statement`, `number` | pptx_layouts.py — every layout kind the template generator knows, as geometry over the shape primitives |
+| [`pptx_masters.py`](pptx_masters.py) | [`pptx_masters.pyi`](pptx_masters.pyi) | `build`, `summary` | pptx_masters.py — a .pptx with one master per section colour, each carrying the same layouts |
+| [`pptx_shapes.py`](pptx_shapes.py) | [`pptx_shapes.pyi`](pptx_shapes.pyi) | `box`, `placeholder`, `text`, `layout` | pptx_shapes.py — the DrawingML a layout is made of: a filled box, a placeholder, a fixed line of text |
+| [`pptx_theme.py`](pptx_theme.py) | [`pptx_theme.pyi`](pptx_theme.pyi) | `slots`, `rewrite` | pptx_theme.py — one theme per section: the stock theme with its colour slots and fonts rewritten |
 | [`slides_core.py`](slides_core.py) | [`slides_core.pyi`](slides_core.pyi) | `get_service`, `get_presentation`, `list_presentations`, `create`, `apply` | slides_core.py — Google Slides read+write boundary (account-agnostic) for Core/tools/slides/gslides |
 | [`slides_geom.py`](slides_geom.py) | [`slides_geom.pyi`](slides_geom.pyi) | `rotation_deg`, `eff_scale`, `compose_transforms`, `bounds` | slides_geom.py — Google Slides transform algebra: rotation, effective scale, composition, bounds |
 | [`slides_outline.py`](slides_outline.py) | [`slides_outline.pyi`](slides_outline.pyi) | `element_text`, `kind`, `outline` | slides_outline.py — a deck as navigable text: slide index, element ids, and the words on them |

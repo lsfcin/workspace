@@ -28,11 +28,13 @@ WINDOWS_VENV_BIN = '.venv/Scripts'   # were re-spelled in 20 files, which is wha
 AUTHORING_ROOT = '/mnt/workspace'    # named ONCE, so a checker can search without self-finding
 
 
-def venv_script(name: str) -> Path:
+def venv_script(name: str, venv: str = '.venv') -> Path:
     """A console script inside the venv — pytest, stubgen, yt-dlp, pip. Two differences in one
-    answer: the directory (bin vs Scripts) and the suffix; by hand, a check misreports a present dep."""
-    return WORKSPACE_ROOT / (WINDOWS_VENV_BIN if _WINDOWS else POSIX_VENV_BIN) / (
-        f'{name}.exe' if _WINDOWS else name)
+    answer: the directory (bin vs Scripts) and the suffix; by hand, a check misreports a present dep.
+    `venv` names a sibling venv with the same layout: `.venv-pdf` holds the PDF engines, whose ~120
+    packages the venv every hook starts on should not carry (core/tools/pdf/requirements-pdf.txt)."""
+    bin_dir = (WINDOWS_VENV_BIN if _WINDOWS else POSIX_VENV_BIN).replace('.venv', venv, 1)
+    return WORKSPACE_ROOT / bin_dir / (f'{name}.exe' if _WINDOWS else name)
 
 
 def interpreter() -> str:

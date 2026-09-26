@@ -10,7 +10,7 @@ The (b-refined) level-alias + active-model-swap decision — strip `model:` prov
 Canonical artifacts (read before changing the routing):
 
 - `outputs/agent-level-routing-agnostic.md` — the cited decision brief (22 sources, decision matrix, risk table, open niches)
-- `outputs/agent-level-routing-agnostic.provenance.md` — provenance sidecar (URL + access-date + decision-relevance per source)
+- `outputs/agent-level-routing-agnostic.provenance.md` — provenance file (URL + access-date + decision-relevance per source)
 - `core/flows/refs/agent-level-routing-REFS.md` — level-1 index pointing to per-source YAMLs in `core/flows/refs/`
 - `core/flows/refs/research-summary.yaml` — synthesis-summary YAML (the solution bulleted into a single file)
 

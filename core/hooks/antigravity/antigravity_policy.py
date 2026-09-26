@@ -59,6 +59,8 @@ def pre_tool(call: dict[str, Any], sid: str) -> dict[str, Any]:
         payload, tool = {"command": args.get("CommandLine", "")}, "Bash"
     elif name == "grep_search":
         payload, tool = {"path": args.get("SearchPath", "")}, "Grep"
+    elif name == "find_by_name":
+        payload, tool = {"path": args.get("SearchDirectory", "")}, "Glob"
     elif name == "invoke_subagent":
         # Not in gates.txt: this fires on a moment (a worker being spawned) rather than on what a
         # call does to a file, so it keeps its own registration here and in every other harness.
@@ -98,6 +100,7 @@ def post_tool(call: dict[str, Any], sid: str) -> dict[str, Any]:
             p["old_string"] = args.get("TargetContent", "")
             p["new_string"] = args.get("ReplacementContent", "")
         run_gate("post-edit.sh", p, tool)
+        run_gate("dispatch.py", {**p, "hook_event_name": "PostToolUse"}, tool)
     return {}
 
 
@@ -112,7 +115,9 @@ def pre_invocation(data: dict[str, Any]) -> dict[str, Any]:
             _, msg = run_gate(script, {}, "SessionStart")
             if msg:
                 msgs.append(msg)
-    _, meter = run_gate("session/context-meter.py", {"session_id": sid}, "PreInvocation")
+    _, meter = run_gate("session/context-meter.py",
+                        {"session_id": sid, "conversationId": sid, "cwd": str(WORKSPACE_ROOT)},
+                        "PreInvocation")
     if meter:
         msgs.append(meter)
     combined = "\n\n".join(m for m in msgs if m.strip())
@@ -133,12 +138,16 @@ def main() -> int:
 
     sid = str(data.get("conversationId") or os.getppid())
     res: dict[str, Any] = {}
-    if event == "PreToolUse":
-        res = pre_tool(data.get("toolCall") or {}, sid)
-    elif event == "PostToolUse":
-        res = post_tool(data.get("toolCall") or {}, sid)
-    elif event == "PreInvocation":
-        res = pre_invocation(data)
+    try:
+        if event == "PreToolUse":
+            res = pre_tool(data.get("toolCall") or {}, sid)
+        elif event == "PostToolUse":
+            res = post_tool(data.get("toolCall") or {}, sid)
+        elif event == "PreInvocation":
+            res = pre_invocation(data)
+    except Exception as exc:
+        sys.stderr.write(f"Antigravity shim error ({event}): {exc}\n")
+        res = {"decision": "allow"} if event == "PreToolUse" else {}
 
     print(json.dumps(res, ensure_ascii=False))
     return 0

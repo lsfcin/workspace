@@ -71,12 +71,13 @@ def test_each_preview_is_named_by_its_slide_and_sorts_in_slide_order(monkeypatch
     ids = [f"s{i}" for i in range(1, 102)]
     monkeypatch.setattr(slides_core, "get_presentation", lambda a, p: {"slides": [{"objectId": i} for i in ids]})
     sys.path.insert(0, str(pathlib.Path(slides_core.__file__).parent.parent / "files"))
-    import drive_core, subprocess
+    import drive_core
     monkeypatch.setattr(drive_core, "download_file", lambda a, p, d: d / "deck.pdf")
-    def render(cmd, check):  # pdftoppm numbers pages without padding: p-1 … p-101
+    def render(pdf, prefix, pages=None, dpi=150):  # the pdf family's leaf, in page order: p-1 … p-101
         for n in range(1, len(ids) + 1):
-            pathlib.Path(f"{cmd[-1]}-{n}.png").write_text(str(n), encoding="utf-8", newline="\n")
-    monkeypatch.setattr(subprocess, "run", render)
+            pathlib.Path(f"{prefix}-{n}.png").write_text(str(n), encoding="utf-8", newline="\n")
+        return [pathlib.Path(f"{prefix}-{n}.png") for n in range(1, len(ids) + 1)]
+    monkeypatch.setattr(deck_sample, "render_pages", render)
     paths = slides_core.previews("personal", "deck", tmp_path)
     names = sorted(p.name for p in tmp_path.iterdir())
     assert names == [p.name for p in paths]

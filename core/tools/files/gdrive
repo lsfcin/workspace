@@ -67,11 +67,13 @@ def cmd_mkdir(account: str, name: str, parent_id: str) -> None:
     fid = drive_core.find_or_create_folder(svc, name, parent_id)
     print(f"Folder '{name}' ({alias})  id:{fid}")
 
-def cmd_put(account: str, path: str, parent_id: str, as_gdoc: bool, name: str) -> None:
+CONVERT = {"gdoc": (drive_core.GDOC_MIME, "Google Doc"), "slides": (drive_core.GSLIDES_MIME, "Google Slides")}
+
+def cmd_put(account: str, path: str, parent_id: str, convert: str, name: str) -> None:
     alias = gauth.resolve_alias(account)
     svc = drive_core.get_service(alias, write=True)
-    res = drive_core.upload_local(svc, path, parent_id, as_gdoc=as_gdoc, name=name)
-    kind = "Google Doc" if as_gdoc else "file"
+    mime, kind = CONVERT.get(convert, (None, "file"))
+    res = drive_core.upload_local(svc, path, parent_id, convert_to=mime, name=name)
     print(f"Uploaded {kind} '{res['name']}' ({alias})  id:{res['id']}\n  {res.get('webViewLink', '')}")
 
 def cmd_copy(account: str, file_id: str, name: str, parent_id: str) -> None:
@@ -152,7 +154,8 @@ def main():
     pp = sub.add_parser("put")
     pp.add_argument("--account", required=True)
     pp.add_argument("--parent", default="root")
-    pp.add_argument("--gdoc", action="store_true", help="convert to Google Doc on upload")
+    pp.add_argument("--gdoc", dest="convert", action="store_const", const="gdoc", help="convert to Google Doc on upload")
+    pp.add_argument("--slides", dest="convert", action="store_const", const="slides", help="convert to Google Slides on upload (.pptx masters and layouts kept)")
     pp.add_argument("--name", default=None, help="override the uploaded file name")
     pp.add_argument("path")
     pc = sub.add_parser("copy")
@@ -187,7 +190,7 @@ def main():
     elif args.cmd == "search":   cmd_search(args.account, args.query)
     elif args.cmd == "download": cmd_download(args.account, args.file_id, args.export_as)
     elif args.cmd == "mkdir":    cmd_mkdir(args.account, args.name, args.parent)
-    elif args.cmd == "put":      cmd_put(args.account, args.path, args.parent, args.gdoc, args.name)
+    elif args.cmd == "put":      cmd_put(args.account, args.path, args.parent, args.convert, args.name)
     elif args.cmd == "copy":     cmd_copy(args.account, args.file_id, args.name, args.parent)
     elif args.cmd == "rename":   cmd_rename(args.account, args.file_id, args.name)
     elif args.cmd == "perms":    cmd_perms(args.account, args.file_id)

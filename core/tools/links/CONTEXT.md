@@ -32,5 +32,5 @@ The short name grammar, the private-folder refusal, why Cloudflare rather than G
 | [`cfpages`](cfpages) | — | — | named short links: add, find, rm, build, check; publish a course page |
 | [`links.txt`](links.txt) | — | — | Every short link this workspace hands out: the short name someone is told out loud, and where it really goes. Read by core/tools/links/links_core.py; published as _redirects by `cfpages build`. |
 | [`links_core.py`](links_core.py) | [`links_core.pyi`](links_core.pyi) | `base`, `Refused`, `load`, `preamble`, `save` | links_core.py — the short name map read+write boundary, and the redirect file it emits, for links/cfpages |
-| [`pages.py`](pages.py) | [`pages.pyi`](pages.pyi) | `Refused`, `mirror_of`, `redraw`, `mirror`, `push` | pages.py — a course page and its artefacts mirrored into the publish repo and pushed, in one call, for links/cfpages |
+| [`pages.py`](pages.py) | [`pages.pyi`](pages.pyi) | `Refused`, `resolve_page`, `mirror_of`, `redraw`, `mirror` | pages.py — a course page and its artefacts mirrored into the publish repo and pushed, in one call, for links/cfpages |
 <!-- routing:end -->

@@ -21,8 +21,8 @@ fallback · articles or long-form essays count — reading is reading*
 ## backlog
 
 > [ ] [pick-book] pick one book and read one page today  
-> [ ] [stevenson] ler Gary Stevenson, incluir obras no workspace onde pertinente (ver academy/refs/REFS.md)  
-> [ ] [bregman] ler Rutger Bregman (Moral Ambition), incluir obras no workspace onde pertinente (ver academy/refs/REFS.md)
+> [ ] [stevenson] ler Gary Stevenson, incluir obras no workspace onde pertinente (ver academy/teaching/REFS.md)  
+> [ ] [bregman] ler Rutger Bregman (Moral Ambition), incluir obras no workspace onde pertinente (ver academy/teaching/REFS.md)
 > [ ] [visible-book] keep a current book somewhere physically visible — not on a shelf  
 > [ ] [week-1] read every day for 7 days — even 5 minutes counts  
 > [ ] [month-1] reading as a natural daily default — no tracking needed  
@@ -36,5 +36,5 @@ fallback · articles or long-form essays count — reading is reading*
 
 ## stats
 <!-- stats:start -->
-last-touch: —  ·  trend: new  ·  touches: 0/0/0/0/0/0
+last-touch: 2026-09-18  ·  trend: advancing  ·  touches: 2/2/2/2/2/2
 <!-- stats:end -->

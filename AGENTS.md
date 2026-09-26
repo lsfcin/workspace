@@ -18,6 +18,7 @@ Targets live in [`core/tools/links/links.txt`](core/tools/links/links.txt); a do
 - USE OUR TOOLS: we want those to be useful and perfected.
 - REDUCING IS THE WAY: improve/extend by cutting size; growing the workspace takes Lucas's OK first.
 Cut where a line is READ, not where it merely sits — `core/run tools/wos/session/reads` ranks that.
+A weak feature is deleted whole, leaving one rejection note in its SPECS; while a design is still open, every variant stays until Lucas picks.
 <!-- norms:end -->
 
 Git Flow, the branch gate's scope, the `--no-verify` protocol, and the push policy:

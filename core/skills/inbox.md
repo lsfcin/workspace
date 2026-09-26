@@ -52,7 +52,7 @@ A `ref` goes to the **nearest owning folder's** `refs/REFS.md` — never a centr
 | dobra research (context-folding, graphs+agents, model leaks) | `code/dobra/refs/REFS.md` |
 | apptime design | `code/apptime/refs/REFS.md` |
 | research paper for a specific manuscript | that paper's `academy/papers/<paper>/refs/` (promote to yaml) |
-| general research paper (no target manuscript) | `academy/refs/REFS.md` |
+| teaching material or education research | `academy/teaching/REFS.md` |
 | AI / agent / model tooling to evaluate | `core/refs/REFS.md` |
 | no clear owner yet | `core/refs/REFS.md` (if tooling) — else ask Lucas |
 

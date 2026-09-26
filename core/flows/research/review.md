@@ -56,6 +56,6 @@ Workflow:
    - Recommendation
    - Sources
 8. If the artifact cannot be parsed or critical evidence is unavailable, still write `outputs/<name>-review.md`. Mark the affected sections with `Verification: BLOCKED`, explain exactly what failed, and distinguish blocked checks from actual paper weaknesses.
-9. Write `outputs/<name>-review.provenance.md` (date, artifact identifier, sources inspected vs accepted vs rejected, verification status). Before responding, verify on disk that both `outputs/<name>-review.md` and its provenance sidecar exist. If the review is missing, create it immediately as a blocked review artifact with the failure reason.
+9. Write `outputs/<name>-review.provenance.md` (date, artifact identifier, sources inspected vs accepted vs rejected, verification status). Before responding, verify on disk that both `outputs/<name>-review.md` and its provenance file exist. If the review is missing, create it immediately as a blocked review artifact with the failure reason.
 
 Never end with planning-only chat. Never ask what to do next. Never claim the review is complete unless `outputs/<name>-review.md` exists.

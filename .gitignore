@@ -72,15 +72,6 @@ academy/*
 !academy/classes/
 academy/classes/*
 !academy/classes/CONTEXT.md
-!academy/lab/
-academy/lab/*
-# The same repair as academy/papers/*.md below, for the same reason: CHECKPOINTS.md is the law
-# academy/lab/CONTEXT.md routes to and calls "the law", and it was ignored and untracked, so it
-# had no history anywhere and a clone got the routing table without the file. Excepting the *.md
-# glob rather than one name at a time is what stops the gap reopening for the next type.
-# The dated snapshots stay out on purpose — CONTEXT.md declares them captured, not authored.
-!academy/lab/*.md
-academy/lab/*-backup-*.md
 !academy/papers/
 academy/papers/*
 # Domain-level .md files here are structural workspace types (CONTEXT, ROADMAP, SPECS,
@@ -175,9 +166,6 @@ brain/attachments/*
 !brain/goals/
 brain/goals/*
 !brain/goals/*.md
-!brain/memory/
-brain/memory/*
-!brain/memory/*.md
 !brain/drafts/
 brain/drafts/*
 !brain/drafts/*.md
@@ -193,6 +181,8 @@ brain/drafts/*
 # whole directory was ignored. This block is later, so it always won and the 36 lines above
 # tracked nothing; the file simply stated both answers. Deleted 2026-09-01.
 # gitignore_heal.py will not re-add them: it skips any subdir holding a `.git`.
+academy/administration
+academy/lab
 academy/papers/2026-JBCS-relativistic_raytracer
 academy/papers/2026-SIBGRAPI-relativistic_raytracer
 academy/papers/2027-CHI-avdspace
@@ -204,6 +194,9 @@ academy/papers/mutual-credit-ai
 academy/papers/pls-pix
 academy/papers/spacemantics
 academy/papers/wos-ablation
+academy/reviews
+academy/talks
+academy/teaching
 branches/casinhas
 branches/instituto
 code/apptime
@@ -229,13 +222,8 @@ code/wos
 # Plain content dirs (no nested repo) — fully trackable.
 !code/prog1/
 !code/programacao1/
-!academy/administration/
-!academy/refs/
-!academy/talks/
-!academy/teaching/
 !branches/ecovila/
 !core/prompts/
-!academy/reviews/
 !core/experiments/
 !core/norms/
 
@@ -260,8 +248,9 @@ code/wos
 .zcode/skills/*/
 .agents/skills/*/
 
-# The workspace venv. Local to one machine, never versioned.
+# The workspace venv, and the PDF engines' sibling venv. Local to one machine, never versioned.
 .venv/
+.venv-pdf/
 
 # LaTeX build artifacts
 *.aux
@@ -276,7 +265,3 @@ code/wos
 .drive-manifest-cache.json
 _material/previews/
 !brain/_templates/
-
-# Grade sheets carry students' full names, enrollment numbers and grades — personal data that stays
-# on disk and out of git (ruled 2026-09-23, Lucas). The public page shows items, never these sheets.
-academy/teaching/classes/*/Planilha de Notas*

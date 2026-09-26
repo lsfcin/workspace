@@ -37,6 +37,7 @@ setting	permissions	open
 setting	links-base	https://lucassf.pages.dev
 toggle	context-chain	on
 toggle	interface-first-reads	on
+toggle	pdf-twin-reads	on
 toggle	interface-stubs	on
 toggle	routing-tables	on
 toggle	agent-context-brief	on
@@ -91,6 +92,7 @@ toggle	notes-notion	on
 toggle	link-shortener	on
 toggle	links	on
 toggle	video-text	on
+toggle	pdf	on
 toggle	wazip	on
 toggle	asset-inspect	on
 toggle	latex	on

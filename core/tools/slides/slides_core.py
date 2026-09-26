@@ -114,9 +114,9 @@ def previews(alias: str, presentation_id: str, out_dir: pathlib.Path, dpi: int =
     Not the Slides thumbnail endpoint: that one is an 'expensive read' with a per-minute
     quota, so a 20+ slide deck gets a 429 halfway. The export is one call for any size.
     """
-    import subprocess, tempfile
+    import tempfile
     sys.path.insert(0, str(_HERE.parent / 'files'))
-    import drive_core
+    import deck_sample, drive_core
     ids = [s["objectId"] for s in get_presentation(alias, presentation_id).get("slides", [])]
     out_dir.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
@@ -125,10 +125,8 @@ def previews(alias: str, presentation_id: str, out_dir: pathlib.Path, dpi: int =
         except Exception as err:  # Drive refuses exports over ~10 MB; a link-shared deck still has the public one
             if "too large" not in str(err):
                 raise
-            import deck_sample
             pdf = deck_sample.download_public_export(presentation_id, pathlib.Path(tmp) / "deck.pdf")
-        subprocess.run(["pdftoppm", "-png", "-r", str(dpi), str(pdf), f"{tmp}/p"], check=True)
-        pages = sorted(pathlib.Path(tmp).glob("p-*.png"), key=lambda p: int(p.stem.split("-")[-1]))
+        pages = deck_sample.render_pages(pdf, pathlib.Path(tmp) / "p", dpi=dpi)
         paths, width = [], max(2, len(str(len(ids))))  # names sort in slide order past 99
         for idx, (sid, page) in enumerate(zip(ids, pages), 1):
             dest = out_dir / f"slide_{idx:0{width}d}_{sid}.png"

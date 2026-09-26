@@ -26,7 +26,8 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`mail/`](mail/CONTEXT.md) | Read a mailbox and triage it. Provider leaf: `gmail`. Auth: [`../auth/gauth.py`](mail/../auth/gauth.py). |
 | [`notes/`](notes/CONTEXT.md) | Pages and note databases, read as navigable text. Provider leaf: `notion` (Notion REST API). |
 | [`paper/`](paper/CONTEXT.md) | Academic sources and text: search papers, extract text, annotate, check terminology. |
-| [`slides/`](slides/CONTEXT.md) | Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides API). |
+| [`pdf/`](pdf/CONTEXT.md) | A PDF becomes its twin: a sibling folder whose .md holds all the text, every figure described, and the hash that says when it went stale. Provider leaves: `docling`, `pymupdf`. |
+| [`slides/`](slides/CONTEXT.md) | Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides API); `pptx` builds the masters and layouts the API cannot. |
 | [`test/`](test/CONTEXT.md) | The verify-fast suite: every Level 0 check plus the tool unit tests. Zero-token, no network. |
 | [`verify/`](verify/CONTEXT.md) | Verification contract + patterns for all code projects: levels T0-T3, script names, dump-oracle rules. Reference |
 | [`video/`](video/CONTEXT.md) | Link to navigable text — metadata, captions, transcript, OCR, VLM caption. |
@@ -39,6 +40,7 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`attachments_util.py`](attachments_util.py) | [`attachments_util.pyi`](attachments_util.pyi) | `safe_name`, `month_dir`, `unique_path`, `prune_old_attachments` | attachments_util.py — shared filename/dir helpers for Core/tools attachment downloaders (gmail, telegram) |
 | [`auth/gauth.py`](auth/gauth.py) | [`auth/gauth.pyi`](auth/gauth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `AuthExpired` | gauth.py — Google's leaf of the auth family: shared OAuth2 for every Google-backed tool |
 | [`deps.txt`](deps.txt) | — | — | Every external dependency the core/tools surface needs, declared: what installs it, what checks it, and what its absence breaks. Read by core/tools/wos/deps (the check runner) and by core/tools/test/wos/test_deps.py (the class check). |
+| [`describe.py`](describe.py) | [`describe.pyi`](describe.pyi) | `Description`, `ocr`, `overlap`, `describe` | describe.py — the one image describer the tools share (pdf figures, video frames): which model looks, what the image's own text says, and whether the description can be trusted. |
 | [`gcli.py`](gcli.py) | [`gcli.pyi`](gcli.pyi) | `run`, `aliases`, `auth_command` | gcli.py — the two things every Google-backed CLI does identically: consent, and fan out over accounts |
 | [`notify/telegram`](notify/telegram) | — | — | tell Lucas, on the chat he already reads |
 | [`secret_law.py`](secret_law.py) | [`secret_law.pyi`](secret_law.pyi) | `redact_line`, `redact`, `Finding`, `scan_text`, `scan` | secret_law.py — the one definition of what counts as a secret: the patterns, the redaction a transcript needs, and the scan that REFUSES a file rather than cleaning it. |

@@ -97,7 +97,7 @@ Do the work and write the artifact. Delegate gathering; never delegate synthesis
 ## Provenance
 <!-- required: research-brief — recommended: domain — not required: utility -->
 
-Write a sidecar next to the artifact as `<name>.provenance.md` (a flow may instead declare a single running log, as long as it is declared):
+Write a provenance file next to the artifact as `<name>.provenance.md` (a flow may instead declare a single running log, as long as it is declared):
 
 ```markdown
 # Provenance: [topic]

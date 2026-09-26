@@ -21,6 +21,6 @@ By default the zip stays the archive and only the text is written — the media 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`chat_stitch.py`](chat_stitch.py) | [`chat_stitch.pyi`](chat_stitch.pyi) | `transcript_for`, `fold`, `is_noise`, `stitch`, `span` | chat_stitch.py — a chat export becomes one readable conversation: every "audio attached" line gains what was actually said underneath, bot menus that repeat verbatim go, and secrets are redacted. |
-| [`chat_transcribe.py`](chat_transcribe.py) | [`chat_transcribe.pyi`](chat_transcribe.pyi) | `duration`, `audios`, `sidecar`, `eta`, `run` | chat_transcribe.py — batch speech-to-text over an extracted chat export; one .txt sidecar per audio. Resumable: an audio whose sidecar already exists is skipped, so a killed run loses nothing. |
+| [`chat_transcribe.py`](chat_transcribe.py) | [`chat_transcribe.pyi`](chat_transcribe.pyi) | `duration`, `audios`, `transcript_of`, `eta`, `run` | chat_transcribe.py — batch speech-to-text over an extracted chat export; one .txt transcript beside each audio. Resumable: an audio whose transcript already exists is skipped, so a killed run loses nothing. |
 | [`wazip`](wazip) | — | — | a WhatsApp export becomes navigable text: audios transcribed inline, bot menus dropped, secrets redacted. |
 <!-- routing:end -->

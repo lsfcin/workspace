@@ -191,15 +191,3 @@ def enforcement_paths(root: Path) -> set:
             | {p.resolve() for pattern in _CHECKER_TESTS for p in root.glob(pattern)}
             | {(repo / _LOCAL_LIST).resolve() for repo in nested_repos(root)}
             | {p.resolve() for p in tracked_files(root) if is_vendored(p, root)})
-
-
-# brain/memory holds cross-session agent memory, and its `[[name]]` names ANOTHER MEMORY rather
-# than a goal. A name with no file yet is allowed there on purpose — it marks a memory worth
-# writing later. Only the wiki-link check is relaxed: retired tokens are still enforced there, and
-# the day the store arrived that check caught four memories naming files renamed in July.
-# Memory rots exactly like documentation, and nothing was watching it before.
-MEMORY_DIR = 'brain/memory'
-
-
-def wiki_exempt_paths(root: Path) -> set:
-    return enforcement_paths(root) | {p.resolve() for p in (root / MEMORY_DIR).rglob('*.md')}

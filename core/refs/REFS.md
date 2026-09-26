@@ -102,8 +102,6 @@
 - [three-lane model routing](https://www.instagram.com/reel/DbHHdF4gLWS/) — SLM preprocessing to frontier brief.
 - [obra/Superpowers](https://github.com/obra/Superpowers) — skills-based TDD/SDD agent methodology.
 - [github/spec-kit](https://github.com/github/spec-kit) — spec-driven development patterns (clarify, constitution).
-- [opendataloader-pdf](https://github.com/opendataloader-project/opendataloader-pdf)
-  — high-speed CPU PDF parser candidate for `core/tools/paper/parse`.
 - [KittenTTS](https://github.com/KittenML/KittenTTS) — compact CPU TTS model.
 - [ByteDance OpenViking](https://github.com/ByteDance/OpenViking) · [NVIDIA Switchyard](https://github.com/NVIDIA/Switchyard)
   — context browsing and cheap-level model routing.
