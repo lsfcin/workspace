@@ -58,3 +58,24 @@ def test_video_frames_go_through_the_shared_describer(monkeypatch):
     monkeypatch.setattr(describe, 'describe', fake)
     assert video_media.caption_image('f.png') == 'a dog on a beach'
     assert seen == {'image': 'f.png', 'describer': 'agy', 'prompt': describe.FRAME_PROMPT}
+
+
+def test_agy_logged_out_is_asked_once_and_never_prompted(monkeypatch, capsys):
+    """Logged out, `agy -p` opens a browser login per figure; `agy models` lists nothing instead."""
+    calls = []
+
+    def run(cmd, **kw):
+        calls.append(cmd)
+        assert kw.get('stdin') is describe.subprocess.DEVNULL
+        return describe.subprocess.CompletedProcess(cmd, 0, stdout='Fetching available models...\n', stderr='')
+    monkeypatch.setattr(describe, '_AGY_LOGGED_IN', None)
+    monkeypatch.setattr(describe.subprocess, 'run', run)
+    assert not describe.agy_logged_in() and not describe.agy_logged_in()
+    assert calls == [['agy', 'models']] and 'agy is not logged in' in capsys.readouterr().err
+
+
+def test_agy_logged_in_lists_its_models(monkeypatch):
+    monkeypatch.setattr(describe, '_AGY_LOGGED_IN', None)
+    monkeypatch.setattr(describe.subprocess, 'run', lambda cmd, **kw: describe.subprocess.CompletedProcess(
+        cmd, 0, stdout='gemini-3.8-flash-high\tGemini 3.8 Flash (High)\n', stderr=''))
+    assert describe.agy_logged_in()

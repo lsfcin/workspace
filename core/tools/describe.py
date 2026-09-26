@@ -17,6 +17,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from typing import NamedTuple
@@ -105,10 +106,32 @@ def _cli(cmd: list[str], image: Path, prompt: str) -> str:
     with tempfile.TemporaryDirectory(prefix='describe-') as tmp:
         staged = _staged(image, Path(tmp))
         r = subprocess.run(cmd + [f'Read the image file {staged.name} in the current directory. {prompt}'],
-                           cwd=tmp, capture_output=True, text=True, encoding='utf-8', timeout=TIMEOUT)
+                           cwd=tmp, capture_output=True, text=True, encoding='utf-8', timeout=TIMEOUT,
+                           stdin=subprocess.DEVNULL)
     if r.returncode:
         raise RuntimeError(r.stderr[-500:] or f'exit {r.returncode}')
     return r.stdout
+
+
+_AGY_LOGGED_IN: bool | None = None
+
+
+def agy_logged_in() -> bool:
+    """Asked once per run, before the first figure. Logged out, `agy -p` opens a browser login on
+    Lucas's screen for every figure (2026-09-26, after a forced reboot dropped the session); `agy models`
+    lists nothing instead, and never prompts. Logged out, the chain goes on to claude, and says so once."""
+    global _AGY_LOGGED_IN
+    if _AGY_LOGGED_IN is None:
+        try:
+            r = subprocess.run(['agy', 'models'], capture_output=True, text=True, encoding='utf-8',
+                               timeout=60, stdin=subprocess.DEVNULL)
+            _AGY_LOGGED_IN = any('\t' in line for line in r.stdout.splitlines())
+        except (OSError, subprocess.TimeoutExpired):
+            _AGY_LOGGED_IN = False
+        if not _AGY_LOGGED_IN:
+            print('describe: agy is not logged in, so claude describes this run. '
+                  'To bring agy back, run `agy` once in a terminal.', file=sys.stderr)
+    return _AGY_LOGGED_IN
 
 
 def _agy(image: Path, prompt: str) -> tuple[str, str]:
@@ -149,6 +172,8 @@ def describe(image, describer: str = 'agy', ocr_text: str = '', prompt: str = FI
     kept = None
     for name in CHAINS[describer]:
         if name in ('agy', 'claude') and backends is BACKENDS and not shutil.which(name):
+            continue
+        if name == 'agy' and backends is BACKENDS and not agy_logged_in():
             continue
         try:
             text, by = backends[name](Path(image), prompt)
