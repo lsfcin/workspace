@@ -9,6 +9,20 @@
 
 <!-- add entries below, newest first -->
 
+a pasta de ai4good tá cheia de coisa...
+
+https://www.instagram.com/p/Ddv3YvXjIJn/?stkn=NTc4MTIwNjQ2YQ==
+esse cara é mt bom, quero aproveitar vários dos posts dele pra minha aula
+
+https://www.instagram.com/p/DdwF-9GjVX_/?stkn=NTc4MTIwNjQ2YQ==
+fazer um review detalhado
+
+obrigar que a skill de revisão de artigos baixe o pdf do artigo
+
+https://www.instagram.com/p/DddL4yNkyGD/?stkn=NTc4MTIwNjQ2YQ==
+corrigir depois traduzir e mostrar pros meus alunos
+— via aiwbot · 2026-09-26
+
 criar handoff por repositório, tipo outputs/teaching/handoff.md que aí sessões paralelas não vão conflitar no repasse do trabalho
 — via aiwbot · 2026-09-25
 
@@ -114,3 +128,15 @@ wos (sessão de slides 2026-09-24, 2ª): (1) o agent `montador` tem nome em pt-b
 imagem → .md irmão: pra ler qualquer imagem (não só as de dentro de PDF) a gente poderia gerar um .md pra ela, com a descrição do VLM + o texto do OCR — mesma ideia do .md irmão de PDF. Cruza com o `.imgif` de `core/tools/assets/inspect` (já é um arquivo irmão de imagem com campo de descrição) e com o `caption_image` do video/. Guardado na sessão de PDF→md de 2026-09-25
 
 wos (IMPROVE WOS, sessão PDF→md 2026-09-25): (1) `pkill -f <padrão>` mata o próprio shell do Bash quando o padrão aparece na linha de comando — usar `pgrep -f '[x]yz'`; (2) Marker e MinerU deixam servidores órfãos (surya, mineru.doclib) segurando VRAM depois de falhar — qualquer ferramenta de GPU nossa precisa derrubar o que subiu; (3) o gate de contexto pede os CONTEXT.md de cada PDF tocado, até pra um `pdfinfo` — muito custo pra operação só-leitura sobre binário
+
+wos (sessão taste 2026-09-25): o /handoff grava sempre em `outputs/handoff.md`, e sessões paralelas sobrescrevem o handoff uma da outra — o de taste foi para `outputs/handoff-taste.md` por isso. Um handoff por sessão (nome do tema no arquivo) ou por ramo resolve; o /handoff escolhe o nome, nunca o agente de improviso
+
+wos (sessão taste 2026-09-25): uma sessão do Antigravity deixou 68 arquivos rastreados de `academy/teaching` apagados no disco (SPECS-aulas.md, SPECS.md, CONTEXT.md, classes/*) logo depois do sub-repo `9ff90bc` nascer — restaurado com `git -C academy/teaching restore .`. Nenhum hook viu: o gate olha o repo raiz, e o sub-repo não tem sentinela. Falta um check (entropia ou sessão) que avise "arquivo rastreado sumiu" em todo sub-repo, e descobrir o que o Antigravity rodou
+
+wos (sessão taste 2026-09-25, achados de ferramenta): (1) `gdrive download` não tem `--out` e salva em `Downloads/workspace-drive/`, misturado com contrato e escritura — um destino por chamada ajudaria; (2) `web/search` não achou o repo do motion-web, ler a url num quadro do vídeo achou — o `video` podia fazer OCR da barra de endereço quando o vídeo é gravação de tela; (3) `web/search` só funciona via `core/run`; YouTube dá 403; `pdftoppm -scale-to-x` corta a página e `mutool draw -w` não (achados do subagente da galeria); (4) o cálculo de contraste WCAG que a sessão escreveu no scratchpad é o miolo de um `lint` de contraste para o `gslides` (o "cinza com cinza" do g46)
+
+wos (IMPROVE WOS, sessão PDF twin Fase 1, 2026-09-25): (1) o agy leva 20–100 s por figura — 2 PDFs com 25 figuras levaram 19 min; o backfill dos 97 PDFs (Fase 3) pode levar horas: reabrir a latência antes (Lucas disse que reabriria se incomodasse); (2) figura decorativa (brasão em toda página) ainda é descrita 1× pelo agy — dava pra pular e só marcar; (3) a pasta `tmp/pdf-bench/` guarda o corpus e as keys do bench de VLM só nesta máquina, e `tmp/` é descartável — mover pra um lugar local durável ou aceitar que se perde; (4) com `pymupdf-layout`, o pymupdf agora lê scan em 0.94 (RapidOCR), não 0.74 — rever se `docling` segue default; (5) duas sessões no mesmo HEAD: esta sessão trocou o branch pra `feature/pdf-twin` com o taste não commitado, e o pre-commit roda a suite no working tree inteiro, então um arquivo não rastreado de uma sessão bloqueia o commit da outra; (7) PAGAR: os commits do PDF twin em `feature/pdf-twin` foram com `--no-verify` (Lucas OK) porque 3 testes caíam pelo `taste-galeria-1.md` não commitado da sessão taste — rodar `./verify.py fast` assim que o taste commitar, antes de promover o branch; (8) a referência do audit faz OCR cru da página quando a camada de texto é pobre, e isso infla a referência em slides (c8 0.57/0.83 com texto certo) — filtrar por confiança como o `describe.ocr`; (9) 2026-09-26 04:07: tela não voltou do bloqueio e o PC teve de ser desligado no botão — sem Xid/GPU caída no log, mas houve `NVRM Out of memory` (VRAM) em todo run do docling (23:02, 03:05, 03:40) e o kernel -34 com `nvidia-595-open` novo esperava reboot desde 24/09; se repetir, checar ollama segurando VRAM junto com o docling (`ollama ps`, `nvidia-smi`) antes de um backfill longo
+
+wos (IMPROVE WOS, sessão PDF twin Fase 2, 2026-09-26): (1) o `pdf-gate` recusa todo PDF sem twin mesmo quando a feature `pdf` está desligada ou o `.venv-pdf` não existe (clone de aluno): o comando que ele entrega falha e o PDF fica ilegível — decidir se o gate se cala quando `pdf` está off; (2) o destravamento depende de `subtree-read-tracking` ligado (é o tracker que marca o twin lido); desligado, o gate bloqueia pra sempre — mesma dependência não declarada do interface-first, e o `features.txt` não tem coluna de "depende de"; (3) furo conhecido do braço Bash: `python script.py` que abre PDF com fitz lá dentro escapa (igual W1: só vê o texto do comando); (4) `deck_sample.render_sample_images` agora sobe um interpretador por slide via `pdf/poppler` — dava pra pedir todas as páginas numa chamada só (`--pages 1,5,9`); (5) `core/hooks/SPECS.md` está em 16,3 mil caracteres, acima do aviso de 14,4 mil — precisa de corte; (6) os twins de conferência da Fase 1 sumiram no reboot (`/tmp`) — se quiser olhar lado a lado, regenerar; (7) promoção de `feature/pdf-twin` continua travada pelo taste (item 7 acima)
+
+wos (IMPROVE WOS, sessão taste 2026-09-26): (1) PAGAR: `fde50ff1` (ferramenta `pptx`, `feature/slides-taste`) foi com `--no-verify` (Lucas OK) — rodar `./verify.py fast` no checkout principal antes de promover; (2) os arquivos do taste já estão commitados em `feature/slides-taste` (worktree no scratchpad), mas seguem sujos no checkout principal (`brain/drafts/CONTEXT.md`, `core/hooks/vendored.txt`, `core/prompts/slides-padroes.md`, `brain/drafts/taste-galeria-1.md`) — é isso que trava o verify do `feature/pdf-twin`; limpar quando os dois branches se encontrarem em `develop`; (3) worktree novo não passa no verify: faltam `.venv`, espelhos de skill, `.claude/settings.local.json` e os sub-repos `academy/*` — um `core/run tools/wos/worktree` que prepare isso (symlink do venv, `mirror-heal`, cópia do settings local) e diga o que não dá pra trazer; (4) o hook de token aposentado acusa `dial` dentro de "rotary-dial" (título em inglês de um item da galeria) — o casamento é por substring, não por palavra; (5) `core/skills/slides/design-system.md` leva a paleta e as fontes do Lucas pro repo público — decidir se exclui do publish ou se fica como exemplo; (6) a ferramenta `pptx` ainda lê JSON: fazer ela ler as tabelas do `design-system.md`, pra ele ser a única fonte
