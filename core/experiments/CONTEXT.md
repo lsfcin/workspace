@@ -23,9 +23,11 @@ Per-file format, the rule that keeps a stored number honest, and the reporting d
 | [`hook-latency.md`](hook-latency.md) | What does the enforcement layer cost per tool call, and how much of that is work nobody asked for? |
 | [`hook-scoreboard.md`](hook-scoreboard.md) | Which features ever actually fire, and which of those ever actually block anything? |
 | [`output-cost.md`](output-cost.md) | Output tokens are more expensive than input — by how much, and where are ours? |
+| [`pdf-engine.md`](pdf-engine.md) | Which engine turns our real PDFs into markdown with the most of their words, their tables and their figures, at what cost? |
 | [`read-amplification.md`](read-amplification.md) | Do our own gates make a session read the same file more than once — and what does that cost? |
 | [`reflow-not-cutting.md`](reflow-not-cutting.md) | How many lines does undoing the dead width limit remove, and why does none of it count as reduction? |
 | [`session-clock.md`](session-clock.md) | How long does a session take, and how much of that was the machine working rather than waiting? |
 | [`subagent-context-chain.md`](subagent-context-chain.md) | Does forcing an agent to read a folder's CONTEXT.md chain change what it does — and should a subagent be forced at all? |
+| [`vlm-describe.md`](vlm-describe.md) | Which model describes a PDF figure with the most of its facts and the fewest inventions, and can a free check tell a bad description from a good one? |
 | [`zcode-hook-protocol.md`](zcode-hook-protocol.md) | Will ZCode execute this workspace's hook registration in `.zcode/config.json`, and what does a fired hook actually receive? |
 <!-- routing:end -->
