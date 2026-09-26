@@ -9,15 +9,15 @@ Base inicial e extensível para lidar com toda a burocracia da vida acadêmica �
 essential · expected · reluctant-but-necessary
 
 ## selected next achievement
-    [pdf-sidecar] resolver o padrão "sidecar de PDF" — arquivo associado a cada PDF que evita o agente reler à toa, é
-    criado na primeira leitura, e carrega inteligência pra decidir quando uma 2ª passada é necessária (hook)
+    [pdf-twin] o twin de cada PDF já existe (`core/run tools/pdf/docling`); falta o gate de leitura que manda o agente
+    ao twin e o recusa quando o twin está velho (Fase 2), e o backfill dos 97 PDFs dos domínios (Fase 3)
 
 **ease-start**
 Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e escrever o passo-a-passo dele em texto puro — só isso, um fluxo real documentado. 15 min.
 
 ## backlog
 
-> [ ] [pdf-sidecar] hook + convenção de sidecar por PDF: evita leitura desnecessária, cria na 1ª leitura, sinaliza necessidade de 2ª passada. Cruza com o item de OCR no TODO (PDFs image-only) e com `code/dobra` ([[local-ai]])
+> [ ] [pdf-twin] gate de leitura: um Read de `*.pdf` vai ao twin, ou é recusado com o comando que o gera. Cruza com `code/dobra` ([[local-ai]])
 > (folding de PDFs longos)
 > [ ] [map-org] mapear a estrutura organizacional (DC/UFRPE, colegiados, câmaras, GTs) — quem decide o quê [ ] [map-flows] mapear os fluxos de processos recorrentes (progressão, afastamento, bancas, projetos de pesquisa, bolsas) como passo-a-passo editável [ ] [gather-norms] reunir resoluções + instruções normativas + links oficiais num índice navegável (não copiar tudo —
 > referenciar + anotar)
@@ -31,5 +31,5 @@ Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e es
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: advancing  ·  touches: 18/25/25/25/25/25
+last-touch: 2026-09-25  ·  trend: steady  ·  touches: 3/8/8/8/8/8
 <!-- stats:end -->

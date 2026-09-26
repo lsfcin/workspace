@@ -4,15 +4,15 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-09-25 22:29
+last-updated: 2026-09-26 03:35
 
 >**areas** — last 14 days  
 ```
 health       ░░░░░░░░░░   3 touches
 career       ░░░░░░░░░░   19 touches
-craft        ██████████   231 touches
+craft        ██████████   223 touches
 finances     ░░░░░░░░░░   4 touches
-fun          ░░░░░░░░░░   6 touches
+fun          ░░░░░░░░░░   7 touches
 spiritual    ░░░░░░░░░░   1 touches
 ```
 
@@ -22,7 +22,7 @@ burocracia-academica     ░░░░░░░░░░   2 touches
 career-ufrpe             ░░░░░░░░░░   1 touches
 corporal-expressiveness  ░░░░░░░░░░   1 touches
 craft-flows              ░░░░░░░░░░   16 touches
-cria                     ░░░░░░░░░░   2 touches
+cria                     ░░░░░░░░░░   3 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   3 touches
 exercise                 ░░░░░░░░░░   2 touches
@@ -34,8 +34,8 @@ health-skills            ░░░░░░░░░░   1 touches
 home-casinhas            ░░░░░░░░░░   2 touches
 instituto                ░░░░░░░░░░   1 touches
 lih-dd                   ░░░░░░░░░░   4 touches
-listenreading            ░░░░░░░░░░   2 touches
-local-ai                 ░░░░░░░░░░   20 touches
+listenreading            ░░░░░░░░░░   3 touches
+local-ai                 ░░░░░░░░░░   18 touches
 magic-places             ░░░░░░░░░░   1 touches
 make-in-time             ░░░░░░░░░░   1 touches
 pandeiro                 ░░░░░░░░░░   1 touches
@@ -50,11 +50,11 @@ spacemantics             ░░░░░░░░░░   2 touches
 spec-driven-development  ░░░░░░░░░░   7 touches
 startapps                ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   1 touches
-teaching-materials       ░░░░░░░░░░   21 touches
+teaching-materials       █░░░░░░░░░   22 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   1 touches
-workspace-os             ██████████   228 touches
+workspace-os             ██████████   220 touches
 yoga                     ░░░░░░░░░░   1 touches
 ```
 <!-- data:end -->
@@ -79,7 +79,7 @@ The one relational move stays one text message.
 
 | goal | area | horizon | timing | selected achievement | file |
 |------|------|---------|--------|---------------------|------|
-| burocracia acadêmica | career | year | — | [pdf-sidecar] resolver o padrão "sidecar de PDF" — arqu… | [→](goals/burocracia-academica.md) |
+| burocracia acadêmica | career | year | — | [pdf-twin] o twin de cada PDF já existe (`core/run tool… | [→](goals/burocracia-academica.md) |
 | carreira UFRPE — progressão e renda | career | near | — | [progressao-map] mapear regras e calendário de progress… | [→](goals/career-ufrpe.md) |
 | corporal expressiveness | spiritual | dream | — | [body-awareness] read or watch something about body lan… | [→](goals/corporal-expressiveness.md) |
 | craft flows | career | now | — | [opencode-reliability] (A2) executar UM chain completo … | [→](goals/craft-flows.md) |

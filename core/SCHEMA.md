@@ -117,6 +117,7 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 |------|------------|
 | **feature** | Something **this workspace authors** that can be switched off in-process, declared in [`features.txt`](features.txt) — one layer or a combination. Third-party machine state is not a feature; it is a `SETUP.md` step plus a `deps.txt` line. The test: if switching it off leaves nothing running to observe the difference, it is machine state |
 | **layer** | One of `hooks · tools · skills · agents · flows · norms` — each names a directory under `core/`, except `norms` |
+| **twin** | The sibling folder a PDF gets, `<stem>/<stem>.md` plus its figures: the document in text, with the hash that says when it went stale ([`tools/pdf/`](tools/pdf/CONTEXT.md)). A file written *beside* another for a different purpose is named for that purpose — a transcript, a provenance file |
 | **norm** | A rule that exists only as written words and is obeyed rather than enforced — the INDUCED half of the line whose ENFORCED half is `file_law.py` / `schema_law.py` / `feature_law.py`. A norm that acquires a checker becomes a hook |
 
 ### Retired tokens
@@ -156,6 +157,7 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | `ledge` | `step` | 2026-09-23 |
 | `blacklist` | `forbidden list` | 2026-09-23 |
 | `dial` | `criterion` | 2026-09-25 |
+| `sidecar` | `twin` | 2026-09-25 |
 
 **One retired token can owe several replacements, and the cell holds only the commonest** — `slug`, `ratchet` and `spine` each owe two or more, and the sense decides.
 
