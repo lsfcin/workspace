@@ -36,17 +36,7 @@ Note `DbBDnp6DcKV` is an **image carousel** — yt-dlp reports "No video formats
 ## M4 — L4 visual captioning (pure-visual content, no speech/on-screen text)
 `caption_frames()` in `video_media.py`, wired as the `visual` level in `assemble()` (escalates after OCR fails / with `--level visual` or `full`).
 
-Model: `Qwen/Qwen3-VL-2B-Instruct` (Apache-2.0), natively supported by `transformers` (`Qwen3VLForConditionalGeneration` — no `trust_remote_code`, so it won't break when the shared workspace venv's `transformers` gets upgraded by another tool).
-
-Rejected: `moondream2` / `moondream-2b-*-4bit` — smaller (2.3-4GB VRAM vs Qwen3-VL's ~4.3GB) but both revisions' `trust_remote_code` custom modeling files are already broken by workspace's `transformers==5.9.0` (API drift: `int4_weight_only` removed from `torchao`, `all_tied_weights_keys` renamed upstream). Not worth chasing pinned-version compat in a shared venv other tools also upgrade.
-
-Deps (already in venv as of 2026-07-22, only `accelerate`/`torchao` were missing):
-```bash
-"$(sh core/run --python)" -m pip install accelerate      # required for device_map=
-```
-`torch`, `transformers`, `pillow` already present (whisper/general deps).
-
-Measured on RTX 3050 6GB Laptop: ~4.3GB VRAM peak, fp16, ~1.7s/frame after model load (first load downloads ~4GB weights, cached after in `~/.cache/huggingface`). Model is config data (`model_id` param), swap freely.
+Describer: the shared [`../describe.py`](../describe.py), the same one PDF figures use — agy first, claude as the fallback, no local model and no GPU. The local Qwen3-VL-2B it replaced invented content in the 2026-09-25 bake-off ([`core/experiments/vlm-describe.md`](../../experiments/vlm-describe.md)). Cost: 20–100 s per frame, so a five-frame post can take minutes.
 
 ## Image posts / carousels — the gallery-dl path
 `video_images.py`. yt-dlp is a *video* downloader: an Instagram `/p/` carousel checks as a hard failure ("No video formats found" per sub-item), which read like an auth problem for days but never was. `assemble()` now retries through **gallery-dl** whenever the yt-dlp check fails, so the fallback costs nothing on video links and needs no flag.
