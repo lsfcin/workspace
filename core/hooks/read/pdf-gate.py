@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# PreToolUse: Read + Bash — a PDF is read through its twin. Fresh twin: the PDF is blocked until the twin is read, which unlocks it. Missing or stale: refused with the command that makes it.
+# PreToolUse: Read + Bash — a PDF is read through its twin. Fresh twin: the PDF is blocked until the twin is read, which unlocks it. Missing or stale: refused with the command that makes it, or let through when no engine is installed.
 #
 # The twin is the PDF's interface, and this is the interface-first gate for it (pre-read.py is the
 # one for code), with one difference ruled by Lucas 2026-09-26: a missing twin REFUSES where a
@@ -74,6 +74,15 @@ def pdfs_in(command: str, cwd: str) -> list[Path]:
 	return found
 
 
+def engine_installed() -> bool:
+	"""Can a twin be made on this clone? `pdf` on is the switch (features.txt `needs`); this is the
+	install. Refusing with a command whose .venv-pdf is not there leaves the PDF unreadable."""
+	import platform_law
+	sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools'))   # pdf_twin's siblings: describe, secret_law
+	import pdf_twin
+	return platform_law.venv_script('python', pdf_twin.ENGINE_VENV).exists()
+
+
 def refuse(pdf: Path, state: str, twin: Path, needed: list[Path]) -> None:
 	if state == 'fresh':
 		print(f'⛔ PDF TWIN FIRST — {pdf}\n   Read these first, in ONE parallel batch, then retry:', file=sys.stderr)
@@ -113,6 +122,8 @@ def main() -> int:
 	for pdf in pdfs:
 		state, twin = pm.twin_state(pdf)
 		if state == 'fresh' and normalise(str(twin)) in unlocked:
+			continue
+		if state != 'fresh' and not engine_installed():
 			continue
 		# The chain is named with the twin (pre-read.py's rule: one list, not one gate's slice). A
 		# worker is exempt from the chain gate, so it is handed only the twin.
