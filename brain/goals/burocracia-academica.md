@@ -9,16 +9,14 @@ Base inicial e extensível para lidar com toda a burocracia da vida acadêmica �
 essential · expected · reluctant-but-necessary
 
 ## selected next achievement
-    [pdf-twin] o twin de cada PDF já existe (`core/run tools/pdf/docling`); falta o gate de leitura que manda o agente
-    ao twin e o recusa quando o twin está velho (Fase 2), e o backfill dos 97 PDFs dos domínios (Fase 3)
+    [pdf-twin] o twin de cada PDF e o gate de leitura já existem (`core/run tools/pdf/docling`, `core/hooks/read/pdf-gate.py`);
+    falta o backfill dos 97 PDFs dos domínios (Fase 3) — cruza com `code/dobra` ([[local-ai]]) no folding de PDFs longos
 
 **ease-start**
 Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e escrever o passo-a-passo dele em texto puro — só isso, um fluxo real documentado. 15 min.
 
 ## backlog
 
-> [ ] [pdf-twin] gate de leitura: um Read de `*.pdf` vai ao twin, ou é recusado com o comando que o gera. Cruza com `code/dobra` ([[local-ai]])
-> (folding de PDFs longos)
 > [ ] [map-org] mapear a estrutura organizacional (DC/UFRPE, colegiados, câmaras, GTs) — quem decide o quê [ ] [map-flows] mapear os fluxos de processos recorrentes (progressão, afastamento, bancas, projetos de pesquisa, bolsas) como passo-a-passo editável [ ] [gather-norms] reunir resoluções + instruções normativas + links oficiais num índice navegável (não copiar tudo —
 > referenciar + anotar)
 > [ ] [dept-guide] empacotar como guia extensível pro departamento — reusável por outros professores [ ] amarrar com `academy/administration/` (já existe) e com o goal `career-ufrpe` [ ] [ppc-ementas-3] PPC ementas: 41/44 já reformatadas p/ modelo SIGAA e subidas no Drive — falta pedir a Paulo o conteúdo de 3 disciplinas sem fonte: FUNDAMENTOS DA EDUCAÇÃO, PROJETO INTEGRADOR EM DESENVOLVIMENTO DE ARTEFATOS EDUCACIONAIS, PROJETO INTEGRADOR EM EDUCAÇÃO EM COMPUTAÇÃO (detalhe por disciplina em `academy/administration/coordenacao-lc/novo-ppc-bcc/ementas/gaps.md`) — depois, criar as 3 ementas no formato novo (INBOX 2026-07-24)
