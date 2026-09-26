@@ -40,7 +40,8 @@ Back-compat aliases: `deep`/`deepresearch`→`sota`, `autoresearch`/`auto`→`ex
      zero-key fallback; flags: `--n`, `--type neural|keyword`, `--since`, `--domains`, `--content`, `--backend
      auto|exa|ddgr`)
    - `core/tools/web/fetch "<url>"` — fetch a URL
-   - `core/tools/paper/parse <file>` — extract text from PDF/DOCX
+   - `core/run tools/pdf/docling <file.pdf>` — a PDF's twin (full text, figures described); read `<stem>/<stem>.md`
+   - `core/tools/paper/parse <file>` — extract text from DOCX/PPTX/HTML
    - `core/tools/web/code list|read|search <owner/repo>` — GitHub
    - `core/tools/paper/annotate set|get|list <id> [note]` — annotation store
 4. **Source discipline** — arXiv is the easiest surface to search, so an unguarded pass returns almost only preprints, which are *not peer reviewed*. Every round must also hit published venues (ACL/EMNLP anthology, ACM DL, IEEE, OpenReview with an accepted venue).
