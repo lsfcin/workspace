@@ -38,7 +38,7 @@ Validate `window-size > overlap` and `tier1-threshold < tier2-threshold`. Log re
 
 - **GitHub repo URL** (exactly 4 slashes): fetch the raw README instead.
 - **Remote URL**: fetch to disk with `curl -sL -o outputs/.notes/<name>-raw.txt <url>`. Do NOT use `fetch_content` — its return value enters context directly, bypassing the RLM principle.
-- **Local file or PDF**: copy or extract to `outputs/.notes/<name>-raw.txt`. For PDFs, extract text via `pdftotext` or equivalent before measuring.
+- **Local file or PDF**: copy to `outputs/.notes/<name>-raw.txt`. A PDF is copied from its twin `<stem>/<stem>.md` — text plus every figure described; make it first with `core/run tools/pdf/docling <pdf>` when missing (a raw read of the PDF is gated).
 - **Empty or failed fetch**: stop and surface the error.
 - **Existing output**: if `outputs/<name>-summary.md` already exists, ask the user whether to overwrite.
 
