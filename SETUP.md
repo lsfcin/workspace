@@ -70,6 +70,7 @@ Each project under `code/` is its own git repo and owns its environment. A proje
 - [`code/SETUP.md`](code/SETUP.md) — per-language quick start, facade templates, codegraph
 - [`academy/SETUP.md`](academy/SETUP.md) — LaTeX toolchain, paper compilation
 - [`core/tools/video/SETUP.md`](core/tools/video/SETUP.md) — the video tool's model and cookie state
+- [`core/tools/pdf/CONTEXT.md`](core/tools/pdf/CONTEXT.md) § Install — the PDF engines' own venv, `.venv-pdf`
 
 <!-- routing:start -->
 ## Routing
