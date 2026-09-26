@@ -56,6 +56,8 @@ pillow	pip	PIL	import:PIL	asset-inspect	-	core/tools/assets/inspect cannot open 
 google-auth	pip	google	import:google.oauth2.credentials	google-auth	-	every Google-backed tool (mail, calendar, files, slides, forms, docs) fails before it reaches the network
 google-auth-oauthlib	pip	google_auth_oauthlib	import:google_auth_oauthlib	google-auth	-	the first-run OAuth consent flow cannot start, so no account can be added
 google-api-python-client	pip	googleapiclient	import:googleapiclient	google-auth	-	mail, calendar, files, slides, forms and docs have no API client to call
+python-pptx	pip	pptx	import:pptx	slides	-	core/tools/slides/pptx cannot build a template, so no new master or layout can reach Google Slides (the Slides API cannot create either)
+lxml	pip	lxml	import:lxml	slides	-	core/tools/slides/pptx cannot rewrite a theme or add a master; python-pptx pulls it in, but the generator edits the XML with it directly
 yt-dlp	pip	-	venv-script:yt-dlp	video-text	-	core/tools/video/video returns nothing for every video link
 gallery-dl	pip	-	venv-script:gallery-dl	video-text	-	image posts and Instagram carousels fall back to yt-dlp, which reports "No video formats found" — reads like an auth failure, is not one
 secretstorage	pip	-	import:secretstorage	video-text	-	yt-dlp cannot decrypt the Brave cookie DB and fails with "failed to decrypt cookie (AES-CBC) ... Possibly the key is wrong?" — reads like a wrong password, is a missing module. Cost a full session to diagnose.

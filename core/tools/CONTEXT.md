@@ -27,7 +27,7 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`notes/`](notes/CONTEXT.md) | Pages and note databases, read as navigable text. Provider leaf: `notion` (Notion REST API). |
 | [`paper/`](paper/CONTEXT.md) | Academic sources and text: search papers, extract text, annotate, check terminology. |
 | [`pdf/`](pdf/CONTEXT.md) | A PDF becomes its twin: a sibling folder whose .md holds all the text, every figure described, and the hash that says when it went stale. Provider leaves: `docling`, `pymupdf`. |
-| [`slides/`](slides/CONTEXT.md) | Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides API). |
+| [`slides/`](slides/CONTEXT.md) | Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides API); `pptx` builds the masters and layouts the API cannot. |
 | [`test/`](test/CONTEXT.md) | The verify-fast suite: every Level 0 check plus the tool unit tests. Zero-token, no network. |
 | [`verify/`](verify/CONTEXT.md) | Verification contract + patterns for all code projects: levels T0-T3, script names, dump-oracle rules. Reference |
 | [`video/`](video/CONTEXT.md) | Link to navigable text — metadata, captions, transcript, OCR, VLM caption. |
