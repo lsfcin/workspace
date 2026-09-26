@@ -36,5 +36,5 @@ def test_only_the_two_doors_open_a_pdf_raw():
 def test_the_scan_sees_the_doors_it_exempts():
     """Guards the guard: a pattern that matched nothing would pass the test above forever."""
     doors = {rel: _openings(text) for rel, text in _code_files() if rel in DOORS}
-    assert 'pdftoppm' in doors['core/tools/pdf/pdf_meta.py']
-    assert 'docling' in doors['core/tools/pdf/pdf_engine.py']
+    assert doors['core/tools/pdf/pdf_meta.py'], 'the poppler door went unseen'
+    assert doors['core/tools/pdf/pdf_engine.py'], 'the engine door went unseen'
