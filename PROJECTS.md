@@ -11,9 +11,11 @@ The table is redrawn at every session close by [`core/tools/wos/close/repomap.py
 <!-- projects:start -->
 | Path | Remote | Drive |
 |------|--------|-------|
+| `academy/administration` | [github](https://github.com/lsfcin/academy-administration) | — |
+| `academy/lab` | [github](https://github.com/lsfcin/academy-lab) | — |
 | `academy/papers/2026-JBCS-relativistic_raytracer` | [Overleaf](https://git.overleaf.com/6a06aab5ad89bc3e2628f977) | — |
 | `academy/papers/2026-SIBGRAPI-relativistic_raytracer` | [Overleaf](https://git.overleaf.com/6a0cbc7958195756380a96cb) | — |
-| `academy/papers/2027-CHI-avdspace` | [Overleaf](https://git:olp_3RmsQBckvjMYWeVm6jn74sjjhBVxFR0mkygu@git.overleaf.com/6a2440ecfb4d51b7965e2df3) | — |
+| `academy/papers/2027-CHI-avdspace` | [Overleaf](https://git.overleaf.com/6a2440ecfb4d51b7965e2df3) | — |
 | `academy/papers/2027-CHI-cria` | [Overleaf](https://git.overleaf.com/6a4c847e31d1ceaba2e92283) | — |
 | `academy/papers/2027-ICLR-dobra` | [Overleaf](https://git.overleaf.com/6a48660e2fa100e8e2c6bc04) | — |
 | `academy/papers/ai4good` | [Overleaf](https://git.overleaf.com/6a4d01f88e85188bc8e7684b) | — |
@@ -22,6 +24,9 @@ The table is redrawn at every session close by [`core/tools/wos/close/repomap.py
 | `academy/papers/pls-pix` | [github](https://github.com/lsfcin/pls-pix) | — |
 | `academy/papers/spacemantics` | [Overleaf](https://git.overleaf.com/6a5430c59a5fe10adf1fc68b) | — |
 | `academy/papers/wos-ablation` | [github](https://github.com/lsfcin/wos-ablation) | — |
+| `academy/reviews` | [github](https://github.com/lsfcin/academy-reviews) | — |
+| `academy/talks` | [github](https://github.com/lsfcin/academy-talks) | — |
+| `academy/teaching` | [github](https://github.com/lsfcin/academy-teaching) | — |
 | `branches/casinhas` | [github](https://github.com/lsfcin/casinhas) | [`personal`](https://drive.google.com/drive/folders/1PeE-3Rf3fBJi20AR8QJZZE0Hfd-l2RUM) |
 | `branches/instituto` | [github](https://github.com/lsfcin/instituto) | — |
 | `code/apptime` | [github](https://github.com/lsfcin/apptime) | — |
@@ -48,7 +53,7 @@ The table is redrawn at every session close by [`core/tools/wos/close/repomap.py
 `code/isoroll-module` is the one path whose repo carries another name: the remote is `lsfcin/isoroll`.
 A `—` under `Remote` means this clone could not be asked, and the project is declared without being checked out here. That is a question for whoever has it, never a value to invent.
 
-Two things on this disk are deliberately not rows. `outputs/links` is a clone and not a project: it is the publish target [`core/tools/links/cfpages`](core/tools/links/CONTEXT.md) rebuilds whole from `links.txt`, and [`.gitignore`](.gitignore) keeps all of `outputs/` out of the workspace. And [`academy/teaching/classes/ai4good/`](academy/teaching/classes/ai4good/CONTEXT.md) is the one folder with a live Drive sync and no repo of its own — the workspace tracks it directly, so it has no line here to hang a row on.
+One thing on this disk is deliberately not a row. `outputs/links` is a clone and not a project: it is the publish target [`core/tools/links/cfpages`](core/tools/links/CONTEXT.md) rebuilds whole from `links.txt`, and [`.gitignore`](.gitignore) keeps all of `outputs/` out of the workspace.
 
 What each project is, and what it is for, stays in its own `CONTEXT.md`; the routing tables in [`code/`](code/CONTEXT.md), [`academy/`](academy/CONTEXT.md) and [`branches/`](branches/CONTEXT.md)
 are where you go to read that. This file answers only where it lives.

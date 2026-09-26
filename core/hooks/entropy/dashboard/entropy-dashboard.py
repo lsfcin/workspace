@@ -30,8 +30,7 @@ from branch_debt import (merged_local_branches, merged_remote_branches,  # noqa:
                          unmerged_branches, unpushed_work)
 from entropy_context import (check_goal_link,  # noqa: E402
                              check_misplaced_answer, check_truncation)
-from entropy_corpus import (enforcement_paths, tracked_files,  # noqa: E402
-                            wiki_exempt_paths)
+from entropy_corpus import enforcement_paths, tracked_files  # noqa: E402
 from entropy_crowding import crowding_signals  # noqa: E402
 from entropy_fields import field_hits  # noqa: E402
 from entropy_list import (duplicate_ids, finished_work_hits,  # noqa: E402
@@ -118,7 +117,7 @@ def collect(files: list, repo: Path = WORKSPACE_ROOT, promoting: str = '') -> di
         files, citations.citation_exempt_paths(WORKSPACE_ROOT))
     findings['wiki'] = wiki_link_hits(
         files, goal_vocabulary(WORKSPACE_ROOT / 'brain/goals'),
-        wiki_exempt_paths(WORKSPACE_ROOT))
+        enforcement_paths(WORKSPACE_ROOT))
     # The workspace's own lists. A nested project has its own and does not answer for these.
     findings['duplicates'] = [f'`[{item_id}]` claimed by {", ".join(sorted(claims))}'
                               for item_id, claims in duplicate_ids(

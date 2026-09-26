@@ -3,6 +3,7 @@ from pathlib import Path
 
 MAP: str
 HEAD: Incomplete
+CREDENTIAL: Incomplete
 
 def declared(root: Path) -> set: ...
 def link(url: str) -> str: ...

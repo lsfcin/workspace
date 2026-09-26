@@ -31,7 +31,7 @@ def git(root, *args):
 # (Lucas, 2026-09-11, when the size target they inflated was rejected). What is left is the part a
 # stranger cloning this repo would get.
 SCOPES = {'repo': ('core/', 'brain/')}
-EXCLUDED = {'repo': ('brain/goals/', 'brain/memory/', 'brain/drafts/', 'brain/attachments/')}
+EXCLUDED = {'repo': ('brain/goals/', 'brain/drafts/', 'brain/attachments/')}
 
 
 def in_scope(rel, scope):

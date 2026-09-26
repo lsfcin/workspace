@@ -83,9 +83,7 @@ fallback · iterate — MVP can always be extended*
 > [ ] [hookspath-fora-da-arvore] o gate de tipo do pre-commit recusou um repositório de teste descartável porque `core.hooksPath` é global e alcança qualquer repo criado sob o workspace, inclusive um `tmp_path` do pytest. Hoje cada teste contorna apontando `core.hooksPath` pra um diretório vazio. Decidir: o pre-commit deveria se recusar a rodar num repo fora da árvore do workspace, em vez de cada teste ter de lembrar de desligá-lo?  
 > [ ] [deriva-roteamento-academy] regerar todas as tabelas de roteamento de uma vez piorou duas coisas em `academy/`:
 > um `.json` ganha `← add first-line comment`, dívida impagável naquele arquivo porque o gerador não consulta `core/hooks/described.txt` nesse caso; e em `tecnologias-na-educacao/` o blurb do arquivo vence a descrição escrita à mão (`cp01-materiais.md` passa a anunciar um id de planilha). Revertido em 2026-09-11 sem commitar; volta no próximo save naqueles diretórios  
-> [ ] [memory-higiene] medir se `brain/memory/MEMORY.md` é mesmo lido em toda sessão e, se for, fazer higiene nele —
-> mesma régua de `core/run tools/wos/session/reads`: linha que não muda o que o agente faz, sai (INBOX 2026-09-17)  
-> [ ] [auditar-sempre-lido] auditar `AGENTS.md` e os `CONTEXT.md`: o que é de fato obedecido vs o que é ignorado. Custo é por sessão, então medir antes de cortar; irmão de [memory-higiene] (INBOX 2026-09-17)  
+> [ ] [auditar-sempre-lido] auditar `AGENTS.md` e os `CONTEXT.md`: o que é de fato obedecido vs o que é ignorado. Custo é por sessão, então medir antes de cortar (INBOX 2026-09-17)  
 > [ ] [auditar-testes] auditar os ~890 testes — são muitos e vários são antigos, então alguns podem não descrever mais o que o workspace faz. Casa com [mutation-testing]: teste sem dente e teste obsoleto são o mesmo custo (INBOX 2026-09-17)  
 > [ ] [vocabulario-gate] trocar "gate" por "block" no WOS, inclusive nos nomes de arquivo — mais direto sobre o impacto. Cada troca ganha linha em `core/SCHEMA.md` § Retired tokens, que é o que fecha a renomeação. As outras duas palavras do pedido já estão nessa tabela: uma em 17/09, que estava em zero arquivos, e a que não traduzia em 20/09, agora `reminder` (INBOX 2026-09-17)  
 > [ ] [painel-arquitetura] `ARCHITECTURE.html` entrega pouco: tabela gigante e vazia não ajuda. Relembrar o propósito profundo do painel e o valor que ele pode dar, trocar a tabela por lista ordenada por cor e/ou símbolo, e iterar de novo no Claude Design (INBOX 2026-09-17)  
@@ -112,5 +110,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-21  ·  trend: advancing  ·  touches: 446/774/818/818/818/818
+last-touch: 2026-09-25  ·  trend: advancing  ·  touches: 437/811/855/855/855/855
 <!-- stats:end -->

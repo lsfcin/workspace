@@ -15,7 +15,7 @@ from hook_input import capability, load_seen, parse_stdin
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 
 CODE_ROOT = WORKSPACE_ROOT / 'code'
-EXEMPT_NAMES = {'CONTEXT.md', 'AGENTS.md', 'CLAUDE.md', 'MEMORY.md', 'README.md'}
+EXEMPT_NAMES = {'CONTEXT.md', 'AGENTS.md', 'CLAUDE.md', 'README.md'}
 SKIP_PARTS = {'.git', 'node_modules', 'dist', '.codegraph', '__pycache__', '.vscode'}
 SPEC_LINE_RE = re.compile(r'^>\s*spec:\s*(\S.*?)\s*$', re.MULTILINE)
 STATUS_RE = re.compile(r'^status:\s*(\w+)', re.MULTILINE)

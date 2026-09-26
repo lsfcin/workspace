@@ -8,6 +8,7 @@
 # workspace and neither has every project cloned, so a generator that wrote only what it can see
 # would delete the other machine's answer at every close.
 import json
+import re
 from pathlib import Path
 
 import artifacts
@@ -15,6 +16,9 @@ from artifacts import git, out
 
 MAP = 'PROJECTS.md'
 HEAD = ('| Path | Remote | Drive |', '|------|--------|-------|')
+# The user:token@ half of a remote. An Overleaf remote carries its access token there, and this
+# map is tracked and pushed — the token reached GitHub on 2026-09-11 before anything stripped it.
+CREDENTIAL = re.compile(r'://[^/@\s]+@')
 
 
 def declared(root: Path) -> set:
@@ -30,7 +34,7 @@ def declared(root: Path) -> set:
 
 def link(url: str) -> str:
     """A remote as a link named by its host, which is the only thing about it worth reading."""
-    clean = url.removesuffix('.git').replace('https://git@', 'https://')
+    clean = CREDENTIAL.sub('://', url.removesuffix('.git'))
     return f'[{"Overleaf" if "overleaf" in clean else "github"}]({clean})'
 
 
@@ -56,7 +60,7 @@ def known(text: str) -> dict:
     for line in text.partition(start)[2].partition(end)[0].splitlines():
         cells = [cell.strip() for cell in line.split('|')[1:-1]]
         if len(cells) == 3 and cells[0].startswith('`'):
-            rows[cells[0].strip('`')] = [cells[1], cells[2]]
+            rows[cells[0].strip('`')] = [CREDENTIAL.sub('://', cells[1]), cells[2]]
     return rows
 
 
