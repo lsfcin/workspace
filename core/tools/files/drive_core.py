@@ -34,6 +34,7 @@ EXPORT_EXT = {
 FILE_FIELDS = "id,name,mimeType,modifiedTime,size,parents,webViewLink"
 
 GDOC_MIME = "application/vnd.google-apps.document"
+GSLIDES_MIME = "application/vnd.google-apps.presentation"
 
 
 def get_service(alias: str, write: bool = False):
@@ -180,16 +181,16 @@ def trash_file(svc, file_id: str) -> dict:
     return svc.files().update(fileId=file_id, body={"trashed": True}, fields="id, name").execute()
 
 
-def upload_local(svc, path: pathlib.Path, parent_id: str, as_gdoc: bool = False,
+def upload_local(svc, path: pathlib.Path, parent_id: str, convert_to: str = None,
                  name: str = None) -> dict:
-    """Upload a local file to parent_id. When as_gdoc, the target mimeType is a
-    Google Doc so Drive converts (e.g. .docx→Google Doc) on import. Returns the
-    created file's {id, name, webViewLink}."""
+    """Upload a local file to parent_id. convert_to is a Google-native mimeType
+    (GDOC_MIME, GSLIDES_MIME): Drive converts on import (.docx→Doc, .pptx→Slides,
+    masters and layouts included). Returns the created file's {id, name, webViewLink}."""
     path = pathlib.Path(path)
     media = MediaFileUpload(str(path), resumable=True)
     body = {"name": name or path.name, "parents": [parent_id]}
-    if as_gdoc:
-        body["mimeType"] = GDOC_MIME
+    if convert_to:
+        body["mimeType"] = convert_to
     return svc.files().create(
         body=body, media_body=media, fields="id,webViewLink,name"
     ).execute()

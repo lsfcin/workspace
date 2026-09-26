@@ -26,7 +26,7 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`mail/`](mail/CONTEXT.md) | Read a mailbox and triage it. Provider leaf: `gmail`. Auth: [`../auth/gauth.py`](mail/../auth/gauth.py). |
 | [`notes/`](notes/CONTEXT.md) | Pages and note databases, read as navigable text. Provider leaf: `notion` (Notion REST API). |
 | [`paper/`](paper/CONTEXT.md) | Academic sources and text: search papers, extract text, annotate, check terminology. |
-| [`slides/`](slides/CONTEXT.md) | Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides API). |
+| [`slides/`](slides/CONTEXT.md) | Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides API); `pptx` builds the masters and layouts the API cannot. |
 | [`test/`](test/CONTEXT.md) | The verify-fast suite: every Level 0 check plus the tool unit tests. Zero-token, no network. |
 | [`verify/`](verify/CONTEXT.md) | Verification contract + patterns for all code projects: levels T0-T3, script names, dump-oracle rules. Reference |
 | [`video/`](video/CONTEXT.md) | Link to navigable text — metadata, captions, transcript, OCR, VLM caption. |

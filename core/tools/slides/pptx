@@ -1,0 +1,29 @@
+# Usage: core/tools/slides/pptx template <spec.json> --out <file.pptx> — a slide template as real masters and layouts, for Drive to convert into Google Slides
+import sys, json, pathlib, argparse
+
+_HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(_HERE))
+import pptx_masters
+
+
+def cmd_template(spec_path: str, out: str) -> None:
+    spec = json.loads(pathlib.Path(spec_path).read_text(encoding="utf-8"))
+    prs = pptx_masters.build(spec)
+    prs.save(out)
+    print(f"{out}: {pptx_masters.summary(prs)}")
+    print(f"  into Slides: core/run tools/files/gdrive put --account <alias> --slides --name \"<name>\" {out}")
+
+
+def main() -> None:
+    p = argparse.ArgumentParser(prog="pptx")
+    sub = p.add_subparsers(dest="cmd", required=True)
+    pt = sub.add_parser("template", help="one master per section colour, the same layouts in each")
+    pt.add_argument("spec", help="JSON: neutral, fonts, type, cover, footer, sections, layouts")
+    pt.add_argument("--out", required=True)
+    args = p.parse_args()
+    if args.cmd == "template":
+        cmd_template(args.spec, args.out)
+
+
+if __name__ == "__main__":
+    main()
