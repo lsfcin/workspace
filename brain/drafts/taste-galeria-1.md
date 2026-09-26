@@ -408,3 +408,56 @@ Previsão escrita 2026-09-25 23:07, antes de destrancar (`outputs/.drafts/taste-
 
 Exatas: 6/10 · |erro| ≤ 1: 9/10 · média prevista 2,6 × real 2,9. O agente foi duro demais: 3 dos 4 erros ficaram abaixo da nota dele.
 Lição: o que ele chama de limpo e didático compensa 3D, arco-íris e idioma; o que derruba é fonte, excesso e título com cara de título.
+
+## rodada 2 · tríades (2026-09-26)
+
+Página: a mesma, coleção `triads`. Três imagens; ele diz qual destoa (t7: qual conta melhor; t8: qual paleta fica) e por quê. Imagens: `outputs/.drafts/taste-img/triads/`.
+
+### t1 · qual laranja destoa? → **A**
+A g23 · Pitch.com, Architecture Portfolio (laranja chapado) · B motion-web, press-stack (âmbar sobre quase-preto) · C paleta B, #E69F00, numa transição do seu deck
+
+os três slides estão bons. só o laranja A eu mudaria
+fiz uns testes aqui, ao invés de: #fe690c
+prefiro ou mais vermelho: #fe3e09
+ou mais amarelo: #fe9b09
+
+### t2 · para diagrama técnico, qual fundo destoa? → **C**
+A g24 · Babel, JSConf 2015 (escuro) · B g47 · seu deck, diagrama progressivo (claro) · C motion-web, string-clock (cinza claro, um acento)
+
+o fundo cinza C é o pior
+o preto é bom mas no meu contexto às vezes o projetor é fraco, a iluminação da sala é forte e pra completar projetamos num quadro de vidro com reflexo. aí já confirmei que fundo branco e texto preto favorece o contraste.
+
+### t3 · qual desenho carrega informação — e qual destoa? → **A**
+A g13 · Sketch the Docs, a lâmpada que volta · B g17 · Sketch the Docs, kit de ícones · C motion-web, ink-crowd (multidão em traço)
+
+o melhor desenho aqui é o B, claro, simples, fácil de absorver. o C também tá legal. o desenho A apesar de ser bonito passa a ideia de que é inútil, ele é quem destoa negativamente.
+
+### t4 · qual uso da imagem destoa? → **C**
+A g20 · Web typography is boring (meia tela) · B g27 · CS231n 2026 (tela cheia, anel brilhante) · C The Art of Slide Design, p. 72 (foto com texto)
+
+são slides bem diferentes.
+o A é bem bom.
+o B é bonito mas conteúdo fraco, esse seria o melhor uso da imagem se o conteúdo fizesse sentido e lembro tbm q tinha faldo das fontes ness
+o C é quem destoa negativamente, cara de slide simples sem intenção. dito isso, eventualmente podemos precisar recorrer a algo assim.
+
+### t5 · qual fonte não é sua? → **B**
+A g19 · Web typography is boring (black condensada) · B g23 · Pitch.com, Architecture Portfolio (gritante) · C motion-web, char-curtain (mono em dois pesos)
+
+as trÊs fontes são legais
+as três parecem ter usos específicos. mas talvez com algum cuidado pudessem ser aplicadas com mais frequencia.
+mas se fosse escolher uma que não é minha (apesar de achar que eventualmente eu pudesse querer usar) é a B
+
+### t6 · qual abertura de ideia destoa? → **B**
+A g09 · Socket.IO 1.0 (sem título, uma linha) · B g10 · Michael Alley (título-afirmação + diagrama) · C The Art of Slide Design, p. 11 (definição com a fonte citada)
+
+abertura vc diz? abertura de um tópico? o slide B não é a forma de abrir, destoa negativamente, é a forma de desenvolver um tópico
+
+### t7 · qual revelação aos poucos conta melhor? → **B**
+A motion-web, press-stack (o que ainda não foi dito em cinza) · B g14 · MJIT, o diagrama que cresce (antes/depois) · C The Art of Slide Design, pp. 37 e 40 (agenda que esmaece)
+
+o ideia é manter uma parte dos elementos na mesma posição e ir adicionando e/ou removendo. então nesse sentido o melhor é o B (apesar de ser o pior em estética)
+
+### t8 · as mesmas 7 transições e um slide de conteúdo, em três paletas. qual fica? → **A**
+A A · a paleta da sua tese, estendida para 7 · B B · Okabe-Ito, feita para daltonismo · C C · sóbria / editorial
+
+gostei da paleta A
