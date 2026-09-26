@@ -28,7 +28,7 @@ Two auth grants (same split as [`../files/`](../files/CONTEXT.md)), the renderin
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | What the API actually returns, learned the expensive way — read alongside `CONTEXT.md`. |
-| [`deck_sample.py`](deck_sample.py) | [`deck_sample.pyi`](deck_sample.pyi) | `parse_slide_target`, `download_public_export`, `extract_slide_texts`, `clean_slide_lines`, `cluster_and_sample` | deck_sample.py — Ingestion, progressive clustering and visual sampling for slide decks |
+| [`deck_sample.py`](deck_sample.py) | [`deck_sample.pyi`](deck_sample.pyi) | `parse_slide_target`, `download_public_export`, `render_pages`, `extract_slide_texts`, `clean_slide_lines` | deck_sample.py — Ingestion, progressive clustering and visual sampling for slide decks |
 | [`gslides`](gslides) | — | — | Google Slides CLI: auth, list, read, stats, lint, new, add, text, apply, preview, export, sample |
 | [`slides_core.py`](slides_core.py) | [`slides_core.pyi`](slides_core.pyi) | `get_service`, `get_presentation`, `list_presentations`, `create`, `apply` | slides_core.py — Google Slides read+write boundary (account-agnostic) for Core/tools/slides/gslides |
 | [`slides_geom.py`](slides_geom.py) | [`slides_geom.pyi`](slides_geom.pyi) | `rotation_deg`, `eff_scale`, `compose_transforms`, `bounds` | slides_geom.py — Google Slides transform algebra: rotation, effective scale, composition, bounds |

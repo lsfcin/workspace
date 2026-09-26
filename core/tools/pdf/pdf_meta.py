@@ -1,6 +1,9 @@
-# pdf_meta.py — what a twin says about its PDF before and after conversion: hash, pdfinfo, text layer, the free audit, the frontmatter.
+# pdf_meta.py — the one place a PDF is opened raw, and what a twin says about it: hash, pdfinfo, text layer, pages rendered, the free audit, the frontmatter, and whether the twin is still true.
 #
-# Everything here is poppler + tesseract + stdlib: zero tokens, no GPU. The frontmatter values are
+# Everything here is poppler + tesseract + stdlib: zero tokens, no GPU. Every other file reaches a
+# PDF through this module or through `core/run tools/pdf/<leaf>` — RAW_COMMANDS and RAW_MODULES are
+# what test_pdf_boundary.py refuses anywhere else, and what core/hooks/read/pdf-gate.py refuses an
+# agent before it has read the twin. The frontmatter values are
 # written as JSON, which is valid YAML, so one writer needs no YAML library and the reader
 # (`read_frontmatter`) gets back exactly what was written.
 from __future__ import annotations
@@ -20,6 +23,11 @@ PDFINFO = {'Title': 'title', 'Author': 'author', 'Subject': 'subject', 'Keywords
            'ModDate': 'modified', 'Pages': 'pages', 'Encrypted': 'encrypted'}
 TEXT_PAGE = 10     # a page with fewer pdftotext words than this has no usable text layer
 WORD = re.compile(r'[a-zà-ÿ0-9]{3,}')
+# The raw readers: a PDF opened by any of these skips its twin. Commands are what a subprocess or a
+# shell spawns; modules are what Python imports. The engine modules belong to pdf_engine.py alone.
+RAW_COMMANDS = ('pdftotext', 'pdftoppm', 'pdfimages', 'pdfinfo', 'pdftohtml', 'pdftocairo', 'mutool')
+RAW_MODULES = ('fitz', 'pymupdf', 'pymupdf4llm', 'pypdf', 'PyPDF2', 'pdfplumber', 'pdfminer',
+               'docling', 'markitdown')
 FIELDS = ('source', 'sha256', 'origin', 'origin_checked', 'pdf', 'text_layer', 'engine', 'audit',
           'needs_review', 'reviewed_by')
 
@@ -30,6 +38,32 @@ def sha256(path: Path) -> str:
         for block in iter(lambda: fh.read(1 << 20), b''):
             digest.update(block)
     return digest.hexdigest()
+
+
+def twin_of(pdf: Path) -> Path:
+    return pdf.with_suffix('') / f'{pdf.stem}.md'
+
+
+def source_of(twin: Path) -> Path | None:
+    """The PDF a `<stem>/<stem>.md` is the twin of, or None when that file is no twin."""
+    if twin.suffix != '.md' or twin.parent.name != twin.stem:
+        return None
+    return next((pdf for suffix in ('.pdf', '.PDF') if (pdf := twin.parent.with_name(twin.stem + suffix)).is_file()),
+                None)
+
+
+def twin_state(pdf: Path) -> tuple[str, Path]:
+    """The twin beside `pdf` and which of three states it is in — the one definition the build and
+    the read gate both ask (the PDF's own mirror of core/hooks/read/chain.py:interface_state).
+
+    `absent` — no twin, or one with no hash to compare. `stale` — the PDF changed after its twin
+    was written. `fresh` — the twin still says what the PDF says.
+    """
+    twin = twin_of(pdf)
+    recorded = read_frontmatter(twin).get('sha256')
+    if not recorded:
+        return 'absent', twin
+    return ('fresh' if recorded == sha256(pdf) else 'stale'), twin
 
 
 def pdfinfo(path: Path) -> dict:
@@ -58,13 +92,26 @@ def text_layer(pages: list[str]) -> str:
     return 'scanned' if with_text == 0 else 'mixed'
 
 
+def render(path: Path, prefix: Path, pages: list[int] | None = None, dpi: int = 150) -> list[Path]:
+    """Each page as `<prefix>-<n>.png` (poppler pads n to the page count's width), in page order.
+    A page poppler cannot render is simply missing from the list; the caller decides if that fails."""
+    for n in pages or [None]:
+        span = ['-f', str(n), '-l', str(n)] if n else []
+        subprocess.run(['pdftoppm', '-r', str(dpi), '-png', *span, str(path), str(prefix)], capture_output=True)
+    return sorted(prefix.parent.glob(f'{prefix.name}-*.png'), key=lambda p: int(p.stem.rsplit('-', 1)[1]))
+
+
+def images(path: Path, prefix: Path) -> list[Path]:
+    """Every image the PDF embeds, as `<prefix>-NNN.png`."""
+    subprocess.run(['pdfimages', '-png', str(path), str(prefix)], capture_output=True)
+    return sorted(prefix.parent.glob(f'{prefix.name}-*.png'))
+
+
 def ocr_page(path: Path, page: int) -> str:
     with tempfile.TemporaryDirectory(prefix='pdf-ocr-') as tmp:
-        subprocess.run(['pdftoppm', '-r', '200', '-png', '-f', str(page), '-l', str(page), str(path),
-                        f'{tmp}/p'], capture_output=True)
         return '\n'.join(subprocess.run(['tesseract', str(img), '-', '-l', 'por+eng'],
                                         capture_output=True, text=True, encoding='utf-8').stdout
-                         for img in sorted(Path(tmp).glob('p*.png')))
+                         for img in render(path, Path(tmp) / 'p', [page], 200))
 
 
 def reference(path: Path, pages: list[str]) -> str:

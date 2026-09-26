@@ -32,10 +32,6 @@ class EngineMissing(RuntimeError):
     pass
 
 
-def twin_of(pdf: Path) -> Path:
-    return pdf.with_suffix('') / f'{pdf.stem}.md'
-
-
 def run_engine(engine: str, pdf: Path, out: Path) -> dict:
     python = platform_law.venv_script('python', ENGINE_VENV)
     if not python.exists():
@@ -74,11 +70,11 @@ def _gitignore(folder: Path, live: bool, secret: bool) -> None:
 def build(pdf: Path, engine: str, describer: str = 'agy', origin: str | None = None, force: bool = False,
           _engine=run_engine, _describe=describe.describe, _ocr=describe.ocr) -> dict:
     """Write the twin of one PDF. Returns what happened, for the batch summary."""
-    twin = twin_of(pdf)
+    state, twin = pdf_meta.twin_state(pdf)
     before = pdf_meta.read_frontmatter(twin)
-    digest = pdf_meta.sha256(pdf)
-    if before.get('sha256') == digest and not force:
+    if state == 'fresh' and not force:
         return {'status': 'fresh', 'twin': twin, 'needs_review': before.get('needs_review')}
+    digest = pdf_meta.sha256(pdf)
     info, texts = pdf_meta.pdfinfo(pdf), pdf_meta.page_texts(pdf)
     origin = origin or before.get('origin')
     live = origin_live(origin)

@@ -6,10 +6,11 @@
 from __future__ import annotations
 
 import shutil
-import subprocess
 import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
+
+import pdf_meta
 
 HASH_SIDE = 16
 DECORATIVE_PAGES = 3   # the same image on this many pages is a letterhead, not content
@@ -62,10 +63,9 @@ def name_all(engine_figures: list[dict], total_pages: int) -> list[Figure]:
 def embedded_count(pdf: Path) -> int:
     """Distinct images the PDF embeds — the free count the engine's figures are audited against."""
     with tempfile.TemporaryDirectory(prefix='pdf-img-') as tmp:
-        subprocess.run(['pdfimages', '-png', str(pdf), f'{tmp}/i'], capture_output=True)
         from PIL import Image
         looks = set()
-        for png in Path(tmp).glob('i-*.png'):
+        for png in pdf_meta.images(pdf, Path(tmp) / 'i'):
             with Image.open(png) as im:
                 if min(im.size) >= EMBEDDED_MIN_SIDE:
                     looks.add(look(png))

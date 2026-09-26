@@ -66,7 +66,7 @@ pymupdf4llm	binary	pymupdf4llm	venv-import:.venv-pdf:pymupdf4llm	pdf	-	core/run 
 uv	binary	-	cmd:uv --version	pdf	-	.venv-pdf cannot be created, so the install line the pdf tools print cannot run
 tesseract-ocr-por	apt	-	cmd:tesseract --list-langs 2>&1 | grep -qx por	pdf	-	OCR reads Portuguese as English: accents vanish, so the figure cross-check flags good descriptions and a scan's audit coverage drops for no real loss
 pypandoc-binary	pip	-	cmd:pandoc --version	latex	-	core/tools/paper/parse cannot read .docx or .pptx — it falls through to the plain-text arm and returns mojibake rather than an error
-poppler-utils	apt	-	cmd:pdftotext -v	pdf	-	core/tools/pdf cannot read a PDF's metadata, text layer or embedded images, and --review cannot render a page; gmail's PDF attachments go unsummarized
+poppler-utils	apt	-	cmd:pdftotext -v	pdf	-	core/tools/pdf cannot read a PDF's metadata, text layer or embedded images, and --review cannot render a page; gmail's PDF attachments go unsummarized, and slides preview/sample render nothing (they ask pdf/poppler)
 ffmpeg	system	-	cmd:ffmpeg -version	video-text	-	audio extraction and frame sampling fail, so the speech and ocr levels cannot start
 tesseract-ocr	apt	-	cmd:tesseract --version	video-text	-	pytesseract imports fine and then fails at call time — the module is the wrapper, this is the engine
 ddgr	apt	-	cmd:ddgr --version	web-search	-	the fallback backend is gone, so a missing or rate-limited Exa key leaves no search at all

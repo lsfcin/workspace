@@ -7,7 +7,6 @@ from __future__ import annotations
 import argparse
 import re
 import shutil
-import subprocess
 import sys
 from pathlib import Path
 
@@ -49,23 +48,21 @@ def flagged_pages(twin: Path) -> list[int]:
 
 
 def review(pdf: Path, leaf: str) -> str:
-    twin = pdf_twin.twin_of(pdf)
+    twin = pdf_meta.twin_of(pdf)
     if not pdf_meta.read_frontmatter(twin).get('needs_review'):
         return f'nothing flagged  {twin}'
     out = twin.parent / 'review'
     shutil.rmtree(out, ignore_errors=True)
     out.mkdir()
     pages = flagged_pages(twin) or [1]
-    for n in pages:
-        subprocess.run(['pdftoppm', '-r', str(REVIEW_DPI), '-png', '-f', str(n), '-l', str(n), str(pdf),
-                        str(out / 'page')], capture_output=True)
+    pdf_meta.render(pdf, out / 'page', pages, REVIEW_DPI)
     return (f'review  {twin}\n  pages {pages} rendered in {out}/ — read each image, compare it with its\n'
             f'  `<!-- page N -->` section, fix the .md, then run:\n'
             f'  core/run tools/pdf/{leaf} {pdf} --reviewed-by <you>')
 
 
 def stamp(pdf: Path, who: str) -> str:
-    twin = pdf_twin.twin_of(pdf)
+    twin = pdf_meta.twin_of(pdf)
     pdf_meta.replace_frontmatter(twin, reviewed_by=who, needs_review=False)
     shutil.rmtree(twin.parent / 'review', ignore_errors=True)
     return f'reviewed  {twin}  by {who}'

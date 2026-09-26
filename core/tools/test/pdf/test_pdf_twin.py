@@ -75,6 +75,22 @@ def test_a_fresh_twin_is_skipped_and_a_changed_pdf_is_rebuilt(tmp_path):
     assert build(pdf)['status'] == 'written'
 
 
+def test_the_twin_state_is_absent_then_fresh_then_stale(tmp_path):
+    """The one definition the build and the read gate both ask."""
+    pdf = make_pdf(tmp_path / 'res.pdf')
+    assert pdf_meta.twin_state(pdf) == ('absent', tmp_path / 'res' / 'res.md')
+    build(pdf)
+    assert pdf_meta.twin_state(pdf)[0] == 'fresh'
+    pdf.write_bytes(pdf.read_bytes() + b'% edited\n')
+    assert pdf_meta.twin_state(pdf)[0] == 'stale'
+
+
+def test_render_hands_back_every_asked_page_in_page_order(tmp_path):
+    pdf = make_pdf(tmp_path / 'res.pdf')
+    assert [p.name for p in pdf_meta.render(pdf, tmp_path / 'pg', dpi=30)] == ['pg-1.png']
+    assert pdf_meta.render(pdf, tmp_path / 'none', [9], 30) == []   # no page 9: missing, not a crash
+
+
 def test_a_lost_page_or_word_flags_the_twin_for_review(tmp_path):
     pdf = make_pdf(tmp_path / 'res.pdf')
     assert build(pdf, _engine=fake_engine('Resolução'))['needs_review'] is True
