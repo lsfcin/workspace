@@ -38,7 +38,7 @@ Não é hora de começar isto: o goal está parqueado por escolha e a energia es
 > [ ] [lbw] LBW CHI 2027 (jan/2027, alunos coautores)  
 > [ ] [full] full paper CHI 2028  
 > [ ] [manifesto] sessão Opus do paper-manifesto (brief pronto em `academy/papers/ai4good/outputs/manifesto-brief.md`)
-> [ ] [mandato-coletivo] assess "mandato coletivo" (participatory-mandate: constituents vote on bills, track spending, propose amendments) as a mechanism-design case worth citing/comparing — ref in `academy/refs/REFS.md` (INBOX 2026-07-26)
+> [ ] [mandato-coletivo] assess "mandato coletivo" (participatory-mandate: constituents vote on bills, track spending, propose amendments) as a mechanism-design case worth citing/comparing — ref in `academy/teaching/REFS.md` (INBOX 2026-07-26)
 
 ## done
 
@@ -49,5 +49,5 @@ Não é hora de começar isto: o goal está parqueado por escolha e a energia es
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: steady  ·  touches: 16/40/40/40/40/40
+last-touch: 2026-09-21  ·  trend: advancing  ·  touches: 78/108/108/108/108/108
 <!-- stats:end -->

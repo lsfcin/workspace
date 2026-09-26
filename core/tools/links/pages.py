@@ -13,7 +13,10 @@ CLASSES = ROOT / 'academy' / 'teaching' / 'classes'
 # A page may carry a block that a generator draws; the generator runs before the copy, so a stale
 # drawing never reaches the site. Keyed on the marker the page itself holds: declaring a block IS
 # asking for its generator.
-GENERATORS = {'<!-- painel:dados-': ROOT / 'academy' / 'teaching' / 'structure' / 'painel.py'}
+GENERATORS = {
+    '<!-- painel:dados-': ROOT / 'academy' / 'teaching' / 'structure' / 'painel.py',
+    '<!-- habilidades:start -->': ROOT / 'academy' / 'teaching' / 'structure' / 'arvore.py',
+}
 
 # Internal files that sit beside the artefacts and must never reach a public repo.
 PRIVATE = {'CONTEXT.md'}
@@ -23,9 +26,22 @@ class Refused(Exception):
     pass
 
 
+def resolve_page(page: pathlib.Path, classes: pathlib.Path = CLASSES, root: pathlib.Path = ROOT) -> pathlib.Path:
+    """Resolve a course page path from workspace root, classes dir, or cwd."""
+    if page.is_absolute():
+        return page.resolve()
+    if (root / page).exists():
+        return (root / page).resolve()
+    if (classes / page).exists():
+        return (classes / page).resolve()
+    if page.exists():
+        return page.resolve()
+    return (root / page).resolve()
+
+
 def mirror_of(page: pathlib.Path, publish: pathlib.Path, classes: pathlib.Path = CLASSES) -> pathlib.Path:
     """classes/<course>/<file> -> publish/<course>/<file>; anything else has no public place."""
-    page = page.resolve()
+    page = resolve_page(page, classes=classes)
     try:
         course, name = page.relative_to(classes.resolve()).parts
     except ValueError:
@@ -35,6 +51,7 @@ def mirror_of(page: pathlib.Path, publish: pathlib.Path, classes: pathlib.Path =
 
 def redraw(page: pathlib.Path) -> list[str]:
     """Run every generator the page declares; return the ones that ran."""
+    page = resolve_page(page)
     text = page.read_text(encoding='utf-8')
     ran = []
     for marker, script in GENERATORS.items():
@@ -46,6 +63,7 @@ def redraw(page: pathlib.Path) -> list[str]:
 
 def mirror(page: pathlib.Path, publish: pathlib.Path, classes: pathlib.Path = CLASSES) -> list[pathlib.Path]:
     """Copy the page, and its artefatos/ when it has one, into the publish repo; return the targets."""
+    page = resolve_page(page, classes=classes)
     target = mirror_of(page, publish, classes)
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(page, target)

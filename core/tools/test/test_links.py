@@ -1,4 +1,5 @@
 # T1 links: a short name stays sayable, a private thing never gets one, and a live link never moves.
+import pathlib
 import pytest
 
 import links_core
@@ -139,3 +140,18 @@ def test_publishing_a_page_carries_its_artefacts_but_never_the_folder_notes(cour
 
 def test_a_page_without_a_drawn_block_runs_no_generator(course):
     assert pages.redraw(course / 'ai4good' / 'disciplina.md') == []
+
+
+def test_resolve_page_finds_page_from_classes_or_relative_path(course, tmp_path):
+    page = course / 'ai4good' / 'disciplina.md'
+    assert pages.resolve_page(pathlib.Path('ai4good/disciplina.md'), classes=course, root=tmp_path) == page
+    assert pages.resolve_page(page, classes=course, root=tmp_path) == page
+
+
+def test_a_page_with_habilidades_block_runs_arvore_generator(course):
+    page = course / 'ai4good' / 'disciplina.md'
+    page.write_text('<!-- habilidades:start -->\n<!-- habilidades:end -->', encoding='utf-8', newline='\n')
+    (course / 'ai4good' / 'arvore.yaml').write_text('- nome: TestSkill\n  url: https://example.com/test\n', encoding='utf-8', newline='\n')
+    assert 'arvore.py' in pages.redraw(page)
+    assert '- **[testskill](https://example.com/test)**' in page.read_text(encoding='utf-8')
+

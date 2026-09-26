@@ -134,7 +134,7 @@ installer**: it replaces the links with copies and re-forks both installs. Needs
 
 **Install** — the links, then the config every agent reads:
 ```bash
-core/run tools/wos/sync-global-skills        # links ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
+core/run tools/wos/sync-global-skills        # links ~/workspace + ~/.agents/skills/caveman + ~/.claude/hooks/caveman-*
 mkdir -p ~/.config/caveman && echo '{"defaultMode": "full"}' > ~/.config/caveman/config.json
 ```
 ```powershell

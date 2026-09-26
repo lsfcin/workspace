@@ -79,6 +79,23 @@ def test_missing_or_unreadable_transcript_is_silent(tmp_path):
     assert transcript.last_context(str(garbage)) == 0
 
 
+def test_agy_transcript_context_and_compaction(tmp_path):
+    s1 = json.dumps({'step_index': 0, 'source': 'USER_EXPLICIT', 'type': 'USER_INPUT', 'content': 'hi'})
+    s2 = json.dumps({'step_index': 1, 'source': 'SYSTEM', 'type': 'CHECKPOINT', 'content': '# Resuming...'})
+    s3 = json.dumps({'step_index': 2, 'source': 'MODEL', 'type': 'PLANNER_RESPONSE', 'content': 'x' * 3600})
+    path = tmp_path / 'agy.jsonl'
+    path.write_text(f'{s1}\n{s2}\n{s3}\n', encoding='utf-8', newline='\n')
+    assert transcript.is_compacted(str(path)) is False
+    assert transcript.last_context(str(path)) >= 1000
+
+    s4 = json.dumps({'step_index': 100, 'source': 'SYSTEM', 'type': 'CHECKPOINT', 'content': 'compacted'})
+    s5 = json.dumps({'step_index': 101, 'source': 'MODEL', 'type': 'PLANNER_RESPONSE', 'content': 'y' * 360})
+    path.write_text(f'{s1}\n{s2}\n{s3}\n{s4}\n{s5}\n', encoding='utf-8', newline='\n')
+    assert transcript.is_compacted(str(path)) is True
+    assert transcript.last_context(str(path)) < 500
+
+
+
 def test_each_threshold_announces_once(tmp_path, monkeypatch):
     state = tmp_path / 'state.txt'
     monkeypatch.setattr(context_meter, 'state_file', lambda _sid: str(state))
