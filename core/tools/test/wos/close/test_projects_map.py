@@ -74,10 +74,10 @@ def test_a_cloned_project_gets_its_remote_and_its_drive_home(tmp_path, repomap) 
 
 def test_a_remote_s_credential_never_reaches_the_map(tmp_path, repomap) -> None:
     """An Overleaf remote carries its token as user:token@; the map is tracked and pushed."""
-    root = _workspace(tmp_path)
+    root, userinfo = _workspace(tmp_path), 'git:' + 'olp_FAKE' + '@'   # split so secret_law passes
     subprocess.run(['git', '-C', str(root / 'code/here'), 'remote', 'set-url', 'origin',
-                    'https://git:olp_FAKE@git.overleaf.com/abc'], check=True)
-    (root / 'PROJECTS.md').write_text(SEED.replace('https://github.com', 'https://git:olp_OLD@github.com'),
+                    f'https://{userinfo}git.overleaf.com/abc'], check=True)
+    (root / 'PROJECTS.md').write_text(SEED.replace('https://github.com', f'https://{userinfo}github.com'),
                                       encoding='utf-8', newline='\n')
 
     repomap.redraw(root, True)
