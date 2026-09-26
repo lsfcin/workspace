@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # PostToolUse: Read — record CONTEXT.md/SPEC.md reads (consumed by context-gate.py /
 # bash-context-gate.py / spec-read-gate.py) and interface-file reads (consumed by pre-read.py:
-# interface read unlocks its source). ROADMAP-verify.md W1.
+# interface read unlocks its source; and by pdf-gate.py: a PDF's twin read unlocks the PDF). ROADMAP-verify.md W1.
 import sys
 from pathlib import Path
 
@@ -12,6 +12,16 @@ from hook_input import capability, mark_iface_seen, mark_seen, normalise, parse_
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 
 IFACE_SUFFIXES = ('.d.ts', '.pyi', '.dart.api', '.texif', '.csvif')
+
+
+def _is_twin(path: Path) -> bool:
+	"""A PDF's twin is its interface: reading it unlocks the PDF for pdf-gate.py. The shape test
+	runs first so the Read of any other .md never imports pdf_meta (and yaml with it)."""
+	if path.suffix != '.md' or path.parent.name != path.stem:
+		return False
+	sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools/pdf'))
+	import pdf_meta
+	return pdf_meta.source_of(path) is not None
 
 
 def main() -> int:
@@ -50,7 +60,7 @@ def main() -> int:
 	# was refused forever. Found 2026-09-12 renaming code/aiwbot/frontend/SPEC.md to the legal name.
 	if Path(raw).name == 'CONTEXT.md' or Path(raw).name.startswith('SPEC'):
 		mark_seen(session_id, path)  # idempotent: one file per entry, named for the path
-	elif raw.endswith(IFACE_SUFFIXES):
+	elif raw.endswith(IFACE_SUFFIXES) or _is_twin(Path(raw)):
 		mark_iface_seen(session_id, path)
 	return 0
 

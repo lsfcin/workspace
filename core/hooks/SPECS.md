@@ -48,6 +48,7 @@ Four rules survive the collapse, and `test_b20260905_*` holds each. **A blocking
 |--------|-------------|-----------|
 | `read/context-gate.py` | read, write | **Blocks** until the target folder's `CONTEXT.md` chain was Read this session; on a read it also names the current stub, so one batch clears both read gates. Session-deduped; `CONTEXT.md`/`AGENTS.md` exempt |
 | `read/pre-read.py` | read | **Blocks** reading a source file while its interface is current, naming the unread chain alongside it — both read gates exit 2 on one read and the harness reports only the first, so each names the whole set. Warns when the interface is stale; reading it unlocks the source |
+| `read/pdf-gate.py` | read, shell | **Blocks** a Read of a PDF, or a raw reader of one in the shell, until its twin was Read — the twin is the PDF's interface and unlocks it. A missing or stale twin is **refused** with the command that makes it (a stub only warns: it regenerates for free, a twin does not). No subagent exemption |
 | `checks/first-line-gate.py` | write | **Blocks** a new file whose first line does not say what it is, and a new `CONTEXT.md` with no `>` description on line 2 |
 | `checks/size-gate.py` | write | **Blocks** an edit pushing an authored code file past either block cap, lines or characters |
 | `facade/facade-scan.py` | write | **Informs** — the exports the target module's facade already declares; warns if that list is empty |
