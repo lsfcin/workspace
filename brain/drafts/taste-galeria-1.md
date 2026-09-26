@@ -1,6 +1,6 @@
 # taste — rodada 1, a galeria: as respostas do Lucas, literais
 
-Fonte: base da página https://claude.ai/artifact/N1W9HSAcmBehecrXyzxZSB (coleções `ratings` e `decisions`), exportada 2026-09-25. Imagens e manifesto: `outputs/.drafts/taste-img/gallery/` (só no disco da máquina que as coletou). Os 10 itens guardados (g02 g08 g12 g18 g20 g24 g29 g34 g38 g42) ainda não têm nota: o agente prevê antes, em `taste-previsoes`, e só então destranca `config/heldout`.
+Fonte: base da página https://claude.ai/artifact/N1W9HSAcmBehecrXyzxZSB (coleções `ratings` e `decisions`), exportada 2026-09-25. Imagens e manifesto: `outputs/.drafts/taste-img/gallery/` (só no disco da máquina que as coletou). Os 10 itens guardados (g02 g08 g12 g18 g20 g24 g29 g34 g38 g42) foram notados em 2026-09-26, depois da previsão do agente: estão no fim, com o placar.
 
 Nota de 1 a 5; `+` o que presta, `−` o que não presta. Texto do Lucas sem edição.
 
@@ -314,3 +314,97 @@ Lucas S. Figueiredo, ai4good (cópia de teste)
 **+** tem informações destacadas. relativamente clean. fonte legal
 
 **−** o link n segue o padrão lowercase. muito muito texto. dificílimo de acompanhar
+
+## g02 · nota 3 · Annual CO2 emissions, 2017 (after makeover)
+Garr Reynolds, Presentation Zen slide makeovers — https://www.garrreynolds.com/slide-makeovers
+
+**+** simples e direto, gráfico didático. cor de destaque da barra que provavelmente será usada na fala.
+
+**−** as cores em si eu escolheria outras mais charmosas. a fonte pode melhorar. o título pode ser completamente repensado, não precisa parecer "título de slide"
+
+## g08 · nota 3 · Takahashi method: "すごく いい" (very good)
+Nobuhiko Yasunaka, Takahashi method for sales, Object Club 2008 (p. 31) — https://objectclub.jp/download/files/event/2008summer/yasunaka.pdf
+
+**+** limpo e direto
+
+**−** não sei do que se trata o conteúdo, é japones, coreano, chines ou outro idioma que não reconheço
+
+## g12 · nota 2 · LeCun et al. 1998, with a history timeline strip
+Stanford CS231n 2026, Lecture 1, p. 48 — https://cs231n.stanford.edu/slides/2026/lecture_1_part_1.pdf
+
+**+** a figura em si das convoluções.
+
+**−** o slide poderia ser só a figura. 
+a timeline é um artifício bom, mas poderia ser bem mais bonita e ter seu próprio slide, com zoom e animação de pan pra mostrar ela.
+o título poderia ser minúsculo se fosse mantido, mas colocaria ele antes como transição.
+o texto tá em grande quantidade, tem muito, e a fonte tá pequena.
+o rodapé chama muita atenção, meio grande e cor chamativa.
+
+## g18 · nota 3 · AirBed&Breakfast: Market Validation, two big numbers
+Airbnb 2009 pitch deck, faithful re-creation by PitchDeckCoach (p. 4) — https://media.genppt.com/pitch-decks/airbnb/airbnb-pitch-deck-2009.pdf
+
+**+** limpo e direto.
+
+**−** a fonte. a posição do título e da numeração tá mt acochado no topo. acho que poderia ser melhor separar as infos em 2 slides OU relacionar elas visuamente de uma forma mais inteligente
+
+## g20 · nota 4 · "WE DESIGN LIKE MACHINES." with factory photo
+Speaker Deck user louderthan10, "Web typography is boring" (slide 13) — https://speakerdeck.com/louderthan10/web-typography-is-boring
+
+**+** slide bom, tudo bem pensado. fonte boa, figura grande, espaço de divisão bom pra colocar o texto sem competir com a imagem (esse tipo de coisa que tinha mencionado como uma opção de template inclusive).
+
+**−** talvez usar cores, talvez não por que a ideia era essa. a única coisa que me pegou é o conteúdo do texto e da imagem apesar de conversarem não me foi tão direto a associação, se tivesse como enriquecer a mensagem melhorando/trocando a imagem, melhorando o texto, ou melhor que isso melhorando a associação através da adição de alguns elementos extras, podeia ser bom
+
+## g24 · nota 3 · Babel: AST traversal (dark theme)
+Sebastian McKenzie, "JavaScript Transformation", JSConf 2015 (slide 18) — https://speakerdeck.com/sebmck/javascript-transformation-jsconf-2015?slide=18
+
+**+** bom, mostra o necessário, explora cores
+
+**−** teria um cuidado com organização visual e talvez até a topologia do grafo pra minimizar as arestas escondidas. a fonte dos círculos vermelho ficou difícil de ler. usaria tudo em minúsculo. o título do slide talvez não precise ficar com cara de "título de slide", poderia ficar no canto direito de baixo, acho que ficaria bom.
+
+## g29 · nota 4 · Loss Optimization: rainbow loss surface
+Alexander Amini, MIT 6.S191 2019, Lecture 1 (p. 49) — https://introtodeeplearning.com/2019/materials/2019_6S191_L1.pdf
+
+**+** clean. um assunto único. gosto das fontes usadas. didático ao relacionar fórmula e gráfico. o gráfico com cores também é legal
+
+**−** acho que a resolução da figura. também não é tão claro assim a relação do "Compute gradient" com o vetor da imagem. em termos de gosto, usaria minúsculo pra tudo.
+
+## g34 · nota 1 · New members acquired per year (BEFORE makeover)
+Garr Reynolds, Presentation Zen slide makeovers (his deliberate "before") — https://www.garrreynolds.com/slide-makeovers
+
+**−** cara de slide preguiçoso, gráfico confuso com background do gráfico também confuso e conflitante com os dados do gráfico, coloração das colunas do gráfico também não ajuda pq repetem várias cores. background do slide é uma textura e degradê misturado. imagens pequenas encaixadas no improviso, título que parece wordart difícil de ler com o background.
+
+## g38 · nota 2 · "What will we talk about today?"
+Shai Mishali, "Designing a Design System" (slide 7) — https://speakerdeck.com/freak4pc/designing-a-design-system?slide=7
+
+**+** a fonte (sozinha) pode ser útil
+o background (sozinho) pode ser útil
+os dois juntos não funcionou bem
+
+**−** background mt forte, difícil de harmonizar com outros elementos. a fonte também tem que ser usada com cuidado, mt específica. a imagem do megafone dourado é muito feia, cara de imagem de banco de dados do power point 97.
+
+## g42 · nota 4 · How Shannon studied the entropy of English
+3Blue1Brown, TikTok short — https://www.tiktok.com/@3blue1brown/video/7650500191006641438
+
+**+** gostei da brincadeira do slide, boa animação
+
+**−** formato vertical
+
+## previsão × nota (os 10 guardados)
+
+Previsão escrita 2026-09-25 23:07, antes de destrancar (`outputs/.drafts/taste-previsoes.md`, só no disco). Notas dadas 2026-09-26.
+
+| item | previsto | nota | erro | o porquê bateu? |
+|---|---|---|---|---|
+| g02 | 4 | 3 | -1 | parcial — a barra de destaque com função bateu; o − não foi excesso de barras, foi cor pouco charmosa, fonte e título com cara de título |
+| g08 | 3 | 3 | +0 | sim — limpo e direto; o idioma pesou. Fonte e 4x3 não apareceram |
+| g12 | 2 | 2 | +0 | sim — texto demais, fonte pequena, rodapé chamativo. Novo: a timeline merece slide próprio com zoom e pan |
+| g18 | 3 | 3 | +0 | sim — limpo, fonte. Novo: título e número apertados no topo; dois slides OU relação visual |
+| g20 | 4 | 4 | +0 | nota certa, porquê invertido — previ o encaixe mais profundo da galeria; ele achou a associação imagem↔texto pouco direta |
+| g24 | 3 | 3 | +0 | sim — cor, rótulos difíceis, arestas confusas. Novo: tudo minúsculo; título no canto inferior direito |
+| g29 | 2 | 4 | +2 | não — 3D e arco-íris não pesaram: limpo, um assunto, fórmula ligada ao gráfico. Só a resolução bateu |
+| g34 | 1 | 1 | +0 | sim — tudo |
+| g38 | 1 | 2 | +1 | parcial — ele separa: a fonte sozinha e o fundo sozinho podem servir; o par é que falha |
+| g42 | 3 | 4 | +1 | sim no − (vertical, o único); a brincadeira e a animação pesaram mais que previ |
+
+Exatas: 6/10 · |erro| ≤ 1: 9/10 · média prevista 2,6 × real 2,9. O agente foi duro demais: 3 dos 4 erros ficaram abaixo da nota dele.
+Lição: o que ele chama de limpo e didático compensa 3D, arco-íris e idioma; o que derruba é fonte, excesso e título com cara de título.
