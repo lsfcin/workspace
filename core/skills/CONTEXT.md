@@ -14,6 +14,7 @@ How to create or edit a skill, the sync commands, the case-sensitivity hazard, w
 | [`foundry/`](foundry/CONTEXT.md) | Foundry VTT v14 module dev reference — skill suite. |
 | [`prepare/`](prepare/CONTEXT.md) | Prepare a raw prompt for an agent: optimize, contextualize, and recommend level/effort settings. |
 | [`prof/`](prof/CONTEXT.md) | Árvore modular de subskills pedagógicas e operacionais para planejamento, condução e auditoria docente. |
+| [`slides/`](slides/CONTEXT.md) | The /slides tree: craft subskills, three second-level branches, the provider leaf and one yaml per ref. |
 
 | File | Description |
 |------|-------------|
@@ -39,5 +40,4 @@ How to create or edit a skill, the sync commands, the case-sensitivity hazard, w
 | [`research.md`](research.md) | Execute a research workflow from the workspace Core research system. |
 | [`roundup.md`](roundup.md) | Full session-close ritual: drain the lists, route session knowledge to durable files, then verify and hand off. Use at session end. |
 | [`slides.md`](slides.md) | Make slide decks that look and teach well — lectures, talks, conference/defense, pitch — router. Loads the craft subskills, and the provider leaf (gslides) to read and edit decks. |
-| [`slides/gslides.md`](slides/gslides.md) | Provider hand: read, preview and edit decks through the API. The craft is in [`../slides.md`](slides/../slides.md). |
 <!-- routing:end -->

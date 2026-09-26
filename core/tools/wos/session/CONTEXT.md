@@ -11,7 +11,7 @@ Quote neither report from memory — re-run the command. The cost work's lesson 
 2. **A blocking gate is a failed `tool_result`, not an attachment** — scanning only attachments undercounts by two orders of magnitude. Guarded by `test_a_blocking_gate_is_counted_from_the_failed_tool_result`.
 3. **A worker's own transcript marks EVERY record `isSidechain: true`**, so the skip that is right for a parent empties the worker. Both `session_log.walk` and `session_turns.responses` take it as a parameter for that reason; it cost the subagent report its whole population once.
 
-`CLAUDE.md`, `AGENTS.md` and `MEMORY.md` aren't logged in any transcript — the harness folds them into the system prompt. `context` measures them on disk and subtracts them from the residual, so the memory store's cost stays separable from everything else's.
+`CLAUDE.md` and `AGENTS.md` aren't logged in any transcript — the harness folds them into the system prompt. `context` measures them on disk and subtracts them from the residual, so their cost stays separable from everything else's.
 
 `usage` still runs its own transcript loop instead of `session_log.py`'s `walk()`.
 

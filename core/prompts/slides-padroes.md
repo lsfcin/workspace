@@ -17,9 +17,9 @@ Level: high, planning + research. Language with Lucas: pt-br. Branch: `feature/s
 ## você está aqui → next session: TASTE, done properly
 Lucas's view (2026-09-24): `taste` is the **subjective** eye (what is tacky — WordArt, Comic Sans; minimal vs full; flat backgrounds; colour; fonts); the subskills are technical. It is built by interviewing him **with images**: A vs B, he picks and says why. Design:
 1. Pairs from his archetypes, rendered on COPIES (`gslides apply` + `preview`), shown in both orders; plus outside references (step 3 sources).
-2. Output: a ban list (his "brega"), a few dials (density, colour, background, type), and his reasons — `taste.md` stays short and points to the subskills it steers.
+2. Output: a ban list (his "brega"), a few criteria (density, colour, background, type), each a scale between two poles, and his reasons — `taste.md` stays short and points to the subskills it steers.
 3. Check: the agent predicts his pick on held-out pairs; agreement is the measure.
-Seeds: DesignPref (arXiv 2511.20513: taste is personal, α=0.25 across designers) · TASTE (arXiv 2605.20731: pairwise, 9 criteria) · Taste Skill (tasteskill.dev: dials + banned patterns) · LLM-simulated preference distorts (arXiv 2605.18311).
+Seeds: DesignPref (arXiv 2511.20513: taste is personal, α=0.25 across designers) · TASTE (arXiv 2605.20731: pairwise, 9 criteria) · Taste Skill (tasteskill.dev: criteria + banned patterns) · LLM-simulated preference distorts (arXiv 2605.18311).
 Then: profiles (room & screen · audience & vibe · talk format) in `academy/talks/profiles.md`, pointed at by `slides-profiles` in `core/profile.txt`.
 
 ## remaining steps

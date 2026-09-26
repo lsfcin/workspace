@@ -19,12 +19,10 @@ ROOT = Path.home() / '.claude' / 'projects'
 PROSE_RATE = 3.8  # chars/token for ordinary prose and code — the yardstick, not a measurement
 
 # Injected into the system prompt, invisible to the transcript, paid by every session in the tree.
-# Measured on disk so the memory store's cost is separable from everything else's — 3.1's question.
+# Measured on disk so their cost is separable from everything else's.
 ALWAYS_LOADED = {
 	'CLAUDE.md chain': [Path.home() / '.claude/CLAUDE.md', Path.home() / '.claude/RTK.md',
 	                    WORKSPACE / 'CLAUDE.md', WORKSPACE / 'AGENTS.md'],
-	# The store moved into the workspace 2026-08-15; the harness path is now a symlink to it.
-	'memory index': [WORKSPACE / 'brain/memory/MEMORY.md'],
 }
 
 

@@ -31,3 +31,4 @@ So this is not "run the sync". It is the whole loop, and the last two steps are 
 - **Editing the target.** Ever. It is rebuilt, and a hand edit there is destroyed by the next sync with no record that it existed.
 - **Deciding what crosses.** That is `core/public.txt` (the floor and its refusals) and the `ships` column of `core/features.txt` (the claims). Both carry their own reasons; read them there.
 - **The target's `ROADMAP.md`, `ISSUES.md` and `.gitignore`.** The target writes its own two lists by the 2026-09-04 per-repo ruling, and the sync generates the third for it.
+- **Publishing course pages.** That is `core/run tools/links/cfpages publish <page>`, which redraws course generators (`painel.py`, skills tree via `arvore.py`) and pushes to Cloudflare Pages.

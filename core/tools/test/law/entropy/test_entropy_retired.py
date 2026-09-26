@@ -51,6 +51,16 @@ def test_an_inflection_of_a_retired_token_is_a_hit(tmp_path):
     assert len(entropy_list.retired_hits([ending_in_e], {'probe': 'metadata'}, set())) == 1
 
 
+def test_an_accented_letter_is_part_of_the_word(tmp_path):
+    """pt-br words run on past ASCII: until 2026-09-25 `á` counted as a boundary, so retiring
+    `mal` would have failed on `malária`. The token standing alone is still a hit."""
+    target = tmp_path / 'notas.md'
+    target.write_text('a malária voltou\n', encoding='utf-8', newline='\n')
+    assert entropy_list.retired_hits([target], {'mal': 'kept'}, set()) == []
+    target.write_text('fez mal\n', encoding='utf-8', newline='\n')
+    assert len(entropy_list.retired_hits([target], {'mal': 'kept'}, set())) == 1
+
+
 def test_a_retired_token_inside_a_url_is_not_a_hit(tmp_path):
     """Somebody else chose those words; no rename of ours can reach them.
 

@@ -4,15 +4,15 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-09-24 19:40
+last-updated: 2026-09-25 22:29
 
 >**areas** — last 14 days  
 ```
 health       ░░░░░░░░░░   3 touches
-career       ░░░░░░░░░░   20 touches
-craft        ██████████   238 touches
+career       ░░░░░░░░░░   19 touches
+craft        ██████████   231 touches
 finances     ░░░░░░░░░░   4 touches
-fun          ░░░░░░░░░░   7 touches
+fun          ░░░░░░░░░░   6 touches
 spiritual    ░░░░░░░░░░   1 touches
 ```
 
@@ -21,7 +21,7 @@ spiritual    ░░░░░░░░░░   1 touches
 burocracia-academica     ░░░░░░░░░░   2 touches
 career-ufrpe             ░░░░░░░░░░   1 touches
 corporal-expressiveness  ░░░░░░░░░░   1 touches
-craft-flows              ░░░░░░░░░░   17 touches
+craft-flows              ░░░░░░░░░░   16 touches
 cria                     ░░░░░░░░░░   2 touches
 dance                    ░░░░░░░░░░   1 touches
 ecovila                  ░░░░░░░░░░   3 touches
@@ -43,18 +43,18 @@ paper-jarbinhas          ░░░░░░░░░░   2 touches
 paper-megatruth          ░░░░░░░░░░   1 touches
 paper-scattercode        ░░░░░░░░░░   1 touches
 prompt-opt-automation    ░░░░░░░░░░   0 touches
-rpg-isoroll              ░░░░░░░░░░   6 touches
+rpg-isoroll              ░░░░░░░░░░   5 touches
 sleep-regularity         ░░░░░░░░░░   1 touches
 smartphone-addiction     ░░░░░░░░░░   1 touches
 spacemantics             ░░░░░░░░░░   2 touches
 spec-driven-development  ░░░░░░░░░░   7 touches
 startapps                ░░░░░░░░░░   0 touches
 surf                     ░░░░░░░░░░   1 touches
-teaching-materials       █░░░░░░░░░   44 touches
+teaching-materials       ░░░░░░░░░░   21 touches
 travel                   ░░░░░░░░░░   1 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   1 touches
-workspace-os             ██████████   236 touches
+workspace-os             ██████████   228 touches
 yoga                     ░░░░░░░░░░   1 touches
 ```
 <!-- data:end -->

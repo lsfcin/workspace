@@ -42,11 +42,12 @@ def retired_hits(files: list, retired: dict, exempt: set) -> list:
     # reported zero and the table claimed three finished renames. A rename nobody can see is
     # unfinished is worse than no rename — the row is what makes it true, so the row has to be
     # able to fail. A trailing `e` is dropped before suffixing so a token ending in `e`
-    # still reaches its `-ing` form.
+    # still reaches its `-ing` form. `[^\W_]` is a Unicode letter or digit: an accented letter
+    # is part of a pt-br word, not a boundary.
     patterns = {token: re.compile(
-        rf'(?<![A-Za-z0-9])(?:{re.escape(token)}'
+        rf'(?<![^\W_])(?:{re.escape(token)}'
         rf'|{re.escape(token[:-1] if token.endswith("e") else token)}(?:s|es|d|ed|ing))'
-        rf'(?![A-Za-z0-9])') for token in retired}
+        rf'(?![^\W_])') for token in retired}
     hits = []
     for path in files:
         if path.resolve() in exempt:

@@ -9,16 +9,52 @@
 
 <!-- add entries below, newest first -->
 
-aprimorar os templates (e talvez specs se fizer sentido) de teaching diznedo pra incluir nos artefatos instruções para os humanos sobre como usar e como não usar os agentes/ia
+criar handoff por repositório, tipo outputs/teaching/handoff.md que aí sessões paralelas não vão conflitar no repasse do trabalho
+— via aiwbot · 2026-09-25
+
+https://world.emergence.ai/
+incluir nas minhas aulas, principalmente de autopreservação
+
+https://www.instagram.com/p/DduZYXmmHVD/?stkn=NTc4MTIwNjQ2YQ==
+gostei, já faço parecido mas acho que posso melhorar olhando pra isso aqui. ai4good - transformers
+
+o disciplina.md de ai4good tá refinado. ver o que foi feito nele que merece ser aplicado no template
+
+nos disciplinas .md adicionar para os alunos uma forma deles mesmo submeterem o link de cada atividade no site... será que tem como? um pequeno popup em que eles colocam o número de matrícula deles e o link daquele artefato. é só uma ideia e precisa ser discutida. o ideal seria eu como professor também com um clique marcar quais caixas/itens tão aceitos daquele material mas tem que ver pra interface continuar sendo massa, bonita, robusta e simples.
+
+https://www.instagram.com/reel/DdtthjJkT_1/?utm_source=ig_web_copy_link
+talvez seja útil pra gente como ferramenta, avaliar
+— via aiwbot · 2026-09-25
+
+https://www.instagram.com/p/DdtoUUvDAQ3/?utm_source=ig_web_copy_link
+aqui o exemplo de arquitetura acho que vale encontrar a fonte e ver se é útil pra gente
+— via aiwbot · 2026-09-25
+
+https://www.instagram.com/reel/DdsmRf-iUh6/?utm_source=ig_web_copy_link
+talvez seja útil pra gente
+— via aiwbot · 2026-09-25
+
+ah, os enigmas devem garantir que o aluno entendeu o principal pra seguir pra próxima atividade
+— via aiwbot · 2026-09-25
+
+https://www.instagram.com/p/DdkJI9oE2_F/?utm_source=ig_web_copy_link
+estudar o relatório deles, analisar em detalhes como estamos em relação a ele, analisar todos os materiais de teaching
+— via aiwbot · 2026-09-25
+
+pq o nosso warning começa com NOT REFUSED ao invés de ALLOWED? é essa a melhor linguagem mesmo?
+
+nos arquivos de disciplina.md, nos painéis, pra reduzir a largura, na coluna de descrição podemos colocar um limite de chars pequeno pra quebrar a linha rápido e também facilitar uma tabela mais fina. a minha preocupação é que quando a visualização vai pro celular os "botões" com links ficam quebrados em duas linhas e ficam esquisitos, então gostariad e evitar isso.
+
+melhorar a minha aula de autoencoder mostrando primeiro e por partes só a parte de encoder, depois só a parte de decoder, e depois as duas juntas. dar bastante exemplos. se possível dar exemplos que não são de imagens
+
+https://www.instagram.com/p/DdsAcDhv247/?stkn=NTc4MTIwNjQ2YQ==
+isso deveria entrar na aula
+
+montar a árvore de habilidades de ai4good decentemente
+
+aprimorar os templates (e talvez specs se fizer sentido) de teaching dizendo pra incluir nos artefatos instruções para os humanos sobre como usar e como não usar os agentes/ia
 
 temos uma seção "how to use" no readme do wos? dizendo do roundup, handoff, etc, as dicas gerais de uso
-
-na coluna de nota dos paineis das disciplinas (disciplina.md) dar um espaço extra pra caber o 100 pts alinhado
-ex.:
-◻◻  00 pts
-◻◻ 100 pts
-
-na disciplina de ai4good, ao invés de 1 artefato sem pra seminário, teremos três, sem1, sem2, e sem3. o artefato da demonstração, do artigo e um extra do pitch devem somar o que falta pra fechar os 50 itens, pelas minhas contas essa soma dá 23, e aí pensei em fazer como demonstração 5, artigo 6, pitch 12 (aí pode rever as abreviações)
 
 nas especificações das disciplinas, talvez nos artefatos em si, incluir parágrafos de "comando/prompt: ..." em que faço sugestões de prompt ou pro artefato como um todo ou pra cada parte da metodologia (acho melhor essa segunda opção). outra coisa, sempre que listarmos algum termo em português que é mais conhecido por sua versão em inglês a gente inclui a tradução pra inglês em parênteses e em itálico (ex.: retropropagação - backpropagation). isso pra todos os materiais, slides, site, etc.
 
@@ -71,4 +107,10 @@ wos, slides (IMPROVE WOS): (1) não há guia de estilo visual dos decks do Lucas
 
 migrar o /prof para en-us, traduzindo E cortando ao mesmo tempo (como o /slides, que nasceu em inglês com os termos em pt entre crases) — decidido na sessão de slides de 2026-09-24
 
-wos (IMPROVE WOS, sessão de slides 2026-09-24): (1) os espelhos das skills copiam só o SKILL.md, então os links relativos do /prof e do /slides para as subskills (`prof/x.md`, `slides/x.md`) não resolvem dentro de `.claude/skills/` — o agente acha pelo caminho do core, mas o link está quebrado; (2) as pesquisas de uma sessão ficam em `outputs/.drafts/`, que é gitignored: a outra máquina não vê as 5 pesquisas de slides; (3) `cfpages publish` imprime todo artefato, uma linha cada — talvez só a página e a contagem
+wos (IMPROVE WOS, sessão de slides 2026-09-24): (1) os espelhos das skills copiam só o SKILL.md, então os links relativos do /prof e do /slides para as subskills (`prof/x.md`, `slides/x.md`) não resolvem dentro de `.claude/skills/` — o agente acha pelo caminho do core, mas o link está quebrado; (2) as pesquisas de uma sessão ficam em `outputs/.drafts/`, que é gitignored: a outra máquina não vê as 5 pesquisas de slides
+
+wos (sessão de slides 2026-09-24, 2ª): (1) o agent `montador` tem nome em pt-br entre agents em inglês (writer, reviewer…) — Lucas escolheu; decidir se a regra de nomes muda ou se é exceção. (2) agents só são usados por baixo de skills (/research, /craft), nunca direto — o /slides é o primeiro skill a acionar um agent próprio (`taste` → `montador`). (3) duas regras de trabalho com o Lucas vivem só no plano de slides, porque o memory gate recusa sem pedido dele: "o agente opina como especialista, Lucas decide" e "o texto entre ferramentas não chega a ele no VS Code: links e perguntas vão na ÚLTIMA mensagem do turno". Pedir OK para virar memória ou norma.
+
+imagem → .md irmão: pra ler qualquer imagem (não só as de dentro de PDF) a gente poderia gerar um .md pra ela, com a descrição do VLM + o texto do OCR — mesma ideia do .md irmão de PDF. Cruza com o `.imgif` de `core/tools/assets/inspect` (já é um arquivo irmão de imagem com campo de descrição) e com o `caption_image` do video/. Guardado na sessão de PDF→md de 2026-09-25
+
+wos (IMPROVE WOS, sessão PDF→md 2026-09-25): (1) `pkill -f <padrão>` mata o próprio shell do Bash quando o padrão aparece na linha de comando — usar `pgrep -f '[x]yz'`; (2) Marker e MinerU deixam servidores órfãos (surya, mineru.doclib) segurando VRAM depois de falhar — qualquer ferramenta de GPU nossa precisa derrubar o que subiu; (3) o gate de contexto pede os CONTEXT.md de cada PDF tocado, até pra um `pdfinfo` — muito custo pra operação só-leitura sobre binário

@@ -30,3 +30,8 @@ brain/drafts/context-folding-report.md
 # The BCC grade as SIGAA served it, saved from the browser — it carries its own
 # `saved from url=` banner. A first-line comment of ours would be a claim we wrote it.
 academy/administration/coordenacao-lc/novo-ppc-bcc/Nova Grade*.html
+coordenacao-lc/novo-ppc-bcc/Nova Grade*.html
+
+# Upstream legal and institutional documents (laws, MEC/CNE resolutions)
+academy/administration/coordenacao-lc/novo-ppc-bcc/Documentos/*
+coordenacao-lc/novo-ppc-bcc/Documentos/*

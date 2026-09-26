@@ -10,7 +10,7 @@
 >
 > Os artefatos completos ficam em `outputs/` (fora do git, como este arquivo):
 > `metodologia-disciplinas-estado.md` · `-sota.md` · `-opcoes.md` · `-sota.provenance.md` ·
-> `ai4good-folha-de-avaliacao.md`. As 15 referências estão em `academy/refs/REFS.md`.
+> `ai4good-folha-de-avaliacao.md`. As 15 referências estão em `academy/teaching/REFS.md`.
 
 ## 1. O que foi lido antes de opinar
 
@@ -101,7 +101,7 @@ na mesma disciplina.
 
 ## 7. Dívidas e bloqueios
 
-- `academy/refs/REFS.md` foi de 154 para **197 linhas**, com teto em 200 — a próxima captura não
+- `academy/teaching/REFS.md` foi de 154 para **197 linhas**, com teto em 200 — a próxima captura não
   cabe. Candidato a corte: a seção de reels do Instagram no topo, cuja prosa longa é segunda cópia
   do que já está em `brain/goals/teaching-materials.md`. Corte é decisão de Lucas.
 - Token do `gforms` da conta `personal` expirou; a reconsentimento abre navegador na máquina dele.

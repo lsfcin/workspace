@@ -43,6 +43,26 @@ def mark(session_id: str, threshold: int) -> None:
 		pass
 
 
+def compacted_state_file(session_id: str) -> str:
+	return str(session_state(f'claude_ctx_compacted_{session_id}.txt'))
+
+
+def announced_compaction(session_id: str) -> bool:
+	try:
+		with open(compacted_state_file(session_id), encoding='utf-8') as f:
+			return f.read().strip() == '1'
+	except (OSError, ValueError):
+		return False
+
+
+def mark_compaction(session_id: str) -> None:
+	try:
+		with open(compacted_state_file(session_id), 'w', encoding='utf-8', newline='\n') as f:
+			f.write('1')
+	except OSError:
+		pass
+
+
 def message(ctx: int, crossed: int, loud: int) -> str:
 	size = f'{ctx // 1000}k'
 	if crossed >= loud:
@@ -60,6 +80,12 @@ def main() -> None:
 	path = transcript.find(raw, session_id, cwd)
 	if not path:
 		return
+	if transcript.is_compacted(path) and not announced_compaction(session_id):
+		mark_compaction(session_id)
+		print('⚠️ CONTEXTO AUTOCOMPACTADO PELO HARNESS: O histórico anterior foi sumarizado. '
+		      'Recomenda-se rodar /roundup e abrir nova sessão para manter a precisão.')
+		notify.tell(f'{Path(cwd).name or "workspace"}: sessão foi autocompactada pelo harness. '
+		            f'Hora de fechar com /roundup.')
 	ctx = transcript.last_context(path)
 	limits = load_limits()
 	warn, loud = limits.get('CTX_WARN', 0), limits.get('CTX_LOUD', 0)
@@ -75,6 +101,7 @@ def main() -> None:
 	# agent mid-thread, this one is a fact for Lucas wherever he is.
 	notify.tell(f'{Path(cwd).name or "workspace"}: contexto em {ctx // 1000}k — daqui pra frente '
 	            f'cada turno custa mais e não volta a baratear. Hora de fechar com /roundup.')
+
 
 
 if __name__ == '__main__':
