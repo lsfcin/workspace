@@ -15,6 +15,7 @@
 |------|-------------|
 | [`accessibility.md`](accessibility.md) | Contrast, minimum projected size, alt text, captions, colour never the only signal. |
 | [`backup-and-qa.md`](backup-and-qa.md) | Backup slides for the questions you expect: shown when asked, never spoken. |
+| [`design-system.md`](design-system.md) | The owner's slide tokens — palette by family, fonts by role, sizes, layouts. Edit a row here and regenerate; nothing else holds these values. |
 | [`formats.md`](formats.md) | Router: pick the format a concept needs, and combine at least 3 per concept (`SPECS-aulas.md` rule of 3). |
 | [`gslides.md`](gslides.md) | Provider hand: read, preview and edit decks through the API. The craft is in [`../slides.md`](../slides.md). |
 | [`narrative.md`](narrative.md) | Router: the deck's order, and telling it with images. Combining the two is the skill. |
