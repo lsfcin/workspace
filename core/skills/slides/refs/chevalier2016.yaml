@@ -1,0 +1,15 @@
+# Reference for chevalier2016
+key: chevalier2016
+type: conference
+year: 2016
+venue: "AVI 2016 (Advanced Visual Interfaces, ACM), pp. 280-287; venue verified on researchr, content read on the authors' companion page"
+url: "http://animations.recherche.enac.fr/index.html"
+level: B
+contributions:
+  - "Revisits Baecker & Small's 'Animation at the Interface' 25 years on, drawing on papers, commercial systems and interviews with practitioners."
+  - "Five families of roles: keeping in context (staying oriented while navigating, tracking layout changes), teaching aid, user experience (hooking, engagement, aesthetics), data encoding, and visual discourse (narrative, highlighting, persuading)."
+gaps:
+  - "A taxonomy, not an effect study."
+  - "The paper PDF was not reached; the roles come from the companion page."
+tags: [survey, animation]
+relevance: "Supplies the words for a meaningful-versus-decorative test. A zoom that keeps context or carries the narrative has a role; one that only hooks attention is user-experience decoration and should be the first cut."

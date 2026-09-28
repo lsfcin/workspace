@@ -1,0 +1,17 @@
+# Reference for primer-token-names
+key: primer-token-names
+type: web
+year: 2026
+venue: "GitHub Primer, Primitives > Token names (primer.style); undated, read 2026-09-26. Pairing rules read in github.com/primer/primitives DESIGN_TOKENS_GUIDE.md"
+url: "https://primer.style/product/primitives/token-names/"
+level: V
+contributions:
+  - "Three categories: base (raw values, e.g. base-color-green-5), functional (global UI patterns, e.g. bgColor-inset, borderColor-default), component/pattern (component CSS only, e.g. button-primary-bgColor-hover)."
+  - "Name blocks: prefix, namespace, pattern, variant, property (required), scale; colour modifiers default / muted / emphasis."
+  - "Colour themes ship as separate files: light, dark, dark-dimmed, high-contrast, colorblind and tritanopia variants."
+  - "A pairing matrix: bgColor-*-emphasis MUST pair with fgColor-onEmphasis; bgColor-muted NEVER with fgColor-muted; normal text 4.5:1, large text 3:1."
+gaps:
+  - "Pairing ratios are WCAG screen values, lower than our projector rule (4.5 titles, 7 small text)."
+  - "No presentation guidance."
+tags: [method-source, design-system, style-system, accessibility]
+relevance: "Our 'text on it' column is a pairing matrix in all but name; stating it as MUST-pair rules (main -> on-main) would let a checker enforce it on every generated slide."

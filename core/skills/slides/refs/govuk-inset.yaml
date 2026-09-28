@@ -1,0 +1,17 @@
+# Reference for govuk-inset
+key: govuk-inset
+type: web
+year: 2026
+venue: "GOV.UK Design System (Government Digital Service), component page, fetched 2026-09-26"
+url: "https://design-system.service.gov.uk/components/inset-text/"
+level: V
+contributions:
+  - "Page shape: When to use this component / When not to use this component / How it works, each a short prose paragraph."
+  - "When to use: to set a block apart from the surrounding content, e.g. quotes, examples, additional information."
+  - "When not to use: some users do not notice inset text on complex pages or next to other prominent elements, so never for very important information; use the Warning text component instead."
+  - "How it works: use very sparingly; less effective if overused."
+  - "The sibling Details page (https://design-system.service.gov.uk/components/details/) adds a 'Research on this component' section with observed user problems."
+gaps:
+  - "Web forms and services, not presentations; the research section is qualitative and unquantified."
+tags: [method-source, design-system, structure]
+relevance: "The model row for the guide table: when to use, when not to use, the alternative to reach for instead, and what research says. It also gives a direct rule for the quote/callout element: sparingly, never for the one thing that must be seen."

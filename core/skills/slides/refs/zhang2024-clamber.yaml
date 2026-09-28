@@ -1,0 +1,14 @@
+# Reference for zhang2024-clamber
+key: zhang2024-clamber
+type: conference
+year: 2024
+venue: "ACL 2024 (long), Bangkok — ACL Anthology"
+url: "https://aclanthology.org/2024.acl-long.578/"
+level: A
+contributions:
+  - "CLAMBER: 12k-example benchmark and taxonomy of ambiguity for testing whether LLMs detect and clarify ambiguous requests."
+  - "Off-the-shelf LLMs are poor at it; chain-of-thought and few-shot prompting help marginally and can make models overconfident."
+gaps:
+  - "Text query benchmark; no visual or design tasks."
+tags: [ground-truth, interactivity]
+relevance: "The agent cannot be trusted to notice on its own that a design choice is open; the interview needs an explicit list of elements to confirm."

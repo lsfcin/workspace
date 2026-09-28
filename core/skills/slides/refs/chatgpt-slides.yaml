@@ -1,0 +1,14 @@
+# Reference for chatgpt-slides
+key: chatgpt-slides
+type: web
+year: 2026
+venue: "ChatGPT use cases, learn.chatgpt.com (read 2026-09-26)"
+url: "https://learn.chatgpt.com/use-cases/generate-slide-decks"
+level: V
+contributions:
+  - "ChatGPT turns source material into 'a short slide plan', builds the deck, and checks the rendered slides before returning it."
+  - "It can follow a reference presentation or saved template and preserve branding; refinement happens through follow-up prompts."
+gaps:
+  - "The page describes no upfront clarifying questions; no effect data."
+tags: [tool, style-system]
+relevance: "The contrast case: plan-first with a reference deck, little or no interview."

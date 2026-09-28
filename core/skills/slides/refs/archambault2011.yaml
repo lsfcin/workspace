@@ -1,0 +1,15 @@
+# Reference for archambault2011
+key: archambault2011
+type: article
+year: 2011
+venue: "IEEE Transactions on Visualization and Computer Graphics 17(4):539-552, doi 10.1109/TVCG.2010.78; verified on Glasgow eprints and Crossref; abstract read via Sciweavers"
+url: "https://doi.org/10.1109/TVCG.2010.78"
+level: A
+contributions:
+  - "Experiment: animation against small multiples for dynamic graphs, plus the effect of mental-map preservation (a stable layout) on each."
+  - "Small multiples were significantly faster than animation overall and for each of five graph comprehension tasks."
+  - "Small multiples had significantly more errors than animation when spotting the nodes or edges added in the same time slice."
+gaps:
+  - "Graph data only; the full text did not fetch, so effect sizes and sample size were not read."
+tags: [ground-truth, animation, layout]
+relevance: "Confirms robertson2008 for another kind of data: slices side by side are faster to read, and animation helps mainly to notice what changed between two adjacent slices. In a slide stack, keep slices aligned so changes line up."

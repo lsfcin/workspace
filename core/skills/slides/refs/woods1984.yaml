@@ -1,0 +1,16 @@
+# Reference for woods1984
+key: woods1984
+type: article
+year: 1984
+venue: "International Journal of Man-Machine Studies 21(3):229-244 (Crossref); now the International Journal of Human-Computer Studies"
+url: "https://doi.org/10.1016/S0020-7373(84)80043-7"
+level: A
+contributions:
+  - "Defines visual momentum as the user's ability to extract and integrate information across displays. It is inversely proportional to the mental effort of placing a new display in context."
+  - "Low momentum is a 'bad cut', where every transition totally replaces the view. High momentum gives continuity across successive views."
+  - "Techniques that raise momentum: a long shot (overview), perceptual landmarks, display overlap, spatial representation, and spatial cognition (routes)."
+gaps:
+  - "Status inferred: the full text was not read (ScienceDirect returned 403). The contributions come from passages quoted in a practitioner's notes (https://ferd.ca/notes/paper-visual-momentum.html)."
+  - "Written for control-room and computer displays, not for presentations."
+tags: [foundational, spatial, structure]
+relevance: "The theory behind Lucas's directive. Its ranking says a recurring overview (long shot) and stable landmarks give continuity even without a camera flight, which makes them a cheaper route to the same effect."

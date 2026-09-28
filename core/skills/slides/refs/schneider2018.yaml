@@ -1,0 +1,17 @@
+# Reference for schneider2018
+key: schneider2018
+type: article
+year: 2018
+venue: "Educational Research Review 23:1-24 (Elsevier), meta-analysis"
+url: "https://doi.org/10.1016/j.edurev.2017.11.001"
+level: A
+contributions:
+  - "Meta-analysis of 103 studies (N = 12,201) on signaling: cues that highlight the organization of relevant information."
+  - "Signaling helps retention (g+ = 0.53, 95% CI 0.42-0.64) and transfer (g+ = 0.33, 95% CI 0.22-0.43)."
+  - "Signaling lowered cognitive load and raised motivation/affect, learning time and learning-relevant eye fixations."
+  - "Prior knowledge was not a moderator, contrary to the expertise-reversal hypothesis; nine moderators coded, e.g. type of signaling."
+gaps:
+  - "Read at abstract and highlights level; the per-moderator results (which cue type works best) were not read."
+  - "Covers learning with media in general, not live lectures with a presenter."
+tags: [ground-truth, animation, diagrams, structure]
+relevance: "The strongest single number behind the highlight, ring and callout elements: a cue that points at the relevant part is worth about half a standard deviation on retention. It licenses the micro cue elements, not any particular cue style."

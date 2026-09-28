@@ -1,0 +1,18 @@
+# Reference for material-tokens
+key: material-tokens
+type: web
+year: 2026
+venue: "Material Web docs, Material Theming page (material-web.dev, Google); undated, read 2026-09-26. Light/dark mapping read in github.com/material-foundation/material-tokens tokens.md (repo archived 2024-10-17)."
+url: "https://material-web.dev/theming/material-theming/"
+level: V
+contributions:
+  - "Three token classes: reference tokens hold concrete values (hex, px, font family); system tokens hold the roles that give the system its character; each component token maps to a system token."
+  - "Names carry the layer: --md-ref-typeface-*, --md-sys-color-*, --md-sys-typescale-*, --md-sys-shape-*, --md-<component>-*."
+  - "Modes live in the system layer: md.sys.color.primary points to palette primary40 in Light and primary80 in Dark; onPrimary to primary100 / primary20 (tokens.md)."
+  - "Every fill role has an 'on' role (primary / onPrimary, primaryContainer / onPrimaryContainer): the text colour is a named pair of the fill."
+gaps:
+  - "m3.material.io design-tokens page renders only with JavaScript; its text was not read."
+  - "The tokens.md repo is archived; current M3 values may differ."
+  - "Built for screens a viewer controls, not a projected canvas."
+tags: [method-source, design-system, style-system]
+relevance: "Our palette rows are reference tokens with the role folded in; the 'on' pairing is what our 'text on it' column already computes, and naming it (on-main, on-dark) would give it a semantic layer."

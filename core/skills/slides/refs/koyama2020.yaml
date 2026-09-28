@@ -1,0 +1,15 @@
+# Reference for koyama2020
+key: koyama2020
+type: article
+year: 2020
+venue: "ACM Transactions on Graphics (SIGGRAPH 2020), per the authors' project page"
+url: "https://koyama.xyz/project/sequential_gallery/"
+level: A
+contributions:
+  - "Sequential Gallery: Bayesian optimization turns an n-slider design space into a sequence of 2D subspaces; each step the user just picks the best option in a grid."
+  - "Beats the earlier sequential line search (one slider per step, SIGGRAPH 2017) in fewer iterations on synthetic functions."
+gaps:
+  - "Only a 'preliminary user study' (novices, photo enhancement, fixed 15 iterations)."
+  - "Needs a continuous parameter space; categorical choices such as typeface are out of scope."
+tags: [method-source, taste, style-system]
+relevance: "For continuous tokens (hue, spacing, type scale ratio) the agent can show a grid of rendered variants and ask only 'which is best', converging in about 15 rounds."

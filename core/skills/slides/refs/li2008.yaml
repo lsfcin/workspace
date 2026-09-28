@@ -1,0 +1,15 @@
+# Reference for li2008
+key: li2008
+type: conference
+year: 2008
+venue: "SIGGRAPH 2008, published in ACM Transactions on Graphics 27(3), doi 10.1145/1360612.1360700; verified on the UW GRAIL project page and Crossref; PDF read (Princeton course copy)"
+url: "https://doi.org/10.1145/1360612.1360700"
+level: A
+contributions:
+  - "System that automatically builds interactive 3D exploded views from a model, using an explosion graph of how parts separate."
+  - "Conventions taken from technical illustration: explode parts along unblocked directions, offset them so every part of interest is visible, keep offsets compact so viewers can mentally reassemble the model."
+  - "Names the limits of static exploded views: clutter, neighbouring parts ending far apart, and no change of level of detail; interaction is its answer."
+gaps:
+  - "Mechanical 3D assemblies; no study of viewer comprehension."
+tags: [method-source, spatial, diagrams]
+relevance: "The explosion conventions carry over to a slide stack: separate slices along one clear axis, only as far as each needs to be seen, and keep spacing compact so the audience can still put the whole back together."

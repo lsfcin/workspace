@@ -1,0 +1,18 @@
+# Reference for lichtschlag2012a
+key: lichtschlag2012a
+type: conference
+year: 2012
+venue: "CHI '12 (ACM SIGCHI), pp. 1307-1310, 4-page paper; verified on the RWTH Fly page, the PDF footer and Crossref"
+url: "https://doi.org/10.1145/2207676.2208586"
+level: A
+contributions:
+  - "26 students each saw two 15-minute prerecorded talks, one as a Fly canvas and one as PowerPoint (order counterbalanced), with the same professional narration for both."
+  - "Short-term and 4-day tests showed no difference in fact recall, macrostructure recall or transfer. The one exception was a short-term transfer item that favoured slides (p=.029)."
+  - "The canvas was rated better for knowing which part was on screen (p=.006), knowing how far the talk had progressed (p=.001) and understanding its structure (p=.048)."
+  - "Spatial ability (card rotation test) did not correlate with scores. Viewers with higher spatial ability more often rated the canvas screen as too full (r=.469)."
+gaps:
+  - "n=26 (23 men) from one HCI course. The authors themselves raise novelty and Hawthorne effects."
+  - "The two formats could not be matched exactly: the canvas had richer layouts (a timeline spanning several viewports, an annotated bicycle overview)."
+  - "H2, that spatial layout would improve macrostructure understanding, was not supported."
+tags: [ground-truth, spatial, structure, animation]
+relevance: "The most controlled audience test of a canvas talk: orientation improves and learning does not. Use space to answer 'where am I in the talk', not as a recall intervention."

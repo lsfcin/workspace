@@ -1,0 +1,15 @@
+# Reference for suh2024
+key: suh2024
+type: conference
+year: 2024
+venue: "CHI '24, Honolulu (ACM)"
+url: "https://dl.acm.org/doi/10.1145/3613904.3642400"
+level: A
+contributions:
+  - "Luminate first asks the LLM for the dimensions of the design space (5 nominal with up to 8 values, 3 ordinal with 5 levels), then generates responses that each take one value per dimension."
+  - "Users sort and filter the outputs by dimension; 10 of 14 professional writers preferred it to ChatGPT."
+gaps:
+  - "40 responses per prompt overwhelmed several participants, who asked for 'fewer and simpler responses at first'."
+  - "Some generated dimensions needed manual refinement; sessions were 25 to 50 minutes."
+tags: [method-source, design-system, interactivity]
+relevance: "A way to frame the interview: the agent names the design-system dimensions (palette, type pairing, grid, diagram style) and their values, and Lucas picks per dimension; start with few options, not forty."

@@ -1,0 +1,19 @@
+# Reference for carbon-themes
+key: carbon-themes
+type: web
+year: 2026
+venue: "IBM Carbon Design System docs, Elements > Themes overview (carbondesignsystem.com); undated, read 2026-09-26"
+url: "https://carbondesignsystem.com/elements/themes/overview/"
+level: V
+contributions:
+  - "Defines theme, token, role and value: a token is a role-based identifier that never changes across themes; only the value changes."
+  - "Four themes (White, Gray 10, Gray 90, Gray 100) share one token set; e.g. $background is White in White and Gray 100 in Gray 100."
+  - "Tokens nest: $interactive takes its value from the IBM palette token $blue-60."
+  - "Token categories: colour, spacing, typography, global (layer, border width)."
+  - "Spacing scale in multiples of 2, 4 and 8, one token per step (carbondesignsystem.com/elements/spacing/overview/)."
+  - "Two type sets: productive (base 14px, fixed headings) and expressive (base 16px, fluid headings) (carbondesignsystem.com/elements/typography/type-sets/)."
+gaps:
+  - "No slide or presentation guidance found in Carbon."
+  - "Type sets are sized for screens at reading distance, in px."
+tags: [method-source, design-system, style-system, typography]
+relevance: "Model for a dark ground as a second theme over the same roles, and for a separate type set per viewing context: slides would be a third, 'projected' set, not a rescaled product set."

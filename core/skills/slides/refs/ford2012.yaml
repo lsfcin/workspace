@@ -1,0 +1,18 @@
+# Reference for ford2012
+key: ford2012
+type: book
+year: 2012
+venue: "Addison-Wesley (Pearson), 'Presentation Patterns: Techniques for Crafting Better Presentations', ISBN 978-0-321-82080-8"
+url: "https://www.informit.com/store/presentation-patterns-techniques-for-crafting-better-9780321820808"
+level: C
+contributions:
+  - "Named catalogue of over 100 presentation patterns and antipatterns in three parts: Prepare, Build, Deliver."
+  - "Each entry has a fixed form: Also Known As, Definition, Motivation, Applicability/Consequences, Mechanics, Known Uses, Related Patterns."
+  - "Breadcrumbs (aka Agenda, Roadmap): checkpoint slides for long, technical or abstract talks. Costs talk time; needing it everywhere signals weak organization; the authors dislike live progress bars as too much meta-information (antipattern Going Meta)."
+  - "Charred Trail (aka Highlighted Bullet): items appear one by one and the previous one greys out. Context Keeper: shows the talk's structure, e.g. a different background colour per section, or Keynote magic move."
+  - "Other named element patterns seen in the table of contents: Composite Animation, Traveling Highlights (figures show boxes/lines and zoom/opacity), Gradual Consistency, Intermezzi, Bookends, Vacation Photos, antipatterns Photomaniac and Bullet-Riddled Corpse."
+gaps:
+  - "Practitioner book; no empirical testing of any pattern."
+  - "Only the publisher's sample (front matter and all of Chapter 4, Temporal Patterns) was read; Composite Animation and Traveling Highlights are known by name and figure captions only."
+tags: [method-source, structure, animation, visual-story]
+relevance: "The closest existing named catalogue to Lucas's micro/macro list: Breadcrumbs is the agenda, Charred Trail and Traveling Highlights are the highlight, Composite Animation is the build. Its entry form is a ready guide-table schema."

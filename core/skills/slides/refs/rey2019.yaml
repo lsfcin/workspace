@@ -1,0 +1,17 @@
+# Reference for rey2019
+key: rey2019
+type: article
+year: 2019
+venue: "Educational Psychology Review 31(2):389-419 (Springer), meta-analysis"
+url: "https://doi.org/10.1007/s10648-018-9456-4"
+level: A
+contributions:
+  - "Meta-analysis of 56 investigations, 88 pairwise comparisons: learner-paced meaningful segments beat continuous presentation."
+  - "Small-to-medium effects on retention and transfer; segmenting also lowers overall cognitive load and increases learning time."
+  - "The four effects also hold for system-paced segmentation."
+  - "Learners with high prior knowledge benefited more than low-prior-knowledge learners on retention."
+gaps:
+  - "Exact effect sizes not in the abstract read (ERIC record)."
+  - "Segments here are pauses in multimedia instruction; a slide sequence is a close but not identical case."
+tags: [ground-truth, structure, animation, visual-story]
+relevance: "Backs the macro 'slide sequence' and cutting a long explanation into meaningful chunks, even when the presenter sets the pace."

@@ -461,3 +461,75 @@ o ideia é manter uma parte dos elementos na mesma posição e ir adicionando e/
 A A · a paleta da sua tese, estendida para 7 · B B · Okabe-Ito, feita para daltonismo · C C · sóbria / editorial
 
 gostei da paleta A
+
+## rodada 3 · fontes (2026-09-26)
+
+Página: a mesma, coleção `fonts`. Cada fonte num slide dele recriado; voto sim / talvez / não.
+
+| papel | sim | talvez | não | sem voto |
+|---|---|---|---|---|
+| texto | Atkinson Hyperlegible · Source Sans 3 ("essa também pareceu mais fácil de ler") | Open Sans · Figtree | IBM Plex Sans | — |
+| impacto | Anton | Archivo Black | Bebas Neue · Bricolage Grotesque · Syne | Unbounded · Fraunces · Big Shoulders Display |
+
+## rodada 4 · a escolha das fontes (2026-09-26)
+
+Página: a mesma, coleção `fonts4`. Texto: Atkinson Hyperlegible **Next** (a original só tem 400/700; o agente trocou, e ele não objetou) × Source Sans 3, em conteúdo, definição e split 60/40. Impacto: cinco fontes em seção, frase e número. Simulação de projetor fraco e de fundo da sala.
+
+### escolha → texto **Atkinson Hyperlegible Next** · impacto **Anton**
+
+Atkinson Hyperlegible Next ganhou, só o bold dela que por mim seria "mais bold". o destaque do bold dela é leve em relação ao texto normal. mas ela ganha pq a source sans 3 tem um light que é até mais bonito mas é menos legível de forma geral e pior ainda na distância e com problemas de projeção.
+
+anton ganhou também.
+
+a, detalhe, não usaria "ia para o bem", usaria "tópicos avançados em IA · ai4good"
+
+### impacto, cartão a cartão
+- **Anton · sim** — só as posições e quebras de linhas dos textos que podem ser levemente ajustadas, mas no mais tá muito bom.
+- **Archivo Black · talvez** — o exemplo acima tá melhor.
+- **Fraunces · talvez** — 3o colocado ao meu ver. o número fica esquisito nessa fonte.
+- **Big Shoulders Display · talvez** — aí foi de mais, fino demais, e um pouco menor do que gostaria.
+- **Unbounded · não** — a pior variação foi essa, não é um slide ruim mas perde pros outros.
+
+## rodada 5 · espacialidade (2026-09-26)
+
+Página: a mesma, coleção `espaco5`. Quatro movimentos (zoom, pan, flip, lâminas) em HTML (CSS 3D) × Google Slides feito como quadros (um slide por posição da câmera, sem transição nativa). Deck: "teste · espacialidade (rodada 5)".
+
+### câmera (zoom + pan) → **html**
+no html o movimento pro lado teve um pouco de zoom out misturado. mas com alguns ajustes poderia funcionar. teria que ser full screen, etc.
+
+agora o do google slides ficou horrível
+veja, eu achei que no google slides vc iria explorar os efeitos de transição entre slides, dissolver, esmaecer, deslizar pra direita e pra esquerda, virar, cubo e galera. tem que ter cuidado pra entender bem esses efeitos, como eles funcionam geometricamente e às vezes eles preenchem o background por trás da movimentação da lâmina do slide, preenchem com preto ou branco, então isso pode ser estratégico também.
+
+### flip → **html**
+ok no html, horrível no google slides MAS no google slides EXISTE UMA TRANSIÇÃO DE VIRAR que você não usou.
+
+### lâminas → **html**
+ficou bom no html 8 de 10, (só no começo de o "a pilha" que os slides de fundo aparecem vindo do lugar errado e em "t = 5 entra" o contorno das lâminas aparece serrilhado / aliasing)
+
+no google slides tá horrível e realmente lá eu não sei como resolver isso exceto com uma animação feita "à mão"
+
+dito isso a potencial escolha de transicionar pro html é gigante, vc acha plausível? eu acho que a liberdade de edição online do gslides bem como a divulgação toda resolvida, colaboração, etc, isso são vantagens difíceis de oferecer no html e difíceis de competir contra. de toda forma é ótimo ter o html pra entender o conceito e explorar os limites. e se vc achar viável investirmos no html a gente pode discutir melhor isso
+
+dito tudo isso acho que essa comparação inteira foi pouco válida por que não exploramos decentemente o google slides no que ele consegue fazer. lá no google slides temos que explorar 1. as transições existentes entre slides, 2. (opcional mas talvez potente, aqui vale um brainstorming com calma) as animações, slides podem virar thumbnails, etc, tem que pensar direitinho, mas talvez dê, lá tem opções de animação diversas: aparecer, desaparecer, surgimento, desaparecimento (eu sei, parece repetido, mas acho que não é, em pt tá assim lá na UI deles), entrar ou sair pela direita (esquerda, baixo, cima), mais ou menos zoom e girar. então para, pensa direitinho, e também vai além desses casos que falei de espacialidade. quebra a cabeça um pouco nisso, tanto pra gerar ideias quanto pra implementar elas com excelência extraindo o máximo ("tirar leite de pedra" como dizemos aqui), tenho fé que você consegue me mostrar coisas muito mais interessantes do que essa, faz isso em rodadas, gera ideias não só do que fazer mas como fazer, e aí depois me pede pra comparar novamente
+
+## rodada 6 · o google slides pelo que ele sabe fazer (2026-09-27)
+
+Página: a mesma, coleção `nativo6`. Deck "rodada 6 · movimento nativo" (Drive, id `1RcGprQL94q1JTa0qyJ0kBIImx3Ox8fw20-6N9k93574`), gerado como .pptx com transições e animações nativas e convertido pelo Drive; 11 demos, cada uma com slide de legenda.
+
+| demo | voto | nota dele |
+|---|---|---|
+| 1 pan = deslizar | funciona | — |
+| 2a virar · chão preto | funciona com ajuste | "situacional, no final fiz uma fala completa sobre" |
+| 2b virar · chão branco | não funciona | — |
+| 3 cubo | não funciona | — |
+| 4 galeria = lâminas | não funciona | — |
+| 5 revelação com antigos a 20% | funciona | — |
+| 6 dentro = zoom de objeto | não funciona | — |
+| 7 voar com sentido | funciona com ajuste | — |
+| 8 flipbook | não funciona | — |
+| 9 pilha + desdobrar | não funciona | — |
+| 10 miniaturas = mapa | não funciona | — |
+
+### a fala completa (campo "html ou google slides?"), literal
+
+E aí nos slides funcionaram bem algumas coisas. Funcionou bem. Esmaecer, acho que pode funcionar bem. A parte de deslizar pra direita e pra esquerda ficou boa, exceto o rodapé. E o título, às vezes, a gente não quer. Quando no slide seguinte o título some, funciona bem. Porque aí o título vai e some. Mas se tivesse título no slide seguinte não funcionaria bem. E o rodapé também. Se tivesse como manter o rodapé ou apagar o rodapé dos dois slides colocando um quadrado branco em cima. Tô pensando aqui isso é uma gabiarras, né? Mas funcionaria. Mas assim, deslizar ficou legal. A parte de virar é meio brega. A parte de virar é meio brega. Mas com fundo preto pode até ser que fique legal. Agora o fundo branco no virar não fica legal. E agora na verdade é. Tipo, virar fundo preto funciona bem melhor. Inclusive mesmo que fosse um um slide todo preto com letra branco com letra branco. Funcionaria legal. Fundo branco é mais difícil. Acho que realmente não fica tão legal não. De todo jeito, virar é meio brega. E o cubo é bem brega. Bem brega. Apesar de ter uma noção espacial interessante aí fica bem brega. Então acho que não vale a pena usar não. Com certeza o background preto melhor. Talvez assim, em um caso muito específico que realmente queira usar a ideia de um cubo. Aí pode ser. Mas... Bem brega. Então acho que quando as metáforas forem meio literais pode ser. As lâminas também meio brega. Com fundo preto talvez ficasse legal. Mas é meio brega. Não usaria não. Agora... Pronto. Revelar um a um. Funciona. Funciona revelar um a um. Com esmaecer né. Deixar 20% de opacidade pro antigo. Funciona. O zoom no objeto. Não ficou legal. Né. Não ficou legal. Porque tem elemento que vem de dentro. Fica assim. Ficou uma confusão. A graviar aqui não funcionou bem. O voar com sentido. Acho que tem que ser muito bem usado. É isso assim. Acho que no Google Slides. Como ó coisa entra. Ou sai. Bem mais limitado. O flipbook. Ficou. Tipo esse FPS né. A taxa de atualização. Foi quase. Assim. Foi um gambiarra impressionantemente. É. O resultado é impressionante. Como foi feito. Mas ainda assim ficou bem ruim. O flipbook. Não usaria isso. E também não usaria a pilha. Acho que é uma gambiarra muito intensa. Para um resultado que não é tão bom. Então. É. O zoom in também. Né. Nada disso ficou tão bom. Então. O que que eu faria. Se fosse manter no Google Slides. Eu acho que só sobrou a parte do. A transição de. Deslocar para a direita e para a esquerda né. E talvez os ins e outs de elementos. Mas dessas animações assim. Mas. Eu queria discutir. Tá exatamente com você. Uma outra ideia. Talvez. Usar o PowerPoint. porque o PowerPoint tem um negócio. Assim. Ele é muito mais poderoso em termos de animação. Ele tem. Umas transições. Muito mais opções de transições entre slides. Muito mais. E tem uma que é transformar. Assim. As de deslizar. Tem duas opções. Que é empurrar. Três na verdade. Quatro. Empurrar. Apagar. Descobrir. E cobrir. Né. Enfim. Tem muito mais opções. E tem uma que é transformar. Transformar. Ele. Se você copiar um slide. Duplicar ele. E no slide seguinte. Você. Você quer a transição. É transformar. Ele vai dar um jeito. De pegar o que tem no slide anterior. E transformar no seguinte. E isso. Funciona para figuras geométricas. Então. As figuras. Elas podem. Ele vai calcular. Sozinho. A mudança dos pontos. Então. Ele consegue rotacionar. Distorcer figuras. Né. Tem várias coisas que dá para fazer. É. Uma coisa que eu conseguia fazer. No PowerPoint. Desktop. Mas. Não estou conseguindo. No online. Do 365. É. Elitar os pontos. De cada geometria. Mas. Talvez tenha como. Enfim. Em termos de animação. Também. Tem várias animações. Que dá para fazer. Então. Talvez. Isso. Não é considerar. Fazer uma. Uma consideração completa. Sobre. É. Transicionar. No PowerPoint. Do PowerPoint. Do Google Slides. Para o PowerPoint. E. Eu ainda quero testar o Canva. Não sei se o Canva. Talvez. Seja. Uma opção. Até melhor. O Canva. Porque. Ele é super. É. Usado pelos meus alunos. E. Eu não sei como é que ele é com animações. Eu queria estudar essas possibilidades. Para ver no nosso cenário. Se vale a pena. Transicionar para uma dessas ferramentas. O PowerPoint tem vantagem de você estar mexendo com o PPTX já. Mas. Não sei se você tem todas essas capacidades. E o Canva. Pô. É. É. É a ferramenta do momento. Assim. Eu realmente queria avaliar essas duas opções. Para ver se a gente consegue expandir o nosso cenário. escolar e. E. E aí. Escolher uma coisa que seja a definitiva e super profissional. olhando rapidamente o canva, parece de fato ser o ideal, uma ferramenta em contínua evolução enquanto o powerpoint e o google slides parecem parados no tempo, esquecidos à deriva longe da prioridade das empresas.

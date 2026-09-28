@@ -1,0 +1,17 @@
+# Reference for lenzner2013
+key: lenzner2013
+type: article
+year: 2013
+venue: "Instructional Science 41(5):811-831 (Springer; online 2012)"
+url: "https://doi.org/10.1007/s11251-012-9256-z"
+level: B
+contributions:
+  - "Three experiments with 7th-8th graders separating instructional pictures (mainly informative) from decorative ones (mainly aesthetic)."
+  - "Eye tracking: decorative pictures drew brief initial attention and were then largely ignored, so little distraction."
+  - "Decorative pictures improved mood, alertness and calmness and lowered perceived difficulty, without raising situational interest."
+  - "Overall neither harmful nor beneficial for learning, but they moderated the benefit of instructional pictures, most for low-prior-knowledge learners."
+gaps:
+  - "The abstract states the moderation without its direction."
+  - "School-age readers of illustrated text, not a lecture audience."
+tags: [ground-truth, taste, style-system]
+relevance: "Softens the ban on decoration: a mainly aesthetic picture was mostly ignored and improved mood without costing learning. Inferred: the guide should separate mild decoration from the attention-grabbing irrelevant detail of sundararajan2020."

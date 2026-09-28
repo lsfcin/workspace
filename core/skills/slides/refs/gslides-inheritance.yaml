@@ -1,0 +1,16 @@
+# Reference for gslides-inheritance
+key: gslides-inheritance
+type: web
+year: 2026
+venue: "Google for Developers, Google Slides API, Concepts > Pages, page elements, and properties; undated, read 2026-09-26"
+url: "https://developers.google.com/workspace/slides/api/concepts/page-elements"
+level: V
+contributions:
+  - "Masters hold default text styles in their placeholders and the default background; layouts decide how content is arranged per slide type."
+  - "Inheritance: slides inherit from layouts, layouts from masters; a page takes any property it does not define from its layout or master."
+  - "A shape marked as a placeholder references a parent placeholder and inherits its properties."
+  - "Colours can be theme colours referenced by name (e.g. DARK1), resolved through the page's colour scheme."
+gaps:
+  - "The page states the model; it gives no design guidance."
+tags: [tool, layout, style-system]
+relevance: "Same three-level model as pptx, so one token set can drive both targets; a slide that sets its own colour or size breaks the inheritance chain, which is the check a linter should run."

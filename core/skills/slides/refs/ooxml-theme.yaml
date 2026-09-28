@@ -1,0 +1,16 @@
+# Reference for ooxml-theme
+key: ooxml-theme
+type: web
+year: 2026
+venue: "Microsoft Learn, Open XML SDK API reference for DocumentFormat.OpenXml.Drawing.ColorScheme (a:clrScheme) and Presentation.ColorMap (p:clrMap), quoting ISO/IEC 29500-1 1st Edition; read 2026-09-26"
+url: "https://learn.microsoft.com/en-us/dotnet/api/documentformat.openxml.drawing.colorscheme"
+level: V
+contributions:
+  - "A PowerPoint theme's colour scheme is exactly twelve slots: dk1, lt1, dk2, lt2, accent1-accent6, hlink, folHlink."
+  - "The slide master's clrMap is a mapping layer: role names bg1, tx1, bg2, tx2, accent1-6 point to scheme slots (example bg1='dk1' tx1='lt1' gives a dark ground from the same scheme) (learn.microsoft.com/en-us/dotnet/api/documentformat.openxml.presentation.colormap)."
+  - "So the file format already has two token layers: scheme slots (values) and mapped roles (what text and background use)."
+gaps:
+  - "Six accent slots per theme; a palette larger than that needs several themes, i.e. several masters."
+  - "Read through the SDK reference, not the ISO text itself."
+tags: [ground-truth, style-system, formats]
+relevance: "The target our pptx template must fit: each family's master can map its light/main/dark into slots, and a dark-ground layout is a clrMap flip rather than a second palette (inferred from the documented example)."

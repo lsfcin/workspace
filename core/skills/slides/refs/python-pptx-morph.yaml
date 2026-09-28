@@ -1,0 +1,16 @@
+# Reference for python-pptx-morph
+key: python-pptx-morph
+type: web
+year: 2024
+venue: "GitHub issue scanny/python-pptx #942 'how to activate and utilize the MORPH transision feature' (opened 3 Feb 2024, open, no reply), plus a local test with python-pptx 1.0.2 on 2026-09-26"
+url: "https://github.com/scanny/python-pptx/issues/942"
+level: C
+contributions:
+  - "The issue asks whether python-pptx can set a Morph transition; it has no answer and no linked work; a 2026 request for shape animations (#1106) is also open."
+  - "Local test: python-pptx 1.0.2 exposes no transition attribute on a slide (dir(slide) holds nothing with 'trans')."
+  - "Local test: inserting the [MS-PPTX] block by lxml after p:clrMapOvr (mc:AlternateContent, Choice Requires=p159 holding p:transition/p159:morph option=byObject, Fallback holding p:transition/p:fade) saves, reopens and re-saves with the morph element intact."
+gaps:
+  - "The test file was not opened in PowerPoint (none on this Linux machine), so playback of the injected Morph is unverified."
+  - "Object matching between the two slides was not tested."
+tags: [tool, animation, formats]
+relevance: "An agent can write a Morph transition into a .pptx through raw XML, but only desktop PowerPoint will play it; python-pptx itself gives no help and no check."

@@ -1,0 +1,16 @@
+# Reference for boucheix2010
+key: boucheix2010
+type: article
+year: 2010
+venue: "Learning and Instruction 20(2):123-135 (Elsevier)"
+url: "https://doi.org/10.1016/j.learninstruc.2009.02.015"
+level: A
+contributions:
+  - "Two eye-tracking experiments on a complex piano-mechanism animation compared spreading-colour cues, arrow cues and no cues."
+  - "Spreading-colour cues targeted attention to relevant parts better and gave higher comprehension than arrow cues or no cues."
+  - "Cues worked when synchronized in space and time with the onset of the relevant event; the non-synchronized version comprehended worse."
+gaps:
+  - "One mechanical domain (piano action); arrows versus colour may differ for static slides."
+  - "Read at abstract level."
+tags: [ground-truth, animation, diagrams, style-system]
+relevance: "Choosing between an arrow callout and a colour/glow highlight: colour that spreads over the part beat the arrow here. Inferred from the synchronization result: a highlight should land when the speaker names the part, not before."

@@ -1,0 +1,16 @@
+# Reference for bartsch2003
+key: bartsch2003
+type: article
+year: 2003
+venue: "Computers & Education 41(1):77-86 (Elsevier)"
+url: "https://doi.org/10.1016/S0360-1315(03)00027-7"
+level: A
+contributions:
+  - "Study 1: students did worse on quizzes when PowerPoint lectures carried non-text items such as pictures and sound effects."
+  - "Study 2: slides with text only, text plus a relevant picture, or text plus an irrelevant picture; the irrelevant picture gave worse recall and recognition and was disliked most."
+  - "End-of-semester preference for PowerPoint over transparencies was not found in ratings taken right after the lectures."
+gaps:
+  - "2003-era slides; the abstract does not quantify any gain from the relevant picture."
+  - "Read at abstract level (ERIC record)."
+tags: [ground-truth, taste, visual-story]
+relevance: "Slide-specific evidence that an irrelevant picture on a slide hurts recall and is disliked. Relevance is the test for any image element."

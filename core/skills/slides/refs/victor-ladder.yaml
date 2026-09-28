@@ -1,0 +1,15 @@
+# Reference for victor-ladder
+key: victor-ladder
+type: web
+year: 2011
+venue: "worrydream.com, Bret Victor, interactive essay dated October 2011; page read"
+url: "https://worrydream.com/LadderOfAbstraction/"
+level: C
+contributions:
+  - "Uses a car-steering simulation: first control time with a slider, then 'abstract over time' by drawing the whole trajectory, so the slider's job is 'absorbed into the static visual representation'."
+  - "'Stepping back down': overlay the car at one moment on the all-time trajectory, chosen by slider or by pointing at the trajectory."
+  - "Patterns such as oscillation that are hard to see at one moment become visible across all time."
+gaps:
+  - "An essay with live demos, no evaluation; written for a reader who interacts, not for a lecture audience."
+tags: [method-source, interactivity, visual-story, spatial]
+relevance: "The explainer-media precedent for Lucas's move, including the half that is easy to forget: after rising to the all-time view, step back down by keeping the current moment highlighted inside the stack."

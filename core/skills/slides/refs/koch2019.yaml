@@ -1,0 +1,16 @@
+# Reference for koch2019
+key: koch2019
+type: conference
+year: 2019
+venue: "CHI 2019, Proceedings of the CHI Conference on Human Factors in Computing Systems (ACM)"
+url: "https://dl.acm.org/doi/10.1145/3290605.3300863"
+level: A
+contributions:
+  - "Cooperative contextual bandits learn a designer's direction from what they keep on a mood board, mixing exploit and explore suggestions, each with a verbal explanation."
+  - "14 of 16 professional designers preferred the tool with the bandit; 13 of 16 kept AI suggestions in the final board."
+  - "A proactive-question feature split opinions: some said it made them reflect on what they want, some felt criticized."
+gaps:
+  - "Pragmatic quality (simplicity, clear structure) was rated significantly lower with the AI."
+  - "Not all participants received proactive questions; some got only a few."
+tags: [method-source, taste, interactivity]
+relevance: "Implicit elicitation (learn from what Lucas keeps and rejects) is a lighter alternative to asking; any question the agent asks should read as a choice to reflect on, not a judgment of his taste."

@@ -1,0 +1,16 @@
+# Reference for wcag-motion
+key: wcag-motion
+type: web
+year: 2025
+venue: "W3C WAI, Understanding WCAG 2.2, SC 2.3.3 Animation from Interactions (Level AAA); page updated 16 Sep 2025"
+url: "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html"
+level: V
+contributions:
+  - "Motion triggered by interaction must be possible to disable, unless the motion is essential to the function or to the information conveyed."
+  - "Non-essential motion (parallax, decorative movement) can trigger vestibular reactions: dizziness, nausea, migraine, even bed rest."
+  - "Remedies: avoid unnecessary animation, offer an off switch, or honour the OS / prefers-reduced-motion setting."
+gaps:
+  - "Written for web pages a user drives. A projected talk has no per-viewer switch, so the rule transfers only by analogy (inferred)."
+  - "Level AAA, so advisory rather than a baseline requirement."
+tags: [baseline, accessibility, animation]
+relevance: "Zoom and fly-through camera moves are the kind of motion this criterion targets. The HTML deck should honour prefers-reduced-motion with a cut or fade fallback, and in a live talk decorative camera flights should be kept few and short."

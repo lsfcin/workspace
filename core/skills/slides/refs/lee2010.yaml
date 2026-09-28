@@ -1,0 +1,15 @@
+# Reference for lee2010
+key: lee2010
+type: conference
+year: 2010
+venue: "CHI 2010, Atlanta (ACM) — venue read on the paper's first page"
+url: "https://dl.acm.org/doi/10.1145/1753326.1753667"
+level: A
+contributions:
+  - "Three studies: independent raters preferred web pages designed with examples at hand; users preferred adaptively chosen examples over random ones; users borrowed from several examples at once."
+  - "Participants shown a pane of 20 examples said about 10 would be ideal, displayed larger."
+gaps:
+  - "Web-page design by novices; not slides, not an expert author."
+  - "Authors flag the risk that designs conform to the examples shown (fixation)."
+tags: [ground-truth, taste, design-system]
+relevance: "Supports showing Lucas a small set (about 10, not 20) of rendered candidate elements chosen for his context rather than describing options in words; vary them to limit conformity."

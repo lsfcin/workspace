@@ -1,0 +1,15 @@
+# Reference for zhang2025-clarify
+key: zhang2025-clarify
+type: conference
+year: 2025
+venue: "Findings of NAACL 2025, pp. 5541-5558 — ACL Anthology"
+url: "https://aclanthology.org/2025.findings-naacl.306/"
+level: B
+contributions:
+  - "Framework for when to ask: weighs the user's speed-vs-care preference and whether an ambiguous request has one dominant, inferable reading."
+  - "INTENT-SIM samples interpretations and asks when the entropy over intents is high; beats other uncertainty estimates at spotting outputs that clarification would fix."
+gaps:
+  - "Sampling many continuations adds cost; intent distributions depend on context the model does not see."
+  - "Clarification was often unnecessary, and models still erred after it."
+tags: [method-source, interactivity]
+relevance: "An implementable test: draft several readings of Lucas's brief; ask only about elements where the drafts disagree."

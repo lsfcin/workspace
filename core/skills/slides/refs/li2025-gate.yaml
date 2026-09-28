@@ -1,0 +1,15 @@
+# Reference for li2025-gate
+key: li2025-gate
+type: conference
+year: 2025
+venue: "ICLR 2025 (proceedings.iclr.cc)"
+url: "https://proceedings.iclr.cc/paper_files/paper/2025/hash/c9867d5a22653ce98b02595061e40f12-Abstract-Conference.html"
+level: A
+contributions:
+  - "GATE: the LM itself elicits preferences by asking questions; compared with user-written prompts and with user-labelled examples."
+  - "In 5-minute sessions, LM-asked questions were at least as informative as prompts or examples and often more, and users reported less effort; open-ended generated questions did best on content recommendation."
+gaps:
+  - "Tasks are simpler than real work (recommendation, moral reasoning, email validation)."
+  - "Closed-source model; simulated users not yet able to stand in for humans."
+tags: [method-source, interactivity]
+relevance: "Evidence that an agent-led interview beats asking Lucas to write a style brief; it does not test visual design, where examples may still win."

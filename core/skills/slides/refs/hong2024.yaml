@@ -1,0 +1,15 @@
+# Reference for hong2024
+key: hong2024
+type: conference
+year: 2024
+venue: "CHI 2024 (ACM), stated on arXiv and on the ACM DL listing"
+url: "https://dl.acm.org/doi/10.1145/3613904.3642903"
+level: A
+contributions:
+  - "Cieran learns a colormap preference model from pairwise choices shown in-situ on the user's own data (Jupyter)."
+  - "15 comparisons per phase, each phase under two minutes; new colormaps matched top-ranked expert designs (no significant difference) and beat median ones; in 12 of 36 cases rated above all expert options."
+gaps:
+  - "Bounded by the expert colormap corpus and gamut; hand-crafted features."
+  - "No guard when preference conflicts with accessibility (color-vision deficiency)."
+tags: [method-source, taste, accessibility]
+relevance: "Pairwise questions shown on Lucas's real slide content, about 15 per decision, are enough to fit a colour choice; accessibility checks must sit outside the preference loop."

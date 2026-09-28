@@ -1,0 +1,16 @@
+# Reference for wolfe2023
+key: wolfe2023
+type: article
+year: 2023
+venue: "Journal of Technical Writing and Communication 54(3) (SAGE; online July 2023)"
+url: "https://doi.org/10.1177/00472816231169433"
+level: B
+contributions:
+  - "Three pilot studies extending the cognitive theory of multimedia learning to presentation slides."
+  - "Pilot 1: the multimedia principles also worked for advanced research presented to expert audiences."
+  - "Pilot 2: nonessential visual-organizer images (e.g. PowerPoint SmartArt) can backfire by implying relationships that are not there, while adding little visual interest."
+  - "Pilot 3: for a long quotation, do not read it verbatim; abridge or paraphrase it."
+gaps:
+  - "Pilot studies by the authors' own label; sample sizes not read (restricted access, abstract only)."
+tags: [application, diagrams, taste, typography]
+relevance: "The only slide-specific evidence found on the quote element, the long quote read aloud, and a warning that a decorative diagram shape asserts a structure. A macro diagram must mean its arrows and boxes."

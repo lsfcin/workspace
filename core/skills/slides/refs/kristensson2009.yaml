@@ -1,0 +1,16 @@
+# Reference for kristensson2009
+key: kristensson2009
+type: article
+year: 2009
+venue: "IEEE Transactions on Visualization and Computer Graphics 15(4):696-702, doi 10.1109/TVCG.2008.194 (verified via Crossref); content read from the arXiv version 0707.1618"
+url: "https://doi.org/10.1109/TVCG.2008.194"
+level: A
+contributions:
+  - "Between-subjects experiment with novices: a space-time cube against a baseline 2D representation of the same spatiotemporal data."
+  - "For some simple questions, error rates were lower with the 2D baseline."
+  - "For complex questions that needed an overall understanding of the spatiotemporal structure, the cube gave responses about twice as fast on average, with no difference in errors."
+gaps:
+  - "Read through the arXiv abstract (titled 'The Trade-offs with Space Time Cube Representation of Spatiotemporal Patterns'); the IEEE page did not fetch, so sample size and task details were not read."
+  - "Individual users analysing, not a presenter guiding an audience."
+tags: [ground-truth, spatial, diagrams]
+relevance: "The direct test of the cube against 2D: the stack pays off for questions about the overall pattern across time and costs accuracy on simple lookups. Turn a slide into the stack only when the point is the shape of the whole change."

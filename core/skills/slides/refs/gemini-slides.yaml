@@ -1,0 +1,14 @@
+# Reference for gemini-slides
+key: gemini-slides
+type: web
+year: 2026
+venue: "Google Docs Editors Help (read 2026-09-26)"
+url: "https://support.google.com/docs/answer/17111393?hl=en"
+level: V
+contributions:
+  - "Gemini in Google Slides asks optional follow-up questions about the topic, then shows a plan (overview, sources, per-slide outline) that the user edits and approves before generation."
+  - "The user can upload an existing deck for Gemini to match its design style."
+gaps:
+  - "No effect data; the questions vary by topic and are optional."
+tags: [tool, structure, style-system]
+relevance: "Same shape as Gamma and Copilot: questions, then an approvable plan; design comes from an example deck."

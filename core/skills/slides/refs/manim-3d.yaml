@@ -1,0 +1,16 @@
+# Reference for manim-3d
+key: manim-3d
+type: tool
+year: 2026
+venue: "Manim Community documentation, ThreeDScene reference page, and the 3b1b/manim README on GitHub; read 2026-09-26"
+url: "https://docs.manim.community/en/stable/reference/manim.scene.three_d_scene.ThreeDScene.html"
+level: C
+contributions:
+  - "Manim began as a personal project of the author of 3Blue1Brown for animating those videos; a community edition forked from it in 2020 (3b1b/manim README)."
+  - "ThreeDScene exposes the camera: set_camera_orientation, move_camera (animates to given spherical coordinates, phi and theta), begin_ambient_camera_rotation."
+  - "add_fixed_in_frame_mobjects keeps chosen objects from rotating and moving as the camera moves, so labels stay flat."
+gaps:
+  - "Renders video, not a live clickable deck; each scene is Python code."
+  - "API documentation only; says nothing about when a 3D camera move helps."
+tags: [tool, animation, spatial]
+relevance: "How a 3Blue1Brown-style diagonal camera is produced: lay the slices along an axis, then move_camera. For Lucas this means a pre-rendered clip placed in the deck, with titles fixed in frame so they stay readable during the turn."

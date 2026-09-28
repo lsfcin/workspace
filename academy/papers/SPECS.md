@@ -97,9 +97,10 @@ relevance: "..." # how this relates to the manuscript (required)
 notes: ~       # cross-paper lineage, group connections, anything cross-file
 ```
 
-A skill's refs (`core/skills/slides/refs/`) use a subset of this schema — `key type year venue url
-contributions tags` — plus `level` (the markers of `core/refs/SPECS.md`); `type` adds `web | tool | deck |
-talk`, and `tags` names the subskills that cite the ref.
+A skill's refs (`core/skills/slides/refs/`) use this schema without `citations` and `notes`, plus `level`
+(the markers of `core/refs/SPECS.md`) — `gaps` and `relevance` included, because a stub loses what the
+source was for (Lucas, 2026-09-26); `type` adds `web | tool | deck | talk`, and `tags` names the subskills
+that cite the ref. They live beside the skill, not in `core/refs/REFS.md`.
 
 **Tags** are a flat list with role tags always first:
 - **Role** (1–2, mandatory): `foundational` · `survey` · `competing-work` · `baseline` ·

@@ -1,0 +1,14 @@
+# Reference for claude-design
+key: claude-design
+type: web
+year: 2026
+venue: "Anthropic Help Center (read 2026-09-26)"
+url: "https://support.claude.com/en/articles/14604416-get-started-with-claude-design"
+level: V
+contributions:
+  - "Claude Design will 'ask clarifying questions if it needs more information'; alternative layouts come when asked ('Show me 2–3 alternative layouts')."
+  - "Projects inherit the organisation's design system (colours, fonts, components), and Claude checks its output against it before showing it."
+gaps:
+  - "No effect data; alternatives are on request, not offered by default."
+tags: [tool, design-system]
+relevance: "Once a design system is recorded, the interview shrinks to the gaps; an agent building Lucas's decks could do the same with his stored choices."

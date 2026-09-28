@@ -1,0 +1,16 @@
+# Reference for horvitz1999
+key: horvitz1999
+type: conference
+year: 1999
+venue: "CHI '99, Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (ACM)"
+url: "https://dl.acm.org/doi/10.1145/302979.303030"
+level: A
+contributions:
+  - "A numbered list of critical factors for coupling automation with direct manipulation, among them: consider uncertainty about the user's goals, employ dialog to resolve key uncertainties, scope precision of service to match uncertainty."
+  - "Dialog is costed: 'engage in an efficient dialog with the user, considering the costs of potentially bothering a user needlessly'."
+  - "Expected-utility analysis of action vs. inaction under uncertainty about the user's goal yields a threshold probability for acting (Lookout system)."
+gaps:
+  - "Demonstrated on one system (Lookout, calendar scheduling), not on creative or design work."
+  - "Gives no question budget: how many questions, or how often, is left to the cost model (observed in the sections read)."
+tags: [foundational, interactivity, design-system]
+relevance: "The decision rule for the interview: ask only where the agent's uncertainty about Lucas's design-system choice is high AND a wrong guess is costly; otherwise act and let him correct."

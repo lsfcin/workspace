@@ -1,0 +1,17 @@
+# Reference for lorch1993
+key: lorch1993
+type: article
+year: 1993
+venue: "Journal of Educational Psychology 85(2):281-290 (APA)"
+url: "https://doi.org/10.1037/0022-0663.85.2.281"
+level: A
+contributions:
+  - "Two experiments, 285 college students, on signaling devices: headings, overviews and summaries."
+  - "Signals produced recalls better organized by the text's topics."
+  - "Supports a model where signals shape the reader's representation of topic structure, which then guides recall."
+gaps:
+  - "Written expository text, not a spoken talk."
+  - "A follow-up (Lorch & Lorch 1996, same journal 88(1)) reports signals often changed what was recalled, not how much."
+  - "Read at abstract level."
+tags: [ground-truth, structure]
+relevance: "The closest evidence for the agenda and section-divider elements: they help the audience organize what they keep, not keep more of it."

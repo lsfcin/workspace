@@ -1,0 +1,16 @@
+# Reference for pitch-slide-style
+key: pitch-slide-style
+type: web
+year: 2026
+venue: "Pitch Help Center, 'Create your own slide style' (dated 2026-04-13) and 'Work with slide styles' (2025-07-30)"
+url: "https://help.pitch.com/en/articles/4059534-create-your-own-slide-style"
+level: V
+contributions:
+  - "A slide style sets the default colours and fonts for every block: text styles, tables, charts (with a chart palette), shapes, slide background, hyperlink and bullet colours."
+  - "Style colours are listed once; replacing one updates every element that used it."
+  - "Styles apply per slide: one presentation can mix styles, and a style can be applied to selected slides or all slides."
+  - "Styles can be published to the workspace; editing a block and choosing Update pushes the change to all blocks with that style."
+gaps:
+  - "Vendor help page; no sizes, grids or accessibility rules stated."
+tags: [tool, style-system, design-system]
+relevance: "The closest commercial match to our 'one family per section': a style is chosen per slide over shared layouts, not per deck."

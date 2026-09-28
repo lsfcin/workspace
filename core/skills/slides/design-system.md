@@ -30,14 +30,15 @@ Page: white with preto text by default (triad t2: it wins in his rooms — weak 
 **Avoid.** Two families on one content slide unless the colour IS the comparison · a family's light and main as two different sections (they read as one) · urucum and terracota as two sections (same hue, 10°) · ametista and uva likewise · colour as the only signal: menta, céu and âmbar share a lightness (~2.1), so a colour-blind viewer needs the label or the position too · text on urucum below title size.
 
 ## Fonts
-Two roles: **text** (the lesson body; must read on a weak projector) and **impact** (section, one-sentence statement, a few moments per deck). Round 3 votes (2026-09-26), final pick open:
+Two roles: **text** (the lesson body; must read on a weak projector) and **impact** (section, one-sentence statement, number; a few moments per deck). Picked in taste round 4 (2026-09-26):
 
-| role | yes | maybe | no | not voted |
-|---|---|---|---|---|
-| text | Atkinson Hyperlegible · Source Sans 3 ("easier to read") | Open Sans · Figtree | IBM Plex Sans | — |
-| impact | Anton | Archivo Black | Bebas Neue · Bricolage Grotesque · Syne | Unbounded · Fraunces · Big Shoulders Display |
+| role | face | weights | why |
+|---|---|---|---|
+| text | Atkinson Hyperlegible Next | 400 body · 800 emphasis · 300 footer | reads at distance and through a washed-out projector; Source Sans 3's light was prettier but less legible. 700 read too close to 400 ("seria mais bold"), so emphasis is 800 |
+| impact | Anton | 400 (its only weight) | wins over Fraunces (3rd; odd numerals) and Archivo Black; its line breaks and positions still want tuning per layout |
+| code | IBM Plex Mono | 400 · 500 | — |
 
-Code: IBM Plex Mono. Footer: the text family, light. Until the pick: Open Sans.
+Out: Unbounded, Big Shoulders Display (too thin), Bebas Neue, Bricolage Grotesque, Syne, IBM Plex Sans. The original Atkinson Hyperlegible has only 400/700 — hence Next.
 
 ## Sizes (pt)
 display 54 · title 36 · statement 40 · body 24 · code 18 · footer 10. Text never shrinks to fit: overflow means a second slide.

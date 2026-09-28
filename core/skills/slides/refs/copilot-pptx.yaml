@@ -1,0 +1,14 @@
+# Reference for copilot-pptx
+key: copilot-pptx
+type: web
+year: 2026
+venue: "Microsoft Support (read 2026-09-26)"
+url: "https://support.microsoft.com/en-US/PowerPoint/copilot/create-a-new-presentation-with-copilot-in-powerpoint"
+level: V
+contributions:
+  - "'Copilot may ask you some clarifying questions such as who is the target audience of the presentation, what presentation and image style you'd like'."
+  - "The outline can be refined in chat before slides are generated; starting from the organisation's template keeps its theme."
+gaps:
+  - "No effect data; the questions are optional and unspecified."
+tags: [tool, style-system, interactivity]
+relevance: "Style is one of the few things Copilot asks about; the theme itself comes from a template file, not from questions."
