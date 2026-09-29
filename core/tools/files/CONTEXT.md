@@ -1,5 +1,7 @@
 # files
-> Remote file storage: list, search, download, upload. Provider leaf: `gdrive`.
+> Remote file storage: list, search, download, upload. Provider leaves: `gdrive`, `onedrive` (rclone).
+
+`onedrive put deck.pptx --to slides` prints the private web link that opens the deck in PowerPoint online; `link` is the PUBLIC one, and `rclone link --unlink` does NOT revoke it on a personal drive: DELETE the anonymous permission through Graph. Login lives in `~/.config/workspace-onedrive/`.
 
 Auth is two tokens, not one: reads use the `drive` token (`drive.readonly`), and `mkdir` / `put` use a separate `drive-write` one. A read re-consent therefore leaves the write token dead —
 `gdrive auth <alias> --write --reauth` is a different command, and the recovery message says so.
@@ -17,4 +19,5 @@ Downloads land in `Downloads/workspace-drive` at the workspace root.
 | [`drive_migrate_core.py`](drive_migrate_core.py) | [`drive_migrate_core.pyi`](drive_migrate_core.pyi) | `get_cin_service`, `get_personal_service` | Auth, config, and low-level Drive ops shared by drive_migrate.py. |
 | [`drive_sync.py`](drive_sync.py) | [`drive_sync.pyi`](drive_sync.pyi) | `load_config`, `save_config`, `load_cache`, `save_cache`, `is_debounce_active` | drive_sync.py — Google Drive hybrid sync engine with debounce and manifest caching |
 | [`gdrive`](gdrive) | — | — | Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put, copy, rename, perms, share, rm, sync |
+| [`onedrive`](onedrive) | — | — | OneDrive through rclone: upload, download, list, and the web link that opens a .pptx in PowerPoint online |
 <!-- routing:end -->
