@@ -120,3 +120,15 @@ def test_present_tense_state_is_not_finished_work(tmp_path):
                       encoding='utf-8', newline='\n')
     failures = type_gate.failures_for(target, allowed, exempt, {}, set())
     assert not any('finished work' in failure for failure in failures), failures
+
+
+def test_a_pdf_twin_is_generated_so_no_authoring_rule_reads_it(tmp_path, monkeypatch, capsys):
+    """A twin inherits its PDF's name and opens on frontmatter; it is the tool's output (generated.txt)."""
+    twin = tmp_path / '2026-07-06_protocolo-AC01' / '2026-07-06_protocolo-AC01.md'
+    twin.parent.mkdir()
+    twin.write_text('---\nsource: "../2026-07-06_protocolo-AC01.pdf"\n---\n<!-- page 1 -->\n',
+                    encoding='utf-8', newline='\n')
+    monkeypatch.setattr(type_gate, 'staged_added_files', lambda: [twin])
+    assert type_gate.main() == 0, capsys.readouterr().out
+    twin.write_text('# not a twin\n', encoding='utf-8', newline='\n')
+    assert type_gate.main() == 1

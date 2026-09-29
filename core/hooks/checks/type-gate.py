@@ -22,6 +22,7 @@ sys.path.insert(0, str(_HOOKS))
 sys.path.insert(0, str(_HOOKS / 'entropy'))
 
 import feature_law  # noqa: E402
+from file_law import is_generated_artifact  # noqa: E402
 from entropy_context import (check_description, check_goal_link,  # noqa: E402
                              check_inventory)
 from entropy_corpus import enforcement_paths, staged_added_files  # noqa: E402
@@ -88,7 +89,9 @@ def main() -> int:
     vocabulary = goal_vocabulary(WORKSPACE_ROOT / 'brain/goals')
     failures = []
     for path in staged_added_files():
-        if path.exists():
+        # A tool's output is exempt from every authoring rule (core/hooks/generated.txt), and this
+        # gate's rules are authoring rules: a PDF twin inherits its PDF's name and opens on frontmatter.
+        if path.exists() and not is_generated_artifact(path.resolve(), WORKSPACE_ROOT):
             failures.extend(failures_for(path, allowed, exempt, scopes, vocabulary))
     if failures:
         print('⛔ type gate:')

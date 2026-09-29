@@ -13,13 +13,12 @@ transformative · expected · thrilled
     ler e extrair o que muda pra mim como associado (direitos/deveres/área privativa)
 
 **ease-start**
-Abrir `branches/ecovila/burocracia/` e olhar o Regimento Interno da Associação Ecovila Santuário dos Jatobás (v13).
-Precisa de OCR primeiro (PDF image-only). 15 min de leitura assim que o OCR sair.
+Ler o twin do Regimento Interno da Associação Ecovila Santuário dos Jatobás (v13):
+`branches/ecovila/burocracia/regimento-interno-v13-2024/regimento-interno-v13-2024.md`. 15 min.
 
 ## backlog
 
-> [ ] [org-docs] ler + resumir Regimento Interno + demais docs da associação (em `branches/ecovila/burocracia/`);
-> depende do OCR ainda pendente [ ] [terrain-3d] pesquisar/testar solução de mapeamento 3D do terreno (drone/fotogrametria/LiDAR de celular) — cruza com [[spacemantics]]
+> [ ] [org-docs] ler + resumir Regimento Interno + demais docs da associação (em `branches/ecovila/burocracia/`, cada PDF com seu twin) [ ] [terrain-3d] pesquisar/testar solução de mapeamento 3D do terreno (drone/fotogrametria/LiDAR de celular) — cruza com [[spacemantics]]
 > [ ] [finance-terreno] fechar o lado financeiro do terreno com o pai — transferir pra painho o valor do terreno/chão do santuário jatobá [ ] [construction-later] planejar a futura construção ecológica no lote (agroecologia, preservação) — reusar aprendizados de [[project_casinhas|casinhas]]
 
 ## done
