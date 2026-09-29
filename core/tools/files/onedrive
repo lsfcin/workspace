@@ -14,17 +14,17 @@ GRAPH = "https://graph.microsoft.com/v1.0"
 
 def _rclone(*args: str, capture: bool = True) -> subprocess.CompletedProcess:
     exe = shutil.which("rclone") or str(pathlib.Path.home() / ".local/bin/rclone")
-    return subprocess.run([exe, "--config", str(CONF), *args], capture_output=capture, text=True)
+    return subprocess.run([exe, "--config", str(CONF), *args], capture_output=capture, text=True, encoding="utf-8")
 
 
 def _fix(alias: str) -> str:
-    who = json.loads(ACCOUNTS.read_text()).get(alias, "?") if ACCOUNTS.exists() else "?"
+    who = json.loads(ACCOUNTS.read_text(encoding="utf-8")).get(alias, "?") if ACCOUNTS.exists() else "?"
     return f"core/run tools/files/onedrive auth {alias}   (entre como {who})"
 
 
 def _token(alias: str) -> str:
     _rclone("about", f"{alias}:")  # rclone refreshes an expired token and writes it back
-    for block in CONF.read_text().split("[")[1:]:
+    for block in CONF.read_text(encoding="utf-8").split("[")[1:]:
         if block.startswith(f"{alias}]"):
             for line in block.splitlines():
                 if line.startswith("token = "):
@@ -45,12 +45,12 @@ def cmd_auth(alias: str) -> None:
     _rclone("config", "create", alias, "onedrive", "drive_type=personal", "config_is_local=true", capture=False)
     CONF.chmod(0o600)
     drive = _graph(alias, "/me/drive")
-    text = CONF.read_text()
+    text = CONF.read_text(encoding="utf-8")
     if f"drive_id = {drive['id']}" not in text:
-        CONF.write_text(text.replace(f"[{alias}]\n", f"[{alias}]\ndrive_id = {drive['id']}\n", 1))
-    accounts = json.loads(ACCOUNTS.read_text()) if ACCOUNTS.exists() else {}
+        CONF.write_text(text.replace(f"[{alias}]\n", f"[{alias}]\ndrive_id = {drive['id']}\n", 1), encoding="utf-8", newline="\n")
+    accounts = json.loads(ACCOUNTS.read_text(encoding="utf-8")) if ACCOUNTS.exists() else {}
     accounts[alias] = drive.get("owner", {}).get("user", {}).get("email") or drive["owner"]["user"]["displayName"]
-    ACCOUNTS.write_text(json.dumps(accounts, indent=2))
+    ACCOUNTS.write_text(json.dumps(accounts, indent=2), encoding="utf-8", newline="\n")
     print(f"onedrive: '{alias}' ready ({accounts[alias]}, drive {drive['id']})")
 
 
