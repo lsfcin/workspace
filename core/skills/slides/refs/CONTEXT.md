@@ -92,6 +92,7 @@
 | [`mazur-pi.yaml`](mazur-pi.yaml) | Reference for mazur-pi |
 | [`mit-qual-exam.yaml`](mit-qual-exam.yaml) | Reference for mit-qual-exam |
 | [`motion-canvas.yaml`](motion-canvas.yaml) | Reference for motion-canvas |
+| [`motion-skills-iart.yaml`](motion-skills-iart.yaml) | Reference for motion-skills-iart |
 | [`moulton2017.yaml`](moulton2017.yaml) | Reference for moulton2017 |
 | [`nuts-pptx-gslides.yaml`](nuts-pptx-gslides.yaml) | Reference for nuts-pptx-gslides |
 | [`ons-slides.yaml`](ons-slides.yaml) | Reference for ons-slides |

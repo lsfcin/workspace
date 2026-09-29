@@ -1,0 +1,14 @@
+# Reference for motion-skills-iart
+key: motion-skills-iart
+type: tool
+year: 2026
+venue: "GitHub iart-ai/motion-skills (reel instagram.com/reel/Dd2nedYGwM8, 2026-09-29)"
+url: "https://github.com/iart-ai/motion-skills"
+level: V
+contributions:
+  - "53 MIT skills in 16 packs; for slides: motion-design-skills/animation-principles, explainer-video-skills/diagram-animation, data-animation-skills/presentation-video."
+  - "Easing by role: enter = ease-out, exit = ease-in, move = ease-in-out, overshoot only when playful; linear only for loops."
+  - "Duration by size: micro 100-200ms, region 200-400ms, hero 400-800ms, camera 800-2000ms; stagger 40-80ms, a group's reveal capped at 600-800ms."
+  - "1/3 rule: nothing travels over a third of the screen unbroken, and at most a third of the elements move at once. Three layers: primary, secondary, ambient."
+  - "Diagrams: nodes, then edges, then labels; the active element at full opacity, the rest dimmed; hold each step 0.5-1.5s."
+tags: [animation, tool]
