@@ -55,6 +55,8 @@ None is worked until the layer reopens.
 
 ## Rejected
 
+- **Canva as the slides home** (tested 2026-09-28) — no Canva API sets animation or transition, and its .pptx import drops them; agent-written motion is the requirement. Facts: `core/tools/slides/SPECS.md` § PowerPoint and Canva.
+
 - **Surveying outside skills for things to import** (asked 2026-07-23, dropped 2026-08-25) — the two leads are DM-bait posts naming skills without linking them, and the named capabilities overlap what `AGENTS.md` and CONTEXT.md already do. Reopen from a real repository, never from a reel.
 
 ## Notes

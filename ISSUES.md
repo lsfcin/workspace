@@ -23,6 +23,11 @@ name. An entry without one is invisible to it.
 
 ## Open
 
+- **The slides surface still names Google Slides as the provider after PowerPoint became the home (2026-09-28).**
+  `core/tools/slides/CONTEXT.md` calls `gslides` the leaf and says `pptx` exists "for Drive to convert"; the `/slides` router
+  loads the `gslides` leaf; the A/B gate in `core/prompts/slides-padroes.md` hands the control only `gslides`. Open until
+  the family names `pptx` + `files/onedrive` as the write path and `lint`/`stats`/`preview` read a .pptx.
+
 - **The Antigravity lifecycle hook runner executes outside the workspace root, so relative `core/run` fails and blocks every tool call.**
   Antigravity fires `PreToolUse` and `PostToolUse` with its process working directory at `$HOME` rather than the workspace root.
   A bare relative command (`sh core/run ...`) in `.agents/hooks.json` exits with `sh: 0: cannot open core/run: No such file`,
@@ -308,7 +313,7 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/pdf-twin is 4 ahead of main
+- . — feature/pdf-twin is 5 ahead of main
 
 ### Local branches already merged into their base
 
