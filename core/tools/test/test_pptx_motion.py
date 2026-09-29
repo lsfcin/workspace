@@ -92,3 +92,27 @@ def test_a_back_link_returns_to_the_slide_the_talk_came_from():
     btn = pptx_motion.link(_node(s, "voltar", 1))
     h = btn._element.find(".//" + pptx_motion.q(pptx_motion.A, "hlinkClick"))
     assert h.get("action") == "ppaction://hlinkshowjump?jump=lastslideviewed"
+
+
+def test_the_first_group_can_play_on_its_own_once_the_slide_arrives():
+    prs = _deck(); s = prs.slides.add_slide(prs.slide_layouts[6])
+    a, b = _node(s, "a", 1), _node(s, "b", 5)
+    pptx_motion.timeline(s, [[pptx_motion.fade_in(a)], [pptx_motion.fade_in(b)]], auto_first=True)
+    xml = _xml(s)
+    assert xml.count('evt="onBegin"') == 1 and xml.count('nodeType="afterEffect"') == 1 and xml.count('nodeType="clickEffect"') == 1
+
+
+def test_text_at_alpha_zero_is_exempt_from_the_size_floor():
+    prs = _deck(); s = prs.slides.add_slide(prs.slide_layouts[6])
+    tb = s.shapes.add_textbox(Inches(1), Inches(1), Inches(3), Inches(1))
+    r = tb.text_frame.paragraphs[0].add_run(); r.text = "memória"; r.font.size = pptx.util.Pt(8)
+    r.font.color.rgb = pptx.dml.color.RGBColor(0, 0, 0)
+    assert any("below 14" in f for f in pptx_check.lint(prs))
+    clr = r._r.find(".//" + pptx_motion.q(pptx_motion.A, "srgbClr"))
+    clr.append(clr.makeelement(pptx_motion.q(pptx_motion.A, "alpha"), {"val": "0"}))
+    assert pptx_check.lint(prs) == []
+
+
+def _xml(slide):
+    from lxml import etree
+    return etree.tostring(slide._element).decode()

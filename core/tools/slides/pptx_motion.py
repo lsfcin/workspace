@@ -116,8 +116,9 @@ def dim(shape, to=DIM, **kw):
                f'<p:tgtEl><p:spTgt spid="{s}"/></p:tgtEl></p:cBhvr></p:animEffect>', 1, **kw)
 
 
-def timeline(slide, clicks, triggers=None):
+def timeline(slide, clicks, triggers=None, auto_first=False):
     """clicks: one list of effects per click, played together (stagger with `delay`).
+    auto_first: the first group plays on its own once the slide has arrived (PowerPoint's 'After Previous').
     triggers: [(shape, [effects])] played when THAT shape is clicked — the explorable diagram."""
     ids = iter(range(3, 1_000_000))
     built = []
@@ -130,14 +131,16 @@ def timeline(slide, clicks, triggers=None):
                 f'{extra} fill="hold" grpId="0" nodeType="{node}"><p:stCondLst><p:cond delay="{fx["delay"]}"/></p:stCondLst>'
                 f'<p:childTnLst>{fx["body"](ids, fx["spid"], fx["dur"])}</p:childTnLst></p:cTn></p:par>')
 
-    def group(effects, cond):
+    def group(effects, cond, lead="clickEffect"):
         a, b = next(ids), next(ids)
-        inner = "".join(par(fx, "clickEffect" if k == 0 else "withEffect") for k, fx in enumerate(effects))
+        inner = "".join(par(fx, lead if k == 0 else "withEffect") for k, fx in enumerate(effects))
         return (f'<p:par><p:cTn id="{a}" fill="hold"><p:stCondLst>{cond}</p:stCondLst><p:childTnLst>'
                 f'<p:par><p:cTn id="{b}" fill="hold"><p:stCondLst><p:cond delay="0"/></p:stCondLst><p:childTnLst>{inner}'
                 f'</p:childTnLst></p:cTn></p:par></p:childTnLst></p:cTn></p:par>')
 
-    main = "".join(group(c, '<p:cond delay="indefinite"/>') for c in clicks)
+    click = '<p:cond delay="indefinite"/>'
+    auto = click + '<p:cond evt="onBegin" delay="0"><p:tn val="2"/></p:cond>'  # tn 2 = the main sequence
+    main = "".join(group(c, auto, "afterEffect") if k == 0 and auto_first else group(c, click) for k, c in enumerate(clicks))
     seqs = (f'<p:seq concurrent="1" nextAc="seek"><p:cTn id="2" dur="indefinite" nodeType="mainSeq"><p:childTnLst>{main}</p:childTnLst></p:cTn>'
             f'<p:prevCondLst><p:cond evt="onPrev" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:prevCondLst>'
             f'<p:nextCondLst><p:cond evt="onNext" delay="0"><p:tgtEl><p:sldTgt/></p:tgtEl></p:cond></p:nextCondLst></p:seq>') if clicks else ""

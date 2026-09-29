@@ -27,7 +27,7 @@ def _path_end(path: str):
 
 def lint(prs, fonts=None, min_pt=14):
     """'slide N: …' lines. `fonts`: the faces the design system allows; None skips that check.
-    A shape named 'footer…' is exempt from the size floor: the footer line is 10pt by design."""
+    Exempt from the size floor: a shape named 'footer…' (10pt by design) and text at alpha 0 (a Morph grows it into view)."""
     W, H = prs.slide_width, prs.slide_height
     out, prev_keys = [], set()
     for n, slide in enumerate(prs.slides, 1):
@@ -71,7 +71,8 @@ def lint(prs, fonts=None, min_pt=14):
             if not s.has_text_frame:
                 continue
             for r in (r for p in s.text_frame.paragraphs for r in p.runs):
-                if r.font.size is not None and r.font.size.pt < min_pt and not s.name.lstrip("!").lower().startswith("footer"):
+                unseen = r._r.find(".//" + q(A, "alpha") + "[@val='0']") is not None  # text that only exists for a Morph to grow
+                if r.font.size is not None and r.font.size.pt < min_pt and not unseen and not s.name.lstrip("!").lower().startswith("footer"):
                     say(f"{s.name}: '{r.text[:20]}' at {r.font.size.pt:g}pt, below {min_pt}")
                 if fonts and r.font.name and r.font.name not in fonts:
                     say(f"{s.name}: face {r.font.name} is not in the design system")
