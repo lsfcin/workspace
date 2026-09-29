@@ -164,14 +164,8 @@ def timeline(slide, clicks, triggers=None, auto_first=False):
     (ext.addprevious if ext is not None else sld.append)(etree.fromstring(xml))
 
 
-def link(shape, target=None):
-    """Clicking `shape` jumps to slide `target`, or — target None — back to wherever the talk came from."""
-    if target is not None:
-        shape.click_action.target_slide = target
-        return shape
-    nv = shape._element.find(".//" + q(P, "cNvPr"))
-    for old in nv.findall(q(A, "hlinkClick")):
-        nv.remove(old)
-    h = etree.SubElement(nv, q(A, "hlinkClick"))  # python-pptx has no 'last slide viewed' action
-    h.set(q(R, "id"), ""); h.set("action", "ppaction://hlinkshowjump?jump=lastslideviewed")
+def link(shape, target):
+    """Clicking `shape` jumps to slide `target` — PowerPoint's own link on the shape, so its text keeps its style.
+    'Back' is a link to the named slide: online ignores 'last slide viewed' and advances instead (spike S6)."""
+    shape.click_action.target_slide = target
     return shape

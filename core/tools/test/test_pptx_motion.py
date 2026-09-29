@@ -87,11 +87,13 @@ def test_flatten_gives_one_page_per_click_in_order_with_each_state():
     assert all(sl._element.find(pptx_motion.q(pptx_motion.P, "timing")) is None for sl in prs.slides)
 
 
-def test_a_back_link_returns_to_the_slide_the_talk_came_from():
-    prs = _deck(); s = prs.slides.add_slide(prs.slide_layouts[6])
-    btn = pptx_motion.link(_node(s, "voltar", 1))
+def test_a_back_link_is_a_plain_jump_to_the_named_slide():
+    prs = _deck()
+    menu, topic = prs.slides.add_slide(prs.slide_layouts[6]), prs.slides.add_slide(prs.slide_layouts[6])
+    btn = pptx_motion.link(_node(topic, "voltar", 1), menu)
+    assert btn.click_action.target_slide == menu
     h = btn._element.find(".//" + pptx_motion.q(pptx_motion.A, "hlinkClick"))
-    assert h.get("action") == "ppaction://hlinkshowjump?jump=lastslideviewed"
+    assert h.get("action") == "ppaction://hlinksldjump"
 
 
 def test_the_first_group_can_play_on_its_own_once_the_slide_arrives():

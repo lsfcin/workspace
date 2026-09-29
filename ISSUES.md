@@ -25,8 +25,13 @@ name. An entry without one is invisible to it.
 
 - **The slides surface still names Google Slides as the provider after PowerPoint became the home (2026-09-28).**
   `core/tools/slides/CONTEXT.md` calls `gslides` the leaf and says `pptx` exists "for Drive to convert"; the `/slides` router
-  loads the `gslides` leaf; the A/B gate in `core/prompts/slides-padroes.md` hands the control only `gslides`. Open until
-  the family names `pptx` + `files/onedrive` as the write path and `lint`/`stats`/`preview` read a .pptx.
+  loads the `gslides` leaf; the A/B gate in `core/prompts/slides-padroes.md` hands the control only `gslides`. Audit
+  2026-09-29 adds: `formats/animation.md` still says a build is a slide sequence because "the API has no animation";
+  `stats`/`preview` read only Google's JSON (`pptx lint` now covers motion and text size on a .pptx, not archetypes or
+  preview); `montador` reads and skips through `gslides`; `contact_sheets` lives in the Google-bound `slides_core`.
+  Lucas's ruling: providers stay **interchangeable** (gslides kept, pptx + onedrive the home, a `canva` leaf worth
+  evaluating — Canva was only ever tested ad hoc), and decks migrate one at a time, slide by slide, never in batch.
+  Open until the router picks a provider per deck and each leaf carries its own read, lint and preview.
 
 - **The Antigravity lifecycle hook runner executes outside the workspace root, so relative `core/run` fails and blocks every tool call.**
   Antigravity fires `PreToolUse` and `PostToolUse` with its process working directory at `$HOME` rather than the workspace root.
