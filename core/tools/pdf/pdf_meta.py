@@ -52,6 +52,19 @@ def source_of(twin: Path) -> Path | None:
                 None)
 
 
+def is_twin(path: Path) -> bool:
+    """Did this tool write `path`? Asked of the twin's own stamp — `<stem>/<stem>.md` whose frontmatter
+    names `../<stem>.pdf` as its source — never of the PDF beside it: branches/casinhas keeps its PDFs
+    in the Drive, and its twins in git. core/hooks/file_law.py asks this to exempt a twin from the
+    authoring caps, which a 19-page regimento cannot meet and was never written to."""
+    if path.suffix != '.md' or path.parent.name != path.stem:
+        return False
+    try:
+        return str(read_frontmatter(path).get('source', '')).lower() == f'../{path.stem}.pdf'.lower()
+    except (OSError, ValueError, yaml.YAMLError):
+        return False
+
+
 def twin_state(pdf: Path) -> tuple[str, Path]:
     """The twin beside `pdf` and which of three states it is in — the one definition the build and
     the read gate both ask (the PDF's own mirror of core/hooks/read/chain.py:interface_state).

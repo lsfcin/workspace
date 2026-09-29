@@ -62,3 +62,6 @@ ISSUES.md
 
 # Accessible study guides and scripts generated from slides (accessible-deck skill)
 academy/teaching/classes/*/*-guia-acessivel-slides.md
+
+# PDF twins — core/tools/pdf writes `<stem>/<stem>.md`, a shape no glob here can say. They are known
+# by the stamp the tool writes into them instead: file_law.is_generated_artifact asks pdf_meta.is_twin.

@@ -131,3 +131,16 @@ def test_a_missing_engine_venv_hands_back_the_install_command(tmp_path, monkeypa
     monkeypatch.setattr(pdf_twin, 'ENGINE_VENV', '.venv-absent')
     with pytest.raises(pdf_twin.EngineMissing, match='requirements-pdf.txt'):
         pdf_twin.run_engine('docling', make_pdf(tmp_path / 'res.pdf'), tmp_path)
+
+
+def test_a_twin_is_generated_by_its_stamp_even_with_its_pdf_gone(tmp_path):
+    """The size caps exempt a twin (file_law.is_generated_artifact): branches/casinhas versions its
+    twins and keeps its PDFs in the Drive, so the stamp is asked, never the PDF beside it."""
+    import file_law
+    twin = build(make_pdf(tmp_path / 'res.pdf'))['twin']
+    (tmp_path / 'res.pdf').unlink()
+    assert pdf_meta.is_twin(twin) and file_law.is_generated_artifact(twin, tmp_path)
+    hand = tmp_path / 'notes' / 'notes.md'
+    hand.parent.mkdir()
+    hand.write_text('---\nsource: "../other.pdf"\n---\nmine\n', encoding='utf-8', newline='\n')
+    assert not pdf_meta.is_twin(hand) and not file_law.is_generated_artifact(hand, tmp_path)

@@ -21,9 +21,11 @@ protocols: [core/flows/](../../core/flows/CONTEXT.md).
 |--------------|-------------|
 | [`2026-JBCS-relativistic_raytracer/`](2026-JBCS-relativistic_raytracer/CONTEXT.md) | JBCS special issue paper on relativistic raytracing benchmarking for SVR 2026 |
 | [`2026-SIBGRAPI-relativistic_raytracer/`](2026-SIBGRAPI-relativistic_raytracer/CONTEXT.md) | SIBGRAPI 2026 paper on relativistic raytracing benchmarking |
+| [`2027-CHI-avdspace/`](2027-CHI-avdspace/CONTEXT.md) | CHI paper workspace for a structured design-space synthesis of autonomous-vehicle communication in mixed traffic. |
 | [`2027-CHI-cria/`](2027-CHI-cria/CONTEXT.md) | Hybrid human-AI ideation as mechanism design — classroom study. Targets: LBW CHI 2027 (piloto), full CHI 2028. |
 | [`2027-ICLR-dobra/`](2027-ICLR-dobra/CONTEXT.md) | Context folding + SLMs on consumer hardware — research twin of `code/dobra`. Target: ICLR 2027 (~Sep 2026 deadline). |
 | [`ai4good/`](ai4good/CONTEXT.md) | Visão + sistema + piloto: o papel moral da IA — da captura de atenção e da guerra à reconfiguração das lógicas sociais. Sessão Opus dedicada pendente. |
+| [`back2dsl/`](back2dsl/CONTEXT.md) | Research program: a verifiable DSL is the only interface that makes an agent's output checkable — between agent and tool, and between agent and human |
 | [`mechanism-search/`](mechanism-search/CONTEXT.md) | Paper embrião: busca de mecanismos sociais com LLMs ancorada em dados de fluxo financeiro — método do motor de ideação do instituto (`branches/instituto/MOTOR.md`), flagship metodológico do LIH.DD. Alvo: EAAMO / CSCW / Collective Intelligence. Estágio: pré-venue, sem LaTeX. |
 | [`mutual-credit-ai/`](mutual-credit-ai/CONTEXT.md) | Paper embrião: agentes de IA resolvendo a iliquidez de moedas complementares — clearing multi-hop e matching contínuo em circuito local (feira agroecológica). Twin de pesquisa do núcleo circuito (`branches/instituto/nucleo-circuito.md`) e de `code/gira`. Alvo: EAAMO / complexity econ. Estágio: pré-venue, sem LaTeX. |
 | [`pls-pix/`](pls-pix/CONTEXT.md) | Paper embrião: prize-linked savings via Pix contra o dreno das bets no Brasil — desenho de mecanismo + piloto. Twin de pesquisa do núcleo virada (`branches/instituto/nucleo-virada.md`). Alvo: EAAMO / dev econ. Estágio: pré-venue, sem LaTeX (rodar paper-template.py ao promover). |
