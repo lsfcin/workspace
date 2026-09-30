@@ -1,0 +1,17 @@
+# Reference for cha2026
+key: cha2026
+type: conference
+year: 2026
+venue: "Extended Abstracts of the 2026 CHI Conference on Human Factors in Computing Systems (ACM), issued 2026-04-13; Cha, Jo, Shin, Seo (verified via Crossref)"
+url: "https://doi.org/10.1145/3772363.3798616"
+level: B
+contributions:
+  - "Compares three ways to give an LLM agent a design system: instruction-based (whole style guide in the prompt), context-based (task-relevant guide injected), registry-based (assemble pre-built components)."
+  - "Six real-world UIs generated; registry-based reached the highest compliance, 95.08%, with moderate overhead."
+  - "A pilot with nine practitioners reported lower perceived difficulty and time burden."
+gaps:
+  - "Only the abstract was read (via OpenAlex); ACM DL returned 403."
+  - "Extended abstract: small study, six UIs, nine practitioners."
+  - "Web UI, not slides."
+tags: [method-source, design-system, style-system]
+relevance: "For an agent that builds Lucas's slides, pre-built layouts in the master (a registry) should beat longer written rules in the skill; the design system should live in the template and the markdown point at it (inference)."

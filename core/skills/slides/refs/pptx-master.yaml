@@ -1,0 +1,17 @@
+# Reference for pptx-master
+key: pptx-master
+type: web
+year: 2026
+venue: "Microsoft Support, 'What is a slide master in PowerPoint?' and 'What is a slide layout?' (PowerPoint 2016-2024 and Microsoft 365); undated, read 2026-09-26"
+url: "https://support.microsoft.com/en-us/powerpoint/training/what-is-a-slide-master-in-powerpoint"
+level: V
+contributions:
+  - "Hierarchy: slide master on top, layout masters under it, slides in Normal view based on a layout."
+  - "A theme is colours, fonts and effects; every theme brings one slide master and its own set of layouts, so several themes in one deck mean several masters."
+  - "Layouts hold formatting, positions and placeholders (title, body, table, chart, picture, video); every master has a Title Slide layout."
+  - "Editing a layout after slides exist requires re-applying it to those slides."
+  - "Microsoft 365 offers to remove unused masters when a file has 25 or more."
+gaps:
+  - "Describes mechanics, not which layouts a deck should have."
+tags: [tool, layout, style-system, formats]
+relevance: "Confirms our 'one master per family, same layouts in each' is the native shape; the re-apply rule means template regeneration must re-bind existing slides, or old decks silently drift."

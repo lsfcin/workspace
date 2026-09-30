@@ -53,6 +53,10 @@ Both survive here because they are real gaps, not because they are queued. Promo
 - [ ] **Phase D — persistent mode + more backends**: claude via SDK `ClaudeSDKClient`, opencode via
       `--attach` server (only if per-message cost annoys); copilot backend; retire/thin the workspace
       bot to INBOX-only capture. Biggest structural rewrite — last on purpose.
+- [ ] **triage-decision-model**: avaliar modelo de decisão System-1 (JEV/Laya) para triagem e classificação prévia de mensagens/áudios no aiwbot com latência e custo mínimos (ref em `REFS.md`).
+- [ ] **mira-benchmark**: avaliar padrões de UX do mira.tg e repo miracodeai/mira no GitHub para benchmarking de assistente/agente no Telegram (integração GitHub/Notion via chat) (ref em `REFS.md`).
+- [ ] **backend-zcode**: implementar provedor Z-Code (Z.ai / GLM) como novo `AgentBackend` em `backend/providers/zcode.py` para execução de tarefas via Telegram (INBOX 2026-09-27).
+- [ ] **backend-antigravity**: implementar provedor Antigravity (`backend/providers/antigravity.py`) no aiwbot e avaliar como backend default no Telegram para evitar limites frequentes de cota do Claude (INBOX 2026-09-27).
 
 ## Housekeeping
 - [~] **`backend/providers/opencode.py` is at 194/200** after the ask config landed, and `claude.py` at 176.

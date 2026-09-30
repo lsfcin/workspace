@@ -1,0 +1,17 @@
+# Reference for sozi
+key: sozi
+type: tool
+year: 2021
+venue: "Sozi official site (sozi.baierouge.fr): 'Your first presentation' tutorial and release news; repository sozi-projects/Sozi README (read 2026-09-26)"
+url: "https://sozi.baierouge.fr/pages/tutorial-first.html"
+level: V
+contributions:
+  - "Presentation editor over any SVG drawing: each frame is a camera position; drag to pan, Alt+drag to zoom, Shift+drag to rotate; frames listed in a timeline."
+  - "Saves two files next to the SVG: name.sozi.json (presentation data) and name.sozi.html (the whole presentation, played in a web browser); the original SVG is not altered."
+  - "Free software under the Mozilla Public License 2.0; desktop builds for Linux, Windows and macOS."
+  - "Since Sozi 21.02 the PDF and video export is built into the editor (the older command-line sozi-export is obsolete)."
+gaps:
+  - "Latest stable release announced on the site is 21.02 (Feb 2021); the repository is still pushed to in 2026."
+  - "2D only: rotation is in the drawing plane; no 3D."
+tags: [tool, spatial, formats]
+relevance: "Sozi is the free, Linux-native Prezi: zoom, pan and in-plane rotation over one SVG, played offline from a single HTML file; an agent could write the SVG and the .sozi.json (inferred, the JSON schema is not documented on the page)."

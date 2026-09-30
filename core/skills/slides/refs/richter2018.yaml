@@ -1,0 +1,16 @@
+# Reference for richter2018
+key: richter2018
+type: article
+year: 2018
+venue: "Journal of Educational Psychology 110(4):544-560 (APA)"
+url: "https://doi.org/10.1037/edu0000220"
+level: A
+contributions:
+  - "Field quasi-experiment with 8th graders on a digital multimedia textbook: basic signals vs added text-picture integration signals (color coding, deictic references)."
+  - "Low-prior-knowledge learners learned better with the integration signals; for high-prior-knowledge learners the same signals were detrimental (expertise reversal)."
+  - "Reports that the authors' earlier meta-analysis (Richter, Scheiter & Eitel 2016, Educational Research Review 17:19-36) found only low-prior-knowledge learners benefit from integration signals."
+gaps:
+  - "Quasi-experimental, one school grade, a textbook rather than slides."
+  - "The authors state cognitive load measures only partially explain the reversal."
+tags: [ground-truth, diagrams, style-system, structure]
+relevance: "The clearest 'when it hurts' for highlight and color-link elements: the same cue that helps novices costs experts. The guide table needs an audience column, and expert-audience decks should cue less."

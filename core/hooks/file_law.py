@@ -107,8 +107,24 @@ def is_vendored(path: Path, root: Path) -> bool:
 
 def is_generated_artifact(path: Path, root: Path) -> bool:
     """A file one of OUR tools writes — core/hooks/generated.txt. Separate from is_vendored: that
-    list is provenance we do not own, this one is provenance we do."""
-    return _listed(path, root, GENERATED_FILE)
+    list is provenance we do not own, this one is provenance we do. A PDF twin is the one generated
+    file the list cannot name — `<stem>/<stem>.md` is a shape fnmatch cannot say — so it is known by
+    the stamp its tool writes into it."""
+    return _listed(path, root, GENERATED_FILE) or _is_pdf_twin(path if path.is_absolute() else root / path)
+
+
+def _is_pdf_twin(path: Path) -> bool:
+    if path.suffix != '.md':
+        return False
+    import sys
+    tools_pdf = str(Path(__file__).resolve().parents[1] / 'tools/pdf')
+    if tools_pdf not in sys.path:
+        sys.path.append(tools_pdf)
+    try:
+        import pdf_meta   # lazy: it pulls yaml, and most files asked about here are not markdown
+    except ImportError:   # a tree carrying file_law without the pdf tool holds no twins
+        return False
+    return pdf_meta.is_twin(path)
 
 
 def described() -> dict:

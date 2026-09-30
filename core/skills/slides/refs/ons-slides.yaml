@@ -1,0 +1,19 @@
+# Reference for ons-slides
+key: ons-slides
+type: web
+year: 2026
+venue: "Office for National Statistics (UK) Service manual, Brand guidelines > Corporate documents > Creating PowerPoint presentations (beta service); undated, read 2026-09-26"
+url: "https://service-manual.ons.gov.uk/brand-guidelines/application/creating-powerpoint-presentations"
+level: V
+contributions:
+  - "Template layouts: title slide, bulleted list, two-column text, text and image, section slides (section also as a bold statement slide); new layouts go through a design request."
+  - "Safe area: keep text and graphics within 95% of the slide; the template carries guides marking it."
+  - "Headings, subheadings and body sit in the same spot on every slide."
+  - "Text: left-aligned, Open Sans (Arial fallback), minimum 18 pt and larger for bigger rooms, no all caps, 50 words or fewer per slide."
+  - "Background is Grey 5, not bright white, which 'can make text harder to read on screen'; no patterned backgrounds."
+  - "Charts: horizontal text, minimal axis labels, a source, minimum 18 pt; rehearse on the screen you will use."
+gaps:
+  - "No evidence cited for the 95% or the Grey 5 choice."
+  - "18 pt is a floor, not tied to room size."
+tags: [application, design-system, layout, typography, accessibility]
+relevance: "A public-sector design system that does cover slides: its safe area, fixed title position and off-white ground are three tokens our design-system.md does not hold."

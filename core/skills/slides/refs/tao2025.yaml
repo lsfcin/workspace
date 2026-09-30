@@ -1,0 +1,15 @@
+# Reference for tao2025
+key: tao2025
+type: conference
+year: 2025
+venue: "CHI 2025, Yokohama — stated in the arXiv HTML; the ACM DL page could not be fetched"
+url: "https://arxiv.org/html/2502.09867v1"
+level: A
+contributions:
+  - "A Dimension Palette of design categories and toggleable tags, seeded from the user's documents and extended from images the user likes."
+  - "Between-subjects study, 52 novices: prompts twice as long, 2.3 times more design terms per prompt, higher expert-rated novelty than a text-only baseline."
+gaps:
+  - "Too many tags made the tool feel 'too constricted' for five participants."
+  - "Richer prompts raised expectations the image model could not meet; satisfaction did not differ from baseline."
+tags: [method-source, design-system, style-system]
+relevance: "Suggests the interview hand Lucas a palette of named design-system dimensions and tags, drawn from his existing decks, instead of open questions; keep the tag set small."

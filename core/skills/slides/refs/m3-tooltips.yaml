@@ -1,0 +1,17 @@
+# Reference for m3-tooltips
+key: m3-tooltips
+type: web
+year: 2026
+venue: "Material Design 3 (Google), Tooltips guidelines page"
+url: "https://m3.material.io/components/tooltips/guidelines"
+level: V
+contributions:
+  - "Usage splits two variants by job: plain tooltips label icon-only controls; rich tooltips carry longer definitions or explanations."
+  - "Three verdict levels: Do, Don't, and Caution (e.g. 'Caution: avoid wrapping text to multiple lines')."
+  - "Don't hide critical information in a tooltip, as it is easy to miss; use a dialog instead."
+  - "Placement rule: 4dp from an element with a visual boundary, 8dp from one without."
+gaps:
+  - "Direct fetch returned an empty JavaScript shell; the text was read through the search engine's crawl of the page."
+  - "Interactive hover UI, not projected slides."
+tags: [method-source, design-system, layout]
+relevance: "The model for the callout-balloon element (short, one line, anchored close to its target, never the only home of critical content) and for a third 'Caution' verdict between do and don't."

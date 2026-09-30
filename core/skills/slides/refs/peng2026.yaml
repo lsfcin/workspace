@@ -1,0 +1,15 @@
+# Reference for peng2026
+key: peng2026
+type: preprint
+year: 2026
+venue: "arXiv (no venue stated)"
+url: "https://arxiv.org/abs/2604.09876"
+level: P
+contributions:
+  - "Personalizes generated UIs from a few pairwise judgments by reweighting prior users' preference models; same authors as DesignPref (arXiv 2511.20513)."
+  - "12 new users each gave 8 onboarding comparisons; the adaptive model won 60.4% vs 50.9% for a profile-conditioned LMM judge and 41.3% for zero-shot generation."
+gaps:
+  - "Preference data from only 20 users with UI-design knowledge."
+  - "Ranks a shared candidate pool rather than steering generation."
+tags: [method-source, taste, design-system]
+relevance: "A concrete budget: about 8 pairwise picks before acting was enough to beat a written profile; not peer reviewed."

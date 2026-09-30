@@ -1,0 +1,16 @@
+# Reference for excalidraw
+key: excalidraw
+type: tool
+year: 2026
+venue: "Excalidraw+ pages (plus.excalidraw.com: presentations guide, pricing, MCP tools) and Excalidraw developer docs (docs.excalidraw.com: excalidrawAPI, Frames), read 2026-09-26; MIT licence in excalidraw/excalidraw"
+url: "https://plus.excalidraw.com/use-cases/presentations"
+level: V
+contributions:
+  - "Presentations are an Excalidraw+ feature: frames drawn on the whiteboard become slides; laser pointer, phone remote by QR code, export to PDF or PPTX; Excalidraw+ is $6 a month per user (14-day trial)."
+  - "Excalidraw+ MCP server (beta) exposes create_slide, update_slide, list_slides (one frame per slide, with safe area and presenter notes) and take_screenshot of a frame."
+  - "Open-source editor (MIT) has frames and an API: scrollToContent with fitToViewport, viewportZoomFactor and animate (default 500 ms), which 'may not be smooth' on larger scenes."
+gaps:
+  - "The pages do not say whether Excalidraw+ animates the camera between frames or cuts."
+  - "2D whiteboard only: no flip, no 3D."
+tags: [tool, spatial, interactivity]
+relevance: "Excalidraw gives hand-drawn frames on one canvas that an agent can fill through MCP; an animated pan or zoom between frames is only certain through the open-source API or the community Obsidian Slideshow script, not in the paid presentation mode."

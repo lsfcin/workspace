@@ -114,7 +114,7 @@ def previews(alias: str, presentation_id: str, out_dir: pathlib.Path, dpi: int =
     Not the Slides thumbnail endpoint: that one is an 'expensive read' with a per-minute
     quota, so a 20+ slide deck gets a 429 halfway. The export is one call for any size.
     """
-    import tempfile
+    import tempfile, shutil
     sys.path.insert(0, str(_HERE.parent / 'files'))
     import deck_sample, drive_core
     ids = [s["objectId"] for s in get_presentation(alias, presentation_id).get("slides", [])]
@@ -130,7 +130,7 @@ def previews(alias: str, presentation_id: str, out_dir: pathlib.Path, dpi: int =
         paths, width = [], max(2, len(str(len(ids))))  # names sort in slide order past 99
         for idx, (sid, page) in enumerate(zip(ids, pages), 1):
             dest = out_dir / f"slide_{idx:0{width}d}_{sid}.png"
-            page.replace(dest)
+            shutil.move(page, dest)  # not Path.replace: /tmp and out_dir are often different filesystems
             paths.append(dest)
     return paths
 

@@ -1,0 +1,17 @@
+# Reference for pptx-morph-3d
+key: pptx-morph-3d
+type: web
+year: 2026
+venue: "Microsoft Support pages 'Morph transition: Tips and tricks' and 'Get creative with 3D models' (undated; read 2026-09-26)"
+url: "https://support.microsoft.com/en-us/powerpoint/morph-transition-tips-and-tricks"
+level: V
+contributions:
+  - "'Create a 3-D rotation': give an object a 3-D rotation (Drawing Tools > Shape Effects > 3-D rotation), duplicate the slide, set the ending rotation, apply Morph, and the object animates in 3D between the two states."
+  - "Move, resize, rotate and recolour can be combined in one Morph between a starting and an ending slide."
+  - "Office also inserts 3D models that rotate 360 degrees or tilt, with preset views such as head-on and top-down."
+gaps:
+  - "Vendor documentation; no evidence of effect."
+  - "Morph rotates objects, not a camera, so a stack of earlier slides has to be rebuilt as grouped shapes on one slide (inferred from the page)."
+  - "Complements pptx-morph, which covers availability and file format but not 3D."
+tags: [tool, animation, formats]
+relevance: "The native slideware route to the turn: copy the current slide's content as a group, then Morph it into a 3-D rotated, offset position next to the earlier slices, faking the camera move by rotating the objects."

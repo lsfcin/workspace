@@ -1,0 +1,16 @@
+# Reference for sundararajan2020
+key: sundararajan2020
+type: article
+year: 2020
+venue: "Educational Psychology Review 32(3):707-734 (Springer), meta-analysis"
+url: "https://doi.org/10.1007/s10648-020-09522-4"
+level: A
+contributions:
+  - "Meta-analysis of the seductive details effect: interesting but irrelevant material added to a lesson."
+  - "Including seductive details can hinder learning."
+  - "Effect size moderated by image type, delivery format, language, subject, learner pacing, recall question type and manipulation-check approach."
+  - "Weighs evidence for four candidate mechanisms."
+gaps:
+  - "The pooled effect size and the direction of each moderator are not in the abstract read."
+tags: [ground-truth, taste, visual-story]
+relevance: "The rule against the decorative stock photo and the fun aside: interest that is off-topic costs learning. The image-type and pacing moderators mean the cost is not constant."

@@ -1,0 +1,16 @@
+# Reference for chou2015
+key: chou2015
+type: article
+year: 2015
+venue: "Computers & Education 91:73-82 (Elsevier, peer-reviewed); verified on researchr and the NTNU research portal"
+url: "https://doi.org/10.1016/j.compedu.2015.10.020"
+level: A
+contributions:
+  - "Quasi-experiment with pre- and post-tests: 78 fifth-graders in three intact classes, taught 4 weeks of geography with Prezi, with PowerPoint, or traditionally."
+  - "Prezi beat traditional instruction on knowledge acquisition. PowerPoint beat it only on delayed (two-week) retention."
+  - "No significant difference between Prezi and PowerPoint on any of the three tests (quizzes, summative, delayed summative)."
+gaps:
+  - "Intact classes, not random assignment of pupils. Children, one school."
+  - "Read at abstract level; the full text is behind ScienceDirect."
+tags: [ground-truth, spatial, formats]
+relevance: "Classroom evidence agrees with the lab studies: a zoom canvas and slides show no learning gap between them. The gain is over teaching without projected visuals, not over slides."

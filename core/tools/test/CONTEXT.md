@@ -26,6 +26,7 @@
 | [`test_notion.py`](test_notion.py) | [`test_notion.pyi`](test_notion.pyi) | `block` | T1 notion: an id survives any form it is pasted in, and a failure hands back a runnable fix. |
 | [`test_notion_write.py`](test_notion_write.py) | [`test_notion_write.pyi`](test_notion_write.pyi) | — | T1 notion write: a batch lands whole or not at all, and a link keeps the name it shows. |
 | [`test_pptx.py`](test_pptx.py) | [`test_pptx.pyi`](test_pptx.pyi) | — | T1 pptx template: every section becomes a master carrying the same layouts, and every colour stays a theme slot. |
+| [`test_pptx_motion.py`](test_pptx_motion.py) | [`test_pptx_motion.pyi`](test_pptx_motion.pyi) | — | T1 pptx motion: a build shows what it means to show, lint names what a room would see wrong, and flatten turns every click into a page. |
 | [`test_secret_law.py`](test_secret_law.py) | [`test_secret_law.pyi`](test_secret_law.pyi) | `scan` | T1 secret law: every shape of credential is found, and the near-misses that would make anyone switch the gate off are not. Zero-token, no network. |
 | [`test_slides.py`](test_slides.py) | [`test_slides.pyi`](test_slides.pyi) | — | T1 slides: the geometry a deck reports must be the geometry the write path accepts. |
 <!-- routing:end -->

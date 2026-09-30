@@ -1,0 +1,17 @@
+# Reference for ibm-2x-grid
+key: ibm-2x-grid
+type: web
+year: 2026
+venue: "IBM Design Language, 2x Grid (ibm.com/design/language); undated, read 2026-09-26"
+url: "https://www.ibm.com/design/language/2x-grid/"
+level: V
+contributions:
+  - "Divide the space by twos: 2, 4, 8, 16, 32 or 64 columns; pick 1, 2, 4, 8 or 16 divisions and keep them through the design."
+  - "Margins separate content from the canvas edge; divide the live area, never from the canvas boundary; type aligns to gutters."
+  - "A base 'mini unit' ties grid, type, shapes and spacing, and its size depends on viewing distance."
+  - "Table: 0-0.5 m 2 mm / 6 pt caption; 0.5-1 m 4 mm / 12 pt; 1-2 m 8 mm / 24 pt; 2-4 m 16 mm / 48 pt; 4-8 m 32 mm / 96 pt; 8-16 m 64 mm / 192 pt - each doubling of distance doubles the unit so all look the same size."
+  - "Product and web use an 8px mini unit."
+gaps:
+  - "The table is for print and signage sizes in mm at physical scale; a projected slide's physical size varies with the screen."
+tags: [method-source, design-system, layout, typography]
+relevance: "The only design language found that scales its spacing unit and minimum type with viewing distance; the same rule applied to slide height gives us a spacing scale we lack."

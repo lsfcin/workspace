@@ -1,0 +1,15 @@
+# Reference for zheng2025
+key: zheng2025
+type: conference
+year: 2025
+venue: "EMNLP 2025 (main), Suzhou — ACL Anthology"
+url: "https://aclanthology.org/2025.emnlp-main.728/"
+level: A
+contributions:
+  - "PPTAgent takes a document and reference presentations, extracts slide patterns from the references, and edits them into new slides; PPTEval scores content, design, coherence."
+  - "Asks the user nothing before generating; the reference deck carries the design system."
+gaps:
+  - "Output quality depends on the reference deck."
+  - "Occasional generation failures (success above 95%) and overlapping elements."
+tags: [competing-work, style-system, layout]
+relevance: "Shows the design system can be inherited from a reference deck instead of interviewed; the interview then only covers what the reference cannot say."

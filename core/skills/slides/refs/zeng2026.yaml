@@ -1,0 +1,15 @@
+# Reference for zeng2026
+key: zeng2026
+type: conference
+year: 2026
+venue: "AAAI-26, Proceedings of the AAAI Conference on Artificial Intelligence vol. 40 no. 41"
+url: "https://ojs.aaai.org/index.php/AAAI/article/view/40758"
+level: A
+contributions:
+  - "SlideTailor asks for no written preferences: the user gives one paper-slides example pair and a .pptx template, and the agent distils content and style preferences from them."
+  - "75.8% overall vs 67.3% PPTAgent and 62.9% ChatGPT; 81.6% human win rate against PPTAgent."
+gaps:
+  - "Scientific papers only."
+  - "The MLLM judge used for evaluation shows 'a noticeable gap' with human judgment."
+tags: [competing-work, style-system, taste]
+relevance: "The strongest published case for 'examples over descriptions' in slides: ask Lucas for one past deck he likes plus his template before any question."

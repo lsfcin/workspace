@@ -1,0 +1,16 @@
+# Reference for mahar2009
+key: mahar2009
+type: article
+year: 2009
+venue: "Information Systems Education Journal 7(82) (EDSIG); ISECON 2008 distinguished paper, blind peer review"
+url: "http://isedj.org/7/82/ISEDJ.7(82).Mahar.pdf"
+level: B
+contributions:
+  - "93 business students watched the same narrated PowerPoint lecture, either static or with custom animation revealing content incrementally (3.4 animations per slide on average)."
+  - "Static slides gave better recall, across gender, class year, academic standing and major."
+  - "Authors' explanation: incremental reveal raised processing demands and cut each item's exposure time."
+gaps:
+  - "One recorded lecture on one topic, multiple-choice recall only; no transfer test."
+  - "Observed: co-author T. Janicki is listed as an associate editor of the journal."
+tags: [ground-truth, animation, structure]
+relevance: "The counterweight to step-by-step builds: revealing text piece by piece hurt recall when it only shortened how long each item stayed visible. Inferred: build to follow the speech, and leave the finished state on screen."

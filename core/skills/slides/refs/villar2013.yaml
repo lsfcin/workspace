@@ -1,0 +1,16 @@
+# Reference for villar2013
+key: villar2013
+type: article
+year: 2013
+venue: "Social Science Computer Review 31(6):744-762 (SAGE), meta-analysis"
+url: "https://doi.org/10.1177/0894439313497468"
+level: B
+contributions:
+  - "Meta-analysis of 32 randomized experiments comparing web-survey drop-off with vs without a progress indicator."
+  - "A constant-speed progress indicator did not significantly reduce drop-off."
+  - "Fast-to-slow indicators reduced drop-off; slow-to-fast indicators increased it."
+gaps:
+  - "Web surveys, not talks; the outcome is quitting, not learning. Transfer to slides is inference."
+  - "Read at abstract level (open-access author copy at City, University of London)."
+tags: [ground-truth, structure, interactivity]
+relevance: "The only experimental evidence found on progress bars: an honest bar does little, and a bar that looks slow early makes people want to quit. Inferred: a deck progress bar should not start slow."

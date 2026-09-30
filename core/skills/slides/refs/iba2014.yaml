@@ -1,0 +1,17 @@
+# Reference for iba2014
+key: iba2014
+type: conference
+year: 2014
+venue: "SugarLoafPLoP 2014, 10th Latin American Conference on Pattern Languages of Programs (writers' workshop paper)"
+url: "https://plopcon.org/pastplops/sugarloafplop/2014/papers/2.3.pdf"
+level: B
+contributions:
+  - "Iba & Isaku, 'Presentation Patterns: A Pattern Language for Creative Presentations, Part I': 34 named patterns arranged in a pattern map."
+  - "Core: Creative Presentation (0) at the centre, surrounded by Main Message, Touching Gift and Image of Success, each heading a group (content and expression; appeal to the audience; acting on stage)."
+  - "Named patterns include Storyline, Visual Power, Dramatic Modulation, Doors of Mystery, Beautiful Clarity, Perfect Portion, Significant Void."
+  - "Entry form: number and name, one-line summary, context, problem, then a 'Therefore' solution."
+gaps:
+  - "Talk-level mindset patterns; almost none address a single slide element."
+  - "Part I of a series; no empirical validation. An earlier version appeared at EuroPLoP 2012 (not read)."
+tags: [method-source, structure, visual-story]
+relevance: "A second, peer-workshopped pattern language for presentations. It is a macro-level vocabulary (story, message, void), not a micro element catalogue, so it only fills the macro half of Lucas's table."

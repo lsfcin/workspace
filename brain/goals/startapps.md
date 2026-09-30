@@ -13,7 +13,7 @@ Projetos do portfólio:
 | **laplata** | Explorador de fluxos de dados financeiros públicos | `code/laplata` (dados públicos) |
 | **voti** | Transparência de dados legislativos e votações | `code/voti` (dados abertos) |
 | **arede** | Rede de consumo consciente e marcas éticas | semente conceitual |
-| **batituque** | Matriz rítmica e geração musical | protótipo de ritmo |
+| **batituque** | Matriz rítmica, microtonalidade e geração musical (escalas e divisões alternativas) | protótipo de ritmo / semente |
 | **come-bem** | Questionário de perfil nutricional | semente conceitual |
 | **cuida** | Rede de apoio e cuidados direcionados | semente conceitual |
 | **da-feirinha** | Mapeamento de produtores agroecológicos em Recife | semente de dados locais |
@@ -24,6 +24,7 @@ Projetos do portfólio:
 | **todolado** | Coletânea de citações e inspiração diária | semente editorial |
 | **ux-guidelines-ai** | Princípios de UX para agentes autônomos de IA | diretrizes de design |
 | **virada** | Engajamento cívico e assistência jurídica | consulta informal |
+| **papercast** | Podcast diário de papers com infográfico navegável e carrossel de figuras | semente conceitual |
 | **xacomigo** | Proposta de valor para serviços de conveniência | semente de proposta |
 
 Irmão de [[craft-flows]] e [[spec-driven-development]].
@@ -54,6 +55,7 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## backlog
 
+> [ ] [batituque-microtom] prototipar módulo de afinações alternativas (13-EDO, 11-EDO, 5-EDO) e regras matemáticas para notas fora da escala no batituque / Air Guitar (INBOX 2026-09-27)  
 > [ ] [pre-launch-list] abrir design atual do apptime e listar 3 mudanças para App Store  
 > [ ] [apptime-build] consolidar build funcional do apptime para testes  
 > [ ] [voti-data] validar ingestão de dados abertos da Câmara no voti  

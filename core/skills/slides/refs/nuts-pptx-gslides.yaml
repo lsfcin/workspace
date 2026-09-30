@@ -1,0 +1,17 @@
+# Reference for nuts-pptx-gslides
+key: nuts-pptx-gslides
+type: web
+year: 2026
+venue: "Nuts & Bolts Speed Training tutorial, Camille Holden, 'PowerPoint vs Google Slides: The Complete Compatibility Guide', updated 16 Sep 2026"
+url: "https://nutsandboltsspeedtraining.com/tutorials/powerpoint-vs-google-slides-compatibility"
+level: C
+contributions:
+  - "Morph and interactive Zoom have no Google Slides equivalent and are gone after import, in either direction: 'no degraded version'."
+  - "Transitions other than fade (push, wipe, cube...) arrive as no transition; text, images, hyperlinks, shapes, speaker notes and fade transitions survive."
+  - "PowerPoint widescreen is 13.333 x 7.5 in, Google Slides 10 x 5.625 in; the rescale leaves fractional font sizes (28 becomes 28.8)."
+  - "Opening a .pptx from Drive in Office editing mode renders it through Google's renderer without saying so, with transitions stripped."
+gaps:
+  - "Practitioner report from converting client decks; no reproducible test file."
+  - "Does not say whether the plain Fallback transition PowerPoint stores under a Morph (see pptx-morph) is what a reader gets; inferred possibility, untested here."
+tags: [tool, formats, animation]
+relevance: "A Morph or Zoom built in PowerPoint cannot be the master copy of a deck Lucas presents from Google Slides; it has to stay a .pptx played in desktop PowerPoint."

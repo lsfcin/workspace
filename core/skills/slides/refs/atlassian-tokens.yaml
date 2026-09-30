@@ -1,0 +1,18 @@
+# Reference for atlassian-tokens
+key: atlassian-tokens
+type: web
+year: 2026
+venue: "Atlassian Design System, Foundations > Design tokens explained (atlassian.design); undated, read 2026-09-26. Light/dark values read in atlassian.design/llms-tokens.txt"
+url: "https://atlassian.design/foundations/tokens/design-tokens"
+level: V
+contributions:
+  - "A token name reads foundation.property.modifier (e.g. color.icon.success, color.background.danger.bold.hovered); color.text has no modifier."
+  - "A theme is a collection of token values; light, dark and high-contrast are themes, and so are non-colour ones (compact/comfortable spacing, reduced motion, typography)."
+  - "Colour tokens are split by property: text, links, icons, backgrounds, borders, blankets, charts, skeletons."
+  - "Rule: choose a token by meaning, not because its colour matches; a matching colour breaks in another theme."
+  - "llms-tokens.txt lists each token with a Light and a Dark value (e.g. color.background.brand.bold #0C66E4 / #1D7AFC)."
+gaps:
+  - "Hover and pressed states are interaction modifiers with no slide equivalent."
+  - "No presentation guidance found."
+tags: [method-source, design-system, style-system]
+relevance: "A naming grammar we could adopt for slide roles (color.bar.section, color.text.on-main); the 'meaning over matching hex' rule is the reason to name roles before a second ground or family is added."

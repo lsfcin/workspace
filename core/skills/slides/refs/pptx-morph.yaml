@@ -1,0 +1,18 @@
+# Reference for pptx-morph
+key: pptx-morph
+type: web
+year: 2024
+venue: "Microsoft Support 'Use the Morph transition in PowerPoint' and 'Use zoom for PowerPoint' (undated, read 2026-09-26); [MS-PPTX] Open Specifications rev. 25.0 (2024-08-20), sections 2.2.1, 2.6.1.1, 2.6.4.1, 2.9-2.10"
+url: "https://support.microsoft.com/en-us/office/use-the-morph-transition-in-powerpoint-8dd1c7b2-b935-44f5-a74c-741d8d9244ea"
+level: V
+contributions:
+  - "Morph animates objects shared by two adjacent slides (text, shapes, pictures, SmartArt, WordArt; charts do not morph); Effect Options match by object, word or character."
+  - "Morph is created in Microsoft 365, 2019-2024, Mac, and on the web only for files in OneDrive for work or school or SharePoint; PowerPoint 2016 without five listed updates plays a Fade instead."
+  - "Zoom (Insert > Zoom): Summary Zoom (a landing slide of sections), Section Zoom, Slide Zoom; Return to Zoom, Zoom Background (blends into the home slide), zoom-transition duration."
+  - "Zoom requirements table: create and play in Microsoft 365 1607+, 2019-2024, Mac 16.19+; PowerPoint 2016 plays zooms as plain hyperlinks; PowerPoint for the web and PowerPoint Live in Teams: none; mobile: play only."
+  - "[MS-PPTX]: Morph is the element p159:morph (namespace http://schemas.microsoft.com/office/powerpoint/2015/09/main, option byObject|byWord|byChar) inside mc:AlternateContent whose Fallback holds a plain transition; zooms are sldZm, sectionZm and summaryZm elements in 2016 namespaces."
+gaps:
+  - "No statement on 3D content, on Linux, or on what other readers do with the Fallback."
+  - "Zoom cannot be authored or played in PowerPoint for the web, so it needs desktop PowerPoint on Windows or Mac."
+tags: [tool, animation, spatial, formats]
+relevance: "PowerPoint is the only slide editor here with both a camera-like zoom between slides (Zoom) and a Magic-Move equivalent (Morph); both are lost outside desktop PowerPoint, so choosing them means presenting from PowerPoint."

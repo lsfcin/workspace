@@ -1,0 +1,16 @@
+# Reference for wetzel2010
+key: wetzel2010
+type: conference
+year: 2010
+venue: "Proceedings of the Human Factors and Ergonomics Society Annual Meeting 54(25):2155-2159 (SAGE), September 2010; Wetzel & Hernandez (verified via Crossref)"
+url: "https://doi.org/10.1177/154193121005402507"
+level: B
+contributions:
+  - "Experiment on large-screen display legibility, run to inform the upgrade of MIL-STD-1472F."
+  - "Six factors: monitor vs projector, light vs dark room, distance 8/16/32 ft, offset 0 or 25 degrees, object type (letter, number, symbol), object size as visual angle 6/8/10 arcmin."
+  - "Results did not support reducing the current minimum text size; new preferred sizes for text, symbols, distance and offset were proposed."
+gaps:
+  - "Only the abstract was read (via OpenAlex); SAGE returned 403, so the recommended values are unknown here."
+  - "Military operator displays, not lectures."
+tags: [ground-truth, typography, accessibility]
+relevance: "Peer-reviewed support for sizing projected text by visual angle, projector and room light included; it backs a room-keyed size rule but gives us no number yet."

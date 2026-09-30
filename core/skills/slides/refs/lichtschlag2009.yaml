@@ -1,0 +1,16 @@
+# Reference for lichtschlag2009
+key: lichtschlag2009
+type: conference
+year: 2009
+venue: "CHI 2009 (ACM SIGCHI), pp. 547-556; verified on the RWTH Fly page, the PDF header and Crossref"
+url: "https://doi.org/10.1145/1518701.1518786"
+level: A
+contributions:
+  - "FLY: content is laid out freely on an infinite plane, with a near view for detail, a far view for semantic overview, and a path of snapshots flown with continuous zoom and pan."
+  - "A paper-prototype study found that the planar UI was easy to grasp and that the results mirrored the structure of the source content better than slides did."
+  - "A software study against PowerPoint found more meaningful overviews and less strictly linear talks for non-linear topics, and authors preferred FLY."
+gaps:
+  - "Authors: evaluates authoring only, and makes no claim about teaching, informing or persuading an audience."
+  - "Authors wanted to hide upcoming content and build it up in sequence, which the static plane did not support."
+tags: [tool, spatial, structure, layout]
+relevance: "Where the canvas evidence is strongest: for the author, a plane helps express structure and build overviews. The audience side is lichtschlag2012a, where learning showed no gain."

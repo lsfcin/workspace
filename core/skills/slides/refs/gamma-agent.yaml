@@ -1,0 +1,14 @@
+# Reference for gamma-agent
+key: gamma-agent
+type: web
+year: 2026
+venue: "Gamma Help Center (undated; read 2026-09-26)"
+url: "https://help.gamma.app/en/articles/15002203-how-do-i-create-with-agent-in-gamma"
+level: V
+contributions:
+  - "The Gamma agent 'asks a handful of questions based on your prompt, things like your goal, your audience, and what matters most', then writes a plan covering story, style, and look and feel before generating."
+  - "Questions can be skipped ('use its best judgment'); a restyle is offered instead of regeneration when only the design changes."
+gaps:
+  - "No effect data; vendor description only."
+tags: [tool, design-system, interactivity]
+relevance: "A shipping precedent for a short, skippable pre-build interview that ends in a plan including style."

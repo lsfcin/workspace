@@ -1,0 +1,18 @@
+# Reference for lamine2022
+key: lamine2022
+type: article
+year: 2022
+venue: "Empirical Software Engineering 27(6), article 146 (Springer), published 2022-08-06; Lamine & Cheng"
+url: "https://link.springer.com/article/10.1007/s10664-022-10181-y"
+level: B
+contributions:
+  - "Explores the issues design-system projects deal with and the perceptions of design-system project leaders, to inform tool support."
+  - "Open-source design-system communities mostly discuss the behaviour of UI components."
+  - "Leaders struggle to keep a system both stable (capturing design knowledge) and flexible for the products that use it."
+  - "Leaders value a bottom-up approach: components are elevated and merged from evolving products."
+gaps:
+  - "Only the abstract was read (full text behind the Springer paywall)."
+  - "Level B is conservative: a leading SE journal, but not on core/refs/SPECS.md's top list."
+  - "Product UI teams, not slide decks."
+tags: [survey, design-system]
+relevance: "Supports growing our token set from the decks Lucas actually makes (promote a layout after it recurs) rather than designing every layer up front."

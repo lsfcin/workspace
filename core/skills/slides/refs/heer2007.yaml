@@ -1,0 +1,16 @@
+# Reference for heer2007
+key: heer2007
+type: article
+year: 2007
+venue: "IEEE Transactions on Visualization and Computer Graphics 13(6):1240-1247 (InfoVis 2007), doi 10.1109/TVCG.2007.70539; verified via Crossref and the paper's header; PDF read (UW IDL copy)"
+url: "https://doi.org/10.1109/TVCG.2007.70539"
+level: A
+contributions:
+  - "Two controlled experiments: well-designed animated transitions between statistical graphics significantly improve graphical perception."
+  - "A taxonomy of transition types, including view transformations such as panning and zooming."
+  - "Principles: group similar transitions, minimise occlusion, maximise predictability (slow-in slow-out), use simple transitions, stage complex ones, make transitions as long as needed but no longer (about 1 s, citing an earlier Robertson et al. paper, not robertson2008)."
+  - "Cites perceptual research that translation and expand/contract motion are easier to follow than rotation."
+gaps:
+  - "Statistical charts (bars, pies, scatter plots), not 3D scenes."
+tags: [method-source, animation, diagrams]
+relevance: "Rules for the camera turn itself: stage it (shrink the slide into its slice first, then move the camera), keep it near a second, ease in and out, and prefer a dolly or zoom over a spin, because rotation is the hardest motion to follow."

@@ -1,0 +1,18 @@
+# Reference for bach2014
+key: bach2014
+type: conference
+year: 2014
+venue: "CHI 2014, Proceedings of the SIGCHI Conference on Human Factors in Computing Systems, doi 10.1145/2556288.2557010; verified on the ACM DL listing and the Aviz project page; PDF read"
+url: "https://doi.org/10.1145/2556288.2557010"
+level: A
+contributions:
+  - "Cubix: stacks a network's adjacency matrices over time into a matrix cube (a space-time cube) that can be rotated, projected and decomposed."
+  - "Seven predefined views, among them the 3D cube, time projection, time small multiples and time-slice rotation."
+  - "Principle '3D as a pivot': the cube is shown to convey the model, give an overview and act as the pivot when switching views, while data is read in the 2D views derived from it."
+  - "Principle 'animated transitions': view changes are animated smoothly to keep perceptual continuity and let users track elements across views."
+  - "Slice and camera positions are predefined; perspective projection only for the 3D view, orthographic for all others."
+gaps:
+  - "Validated with two domain experts (an astronomer and a neurologist), not a controlled study."
+  - "The paper itself says 3D representations are hard to read on two-dimensional screens."
+tags: [method-source, spatial, animation, interactivity]
+relevance: "The published design closest to Lucas's camera move: flat slice, animated rotation, 3D stack, small multiples. Copy its '3D as a pivot' rule: the stack is for overview and transition, not where content is read."

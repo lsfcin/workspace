@@ -1,0 +1,17 @@
+# Reference for slidev
+key: slidev
+type: tool
+year: 2026
+venue: "sli.dev official docs (v53): Animations, Shiki Magic Move, Exporting (read 2026-09-26); MIT licence in slidevjs/slidev"
+url: "https://sli.dev/guide/animations"
+level: V
+contributions:
+  - "v-motion (built-in @vueuse/motion) animates any element between initial, enter, click-N and leave states; click-bound, so each click can move or scale an element."
+  - "Slide transitions built in: fade, fade-out, slide-left/right/up/down, and view-transition (View Transitions API, marked experimental, not in all browsers); custom transitions through Vue Transition CSS."
+  - "Shiki Magic Move morphs a code block between steps, bound to clicks."
+  - "Exports PDF, PNG and PPTX through Playwright; plain PPTX holds slides as images, pptx-editable rebuilds native shapes."
+gaps:
+  - "No built-in camera over a canvas; a zoom or pan is an element transform per slide."
+  - "@vueuse/motion accepts every CSS transform (so rotateY and translateZ are possible), but Slidev documents no flip or 3D stack (inferred feasible)."
+tags: [tool, animation, formats]
+relevance: "Slidev is the Markdown route: an agent writes the deck, Lucas edits text files, and click-stepped moves are declarative; zoom and pan are per-element, not a camera."

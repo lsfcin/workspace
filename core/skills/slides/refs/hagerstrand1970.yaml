@@ -1,0 +1,16 @@
+# Reference for hagerstrand1970
+key: hagerstrand1970
+type: article
+year: 1970
+venue: "Papers of the Regional Science Association (now Papers in Regional Science) 24(1):7-21, verified via Crossref; text read by OCR of a scanned course copy (courses.washington.edu)"
+url: "https://doi.org/10.1111/j.1435-5597.1970.tb01464.x"
+level: B
+contributions:
+  - "Origin of time geography: in time-space an individual 'describes a path' from birth to death."
+  - "Draws the path by collapsing three-dimensional space into a two-dimensional plane and using the 'perpendicular direction to represent time': the space-time cube."
+  - "Introduces the daily prism: the reachable time-space volume under constraints, with 'time-space walls on all sides'."
+gaps:
+  - "A presidential address, informal by its own account ('half-baked'): a conceptual model with no test of how people read the diagrams."
+  - "About people moving through geography, not about teaching or presenting."
+tags: [foundational, spatial, diagrams]
+relevance: "The source to cite for 'time as the perpendicular axis' when the slide-stack idea needs a lineage. It gives the geometry, not evidence that audiences can read it."

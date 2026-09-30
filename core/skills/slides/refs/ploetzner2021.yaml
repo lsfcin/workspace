@@ -1,0 +1,15 @@
+# Reference for ploetzner2021
+key: ploetzner2021
+type: article
+year: 2021
+venue: "Instructional Science 49(4):497-514, doi 10.1007/s11251-021-09541-w; Ploetzner, Berney, Bétrancourt; verified on the Springer page and Crossref"
+url: "https://doi.org/10.1007/s11251-021-09541-w"
+level: B
+contributions:
+  - "Experiment with 88 university students: one static picture, four static pictures, or an animation of a gear mechanism."
+  - "The animation group identified motions best; the picture groups identified spatial arrangements best; effect sizes large."
+  - "Tests a re-analysis of Berney and Bétrancourt's meta-analysis (berney2016): animation beats static pictures when the specifics of the change must be learned."
+gaps:
+  - "One mechanical system, university students, one study."
+tags: [ground-truth, animation, diagrams]
+relevance: "Tells Lucas which to use when: if students must learn how something moves, animate; if they must learn how things are arranged across states, show the static set. A slice stack is the static set, and the turn into it is the animation."

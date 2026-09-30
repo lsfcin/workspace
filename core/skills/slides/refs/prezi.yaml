@@ -1,0 +1,18 @@
+# Reference for prezi
+key: prezi
+type: tool
+year: 2026
+venue: "prezi.com product page and Prezi Support Center 'Presenting and viewing a downloaded presentation (portable presentation)' (read 2026-09-26); Prezi blog 'What's New in Prezi AI: 2026 Features' (updated 2026-09-02)"
+url: "https://prezi.com/product/"
+level: V
+contributions:
+  - "Current product is Prezi AI: 'Create on an open, zoomable canvas'; decks generated from a prompt, PPT, PDF or Canva import, then refined by chat or by hand; overviews editable on the canvas."
+  - "Free plan with basic features; downloading a presentation to present offline needs a Plus plan or higher."
+  - "Portable prezi: EXE (Windows 10 64-bit, DirectX 11, dedicated or integrated graphics card) or ZIP (macOS 10.15+); YouTube videos still need internet."
+  - "Exports each frame to PDF; can export to PPT; narrated video with zoom transitions; a camera mode with a '3D slide wheel'."
+gaps:
+  - "Pricing page is script-rendered and could not be read; plan prices not verified."
+  - "No public authoring API found; the only automation is Prezi's own AI chat (inferred from search, not a vendor statement)."
+  - "No Linux desktop app mentioned."
+tags: [tool, spatial, interactivity, formats]
+relevance: "Prezi is the ready-made zoom-and-pan canvas, but it is a closed, paid-for-offline service an agent cannot write to; it suits a hand-built talk, not an agent-built deck."

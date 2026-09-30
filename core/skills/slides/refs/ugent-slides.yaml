@@ -1,0 +1,16 @@
+# Reference for ugent-slides
+key: ugent-slides
+type: web
+year: 2026
+venue: "Ghent University style guide, Templates > Digital (styleguide.ugent.be); undated, read 2026-09-26"
+url: "https://styleguide.ugent.be/templates/digital.html"
+level: V
+contributions:
+  - "One blank template for central services and one per faculty (11), in English and Dutch: the layout is the same, only the faculty icon and colour differ."
+  - "PowerPoint and Keynote versions; 16:9 set as 48.16 x 27.09 cm, then the template applied through Slide Master."
+  - "Two font choices by purpose; UGent Panno Text is for promotional decks with more visuals and quotes."
+  - "Moving an old deck to the new master: check every slide, bullets especially break the layout."
+gaps:
+  - "The template files themselves were not opened; no sizes or margins stated on the page."
+tags: [application, design-system, layout]
+relevance: "An institution running our model at scale: colour per unit over one shared layout set, which is our family-per-section rule applied per faculty."
