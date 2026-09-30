@@ -23,6 +23,9 @@ name. An entry without one is invisible to it.
 
 ## Open
 
+- **Boundary friction between goal tasks and project roadmaps confuses capture and execution (2026-09-29).**
+  The `/inbox` skill feeds commitments into `brain/goals/*.md` backlogs, but technical build work belongs in `code/<proj>/ROADMAP.md` and the root `ROADMAP.md`. Lucas notes a strong tendency to look for tasks directly in roadmaps, leaving goal backlogs stale or duplicated. Open until the taxonomy and intake contract are explicitly defined between personal OS life commitments and technical project backlogs. `b20260929-task-roadmap-boundary`
+
 - **The slides surface still names Google Slides as the provider after PowerPoint became the home (2026-09-28).**
   `core/tools/slides/CONTEXT.md` calls `gslides` the leaf and says `pptx` exists "for Drive to convert"; the `/slides` router
   loads the `gslides` leaf; the A/B gate in `core/prompts/slides-padroes.md` hands the control only `gslides`. Audit

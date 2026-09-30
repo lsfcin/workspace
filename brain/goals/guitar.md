@@ -22,6 +22,8 @@ Pick up the guitar right now. No goal. No song in mind. Just make sounds for 10 
 
 ## backlog
 
+> [ ] [no-na-garganta-guinga] analisar a partitura e harmonia de "Nó na Garganta" (Guinga) — dissecar o uso de notas fora da escala na melodia e no dedilhado base sem perder a consonância (INBOX 2026-09-27)  
+> [ ] [microtonalidade-exp] estudo matemático e protótipo de exploração sonora para divisões não tradicionais da oitava (13-EDO, 11-EDO, 5-EDO vs 12-TET) e regras para notas fora da escala, conectando com os princípios do antigo Air Guitar Framework (INBOX 2026-09-27)  
 > [ ] [free-play] pick up guitar and improvise for 10 minutes — no songs, no chords, just explore  
 > [ ] [electric-setup] change electric guitar strings and set it up to play  
 > [ ] [record-1] record a 1-minute improvisation — no editing, just capture  

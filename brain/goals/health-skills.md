@@ -34,3 +34,5 @@ superficial — seis arquivos parados na área health é o que o colapso das sei
 - [ ] [assembleia] desenhar como a assembleia roda: quem fala, em que ordem, e como um desacordo
       entre duas skills chega até Lucas em vez de ser resolvido no escuro
 - [ ] [resto-do-corpo] as demais skills, uma por vez, cada uma pagando a mesma barra
+- [ ] [fiber-preload] avaliar protocolo de fibras solúveis viscosas pré-refeição (psyllium/glucomannan) para mitigação de pico glicêmico e sensibilidade insulínica na futura skill /nutri (INBOX 2026-09-29)
+- [ ] [ala-saude-exames] estruturar ala de saúde no WOS (branches/health/) e pipeline para digitalizar, escanear e extrair dados de todos os exames médicos com OCR/twin estruturado (INBOX 2026-09-26)

@@ -51,3 +51,9 @@ These are observed behaviors of a closed CLI — re-verify if `claude` upgrades.
   It becomes interesting only if Kokoro's pt-BR quality is the complaint, which it has not been; keep as the first thing
   to try if it ever is.
 
+## System-1 decision & message triage (2026-09-28)
+- **JEV vs Laya** — [reel](https://www.instagram.com/reel/Dd1SON3tqGZ/?utm_source=ig_web_copy_link), [src: web:instagram.com]: Kem @ GlitchCatClub review of JEV (TypeSafe AI) vs Laya (Convai, Apache 2.0). Fast decision primitives (boolean, choice, score) in a single call. Primary use case: instant, low-cost Telegram DM/message triage without running a full LLM. Task in `ROADMAP.md`.
+
+## Telegram assistant UX benchmarks (2026-09-28)
+- **Mira (`mira.tg` / `miracodeai/mira`)** — [site](https://mira.tg/), [src: web:mira.tg]: personal AI assistant native to Telegram with tool/app integrations (GitHub, Google Calendar, Notion, Linear) directly from chat, plus open-source PR reviewer on GitHub. Useful benchmark for aiwbot command UX and app integrations. Task in `ROADMAP.md`.
+

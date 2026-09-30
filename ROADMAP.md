@@ -24,7 +24,17 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 *Why* — both attack the bill this workspace already knows it pays: `core/experiments/context-window.md` and `read-amplification.md` measure it, and the chain gate is the current answer. A third mechanism is worth a reading, not a port. INBOX 2026-09-18 and 2026-09-21.
 *Done when* — each has a verdict against a measured number of ours, and the losing one is deleted from `REFS.md` with its reason.
 
+**🟡 auto-compaction orientada a state file vs handover/handoff manual**
+*What* — avaliar a substituição de handovers manuais (`outputs/handoff.md`, commits intermediários forçados) e do resumo destrutivo de auto-compactação nativa dos harnesses pelo padrão de *state file* (GlitchCatClub, `core/refs/REFS.md`): o agente mantém um arquivo de estado compacto e afiado durante o trabalho, e no gatilho de tokens o harness descarta o histórico e reapresenta apenas esse arquivo.
+*Why* — handovers manuais geram fricção, enquanto a auto-compactação padrão dos harnesses dispara tarde e introduz *context rot* / *context poisoning* por resumos opacos (INBOX 2026-09-27, 2026-09-29).
+*Done when* — teste comparativo medido em tarefa longa avaliando perda de fatos e integridade com state file vs native compaction vs handoff.
+
 ## Legibility — can Lucas still read what he owns
+
+**🟡 visualizador de fluxo de commits e trocas de contexto (swaps) entre projetos**
+*What* — visualização gráfica do fluxo de trabalho onde cada repositório é uma linha vertical e cada commit é um nó, mapeando visualmente os *swaps* (trocas de projeto) ao longo do tempo para o `/compass`.
+*Why* — diagnosticar se a troca de projeto acontece num ponto de parada com marco de valor entregue ou no meio de uma tarefa inacabada, revelando dispersão de atenção e o que está prestes a ser fechado (Lucas, INBOX 2026-09-29).
+*Done when* — gerador executável via `core/tools/wos/session` que desenha o grafo temporal de commits e swaps entre repositórios a partir do histórico git.
 
 **🔴 the health picture is built and does not land — redesign it**
 *What* — `ARCHITECTURE.html` redrawn as a list ordered by colour and symbol, where the page now puts a big mostly-empty table. Next deliverable is the Claude Design prompt for that session, and it has to resolve one conflict: Lucas wants per-file reads per session on this page, and that is the one number that breaks its determinism — it is regenerated at every close and must change only when the workspace does.
