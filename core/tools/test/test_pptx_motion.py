@@ -115,6 +115,16 @@ def test_text_at_alpha_zero_is_exempt_from_the_size_floor():
     assert pptx_check.lint(prs) == []
 
 
+def test_a_slide_over_the_item_budget_is_flagged_and_one_at_it_is_not():
+    prs = _deck(); s = prs.slides.add_slide(prs.slide_layouts[6])
+    for k in range(pptx_check.MAX_ITEMS):
+        s.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(k % 15 * 0.8), Inches(k // 15 * 0.7), Inches(0.5), Inches(0.5))
+    assert not any("items" in f for f in pptx_check.lint(prs))
+    grp = s.shapes.add_group_shape()   # a group's children count: the online editor counts them too
+    grp.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(1), Inches(1), Inches(0.5), Inches(0.5))
+    assert any(f"{pptx_check.MAX_ITEMS + 1} items" in f for f in pptx_check.lint(prs))
+
+
 def _xml(slide):
     from lxml import etree
     return etree.tostring(slide._element).decode()

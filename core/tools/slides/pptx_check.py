@@ -25,6 +25,18 @@ def _path_end(path: str):
     return [float(v) for v in re.findall(r"-?\d*\.?\d+", path)[-2:]]
 
 
+# PowerPoint online refuses to edit a slide past 200 items and chokes the show well before (round 7 deck A, 2026-09-29).
+# Both ceilings are provisional until the round-7 bench (`outputs/.drafts/rodada7/bench.py`) is measured.
+MAX_ITEMS, MAX_POINTS = 150, 5000
+
+
+def budget(slide):
+    """(items, points): every drawn object, group children included, and every path point it carries."""
+    tree = slide.shapes._spTree
+    items = sum(1 for el in tree.iter(q(P, "sp"), q(P, "cxnSp"), q(P, "pic"), q(P, "graphicFrame")))
+    return items, sum(1 for _ in tree.iter(q(A, "pt")))
+
+
 def lint(prs, fonts=None, min_pt=14):
     """'slide N: …' lines. `fonts`: the faces the design system allows; None skips that check.
     Exempt from the size floor: a shape named 'footer…' (10pt by design) and text at alpha 0 (a Morph grows it into view)."""
@@ -32,6 +44,9 @@ def lint(prs, fonts=None, min_pt=14):
     out, prev_keys = [], set()
     for n, slide in enumerate(prs.slides, 1):
         say = lambda msg: out.append(f"slide {n}: {msg}")
+        items, points = budget(slide)
+        if items > MAX_ITEMS or points > MAX_POINTS:
+            say(f"{items} items, {points} path points — over {MAX_ITEMS}/{MAX_POINTS}, PowerPoint online stalls: cull what is not seen, fuse what moves together")
         shapes = {s.shape_id: s for s in slide.shapes}
         keys = [s.name for s in slide.shapes if s.name.startswith("!!")]
         for k in sorted({k for k in keys if keys.count(k) > 1}):
