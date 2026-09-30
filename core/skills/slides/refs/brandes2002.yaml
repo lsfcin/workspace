@@ -1,0 +1,15 @@
+# Reference for brandes2002
+key: brandes2002
+type: conference
+year: 2002
+venue: "IEEE Symposium on Information Visualization (InfoVis 2002), pp. 145-151, doi 10.1109/INFVIS.2002.1173160; extended in Information Visualization 2(1):40-50, 2003; both verified via Crossref; abstract read via Sciweavers"
+url: "https://doi.org/10.1109/INFVIS.2002.1173160"
+level: A
+contributions:
+  - "Visual unrolling: an evolving network is drawn as a three-dimensional stack of layers, one layer per modification, the stack forming a time line."
+  - "Shows both the intermediate states and the nature of the change between them."
+gaps:
+  - "Only the abstract was read; it mentions no user evaluation."
+  - "Incrementally evolving networks (discourse) only."
+tags: [method-source, spatial, diagrams, layout]
+relevance: "Published precedent for 'each moment a layer, the stack is the time line' in 2.5D. Its layers hold diagrams, which is closer to slides than video frames are."

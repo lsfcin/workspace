@@ -1,0 +1,17 @@
+# Reference for motion-canvas
+key: motion-canvas
+type: tool
+year: 2026
+venue: "Motion Canvas docs at motion-canvas.github.io (Presentation, Camera; read 2026-09-26) and repository motion-canvas/motion-canvas README (MIT, last push 2026-07-02)"
+url: "https://motion-canvas.github.io/docs/presentation"
+level: V
+contributions:
+  - "Animations are TypeScript generator code with a web editor for preview and syncing to audio."
+  - "yield* beginSlide('name') marks a slide; Presentation Mode (Video Settings > Present) pauses at each slide until Space, with a slide list and full screen."
+  - "An orthographic Camera node pans, zooms and rotates the view without moving the objects."
+  - "The default renderer is 2D ('2d' package for 2D motion graphics)."
+gaps:
+  - "No 3D renderer documented; a flip or depth stack would be faked with 2D scale and skew (inferred)."
+  - "motioncanvas.io/docs/presentation-mode now serves an unrelated marketing page; the docs moved to motion-canvas.github.io (observed 2026-09-26)."
+tags: [tool, animation, spatial]
+relevance: "Motion Canvas gives a real camera zoom and pan with click-stepped slides, written as code an agent can produce; it presents from its own editor in a browser, not from a slide file."

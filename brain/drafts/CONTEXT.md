@@ -16,5 +16,6 @@ Why a draft leaves rather than accumulates, and why a model's name belongs in th
 | [`metodologia-aulas-sonnet.md`](metodologia-aulas-sonnet.md) | Metodologia de aula — proposta revisada (Sonnet, 2026-09-01) |
 | [`metodologia-disciplinas-gemini.md`](metodologia-disciplinas-gemini.md) | Metodologia Macro de Disciplinas — Proposta & Plano (Gemini, 2026-09-04) |
 | [`metodologia-disciplinas-pesquisa.md`](metodologia-disciplinas-pesquisa.md) | Metodologia de disciplina — o que a investigação devolveu (2026-09-03) |
+| [`rodada7-list.md`](rodada7-list.md) | rodada 7 list — every point Lucas made about deck A, A2 and the bench, numbered so he never repeats one |
 | [`taste-galeria-1.md`](taste-galeria-1.md) | taste — rodada 1, a galeria: as respostas do Lucas, literais |
 <!-- routing:end -->

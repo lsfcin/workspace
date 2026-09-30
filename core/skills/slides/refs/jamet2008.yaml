@@ -1,0 +1,16 @@
+# Reference for jamet2008
+key: jamet2008
+type: article
+year: 2008
+venue: "Learning and Instruction 18(2):135-145 (Elsevier; online 2007)"
+url: "https://doi.org/10.1016/j.learninstruc.2007.01.011"
+level: A
+contributions:
+  - "Tested two attention guides on a diagram with spoken explanation: color change of the named element, and step-by-step presentation of diagram elements synchronized with the narration."
+  - "Both had positive, sometimes additive, effects on retention and on perceived ease of learning."
+  - "Neither improved transfer."
+gaps:
+  - "Abstract read from the author manuscript copy; venue and pages checked via Crossref and OpenAlex, publisher page not opened (ScienceDirect 403)."
+  - "Retention-only benefit; no deep-comprehension gain."
+tags: [ground-truth, diagrams, animation, visual-story]
+relevance: "Direct evidence for the macro 'diagram that composes step by step' and the micro highlight on a named part, when both are synced to speech. Expect better recall of the parts, not better reasoning about them."

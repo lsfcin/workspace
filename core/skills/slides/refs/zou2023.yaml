@@ -1,0 +1,15 @@
+# Reference for zou2023
+key: zou2023
+type: article
+year: 2023
+venue: "ACM Transactions on Information Systems 41(1), January 2023"
+url: "https://dl.acm.org/doi/10.1145/3524110"
+level: B
+contributions:
+  - "User study with 106 participants on web search: high-quality clarifying questions improved performance and satisfaction."
+  - "Low- and mid-quality clarifying questions were harmful; users were better off without them."
+gaps:
+  - "Search tasks, not creative design."
+  - "Engagement with questions varied with result quality and perceived task difficulty."
+tags: [ground-truth, interactivity]
+relevance: "A bad question costs more than no question: each interview question must be specific and offer concrete options."

@@ -1,0 +1,17 @@
+# Reference for impress-js
+key: impress-js
+type: tool
+year: 2026
+venue: "GitHub repository impress/impress.js: README.md and DOCUMENTATION.md (MIT; last push 2026-07-23; read 2026-09-26)"
+url: "https://github.com/impress/impress.js/blob/master/DOCUMENTATION.md"
+level: C
+contributions:
+  - "Each step is an HTML element placed on an infinite canvas with data-x, data-y, data-z, data-scale, data-rotate-x/-y/-z; the camera flies between steps with CSS 3D transforms."
+  - "data-z places a step far from the camera (for example -3000), so steps can be stacked in depth; data-rotate-x/-y turn a step in 3D; data-perspective (default 1000, 0 disables 3D) sets the depth."
+  - "Scales the presentation to fit the screen (data-width, data-height, data-min-scale, data-max-scale)."
+  - "README: made to be presented 'from your own laptop, with a browser version you know works well'; embedding in a web page may fail for some visitors."
+gaps:
+  - "No visual editor: the author writes HTML attributes by hand."
+  - "v2.0.0 is the latest tagged release named in the README."
+tags: [tool, spatial, animation]
+relevance: "The only tool in this list that does all four moves natively (zoom, pan, 3D flip, slices stacked along z) from plain HTML an agent can write; the cost is no editor for Lucas and a dependence on the laptop's browser and GPU."

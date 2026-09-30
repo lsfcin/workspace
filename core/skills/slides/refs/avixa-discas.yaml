@@ -1,0 +1,17 @@
+# Reference for avixa-discas
+key: avixa-discas
+type: web
+year: 2016
+venue: "AVIXA (formerly InfoComm), Display Image Size for 2D Content in Audiovisual Systems, ANSI/INFOCOMM V202.01:2016 (DISCAS); read through AVIXA's official calculator and 'Learn more' pages, 2026-09-26; the store lists a V202.01:2026 revision"
+url: "https://www.avixa.org/resources/display-image-size-calculators/learn-more-about-display-size"
+level: V
+contributions:
+  - "Sizes content by %Element Height: the height of an element (e.g. a character) as a percentage of image height."
+  - "Viewing Ratio = farthest viewer / image height (calculator page)."
+  - "Basic Decision Making table (acuity factor 200): minimum %Element Height rises from 0.5% at ratio 0.8-1 to 3% at 5-6 and 5% at 9-10."
+  - "A separate Analytical Decision Making mode (acuity factor 3438) for detail inspection."
+gaps:
+  - "The standard itself is paid; only the public pages were read."
+  - "Element height is character height, not font size in pt; converting needs the font's cap or x-height (not stated on the pages)."
+tags: [ground-truth, typography, accessibility]
+relevance: "Turns 'big enough for the back row' into a ratio of slide height, so a size token can be checked against a room; a pt size means nothing until the canvas height is fixed (inference)."

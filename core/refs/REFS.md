@@ -29,6 +29,9 @@
   (TMLR 2023) — lifelong skill library persisted outside model weights.
 - `[A]` [Lost in the Middle](https://aclanthology.org/2024.tacl-1.9/)
   (TACL 2024) — positional degradation underlying context rot.
+- `[C]` [GlitchCatClub state-file compaction](https://www.instagram.com/reel/DdyqnietB8C/) — padrão de arquivo de estado mantido pelo agente para substituição de histórico sem perda de contexto ou resumos opacos de harness.
+- `[C]` [The Lab - 16 Free Artefacts (Kem / GlitchCatClub)](https://www.instagram.com/p/DdwF-9GjVX_/) — catálogo com 16 artefatos de agentes (graph engineering, RAG, agent swarms, routers, loops, semantic cache, orchestration, remote) em glitchcatclub.com/lab — assessment task tracked in brain/goals/craft-flows.md e workspace-os.md
+
 
 ## Model level, cost & execution interface
 - `[A]` [SWE-agent](https://arxiv.org/abs/2405.15793)
@@ -43,8 +46,20 @@
   (2026) — escalate on calibrated uncertainty rather than static labels.
 - `[V]` Opus 5 Guidance (Anthropic)
   — effort modulates thinking not visible output; specify lengths explicitly; delete redundant verification prompts.
+- `[C]` [Kem GlitchCatClub — JEV vs Laya e System-1 Decision Layer](https://www.instagram.com/reel/Dd1SON3tqGZ/?utm_source=ig_web_copy_link)
+  — [src: web:instagram.com] Review prático do JEV (TypeSafe AI) vs Laya: arquitetura de decisão rápida (boolean, choice, score) para triagem de mensagens/DMs e routing de agentes sem custo de LLM completo.
+- `[C]` [Unsloth Studio + GRPO Reasoning Local Fine-Tuning](https://www.instagram.com/p/DdygoZDCfci/?utm_source=ig_web_copy_link)
+  — [src: web:instagram.com] Unsloth Studio Web UI para fine-tuning local no-code com LoRA, RL de raciocínio via GRPO (TRL) e exportação GGUF para app desktop offline (llama.cpp/PyQt).
+- `[C]` [Descript (e alternativas open-source: Audapolis, CutScript)](https://www.descript.com/)
+  — [src: web:descript.com] Edição de áudio e vídeo por manipulação direta de texto/transcrição; software fechado, mas serviu de base para alternativas open-source no GitHub (Audapolis, CutScript) usando Whisper para edição de fala por texto.
+- `[C]` [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) — runtime modular de agentes (Cordis), sandboxing local com Bubblewrap e web UI.
+- `[C]` [Kilo Code](https://kilo.ai/) — agente de codificação open-source multi-modelo com modos especializados (Architect/Debug/Code) e suporte a MCP.
+- `[C]` [Cline](https://cline.bot/) — agente autônomo de engenharia de software para VS Code/CLI.
+- `[C]` [SillyTavern](https://sillytavern.app/) — interface frontend local para personas, agentes e gerenciamento de contexto LLM.
+- `[V]` [Claude Design, Slides and Docs in Claude Code](https://support.claude.com/en/articles/14604416-get-started-with-claude-design) (Anthropic) — geração integrada de UI mockups (/design), slides e docs no terminal e preview lateral a partir do contexto do repositório.
+- `[P]` [Impacto de Role Prompting em Modelos](https://youtu.be/a0_B2C9jsYY) — estudo sobre ativação de regiões distintas da rede através de papéis explícitos; avaliar consistência de "role" no WOS.
 
-## Legibility, vocabulary & decision records
+## Legidade, vocabulário e registros de decisão
 - `[A]` Code Comment Inconsistency Detection (ICSE 2025 · IEEE TSE 2024)
   — drift detection between documentation and code.
 - `[A]` [ISO 704 / DDD Ubiquitous Language](https://www.iso.org/standard/38109.html)

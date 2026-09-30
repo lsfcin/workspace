@@ -1,0 +1,16 @@
+# Reference for wai-presentations
+key: wai-presentations
+type: web
+year: 2026
+venue: "W3C Web Accessibility Initiative, 'How to Make Your Presentations Accessible to All' (w3.org/WAI); date not in the fetched text, read 2026-09-26"
+url: "https://www.w3.org/WAI/teach-advocate/accessible-presentations/"
+level: V
+contributions:
+  - "Make text and important visuals big enough to read from the back of the room; no point size given."
+  - "Prefer fonts with consistent stroke thickness for distance reading; ensure sufficient text weight."
+  - "Room light sets the ground: some suggest dark text on light in a light room, light text on dark in a darkened room."
+  - "Use WCAG contrast guidance for text and graph colours even though the medium differs."
+gaps:
+  - "Advice, not measured; the ground rule is hedged ('some suggest')."
+tags: [baseline, accessibility, style-system]
+relevance: "Gives a key for our dark-ground mode: switch by room light, not by taste or per slide."

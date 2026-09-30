@@ -9,8 +9,10 @@ Base inicial e extensível para lidar com toda a burocracia da vida acadêmica �
 essential · expected · reluctant-but-necessary
 
 ## selected next achievement
-    [pdf-twin] o twin de cada PDF e o gate de leitura já existem (`core/run tools/pdf/docling`, `core/hooks/read/pdf-gate.py`);
-    falta o backfill dos 97 PDFs dos domínios (Fase 3) — cruza com `code/dobra` ([[local-ai]]) no folding de PDFs longos
+    [pdf-twin] twin + gate existem, e os 33 PDFs vivos (burocracia e cotações da casinha, ecovila) já têm twin.
+    Falta o lote B: plantas V03, `refs/projetos-casinhas-slides.pdf`, o ebook SINAPI e a referência do isoroll.
+    Nunca: PDF compilado de paper (a fonte é o `.tex`) e tabela SINAPI (o `.xlsx` irmão é a fonte).
+    Cruza com `code/dobra` ([[local-ai]]) no folding de PDFs longos
 
 **ease-start**
 Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e escrever o passo-a-passo dele em texto puro — só isso, um fluxo real documentado. 15 min.

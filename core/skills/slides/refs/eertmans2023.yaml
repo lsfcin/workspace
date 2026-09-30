@@ -1,0 +1,16 @@
+# Reference for eertmans2023
+key: eertmans2023
+type: article
+year: 2023
+venue: "Journal of Open Source Education 6(66):206, The Open Journal, reviewed openly (editor @magsol; reviewers @behollister, @bryanwweber); submitted 3 Mar 2023, published 8 Aug 2023"
+url: "https://doi.org/10.21105/jose.00206"
+level: B
+contributions:
+  - "Manim Slides lets Manim animations (ManimCE or ManimGL) be presented like slides: self.next_slide() marks a pause, loops are allowed, playback can pause and rewind."
+  - "Presents locally with a Qt GUI, or converts to an HTML page built on reveal.js, or to a PowerPoint file."
+  - "Repository README (MIT) compares it with manim-presentation, Manim Editor and Jupyter: the only one with ManimGL support, browser presentation and offline Qt/RevealJS/PowerPoint playback."
+gaps:
+  - "A software paper: no user study of presentations."
+  - "Zoom, pan and 3D come from Manim itself (MovingCameraScene, ThreeDScene in the Manim Community docs), not from Manim Slides."
+tags: [tool, animation, spatial, formats]
+relevance: "The code route with true 3D: Manim's 3D camera can show stacked slices and turn them, and Manim Slides steps through it by click, offline, or exports it to reveal.js or PPTX."

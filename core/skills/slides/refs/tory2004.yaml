@@ -1,0 +1,17 @@
+# Reference for tory2004
+key: tory2004
+type: book
+year: 2004
+venue: "PhD thesis 'Combining 2D and 3D views for visualization of spatial data', School of Computing Science, Simon Fraser University (supervisor A. E. Kirkpatrick); PDF read. Its experiments were published as Tory, Kirkpatrick, Atkins, Möller, IEEE TVCG 12(1):2-13, 2006 (verified via Crossref, not read)"
+url: "https://summit.sfu.ca/_flysystem/fedora/sfu_migrate/7765/b38503220.pdf"
+level: B
+contributions:
+  - "Compares 2D, 3D and three 2D/3D combinations: orientation icon (2D and 3D in separate windows), ExoVis (2D views around a 3D view in one scene), in-place (clip and cutting planes)."
+  - "In-place made it easiest to relate 2D and 3D views, then ExoVis, then orientation icons."
+  - "3D alone worked for approximate positioning when cues such as shadows were present, not for precise tasks; for precise tasks orientation icon and ExoVis beat 2D or 3D alone."
+  - "Factors that shaped usability include occlusion and viewing 2D views at an oblique angle."
+gaps:
+  - "A doctoral thesis, examined but not a journal article; levelled B on that basis."
+  - "Spatial (medical and volume) data, not time."
+tags: [ground-truth, spatial, layout]
+relevance: "Warns against making an audience read a slide at an angle: keep the current slice flat and legible and let the tilted stack serve as the overview beside it, the ExoVis arrangement."

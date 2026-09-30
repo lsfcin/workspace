@@ -1,0 +1,16 @@
+# Reference for schroeder2018
+key: schroeder2018
+type: article
+year: 2018
+venue: "Educational Psychology Review 30(3):679-701 (Springer), meta-analysis"
+url: "https://doi.org/10.1007/s10648-018-9435-9"
+level: A
+contributions:
+  - "Random-effects meta-analysis of 58 independent comparisons (n = 2,426) on spatial contiguity: related words and pictures placed near each other."
+  - "Overall g = 0.63 in favour of integrated designs."
+  - "The benefit held across many intervention- and context-related moderators."
+gaps:
+  - "Abstract level; moderator-by-moderator results not read."
+  - "The same authors' 2020 systematic review (Journal of Educational Psychology 112(2)) found cognitive load measures largely do not explain the effect."
+tags: [ground-truth, layout, diagrams]
+relevance: "The evidence for putting a label or caption on or next to the part it names, rather than in a legend or a text column away from it."

@@ -1,0 +1,18 @@
+# Reference for bederson1999
+key: bederson1999
+type: conference
+year: 1999
+venue: "Proc. IEEE Symposium on Information Visualization (InfoVis '99), pp. 28-35 (Crossref); read via UMD tech report CS-TR-3964"
+url: "https://doi.org/10.1109/INFVIS.1999.801854"
+level: A
+contributions:
+  - "20 subjects used links to navigate a 9-person family tree in Pad++. Viewpoint changes were either animated (1 s, slow-in/slow-out) or instant."
+  - "Animation cut tree-reconstruction errors (0.4 vs 1.8 unweighted, p=.001), and animated-condition errors were milder (swaps only), with no time penalty."
+  - "No effect on navigation speed, on recall of facts about family members, or on satisfaction."
+  - "Authors: animation helps users learn spatial position but does not directly help them learn more complex relationships."
+gaps:
+  - "Tiny space (9 nodes), 20 subjects. Panning only, with zoom deliberately excluded."
+  - "Order effect: the benefit came mostly when the non-animated tree was seen first."
+  - "Did not separate the animation from the extra time it takes. The authors say not all users like animation."
+tags: [ground-truth, animation, spatial]
+relevance: "Animate the camera between places when the audience needs to remember where things sit. Do not expect that to carry over to factual recall."

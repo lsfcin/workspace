@@ -1,0 +1,18 @@
+# Reference for revealjs
+key: revealjs
+type: tool
+year: 2026
+venue: "revealjs.com official docs: Auto-Animate, Transitions, Plugins, Overview Mode, Vertical Slides, PDF Export (read 2026-09-26); MIT licence in the hakimel/reveal.js repository"
+url: "https://revealjs.com/auto-animate/"
+level: V
+contributions:
+  - "Auto-Animate: data-auto-animate on two adjacent slides animates matching elements (same text, same src, or same data-id) across position, size, colour, padding and other animatable CSS; easing, duration, delay per slide or element."
+  - "Transitions: none, fade, slide, convex, concave, zoom (the incoming slide grows from the centre); separate in and out transitions per slide."
+  - "Built-in Zoom plugin: Alt+click (Ctrl+click on Linux) zooms into an element while presenting."
+  - "Overview mode (Esc or O) shows the deck from '1,000 feet'; vertical slides give a 2D grid of slides."
+  - "PDF export through a print stylesheet, confirmed only in Chrome and Chromium."
+gaps:
+  - "No flip or 3D-stack transition in the list; those need custom CSS 3D (inferred)."
+  - "The visual editor Slides.com is a separate paid product (only advertised on the pages read)."
+tags: [tool, animation, spatial, formats]
+relevance: "reveal.js gives Magic-Move-style zoom and pan between slides from HTML an agent writes, plus a live zoom into any element; flip and depth stacks would be hand-made CSS."

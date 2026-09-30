@@ -1,0 +1,15 @@
+# Reference for ebu-r95
+key: ebu-r95
+type: web
+year: 2017
+venue: "European Broadcasting Union, Technical Recommendation EBU R 95 'Safe areas for 16:9 television production', version 1.1, Geneva, June 2017"
+url: "https://tech.ebu.ch/docs/r/r095.pdf"
+level: V
+contributions:
+  - "Two safe areas for 16:9: essential action inside the Action Safe Area, all graphics inside the Graphics Safe Area."
+  - "Action safe is 3.5% and graphics safe is 5% of the image at top, bottom and both sides (note 5)."
+  - "Pixel and line values given for 576, 720, 1080, 2160 and 4320-line rasters, plus the rule that the image centre keeps its position."
+gaps:
+  - "Written for broadcast overscan on TV sets, not for projectors or laptop output."
+tags: [ground-truth, layout]
+relevance: "A published number for 16:9 margins: a 5% graphics-safe inset is the same order as ONS's 95% safe area, and a defensible default for our slide margin token."

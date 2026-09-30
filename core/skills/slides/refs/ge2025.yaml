@@ -1,0 +1,15 @@
+# Reference for ge2025
+key: ge2025
+type: conference
+year: 2025
+venue: "CVPR 2025, pp. 2902-2911 — verified on mlanthology.org; the CVF page returned 403"
+url: "https://openaccess.thecvf.com/content/CVPR2025/papers/Ge_AutoPresent_Designing_Structured_Visuals_from_Scratch_CVPR_2025_paper.pdf"
+level: A
+contributions:
+  - "SlidesBench (7k train, 585 test) and AutoPresent, an 8B model that writes slide code from instructions."
+  - "Quality drops as instructions get vaguer: about 55 overall with detailed instructions vs 47.8 with high-level ones."
+  - "No clarifying questions; only post-hoc self-refinement (58.0 to 60.1 after three passes)."
+gaps:
+  - "Single-slide generation in one pass; authors name 'gradual and interactive slide generation' as future work."
+tags: [competing-work, layout]
+relevance: "Measured cost of under-specification in slide generation: a direct argument for eliciting design details before building."

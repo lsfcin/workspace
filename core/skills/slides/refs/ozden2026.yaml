@@ -1,0 +1,15 @@
+# Reference for ozden2026
+key: ozden2026
+type: conference
+year: 2026
+venue: "Findings of EMNLP 2026, accepted per the arXiv comments field; proceedings not yet published"
+url: "https://arxiv.org/abs/2609.00226"
+level: B
+contributions:
+  - "ConvDeck puts user feedback loops at the outline stage and the rendered-deck stage; the agent either edits directly or asks a clarifying question when feedback is ambiguous."
+  - "Goal satisfaction 79% vs 66% and 70% for baselines; outline refinement alone lifted it from 37.7% to 92.0%."
+gaps:
+  - "Results rest mostly on an LLM user simulator; human study used for evaluation only."
+  - "About twice the runtime of single-pass generation (940 s vs 451 s per paper)."
+tags: [competing-work, structure, interactivity]
+relevance: "Ask at the stage where each decision is made (outline, then rendered deck) rather than all up front; the big gain came before rendering."

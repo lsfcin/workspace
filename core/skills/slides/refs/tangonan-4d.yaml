@@ -1,0 +1,17 @@
+# Reference for tangonan-4d
+key: tangonan-4d
+type: web
+year: 2026
+venue: "YouTube Short by the AI Ladder channel, uploaded 2026-09-20, 11 s; read with core/tools/video/video (metadata, captions, frame captions) and yt-dlp"
+url: "https://www.youtube.com/shorts/4Mepyfb_ptg"
+level: C
+contributions:
+  - "Lucas's reference: a filmed pedestrian crosswalk rendered as a translucent 3D block on black; each moment is a layer and people's motion is extruded as trails through the depth."
+  - "Credited in the description to Bradley Tangonan, built with Gemini, Codex and three.js."
+  - "Its framing: movement becomes an object, with time as a spatial axis 'examined from outside rather than experienced sequentially from within'."
+gaps:
+  - "11 seconds of music only: no method, code or data."
+  - "Second-hand: a channel reposting someone else's work; the creator's own post was not found."
+  - "Continuous video frames, not discrete slides; the frame captions describe 'blurred figures', so dense content reads as texture rather than as separate slices (observed from the captions, not from watching)."
+tags: [application, spatial, animation, visual-story]
+relevance: "The trigger for 'the current slide becomes a slice'. It is a video cube (see fels2000), the object the space-time cube literature formalises; it shows the idea appeals, not that an audience understands more from it."

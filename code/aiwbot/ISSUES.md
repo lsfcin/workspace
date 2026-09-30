@@ -11,6 +11,7 @@ and verification blocks that used to sit below are gone: the workspace's own
 of the same scan is the drift those checks exist to catch.
 
 ## Open
+- [ ] [b7] áudio capturado para o INBOX não ecoa a transcrição no Telegram — `code/aiwbot/frontend/bot.py` `_route_text`: envia apenas `CAPTURE_ACKS` sem exibir o texto reconhecido pelo Whisper para conferência.
 - [ ] [b6] `frontend/SPECS.md` is the contract the spec gate locks the WHOLE `frontend/` module
   with, and it describes only the audio-in-out voice pipeline. Every surface — turn, stream, text,
   session, select, interview — is edited against a contract that says nothing about it. Renamed

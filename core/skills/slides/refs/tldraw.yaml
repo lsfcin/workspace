@@ -1,0 +1,17 @@
+# Reference for tldraw
+key: tldraw
+type: tool
+year: 2026
+venue: "tldraw.dev official docs: License, Pricing, Camera system, Slideshow examples, Agent starter kit (read 2026-09-26)"
+url: "https://tldraw.dev/community/license"
+level: V
+contributions:
+  - "The SDK is source-available, not open source: under default terms it may be used only in development; production needs a license key (100-day trial, commercial, or discretionary hobby licence for non-commercial projects with a 'made with tldraw' watermark)."
+  - "License keys are validated on the client and work offline; under a trial the SDK pings tldraw with a hash of the key."
+  - "Camera API: setCamera, zoomToBounds, centerOnPoint, zoomIn/Out accept an animation option (duration, easing); two official slideshow examples, one with a free camera that animates between slides."
+  - "Agent starter kit: an LLM agent that creates, updates, rotates, resizes and aligns shapes on the canvas."
+gaps:
+  - "2D canvas: no flip or 3D stack."
+  - "Commercial price is not published ('value-based pricing')."
+tags: [tool, spatial, interactivity]
+relevance: "tldraw is free only in development or as a watermarked hobby project; for a teaching deck it works as a zoom-and-pan canvas an agent can drive, but any public deployment needs a licence key."

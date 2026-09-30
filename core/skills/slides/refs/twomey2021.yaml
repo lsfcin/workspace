@@ -1,0 +1,15 @@
+# Reference for twomey2021
+key: twomey2021
+type: article
+year: 2021
+venue: "Quarterly Journal of Experimental Psychology (SAGE), 2021; record and abstract read on Europe PMC"
+url: "https://doi.org/10.1177/1747021821993457"
+level: B
+contributions:
+  - "Meta-analysis of 13 randomised controlled trials, mostly at universities: the loci method improves recall, g = 0.65 [0.45, 0.85], I2 = 45.5%."
+  - "The effect held after adjusting for publication bias, dropping each study in turn, and varying setting, control condition and number of sessions."
+gaps:
+  - "High risk of bias: most trials did not report how they generated the random sequence or concealed allocation."
+  - "Inferred: the learner builds the memory palace here. A presenter's spatial layout that the audience only watches is a different manipulation."
+tags: [survey, spatial, structure]
+relevance: "Spatial memory is a strong lever when learners actively place items along a route. A deck that only shows a spatial layout borrows the mechanism loosely. To use it, ask the audience to walk the map back."

@@ -1,0 +1,16 @@
+# Reference for polaris-callout
+key: polaris-callout
+type: web
+year: 2026
+venue: "Shopify Polaris docs source (Shopify/polaris repo, polaris.shopify.com content), read 2026-09-26"
+url: "https://github.com/Shopify/polaris/blob/main/polaris.shopify.com/content/components/layout-and-structure/callout-card.mdx"
+level: V
+contributions:
+  - "Page shape: Best practices as a 'Callout cards should:' list, then Content guidelines with paired Do / Don't example sentences, then Related components."
+  - "Best practices: state the benefit, give one clear call to action, target who benefits, allow dismissal, use an illustration that communicates the subject."
+  - "The Progress bar page in the same source ends with Related components, pointing to Spinner or Skeleton page for the cases it does not cover."
+gaps:
+  - "Commerce admin UI, not presentations."
+  - "The public polaris-react.shopify.com page now redirects to a shopify.dev overview; guidance read from the repo source."
+tags: [method-source, design-system, typography]
+relevance: "Its paired Do / Don't example sentences are the cheapest way to show a callout or caption rule in the guide. 'Related components' is the 'use X instead' column."

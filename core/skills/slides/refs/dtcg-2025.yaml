@@ -1,0 +1,19 @@
+# Reference for dtcg-2025
+key: dtcg-2025
+type: web
+year: 2025
+venue: "W3C Design Tokens Community Group, Design Tokens Format Module 2025.10 and Resolver Module 2025.10, Final Community Group Reports, 28 October 2025; not a W3C Standard nor on the Standards Track"
+url: "https://www.w3.org/community/reports/design-tokens/CG-FINAL-format-20251028/"
+level: C
+contributions:
+  - "A vendor-neutral JSON format: an object with $value is a token; $type, $description, $deprecated, $extensions are optional; groups nest tokens and may $extends another group."
+  - "Aliases by reference ({color.palette.black}) and JSON Pointer; chained references allowed, circular ones are errors - the mechanism for primitive -> semantic -> component."
+  - "Typed values, including a typography composite (fontFamily, fontSize, fontWeight, letterSpacing, lineHeight as a multiplier of fontSize)."
+  - "The dimension type accepts only the units px and rem."
+  - "Resolver Module (w3.org/community/reports/design-tokens/CG-FINAL-resolver-20251028/): sets plus modifiers whose contexts (light, dark, lightHighContrast...) layer token files in order, last wins; aims to avoid combinatorial explosion of modes."
+  - "Announcement names reference implementations: Style Dictionary, Tokens Studio, Terrazzo."
+gaps:
+  - "Community report, not a W3C Recommendation."
+  - "No pt, cm or EMU unit, so slide sizes in points need an $extensions field or a conversion."
+tags: [foundational, design-system, formats]
+relevance: "If our tokens leave the markdown table, this is the file shape to target; its px/rem-only dimension is the one misfit for pt-based slide canvases."

@@ -1,0 +1,16 @@
+# Reference for carbon-progress
+key: carbon-progress
+type: web
+year: 2026
+venue: "IBM Carbon Design System, Progress indicator usage page, fetched 2026-09-26"
+url: "https://carbondesignsystem.com/components/progress-indicator/usage/"
+level: V
+contributions:
+  - "Bulleted 'When to use' and 'When not to use' lists placed before anatomy and formatting."
+  - "When to use: a linear process of three or more steps; long forms; validation before moving on; alongside back/next navigation."
+  - "When not to use: fewer than three steps; steps that can be done in any order; a step count that changes with conditional logic."
+  - "Anatomy: status indicator, active step line, numbered label, inactive step line, helper text."
+gaps:
+  - "Built for multistep forms, not talks; the slide mapping is inference."
+tags: [method-source, design-system, structure]
+relevance: "Gives testable 'when not to use' rules for the agenda or progress element. Inferred mapping: a talk with fewer than three sections, or one that will be reordered live, should not carry a fixed step indicator."

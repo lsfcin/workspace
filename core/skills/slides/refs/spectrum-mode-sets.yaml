@@ -1,0 +1,17 @@
+# Reference for spectrum-mode-sets
+key: spectrum-mode-sets
+type: web
+year: 2026
+venue: "Adobe Spectrum Design Data, Specification > Mode Sets (opensource.adobe.com), Draft Specification v1.0.0-draft; read 2026-09-26. Scale values read in Spectrum Web Components 'styles' docs"
+url: "https://opensource.adobe.com/spectrum-design-data/spec/mode-sets/"
+level: V
+contributions:
+  - "A mode set is one axis of variation with a name, allowed modes and a default: colorScheme (light, dark, wireframe), scale (desktop, mobile), contrast (regular, high)."
+  - "A token that omits a mode set applies under that set's default; combination tokens are preferred over inferring every Cartesian product."
+  - "A platform may restrict which modes it supports (e.g. light only)."
+  - "Scale is a size mode: --spectrum-font-size-200 is 16px in medium and 19px in large; component-height-100 is 32px vs 40px (opensource.adobe.com/spectrum-web-components/tools/styles/)."
+gaps:
+  - "Draft specification; normative text may change."
+  - "Scale is keyed to input device (touch), not to viewing distance."
+tags: [method-source, design-system, style-system]
+relevance: "The one system here with a size axis next to the colour axis: a slide 'room' mode (small room / hall) could scale type and spacing the way Spectrum's scale does, instead of hand-tuning sizes per deck."

@@ -7,4 +7,8 @@ url: "https://tecfa.unige.ch/perso/sandra/pdf/Earli2016_berney_betrancourt_FINAL
 level: A
 contributions:
   - "Meta-analysis: animation helps modestly (g = 0.23), mostly when it shows change."
-tags: [animation]
+gaps:
+  - "Not re-read in the 2026-09-26 session; the effect size and the 'when it shows change' moderator come from the earlier capture."
+  - "The linked PDF is the authors' conference version (EARLI 2016), not the journal text."
+tags: [survey, animation]
+relevance: "Sets expectations for Lucas's motion: animation buys a small average gain at best, so each move is justified by showing a change or a relation, never by motion alone."

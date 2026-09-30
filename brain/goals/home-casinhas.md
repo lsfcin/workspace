@@ -45,6 +45,7 @@ fallback · even a partial map beats starting from zero again*
 > ([reel](https://www.instagram.com/reel/Dc0okrDRp2z/), — via aiwbot 2026-09-03, INBOX)  
 > [ ] [laje-vigota-protendida] avaliar laje de vigota protendida nas casinhas — o engenheiro do reel alega 30–40% menos concreto, montagem mais rápida e mais segura, com diferença de custo pequena contra a laje tradicional; pesquisar fornecedor na região e cotar ([reel](https://www.instagram.com/reel/DdSGzyohGXt/), — via aiwbot 2026-09-16)  
 > [ ] [complementares] rascunhar estrutural/hidráulico/elétrico com guias IA no Bonsai; engenheiro valida/assina (S12+)  
+> [ ] [parede-resfriamento-argila] avaliar viabilidade de parede bioclimática de resfriamento evaporativo (argila 3D TPMS porosa, TU Graz, -7°C sem AC com bomba solar) para conforto térmico passivo nas casinhas ([post](https://www.instagram.com/p/Dd13fy3lPRa/?stkn=NTc4MTIwNjQ2YQ==), — via aiwbot 2026-09-28; ref em `branches/casinhas/refs/REFS.md`)  
 
 ## done
 

@@ -35,6 +35,21 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 **🟢 nothing we build on Drive can be thrown away by the thing that built it**
 *What* — a `trash` command on `gdocs` and `gdrive`. *Why* — both write (`new`, `push`, `mkdir`, `put`) and neither deletes, so every check an agent creates is cleanup Lucas does by hand; two are waiting on him now. *Done when* — a file created by the CLI can be trashed by it, on the write token.
 
+**🟢 benchmark Claude Slides and Design against our slides tooling**
+*What* — compare Claude Slides and `/design` canvas generation against `gslides`/`slides_build` for deck authoring. *Why* — Lucas requested inclusion in the slides roadmap (INBOX 2026-09-27); evaluate if native repo-to-deck features replace or augment our pipeline. *Done when* — comparison notes and feature assessment written in `core/tools/slides/SPECS.md`.
+
+**🟢 assess agent harnesses (DeepSeek Harness, Kilo Code, Cline) for WOS runner patterns**
+*What* — evaluate architecture patterns in DeepSeek Harness (Cordis plugin framework, bubblewrap sandboxing), Kilo Code (specialized agent modes, MCP), and Cline. *Why* — external harness survey requested (INBOX 2026-09-27) to identify modular runtime patterns without importing bulk. *Done when* — documented verdict in `core/refs/REFS.md` on whether any pattern transfers to our runner or flows.
+
+**🟢 evaluate systematic role prompting across WOS agents and flows**
+*What* — test whether assigning explicit roles to subagents/prompts activates distinct latent representations in models and improves task adherence. *Why* — Lucas flagged consistency of 'role' in WOS prompts (INBOX 2026-09-27). *Done when* — experimental probe measuring output quality vs token cost across 3 tasks with and without explicit role assignment.
+
+**🟢 obrigar download do PDF completo no flow de revisão de artigos**
+*What* — atualizar `core/flows/research/review.md` para exigir o download e extração completa do PDF do artigo (via arXiv/URL ou twin) antes de iniciar a simulação de peer review, sem avaliar apenas por abstract ou HTML. *Why* — Lucas solicitou obrigatoriedade (INBOX 2026-09-26); avaliações baseadas em páginas web/abstract perdem tabelas, equações, apêndices e dados empíricos cruciais. *Done when* — o passo 4 do flow declara e executa o download mandatório do binário do PDF e seu twin antes de escrever notas de evidência.
+
+**🟢 handoff por domínio ou subrepositório para sessões paralelas**
+*What* — estender a skill `/handoff` (`core/skills/handoff.md`) para aceitar ou inferir um subdiretório/tema de saída (ex.: `outputs/<repo>/handoff.md` ou `outputs/handoff-<tema>.md`), em vez de usar um caminho único e rígido. *Why* — sessões simultâneas sobrescrevem `outputs/handoff.md` uma da outra (INBOX 2026-09-25, sessão taste). *Done when* — `/handoff` gera o resumo no caminho qualificado do projeto ativo e `/roundup` reconhece o handoff específico daquela sessão.
+
 ## Blocked — waiting on a trigger
 
 **🟢 the `video/` family name describes less than the family delivers** — it gained a page fallback, so it offers *link → navigable text* while the directory says one medium.
@@ -54,6 +69,8 @@ None is worked until the layer reopens.
 - **The three `craft-*` agent mirrors are hand-written twice with no source in `core/`**, which is the last provider-name-in-source violation and the hand-sync hazard `SCHEMA-layers.md` documents.
 
 ## Rejected
+
+- **Canva as the slides home** (tested 2026-09-28) — no Canva API sets animation or transition, and its .pptx import drops them; agent-written motion is the requirement. Facts: `core/tools/slides/SPECS.md` § PowerPoint and Canva.
 
 - **Surveying outside skills for things to import** (asked 2026-07-23, dropped 2026-08-25) — the two leads are DM-bait posts naming skills without linking them, and the named capabilities overlap what `AGENTS.md` and CONTEXT.md already do. Reopen from a real repository, never from a reel.
 

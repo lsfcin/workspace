@@ -1,0 +1,15 @@
+# Reference for fels2000
+key: fels2000
+type: conference
+year: 2000
+venue: "Proceedings of the 8th ACM International Conference on Multimedia (poster), pp. 368-370, doi 10.1145/354384.354535, verified via Crossref; follows Fels and Mase, NPIV workshop 1999; PDF read (RWTH copy)"
+url: "https://doi.org/10.1145/354384.354535"
+level: B
+contributions:
+  - "Video cubism: video treated as a 3D block of data in which the frames make up the third dimension."
+  - "The viewer positions and rotates a cut plane (or a cut sphere) through the block; ordinary playback is a plane parallel to X-Y advancing from the first frame to the last."
+  - "Video is texture-mapped onto the faces of the virtual cube, so the outside of the block is visible too."
+gaps:
+  - "A three-page poster with no user evaluation."
+tags: [method-source, spatial, interactivity]
+relevance: "The ancestor of Lucas's reference video: the same video block, plus cutting it at any angle. In the slide version, the cut plane is 'the current slide'."

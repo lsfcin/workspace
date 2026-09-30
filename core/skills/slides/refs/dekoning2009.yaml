@@ -1,0 +1,16 @@
+# Reference for dekoning2009
+key: dekoning2009
+type: article
+year: 2009
+venue: "Educational Psychology Review 21(2):113-140 (Springer), review, open access"
+url: "https://doi.org/10.1007/s10648-009-9098-7"
+level: A
+contributions:
+  - "Framework of three cueing functions grounded in Mayer's theory: selection (guide attention to a location), organization (emphasize structure), integration (make relations between elements explicit)."
+  - "Concludes attentional cues may help selection in animations and sometimes improve learning, while organizational and relational cues need more design care."
+  - "Advises designing cues for animation rather than borrowing cues proven on static pictures."
+gaps:
+  - "A review and framework, not a meta-analysis; no pooled effect size."
+  - "Scope is instructional animation; transfer to a stepped slide build is inference."
+tags: [survey, animation, diagrams, structure]
+relevance: "Gives the guide table its 'serves what' column: every micro cue either selects, organizes or integrates. A ring or glow selects; an agenda or progress bar organizes; a callout with a leader line integrates."

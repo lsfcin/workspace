@@ -6,5 +6,6 @@ venue: "Instagram (via aiwbot, 2026-09-24)"
 url: "https://www.instagram.com/reel/Ddq_RtLEU7c/"
 level: C
 contributions:
-  - "Lucas: "mais possibilidades de animação" (not yet extracted)."
+  - "Lucas: \"mais possibilidades de animação\". The reel advertises motion-web (github feitangyuan/motion-web): a skill teaching an agent motion-first web pages (Three.js, Canvas 2D, WebGL, CSS) with lifelike physics, plus seven examples."
+  - "For a deck: web physics does not port to PowerPoint; the craft rules it shares with motion-skills do (motion-skills-iart)."
 tags: [animation]

@@ -1,0 +1,17 @@
+# Reference for robertson2008
+key: robertson2008
+type: article
+year: 2008
+venue: "IEEE Transactions on Visualization and Computer Graphics 14(6):1325-1332 (InfoVis 2008; Crossref)"
+url: "https://doi.org/10.1109/TVCG.2008.125"
+level: A
+contributions:
+  - "Compared an animated Gapminder-style bubble chart against static traces and small multiples, each tested for presentation (a single guided viewing) and for analysis (interactive). 18 subjects per condition."
+  - "In presentation, animation was the fastest and rated fun and exciting, but it caused many errors ('the dots flew everywhere', 'I was following it until then, but then I lost it')."
+  - "In analysis, animation was the least effective: both static views were faster, and small multiples were more accurate."
+  - "Authors' advice: analyse with small multiples and present with animation, but only when the data tells a clean story. Too many points, reversing tracks, or points that move out of sync confuse viewers even with guidance."
+gaps:
+  - "Data motion (bubbles moving) was tested, not camera motion. Transfer to zoom and pan is inferred."
+  - "Viewers answered from the final frame without replay, which favours speed over accuracy in the presentation condition."
+tags: [ground-truth, animation, visual-story]
+relevance: "Motion earns audience delight at a cost in accuracy. Keep camera moves few and simple, one clean story per move, and leave a static end state (small multiples) for the details."

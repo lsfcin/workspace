@@ -1,0 +1,19 @@
+# Reference for moulton2017
+key: moulton2017
+type: article
+year: 2017
+venue: "PLOS ONE 12(7): e0178774, published 5 Jul 2017 (correction e0186673); Moulton, Turkay, Kosslyn"
+url: "https://doi.org/10.1371/journal.pone.0178774"
+level: B
+contributions:
+  - "Two experiments recreated a business pitch to a board: presenters were randomly assigned to PowerPoint, Prezi or oral-only and delivered live to participant audiences."
+  - "Audiences rated PowerPoint talks like oral talks, and Prezi talks more favourably than both."
+  - "No evidence that audiences remembered or comprehended the scenario differently across formats."
+  - "The authors attribute the effect to a preference for panning-and-zooming animation, not to novelty or software specifics."
+gaps:
+  - "Funded by a grant from Prezi to Kosslyn (declared as a competing interest; the funder agreed to publication regardless of results)."
+  - "Memory and comprehension were measured and showed no format effect. The Prezi advantage lies in ratings and, per the authors, partly in the decision viewers reached."
+  - "A business pitch: novices prepared 5-minute talks in 45 minutes. This was not a lecture."
+  - "The B1 assignment cited this study as Applied Cognitive Psychology. The record fetched says PLOS ONE."
+tags: [ground-truth, spatial, animation]
+relevance: "Pan-and-zoom made talks better liked but not better understood; supports using zoom and pan for engagement, with the Prezi funding in mind."

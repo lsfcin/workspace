@@ -1,0 +1,16 @@
+# Reference for good2002
+key: good2002
+type: article
+year: 2002
+venue: "Information Visualization 1(1):35-49 (Palgrave, peer-reviewed journal); read via the DTIC copy on archive.org (DTIC_ADA412590)"
+url: "https://doi.org/10.1057/palgrave.ivs.9500004"
+level: B
+contributions:
+  - "CounterPoint: PowerPoint slides placed on a zoomable plane (Jazz), with scripted paths, live deviation from the path, and level of detail set by scale."
+  - "Claimed audience benefits: spatial plus verbal encoding, landmarks against 'where am I' disorientation, and overviews that show progress."
+  - "Authoring rules: visual chunks of about seven items, gestalt layouts (hierarchy, chain, cluster), and a balance of area against scale (shrink each level by about 50%)."
+gaps:
+  - "The authors state they had not empirically evaluated ZUI (zoomable user interface) presentations. The benefits are argued from concept-map and hypertext research and about 10 lab talks."
+  - "Warns of 'map shock', where the audience is overwhelmed by a display's size or complexity."
+tags: [foundational, spatial, layout, structure]
+relevance: "The design brief closest to Lucas's directive, and it names its own evidence gap. Its chunking and gestalt layout rules are the usable part; its cognitive claims were later tested (lichtschlag2012a) and only the orientation claim held."

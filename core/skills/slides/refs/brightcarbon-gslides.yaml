@@ -1,0 +1,17 @@
+# Reference for brightcarbon-gslides
+key: brightcarbon-gslides
+type: web
+year: 2023
+venue: "BrightCarbon blog (presentation agency), Cecilia Croasdell, 'Moving to Google Slides? Here's what to consider', 12 Apr 2023"
+url: "https://www.brightcarbon.com/blog/moving-to-google-slides/"
+level: C
+contributions:
+  - "Lists the Google Slides transitions: Dissolve, Fade, Slide from right, Slide from left, Flip, Cube, Gallery."
+  - "Lists the object animations: Appear, Disappear, Fade in/out, Fly in/out from four sides, Zoom in, Zoom out, Spin."
+  - "On PowerPoint import, a transition Slides lacks is removed with no replacement; an unsupported animation is swapped for one Slides deems suitable, most often Fade; delays survive but cannot be edited afterwards."
+  - "Names Morph as a PowerPoint feature Google Slides lacks."
+gaps:
+  - "Dated 2023; Google may have added transitions since; no official list to check against."
+  - "Written by an agency that sells PowerPoint work; observations from practice, no test files published."
+tags: [tool, animation, formats]
+relevance: "In Google Slides the only 3D-looking moves are Flip and Cube, and they turn the whole slide; 'Zoom in' is an object entrance, not a camera zoom into part of a slide."

@@ -1,0 +1,16 @@
+# Reference for bach2016
+key: bach2016
+type: article
+year: 2016
+venue: "Computer Graphics Forum (Wiley, peer-reviewed), e-pub 14 Apr 2016; verified on the University of Edinburgh research portal"
+url: "https://doi.org/10.1111/cgf.12804"
+level: A
+contributions:
+  - "Generalized space-time cube: any 2D-plus-time visualization is described as operations on a cube whose third axis is time."
+  - "Taxonomy of elementary operations: extracting subparts (slices, cuts), flattening across space or time, and transforming the cube's geometry or content."
+  - "Characterizes structures inside a cube (e.g. density or sparsity) to discuss the strengths and limits of each operation."
+gaps:
+  - "A descriptive framework with no user study."
+  - "Read at abstract level."
+tags: [method-source, spatial, diagrams]
+relevance: "'Time = stacked slices seen from a diagonal camera' is a space-time cube view. This framework names the alternatives to weigh against it, such as flattening to small multiples or cutting one slice, and says each has limits that depend on the data."

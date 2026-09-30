@@ -1,0 +1,18 @@
+# Reference for gslides-motion
+key: gslides-motion
+type: web
+year: 2026
+venue: "Google Docs Editors Help 'Add or change animations and transitions' (undated, read 2026-09-26), cross-read with the Slides API v1 REST reference and the Apps Script Slides service reference"
+url: "https://support.google.com/docs/answer/1689475?hl=en"
+level: V
+contributions:
+  - "Transitions (Slide > Transition, one per slide, speed slider) and object animations (Insert > Animation or View > Motion) are set by hand in the desktop web editor; start On click / After previous / With previous; 'By paragraph' builds a list line by line."
+  - "The Android and iPhone/iPad versions of the same article say transitions and animations can only be added from slides.google.com on a computer."
+  - "The Slides REST request list (presentations.batchUpdate: createSlide, updatePageProperties, updatePageElementTransform, groupObjects...) and the Page resource carry no transition or animation field; the Apps Script Slides service has none either (both read 2026-09-26)."
+  - "Grid view (bottom-left toggle, filmstrip or grid; support.google.com/docs/answer/1694830) shows every slide as a thumbnail: the only built-in overview map of a deck."
+gaps:
+  - "The help page never names the transitions; the list exists only in community sources (see brightcarbon-gslides)."
+  - "'When presentations are viewed in some browsers, certain animations may not function' - no browser is named."
+  - "The API absence is verified by reading the reference, not by a Google statement; a 2018 Apps Script request for animation methods (issuetracker 80441863) is marked Obsolete."
+tags: [tool, animation, formats, spatial]
+relevance: "An agent can lay out the frames of a zoom or pan sequence in Slides (sizes and positions through updatePageElementTransform) but cannot attach any transition or animation; motion has to be clicked in by Lucas afterwards, and there is no camera move at all."

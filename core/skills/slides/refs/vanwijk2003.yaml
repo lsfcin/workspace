@@ -1,0 +1,16 @@
+# Reference for vanwijk2003
+key: vanwijk2003
+type: conference
+year: 2003
+venue: "IEEE Symposium on Information Visualization (InfoVis 2003), Seattle, pp. 15-22, doi 10.1109/INFVIS.2003.1249004; abstract read on the TU Eindhoven research portal"
+url: "https://doi.org/10.1109/INFVIS.2003.1249004"
+level: A
+contributions:
+  - "Defines a metric for simultaneous zooming and panning based on an estimate of perceived velocity, and calls an animation optimal when it is smooth and efficient."
+  - "Solves the model analytically for the optimal path between two views; two free parameters, animation speed and the zoom/pan trade-off, set through a user experiment."
+  - "The d3 library's interpolateZoom implements this path (d3js.org/d3-interpolate/zoom), with rho as the trade-off parameter."
+gaps:
+  - "Read at abstract level; the parameter values found in the experiment were not read."
+  - "Built for maps and 2D information spaces, not tested on presentations."
+tags: [method-source, spatial, animation]
+relevance: "When an agent builds a zoom-out, pan, zoom-in move in HTML, the van Wijk path (d3.interpolateZoom) is the known-good curve; the canvas tools above use a plain eased interpolation instead (inferred from their docs)."

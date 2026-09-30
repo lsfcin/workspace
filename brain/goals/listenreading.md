@@ -21,6 +21,7 @@ fallback · articles or long-form essays count — reading is reading*
 ## backlog
 
 > [ ] [pick-book] pick one book and read one page today  
+> [ ] [paper-diario] estabelecer rotina de consumo de 1 artigo científico/dia via áudio profundo + infográfico visual (INBOX 2026-09-29)  
 > [ ] [stevenson] ler Gary Stevenson, incluir obras no workspace onde pertinente (ver academy/teaching/REFS.md)  
 > [ ] [bregman] ler Rutger Bregman (Moral Ambition), incluir obras no workspace onde pertinente (ver academy/teaching/REFS.md)
 > [ ] [visible-book] keep a current book somewhere physically visible — not on a shelf  

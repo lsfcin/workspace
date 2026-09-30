@@ -54,6 +54,13 @@ fallback · iterate — MVP can always be extended*
 
 ## backlog
 
+> [ ] [stream-recommendation-wos] conectar histórico de streaming e coisas assistidas ao workspace (branches/tips/) e criar feature de recomendação via chat móvel no bot do Telegram (aiwbot) (INBOX 2026-09-26)  
+> [ ] [subagent-brief-orchestrator] formalizar o padrão de orquestração curta do GlitchCatClub (brief de 4 linhas por subagente + checagem de retorno individual) para evitar dispersão e consumo excessivo de cotas em subagentes longos (INBOX 2026-09-26, 2026-09-29)  
+> [ ] [semantic-cache-local] avaliar viabilidade de camada de cache semântico local para chamadas e prompts repetidos/reformulados no WOS para economizar chamadas a provedores (INBOX 2026-09-26)  
+> [ ] [commit-swap-graph] visualizador de commits e troca de contexto entre repositórios (linhas verticais por repo, detectando swaps em marcos de conclusão vs meio de tarefa para o /compass) (INBOX 2026-09-29)  
+> [ ] [state-file-compaction] avaliar o padrão de state file do GlitchCatClub para auto-compactação controlada por arquivo de estado em vez de handover/handoff manual ou resumos opacos do harness (INBOX 2026-09-29)  
+> [ ] [task-roadmap-boundary] clarificar a fronteira taxonômica entre tasks de goals (compromissos de vida/rotina) e itens de ROADMAP (especificações de build/código), alinhando a skill inbox e a disciplina de consulta (INBOX 2026-09-29)  
+> [ ] [aiwbot-antigravity-default] conectar o bot do Telegram com o Antigravity e testar como backend padrão para uso móvel sem fricção de limites (INBOX 2026-09-27)  
 > [ ] [v1] the four-criterion gate — see [/ROADMAP.md](../../ROADMAP.md)  
 > [ ] [mvp-validate] use the system daily for 30 days, then assess: does it reduce mental load? By definition post-v1 —
 > this is the achievement v1 exists to make measurable  
@@ -96,6 +103,9 @@ fallback · iterate — MVP can always be extended*
 > Conferir se alguma chave em uso aqui tem limite duro no provedor, e se existe log de execução legível — o relato do agente sobre o que fez não serve de prova. Nasce de um caso relatado, não medido aqui. Ref em `core/refs/REFS.md` (— via aiwbot)  
 > [ ] [omarchy-vs-ubuntu] comparar o Omarchy com o Ubuntu e decidir se vale trocar — a tese do post é que ele passa Windows e Mac em 18 meses porque a IA deixa qualquer um customizar o sistema. É hype de criador de conteúdo, então o comparativo é o trabalho: o que muda pro nosso uso real. Ref em `core/refs/REFS.md` (— via aiwbot 2026-09-05)  
 > [ ] [reflow-cobertura] rodar `reflow` no que a varredura de 2026-09-18 não listou  
+> [ ] [otimizar-output-tokens-rtk] investigar melhorias no rtk e no consumo de output tokens dos modelos (tanto em argumentos de ferramentas de escrita/edição quanto em mensagens) — hoje o rtk atua apenas comprimindo stdout de Bash; avaliar compressão de payloads e diretivas de concisão em saídas de modelo (INBOX 2026-09-28; ver `core/experiments/output-cost.md`)  
+> [ ] [jev-laya-wos] investigar se modelos de decisão System-1 (JEV / Laya) têm papel estrutural no WOS — avaliação para routing de tarefas, pré-classificação em hooks/gates rápidos e triagem sem inferência cara de LLM (INBOX 2026-09-28; ref em `core/refs/REFS.md`)  
+> [ ] [unsloth-grpo-wos] avaliar se o ecossistema Unsloth Studio + GRPO cabe no ferramental do workspace — treinar ou afinar SLMs locais para tarefas específicas com reforço/recompensas relativas na infraestrutura do usuário (INBOX 2026-09-28; ref em `core/refs/REFS.md`)  
 
 ## done
 

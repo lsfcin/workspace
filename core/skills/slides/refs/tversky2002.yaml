@@ -2,9 +2,16 @@
 key: tversky2002
 type: article
 year: 2002
-venue: "International Journal of Human-Computer Studies"
-url: "https://hci.stanford.edu/courses/cs448b/papers/Tversky_AnimationFacilitate.pdf"
+venue: "International Journal of Human-Computer Studies 57(4):247-262"
+url: "https://hci.stanford.edu/courses/cs448b/papers/Tversky_AnimationFacilitate_IJHCS02.pdf"
 level: A
 contributions:
   - "Animation must be apprehensible and congruent with the change it shows."
-tags: [animation]
+  - "Review: apparent wins of animation over static graphics mostly come from extra information or interactivity, not from the motion itself."
+  - "Congruence principle (the structure of the graphic matches the concept) and Apprehension principle (slow and schematic enough to be perceived)."
+  - "Most promising use: real-time reorientations in time and space — the role a camera plays in a spatial talk."
+gaps:
+  - "A review, not an experiment; the comparisons it pools were often not equivalent in content."
+  - "Animations are fleeting, often too fast, and read as discrete steps."
+tags: [survey, animation, spatial]
+relevance: "The rule every spatial move in Lucas's decks must pass: the motion has to match the relation it shows (inside, beside, another face, time), and be slow and simple enough to follow on a weak projector."

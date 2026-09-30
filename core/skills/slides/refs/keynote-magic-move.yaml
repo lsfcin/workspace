@@ -1,0 +1,17 @@
+# Reference for keynote-magic-move
+key: keynote-magic-move
+type: web
+year: 2026
+venue: "Keynote User Guide for Mac (Apple Support): 'Add transitions between slides', 'Add 3D objects', 'What is Apple Creator Studio?' (undated, read 2026-09-26)"
+url: "https://support.apple.com/guide/keynote/add-transitions-tanff5ae749e/mac"
+level: V
+contributions:
+  - "Magic Move: duplicate a slide, move, resize or reorient objects; objects on both slides animate, unmatched ones fade (Fade Unmatched Objects can be turned off); text matches by object, word or character; acceleration None / Ease in / Ease out / Ease in and out."
+  - "3D objects (USDA, USDC, USDZ) can be rotated on x, y and z and play embedded animation in a slideshow."
+  - "Exported to another format, or opened in Keynote 13.1 or earlier, Keynote for iCloud or Preview, 3D objects become 2D."
+  - "Keynote is part of the Apple Creator Studio subscription, which 'unlocks premium content and intelligent features' in Keynote."
+gaps:
+  - "The guide does not list every transition; the names (cube, flip, object zoom...) come from the scripting dictionary as quoted by iworkautomation.com, a community site."
+  - "Mac/iPad app; authoring needs Apple hardware or the reduced Keynote for iCloud."
+tags: [tool, animation, spatial]
+relevance: "Magic Move gives zoom and pan by resizing and moving a shared object, and real 3D objects can turn on three axes; but Keynote needs a Mac or iPad to author, and 3D flattens once exported."
