@@ -6,6 +6,9 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 
 ## Open
 
+**🔴 Canva leaf: the agent builds and moves a Canva deck, Match & Move included, with no human click per deck**
+*What* — in order: (1) a diagram strategy before any build — Canva shapes carry connection points for arrows and an SVG keeps neither those nor colour editing, so SVG enters only where needed and the agent warns before converting a slide's shapes; whether a draft Apps SDK app can create and move native shapes, lines and connectors decides it; (2) check whether anything used needs Pro, and say which feature and why if it does (trial ends ~2026-11-02); (3) build `core/tools/slides/canva` (auth, read, import, upload, pages, apply, frame, oracle, export) through `/craft`; (4) k10: the agent makes bench k1 alone and the oracle verifies it; (5) decide the slides home. The deck is shared: Lucas and the agent both edit everything, in turns, so the agent re-reads the deck at the start of each turn. *Why* — Lucas finds Canva's editor far better than PowerPoint online; the 2026-10-03 swarm and spikes found that motion is inherited from a seed page copied by REST and edited over the MCP endpoint (facts: `core/tools/slides/SPECS.md` § PowerPoint and Canva; design draft: `outputs/canva-poder-desenho.md`). *Done when* — k10 passes the oracle with no human click, and this item is replaced by the home decision.
+
 **🟢 evaluate UNSLOP and aihero.dev against our skills and flows**
 *What* — a skill UNSLOP (acha o repo real antes de julgar; nenhum link veio na captura) e [aihero.dev](https://aihero.dev) — pontos nomeados pelo Lucas: `/grill-me` e o `/implement` que usa TDD. *Why* — avaliação pontual pedida (INBOX 2026-09-05); não reabre o rejeitado "surveying outside skills" em larga escala, são duas leads nomeadas, uma delas com site próprio. *Done when* — cada uma tem um veredito com evidência (testada contra um fluxo nosso) ou é rejeitada por escrito.
 
@@ -70,7 +73,7 @@ None is worked until the layer reopens.
 
 ## Rejected
 
-- **Canva as the slides home** (tested 2026-09-28) — no Canva API sets animation or transition, and its .pptx import drops them; agent-written motion is the requirement. Facts: `core/tools/slides/SPECS.md` § PowerPoint and Canva.
+- **Canva motion through a .pptx** (2026-10-03) — the import collapses every transition to dissolve and Canva's own export writes Match & Move as `<p:fade/>`, so neither direction carries it; motion is inherited from a copied seed page instead (§ Canva leaf).
 
 - **Surveying outside skills for things to import** (asked 2026-07-23, dropped 2026-08-25) — the two leads are DM-bait posts naming skills without linking them, and the named capabilities overlap what `AGENTS.md` and CONTEXT.md already do. Reopen from a real repository, never from a reel.
 

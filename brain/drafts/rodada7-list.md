@@ -82,16 +82,15 @@ Homes:
 ## C · Canva as the home — own track, before S1 (2026-10-02; facts in `specs` § PowerPoint and Canva)
 Lucas: Canva's editor is "absurdamente" better than PowerPoint online; he leans to Canva, decided after C3. Bench:
 `outputs/.drafts/rodada7/bench_canva.py` (k1–k7, `--k8`); designs v1 `DAHW5Bas3GY` (untouched), v2 `DAHW5CmArj8`, k8 `DAHW5QQvKZY`, k9 `DAHW5Y9MKkk`.
-- C1 Build the leaf `core/tools/slides/canva` (approved, next session): auth by dynamic registration + PKCE against
-  `mcp.canva.com`, `import`, `dup` (REST `merges`), `edit` (the MCP endpoint over plain HTTP — never an MCP plugged into
-  an agent: Lucas refuses the lock-in), `pdf`. First step: verify and widen the search for the most complete, automated way.
-- C2 Lucas thinks Combinar was already applied on some imported page: check whether the import now maps `p159:morph`
-  to Combinar (open v1, untouched). If so, the agent sets the transition through the .pptx.
-- C3 k10: the agent does k1 alone (import, dup, resize, move); Lucas only applies Combinar.
-- C4 SVG only for real pictures: it pairs by file but takes away editing ("me impede de editar cada vírgula"). Text and
-  shapes stay native, moved and resized through the API.
-- C5 Rotation, transparency and colour by API need an Apps SDK app (`duplicatePage` preview, no resize) — only if missed.
-- C6 Premium trial (30 days): wait for a real demo; free covers the editing tools.
+- C1 The plan is `core/ROADMAP.md` § Canva leaf (design approved 2026-10-03 with Lucas's conditions; draft
+  `outputs/canva-poder-desenho.md`; swarm material `outputs/.drafts/canva-poder/`). Never an MCP plugged into an agent.
+- C3 k10: the agent does k1 alone — seed copy by `merges`, edits by the MCP endpoint — and the oracle verifies; Lucas
+  applies nothing (Combinar is inherited from a seed page).
+- C4 SVG only when needed, with a warning before converting a slide's shapes (colour editing and arrow connection
+  points are lost). Diagrams need their own strategy before the build. Text stays native.
+- C5 The draft Apps SDK app (native shapes, lines, connectors, colour) is the candidate for diagrams — test first.
+- C6 Pro trial active since 2026-10-03: verify whether anything used needs Pro; if so, say which feature and why.
+- C8 A shared deck: Lucas and the agent both edit everything, in turns; no "my slide / your slide".
 - C7 k4.b 31→32: a shrinking group leaves thin ghost lines at its old place (Lucas's GPU).
 
 ## S1 · performance — own session, after C decides the home (research, then A/B with defined metrics)
