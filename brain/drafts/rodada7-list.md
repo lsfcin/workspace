@@ -66,25 +66,73 @@ Homes:
   - block map: ellipses sprawl on the ground (make flattened cylinders); "50 °C" is behind the blue circles, so put it outside and connected → `drawing`; dashes too strong; a slight transparency per layer may help.
 - F16 Covers are ugly: too much subtitle text, plus the bold blue line; the approved earlier covers were better. Redo the cover A/B keeping font and colours, varying construction.
   The Next font renders jagged online and Lucas is not happy with it: the font is one more variable of that A/B.
-- F17 A2 still shows loading on several slides → B3–B6.
+- F17 A2 still shows loading on several slides → S1.
 
-## A3 · what the builder applies next (bench 2 answered; facts in `specs`, rules in `motion`)
-- B1 **Blink fix** (F5, F7, F10, F11, F12, F14, F15): every entrance on a Morph's target slide becomes the next frame, camera still (c1 variant 2 had no blink; After Previous blinked worse). Auto-advance that frame (`advTm`) when it needs no click: Lucas does not want an extra click for the "3" (c2).
-- B2 **The "3"** (F10): Lucas picks c2 variant 3 (the 3 grows alone in the centre, then shrinks with the zoom out), but Morph blurs the big text all the way down. Test the 3 as a vector shape (text turned to path) and as an image rendered at its largest size; does a shape blur too?
-- B3 **Zoom budget** (match cut s39): the cost is the Morph, not the frame; 40 shapes at 30× never finish, 15× loads. Cut what the zoom flings off screen to a minimum, or let it fade before the dive.
-- B4 **Many circles → one image** (Lucas): rect < ellipse < ● < polygon, so glyph and polygon are out; a field of dots becomes one PNG/SVG rendered at its largest on-screen size (b13: images blur near otherwise).
-- B5 **Crowds** (s22–26, was P2): fused vector looks best but peaks the GPU and loads; one image costs ~65%. Use the image, rendered at max zoom resolution.
-- B6 **Weight is per deck** (b11 ran the fan resting on its cover): measure A3 as a whole; splitting the deck is back on the table. It may explain the parallax fan: s33–36 are light in themselves and strokes made no difference (b12).
-- B7 Lucas's browser draws on the Intel iGPU, not the RTX 3050: try the NVIDIA offload (`__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia`) — for his machine only; students' weak machines stay the target.
+## Method (Lucas, 2026-10-02 — after A3 came out worse than A2 and ignored >70% of this list)
+- **A2 is the base.** A3 is discarded (an automatic pass, `settle`, made frames per change instead of a decision per
+  slide). Its one hit is R6.
+- **One demo per session, 100% closed.** Order: S1 performance → demo 2 (tela infinita) → demo 1 (map: many of its
+  points were ignored) → 3, 4, 5, 6, 35 → drawing subskill, covers (F16), crises audit.
+- **Each demo session, four steps:** (1) a table in the chat before any code — one row per slide: what moves, what
+  appears and when, click or chained, how it reads in the PDF, which list ids it closes; every id of that demo is in
+  it; Lucas approves. (2) Build that demo alone, in a small file. (3) Before upload, show each row against the image of
+  its frame; nothing ships with a row open. (4) Lucas tests.
+- Opus at high effort for demo sessions.
 
-## P · performance, open
+## C · Canva as the home — own track, before S1 (2026-10-02; facts in `specs` § PowerPoint and Canva)
+Lucas: Canva's editor is "absurdamente" better than PowerPoint online; he leans to Canva, decided after C3. Bench:
+`outputs/.drafts/rodada7/bench_canva.py` (k1–k7, `--k8`); designs v1 `DAHW5Bas3GY` (untouched), v2 `DAHW5CmArj8`, k8 `DAHW5QQvKZY`, k9 `DAHW5Y9MKkk`.
+- C1 Build the leaf `core/tools/slides/canva` (approved, next session): auth by dynamic registration + PKCE against
+  `mcp.canva.com`, `import`, `dup` (REST `merges`), `edit` (the MCP endpoint over plain HTTP — never an MCP plugged into
+  an agent: Lucas refuses the lock-in), `pdf`. First step: verify and widen the search for the most complete, automated way.
+- C2 Lucas thinks Combinar was already applied on some imported page: check whether the import now maps `p159:morph`
+  to Combinar (open v1, untouched). If so, the agent sets the transition through the .pptx.
+- C3 k10: the agent does k1 alone (import, dup, resize, move); Lucas only applies Combinar.
+- C4 SVG only for real pictures: it pairs by file but takes away editing ("me impede de editar cada vírgula"). Text and
+  shapes stay native, moved and resized through the API.
+- C5 Rotation, transparency and colour by API need an Apps SDK app (`duplicatePage` preview, no resize) — only if missed.
+- C6 Premium trial (30 days): wait for a real demo; free covers the editing tools.
+- C7 k4.b 31→32: a shrinking group leaves thin ghost lines at its old place (Lucas's GPU).
+
+## S1 · performance — own session, after C decides the home (research, then A/B with defined metrics)
+- Research how PowerPoint online draws a show (canvas/WebGL? are shapes rasterised? Microsoft's own limits and
+  guidance for Morph and heavy slides) before any new hypothesis.
+- Metrics, not the fan: per transition, CPU and GPU peak and duration, dropped frames or FPS, loading spinner
+  yes/no, time to advance — logged by a script while Lucas clicks (`intel_gpu_top`, `nvidia-smi dmon`, a browser
+  performance trace). Lucas's experience still counts.
+- **Brave crashed more than once and Ubuntu logged Lucas out, closing every app.** Find the cause (`journalctl`:
+  OOM, GPU hang?) and make tests safe first (a separate profile, a memory cap such as `systemd-run --user -p MemoryMax`).
+- Hypotheses carried from bench 2: B2 the "3" (c3 built: text, vector, PNG — untested); B3 zoom budget (40 shapes at
+  30× never finish, 15× loads); B4/B5 fields and crowds as one image; B6 weight per deck (`perf.split` cuts one file
+  per demo); B7 NVIDIA offload (Brave: `__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia
+  __VK_LAYER_NV_optimus=NVIDIA_only`, check `brave://gpu`).
+- A3 lessons: the crowd as one cropped image came out stretched and blurred (A3 s32); a fused group with overlapping
+  subpaths rendered with holes (A3 s38). Lucas: the zoom-in frame need not hold what is off screen; the zoom-out frame
+  adds what shrinks into view.
 - P4 Lucas saw fused groups as "incoherent" (squares in one row not grouped). They are fused by style plus the span of frames plus riding the camera, not by meaning; explain, and group by meaning if it matters for motion.
+
+## R · A3 feedback, by demo (A3 numbers; the content says where it is in A2)
+- R1 demo 2, gradient ball: the small light mark of the old position is already under the big ball the moment it
+  arrives, so it stays behind when the ball leaves. Never shown after the next move.
+- R2 demo 2, s21→22: the arrow's base slides off the ball's centre during Morph. Test the same arrow moved and turned
+  by an animation inside one slide against Morph.
+- R3 demo 2, visit order (A3 s38→40): too many slides. 38 is one click; what 40 shows is slide 39, its texts entering
+  by animation on it. Solve the blink first (c1: an entrance on a Morph target blinks) — bench inside the session.
+- R4 demo 4, match cut: A3 s60 broken; s61 and s65–66 overuse Morph (the PDF reads oddly).
+- R5 demo 5, 3D turn: A3 changed nothing — F12 all open.
+- R6 keep: demo 4 retina, A3 s73→74 — the cyan circles ride the zoom (kept at alpha 0 in the frame before). Right.
+- R7 Morph is not the default: a new slide when the camera or a shape's geometry moves; text appearing in place is an
+  animation on the same slide. Where Morph misbehaves (R2), test another animation type.
+
+## P · open
+- P7 (Lucas) A slides pipeline of established rules, each checked twice: in planning (before building) and in verification (after). Tag each skill rule with its checker — `lint` (zero-token, from the XML: Morph pairs, entrance on a Morph target, static-waits-for-motion, item/point budget, text size, fonts, overlap/touching), `model` (a small-model pass over contact sheets, for checks with a yes/no answer), `human` (taste). Own session.
 - P5 An HTML port (pptx → HTML for phones) is a fallback path: first optimise in PowerPoint. Scope it later.
 
 ## I · new strategies and ideas (home: estr)
 - I1 A new slide type and animation: a document, article or conversation. The whole doc stays in the background (blurred or low opacity), with the highlight in the foreground. Like Jornal Nacional, but stylish, not cheesy.
 - I2 The exploded view can open vertically, laterally, or in all directions at once: direction is a parameter.
 - I3 The flood slide should show the water rising (see F8).
+- I4 Strategy 47, section strips (deck E, own session): a section is a strip — next slide pushes in from the right, with a border or colour band continuous between neighbours of one section. A new section's cover slides in from the right OVER the current slide without pushing (H), or pushes it up entering from below (V). Demo H and V side by side.
 
 ## Closing the slides run (after everything above)
 - Full audit of the ai4good deck `lucassf.pages.dev/ai4good/crises`, content and look, against the `slides` skill and the teaching specs and templates (`SPECS-aulas.md`, `academy/teaching/classes/ai4good/disciplina.md`, `plano-refino.md`): the overall narrative, cuts, updates (news on every point), revisions and additions. Its own session.

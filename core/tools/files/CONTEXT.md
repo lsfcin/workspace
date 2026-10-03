@@ -19,5 +19,5 @@ Downloads land in `Downloads/workspace-drive` at the workspace root.
 | [`drive_migrate_core.py`](drive_migrate_core.py) | [`drive_migrate_core.pyi`](drive_migrate_core.pyi) | `get_cin_service`, `get_personal_service` | Auth, config, and low-level Drive ops shared by drive_migrate.py. |
 | [`drive_sync.py`](drive_sync.py) | [`drive_sync.pyi`](drive_sync.pyi) | `load_config`, `save_config`, `load_cache`, `save_cache`, `is_debounce_active` | drive_sync.py — Google Drive hybrid sync engine with debounce and manifest caching |
 | [`gdrive`](gdrive) | — | — | Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put, copy, rename, perms, share, rm, sync |
-| [`onedrive`](onedrive) | — | — | OneDrive through rclone: upload, download, list, the web link that opens a .pptx in PowerPoint online, and Office's own PDF of it |
+| [`onedrive`](onedrive) | — | — | OneDrive through rclone: upload, download, list, delete to the recycle bin, the web link that opens a .pptx in PowerPoint online, and Office's own PDF of it |
 <!-- routing:end -->
