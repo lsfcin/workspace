@@ -7,7 +7,7 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 ## Open
 
 **🔴 Canva leaf: the agent builds and moves a Canva deck, Match & Move included, with no human click per deck**
-*What* — in order: (1) a diagram strategy before any build — Canva shapes carry connection points for arrows and an SVG keeps neither those nor colour editing, so SVG enters only where needed and the agent warns before converting a slide's shapes; whether a draft Apps SDK app can create and move native shapes, lines and connectors decides it; (2) check whether anything used needs Pro, and say which feature and why if it does (trial ends ~2026-11-02); (3) build `core/tools/slides/canva` (auth, read, import, upload, pages, apply, frame, oracle, export) through `/craft`; (4) k10: the agent makes bench k1 alone and the oracle verifies it; (5) decide the slides home. The deck is shared: Lucas and the agent both edit everything, in turns, so the agent re-reads the deck at the start of each turn. *Why* — Lucas finds Canva's editor far better than PowerPoint online; the 2026-10-03 swarm and spikes found that motion is inherited from a seed page copied by REST and edited over the MCP endpoint (facts: `core/tools/slides/SPECS.md` § PowerPoint and Canva; design draft: `outputs/canva-poder-desenho.md`). *Done when* — k10 passes the oracle with no human click, and this item is replaced by the home decision.
+*What* — in order: (1) a diagram strategy before any build — Canva shapes carry connection points for arrows and an SVG keeps neither those nor colour editing, so SVG enters only where needed and the agent warns before converting a slide's shapes; whether a draft Apps SDK app can create and move native shapes, lines and connectors decides it; (2) the MCP endpoint is documented as Education/Enterprise only yet answers on the Pro trial (ends ~2026-11-02): settle Lucas's access, or the draft app takes over its edits; (3) build `core/tools/slides/canva` (auth, read, import, upload, pages, apply, frame, oracle, export) through `/craft`; (4) k10: the agent makes bench k1 alone and the oracle verifies it; (5) decide the slides home. The deck is shared: Lucas and the agent both edit everything, in turns, so the agent re-reads the deck at the start of each turn. *Why* — Lucas finds Canva's editor far better than PowerPoint online; the 2026-10-03 swarm and spikes found that motion is inherited from a seed page copied by REST and edited over the MCP endpoint (facts: `core/tools/slides/SPECS.md` § PowerPoint and Canva; design draft: `outputs/canva-poder-desenho.md`). *Done when* — k10 passes the oracle with no human click, and this item is replaced by the home decision.
 
 **🟢 evaluate UNSLOP and aihero.dev against our skills and flows**
 *What* — a skill UNSLOP (acha o repo real antes de julgar; nenhum link veio na captura) e [aihero.dev](https://aihero.dev) — pontos nomeados pelo Lucas: `/grill-me` e o `/implement` que usa TDD. *Why* — avaliação pontual pedida (INBOX 2026-09-05); não reabre o rejeitado "surveying outside skills" em larga escala, são duas leads nomeadas, uma delas com site próprio. *Done when* — cada uma tem um veredito com evidência (testada contra um fluxo nosso) ou é rejeitada por escrito.
@@ -45,13 +45,52 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 *What* — evaluate architecture patterns in DeepSeek Harness (Cordis plugin framework, bubblewrap sandboxing), Kilo Code (specialized agent modes, MCP), and Cline. *Why* — external harness survey requested (INBOX 2026-09-27) to identify modular runtime patterns without importing bulk. *Done when* — documented verdict in `core/refs/REFS.md` on whether any pattern transfers to our runner or flows.
 
 **🟢 evaluate systematic role prompting across WOS agents and flows**
-*What* — test whether assigning explicit roles to subagents/prompts activates distinct latent representations in models and improves task adherence. *Why* — Lucas flagged consistency of 'role' in WOS prompts (INBOX 2026-09-27). *Done when* — experimental probe measuring output quality vs token cost across 3 tasks with and without explicit role assignment.
+*What* — test whether assigning explicit roles to subagents/prompts activates distinct latent representations in models and improves task adherence. *Why* — Lucas flagged consistency of 'role' in WOS prompts (INBOX 2026-09-27). *Done when* — experiment measuring output quality vs token cost across 3 tasks with and without explicit role assignment.
 
 **🟢 obrigar download do PDF completo no flow de revisão de artigos**
 *What* — atualizar `core/flows/research/review.md` para exigir o download e extração completa do PDF do artigo (via arXiv/URL ou twin) antes de iniciar a simulação de peer review, sem avaliar apenas por abstract ou HTML. *Why* — Lucas solicitou obrigatoriedade (INBOX 2026-09-26); avaliações baseadas em páginas web/abstract perdem tabelas, equações, apêndices e dados empíricos cruciais. *Done when* — o passo 4 do flow declara e executa o download mandatório do binário do PDF e seu twin antes de escrever notas de evidência.
 
 **🟢 handoff por domínio ou subrepositório para sessões paralelas**
 *What* — estender a skill `/handoff` (`core/skills/handoff.md`) para aceitar ou inferir um subdiretório/tema de saída (ex.: `outputs/<repo>/handoff.md` ou `outputs/handoff-<tema>.md`), em vez de usar um caminho único e rígido. *Why* — sessões simultâneas sobrescrevem `outputs/handoff.md` uma da outra (INBOX 2026-09-25, sessão taste). *Done when* — `/handoff` gera o resumo no caminho qualificado do projeto ativo e `/roundup` reconhece o handoff específico daquela sessão.
+
+**🟢 arquitetura de geração em estágios (pastas/markdown) para slides e animações**
+decks and animations built in stages with an intermediate markdown per stage (script → storyboard → visual → render, Van Clief method); done when the convention is in `core/tools/slides/SPECS.md` and one pilot deck ran through it (INBOX 2026-09-30).
+
+**🟢 três subskills visuais para geração de slides (/slides)**
+`/slides` gains photo search, shape-based drawing and styled diagrams with good edges and arrows; done when each subskill is validated on real slides (INBOX 2026-09-30).
+
+**🟢 backport dos refinamentos de disciplina.md para o template canônico**
+carry what `academy/teaching/classes/ai4good/disciplina.md` learned this semester into the canonical template without breaking `cfpages` (INBOX 2026-09-30).
+
+**🟡 submissão interativa de artefatos por matrícula e validação no site de disciplinas**
+a student submits an artefact link with their enrolment number on the course page, and the teacher accepts items in one click; done when a prototype works on a published `disciplina.md` (INBOX 2026-09-30).
+
+**🟢 avaliar HotClip para corte e clipagem local de aulas e gravações**
+test `xixihhhh/hotclip` (local ASR, vertical cuts with captions) on one recorded class and write the verdict under `core/tools/video/` (INBOX 2026-09-25).
+
+**🟢 avaliar iris (Rust CLI + MCP) como ferramenta de visão/câmera para os agentes do WOS**
+test `brijr/iris` as MCP or CLI for the agent to screenshot local and published pages; verdict in `core/tools/web/SPECS.md` (INBOX 2026-09-25).
+
+**🟢 portar utilitários de slides_build.py para core/tools/slides/gslides**
+split a deck, copy slides between decks, insert notes and images as `gslides` subcommands with unit tests, out of `ai4good/slides_build.py` (INBOX 2026-09-23).
+
+**🟡 migrar e sintetizar a skill /prof para en-us**
+translate `core/skills/prof/` to en-us with pt-br terms in backticks, cutting its ~60 KB (INBOX 2026-09-24).
+
+**🟢 suportar espelhamento de subdiretórios de subskills no sync-skills**
+`sync-skills` mirrors `prof/` and `slides/` subfolders so relative subskill links resolve in every harness (INBOX 2026-09-24).
+
+**🟢 incorporar padrões do Glitch Orchestra (orquestração por state file e reunião anti-loop)**
+evaluate conductor rotation through a state file and an up-front planning meeting; done when specified in `core/flows/` and one rotation ran (INBOX 2026-10-04).
+
+**🟢 image twin: arquivo .md irmão com OCR + VLM para qualquer imagem isolada**
+`core/run tools/assets/inspect --twin` writes `<image>.md` with OCR and a VLM description, merging `.imgif` and the video caption, and the read gates honour it (INBOX 2026-09-25).
+
+**🟢 gdrive download com flag --out e seletor de destino**
+`gdrive download --out <path>` instead of everything landing in `Downloads/workspace-drive/` (INBOX 2026-09-25).
+
+**🟢 lint de contraste WCAG no gslides e substituição de pdftoppm por mutool**
+`gslides lint` flags low WCAG contrast, and `mutool draw -w` replaces `pdftoppm -scale-to-x`, which crops (INBOX 2026-09-25).
 
 ## Blocked — waiting on a trigger
 

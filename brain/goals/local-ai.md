@@ -52,6 +52,9 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 > [ ] [higgsfield-o-que-roda-aqui] a pergunta estreita sobre o Higgsfield: o que da stack dele roda **aqui**, se é que algo roda. O post é patrocinado e fala em acesso por API na nuvem, então a resposta honesta pode ser "nada" — e um "não" curto, escrito, vale mais que a pergunta voltando a cada captura. Irmão de [higgsfield-asset-gen] em `rpg-isoroll.md`. Ref em `core/refs/REFS.md` (— via aiwbot)  
 > [ ] [nvidia-pair] olhar o PAIR da Nvidia — aberto, junta a capacidade ociosa de várias máquinas da mesma casa (Windows, Linux, macOS) para uma carga local de IA. Lucas: *"será que consigo usar de alguma forma?"*. A pergunta concreta daqui: somar a RTX 3050 a outra máquina muda o teto de [local-setup] e [tiny-quant], ou o gargalo continua sendo VRAM numa placa só? Ref em `core/refs/REFS.md` (— via aiwbot)  
 > [ ] [unsloth-studio-grpo] testar Unsloth Studio Web UI e pipeline de raciocínio GRPO localmente na RTX 3050 6GB; avaliar exportação GGUF para runners locais offline ([carrossel](https://www.instagram.com/p/DdygoZDCfci/?utm_source=ig_web_copy_link), — via aiwbot 2026-09-28; ref em `core/refs/REFS.md`)  
+> [ ] [odysseus-ajax-9b] testar Odysseus / Ajax 9B (Qwen 2.5) quantizado em Q4_K_M (~5.2GB) na RTX 3050 6GB para agente local com menos recusas ([post](https://www.instagram.com/p/DeCKox1DbHD/), INBOX 2026-10-03)  
+> [ ] [qwen-image-2-1] avaliar Qwen-Image-2.1 em FP8/ComfyUI na RTX 3050 6GB; explorar geração nativa RGBA transparente para assets e slides ([reel](https://www.instagram.com/reel/DdmQR7MgQtG/), INBOX 2026-10-03)  
+> [ ] [laya-mlx-latency] analisar arquitetura do Laya-MLX vs JEV para decisão visual em tempo real (~50ms local vs ~316ms cloud) ([post](https://www.instagram.com/p/Ddl6O0jjTI3/), INBOX 2026-09-22)  
 
 ## done
 
@@ -60,5 +63,5 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-21  ·  trend: advancing  ·  touches: 73/105/106/106/106/106
+last-touch: 2026-09-30  ·  trend: steady  ·  touches: 22/99/108/108/108/108
 <!-- stats:end -->

@@ -9,133 +9,53 @@
 
 <!-- add entries below, newest first -->
 
+voice note (untranscribed)
+[attachment: brain/attachments/2026-10/aiwbot-awacageaaxkbaaiedgrfklsh9tmo5u7bfemdlgmuwh2-aaljcqacwyiorlafrgbmzqmspqq.ogg]
+— via aiwbot · 2026-10-06
 
-se treinássemos uma IA pelo conteúdo do vipassana
-a IA tem medo? vc tem medo?
-será que no fundo, no espaço latente, entre os pesos, não estamos envenenando a IA com os nossos anseios, medos, raivas, etc
-de forma intrínseca eu digo
-será que guardrails é a solução? será que não falta melhorar o treinamento pra que o natural dela seja a harmonia?
+https://www.instagram.com/reel/Dd9NNKbug7T/?utm_source=ig_web_copy_link
+esse cara é muito bom em comunicação, a gente pode pesquisar mais sobre ele e a forma dele de falar e de produzir conteúdo pra ajudar nessa virada das eleições
+— via aiwbot · 2026-10-06
 
-realmente estou sentindo falta de um stt no ubuntu, será que não resolve usar o do aiwbot?
+Montar um plano de rede social com base em dados, né? Entendendo como é que o Instagram funciona. Não sei se TikTok, hein? Mas... na campanha seria assim. É... Pedir, né? Pra todo mundo que se importa com a eleição de... Dar likes em todos os postes que vê. Que achar relevante. Salvar todos os postes que vê. Que achar relevante. É... Recompartilhar, né? Re... Re... Impulsionar. Aquele botão, que é um botão de duas setinhas. Aí uma quantidade X. Tipo, um ou dois postes por dia. Ou... Uma vez por turno. Né? Manhã, tarde e noite. É... Fazer... Um ou dois stories por dia. Aí tem que escolher esses nomes, sabe? E fazer um post. Também. De vez em quando, né? É... A cada dois dias. Ou alguma coisa assim. Então... É isso, né? De alguma forma... É... Pegar essas métricas. Entender como é que o Instagram funciona. E outras redes sociais. E criar um guia. Como a gente vai agir. Nesse período. De campanha.
+— via aiwbot · 2026-10-06
 
-https://www.instagram.com/reel/Dd6Zb9Vj6xA/?utm_source=ig_web_copy_link
-será que dá pra aproveitar nos slides de alguma forma?
-— via aiwbot · 2026-09-30
+E aí uma coisa que a gente pode aprender é com os deputados e deputadas que conseguiram muita atenção via rede social. Nicos, Pavanato, aquela menina que é de ser anti-feminista, mas a galera da esquerda também. Jones, Ana Júlia, Thiago Furtan, acho que é o nome dele. Como é que eles fizeram? Eu acho que você repostar tem muito pouco papel, assim, muito pouco. Mas como é que grava um conteúdo com você aparecendo, né? Como é que escreve o seu texto? Como é que lança o seu vídeo? Então, ferramentas pra fazer isso de forma a facilitar até quem seja mais velho de fazer isso. dicas de câmera e tal. Todo um pequeno treinamento pra isso. Acho que pode valer a pena.
+— via aiwbot · 2026-10-06
 
-Algumas habilidades que estão faltando, eu acho que estão faltando. Esse esquema da gente de fazer os slides. E ai eu vou listar aqui. Eu acho que não foram mapeadas elas. Uma é achar figuras. Encontrar a figura, ou figuras assim, muito boas pra representar alguma coisa. Figuras que atendam os requisitos daquela coisa. Então em alta resolução. E aí pode ser figuras coloridas. Mas encontrar imagens. Eu diria que mais imagens de fotos, né? Fotos de lugares e de pessoas. Talvez de situações. Essa é uma habilidade. A outra é a habilidade de criar a partir de formas. Desenhar a partir de formas. Coisa como shape. Draw. Uma coisa assim. Porque... Os tachos que eu tenho feito até agora. As criações de imagens a partir de formas. Tá bem... Fraca. Pode melhorar muito. É... E ai... Eu acho que vale a pena. E a terceira eu diria que é desenhar diagramas. Também se consegue desenhar diagramas agora. Mas eu acho que eles podem ficar bem mais estilosos. Essas três habilidades aí. Aí nos diagramas incluem essa parte das arestas e das setas. Que também não tão tão legais. Tá meio feioso.
-— via aiwbot · 2026-09-30
+E ai eu acho que dentro das iniciativas tem que ter uma ordem de como usar redes sociais, como gerar engajamento. Principalmente como furar, furar em maiúsculo, furar a bolha. Porque as vezes tá, depende de um algoritmo.
+— via aiwbot · 2026-10-06
 
-https://www.instagram.com/reel/Dd5Z0k1FLO6/?stkn=NTc4MTIwNjQ2YQ==
-é útil pra gente?
+Outra coisa que me deu ideia é criar um portal. Eu diria que seria uma cartilha anti-flávio, mas o termo anti-flávio tem que ser pensado direito, pra ser o termo mais catchy, mais pegajoso possível. Mas uma cartilha, e cartilha também não sei se é o melhor nome, mas seria um portal pra gente coletar materiais estratégias pra essa campanha aí de 20 dias e que funcionaria como um fórum, as pessoas poderiam recomendar o material ou estratégia. Tem que pensar também na forma de funcionar pra evitar ataques hackers e ao mesmo tempo permitir que outras pessoas enviem ideias de projetos. Mais uma ideia é só.
+— via aiwbot · 2026-10-06
 
-https://world.emergence.ai/
-incluir nas minhas aulas, principalmente de autopreservação
+Sobre a eleição, eu acho que tem que ver como é que faz pra unificar a esquerda. Não se diz que a esquerda tá dividida. Mas eu diria até assim, um anti-bolsonarismo, né? Unificar o anti-bolsonarismo com poucas pautas, né? Com poucas pautas. É isso, eu acho que vale a pena pensar como direcionar como direcionar o couro pra fazer sentido.
+— via aiwbot · 2026-10-06
 
-https://www.instagram.com/p/DduZYXmmHVD/?stkn=NTc4MTIwNjQ2YQ==
-gostei, já faço parecido mas acho que posso melhorar olhando pra isso aqui. ai4good - transformers
+https://www.instagram.com/reel/DeJdwzZiDQA/?utm_source=ig_web_copy_link
+Será que pode ser útil pro isoroll?
+— via aiwbot · 2026-10-06
 
-o disciplina.md de ai4good tá refinado. ver o que foi feito nele que merece ser aplicado no template
+https://www.instagram.com/reel/DeI3Zulji05/?utm_source=ig_web_copy_link
+— via aiwbot · 2026-10-06
 
-nos disciplinas .md adicionar para os alunos uma forma deles mesmo submeterem o link de cada atividade no site... será que tem como? um pequeno popup em que eles colocam o número de matrícula deles e o link daquele artefato. é só uma ideia e precisa ser discutida. o ideal seria eu como professor também com um clique marcar quais caixas/itens tão aceitos daquele material mas tem que ver pra interface continuar sendo massa, bonita, robusta e simples.
+https://www.instagram.com/reel/DeHs15riSZr/?utm_source=ig_web_copy_link
+— via aiwbot · 2026-10-05
 
-https://www.instagram.com/reel/DdtthjJkT_1/?utm_source=ig_web_copy_link
-talvez seja útil pra gente como ferramenta, avaliar
-— via aiwbot · 2026-09-25
+https://www.instagram.com/reel/DeHQ3vrKB26/?utm_source=ig_web_copy_link&stkn=NTc4MTIwNjQ2YQ==
+se o isoroll fosse assim seria ótimo, se bem que é mais ou menos já né, mas esse nível de experiência a gente não tá lá ainda
+— via aiwbot · 2026-10-05
 
-https://www.instagram.com/p/DdtoUUvDAQ3/?utm_source=ig_web_copy_link
-aqui o exemplo de arquitetura acho que vale encontrar a fonte e ver se é útil pra gente
-— via aiwbot · 2026-09-25
+https://www.instagram.com/p/DeGFCgeERNv/?utm_source=ig_web_copy_link
+— via aiwbot · 2026-10-05
 
-https://www.instagram.com/reel/DdsmRf-iUh6/?utm_source=ig_web_copy_link
-talvez seja útil pra gente
-— via aiwbot · 2026-09-25
+https://www.instagram.com/p/DeGM6u4AZ9r/?utm_source=ig_web_copy_link
+Será que é útil pro isoroll?
+— via aiwbot · 2026-10-05
 
-ah, os enigmas devem garantir que o aluno entendeu o principal pra seguir pra próxima atividade
-— via aiwbot · 2026-09-25
-
-https://www.instagram.com/p/DdkJI9oE2_F/?utm_source=ig_web_copy_link
-estudar o relatório deles, analisar em detalhes como estamos em relação a ele, analisar todos os materiais de teaching
-— via aiwbot · 2026-09-25
-
-pq o nosso warning começa com NOT REFUSED ao invés de ALLOWED? é essa a melhor linguagem mesmo?
-
-nos arquivos de disciplina.md, nos painéis, pra reduzir a largura, na coluna de descrição podemos colocar um limite de chars pequeno pra quebrar a linha rápido e também facilitar uma tabela mais fina. a minha preocupação é que quando a visualização vai pro celular os "botões" com links ficam quebrados em duas linhas e ficam esquisitos, então gostariad e evitar isso.
-
-melhorar a minha aula de autoencoder mostrando primeiro e por partes só a parte de encoder, depois só a parte de decoder, e depois as duas juntas. dar bastante exemplos. se possível dar exemplos que não são de imagens
-
-https://www.instagram.com/p/DdsAcDhv247/?stkn=NTc4MTIwNjQ2YQ==
-isso deveria entrar na aula
-
-montar a árvore de habilidades de ai4good decentemente
-
-aprimorar os templates (e talvez specs se fizer sentido) de teaching dizendo pra incluir nos artefatos instruções para os humanos sobre como usar e como não usar os agentes/ia
-
-temos uma seção "how to use" no readme do wos? dizendo do roundup, handoff, etc, as dicas gerais de uso
-
-nas especificações das disciplinas, talvez nos artefatos em si, incluir parágrafos de "comando/prompt: ..." em que faço sugestões de prompt ou pro artefato como um todo ou pra cada parte da metodologia (acho melhor essa segunda opção). outra coisa, sempre que listarmos algum termo em português que é mais conhecido por sua versão em inglês a gente inclui a tradução pra inglês em parênteses e em itálico (ex.: retropropagação - backpropagation). isso pra todos os materiais, slides, site, etc.
-
-pq o nome do repo publico do wos ficou wos-ablation? deveria ser só wos...
-
-o antigravity compacta sozinho, confesso que acho isso perigosíssimo... será que tem como impedir?
-
-NÃO MEXER ATÉ 2026-09-29 — nenhum /inbox deve rotear, resolver ou apagar esta entrada antes dessa
-data. dia 28/09 vence a primeira leitura do scoreboard (ROADMAP.md § Measurement), e é só depois
-dela que a gente pode mexer em como o core/scoreboard.tsv guarda as linhas. o scoreboard tá com
-5.8 MB porque só cresce e nunca colapsa; a matriz de leitura que nasceu em 2026-09-22
-(core/read-matrix.tsv) resolve isso com janela circular de 365 dias, e a ideia é o scoreboard
-tomar essa mesma forma. mudar antes seria gastar a medição pra arrumar o arquivo de onde ela sai.
-o item tá escrito em ISSUES.md como b20260922-state-stores; esta linha existe só pra você lembrar
-de soltar a trava no dia 29. — via sessão 2026-09-22
-
-será que podemos oficializar os nossos arquivos que são tsv mas que estão no formato .txt como .tsv? tem algum ponto negativo em fazer isso?
-
-será que é útil pra gente
-https://www.instagram.com/reel/DdmQR7MgQtG/?stkn=NTc4MTIwNjQ2YQ==
-será que roda em 6gb de vram?
-
-https://www.instagram.com/p/DdmKNCMhy0y/?utm_source=ig_web_copy_link
-a gente deveria fazer isso no Brasil
-— via aiwbot · 2026-09-22
-
-tenho que aprender como atualiza os links dos .md (ex.: das minhas aulas). quero ganhar autonomia sobre isso. não depender da IA quando quiser fazer sozinho. isso é URGENTE, não quero deixar esse item do inbox ser jogado em algum roadmap perdido.
-
-https://www.instagram.com/p/Ddl6O0jjTI3/?stkn=NTc4MTIwNjQ2YQ==
-surfando na onda do JEV, agora Laya, e é local
-— via aiwbot · 2026-09-22
-
-https://www.instagram.com/reel/DdlvmwjTUb8/?utm_source=ig_web_copy_link
-considerar pras obras um mix de energia solar + baterias
-— via aiwbot · 2026-09-22
-
-https://www.instagram.com/reel/Ddlr9B7DRmF/?utm_source=ig_web_copy_link
-incluir na rotina de exercícios
-— via aiwbot · 2026-09-22
-
-ai4good: sistema de enigmas (formulário, versões por enigma, rastreio de acesso e envio) a partir de 30/09; sessão da VA2 (50 caixas, esqueleto em academy/teaching/classes/ai4good/plano-refino.md) antes de 02/10; seção legado da página depois. — via claude · 2026-09-23
-
-techedu: como o painel e as caixas funcionam com equipes (ai4good é individual; ficou para outra sessão). — via claude · 2026-09-23
-
-ai4good, reels nos slides: pra cada reel usado nos 4 decks novos (Jev/Laya, DOAC, demissão Anthropic…), achar o vídeo original no YouTube e inserir no slide (createVideo). legenda/dublagem pt-br não dá pra fixar no slide: é escolha do player na hora (⚙ → legendas → traduzir; faixa de áudio só se o canal ativou dublagem). — via claude · 2026-09-23
-
-ai4good, refino que ficou pra depois da aula de 23/09: notas de apresentador nos slides ANTIGOS dos 4 decks, notas propostas pros slides só-imagem (autopreservação 44–60, 86–88; agência 92–99, 108–124) e correções visuais in loco. conteúdo em academy/teaching/classes/ai4good/*_conteudo.py. — via claude · 2026-09-23
-
-wos, slides (IMPROVE WOS): (1) não há guia de estilo visual dos decks do Lucas — inferido hoje: Open Sans, título minúsculo bold + termo inglês itálico, fonte 8pt no rodapé, azul #1A73E8 como único destaque; vive só em ai4good/slides_pecas.py. (2) par desenhado + fallback pulado virou convenção → candidato a regra em [slides-dois-caminhos]. (3) links de deck seguem `<disciplina>/<tema>` apontando pra /present. (4) gslides não tem subcomando pra separar deck, copiar slide entre decks (a API não copia: slides_build.py reconstrói), inserir nota ou imagem — ai4good/slides_build.py é candidato a subir pra core/tools/slides. (5) gdrive não tem `rename`. (6) a regra de truncamento do routing acusa qualquer "…" numa descrição, mesmo sem truncar. — via claude · 2026-09-23
-
-migrar o /prof para en-us, traduzindo E cortando ao mesmo tempo (como o /slides, que nasceu em inglês com os termos em pt entre crases) — decidido na sessão de slides de 2026-09-24
-
-wos (IMPROVE WOS, sessão de slides 2026-09-24): (1) os espelhos das skills copiam só o SKILL.md, então os links relativos do /prof e do /slides para as subskills (`prof/x.md`, `slides/x.md`) não resolvem dentro de `.claude/skills/` — o agente acha pelo caminho do core, mas o link está quebrado; (2) as pesquisas de uma sessão ficam em `outputs/.drafts/`, que é gitignored: a outra máquina não vê as 5 pesquisas de slides
-
-wos (sessão de slides 2026-09-24, 2ª): (1) o agent `montador` tem nome em pt-br entre agents em inglês (writer, reviewer…) — Lucas escolheu; decidir se a regra de nomes muda ou se é exceção. (2) agents só são usados por baixo de skills (/research, /craft), nunca direto — o /slides é o primeiro skill a acionar um agent próprio (`taste` → `montador`). (3) duas regras de trabalho com o Lucas vivem só no plano de slides, porque o memory gate recusa sem pedido dele: "o agente opina como especialista, Lucas decide" e "o texto entre ferramentas não chega a ele no VS Code: links e perguntas vão na ÚLTIMA mensagem do turno". Pedir OK para virar memória ou norma.
-
-imagem → .md irmão: pra ler qualquer imagem (não só as de dentro de PDF) a gente poderia gerar um .md pra ela, com a descrição do VLM + o texto do OCR — mesma ideia do .md irmão de PDF. Cruza com o `.imgif` de `core/tools/assets/inspect` (já é um arquivo irmão de imagem com campo de descrição) e com o `caption_image` do video/. Guardado na sessão de PDF→md de 2026-09-25
-
-wos (IMPROVE WOS, sessão PDF→md 2026-09-25): (1) `pkill -f <padrão>` mata o próprio shell do Bash quando o padrão aparece na linha de comando — usar `pgrep -f '[x]yz'`; (2) Marker e MinerU deixam servidores órfãos (surya, mineru.doclib) segurando VRAM depois de falhar — qualquer ferramenta de GPU nossa precisa derrubar o que subiu; (3) o gate de contexto pede os CONTEXT.md de cada PDF tocado, até pra um `pdfinfo` — muito custo pra operação só-leitura sobre binário
-
-wos (sessão taste 2026-09-25): o /handoff grava sempre em `outputs/handoff.md`, e sessões paralelas sobrescrevem o handoff uma da outra — o de taste foi para `outputs/handoff-taste.md` por isso. Um handoff por sessão (nome do tema no arquivo) ou por ramo resolve; o /handoff escolhe o nome, nunca o agente de improviso
-
-wos (sessão taste 2026-09-25): uma sessão do Antigravity deixou 68 arquivos rastreados de `academy/teaching` apagados no disco (SPECS-aulas.md, SPECS.md, CONTEXT.md, classes/*) logo depois do sub-repo `9ff90bc` nascer — restaurado com `git -C academy/teaching restore .`. Nenhum hook viu: o gate olha o repo raiz, e o sub-repo não tem sentinela. Falta um check (entropia ou sessão) que avise "arquivo rastreado sumiu" em todo sub-repo, e descobrir o que o Antigravity rodou
-
-wos (sessão taste 2026-09-25, achados de ferramenta): (1) `gdrive download` não tem `--out` e salva em `Downloads/workspace-drive/`, misturado com contrato e escritura — um destino por chamada ajudaria; (2) `web/search` não achou o repo do motion-web, ler a url num quadro do vídeo achou — o `video` podia fazer OCR da barra de endereço quando o vídeo é gravação de tela; (3) `web/search` só funciona via `core/run`; YouTube dá 403; `pdftoppm -scale-to-x` corta a página e `mutool draw -w` não (achados do subagente da galeria); (4) o cálculo de contraste WCAG que a sessão escreveu no scratchpad é o miolo de um `lint` de contraste para o `gslides` (o "cinza com cinza" do g46)
+https://www.instagram.com/p/DeGKRvWgE5o/?utm_source=ig_web_copy_link
+fotografar esse carrossel, começamos agora uma fase de campanha e pra isso vamo analisar bem e ser criativos pra conceber soluções de fato interessantes, com alcance e que mostrem pro país uma possibilidade de como fazer política
+— via aiwbot · 2026-10-04
 
 wos (IMPROVE WOS, sessão PDF twin Fase 1, 2026-09-25): (1) o agy leva 20–100 s por figura — 2 PDFs com 25 figuras levaram 19 min; o backfill dos 97 PDFs (Fase 3) pode levar horas: reabrir a latência antes (Lucas disse que reabriria se incomodasse); (2) figura decorativa (brasão em toda página) ainda é descrita 1× pelo agy — dava pra pular e só marcar; (3) a pasta `tmp/pdf-bench/` guarda o corpus e as keys do bench de VLM só nesta máquina, e `tmp/` é descartável — mover pra um lugar local durável ou aceitar que se perde; (4) com `pymupdf-layout`, o pymupdf agora lê scan em 0.94 (RapidOCR), não 0.74 — rever se `docling` segue default; (5) duas sessões no mesmo HEAD: esta sessão trocou o branch pra `feature/pdf-twin` com o taste não commitado, e o pre-commit roda a suite no working tree inteiro, então um arquivo não rastreado de uma sessão bloqueia o commit da outra; (8) a referência do audit faz OCR cru da página quando a camada de texto é pobre, e isso infla a referência em slides (c8 0.57/0.83 com texto certo) — filtrar por confiança como o `describe.ocr`; (9) 2026-09-26 04:07: tela não voltou do bloqueio e o PC teve de ser desligado no botão — sem Xid/GPU caída no log, mas houve `NVRM Out of memory` (VRAM) em todo run do docling (23:02, 03:05, 03:40) e o kernel -34 com `nvidia-595-open` novo esperava reboot desde 24/09; se repetir, checar ollama segurando VRAM junto com o docling (`ollama ps`, `nvidia-smi`) antes de um backfill longo
 
@@ -150,3 +70,14 @@ wos (sessão PDF twin backfill, 2026-09-29): Lucas liberou CPF/CNPJ em repo PRIV
 wos (sessão rodada 7 de animação, 2026-09-29): um subagente builder recebeu 14 demos de uma vez, rodou 64 min, bateu o limite e comeu >15% da cota semanal. proposta de norma (precisa do OK do Lucas, cresce o AGENTS.md): subagente = unidade pequena (1 estratégia), grava no disco enquanto anda, modelo mais barato quando o brief é preciso, e o Lucas sabe o escopo antes de um agente longo. por ora a regra mora em `outputs/.drafts/rodada7/estrategias.md`
 
 wos (sessão performance do PowerPoint online, 2026-09-29): (1) `outputs/.drafts/rodada7/perf.py` (recorte + fusão sobre o .pptx pronto) e o `bench.py` só existem neste disco (`outputs/.drafts` é gitignored): subir o perf pra `core/tools/slides/` (Lucas liberou o que estiver provado); (2) medir no online é manual — automatizar com Playwright é frágil com o login, decidir se vale; (3) assimetria: o `build_A.py` desenha o mundo inteiro e o `perf.py` limpa depois; o builder devia nascer enxuto
+
+wos (sessão canva-poder, 2026-10-03): no VS Code o texto que o agente escreve ENTRE chamadas de ferramenta às vezes não aparece pro Lucas (ele não viu o link do MCP nem a explicação da lista de espera). estratégia: tudo que o Lucas precisa ler vai na ÚLTIMA mensagem do turno, autossuficiente, e o contexto de cada pergunta vai no próprio texto da pergunta. virar norma (`core/norms/`)?
+
+wos (sessão canva-poder, 2026-10-03): o enxame buscar/criar/desafiar/interrogar/avaliar (padrão do `core/flows/mechanism-search.md`) rendeu: 4 criativos chegaram sozinhos à semente que o spike confirmou, D1 achou a falha do oráculo, A1 achou assimetrias; custo ~1,7M tokens de subagente, 12 agentes. Lucas: se rendeu, generalizar num fluxo do WOS — sessão própria. Ferramentas novas que nasceram aqui e só existem em `outputs/.drafts/canva-poder/` (gitignored): `oracle.py` (oráculo de movimento por MP4) e `mcp_spike.py` (cliente MCP por HTTP) — viram a base do C1
+
+wos (sessão virada, 2026-10-05): (1) o enxame queimou a janela de 5h duas vezes em ~1h30 (≈25 subagentes); o orquestrador com contexto de 360k+ custa caro a cada notificação de agente e a cada disparo de cron — regra a escrever: orquestração longa nasce em sessão limpa a partir de um plano em arquivo, e o estado de passagem vive no ROADMAP do projeto; (2) assimetria: o projeto virada escreveu `conselho/protocolos.md` (leque, disputa, interrogatório, portão) sem reusar `core/flows/mechanism-search.md`, que é o mesmo padrão de enxame da sessão canva-poder — unificar num fluxo só do WOS; (3) cada subagente gasta leituras de CONTEXT.md só para passar no gate de contexto: um modo "subagente com lista de leitura já aprovada" economizaria; (4) `outputs/virada/raw/` tem 12 GB de dados do TSE (arquivos BR inteiros) — apagar os BR depois da eleição, os scripts em `branches/virada/dados/` rebaixam o que precisar
+wos (macro autorizado por Lucas, 2026-10-05): adaptar o leitor comum dos relatórios de custo e contexto ao ChatGPT local; hoje lê logs do Claude Code. Usar os dados registrados de modelo, cache e janela efetiva, distinguindo preços da API do uso da assinatura. Sem catálogo de agentes ou conteúdo extra automático; detalhar qualquer novo aviso ao modelo antes. Retomada em outputs/handoff-workspace-chatgpt.md.
+
+wos (IMPROVE WOS, handoff 2026-10-05): a ferramenta de nomes levou core/tools/wos ao aviso de quantidade de arquivos de código (core/hooks/limits.env); avaliar redução antes de acrescentar outra ferramenta. A verificação ampliada de ligação dos hooks ficou lenta em check-duplication.py; causa ainda não isolada. Os 63 testes locais de fechamento e registro passaram.
+
+wos (sessão virada, 2026-10-05, noite — dívida de `--no-verify`): o type gate pede descrição do `branches/virada/pagina/frases.json` em `core/hooks/described.txt`, mas `workspace_meta.file_description` compara o caminho relativo ao repo aninhado (`pagina/frases.json`) com chaves relativas ao workspace, e o teste do described.txt exige caminho rastreado pelo git do workspace, que ignora `branches/virada`. Nenhuma entrada passa nos dois; o commit e106d95 da Virada saiu com `--no-verify`. Consertar: resolver o caminho a partir da raiz do workspace e aceitar arquivo rastreado num repo aninhado. Ainda: o diretório de memória do Claude (`~/.claude/projects/-mnt-workspace/memory/`) não existe; a regra do sábado foi para o SPECS da Virada.

@@ -29,6 +29,7 @@ The table is redrawn at every session close by [`core/tools/wos/close/repomap.py
 | `academy/teaching` | [github](https://github.com/lsfcin/academy-teaching) | — |
 | `branches/casinhas` | [github](https://github.com/lsfcin/casinhas) | [`personal`](https://drive.google.com/drive/folders/1PeE-3Rf3fBJi20AR8QJZZE0Hfd-l2RUM) |
 | `branches/instituto` | [github](https://github.com/lsfcin/instituto) | — |
+| `branches/virada` | — | — |
 | `code/apptime` | [github](https://github.com/lsfcin/apptime) | — |
 | `code/corpora` | [github](https://github.com/lsfcin/corpora) | — |
 | `code/cria` | [github](https://github.com/lsfcin/cria) | — |

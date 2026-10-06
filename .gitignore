@@ -199,6 +199,7 @@ academy/talks
 academy/teaching
 branches/casinhas
 branches/instituto
+branches/virada
 code/apptime
 code/corpora
 code/cria
@@ -266,3 +267,9 @@ code/wos
 _material/previews/
 !brain/_templates/
 !branches/health/
+
+# Codex lifecycle wiring connects to the canonical workspace hooks.
+!.codex/
+!.codex/hooks.json
+.codex/config.toml
+!core/hooks/codex/

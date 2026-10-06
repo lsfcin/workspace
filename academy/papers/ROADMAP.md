@@ -26,3 +26,8 @@ Roadmap for scaling `academy/papers` into a repeatable publication workflow.
 - [ ] Add venue-specific checklists (JBCS/SVR): formatting, metadata, anonymization, required statements.
 - [ ] Add final pre-submission script/checklist: clean build, figure resolution, bibliography pass, PDF sanity.
 - [ ] Add camera-ready delta checklist to track changes after reviews.
+
+## Pesquisa & Ideias Conceituais
+
+- [ ] **Alinhamento intrínseco vs. guardrails: o espaço latente sob a ótica do Vipassana** — investigar se o pré-treinamento não envenena o espaço latente com medos e aversões intrínsecos humanos, tornando os guardrails pós-treino cosméticos; explorar a tese de treinamento fundamentado em equanimidade/harmonia intrínseca (Lucas, INBOX 2026-10-01). Draft de ensaio em `branches/writing/drafts/vipassana-ia-harmonia.md` e potencial seção no manifesto AI4Good (`academy/papers/ai4good/`).
+

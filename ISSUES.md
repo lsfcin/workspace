@@ -334,7 +334,7 @@ name. An entry without one is invisible to it.
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/chatgpt-workspace is 6 ahead of main
-- . — feature/pdf-twin is 9 ahead of main
+- . — feature/pdf-twin is 10 ahead of main
 
 ### Local branches already merged into their base
 
