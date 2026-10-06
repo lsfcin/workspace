@@ -19,7 +19,7 @@ from hook_input import parse_stdin  # noqa: E402
 from platform_law import session_state  # noqa: E402
 
 # The meter names /roundup and nothing else. Where the resume prompt lands is the skill's
-# business (core/skills/handoff.md → outputs/handoff.md); repeating the path here would put
+# business (core/skills/handoff.md → session-owned output); repeating the path here would put
 # the same fact in two files and hand the agent a second thing to decide about.
 
 
@@ -93,14 +93,22 @@ def main() -> None:
 	if not crossed or crossed <= announced(session_id):
 		return
 	mark(session_id, crossed)
-	print(message(ctx, crossed, loud))
+	window = transcript.context_limit(path)
+	native = str(raw.get('model', '')).startswith('gpt-') or bool(window) or Path(path).name.startswith('rollout-')
+	if native:
+		limit = f'{window:,}' if window else 'não disponível'
+		print(f'CONTEXT WINDOW: última entrada {ctx:,}; limite do ambiente {limit}. '
+		      'Em um ponto de parada, execute /roundup; se estiver quase pronto, termine.')
+	else:
+		print(message(ctx, crossed, loud))
 	# The close offer is one of the five things that only ever reached agent-facing writing
 	# (/ROADMAP.md § Cost). It is already once-per-threshold here, so it needs no moment of its
 	# own — and a hook at the end of every response would have to invent a reason to stay quiet.
 	# The two wordings differ because the two readers do: the line above is an instruction to an
 	# agent mid-thread, this one is a fact for Lucas wherever he is.
-	notify.tell(f'{Path(cwd).name or "workspace"}: contexto em {ctx // 1000}k — daqui pra frente '
-	            f'cada turno custa mais e não volta a baratear. Hora de fechar com /roundup.')
+	if not native:
+		notify.tell(f'{Path(cwd).name or "workspace"}: contexto em {ctx // 1000}k — daqui pra frente '
+		            f'cada turno custa mais e não volta a baratear. Hora de fechar com /roundup.')
 
 
 

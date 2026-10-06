@@ -36,7 +36,7 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 > [ ] [bakeoff] content arms compared behind the frozen boundary: A kit-sprite (baseline) vs B scene-cell world-uv render (continuity by construction) vs C NB-painted textures — your style score 1–5 decides, boarded side by side on the same cabin  
 > [ ] [props-mesh] props + characters via image→3D → render 9 views (Hunyuan3D / TripoSR) — multiview by geometry, never by generation  
 > [ ] [lighting] baked AO + ink + edge highlight + colour grade + clutter — where the perceived style budget actually lives; refs captured 2026-07-23 in `code/isoroll-content/refs/REFS.md` § Technique (seamless tileable painting, normal maps on 2D sprites)  
-> [ ] [alpha-pipeline] background transparency — largely resolved for tiles (per-cell rembg, S0-E6-fix5); still open for characters  
+> [ ] [alpha-pipeline] background transparency — largely resolved for tiles (per-cell rembg, S0-E6-fix5); still open for characters; testar Qwen-Image-2.1 com geração nativa RGBA transparente (INBOX 2026-10-03, amarra em local-ai)  
 > [ ] [8dir-sprites] 8-direction views per character — after tiles ship (NB cardinal weakness returns for tokens)  
 > [ ] [anim-pipeline] animate characters: idle, attack, defend, hurt, cast, crouch  
 > [ ] [sprite-atlas] atlas packing for Foundry export  
@@ -52,5 +52,5 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-17  ·  trend: steady  ·  touches: 74/283/671/671/671/671
+last-touch: 2026-09-18  ·  trend: decelerating  ·  touches: 6/187/673/673/673/673
 <!-- stats:end -->

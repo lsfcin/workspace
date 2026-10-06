@@ -35,6 +35,7 @@ fallback · even 2 minutes of intentional stillness counts*
 > [ ] [tradition-explore] learn what Vipassana specifically is — read or watch an intro  
 > [ ] [retreat-research] research Vipassana retreats in Brazil — when, where, what to expect  
 > [ ] [natural-habit] meditation happens before phone in the morning — sustained 30 days  
+> [ ] [vipassana-ia-ensaio] escrever ensaio sobre espaço latente de IA, envenenamento por anseios humanos e alinhamento intrínseco via Vipassana vs guardrails coercitivos (draft em branches/writing/drafts/vipassana-ia-harmonia.md) (INBOX 2026-10-01)  
 
 ## done
 
@@ -43,5 +44,5 @@ fallback · even 2 minutes of intentional stillness counts*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: decelerating  ·  touches: 1/7/7/7/7/7
+last-touch: 2026-09-18  ·  trend: decelerating  ·  touches: 1/7/8/8/8/8
 <!-- stats:end -->

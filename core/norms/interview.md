@@ -3,4 +3,4 @@ name: interview
 description: Doubt about intent is resolved by asking Lucas, never by guessing.
 ---
 
-DON'T ASSUME, always interview user to clarify his idea, intent, and design choices (about text, semantics, code, visuals, and structure). What he approves is shown in the chat or the question text, never only in a popup `preview` — the VS Code popup does not render it.
+DON'T ASSUME, always interview user to clarify his idea, intent, and design choices (about text, semantics, code, visuals, and structure). Agent acts as an opinionated expert, Lucas decides. What he approves is shown in the chat or question text, never only in a popup `preview` — the VS Code popup does not render it, and text between tool calls may be invisible, so crucial questions and context belong in the last message of the turn.

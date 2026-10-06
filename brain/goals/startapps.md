@@ -26,6 +26,8 @@ Projetos do portfólio:
 | **virada** | Engajamento cívico e assistência jurídica | consulta informal |
 | **papercast** | Podcast diário de papers com infográfico navegável e carrossel de figuras | semente conceitual |
 | **xacomigo** | Proposta de valor para serviços de conveniência | semente de proposta |
+| **faz-favor** | Rede de favores, empréstimos e apoio mútuo em círculos de confiança (sem dinheiro) | semente conceitual |
+| **proxima-rede** | Rede social de utilidade e comunidade de propósito (antídoto a padrões viciantes) | semente conceitual |
 
 Irmão de [[craft-flows]] e [[spec-driven-development]].
 
@@ -55,6 +57,8 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## backlog
 
+> [ ] [faz-favor-spec] desenhar fluxo de MVP para o Faz Favor (troca de favores/empréstimos em círculos de confiança via bot WhatsApp/Telegram ou PWA) (INBOX 2026-10-03)  
+> [ ] [proxima-rede-estudo] mapear padrões nocivos e artigos sobre redes sociais atuais para desenhar arquitetura de rede focada em bem-estar e propósito (INBOX 2026-10-03)  
 > [ ] [batituque-microtom] prototipar módulo de afinações alternativas (13-EDO, 11-EDO, 5-EDO) e regras matemáticas para notas fora da escala no batituque / Air Guitar (INBOX 2026-09-27)  
 > [ ] [pre-launch-list] abrir design atual do apptime e listar 3 mudanças para App Store  
 > [ ] [apptime-build] consolidar build funcional do apptime para testes  
@@ -69,5 +73,5 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: steady  ·  touches: 20/42/62/62/68/68
+last-touch: 2026-09-30  ·  trend: decelerating  ·  touches: 1/124/151/151/157/157
 <!-- stats:end -->

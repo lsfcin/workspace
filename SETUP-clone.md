@@ -152,7 +152,7 @@ that will fail to run.
 > feature: `skill-mirrors` · agent: yes
 
 Every harness looks for skills in its own directory, so `core/skills/<name>.md` is published as a
-copy into `.claude/skills/`, `.opencode/skills/`, `.zcode/skills/` and `.claude/commands/`. **Those
+copy into the discovery locations declared in `core/harnesses.txt`, including `.agents/skills/` for Codex. **Those
 copies are generated and git does not track them**, which is why this step is not optional: a fresh
 clone has the sources and none of the copies, so every `/<skill>` is missing until it runs.
 
@@ -171,3 +171,19 @@ core/run tools/wos/sync-skills
 sync`. Any `MISSING` / `STALE` / `ORPHAN` line names the file and the source it disagrees with.
 
 <!-- steps:end -->
+
+
+## Local lifecycle hooks
+> feature: `git-hooks` · agent: no
+
+**Precondition** — in the desktop app or CLI, inspect `/hooks` for this trusted workspace.
+
+**Install** — review and trust the definitions in `.codex/hooks.json`. They resolve `core/run`
+from the workspace tree and call `core/hooks/codex/policy.py`, which reuses the common gates.
+Trust is stored by the runtime against each definition's hash; a changed definition needs review.
+No agent catalog, separate instructions or permission override is installed.
+
+**Verify** — `/hooks` lists six trusted events, including the existing prompt meter; routine
+success is silent. A fresh session blocks an edit in an
+unread subtree, then permits it after reading its context chain. The local behavioral tests are
+`core/tools/test/workspace/shims/test_codex_shim.py`; they make no model calls.

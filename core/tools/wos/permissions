@@ -83,6 +83,15 @@ def render_claude(level: str) -> dict:
     return block
 
 
+def codex_gaps(level: str) -> str:
+    """Represent the native boundary without changing the host's permission settings."""
+    if level not in levels():
+        raise ValueError(level)
+    return ('Codex: permission settings remain controlled by the host. The neutral profile does '
+            'not automatically change its sandbox or approvals; per-action patterns have no '
+            'complete native equivalent.')
+
+
 def _target() -> Path:
     """.claude/settings.local.json — machine state, git-ignored, and that is the whole design.
 
@@ -152,6 +161,7 @@ def _listing() -> int:
         print(f'     {spec["summary"]}')
         print(f'     {spec["tradeoff"]}')
     print(f'\nThis machine answered: {active}. Change it with --set <level>.')
+    print(codex_gaps(active))
     return 0
 
 

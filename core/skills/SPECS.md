@@ -14,9 +14,9 @@ After sync the skill is invocable in every program: `/skill-name [args]`, or by 
 
 Edit `core/skills/<name>.md`. That is the whole procedure — the save regenerates.
 
-**The mirrors are generated copies and git does not track them** (the `.gitignore` mirror block holds the 2026-08-29 ruling, and the guarantee it rides on is the post-edit sync below). One source, four published copies, because every harness looks in its own directory. Never edit a mirror: the next sync overwrites it, and `--check` compares by content, so the edit is reported as `STALE` against the source rather than kept.
+**The mirrors are generated copies and git does not track them** (the `.gitignore` mirror block holds the 2026-08-29 ruling, and the guarantee it rides on is the post-edit sync below). One source, discovery locations declared in `core/harnesses.txt`. Never edit a mirror: the next sync overwrites it, and `--check` compares by content, so the edit is reported as `STALE` against the source rather than kept.
 
-### What regeneration actually covers, and the one gap
+### Regeneration
 
 | Moment | Covered by | Immediate? |
 |--------|-----------|------------|
@@ -33,8 +33,7 @@ Linux is case-sensitive; the source directory is `core`, lowercase. A hand-built
 
 ## Excluded from mirroring
 
-`_template.md`, `*.original.md` (caveman-compress backups), and `CONTEXT.md` are excluded;
-`sync-skills` skips them. `SPECS.md` is not on that exclusion list yet — this file is the first instance in `core/skills/`, and it exposes the gap: `core/tools/wos/skills/mirror.py`'s `is_skill()` will read it as an unregistered skill (no frontmatter) until `SPECS` is added there too.
+`_template.md`, `*.original.md` and uppercase type files are excluded. A flat router publishes its `<name>/` dependency tree too, including subskills and assets. Markdown links resolve to canonical sources; quoted code stays verbatim. `--check` verifies every published file and catches leftovers.
 
 ## Global (folder-shaped) skills
 

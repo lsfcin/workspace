@@ -1,5 +1,5 @@
-# Usage: core/run tools/files/onedrive <auth|put|get|pdf|list|link> [args] — OneDrive through rclone: upload, download, list, the web link that opens a .pptx in PowerPoint online, and Office's own PDF of it
-import sys, json, pathlib, argparse, subprocess, shutil, urllib.request, urllib.parse
+# Usage: core/run tools/files/onedrive <auth|put|get|pdf|list|link|rm> [args] — OneDrive through rclone: upload, download, list, delete to the recycle bin, the web link that opens a .pptx in PowerPoint online, and Office's own PDF of it
+import sys, json, pathlib, argparse, subprocess, shutil, urllib.request, urllib.parse, urllib.error
 
 _HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE.parents[1] / 'hooks'))
@@ -32,10 +32,10 @@ def _token(alias: str) -> str:
     sys.exit(f"onedrive: no login for '{alias}'. Run:\n  {_fix(alias)}")
 
 
-def _graph(alias: str, path: str) -> dict:
-    req = urllib.request.Request(GRAPH + path, headers={"Authorization": f"Bearer {_token(alias)}"})
+def _graph(alias: str, path: str, method: str = "GET") -> dict:
+    req = urllib.request.Request(GRAPH + path, method=method, headers={"Authorization": f"Bearer {_token(alias)}"})
     with urllib.request.urlopen(req) as r:
-        return json.load(r)
+        return json.load(r) if r.status != 204 else {}
 
 
 def cmd_auth(alias: str) -> None:
@@ -90,6 +90,19 @@ def cmd_get(alias: str, paths: list[str], out: pathlib.Path) -> int:
     return 1 if failed else 0
 
 
+def cmd_rm(alias: str, paths: list[str]) -> int:
+    """Graph's DELETE moves a file or a whole folder to the recycle bin, recoverable the way `gdrive rm` is."""
+    failed = []
+    for p in paths:
+        try:
+            _graph(alias, "/me/drive/root:/" + urllib.parse.quote(p.strip("/")), "DELETE")
+            print(f"✓ {p} → lixeira")
+        except urllib.error.HTTPError as e:
+            failed.append(p); print(f"✗ {p}\n  {e.code} {e.reason}" + (": aberto no PowerPoint online, feche a aba" if e.code == 423 else ""))
+    print(f"{len(paths) - len(failed)}/{len(paths)} na lixeira" + (f"; falharam: {', '.join(failed)}" if failed else ""))
+    return 1 if failed else 0
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(prog="onedrive")
     ap.add_argument("--account", default="personal")
@@ -102,6 +115,7 @@ def main() -> None:
     ls = sub.add_parser("list"); ls.add_argument("folder", nargs="?", default="")
     ln = sub.add_parser("link", help="PUBLIC read-only link: anyone holding it can open the file")
     ln.add_argument("path")
+    rm = sub.add_parser("rm", help="files or folders to the recycle bin, recoverable"); rm.add_argument("paths", nargs="+")
     a = ap.parse_args()
     if a.cmd != "auth" and not CONF.exists():
         sys.exit(f"onedrive: not configured. Run:\n  {_fix(a.account)}")
@@ -117,6 +131,8 @@ def main() -> None:
         sys.exit(_rclone("lsl", f"{a.account}:{a.folder}", capture=False).returncode)
     elif a.cmd == "link":
         sys.exit(_rclone("link", f"{a.account}:{a.path}", capture=False).returncode)
+    elif a.cmd == "rm":
+        sys.exit(cmd_rm(a.account, a.paths))
 
 
 if __name__ == "__main__":

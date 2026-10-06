@@ -8,7 +8,7 @@
 Targets live in [`core/tools/links/links.txt`](core/tools/links/links.txt); a doc quotes the short link, never the mapping.
 - **SECRETS STAY OUT OF GIT**: passwords, tokens, CPF/CNPJ go in a gitignored `<subtree>/segredos.env`; the text keeps the label.
 - IMPROVE WOS, after finishing MICRO (particular task), take a step back and review and refine MACRO (structure). if it ain't feasible to do it on this session, WRITE ISSUES DOWN at the end of INBOX.md
-- DON'T ASSUME, always interview user to clarify his idea, intent, and design choices (about text, semantics, code, visuals, and structure). What he approves is shown in the chat or the question text, never only in a popup `preview` — the VS Code popup does not render it.
+- DON'T ASSUME, always interview user to clarify his idea, intent, and design choices (about text, semantics, code, visuals, and structure). Agent acts as an opinionated expert, Lucas decides. What he approves is shown in the chat or question text, never only in a popup `preview` — the VS Code popup does not render it, and text between tool calls may be invisible, so crucial questions and context belong in the last message of the turn.
 - EXPAND ACRONYMS on first use. Aliases: [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary.
 - PLAIN WORD OVER JARGON: most precise wins, simpler breaks the tie, and a word survives only if the sentence reads worse without it. ONE IDEA, ONE WORD. A replaced word gets a row in [`core/SCHEMA.md`](core/SCHEMA.md) § Retired tokens, which is what finishes the rename.
 - EDIT > CREATE: refine / improve **wins over** creating new, except for prototyping. Avoid scattering.

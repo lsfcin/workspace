@@ -9,8 +9,6 @@ Produce the resume prompt for the next session. Capture only what is **not alrea
 
 Arguments: $ARGUMENTS  (focus for next session)
 
-> **Narrow by design.** This emits only the resume prompt. To also archive completed work, route session knowledge to durable files, drain the INBOX, and run the verification gate first, use `/roundup` — it runs those phases, then calls `/handoff`.
-
 ## Decide first — is there anything to hand off?
 
 **If the work is finished and there is no next action, do not emit a resume prompt.** Writing one *manufactures* a next action at the last turn before a `/clear` — the output rule ([`roundup.md`](roundup.md) § The output rule) applied to the hand-off itself. That is not a rare edge case; it is how a session that closed properly ends.
@@ -18,14 +16,14 @@ Arguments: $ARGUMENTS  (focus for next session)
 Skipping is one command and one line:
 
 ```bash
-rm -f outputs/handoff.md
+core/run tools/wos/handoff --clear
 ```
 
 Then say: *nothing open — no hand-off written.* Nothing else, and stop here.
 
-Deleting is the point. **The file's existence means exactly one thing: a thread is open.** Leaving the previous session's block in place would let the next window resume a thread that closed sessions ago, and a stub saying "nothing open" costs a read to learn there is nothing to read.
+Clear only if this session still owns the pair's latest handoff; preserve a newer replacement. **The file's existence means exactly one thing: its thread is open.** Leaving the previous session's block in place would let the next window resume a thread that closed sessions ago, and a stub saying "nothing open" costs a read to learn there is nothing to read.
 
-Hand off when any of these is true: work is mid-flight, a decision is pending, or something was tried and left unresolved. Ambiguity resolves toward writing it — a hand-off nobody needed costs one read; a thread dropped silently costs the session that re-derives it.
+Hand off when work is mid-flight, a decision is pending, or a trial remains unresolved. If unsure, write it: a dropped thread costs the next session its reconstruction.
 
 ## Gather state
 
@@ -49,12 +47,14 @@ Promotion is `/roundup` Phase 4 — point there if anything is behind.
 
 ## Output
 
-**Write the block to `outputs/handoff.md`, then print it.** The file is the deliverable; the print is a convenience. A path is what survives a `/clear` — the next session opens by reading it, with no block to carry across by hand, which is why [`core/hooks/session/context-meter.py`](../hooks/session/context-meter.py) names this same path at `CTX_LOUD`. Overwrite it: the newest hand-off is the only one worth resuming, and `outputs/` is gitignored, so nothing durable is lost.
+Prepare the block in a temporary file, then publish it with `core/run tools/wos/handoff --write <file> --json`. Print the returned path and the block. The common tool owns naming: `outputs/handoff-<repository>-<environment>.md`; environment means ChatGPT or Claude, never a workflow role. One file per repository/environment: the latest publication replaces the previous one. Session metadata protects a newer handoff from being cleared by an older session; it adds no filename suffix.
+
+The repository with the most confirmed session Edit/patch additions + removals wins, with a deterministic tie break. The report states the measurement's limits: shell/script writes, full-file replacements and implicit deletions are not measurable. Without measurable edits, use the working repository and report that fallback. Never count the shared dirty tree as this session's work. Native session variables identify the session automatically; when unavailable, pass `--session` and `--agent` from native metadata. Never guess from the newest transcript, or add a session suffix to the filename. This is local code: no model call and no automatic context loading.
 
 **Never spawn a successor session.** Decided 2026-08-13 ([`core/SPECS.md`](../SPECS.md) § AD-09):
 `claude --bg` can start a fresh-context agent but cannot move the terminal Lucas types into, so a spawned successor would work the same branch *unattended, in parallel with the live session*. Prepare the artifact; let Lucas move his own attention.
 
-**Every section earns its place or is omitted** — the same rule as the phases in [`roundup.md`](roundup.md). A section with nothing behind it is deleted, header and all; there is no "none.", no placeholder, no shape to fill. Last session's ran to 48 lines and 3 of its 5 open threads were already written in `ROADMAP.md` — that is what these caps exist to stop.
+**Every section earns its place or is omitted.** Delete empty headers; no placeholders. The caps below keep the next session from rereading project lists.
 
 **Name what you decided alone.** git holds what changed and never the option that was rejected, so a choice a session made for Lucas without asking is invisible the moment it lands — and the longer it holds, the more expensive it is to reopen. List them; the point is that he can object cheaply, while the alternative is still live. The durable record is [`roundup.md`](roundup.md) Phase 2's job (a design decision goes to `SPECS.md` → Architecture Decisions, Context / Decision / Consequences);
 this section only makes sure he *sees* the ones nobody asked him about.
@@ -92,4 +92,4 @@ Print the block between the `---` markers:
 
 After printing:
 
-> Resume prompt ready — written to `outputs/handoff.md`. Open a new session (`/clear` or a fresh window) and start it with: `Lê outputs/handoff.md e discute comigo em detalhes (em pt-br) qual vai ser o plano pra essa sessão.` **Plan, never "continue"** — ruled 2026-08-16 (Lucas). "Continue" makes a session start at the next action this file names and never look up; planning forces it to read the whole list first, which is what surfaces blocked decisions and cross-item ordering. The session that ruled it opened that way and closed six decision items that had been open for weeks because nobody had asked which ones were blocking. Pasting the block itself works too, but the file is what survives if this session dies first.
+> Resume prompt ready — written to `<returned path>`. Open a new session and start it with: `Lê <returned path> e discute comigo em detalhes (em pt-br) qual vai ser o plano pra essa sessão.` **Plan, never "continue"** (Lucas, 2026-08-16): planning reads the whole list and surfaces blocked decisions before work resumes.
