@@ -23,21 +23,36 @@ name. An entry without one is invisible to it.
 
 ## Open
 
+- **Context gate bloqueia ferramentas utilitárias sobre arquivos binários (ex: pdfinfo) (2026-09-25).**
+  Em `core/hooks/read/bash-context-gate.py`, comandos de inspeção rápida em arquivos binários disparam exigência de leitura de todos os CONTEXT.md da árvore sem necessidade semântica. O gate deve isentar executáveis de extração de metadados. `b20260925-gate-binary-readonly`
+
+- **Servidores de GPU órfãos retêm VRAM após falhas de ferramentas de PDF (2026-09-25).**
+  Processos filhos iniciados por bibliotecas como Marker e MinerU (surya, mineru.doclib) continuam em memória após erro, segurando VRAM e forçando reinicialização do sistema. Ferramentas de GPU devem derrubar deterministamente o que subiram. `b20260925-gpu-orphan-vram`
+
+- **Sub-repositórios não possuem sentinela no pre-commit contra arquivos rastreados deletados no disco (2026-09-25).**
+  O gate raiz ignora sub-repositórios (`academy/teaching`), permitindo que comandos com `--cached` no raiz deixem deleções pendentes que limpam arquivos rastreados do disco na troca de branches sem nenhum alarme. `b20260925-subrepo-tracked-deleted-sentinel`
+
+- **`check_truncation` triggers false positives on literal ellipsis characters inside routing blocks (2026-10-03).**
+  In `core/hooks/entropy/entropy_context.py`, `check_truncation` searches `if '…' in ln` across lines in the routing block. An author writing an intentional ellipsis in prose or titles trips the truncation check even when the description length is well within `hoist.DESC_LIMIT`. The check must only fire when the line actually ends with an ellipsis or exceeds `DESC_LIMIT`. `b20261003-check-truncation-ellipsis`
+
+- **Research findings and exploration notes in `outputs/.drafts/` are gitignored and do not sync between machines (2026-09-24).**
+  Sessions running parallel investigations store draft notes and benchmark scripts in `outputs/.drafts/` (e.g. slides research, taste explorations). Because `outputs/` is completely gitignored, the other machine cannot see or build upon these findings, creating an asymmetric workspace state between Lucas's machines. Open until a durable, syncable pattern for cross-machine scratchpad/drafts is established. `b20260924-drafts-sync`
+
 - **Hook warnings use double-negative `NOT REFUSED` instead of affirmative `ALLOWED` or standard alert vocabulary (2026-10-02).**
   In `core/hooks/checks/line_counts.py`, `core/hooks/entropy/entropy_crowding.py` and `core/hooks/entropy/entropy_context.py`, warnings display `NOT REFUSED — this is the warning at {warn}... Nothing stops until {block}`. Lucas asked in INBOX: "pq o nosso warning começa com NOT REFUSED ao invés de ALLOWED? é essa a melhor linguagem mesmo?". Double negative creates visual clutter and friction. Open until vocabulary is audited against `core/SCHEMA.md` and concise affirmative phrasing (e.g. `ALLOWED — warning at {warn}...`) is adopted. `b20261002-hook-warning-vocabulary`
 
 - **Boundary friction between goal tasks and project roadmaps confuses capture and execution (2026-09-29).**
   The `/inbox` skill feeds commitments into `brain/goals/*.md` backlogs, but technical build work belongs in `code/<proj>/ROADMAP.md` and the root `ROADMAP.md`. Lucas notes a strong tendency to look for tasks directly in roadmaps, leaving goal backlogs stale or duplicated. Open until the taxonomy and intake contract are explicitly defined between personal OS life commitments and technical project backlogs. `b20260929-task-roadmap-boundary`
 
-- **The slides surface still names Google Slides as the provider after PowerPoint became the home (2026-09-28).**
+- **The slides surface still names Google Slides as the provider; the home itself is open again (Canva leaf, 2026-10-03).**
   `core/tools/slides/CONTEXT.md` calls `gslides` the leaf and says `pptx` exists "for Drive to convert"; the `/slides` router
-  loads the `gslides` leaf; the A/B gate in `core/prompts/slides-padroes.md` hands the control only `gslides`. Audit
+  loads the `gslides` leaf; the A/B gate in `core/prompts/slides-padroes.md` waits for the home to be decided. Audit
   2026-09-29 adds: `formats/animation.md` still says a build is a slide sequence because "the API has no animation";
   `stats`/`preview` read only Google's JSON (`pptx lint` now covers motion and text size on a .pptx, not archetypes or
   preview); `montador` reads and skips through `gslides`; `contact_sheets` lives in the Google-bound `slides_core`.
-  Lucas's ruling: providers stay **interchangeable** (gslides kept, pptx + onedrive the home, a `canva` leaf worth
-  evaluating — Canva was only ever tested ad hoc), and decks migrate one at a time, slide by slide, never in batch.
-  Open until the router picks a provider per deck and each leaf carries its own read, lint and preview.
+  Lucas's ruling: providers stay **interchangeable**, and decks migrate one at a time, slide by slide, never in batch;
+  if Canva becomes the home (`core/ROADMAP.md` § Canva leaf, step 5), what exists only for PowerPoint or Google Slides
+  is deleted, not ported. Open until the router picks a provider per deck and each leaf carries its own read, lint and preview.
 
 - **The Antigravity lifecycle hook runner executes outside the workspace root, so relative `core/run` fails and blocks every tool call.**
   Antigravity fires `PreToolUse` and `PostToolUse` with its process working directory at `$HOME` rather than the workspace root.
@@ -277,20 +292,20 @@ name. An entry without one is invisible to it.
 
 > Generated by `core/hooks/entropy/dashboard/entropy-dashboard.py`, which scans this repo and no other. Never edit inside this block, and never copy a count out of it — a copied number is the drift these checks exist to catch.
 
-2026-10-03 · 1104 tracked files scanned · **9 findings here** (2026-09-21: 3 · +6 over 12 days)
+2026-10-06 · 1104 tracked files scanned · **64 findings here** (2026-09-24: 6 · +58 over 12 days)
 
 | Check | Findings |
 |-------|----------|
 | Off-allowlist `.md` types | 0 |
 | CONTEXT.md hand-written inventories | 0 |
 | Naming and placement | 0 |
-| Routing tables pointing at files git does not carry | 0 |
+| Routing tables pointing at files git does not carry | 58 |
 | Projects not declaring their goal | 0 |
 | Wiki-links naming nothing | 0 |
-| Retired tokens still alive | 2 |
+| Retired tokens still alive | 0 |
 | Roadmap item numbers cited outside a roadmap | 0 |
 | Items claimed by two lists | 0 |
-| Size signals | 2 |
+| Size signals | 0 |
 | Source files with no interface stub | 0 |
 | Directories holding too many files | 2 |
 | Prose describing finished work | 0 |
@@ -300,26 +315,75 @@ name. An entry without one is invisible to it.
 | Header fields naming code that is not there | 0 |
 | Truncated routing descriptions | 0 |
 | Constraints trapped in a CONTEXT.md head | 0 |
-| Local branches holding unpromoted work | 1 |
+| Local branches holding unpromoted work | 2 |
 | Work that exists on this disk and nowhere else | 0 |
 | Local branches already merged into their base | 1 |
 | Remote branches already merged into their base | 1 |
 
 *A check with no findings is the `0` in that table and nothing more. Only a check with something to show gets a section below.*
 
-### Retired tokens still alive
+### Routing tables pointing at files git does not carry
 
-*a rename is unfinished until these are zero*
+*a clone gets the table and not the file — track the target, or stop routing to it*
 
-- brain/goals/craft-flows.md: retired token 'tier' survives (line 47).
-- core/ROADMAP.md: retired token 'probe' survives (line 48).
-
-### Size signals
-
-*a signal for review, never a cap — do not summarize to fit*
-
-- brain/goals/workspace-os.md — 20908 characters, over the 18000 cap
-- core/refs/REFS.md — 21041 characters, over the 18000 cap
+- core/hooks/CONTEXT.md: routes to core/hooks/codex/CONTEXT.md, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/a-unified-approach-to-routing-and-cascading.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/adr-pattern.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/agent-skills.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/agenteval.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/agentic-context-engineering-ace.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/astra-wrote-its-own-jailbreak-into-a-compaction.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/briefd.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/claude-design-slides-and-docs-in-claude-code.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/cline.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/code-execution-with-mcp.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/codecompass.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/deepseek-harness.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/defeating-prompt-injections-by-design-camel.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/descript-e-alternativas-open-source-audapolis-cu.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/deterministic-enforcement-in-llm-systems.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/effective-context-engineering.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/evaluating-agents-md.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/glitchcatclub-state-file-compaction.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/graphical-perception.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/harness-engineering-for-coding-tools.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/hierarchical-edge-bundles.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/hotclip.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/how-memory-management-impacts-llm-agents.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/impacto-de-role-prompting-em-modelos.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/iris.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/is-progressive-disclosure-all-you-need.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/iso-704-ddd-ubiquitous-language.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/jev-ultrafast.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/jevgrep.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/kem-glitchcatclub-jev-vs-laya-e-system-1-decisio.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/kilo-code.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/lost-in-the-middle.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/memgpt.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/memory-poisoning-in-llm-agents.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/mermaid.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/origin-bound-authority-for-long-term-memory.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/readability-of-node-link-vs-matrix-graphs.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/red-teaming-multi-agent-systems.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/self-improvements-in-modern-agentic-systems.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/sillytavern.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/software-systems-as-cities.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/swe-agent.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/the-lab-16-free-artefacts-kem-glitchcatclub.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/token-budget-aware-reasoning.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/ucci-calibrated-uncertainty-for-cascade-routing.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/unsloth-studio-grpo-reasoning-local-fine-tuning.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/voyager.yaml, which this repo does not
+- core/refs/CONTEXT.md: routes to core/refs/when-agents-md-backfires.yaml, which this repo does not
+- core/tools/test/workspace/generators/CONTEXT.md: routes to core/tools/test/workspace/generators/test_skill_mirrors.py, which this repo does not
+- core/tools/test/workspace/generators/CONTEXT.md: routes to core/tools/test/workspace/generators/test_skill_mirrors.pyi, which this repo does not
+- core/tools/test/workspace/shims/CONTEXT.md: routes to core/tools/test/workspace/shims/test_codex_shim.py, which this repo does not
+- core/tools/test/workspace/shims/CONTEXT.md: routes to core/tools/test/workspace/shims/test_codex_shim.pyi, which this repo does not
+- core/tools/test/wos/close/CONTEXT.md: routes to core/tools/test/wos/close/test_handoff.py, which this repo does not
+- core/tools/test/wos/close/CONTEXT.md: routes to core/tools/test/wos/close/test_handoff.pyi, which this repo does not
+- core/tools/wos/CONTEXT.md: routes to core/tools/wos/handoff, which this repo does not
+- core/tools/wos/close/CONTEXT.md: routes to core/tools/wos/close/handoff.py, which this repo does not
+- core/tools/wos/close/CONTEXT.md: routes to core/tools/wos/close/handoff.pyi, which this repo does not
 
 ### Directories holding too many files
 
@@ -332,7 +396,8 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/pdf-twin is 5 ahead of main
+- . — feature/chatgpt-workspace is 6 ahead of main
+- . — feature/pdf-twin is 6 ahead of main
 
 ### Local branches already merged into their base
 
@@ -353,28 +418,28 @@ name. An entry without one is invisible to it.
 
 > Generated by `core/tools/wos/roundup` at session close. The suite is the authority; this is its last result, never a claim that it is still true.
 
-2026-09-30 · `verify.py full` · **red**
+2026-10-05 · `verify.py full` · **red**
 
 ```
-            if not path.is_file():
-                continue
-            if not (is_authored(path, WORKSPACE_ROOT)
-                    or is_authored_prose(path, WORKSPACE_ROOT)):
-                continue
-            try:
-                size = len(authored_text(path.read_text(encoding='utf-8')))
-            except (OSError, UnicodeDecodeError):
-                continue
-            if size >= LIMITS['BLOCK_CHARS']:
-                over.append(f'{name} ({size})')
->       assert not over, f'over BLOCK_CHARS: {over}'
-E       AssertionError: over BLOCK_CHARS: ['brain/INBOX.md (19575)', 'brain/goals/teaching-materials.md (20444)', 'brain/goals/workspace-os.md (19691)', 'core/refs/REFS.md (20095)']
-E       assert not ['brain/INBOX.md (19575)', 'brain/goals/teaching-materials.md (20444)', 'brain/goals/workspace-os.md (19691)', 'core/refs/REFS.md (20095)']
+    def test_no_text_read_or_write_inherits_the_os_answer():
+        live = _findings()
+>       assert not live, (
+            f'{len(live)} call(s) take the encoding or the line ending from the machine: '
+            f'{live[:12]}. Name them — `encoding="utf-8"` on every text read and write, '
+            f'`newline="\\n"` on every write, and the same encoding on a subprocess you decode. '
+            f'A default is what the machine happened to be, and this workspace has two kinds')
+E       AssertionError: 8 call(s) take the encoding or the line ending from the machine: ['core/tools/test/wos/close/test_handoff.py:120 (encoding)', 'core/tools/test/wos/close/test_handoff.py:120 (newline)', 'core/tools/test/wos/close/test_handoff.py:122 (encoding)', 'core/tools/test/wos/close/test_handoff.py:130 (encoding)', 'core/tools/test/wos/close/test_handoff.py:22 (newline)', 'core/tools/test/wos/close/test_handoff.py:43 (encoding)', 'core/tools/test/wos/close/test_handoff.py:61 (encoding)', 'core/tools/test/wos/close/test_handoff.py:61 (newline)']. Name them — `encoding="utf-8"` on every text read and write, `newline="\n"` on every write, and the same encoding on a subprocess you decode. A default is what the machine happened to be, and this workspace has two kinds
+E       assert not ['core/tools/test/wos/close/test_handoff.py:120 (encoding)', 'core/tools/test/wos/close/test_handoff.py:120 (newline)'...ore/tools/test/wos/close/test_handoff.py:22 (newline)', 'core/tools/test/wos/close/test_handoff.py:43 (encoding)', ...]
 
-core/tools/test/law/test_char_cap.py:57: AssertionError
+core/tools/test/workspace/ceilings/test_encoding_ceiling.py:142: AssertionError
 =========================== short test summary info ============================
+FAILED core/tools/test/law/test_context_meter.py::test_the_handoff_artifact_is_not_an_uppercase_type
+FAILED core/tools/test/law/test_citation_gate.py::test_no_prose_restates_a_number_the_numeric_law_owns
 FAILED core/tools/test/law/entropy/test_entropy_retired.py::test_no_retired_token_survives
+FAILED core/tools/test/workspace/test_projects_declaration.py::test_every_declared_project_has_a_row
+FAILED core/tools/test/workspace/test_projects_declaration.py::test_the_table_reads_the_same_on_every_clone
 FAILED core/tools/test/law/test_char_cap.py::test_no_tracked_file_is_blocked_today
-2 failed, 1052 passed, 1 skipped in 144.30s (0:02:24)
+FAILED core/tools/test/workspace/ceilings/test_encoding_ceiling.py::test_no_text_read_or_write_inherits_the_os_answer
+7 failed, 1075 passed, 1 skipped in 100.38s (0:01:40)
 ```
 <!-- verify:end -->
