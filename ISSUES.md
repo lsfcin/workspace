@@ -23,18 +23,36 @@ name. An entry without one is invisible to it.
 
 ## Open
 
+- **Context gate bloqueia ferramentas utilitárias sobre arquivos binários (ex: pdfinfo) (2026-09-25).**
+  Em `core/hooks/read/bash-context-gate.py`, comandos de inspeção rápida em arquivos binários disparam exigência de leitura de todos os CONTEXT.md da árvore sem necessidade semântica. O gate deve isentar executáveis de extração de metadados. `b20260925-gate-binary-readonly`
+
+- **Servidores de GPU órfãos retêm VRAM após falhas de ferramentas de PDF (2026-09-25).**
+  Processos filhos iniciados por bibliotecas como Marker e MinerU (surya, mineru.doclib) continuam em memória após erro, segurando VRAM e forçando reinicialização do sistema. Ferramentas de GPU devem derrubar deterministamente o que subiram. `b20260925-gpu-orphan-vram`
+
+- **Sub-repositórios não possuem sentinela no pre-commit contra arquivos rastreados deletados no disco (2026-09-25).**
+  O gate raiz ignora sub-repositórios (`academy/teaching`), permitindo que comandos com `--cached` no raiz deixem deleções pendentes que limpam arquivos rastreados do disco na troca de branches sem nenhum alarme. `b20260925-subrepo-tracked-deleted-sentinel`
+
+- **`check_truncation` triggers false positives on literal ellipsis characters inside routing blocks (2026-10-03).**
+  In `core/hooks/entropy/entropy_context.py`, `check_truncation` searches `if '…' in ln` across lines in the routing block. An author writing an intentional ellipsis in prose or titles trips the truncation check even when the description length is well within `hoist.DESC_LIMIT`. The check must only fire when the line actually ends with an ellipsis or exceeds `DESC_LIMIT`. `b20261003-check-truncation-ellipsis`
+
+- **Research findings and exploration notes in `outputs/.drafts/` are gitignored and do not sync between machines (2026-09-24).**
+  Sessions running parallel investigations store draft notes and benchmark scripts in `outputs/.drafts/` (e.g. slides research, taste explorations). Because `outputs/` is completely gitignored, the other machine cannot see or build upon these findings, creating an asymmetric workspace state between Lucas's machines. Open until a durable, syncable pattern for cross-machine scratchpad/drafts is established. `b20260924-drafts-sync`
+
+- **Hook warnings use double-negative `NOT REFUSED` instead of affirmative `ALLOWED` or standard alert vocabulary (2026-10-02).**
+  In `core/hooks/checks/line_counts.py`, `core/hooks/entropy/entropy_crowding.py` and `core/hooks/entropy/entropy_context.py`, warnings display `NOT REFUSED — this is the warning at {warn}... Nothing stops until {block}`. Lucas asked in INBOX: "pq o nosso warning começa com NOT REFUSED ao invés de ALLOWED? é essa a melhor linguagem mesmo?". Double negative creates visual clutter and friction. Open until vocabulary is audited against `core/SCHEMA.md` and concise affirmative phrasing (e.g. `ALLOWED — warning at {warn}...`) is adopted. `b20261002-hook-warning-vocabulary`
+
 - **Boundary friction between goal tasks and project roadmaps confuses capture and execution (2026-09-29).**
   The `/inbox` skill feeds commitments into `brain/goals/*.md` backlogs, but technical build work belongs in `code/<proj>/ROADMAP.md` and the root `ROADMAP.md`. Lucas notes a strong tendency to look for tasks directly in roadmaps, leaving goal backlogs stale or duplicated. Open until the taxonomy and intake contract are explicitly defined between personal OS life commitments and technical project backlogs. `b20260929-task-roadmap-boundary`
 
-- **The slides surface still names Google Slides as the provider after PowerPoint became the home (2026-09-28).**
+- **The slides surface still names Google Slides as the provider; the home itself is open again (Canva leaf, 2026-10-03).**
   `core/tools/slides/CONTEXT.md` calls `gslides` the leaf and says `pptx` exists "for Drive to convert"; the `/slides` router
-  loads the `gslides` leaf; the A/B gate in `core/prompts/slides-padroes.md` hands the control only `gslides`. Audit
+  loads the `gslides` leaf; the A/B gate in `core/prompts/slides-padroes.md` waits for the home to be decided. Audit
   2026-09-29 adds: `formats/animation.md` still says a build is a slide sequence because "the API has no animation";
   `stats`/`preview` read only Google's JSON (`pptx lint` now covers motion and text size on a .pptx, not archetypes or
   preview); `montador` reads and skips through `gslides`; `contact_sheets` lives in the Google-bound `slides_core`.
-  Lucas's ruling: providers stay **interchangeable** (gslides kept, pptx + onedrive the home, a `canva` leaf worth
-  evaluating — Canva was only ever tested ad hoc), and decks migrate one at a time, slide by slide, never in batch.
-  Open until the router picks a provider per deck and each leaf carries its own read, lint and preview.
+  Lucas's ruling: providers stay **interchangeable**, and decks migrate one at a time, slide by slide, never in batch;
+  if Canva becomes the home (`core/ROADMAP.md` § Canva leaf, step 5), what exists only for PowerPoint or Google Slides
+  is deleted, not ported. Open until the router picks a provider per deck and each leaf carries its own read, lint and preview.
 
 - **The Antigravity lifecycle hook runner executes outside the workspace root, so relative `core/run` fails and blocks every tool call.**
   Antigravity fires `PreToolUse` and `PostToolUse` with its process working directory at `$HOME` rather than the workspace root.
@@ -274,7 +292,7 @@ name. An entry without one is invisible to it.
 
 > Generated by `core/hooks/entropy/dashboard/entropy-dashboard.py`, which scans this repo and no other. Never edit inside this block, and never copy a count out of it — a copied number is the drift these checks exist to catch.
 
-2026-09-30 · 1102 tracked files scanned · **11 findings here** (2026-09-18: 5 · +6 over 12 days)
+2026-10-06 · 1162 tracked files scanned · **3 findings here** (2026-09-24: 6 · -3 over 12 days)
 
 | Check | Findings |
 |-------|----------|
@@ -284,10 +302,10 @@ name. An entry without one is invisible to it.
 | Routing tables pointing at files git does not carry | 0 |
 | Projects not declaring their goal | 0 |
 | Wiki-links naming nothing | 0 |
-| Retired tokens still alive | 2 |
+| Retired tokens still alive | 0 |
 | Roadmap item numbers cited outside a roadmap | 0 |
 | Items claimed by two lists | 0 |
-| Size signals | 4 |
+| Size signals | 0 |
 | Source files with no interface stub | 0 |
 | Directories holding too many files | 2 |
 | Prose describing finished work | 0 |
@@ -299,26 +317,10 @@ name. An entry without one is invisible to it.
 | Constraints trapped in a CONTEXT.md head | 0 |
 | Local branches holding unpromoted work | 1 |
 | Work that exists on this disk and nowhere else | 0 |
-| Local branches already merged into their base | 1 |
-| Remote branches already merged into their base | 1 |
+| Local branches already merged into their base | 0 |
+| Remote branches already merged into their base | 0 |
 
 *A check with no findings is the `0` in that table and nothing more. Only a check with something to show gets a section below.*
-
-### Retired tokens still alive
-
-*a rename is unfinished until these are zero*
-
-- brain/goals/craft-flows.md: retired token 'tier' survives (line 47).
-- core/ROADMAP.md: retired token 'probe' survives (line 45).
-
-### Size signals
-
-*a signal for review, never a cap — do not summarize to fit*
-
-- brain/INBOX.md — 19575 characters, over the 18000 cap
-- brain/goals/teaching-materials.md — 20444 characters, over the 18000 cap
-- brain/goals/workspace-os.md — 19691 characters, over the 18000 cap
-- core/refs/REFS.md — 20095 characters, over the 18000 cap
 
 ### Directories holding too many files
 
@@ -331,19 +333,7 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/pdf-twin is 16 ahead of main
-
-### Local branches already merged into their base
-
-*safe to delete, and purely local — `git -C <repo> branch -d <branch>`*
-
-- . — 13 merged into main: git -C . branch -d feature/agnostic-read-measurement feature/ai4good-disciplina feature/bot-crossing feature/cfpages-publish feature/checker-honesty feature/codex-wiring feature/hook-scoreboard feature/inbox-capture-honesty feature/legibility-identifiers feature/plain-vocabulary feature/roadmap-drain feature/slides-skill feature/word-retirement
-
-### Remote branches already merged into their base
-
-*safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
-
-- . — 13 merged into main: git -C . push origin --delete feature/agnostic-read-measurement feature/ai4good-disciplina feature/bot-crossing feature/cfpages-publish feature/checker-honesty feature/hook-scoreboard feature/inbox-capture-honesty feature/legibility-identifiers feature/plain-vocabulary feature/roadmap-drain feature/slides-skill feature/slides-taste feature/word-retirement
+- . — feature/pdf-twin is 14 ahead of main
 
 <!-- entropy:end -->
 
@@ -352,28 +342,5 @@ name. An entry without one is invisible to it.
 
 > Generated by `core/tools/wos/roundup` at session close. The suite is the authority; this is its last result, never a claim that it is still true.
 
-2026-09-30 · `verify.py full` · **red**
-
-```
-            if not path.is_file():
-                continue
-            if not (is_authored(path, WORKSPACE_ROOT)
-                    or is_authored_prose(path, WORKSPACE_ROOT)):
-                continue
-            try:
-                size = len(authored_text(path.read_text(encoding='utf-8')))
-            except (OSError, UnicodeDecodeError):
-                continue
-            if size >= LIMITS['BLOCK_CHARS']:
-                over.append(f'{name} ({size})')
->       assert not over, f'over BLOCK_CHARS: {over}'
-E       AssertionError: over BLOCK_CHARS: ['brain/INBOX.md (19575)', 'brain/goals/teaching-materials.md (20444)', 'brain/goals/workspace-os.md (19691)', 'core/refs/REFS.md (20095)']
-E       assert not ['brain/INBOX.md (19575)', 'brain/goals/teaching-materials.md (20444)', 'brain/goals/workspace-os.md (19691)', 'core/refs/REFS.md (20095)']
-
-core/tools/test/law/test_char_cap.py:57: AssertionError
-=========================== short test summary info ============================
-FAILED core/tools/test/law/entropy/test_entropy_retired.py::test_no_retired_token_survives
-FAILED core/tools/test/law/test_char_cap.py::test_no_tracked_file_is_blocked_today
-2 failed, 1052 passed, 1 skipped in 134.42s (0:02:14)
-```
+2026-10-06 · `verify.py full` · **green (25 passed, 1093 deselected in 5.35s · 1092 passed, 1 skipped in 137.07s (0:02:17))**
 <!-- verify:end -->

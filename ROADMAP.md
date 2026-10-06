@@ -29,6 +29,21 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 *Why* — handovers manuais geram fricção, enquanto a auto-compactação padrão dos harnesses dispara tarde e introduz *context rot* / *context poisoning* por resumos opacos (INBOX 2026-09-27, 2026-09-29).
 *Done when* — teste comparativo medido em tarefa longa avaliando perda de fatos e integridade com state file vs native compaction vs handoff.
 
+**🟡 auditar e enxugar o overhead de contexto inicial de sessão (~100k tokens)**
+*What* — medição do volume de tokens injetados no bootstrap de sessão (espelhos de skills, gates de CONTEXT.md, regras de agentes, prompts de planejamento) e redução de prolixidade, avaliando carregamento progressivo e sob demanda.
+*Why* — Lucas (INBOX 2026-10-01): o setup inicial consome quase 100k tokens antes da primeira ação, aproximando o agente da autocompactação e encarecendo cada turno com contexto redundante.
+*Done when* — medição do baseline por componente publicada e redução observável no contexto inicial sem quebrar a execução de gates essenciais.
+
+**🟡 avaliar jevgrep para seleção cirúrgica de arquivos para coding agents**
+*What* — testar o `jevgrep` (ou seu método de busca/indexação focada em agentes) contra os comandos de busca e leitura do WOS (`grep_search`, `find_by_name`, `session/reads`).
+*Why* — Lucas (INBOX 2026-09-30): ferramenta open-source promete reduzir em até ~30% o consumo de tokens/custos por tarefa ao entregar apenas os arquivos exatos ao contexto do modelo.
+*Done when* — teste comparativo medido em 3 tarefas de refatoração no WOS, registrando se houve ganho real sobre a navegação atual por `CONTEXT.md` + ferramentas de busca.
+
+**🟡 canal global de voz e STT multiplataforma (Ubuntu/Windows) com ativação de bot**
+*What* — atalho global de sistema operacional para captura de áudio com duas rotas de saída: (1) transcrição direta no cursor (ditado de texto em qualquer aplicativo); (2) invocação direta de agente inteligente caso a fala inicie por palavra-chave ("bot ...") ou via atalho secundário. Inclui comparativo de engines de STT: avaliar viabilidade de acessar a engine do Antigravity (com revisão contextual de texto, siglas e termos anteriores) vs. Whisper local (`core/tools/audio`) do aiwbot com pós-processador de contexto. Implementação inicial no Ubuntu com especificação para Windows.
+*Why* — Lucas (INBOX 2026-10-01/02): falta ditado rápido no dia a dia do OS e poder disparar comandos falados para agentes sem abrir chat ou terminal reduz drasticamente a fricção de uso móvel/desktop.
+*Done when* — atalho funcional no Ubuntu capturando áudio, transcrevendo no cursor e roteando comandos iniciados por "bot" para o runner de agentes do WOS.
+
 ## Legibility — can Lucas still read what he owns
 
 **🟡 visualizador de fluxo de commits e trocas de contexto (swaps) entre projetos**

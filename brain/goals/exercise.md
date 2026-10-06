@@ -25,6 +25,9 @@ List 3 activities you've done in life that felt like play, not exercise. Climbin
 > estilo de vida sedentário desliga o glúteo e desalinha a cadeia posterior, "fix the posterior chain first")  
 > [ ] [form-details] calisthenics form details for pull-ups / push-ups / dips / pike push-ups ([reel](https://www.instagram.com/reel/DbRrzFQpJgV/), INBOX 2026-07-28) — read when a bodyweight rhythm actually exists, not before  
 > [ ] [rotacao-fixa] material pra [home-plan] com a mesma tese em dois posts: uma lista curta e fixa, rodada um exercício por dia. Kace Hollingsworth rotaciona 8 exercícios em treinos de 20–30min ([reel](https://www.instagram.com/reel/DcpDEyzp7m4/), Lucas: *"um conjunto fixo de 8 exercícios poderia facilitar a minha vida"*); o desafio de calistenia da floripacalistenia é 15min em casa sem equipamento ([reel](https://www.instagram.com/reel/DbBVIMJRj5X/), Lucas: *"esse bloco pode entrar na minha lista de exercícios"*). Nenhum dos dois posts diz quais são os exercícios — estão no vídeo (— via aiwbot 2026-09-06)  
+> [ ] [postura-sistema-nervoso-fascia] testar protocolo de regulação do sistema nervoso via respiração diafragmática antes de exercícios posturais/alongamentos, quebrando o ciclo de guarda de tensão fascial (Alexander Ke / Posture 3.0) — ref em branches/health/refs/REFS.md (INBOX 2026-10-01)  
+> [ ] [weighted-decompression] avaliar e testar descompressão espinal com carga associada à respiração diafragmática contínua na rotina de treino em casa [home-plan] para alívio de compressão e sustentação postural — ref em branches/health/refs/REFS.md (INBOX 2026-10-01)  
+> [ ] [rotina-exercicio-reel-ddlr] avaliar e incorporar movimento do reel Ddlr9B7DRmF no bloco matinal ou no [home-plan] — ref em branches/health/refs/REFS.md (INBOX 2026-09-22)  
 
 ## done
 
@@ -33,5 +36,5 @@ List 3 activities you've done in life that felt like play, not exercise. Climbin
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-07  ·  trend: steady  ·  touches: 4/11/11/11/11/11
+last-touch: 2026-09-18  ·  trend: steady  ·  touches: 3/12/13/13/13/13
 <!-- stats:end -->

@@ -99,10 +99,10 @@ is **not** a reason: green, coherent, partial work belongs on `develop`, where t
 
 ## Phase 5 — Hand off
 
-Run `/handoff $ARGUMENTS`. It decides whether a hand-off is warranted at all — with the work finished and no next action it deletes `outputs/handoff.md` and writes nothing, which is the output rule applied to itself. Do not pre-empt that judgment here, and do not write a block by hand if it declines. Then report, in this order, **omitting every line with nothing behind it**:
+Run `/handoff $ARGUMENTS`. It decides whether a hand-off is warranted at all — with the work finished and no next action it clears only that session's handoff and writes nothing, which is the output rule applied to itself. Do not pre-empt that judgment here, and do not write a block by hand if it declines. Then report, in this order, **omitting every line with nothing behind it**:
 
 - what was deleted, from which list — one line, only if something was
 - what was written, one line per file — only files actually written this phase
 - every line Phase 4 printed, verbatim
 
-Nothing else. No session summary, no next steps: `/handoff` just emitted those, and repeating them is the padding this skill exists to not produce. Close with one instruction — start the next session with `Lê outputs/handoff.md e discute comigo em detalhes (em pt-br) qual vai ser o plano pra essa sessão.` — **plan, never "continue"**; the rationale is in [`handoff.md`](handoff.md). Or, if `/handoff` skipped, nothing.
+Nothing else. No session summary, no next steps: `/handoff` just emitted those, and repeating them is the padding this skill exists to not produce. Close with one instruction — start the next session with `Lê <path returned by /handoff> e discute comigo em detalhes (em pt-br) qual vai ser o plano pra essa sessão.` — **plan, never "continue"**; the rationale is in [`handoff.md`](handoff.md). Or, if `/handoff` skipped, nothing.

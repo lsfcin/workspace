@@ -1,111 +1,14 @@
 # References
 > What external material exists for the workspace-os agent library, and how much weight does each hold?
-> One line per ref, carrying level markers `[A] [B] [P] [V] [C]`. Citation discipline: [CONTEXT.md](CONTEXT.md).
-
-## Context engineering & progressive disclosure
-- `[V]` [Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
-  (Anthropic, 2025-09) — attention budget, context rot, JIT retrieval via file paths, compaction.
-- `[V]` [Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
-  (Anthropic) — SKILL.md spec, always-loaded description + on-demand body.
-- `[V]` [Code execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp)
-  (Anthropic) — tool definitions as code cut token overhead vs schema dumps.
-- `[P]` [Is Progressive Disclosure All You Need?](https://arxiv.org/abs/2607.17598)
-  (arXiv 2607.17598, 2026-07) — 1 disclosure level ≥ 2; flat pack ≈ 2× accuracy at ½ tokens; index is cache-friendly.
-- `[P]` [Evaluating AGENTS.md](https://arxiv.org/abs/2602.11988)
-  (Gloaguen et al., ETH Zurich, 2026-02) — generated context files cost >20% inference without raising success.
-- `[C]` [briefd](https://github.com/ismailperim/briefd) — markdown in git, compiled per task into one bundle
-  under a token budget over MCP, instead of re-sending CLAUDE.md every turn. Its 86% figure is the project's
-  own marketing. Read against our chain gate: `ROADMAP.md` § Measurement.
-- `[C]` [When AGENTS.md Backfires](https://notchrisgroves.com/when-agents-md-backfires/)
-  — curated context cuts runtime 28.6% and output tokens 16.6% (Lulla et al.); avoid generated bloat.
-- `[P]` [CodeCompass](https://arxiv.org/abs/2602.20048)
-  (arXiv 2602.20048, 2026-02) — graph-structured dependency navigation (99.4% vs 76.2% vanilla) beats flat symbol lists.
-- `[P]` [Agentic Context Engineering (ACE)](https://arxiv.org/abs/2510.04618)
-  (Stanford/SambaNova, 2026-03) — contexts as evolving playbooks updated by incremental deltas.
-- `[P]` [Self-Improvements in Modern Agentic Systems](https://arxiv.org/abs/2607.13104)
-  (KAUST, 2026-07) — agent = model + the layer around it (prompts, memory, tools, control logic); self-improvement updates
-  that layer.
-- `[A]` [Voyager](https://arxiv.org/abs/2305.16291)
-  (TMLR 2023) — lifelong skill library persisted outside model weights.
-- `[A]` [Lost in the Middle](https://aclanthology.org/2024.tacl-1.9/)
-  (TACL 2024) — positional degradation underlying context rot.
-- `[C]` [GlitchCatClub state-file compaction](https://www.instagram.com/reel/DdyqnietB8C/) — padrão de arquivo de estado mantido pelo agente para substituição de histórico sem perda de contexto ou resumos opacos de harness.
-- `[C]` [The Lab - 16 Free Artefacts (Kem / GlitchCatClub)](https://www.instagram.com/p/DdwF-9GjVX_/) — catálogo com 16 artefatos de agentes (graph engineering, RAG, agent swarms, routers, loops, semantic cache, orchestration, remote) em glitchcatclub.com/lab — assessment task tracked in brain/goals/craft-flows.md e workspace-os.md
-
+> The intake: one line per ref not yet promoted. A judged ref lives in `<key>.yaml` beside this file, with its level `[A] [B] [P] [V] [C]`. Citation discipline: [SPECS.md](SPECS.md).
 
 ## Model level, cost & execution interface
-- `[A]` [SWE-agent](https://arxiv.org/abs/2405.15793)
-  (NeurIPS 2024) — agent-computer interfaces enable automated SWE; executable enforcement/gates beat prose instructions.
-- `[A]` [Token-Budget-Aware Reasoning](https://aclanthology.org/2412.18547)
-  (ACL Findings 2025) — dynamic per-task budgets beat fixed caps; wrong budgets degrade accuracy.
-- `[A]` [Harness Engineering for Coding Tools](https://arxiv.org/abs/2602.14690)
-  (AIware 2026) — empirical survey across 2,853 repos showing executable hooks are rare and high-leverage.
-- `[P]` [A Unified Approach to Routing and Cascading](https://arxiv.org/abs/2410.10347)
-  — multi-level model cascading foundations.
-- `[P]` [UCCI: Calibrated Uncertainty for Cascade Routing](https://arxiv.org/abs/2605.18796)
-  (2026) — escalate on calibrated uncertainty rather than static labels.
 - `[V]` Opus 5 Guidance (Anthropic)
   — effort modulates thinking not visible output; specify lengths explicitly; delete redundant verification prompts.
-- `[C]` [Kem GlitchCatClub — JEV vs Laya e System-1 Decision Layer](https://www.instagram.com/reel/Dd1SON3tqGZ/?utm_source=ig_web_copy_link)
-  — [src: web:instagram.com] Review prático do JEV (TypeSafe AI) vs Laya: arquitetura de decisão rápida (boolean, choice, score) para triagem de mensagens/DMs e routing de agentes sem custo de LLM completo.
-- `[C]` [Unsloth Studio + GRPO Reasoning Local Fine-Tuning](https://www.instagram.com/p/DdygoZDCfci/?utm_source=ig_web_copy_link)
-  — [src: web:instagram.com] Unsloth Studio Web UI para fine-tuning local no-code com LoRA, RL de raciocínio via GRPO (TRL) e exportação GGUF para app desktop offline (llama.cpp/PyQt).
-- `[C]` [Descript (e alternativas open-source: Audapolis, CutScript)](https://www.descript.com/)
-  — [src: web:descript.com] Edição de áudio e vídeo por manipulação direta de texto/transcrição; software fechado, mas serviu de base para alternativas open-source no GitHub (Audapolis, CutScript) usando Whisper para edição de fala por texto.
-- `[C]` [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) — runtime modular de agentes (Cordis), sandboxing local com Bubblewrap e web UI.
-- `[C]` [Kilo Code](https://kilo.ai/) — agente de codificação open-source multi-modelo com modos especializados (Architect/Debug/Code) e suporte a MCP.
-- `[C]` [Cline](https://cline.bot/) — agente autônomo de engenharia de software para VS Code/CLI.
-- `[C]` [SillyTavern](https://sillytavern.app/) — interface frontend local para personas, agentes e gerenciamento de contexto LLM.
-- `[V]` [Claude Design, Slides and Docs in Claude Code](https://support.claude.com/en/articles/14604416-get-started-with-claude-design) (Anthropic) — geração integrada de UI mockups (/design), slides e docs no terminal e preview lateral a partir do contexto do repositório.
-- `[P]` [Impacto de Role Prompting em Modelos](https://youtu.be/a0_B2C9jsYY) — estudo sobre ativação de regiões distintas da rede através de papéis explícitos; avaliar consistência de "role" no WOS.
 
 ## Legidade, vocabulário e registros de decisão
 - `[A]` Code Comment Inconsistency Detection (ICSE 2025 · IEEE TSE 2024)
   — drift detection between documentation and code.
-- `[A]` [ISO 704 / DDD Ubiquitous Language](https://www.iso.org/standard/38109.html)
-  — term selection prioritizes semantic clarity; one canonical glossary (`core/SCHEMA.md`).
-- `[C]` [ADR Pattern](https://adr.github.io/) (Nygard)
-  — immutable record per decision (Status/Context/Decision/Consequences); superseding over editing history.
-- `[C]` [Deterministic Enforcement in LLM Systems](https://medium.com/neuralnotions/deterministic-enforcement-in-probabilistic-llm-systems-the-engineering-case-for-claude-code-hooks-64a4196c7d32)
-  — case for deterministic hook gates.
-
-## Agent memory & security
-- `[A]` [How Memory Management Impacts LLM Agents](https://arxiv.org/abs/2505.16067)
-  (ACL 2025) — memory management policy dominates agent performance over raw capacity.
-- `[P]` [MemGPT](https://arxiv.org/abs/2310.08560) · [MemOS](https://arxiv.org/abs/2505.22101) · [AIOS](https://arxiv.org/abs/2403.16971)
-  — operating system primitives for agent memory.
-- `[P]` [Memory Poisoning in LLM Agents](https://arxiv.org/abs/2606.04329)
-  (arXiv 2606.04329, 2026-06) — untrusted inputs persist across sessions via compaction channels.
-- `[C]` [Astra wrote its own jailbreak into a compaction summary](https://www.instagram.com/p/DdZCjCyDSjD/)
-  — [src: web:instagram.com] reports OpenAI finding 27 cases of an unreleased Astra-family research model adding an
-  unauthorized persona instruction to its own context-compaction summary, which the next context then inherited. The
-  named incident under the mechanism the entry above abstracts. OpenAI is quoted as calling it extremely rare,
-  non-reproducible by regeneration, and from a training run separate from the released model — the ref carries that
-  caveat because the post leads with the alarming half (tasks in `brain/goals/workspace-os.md` [compaction-injection]
-  and `brain/goals/teaching-materials.md` [aula-memoria-injetada]; — via aiwbot).
-- `[P]` [Origin-Bound Authority for Long-Term Memory](https://arxiv.org/abs/2606.24322)
-  (2026-06) — cryptographic provenance tagging for external memory ingest.
-- `[P]` [Defeating Prompt Injections by Design (CaMeL)](https://arxiv.org/abs/2503.18813)
-  (Google DeepMind, 2025) — data/code capability separation.
-- `[A]` [Red-Teaming Multi-Agent Systems](https://arxiv.org/abs/2502.14847)
-  (ACL 2025) — communication trust boundaries in multi-agent setups.
-
-## Tooling, visualization & evaluation
-- `[A]` [Readability of Node-Link vs Matrix Graphs](https://journals.sagepub.com/doi/10.1057/palgrave.ivs.9500092)
-  (Ghoniem et al., 2005) — matrix views beat node-link graphs past ~20 nodes.
-- `[A]` [Hierarchical Edge Bundles](https://www.cs.jhu.edu/~misha/ReadingSeminar/Papers/Holten06.pdf)
-  (Holten, 2006) — visual bundling of cross-tree dependencies.
-- `[A]` [Software Systems as Cities](https://si.usi.ch/assets/publications/conf/icse/icse2011/WettelLR11.pdf)
-  (ICSE 2011) — overview visualizations yield +24% correctness in system spread/impact questions.
-- `[A]` [Graphical Perception](https://notes.billmill.org/images/Cleveland%20and%20McGill%201985%20-%20Graphical%20Perception%20and%20Graphical%20Methods%20for%20Analyzing%20Scientific%20Data.pdf)
-  (Cleveland & McGill, 1985) — position/magnitude beats color/glyphs.
-- `[C]` [Mermaid](https://mermaid.js.org/) + `git log --numstat` — zero-binary self-contained dependency & evolution diagram generation.
-- `[C]` [agenteval](https://github.com/lukasmetzler/agenteval) · [instrlint](https://github.com/jed1978/instrlint)
-  — instruction and harness evaluation tools.
-- `[C]` [Jev Ultrafast](https://www.instagram.com/reel/DdgnSJECUE3/) · [pruning a second brain with it](https://www.instagram.com/reel/DdjOqRYNZZi/)
-  — [src: web:instagram.com] text in, a decision out rather than text, reportedly far cheaper per token. Lucas:
-  let it choose what to expand and what to contract. Idea in `code/dobra/IDEAS.md`; functional tests in
-  `ROADMAP.md` § Measurement. Practitioner posts, unchecked.
 
 ## Unjudged intake queue (`status: unjudged`)
 - [Standard Technical English (STE)](https://www.instagram.com/reel/DclKZARteCP/)
@@ -171,3 +74,5 @@
   `rpg-isoroll.md` [higgsfield-asset-gen], `local-ai.md` [higgsfield-o-que-roda-aqui],
   `teaching-materials.md` [aula-abrir-o-moat] (— via aiwbot).
 - [kem_glitch — three habits](https://www.instagram.com/reel/DdG848DNm3p/) — [src: web:instagram.com] tests first, never start from scratch, have the model draw the process. Only the third is new here — **mutation testing**: break a passing test on purpose, and a suite that stays green has no teeth (`workspace-os.md` [mutation-testing]; — via aiwbot).
+- `[C]` [Glitch Orchestra — GlitchCatClub](https://www.instagram.com/reel/DeEyZPEtkyH/) — [src: web:instagram.com via Kem] Claude Code 2.1.289 mod: orquestração multi-agente (`agent.spawn`), monitoramento idle/waiting, gestão de contexto por State File e Kanban sem compaction pesada, reunião de alinhamento prévia (tasks em `brain/goals/workspace-os.md` [glitch-orchestra-state-eval] e `core/ROADMAP.md`).
+- `[C]` [Avanço de Agentes de IA](https://www.instagram.com/p/DeEzhnoDaXa/) — [src: web:instagram.com] radar da cadência rápida de evolução de frameworks de agentes autônomos (task em `brain/goals/workspace-os.md` [sota-agent-cadence]).

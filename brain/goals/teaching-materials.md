@@ -27,49 +27,45 @@ O calendário já está fechado e publicado, e é ele que dá o esqueleto: 17 qu
 
 ## backlog
 
+> [ ] [pano-projetor-rural] comprar pano branco/tecido de projeção para a sala de aula da UFRPE (INBOX 2026-10-04)  
+> [ ] [debate-lecun-hinton-amodei] estruturar slide/dinâmica de aula em AI4Good contrapondo o risco existencial (Hinton/Amodei) com a visão pragmática anti-pânico de Yann LeCun (Fortune) — ref em academy/teaching/REFS.md (INBOX 2026-10-04)  
+> [ ] [moral-ambition-talentos] incorporar o conceito do 'Triângulo das Bermudas de Talentos' (Simon van Teutem / Rutger Bregman) e o debate de 'Moral Ambition' nos slides e discussões sobre carreira ética, impacto e escolhas profissionais em computação/IA (AI4Good/TechEdu) — ref em academy/teaching/REFS.md (INBOX 2026-10-02)  
+> [ ] [eval-hotclip] testar HotClip localmente para transformar gravações de aulas em pílulas/shorts verticais com legendas para o site das disciplinas — ref em core/refs/REFS.md (INBOX 2026-09-25)  
+> [ ] [10-conceitos-llm-bhavana] incorporar a progressão em 5 estágios (input, meaning, generation, grounding, production) da Bhavana nas aulas de LLMs/Agentes de AI4Good e TechEdu — ref em academy/teaching/REFS.md (INBOX 2026-10-03)  
+> [ ] [ai4good-entregas-va2] acompanhar sistema de formulários de enigmas (trava de domínio) e definição das 50 caixas da VA2 — tracked in academy/teaching/classes/ai4good/ROADMAP.md (INBOX 2026-09-23)  
+> [ ] [techedu-equipes-painel] modelar funcionamento do painel de caixas para equipes em TechEdu — tracked in academy/teaching/classes/techedu/ROADMAP.md (INBOX 2026-09-23)  
+> [ ] [reels-slides-youtube] substituir reels por embeds nativos do YouTube (createVideo) nos 4 decks novos — tracked in academy/teaching/classes/ai4good/ROADMAP.md (INBOX 2026-09-23)  
+> [ ] [notas-apresentador-decks] refinar notas de apresentador nos slides antigos e propor notas para slides só-imagem — tracked in academy/teaching/classes/ai4good/ROADMAP.md (INBOX 2026-09-23)  
+**Roadmaps estruturais das disciplinas (detalhamento técnico e sprints):**  
+- **Macro & Metodologia:** [`academy/teaching/ROADMAP.md`](../../academy/teaching/ROADMAP.md)  
+- **Infraestrutura de Turmas:** [`academy/teaching/classes/ROADMAP.md`](../../academy/teaching/classes/ROADMAP.md)  
+- **AI4Good:** [`academy/teaching/classes/ai4good/ROADMAP.md`](../../academy/teaching/classes/ai4good/ROADMAP.md)  
+- **TechEdu:** [`academy/teaching/classes/techedu/ROADMAP.md`](../../academy/teaching/classes/techedu/ROADMAP.md)  
+
+> [ ] [pipeline-estagios-slides] avaliar adaptação da arquitetura de geração em estágios de Jake Van Clief (pastas dedicadas com markdown intermediário: roteiro → storyboard → visual → render) para a linha de produção do /slides — ref em academy/teaching/REFS.md (INBOX 2026-09-30)  
+> [ ] [slides-visual-subskills] mapear e implementar as 3 subskills visuais que faltam no /slides: (1) busca curada de fotos conceituais em alta resolução (lugares, pessoas, situações), (2) composição vetorial a partir de formas básicas (shapes/draw), e (3) diagramação de diagramas com nós, arestas e setas de estilo visual refinado (INBOX 2026-09-30)  
 > [ ] [animacao-didatica-opus] dissecar capacidades de geração de animação/motion-design por código via LLMs (Claude Opus/Canvas/HTML/3D) para elevar elementos dinâmicos nas aulas com foco didático (não comercial) — ref em academy/teaching/REFS.md (INBOX 2026-09-26)  
-> [ ] [ai4good-faxina-estrutura] organizar e limpar a pasta academy/teaching/classes/ai4good/ (subpastas para slides scripts/conteúdo, práticas .xlsx/.md, unificar com artefatos/ e avaliar subida de slides_build.py para core/tools/slides/) (INBOX 2026-09-26)  
-> [ ] [rag-slides-bhavana] incorporar os 5 slides/diagramas didáticos de RAG da Bhavana (conceito, vetor/similaridade, comparação com/sem RAG, falhas e correções) nas aulas de RAG/IA de ai4good/techedu — ref em academy/teaching/REFS.md (INBOX 2026-09-26)  
-> [ ] [aula-memoria-agentes-bhavana] adaptar, corrigir tecnicamente e traduzir para pt-br o carrossel dos 4 sistemas de memória de agentes da Bhavana (working/episódica/semântica/procedural + falhas de retrieval e stale memory) para slides e material de aula de ai4good/techedu — ref em academy/teaching/REFS.md (INBOX 2026-09-26)  
-> [ ] [spirula-3dgs] testar Spirula Studio como ferramenta didática para aulas práticas de 3D Gaussian Splatting sem fricção de setup de GPU/Python (INBOX 2026-09-29)  
-> [ ] [case-muse-agent] criar slide de estudo de caso sobre a falha do Meta Muse AI (vazamento de endereço e alucinação de presença) para aulas de segurança/alinhamento de agentes em ai4good (INBOX 2026-09-29)  
-> [ ] [kv-cache-random-attention] incluir o paper Random Attention nas aulas avançadas sobre inferência e compressão de KV Cache de LLMs (INBOX 2026-09-29)  
-> [ ] [humanize-didatic-text] avaliar ferramentas e pipelines de "humanização" de texto (como o text-humanizer ou prompts de variação sintática) para que materiais gerados por IA para alunos (slides, páginas de disciplinas, enunciados de projetos) soem conversacionais e acessíveis, evitando a cadência engessada de LLMs (INBOX 2026-09-29)  
 > [ ] [motion-skills-animacoes] avaliar packs do motion-skills / gittrend.io no estudo de animação e gráficos programados para slides vivos e materiais de aula — ref em academy/teaching/REFS.md (INBOX 2026-09-29)  
-> [ ] [metodologia-papeis-contratos] explicitar na metodologia das disciplinas as etapas sequenciais vs. paralelizáveis, definindo sugestões de papéis (humanos e agentes de IA) e contratos formais de interface entre etapas (INBOX 2026-09-27)  
-> [ ] [bench-claude-slides-design] comparar capacidades nativas do Claude Slides/Design com nosso pipeline gslides/slides_build para geração de decks a partir de markdown/repositório — ref em core/refs/REFS.md (INBOX 2026-09-27)  
-> [ ] [metodologia-tecedu] semana-padrão (quarta e sexta com papéis fixos, uma pergunta e um produto por encontro), as 9 etapas mapeadas nos 34 encontros reais (números em `academy/teaching/classes/techedu/CONTEXT.md`), avaliação nova, dashboard que substitui as duas planilhas Google, e o padrão MODELO+EXEMPLO em toda entrega. Inclui **como cada encontro abre e como cada conteúdo é mostrado** — a metodologia é dita antes do conteúdo (INBOX 2026-08-27)  
-> [ ] [fecho-de-aula] fechar toda aula com dois blocos: (1) **vocabulário** — que palavras a turma passou a ter, o que expandiu no conhecimento da área; (2) **verificação** — um teste curto que o aluno usa para conferir sozinho que aprendeu, possivelmente respondido em sala como formulário que contabiliza nota (INBOX 2026-08-27)  
+> [ ] [bench-claude-slides-design] comparar capacidades nativas do Claude Slides/Design com nosso pipeline gslides/slides_build para geração de decks a partir de markdown/repositório — ref em core/refs/REFS.md (INBOX 2026-09-27)    
 
 **Três propostas independentes convergiram sozinhas em oito pontos — esse núcleo é o achado**, e o contraste propõe uma versão de **8 blocos**, menor que qualquer uma delas. Em `brain/drafts/metodologia-aulas-{sonnet,gemini,opus,contraste}.md`.
 
 **A pesquisa está feita**: 15 fontes revisadas por pares em `academy/teaching/REFS.md`, leitura de decisão em `outputs/metodologia-disciplinas-sota.md`, relato em `brain/drafts/metodologia-disciplinas-pesquisa.md`. **O achado que muda o desenho: a grade de XP já existe** — a planilha intergrupos do TE roda desde 2024.1 uma rubrica de 6 missões × 3 critérios em `A/AP/NA`, e ninguém a vê; o AI4Good não tem grade nenhuma.
 **Decidido:** painel só o dono vê (expor trabalho excelente do colega causa desistência, e o mecanismo do estudo é avaliação por pares — que é a VA1 do TE). **Ainda em aberto**, com número na mesa: mecânica do XP, ordem da capacitação, e o rótulo `VA1`, que mede coisas diferentes nas duas disciplinas e por isso bloqueia o modelo comum.
-> [ ] [folha-ai4good] a VA2 do AI4Good não tem folha de banca e a do TE tem; banca estruturada α=.75–.80 contra α=.50 solta. Rascunho pronto em `outputs/ai4good-folha-de-avaliacao.md` — decidir pesos, escala (o TE usa três níveis no grid de pares e quatro na banca) e se vira formulário  
 > [ ] [gforms-token] token do `gforms` da conta `personal` expirou — reconsentimento abre navegador na máquina de Lucas; bloqueia ler a folha de pitch como spec e alimentar painel sem digitação  
-> [ ] [planilha-canonica] duas cópias da planilha de pares do TE com o mesmo nome (`16iG7bh…` está linkada no Notion e recebe respostas; `1sEtJuf7…` está na pasta da disciplina). Declarar a canônica antes de qualquer painel ler dela; o Miro ainda vive dentro dos decks de Missão  
 
 > [ ] [slides-programa] o ofício de slides virou a skill `/slides`; o programa de 7 passos segue em `core/prompts/slides-padroes.md` (absorveu astra-slides, slides-dois-caminhos, front-design-plugins, claude-slides-nativo e research-tools, 2026-09-24)  
 > [ ] [pick-format] pick a target format or tool — one concrete candidate to prototype with  
 > [ ] [migrate-one] convert one existing lecture to the new format as a test  
 > [ ] [full-migration] define migration plan for remaining course materials  
-> [ ] [excalidraw-aula02] abrir `academy/teaching/classes/techedu/aula02-problemas.excalidraw` no excalidraw.com e confirmar que carrega (o JSON foi montado à mão, nunca foi aberto); depois, Live collaboration → copiar o link → trocar `[EXCALIDRAW]` no slide 69 do deck; confirmar se são mesmo 8 equipes (o quadro tem 8 frames)  
-> [ ] [video-carrinho] decidir o vídeo do slot do carrinho — trecho de 4 min do Dietz, ou perguntar à turma "o que envelheceu nesse vídeo de 1999?" (candidatos avaliados em `academy/teaching/REFS.md`)  
 > [ ] [medir-redesenho] anotar dois números depois da aula — quantos alunos falaram no bloco de abertura, e quantos grupos saíram com o frame preenchido; é o teste honesto do redesenho  
 > [ ] [questionarios-sextas] mandar os dois questionários pras turmas — links de resposta nos `CONTEXT.md` de `academy/teaching/classes/ai4good/` e `academy/teaching/classes/techedu/`; antes, abrir cada link, responder uma vez de teste e apagar a resposta; depois da aula, ler com `core/tools/forms/gforms responses --account personal <form_id>` e decidir o formato das sextas  
-> [ ] [ai4good-candidatos] **uma sessão decide todos de uma vez** — sete capturas esperando a mesma pergunta, "isso entra numa aula de ai4good, e em qual encontro?". Cada uma tem linha em `academy/teaching/REFS.md` com o que desconfiar:
-> *book burning* / Project Panama (livros comprados, descosturados, escaneados — e o ScanRobot que digitaliza sem destruir) · Anna's Archive escrevendo um recado amigável para os LLMs que a visitam · "integração, não substituição" (a fundadora vende hardware) · o otimismo do Gordon-Levitt · o LeCun dos world models · *pacing the frontier* (só a legenda extraiu) · dados egocêntricos: costureiras indianas de câmera na cabeça a ₹250/h treinando robôs humanoides, que é consentimento, propriedade e quem fica com o valor numa história só. Conferir cada um na fonte antes da sala  
 > [ ] [arxiv-visuals] achar e testar o arXiv Visuals (paper → explainer animado; link é comment-gated, então achar por fora) — ref em `academy/teaching/REFS.md`; teste honesto: rodar num paper que você conhece a fundo e ver se a ordem "conceito mais difícil primeiro" se sustenta ou se é sumarização com narração; se sustentar, decidir dois usos separados: leitura própria e material de aula (INBOX 2026-08-17, *"this IS for me"*)  
 > [ ] [or-gate-shape] OR gate body ainda ausente no deck de portas lógicas; investigar o tipo `CUSTOM` no grupo do slide 23, depois decidir se vale seguir debugando  
 
 **A árvore de tecnologias entrou no ar em 2026-09-02**: 12 eixos, 68 folhas, cada folha com vídeo e repositório próprios, publicada como toggles aninhados na § Tecnologias Emergentes do Notion.
-Fonte em `academy/teaching/classes/techedu/tecnologias.json`. Três sobras:
-> [ ] [arvore-excalidraw] gerar o quadro do top-10 — um frame por equipe com coluna numerada 1 a 10, reusando `build_excalidraw.py`; é onde a equipe entrega a ordenação, já que não há formulário  
-> [ ] [arvore-folhas-fracas] decidir duas folhas que subiram sem veredito: *Painel de learning analytics* (Metabase é BI genérico, melhor vídeo tem 229 views) e *WebXR multiusuário* (vídeo com 133 views). Cortar é uma edição no JSON e um republish  
-> [ ] [arvore-url-excalidraw] `lucassf.pages.dev/techedu/draw` aponta para a sala ao vivo do Excalidraw, que expira por natureza — no dia em que morrer, o short name manda a turma pra lugar nenhum e nada avisa. Salvar o quadro como arquivo e repontar a linha  
+Fonte em `academy/teaching/classes/techedu/tecnologias.json` (sobras e manutenção no roadmap de techedu).
 
-> [ ] [acessibilidade-edson] preparar uma versão acessível das missões E do site da disciplina para o Edson — os dois artefatos, não só um (INBOX 2026-08-24)  
-> [ ] [slides-pesquisa] material (talvez slides) que apresente aos alunos os conceitos dos projetos de pesquisa: dobra, cria, texpace/spacemantics — serve de ponte entre a disciplina e a pesquisa própria (INBOX 2026-08-24)  
 > [ ] [harness-nas-etapas] incluir o uso do harness em cada etapa das disciplinas — "via aiwbot · 2026-09-05", integrar à metodologia da semana-padrão  
 > [ ] [tributacao-trabalho-capital] discutir nas aulas: taxamos as pessoas erradas? — argumento do David Friedberg de que renda do trabalho não deveria ser tributada e ganho de capital sim (— via aiwbot 2026-09-02)  
 > [ ] [ai2027-material] decidir se ai-2027.com serve pra gente — como material de aula ou leitura de pesquisa (INBOX 2026-09-05, pergunta aberta do Lucas)  
@@ -110,5 +106,5 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json`. Três sobras:
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-25  ·  trend: advancing  ·  touches: 39/67/75/75/75/75
+last-touch: 2026-10-06  ·  trend: advancing  ·  touches: 44/85/93/93/93/93
 <!-- stats:end -->

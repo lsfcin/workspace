@@ -14,5 +14,5 @@
 | [`session-prune.py`](session-prune.py) | [`session-prune.pyi`](session-prune.pyi) | `stale`, `main` | SessionStart — delete session marker stores older than 2 days. See code/ROADMAP-verify.md W1. |
 | [`start-session.sh`](start-session.sh) | — | — | Neutral session-start entrypoint |
 | [`statusline.py`](statusline.py) | [`statusline.pyi`](statusline.pyi) | `remembered`, `remember`, `bar`, `line`, `main` | statusLine — the context window as a line that is always on screen, and the trend across it. |
-| [`transcript.py`](transcript.py) | [`transcript.pyi`](transcript.pyi) | `find`, `last_context`, `is_compacted` | The session's own transcript, read cheaply: where it is, and what the last turn carried. |
+| [`transcript.py`](transcript.py) | [`transcript.pyi`](transcript.pyi) | `find`, `last_context`, `context_limit`, `is_compacted` | The session's own transcript, read cheaply: where it is, and what the last turn carried. |
 <!-- routing:end -->

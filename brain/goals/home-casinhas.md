@@ -46,6 +46,8 @@ fallback · even a partial map beats starting from zero again*
 > [ ] [laje-vigota-protendida] avaliar laje de vigota protendida nas casinhas — o engenheiro do reel alega 30–40% menos concreto, montagem mais rápida e mais segura, com diferença de custo pequena contra a laje tradicional; pesquisar fornecedor na região e cotar ([reel](https://www.instagram.com/reel/DdSGzyohGXt/), — via aiwbot 2026-09-16)  
 > [ ] [complementares] rascunhar estrutural/hidráulico/elétrico com guias IA no Bonsai; engenheiro valida/assina (S12+)  
 > [ ] [parede-resfriamento-argila] avaliar viabilidade de parede bioclimática de resfriamento evaporativo (argila 3D TPMS porosa, TU Graz, -7°C sem AC com bomba solar) para conforto térmico passivo nas casinhas ([post](https://www.instagram.com/p/Dd13fy3lPRa/?stkn=NTc4MTIwNjQ2YQ==), — via aiwbot 2026-09-28; ref em `branches/casinhas/refs/REFS.md`)  
+> [ ] [viewer-3d-casinhas] avaliar a experiência web 3D do Code Crush (Architect's Model: Sketch → Massing → Detail → Built Reality) como modelo para a apresentação interativa do projeto das casinhas para investidores e construtores — ref em branches/casinhas/refs/REFS.md (INBOX 2026-09-25)  
+> [ ] [solar-hibrido-baterias] avaliar sistema solar híbrido (on-grid + off-grid com baterias e separação de cargas críticas no quadro) para suprir apagões e garantir pressurização/geladeiras nas casinhas e salas ([reel](https://www.instagram.com/reel/DdlvmwjTUb8/), — via aiwbot 2026-09-22; amarra em S12+ complementares elétricos)  
 
 ## done
 
@@ -62,5 +64,5 @@ fallback · even a partial map beats starting from zero again*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-07  ·  trend: advancing  ·  touches: 33/56/57/57/57/57
+last-touch: 2026-09-30  ·  trend: decelerating  ·  touches: 6/52/62/62/62/62
 <!-- stats:end -->

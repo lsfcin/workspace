@@ -41,15 +41,43 @@ def ocr_image(img_path, lang="por+eng"):
     return describe.ocr(img_path, lang)
 
 
-def sample_frames(video_path, n=5, workdir=None):
+_FRAME_CACHE = {}
+
+
+def _video_duration(video_path):
+    try:
+        r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                            "-of", "default=noprint_wrappers=1:nokey=1", str(video_path)],
+                           capture_output=True, text=True, encoding='utf-8', timeout=30)
+        return float(r.stdout.strip())
+    except Exception:
+        return 0.0
+
+
+def sample_frames(video_path, n=10, workdir=None):
+    key = (str(video_path), n)
+    if key in _FRAME_CACHE and workdir is None:
+        frames = _FRAME_CACHE[key]
+        if all(p.exists() for p in frames):
+            return frames
     tmp = pathlib.Path(workdir or tempfile.mkdtemp(prefix="video-f-"))
-    subprocess.run(["ffmpeg", "-loglevel", "error", "-i", str(video_path),
-                    "-vf", "thumbnail", "-frames:v", str(n), str(tmp / "f-%03d.png")],
-                   capture_output=True, timeout=180)
-    return sorted(tmp.glob("f-*.png"))
+    dur = _video_duration(video_path)
+    if dur > 0:
+        rate = n / dur
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(video_path),
+                        "-vf", f"fps={rate}", "-frames:v", str(n), str(tmp / "f-%03d.png")],
+                       capture_output=True, timeout=180)
+    else:
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-i", str(video_path),
+                        "-vf", "thumbnail", "-frames:v", str(n), str(tmp / "f-%03d.png")],
+                       capture_output=True, timeout=180)
+    frames = sorted(tmp.glob("f-*.png"))
+    if workdir is None:
+        _FRAME_CACHE[key] = frames
+    return frames
 
 
-def ocr_frames(video_path, n=5, lang="por+eng", workdir=None):
+def ocr_frames(video_path, n=10, lang="por+eng", workdir=None):
     """L3 — sample frames and OCR burned-in text, deduped across frames."""
     seen, lines = set(), []
     for fr in sample_frames(video_path, n, workdir):
@@ -70,7 +98,7 @@ def caption_image(img_path, describer="agy"):
     return describe.describe(img_path, describer, prompt=describe.FRAME_PROMPT).text
 
 
-def caption_frames(video_path, n=5, describer="agy", workdir=None):
+def caption_frames(video_path, n=10, describer="agy", workdir=None):
     """L4 — sample frames and describe pure-visual content (no speech/on-screen text), deduped across frames."""
     seen, lines = set(), []
     for fr in sample_frames(video_path, n, workdir):
