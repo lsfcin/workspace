@@ -88,8 +88,7 @@ Lucas: Canva's editor is "absurdamente" better than PowerPoint online; he leans 
   applies nothing (Combinar is inherited from a seed page).
 - C4 SVG only when needed, with a warning before converting a slide's shapes (colour editing and arrow connection
   points are lost). Diagrams need their own strategy before the build. Text stays native.
-- C5 The draft Apps SDK app (native shapes, lines, connectors, colour) is the candidate for diagrams — test first.
-- C6 Pro trial active since 2026-10-03: verify whether anything used needs Pro; if so, say which feature and why.
+- C5 The draft app `workspace-bridge` (native shapes, colour; no surface touches lines or connectors) is the candidate for diagrams — its spike waits on Lucas in the editor. Test designs: Canva folder `canva-tmp` (`FAHXFJLy9tE`).
 - C8 A shared deck: Lucas and the agent both edit everything, in turns; no "my slide / your slide".
 - C7 k4.b 31→32: a shrinking group leaves thin ghost lines at its old place (Lucas's GPU).
 
@@ -133,5 +132,5 @@ Lucas: Canva's editor is "absurdamente" better than PowerPoint online; he leans 
 - I3 The flood slide should show the water rising (see F8).
 - I4 Strategy 47, section strips (deck E, own session): a section is a strip — next slide pushes in from the right, with a border or colour band continuous between neighbours of one section. A new section's cover slides in from the right OVER the current slide without pushing (H), or pushes it up entering from below (V). Demo H and V side by side.
 
-## Closing the slides run (after everything above)
+## Closing the slides run (after everything above, and after the redes recorrentes deck — Lucas 2026-10-04)
 - Full audit of the ai4good deck `lucassf.pages.dev/ai4good/crises`, content and look, against the `slides` skill and the teaching specs and templates (`SPECS-aulas.md`, `academy/teaching/classes/ai4good/disciplina.md`, `plano-refino.md`): the overall narrative, cuts, updates (news on every point), revisions and additions. Its own session.
