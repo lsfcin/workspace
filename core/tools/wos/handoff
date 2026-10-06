@@ -1,0 +1,40 @@
+# Usage: core/run tools/wos/handoff [--write FILE | --clear] [--json] — name this session's handoff locally, without a model.
+import argparse
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT / 'core' / 'tools'))
+sys.path.insert(0, str(Path(__file__).resolve().parent / 'close'))
+import tool_law
+from handoff import choose, identity, publish, transcript
+
+
+def main() -> int:
+    tool_law.require('handoff')
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--session', default='')
+    parser.add_argument('--agent', default='', help='native environment, not a workflow role')
+    parser.add_argument('--transcript', default='')
+    parser.add_argument('--cwd', type=Path, default=Path.cwd())
+    parser.add_argument('--json', action='store_true')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--write', type=Path, help='publish a prepared resume prompt')
+    mode.add_argument('--clear', action='store_true', help='clear the pair only if this session owns its latest handoff')
+    args = parser.parse_args()
+    try:
+        session, agent = identity(args.session, args.agent)
+        log = transcript(session, agent, args.cwd, args.transcript)
+        info = choose(ROOT, args.cwd.resolve(), session, agent, log)
+        if args.write or args.clear:
+            publish(info, args.write.read_text(encoding='utf-8') if args.write else None)
+        print(json.dumps({k: v for k, v in info.items() if k != 'marker'}) if args.json else info['path'])
+    except (ValueError, OSError) as error:
+        print(f'handoff: {error}', file=sys.stderr)
+        return 1
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

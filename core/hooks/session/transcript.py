@@ -32,24 +32,34 @@ def find(raw: dict, session_id: str, cwd: str) -> str:
 	return ''
 
 
-def last_context(path: str) -> int:
-	"""Context carried by the active session, in tokens."""
+def _tail(path: str) -> bytes:
 	try:
 		with open(path, 'rb') as f:
 			f.seek(0, os.SEEK_END)
 			size = f.tell()
 			f.seek(max(0, size - TAIL_BYTES))
-			chunk = f.read()
+			return f.read()
 	except OSError:
-		return 0
+		return b''
+
+
+def last_context(path: str) -> int:
+	"""Last recorded input, in tokens; native cached input is included already."""
+	chunk = _tail(path)
 	# 1. Claude Code schema: search backward for assistant turn usage
 	for line in reversed(chunk.split(b'\n')):
-		if b'"usage"' not in line:
-			continue
 		try:
 			event = json.loads(line)
 		except (json.JSONDecodeError, UnicodeDecodeError):
 			continue
+		if event.get('type') == 'compacted':
+			return 0  # no current measurement after compaction until a response records one
+		if event.get('type') == 'event_msg' and event.get('payload', {}).get('type') == 'token_count':
+			usage = (event['payload'].get('info') or {}).get('last_token_usage') or {}
+			if usage:
+				return usage.get('input_tokens', 0)  # cached input is already included
+		if event.get('type') == 'token_usage_record' and event.get('payload', {}).get('usage'):
+			return event['payload']['usage'].get('input_tokens', 0)
 		if event.get('type') != 'assistant' or event.get('isSidechain'):
 			continue
 		usage = (event.get('message') or {}).get('usage') or {}
@@ -72,6 +82,18 @@ def last_context(path: str) -> int:
 	return 0
 
 
+def context_limit(path: str) -> int:
+	"""The last runtime-reported window, never the model's documented maximum."""
+	for line in reversed(_tail(path).splitlines()):
+		try:
+			event = json.loads(line)
+		except (ValueError, UnicodeError):
+			continue
+		if event.get('type') == 'event_msg' and event.get('payload', {}).get('type') == 'token_count':
+			return (event['payload'].get('info') or {}).get('model_context_window') or 0
+	return 0
+
+
 def is_compacted(path: str) -> bool:
 	"""True if this session has undergone mid-session compaction (CHECKPOINT with step_index > 1)."""
 	try:
@@ -79,6 +101,14 @@ def is_compacted(path: str) -> bool:
 			data = f.read()
 	except OSError:
 		return False
+	for line in data.splitlines():
+		if b'"compacted"' not in line:
+			continue
+		try:
+			if json.loads(line).get('type') == 'compacted':
+				return True
+		except (ValueError, UnicodeError):
+			continue
 	if b'"step_index"' not in data or b'"CHECKPOINT"' not in data:
 		return False
 	idx = 0
@@ -97,4 +127,3 @@ def is_compacted(path: str) -> bool:
 			pass
 		idx = pos + 12
 	return False
-

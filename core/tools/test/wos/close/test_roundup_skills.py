@@ -45,8 +45,9 @@ def test_the_skill_calls_the_tool_by_path():
 def test_a_skipped_handoff_deletes_the_artifact():
     """Decided 2026-08-13: the file's existence means a thread is open. A stale block left in
     place would let the next window resume a thread that closed sessions ago."""
-    assert re.search(r'rm -f\s+outputs/handoff\.md', HANDOFF_SKILL), (
-        'core/skills/handoff.md must name the deletion — skipping is what makes the path a signal')
+    assert 'core/run tools/wos/handoff --clear' in HANDOFF_SKILL, (
+        'skipping must clear only the current session artifact through the common tool')
+    assert 'rm -f outputs/handoff.md' not in HANDOFF_SKILL
 
 
 def test_the_handoff_may_decline_to_write_one():

@@ -19,6 +19,7 @@ Gate behavior, the agent-shim contract, and how a module reaches the root law:
 | [`antigravity/`](antigravity/CONTEXT.md) | Provider shim: translates Antigravity lifecycle events to canonical WOS gates. |
 | [`brain/`](brain/CONTEXT.md) | brain/ attention stats and the GOALS.md dashboard. |
 | [`checks/`](checks/CONTEXT.md) | Standalone blocking checks the commit and edit hooks run. |
+| [`codex/`](codex/CONTEXT.md) | Translate Codex lifecycle events and patches into the canonical workspace hook protocol. |
 | [`commit/`](commit/CONTEXT.md) | The git pre-commit and post-commit pipeline: what runs on every commit, in what order, and the one place a commit is refused. |
 | [`compact/`](compact/CONTEXT.md) | Shrink tool output before it reaches the context — the input-side twin of caveman. |
 | [`copilot/`](copilot/CONTEXT.md) | Provider shim: translates Copilot hook payloads onto the canonical gates. |

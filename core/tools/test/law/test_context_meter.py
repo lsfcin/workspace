@@ -164,7 +164,7 @@ def test_the_handoff_artifact_is_not_an_uppercase_type():
     is a closed allowlist, so the resume prompt must be an instance: HANDOFF.md is off that
     allowlist, which is why it never existed despite a .gitignore line inherited for it."""
     skill = (WORKSPACE_ROOT / 'core/skills/handoff.md').read_text(encoding='utf-8')
-    written = re.findall(r'outputs/[\w.-]+\.md', skill)
+    written = re.findall(r'outputs/[\w.<>-]+\.md', skill)
     assert written, 'core/skills/handoff.md no longer names the file it writes'
     for path in set(written):
         name = path.rsplit('/', 1)[-1]
@@ -188,3 +188,33 @@ def test_the_meter_never_spawns_a_session():
     assert 'subprocess' not in source, (
         'the meter reaches a process only through notify.py, which owns the timeout and the '
         'failure stance — spawning one here would be a second copy of both')
+
+
+def test_codex_context_uses_last_input_not_cumulative_or_cached_twice(tmp_path):
+    info = {'last_token_usage': {'input_tokens': 1000, 'cached_input_tokens': 900},
+            'total_token_usage': {'input_tokens': 900000}, 'model_context_window': 258400}
+    event = json.dumps({'type': 'event_msg', 'payload': {'type': 'token_count', 'info': info}})
+    path = _transcript(tmp_path, [event])
+    assert transcript.last_context(path) == 1000
+    assert transcript.context_limit(path) == 258400
+    compacted = json.dumps({'type': 'compacted', 'payload': {'message': 'summary'}})
+    path = _transcript(tmp_path, [event, compacted])
+    assert transcript.last_context(path) == 0 and transcript.is_compacted(path)
+    path = _transcript(tmp_path, [event, compacted, event])
+    assert transcript.last_context(path) == 1000
+
+
+def test_codex_meter_emits_native_facts_once_without_claude_cost_claims(tmp_path, monkeypatch, capsys):
+    info = {'last_token_usage': {'input_tokens': 150000}, 'model_context_window': 258400}
+    path = _transcript(tmp_path, [json.dumps({'type': 'event_msg', 'payload': {'type': 'token_count', 'info': info}})])
+    raw = {'transcript_path': path}  # Native events need not carry a model stamp.
+    monkeypatch.setattr(context_meter, 'parse_stdin', lambda: (raw, '', {}, 'native', str(tmp_path)))
+    monkeypatch.setattr(context_meter, 'state_file', lambda _sid: str(tmp_path / 'meter.txt'))
+    monkeypatch.setattr(context_meter.notify, 'tell', lambda _text: None)
+    context_meter.main()
+    first = capsys.readouterr().out
+    assert '150,000' in first and '258,400' in first and '/roundup' in first
+    assert '45%' not in first and '2x' not in first
+    assert len(first.strip()) <= 240
+    context_meter.main()
+    assert not capsys.readouterr().out
