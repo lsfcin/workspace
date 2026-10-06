@@ -8,7 +8,7 @@ Each exports `render(...)` for the drawing and `legend(...)` for the writing ben
 
 **[`diagram_fanin.py`](diagram_fanin.py) is the dated exception** — three shapes of one drawing, and two `render_*` names instead of one, because Lucas asked on 2026-08-18 to see every candidate at real scale before cutting. Two of the three go when he picks, and this paragraph with them.
 
-**Encoding is an evidence question, not a taste one.** Position and length beat area, which beats colour and density ([`core/refs/REFS.md`](../../../../refs/REFS.md) § Tooling), so a view rendering a quantity as glyphs to be counted has picked the weakest channel and needs a reason.
+**Encoding is an evidence question, not a taste one.** Position and length beat area, which beats colour and density ([`graphical-perception.yaml`](../../../../refs/graphical-perception.yaml)), so a view rendering a quantity as glyphs to be counted has picked the weakest channel and needs a reason.
 
 <!-- routing:start -->
 ## Routing
