@@ -16,7 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from entropy_corpus import LINK_RE, is_generated_mirror, owning_repo, tracked_paths  # noqa: E402
 from entropy_context import ROUTING_END, ROUTING_START  # noqa: E402
-from platform_law import posix, rel  # noqa: E402
+from platform_law import is_repo, posix, rel  # noqa: E402
 
 # A finding is TEXT: it lands in ISSUES.md and is matched against baselines spelled with `/`.
 # Spelled by the boundary so the same file produces the same finding on every machine — a `\` here
@@ -159,7 +159,7 @@ def check_placement(path: Path, scopes: dict, root: Path) -> str | None:
         if parent != root.resolve():
             return (f'{_head(path)}: {path.name} is declared root-only in core/SCHEMA.md.\n'
                     f'   A second one competes with the first for the same authority.')
-    elif scope == 'repo-root' and not (parent / '.git').exists():
+    elif scope == 'repo-root' and not is_repo(parent):
         return (f'{_head(path)}: {path.name} is declared repo-root-only in core/SCHEMA.md.\n'
                 f'   It answers "I just cloned this" — a directory nobody clones does\n'
                 f'   not get one; describe it in CONTEXT.md instead.')

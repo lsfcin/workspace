@@ -15,7 +15,8 @@ from pathlib import Path
 _HOOKS = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(_HOOKS), str(_HOOKS / 'commit')]
 import feature_law  # noqa: E402
-from pre_commit import Blocked, git  # noqa: E402
+from platform_law import is_repo  # noqa: E402
+from pre_commit import Blocked, git, stage  # noqa: E402
 
 DOMAIN = re.compile(r'^([a-zA-Z0-9_-]+)/\*$', re.MULTILINE)
 
@@ -97,14 +98,14 @@ def _add_missing_lines(root, ignore) -> list:
             # killed. An allow line would track nothing and leave a permanent `?? <dir>` in every
             # git status -- what the first version of this hook did to 13 code/ projects. Routing
             # reads their CONTEXT.md off-disk instead. Corrected 2026-07-29.
-            if (directory / '.git').exists() or not (directory / 'CONTEXT.md').is_file():
+            if is_repo(directory) or not (directory / 'CONTEXT.md').is_file():
                 continue
             name = f'{domain}/{directory.name}'
             if name in excepted or f'!{name}/' in allowed:
                 continue
             with ignore.open('a', encoding='utf-8', newline='\n') as handle:
                 handle.write(f'!{name}/\n')
-            git('add', str(ignore), cwd=root)
+            stage(root, ignore, named_only=True)
             healed.append(name)
     return healed
 

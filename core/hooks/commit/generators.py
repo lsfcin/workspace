@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 import file_law  # noqa: E402
 from platform_law import rel  # noqa: E402
-from pre_commit import Blocked, git, spawn  # noqa: E402
+from pre_commit import Blocked, git, spawn, stage  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'stubgen'))
 import stubs  # noqa: E402
@@ -20,8 +20,7 @@ import stubs  # noqa: E402
 
 def _stage(commit, *paths):
     """git add, tolerant: a generator that could not write is reported by its own arm, not here."""
-    for path in paths:
-        git('add', str(path), cwd=commit.toplevel)
+    stage(commit.toplevel, *paths)
 
 
 def prepare(commit):
@@ -125,7 +124,7 @@ def issues(commit):
         return
     if spawn(commit, 'core/hooks/entropy/dashboard/entropy-dashboard.py',
              '--repo', str(commit.toplevel)).returncode == 0:
-        _stage(commit, commit.toplevel / 'ISSUES.md')
+        stage(commit.toplevel, commit.toplevel / 'ISSUES.md', named_only=True)
 
 
 def interfaces(commit):

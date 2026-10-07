@@ -29,7 +29,7 @@ for _dir in ('', 'commit', 'git', 'checks', 'stubgen'):
     sys.path.insert(0, str(_HOOKS / _dir))
 
 import file_law  # noqa: E402
-from platform_law import WORKSPACE_ROOT  # noqa: E402
+from platform_law import WORKSPACE_ROOT, interpreter, rel  # noqa: E402
 
 # Every message this pipeline prints carries ⛔ ✓ → ⚠, and a git hook's stdout is whatever pipe
 # git handed it -- on Windows that resolves to the console codepage, where those characters raise
@@ -78,11 +78,25 @@ def spawn(commit, relative, *args, stdin=None):
     caller sees a traceback where a skip message belonged. Set once here, it covers every child
     rather than being re-fixed in each one.
     """
-    from platform_law import interpreter
-    environment = {**os.environ, 'PYTHONIOENCODING': 'utf-8'}
+    environment ={**os.environ, 'PYTHONIOENCODING': 'utf-8'}
     return subprocess.run([interpreter(), str(commit.root / relative), *args],
                           input=stdin, cwd=commit.toplevel, capture_output=True, text=True,
                           encoding='utf-8', errors='replace', env=environment)
+
+
+def is_partial() -> bool:
+    """`git commit -- <paths>`: hooks get a temp index (next-index-*.lock), not index/index.lock."""
+    return os.path.basename(os.environ.get('GIT_INDEX_FILE') or 'index') not in ('index', 'index.lock')
+
+
+def stage(cwd, *paths, named_only=False) -> None:
+    """git add, tolerant. `named_only`, in a partial commit: an AGGREGATE (ISSUES.md, GOALS.md,
+    .gitignore) rides only if named; a companion of a named file (stub, CONTEXT.md) always rides."""
+    if named_only and is_partial():
+        named = set(git('diff', '--cached', '--name-only', '--relative', cwd=cwd).splitlines())
+        paths = [p for p in paths if Path(os.path.relpath(Path(cwd) / p, cwd)).as_posix() in named]
+    for path in paths:
+        git('add', str(path), cwd=cwd)
 
 
 @dataclass
