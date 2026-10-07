@@ -337,7 +337,7 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/goals-roadmap is 3 ahead of main
+- . — feature/goals-roadmap is 4 ahead of main
 - . — feature/pdf-twin is 2 ahead of main
 
 <!-- entropy:end -->
