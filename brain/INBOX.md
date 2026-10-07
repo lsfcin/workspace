@@ -9,53 +9,29 @@
 
 <!-- add entries below, newest first -->
 
-voice note (untranscribed)
-[attachment: brain/attachments/2026-10/aiwbot-awacageaaxkbaaiedgrfklsh9tmo5u7bfemdlgmuwh2-aaljcqacwyiorlafrgbmzqmspqq.ogg]
-— via aiwbot · 2026-10-06
-
-https://www.instagram.com/reel/Dd9NNKbug7T/?utm_source=ig_web_copy_link
-esse cara é muito bom em comunicação, a gente pode pesquisar mais sobre ele e a forma dele de falar e de produzir conteúdo pra ajudar nessa virada das eleições
-— via aiwbot · 2026-10-06
-
-Montar um plano de rede social com base em dados, né? Entendendo como é que o Instagram funciona. Não sei se TikTok, hein? Mas... na campanha seria assim. É... Pedir, né? Pra todo mundo que se importa com a eleição de... Dar likes em todos os postes que vê. Que achar relevante. Salvar todos os postes que vê. Que achar relevante. É... Recompartilhar, né? Re... Re... Impulsionar. Aquele botão, que é um botão de duas setinhas. Aí uma quantidade X. Tipo, um ou dois postes por dia. Ou... Uma vez por turno. Né? Manhã, tarde e noite. É... Fazer... Um ou dois stories por dia. Aí tem que escolher esses nomes, sabe? E fazer um post. Também. De vez em quando, né? É... A cada dois dias. Ou alguma coisa assim. Então... É isso, né? De alguma forma... É... Pegar essas métricas. Entender como é que o Instagram funciona. E outras redes sociais. E criar um guia. Como a gente vai agir. Nesse período. De campanha.
-— via aiwbot · 2026-10-06
-
-E aí uma coisa que a gente pode aprender é com os deputados e deputadas que conseguiram muita atenção via rede social. Nicos, Pavanato, aquela menina que é de ser anti-feminista, mas a galera da esquerda também. Jones, Ana Júlia, Thiago Furtan, acho que é o nome dele. Como é que eles fizeram? Eu acho que você repostar tem muito pouco papel, assim, muito pouco. Mas como é que grava um conteúdo com você aparecendo, né? Como é que escreve o seu texto? Como é que lança o seu vídeo? Então, ferramentas pra fazer isso de forma a facilitar até quem seja mais velho de fazer isso. dicas de câmera e tal. Todo um pequeno treinamento pra isso. Acho que pode valer a pena.
-— via aiwbot · 2026-10-06
-
-E ai eu acho que dentro das iniciativas tem que ter uma ordem de como usar redes sociais, como gerar engajamento. Principalmente como furar, furar em maiúsculo, furar a bolha. Porque as vezes tá, depende de um algoritmo.
-— via aiwbot · 2026-10-06
-
-Outra coisa que me deu ideia é criar um portal. Eu diria que seria uma cartilha anti-flávio, mas o termo anti-flávio tem que ser pensado direito, pra ser o termo mais catchy, mais pegajoso possível. Mas uma cartilha, e cartilha também não sei se é o melhor nome, mas seria um portal pra gente coletar materiais estratégias pra essa campanha aí de 20 dias e que funcionaria como um fórum, as pessoas poderiam recomendar o material ou estratégia. Tem que pensar também na forma de funcionar pra evitar ataques hackers e ao mesmo tempo permitir que outras pessoas enviem ideias de projetos. Mais uma ideia é só.
-— via aiwbot · 2026-10-06
-
-Sobre a eleição, eu acho que tem que ver como é que faz pra unificar a esquerda. Não se diz que a esquerda tá dividida. Mas eu diria até assim, um anti-bolsonarismo, né? Unificar o anti-bolsonarismo com poucas pautas, né? Com poucas pautas. É isso, eu acho que vale a pena pensar como direcionar como direcionar o couro pra fazer sentido.
-— via aiwbot · 2026-10-06
+https://www.instagram.com/p/DeMgL8IDfD5/?img_index=3&stkn=MWkzNmhmOWlhb2NyZw==
+talvez ajude a gente no wos
+— via aiwbot · 2026-10-07
 
 https://www.instagram.com/reel/DeJdwzZiDQA/?utm_source=ig_web_copy_link
 Será que pode ser útil pro isoroll?
 — via aiwbot · 2026-10-06
 
 https://www.instagram.com/reel/DeI3Zulji05/?utm_source=ig_web_copy_link
+[src: web:instagram.com] Conteúdo extraído: demonstração do editor de vídeo Drift; afirmações do autor não verificadas. Extração em outputs/virada/inbox-2026-10-06-links.json; destino ainda a decidir.
 — via aiwbot · 2026-10-06
 
 https://www.instagram.com/reel/DeHs15riSZr/?utm_source=ig_web_copy_link
+[src: web:instagram.com] Conteúdo extraído: demonstração da ferramenta de design Oil UI; afirmações do autor não verificadas. Extração em outputs/virada/inbox-2026-10-06-links.json; destino ainda a decidir.
 — via aiwbot · 2026-10-05
 
 https://www.instagram.com/reel/DeHQ3vrKB26/?utm_source=ig_web_copy_link&stkn=NTc4MTIwNjQ2YQ==
 se o isoroll fosse assim seria ótimo, se bem que é mais ou menos já né, mas esse nível de experiência a gente não tá lá ainda
 — via aiwbot · 2026-10-05
 
-https://www.instagram.com/p/DeGFCgeERNv/?utm_source=ig_web_copy_link
-— via aiwbot · 2026-10-05
-
 https://www.instagram.com/p/DeGM6u4AZ9r/?utm_source=ig_web_copy_link
 Será que é útil pro isoroll?
 — via aiwbot · 2026-10-05
-
-https://www.instagram.com/p/DeGKRvWgE5o/?utm_source=ig_web_copy_link
-fotografar esse carrossel, começamos agora uma fase de campanha e pra isso vamo analisar bem e ser criativos pra conceber soluções de fato interessantes, com alcance e que mostrem pro país uma possibilidade de como fazer política
-— via aiwbot · 2026-10-04
 
 wos (IMPROVE WOS, sessão PDF twin Fase 1, 2026-09-25): (1) o agy leva 20–100 s por figura — 2 PDFs com 25 figuras levaram 19 min; o backfill dos 97 PDFs (Fase 3) pode levar horas: reabrir a latência antes (Lucas disse que reabriria se incomodasse); (2) figura decorativa (brasão em toda página) ainda é descrita 1× pelo agy — dava pra pular e só marcar; (3) a pasta `tmp/pdf-bench/` guarda o corpus e as keys do bench de VLM só nesta máquina, e `tmp/` é descartável — mover pra um lugar local durável ou aceitar que se perde; (4) com `pymupdf-layout`, o pymupdf agora lê scan em 0.94 (RapidOCR), não 0.74 — rever se `docling` segue default; (5) duas sessões no mesmo HEAD: esta sessão trocou o branch pra `feature/pdf-twin` com o taste não commitado, e o pre-commit roda a suite no working tree inteiro, então um arquivo não rastreado de uma sessão bloqueia o commit da outra; (8) a referência do audit faz OCR cru da página quando a camada de texto é pobre, e isso infla a referência em slides (c8 0.57/0.83 com texto certo) — filtrar por confiança como o `describe.ocr`; (9) 2026-09-26 04:07: tela não voltou do bloqueio e o PC teve de ser desligado no botão — sem Xid/GPU caída no log, mas houve `NVRM Out of memory` (VRAM) em todo run do docling (23:02, 03:05, 03:40) e o kernel -34 com `nvidia-595-open` novo esperava reboot desde 24/09; se repetir, checar ollama segurando VRAM junto com o docling (`ollama ps`, `nvidia-smi`) antes de um backfill longo
 
@@ -81,3 +57,5 @@ wos (macro autorizado por Lucas, 2026-10-05): adaptar o leitor comum dos relató
 wos (IMPROVE WOS, handoff 2026-10-05): a ferramenta de nomes levou core/tools/wos ao aviso de quantidade de arquivos de código (core/hooks/limits.env); avaliar redução antes de acrescentar outra ferramenta. A verificação ampliada de ligação dos hooks ficou lenta em check-duplication.py; causa ainda não isolada. Os 63 testes locais de fechamento e registro passaram.
 
 wos (sessão virada, 2026-10-05, noite — dívida de `--no-verify`): o type gate pede descrição do `branches/virada/pagina/frases.json` em `core/hooks/described.txt`, mas `workspace_meta.file_description` compara o caminho relativo ao repo aninhado (`pagina/frases.json`) com chaves relativas ao workspace, e o teste do described.txt exige caminho rastreado pelo git do workspace, que ignora `branches/virada`. Nenhuma entrada passa nos dois; o commit e106d95 da Virada saiu com `--no-verify`. Consertar: resolver o caminho a partir da raiz do workspace e aceitar arquivo rastreado num repo aninhado. Ainda: o diretório de memória do Claude (`~/.claude/projects/-mnt-workspace/memory/`) não existe; a regra do sábado foi para o SPECS da Virada.
+
+wos (sessão Virada, 2026-10-06): video_core.py e video_images.py calculam a raiz como core/, procurando venv e anexos no lugar errado; o fallback web/fetch falhou com Exec format error. O lote JSON só grava no fim, sem preservar resultados parciais ou indicar progresso. Corrigir os caminhos e o registro parcial antes de outra extração longa.
