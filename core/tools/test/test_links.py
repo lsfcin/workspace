@@ -138,6 +138,17 @@ def test_publishing_a_page_carries_its_artefacts_but_never_the_folder_notes(cour
     assert (site / 'ai4good' / 'disciplina.md').read_text(encoding='utf-8') == '# page\n'
 
 
+def test_an_artefact_folder_reaches_the_site_with_its_examples_but_not_its_notes(course, tmp_path):
+    """artefatos/brw/ holds the model and the two examples a student opens from the artefact."""
+    folder = course / 'ai4good' / 'artefatos' / 'brw'
+    folder.mkdir()
+    for name in ('modelo.md', 'excelente.md', 'CONTEXT.md'):
+        (folder / name).write_text(name, encoding='utf-8', newline='\n')
+    site = tmp_path / 'site'
+    pages.mirror(course / 'ai4good' / 'disciplina.md', site, course)
+    assert sorted(p.name for p in (site / 'ai4good' / 'artefatos' / 'brw').iterdir()) == ['excelente.md', 'modelo.md']
+
+
 def test_a_page_without_a_drawn_block_runs_no_generator(course):
     assert pages.redraw(course / 'ai4good' / 'disciplina.md') == []
 

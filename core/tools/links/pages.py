@@ -70,10 +70,12 @@ def mirror(page: pathlib.Path, publish: pathlib.Path, classes: pathlib.Path = CL
     copied = [target]
     artefacts = page.parent / 'artefatos'
     if artefacts.is_dir():
-        (target.parent / 'artefatos').mkdir(exist_ok=True)
-        for f in sorted(artefacts.glob('*.md')):
+        # rglob: an artefact may keep its model and examples in a folder of its own (artefatos/brw/).
+        for f in sorted(artefacts.rglob('*.md')):
             if f.name not in PRIVATE:
-                copied.append(pathlib.Path(shutil.copy2(f, target.parent / 'artefatos' / f.name)))
+                dest = target.parent / 'artefatos' / f.relative_to(artefacts)
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                copied.append(pathlib.Path(shutil.copy2(f, dest)))
     return copied
 
 
