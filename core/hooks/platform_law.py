@@ -147,6 +147,13 @@ def rel(path, root=WORKSPACE_ROOT) -> str:
         return target.as_posix()
 
 
+def is_repo(path) -> bool:
+    """Whether `path` roots a git repo: `.git` is a FILE (worktree, submodule) or a dir holding HEAD.
+    An EMPTY `.git` is not one — the Codex sandbox (bubblewrap) leaves those as mount points."""
+    dot = Path(path) / '.git'
+    return dot.is_file() or (dot / 'HEAD').is_file()
+
+
 def _restrict(path: Path, posix_mode: int, windows_grant: str) -> None:
     """Owner-only access, by whatever mechanism this machine actually has.
 

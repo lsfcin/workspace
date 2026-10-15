@@ -22,7 +22,7 @@
 | [`test_docs.py`](test_docs.py) | [`test_docs.pyi`](test_docs.pyi) | `paragraph` | T1 docs: an index a document reports must still mean that place when the edit is applied. |
 | [`test_forms.py`](test_forms.py) | [`test_forms.pyi`](test_forms.pyi) | — | T1 forms: a form written as JSON must reach the API as the form that was written. |
 | [`test_gauth.py`](test_gauth.py) | [`test_gauth.pyi`](test_gauth.pyi) | `accounts` | T1 auth recovery: a dead Google token must hand Lucas a runnable fix, not a traceback. |
-| [`test_links.py`](test_links.py) | [`test_links.pyi`](test_links.pyi) | `mapfile`, `course` | T1 links: a short name stays sayable, a private thing never gets one, and a live link never moves. |
+| [`test_links.py`](test_links.py) | [`test_links.pyi`](test_links.pyi) | `mapfile`, `course`, `browser_edit` | T1 links: a short name stays sayable, a private thing never gets one, and a live link never moves. |
 | [`test_notion.py`](test_notion.py) | [`test_notion.pyi`](test_notion.pyi) | `block` | T1 notion: an id survives any form it is pasted in, and a failure hands back a runnable fix. |
 | [`test_notion_write.py`](test_notion_write.py) | [`test_notion_write.pyi`](test_notion_write.pyi) | — | T1 notion write: a batch lands whole or not at all, and a link keeps the name it shows. |
 | [`test_pptx.py`](test_pptx.py) | [`test_pptx.pyi`](test_pptx.pyi) | — | T1 pptx template: every section becomes a master carrying the same layouts, and every colour stays a theme slot. |

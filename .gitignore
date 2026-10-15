@@ -253,6 +253,9 @@ code/wos
 .venv/
 .venv-pdf/
 
+# A subtree's passwords and tokens (AGENTS.md: secrets stay out of git; the text keeps the label).
+**/segredos.env
+
 # LaTeX build artifacts
 *.aux
 *.log
