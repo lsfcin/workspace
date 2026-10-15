@@ -9,7 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from file_law import is_vendored  # noqa: E402
-from platform_law import posix  # noqa: E402
+from platform_law import is_repo, posix  # noqa: E402
 
 # What a markdown link looks like, defined once. Two checks ask different questions of the same
 # syntax — core/tools/test/workspace/test_pointer_integrity.py asks whether a target EXISTS and
@@ -81,7 +81,7 @@ def owning_repo(path: Path, root: Path) -> Path:
     straight past its own `.git`, called root the owner, and root's .gitignore names every
     nested repo wholesale, so `code/CONTEXT.md` lost all 15 project rows at once.
     """
-    return next((d.resolve() for d in [path, *path.parents] if (d / '.git').exists()),
+    return next((d.resolve() for d in [path, *path.parents] if is_repo(d)),
                 root.resolve())
 
 
@@ -117,7 +117,7 @@ def nested_repos(root: Path, depth: int = 3) -> list:
         for child in directory.iterdir():
             if not child.is_dir() or child.name.startswith('.') or child.name in SKIP_DIRS:
                 continue
-            if (child / '.git').exists():
+            if is_repo(child):
                 found.append(child)
             else:
                 walk(child, level + 1)

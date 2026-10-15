@@ -8,6 +8,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'commit'))
+from pre_commit import stage  # noqa: E402
 from brain_attention import Attention  # noqa: E402
 from brain_common import (
     DONE_KEEP, GOALS_DIR, GOALS_FILE, LOG_DIR, PERIODS,
@@ -163,7 +165,7 @@ def pre_commit():
     if GOALS_FILE.exists():
         to_stage.append(str(GOALS_FILE))
     if to_stage:
-        git("add", *to_stage)
+        stage(GOALS_FILE.parent, *to_stage, named_only=True)
 
     check_compass_reminder()
 

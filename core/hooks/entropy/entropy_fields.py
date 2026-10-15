@@ -17,6 +17,7 @@ sys.path.insert(0, str(_HOOKS / 'routing'))
 
 import feature_law  # noqa: E402
 from header import header_fields  # noqa: E402
+from platform_law import is_repo  # noqa: E402
 
 WORKSPACE_ROOT = _HOOKS.parents[1]
 
@@ -59,7 +60,7 @@ def _repo_root(path: Path) -> Path:
     """The repo a file belongs to — the workspace root for most of the tree, a nested repo under
     code/ for the rest. A field in a nested repo names paths inside THAT repo."""
     for parent in path.resolve().parents:
-        if (parent / '.git').exists():
+        if is_repo(parent):
             return parent
     return WORKSPACE_ROOT
 

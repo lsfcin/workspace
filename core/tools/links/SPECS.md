@@ -20,7 +20,15 @@ GitHub Pages serves static files and reads no redirect config, so each short nam
 
 **302 and not 301.** A 301 is cached by the browser forever, so a short name pointed at the wrong document once would keep going there on Lucas's own machine long after the map was fixed.
 
-**Deployed by `git push`, not by `wrangler`.** Wrangler would need an `npm` dependency kind that [`../deps.txt`](../deps.txt) does not have — its `kind` column knows `pip`, `apt`, `binary` and `system` — so the git route adds **zero dependencies**. It also means Cloudflare is connected to a public repo of redirects and to nothing else; the workspace repo is never connected. The publish repo holds only generated content, which is why it is a target and not a project: no `ISSUES.md`, no pre-commit, and `build` rebuilds it whole from `links.txt`.
+**Deployed by `git push`, not by `wrangler`.** Wrangler would need an `npm` dependency kind that [`../deps.txt`](../deps.txt) does not have — its `kind` column knows `pip`, `apt`, `binary` and `system` — so the git route adds **zero dependencies**. It also means Cloudflare is connected to a public repo of redirects and to nothing else; the workspace repo is never connected. The publish repo is a target and not a project: no `ISSUES.md`, no pre-commit, and `build` rebuilds `_redirects` whole from `links.txt`. Its only source is the site's own code — `viewer.js`, `lib/`, `functions/` — tested by `node --test test/site.test.mjs`.
+
+## The site is written from two places, and the workspace still owns it
+
+The browser edits a page (`editar`, password `EDIT_PASSWORD`) and students fill their delivery slots (matrícula, from the `TURMAS` secret); both commit straight to the publish repo through a Pages Function. The workspace stays the source because **`publish` and `build` run `pull` first**: a file the site changed comes home by a three-way merge — the last version both sides agreed on is the base — and is committed in its own repo, by path. The same or neighbouring lines changed on both sides refuse before anything is written. Without this, the next `mirror` copies the workspace over a browser edit and nobody is told.
+
+**The panel declares the slots; `entregas.tsv` beside it holds the links.** A slot is a code in a student's `painel:dados` row; a separate `## entregue` list repeated the panel and cost ~3k characters, so `painel.js` makes the panel itself clickable, redrawing painel.py's exact text with spans (a test holds the two equal). A box without a link stays ◻: nothing to grade. Writing the links into the page itself was tried first and refused by the size cap with the slots still empty — 240 URLs are data, not prose. The tsv is mirrored and pulled like a page. Each delivery costs a deploy (~1 min before others see it); there is no counter for wrong guesses, so each one waits 2 s.
+
+**The secrets are the workspace's.** `cfpages secrets` builds all three from `segredos.env` files — `TURMAS` from each course's `MATRICULA_<NAME>` lines and `DUPLAS` — so the host holds a copy it can lose, never the original.
 
 **The published root is a dead end on purpose.** An index listing every short name would hand a stranger the whole map, which is the one thing the refusal above exists to prevent.
 

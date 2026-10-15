@@ -8,6 +8,8 @@ core/run tools/links/cfpages rm ai4good/setup
 core/run tools/links/cfpages build --push              # regenerate _redirects and deploy
 core/run tools/links/cfpages check                     # what is untrue about the map
 core/run tools/links/cfpages publish academy/teaching/classes/ai4good/disciplina.md   # a course page + artefatos, live
+core/run tools/links/cfpages pull                      # browser edits + student deliveries come home (publish runs it)
+core/run tools/links/cfpages secrets --push            # the site's 3 secrets, from segredos.env, set + redeployed
 ```
 
 Named short names, not codes — `ai4good`, not `x7f2q`. A short name is said out loud and typed from memory.

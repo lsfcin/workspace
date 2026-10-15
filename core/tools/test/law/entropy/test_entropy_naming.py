@@ -105,6 +105,7 @@ def test_readme_needs_a_repo_root(tmp_path):
     scopes = {'README.md': 'repo-root'}
     assert entropy_naming.check_placement(tmp_path / 'README.md', scopes, tmp_path)
     (tmp_path / '.git').mkdir()
+    (tmp_path / '.git' / 'HEAD').write_text('ref: refs/heads/main\n', encoding='utf-8', newline='\n')
     assert entropy_naming.check_placement(tmp_path / 'README.md', scopes, tmp_path) is None
 
 
