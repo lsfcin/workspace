@@ -69,6 +69,10 @@ def mirror(page: pathlib.Path, publish: pathlib.Path, classes: pathlib.Path = CL
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(page, target)
     copied = [target]
+    # the delivery slots' links: data the site writes, kept out of the page so it never meets the cap
+    deliveries = page.parent / 'entregas.tsv'
+    if deliveries.exists():
+        copied.append(pathlib.Path(shutil.copy2(deliveries, target.parent / deliveries.name)))
     artefacts = page.parent / 'artefatos'
     if artefacts.is_dir():
         # rglob: an artefact may keep its model and examples in a folder of its own (artefatos/brw/).
@@ -107,7 +111,7 @@ def pull(publish: pathlib.Path, classes: pathlib.Path = CLASSES) -> list[pathlib
     for rel in changed:
         home = classes / rel
         theirs = _show(publish, '@{u}', rel)
-        if not rel.endswith('.md') or not (classes / rel.split('/')[0]).is_dir() or theirs is None:
+        if not rel.endswith(('.md', '.tsv')) or not (classes / rel.split('/')[0]).is_dir() or theirs is None:
             continue  # no workspace home (viewer.js, functions/), or deleted on the site
         ours = home.read_text(encoding='utf-8') if home.exists() else None
         old = _show(publish, base, rel) or ''

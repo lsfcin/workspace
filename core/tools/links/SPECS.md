@@ -26,7 +26,9 @@ GitHub Pages serves static files and reads no redirect config, so each short nam
 
 The browser edits a page (`editar`, password `EDIT_PASSWORD`) and students fill their delivery slots (matrícula, from the `TURMAS` secret); both commit straight to the publish repo through a Pages Function. The workspace stays the source because **`publish` and `build` run `pull` first**: a file the site changed comes home by a three-way merge — the last version both sides agreed on is the base — and is committed in its own repo, by path. The same or neighbouring lines changed on both sides refuse before anything is written. Without this, the next `mirror` copies the workspace over a browser edit and nobody is told.
 
-**Slots live in the page, not in a store.** A delivered link is one more `` [`code`](url) `` on the student's line under `## entregue`, so no database exists to drift from the page. The cost is a deploy per delivery (~1 min before others see it). There is no counter for wrong guesses either, so each one waits 2 s.
+**The page declares the slots; `entregas.tsv` beside it holds the links.** Writing the links into the page itself was tried first and refused by the size cap with the slots still empty — 240 URLs are data, not prose. The tsv is mirrored and pulled like a page. Each delivery costs a deploy (~1 min before others see it); there is no counter for wrong guesses, so each one waits 2 s.
+
+**The secrets are the workspace's.** `cfpages secrets` builds all three from `segredos.env` files — `TURMAS` from each course's `MATRICULA_<NAME>` lines and `DUPLAS` — so the host holds a copy it can lose, never the original.
 
 **The published root is a dead end on purpose.** An index listing every short name would hand a stranger the whole map, which is the one thing the refusal above exists to prevent.
 

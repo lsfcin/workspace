@@ -213,6 +213,14 @@ def test_the_same_line_changed_on_both_sides_is_refused_and_nothing_moves(course
     assert _git(site, 'rev-parse', 'HEAD') == head
 
 
+def test_deliveries_travel_both_ways_beside_the_page(course, browser_edit, tmp_path):
+    """The slots' links live in entregas.tsv: the site writes it, publish carries it, pull brings it home."""
+    page, site, edit = browser_edit
+    edit('# aluno\tcódigo\tlink\nedson\tbrw\thttps://d/1\n', path='ai4good/entregas.tsv')
+    assert pages.pull(site, course) == [course / 'ai4good' / 'entregas.tsv']
+    assert 'https://d/1' in pages.mirror(page, tmp_path / 'other-site', course)[1].read_text(encoding='utf-8')
+
+
 def test_a_site_file_with_no_course_home_moves_the_clone_but_touches_no_workspace_file(course, browser_edit):
     page, site, edit = browser_edit
     edit('// viewer\n', path='viewer.js')

@@ -1,8 +1,11 @@
 # Usage: core/run tools/links/cfpages <cmd> [args] — named short links: add, find, rm, build, check; publish a course page
 import argparse
+import json
 import pathlib
+import re
 import subprocess
 import sys
+import unicodedata
 
 _HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))
@@ -65,6 +68,35 @@ def cmd_pull(publish: pathlib.Path) -> None:
                                '--', *paths], cwd=top)
         if done.returncode:
             print(f"  written but NOT committed in {top} — the commit gate refused; commit by hand", file=sys.stderr)
+
+
+def _env(path: pathlib.Path) -> dict:
+    lines = path.read_text(encoding='utf-8').splitlines() if path.exists() else []
+    return dict(l.split('=', 1) for l in lines if '=' in l and not l.startswith('#'))
+
+
+def cmd_secrets() -> None:
+    """The site's secrets, assembled from the workspace's segredos.env files — the workspace owns them,
+    the host only holds a copy. TURMAS pairs each name under a page's "## entregue" with the
+    MATRICULA_<NAME> line of that course's segredos.env (accents, dots and spaces folded)."""
+    own = _env(_HERE / 'segredos.env')
+    turmas = {}
+    for page in sorted(pages.CLASSES.glob('*/disciplina.md')):
+        env = _env(page.parent / 'segredos.env')
+        section = page.read_text(encoding='utf-8').partition('## entregue')[2].split('\n## ')[0]
+        names = re.findall(r'^- \*\*(.+?)\*\* \|', section, re.M)
+        if not names or not env:
+            continue
+        key = lambda n: 'MATRICULA_' + re.sub(r'\W+', '_', unicodedata.normalize('NFKD', n).encode('ascii', 'ignore').decode()).strip('_').upper()
+        missing = [n for n in names if key(n) not in env]
+        if missing:
+            raise SystemExit(f"{page.parent.name}: no {', '.join(key(n) for n in missing)} in segredos.env")
+        duplas = [d.split('+') for d in env.get('DUPLAS', '').split(',') if d]
+        turmas[page.parent.name] = {'matriculas': {n: env[key(n)].strip() for n in names}, 'duplas': duplas}
+    print("# paste each into the host's secret store (Cloudflare Pages: Settings → Variables and Secrets)")
+    print(f"EDIT_PASSWORD={own.get('EDIT_PASSWORD', '')}")
+    print(f"GITHUB_TOKEN={own.get('GITHUB_TOKEN', '')}")
+    print(f"TURMAS={json.dumps(turmas, ensure_ascii=False)}")
 
 
 def cmd_build(publish: pathlib.Path, push: bool) -> None:
@@ -145,6 +177,8 @@ def main():
 
     sub.add_parser("check")
 
+    sub.add_parser("secrets", help="print the site's secrets, built from the workspace's segredos.env files")
+
     pl = sub.add_parser("pull", help="bring browser edits and student deliveries home; publish and build run it first")
     pl.add_argument("--dir", dest="publish", default=str(PUBLISH))
 
@@ -160,6 +194,7 @@ def main():
         elif args.cmd == "build": cmd_build(pathlib.Path(args.publish), args.push)
         elif args.cmd == "check": cmd_check()
         elif args.cmd == "pull":  cmd_pull(pathlib.Path(args.publish))
+        elif args.cmd == "secrets": cmd_secrets()
         elif args.cmd == "publish": cmd_publish(pathlib.Path(args.page), pathlib.Path(args.publish))
         else:                     p.print_help()
     except (links_core.Refused, pages.Refused) as e:
