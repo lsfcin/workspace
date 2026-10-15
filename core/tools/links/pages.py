@@ -6,6 +6,7 @@ import pathlib
 import shutil
 import subprocess
 import sys
+import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 CLASSES = ROOT / 'academy' / 'teaching' / 'classes'
@@ -77,6 +78,64 @@ def mirror(page: pathlib.Path, publish: pathlib.Path, classes: pathlib.Path = CL
                 dest.parent.mkdir(parents=True, exist_ok=True)
                 copied.append(pathlib.Path(shutil.copy2(f, dest)))
     return copied
+
+
+def _git(publish: pathlib.Path, *args: str, check: bool = True) -> subprocess.CompletedProcess:
+    return subprocess.run(['git', *args], cwd=publish, check=check, capture_output=True, text=True, encoding='utf-8')
+
+
+def _show(publish: pathlib.Path, rev: str, path: str) -> str | None:
+    shown = _git(publish, 'show', f'{rev}:{path}', check=False)
+    return shown.stdout if shown.returncode == 0 else None
+
+
+def pull(publish: pathlib.Path, classes: pathlib.Path = CLASSES) -> list[pathlib.Path]:
+    """Bring what the browser committed to the site home to the workspace, then catch the clone up.
+
+    The site is edited in two places — the workspace (published by `mirror`) and the browser (the
+    editor and the delivery slots commit straight to the publish repo). Without this, the next
+    `mirror` copies the workspace over a browser edit and nobody is told. A three-way merge, with the
+    last thing both sides agreed on as the base, keeps both; the same line changed on both sides
+    (git counts neighbouring lines as the same) refuses before anything is written, so a refusal never leaves half a pull behind.
+    """
+    _git(publish, 'fetch', '-q', 'origin')
+    if _git(publish, 'rev-parse', '-q', '--verify', '@{u}', check=False).returncode:
+        return []  # nothing upstream yet: the first push creates it
+    base = _git(publish, 'merge-base', 'HEAD', '@{u}').stdout.strip()
+    changed = _git(publish, 'diff', '--name-only', base, '@{u}').stdout.split()
+    merged, conflicts = {}, []
+    for rel in changed:
+        home = classes / rel
+        theirs = _show(publish, '@{u}', rel)
+        if not rel.endswith('.md') or not (classes / rel.split('/')[0]).is_dir() or theirs is None:
+            continue  # no workspace home (viewer.js, functions/), or deleted on the site
+        ours = home.read_text(encoding='utf-8') if home.exists() else None
+        old = _show(publish, base, rel) or ''
+        if ours is None or ours == old:
+            merged[home] = theirs
+            continue
+        with tempfile.TemporaryDirectory() as tmp:
+            files = []
+            for name, text in (('ours', ours), ('base', old), ('theirs', theirs)):
+                (pathlib.Path(tmp) / name).write_text(text, encoding='utf-8', newline='\n')
+                files.append(str(pathlib.Path(tmp) / name))
+            result = subprocess.run(['git', 'merge-file', '-p', *files], capture_output=True, text=True, encoding='utf-8')
+        if result.returncode:
+            conflicts.append(rel)
+        else:
+            merged[home] = result.stdout
+    if conflicts:
+        raise Refused(
+            "the browser and the workspace changed the same or neighbouring lines in: " + ', '.join(conflicts) +
+            f"\n  compare: git -C {publish} diff HEAD @{{u}} -- <file>; settle it in the workspace, then rerun")
+    written = []
+    for home, text in merged.items():
+        if not home.exists() or home.read_text(encoding='utf-8') != text:
+            home.parent.mkdir(parents=True, exist_ok=True)
+            home.write_text(text, encoding='utf-8', newline='\n')
+            written.append(home)
+    _git(publish, 'rebase', '-q', '@{u}')
+    return written
 
 
 def push(publish: pathlib.Path, paths: list, message: str) -> None:

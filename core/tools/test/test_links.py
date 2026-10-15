@@ -159,6 +159,67 @@ def test_resolve_page_finds_page_from_classes_or_relative_path(course, tmp_path)
     assert pages.resolve_page(page, classes=course, root=tmp_path) == page
 
 
+def _git(cwd, *args):
+    import subprocess
+    # the workspace's global hooksPath judges workspace commits; a throwaway repo is not one
+    return subprocess.run(['git', '-c', 'core.hooksPath=/dev/null', *args], cwd=cwd, check=True, capture_output=True, text=True, encoding='utf-8').stdout
+
+
+@pytest.fixture
+def browser_edit(course, tmp_path):
+    """The site as the workspace last published it, then one commit made from the browser on top."""
+    remote, site, other = tmp_path / 'remote.git', tmp_path / 'site', tmp_path / 'other'
+    _git(tmp_path, 'init', '-q', '--bare', '-b', 'main', str(remote))
+    _git(tmp_path, 'clone', '-q', str(remote), str(site))
+    for repo in (site,):
+        _git(repo, 'config', 'user.email', 't@t'); _git(repo, 'config', 'user.name', 't')
+    page = course / 'ai4good' / 'disciplina.md'
+    page.write_text('um\ndois\ntrês\nquatro\ncinco\n', encoding='utf-8', newline='\n')
+    pages.mirror(page, site, course)
+    _git(site, 'add', '-A'); _git(site, 'commit', '-q', '-m', 'publish'); _git(site, 'push', '-q', '-u', 'origin', 'HEAD')
+    _git(tmp_path, 'clone', '-q', str(remote), str(other))
+    _git(other, 'config', 'user.email', 'b@b'); _git(other, 'config', 'user.name', 'b')
+
+    def edit(text, path='ai4good/disciplina.md'):
+        (other / path).parent.mkdir(parents=True, exist_ok=True)
+        (other / path).write_text(text, encoding='utf-8', newline='\n')
+        _git(other, 'add', '-A'); _git(other, 'commit', '-q', '-m', f'editor: {path}'); _git(other, 'push', '-q')
+    return page, site, edit
+
+
+def test_a_browser_edit_comes_home_when_the_workspace_did_not_move(course, browser_edit):
+    page, site, edit = browser_edit
+    edit('um\nDOIS\ntrês\n')
+    assert pages.pull(site, course) == [page]
+    assert page.read_text(encoding='utf-8') == 'um\nDOIS\ntrês\n'
+
+
+def test_a_browser_edit_and_a_workspace_edit_apart_both_survive(course, browser_edit):
+    page, site, edit = browser_edit
+    edit('UM\ndois\ntrês\nquatro\ncinco\n')
+    page.write_text('um\ndois\ntrês\nquatro\nCINCO\n', encoding='utf-8', newline='\n')
+    pages.pull(site, course)
+    assert page.read_text(encoding='utf-8') == 'UM\ndois\ntrês\nquatro\nCINCO\n'
+
+
+def test_the_same_line_changed_on_both_sides_is_refused_and_nothing_moves(course, browser_edit):
+    page, site, edit = browser_edit
+    edit('um\nbrowser\ntrês\n')
+    page.write_text('um\nworkspace\ntrês\n', encoding='utf-8', newline='\n')
+    head = _git(site, 'rev-parse', 'HEAD')
+    with pytest.raises(pages.Refused, match='disciplina.md'):
+        pages.pull(site, course)
+    assert page.read_text(encoding='utf-8') == 'um\nworkspace\ntrês\n'
+    assert _git(site, 'rev-parse', 'HEAD') == head
+
+
+def test_a_site_file_with_no_course_home_moves_the_clone_but_touches_no_workspace_file(course, browser_edit):
+    page, site, edit = browser_edit
+    edit('// viewer\n', path='viewer.js')
+    assert pages.pull(site, course) == []
+    assert (site / 'viewer.js').read_text(encoding='utf-8') == '// viewer\n'
+
+
 def test_a_page_with_habilidades_block_runs_arvore_generator(course):
     page = course / 'ai4good' / 'disciplina.md'
     page.write_text('<!-- habilidades:start -->\n<!-- habilidades:end -->', encoding='utf-8', newline='\n')

@@ -1,6 +1,7 @@
 # Usage: core/run tools/links/cfpages <cmd> [args] — named short links: add, find, rm, build, check; publish a course page
 import argparse
 import pathlib
+import subprocess
 import sys
 
 _HERE = pathlib.Path(__file__).resolve().parent
@@ -45,6 +46,27 @@ def cmd_rm(short_name: str) -> None:
     print(f"  still live until: core/run tools/links/cfpages build --push")
 
 
+def cmd_pull(publish: pathlib.Path) -> None:
+    """Browser edits and student deliveries come home, and are committed alone, by path."""
+    written = pages.pull(publish)
+    if not written:
+        return
+    # a course lives in its own repo (academy/teaching is one), so each file commits where it is tracked
+    repos: dict[str, list[str]] = {}
+    for p in written:
+        print(f"from the site: {p.relative_to(ROOT)}")
+        top = subprocess.run(['git', 'rev-parse', '--show-toplevel'], cwd=p.parent,
+                             capture_output=True, text=True, encoding='utf-8', check=True).stdout.strip()
+        repos.setdefault(top, []).append(str(p))
+    for top, paths in repos.items():
+        # by path: another session may hold staged work in the same index (code/SPECS-git.md)
+        subprocess.run(['git', 'add', '--', *paths], cwd=top, check=True)
+        done = subprocess.run(['git', 'commit', '-q', '-m', 'chore(links): edits made on the site come home',
+                               '--', *paths], cwd=top)
+        if done.returncode:
+            print(f"  written but NOT committed in {top} — the commit gate refused; commit by hand", file=sys.stderr)
+
+
 def cmd_build(publish: pathlib.Path, push: bool) -> None:
     rows = links_core.load()
     findings = links_core.check(rows)
@@ -60,6 +82,8 @@ def cmd_build(publish: pathlib.Path, push: bool) -> None:
             f"  It is the publish repo — create it, then rerun:\n"
             f"    gh repo create lsf-links --public --clone {publish}"
         )
+    if push:
+        cmd_pull(publish)  # a push behind the site is refused, and a browser edit would be lost
     (publish / '_redirects').write_text(links_core.redirects(rows), encoding="utf-8", newline="\n")
     (publish / 'index.html').write_text(INDEX, encoding="utf-8", newline="\n")
     print(f"Wrote {len(rows)} redirect(s) to {publish}/_redirects")
@@ -71,6 +95,7 @@ def cmd_build(publish: pathlib.Path, push: bool) -> None:
 
 
 def cmd_publish(page: pathlib.Path, publish: pathlib.Path) -> None:
+    cmd_pull(publish)  # before redraw and mirror, or the workspace copy lands over a browser edit
     for name in pages.redraw(page):
         print(f"redrew {page.name} with {name}")
     copied = pages.mirror(page, publish)
@@ -120,6 +145,9 @@ def main():
 
     sub.add_parser("check")
 
+    pl = sub.add_parser("pull", help="bring browser edits and student deliveries home; publish and build run it first")
+    pl.add_argument("--dir", dest="publish", default=str(PUBLISH))
+
     pp = sub.add_parser("publish", help="redraw, mirror and push a course page and its artefatos/")
     pp.add_argument("page", help="academy/teaching/classes/<course>/<file>.md")
     pp.add_argument("--dir", dest="publish", default=str(PUBLISH))
@@ -131,6 +159,7 @@ def main():
         elif args.cmd == "rm":    cmd_rm(args.short_name)
         elif args.cmd == "build": cmd_build(pathlib.Path(args.publish), args.push)
         elif args.cmd == "check": cmd_check()
+        elif args.cmd == "pull":  cmd_pull(pathlib.Path(args.publish))
         elif args.cmd == "publish": cmd_publish(pathlib.Path(args.page), pathlib.Path(args.publish))
         else:                     p.print_help()
     except (links_core.Refused, pages.Refused) as e:
