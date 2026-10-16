@@ -120,5 +120,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-15  ·  trend: steady  ·  touches: 165/862/925/925/925/925
+last-touch: 2026-10-16  ·  trend: steady  ·  touches: 167/864/927/927/927/927
 <!-- stats:end -->
