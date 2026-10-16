@@ -1,10 +1,6 @@
 # [ craft | teaching | near ] teaching materials paradigm
 
-Mudar o paradigma do material de aulas. Slides como arquivos abertos, com animações, acessíveis e editáveis. Sair do PowerPoint/PDF estático e entrar em algo vivo — onde o conteúdo pode ser versionado, transformado por agentes, e verdadeiramente interativo. Before building: understand what's best-in-class today.
-
-**Conectividade antes de formato** (Lucas, 2026-08-14): um agente não migra, versiona nem transforma material que ele não alcança, e o material vive no Drive e no Notion. Daí a ordem — **alcançar → organizar → só depois trocar o formato.**
-
-Divisão de responsabilidade, para o item não viver em dois lugares: **este goal é a intenção e a ordem**; a construção das ferramentas (CLI do Notion, superfície Google em `core/tools/`) é item de [`core/ROADMAP.md`](../../core/ROADMAP.md). Uma cópia seria bug.
+Open, animated, accessible and editable teaching material that agents can version and transform. Assess current practice before choosing a format. Lucas's order (2026-08-14): reach Drive/Notion → organize → change format. Tooling implementation: [core/ROADMAP.md](../../core/ROADMAP.md).
 
 >**signals**  
 meaningful · expected · motivated
@@ -17,20 +13,25 @@ Semestre começou em agosto/2026 e Lucas quer isso organizado "em breve" — ân
 `core/tools/files` · `core/tools/mail` · `core/tools/calendar`  
 `academy/teaching`
 
-**Conectar está feito**: Notion e Drive leem e escrevem, o `gslides` editou decks reais, o calendário 2026.2 está publicado. **O degrau agora é organizar.** Sobra deletar as cópias do lado do cin, em [google-migration](google-migration.md).
+Connectivity is established; organize next. Remaining cin cleanup: [google-migration](google-migration.md).
 
 ## selected next achievement
     [metodologia-tecedu] desenhar a metodologia completa de Tecnologias na Educação
 
 **ease-start**  
-O calendário já está fechado e publicado, e é ele que dá o esqueleto: 17 quartas de **Apresentação**/**Status Report** e 17 sextas de **Especificação**, cada sexta carregando produto e artigo ao mesmo tempo. Abra a página do Notion e escreva **uma** sexta por inteiro — o que cada perfil da equipe (hacker, hustler, hipster) entrega naquele encontro. As outras dezesseis copiam o formato.
+Use the published calendar: 17 Wednesday presentation/status meetings and 17 Friday specification meetings, each joining product and paper. In Notion, detail one Friday's deliverables for each team role (hacker, hustler, hipster); reuse the format for the other sixteen.
 
 ## backlog
+
+> [ ] [visual-tools] Track editability, accessibility, source fidelity and reproducibility of captured visual tools in academy/teaching/ROADMAP.md [visual-tools]; REFS.md (backlog).
+> [ ] [synthetic-evidence] Track the methodology/validation/limits assessment in academy/teaching/ROADMAP.md [synthetic-evidence]; simulations do not establish real behavior (backlog).
+
+> [ ] [matraix-teaching] Review the MatrAIx assessment in academy/teaching/ROADMAP.md; reference in REFS.md (month).
 
 > [ ] [pano-projetor-rural] comprar pano branco/tecido de projeção para a sala de aula da UFRPE (INBOX 2026-10-04)  
 > [ ] [debate-lecun-hinton-amodei] estruturar slide/dinâmica de aula em AI4Good contrapondo o risco existencial (Hinton/Amodei) com a visão pragmática anti-pânico de Yann LeCun (Fortune) — ref em academy/teaching/REFS.md (INBOX 2026-10-04)  
 > [ ] [moral-ambition-talentos] incorporar o conceito do 'Triângulo das Bermudas de Talentos' (Simon van Teutem / Rutger Bregman) e o debate de 'Moral Ambition' nos slides e discussões sobre carreira ética, impacto e escolhas profissionais em computação/IA (AI4Good/TechEdu) — ref em academy/teaching/REFS.md (INBOX 2026-10-02)  
-> [ ] [eval-hotclip] testar HotClip localmente para transformar gravações de aulas em pílulas/shorts verticais com legendas para o site das disciplinas — ref em core/refs/REFS.md (INBOX 2026-09-25)  
+> [ ] [eval-hotclip] Track the HotClip/Drift class-recording comparison in academy/teaching/ROADMAP.md; references in REFS.md and core/refs/REFS.md.  
 > [ ] [10-conceitos-llm-bhavana] incorporar a progressão em 5 estágios (input, meaning, generation, grounding, production) da Bhavana nas aulas de LLMs/Agentes de AI4Good e TechEdu — ref em academy/teaching/REFS.md (INBOX 2026-10-03)  
 > [ ] [ai4good-entregas-va2] acompanhar sistema de formulários de enigmas (trava de domínio) e definição das 50 caixas da VA2 — tracked in academy/teaching/classes/ai4good/ROADMAP.md (INBOX 2026-09-23)  
 > [ ] [techedu-equipes-painel] modelar funcionamento do painel de caixas para equipes em TechEdu — tracked in academy/teaching/classes/techedu/ROADMAP.md (INBOX 2026-09-23)  
@@ -106,5 +107,5 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json` (sobras e manutenç
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-06  ·  trend: advancing  ·  touches: 44/85/93/93/93/93
+last-touch: 2026-10-16  ·  trend: steady  ·  touches: 37/91/101/101/101/101
 <!-- stats:end -->

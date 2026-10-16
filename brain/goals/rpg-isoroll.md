@@ -32,6 +32,10 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 
 ## backlog
 
+> [ ] [captured-isoroll-tools] Track Animater [animater], Universal Modder [modder-patterns], object brush [object-brush] and UniMate [unimate] in both code/isoroll-module/ROADMAP.md and code/isoroll-content/ROADMAP.md; references in both refs/REFS.md (backlog).
+
+> [ ] [game-isolation] Validate Brave voice/game separation in a real Monday session: budget, leakage and GPU failures; configuration in branches/tweaks/SETUP.md (week).
+
 > [ ] [playable] = ROADMAP § PLAYABLE — painter MVP + manifest walls/vision/fog + 8+1 view switching + DepthSorter + 8-dir token selection  
 > [ ] [bakeoff] content arms compared behind the frozen boundary: A kit-sprite (baseline) vs B scene-cell world-uv render (continuity by construction) vs C NB-painted textures — your style score 1–5 decides, boarded side by side on the same cabin  
 > [ ] [props-mesh] props + characters via image→3D → render 9 views (Hunyuan3D / TripoSR) — multiview by geometry, never by generation  
@@ -42,7 +46,7 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 > [ ] [sprite-atlas] atlas packing for Foundry export  
 > [ ] [higgsfield-asset-gen] avaliar se algum pipeline do Higgsfield serve à geração de asset daqui — e checar primeiro se não bate de frente com a decisão congelada de que o pixel sai do bake offline em Python e nada que gira é gerado.
 > Se bater, o veredito é curto e fica escrito. Irmão de [higgsfield-o-que-roda-aqui] em `local-ai.md`. Ref em `core/refs/REFS.md` (— via aiwbot)  
-> [ ] [capcut-um-take] avaliar o CapCut pro isoroll — o gancho é um take único virando muitos cortes, o que serve a divulgação e a vídeo de mesa, não a sprite. Separar as duas perguntas antes de testar. Ref e tarefa espelhadas em `code/isoroll-content/` (INBOX 2026-09-18)  
+> [ ] [capcut-um-take] Assess CapCut and Drift separately for promotional/devlog edits and table-session capture; scope uses before testing. Ref and assessment in code/isoroll-content/.  
 > [ ] [nvidia-imagegen] testar geração de imagem via opencode + chave NVIDIA — nanobanana com a key falhou algumas vezes; validar esse caminho alternativo (INBOX 2026-07-24)  
 
 ## done
@@ -52,5 +56,5 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-18  ·  trend: decelerating  ·  touches: 6/187/673/673/673/673
+last-touch: 2026-10-06  ·  trend: decelerating  ·  touches: 4/120/674/674/674/674
 <!-- stats:end -->
