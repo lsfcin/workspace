@@ -17,3 +17,10 @@ No Chrome o Lucas usava atalhos de uma letra: digitar `y` + Tab abre a busca do 
 
 Configurar atalho de teclado global de sistema no Ubuntu (e posteriormente no Windows) com gravação de áudio e dupla ação: (1) transcrição direta via STT onde o cursor estiver; (2) ativação de agente autônomo do WOS caso o áudio inicie com "bot ...". Avaliar STT do Antigravity (com revisão contextual e correção de siglas) vs. Whisper/aiwbot (INBOX 2026-10-01/02).
 
+## Ubuntu / Brave — voz e Foundry
+
+Brave oficial, voz e jogo com perfis independentes e grupos irmãos `app-brave.slice` e `app-foundry.slice`. Proteção em `~/.local/share/brave-protecao/launch.py`; `undo.py` remove a proteção preservando o perfil. Nas partidas, manter VS Code/Claude e fechar ChatGPT/Antigravity. Usar o atalho Foundry — Brave: links do Discord web abrem no navegador da voz.
+
+Voz/navegação: 2816 MiB. O jogo recalcula o teto somente com grupo vazio: memória disponível menos 2 GiB e a folga ainda autorizada à voz, descontando seu cache. Faixa de 2–6 GiB é heurística; abaixo de 2 GiB recusa abertura. Unidade base de 1 GiB é trava. Swap, drivers e sandbox mantidos; memória comprimida (zram) adiada.
+
+Partida de segunda-feira, orçamento após fechar apps, vazamento e falha NVIDIA continuam pendentes; acompanhamento em `brain/goals/rpg-isoroll.md`. Modelos ociosos: `code/aiwbot/ROADMAP.md`.

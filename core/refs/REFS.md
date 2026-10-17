@@ -2,6 +2,7 @@
 > What external material exists for the workspace-os agent library, and how much weight does each hold?
 > The intake: one line per ref not yet promoted. A judged ref lives in `<key>.yaml` beside this file, with its level `[A] [B] [P] [V] [C]`. Citation discipline: [SPECS.md](SPECS.md).
 
+
 ## Model level, cost & execution interface
 - `[V]` Opus 5 Guidance (Anthropic)
   — effort modulates thinking not visible output; specify lengths explicitly; delete redundant verification prompts.
@@ -11,6 +12,10 @@
   — drift detection between documentation and code.
 
 ## Unjudged intake queue (`status: unjudged`)
+
+- [mcptoon — gittrend.io](https://www.instagram.com/reel/Demkg_Xgmmz/?rpxt=MXR3bHJsdDE3a3Bjcw==) — [src: web:instagram.com, gittrend.io] Author demonstrates on-demand discovery of Model Context Protocol (MCP) tools and skills; token-saving claims unverified. Assessment: ../ROADMAP.md [mcptoon-context]; Dobra: ../../code/dobra/ROADMAP.md.
+- [Clipa — editandocombeatriz](https://www.instagram.com/reel/DdsXDRVMgen/?srtk=eXpjazBjNTZqNzRv) — [src: web:instagram.com] Sponsored demonstration of clipa.app animated captions; accuracy and production benefit unverified. Assessment: ../ROADMAP.md, caption-tool comparison; ../../branches/virada/ROADMAP.md.
+- [REA / PhotoCraft / EffectCraft — silvestri_gabriel](https://www.instagram.com/reel/DeXZnw4mdEr/?srtk=MTl1NmpsZXluYXFjeA==) — [src: web:instagram.com] Author presents reverse-engineering and media-production demonstrations, naming rea.tools and getartcraft.com; capabilities and legal claims unverified. Assessment: ../ROADMAP.md [rea-assessment]; ../../branches/virada/ROADMAP.md.
 - [Standard Technical English (STE)](https://www.instagram.com/reel/DclKZARteCP/)
   — controlled English grammar for precision vocabulary.
 - [arXiv 2608.15089](https://arxiv.org/pdf/2608.15089) — alternative open setup research.

@@ -54,12 +54,14 @@ fallback · iterate — MVP can always be extended*
 
 ## backlog
 
+> [ ] [mcptoon-context] Track the mcptoon comparison in core/ROADMAP.md [mcptoon-context]; reference in core/refs/REFS.md (backlog).
+
 > [ ] [visual-tools] Track Hairline, ff-tracking, Papermorph and animated-data assessment in core/ROADMAP.md [visual-tools]; core/refs/REFS.md (backlog).
 > [ ] [expert-depth] Track the prompt attributed to Felix Rieseberg in core/ROADMAP.md [expert-depth]; core/refs/REFS.md (backlog).
 > [ ] [hyperagent-openharness] Track OpenHarness in core/ROADMAP.md, Desktop hyperagent; aiwbot sessions and Dobra context remain part of that assessment (high priority, week).
 > [ ] [modder-patterns] Track Universal Modder discovery, verification and field-note assessment in core/ROADMAP.md [modder-patterns]; core/refs/REFS.md (backlog).
 
-> [ ] [inbox-tool-fixes] Assess queued fixes in core/ROADMAP.md, ROADMAP.md and ISSUES.md when active work requires them; includes bot compatibility and MatrAIx evaluation.
+> [ ] [inbox-tool-fixes] Track core/ROADMAP.md [rea-assessment], caption-tool comparison and [links-cleanup] (today); ISSUES.md b20261014-retired-substrings, b20260922-state-stores, b20261017-ungated-write-cwd and b20261017-video-batch-results. Retain bot compatibility and MatrAIx assessment when active work requires them.
 
 > [ ] [eval-iris-mcp] avaliar o iris (brijr/iris) como ferramenta de câmera MCP para o Antigravity inspecionar visualmente artefatos web e páginas geradas — ref em core/refs/REFS.md (INBOX 2026-09-25)  
 > [ ] [stream-recommendation-wos] conectar histórico de streaming e coisas assistidas ao workspace (branches/tips/) e criar feature de recomendação via chat móvel no bot do Telegram (aiwbot) (INBOX 2026-09-26)  
@@ -120,5 +122,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-16  ·  trend: steady  ·  touches: 167/864/927/927/927/927
+last-touch: 2026-10-16  ·  trend: decelerating  ·  touches: 141/864/929/929/929/929
 <!-- stats:end -->
