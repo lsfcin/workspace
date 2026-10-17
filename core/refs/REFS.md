@@ -76,3 +76,23 @@
 - [kem_glitch — three habits](https://www.instagram.com/reel/DdG848DNm3p/) — [src: web:instagram.com] tests first, never start from scratch, have the model draw the process. Only the third is new here — **mutation testing**: break a passing test on purpose, and a suite that stays green has no teeth (`workspace-os.md` [mutation-testing]; — via aiwbot).
 - `[C]` [Glitch Orchestra — GlitchCatClub](https://www.instagram.com/reel/DeEyZPEtkyH/) — [src: web:instagram.com via Kem] Claude Code 2.1.289 mod: orquestração multi-agente (`agent.spawn`), monitoramento idle/waiting, gestão de contexto por State File e Kanban sem compaction pesada, reunião de alinhamento prévia (tasks em `brain/goals/workspace-os.md` [glitch-orchestra-state-eval] e `core/ROADMAP.md`).
 - `[C]` [Avanço de Agentes de IA](https://www.instagram.com/p/DeEzhnoDaXa/) — [src: web:instagram.com] radar da cadência rápida de evolução de frameworks de agentes autônomos (task em `brain/goals/workspace-os.md` [sota-agent-cadence]).
+
+- [MatrAIx](https://arxiv.org/abs/2608.04205) — Li et al., preprint on simulated-user evaluation; assess behavioral validity and teaching uses. Tasks in academy/teaching/ROADMAP.md and core/ROADMAP.md.
+
+- [Drift](https://www.instagram.com/reel/DeI3Zulji05/?utm_source=ig_web_copy_link) — [src: web:instagram.com, gittrend.io] desktop video-editor demonstration; author's claims to test. Assessment in core/ROADMAP.md; full extraction in outputs/virada/inbox-2026-10-06-links.json.
+
+- [Oil UI](https://www.instagram.com/reel/DeHs15riSZr/?utm_source=ig_web_copy_link) — [src: web:instagram.com, gittrend.io] demonstration of interface alternatives for user selection. Assessment in core/ROADMAP.md; full extraction in outputs/virada/inbox-2026-10-06-links.json.
+
+- [Hairline — Shai](https://www.instagram.com/reel/DeEhSRWBAi2/?xtok=MW44eHk5MWs0MGtudQ==) — [src: web:instagram.com] Author demonstrates interactive vector illustrations and names lucasmarkes/hairline; editability and accessibility unverified. Assessment: ../ROADMAP.md [visual-tools].
+
+- [ff-tracking — Github Signals](https://www.instagram.com/reel/DeV1Y0pChK-/?psln=MWJhenJ6bWQycjVwNA==) — [src: web:instagram.com] Author demonstrates code-video production and names mrsarac/ff-tracking; platform support and production cost unverified. Assessment: ../ROADMAP.md [visual-tools].
+
+- [Papermorph — Github Signals](https://www.instagram.com/reel/DeGtjz6kV5N/?dlrf=MXFiamd5NnFsdWRrYQ==) — [src: web:instagram.com] Author presents DozenTwelve/Papermorph for interactive narrated study material; source fidelity and accessibility unverified. Assessment: ../ROADMAP.md [visual-tools].
+
+- [Prompt attributed to Felix Rieseberg — theaifield](https://www.instagram.com/p/Degx359DGAu/?img_index=2&xtok=bTFoNGdraWRkbWp2) — [src: web:instagram.com] Two-slide prompt asks for depth through raw sources, professional methods and independent verification rather than broader scope; attribution unverified. Assessment: ../ROADMAP.md [expert-depth].
+
+- [Congress composition 1986–2026 — fabrizio.conrado](https://www.instagram.com/reel/DeNYNeTi59d/?obrf=NTc4MTIwNjQ2YQ==) — [src: web:instagram.com] AI-generated animated chart with editorial left/center/right classification and 7 October 2026 snapshot; data, percentages and criteria unverified. Assessment: ../ROADMAP.md [visual-tools].
+
+- [OpenHarness — gittrend.io](https://www.instagram.com/reel/DePGHMiki4X/?rpxt=dmx1d3RyOHNna2dr) — [src: web:instagram.com] Demonstration names autonomous-ai/openharness and claims native terminals, cross-machine sessions and encrypted relay; verify claims and Linux support before adoption. Assessment: ../ROADMAP.md, Desktop hyperagent.
+
+- [Universal Modder — gittrend.io](https://www.instagram.com/reel/DeJdwzZiDQA/?utm_source=ig_web_copy_link) — [src: web:instagram.com] Demonstration names rehan-remade/universal-modder: discovery, asset production, live-game verification and reusable field notes; compare with our workflow before adoption. Assessment: ../ROADMAP.md [modder-patterns].

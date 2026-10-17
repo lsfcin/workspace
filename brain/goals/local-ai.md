@@ -27,6 +27,8 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## backlog
 
+> [ ] [hyperagent] Assess Dobra context management and aiwbot sessions for the desktop hyperagent; assessments in their roadmaps (high priority, week). Include OpenHarness (core/refs/REFS.md): Linux, session reuse, aiwbot lineage and bounded Dobra context preserving user decisions.
+
 > [ ] [read-weft] read the weft implementation paper and repo — most concrete starting point  
 > [ ] [read-foldable] read the foldable contexts paper (arxiv 2603.16021)  
 > [ ] [map-landscape] map the 7 cited papers — what problem does each solve, how they connect  
@@ -63,5 +65,5 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-30  ·  trend: steady  ·  touches: 22/99/108/108/108/108
+last-touch: 2026-10-16  ·  trend: decelerating  ·  touches: 13/99/111/111/111/111
 <!-- stats:end -->

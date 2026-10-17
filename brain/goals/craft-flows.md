@@ -22,6 +22,8 @@ um `.craft/` chain de feature isoroll pequena, mesmo modelo (z-ai/glm-5.2 ou vie
 
 ## backlog
 
+> [ ] [bounded-orchestration] Assess the bounded, file-based orchestration proposal in core/ROADMAP.md before another long swarm.
+
 > [x] [iterate] ajustar flags de retorno e tabela de roteamento após 7 usos reais — DONE 2026-07-16 (A1; ver [A1] em `## done`)
 > [x] [skill-tree] montar árvore de loops pessoais — DONE 2026-07-18: craft tree = router (`core/flows/craft/route.md`)
 > + 4 folders (padaria/feature/research/architecture); mapa em `core/flows/craft/TREE.md`. Feature folder = SDD contract-first (painel de permissão no Loop 0, Loop 3.5 Contract Layout, revisão de simetria de conceitos no Loop 3).  
@@ -75,5 +77,5 @@ um `.craft/` chain de feature isoroll pequena, mesmo modelo (z-ai/glm-5.2 ou vie
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-30  ·  trend: steady  ·  touches: 21/100/141/141/141/141
+last-touch: 2026-10-06  ·  trend: decelerating  ·  touches: 8/101/142/142/142/142
 <!-- stats:end -->

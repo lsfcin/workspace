@@ -10,7 +10,7 @@ transformative · essential · thrilled
 
 >**dynamics**  
 immersed mode · advancing motion · intrinsic source  
-2026-08-13 compass: **confirmed #1 for a second cycle, and the numbers back it — 29 of 29 workspace commits in 14 days landed here.** The gate held honest under all of it: criterion 3 went *backwards* on purpose when a re-audit across 25 repos found three remotes missing, rather than staying a green tick that was false. What is left is not build — it is **one decision and one mechanical front**. This is a finish.
+2026-08-13 compass: confirmed #1 for a second cycle; remaining v1 work stays in /ROADMAP.md.
 
 ## selected next achievement
     [v1] pass the four-criterion v1 gate — Tier 0 anti-entropy live · one list, no duplicates · everything pushed and
@@ -54,9 +54,16 @@ fallback · iterate — MVP can always be extended*
 
 ## backlog
 
+> [ ] [visual-tools] Track Hairline, ff-tracking, Papermorph and animated-data assessment in core/ROADMAP.md [visual-tools]; core/refs/REFS.md (backlog).
+> [ ] [expert-depth] Track the prompt attributed to Felix Rieseberg in core/ROADMAP.md [expert-depth]; core/refs/REFS.md (backlog).
+> [ ] [hyperagent-openharness] Track OpenHarness in core/ROADMAP.md, Desktop hyperagent; aiwbot sessions and Dobra context remain part of that assessment (high priority, week).
+> [ ] [modder-patterns] Track Universal Modder discovery, verification and field-note assessment in core/ROADMAP.md [modder-patterns]; core/refs/REFS.md (backlog).
+
+> [ ] [inbox-tool-fixes] Assess queued fixes in core/ROADMAP.md, ROADMAP.md and ISSUES.md when active work requires them; includes bot compatibility and MatrAIx evaluation.
+
 > [ ] [eval-iris-mcp] avaliar o iris (brijr/iris) como ferramenta de câmera MCP para o Antigravity inspecionar visualmente artefatos web e páginas geradas — ref em core/refs/REFS.md (INBOX 2026-09-25)  
 > [ ] [stream-recommendation-wos] conectar histórico de streaming e coisas assistidas ao workspace (branches/tips/) e criar feature de recomendação via chat móvel no bot do Telegram (aiwbot) (INBOX 2026-09-26)  
-> [ ] [subagent-brief-orchestrator] formalizar o padrão de orquestração curta do GlitchCatClub (brief de 4 linhas por subagente + checagem de retorno individual) para evitar dispersão e consumo excessivo de cotas em subagentes longos (INBOX 2026-09-26, 2026-09-29)  
+> [ ] [subagent-brief-orchestrator] Assess bounded, file-based orchestration in core/ROADMAP.md before another long swarm; small units, visible scope, early checkpoints and shared flows (INBOX 2026-09-26 through 2026-10-12).  
 > [ ] [semantic-cache-local] avaliar viabilidade de camada de cache semântico local para chamadas e prompts repetidos/reformulados no WOS para economizar chamadas a provedores (INBOX 2026-09-26)  
 > [ ] [commit-swap-graph] visualizador de commits e troca de contexto entre repositórios (linhas verticais por repo, detectando swaps em marcos de conclusão vs meio de tarefa para o /compass) (INBOX 2026-09-29)  
 > [ ] [state-file-compaction] avaliar o padrão de state file do GlitchCatClub para auto-compactação controlada por arquivo de estado em vez de handover/handoff manual ou resumos opacos do harness (INBOX 2026-09-29)  
@@ -109,15 +116,9 @@ fallback · iterate — MVP can always be extended*
 ## done
 
 <!-- done:start -->
-
-> [x] [mvp-gaps] DONE 2026-07-22 — all 3 gaps localized with hard numbers: (1) `core/hooks` (~40 files),
->   (2) workspace-root cruft, (3) gentle-resurfacing rhythm → shipped as `/compass`. Closed via `/compass`.
-> [x] [v1-strong] DONE 2026-07-29 — superseded by explicit [v1] gate. Cruft reclaimed (6.6 GB), hooks
->   de-overengineered, telegram_daemon retired into `code/aiwbot`.
-> [x] [roadmap-entrypoint] DONE 2026-07-29 — wos work collapsed from four overlapping lists into one: `/ROADMAP.md`.
->   Deletion policy set: hard delete, git is the history.<!-- done:end -->
+<!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-06  ·  trend: steady  ·  touches: 330/853/908/908/908/908
+last-touch: 2026-10-16  ·  trend: steady  ·  touches: 167/864/927/927/927/927
 <!-- stats:end -->

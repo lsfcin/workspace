@@ -60,6 +60,9 @@ Both survive here because they are real gaps, not because they are queued. Promo
 - [ ] **stt-ubuntu-shortcut**: expor comando CLI / endpoint leve de transcrição de áudio do aiwbot para atalho de sistema operacional no Ubuntu (gravação rápida de microfone → transcrição via Whisper do aiwbot → cursor/clipboard) (INBOX 2026-10-01).
 
 ## Housekeeping
+
+- [ ] Assess OpenHarness (REFS.md) and which backend/session capabilities can serve the desktop hyperagent, preserving session lineage; application assessment in ../../core/ROADMAP.md (high priority, week).
+- [ ] Measure idle model memory and assess releasing unused models without harming voice capture or session continuity (INBOX 2026-10-14).
 - [~] **`backend/providers/opencode.py` is at 194/200** after the ask config landed, and `claude.py` at 176.
       Both warn, neither blocks. The boundary the next touch should cut along is already visible: the
       **config/env** half (`_ask_config`, `env`, `supports_ask`, the timeout) is a different

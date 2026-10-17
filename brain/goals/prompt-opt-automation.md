@@ -7,3 +7,5 @@
 - [ ] iterate Refine classifier and routing logic based on results
 - [ ] eval: /craft vs plain prompt (qualidade + tokens)
 - [ ] eval: /prepare vs plain prompt
+
+- [ ] [expert-depth] Assess the prompt attributed to Felix Rieseberg against prepare/research: raw sources, professional methods and independent verification; core/ROADMAP.md [expert-depth], core/refs/REFS.md (backlog).

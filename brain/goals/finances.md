@@ -20,6 +20,8 @@ fallback · even a rough estimate is better than no map*
 
 ## backlog
 
+> [ ] [financial-literacy] Identify the financial-literacy portal mentioned by @samuelolandim and assess whether its educational material serves our financial-planning goal; [captured source](https://www.instagram.com/reel/Dd4mWBxAMAA/?dlrf=MW5yYWFzOXlqcmY4bQ==) [src: web:instagram.com], branches/virada/refs/REFS.md (backlog).
+
 > [ ] [map-numbers] map current monthly income and fixed expenses — just the numbers  
 > [ ] [reserve-boxes] define 3-4 reserve categories (emergency, projects, leisure, etc.) and amounts  
 > [ ] [spending-audit] review last month's actual spending — where did it go?  
@@ -34,5 +36,5 @@ fallback · even a rough estimate is better than no map*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-31  ·  trend: steady  ·  touches: 3/9/9/9/9/9
+last-touch: 2026-09-18  ·  trend: decelerating  ·  touches: 1/7/10/10/10/10
 <!-- stats:end -->

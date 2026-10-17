@@ -6,14 +6,50 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 
 ## Open
 
+**🟢 [visual-tools] Captured visual tools — backlog**
+*What* — Compare Hairline, ff-tracking, Papermorph and the animated-data example for editability, accessibility, source fidelity and reproducibility. Sources: refs/REFS.md. *Why* — Captured demonstrations may improve workspace explanations and teaching. *Done when* — One bounded comparison records what transfers and what fails.
+
+**🟢 [expert-depth] Prompt depth — backlog**
+*What* — Assess the prompt attributed to Felix Rieseberg against prepare/research: raw sources, professional methods and independent verification; refs/REFS.md. *Why* — Lucas asked whether to include it. *Done when* — A comparison identifies useful changes or rejection without expanding scope.
+
+**🟢 [modder-patterns] Universal Modder — backlog**
+*What* — Assess transferable discovery, live verification and field-note patterns against our workflow; refs/REFS.md. *Why* — The captured example may reduce repeated discovery. *Done when* — Transferable patterns or rejection are recorded.
+
+**🟡 Desktop hyperagent — high priority, week**
+*What* — Assess voice input/output, installed harness discovery, bounded cross-session context, routing and credit/session limits, with Lucas controlling every decision; reuse aiwbot and Dobra. Compare OpenHarness (refs/REFS.md): Linux, session reuse and relay/trust boundaries. *Why* — Current sessions fragment interaction and resource management. *Done when* — Lucas compares concrete designs and selects one (INBOX 2026-10-07).
+
+**🟡 MatrAIx evaluation**
+*What* — Assess simulated-user testing against our verification practices; refs/REFS.md. *Why* — It may cover interactive behavior. *Done when* — One bounded comparison establishes coverage and limits.
+
+**🟡 PDF throughput**
+*What* — Measure description latency, skip decoration and compare current engines after the pymupdf-layout change. *Why* — Large backfills can take hours. *Done when* — A representative batch establishes time, memory and fidelity.
+
+**🟡 Dependency checks**
+*What* — Let gates consult shared installation checks. *Why* — Feature switches do not prove installation. *Done when* — Enabled-but-uninstalled features produce one diagnosis.
+
+**🟡 Promotion outside session close**
+*What* — Assess a promotion-only path with verification. *Why* — Completed branches wait for roundup. *Done when* — Its benefit and safe verification boundary are established.
+
+**🟡 Research intake**
+*What* — Require question/surface inventories, consistent source identifiers, denominators, source type/method, early checkpoints and search limits; verify ambiguous figures and record human-only court lookup limits. *Why* — Omissions and lost work recur. *Done when* — One report preserves these contracts and access limits.
+
+**🟡 Report publishing**
+*What* — Assess reusable source resolution, renumbering and Markdown-to-page output, including a neutral named-link domain. *Why* — Repeated sessions use disposable scripts. *Done when* — Lucas selects the capability and one report verifies it.
+
+**🟡 Proved presentation utilities**
+*What* — Assess remaining performance/benchmark utilities if PowerPoint stays a chosen home; exhaust native capabilities before comparison. *Why* — Proved utilities exist only locally; builders should avoid discarded content. *Done when* — Useful pieces are retained or rejected and online measurement automation has a verdict.
+
+**🟡 Forms integration**
+*What* — Assess settings support, response-table export and consent preflight. *Why* — Workflows require manual operations and repeated authorization. *Done when* — One intake retrieves the required state consistently.
+
 **🔴 Canva leaf: the agent builds and moves a Canva deck, Match & Move included, with no human click per deck**
-*What* — in order: (1) a diagram strategy before any build — Canva shapes carry connection points for arrows and an SVG keeps neither those nor colour editing, so SVG enters only where needed and the agent warns before converting a slide's shapes; whether a draft Apps SDK app can create and move native shapes, lines and connectors decides it; (2) the MCP endpoint is documented as Education/Enterprise only yet answers on the Pro trial (ends ~2026-11-02): settle Lucas's access, or the draft app takes over its edits; (3) build `core/tools/slides/canva` (auth, read, import, upload, pages, apply, frame, oracle, export) through `/craft`; (4) k10: the agent makes bench k1 alone and the oracle verifies it; (5) decide the slides home. The deck is shared: Lucas and the agent both edit everything, in turns, so the agent re-reads the deck at the start of each turn. *Why* — Lucas finds Canva's editor far better than PowerPoint online; the 2026-10-03 swarm and spikes found that motion is inherited from a seed page copied by REST and edited over the MCP endpoint (facts: `core/tools/slides/SPECS.md` § PowerPoint and Canva; design draft: `outputs/canva-poder-desenho.md`). *Done when* — k10 passes the oracle with no human click, and this item is replaced by the home decision.
+*What* — Settle native editable shapes/connectors versus SVG before building; warn Lucas before conversion. Confirm MCP access (documented Education/Enterprise, working on Pro trial ending ~2026-11-02) or draft Apps SDK fallback. Build the Canva leaf through `/craft`; agent-only k10 reproduces bench k1, oracle-verified, then Lucas chooses the slides home. Re-read the shared deck every turn. *Why* — Lucas prefers Canva; motion survives copied seed pages via REST/MCP. Evidence: tools/slides/SPECS.md; design: `outputs/canva-poder-desenho.md`; prototypes: `outputs/.drafts/canva-poder/oracle.py` and `mcp_spike.py`. *Done when* — k10 passes without human clicks and the home decision replaces this item.
 
 **🟡 a subagent can run on another harness, and an agent proposes it when it saves tokens**
-*What* — a tool (or norm + the existing `core/tools/describe.py` precedent) that hands a read-only, file-in/file-out task to `codex exec` (ChatGPT's bundled `/usr/lib/chatgpt/resources/codex`, logged in) or `agy -p` (Antigravity), and the inverse (GPT driving Claude Code); plus the rule that tells an agent when to offer it. Known traps from 2026-10-14: `agy -p --model X` takes `--model` as the prompt — write `agy --model X -p="…"`; headless agy denies tool use, so the prompt must say "no tools"; `codex exec` blocks on stdin — append `< /dev/null`. *Why* — on 2026-10-14 Gemini Flash summarized the ai4good ideation board and Codex drafted the brw examples, both at zero Claude cost and good quality. *Done when* — one call delegates a prompt file to either harness and returns a file, and a session proposes it unprompted on a fan-out task.
+*What* — Assess read-only prompt-file → output-file delegation between `codex exec`, `agy -p` and Claude Code, plus when to propose it; `core/tools/describe.py` is precedent. Preserve traps: `agy --model X -p="…"` (model before prompt), headless agy needs “no tools”, and `codex exec < /dev/null` avoids waiting on stdin. *Why* — The 2026-10-14 ideation-board summary and brw examples worked at zero Claude cost. *Done when* — One call returns a file from either harness and a session proposes it on a suitable fan-out task.
 
-**🟢 evaluate UNSLOP and aihero.dev against our skills and flows**
-*What* — a skill UNSLOP (acha o repo real antes de julgar; nenhum link veio na captura) e [aihero.dev](https://aihero.dev) — pontos nomeados pelo Lucas: `/grill-me` e o `/implement` que usa TDD. *Why* — avaliação pontual pedida (INBOX 2026-09-05); não reabre o rejeitado "surveying outside skills" em larga escala, são duas leads nomeadas, uma delas com site próprio. *Done when* — cada uma tem um veredito com evidência (testada contra um fluxo nosso) ou é rejeitada por escrito.
+**🟡 evaluate UNSLOP, aihero.dev and Oil UI**
+*What* — Find the real UNSLOP repository; assess aihero.dev /grill-me and /implement, and Oil UI alternatives on one desktop/mobile screen; refs/REFS.md. *Why* — These are named leads, not a general survey. *Done when* — Each has an evidenced verdict against our workflow or a written rejection.
 
 **🟡 our own skills are too big, and nobody has checked whether the bulk earns anything**
 *What* — every `core/skills/*.md` read for verbosity, redundancy, ambiguity, and steps costing more than they save. *Why* — Lucas (2026-08-25): *"skills são úteis mas me parecem meio gigantes quase sempre."* A skill is read in full at invocation, so its length is paid every time it fires.
@@ -29,9 +65,6 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 
 **🟢 a `gslides frames` command — the capability question is already answered**
 *What* — one command taking an element, start and end positions, a frame count and an easing, emitting the batch. *Why* — per-object tweens are not in the API, but `duplicateObject` plus `updatePageElementTransform` in one `batchUpdate` authors a frame sequence, proven live 2026-08-14 and PDF-safe by construction. What is left is ergonomics, not discovery. *Done when* — the command exists and the two known traps are handled; both are in [`tools/slides/SPECS.md`](tools/slides/SPECS.md).
-
-**🟡 Notion reads are built and blocked on one click; writing is unstarted**
-*What* — `[notion-read]` closed, then append/update blocks. *Why* — the CLI answers against the live API and the secret is minted, but an integration sees nothing until a page is connected to it, so nothing can be smoke-tested against real content. *Done when* — Lucas connects `WOS` to the class page (⋯ → Connections), `list` returns content, and the write path takes Notion's own request format rather than a DSL. Intent and ordering live in [`brain/goals/teaching-materials.md`](../brain/goals/teaching-materials.md); this line owns the build.
 
 **🟢 `main` accepts commits from anywhere and Git Flow says it should not**
 *What* — `gitflow_gate.py` refusing a merge into `main` whose other parent is not `develop` (or a `release/*`/`hotfix/*`), and `code/SPECS-git.md` stating that rule where it states the rest.
@@ -68,8 +101,8 @@ carry what `academy/teaching/classes/ai4good/disciplina.md` learned this semeste
 **🟡 submissão interativa de artefatos por matrícula e validação no site de disciplinas**
 a student submits an artefact link with their enrolment number on the course page, and the teacher accepts items in one click; done when a prototype works on a published `disciplina.md` (INBOX 2026-09-30).
 
-**🟢 avaliar HotClip para corte e clipagem local de aulas e gravações**
-test `xixihhhh/hotclip` (local ASR, vertical cuts with captions) on one recorded class and write the verdict under `core/tools/video/` (INBOX 2026-09-25).
+**🟡 compare HotClip and Drift for local edits**
+*What* — Compare xixihhhh/hotclip and Drift on one recording: captions, editability and export fidelity; refs/REFS.md. *Why* — Classes and project videos need accessible editing. *Done when* — Record the verdict under tools/video/.
 
 **🟢 avaliar iris (Rust CLI + MCP) como ferramenta de visão/câmera para os agentes do WOS**
 test `brijr/iris` as MCP or CLI for the agent to screenshot local and published pages; verdict in `core/tools/web/SPECS.md` (INBOX 2026-09-25).
@@ -83,8 +116,8 @@ translate `core/skills/prof/` to en-us with pt-br terms in backticks, cutting it
 **🟢 suportar espelhamento de subdiretórios de subskills no sync-skills**
 `sync-skills` mirrors `prof/` and `slides/` subfolders so relative subskill links resolve in every harness (INBOX 2026-09-24).
 
-**🟢 incorporar padrões do Glitch Orchestra (orquestração por state file e reunião anti-loop)**
-evaluate conductor rotation through a state file and an up-front planning meeting; done when specified in `core/flows/` and one rotation ran (INBOX 2026-10-04).
+**🟡 bounded orchestration through files**
+*What* — Use small units, visible scope, cheaper capacity for precise briefs, cost limits, early checkpoints and approved reading scopes. Start long orchestration in a fresh session from a file plan; passage state lives in the project roadmap. Reuse mechanism-search across Canva/Virada. *Why* — Long swarms exhaust quotas and lose progress. *Done when* — One real run preserves progress within its declared budget.
 
 **🟢 image twin: arquivo .md irmão com OCR + VLM para qualquer imagem isolada**
 `core/run tools/assets/inspect --twin` writes `<image>.md` with OCR and a VLM description, merging `.imgif` and the video caption, and the read gates honour it (INBOX 2026-09-25).
