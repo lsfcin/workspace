@@ -381,7 +381,7 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/goals-roadmap is 4 ahead of main
+- . — feature/goals-roadmap is 5 ahead of main
 
 ### Local branches already merged into their base
 
