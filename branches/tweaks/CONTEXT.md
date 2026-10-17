@@ -6,5 +6,5 @@
 
 | File | Description |
 |------|-------------|
-| [`SETUP.md`](SETUP.md) | Como deixar as máquinas e os apps do jeito que o Lucas usa. Um ajuste por bloco: o que fazer, e o que já foi decidido. |
+| [`SETUP.md`](SETUP.md) | Como configurar as máquinas e os apps de Lucas. Inclui a proteção Ubuntu/Brave, seus arquivos, diagnóstico e remoção; cada ajuste registra a decisão. |
 <!-- routing:end -->
