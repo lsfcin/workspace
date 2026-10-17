@@ -69,10 +69,10 @@ def mirror(page: pathlib.Path, publish: pathlib.Path, classes: pathlib.Path = CL
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(page, target)
     copied = [target]
-    # the delivery slots' links: data the site writes, kept out of the page so it never meets the cap
-    deliveries = page.parent / 'entregas.tsv'
-    if deliveries.exists():
-        copied.append(pathlib.Path(shutil.copy2(deliveries, target.parent / deliveries.name)))
+    # the delivery slots' links and the teacher's pareceres: data the site writes, kept out of the page so it never meets the cap
+    for data in (page.parent / 'entregas.tsv', page.parent / 'pareceres.tsv'):
+        if data.exists():
+            copied.append(pathlib.Path(shutil.copy2(data, target.parent / data.name)))
     artefacts = page.parent / 'artefatos'
     if artefacts.is_dir():
         # rglob: an artefact may keep its model and examples in a folder of its own (artefatos/brw/).

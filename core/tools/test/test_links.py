@@ -219,6 +219,9 @@ def test_deliveries_travel_both_ways_beside_the_page(course, browser_edit, tmp_p
     edit('# aluno\tcódigo\tlink\nedson\tbrw\thttps://d/1\n', path='ai4good/entregas.tsv')
     assert pages.pull(site, course) == [course / 'ai4good' / 'entregas.tsv']
     assert 'https://d/1' in pages.mirror(page, tmp_path / 'other-site', course)[1].read_text(encoding='utf-8')
+    edit('# aluno\tcódigo\tparecer\nedson\tbrw\tfalta a prova\n', path='ai4good/pareceres.tsv')
+    assert pages.pull(site, course) == [course / 'ai4good' / 'pareceres.tsv']
+    assert 'falta a prova' in pages.mirror(page, tmp_path / 'other-site', course)[2].read_text(encoding='utf-8')
 
 
 def test_a_site_file_with_no_course_home_moves_the_clone_but_touches_no_workspace_file(course, browser_edit):
