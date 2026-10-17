@@ -4,7 +4,7 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-10-17 17:20
+last-updated: 2026-10-17 17:21
 
 >**areas** — last 14 days  
 ```
