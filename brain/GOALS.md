@@ -4,57 +4,57 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-10-06 17:10
+last-updated: 2026-10-16 18:19
 
 >**areas** — last 14 days  
 ```
-health       ░░░░░░░░░░   2 touches
-career       ░░░░░░░░░░   6 touches
-craft        ██████████   99 touches
-finances     ░░░░░░░░░░   6 touches
-fun          ░░░░░░░░░░   3 touches
+health       ░░░░░░░░░░   1 touches
+career       ░░░░░░░░░░   2 touches
+craft        ██████████   34 touches
+finances     ░░░░░░░░░░   2 touches
+fun          █░░░░░░░░░   4 touches
 spiritual    ░░░░░░░░░░   1 touches
 ```
 
 >**goals** — last 14 days  
 ```
-burocracia-academica     ░░░░░░░░░░   3 touches
+burocracia-academica     ░░░░░░░░░░   0 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
-craft-flows              ░░░░░░░░░░   4 touches
-cria                     ░░░░░░░░░░   1 touches
+craft-flows              ░░░░░░░░░░   2 touches
+cria                     ░░░░░░░░░░   0 touches
 dance                    ░░░░░░░░░░   0 touches
-ecovila                  ░░░░░░░░░░   2 touches
+ecovila                  ░░░░░░░░░░   0 touches
 exercise                 ░░░░░░░░░░   1 touches
-finances                 ░░░░░░░░░░   0 touches
+finances                 ░░░░░░░░░░   1 touches
 google-migration         ░░░░░░░░░░   0 touches
-guitar                   ░░░░░░░░░░   1 touches
+guitar                   ░░░░░░░░░░   0 touches
 hair                     ░░░░░░░░░░   0 touches
-health-skills            ░░░░░░░░░░   1 touches
-home-casinhas            ░░░░░░░░░░   4 touches
+health-skills            ░░░░░░░░░░   0 touches
+home-casinhas            ░░░░░░░░░░   1 touches
 instituto                ░░░░░░░░░░   0 touches
-lih-dd                   ░░░░░░░░░░   2 touches
-listenreading            ░░░░░░░░░░   2 touches
-local-ai                 ░░░░░░░░░░   3 touches
+lih-dd                   ░░░░░░░░░░   0 touches
+listenreading            ░░░░░░░░░░   0 touches
+local-ai                 █░░░░░░░░░   3 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
 paper-jarbinhas          ░░░░░░░░░░   0 touches
 paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
-prompt-opt-automation    ░░░░░░░░░░   0 touches
-rpg-isoroll              ░░░░░░░░░░   1 touches
+prompt-opt-automation    ░░░░░░░░░░   1 touches
+rpg-isoroll              █░░░░░░░░░   4 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   0 touches
-spec-driven-development  ░░░░░░░░░░   1 touches
-startapps                ░░░░░░░░░░   2 touches
+spec-driven-development  ░░░░░░░░░░   0 touches
+startapps                ░░░░░░░░░░   1 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ██░░░░░░░░   24 touches
+teaching-materials       █████░░░░░   13 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   95 touches
+workspace-os             ██████████   25 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

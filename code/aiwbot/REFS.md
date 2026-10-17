@@ -57,3 +57,4 @@ These are observed behaviors of a closed CLI — re-verify if `claude` upgrades.
 ## Telegram assistant UX benchmarks (2026-09-28)
 - **Mira (`mira.tg` / `miracodeai/mira`)** — [site](https://mira.tg/), [src: web:mira.tg]: personal AI assistant native to Telegram with tool/app integrations (GitHub, Google Calendar, Notion, Linear) directly from chat, plus open-source PR reviewer on GitHub. Useful benchmark for aiwbot command UX and app integrations. Task in `ROADMAP.md`.
 
+- [OpenHarness — gittrend.io](https://www.instagram.com/reel/DePGHMiki4X/?rpxt=dmx1d3RyOHNna2dr) — [src: web:instagram.com] Demonstration names autonomous-ai/openharness and claims native terminals, cross-machine sessions and encrypted relay; verify claims and Linux support before adoption. Assessment: ROADMAP.md, Housekeeping.
