@@ -79,16 +79,20 @@ def _env(path: pathlib.Path) -> dict:
 
 def cmd_secrets(push: bool) -> None:
     """The site's secrets, assembled from the workspace's segredos.env files — the workspace owns them,
-    the host only holds a copy. TURMAS pairs each name under a page's "## entregue" with the
-    MATRICULA_<NAME> line of that course's segredos.env (accents, dots and spaces folded)."""
+    the host only holds a copy. TURMAS pairs each student row of a page's <!-- painel:dados-… --> blocks
+    (the same rows the site reads its slots from) with the MATRICULA_<NAME> line of that course's
+    segredos.env (accents, dots and spaces folded). A course page with an env but no rows refuses:
+    skipping it silently once shipped a TURMAS without ai4good, and every delivery failed."""
     own = _env(_HERE / 'segredos.env')
     turmas = {}
     for page in sorted(pages.CLASSES.glob('*/disciplina.md')):
         env = _env(page.parent / 'segredos.env')
-        section = page.read_text(encoding='utf-8').partition('## entregue')[2].split('\n## ')[0]
-        names = re.findall(r'^- \*\*(.+?)\*\* \|', section, re.M)
-        if not names or not env:
+        blocks = re.findall(r'<!--\s*painel:dados-[\w-]+[^\n]*\n([\s\S]*?)-->', page.read_text(encoding='utf-8'))
+        names = list(dict.fromkeys(l.split(':', 1)[0].strip() for b in blocks for l in b.splitlines() if ':' in l))
+        if not env or not any(k.startswith('MATRICULA_') for k in env):
             continue
+        if not names:
+            raise SystemExit(f"{page.parent.name}: segredos.env has matrículas but the page has no painel:dados rows")
         key = lambda n: 'MATRICULA_' + re.sub(r'\W+', '_', unicodedata.normalize('NFKD', n).encode('ascii', 'ignore').decode()).strip('_').upper()
         missing = [n for n in names if key(n) not in env]
         if missing:
