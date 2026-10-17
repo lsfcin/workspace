@@ -1,11 +1,7 @@
 # T0 the feature registry's honesty half (core/SPECS.md § AD-14): a row claiming a switch must
 # really have one, and throwing the switch must move the observable.
 #
-# WHY THIS IS A FILE OF ITS OWN. test_features.py answers "is the declaration complete and in its
-# closed sets" — a question about data. These answer "does the declaration correspond to anything
-# that runs" — a question about behaviour, and the one that costs the first ablation run its whole
-# signal when it goes unasked. A row claiming to be wired while nothing reads the switch would make
-# the ablation report "no effect" for a feature that was never disabled.
+# test_features.py checks declarations; these runtime checks verify that each switch acts.
 import functools
 import json
 import os
@@ -124,13 +120,7 @@ def test_the_ablation_switch_turns_one_feature_off(monkeypatch):
 
 
 def _asks_the_law(hook: str, tmp_path) -> set:
-    """Names the hook really asks about — recorded from a run, not read off the source.
-
-    A sitecustomize wraps `feature_law.is_enabled` before the hook's own code loads, so the
-    hook's law consultation lands in the log. The payload has to carry a command AND a
-    file_path: several gates return early on an empty one and never reach their own switch,
-    which reads identically to a gate that has no switch at all.
-    """
+    """Observe law consultations with a startup shim and a complete command/file payload."""
     shim, log = tmp_path / 'shim', tmp_path / 'law.txt'
     shim.mkdir(parents=True)
     log.touch()
@@ -148,9 +138,11 @@ def _asks_the_law(hook: str, tmp_path) -> set:
                           'cwd': str(WORKSPACE_ROOT),
                           'tool_input': {'command': 'ls', 'file_path': '/tmp/check.py',
                                          'content': '# check\n'}})
+    env = {key: value for key, value in os.environ.items()
+           if key not in ('CLAUDE_TOOL_INPUT', 'CLAUDE_TOOL_NAME')}
     subprocess.run([interpreter(), str(WORKSPACE_ROOT / hook)], input=payload, text=True,
                    capture_output=True, timeout=60,
-                   env={**os.environ, 'PYTHONPATH': str(shim), 'LAW_CHECK': str(log)}, encoding='utf-8')
+                   env={**env, 'PYTHONPATH': str(shim), 'LAW_CHECK': str(log)}, encoding='utf-8')
     return set(log.read_text(encoding='utf-8').split())
 
 
@@ -159,6 +151,14 @@ def _strip_comments(body: str, target: str) -> str:
     marker = '//' if target.endswith('.js') else '#'
     return '\n'.join(line for line in body.splitlines()
                      if not line.lstrip().startswith(marker))
+
+
+def test_law_check_uses_its_payload_despite_inherited_hook_input(tmp_path, monkeypatch):
+    monkeypatch.setenv('CLAUDE_TOOL_INPUT', json.dumps({'tool_name': 'Read', 'tool_input': {}}))
+    monkeypatch.setenv('CLAUDE_TOOL_NAME', 'Read')
+    monkeypatch.setenv('RTK_COMPACT_DIR', str(tmp_path))
+    assert 'rtk-compaction' in _asks_the_law(
+        'core/hooks/compact/bash-compact-rewrite.py', tmp_path / 'check')
 
 
 def names_itself(body: str, name: str, target: str) -> bool:
