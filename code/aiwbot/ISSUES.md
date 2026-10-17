@@ -11,6 +11,8 @@ and verification blocks that used to sit below are gone: the workspace's own
 of the same scan is the drift those checks exist to catch.
 
 ## Open
+
+- [ ] [b8] Telegram bot loses authentication or session continuity after Claude Code updates; reproduce the failure and establish its cause before choosing recovery behavior (Lucas, INBOX 2026-10-11).
 - [ ] [b7] áudio capturado para o INBOX não ecoa a transcrição no Telegram — `code/aiwbot/frontend/bot.py` `_route_text`: envia apenas `CAPTURE_ACKS` sem exibir o texto reconhecido pelo Whisper para conferência.
 - [ ] [b6] `frontend/SPECS.md` is the contract the spec gate locks the WHOLE `frontend/` module
   with, and it describes only the audio-in-out voice pipeline. Every surface — turn, stream, text,
@@ -42,4 +44,3 @@ and filed their sessions there.
   keys on a session's originating entrypoint, which can't be rewritten after the fact. New sessions are
   fine (`CLAUDE_CODE_ENTRYPOINT=claude-vscode`, SPECS AD-8). For the old ones use the copyable
   `claude --resume <id>` shown in the `/resume` anchor.
-

@@ -67,5 +67,5 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-17  ·  trend: decelerating  ·  touches: 11/100/112/112/112/112
+last-touch: 2026-10-17  ·  trend: decelerating  ·  touches: 13/102/114/114/114/114
 <!-- stats:end -->
