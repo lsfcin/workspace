@@ -158,6 +158,8 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | `blacklist` | `forbidden list` | 2026-09-23 |
 | `dial` | `criterion` | 2026-09-25 |
 | `sidecar` | `twin` | 2026-09-25 |
+| `prova do Waze` | `argumento do interesse próprio` | 2026-10-17 |
+| `prova da regra simples` | `alternativa sem IA` | 2026-10-17 |
 
 **One retired token can owe several replacements, and the cell holds only the commonest** — `slug`, `ratchet` and `spine` each owe two or more, and the sense decides.
 
