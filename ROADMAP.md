@@ -46,6 +46,12 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 
 ## Legibility — can Lucas still read what he owns
 
+**🔴 personal design data**
+*What* — Decide whether Lucas's palette and fonts cross into the public clone. *Why* — The boundary is unresolved. *Done when* — Publication matches his choice.
+
+**🔴 source-heavy documents**
+*What* — Decide how source URLs participate in document limits. *Why* — Source requirements forced an approved dossier partition. *Done when* — Traceable evidence survives without routine sibling files.
+
 **🟡 visualizador de fluxo de commits e trocas de contexto (swaps) entre projetos**
 *What* — visualização gráfica do fluxo de trabalho onde cada repositório é uma linha vertical e cada commit é um nó, mapeando visualmente os *swaps* (trocas de projeto) ao longo do tempo para o `/compass`.
 *Why* — diagnosticar se a troca de projeto acontece num ponto de parada com marco de valor entregue ou no meio de uma tarefa inacabada, revelando dispersão de atenção e o que está prestes a ser fechado (Lucas, INBOX 2026-09-29).
@@ -58,8 +64,12 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 
 ## Portability — would this work on a machine that is not Lucas's
 
+**🟡 prepared worktrees**
+*What* — Establish reproducible preparation for dependencies, mirrors, local settings and nested repositories. *Why* — Fresh checkouts fail verification. *Done when* — One new checkout verifies or names unavailable dependencies.
+
 **🟡 the port grew the workspace and the payment is still short** — *after the ablation, not before*
 *What* — the cut that funds the port, from the top of `core/run tools/wos/size --weighted` down. The instrument names the candidate and it is **this file**, so draining the roadmap and paying the debt are one job.
+Next related-fix candidates: `core/hooks/SPECS.md`, added `feature_law.py` commentary and tools concentrated in `core/tools/wos/` (INBOX 26 Sep / 5 Oct).
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every line; that is a reason to pay, not a reason not to.
 The instrument that names candidates is `publish/repo --orphans`: every tracked file no feature claims, a stronger question than "who reads this" — `size --weighted` ranks what a session opens, this ranks what nothing can say a purpose for. It read 659 on 2026-09-15 and **10** on 2026-09-16, because most of those were claims the registry had not written; what is left is the real list.
 *Done when* — the **weighted** total falls: lines SERVED per session, not lines on disk. The disk number can be paid by deleting a file nobody opens, which nearly took `core/experiments/` — 11% of the lines, zero reads in 88 sessions, and **the WOS paper's data. The cut never comes from there**

@@ -23,11 +23,50 @@ name. An entry without one is invisible to it.
 
 ## Open
 
+- **UNGATED WRITE can attribute an output to the directory preceding cd.** Claude session, 16 Oct, reports a warning naming brw/excelente.md while the command wrote into cmp/; verify relative-path attribution across directory changes. `b20261017-ungated-write-cwd`
+
+- **Video extraction hides batch progress and counts empty bundles as successful.** The full INBOX extraction returned usable metadata, speech, screen text and descriptions for some posts, but also reported success for empty image-post bundles and an IndexError for another link. Report usable results, failures and progress separately, preserve partial results for resumption, and assess the serial visual-description latency. `b20261017-video-batch-results`
+
+- **Roundup attributes native ChatGPT closes to a Claude transcript.** `core/tools/wos/roundup.session_id()` picks the newest `.claude/projects` transcript; unlike `tools/wos/handoff`, it ignores native session identity. Cost, size deltas and compaction need provider-aware attribution before being treated as this session's measurements. `b20261016-roundup-session-attribution`
+
+- **Brain stats reports success but leaves its refreshed files unstaged.** Inbox triage observed `brain/GOALS.md` unstaged and refreshed goal files partly staged after a successful `core/run hooks/brain/brain_stats.py`; complete staging explicitly and establish why its internal stage call fails. `b20261014-brain-stats-staging`
+
+- **Reported PDF conversions exceed their expected duration; low-confidence page recognition inflates audit references. Establish the blocking stage and filter confidence consistently (25 Sep, 8/9 Oct).** `b20261014-pdf-conversion-audit`
+
+- **Python scripts opening PDFs escape command-text detection; scope this independently of metadata inspection and verified self-generated PDF access (26 Sep).** `b20261014-pdf-script-read`
+
+- **Slide sampling starts a renderer per page instead of a multi-page request; verify equivalent output from batched rendering (deck_sample.render_sample_images, 26 Sep).** `b20261014-slide-sample-batch`
+
+- **Reported read-gate tests alternate between failure and success, and sessions repeat completed context reads. Establish whether registration or session state causes it; reported reproducer test_b20260831_silent_stub_gate.py (26 Sep, 7 Oct).** `b20261014-read-registration`
+
+- **Retired-token substring matching rejects valid words and titles; match the intended lexical unit (26 Sep).** `b20261014-retired-substrings`
+  Claude session, 16 Oct, reports a finding inside the cited Patel et al. article title in teaching/cmp; assess proper-name and citation handling alongside lexical matching.
+
+- **The reported private-repository fiscal-identifier exception conflicts with the current secrets rule and PDF-twin ignore behavior. Resolve policy before changing either; bypass debt casinhas fa7244e (29 Sep).** `b20261014-private-pdf-policy`
+
+- **Default gslides previews land in the workspace root, unlike Drive downloads; private-deck export lacks an authenticated path. The cross-filesystem move is already corrected (26 Sep).** `b20261014-slides-preview-export`
+
+- **The presentation generator reads separate JSON rather than design-system tables, allowing theme data to diverge (26 Sep).** `b20261014-theme-input`
+
+- **Reported slide references use inconsistent classification and generic descriptions; assess ownership and relevance descriptions without automatic YAML promotion (26 Sep).** `b20261014-slide-ref-metadata`
+
+- **Verify transcript redaction of the authorization-code pattern reported in the Canva session; retain labels rather than credentials (26 Sep).** `b20261014-transcript-redaction`
+
+- **File-description lookup and tracked-file validation use incompatible repository roots; neither accepts Virada pagina/frases.json. Resolve from the workspace and accept tracked nested-repository files; bypass debt e106d95 awaits regression coverage (5 Oct).** `b20261014-nested-file-description`
+
+- **Expanded hook-link verification becomes slow in duplication checking; isolate the cause before changing it (5 Oct).** `b20261014-verification-latency`
+
+- **The rtk search wrapper rejects supported output flags; support them or give an explicit working alternative (12 Oct).** `b20261014-search-flags`
+
+- **Cloning and shell-created directories do not refresh routing tables; compare tables with disk independently of edit events. Branches was manually resynchronized in ce4d4ab7 (14 Oct).** `b20261014-routing-cloned-dirs`
+
 - **Context gate bloqueia ferramentas utilitárias sobre arquivos binários (ex: pdfinfo) (2026-09-25).**
   Em `core/hooks/read/bash-context-gate.py`, comandos de inspeção rápida em arquivos binários disparam exigência de leitura de todos os CONTEXT.md da árvore sem necessidade semântica. O gate deve isentar executáveis de extração de metadados. `b20260925-gate-binary-readonly`
+  INBOX 9 Oct adds metadata inspection and verified self-generated PDFs to the scope question; preserve the separate Python-script detection finding.
 
 - **Servidores de GPU órfãos retêm VRAM após falhas de ferramentas de PDF (2026-09-25).**
   Processos filhos iniciados por bibliotecas como Marker e MinerU (surya, mineru.doclib) continuam em memória após erro, segurando VRAM e forçando reinicialização do sistema. Ferramentas de GPU devem derrubar deterministamente o que subiram. `b20260925-gpu-orphan-vram`
+  PDF notes report Docling memory exhaustion and failed screen unlock without a GPU-failure event. Distinguish retained processes, memory pressure and driver behavior before another backfill; check simultaneous model residency.
 
 - **Sub-repositórios não possuem sentinela no pre-commit contra arquivos rastreados deletados no disco (2026-09-25).**
   O gate raiz ignora sub-repositórios (`academy/teaching`), permitindo que comandos com `--cached` no raiz deixem deleções pendentes que limpam arquivos rastreados do disco na troca de branches sem nenhum alarme. `b20260925-subrepo-tracked-deleted-sentinel`
@@ -37,12 +76,14 @@ name. An entry without one is invisible to it.
 
 - **Research findings and exploration notes in `outputs/.drafts/` are gitignored and do not sync between machines (2026-09-24).**
   Sessions running parallel investigations store draft notes and benchmark scripts in `outputs/.drafts/` (e.g. slides research, taste explorations). Because `outputs/` is completely gitignored, the other machine cannot see or build upon these findings, creating an asymmetric workspace state between Lucas's machines. Open until a durable, syncable pattern for cross-machine scratchpad/drafts is established. `b20260924-drafts-sync`
+  Add PDF benchmark inputs/keys in tmp/pdf-bench, lost conference twins and proved presentation/Canva utilities in temporary or ignored folders. Keep inputs locally durable and credentials separately excluded from version control.
 
 - **Hook warnings use double-negative `NOT REFUSED` instead of affirmative `ALLOWED` or standard alert vocabulary (2026-10-02).**
   In `core/hooks/checks/line_counts.py`, `core/hooks/entropy/entropy_crowding.py` and `core/hooks/entropy/entropy_context.py`, warnings display `NOT REFUSED — this is the warning at {warn}... Nothing stops until {block}`. Lucas asked in INBOX: "pq o nosso warning começa com NOT REFUSED ao invés de ALLOWED? é essa a melhor linguagem mesmo?". Double negative creates visual clutter and friction. Open until vocabulary is audited against `core/SCHEMA.md` and concise affirmative phrasing (e.g. `ALLOWED — warning at {warn}...`) is adopted. `b20261002-hook-warning-vocabulary`
 
 - **Boundary friction between goal tasks and project roadmaps confuses capture and execution (2026-09-29).**
   The `/inbox` skill feeds commitments into `brain/goals/*.md` backlogs, but technical build work belongs in `code/<proj>/ROADMAP.md` and the root `ROADMAP.md`. Lucas notes a strong tendency to look for tasks directly in roadmaps, leaving goal backlogs stale or duplicated. Open until the taxonomy and intake contract are explicitly defined between personal OS life commitments and technical project backlogs. `b20260929-task-roadmap-boundary`
+  Triage also found rpg-isoroll selected achievement still describes painting in Foundry, while isoroll-content ROADMAP D8 calls for text-authored layouts and parks the painter. Tracking wording needs to follow the owning plan without reopening its design decision.
 
 - **The slides surface still names Google Slides as the provider; the home itself is open again (Canva leaf, 2026-10-03).**
   `core/tools/slides/CONTEXT.md` calls `gslides` the leaf and says `pptx` exists "for Drive to convert"; the `/slides` router
@@ -79,6 +120,7 @@ name. An entry without one is invisible to it.
   halves: the fallback does not follow a code host to a readable surface, and a link that yielded no
   text is still counted in the `ok` column, which is the false green these checks exist to end.
   `b20260921-fetch-fallback`
+  INBOX 6/12 Oct and triage 14 Oct: video_core.py/video_images.py resolve the workspace as core/, the fetch fallback raises Exec format error, and batches lack item progress and partial persistence. Full extraction returned only empty text while declaring success; count contentless results as failures. Web/paper sessions also report JavaScript-only pages, HTTP failures, missing PDF handling, empty paper searches and silent concurrency failures; verify alternatives. The previously used r.jina.ai reader was reported blocked on 12 Oct.
 
 - **The template-naming law is written and nothing enforces it, which is the defect `core/SPECS.md`
   § AD-16 names.** The rule landed in `core/SCHEMA.md` on 2026-09-18, in the section
@@ -107,6 +149,7 @@ name. An entry without one is invisible to it.
   that gets over it once stays over until someone touches it — which is the whole cost of
   `--no-verify`, and the part the protocol does not ask anyone to check afterwards.
   `b20260918-shared-index`
+  PDF/taste sessions also report branch changes during unfinished work and verification against another session's incomplete tree. Worktree preparation is in ROADMAP.md; preserve other sessions' changes.
 
 - **A suite case rebuilds into the REAL public checkout, and the next run fails on what it left.**
   `core/public.txt` declares `target code/wos`, and `test_a_rebuilt_target_settles_in_one_pass`
@@ -278,6 +321,7 @@ name. An entry without one is invisible to it.
   on 2026-09-28 (`ROADMAP.md` § Measurement), and changing how it stores rows before it is read
   would spend the measurement to tidy the file it is measured from.
   `b20260922-state-stores`
+  Claude session, 16 Oct, reports test-session markers accumulating under core/state/; verify teardown cleanup and pruning with claude_nostub_missing-stub as reproducer.
 
 - **The rtk rewrite of `git commit` reported success for commits the pre-commit hook refused.**
   Twice on 2026-09-24, `git commit -q …` (rewritten to `rtk git commit`) printed
@@ -295,7 +339,7 @@ name. An entry without one is invisible to it.
 
 > Generated by `core/hooks/entropy/dashboard/entropy-dashboard.py`, which scans this repo and no other. Never edit inside this block, and never copy a count out of it — a copied number is the drift these checks exist to catch.
 
-2026-10-07 · 1164 tracked files scanned · **5 findings here** (2026-09-25: 3 · +2 over 12 days)
+2026-10-17 · 1173 tracked files scanned · **6 findings here** (2026-10-06: 64 · -58 over 11 days)
 
 | Check | Findings |
 |-------|----------|
@@ -318,10 +362,10 @@ name. An entry without one is invisible to it.
 | Header fields naming code that is not there | 0 |
 | Truncated routing descriptions | 0 |
 | Constraints trapped in a CONTEXT.md head | 0 |
-| Local branches holding unpromoted work | 2 |
+| Local branches holding unpromoted work | 1 |
 | Work that exists on this disk and nowhere else | 0 |
-| Local branches already merged into their base | 0 |
-| Remote branches already merged into their base | 0 |
+| Local branches already merged into their base | 1 |
+| Remote branches already merged into their base | 1 |
 
 *A check with no findings is the `0` in that table and nothing more. Only a check with something to show gets a section below.*
 
@@ -337,8 +381,19 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/goals-roadmap is 4 ahead of main
-- . — feature/pdf-twin is 2 ahead of main
+- . — feature/goals-roadmap is 10 ahead of main
+
+### Local branches already merged into their base
+
+*safe to delete, and purely local — `git -C <repo> branch -d <branch>`*
+
+- . — 1 merged into main: git -C . branch -d feature/pdf-twin
+
+### Remote branches already merged into their base
+
+*safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
+
+- . — 1 merged into main: git -C . push origin --delete feature/pdf-twin
 
 <!-- entropy:end -->
 
@@ -347,28 +402,5 @@ name. An entry without one is invisible to it.
 
 > Generated by `core/tools/wos/roundup` at session close. The suite is the authority; this is its last result, never a claim that it is still true.
 
-2026-10-07 · `verify.py full` · **red**
-
-```
-        """
-        if request.node.get_closest_marker('serial'):
-            yield
-            return
-        before = _shape()
-        yield
-        after = _shape()
-        if before != after:
-            changed = sorted(set(before) ^ set(after)
-                             | {k for k in set(before) & set(after) if before[k] != after[k]})
->           pytest.fail(
-                f'this test changed the real workspace tree: {changed[:8]}. Build what you need under '
-                f'tmp_path, or mark the case `serial` if it genuinely has no boundary -- see '
-                f'core/tools/test/wos/CONTEXT.md and b20260902.')
-E           Failed: this test changed the real workspace tree: ['core/skills/compass.md']. Build what you need under tmp_path, or mark the case `serial` if it genuinely has no boundary -- see core/tools/test/wos/CONTEXT.md and b20260902.
-
-core/tools/test/conftest.py:187: Failed
-=========================== short test summary info ============================
-ERROR core/tools/test/law/entropy/dashboard/test_b20260902_a_generated_list_is_red_on_the_clone_that_did_not_write_it.py::test_the_header_counts_what_this_repo_tracks
-1092 passed, 1 skipped, 1 error in 328.01s (0:05:28)
-```
+2026-10-17 · `verify.py full` · **green (25 passed, 1114 deselected in 4.62s · 1113 passed, 1 skipped in 174.24s (0:02:54))**
 <!-- verify:end -->

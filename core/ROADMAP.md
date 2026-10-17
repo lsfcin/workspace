@@ -6,6 +6,15 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 
 ## Open
 
+**🟢 [mcptoon-context] Tool and skill discovery — backlog**
+*What* — Assess mcptoon discovery, on-demand schema retrieval and measured context cost against our current workflow; source claims in refs/REFS.md, Dobra assessment in ../code/dobra/ROADMAP.md. *Why* — Lucas requested evaluation of the captured demonstration. *Done when* — One bounded comparison records cost, retrieval reliability and configuration effects before adoption.
+
+**🟢 [rea-assessment] Reverse-engineering and media demonstrations — backlog**
+*What* — Identify the primary REA, PhotoCraft and EffectCraft projects and assess transferable methods and media capabilities against existing tools; refs/REFS.md, media assessment also in ../branches/virada/ROADMAP.md. *Why* — The captured demonstrations may reduce repeated discovery or production work. *Done when* — Capabilities, licensing and the author's legal claims have evidenced verdicts or rejection.
+
+**🟢 [links-cleanup] lsf-links cleanup — today**
+*What* — Verify the Claude-session report of an orphan functions/api/lib/ stub and uncommitted functions/jsconfig.json in lsf-links; review the cleanup and commit only the intended change. *Why* — The 16 Oct session reported both operations blocked by permission classification. *Done when* — The report is checked against disk and Git, and any justified cleanup is verified and committed separately.
+
 **🟢 [visual-tools] Captured visual tools — backlog**
 *What* — Compare Hairline, ff-tracking, Papermorph and the animated-data example for editability, accessibility, source fidelity and reproducibility. Sources: refs/REFS.md. *Why* — Captured demonstrations may improve workspace explanations and teaching. *Done when* — One bounded comparison records what transfers and what fails.
 
@@ -101,8 +110,8 @@ carry what `academy/teaching/classes/ai4good/disciplina.md` learned this semeste
 **🟡 submissão interativa de artefatos por matrícula e validação no site de disciplinas**
 a student submits an artefact link with their enrolment number on the course page, and the teacher accepts items in one click; done when a prototype works on a published `disciplina.md` (INBOX 2026-09-30).
 
-**🟡 compare HotClip and Drift for local edits**
-*What* — Compare xixihhhh/hotclip and Drift on one recording: captions, editability and export fidelity; refs/REFS.md. *Why* — Classes and project videos need accessible editing. *Done when* — Record the verdict under tools/video/.
+**🟡 compare HotClip, Drift and Clipa for local edits and captions**
+*What* — Compare xixihhhh/hotclip, Drift and Clipa on one recording: Portuguese caption accuracy, legibility, editability, export fidelity and cost; refs/REFS.md. *Why* — Classes and project videos need accessible editing; Lucas requested Clipa for Virada videos. *Done when* — Record the verdict under tools/video/ before adopting a tool.
 
 **🟢 avaliar iris (Rust CLI + MCP) como ferramenta de visão/câmera para os agentes do WOS**
 test `brijr/iris` as MCP or CLI for the agent to screenshot local and published pages; verdict in `core/tools/web/SPECS.md` (INBOX 2026-09-25).
