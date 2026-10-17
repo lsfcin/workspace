@@ -9,7 +9,7 @@
 
 <!-- add entries below, newest first -->
 
-o checador de palavras aposentadas acusa `dial` dentro de título de artigo citado ("Speech and Dialed Input", CHI 2009, no cmp excelente e raso): nome próprio e citação deveriam ficar fora. hoje vira 1 achado permanente no ISSUES do teaching. `proj: wos`
+o checador de palavras aposentadas acusa a palavra antiga de "criterion" dentro do título de um artigo citado (Patel et al., CHI 2009, no cmp excelente e raso): nome próprio e citação deveriam ficar fora. hoje vira 1 achado permanente no ISSUES do teaching. `proj: wos`
 — via claude · 2026-10-16
 
 `core/state/` acumula marcadores de sessões de teste que nunca são apagados (`claude_nostub_missing-stub` com 29 entradas, uma por rodada do suite). o teste agora usa sessão única, então cresce mais rápido: precisa de limpeza no fim do teste ou de poda por idade. `proj: wos`
