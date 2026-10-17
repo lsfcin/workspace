@@ -11,6 +11,7 @@
 | [`google-migration/`](google-migration/CONTEXT.md) | Cockpit da migração Google: conta `lsf@cin.ufpe.br` → `lsf.cin@gmail.com` e a fila de download do Drive do cin para o workspace local. Goal: [google-migration](google-migration/../../brain/goals/google-migration.md). |
 | [`health/`](health/CONTEXT.md) | Personal health management and references. |
 | [`instituto/`](instituto/CONTEXT.md) | Cockpit do programa do instituto: núcleos de ideias sobre fluxos de dinheiro e coletividade, motor de ideação, funding e caminho legal. Gestão unificada fora da universidade. |
+| [`moradia/`](moradia/CONTEXT.md) | Cockpit de onde o Lucas mora: o aluguel atual (apto 305, Rua Cassilândia 67, CTI Imobiliária), a saída dele e a casa seguinte (Rua Eduardo Dubeux 24A). Goal: [moradia](moradia/../../brain/goals/moradia.md). |
 | [`shoplist/`](shoplist/CONTEXT.md) | O que comprar quando houver dinheiro e vontade — link, preço visto e a data em que foi visto. |
 | [`tips/`](tips/CONTEXT.md) | O que vale a pena — jogos, filmes, séries, música, livros e quadrinhos que o Lucas indica, com nota e por quê. |
 | [`tweaks/`](tweaks/CONTEXT.md) | Ajustes das máquinas e dos apps que o Lucas usa todo dia — o que configurar, e a decisão por trás. |
