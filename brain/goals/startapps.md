@@ -57,6 +57,8 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## backlog
 
+> [ ] [polilinhas-timeline] Avaliar a timeline documental proposta para a Virada; escopo e escolhas em branches/virada/ROADMAP.md [timeline-evidencias] (backlog).
+
 > [ ] [faz-favor-spec] desenhar fluxo de MVP para o Faz Favor (troca de favores/empréstimos em círculos de confiança via bot WhatsApp/Telegram ou PWA) (INBOX 2026-10-03)  
 > [ ] [proxima-rede-estudo] mapear padrões nocivos e artigos sobre redes sociais atuais para desenhar arquitetura de rede focada em bem-estar e propósito (INBOX 2026-10-03)  
 > [ ] [batituque-microtom] prototipar módulo de afinações alternativas (13-EDO, 11-EDO, 5-EDO) e regras matemáticas para notas fora da escala no batituque / Air Guitar (INBOX 2026-09-27)  
@@ -73,5 +75,5 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-30  ·  trend: decelerating  ·  touches: 1/124/151/151/157/157
+last-touch: 2026-10-06  ·  trend: decelerating  ·  touches: 2/123/142/152/158/158
 <!-- stats:end -->

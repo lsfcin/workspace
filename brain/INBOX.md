@@ -9,17 +9,16 @@
 
 <!-- add entries below, newest first -->
 
-o checador de palavras aposentadas acusa a palavra antiga de "criterion" dentro do título de um artigo citado (Patel et al., CHI 2009, no cmp excelente e raso): nome próprio e citação deveriam ficar fora. hoje vira 1 achado permanente no ISSUES do teaching. `proj: wos`
-— via claude · 2026-10-16
+Isso é urgente. Isso é urgente. E não pode ser triado no INBOX, sendo escondido em algum lugar. Ou isso é feito, realizado por uma sessão, ou fica no INBOX. É o seguinte, se eu perder meu celular hoje, eu me lasquei. Eu perco várias das minhas contas. Perco o acesso ao GitHub, porque o aplicativo de autenticação tá no celular. E essa autenticação dos fatores, ela já foi um problema pra mim, porque eu perdi uma conta do Discord por conta disso. A conta do Discord foi hackeada, deslogada. Quando eu fui logado no open de autenticação dos fatores, eu não consegui achar a autenticação. Eu tenho muito medo disso acontecer com a minha conta do Google, com a minha conta do GitHub, com as várias outras contas que eu tenho. O autenticador hoje tem autenticação pra GitHub, Microsoft, Google e tem mais outros lá. Então, eu quero ter algum mecanismo que me deixe tranquilo pra que uma vez meu celular quebrando, perdendo ele, qualquer cenário desses, sendo roubado, eu não perca todas as minhas contas. Obrigado. Obrigado. Obrigado. Obrigado. Obrigado.
+— via aiwbot · 2026-10-17
 
-`core/state/` acumula marcadores de sessões de teste que nunca são apagados (`claude_nostub_missing-stub` com 29 entradas, uma por rodada do suite). o teste agora usa sessão única, então cresce mais rápido: precisa de limpeza no fim do teste ou de poda por idade. `proj: wos`
-— via claude · 2026-10-16
+https://www.instagram.com/reel/DdVargvpEQ8/?dlrf=amlsZ3o3aTBiOTIw
+ver se a gente tá cobrindo isso no wos e/ou se podemos aprender algo e melhorar
+— via aiwbot · 2026-10-17
 
-o aviso UNGATED WRITE do hook atribui o arquivo ao diretório anterior quando o comando faz `cd` antes de escrever (acusou brw/excelente.md, o comando escreveu em cmp/). falso alarme assusta. `proj: wos`
-— via claude · 2026-10-16
-
-site lsf-links: falta apagar `functions/api/lib/` (stub órfão de 14/10, sem .js, nunca no git) e commitar `functions/jsconfig.json`. o classificador de permissão bloqueou os dois nesta sessão. `task: today`
-— via claude · 2026-10-16
+https://www.instagram.com/p/DefaJVojOSp/?img_index=9&cplk=MWZncXVoYWE4MG04YQ==
+pode ser útil pro wos
+— via aiwbot · 2026-10-17
 
 https://www.instagram.com/p/DeMgL8IDfD5/?img_index=3&stkn=MWkzNmhmOWlhb2NyZw==
 talvez ajude a gente no wos

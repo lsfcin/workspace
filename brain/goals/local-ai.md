@@ -27,6 +27,8 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## backlog
 
+> [ ] [mcptoon-context] Track tool-discovery and context-budget assessment in code/dobra/ROADMAP.md [mcptoon-context]; reference in code/dobra/refs/REFS.md (backlog).
+
 > [ ] [hyperagent] Assess Dobra context management and aiwbot sessions for the desktop hyperagent; assessments in their roadmaps (high priority, week). Include OpenHarness (core/refs/REFS.md): Linux, session reuse, aiwbot lineage and bounded Dobra context preserving user decisions.
 
 > [ ] [read-weft] read the weft implementation paper and repo — most concrete starting point  
@@ -65,5 +67,5 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-16  ·  trend: decelerating  ·  touches: 13/99/111/111/111/111
+last-touch: 2026-10-16  ·  trend: decelerating  ·  touches: 10/99/111/111/111/111
 <!-- stats:end -->
