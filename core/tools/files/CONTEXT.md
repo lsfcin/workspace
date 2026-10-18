@@ -7,6 +7,8 @@ Auth is two tokens, not one: reads use the `drive` token (`drive.readonly`), and
 `gdrive auth <alias> --write --reauth` is a different command, and the recovery message says so.
 Downloads land in `Downloads/workspace-drive` at the workspace root.
 
+`put --sheet` imports a CSV in the account's locale: `personal` is pt-BR, so write `"414,36"`, not `414.36` — a dot decimal lands as text and every `=formula` over it reads `#VALUE!`.
+
 `drive_migrate.py` is not part of the CLI — it is a standing account-to-account copy (`cin` → `personal`), idempotent, run by path.
 
 <!-- routing:start -->

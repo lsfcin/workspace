@@ -67,7 +67,8 @@ def cmd_mkdir(account: str, name: str, parent_id: str) -> None:
     fid = drive_core.find_or_create_folder(svc, name, parent_id)
     print(f"Folder '{name}' ({alias})  id:{fid}")
 
-CONVERT = {"gdoc": (drive_core.GDOC_MIME, "Google Doc"), "slides": (drive_core.GSLIDES_MIME, "Google Slides")}
+CONVERT = {"gdoc": (drive_core.GDOC_MIME, "Google Doc"), "slides": (drive_core.GSLIDES_MIME, "Google Slides"),
+           "sheet": (drive_core.GSHEET_MIME, "Google Sheet")}
 
 def cmd_put(account: str, path: str, parent_id: str, convert: str, name: str) -> None:
     alias = gauth.resolve_alias(account)
@@ -156,6 +157,7 @@ def main():
     pp.add_argument("--parent", default="root")
     pp.add_argument("--gdoc", dest="convert", action="store_const", const="gdoc", help="convert to Google Doc on upload")
     pp.add_argument("--slides", dest="convert", action="store_const", const="slides", help="convert to Google Slides on upload (.pptx masters and layouts kept)")
+    pp.add_argument("--sheet", dest="convert", action="store_const", const="sheet", help="convert to Google Sheet on upload (.csv; =formulas stay live)")
     pp.add_argument("--name", default=None, help="override the uploaded file name")
     pp.add_argument("path")
     pc = sub.add_parser("copy")

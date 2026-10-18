@@ -13,22 +13,22 @@ engaged mode · advancing motion · external source
 2026-08-28: cartório resolvido — processo 45.992 (titularidade → demarcação) entrou presencialmente em 22/07, está em exame, e a última exigência (certidão de endereço, R$ 267,80) foi paga hoje. Novo gargalo = **Teste de Absorção do Solo com ART**: a Licença Prévia Ambiental está quase aprovada e a fase seguinte (Licença de Instalação) exige projeto de esgoto, que exige esse teste. Marcelo cobrou 15/08, 19/08, 24/08 e 28/08 — é o único item aberto com ele.
 
 ## selected next achievement
-    [teste-absorcao] conseguir o Teste de Absorção do Solo com ART (coeficiente de absorção + nível do
-    lençol freático) — ver branches/casinhas/burocracia/etapas.md
+    [licenca-instalacao] Licença de Instalação aprovada: projeto de esgoto entregue e DAM `8048987926`
+    pago em 17/10 — ver branches/casinhas/burocracia/etapas.md
 
 **ease-start**  
-Mandar UMA mensagem pra Tecsolo Sondagens cobrando o orçamento que eles prometeram em 28/08. Fones: 3227-4780, (81) 99180-5024, (81) 98801-5824. 2 minutos, e é o passo que destrava a Licença de Instalação.
+Mandar a Marcelo o comprovante do DAM (`burocracia/docs/2026-10-17_dam-licenca-instalacao-comprovante.jpeg`) e uma linha sobre a certidão narrativa do RGI. 5 minutos, e foi o que ele pediu em 17/10.
 
 >**timing**  
-*target · orçamento da Tecsolo esta semana; laudo do solo em setembro  
-anchor · Marcelo cobrou o teste em 15/08, 19/08, 24/08 e 28/08 — a Licença de Instalação não anda sem ele  
+*target · Licença de Instalação em tramitação desde 17/10; DAM vence 28/10  
+anchor · Marcelo pediu o comprovante e notícias do RGI em 17/10  
 closure · casinhas built, functional, fulfilling what they were designed for  
 tolerance · long project — any clarity now helps  
 fallback · even a partial map beats starting from zero again*
 
 ## backlog
 
-> [ ] [teste-absorcao] Teste de Absorção do Solo com ART — cobrar orçamento da Tecsolo; destrava a Licença de Instalação  
+> [ ] [acerto-pai] pai transferir **R$ 2.400,75** (3/4 das taxas jul–out pagas por Lucas, impresso por `code/obra/gastos.py`); quando cair, preencher `Acertado em` nas 4 linhas da planilha master  
 > [ ] [fotos-internas] mandar a Marcelo as fotos internas do terreno (áreas livres entre construção e muros) — última pendência da Licença Prévia Ambiental  
 > [ ] [responder-severino] responder Severino, que cobrou retorno em 20/07 e tem duas obras concorrentes na mesa —
 > mesmo que a resposta seja não  
@@ -52,6 +52,7 @@ fallback · even a partial map beats starting from zero again*
 ## done
 
 <!-- done:start -->
+- [x] 2026-10-17 [teste-absorcao] Teste de Absorção com ART feito pela Tecsolo (11/09, R$ 1.690,00); planilha única no Drive pessoal com Pagador/Rateio/Acertado em
 
 
 - [x] 2026-08-28 [averbacao-terreno] processo 45.992 no 7º RGI (titularidade → demarcação) protocolado 22/07
