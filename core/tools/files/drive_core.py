@@ -35,6 +35,7 @@ FILE_FIELDS = "id,name,mimeType,modifiedTime,size,parents,webViewLink"
 
 GDOC_MIME = "application/vnd.google-apps.document"
 GSLIDES_MIME = "application/vnd.google-apps.presentation"
+GSHEET_MIME = "application/vnd.google-apps.spreadsheet"
 
 
 def get_service(alias: str, write: bool = False):
@@ -184,7 +185,7 @@ def trash_file(svc, file_id: str) -> dict:
 def upload_local(svc, path: pathlib.Path, parent_id: str, convert_to: str = None,
                  name: str = None) -> dict:
     """Upload a local file to parent_id. convert_to is a Google-native mimeType
-    (GDOC_MIME, GSLIDES_MIME): Drive converts on import (.docx→Doc, .pptx→Slides,
+    (GDOC_MIME, GSLIDES_MIME, GSHEET_MIME): Drive converts on import (.docx→Doc, .pptx→Slides, .csv→Sheet,
     masters and layouts included). Returns the created file's {id, name, webViewLink}."""
     path = pathlib.Path(path)
     media = MediaFileUpload(str(path), resumable=True)

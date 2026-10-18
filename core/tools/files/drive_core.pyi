@@ -9,6 +9,7 @@ EXPORT_EXT: Incomplete
 FILE_FIELDS: str
 GDOC_MIME: str
 GSLIDES_MIME: str
+GSHEET_MIME: str
 
 def get_service(alias: str, write: bool = False): ...
 def list_files(alias: str, folder_id: str = 'root', page_size: int = 50) -> list: ...
