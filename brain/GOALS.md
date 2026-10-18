@@ -4,15 +4,15 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-10-17 17:21
+last-updated: 2026-10-17 20:48
 
 >**areas** — last 14 days  
 ```
 health       ░░░░░░░░░░   1 touches
 career       ░░░░░░░░░░   2 touches
-craft        ██████████   43 touches
+craft        ██████████   63 touches
 finances     ░░░░░░░░░░   2 touches
-fun          ░░░░░░░░░░   4 touches
+fun          ░░░░░░░░░░   5 touches
 spiritual    ░░░░░░░░░░   1 touches
 ```
 
@@ -35,26 +35,27 @@ home-casinhas            ░░░░░░░░░░   1 touches
 instituto                ░░░░░░░░░░   0 touches
 lih-dd                   ░░░░░░░░░░   0 touches
 listenreading            ░░░░░░░░░░   0 touches
-local-ai                 ██░░░░░░░░   6 touches
+local-ai                 █░░░░░░░░░   7 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
+moradia                  ░░░░░░░░░░   0 touches
 pandeiro                 ░░░░░░░░░░   0 touches
 paper-jarbinhas          ░░░░░░░░░░   0 touches
 paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   1 touches
-rpg-isoroll              █░░░░░░░░░   4 touches
+rpg-isoroll              █░░░░░░░░░   5 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   0 touches
 spec-driven-development  ░░░░░░░░░░   0 touches
 startapps                ░░░░░░░░░░   2 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ██████░░░░   17 touches
+teaching-materials       █████░░░░░   23 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   27 touches
+workspace-os             ██████████   41 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
@@ -99,6 +100,7 @@ The one relational move stays one text message.
 | always-on autonomous local AI | craft | year | — | [read-weft] read the weft implementation paper and repo… | [→](goals/local-ai.md) |
 | magic places | fun | dream | — | [name-3] name 3 places that genuinely call you — gut le… | [→](goals/magic-places.md) |
 | make in time | health | now | — | [mit-01] identify 3 recurring late scenarios and map th… | [→](goals/make-in-time.md) |
+| moradia — leave apt 305, move to Eduardo Dubeux 24A | finances | now | — | [rescisao-email] send the termination e-mail to CTI tod… | [→](goals/moradia.md) |
 | pandeiro | fun | near | Pandeirada classes… | [show-up] go to Pandeirada next Saturday | [→](goals/pandeiro.md) |
 | paper jarbinhas | craft | near | DC graduate progra… | [jarb-01] map Jarbas' PhD material — identify 2-3 publi… | [→](goals/paper-jarbinhas.md) |
 | paper megatruth | craft | near | — | [mega-01] schedule team meeting — show up with a clear … | [→](goals/paper-megatruth.md) |
