@@ -21,7 +21,7 @@ Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e es
 
 > [ ] [map-org] mapear a estrutura organizacional (DC/UFRPE, colegiados, câmaras, GTs) — quem decide o quê [ ] [map-flows] mapear os fluxos de processos recorrentes (progressão, afastamento, bancas, projetos de pesquisa, bolsas) como passo-a-passo editável [ ] [gather-norms] reunir resoluções + instruções normativas + links oficiais num índice navegável (não copiar tudo —
 > referenciar + anotar)
-> [ ] [dept-guide] empacotar como guia extensível pro departamento — reusável por outros professores [ ] amarrar com `academy/administration/` (já existe) e com o goal `career-ufrpe` [ ] [ppc-ementas-3] PPC ementas: 41/44 já reformatadas p/ modelo SIGAA e subidas no Drive — falta pedir a Paulo o conteúdo de 3 disciplinas sem fonte: FUNDAMENTOS DA EDUCAÇÃO, PROJETO INTEGRADOR EM DESENVOLVIMENTO DE ARTEFATOS EDUCACIONAIS, PROJETO INTEGRADOR EM EDUCAÇÃO EM COMPUTAÇÃO (detalhe por disciplina em `academy/administration/coordenacao-lc/novo-ppc-bcc/ementas/gaps.md`) — depois, criar as 3 ementas no formato novo (INBOX 2026-07-24)
+> [ ] [dept-guide] empacotar como guia extensível pro departamento — reusável por outros professores [ ] amarrar com `academy/administration/` (já existe) e com o goal `career-ufrpe` [ ] [ppc-ementas-rev] PPC LC: revisar a 1ª versão dos dois Projetos Integradores e mandar ao Paulo com a planilha EAD; decidir as 6 pendências (teto EAD 30% do Decreto 12.456/2025, bug de bibliografia em 34 ementas de julho, …) em `academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md` (2026-10-18)
 > [ ] [sbc-cotas] checar isenção e prazos de cotas SBC — email andreza.leite@ufrpe.br [ ] [admin-automatizada] desenhar como a administração vira trabalho do agente e não do Lucas: demandas que chegam por WhatsApp e email, respostas e resoluções, instruções normativas e leis, e as ações no SIGAA/SIPAC/SIGRH. Desenho antes de ferramenta — decidir o que o agente pode fazer sozinho, o que ele prepara para o Lucas aprovar, e o que nem deve tentar. Depende da sincronia do Drive ([[google-migration]] `[drive-sync-method]`) (INBOX 2026-08-27)
 
 ## done
@@ -31,5 +31,5 @@ Pegar UM processo real recente (ex. a progressão CTA 23082.018263/2026-55) e es
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-25  ·  trend: steady  ·  touches: 3/8/8/8/8/8
+last-touch: 2026-10-18  ·  trend: advancing  ·  touches: 8/14/14/14/14/14
 <!-- stats:end -->

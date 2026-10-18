@@ -20,6 +20,7 @@
 | [`test_caveman_compress.py`](test_caveman_compress.py) | [`test_caveman_compress.pyi`](test_caveman_compress.pyi) | — | T1 caveman compress: model output reaches disk as a text file, and the default id has one home. |
 | [`test_describe.py`](test_describe.py) | [`test_describe.pyi`](test_describe.pyi) | `backends` | T1 describe: an answer that ignores the image's own text is escalated, and a chain that runs out keeps its best answer flagged rather than nothing. Zero-token, no network. |
 | [`test_docs.py`](test_docs.py) | [`test_docs.pyi`](test_docs.pyi) | `paragraph` | T1 docs: an index a document reports must still mean that place when the edit is applied. |
+| [`test_docx_template.py`](test_docx_template.py) | [`test_docx_template.pyi`](test_docx_template.pyi) | — | T1 docx template: a filled form reads back as the fields written, with the template's defaults gone and its table found even inside a content control. |
 | [`test_forms.py`](test_forms.py) | [`test_forms.pyi`](test_forms.pyi) | — | T1 forms: a form written as JSON must reach the API as the form that was written. |
 | [`test_gauth.py`](test_gauth.py) | [`test_gauth.pyi`](test_gauth.pyi) | `accounts` | T1 auth recovery: a dead Google token must hand Lucas a runnable fix, not a traceback. |
 | [`test_links.py`](test_links.py) | [`test_links.pyi`](test_links.pyi) | `mapfile`, `course`, `browser_edit` | T1 links: a short name stays sayable, a private thing never gets one, and a live link never moves. |
