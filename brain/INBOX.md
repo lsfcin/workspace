@@ -29,3 +29,18 @@ talvez ajude a gente no wos
 
 wos: `gmail fetch` trava em 50 e-mails e só filtra por dias — pra achar o contrato do apto tive que chamar a API na mão com busca (q=). falta `gmail search "<query>"` + baixar anexo aninhado (o `attachments` atual não viu os PDFs do DocuSign, que vêm em parts aninhadas). e os boletos da DAC sumiram do gmail pessoal desde nov/2025 — conferir se foram pra outro e-mail
 — via claude · 2026-10-17
+
+wos (sessão ementas LC): o sub-repo `academy/administration` estava com 150 arquivos deletados no working tree (tudo intacto no HEAD, restaurado com checkout). causa desconhecida — só existia 1 commit e nada de reflog; suspeita: sync entre as duas máquinas ou limpeza de pasta gitignored pelo pai. vale um check que avise quando um sub-repo tem deleção em massa não commitada
+— via claude · 2026-10-18
+
+wos: o symlink `~/.claude/projects/-mnt-workspace/memory → brain/memory` está quebrado (a pasta não existe; há um `memory.pre-merge-backup`). a regra que o Lucas deu hoje — "nunca editar o arquivo original, sempre criar um arquivo extra; se mudou, recupera e cria outro" — não teve onde ser salva. rotear pra uma norma em `core/norms/` (ela vale pra Drive, Docs e arquivos locais)
+— via claude · 2026-10-18
+
+wos: `core/hooks/described.txt` casa por `str(path).endswith(chave)`, mas num repo aninhado o gate recebe o path relativo ao sub-repo, então a chave com `academy/administration/...` nunca casa — tive que usar só o sufixo. assimetria: o resto do workspace é relativo à raiz
+— via claude · 2026-10-18
+
+ppc: Decreto 12.456/2025 art. 10 §1 limita EaD de curso presencial a 30%, mas `code/ppc` (restrição c9) e `restricoes-curriculares-atualizado.md` ainda usam 40% da CEPE 744/2024. corrigir c9 depois que o Lucas confirmar. também: a pasta `novo-ppc-bcc/` guarda o PPC da LC (nome errado) e `organograma.md` chama o Lucas de coordenador, `brain/CONTEXT.md` de vice
+— via claude · 2026-10-18
+
+wos: o venv não tem `openpyxl` — li a planilha do BCC desmontando o .xlsx (xml). se planilha virar rotina, declarar a dep em `core/tools/deps.txt` e dar uma folha `xlsx` à família certa
+— via claude · 2026-10-18
