@@ -34,10 +34,17 @@ Plano, conta e checklist: [`saida-cassilandia.md`](saida-cassilandia.md). Conver
 ## Próxima casa — Rua Eduardo Dubeux 24A, Várzea
 Casa alugada; a 24 foi dividida em três. Fica em frente à casa do pai e perto da obra das [casinhas](../casinhas/CONTEXT.md), mas é outro lugar. O contrato novo entra em `docs/` quando for assinado.
 
+## Google Drive — espelho
+[`branches/moradia/`](https://drive.google.com/drive/folders/1sR13uw1vIay4Xbek1BCGqlJHkP4DHbdK) na conta `personal`, com as mesmas subpastas (`docs/`, `conversas/`) e os mesmos nomes de arquivo. O git guarda o texto; o Drive guarda os PDFs, as 145 fotos da vistoria de entrada (`docs/2024-11-14_vistoria-entrada-fotos.zip`) e uma cópia em Google Doc de `saida-cassilandia.md`, para ler no celular. Documento novo, como o termo de entrega ou o contrato da casa nova, vai nos dois lugares, com nome `AAAA-MM-DD_<item>`. `segredos.env` nunca sobe.
+
 PDFs e twins com CPF ficam fora do git (`.gitignore`).
 
 <!-- routing:start -->
 ## Routing
+
+| Subdirectory | Description |
+|--------------|-------------|
+| [`docs/`](docs/CONTEXT.md) | — |
 
 | File | Description |
 |------|-------------|
