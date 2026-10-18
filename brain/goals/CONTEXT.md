@@ -26,6 +26,7 @@
 | [`local-ai.md`](local-ai.md) | [ craft | research | year ] always-on autonomous local AI |
 | [`magic-places.md`](magic-places.md) | [ fun | travel | dream ] magic places |
 | [`make-in-time.md`](make-in-time.md) | [ health | mind | now ] make in time |
+| [`moradia.md`](moradia.md) | [ finances | home | now ] moradia — leave apt 305, move to Eduardo Dubeux 24A |
 | [`pandeiro.md`](pandeiro.md) | [ fun | music | near ] pandeiro |
 | [`paper-jarbinhas.md`](paper-jarbinhas.md) | [ craft | research | near ] paper jarbinhas |
 | [`paper-megatruth.md`](paper-megatruth.md) | [ craft | research | near ] paper megatruth |

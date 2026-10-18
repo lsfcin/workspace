@@ -1,0 +1,9 @@
+# credenciais e PII: ficam no disco, nunca no remote (core/norms/secrets.md)
+segredos.env
+
+# binários ficam no disco, fora do versionamento
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.zip
