@@ -7,3 +7,6 @@ segredos.env
 *.jpeg
 *.png
 *.zip
+
+# twins dos PDFs: trazem CPF, e-mail e IP de terceiros; o PDF vive no Drive
+docs/*/

@@ -44,7 +44,7 @@ PDFs e twins com CPF ficam fora do git (`.gitignore`).
 
 | Subdirectory | Description |
 |--------------|-------------|
-| [`docs/`](docs/CONTEXT.md) | — |
+| [`docs/`](docs/CONTEXT.md) | Documentos da locação, nomeados AAAA-MM-DD_<item>: contrato, vistoria de entrada e fotos, certificado DocuSign. PDFs fora do git, espelhados no Drive personal branches/moradia/docs/. |
 
 | File | Description |
 |------|-------------|

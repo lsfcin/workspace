@@ -1,5 +1,21 @@
-# Google Docs API — facts worth not rediscovering
-> What the API actually returns, learned the expensive way — read alongside `CONTEXT.md`.
+# docs — facts worth not rediscovering
+> What the Docs API actually returns, and how a .docx form is filled without it — learned the expensive way; read alongside `CONTEXT.md`.
+
+## docx: a form table filled locally, never through the API
+
+```bash
+core/run tools/docs/docx fill --template T.docx --labels labels.json --fields f.json --out X.docx [--font "Times New Roman"]
+core/run tools/docs/docx read --labels labels.json X.docx [...]   # the inverse: fields back as JSON
+core/run tools/docs/docx text X.docx                              # body paragraphs, list numbers rendered
+```
+
+**Why it exists beside `gdocs`:** a template whose table sits inside an `sdt` content control survives neither a markdown `push` nor python-docx's `doc.tables`, so `fill` finds it by XPath and deep-copies it into a blank document; the result goes up with `files/gdrive put --gdoc`. Born as the SIGAA ementa pipeline (`academy/administration`, 2026-07), promoted 2026-10-18 so the next form does not rebuild it.
+
+**A label is `[prefix, key, mode]`.** `inline` replaces the cell's first paragraph — templates ship defaults there ("60h", "NÃO TEM") and appending kept both; `block` appends one paragraph per line; `cell` rewrites the whole cell, for one that packs sub-labels. A merged cell is listed once per grid column, so cells are deduplicated by their underlying `_tc` or a value lands twice. `fill` returns the keys that found no cell: a template drift is reported, never dropped.
+
+**Verify by diffing JSONs, not by eye:** `read` the output and compare with the fields written. `text` exists because Word stores a list number as numbering state, so `paragraph.text` silently loses "1.2." — the numbers a reader sees come from `numbering.xml` (`lvlText`, `numFmt`, `start`).
+
+**Google Docs renders the template default as Cambria** unless every run carries an explicit `w:rFonts`; `--font` forces it on every run of the table.
 
 ## Indices, and why they are not object ids
 
