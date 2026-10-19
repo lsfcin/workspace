@@ -59,3 +59,6 @@ wos: a disputa de ideias da virada (brief → geradores por operador → juiz ce
 
 virada: o repo aninhado tem `CONTEXT.md` e `ISSUES.md` no stage, de outra sessão, sem commit (achado ao abrir `feature/virada-semana-final` em 19/out); bancos 1–3, `sintese.md` e o item "Jornada e sábado" ainda tratam a folga como "parada no Senado", falso desde 14/out (Flávio votou sim, EC 141 de 16/out)
 — via claude · 2026-10-19
+
+wos: `yt-dlp` não baixa mídia do YouTube (19/out): sem runtime JS dá aviso, e com `--js-runtimes node:…` dá HTTP 403; `--download-sections` também falha (ffmpeg código 8). só legenda automática sai. a camada L2 (transcrição) de `core/tools/video` está cega para YouTube até resolver token/cookies ou atualizar o yt-dlp (instalado por pip, avisa que está velho)
+— via claude · 2026-10-19
