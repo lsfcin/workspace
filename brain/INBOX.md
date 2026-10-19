@@ -50,3 +50,12 @@ ementas: `build.py` regrava os 46 .docx a cada run (bytes iguais, carimbo novo),
 
 wos: `gslides text` ESCREVE no deck, mas o nome soa como leitura ao lado de `read` (assimetria de nome; quase rodei por engano). token `slides-write` personal expirou — `read` falha e só `export` funciona sem OAuth
 — via claude · 2026-10-19
+
+wos: subagente fora do Claude (2026-10-19). o GPT (`gpt-6.1-sol` via `codex exec`) recusa gerar ou ranquear persuasão política para um grupo de eleitores (6 de 9 geradores e o juiz da virada), mas checa fatos muito bem com `-c tools.web_search=true`; o agy está sem cota até ~25/out. então a regra de rota é por tipo de tarefa, não por custo só: GPT para checagem, levantamento e código; Claude para o que a política da OpenAI recusa. hoje está só na tabela de `core/agents/CONTEXT.md`; falta virar regra que uma sessão aplica sozinha (item de delegação em `core/ROADMAP.md`)
+— via claude · 2026-10-19
+
+wos: a disputa de ideias da virada (brief → geradores por operador → juiz cego com duelos suíços → interrogatório → portão → Lunga) rodou duas vezes à mão, e o brainwriting de ai4good é o mesmo motor para aluno. candidata a flow em `core/flows/`, com o design space como entrada; assimetria: um é artefato de disciplina, o outro é cockpit, e nenhum cita o outro
+— via claude · 2026-10-19
+
+virada: o repo aninhado tem `CONTEXT.md` e `ISSUES.md` no stage, de outra sessão, sem commit (achado ao abrir `feature/virada-semana-final` em 19/out); bancos 1–3, `sintese.md` e o item "Jornada e sábado" ainda tratam a folga como "parada no Senado", falso desde 14/out (Flávio votou sim, EC 141 de 16/out)
+— via claude · 2026-10-19
