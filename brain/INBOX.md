@@ -44,3 +44,9 @@ ppc: Decreto 12.456/2025 art. 10 §1 limita EaD de curso presencial a 30%, mas `
 
 wos: o venv não tem `openpyxl` — li a planilha do BCC desmontando o .xlsx (xml). se planilha virar rotina, declarar a dep em `core/tools/deps.txt` e dar uma folha `xlsx` à família certa
 — via claude · 2026-10-18
+
+ementas: `build.py` regrava os 46 .docx a cada run (bytes iguais, carimbo novo), o que suja o diff — gravar só quando o conteúdo mudar. `verify.py` acusa 1 mismatch antigo (PROGRAMAÇÃO AUTOMÁTICA COM LLM, correquisito '' × 'NÃO TEM'): é a convenção do SPECS, então o verify precisa aplicá-la. `drive_core` não tem função para trocar o conteúdo de um Doc: em 2026-10-19 fiz `files().update(media_body=<docx>)` no Doc existente, que mantém id, link e histórico — promover a `drive_core` + flag `--update` no `upload_all.py`. acervo da Rural é Pergamum (SPA React, sem consulta por script): uma folha que confira a bibliografia básica no acervo poupa o Lucas. `Nova Grade — LC.html/.md` e `PPC — Grade LC_UFRPE*.md` têm nomes de PI de software, desatualizados frente a `code/ppc/grade-curricular.json`
+— via claude · 2026-10-19
+
+wos: `gslides text` ESCREVE no deck, mas o nome soa como leitura ao lado de `read` (assimetria de nome; quase rodei por engano). token `slides-write` personal expirou — `read` falha e só `export` funciona sem OAuth
+— via claude · 2026-10-19
