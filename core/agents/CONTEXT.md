@@ -3,6 +3,14 @@
 
 Each file is a complete operating context for one agent role. In Claude Code, spawn a worker by passing the file content as the system prompt via the Agent tool.
 
+**A worker can run on another harness, from any harness, through bash: prompt in, one file out, read-only.** Lucas prefers GPT and spends `gpt-6.1-sol` before any other worker (2026-10-19); the spawner writes files from the output, never the worker.
+
+| Harness | Call (verified 2026-10-19) | Traps |
+|---|---|---|
+| Codex (GPT) | `/usr/lib/chatgpt/resources/codex exec -s read-only -m gpt-6.1-sol -C /mnt/workspace --ephemeral -o <out> "<prompt>" < /dev/null` | off PATH; without `< /dev/null` it waits on stdin; `-s read-only` reads the tree and writes nothing |
+| agy (Gemini) | `agy --disable-slash-commands --model <id> -p "<prompt with the files inlined>"` | model before prompt; headless needs no tools; `--dangerously-skip-permissions` is refused by Claude Code's auto-mode classifier; `agy models` lists ids and says whether it is logged in |
+| Claude Code | `claude -p "<prompt>"` | not run on 2026-10-19; spends Claude quota, the one these calls exist to save |
+
 **One pipeline, in order: `writer` drafts from evidence `researcher` gathered, `verifier` adds the citations afterward, `reviewer` grades the result.** Who each one is, is the routing table's job —
 it reads their frontmatter, which is the same text their spawner gets.
 
