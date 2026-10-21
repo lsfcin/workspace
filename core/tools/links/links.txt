@@ -11,7 +11,7 @@ ai4good/agencia	https://docs.google.com/presentation/d/12uqqaF05i5hs1B1Q4rH9odjl
 ai4good/autoaprimoramento	https://docs.google.com/presentation/d/1mqFfYtF0yyQd2JAnQoaQ6TnJ0dqpWVmxZcmxEG1K67U/present	ai4good	2026-09-23
 ai4good/autocodificadores	https://docs.google.com/presentation/d/1GZ2W2YAFJkd5Z5uJM8kjuQzZK8SsEPnzO2NWbk1Ji5w/present	ai4good	2026-09-24
 ai4good/autopreservacao	https://docs.google.com/presentation/d/1o7MWYdm74XMNbwWRD7OWXsayB0UQLBTbrcshAkom3cM/present	ai4good	2026-09-23
-ai4good/brw	https://lucassf.pages.dev/ai4good/artefatos/3-brainwriting-hibrido	ai4good	2026-10-17
+ai4good/brw	https://lucassf.pages.dev/ai4good/?doc=artefatos/3-brainwriting-hibrido.md	ai4good	2026-10-21
 ai4good/brw-excelente	https://lucassf.pages.dev/ai4good/artefatos/brw/excelente.md	ai4good	2026-10-16
 ai4good/brw-raso	https://lucassf.pages.dev/ai4good/artefatos/brw/raso.md	ai4good	2026-10-16
 ai4good/cmp-excelente	https://lucassf.pages.dev/ai4good/artefatos/cmp/excelente.md	ai4good	2026-10-16
@@ -30,7 +30,7 @@ ai4good/redes-de-grafos	https://docs.google.com/presentation/d/1K-_hzKBDIWuE66QO
 ai4good/redes-recorrentes	https://docs.google.com/presentation/d/1j8sGfqZkzol-nxFKWDsRLdfjKlYI6wM7K5h3Tw06Pbk/present	ai4good	2026-09-24
 ai4good/regressao-linear	https://docs.google.com/presentation/d/1XmA8_9dIaCdky66leSKl2UbE9N83fbZxINQADmlFKa8/present	ai4good	2026-09-24
 ai4good/setup	https://docs.google.com/forms/d/e/1FAIpQLSfESI8OWLI1JSALkpAAtbRkqRzKxP6az3NCd9mi5Mop_697kQ/viewform	ai4good	2026-09-06
-ai4good/tec	https://lucassf.pages.dev/ai4good/artefatos/3-tecnologia-base	ai4good	2026-10-21
+ai4good/tec	https://lucassf.pages.dev/ai4good/?doc=artefatos/3-tecnologia-base.md	ai4good	2026-10-21
 ai4good/tec-excelente	https://lucassf.pages.dev/ai4good/artefatos/tec/excelente.md	ai4good	2026-10-21
 ai4good/tec-raso	https://lucassf.pages.dev/ai4good/artefatos/tec/raso.md	ai4good	2026-10-21
 ai4good/transformers	https://docs.google.com/presentation/d/1xw1QMYfhase1Su0dlT8bYHlYaLouiPOFT2poTHX0i0k/present	ai4good	2026-09-24
