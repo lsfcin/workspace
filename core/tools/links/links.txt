@@ -30,6 +30,9 @@ ai4good/redes-de-grafos	https://docs.google.com/presentation/d/1K-_hzKBDIWuE66QO
 ai4good/redes-recorrentes	https://docs.google.com/presentation/d/1j8sGfqZkzol-nxFKWDsRLdfjKlYI6wM7K5h3Tw06Pbk/present	ai4good	2026-09-24
 ai4good/regressao-linear	https://docs.google.com/presentation/d/1XmA8_9dIaCdky66leSKl2UbE9N83fbZxINQADmlFKa8/present	ai4good	2026-09-24
 ai4good/setup	https://docs.google.com/forms/d/e/1FAIpQLSfESI8OWLI1JSALkpAAtbRkqRzKxP6az3NCd9mi5Mop_697kQ/viewform	ai4good	2026-09-06
+ai4good/tec	https://lucassf.pages.dev/ai4good/artefatos/3-tecnologia-base	ai4good	2026-10-21
+ai4good/tec-excelente	https://lucassf.pages.dev/ai4good/artefatos/tec/excelente.md	ai4good	2026-10-21
+ai4good/tec-raso	https://lucassf.pages.dev/ai4good/artefatos/tec/raso.md	ai4good	2026-10-21
 ai4good/transformers	https://docs.google.com/presentation/d/1xw1QMYfhase1Su0dlT8bYHlYaLouiPOFT2poTHX0i0k/present	ai4good	2026-09-24
 home	https://seasoned-bladder-7d0.notion.site/Lucas-S-Figueiredo-3695d139d7924e52b896d608086a68a5	home	2026-09-08
 p1	https://seasoned-bladder-7d0.notion.site/Programa-o-1-1d51656e2069803a8569e85611aa4dfb	p1	2026-09-08
