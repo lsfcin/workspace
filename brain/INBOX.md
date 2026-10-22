@@ -62,3 +62,12 @@ virada: o repo aninhado tem `CONTEXT.md` e `ISSUES.md` no stage, de outra sessã
 
 wos: `yt-dlp` não baixa mídia do YouTube (19/out): sem runtime JS dá aviso, e com `--js-runtimes node:…` dá HTTP 403; `--download-sections` também falha (ffmpeg código 8). só legenda automática sai. a camada L2 (transcrição) de `core/tools/video` está cega para YouTube até resolver token/cookies ou atualizar o yt-dlp (instalado por pip, avisa que está velho)
 — via claude · 2026-10-19
+
+wos/publish: `publish --push` recusado pela suíte do repo público em 21/out (14 vermelhos, nada enviado; `feature/sync-20261021-*` ficou em `code/wos`). causas vistas: `academy/teaching/structure/arvore.py` não cruza mas `test_links::test_a_page_with_habilidades_block_runs_arvore_generator` o chama; `code/aiwbot/CONTEXT.md` linha 3 aponta para meta que não cruza; testes gravam `core/state/claude_*_test-*` dentro do alvo e o `--push` os versiona; o fixture `brain/drafts/taste-galeria-1.md` do `vendored.txt` sumiu; 1 linha de routing para arquivo não rastreado; 1 CONTEXT.md com contrato no cabeçalho; timeouts em `test_shim_paths` e `test_features_wiring`. corrigir AQUI e rodar `/publish` de novo.
+— via claude · 2026-10-21
+
+wos/links: o site só renderiza um .md pelo formato `<curso>/?doc=<caminho>.md`; um link curto para `<curso>/artefatos/x` (sem `.md`, sem `?doc=`) abre "Nothing to see here". `ai4good/brw` ficou assim de 17 a 21/out, e é o link dos pareceres. `cfpages add` deveria recusar alvo do próprio site que não resolve, ou o `check` deveria pegar.
+— via claude · 2026-10-21
+
+máquina: disco com 97% de uso (3,5 GB livres em 21/out); o exemplo do artefato tec usou whisper `small` porque o `large-v3` (3 GB) não cabia.
+— via claude · 2026-10-21
