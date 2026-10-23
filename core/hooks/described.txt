@@ -25,5 +25,5 @@ coordenacao-lc/novo-ppc-bcc/ementas/autorais.json	Ementas redigidas do zero, sem
 1322/app/plantel.json	Cartas do 1322: pessoa, lado (13/22), ato público com fonte e data, minibio, fotos de frente e costas.
 1322/app/fotos-escolhidas.json	Fotos do 1322 por pessoa e face, com autor, licença e página de origem — gerado por app/ferramentas/fotos_do_ranking.py.
 1322/app/jsconfig.json	Diz ao editor que app.js do 1322 é JavaScript ES2020, sem checagem de tipos.
-1322/bios/bios2.json	Mini-bios v2 do 1322 com os 22 escândalos — base que tarefas/bios-final.txt corta conforme a decisão de Lucas.
+1322/bios/bios-final.json	Mini-bios finais do 1322 aprovadas por Lucas (23/10): bio, escândalo, situação e fontes por pessoa — copiadas para minibio do plantel.
 1322/matriz/pedidos-lucas.json	Fotos que Lucas pediu a dedo para a matriz do 1322, por pessoa e face — entrada de matriz/acrescenta.py.
