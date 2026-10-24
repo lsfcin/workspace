@@ -72,6 +72,7 @@ toggle	brain-attention	on
 toggle	inbox-reminder	on
 toggle	compass-reminder	on
 toggle	publish-reminder	on
+toggle	disk-reminder	on
 toggle	bot	on
 toggle	notify	off
 toggle	context-meter	on
@@ -81,6 +82,7 @@ toggle	entropy-dashboard	on
 toggle	hook-scoreboard	on
 toggle	diagram	on
 toggle	reflow	on
+toggle	disk	on
 toggle	size	on
 toggle	rtk-compaction	on
 toggle	web-search	on

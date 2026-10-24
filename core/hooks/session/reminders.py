@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# SessionStart — the soft reminders, in one voice: what has piled up, what has gone unreviewed, and
-# what has not reached the public repo. One file, three switches, and at most one message.
+# SessionStart — the soft reminders, in one voice: what has piled up, what has gone unreviewed, what
+# has not reached the public repo, and a disk filling up. One file, four switches, and at most one message.
 #
 # THREE FILES BECAME ONE ON 2026-09-17, and the reason is in the prose the third would have copied.
 # The compass file of the day ended with an instruction to the agent: *"if the INBOX one already
@@ -17,6 +17,7 @@
 # reminder is ignorable by design: it says the number, offers the command, and never asks twice.
 import os
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -32,6 +33,7 @@ INBOX_WARN, INBOX_LOUD = 15, 25
 COMPASS_LOG = WORKSPACE_ROOT / 'brain/.log/compass-last.txt'
 COMPASS_STALE_DAYS = 14   # ~2x/month rhythm; below this, stay silent
 PUBLISH_WARN = 5
+DISK_WARN, DISK_LOUD = 0.85, 0.95
 
 
 def read_body(text: str) -> str:
@@ -121,9 +123,24 @@ def publish() -> str:
             f'Offer /publish.')
 
 
+def disk() -> str:
+    """The partition holding ~ filling up, said before it is full rather than after.
+
+    ASKED OF THE HOME DIRECTORY, NOT OF `/`: home is where every cache lands, it names a partition on
+    every system, and on 2026-10-24 it was the one at 100% while the workspace beside it had 113 GB.
+    """
+    u = shutil.disk_usage(Path.home())
+    if u.used / u.total < DISK_WARN:
+        return ''
+    level = 'LOUD' if u.used / u.total >= DISK_LOUD else 'warn'
+    return (f'DISK [{level}]: the partition holding ~ is {u.used / u.total:.0%} full '
+            f'({u.free / 1024 ** 3:.1f} GB free) — offer this system\'s leaf in core/tools/disk/ (diagnose, then clean).')
+
+
 # Feature name → the question it asks. The registry switches each one independently, which is what
 # keeps three reminders in one file from becoming one feature with three reasons.
-ASKS = (('inbox-reminder', inbox), ('compass-reminder', compass), ('publish-reminder', publish))
+ASKS = (('inbox-reminder', inbox), ('compass-reminder', compass), ('publish-reminder', publish),
+        ('disk-reminder', disk))
 
 
 def main() -> int:
