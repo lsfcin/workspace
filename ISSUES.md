@@ -23,6 +23,8 @@ name. An entry without one is invisible to it.
 
 ## Open
 
+- **verify:fast is red in a fresh worktree or clone, for reasons that name no cause.** A worktree has no `.venv` (5 codegraph cases: `core/run: no interpreter`), no skill mirrors (mirror heal precondition), and no nested repos: 4 cases read `academy/teaching/`, and `conftest.needs` cannot skip them because `carries` judges the top segment (`academy`, tracked). 24 Oct the worktree passed only with `.venv` and `academy/teaching` symlinked from the main tree. Teach `carries` about nested repos, and say what a worktree needs before the suite runs. `b20261024-worktree-suite`
+
 - **UNGATED WRITE can attribute an output to the directory preceding cd.** Claude session, 16 Oct, reports a warning naming brw/excelente.md while the command wrote into cmp/; verify relative-path attribution across directory changes. `b20261017-ungated-write-cwd`
 
 - **Video extraction hides batch progress and counts empty bundles as successful.** The full INBOX extraction returned usable metadata, speech, screen text and descriptions for some posts, but also reported success for empty image-post bundles and an IndexError for another link. Report usable results, failures and progress separately, preserve partial results for resumption, and assess the serial visual-description latency. `b20261017-video-batch-results`

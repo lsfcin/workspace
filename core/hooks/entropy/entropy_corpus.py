@@ -146,6 +146,7 @@ def declared_projects(root: Path) -> set:
 # list the day it is registered, or it is counted as authored prose nobody can fix. Only the
 # skills subtree is a mirror: a harness's own config and CONTEXT.md are authored.
 MIRRORS = ('.claude/', '.opencode/', '.github/', '.zcode/skills/')
+_ROOT = Path(__file__).resolve().parents[3]
 
 
 def is_generated_mirror(path: Path) -> bool:
@@ -153,7 +154,11 @@ def is_generated_mirror(path: Path) -> bool:
     # where a path stringifies with `\` not one of them matched and every mirror was judged as
     # authored prose — findings against files nobody can edit, in the report that exists to list
     # only what someone can act on.
-    return any(part in posix(path) for part in MIRRORS)
+    # RELATIVE TO THE ROOT this code serves, never absolute: a worktree lives under .claude/worktrees/,
+    # so every file in one matched `.claude/` and the checks run there were blind (2026-10-24).
+    resolved = Path(path).resolve()
+    seen = resolved.relative_to(_ROOT) if resolved.is_relative_to(_ROOT) else resolved
+    return any(part in posix(seen) for part in MIRRORS)
 
 
 # The law, the check that enforces it, that check's tests, and the report that quotes the findings
