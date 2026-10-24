@@ -29,7 +29,7 @@ name. An entry without one is invisible to it.
 
 - **Roundup attributes native ChatGPT closes to a Claude transcript.** `core/tools/wos/roundup.session_id()` picks the newest `.claude/projects` transcript; unlike `tools/wos/handoff`, it ignores native session identity. Cost, size deltas and compaction need provider-aware attribution before being treated as this session's measurements. `b20261016-roundup-session-attribution`
 
-- **Brain stats reports success but leaves its refreshed files unstaged.** Inbox triage observed `brain/GOALS.md` unstaged and refreshed goal files partly staged after a successful `core/run hooks/brain/brain_stats.py`; complete staging explicitly and establish why its internal stage call fails. `b20261014-brain-stats-staging`
+- **Brain stats reports success but leaves its refreshed files unstaged.** Inbox triage observed `brain/GOALS.md` unstaged and refreshed goal files partly staged after a successful `core/run hooks/brain/brain_stats.py`; complete staging explicitly and establish why its internal stage call fails. 24 Oct: every commit staging a goal leaves it dirty again, worktree one touch ahead of HEAD (rpg-isoroll 7/121 committed, 8/122 on disk), so roundup never sees a clean tree. `b20261014-brain-stats-staging`
 
 - **Reported PDF conversions exceed their expected duration; low-confidence page recognition inflates audit references. Establish the blocking stage and filter confidence consistently (25 Sep, 8/9 Oct).** `b20261014-pdf-conversion-audit`
 
@@ -381,7 +381,7 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/virada-semana-final is 15 ahead of main
+- . — feature/virada-semana-final is 16 ahead of main
 
 ### Local branches already merged into their base
 
