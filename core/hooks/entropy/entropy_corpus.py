@@ -156,8 +156,9 @@ def is_generated_mirror(path: Path) -> bool:
     # only what someone can act on.
     # RELATIVE TO THE ROOT this code serves, never absolute: a worktree lives under .claude/worktrees/,
     # so every file in one matched `.claude/` and the checks run there were blind (2026-10-24).
-    resolved = Path(path).resolve()
-    seen = resolved.relative_to(_ROOT) if resolved.is_relative_to(_ROOT) else resolved
+    # absolute(), not resolve(): a mirror may be a symlink, and its target is authored prose.
+    where = Path(path).absolute()
+    seen = where.relative_to(_ROOT) if where.is_relative_to(_ROOT) else where
     return any(part in posix(seen) for part in MIRRORS)
 
 

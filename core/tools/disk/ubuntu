@@ -40,7 +40,7 @@ SUDO = """sudo apt clean && sudo apt autoremove --purge -y \\
 
 
 def size(path: pathlib.Path) -> int:
-    done = subprocess.run(['du', '-xsb', str(path)], capture_output=True, text=True, encoding='utf-8')
+    done = subprocess.run(['du', '-xsb', str(path)], capture_output=True, text=True, encoding='utf-8', errors='replace')
     return int(done.stdout.split()[0]) if done.stdout else 0
 
 
@@ -63,11 +63,11 @@ def diagnose() -> int:
     for p in [HOME / '.cache/huggingface', *(HOME / 'ComfyUI/models').glob('*')]:
         if p.is_symlink():
             print(f'  {p} -> {p.readlink()}')
-    snaps = subprocess.run(['snap', 'list', '--all'], capture_output=True, text=True, encoding='utf-8').stdout
+    snaps = subprocess.run(['snap', 'list', '--all'], capture_output=True, text=True, encoding='utf-8', errors='replace').stdout
     kernels = list(pathlib.Path('/boot').glob('vmlinuz-*'))
     print(f'\nSYSTEM  disabled snap revisions: {snaps.count("disabled")} · kernels in /boot: {len(kernels)}')
     big = subprocess.run(['find', str(HOME), '-xdev', '-type', 'f', '-size', '+500M', '-printf', '%s\t%p\n'],
-                         capture_output=True, text=True, encoding='utf-8').stdout.splitlines()
+                         capture_output=True, text=True, encoding='utf-8', errors='replace').stdout.splitlines()
     print('\nFILES OVER 500 MB IN ~')
     for line in sorted(big, key=lambda l: -int(l.split('\t')[0]))[:10]:
         n, p = line.split('\t', 1)
