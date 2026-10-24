@@ -1,0 +1,10 @@
+# Agents — Specs
+> How a worker runs on another harness, and the traps each call has.
+
+**A worker can run on another harness, from any harness, through bash: prompt in, one file out, read-only.** Lucas prefers GPT and spends `gpt-6.1-sol` before any other worker (2026-10-19), because it does not spend the Claude quota; the spawner writes files from the output, never the worker.
+
+| Harness | Call (verified 2026-10-19) | Traps |
+|---|---|---|
+| Codex (GPT) | `codex exec -s read-only -m gpt-6.1-sol -C <workspace> --ephemeral -o <out> "<prompt>" < /dev/null` | the binary ships inside the ChatGPT desktop app's `resources/`, off PATH; without `< /dev/null` it waits on stdin; `-s read-only` reads the tree and writes nothing; refuses to generate or rank political persuasion aimed at a voter group (6 of 9 generators and the judge, 2026-10-19), and offers source, clarity and feasibility checks instead; `-c tools.web_search=true` makes it a working fact-checker with primary URLs |
+| agy (Gemini) | `agy --disable-slash-commands --model <id> -p "<prompt with the files inlined>"` | model before prompt; headless needs no tools; `--dangerously-skip-permissions` is refused by Claude Code's auto-mode classifier; `agy models` lists ids and says whether it is logged in |
+| Claude Code | `claude -p "<prompt>"` | not run on 2026-10-19; spends Claude quota, the one these calls exist to save |
