@@ -9,6 +9,101 @@
 
 <!-- add entries below, newest first -->
 
+ver como colocar de forma correta no wos (meu e público) a ideia de usar subagentes de outros "harness" e chaves pra não forçar o limite
+
+claude: tem mais
+https://www.instagram.com/p/DeuQQtolY4Q/?img_index=11&dlrf=ZWNzeXdmdDh4NG0y
+e olha, pode preparar um roundup e jogar isso pra próxima sessão
+— via aiwbot · 2026-10-24
+
+claude: a minha amiga que testou disse
+[23/10 19:58] Natália Vilar: No meu celular foi difícil arrastar
+[23/10 19:58] Natália Vilar: Ele quase ia, mas nao ia
+[23/10 19:58] Natália Vilar: Tive que fazer manual
+[23/10 19:59] Natália Vilar: Algumas pessoas nao davam a opção de eu responder, so aparecia “revelar”: Que eu me lembro agora, apareceu assim com strokes, geraldo azevedo e sophie charlotte
+[23/10 20:01] Natália Vilar: Tem como aumentar a sensibilidade da arrastada?
+[23/10 20:02] Natália Vilar: Tb apareceu instrução para arrastar pra cima no início e nao fez nada qnd arrastei
+[23/10 21:02] Natália Vilar: Iphone 15
+[23/10 21:02] Natália Vilar: Abri pelo safari
+— via aiwbot · 2026-10-23
+
+claude: momoa feito
+— via aiwbot · 2026-10-23
+
+claude: 
+jason momoa declarou apoio 
+https://www.instagram.com/reel/De2Ii6FsKOx/?rpxt=MXA2c2w1c29zczU0
+
+Luana piovani declarou
+https://www.instagram.com/reel/De1ySOjRvUu/?obrf=ajEweGtpanI2bmVj
+
+Fernanda Torres também 
+https://www.instagram.com/reel/De2UAwNMrZx/?exln=MXhrdHJwZHAxcHQ1aA==
+
+tem mais, uma amiga que disse que não funcionou bem
+[23/10 19:58] Natália Vilar: No meu celular foi difícil arrastar
+[23/10 19:58] Natália Vilar: Ele quase ia, mas nao ia
+[23/10 19:58] Natália Vilar: Tive que fazer manual
+[23/10 19:59] Natália Vilar: Algumas pessoas nao davam a opção de eu responder, so aparecia “revelar”: Que eu me lembro agora, apareceu assim com strokes, geraldo azevedo e sophie charlotte
+[23/10 20:01] Natália Vilar: Tem como aumentar a sensibilidade da arrastada?
+[23/10 20:02] Natália Vilar: Tb apareceu instrução para arrastar pra cima no início e nao fez nada qnd arrastei
+— via aiwbot · 2026-10-23
+
+claude: triagem feita
+— via aiwbot · 2026-10-23
+
+claude: amoedo também
+https://www.instagram.com/p/De2JiYUi0Me/?mdxt=MTBocWQ3dTV4aWZ4cA==
+— via aiwbot · 2026-10-23
+
+claude: foco total no celular, não leva tão a sério o erro dela, se se repetir te aviso
+— via aiwbot · 2026-10-23
+
+claude: mais pessoas nesse post, vê se tu consegue pegar https://www.instagram.com/reel/De2WziPJKy8/?cplk=MXIxaG5qMjdpNDM0ZQ==
+— via aiwbot · 2026-10-23
+
+claude: terminei a seleção de fotos. pode subir as novas pessoas. olha, estamos online, as pessoas já estão usando a página
+— via aiwbot · 2026-10-23
+
+claude: pode remover o queiroz e uma amiga minha testou o aplicativo o site e disse que não tá arrastando ela usou Mozilla e o Chrome aí vê se tu consegue achar esse bug
+— via aiwbot · 2026-10-23
+
+respondendo só pra checar se vc consegue ler o que falo no telegram
+— via aiwbot · 2026-10-23
+
+https://www.instagram.com/reel/De0fJxyMjAM/?rpxt=ZHlhZzNnb3l4azRq
+— via aiwbot · 2026-10-23
+
+https://www.instagram.com/reel/De0d623xPSe/?srtk=emZ2anBrMDgzbHdy
+— via aiwbot · 2026-10-23
+
+https://www.instagram.com/reel/Dez_meATStV/?vrfl=MW40NGN6bGJwMHRmcA==
+— via aiwbot · 2026-10-23
+
+pra adicionar no 1322, nesse vídeo ele fala de vários personagens
+https://www.instagram.com/reel/Dez68EvRaL3/?xtok=YzVtM2kxeWdxaWd4
+— via aiwbot · 2026-10-23
+
+https://www.instagram.com/p/DezzceOAbYc/?psln=MWVtc3M0OWt0dHZyeQ==
+pra juntar no
+— via aiwbot · 2026-10-22
+
+criar um material com foco nos ex-bolsonaristas e ex-aliados como novos críticos do bolsonarismo
+https://www.instagram.com/reel/DeyuDXHzUSE/?dlrf=NTc4MTIwNjQ2YQ==
+
+tem aquele (acho que deputado) recém eleito, meio gordinho, não lembro do nome
+tem a joyce hasselman, tem aquele outro homem político que deu entrevistas em algums podcasts e que era um dos fortes aliados de bolsonaro no governo dele, tem a janaína pascoal, o weintraub, as pessoas do mbl (katagiri, renan)
+tem o general que fala no vídeo de wagner moura
+— via aiwbot · 2026-10-22
+
+transferência da ecovila pro meu pai, está tudo certo agora. temos aqui no wos que ajustar as contas e os comprovantes da ecovila
+[attachment: brain/attachments/2026-10/aiwbot-agacageaaxkbaaie32rapdznjkgx4fnsz5vzgcmbommtaal0dgsbdh_rrminolodutldaqadagadeqadpqq.jpg]
+— via aiwbot · 2026-10-22
+
+Compartilhar comprovante, depósito de painho sobre as pendências do projeto da casinha. ajustar a planilha e guardar o comprovante
+[attachment: brain/attachments/2026-10/aiwbot-agacageaaxkbaaie3mrao7pcle1z0oefpicqvznx9f9taalzdgsbdh_rrvbbke8ognr9aqadagadeqadpqq.jpg]
+— via aiwbot · 2026-10-22
+
 A gente fez uma pausa no investimento de avanço do workspace OS, mas eu sinto que é uma coisa latente que precisa melhorar no futuro próximo. E aí, uma das coisas é que, por exemplo, nas seções agora, só em montar o plano da seção, a seção já chega em torno de 140 mil tokens. Então eu tô na dúvida se a gente realmente não tá sobrecarregando muito a gente. logo na entrada. Enfim, tá aqui uma coisa pra gente pensar.
 — via aiwbot · 2026-10-17
 
@@ -69,5 +164,26 @@ wos/publish: `publish --push` recusado pela suíte do repo público em 21/out (1
 wos/links: o site só renderiza um .md pelo formato `<curso>/?doc=<caminho>.md`; um link curto para `<curso>/artefatos/x` (sem `.md`, sem `?doc=`) abre "Nothing to see here". `ai4good/brw` ficou assim de 17 a 21/out, e é o link dos pareceres. `cfpages add` deveria recusar alvo do próprio site que não resolve, ou o `check` deveria pegar.
 — via claude · 2026-10-21
 
-máquina: disco com 97% de uso (3,5 GB livres em 21/out); o exemplo do artefato tec usou whisper `small` porque o `large-v3` (3 GB) não cabia.
-— via claude · 2026-10-21
+wos/agentes: GPT por Codex roda sem ninguém na tela: `/usr/lib/chatgpt/resources/codex exec --skip-git-repo-check --sandbox workspace-write "<tarefa>" < /dev/null` (fora do PATH; sem o `< /dev/null` ele trava em "Reading additional input from stdin"; para sobreviver ao fim da sessão, `setsid nohup … &`). Lucas quer usar GPT e Antigravity (agy) para poupar o limite do Claude, que estourou em 22/out com um construtor Opus. Falta registrar isso no lugar certo (SETUP ou core/tools) e criar um wrapper. Em 23/out: `--search` (busca na web) vai ANTES de `exec`; o sandbox não tem rede para baixar arquivos; o modelo cai às vezes com "at capacity" e sai calado. Um vigia que funcionou (repete na queda, mata se o log parar 10 min) está em `outputs/virada/handoff-2026-10-23.md` § Como rodar o GPT — candidato a virar `core/tools`. Lição dura: o aviso de término deve esperar o PID (`kill -0`), nunca `while pgrep -f "<padrão>"` numa linha que contém o próprio padrão — achou a si mesmo e a sessão ficou 7 h parada. O GPT recusou construir o "Melhor pra Mim" (persuasão adaptada a respostas pessoais); o 1322, igual para todos, ele construiu.
+— via claude · 2026-10-22
+
+virada/melhor-pra-mim: parado por decisão de Lucas (23/out: foco no app 1322, ver `outputs/virada/handoff-2026-10-23.md`). O GPT recusou construir a v1; o rascunho foi salvo em `outputs/virada/melhor-pra-mim/v1-rascunho/`. Tudo o mais em outputs/virada/melhor-pra-mim/. Pendente de Lucas: quem assina como responsável (art. 57-D). Dossiê 05 tem 2 erros a corrigir: "quem te enroscou não te desenrosca" não está na fonte [19]; adicional do Bolsa é R$ 173 de 0 a 7 anos incompletos, piso R$ 691.
+— via claude · 2026-10-22
+
+wos: projetos inteiros vivem em `outputs/`, que é gitignored — o app 1322 (código, plantel, testes, ferramentas, decisões) não tem um único commit. Falta regra de quando um protótipo em outputs/ passa a ser versionado (code/<nome>/, fotos fora do git). Também: artefato do claude.ai aceita no máximo 511 arquivos por versão e 255 por publicação (a matriz passou a usar uma folha de miniaturas por pessoa); o vigia do codex só deixa o GPT gravar na pasta do arquivo esperado; e a sessão de 23/out usou `pkill -f` com padrão contido na própria linha, matando o próprio shell várias vezes.
+— via claude · 2026-10-23
+- core/hooks/described.txt casa com endswith contra o caminho do repo aninhado (1322/app/x.json), não do workspace; entradas com branches/virada/... nunca casam e o erro não diz por quê. assimetria com o resto do arquivo, que usa caminho do workspace. (sessão 1322, 23/10)
+- codex exec com --sandbox workspace-write deixa .agents/ .aws/ .codex/ vazios na pasta onde roda (visto em outputs/virada/1322/juridico/). vigia.sh poderia rodar numa pasta de trabalho e mover só o arquivo esperado. (sessão 1322, 23/10)
+
+wos: canal com Lucas fora do computador não tem dono. Ler o bot por getUpdates derruba a escuta do aiwbot (409; vivo e surdo até restart). Combinado: Lucas responde "claude: ...", o agente vigia o INBOX. Falta norma/ferramenta e o aiwbot se reerguer sozinho.
+— via claude · 2026-10-23
+
+disco 24/out: raiz 100% → 62% (42 GB livres; sudo feito, virada/raw 12→1,4 GB). HF e ComfyUI em models/ por symlink. pendências:
+- cron dia 1/nov chama core/run tools/disk/ubuntu, que só existe na árvore principal quando ela tiver develop. senão falha calada: ~/.cache/disk-clean.log.
+- assimetria: SETUP não tem passo de higiene da máquina (cron, symlinks de modelos).
+- assimetria: três whisper (turbo stt.py, base video_media.py, small rastro-da-banca). mantidos.
+- repartir disco: não recomendado; reabrir se a raiz passar de 80%.
+— via claude · 2026-10-24
+
+wos: Lucas (24/out) — trabalho de subagente pode ir pro ChatGPT via Codex (codex exec), pra não gastar o limite do Claude. Hoje só existe como "painel externo" na norma interview; falta virar regra de roteamento de subagente (norma ou core/SPECS). Memória do harness bloqueada pelo MEMORY GATE.
+— via claude · 2026-10-24
