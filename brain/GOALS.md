@@ -4,21 +4,21 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-10-24 15:54
+last-updated: 2026-10-24 15:55
 
 >**areas** — last 14 days  
 ```
 health       ░░░░░░░░░░   0 touches
-career       ░░░░░░░░░░   7 touches
-craft        ██████████   75 touches
-finances     █░░░░░░░░░   8 touches
-fun          ░░░░░░░░░░   5 touches
+career       █░░░░░░░░░   8 touches
+craft        ██████████   77 touches
+finances     █░░░░░░░░░   9 touches
+fun          ░░░░░░░░░░   6 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
 >**goals** — last 14 days  
 ```
-burocracia-academica     █░░░░░░░░░   6 touches
+burocracia-academica     █░░░░░░░░░   7 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
 craft-flows              ░░░░░░░░░░   1 touches
@@ -31,7 +31,7 @@ google-migration         ░░░░░░░░░░   0 touches
 guitar                   ░░░░░░░░░░   0 touches
 hair                     ░░░░░░░░░░   0 touches
 health-skills            ░░░░░░░░░░   0 touches
-home-casinhas            ░░░░░░░░░░   2 touches
+home-casinhas            ░░░░░░░░░░   3 touches
 instituto                ░░░░░░░░░░   0 touches
 lih-dd                   ░░░░░░░░░░   0 touches
 listenreading            ░░░░░░░░░░   0 touches
@@ -44,18 +44,18 @@ paper-jarbinhas          ░░░░░░░░░░   0 touches
 paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   1 touches
-rpg-isoroll              █░░░░░░░░░   5 touches
+rpg-isoroll              █░░░░░░░░░   6 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   0 touches
 spec-driven-development  ░░░░░░░░░░   0 touches
 startapps                ░░░░░░░░░░   1 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ███████░░░   31 touches
+teaching-materials       ██████░░░░   31 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   44 touches
+workspace-os             ██████████   46 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
