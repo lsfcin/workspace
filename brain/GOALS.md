@@ -4,21 +4,21 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-10-17 20:48
+last-updated: 2026-10-18 16:46
 
 >**areas** — last 14 days  
 ```
 health       ░░░░░░░░░░   1 touches
-career       ░░░░░░░░░░   2 touches
-craft        ██████████   63 touches
-finances     ░░░░░░░░░░   2 touches
-fun          ░░░░░░░░░░   5 touches
+career       █░░░░░░░░░   7 touches
+craft        ██████████   70 touches
+finances     █░░░░░░░░░   9 touches
+fun          ░░░░░░░░░░   6 touches
 spiritual    ░░░░░░░░░░   1 touches
 ```
 
 >**goals** — last 14 days  
 ```
-burocracia-academica     ░░░░░░░░░░   0 touches
+burocracia-academica     █░░░░░░░░░   5 touches
 career-ufrpe             ░░░░░░░░░░   0 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
 craft-flows              ░░░░░░░░░░   2 touches
@@ -31,31 +31,31 @@ google-migration         ░░░░░░░░░░   0 touches
 guitar                   ░░░░░░░░░░   0 touches
 hair                     ░░░░░░░░░░   0 touches
 health-skills            ░░░░░░░░░░   0 touches
-home-casinhas            ░░░░░░░░░░   1 touches
+home-casinhas            ░░░░░░░░░░   3 touches
 instituto                ░░░░░░░░░░   0 touches
 lih-dd                   ░░░░░░░░░░   0 touches
 listenreading            ░░░░░░░░░░   0 touches
 local-ai                 █░░░░░░░░░   7 touches
 magic-places             ░░░░░░░░░░   0 touches
 make-in-time             ░░░░░░░░░░   0 touches
-moradia                  ░░░░░░░░░░   0 touches
+moradia                  █░░░░░░░░░   5 touches
 pandeiro                 ░░░░░░░░░░   0 touches
 paper-jarbinhas          ░░░░░░░░░░   0 touches
 paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   1 touches
-rpg-isoroll              █░░░░░░░░░   5 touches
+rpg-isoroll              █░░░░░░░░░   6 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   0 touches
 spec-driven-development  ░░░░░░░░░░   0 touches
 startapps                ░░░░░░░░░░   2 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       █████░░░░░   23 touches
+teaching-materials       █████░░░░░   24 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   1 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   41 touches
+workspace-os             ██████████   48 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
@@ -93,7 +93,7 @@ The one relational move stays one text message.
 | guitar | fun | year | — | [free-play] pick up guitar and improvise for 10 minutes… | [→](goals/guitar.md) |
 | cabelo — conter e recuperar as entradas | health | year | — | [hair-research] pesquisa científica séria: estado da ev… | [→](goals/hair.md) |
 | assembleia de skills de saúde | health | near | — | [uma-skill-primeiro] escrever `/nutri` sozinha, com a b… | [→](goals/health-skills.md) |
-| casinhas construction | finances | year | Marcelo | [teste-absorcao] conseguir o Teste de Absorção do Solo … | [→](goals/home-casinhas.md) |
+| casinhas construction | finances | year | Marcelo | [licenca-instalacao] Licença de Instalação aprovada: pr… | [→](goals/home-casinhas.md) |
 | instituto | craft | dream | none external — th… | [coffee-1] text one trusted person from the board list … | [→](goals/instituto.md) |
 | LIH.DD — research lab | craft | year | DC/UFRPE postgrad … | [research-statement] write a 3-sentence research statem… | [→](goals/lih-dd.md) |
 | listenreading | fun | year | none external | [pick-book] pick one book and read one page today | [→](goals/listenreading.md) |

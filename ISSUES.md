@@ -393,7 +393,7 @@ name. An entry without one is invisible to it.
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/virada-semana-final is 10 ahead of main
+- . — feature/virada-semana-final is 11 ahead of main
 
 ### Local branches already merged into their base
 
