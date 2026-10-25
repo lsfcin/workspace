@@ -33,5 +33,5 @@ Entregar o RDA 2025: baixar do Drive pessoal (`academy/administration/pda/2025/`
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-24  ·  trend: advancing  ·  touches: 12/18/19/19/19/19
+last-touch: 2026-10-24  ·  trend: advancing  ·  touches: 15/21/22/22/22/22
 <!-- stats:end -->
