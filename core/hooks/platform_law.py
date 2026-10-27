@@ -167,7 +167,9 @@ def _restrict(path: Path, posix_mode: int, windows_grant: str) -> None:
     that cannot protect a file needs to hear about it before it writes one.
     """
     if not _WINDOWS:
-        os.chmod(path, posix_mode)
+        # Already right means no write: a sandboxed worker (Codex) sees ~/.config read-only.
+        if path.stat().st_mode & 0o777 != posix_mode:
+            os.chmod(path, posix_mode)
         return
     user = os.environ.get('USERNAME') or Path.home().name
     done = subprocess.run(['icacls', str(path), '/inheritance:r',

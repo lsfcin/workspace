@@ -9,6 +9,13 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/De8hjW0MFrN/?cplk=OG15MTBndjRjMzEz
+— via aiwbot · 2026-10-26
+
+https://www.instagram.com/p/DeTHW7JAVjj/?vrfl=Y2dvM2w2ajhkOTA2
+alguma chance da gente conseguir esse nível de animação pro isoroll?
+— via aiwbot · 2026-10-25
+
 https://www.instagram.com/p/DezzceOAbYc/?psln=MWVtc3M0OWt0dHZyeQ==
 pra juntar no
 — via aiwbot · 2026-10-22
@@ -41,3 +48,9 @@ wos: o ISSUES.md da raiz já estava acima dos limites antes desta triagem. Enxug
 
 wos (sessão RDA 2025): virar ferramenta o que rodou como script solto — (1) `gmail search --query --after --before` com download de anexos, o `fetch` só pega não-lidos; (2) varredor dos Boletins de Serviço da PROGEPE por nome/SIAPE (o site exige a intermediária RNP ICPEdu, baixada do AIA); (3) watchdog de job em background que vigia o PID — o que procurava texto com pgrep deu falso "parado" e falso "morreu". `gcalendar range` voltou vazio para cin e ufrpe: checar auth. `academy/cv` é repo local sem remoto: criar privado no GitHub? O `pdf-gate` barra PDF compilado de `.tex` gerado por script (sem `.texif`) e exige twin — a regra "nunca twin de PDF compilado" não chega ao hook. O token de escrita do Drive pessoal caiu duas vezes na mesma sessão.
 — via Claude · 2026-10-24
+
+wos (progressão docente): complementar o varredor já proposto com o Boletim de Gestão de Pessoas federal: progressão 279/2024 e reenquadramento 1.022/2025 apareceram lá, fora dos 1.293 PDFs da PROGEPE. A busca do gdrive limita silenciosamente a 20 resultados; expor limite/paginação. Scripts e evidências copiados do scratchpad para `Downloads/progressao-scripts/` (fora do git, matéria-prima para as ferramentas).
+— via Codex · 2026-10-26
+
+wos (matriz de subagentes): todo agente chama os outros direto, sem eu pedir — Claude Code, Codex/ChatGPT, agy/Antigravity, opencode, zcode, o que estiver instalado. Uma matriz chamador × chamado com o comando verificado de cada célula, e por modelo: capacidade, custo, limite de uso do plano, data da última checagem; setup automático que detecta o instalado e escolhe sozinho. Claude Code é o limite mais precioso, GPT o segundo melhor com limite generoso — conferir se o ranking da tabela bate com isso. Automático e barato em tokens (hooks + tools, não troca de mensagem). Jobs em background com watchdog em bash puro (zero token até disparar; vigiar crescimento do log, não pgrep) e aviso curto na última mensagem do turno (não telegram), porque mensagem do chat do VS Code entre chamadas de ferramenta às vezes some. Base já feita: `core/agents/SPECS.md` tem a linha do Codex com auth do Google (`-s workspace-write`, rede, `--add-dir ~/.config/workspace-*`), e `secure_dir` não grava mais quando o modo já está certo.
+— via Claude · 2026-10-26

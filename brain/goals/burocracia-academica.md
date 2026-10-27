@@ -15,12 +15,12 @@ essential · expected · reluctant-but-necessary
     Cruza com `code/dobra` ([[local-ai]]) no folding de PDFs longos
 
 **ease-start**
-Entregar o RDA 2025: baixar do Drive pessoal (`academy/administration/pda/2025/`) o PDF ou os Docs dos Apêndices II e III, assinar e anexar ao processo 23082.013236/2025-13 no SIPAC. 30 min. O rito está em `academy/administration/processos/rda.md`.
+Gerar o twin das plantas V03: `core/run tools/pdf/docling <pdf>` em cada uma. 10 min, sem decidir nada.
 
 ## backlog
 
 > [ ] [rda-2026] fechar o RDA 2026 em fev/2027: `pda/2026/rda.md` (pré-pronto) vira `rda_conteudo.py` com as disciplinas de 2026.2, e os três renderizadores de `pda/template/` geram docx, PDFs e comprobatórios
-> [ ] [map-org] mapear a estrutura organizacional (DC/UFRPE, colegiados, câmaras, GTs) — quem decide o quê [ ] [map-flows] mapear os fluxos de processos recorrentes (progressão, afastamento, bancas, projetos de pesquisa, bolsas) como passo-a-passo editável [ ] [gather-norms] reunir resoluções + instruções normativas + links oficiais num índice navegável (não copiar tudo —
+> [ ] [map-org] mapear a estrutura organizacional (DC/UFRPE, colegiados, câmaras, GTs) — quem decide o quê [ ] [map-flows] mapear os fluxos de processos recorrentes (progressão já em `processos/progressao.md`; afastamento, bancas, projetos de pesquisa, bolsas) como passo-a-passo editável [ ] [gather-norms] reunir resoluções + instruções normativas + links oficiais num índice navegável (não copiar tudo —
 > referenciar + anotar)
 > [ ] [dept-guide] empacotar como guia extensível pro departamento — reusável por outros professores [ ] amarrar com `academy/administration/` (já existe) e com o goal `career-ufrpe`
 > [ ] [ppc-ementas-rev] Review the LC integrative-project syllabi and distance-learning workload sheet with Paulo; resolve the cap's applicability and pending decisions in `academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md`, including [drive-update] and [catalogue-check]. Track validator defects in `code/ppc/ISSUES.md` and pipeline, course-name and coordination-role inconsistencies in `academy/administration/ISSUES.md` (Claude-session reports, 18–19 Oct).
@@ -33,5 +33,5 @@ Entregar o RDA 2025: baixar do Drive pessoal (`academy/administration/pda/2025/`
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-24  ·  trend: advancing  ·  touches: 15/21/22/22/22/22
+last-touch: 2026-10-26  ·  trend: advancing  ·  touches: 16/24/25/25/25/25
 <!-- stats:end -->
