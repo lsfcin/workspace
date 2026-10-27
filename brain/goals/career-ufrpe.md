@@ -31,5 +31,5 @@ No SIGAA, baixar a declaração de disciplinas ministradas (2025.1–2026.2) e a
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-18  ·  trend: stalled  ·  touches: 0/4/10/10/10/10
+last-touch: 2026-10-26  ·  trend: steady  ·  touches: 1/5/11/11/11/11
 <!-- stats:end -->
