@@ -6,11 +6,11 @@ Nunca perder uma progressão como professor por falta de atenção à burocracia
 useful · essential · motivated
 
 ## selected next achievement
-    [progressao-b2] protocolar a progressão B1 → B2 (direito em 01/01/2027, protocolo a partir de 02/11/2026) com o
-    pacote mínimo de `academy/administration/processos/progressao.md`
+    [progressao-b2] protocolar a progressão B1 → B2 (direito em 01/01/2027) entre 20 e 23/12/2026, com o
+    pacote completo de `academy/administration/processos/progressao.md`
 
 **ease-start**  
-No SIGAA, baixar a declaração de disciplinas ministradas (2025.1–2026.2) e a de orientações (Edson, Samuel, Artur, Thiago), e mandar e-mail à coordenação da LC pedindo declaração de exercício como substituto eventual (Portaria GR 399/2025) por semestre. 20 min.
+Revisar e enviar os 5 e-mails de `academy/administration/pda/2026/pedidos-declaracoes.md` (declarações de frequência das comissões, CTA, Pé-de-Meia, IV-g). 30 min.
 
 ## backlog
 
@@ -31,5 +31,5 @@ No SIGAA, baixar a declaração de disciplinas ministradas (2025.1–2026.2) e a
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-26  ·  trend: steady  ·  touches: 1/5/11/11/11/11
+last-touch: 2026-10-26  ·  trend: steady  ·  touches: 2/6/12/12/12/12
 <!-- stats:end -->
