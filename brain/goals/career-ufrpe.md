@@ -10,11 +10,11 @@ useful · essential · motivated
     pacote completo de `academy/administration/processos/progressao.md`
 
 **ease-start**  
-Revisar e enviar os 5 e-mails de `academy/administration/pda/2026/pedidos-declaracoes.md` (declarações de frequência das comissões, CTA, Pé-de-Meia, IV-g). 30 min.
+Baixar o PDF do NeoEduc na SBC OpenLib (sol.sbc.org.br/index.php/svr/article/view/40664) para o acervo `2025/`. 5 min. Em dezembro: declaração SIGAA com 2026.2, assinar no gov.br `pda/2026/progressao_requerimento.pdf` e `progressao.pdf`, juntar os comprovantes na ordem do relatório e abrir o processo no SIPAC.
 
 ## backlog
 
-> [ ] [progressao-acervo] arquivar em `academy/cv/comprovantes/` as portarias de carreira (GR 677/2021, PROGEPE 279/2024, 345/2025, 1.022/2025) e os dossiês de 2023 e 2025, e migrar as pastas do Drive cin `PROGRESSÃO DOCENTE ADJUNTO A 2/` e `Progressão_acelerada (titulação)/` para o pessoal, espelhando `academy/administration/processos/`. A 1.022/2025 já está no acervo e no Drive. As outras (279/2024, 385/2024, 345/2025, 399/2025) estão em `/mnt/workspace/Downloads/progressao-scripts/C/boletins/` (resgatadas do scratchpad em 2026-10-26; a 677/2021 saiu no DOU, não no BGP). Os PDFs do Drive estão em `Downloads/workspace-drive/`. Rodar de novo a busca de e-mail na conta pessoal, reautorizada nessa sessão  
+> [ ] [progressao-acervo] falta no acervo `academy/cv/comprovantes/` a GR 677/2021 (nomeação, saiu no DOU, não no BGP) e os dossiês de 2023 e 2025; migrar as pastas do Drive cin `PROGRESSÃO DOCENTE ADJUNTO A 2/` e `Progressão_acelerada (titulação)/` para o pessoal (PDFs em `Downloads/workspace-drive/`). No Drive pessoal `comprovantes/2026/` ficou uma `portaria_2025-12-29_dc-077-cta-suplente.pdf` duplicada (a de 28/10/2026 sai)  
 > [ ] [progressao-alarm] lembrete automático 60 dias antes de cada interstício: B2→B3 01/01/2029, B3→B4 01/01/2031, B4→C1 Associado 01/01/2033 (gcal ou hook do workspace)  
 > [ ] [progressao-estrategia] sessão própria: estratégia de produção e atuação acadêmica para a janela B2→B3 (01/01/2027–31/12/2028) — de onde vêm os 120+ pontos, comprovante arquivado no acervo quando sai; entrevista + painel Codex antes de propor (pedido 2026-10-26)  
 > [ ] [renda-map] levantar opções legais de renda extra na carreira UFRPE (fundação de apoio, bolsas, cursos, consultoria) — cruza com a pesquisa legal da sessão instituto (`core/prompts/fable-instituto.md`)  
