@@ -52,18 +52,18 @@ fallback · even a partial map beats starting from zero again*
 ## done
 
 <!-- done:start -->
-- [x] 2026-10-17 [teste-absorcao] Teste de Absorção com ART feito pela Tecsolo (11/09, R$ 1.690,00); planilha única no Drive pessoal com Pagador/Rateio/Acertado em
 
 
-- [x] 2026-08-28 [averbacao-terreno] processo 45.992 no 7º RGI (titularidade → demarcação) protocolado 22/07
   e em exame; emolumentos R$ 5.803,08 pagos; exigência da certidão de endereço paga 28/08
-- [x] 2026-08-28 [gastos-catalogar] finanças catalogadas: R$ 15.699,06 somados por script, com os 4 pagamentos
   que faltavam na planilha em gastos-pendentes.csv
-- [x] 2026-07-06 [project-map] branches/casinhas/ mapeado e estruturado: CONTEXT.md (cockpit) + projeto.md +
   material todo ingerido (plantas V03, docs burocráticos, conversa Marcelo, 3 cotações)
+
+- [x] 2026-10-17 [teste-absorcao] Teste de Absorção com ART feito pela Tecsolo (11/09, R$ 1.690,00); planilha única no Drive pessoal com Pagador/Rateio/Acertado em
+- [x] 2026-08-28 [averbacao-terreno] processo 45.992 no 7º RGI (titularidade → demarcação) protocolado 22/07
+- [x] 2026-08-28 [gastos-catalogar] finanças catalogadas: R$ 15.699,06 somados por script, com os 4 pagamentos
 <!-- done:end -->
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-30  ·  trend: decelerating  ·  touches: 6/52/62/62/62/62
+last-touch: 2026-10-24  ·  trend: decelerating  ·  touches: 7/51/66/66/66/66
 <!-- stats:end -->
