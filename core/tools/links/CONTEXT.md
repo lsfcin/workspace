@@ -20,13 +20,6 @@ lucassf.pages.dev/ai4good/setup  something inside it — one level
 lucassf.pages.dev/rva-chico      a one-off, flat and hyphenated
 ```
 
-A whole static site gets its own `<project>.pages.dev` (`13ou22`, `ufrpe/montagrade`), uploaded with the `CLOUDFLARE_TOKEN` in [`segredos.env`](segredos.env), no dashboard:
-```bash
-set -a; . core/tools/links/segredos.env; set +a; export CLOUDFLARE_API_TOKEN=$CLOUDFLARE_TOKEN CLOUDFLARE_ACCOUNT_ID=$CLOUDFLARE_ACCOUNT
-npx -y wrangler@3.114.0 pages project create <project> --production-branch main   # once
-npx -y wrangler@3.114.0 pages deploy <dir> --project-name <project> --branch main   # every update
-```
-
 [`links.txt`](links.txt) records every short name's target, one tab-separated row, queried with `find`.
 `gforms new`, `gslides new`, `gdocs new` and `gdrive share` each take `--short-name`, through [`../short_name.py`](../short_name.py), so a link is named where it is created.
 

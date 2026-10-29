@@ -20,7 +20,12 @@ GitHub Pages serves static files and reads no redirect config, so each short nam
 
 **302 and not 301.** A 301 is cached by the browser forever, so a short name pointed at the wrong document once would keep going there on Lucas's own machine long after the map was fixed.
 
-**Deployed by `git push`, not by `wrangler`.** Wrangler would need an `npm` dependency kind that [`../deps.txt`](../deps.txt) does not have — its `kind` column knows `pip`, `apt`, `binary` and `system` — so the git route adds **zero dependencies**. It also means Cloudflare is connected to a public repo of redirects and to nothing else; the workspace repo is never connected. The publish repo is a target and not a project: no `ISSUES.md`, no pre-commit, and `build` rebuilds `_redirects` whole from `links.txt`. Its only source is the site's own code — `viewer.js`, `lib/`, `functions/` — tested by `node --test test/site.test.mjs`. A standalone site (`13ou22`, `ufrpe`) is the exception: `npx wrangler` direct upload, because its source repo is not ours to connect (or is the workspace) — so it never updates on push, and its own CONTEXT names the redeploy.
+**Deployed by `git push`, not by `wrangler`.** Wrangler would need an `npm` dependency kind that [`../deps.txt`](../deps.txt) does not have — its `kind` column knows `pip`, `apt`, `binary` and `system` — so the git route adds **zero dependencies**. It also means Cloudflare is connected to a public repo of redirects and to nothing else; the workspace repo is never connected. The publish repo is a target and not a project: no `ISSUES.md`, no pre-commit, and `build` rebuilds `_redirects` whole from `links.txt`. Its only source is the site's own code — `viewer.js`, `lib/`, `functions/` — tested by `node --test test/site.test.mjs`. A standalone site (`13ou22`, `ufrpe`) is the exception: `npx wrangler` direct upload, because its source repo is not ours to connect (or is the workspace) — so it never updates on push, and its own CONTEXT names the redeploy. No dashboard; the token is `CLOUDFLARE_TOKEN` in `segredos.env`:
+```bash
+set -a; . core/tools/links/segredos.env; set +a; export CLOUDFLARE_API_TOKEN=$CLOUDFLARE_TOKEN CLOUDFLARE_ACCOUNT_ID=$CLOUDFLARE_ACCOUNT
+npx -y wrangler@3.114.0 pages project create <project> --production-branch main   # once
+npx -y wrangler@3.114.0 pages deploy <dir> --project-name <project> --branch main   # every update
+```
 
 ## The site is written from two places, and the workspace still owns it
 
