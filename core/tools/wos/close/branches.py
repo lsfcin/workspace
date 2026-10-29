@@ -25,7 +25,9 @@ def promote(root, branch: str, leave_dirty: bool) -> str:
     The whole thing aborts on the first conflict rather than leaving develop ahead of main.
     """
     for target, source in (('develop', branch), ('main', 'develop')):
-        if git(root, 'rev-parse', '--verify', '-q', target).returncode != 0 or target == source:
+        # A hop with either end missing has nothing to carry: a repo without develop is not a conflict.
+        if target == source or any(git(root, 'rev-parse', '--verify', '-q', ref).returncode != 0
+                                   for ref in (target, source)):
             continue
         behind = out(root, 'rev-list', '--count', f'{target}..origin/{target}')
         if behind.isdigit() and int(behind) > 0:
