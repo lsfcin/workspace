@@ -22,3 +22,7 @@ code/aiwbot/tests/fixtures/claude_pong.json	One recorded `claude -p --output-for
 core/tools/test/video/fixtures/ytdlp_dump.json	One recorded `yt-dlp -J` answer — what the video tool's metadata read parses, without the network.
 coordenacao-lc/novo-ppc-bcc/ementas/sigaa-labels.json	Rótulos do MODELO EMENTA SIGAA como [prefixo, chave, modo] — a única definição que port.py e core/run tools/docs/docx leem.
 coordenacao-lc/novo-ppc-bcc/ementas/autorais.json	Ementas redigidas do zero, sem fonte prévia (os dois Projetos Integradores da LC): campos SIGAA por disciplina, que build.py preenche no modelo.
+1322/app/plantel.json	Cartas do 1322: pessoa, lado (13/22), ato público com fonte e data, minibio, fotos de frente e costas.
+1322/app/fotos-escolhidas.json	Fotos do 1322 por pessoa e face, com autor, licença e página de origem — gerado por app/ferramentas/fotos_do_ranking.py.
+1322/app/jsconfig.json	Diz ao editor que app.js do 1322 é JavaScript ES2020, sem checagem de tipos.
+1322/matriz/pedidos-lucas.json	Fotos que Lucas pediu a dedo para a matriz do 1322, por pessoa e face — entrada de matriz/acrescenta.py.

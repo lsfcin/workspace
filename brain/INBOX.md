@@ -9,8 +9,24 @@
 
 <!-- add entries below, newest first -->
 
-A gente fez uma pausa no investimento de avanço do workspace OS, mas eu sinto que é uma coisa latente que precisa melhorar no futuro próximo. E aí, uma das coisas é que, por exemplo, nas seções agora, só em montar o plano da seção, a seção já chega em torno de 140 mil tokens. Então eu tô na dúvida se a gente realmente não tá sobrecarregando muito a gente. logo na entrada. Enfim, tá aqui uma coisa pra gente pensar.
-— via aiwbot · 2026-10-17
+https://www.instagram.com/reel/De8hjW0MFrN/?cplk=OG15MTBndjRjMzEz
+— via aiwbot · 2026-10-26
+
+https://www.instagram.com/p/DeTHW7JAVjj/?vrfl=Y2dvM2w2ajhkOTA2
+alguma chance da gente conseguir esse nível de animação pro isoroll?
+— via aiwbot · 2026-10-25
+
+https://www.instagram.com/p/DezzceOAbYc/?psln=MWVtc3M0OWt0dHZyeQ==
+pra juntar no
+— via aiwbot · 2026-10-22
+
+criar um material com foco nos ex-bolsonaristas e ex-aliados como novos críticos do bolsonarismo
+https://www.instagram.com/reel/DeyuDXHzUSE/?dlrf=NTc4MTIwNjQ2YQ==
+
+tem aquele (acho que deputado) recém eleito, meio gordinho, não lembro do nome
+tem a joyce hasselman, tem aquele outro homem político que deu entrevistas em algums podcasts e que era um dos fortes aliados de bolsonaro no governo dele, tem a janaína pascoal, o weintraub, as pessoas do mbl (katagiri, renan)
+tem o general que fala no vídeo de wagner moura
+— via aiwbot · 2026-10-22
 
 Isso é urgente. Isso é urgente. E não pode ser triado no INBOX, sendo escondido em algum lugar. Ou isso é feito, realizado por uma sessão, ou fica no INBOX. É o seguinte, se eu perder meu celular hoje, eu me lasquei. Eu perco várias das minhas contas. Perco o acesso ao GitHub, porque o aplicativo de autenticação tá no celular. E essa autenticação dos fatores, ela já foi um problema pra mim, porque eu perdi uma conta do Discord por conta disso. A conta do Discord foi hackeada, deslogada. Quando eu fui logado no open de autenticação dos fatores, eu não consegui achar a autenticação. Eu tenho muito medo disso acontecer com a minha conta do Google, com a minha conta do GitHub, com as várias outras contas que eu tenho. O autenticador hoje tem autenticação pra GitHub, Microsoft, Google e tem mais outros lá. Então, eu quero ter algum mecanismo que me deixe tranquilo pra que uma vez meu celular quebrando, perdendo ele, qualquer cenário desses, sendo roubado, eu não perca todas as minhas contas. Obrigado. Obrigado. Obrigado. Obrigado. Obrigado.
 — via aiwbot · 2026-10-17
@@ -27,26 +43,17 @@ https://www.instagram.com/p/DeMgL8IDfD5/?img_index=3&stkn=MWkzNmhmOWlhb2NyZw==
 talvez ajude a gente no wos
 — via aiwbot · 2026-10-07
 
-wos: `gmail fetch` trava em 50 e-mails e só filtra por dias — pra achar o contrato do apto tive que chamar a API na mão com busca (q=). falta `gmail search "<query>"` + baixar anexo aninhado (o `attachments` atual não viu os PDFs do DocuSign, que vêm em parts aninhadas). e os boletos da DAC sumiram do gmail pessoal desde nov/2025 — conferir se foram pra outro e-mail
-— via claude · 2026-10-17
+wos: o ISSUES.md da raiz já estava acima dos limites antes desta triagem. Enxugar os relatos sem apagar problemas abertos nem criar outro arquivo.
+— via Codex · 2026-10-24
 
-wos (sessão ementas LC): o sub-repo `academy/administration` estava com 150 arquivos deletados no working tree (tudo intacto no HEAD, restaurado com checkout). causa desconhecida — só existia 1 commit e nada de reflog; suspeita: sync entre as duas máquinas ou limpeza de pasta gitignored pelo pai. vale um check que avise quando um sub-repo tem deleção em massa não commitada
-— via claude · 2026-10-18
+wos (sessão RDA 2025): virar ferramenta o que rodou como script solto — (1) `gmail search --query --after --before` com download de anexos, o `fetch` só pega não-lidos; (2) varredor dos Boletins de Serviço da PROGEPE por nome/SIAPE (o site exige a intermediária RNP ICPEdu, baixada do AIA); (3) watchdog de job em background que vigia o PID — o que procurava texto com pgrep deu falso "parado" e falso "morreu". `gcalendar range` voltou vazio para cin e ufrpe: checar auth. `academy/cv` é repo local sem remoto: criar privado no GitHub? O `pdf-gate` barra PDF compilado de `.tex` gerado por script (sem `.texif`) e exige twin — a regra "nunca twin de PDF compilado" não chega ao hook. O token de escrita do Drive pessoal caiu duas vezes na mesma sessão.
+— via Claude · 2026-10-24
 
-wos: o symlink `~/.claude/projects/-mnt-workspace/memory → brain/memory` está quebrado (a pasta não existe; há um `memory.pre-merge-backup`). a regra que o Lucas deu hoje — "nunca editar o arquivo original, sempre criar um arquivo extra; se mudou, recupera e cria outro" — não teve onde ser salva. rotear pra uma norma em `core/norms/` (ela vale pra Drive, Docs e arquivos locais)
-— via claude · 2026-10-18
+wos (progressão docente): complementar o varredor já proposto com o Boletim de Gestão de Pessoas federal: progressão 279/2024 e reenquadramento 1.022/2025 apareceram lá, fora dos 1.293 PDFs da PROGEPE. A busca do gdrive limita silenciosamente a 20 resultados; expor limite/paginação. Scripts e evidências copiados do scratchpad para `Downloads/progressao-scripts/` (fora do git, matéria-prima para as ferramentas).
+— via Codex · 2026-10-26
 
-wos: `core/hooks/described.txt` casa por `str(path).endswith(chave)`, mas num repo aninhado o gate recebe o path relativo ao sub-repo, então a chave com `academy/administration/...` nunca casa — tive que usar só o sufixo. assimetria: o resto do workspace é relativo à raiz
-— via claude · 2026-10-18
+wos (matriz de subagentes): todo agente chama os outros direto, sem eu pedir — Claude Code, Codex/ChatGPT, agy/Antigravity, opencode, zcode, o que estiver instalado. Uma matriz chamador × chamado com o comando verificado de cada célula, e por modelo: capacidade, custo, limite de uso do plano, data da última checagem; setup automático que detecta o instalado e escolhe sozinho. Claude Code é o limite mais precioso, GPT o segundo melhor com limite generoso — conferir se o ranking da tabela bate com isso. Automático e barato em tokens (hooks + tools, não troca de mensagem). Jobs em background com watchdog em bash puro (zero token até disparar; vigiar crescimento do log, não pgrep) e aviso curto na última mensagem do turno (não telegram), porque mensagem do chat do VS Code entre chamadas de ferramenta às vezes some. Base já feita: `core/agents/SPECS.md` tem a linha do Codex com auth do Google (`-s workspace-write`, rede, `--add-dir ~/.config/workspace-*`), e `secure_dir` não grava mais quando o modo já está certo.
+— via Claude · 2026-10-26
 
-ppc: Decreto 12.456/2025 art. 10 §1 limita EaD de curso presencial a 30%, mas `code/ppc` (restrição c9) e `restricoes-curriculares-atualizado.md` ainda usam 40% da CEPE 744/2024. corrigir c9 depois que o Lucas confirmar. também: a pasta `novo-ppc-bcc/` guarda o PPC da LC (nome errado) e `organograma.md` chama o Lucas de coordenador, `brain/CONTEXT.md` de vice
-— via claude · 2026-10-18
-
-wos: o venv não tem `openpyxl` — li a planilha do BCC desmontando o .xlsx (xml). se planilha virar rotina, declarar a dep em `core/tools/deps.txt` e dar uma folha `xlsx` à família certa
-— via claude · 2026-10-18
-
-ementas: `build.py` regrava os 46 .docx a cada run (bytes iguais, carimbo novo), o que suja o diff — gravar só quando o conteúdo mudar. `verify.py` acusa 1 mismatch antigo (PROGRAMAÇÃO AUTOMÁTICA COM LLM, correquisito '' × 'NÃO TEM'): é a convenção do SPECS, então o verify precisa aplicá-la. `drive_core` não tem função para trocar o conteúdo de um Doc: em 2026-10-19 fiz `files().update(media_body=<docx>)` no Doc existente, que mantém id, link e histórico — promover a `drive_core` + flag `--update` no `upload_all.py`. acervo da Rural é Pergamum (SPA React, sem consulta por script): uma folha que confira a bibliografia básica no acervo poupa o Lucas. `Nova Grade — LC.html/.md` e `PPC — Grade LC_UFRPE*.md` têm nomes de PI de software, desatualizados frente a `code/ppc/grade-curricular.json`
-— via claude · 2026-10-19
-
-wos: `gslides text` ESCREVE no deck, mas o nome soa como leitura ao lado de `read` (assimetria de nome; quase rodei por engano). token `slides-write` personal expirou — `read` falha e só `export` funciona sem OAuth
-— via claude · 2026-10-19
+wos (commit parcial vaza AGENTS.md): `git commit -- <caminhos>` com uma norma entre eles fez o gerador de normas regenerar e incluir o `AGENTS.md` inteiro, levando junto a linha `EDIT > CREATE` staged por outra sessão (a fonte `core/norms/edit.md` ficou de fora). É o vazamento que `test_partial_commit_staging` proíbe para ISSUES/GOALS/.gitignore, mas o AGENTS.md não está coberto. Assimetria parecida, já corrigida: `validate_agents` não excluía `SPECS.md`, o validador de flows excluía.
+— via Claude · 2026-10-26

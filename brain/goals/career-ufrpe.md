@@ -6,16 +6,17 @@ Nunca perder uma progressão como professor por falta de atenção à burocracia
 useful · essential · motivated
 
 ## selected next achievement
-    [progressao-map] mapear regras e calendário de progressão (interstício, documentos, onde protocolar) + anotar data e
-    nível da última progressão
+    [progressao-b2] protocolar a progressão B1 → B2 (direito em 01/01/2027) entre 20 e 23/12/2026, com o
+    pacote completo de `academy/administration/processos/progressao.md`
 
 **ease-start**  
-Achar no SIGEPE ou no contracheque a data da última progressão e anotar aqui. 5 minutos.
+Baixar o PDF do NeoEduc na SBC OpenLib (sol.sbc.org.br/index.php/svr/article/view/40664) para o acervo `2025/`. 5 min. Em dezembro: declaração SIGAA com 2026.2, assinar no gov.br `pda/2026/progressao_requerimento.pdf` e `progressao.pdf`, juntar os comprovantes na ordem do relatório e abrir o processo no SIPAC.
 
 ## backlog
 
-> [ ] [progressao-map] mapear regras e calendário de progressão + data/nível da última progressão  
-> [ ] [progressao-alarm] checklist anti-perda: lembrete automático meses antes do interstício fechar (gcal ou hook do workspace)  
+> [ ] [progressao-acervo] falta no acervo `academy/cv/comprovantes/` a GR 677/2021 (nomeação, saiu no DOU, não no BGP) e os dossiês de 2023 e 2025; migrar as pastas do Drive cin `PROGRESSÃO DOCENTE ADJUNTO A 2/` e `Progressão_acelerada (titulação)/` para o pessoal (PDFs em `Downloads/workspace-drive/`). No Drive pessoal `comprovantes/2026/` ficou uma `portaria_2025-12-29_dc-077-cta-suplente.pdf` duplicada (a de 28/10/2026 sai)  
+> [ ] [progressao-alarm] lembrete automático 60 dias antes de cada interstício: B2→B3 01/01/2029, B3→B4 01/01/2031, B4→C1 Associado 01/01/2033 (gcal ou hook do workspace)  
+> [ ] [progressao-estrategia] sessão própria: estratégia de produção e atuação acadêmica para a janela B2→B3 (01/01/2027–31/12/2028) — de onde vêm os 120+ pontos, comprovante arquivado no acervo quando sai; entrevista + painel Codex antes de propor (pedido 2026-10-26)  
 > [ ] [renda-map] levantar opções legais de renda extra na carreira UFRPE (fundação de apoio, bolsas, cursos, consultoria) — cruza com a pesquisa legal da sessão instituto (`core/prompts/fable-instituto.md`)  
 > [ ] [bolsa-ic] bolsa IC — NÃO submetido, bloqueado por 2 pré-requisitos: (1) projeto de pesquisa aprovado no CTA, (2)
 > nomes dos alunos candidatos; só faz sentido mexer depois disso (2026-07-23)  
@@ -30,5 +31,5 @@ Achar no SIGEPE ou no contracheque a data da última progressão e anotar aqui. 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: steady  ·  touches: 3/9/9/9/9/9
+last-touch: 2026-10-26  ·  trend: steady  ·  touches: 2/6/12/12/12/12
 <!-- stats:end -->
