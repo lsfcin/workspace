@@ -36,6 +36,10 @@ ai4good/redes-convolucionais	https://docs.google.com/presentation/d/1URlyhECYlbZ
 ai4good/redes-de-grafos	https://docs.google.com/presentation/d/1K-_hzKBDIWuE66QOInEZ7bj_H0Ev6i_qbTLBevYEilE/present	ai4good	2026-09-24
 ai4good/redes-recorrentes	https://docs.google.com/presentation/d/1j8sGfqZkzol-nxFKWDsRLdfjKlYI6wM7K5h3Tw06Pbk/present	ai4good	2026-09-24
 ai4good/regressao-linear	https://docs.google.com/presentation/d/1XmA8_9dIaCdky66leSKl2UbE9N83fbZxINQADmlFKa8/present	ai4good	2026-09-24
+ai4good/sem1	https://lucassf.pages.dev/ai4good/?doc=artefatos/4-seminario-preliminares.md	ai4good	2026-10-30
+ai4good/sem1-deck	https://canva.link/2fgyeajku57c2c8	ai4good	2026-10-30
+ai4good/sem1-excelente	https://lucassf.pages.dev/ai4good/artefatos/sem1/excelente.md	ai4good	2026-10-30
+ai4good/sem1-raso	https://lucassf.pages.dev/ai4good/artefatos/sem1/raso.md	ai4good	2026-10-30
 ai4good/setup	https://docs.google.com/forms/d/e/1FAIpQLSfESI8OWLI1JSALkpAAtbRkqRzKxP6az3NCd9mi5Mop_697kQ/viewform	ai4good	2026-09-06
 ai4good/tec	https://lucassf.pages.dev/ai4good/?doc=artefatos/3-tecnologia-base.md	ai4good	2026-10-21
 ai4good/tec-excelente	https://lucassf.pages.dev/ai4good/artefatos/tec/excelente.md	ai4good	2026-10-21
