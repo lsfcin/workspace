@@ -14,6 +14,12 @@ Baixar o PDF do NeoEduc na SBC OpenLib (sol.sbc.org.br/index.php/svr/article/vie
 
 ## backlog
 
+> [ ] [cv-backup] Confirm the intended private backup in ../../academy/administration/ROADMAP.md [cv-backup] before creating a remote (backlog).
+
+> [ ] [academic-evidence-tools] Track mail/attachment/PDF/bulletin evidence intake in ../../core/ROADMAP.md and ../../academy/administration/ROADMAP.md [academic-evidence-tools]; root mail issue holds reported defects (backlog).
+
+> [ ] [inbox-20261030-administration] Track [firecrawl], [laws-markdown], [unlimited-ocr] in ../../academy/administration/ROADMAP.md; refs: ../../academy/administration/refs/REFS.md (backlog).
+
 > [ ] [progressao-acervo] falta no acervo `academy/cv/comprovantes/` a GR 677/2021 (nomeação, saiu no DOU, não no BGP) e os dossiês de 2023 e 2025; migrar as pastas do Drive cin `PROGRESSÃO DOCENTE ADJUNTO A 2/` e `Progressão_acelerada (titulação)/` para o pessoal (PDFs em `Downloads/workspace-drive/`). No Drive pessoal `comprovantes/2026/` ficou uma `portaria_2025-12-29_dc-077-cta-suplente.pdf` duplicada (a de 28/10/2026 sai)  
 > [ ] [progressao-alarm] lembrete automático 60 dias antes de cada interstício: B2→B3 01/01/2029, B3→B4 01/01/2031, B4→C1 Associado 01/01/2033 (gcal ou hook do workspace)  
 > [ ] [progressao-estrategia] sessão própria: estratégia de produção e atuação acadêmica para a janela B2→B3 (01/01/2027–31/12/2028) — de onde vêm os 120+ pontos, comprovante arquivado no acervo quando sai; entrevista + painel Codex antes de propor (pedido 2026-10-26)  

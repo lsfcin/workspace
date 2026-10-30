@@ -27,6 +27,12 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## backlog
 
+
+> [ ] [inbox-20261030-2027-ICLR-dobra] Track [airllm], [code-mode], [context-evidence], [deepinfer], [harness2], [mesh-llm], [qwenputer], [scaledown], [unlimited-ocr] in ../../academy/papers/2027-ICLR-dobra/ROADMAP.md; refs: ../../academy/papers/2027-ICLR-dobra/refs/REFS.md (backlog).
+> [ ] [inbox-20261030-aiwbot] Track [code-mode], [context-evidence], [dependency-provenance], [dessa], [harness2], [pstack], [r-cli], [rated-tools], [scaledown], [unsloth-browser], [voice-studio] in ../../code/aiwbot/ROADMAP.md; refs: ../../code/aiwbot/REFS.md (backlog).
+> [ ] [inbox-20261030-dobra] Track [airllm], [code-mode], [context-evidence], [deepinfer], [dependency-provenance], [firecrawl], [gpu-unlock], [harness2], [mesh-llm], [model-continuity], [pstack], [qwenputer], [r-cli], [scaledown], [strata-local], [unlimited-ocr], [unsloth-browser] in ../../code/dobra/ROADMAP.md; refs: ../../code/dobra/refs/REFS.md (backlog).
+> [ ] [inbox-20261030-freeai] Track [airllm], [deepinfer], [mesh-llm], [model-continuity], [nomad], [r-cli], [rated-tools], [strata-local], [unsloth-browser] in ../../code/freeai/ROADMAP.md; refs: ../../code/freeai/refs/REFS.md (backlog).
+
 > [ ] [mcptoon-context] Track tool-discovery and context-budget assessment in code/dobra/ROADMAP.md [mcptoon-context]; reference in code/dobra/refs/REFS.md (backlog).
 
 > [ ] [hyperagent] Assess Dobra context management and aiwbot sessions for the desktop hyperagent; assessments in their roadmaps (high priority, week). Include OpenHarness (core/refs/REFS.md): Linux, session reuse, aiwbot lineage and bounded Dobra context preserving user decisions.
@@ -67,5 +73,5 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-17  ·  trend: decelerating  ·  touches: 13/102/114/114/114/114
+last-touch: 2026-10-17  ·  trend: decelerating  ·  touches: 7/90/115/115/115/115
 <!-- stats:end -->

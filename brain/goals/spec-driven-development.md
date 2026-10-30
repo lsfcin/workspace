@@ -20,6 +20,9 @@ Rodar `core/tools/wos/spec/scan` (vê a catraca: 1/88 locked hoje). Abrir `code/
 
 ## backlog
 
+
+> [ ] [inbox-20261030-core] Track [context-evidence], [dependency-provenance], [harness2], [pstack] in ../../core/ROADMAP.md; refs: ../../core/refs/REFS.md (backlog).
+
 > [x] [protocol-v0] SPEC v0 — formato mínimo (nome/in/out/invariantes/exemplos) + 1 piloto — DONE 2026-07-17 (ver `code/ROADMAP-spec-drive.md` P0)  
 > [x] [loop-integration] cada etapa do loop produz/consome uma spec parseável (ver [[craft-flows]]) — DONE 2026-07-17 (Loop 0 lê / Loop 6 promove; SPEC-DRIVE P3)  
 > [x] [tree-map] mapear árvore de módulos do workspace — onde falta spec — DONE 2026-07-17 (`core/tools/wos/spec/scan`;
@@ -43,5 +46,5 @@ Rodar `core/tools/wos/spec/scan` (vê a catraca: 1/88 locked hoje). Abrir `code/
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-18  ·  trend: steady  ·  touches: 7/20/20/20/20/20
+last-touch: 2026-09-23  ·  trend: stalled  ·  touches: 0/13/22/22/22/22
 <!-- stats:end -->

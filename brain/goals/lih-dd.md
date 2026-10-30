@@ -31,6 +31,9 @@ Write 3 sentences: what LIH.DD is, why it matters, what it produces. No referenc
 
 ## backlog
 
+
+> [ ] [inbox-20261030-ai4good] Track [ai-credit-crisis], [brazil-ai] in ../../academy/papers/ai4good/ROADMAP.md; refs: ../../academy/papers/ai4good/refs/REFS.md (backlog).
+
 > [ ] [research-statement] write a 3-sentence research statement for LIH.DD  
 > [ ] [first-paper] → definido: cria (ideação híbrida como mechanism design) — ver `brain/goals/cria.md` + `academy/papers/2027-CHI-cria/ROADMAP.md`  
 > [ ] [recruit-ic] recruit 1 undergrad for scientific initiation (PIBIC or similar)  
@@ -51,5 +54,5 @@ Write 3 sentences: what LIH.DD is, why it matters, what it produces. No referenc
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-18  ·  trend: advancing  ·  touches: 33/46/47/47/47/47
+last-touch: 2026-09-30  ·  trend: stalled  ·  touches: 0/33/45/45/45/45
 <!-- stats:end -->

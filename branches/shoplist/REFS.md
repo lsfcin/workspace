@@ -14,3 +14,5 @@ O preço envelhece; a data é o que diz se ele ainda vale alguma coisa.
 ## casa
 
 ## eletrônicos
+
+- [C] [Editora Terra Sem Amos poster](https://www.instagram.com/p/DewQBhUoDro/) — [src: web:instagram.com] Original Terra Sem Amos poster, saved as Lucas's tattoo reference; original: ../../brain/attachments/2026-10/tattoo-terra-sem-amos.jpg; [tattoo-reference].

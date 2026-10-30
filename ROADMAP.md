@@ -29,10 +29,10 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 *Why* — handovers manuais geram fricção, enquanto a auto-compactação padrão dos harnesses dispara tarde e introduz *context rot* / *context poisoning* por resumos opacos (INBOX 2026-09-27, 2026-09-29).
 *Done when* — teste comparativo medido em tarefa longa avaliando perda de fatos e integridade com state file vs native compaction vs handoff.
 
-**🟡 auditar e enxugar o overhead de contexto inicial de sessão (~100k tokens)**
-*What* — medição do volume de tokens injetados no bootstrap de sessão (espelhos de skills, gates de CONTEXT.md, regras de agentes, prompts de planejamento) e redução de prolixidade, avaliando carregamento progressivo e sob demanda.
-*Why* — Lucas (INBOX 2026-10-01): o setup inicial consome quase 100k tokens antes da primeira ação, aproximando o agente da autocompactação e encarecendo cada turno com contexto redundante.
-*Done when* — medição do baseline por componente publicada e redução observável no contexto inicial sem quebrar a execução de gates essenciais.
+**🟡 measure and reduce startup and planning context**
+*What* — Measure automatic startup and planning reads separately by component; assess on-demand loading and cut redundant prose.
+*Why* — Lucas reports excessive context before work begins, including during planning (INBOX 1 and 17 Oct).
+*Done when* — A measured baseline and reduction are published without weakening required checks.
 
 **🟡 avaliar jevgrep para seleção cirúrgica de arquivos para coding agents**
 *What* — testar o `jevgrep` (ou seu método de busca/indexação focada em agentes) contra os comandos de busca e leitura do WOS (`grep_search`, `find_by_name`, `session/reads`).
@@ -73,7 +73,7 @@ Next related-fix candidates: `core/hooks/SPECS.md`, added `feature_law.py` comme
 *Why* — `core/norms/reduce.md`: a session leaves fewer lines than it found. The port was worth every line; that is a reason to pay, not a reason not to.
 The instrument that names candidates is `publish/repo --orphans`: every tracked file no feature claims, a stronger question than "who reads this" — `size --weighted` ranks what a session opens, this ranks what nothing can say a purpose for. It read 659 on 2026-09-15 and **10** on 2026-09-16, because most of those were claims the registry had not written; what is left is the real list.
 *Done when* — the **weighted** total falls: lines SERVED per session, not lines on disk. The disk number can be paid by deleting a file nobody opens, which nearly took `core/experiments/` — 11% of the lines, zero reads in 88 sessions, and **the WOS paper's data. The cut never comes from there**
-(Lucas, 2026-09-15). Several sessions; re-run the instrument rather than quoting a figure here.
+(Lucas, 2026-09-15). Several sessions; re-run the instrument rather than quoting a figure here. [machine-consistency] Inventory loose files, Downloads and repository inconsistencies before proposing verified cleanup (Lucas, INBOX 30 Oct).
 
 **🔴 the install is a document a person executes, and it should be an interview**
 *What* — `SETUP.md` driven as a deterministic decision tree: a fixed set of questions that maps what this person actually wants installed, then emits a plan their own harness executes across however many sessions it takes. Lucas, INBOX 2026-09-18.

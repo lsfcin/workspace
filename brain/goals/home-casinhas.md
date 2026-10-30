@@ -28,7 +28,7 @@ fallback · even a partial map beats starting from zero again*
 
 ## backlog
 
-> [ ] [acerto-pai] pai transferir **R$ 2.400,75** (3/4 das taxas jul–out pagas por Lucas, impresso por `code/obra/gastos.py`); quando cair, preencher `Acertado em` nas 4 linhas da planilha master  
+> [ ] [acerto-pai] Reconcile father's deposit against outstanding construction expenses; confirm the covered rows before filling `Acertado em` in the master spreadsheet, refresh `branches/casinhas/gastos.csv` through the expenses tool and archive/catalogue the receipt in the project and personal Drive. Lucas, 2026-10-22; receipt: `brain/attachments/2026-10/aiwbot-agacageaaxkbaaie3mrao7pcle1z0oefpicqvznx9f9taalzdgsbdh_rrvbbke8ognr9aqadagadeqadpqq.jpg`.
 > [ ] [fotos-internas] mandar a Marcelo as fotos internas do terreno (áreas livres entre construção e muros) — última pendência da Licença Prévia Ambiental  
 > [ ] [responder-severino] responder Severino, que cobrou retorno em 20/07 e tem duas obras concorrentes na mesa —
 > mesmo que a resposta seja não  
@@ -65,5 +65,5 @@ fallback · even a partial map beats starting from zero again*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-24  ·  trend: decelerating  ·  touches: 7/51/66/66/66/66
+last-touch: 2026-10-24  ·  trend: decelerating  ·  touches: 6/52/68/68/68/68
 <!-- stats:end -->

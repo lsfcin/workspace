@@ -57,6 +57,8 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## backlog
 
+> [ ] [virada-source-review] Track original-source checks in branches/virada/ROADMAP.md [source-review] and refs/REFS.md, dossier drift in ISSUES.md [dossier-source-drift], and the paused Melhor pra Mim record (Claude-session reports, 19–23 Oct).
+
 > [ ] [polilinhas-timeline] Avaliar a timeline documental proposta para a Virada; escopo e escolhas em branches/virada/ROADMAP.md [timeline-evidencias] (backlog).
 
 > [ ] [faz-favor-spec] desenhar fluxo de MVP para o Faz Favor (troca de favores/empréstimos em círculos de confiança via bot WhatsApp/Telegram ou PWA) (INBOX 2026-10-03)  
@@ -75,5 +77,5 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-06  ·  trend: decelerating  ·  touches: 2/123/142/152/158/158
+last-touch: 2026-10-17  ·  trend: decelerating  ·  touches: 2/111/138/153/159/159
 <!-- stats:end -->

@@ -20,11 +20,15 @@ fallback · even a rough estimate is better than no map*
 
 ## backlog
 
+
+> [ ] [subscription-review] Review actual ChatGPT and Canva use, billing/renewal dates and alternatives before deciding which subscriptions to keep; reassess Canva tooling before more build work (today).
+
 > [ ] [financial-literacy] Identify the financial-literacy portal mentioned by @samuelolandim and assess whether its educational material serves our financial-planning goal; [captured source](https://www.instagram.com/reel/Dd4mWBxAMAA/?dlrf=MW5yYWFzOXlqcmY4bQ==) [src: web:instagram.com], branches/virada/refs/REFS.md (backlog).
 
 > [ ] [map-numbers] map current monthly income and fixed expenses — just the numbers  
 > [ ] [reserve-boxes] define 3-4 reserve categories (emergency, projects, leisure, etc.) and amounts  
 > [ ] [spending-audit] review last month's actual spending — where did it go?  
+> [ ] [dac-bills] Find why DAC bills stopped reaching personal mail and identify their delivery account; reported by the Claude session on 2026-10-17 (week).
 > [ ] [budget-rhythm] establish a monthly budget review rhythm — even 30 minutes/month  
 > [ ] [aluguel-dia-10] pedir mudança da data de pagamento do aluguel: dia 5 → dia 10  
 > [ ] [investimento-alinhado] definir o critério de "um modelo de investimentos em que eu acredito" e migrar para ele — o post que motivou a captura (<https://www.instagram.com/p/DcMf6TuFIYS/>) não devolveu texto nenhum na extração, nem em `--level full`, então reabrir a fonte antes de decidir (INBOX 2026-08-31)  
@@ -36,5 +40,5 @@ fallback · even a rough estimate is better than no map*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-18  ·  trend: decelerating  ·  touches: 1/7/10/10/10/10
+last-touch: 2026-10-16  ·  trend: steady  ·  touches: 1/5/11/11/11/11
 <!-- stats:end -->

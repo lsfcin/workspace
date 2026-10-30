@@ -61,6 +61,7 @@ Both survive here because they are real gaps, not because they are queued. Promo
 
 ## Housekeeping
 
+- [ ] [mobile-session-relay] Assess one owned path for continuing a desktop session from Telegram without competing polling or commands in the capture queue; coordinate ../../core/ROADMAP.md, Desktop hyperagent (Claude-session report, 23 Oct 2026).
 - [ ] Assess OpenHarness (REFS.md) and which backend/session capabilities can serve the desktop hyperagent, preserving session lineage; application assessment in ../../core/ROADMAP.md (high priority, week).
 - [ ] Measure idle model memory and assess releasing unused models without harming voice capture or session continuity (INBOX 2026-10-14).
 - [~] **`backend/providers/opencode.py` is at 194/200** after the ask config landed, and `claude.py` at 176.
@@ -82,6 +83,32 @@ Tried or measured, then dropped — recorded so a dead idea does not resurface l
 
 ## Verification
 - Free (every change): `make test`. Live milestone (~$0.20): `make smoke`.
+
+## Backlog
+
+- [ ] [cross-harness-delegation] Compare matched agent tasks for quality, cost, quota, startup discovery and process/log supervision; preserve dated Claude/Codex reports as hypotheses, not executable recipes. Shared assessment: ../../core/ROADMAP.md [cross-harness-delegation].
+
+- [ ] [context-evidence] Compare focused context, planning and meaningful verification with existing practice using measured local outcomes, not the creator's invented 100k quality cutoff. Ref: REFS.md [context-evidence].
+
+- [ ] [dessa] Assess the actual release/access/licence state and relevance to Portuguese voice interaction before considering any integration; retain secondary-only primary-page limitations. Ref: REFS.md [dessa].
+
+- [ ] [scaledown] Compare narrow classification/extraction/summarization baselines for correctness and cost, distinguishing schema validity, semantic accuracy, generation and hosted availability. Ref: REFS.md [scaledown].
+
+- [ ] [pstack] Assess completion criteria, invariants, behavior evidence and bounded parallel work against our existing workflow; separate portability and throughput claims from demonstrated facts. Ref: REFS.md [pstack].
+
+- [ ] [code-mode] Compare code-owned tool composition and filtered results with the current workflow, retaining direct calls where useful and requiring no Model Context Protocol adoption. Ref: REFS.md [code-mode].
+
+- [ ] [voice-studio] Assess one Portuguese narration/voice-interface sample with actual model licence, memory, latency and export constraints; reuse the existing VoiceStudio reference. Ref: REFS.md [voice-studio].
+
+- [ ] [r-cli] Compare one matched coding task for quality, total tokens/cost, memory-service behavior and portability before changing a harness or provider. Ref: REFS.md [r-cli].
+
+- [ ] [harness2] Compare controlled harness-improvement loops with existing orchestration, including model-call budget, held-out evaluation, judge bias and retained sandbox restrictions. Ref: REFS.md [harness2].
+
+- [ ] [dependency-provenance] Assess how dependency-source verification and locked inventories cover the documented hallucinated-package risk; use the original benign case and reviewed study in teaching. Ref: REFS.md [dependency-provenance].
+
+- [ ] [unsloth-browser] Assess a bounded browser task with documented permission/network limits and memory headroom before selecting a local browser-agent setup. Ref: REFS.md [unsloth-browser].
+
+- [ ] [rated-tools] Assess the relevant voice, meeting, workflow, prototype and media tools against current needs; preserve creator ratings as opinion and numerical bar lengths as estimates. Ref: REFS.md [rated-tools].
 
 <!-- routing:start -->
 ## Routing

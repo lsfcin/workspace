@@ -19,7 +19,8 @@ Ler o twin do Regimento Interno da Associação Ecovila Santuário dos Jatobás 
 ## backlog
 
 > [ ] [org-docs] ler + resumir Regimento Interno + demais docs da associação (em `branches/ecovila/burocracia/`, cada PDF com seu twin) [ ] [terrain-3d] pesquisar/testar solução de mapeamento 3D do terreno (drone/fotogrametria/LiDAR de celular) — cruza com [[spacemantics]]
-> [ ] [finance-terreno] fechar o lado financeiro do terreno com o pai — transferir pra painho o valor do terreno/chão do santuário jatobá [ ] [construction-later] planejar a futura construção ecológica no lote (agroecologia, preservação) — reusar aprendizados de [[project_casinhas|casinhas]]
+> [ ] [finance-terreno] Reconcile the ecovila accounts and archive the receipt for the transfer to father, reported complete by Lucas on 2026-10-22; receipt: `brain/attachments/2026-10/aiwbot-agacageaaxkbaaie32rapdznjkgx4fnsz5vzgcmbommtaal0dgsbdh_rrminolodutldaqadagadeqadpqq.jpg`.
+> [ ] [construction-later] planejar a futura construção ecológica no lote (agroecologia, preservação) — reusar aprendizados de [[project_casinhas|casinhas]]
 
 ## done
 
@@ -28,5 +29,5 @@ Ler o twin do Regimento Interno da Associação Ecovila Santuário dos Jatobás 
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: advancing  ·  touches: 7/9/9/9/9/9
+last-touch: 2026-09-29  ·  trend: stalled  ·  touches: 0/12/14/14/14/14
 <!-- stats:end -->
