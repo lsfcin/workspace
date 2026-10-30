@@ -41,7 +41,7 @@ Two roles: **text** (the lesson body; must read on a weak projector) and **impac
 Out: Unbounded, Big Shoulders Display (too thin), Bebas Neue, Bricolage Grotesque, Syne, IBM Plex Sans. The original Atkinson Hyperlegible has only 400/700 — hence Next.
 
 ## Sizes (pt)
-display 54 · title 36 · statement 40 · body 24 · code 18 · footer 10. Text never shrinks to fit: overflow means a second slide.
+display 54 · title 36 · statement 40 · body 24 · code 18 · footer 10. Text never shrinks to fit: overflow means a second slide. The footer is the one size under the 14 pt projection floor: it is not read in the room, only by whoever opens the file (Lucas, 2026-10-30), so `pptx lint` flagging it is expected.
 
 ## Layouts
 Every family's master carries all of these. `split` names where the colour sits and its share; the sequence 70/30 → 60/40 → 50/50 → thin bar is a zoom into the section (the owner's idea): the bar is what remains of the split.
