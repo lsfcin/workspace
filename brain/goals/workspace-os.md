@@ -20,13 +20,13 @@ immersed mode · advancing motion · intrinsic source
 
 > **The governing constraint, Lucas 2026-08-16:** *"definitivamente, quero zerar o roadmap do WOS o quanto antes. já usamos demasiado tempo e esforço na infraestrutura."*
 >
-> This outranks completeness. It is not a request to work faster — it is a filter on what may be in the list at all. Three consequences, in the order they bite: **an item that another repo owns is refiled there, not held here**; **an item that does not gate v1 is a candidate for the Rejected list, not the backlog**; and a finding worth keeping goes into the `SPECS.md` or `SCHEMA.md` section that owns the rule, because writing the rule there is what closing an item *is*. The repo is a means. Time spent on it past v1 is time not spent on the work it exists to serve.
+> Keep v1 as the filter: refile work to its owning project, assess nonessential additions before adoption, and prefer life demands over infrastructure for its own sake.
 >
 > **Sharpened 2026-08-25, and this is the version to read first.** Lucas: *"semanas completas estourando o uso do claude code com o opus 5 para um progresso duvidoso… realmente vejo que o WOS virou um problema por si só."* The measurement backs the feeling: 50 commits in 30 days, nearly all in `core/` and the roadmaps, **zero in `code/`**. The repo spent the month maintaining itself.
 >
 > **What v1.0 means from here, in his words:** zero loose ends · minimum coupling · hooks and tools working as advertised on zero-token strategies · small `.md` files · roadmaps small enough that a sibling file is an exception. **Agents, flows and loops wait**; v1 is the `AGENTS.md`/`CONTEXT.md` tree, hooks, tools and `brain/`.
 >
-> **The two rules he gave that change how sessions write:** a roadmap item carries *what*, *why* and *the verification*, and **never the how** — that is the job of the session that takes the item, and writing it here is what made the roadmaps long and stale at once. And *"LLMs are good at writing even when it isn't useful"*, so length is never evidence of care.
+> Roadmaps state what, why and verification; implementation belongs to the executing session. Length is not evidence of care.
 >
 > **How the work gets pulled, Lucas 2026-08-27:** *"a partir de cada demanda da vida resolver não somente a demanda mas toda a infraestrutura relacionada a ela e assim seguimos progredindo no micro e no macro."* A real demand is what opens a session; the repo it touches is fixed in the same pass. Nothing here is worked for its own sake.
 >
@@ -37,9 +37,7 @@ immersed mode · advancing motion · intrinsic source
 **All four v1 criteria are green, and nothing in the list is waiting on you.** The drain is agent work now: the remaining items carry their own model level and none of them is blocked on a decision.
 So the easy start is not a decision to make — it is a session to hand off.
 
-Two items do want you, and both are **conversations to schedule, not questions to answer in five minutes** (you said so yourself on 2026-08-17, in both cases): giving flows and agents a fair trial before judging them, and the knowledge graph, which is its own front and needs research plus a design sitting. Neither belongs at the end of a drain session. Put one on the calendar; do not squeeze it.
-
-The genuinely free move, when you want the number to fall without spending judgment: open [/ROADMAP.md](../../ROADMAP.md), take the mechanical items, and hand them to a sonnet session. The list's length is the measure, and those items shorten it without you in the loop.
+Flows/agents and the knowledge graph require dedicated discussions; schedule them separately. Pull mechanical work from ../../ROADMAP.md rather than inventing infrastructure sessions.
 
 **Known risk — dataset with no live backup:** `datasets/relativistic_raytracer` (5.8 GB) is the sole surviving copy of its data — Zenodo record 20240662 returns HTTP 410 ("personal-data"), gone since 2026-05-24. The `datasets/*/CONTEXT.md` convention of "re-download from the Zenodo link" breaks whenever the link goes dead with no live copy behind it.
 
@@ -54,18 +52,35 @@ fallback · iterate — MVP can always be extended*
 
 ## backlog
 
+> [ ] [partial-norm-staging] Track root ISSUES.md [b20261030-partial-norm-staging], video-batch findings, repeated-read registration and delayed routing; preserve other sessions' staged work (backlog).
+
+> [ ] [evidence-tool-defects] Track reported calendar ranges, Drive write tokens/paging and compiled-TeX PDF detection in ../../ISSUES.md; administration consumer: ../../academy/administration/ROADMAP.md [evidence-tool-defects] (backlog).
+
+> [ ] [academic-evidence-tools] Track mail/attachment/PDF/bulletin evidence intake in ../../core/ROADMAP.md and ../../academy/administration/ROADMAP.md [academic-evidence-tools]; root mail issue holds reported defects (backlog).
+
+> [ ] [cross-harness-delegation] Track matched comparisons, discovery, quota/cost and process supervision in ../../core/ROADMAP.md, ../../code/aiwbot/ROADMAP.md, ../../code/flows/ROADMAP.md and ../../academy/papers/wos-ablation/ROADMAP.md [cross-harness-delegation]; source reports remain attributed (backlog).
+
+> [ ] [machine-consistency] Track machine/Downloads/repository inventory in ../../ROADMAP.md, Portability; preserve open issues and verify before deletion (backlog).
+
+> [ ] [inbox-20261030-wos-ablation] Track [code-mode], [context-evidence], [dependency-provenance], [harness2], [pstack], [r-cli], [repo-maps] in ../../academy/papers/wos-ablation/ROADMAP.md; refs: ../../academy/papers/wos-ablation/refs/REFS.md (backlog).
+> [ ] [inbox-20261030-aiwbot] Track [code-mode], [context-evidence], [dependency-provenance], [dessa], [harness2], [pstack], [r-cli], [rated-tools], [scaledown], [unsloth-browser], [voice-studio] in ../../code/aiwbot/ROADMAP.md; refs: ../../code/aiwbot/REFS.md (backlog).
+> [ ] [inbox-20261030-freeai] Track [airllm], [deepinfer], [mesh-llm], [model-continuity], [nomad], [r-cli], [rated-tools], [strata-local], [unsloth-browser] in ../../code/freeai/ROADMAP.md; refs: ../../code/freeai/refs/REFS.md (backlog).
+> [ ] [inbox-20261030-core] Track [airllm], [anatomy], [code-mode], [context-evidence], [deepinfer], [dependency-provenance], [dessa], [firecrawl], [gpu-unlock], [harness2], [laws-markdown], [mesh-llm], [model-continuity], [nomad], [owly-transfer], [plain-explanations], [pstack], [qwenputer], [r-cli], [rated-tools], [repo-maps], [scaledown], [strata-local], [unlimited-ocr], [unsloth-browser], [visual-comparisons], [voice-studio], [web-motion] in ../../core/ROADMAP.md; refs: ../../branches/tweaks/refs/REFS.md, ../../core/refs/REFS.md (backlog).
+
 > [ ] [mcptoon-context] Track the mcptoon comparison in core/ROADMAP.md [mcptoon-context]; reference in core/refs/REFS.md (backlog).
 
 > [ ] [visual-tools] Track Hairline, ff-tracking, Papermorph and animated-data assessment in core/ROADMAP.md [visual-tools]; core/refs/REFS.md (backlog).
 > [ ] [expert-depth] Track the prompt attributed to Felix Rieseberg in core/ROADMAP.md [expert-depth]; core/refs/REFS.md (backlog).
 > [ ] [hyperagent-openharness] Track OpenHarness in core/ROADMAP.md, Desktop hyperagent; aiwbot sessions and Dobra context remain part of that assessment (high priority, week).
 > [ ] [modder-patterns] Track Universal Modder discovery, verification and field-note assessment in core/ROADMAP.md [modder-patterns]; core/refs/REFS.md (backlog).
+> [ ] [startup-context] Track separate startup/planning measurements and context reduction in ROADMAP.md, Measurement (Lucas, INBOX 17 Oct).
+> [ ] [document-tooling] Track local spreadsheet support under Dependency checks and [drive-doc-update] in core/ROADMAP.md; preserve third-party-authored originals unless Lucas authorizes editing them (INBOX 18–19 Oct; clarified 24 Oct).
 
-> [ ] [inbox-tool-fixes] Track core/ROADMAP.md [rea-assessment], caption-tool comparison and [links-cleanup] (today); ISSUES.md b20261014-retired-substrings, b20260922-state-stores, b20261017-ungated-write-cwd and b20261017-video-batch-results. Retain bot compatibility and MatrAIx assessment when active work requires them.
+> [ ] [inbox-tool-fixes] Track core/ROADMAP.md [rea-assessment], caption-tool comparison and [links-cleanup] (today); ISSUES.md covers retired-token matching, state stores, write attribution, video batches, mail search, Slides command/auth, public rebuild, link targets, nested repositories, retired memory and disk setup (reports 17–24 Oct); nested file-description scope includes the PPC config report of 30 Oct. Polling recovery: code/aiwbot/ISSUES.md. Retain bot compatibility and MatrAIx assessment when active work requires them.
 
 > [ ] [eval-iris-mcp] avaliar o iris (brijr/iris) como ferramenta de câmera MCP para o Antigravity inspecionar visualmente artefatos web e páginas geradas — ref em core/refs/REFS.md (INBOX 2026-09-25)  
 > [ ] [stream-recommendation-wos] conectar histórico de streaming e coisas assistidas ao workspace (branches/tips/) e criar feature de recomendação via chat móvel no bot do Telegram (aiwbot) (INBOX 2026-09-26)  
-> [ ] [subagent-brief-orchestrator] Assess bounded, file-based orchestration in core/ROADMAP.md before another long swarm; small units, visible scope, early checkpoints and shared flows (INBOX 2026-09-26 through 2026-10-12).  
+> [ ] [subagent-brief-orchestrator] Track bounded file-based orchestration and cross-harness delegation in core/ROADMAP.md: scoped briefs, quota use, unattended-run reliability, public-clone setup and the shared ideation/brainwriting mechanism (INBOX 26 Sep–24 Oct).
 > [ ] [semantic-cache-local] avaliar viabilidade de camada de cache semântico local para chamadas e prompts repetidos/reformulados no WOS para economizar chamadas a provedores (INBOX 2026-09-26)  
 > [ ] [commit-swap-graph] visualizador de commits e troca de contexto entre repositórios (linhas verticais por repo, detectando swaps em marcos de conclusão vs meio de tarefa para o /compass) (INBOX 2026-09-29)  
 > [ ] [state-file-compaction] avaliar o padrão de state file do GlitchCatClub para auto-compactação controlada por arquivo de estado em vez de handover/handoff manual ou resumos opacos do harness (INBOX 2026-09-29)  
@@ -122,5 +137,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-16  ·  trend: decelerating  ·  touches: 141/864/929/929/929/929
+last-touch: 2026-10-29  ·  trend: decelerating  ·  touches: 75/821/973/973/973/973
 <!-- stats:end -->

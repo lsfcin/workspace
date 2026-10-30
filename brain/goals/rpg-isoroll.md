@@ -32,6 +32,10 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 
 ## backlog
 
+
+> [ ] [inbox-20261030-isoroll-content] Track [anatomy], [gpu-unlock], [isoroll-environment-life], [rated-tools], [web-motion] in ../../code/isoroll-content/ROADMAP.md; refs: ../../code/isoroll-content/refs/REFS.md (backlog).
+> [ ] [inbox-20261030-isoroll-module] Track [anatomy], [isoroll-environment-life], [web-motion] in ../../code/isoroll-module/ROADMAP.md; refs: ../../code/isoroll-module/refs/REFS.md (backlog).
+
 > [ ] [captured-isoroll-tools] Track Animater [animater], Universal Modder [modder-patterns], object brush [object-brush] and UniMate [unimate] in both code/isoroll-module/ROADMAP.md and code/isoroll-content/ROADMAP.md; references in both refs/REFS.md (backlog).
 
 > [ ] [game-isolation] Validate Brave voice/game separation in a real Monday session with VS Code/Claude: available RAM, game-first shutdown below 1 GiB, possible leaks and graphics failures. Configuration, diagnostics and removal: [machine setup](../../branches/tweaks/SETUP.md#ubuntu--brave--voz-e-foundry) (week).
@@ -56,5 +60,5 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-24  ·  trend: decelerating  ·  touches: 7/121/680/680/680/680
+last-touch: 2026-10-24  ·  trend: decelerating  ·  touches: 9/90/681/682/682/682
 <!-- stats:end -->

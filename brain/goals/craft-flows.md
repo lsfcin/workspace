@@ -22,7 +22,12 @@ um `.craft/` chain de feature isoroll pequena, mesmo modelo (z-ai/glm-5.2 ou vie
 
 ## backlog
 
-> [ ] [bounded-orchestration] Assess the bounded, file-based orchestration proposal in core/ROADMAP.md before another long swarm.
+> [ ] [cross-harness-delegation] Track matched comparisons, discovery, quota/cost and process supervision in ../../core/ROADMAP.md, ../../code/aiwbot/ROADMAP.md, ../../code/flows/ROADMAP.md and ../../academy/papers/wos-ablation/ROADMAP.md [cross-harness-delegation]; source reports remain attributed (backlog).
+
+> [ ] [inbox-20261030-aiwbot] Track [code-mode], [context-evidence], [dependency-provenance], [dessa], [harness2], [pstack], [r-cli], [rated-tools], [scaledown], [unsloth-browser], [voice-studio] in ../../code/aiwbot/ROADMAP.md; refs: ../../code/aiwbot/REFS.md (backlog).
+> [ ] [inbox-20261030-flows] Track [code-mode], [context-evidence], [dependency-provenance], [dessa], [harness2], [pstack], [r-cli], [rated-tools], [scaledown], [voice-studio] in ../../code/flows/ROADMAP.md; refs: ../../code/flows/refs/REFS.md (backlog).
+
+> [ ] [bounded-orchestration] Assess bounded file-based orchestration and the common ideation/AI4Good brainwriting mechanism in core/ROADMAP.md; connect the teaching and Virada assessments before creating another flow (Claude-session report, 19 Oct).
 
 > [x] [iterate] ajustar flags de retorno e tabela de roteamento após 7 usos reais — DONE 2026-07-16 (A1; ver [A1] em `## done`)
 > [x] [skill-tree] montar árvore de loops pessoais — DONE 2026-07-18: craft tree = router (`core/flows/craft/route.md`)
@@ -77,5 +82,5 @@ um `.craft/` chain de feature isoroll pequena, mesmo modelo (z-ai/glm-5.2 ou vie
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-06  ·  trend: decelerating  ·  touches: 8/101/142/142/142/142
+last-touch: 2026-10-16  ·  trend: decelerating  ·  touches: 2/86/115/143/143/143
 <!-- stats:end -->

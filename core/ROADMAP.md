@@ -6,161 +6,220 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 
 ## Open
 
+**🟡 [visual-comparisons] Captured options**
+*What* — [visual-comparisons] Assess complete-image numeric extraction: retain printed values, label estimated bar fractions with uncertainty, and keep perception separate from geometric truth. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance and limits are evidenced.
+
+
+**🟡 [owly-transfer] Captured options**
+*What* — [owly-transfer] Check whether our actual wireless adapter and device counterpart meet Owly's documented requirements before considering a transfer test. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance and limits are evidenced.
+
+
+**🟡 [qwenputer] Captured options**
+*What* — [qwenputer] Compare Qwenputer with deterministic tools; retain merged-model/selected-test limits and the absent accepted-paper finding. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance and limits are evidenced.
+
+
+**🟡 [tool-comparison] Captured options**
+*What* — [rated-tools] Assess the relevant voice, meeting, workflow, prototype and media tools against current needs; preserve creator ratings as opinion and numerical bar lengths as estimates. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance and limits are evidenced.
+
+
+**🟡 [document-access] Captured options**
+*What* — [firecrawl] Compare Firecrawl with our existing fetch/search on representative difficult sources, recording coverage, deployment duties, access failures and total cost. [nomad] Assess a small useful offline resource bundle, language/accessibility and local memory/storage needs before adopting the optional AI stack. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance and limits are evidenced.
+
+
+**🟡 [local-inference-options] Captured options**
+*What* — [strata-local] Check documented memory, disk, context, quality and omitted experts against our laptop before trial. [mesh-llm] Check trusted nodes, network cost and compatibility; remote routing is not fitting weights locally. [deepinfer] Track probable DeepInfer as vendor-reported datacenter engineering; assess research relevance, not laptop deployment. [airllm] Assess streaming capacity/latency with measured hardware, terabyte storage and seconds/token before any download. [model-continuity] Check used-model source/version continuity, licence, integrity and storage; no blanket-ban inference or oversized-derivative download. [gpu-unlock] Check supported compute workloads on our hardware; distinguish precision, power and whole-task results. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance and limits are evidenced.
+
+**🟡 [academic-evidence-tools] Academic evidence intake**
+*What* — Assess paginated query/date mail search, robust long attachment names, cached-email PDF evidence and official PROGEPE/federal personnel bulletin discovery. Inspect Downloads/progressao-scripts before reuse; preserve the reported progression evidence (279/2024, 1.022/2025) as attributed leads. Shared defect: ISSUES.md [b20261024-mail-search-attachments]; Claude/Codex reports, 24–28 Oct. *Why* — RDA/progression need the same reliable intake. *Done when* — A bounded evidence search retrieves its documents with provenance.
+
 **🟢 [mcptoon-context] Tool and skill discovery — backlog**
-*What* — Assess mcptoon discovery, on-demand schema retrieval and measured context cost against our current workflow; source claims in refs/REFS.md, Dobra assessment in ../code/dobra/ROADMAP.md. *Why* — Lucas requested evaluation of the captured demonstration. *Done when* — One bounded comparison records cost, retrieval reliability and configuration effects before adoption.
+*What* — Compare on-demand tool/skill schema discovery with current context cost/reliability; refs/REFS.md and Dobra roadmap. *Why* — Captured lead. *Done when* — Bounded results precede adoption.
+
 
 **🟢 [rea-assessment] Reverse-engineering and media demonstrations — backlog**
-*What* — Identify the primary REA, PhotoCraft and EffectCraft projects and assess transferable methods and media capabilities against existing tools; refs/REFS.md, media assessment also in ../branches/virada/ROADMAP.md. *Why* — The captured demonstrations may reduce repeated discovery or production work. *Done when* — Capabilities, licensing and the author's legal claims have evidenced verdicts or rejection.
+*What* — Identify REA/PhotoCraft/EffectCraft; compare methods, media, licences and legal claims with current tools. Refs: refs/REFS.md; Virada roadmap. *Why* — Repeated discovery/production. *Done when* — Evidenced transfer or rejection.
+
 
 **🟢 [links-cleanup] lsf-links cleanup — today**
-*What* — Verify the Claude-session report of an orphan functions/api/lib/ stub and uncommitted functions/jsconfig.json in lsf-links; review the cleanup and commit only the intended change. *Why* — The 16 Oct session reported both operations blocked by permission classification. *Done when* — The report is checked against disk and Git, and any justified cleanup is verified and committed separately.
+*What* — Verify orphan functions/api/lib and uncommitted functions/jsconfig.json in lsf-links (Claude, 16 Oct); commit justified cleanup separately. *Why* — Reported permission blocks. *Done when* — Disk/Git diagnosis and verification agree.
+
 
 **🟢 [visual-tools] Captured visual tools — backlog**
-*What* — Compare Hairline, ff-tracking, Papermorph and the animated-data example for editability, accessibility, source fidelity and reproducibility. Sources: refs/REFS.md. *Why* — Captured demonstrations may improve workspace explanations and teaching. *Done when* — One bounded comparison records what transfers and what fails.
+*What* — Compare Hairline/ff-tracking/Papermorph/animated data for editing, accessibility, fidelity and reproducibility. [web-motion] Check one browser visual's identity, licence and export. [anatomy] Separate editable animation, checked semantics, offline sprites and Foundry playback. [repo-maps] Verify inferred maps/prompts against code, not author intent. [plain-explanations] Compare Portuguese text/diagram/interactive clarity without controlled-English claims. Refs: refs/REFS.md. *Why* — Better explanations/teaching. *Done when* — Bounded comparisons establish transfer or rejection.
+
 
 **🟢 [expert-depth] Prompt depth — backlog**
-*What* — Assess the prompt attributed to Felix Rieseberg against prepare/research: raw sources, professional methods and independent verification; refs/REFS.md. *Why* — Lucas asked whether to include it. *Done when* — A comparison identifies useful changes or rejection without expanding scope.
+*What* — Compare the attributed Felix Rieseberg prompt with prepare/research: raw sources, methods and independent checks; refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Useful changes or rejection, no scope inflation.
+
 
 **🟢 [modder-patterns] Universal Modder — backlog**
-*What* — Assess transferable discovery, live verification and field-note patterns against our workflow; refs/REFS.md. *Why* — The captured example may reduce repeated discovery. *Done when* — Transferable patterns or rejection are recorded.
+*What* — Assess Universal Modder discovery, live checks and field notes; refs/REFS.md. *Why* — Repeated discovery. *Done when* — Transfer or rejection is evidenced.
+
 
 **🟡 Desktop hyperagent — high priority, week**
-*What* — Assess voice input/output, installed harness discovery, bounded cross-session context, routing and credit/session limits, with Lucas controlling every decision; reuse aiwbot and Dobra. Compare OpenHarness (refs/REFS.md): Linux, session reuse and relay/trust boundaries. *Why* — Current sessions fragment interaction and resource management. *Done when* — Lucas compares concrete designs and selects one (INBOX 2026-10-07).
+*What* — Reuse aiwbot/Dobra for voice, discovery, bounded context, routing and quotas; assess OpenHarness Linux/lineage/trust (refs/REFS.md; ../code/aiwbot/ROADMAP.md [mobile-session-relay]). [unsloth-browser] Check permissions/network and memory in one bounded browser task. [voice-studio] Compare Portuguese narration, model licence, memory, latency and export. [dessa] Verify release/access/licence and Portuguese relevance; primary page unread. *Why* — Fragmented interaction (Lucas,7 Oct; Claude,23 Oct). *Done when* — Lucas chooses a concrete design.
+
 
 **🟡 MatrAIx evaluation**
-*What* — Assess simulated-user testing against our verification practices; refs/REFS.md. *Why* — It may cover interactive behavior. *Done when* — One bounded comparison establishes coverage and limits.
+*What* — Compare simulated-user testing with our checks; refs/REFS.md. *Why* — Possible behavioral coverage. *Done when* — Bounded validity/limits are recorded.
+
 
 **🟡 PDF throughput**
-*What* — Measure description latency, skip decoration and compare current engines after the pymupdf-layout change. *Why* — Large backfills can take hours. *Done when* — A representative batch establishes time, memory and fidelity.
+*What* — Measure description latency, skip decoration and compare current engines after the pymupdf-layout change. *Why* — Large backfills can take hours. *Done when* — A representative batch establishes time, memory and fidelity. Assess captured sources (refs/REFS.md): [unlimited-ocr] Compare one long document for fidelity, order, runtime and supported memory; separate original/v2 results. [laws-markdown] Assess UFRPE Markdown intake with official links, capture/version dates, completeness and conversion limits.
 
 **🟡 Dependency checks**
-*What* — Let gates consult shared installation checks. *Why* — Feature switches do not prove installation. *Done when* — Enabled-but-uninstalled features produce one diagnosis.
+*What* — Let gates consult shared installation checks; assess local spreadsheet support before adding a package/tool. *Why* — Feature switches do not prove installation; Claude reported unpacking XLSX as XML without openpyxl (18 Oct). *Done when* — Missing dependencies give one diagnosis and a real workbook establishes the supported route. Assess captured sources (refs/REFS.md): [dependency-provenance] Assess how dependency-source verification and locked inventories cover the documented hallucinated-package risk; use the original benign case and reviewed study in teaching.
+
+**🟡 [drive-doc-update] Existing document updates — backlog**
+*What* — Assess in-place document replacement preserving identity/history/access, including failures. Consumer: ../academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md [drive-update]. *Why* — Missing drive_core capability reported 19 Oct. *Done when* — Authorized update verifies; norms/edit.md binds originals.
+
 
 **🟡 Promotion outside session close**
-*What* — Assess a promotion-only path with verification. *Why* — Completed branches wait for roundup. *Done when* — Its benefit and safe verification boundary are established.
+*What* — Assess verified promotion without roundup. *Why* — Finished branches wait. *Done when* — Benefit and verification boundary are established.
+
 
 **🟡 Research intake**
-*What* — Require question/surface inventories, consistent source identifiers, denominators, source type/method, early checkpoints and search limits; verify ambiguous figures and record human-only court lookup limits. *Why* — Omissions and lost work recur. *Done when* — One report preserves these contracts and access limits.
+*What* — Require question/owner inventories, source ids/types/methods, denominators, figure checks, early checkpoints, search/access limits and human-only court lookup. *Why* — Recurrent omissions/loss. *Done when* — One report preserves the contract.
+
 
 **🟡 Report publishing**
-*What* — Assess reusable source resolution, renumbering and Markdown-to-page output, including a neutral named-link domain. *Why* — Repeated sessions use disposable scripts. *Done when* — Lucas selects the capability and one report verifies it.
+*What* — Assess source resolution, renumbering, Markdown-to-page and neutral named-link domain. *Why* — Repeated scratch scripts. *Done when* — Lucas selects a verified capability.
+
 
 **🟡 Proved presentation utilities**
-*What* — Assess remaining performance/benchmark utilities if PowerPoint stays a chosen home; exhaust native capabilities before comparison. *Why* — Proved utilities exist only locally; builders should avoid discarded content. *Done when* — Useful pieces are retained or rejected and online measurement automation has a verdict.
+*What* — Retain proved performance/benchmark utilities if PowerPoint remains selected; exhaust native features first. *Why* — Useful work is only local. *Done when* — Retain/reject remaining pieces and rule on online measurements.
+
 
 **🟡 Forms integration**
-*What* — Assess settings support, response-table export and consent preflight. *Why* — Workflows require manual operations and repeated authorization. *Done when* — One intake retrieves the required state consistently.
+*What* — Assess settings, response export and consent preflight. *Why* — Repeated manual work/authorization. *Done when* — Required state is consistently retrieved.
+
 
 **🔴 Canva leaf: the agent builds and moves a Canva deck, Match & Move included, with no human click per deck**
-*What* — Settle native editable shapes/connectors versus SVG before building; warn Lucas before conversion. Confirm MCP access (documented Education/Enterprise, working on Pro trial ending ~2026-11-02) or draft Apps SDK fallback. Build the Canva leaf through `/craft`; agent-only k10 reproduces bench k1, oracle-verified, then Lucas chooses the slides home. Re-read the shared deck every turn. *Why* — Lucas prefers Canva; motion survives copied seed pages via REST/MCP. Evidence: tools/slides/SPECS.md; design: `outputs/canva-poder-desenho.md`; prototypes: `outputs/.drafts/canva-poder/oracle.py` and `mcp_spike.py`. *Done when* — k10 passes without human clicks and the home decision replaces this item.
+*What* — [subscription-review] Review ChatGPT/Canva use, billing, renewal and alternatives today before more build work. Settle editable shapes/connectors versus SVG with Lucas; verify MCP grant (Education/Enterprise documented; Pro trial reportedly ends ~2 Nov) or Apps SDK fallback. Through /craft, k10 must reproduce k1 without human clicks, oracle-verified; reread shared deck each turn. Evidence: tools/slides/SPECS.md, outputs/canva-poder-desenho.md, outputs/.drafts/canva-poder/{oracle.py,mcp_spike.py}. *Why* — Lucas prefers Canva; copied seeds retain motion. *Done when* — Verified k10 lets Lucas choose the home.
 
-**🟡 a subagent can run on another harness, and an agent proposes it when it saves tokens**
-*What* — Assess read-only prompt-file → output-file delegation between `codex exec`, `agy -p` and Claude Code, plus when to propose it; `core/tools/describe.py` is precedent. The calls and their traps now live in [`agents/CONTEXT.md`](agents/CONTEXT.md); what is left is a session *proposing* it unprompted. *Why* — The 2026-10-14 ideation-board summary and brw examples worked at zero Claude cost. *Done when* — A session proposes it on a suitable fan-out task without being told.
+
+**🟡 [cross-harness-delegation] Reliable delegation across harnesses**
+*What* — Compare quality, total tokens/cost, capability and quota on matched tasks; keep a dated caller/callee command matrix, automatic setup and discovery beyond PATH (Claude Codex-binary report, 30 Oct). Verify configured credentials, sandbox/network scope, unattended startup, retries, PID completion, stalled logs, interruption survival and duplicate-job prevention; session reports are hypotheses. [r-cli] Include memory-service behavior/portability. [pstack] Compare completion, invariants and behavior evidence; verify throughput claims. [context-evidence] Measure context/planning/checks; reject the invented 100k cutoff. Refs: refs/REFS.md; agents/SPECS.md. *Why* — Shared quota and reliable delegation. *Done when* — Bounded completion/failure and public-clone setup are demonstrated.
+
 
 **🟡 evaluate UNSLOP, aihero.dev and Oil UI**
-*What* — Find the real UNSLOP repository; assess aihero.dev /grill-me and /implement, and Oil UI alternatives on one desktop/mobile screen; refs/REFS.md. *Why* — These are named leads, not a general survey. *Done when* — Each has an evidenced verdict against our workflow or a written rejection.
+*What* — Identify UNSLOP; compare aihero.dev grill-me/implement and Oil UI on one desktop/mobile screen; refs/REFS.md. *Why* — Named leads. *Done when* — Evidenced verdicts or rejection.
+
 
 **🟡 our own skills are too big, and nobody has checked whether the bulk earns anything**
-*What* — every `core/skills/*.md` read for verbosity, redundancy, ambiguity, and steps costing more than they save. *Why* — Lucas (2026-08-25): *"skills são úteis mas me parecem meio gigantes quase sempre."* A skill is read in full at invocation, so its length is paid every time it fires.
-*Done when* — no skill is longer than the work it describes, and each one still does its job.
+*What* — Cut verbosity, repetition, ambiguity and costly steps in every core/skills file. *Why* — Invocation rereads the whole skill (Lucas, 25 Aug). *Done when* — Each retained step earns its reading/execution cost.
+
 
 **🟡 every skill is invisible to a session started outside the workspace**
-*What* — skills reachable from a terminal opened anywhere, or a loud failure saying they are not.
-*Why* — `.claude/commands/` is project-scoped, so a session whose project is `$HOME` loads none of the fourteen and silently has no `/roundup`. Reproduced 2026-08-18. *Done when* — Lucas gets the skill or an explicit refusal, never silence. Linking them globally means a workspace skill can fire in a repo it knows nothing about; that trade is the decision, not the wiring.
+*What* — Make skills reachable outside this workspace or fail explicitly. *Why* — HOME sessions silently lack project-scoped commands (18 Aug). *Done when* — Lucas gets the skill or a refusal; review the trust cost of global links.
+
 
 **🟡 `/roundup` ends by asking for something it could have proposed inside the plan**
-*What* — one fewer round-trip per session. *Why* — Lucas suggested it and flagged it himself:
-*"é só uma ideia, avaliar antes de implantar."* *Done when* — evaluated against the one-action rule for agent-facing text: a closing message naming the next session's close names a second action, so the honest version may belong in the plan template rather than in roundup's last line.
+*What* — Assess moving the next closing action into the plan template. *Why* — Lucas requested one fewer closing round-trip, not automatic implementation. *Done when* — Evaluation respects the one-action text rule.
+
 
 **🟢 a `gslides frames` command — the capability question is already answered**
-*What* — one command taking an element, start and end positions, a frame count and an easing, emitting the batch. *Why* — per-object tweens are not in the API, but `duplicateObject` plus `updatePageElementTransform` in one `batchUpdate` authors a frame sequence, proven live 2026-08-14 and PDF-safe by construction. What is left is ergonomics, not discovery. *Done when* — the command exists and the two known traps are handled; both are in [`tools/slides/SPECS.md`](tools/slides/SPECS.md).
+*What* — Expose element/start/end/frame-count/easing batch generation. *Why* — duplicateObject plus transforms already proved PDF-safe frame sequences (14 Aug); remaining work is ergonomics. *Done when* — Command handles both traps in tools/slides/SPECS.md.
+
 
 **🟢 `main` accepts commits from anywhere and Git Flow says it should not**
-*What* — `gitflow_gate.py` refusing a merge into `main` whose other parent is not `develop` (or a `release/*`/`hotfix/*`), and `code/SPECS-git.md` stating that rule where it states the rest.
-*Why* — Lucas asked for it (INBOX 2026-08-28). Today the gate only blocks hand-typed commits on the protected branches; a merge exits early on `MERGE_HEAD`, and the push policy calls `main` the sync point between two machines, so a feature branch can land there and nothing says a word.
-*Done when* — a merge into `main` from anything but `develop` is refused, and the spec and the gate say the same thing.
+*What* — Reject merges into main unless from develop/release/hotfix; align code/SPECS-git.md. *Why* — MERGE_HEAD currently bypasses the gate (Lucas, 28 Aug). *Done when* — Invalid ancestry is refused and spec agrees.
+
 
 **🟢 nothing we build on Drive can be thrown away by the thing that built it**
-*What* — a `trash` command on `gdocs` and `gdrive`. *Why* — both write (`new`, `push`, `mkdir`, `put`) and neither deletes, so every check an agent creates is cleanup Lucas does by hand; two are waiting on him now. *Done when* — a file created by the CLI can be trashed by it, on the write token.
+*What* — Add trash to gdocs/gdrive using write-token access. *Why* — Their own test creations otherwise require manual cleanup. *Done when* — CLI-created files can be trashed by the CLI.
+
 
 **🟢 benchmark Claude Slides and Design against our slides tooling**
-*What* — compare Claude Slides and `/design` canvas generation against `gslides`/`slides_build` for deck authoring. *Why* — Lucas requested inclusion in the slides roadmap (INBOX 2026-09-27); evaluate if native repo-to-deck features replace or augment our pipeline. *Done when* — comparison notes and feature assessment written in `core/tools/slides/SPECS.md`.
+*What* — Compare Claude Slides/design with gslides/slides_build. *Why* — Lucas requested repo-to-deck assessment (27 Sep). *Done when* — Useful differences and verdict are in tools/slides/SPECS.md.
+
 
 **🟢 assess agent harnesses (DeepSeek Harness, Kilo Code, Cline) for WOS runner patterns**
-*What* — evaluate architecture patterns in DeepSeek Harness (Cordis plugin framework, bubblewrap sandboxing), Kilo Code (specialized agent modes, MCP), and Cline. *Why* — external harness survey requested (INBOX 2026-09-27) to identify modular runtime patterns without importing bulk. *Done when* — documented verdict in `core/refs/REFS.md` on whether any pattern transfers to our runner or flows.
+*What* — Assess DeepSeek Harness/Cordis/bubblewrap, Kilo specialized modes and Cline against our runner/flows. *Why* — Lucas requested modular patterns (27 Sep). *Done when* — refs/REFS.md records transfer or rejection.
+
 
 **🟢 evaluate systematic role prompting across WOS agents and flows**
-*What* — test whether assigning explicit roles to subagents/prompts activates distinct latent representations in models and improves task adherence. *Why* — Lucas flagged consistency of 'role' in WOS prompts (INBOX 2026-09-27). *Done when* — experiment measuring output quality vs token cost across 3 tasks with and without explicit role assignment.
+*What* — Compare explicit roles versus none on three tasks. *Why* — Lucas questioned role consistency (27 Sep). *Done when* — Quality/token costs and task adherence are measured.
+
 
 **🟢 obrigar download do PDF completo no flow de revisão de artigos**
-*What* — atualizar `core/flows/research/review.md` para exigir o download e extração completa do PDF do artigo (via arXiv/URL ou twin) antes de iniciar a simulação de peer review, sem avaliar apenas por abstract ou HTML. *Why* — Lucas solicitou obrigatoriedade (INBOX 2026-09-26); avaliações baseadas em páginas web/abstract perdem tabelas, equações, apêndices e dados empíricos cruciais. *Done when* — o passo 4 do flow declara e executa o download mandatório do binário do PDF e seu twin antes de escrever notas de evidência.
+*What* — Require full PDF download/extraction before peer-review simulation in flows/research/review.md. *Why* — Abstract/HTML-only review misses tables, equations and appendices (Lucas, 26 Sep). *Done when* — Review reads the binary and extracted text.
+
 
 **🟢 handoff por domínio ou subrepositório para sessões paralelas**
-*What* — estender a skill `/handoff` (`core/skills/handoff.md`) para aceitar ou inferir um subdiretório/tema de saída (ex.: `outputs/<repo>/handoff.md` ou `outputs/handoff-<tema>.md`), em vez de usar um caminho único e rígido. *Why* — sessões simultâneas sobrescrevem `outputs/handoff.md` uma da outra (INBOX 2026-09-25, sessão taste). *Done when* — `/handoff` gera o resumo no caminho qualificado do projeto ativo e `/roundup` reconhece o handoff específico daquela sessão.
+*What* — Verify project-qualified handoff naming and roundup recognition. *Why* — Parallel sessions overwrote outputs/handoff.md (25 Sep). *Done when* — Session-safe paths resolve without cross-session replacement.
+
 
 **🟢 arquitetura de geração em estágios (pastas/markdown) para slides e animações**
-decks and animations built in stages with an intermediate markdown per stage (script → storyboard → visual → render, Van Clief method); done when the convention is in `core/tools/slides/SPECS.md` and one pilot deck ran through it (INBOX 2026-09-30).
+*What* — Assess script→storyboard→visual→render with intermediate Markdown. *Why* — Van Clief reference (30 Sep). *Done when* — Convention in tools/slides/SPECS.md and a pilot demonstrate it.
+
 
 **🟢 três subskills visuais para geração de slides (/slides)**
-`/slides` gains photo search, shape-based drawing and styled diagrams with good edges and arrows; done when each subskill is validated on real slides (INBOX 2026-09-30).
+*What* — Assess photo search, shape drawing and styled diagrams for /slides. *Why* — Lucas requested better visuals (30 Sep). *Done when* — Each is validated on a real deck.
+
 
 **🟢 backport dos refinamentos de disciplina.md para o template canônico**
-carry what `academy/teaching/classes/ai4good/disciplina.md` learned this semester into the canonical template without breaking `cfpages` (INBOX 2026-09-30).
+*What* — Backport proven ai4good/disciplina.md refinements to the canonical template. *Why* — Share semester learning (30 Sep). *Done when* — Template retains cfpages compatibility.
+
 
 **🟡 submissão interativa de artefatos por matrícula e validação no site de disciplinas**
-a student submits an artefact link with their enrolment number on the course page, and the teacher accepts items in one click; done when a prototype works on a published `disciplina.md` (INBOX 2026-09-30).
+*What* — Assess student link submission by enrolment and teacher acceptance. *Why* — Course-page intake (30 Sep). *Done when* — Prototype works on a published disciplina.md.
+
 
 **🟡 compare HotClip, Drift and Clipa for local edits and captions**
-*What* — Compare xixihhhh/hotclip, Drift and Clipa on one recording: Portuguese caption accuracy, legibility, editability, export fidelity and cost; refs/REFS.md. *Why* — Classes and project videos need accessible editing; Lucas requested Clipa for Virada videos. *Done when* — Record the verdict under tools/video/ before adopting a tool.
+*What* — Compare HotClip, Drift and Clipa on Portuguese captions, readability, editing, export and cost; refs/REFS.md. *Why* — Classes/Virada production. *Done when* — tools/video records a verdict before adoption.
+
 
 **🟢 avaliar iris (Rust CLI + MCP) como ferramenta de visão/câmera para os agentes do WOS**
-test `brijr/iris` as MCP or CLI for the agent to screenshot local and published pages; verdict in `core/tools/web/SPECS.md` (INBOX 2026-09-25).
+*What* — Assess brijr/iris CLI screenshots of local/published pages. *Why* — Agent vision lead (25 Sep). *Done when* — tools/web/SPECS.md records compatibility and verdict.
+
 
 **🟢 portar utilitários de slides_build.py para core/tools/slides/gslides**
-split a deck, copy slides between decks, insert notes and images as `gslides` subcommands with unit tests, out of `ai4good/slides_build.py` (INBOX 2026-09-23).
+*What* — Port deck splitting, slide copying, notes and images from ai4good/slides_build.py to gslides. *Why* — Reuse proved utilities (23 Sep). *Done when* — Subcommands have meaningful checks.
+
 
 **🟡 migrar e sintetizar a skill /prof para en-us**
-translate `core/skills/prof/` to en-us with pt-br terms in backticks, cutting its ~60 KB (INBOX 2026-09-24).
+*What* — Cut and translate core/skills/prof to English, retaining Portuguese terms where needed. *Why* — Oversized invoked text (24 Sep). *Done when* — Guidance remains usable at lower reading cost.
+
 
 **🟢 suportar espelhamento de subdiretórios de subskills no sync-skills**
-`sync-skills` mirrors `prof/` and `slides/` subfolders so relative subskill links resolve in every harness (INBOX 2026-09-24).
+*What* — Verify sync-skills mirrors prof/slides subfolders. *Why* — Relative subskill links must work across harnesses (24 Sep). *Done when* — Every target resolves the mirrored children.
+
 
 **🟡 bounded orchestration through files**
-*What* — Use small units, visible scope, cheaper capacity for precise briefs, cost limits, early checkpoints and approved reading scopes. Start long orchestration in a fresh session from a file plan; passage state lives in the project roadmap. Reuse mechanism-search across Canva/Virada. *Why* — Long swarms exhaust quotas and lose progress. *Done when* — One real run preserves progress within its declared budget.
+*What* — Bound file-based units, briefs, approved reads, cost and checkpoints; resume from plans and project roadmaps. Assess Canva/Virada searches and AI4Good brainwriting before adding a flow. [harness2] Control calls, held-out evaluation, judges and sandbox. [code-mode] Compare composition/filtering with direct calls without Model Context Protocol adoption. [scaledown] Compare narrow heads for cost/correctness, schema versus meaning/generation/service availability. Refs: refs/REFS.md. *Why* — Long swarms lose progress; duplicate tournaments reported 19 Oct. *Done when* — A real run preserves budget/progress and states shared ownership.
+
 
 **🟢 image twin: arquivo .md irmão com OCR + VLM para qualquer imagem isolada**
-`core/run tools/assets/inspect --twin` writes `<image>.md` with OCR and a VLM description, merging `.imgif` and the video caption, and the read gates honour it (INBOX 2026-09-25).
+*What* — Assess assets/inspect --twin combining OCR, descriptions and .imgif/video captions. *Why* — Standalone images lack navigable text (25 Sep). *Done when* — A sibling Markdown is consumed by read gates.
+
 
 **🟢 gdrive download com flag --out e seletor de destino**
-`gdrive download --out <path>` instead of everything landing in `Downloads/workspace-drive/` (INBOX 2026-09-25).
+*What* — Add gdrive download --out. *Why* — Downloads need an explicit destination (25 Sep). *Done when* — Selected paths replace mandatory Downloads/workspace-drive output.
+
 
 **🟢 lint de contraste WCAG no gslides e substituição de pdftoppm por mutool**
-`gslides lint` flags low WCAG contrast, and `mutool draw -w` replaces `pdftoppm -scale-to-x`, which crops (INBOX 2026-09-25).
+*What* — Add WCAG contrast lint and replace cropping pdftoppm sampling with mutool draw -w. *Why* — Slide readability (25 Sep). *Done when* — Contrast is diagnosed and previews preserve page bounds.
 
 ## Blocked — waiting on a trigger
 
-**🟢 the `video/` family name describes less than the family delivers** — it gained a page fallback, so it offers *link → navigable text* while the directory says one medium.
-→ **trigger: the next time something else opens `core/tools/` for a path change.** Two sweeps have already happened and [`tools/SPECS.md`](tools/SPECS.md) § Naming says a third is not free, so pay it alongside another reason rather than on its own.
+**🟢 Video-family naming** — page fallback makes this link→text, not video-only. Trigger: next related core/tools path change; tools/SPECS.md § Naming rules out an isolated third rename.
 
 ## Deferred — flows and agents, findings kept, nothing spent
 
-Lucas, 2026-08-25: the layer waits until the v1 repo is tight. These were found by *running* the flow on 2026-08-24, so they are evidence rather than review notes and are kept at one line each.
-None is worked until the layer reopens.
+Flows/agents wait for v1 (Lucas, 25 Aug); preserve the observed 24 Aug failures until reopening.
 
-- **A craft executor reverted an uncommitted orchestrator edit it did not write.** Loop 6 had been handed the dirty-tree fence and discarded the file anyway; nothing was lost only because the orchestrator still held the text. The fence is writing in a spawn prompt, which names no consequence.
-- **The router has no `experiment` folder**, so a controlled measurement fell back to the padaria gate, which measures the write rather than the investigation.
-- **Padaria mandates a `feature/<name>` branch off develop** while the same flow's Field Practice names "two loops, one repo" as a known hazard.
+- Craft Loop 6 reverted an orchestrator's uncommitted edit despite its dirty-tree brief; prompt-only ownership fencing failed.
+- Router lacks experiment routing; controlled measurement fell into padaria's write gate.
+- Padaria requires a feature branch while Field Practice flags concurrent loops in one repo.
 - **The flow reads 18 KB of routing and runtimes before the gate that decides it needs them.**
-- **Only Loop 1 declares a cap**, and the whole-file check reads it as covering the flow — including Loop 4b, which is called *Code Until Green*.
-- **`engineering` is exempted by path rather than typed**, so the cluster doing the most work is the one not schema-checked.
-- **The three `craft-*` agent mirrors are hand-written twice with no source in `core/`**, which is the last provider-name-in-source violation and the hand-sync hazard `SCHEMA-layers.md` documents.
+- Only Loop 1 declares a cap; whole-file validation falsely covers uncapped Loop 4b (Code Until Green).
+- engineering is path-exempt rather than typed; its schema goes unchecked.
+- craft-* mirrors are authored twice without core source; SCHEMA-layers.md records the provider/manual-sync hazard.
 
 ## Rejected
 
-- **Canva motion through a .pptx** (2026-10-03) — the import collapses every transition to dissolve and Canva's own export writes Match & Move as `<p:fade/>`, so neither direction carries it; motion is inherited from a copied seed page instead (§ Canva leaf).
+- Canva motion through PPTX: import/export reduce Match & Move to fade; use a copied seed (3 Oct).
 
-- **Surveying outside skills for things to import** (asked 2026-07-23, dropped 2026-08-25) — the two leads are DM-bait posts naming skills without linking them, and the named capabilities overlap what `AGENTS.md` and CONTEXT.md already do. Reopen from a real repository, never from a reel.
+- Outside-skill survey: DM-gated unlinked leads duplicated existing guidance; reopen from a real repository (25 Aug).
 
-## Notes
-
-- `.claude/`, `.opencode/` and `.zcode/` are generated mirrors. Never hand-edit; run `sync-skills`, which prunes orphans and writes every link relative so a clone resolves it.
