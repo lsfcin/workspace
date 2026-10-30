@@ -4,22 +4,22 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-10-24 15:55
+last-updated: 2026-10-30 17:59
 
 >**areas** — last 14 days  
 ```
 health       ░░░░░░░░░░   0 touches
-career       █░░░░░░░░░   8 touches
-craft        ██████████   77 touches
-finances     █░░░░░░░░░   9 touches
-fun          ░░░░░░░░░░   6 touches
+career       ██░░░░░░░░   23 touches
+craft        ██████████   78 touches
+finances     █░░░░░░░░░   11 touches
+fun          █░░░░░░░░░   8 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
 >**goals** — last 14 days  
 ```
-burocracia-academica     █░░░░░░░░░   7 touches
-career-ufrpe             ░░░░░░░░░░   0 touches
+burocracia-academica     ████░░░░░░   21 touches
+career-ufrpe             ░░░░░░░░░░   2 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
 craft-flows              ░░░░░░░░░░   1 touches
 cria                     ░░░░░░░░░░   0 touches
@@ -31,7 +31,7 @@ google-migration         ░░░░░░░░░░   0 touches
 guitar                   ░░░░░░░░░░   0 touches
 hair                     ░░░░░░░░░░   0 touches
 health-skills            ░░░░░░░░░░   0 touches
-home-casinhas            ░░░░░░░░░░   3 touches
+home-casinhas            █░░░░░░░░░   5 touches
 instituto                ░░░░░░░░░░   0 touches
 lih-dd                   ░░░░░░░░░░   0 touches
 listenreading            ░░░░░░░░░░   0 touches
@@ -44,18 +44,18 @@ paper-jarbinhas          ░░░░░░░░░░   0 touches
 paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   1 touches
-rpg-isoroll              █░░░░░░░░░   6 touches
+rpg-isoroll              █░░░░░░░░░   8 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   0 touches
 spec-driven-development  ░░░░░░░░░░   0 touches
 startapps                ░░░░░░░░░░   1 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ██████░░░░   31 touches
+teaching-materials       ██████░░░░   30 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   46 touches
+workspace-os             ██████████   48 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
@@ -81,7 +81,7 @@ The one relational move stays one text message.
 | goal | area | horizon | timing | selected achievement | file |
 |------|------|---------|--------|---------------------|------|
 | burocracia acadêmica | career | year | — | [pdf-twin] twin + gate existem, e os 33 PDFs vivos (bur… | [→](goals/burocracia-academica.md) |
-| carreira UFRPE — progressão e renda | career | near | — | [progressao-map] mapear regras e calendário de progress… | [→](goals/career-ufrpe.md) |
+| carreira UFRPE — progressão e renda | career | near | — | [progressao-b2] protocolar a progressão B1 → B2 (direit… | [→](goals/career-ufrpe.md) |
 | corporal expressiveness | spiritual | dream | — | [body-awareness] read or watch something about body lan… | [→](goals/corporal-expressiveness.md) |
 | craft flows | career | now | — | [opencode-reliability] (A2) executar UM chain completo … | [→](goals/craft-flows.md) |
 | cria — ideação híbrida como mechanism design | craft | now | aprova | [unpark] retomar a decisão de shape — piloto observacio… | [→](goals/cria.md) |

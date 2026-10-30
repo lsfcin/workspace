@@ -23,6 +23,15 @@ Use the published calendar: 17 Wednesday presentation/status meetings and 17 Fri
 
 ## backlog
 
+> [ ] [guia-humano-ia-artefatos] Track meaningful alternatives, justified student choices and interviews that check understanding in ../../academy/teaching/ROADMAP.md [guia-humano-ia-artefatos]/[prompts-por-etapa-artefatos] and both AI4Good/TechEdu course roadmaps (backlog).
+
+> [ ] [subscription-review] Track the teaching-platform decision after the subscription review in finances.md and core/ROADMAP.md, Canva leaf (today).
+
+> [ ] [inbox-20261030-teaching] Track [anatomy], [context-evidence], [dessa], [firecrawl], [laws-markdown], [nomad], [plain-explanations], [pstack], [rated-tools], [repo-maps], [unlimited-ocr], [visual-comparisons], [voice-studio], [web-motion] in ../../academy/teaching/ROADMAP.md; refs: ../../academy/teaching/REFS.md (backlog).
+> [ ] [inbox-20261030-ai4good] Track [ai-credit-crisis], [airllm], [brazil-ai], [code-mode], [deepinfer], [dependency-provenance], [gpu-unlock], [harness2], [mesh-llm], [model-continuity], [qwenputer], [scaledown], [strata-local], [unsloth-browser] in ../../academy/teaching/classes/ai4good/ROADMAP.md; refs: ../../academy/teaching/REFS.md (backlog).
+
+> [ ] [brainwriting-mechanism] Track the shared ideation/brainwriting assessment in academy/teaching/ROADMAP.md and core/ROADMAP.md, bounded orchestration (Claude-session report, 19 Oct).
+
 > [ ] [visual-tools] Track editability, accessibility, source fidelity and reproducibility of captured visual tools in academy/teaching/ROADMAP.md [visual-tools]; REFS.md (backlog).
 > [ ] [synthetic-evidence] Track the methodology/validation/limits assessment in academy/teaching/ROADMAP.md [synthetic-evidence]; simulations do not establish real behavior (backlog).
 
@@ -107,5 +116,5 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json` (sobras e manutenç
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-16  ·  trend: steady  ·  touches: 39/93/103/103/103/103
+last-touch: 2026-10-30  ·  trend: steady  ·  touches: 42/116/131/131/131/131
 <!-- stats:end -->

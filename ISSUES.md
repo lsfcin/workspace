@@ -1,363 +1,150 @@
 # Workspace issues
-> What is currently untrue that we know about: hand-written issues first, every measured number
-> inside its own generated block.
+> Open workspace defects; project defects belong in their owning ISSUES.md.
 
-The scope is the **workspace itself** — the enforcement layer, the tools, the structure. A bug in a
-project under `code/` belongs to that project's own `ISSUES.md`, and **the block below counts this
-repo alone** (ruled 2026-09-04): those projects are separate repos this one's git ignores, so a
-count of them was a fact about one machine's disk rather than about the workspace, and the same
-commit read green on the clone that wrote it and red on the other. Each project counts itself, at
-its own commit; where each one lives is [`PROJECTS.md`](PROJECTS.md).
-
-Two rules, both from [`core/SCHEMA.md`](core/SCHEMA.md) § Vocabulary:
-**never hand-edit inside a generated block**, and **never write a measured number outside one** — a
-copied count is the drift these checks exist to catch. The FIXED gate governs the hand-written half
-only, and it is satisfied the same way here as in every project: a bug flips to FIXED when a
-matching regression spec exists and passes.
-
-**An item ends with its id, and the id is what makes that sentence true** (2026-09-21). The gate
-matched `## b<id>` headings and nothing else, which no list here has ever used — 937 runs, 0
-blocks, while this head already claimed it governed the file. It reads bullets now, and it holds an
-item to proof exactly when the item carries an id, so `b20260921` is what a spec filename has to
-name. An entry without one is invisible to it.
+Delete resolved issues only with matching passing regression proof. Tools own generated measurements (core/SCHEMA.md).
 
 ## Open
 
 - **verify:fast is red in a fresh worktree or clone, for reasons that name no cause.** A worktree has no `.venv` (5 codegraph cases: `core/run: no interpreter`), no skill mirrors (mirror heal precondition), and no nested repos: 4 cases read `academy/teaching/`, and `conftest.needs` cannot skip them because `carries` judges the top segment (`academy`, tracked). 24 Oct the worktree passed only with `.venv` and `academy/teaching` symlinked from the main tree. Teach `carries` about nested repos, and say what a worktree needs before the suite runs. `b20261024-worktree-suite`
 
+- Calendar ranges reportedly returned empty for cin/ufrpe; verify dates, account/auth and empty-versus-failure output (Claude RDA session, 24 Oct). `b20261030-calendar-range-auth`
+
+- Personal Drive write token reportedly failed twice in one RDA session; reproduce token persistence/refresh separately from read access (Claude, 24 Oct). `b20261030-drive-write-token`
+
+- Drive search reportedly silently caps results at 20; expose limit/pagination and distinguish exhausted results from a partial page (Codex progression report, 26 Oct). `b20261030-drive-search-pagination`
+
+- PDF gate reportedly requires a twin for script-compiled TeX without .texif despite the compiled-PDF exclusion. Verify source recognition, keeping arbitrary Python PDF reads separate (Claude RDA, 24 Oct). `b20261030-compiled-pdf-detection`
+
+- Partial path commit reportedly regenerated full AGENTS.md with another session's staged EDIT > CREATE line but excluded its norm source. Extend test_partial_commit_staging scope to generated norms, preserving unrelated staging (Claude, 26 Oct). `b20261030-partial-norm-staging`
+
+- Mail fetch defaults to 50 unread messages, one page, no arbitrary query. Reproduce missed DocuSign PDFs (Claude, 17 Oct; multipart recursion exists), query/after/before pagination, long attachment filenames and cached-email PDF evidence (RDA/progression reports, 24–28 Oct). `b20261024-mail-search-attachments`
+
+- **Slides text writes despite its ambiguous name.** It creates a text box; Claude reports nearly invoking it as a read and an expired grant blocking authenticated reads (19 Oct). Clarify intent/grant. `b20261024-slides-command-auth`
+
+- **Public rebuild reportedly fails its target suite.** Claude reports omitted generator dependencies, a missing vendored fixture, routing/header failures and timeouts (21 Oct); test markers were staged into the target. Reproduce current failures; isolation: b20260923-publish-test-real-target; markers: b20260922-state-stores. `b20261024-publish-target-suite`
+
+- **Named-link checks accept a site target its renderer cannot resolve.** Claude reports ai4good/brw used an extensionless route instead of the Markdown query form (21 Oct). Validate local targets or diagnose unsupported routes before sharing. `b20261024-links-target-resolution`
+
+- **Scheduled disk cleanup reportedly depends on a tool absent from the active tree.** Claude reports a 1 Nov job targeting tools/disk/ubuntu, missing SETUP coverage for scheduling and Hugging Face/ComfyUI symlinks into models/, and three Whisper variants: turbo for audio, base for video, small for rastro-da-banca (24 Oct). Verify installation and visible failures before November; assess model differences before standardizing. `b20261024-disk-cleanup-install`
+
+- **Retired memory integration targets a missing directory.** The Claude memory symlink still targets absent brain/memory (verified 24 Oct). Remove obsolete integration; use durable workspace files. `b20261024-retired-memory-pointer`
+
 - **UNGATED WRITE can attribute an output to the directory preceding cd.** Claude session, 16 Oct, reports a warning naming brw/excelente.md while the command wrote into cmp/; verify relative-path attribution across directory changes. `b20261017-ungated-write-cwd`
 
-- **Video extraction hides batch progress and counts empty bundles as successful.** The full INBOX extraction returned usable metadata, speech, screen text and descriptions for some posts, but also reported success for empty image-post bundles and an IndexError for another link. Report usable results, failures and progress separately, preserve partial results for resumption, and assess the serial visual-description latency. `b20261017-video-batch-results`
+- Video extraction hides progress/partial results and calls empty or error-only galleries successful. Reproduced 30 Oct: mixed-carousel omissions, dimensionless thumbnail selection at 150 px, IndexError on downloaded clips without audio, serial image-call stalls without persisted per-link results. Preserve every slide/full-resolution image and numeric comparisons with estimation uncertainty. Earlier reports: cancellation with no output (24 Oct), YouTube 403 despite JS runtime (19 Oct). `b20261017-video-batch-results`
 
 - **Roundup attributes native ChatGPT closes to a Claude transcript.** `core/tools/wos/roundup.session_id()` picks the newest `.claude/projects` transcript; unlike `tools/wos/handoff`, it ignores native session identity. Cost, size deltas and compaction need provider-aware attribution before being treated as this session's measurements. `b20261016-roundup-session-attribution`
 
 - **Brain stats reports success but leaves its refreshed files unstaged.** Inbox triage observed `brain/GOALS.md` unstaged and refreshed goal files partly staged after a successful `core/run hooks/brain/brain_stats.py`; complete staging explicitly and establish why its internal stage call fails. 24 Oct: every commit staging a goal leaves it dirty again, worktree one touch ahead of HEAD (rpg-isoroll 7/121 committed, 8/122 on disk), so roundup never sees a clean tree. `b20261014-brain-stats-staging`
 
-- **Reported PDF conversions exceed their expected duration; low-confidence page recognition inflates audit references. Establish the blocking stage and filter confidence consistently (25 Sep, 8/9 Oct).** `b20261014-pdf-conversion-audit`
+- **Reported PDF conversions exceed their expected duration; low-confidence page recognition inflates audit references. Isolate the blocking stage and filter confidence (25 Sep, 8/9 Oct).** `b20261014-pdf-conversion-audit`
 
 - **Python scripts opening PDFs escape command-text detection; scope this independently of metadata inspection and verified self-generated PDF access (26 Sep).** `b20261014-pdf-script-read`
 
 - **Slide sampling starts a renderer per page instead of a multi-page request; verify equivalent output from batched rendering (deck_sample.render_sample_images, 26 Sep).** `b20261014-slide-sample-batch`
 
-- **Reported read-gate tests alternate between failure and success, and sessions repeat completed context reads. Establish whether registration or session state causes it; reported reproducer test_b20260831_silent_stub_gate.py (26 Sep, 7 Oct).** `b20261014-read-registration`
+- Read-gate tests alternate success/failure; completed CONTEXT reads are repeatedly demanded, including immediately preceding reads in native Codex (30 Oct). Investigate registration/session identity; reported reproducer test_b20260831_silent_stub_gate.py (26 Sep/7 Oct). `b20261014-read-registration`
 
-- **Retired-token substring matching rejects valid words and titles; match the intended lexical unit (26 Sep).** `b20261014-retired-substrings`
-  Claude session, 16 Oct, reports a finding inside the cited Patel et al. article title in teaching/cmp; assess proper-name and citation handling alongside lexical matching.
+- **Retired-token substring matching rejects valid words and titles; match the intended lexical unit (26 Sep).** `b20261014-retired-substrings` Claude session, 16 Oct, reports a finding inside the cited Patel et al. article title in teaching/cmp; assess proper-name and citation handling alongside lexical matching.
 
 - **The reported private-repository fiscal-identifier exception conflicts with the current secrets rule and PDF-twin ignore behavior. Resolve policy before changing either; bypass debt casinhas fa7244e (29 Sep).** `b20261014-private-pdf-policy`
 
 - **Default gslides previews land in the workspace root, unlike Drive downloads; private-deck export lacks an authenticated path. The cross-filesystem move is already corrected (26 Sep).** `b20261014-slides-preview-export`
 
-- **The presentation generator reads separate JSON rather than design-system tables, allowing theme data to diverge (26 Sep).** `b20261014-theme-input`
+- **Presentation generation reads JSON instead of design-system tables; themes can diverge (26 Sep).** `b20261014-theme-input`
 
 - **Reported slide references use inconsistent classification and generic descriptions; assess ownership and relevance descriptions without automatic YAML promotion (26 Sep).** `b20261014-slide-ref-metadata`
 
 - **Verify transcript redaction of the authorization-code pattern reported in the Canva session; retain labels rather than credentials (26 Sep).** `b20261014-transcript-redaction`
 
-- **File-description lookup and tracked-file validation use incompatible repository roots; neither accepts Virada pagina/frases.json. Resolve from the workspace and accept tracked nested-repository files; bypass debt e106d95 awaits regression coverage (5 Oct).** `b20261014-nested-file-description`
+- **File-description lookup and tracked-file validation use incompatible repository roots; neither accepts Virada pagina/frases.json.** Claude reports described.txt suffix matching against nested-repository-relative paths despite workspace-relative keys (administration,18 Oct; 1322,23 Oct). On 30 Oct, the PPC session reports partials/jsconfig.json fails by repository-relative path but works by absolute path; stubgen creates folder configs that trigger it. Its config-consolidation workaround is a report, not the root fix. Resolve roots; bypass debt e106d95 awaits regression coverage. `b20261014-nested-file-description`
 
 - **Expanded hook-link verification becomes slow in duplication checking; isolate the cause before changing it (5 Oct).** `b20261014-verification-latency`
 
-- **The rtk search wrapper rejects supported output flags; support them or give an explicit working alternative (12 Oct).** `b20261014-search-flags`
+- **rtk rejects supported search flags; support them or show a working alternative (12 Oct).** `b20261014-search-flags`
 
-- **Cloning and shell-created directories do not refresh routing tables; compare tables with disk independently of edit events. Branches was manually resynchronized in ce4d4ab7 (14 Oct).** `b20261014-routing-cloned-dirs`
+- Cloned/shell-created directories do not refresh routing; compare disk independently of edit events. Claude 28 Oct: ai4good/artefatos routing gained tec/* only when flx committed; flx still absent, one turn late. Earlier manual resync: ce4d4ab7 (14 Oct). `b20261014-routing-cloned-dirs`
 
-- **Context gate bloqueia ferramentas utilitárias sobre arquivos binários (ex: pdfinfo) (2026-09-25).**
-  Em `core/hooks/read/bash-context-gate.py`, comandos de inspeção rápida em arquivos binários disparam exigência de leitura de todos os CONTEXT.md da árvore sem necessidade semântica. O gate deve isentar executáveis de extração de metadados. `b20260925-gate-binary-readonly`
-  INBOX 9 Oct adds metadata inspection and verified self-generated PDFs to the scope question; preserve the separate Python-script detection finding.
+- bash-context-gate.py unnecessarily demands subtree context for binary metadata tools such as pdfinfo. Establish metadata/self-generated compiled-PDF exemptions separately from Python-script PDF detection (25 Sep/9 Oct). `b20260925-gate-binary-readonly`
 
-- **Servidores de GPU órfãos retêm VRAM após falhas de ferramentas de PDF (2026-09-25).**
-  Processos filhos iniciados por bibliotecas como Marker e MinerU (surya, mineru.doclib) continuam em memória após erro, segurando VRAM e forçando reinicialização do sistema. Ferramentas de GPU devem derrubar deterministamente o que subiram. `b20260925-gpu-orphan-vram`
-  PDF notes report Docling memory exhaustion and failed screen unlock without a GPU-failure event. Distinguish retained processes, memory pressure and driver behavior before another backfill; check simultaneous model residency.
+- Marker/MinerU/Surya children retain VRAM after PDF-tool failure; verify deterministic child cleanup. Distinguish this from reported Docling exhaustion, screen-unlock failure and driver behavior; check simultaneous model residency (25 Sep). `b20260925-gpu-orphan-vram`
 
-- **Sub-repositórios não possuem sentinela no pre-commit contra arquivos rastreados deletados no disco (2026-09-25).**
-  O gate raiz ignora sub-repositórios (`academy/teaching`), permitindo que comandos com `--cached` no raiz deixem deleções pendentes que limpam arquivos rastreados do disco na troca de branches sem nenhum alarme. `b20260925-subrepo-tracked-deleted-sentinel`
+- Pre-commit can delete tracked files through cached removals/branch switches; include quiet repos. Claude restored administration files (18 Oct); a detached promotion commit and scoped amend dropped 12 Brain files (30 Oct). Reproduce temporary-index handling. `b20260925-subrepo-tracked-deleted-sentinel`
 
-- **`check_truncation` triggers false positives on literal ellipsis characters inside routing blocks (2026-10-03).**
-  In `core/hooks/entropy/entropy_context.py`, `check_truncation` searches `if '…' in ln` across lines in the routing block. An author writing an intentional ellipsis in prose or titles trips the truncation check even when the description length is well within `hoist.DESC_LIMIT`. The check must only fire when the line actually ends with an ellipsis or exceeds `DESC_LIMIT`. `b20261003-check-truncation-ellipsis`
+- entropy_context.check_truncation flags any literal ellipsis in routing prose/titles. Restrict to actual truncation/description overflow; preserve intentional characters (3 Oct). `b20261003-check-truncation-ellipsis`
 
-- **Research findings and exploration notes in `outputs/.drafts/` are gitignored and do not sync between machines (2026-09-24).**
-  Sessions running parallel investigations store draft notes and benchmark scripts in `outputs/.drafts/` (e.g. slides research, taste explorations). Because `outputs/` is completely gitignored, the other machine cannot see or build upon these findings, creating an asymmetric workspace state between Lucas's machines. Open until a durable, syncable pattern for cross-machine scratchpad/drafts is established. `b20260924-drafts-sync`
-  Add PDF benchmark inputs/keys in tmp/pdf-bench, lost conference twins and proved presentation/Canva utilities in temporary or ignored folders. Keep inputs locally durable and credentials separately excluded from version control.
+- Ignored outputs/.drafts and tmp research/benchmarks/Canva utilities do not sync between machines. Preserve reusable findings, inputs and provenance durably; keep credentials excluded. Reassess prototype tracking, lost conference twins and reported artifact limits (511/version,255/publication). 1322 source tracking resolved its own case; broader sync remains open. `b20260924-drafts-sync`
 
-- **Hook warnings use double-negative `NOT REFUSED` instead of affirmative `ALLOWED` or standard alert vocabulary (2026-10-02).**
-  In `core/hooks/checks/line_counts.py`, `core/hooks/entropy/entropy_crowding.py` and `core/hooks/entropy/entropy_context.py`, warnings display `NOT REFUSED — this is the warning at {warn}... Nothing stops until {block}`. Lucas asked in INBOX: "pq o nosso warning começa com NOT REFUSED ao invés de ALLOWED? é essa a melhor linguagem mesmo?". Double negative creates visual clutter and friction. Open until vocabulary is audited against `core/SCHEMA.md` and concise affirmative phrasing (e.g. `ALLOWED — warning at {warn}...`) is adopted. `b20261002-hook-warning-vocabulary`
+- line_counts.py, entropy_crowding.py and entropy_context.py use double-negative NOT REFUSED warnings. Audit against SCHEMA vocabulary and prefer affirmative ALLOWED wording (Lucas, 2 Oct). `b20261002-hook-warning-vocabulary`
 
-- **Boundary friction between goal tasks and project roadmaps confuses capture and execution (2026-09-29).**
-  The `/inbox` skill feeds commitments into `brain/goals/*.md` backlogs, but technical build work belongs in `code/<proj>/ROADMAP.md` and the root `ROADMAP.md`. Lucas notes a strong tendency to look for tasks directly in roadmaps, leaving goal backlogs stale or duplicated. Open until the taxonomy and intake contract are explicitly defined between personal OS life commitments and technical project backlogs. `b20260929-task-roadmap-boundary`
-  Triage also found rpg-isoroll selected achievement still describes painting in Foundry, while isoroll-content ROADMAP D8 calls for text-authored layouts and parks the painter. Tracking wording needs to follow the owning plan without reopening its design decision.
+- Goal backlogs and technical roadmaps duplicate/stale work; define capture versus execution ownership. rpg-isoroll still names painting in Foundry while content ROADMAP D8 chooses text-authored layouts and parks painting; align tracking without reopening design (29 Sep). `b20260929-task-roadmap-boundary`
 
-- **The slides surface still names Google Slides as the provider; the home itself is open again (Canva leaf, 2026-10-03).**
-  `core/tools/slides/CONTEXT.md` calls `gslides` the leaf and says `pptx` exists "for Drive to convert"; the `/slides` router
-  loads the `gslides` leaf; the A/B gate in `core/prompts/slides-padroes.md` waits for the home to be decided. Audit
-  2026-09-29 adds: `formats/animation.md` still says a build is a slide sequence because "the API has no animation";
-  `stats`/`preview` read only Google's JSON (`pptx lint` now covers motion and text size on a .pptx, not archetypes or
-  preview); `montador` reads and skips through `gslides`; `contact_sheets` lives in the Google-bound `slides_core`.
-  Lucas's ruling: providers stay **interchangeable**, and decks migrate one at a time, slide by slide, never in batch;
-  if Canva becomes the home (`core/ROADMAP.md` § Canva leaf, step 5), what exists only for PowerPoint or Google Slides
-  is deleted, not ported. Open until the router picks a provider per deck and each leaf carries its own read, lint and preview.
+- Antigravity lifecycle hooks start at HOME, so relative core/run blocks tool calls. Current fallback uses ~/workspace from sync-global-skills; prove dispatch from HOME via regression without authoring-mount paths (test_port_ceiling.py). `b20260925-antigravity-hook-cwd`
 
-- **The Antigravity lifecycle hook runner executes outside the workspace root, so relative `core/run` fails and blocks every tool call.**
-  Antigravity fires `PreToolUse` and `PostToolUse` with its process working directory at `$HOME` rather than the workspace root.
-  A bare relative command (`sh core/run ...`) in `.agents/hooks.json` exits with `sh: 0: cannot open core/run: No such file`,
-  which immediately aborts all agent tool calls. The fallback is now `cd ~/workspace`, the link `sync-global-skills` creates on
-  every machine — not the authoring mount, which `test_port_ceiling.py` forbids. Open until a regression spec proves a hook fired
-  from `$HOME` reaches the dispatcher. `b20260925-antigravity-hook-cwd`
+- Agents rewriting an old INBOX snapshot can overwrite concurrent captures. Bot locks, writes and reads back (f11a2334), but other writers need the same lock or fresh-read contract; lost 20 Sep captures were never committed. `b20260921-inbox-writers`
 
-- **`brain/INBOX.md` has many writers and no protocol, and the one that was caught losing captures
-  is the one that could not defend itself.** The bot now locks the file, writes under the lock and
-  reads the entry back before confirming (`f11a2334`), so a capture it cannot land raises instead of
-  being confirmed. That is detection, not prevention: an agent session holding a read from minutes
-  ago still rewrites the whole file and still wins, and nothing here asks it not to. The eight
-  captures lost on 2026-09-20 were lost to exactly such a write — no commit in the window removed
-  them, and the bot's writes were never committed, so which session did it is not recoverable.
-  What is missing is the rule for THIS side: re-read before writing the capture file, or take the
-  same lock. `b20260921-inbox-writers`
+- Nonmedia fallback reads GitHub sign-in chrome instead of raw README and counts no text as ok. Reports add core/ mistaken as workspace root, Exec format error, JavaScript/PDF/HTTP handling, empty searches and concurrency failures; r.jina.ai blocked 12 Oct. Batch persistence/progress: b20261017-video-batch-results. `b20260921-fetch-fallback`
 
-- **`core/tools/video/video` returns nothing for a link it cannot treat as media, and says `ok`.**
-  A GitHub repository URL in the triage queue came back `[incomplete: ERROR: Unsupported URL]` and
-  then `(no text extracted)` from the `fetch` fallback, which had reached the page and pulled only
-  its sign-in chrome. The skill promises `fetch` as the fallback for a link carrying no media, so a
-  ref would have been routed on nothing; the content was three seconds away at the raw README. Two
-  halves: the fallback does not follow a code host to a readable surface, and a link that yielded no
-  text is still counted in the `ok` column, which is the false green these checks exist to end.
-  `b20260921-fetch-fallback`
-  INBOX 6/12 Oct and triage 14 Oct: video_core.py/video_images.py resolve the workspace as core/, the fetch fallback raises Exec format error, and batches lack item progress and partial persistence. Full extraction returned only empty text while declaring success; count contentless results as failures. Web/paper sessions also report JavaScript-only pages, HTTP failures, missing PDF handling, empty paper searches and silent concurrency failures; verify alternatives. The previously used r.jina.ai reader was reported blocked on 12 Oct.
+- SCHEMA underscore-template rule has no checker; teaching/structure/templates remains unmarked (AD-16). Decide whether enforcement earns its cost before rename; existing mechanisms otherwise correctly treat unmarked directories as instances. `b20260918-template-naming`
 
-- **The template-naming law is written and nothing enforces it, which is the defect `core/SPECS.md`
-  § AD-16 names.** The rule landed in `core/SCHEMA.md` on 2026-09-18, in the section
-  *A leading underscore marks a shape, never an instance*, after four separate modules were found
-  reading that underscore and none of them stating it. The rule is now induced wearing the costume of enforced: no check fails a template
-  directory that skips the marker, and one already does —
-  `academy/teaching/structure/templates/`. That tree settled on 2026-09-20 and the rename is now
-  unblocked, so what is left is the half that was always the harder one: decide whether the rule
-  earns a check at all. **It may not.** The four
-  mechanisms already behave correctly on a directory without the marker — they simply treat its
-  contents as instances, which is the right answer for every directory except a template one, and
-  the count of those in this workspace is three. `b20260918-template-naming`
+- Parallel sessions share index, branch and suite; unfinished work blocks unrelated commits and failures are misattributed. A previous bypass masked CRLF-on-staged-deletion and untracked-target checker faults and let core refs exceed cap. On 30 Oct, full-suite teardown guards blamed tests for concurrent changes in code/ppc and code/rastro-da-banca; assertion failures were cleared, but this prevented a green close. Verify branch/index scope and guard attribution; audit bypass scope. Worktree preparation remains in ROADMAP. `b20260918-shared-index`
 
-- **Two sessions share one index and one suite, so either can hold the other's commits hostage for
-  as long as it is mid-edit.** The question the 2026-09-18 `--no-verify` bypass exposed, and no rule
-  answers. The bypass itself is paid — the suite is green at 950 — and how it was paid is the
-  argument: neither failure it named survived contact. One was a CHECK BUG in this repo, not the
-  other session's tree (a staged delete leaves `w/` empty and the worktree arm read blank as CRLF,
-  so three deleted files were reported as CRLF). The other was two untracked routing targets, and
-  **one of the two was this session's own**, mis-attributed to the parallel tree by the handoff
-  that read the failure without opening it. A failure blamed on a tree nobody may touch is a
-  failure nobody diagnoses; that is what the shared index costs, more than the blocked commit.
-  **And the bypass left a trace nobody saw for three days**: `core/refs/REFS.md` crossed
-  `BLOCK_CHARS` in that same commit and sat 100-200 over it for three commits, until a session
-  happened to edit the file and was refused. The cap is enforced on what a commit STAGES, so a file
-  that gets over it once stays over until someone touches it — which is the whole cost of
-  `--no-verify`, and the part the protocol does not ask anyone to check afterwards.
-  `b20260918-shared-index`
-  PDF/taste sessions also report branch changes during unfinished work and verification against another session's incomplete tree. Worktree preparation is in ROADMAP.md; preserve other sessions' changes.
+- test_a_rebuilt_target_settles_in_one_pass rebuilds the real code/wos target (core/public.txt), alternately dirtying/failing subsequent serial runs. conftest tree guard misses gitignored nested repos; isolate the target and cover the guard (23 Sep; related b20260902). `b20260923-publish-test-real-target`
 
-- **A suite case rebuilds into the REAL public checkout, and the next run fails on what it left.**
-  `core/public.txt` declares `target code/wos`, and `test_a_rebuilt_target_settles_in_one_pass`
-  rebuilds there rather than into a throwaway. Found 2026-09-23 by the signature: the suite
-  alternates green, red, green, red, because run N leaves the dirt that fails run N+1's
-  `test_every_project_declares_its_goal`, and that run cleans it. Serial suite, no xdist — the
-  alternation is the proof. It breaks the law `b20260902` exists to hold and the promise
-  `core/tools/test/wos/publish/CONTEXT.md` makes in its own words: *"nothing touches the real
-  workspace"*. The autouse tree guard in `conftest.py` did not catch it, which is the second half of
-  the finding — the guard watches the workspace tree and `code/wos` is a nested repo git ignores.
-  `b20260923-publish-test-real-target`
+- Remaining ruled renames: shim→adapter, drift→divergence, corpus→tracked files, crowding→files per folder, drain→empty, sweep→scan, whitelist→allowed list. list/check/law/harness/boundary/surface need costed scope; some were chosen replacements despite Lucas finding them unclear. Keep legitimate multi-hop; remeasure with git grep (23 Sep). `b20260923-vocabulary-queue`
 
-- **Words Lucas named on 2026-08-18 as ones he cannot parse are still in the tree; six of them are
-  out as of 2026-09-23 and the memory that had held the queue for five weeks is gone.** Replacements
-  already costed and ruled, each one session's work: `shim` → `adapter`, `drift` → `divergence`,
-  `corpus` → `tracked files`, `crowding` → `files per folder`, `drain` → `empty`, `sweep` → `scan`,
-  then `whitelist` → `allowed list`. Counts move; re-run `git grep`. **The finding is what was NOT
-  taken**: `list`, `check`, `law`, `harness`, `boundary` and `surface` are too many occurrences for
-  one pass, and three of them — `list`, `boundary`, `crowding` — are replacements this workspace
-  CHOSE on 2026-09-14 off the same list of words he had already said he could not read. `hop` stays
-  unretired: `multi-hop` is domain vocabulary in the mutual-credit paper and in `code/gira`, and
-  `core/SCHEMA.md` § Retired tokens forbids a row that fails on correct prose.
-  `b20260923-vocabulary-queue`
+- Per-machine ignored scoreboard keys were migrated only here; other machine retains inbox-nudge/compass-nudge/publish-nudge after feature renames. Preserve history there and define migration for future versioned-key/per-machine-data asymmetry before interpreting the reading. `b20260920-scoreboard-keys`
 
-- **The other machine's scoreboard still records three features under names nothing answers to.**
-  Renaming a feature renames its key in `core/features.txt`, and the scoreboard is an append-only
-  log keyed by that name — so 524 rows written before 2026-09-20 say `inbox-nudge`,
-  `compass-nudge`, `publish-nudge`. This machine's copy was migrated with the rename and lost
-  nothing; the file is gitignored and per-machine, so the other one was not, and the two-week
-  reading due 2026-09-28 will show those three at zero there. The substitution is one line and
-  anyone can run it, which is why this is a note and not a tool. **The asymmetry is the finding**:
-  a feature's name is versioned and its measurements are not, so every future rename silently
-  costs history on every machine that is not the one doing the renaming. `b20260920-scoreboard-keys`
+- Nested entropy refreshes only on that repo commit; quiet reports age undetected despite printed dates. ai4good example on 20 Sep regenerated a 4 Sep snapshot. Add freshness interpretation without pretending root close scans nested repos. `b20260920-quiet-repo-entropy`
 
-- **A nested repo's entropy report only refreshes when someone commits in that repo, so a quiet one
-  ages with nothing saying so.** The close runs the dashboard on this repo alone, by design (one
-  repo per run, ruled 2026-09-04), and the only other trigger is that repo's own pre-commit. Found
-  2026-09-20: a one-word pointer fix in `academy/papers/ai4good/` regenerated a block dated
-  2026-09-04 and it moved 6 findings → 8, none of them caused by that commit. Seventeen days of
-  drift were invisible because nothing had been committed there. Same class as the branch-list
-  entry below — a report read as current while nothing says how old it is — and here the date IS
-  printed, which is the cheap half already done. The missing half is anything that reads it.
-  `b20260920-quiet-repo-entropy`
+- Generated safe-to-delete branch lists age during the session and may name newly unmerged work. Recheck ancestry against origin/main at deletion and assess excluding branches whose tips moved; never execute snapshot advice blindly (14 Sep). `b20260914-branch-list-snapshot`
 
-- The entropy block's *"safe to delete, and outward-facing"* branch list is a SNAPSHOT presented as
-  a standing instruction, and it goes stale inside the session that reads it. Found 2026-09-14 by
-  nearly running it: the block named `feature/legibility-identifiers` among three branches merged
-  into `main`, but two commits had since landed on it — the post-commit auto-push had carried them
-  to the remote, so the command the report offered would have deleted unmerged work. The report is
-  regenerated at close and read at open, which is exactly the window auto-push writes into. Nothing
-  in the line says how old it is. Two cures, and they compose: re-check `git merge-base
-  --is-ancestor origin/<branch> origin/main` at the moment of deletion rather than trusting the
-  block, and have `branch_debt.py` exclude any branch whose tip this session moved. The first is
-  what saved it by hand this time. `b20260914-branch-list-snapshot`
+- Registry keys google-auth/notes-notion/link-shortener/wazip/video-text/asset-inspect/vpn-cin diverge from function-family names. Follow tools+skills merge precedent, update setup/profile/deps joins and retired-token rows. links collides with the norm in a flat namespace despite group distinctions; preserve that design question. `b20260915-feature-names-carry-vendors`
 
-- **Seven feature names disobey the rule their own tools live under.** `core/tools/CONTEXT.md`
-  says the family directory is the feature and the file is the provider — function in the
-  directory, vendor at the leaf — and the registry then spells the same features `google-auth`,
-  `notes-notion`, `link-shortener`, `wazip`, `video-text`, `asset-inspect` and
-  `vpn-cin`, while the directories are already `auth/`, `notes/`, `links/`, `chat/`,
-  `video/`, `assets/` and none. Found 2026-09-15 by Lucas, from `vpn-cin` carrying an institution
-  inside a directive. `forms/gforms` is the row that already obeys, so the fix is to DROP the
-  vendor, never to spread it — and a skill takes the FAMILY name too (Lucas, 2026-09-16), which is
-  how `core/skills/gmail.md` became `mail.md`. **The eighth was paid that day, and how is the
-  pattern for the rest**: `mail-triage` → `mail` collided with the skill row `gmail`, because the
-  tool half and the skill half of ONE capability were two rows. They merged into one `tools+skills`
-  row, the shape `forms` already had — so the sweep PAYS rows rather than spending them.
-  **One of the seven cannot be fixed the obvious way**: `link-shortener`
-  → `links` collides with the norm named `links`, which owns the name by the same law
-  (`core/norms/links.md`), and the registry key set is flat. That collision is the asymmetry worth
-  writing down — two namespaces share one key space, and `group` already distinguishes them
-  everywhere else. The other six ripple into `SETUP-accounts.md`'s `> feature:` lines, the
-  `install` column, `core/tools/deps.txt` and `core/profile.txt` through the three-way join, and
-  each pays a `core/SCHEMA.md` § Retired tokens row. Deferred from the session that found it:
-  it corrects the registry, it does not unblock anything. `b20260915-feature-names-carry-vendors`
+- Feature bot and crossing tree code/aiwbot use different names. Rename tree and all pointers together rather than claim the registry rename completed the family-name rule (17 Sep). `b20260917-bot-directory-keeps-vendor`
 
-- **The feature is called `bot` and the directory is called `code/aiwbot/`.** `core/tools/CONTEXT.md`
-  says a family directory IS the feature, and this is the one crossing tree where the two spellings
-  disagree — the registry dropped the vendor on 2026-09-17 and the directory kept it. What closes it
-  is renaming the tree, 281 tracked paths and every pointer into them, which did not fit beside the
-  crossing work. The rename is cheap to describe and expensive to do, which is exactly why it is
-  written down rather than remembered. `b20260917-bot-directory-keeps-vendor`
+- foundry/iso-visual/prof cannot cross publicly, but registry crosses verbatim; removing their rows makes is_enabled fail open and leaves them unswitchable (AD-14). Filter registry by crossing policy and compare filtered text in _same; cut implementation before growth, assess rebuild.py as owner. `b20260917-private-skills-unswitchable`
 
-- **Three private skills lost their switch, because a registry that crosses whole cannot name a
-  file the clone does not have.** `foundry`, `iso-visual` and `prof` are Lucas's and must not reach
-  the public repo (2026-09-17). Refusing them in `core/public.txt` is what actually stops the copy —
-  but `core/features.txt` crosses verbatim, so a row left behind names a skill the clone lacks and
-  the target's own suite refuses the sync commit, correctly. The rows came out instead, and the
-  three are now unswitchable: `is_enabled` fails open, so they are permanently on, against
-  `core/SPECS.md` § AD-14. **The fix is to filter the registry as it crosses** — drop the rows whose
-  `ships` the floor refuses — which needs `_same()` to compare the target against the FILTERED text
-  rather than the source, or the whole oscillation returns. `repo` is at 248 of 250 lines and
-  `crossing.py` at 248, so it needs a cut first; `rebuild.py` is the natural home for the filter.
-  `b20260917-private-skills-unswitchable`
+- _present subtracts target gitignore, hiding newly refused files from sync cleanup. Old prof files remain locally ignored, not remotely leaked, and can resurface later. Delete generated absent/orphan entries while preserving IGNORE_HEAD exclusions; cut before implementation growth. `b20260917-refused-file-never-removed`
 
-- **A file that BECOMES refused is never removed from the target, because the sync hides it from
-  itself.** `_present()` asks the target's git what it holds and subtracts what the target's
-  `.gitignore` ignores — and that `.gitignore` is written by this same tool from the `absent` list,
-  so the moment a path is refused it stops being visible as an ORPHAN and the copy already on disk
-  stays forever. Found 2026-09-17 by refusing `core/skills/prof`: twelve files had crossed one run
-  earlier and no verdict mentioned them again. **Not a leak** — they are gitignored there, so
-  `git add -A` skips them and nothing reaches the remote — but they sit in the working tree and
-  would reappear the day the refusal moves. Same family as the `roots`-only exception bug fixed the
-  same day: one `.gitignore` answering both *what git carries* and *what the sync owns*. The cure is
-  to delete what the generated half of the ignore file names (the `absent` and orphan lines) while
-  never touching what `IGNORE_HEAD` names, which is explicitly the list the sync must NOT delete.
-  Cleaned by hand this time; `repo` is at 248 of 250 lines, so the fix needs a cut first.
-  `b20260917-refused-file-never-removed`
+- publish --check/_same ignores generated blocks and reports clean for corrupted target blocks. Sync regenerates them, but check and roundup public status remain blind. Regenerate-and-compare writes, so decide honest sync/check reporting boundaries. `b20260917-check-blind-to-stale-block`
 
-- **`publish/repo --check` cannot see a stale generated block, and says `0 difference(s)` anyway.**
-  `_same()` ignores generated blocks on purpose — the correct block genuinely differs between the
-  two repos — so the comparison is silent about the one thing that drifted for weeks. The drift
-  itself is fixed: `--sync` now runs the target's generators (`publish/rebuild.py`), so a block
-  cannot go stale between syncs. What is still untrue is the REPORT: a target whose blocks were
-  wrecked by something other than this tool still reads clean, and `/roundup`'s new `public:` line
-  inherits that blind spot. The honest check is to regenerate and compare, which writes — so it
-  belongs to `--sync`, not to `--check`, and the shape that resolves it is not yet chosen.
-  `b20260917-check-blind-to-stale-block`
+- Public authored prose promises absent private paths: README→brain/academy/branches/models, SETUP→academy, craft/tree→code/ROADMAP-spec-drive, hooks→ROADMAP-verify, goal headers→brain/goals. Generated ignore makes pointer checks green but readers still hit missing files; rewrite promises or deliberately ship dependencies. `b20260917-crossed-prose-broken-pointers`
 
-- **Prose that crossed still points at 30 files the public repo does not have.** Measured
-  2026-09-17 over tracked `.md` in the clone, after the generated blocks were fixed (34 broken
-  pointers there went to 5). These are in AUTHORED text, so no generator reaches them, and they
-  split three ways: the refused trees a sentence promises anyway (`README.md` → `brain/`,
-  `academy/`, `branches/`, `models/`; `SETUP.md` → `academy/SETUP.md`), his plans cited by machinery
-  that crossed (`core/flows/craft/tree.md` → `code/ROADMAP-spec-drive.md`, `core/hooks/CONTEXT.md` →
-  `code/ROADMAP-verify.md`), and goal files named by a `> goal:` header the routing generator then
-  hoists (`core/flows/craft/` → `brain/goals/*`). The `.gitignore` the sync generates keeps the
-  POINTER CHECK green by declaring each one deliberately absent, which is right for a checker and
-  wrong for a student, who clicks and gets nothing. Each needs a sentence rewritten here or a file
-  let across; neither is mechanical, which is why this is a list and not a fix.
-  `b20260917-crossed-prose-broken-pointers`
+- Read gate keys on path, demanding identical CONTEXT files again inside code/wos. Assess source-target equivalence through core/public.txt while retaining boundaries for genuinely different content (16 Sep). `b20260916-read-gate-charges-twice`
 
-- **The read gate charges a session twice for one enforcement layer.** `code/wos` now holds 81
-  `CONTEXT.md` byte-identical to this repo's, and the gate keys on the PATH, so a session that has
-  oriented in `core/tools/wos/publish/` here is refused again the moment its working directory is
-  the target — it cost eight refusals in the session that built it, each one a re-read of prose
-  already in the window. The gate is right that they are different subtrees and wrong that they are
-  different CONTENT. Cheapest cure: treat a path under a one-way sync target as already-read when
-  its source was, which `core/public.txt` can already answer. Found 2026-09-16.
-  `b20260916-read-gate-charges-twice`
+- Feature names opencode-plugin/antigravity-hooks diverge from harnesses.txt names opencode/claude/zcode/agents and the actual antigravity adapter path. Reconcile mechanism/vendor vocabulary rather than add another spelling. `b20260916-harness-names-four-ways`
 
-- **`opencode-plugin` and `antigravity-hooks` spell harnesses a fourth way.** `core/harnesses.txt`
-  names them `opencode`, `claude`, `zcode`, `agents`; `antigravity` appears in neither that file nor
-  any directory, where the shim actually lives at `core/hooks/antigravity/`. One of the two names
-  the mechanism, the other names a vendor, and `features.txt`'s own header says its job is to
-  reconcile existing vocabularies rather than invent another. Found alongside the entry above.
-  `b20260916-harness-names-four-ways`
+- Paper tool services remain unavailable: Semantic Scholar 429/arXiv timeout (13 Sep). Dependency checks now call services and flows name venue-host web fallback; capability still missing, forcing per-page venue/review/citation checks. Recheck service and consider another provider. `b20260913-paper-search-has-no-arm`
 
-- `core/tools/paper/papers` has no working arm: Semantic Scholar returns HTTP 429 and arXiv times
-  out, both re-confirmed 2026-09-13. The tool itself is honest — it prints `{"error": ...}` to
-  stderr and exits 1 — and the cause is outside this workspace, so nothing here can fix it. What
-  was ours is fixed: `deps` now declares both services with a check that CALLS them, so the miss
-  reports red instead of the green it read while a whole research run went around the tool, and the
-  `sota` and `scout` flows name the fallback that worked (`core/tools/web/search` aimed at venue
-  hosts) rather than only the tool. Still open because the capability is still gone: a run pays for
-  it by establishing `venue`, `peer_reviewed` and `citations` one fetched page at a time. Worth
-  re-checking before any research run, and worth a second provider if it stays down.
-  `b20260913-paper-search-has-no-arm`
+- scoreboard.tsv grows append-only; read-matrix.tsv is bounded by day modulo 365; state markers prune after two days. Evaluate shared bounded aging after the scoreboard reading due 28 Sep. Claude 16 Oct reports test markers accumulating; reproduce with claude_nostub_missing-stub and verify teardown/pruning. `b20260922-state-stores`
 
-- **Three stores hold per-machine counts and each ages by a different law, which is one law too
-  many.** `core/scoreboard.tsv` is append-only and never collapses — **5.8 MB on 2026-09-22**, ten
-  days after it started, and nothing in its design stops that. `core/read-matrix.tsv` holds the
-  same kind of fact in a fixed window that cannot grow, because a column is a day modulo 365. The
-  session marker stores under `core/state/` are the third, aged by a two-day prune that became
-  load-bearing the moment they stopped living somewhere the operating system emptied. All three
-  answer *what did this machine do*, and there is no reason for three answers to how such a fact
-  gets old — the matrix's window is the one that was designed rather than inherited, and it is the
-  shape the other two should take. **Not before 2026-09-29**: the scoreboard owes its first reading
-  on 2026-09-28 (`ROADMAP.md` § Measurement), and changing how it stores rows before it is read
-  would spend the measurement to tidy the file it is measured from.
-  `b20260922-state-stores`
-  Claude session, 16 Oct, reports test-session markers accumulating under core/state/; verify teardown cleanup and pruning with claude_nostub_missing-stub as reproducer.
+- rtk git commit reports success after pre-commit refusal (24 Sep), with index unchanged and old HEAD. Send output to a file and verify actual git log until wrapper status propagation is corrected. `b20260924-rtk-commit-false-ok`
 
-- **The rtk rewrite of `git commit` reported success for commits the pre-commit hook refused.**
-  Twice on 2026-09-24, `git commit -q …` (rewritten to `rtk git commit`) printed
-  `ok 7 files changed, 60 insertions(+)…` while verify:fast was red and no commit existed; the
-  files stayed staged and `git log` showed the old HEAD. The same commit run with its output sent
-  to a file showed the refusal. An agent that trusts the `ok` line pushes nothing and says it did.
-  Workaround until fixed: send commit output to a file and read `git log -1`.
-  `b20260924-rtk-commit-false-ok`
-
-- **Empty `.git` directories appear at `/tmp/.git`, `/tmp/.codex`, `/tmp/.agents` and in the root `.codex/`, `.agents/` (2026-10-07).**
-  Nothing in this repo writes them. They coincide with the Codex sandbox (bubblewrap mount points) — a hypothesis, not proof. An empty `.git` directory made every bare `(p / '.git').exists()` test call `/tmp` a repo; `platform_law.is_repo` now requires `HEAD` (or a `.git` file), so the symptom is closed and the writer is not. `b20261007-empty-git-dirs`
+- Empty .git/.codex/.agents (also .aws) directories appear in tmp, root provider folders and isolated outputs after Codex. Sandbox mount-point origin is a hypothesis. is_repo now requires HEAD/file; directory writer/cleanup remains unresolved (7/23 Oct). `b20261007-empty-git-dirs`
 
 <!-- entropy:start -->
 ## Entropy
 
-> Generated by `core/hooks/entropy/dashboard/entropy-dashboard.py`, which scans this repo and no other. Never edit inside this block, and never copy a count out of it — a copied number is the drift these checks exist to catch.
+> Generated by `core/hooks/entropy/dashboard/entropy-dashboard.py`, which scans `/tmp/inbox-promote-develop-20261030` and no other. Never edit inside this block, and never copy a count out of it — a copied number is the drift these checks exist to catch.
 
-2026-10-24 · 1184 tracked files scanned · **6 findings here** (2026-10-17: 8 · -2 over 7 days)
+2026-10-30 · 1176 tracked files scanned · **72 findings here**
 
 | Check | Findings |
 |-------|----------|
 | Off-allowlist `.md` types | 0 |
 | CONTEXT.md hand-written inventories | 0 |
-| Naming and placement | 0 |
-| Routing tables pointing at files git does not carry | 0 |
+| Naming and placement | 3 |
+| Routing tables pointing at files git does not carry | 15 |
 | Projects not declaring their goal | 0 |
 | Wiki-links naming nothing | 0 |
-| Retired tokens still alive | 0 |
-| Roadmap item numbers cited outside a roadmap | 0 |
+| Retired tokens still alive | 42 |
+| Roadmap item numbers cited outside a roadmap | 2 |
 | Items claimed by two lists | 0 |
-| Size signals | 0 |
+| Size signals | 2 |
 | Source files with no interface stub | 0 |
 | Directories holding too many files | 3 |
-| Prose describing finished work | 0 |
+| Prose describing finished work | 1 |
 | Unanswered placeholders | 0 |
 | Doubt stores missing their own discipline | 0 |
 | Lists naming a model where they mean a level | 0 |
@@ -365,11 +152,100 @@ name. An entry without one is invisible to it.
 | Truncated routing descriptions | 0 |
 | Constraints trapped in a CONTEXT.md head | 0 |
 | Local branches holding unpromoted work | 1 |
-| Work that exists on this disk and nowhere else | 0 |
+| Work that exists on this disk and nowhere else | 1 |
 | Local branches already merged into their base | 1 |
 | Remote branches already merged into their base | 1 |
 
 *A check with no findings is the `0` in that table and nothing more. Only a check with something to show gets a section below.*
+
+### Naming and placement
+
+*kebab-case ASCII, types where their scope allows*
+
+- /: directory '/' is not lowercase kebab-case.
+- AGENTS.md: AGENTS.md is declared root-only in core/SCHEMA.md.
+- PROJECTS.md: PROJECTS.md is declared root-only in core/SCHEMA.md.
+
+### Routing tables pointing at files git does not carry
+
+*a clone gets the table and not the file — track the target, or stop routing to it*
+
+- brain/CONTEXT.md: routes to brain/GOALS.md, which this repo does not
+- brain/goals/CONTEXT.md: routes to brain/goals/burocracia-academica.md, which this repo does not
+- brain/goals/CONTEXT.md: routes to brain/goals/craft-flows.md, which this repo does not
+- brain/goals/CONTEXT.md: routes to brain/goals/home-casinhas.md, which this repo does not
+- brain/goals/CONTEXT.md: routes to brain/goals/lih-dd.md, which this repo does not
+- brain/goals/CONTEXT.md: routes to brain/goals/local-ai.md, which this repo does not
+- brain/goals/CONTEXT.md: routes to brain/goals/rpg-isoroll.md, which this repo does not
+- brain/goals/CONTEXT.md: routes to brain/goals/spacemantics.md, which this repo does not
+- brain/goals/CONTEXT.md: routes to brain/goals/spec-driven-development.md, which this repo does not
+- brain/goals/CONTEXT.md: routes to brain/goals/startapps.md, which this repo does not
+- brain/goals/CONTEXT.md: routes to brain/goals/teaching-materials.md, which this repo does not
+- brain/goals/CONTEXT.md: routes to brain/goals/workspace-os.md, which this repo does not
+- code/CONTEXT.md: routes to brain/goals/spec-driven-development.md, which this repo does not
+- core/flows/craft/CONTEXT.md: routes to brain/goals/craft-flows.md, which this repo does not
+- core/flows/craft/CONTEXT.md: routes to brain/goals/spec-driven-development.md, which this repo does not
+
+### Retired tokens still alive
+
+*a rename is unfinished until these are zero*
+
+- ISSUES.md: retired token 'nudge' survives (line 96).
+- brain/drafts/context-folding-report.md: retired token 'tier' survives (line 206).
+- brain/drafts/metodologia-aulas-gemini.md: retired token 'scaffold' survives (line 42).
+- brain/drafts/taste-galeria-1.md: retired token 'dial' survives (line 39).
+- core/SCHEMA.md: retired token '.loop' survives (line 138).
+- core/SCHEMA.md: retired token '/loops' survives (line 135).
+- core/SCHEMA.md: retired token 'BUGS.md' survives (line 136).
+- core/SCHEMA.md: retired token 'KNOWN-BUGS' survives (line 133).
+- core/SCHEMA.md: retired token 'WATCHLIST.md' survives (line 137).
+- core/SCHEMA.md: retired token 'blacklist' survives (line 159).
+- core/SCHEMA.md: retired token 'column cap' survives (line 148).
+- core/SCHEMA.md: retired token 'corpse' survives (line 156).
+- core/SCHEMA.md: retired token 'dial' survives (line 160).
+- core/SCHEMA.md: retired token 'fanout' survives (line 141).
+- core/SCHEMA.md: retired token 'hatchet' survives (line 150).
+- core/SCHEMA.md: retired token 'ledge' survives (line 158).
+- core/SCHEMA.md: retired token 'ledger' survives (line 143).
+- core/SCHEMA.md: retired token 'loop-architecture' survives (line 132).
+- core/SCHEMA.md: retired token 'loop-engineering' survives (line 130).
+- core/SCHEMA.md: retired token 'loop-router' survives (line 131).
+- core/SCHEMA.md: retired token 'mail-triage' survives (line 149).
+- core/SCHEMA.md: retired token 'nudge' survives (line 152).
+- core/SCHEMA.md: retired token 'pre-read.sh' survives (line 140).
+- core/SCHEMA.md: retired token 'probe' survives (line 147).
+- core/SCHEMA.md: retired token 'prova da regra simples' survives (line 163).
+- core/SCHEMA.md: retired token 'prova do Waze' survives (line 162).
+- core/SCHEMA.md: retired token 'ratchet' survives (line 154).
+- core/SCHEMA.md: retired token 'scaffold' survives (line 153).
+- core/SCHEMA.md: retired token 'seam' survives (line 144).
+- core/SCHEMA.md: retired token 'shard' survives (line 142).
+- core/SCHEMA.md: retired token 'sidecar' survives (line 161).
+- core/SCHEMA.md: retired token 'slug' survives (line 146).
+- core/SCHEMA.md: retired token 'spine' survives (line 155).
+- core/SCHEMA.md: retired token 'substrate' survives (line 157).
+- core/SCHEMA.md: retired token 'telegram-capture' survives (line 151).
+- core/SCHEMA.md: retired token 'tier' survives (line 145).
+- core/tools/test/law/entropy/test_entropy_list.py: retired token 'KNOWN-BUGS' survives (line 32).
+- core/tools/test/law/entropy/test_entropy_list.py: retired token 'loop-engineering' survives (line 31).
+- core/tools/test/law/entropy/test_entropy_retired.py: retired token 'loop-engineering' survives (line 29).
+- core/tools/test/law/entropy/test_entropy_retired.py: retired token 'probe' survives (line 44).
+- core/tools/test/law/entropy/test_entropy_retired.py: retired token 'shard' survives (line 42).
+- core/tools/test/law/entropy/test_entropy_retired.py: retired token 'tier' survives (line 42).
+
+### Roadmap item numbers cited outside a roadmap
+
+*a closed item is deleted — cite the SPECS.md/SCHEMA.md section that owns the rule*
+
+- core/hooks/checks/citation-gate.py: cites 'Front 4.1' (line 5).
+- core/tools/test/law/test_citation_gate.py: cites 'Frente 4.1' (line 72).
+
+### Size signals
+
+*a signal for review, never a cap — do not summarize to fit*
+
+- brain/drafts/taste-galeria-1.md — 103124 characters, over the 20000 cap
+- brain/drafts/taste-galeria-1.md — 748 lines, over the 250 cap; introduced by 0bf37c81 lsfcin
 
 ### Directories holding too many files
 
@@ -379,11 +255,23 @@ name. An entry without one is invisible to it.
 - core/tools/test — 15 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
 - core/tools/test/workspace — 11 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
 
+### Prose describing finished work
+
+*git is the history — cut it, or rewrite it as present-tense state*
+
+- core/SCHEMA.md:139: a dated completion report — prose describing finished work.
+
 ### Local branches holding unpromoted work
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/virada-semana-final is 10 ahead of main
+- . — feature/virada-semana-final is 1 ahead of main
+
+### Work that exists on this disk and nowhere else
+
+*two machines share this workspace — push it, or give the repo a remote to push to: code/SPECS-git.md § Push policy*
+
+- . — (no branch) was never pushed
 
 ### Local branches already merged into their base
 
@@ -404,5 +292,5 @@ name. An entry without one is invisible to it.
 
 > Generated by `core/tools/wos/roundup` at session close. The suite is the authority; this is its last result, never a claim that it is still true.
 
-2026-10-24 · `verify.py full` · **green (25 passed, 1122 deselected in 5.06s · 1120 passed, 2 skipped in 121.46s (0:02:01))**
+2026-10-30 · `verify.py full` · **green (25 passed, 1122 deselected in 5.53s · 1121 passed, 1 skipped in 188.72s (0:03:08))**
 <!-- verify:end -->

@@ -24,6 +24,9 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 
 ## backlog
 
+
+> [ ] [evidence-tool-defects] Track reported calendar ranges, Drive write tokens/paging and compiled-TeX PDF detection in ../../ISSUES.md; administration consumer: ../../academy/administration/ROADMAP.md [evidence-tool-defects] (backlog).
+
 > [ ] [migrar-11-disciplinas] as disciplinas que sobraram no Drive do cin — **298 arquivos sem par no pessoal**, levantados em 2026-08-26: 89 imagens, 49 forms, 44 fontes Java, 34 documentos, 33 planilhas, 19 PDFs, 0,13 GB no total. P2 é a pior (29 de 206 migrados), depois PI1 (24/52) e P1 (41/70). A migração de junho só copiava apresentação, que é a razão de todas as lacunas. **Antes de deletar qualquer uma:
 > copiar um Google Form cria um form vazio** — as respostas vivem na planilha vinculada, e é ela que precisa vir junto. TE e AI4Good já foram, e estão na lixeira do cin desde 2026-08-26  
 
@@ -48,5 +51,5 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-14  ·  trend: advancing  ·  touches: 18/18/18/18/18/18
+last-touch: 2026-09-20  ·  trend: stalled  ·  touches: 0/20/20/20/20/20
 <!-- stats:end -->

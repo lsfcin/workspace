@@ -28,6 +28,10 @@ profile 2.5D (mais reuso do isoroll). 10 min relendo §6 antes de escrever a gra
 
 ## backlog
 
+
+> [ ] [inbox-20261030-spacemantics] Track [anatomy], [visual-comparisons] in ../../academy/papers/spacemantics/ROADMAP.md; refs: ../../academy/papers/spacemantics/refs/REFS.md (backlog).
+> [ ] [inbox-20261030-spacemantics] Track [anatomy], [visual-comparisons], [web-motion] in ../../code/spacemantics/ROADMAP.md; refs: ../../code/spacemantics/refs/REFS.md (backlog).
+
 > [ ] [m1-slice] fatia vertical 2.5D + skeleton do paper (intro/método/related work a partir das fontes já coletadas)  
 > [ ] [iif-format] INFORMED IMAGE FORMAT (*.iif) — DSL para descrever imagens (builds on spacemantics + texpace); toda imagem aberta/criada pelo agente vem acoplada à sua descrição IIF (read-or-write bound)
 > [ ] [m2-widen] ampliar pra 2D + 3D + 4D; sweep completo de modelos; go/no-go do CV-grounding por dimensão; escolher venue  
@@ -46,5 +50,5 @@ profile 2.5D (mais reuso do isoroll). 10 min relendo §6 antes de escrever a gra
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-04  ·  trend: advancing  ·  touches: 59/87/87/87/87/87
+last-touch: 2026-09-18  ·  trend: stalled  ·  touches: 0/65/89/89/89/89
 <!-- stats:end -->

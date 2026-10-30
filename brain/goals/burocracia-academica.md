@@ -19,6 +19,12 @@ Gerar o twin das plantas V03: `core/run tools/pdf/docling <pdf>` em cada uma. 10
 
 ## backlog
 
+> [ ] [academic-evidence-tools] Track mail/attachment/PDF/bulletin evidence intake in ../../core/ROADMAP.md and ../../academy/administration/ROADMAP.md [academic-evidence-tools]; root mail issue holds reported defects (backlog).
+
+> [ ] [montagrade] Track [department-editing], [constraint-authoring], [other-degree-types] and [theme-visibility] in ../../code/ppc/ROADMAP.md (backlog).
+
+> [ ] [inbox-20261030-administration] Track [firecrawl], [laws-markdown], [unlimited-ocr] in ../../academy/administration/ROADMAP.md; refs: ../../academy/administration/refs/REFS.md (backlog).
+
 > [ ] [rda-2026] fechar o RDA 2026 em fev/2027: `pda/2026/rda.md` (pré-pronto) vira `rda_conteudo.py` com as disciplinas de 2026.2, e os três renderizadores de `pda/template/` geram docx, PDFs e comprobatórios
 > [ ] [map-org] mapear a estrutura organizacional (DC/UFRPE, colegiados, câmaras, GTs) — quem decide o quê [ ] [map-flows] mapear os fluxos de processos recorrentes (progressão já em `processos/progressao.md`; afastamento, bancas, projetos de pesquisa, bolsas) como passo-a-passo editável [ ] [gather-norms] reunir resoluções + instruções normativas + links oficiais num índice navegável (não copiar tudo —
 > referenciar + anotar)
@@ -33,5 +39,5 @@ Gerar o twin das plantas V03: `core/run tools/pdf/docling <pdf>` em cada uma. 10
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-26  ·  trend: advancing  ·  touches: 16/24/25/25/25/25
+last-touch: 2026-10-28  ·  trend: advancing  ·  touches: 21/29/31/31/31/31
 <!-- stats:end -->
