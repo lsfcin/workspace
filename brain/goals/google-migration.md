@@ -39,10 +39,9 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 > Decidir onde ensino mora no WOS, depois mover; senão a migração só reproduz o espalhamento numa conta nova. Colide com o split vivo entre `academy/classes/` e `academy/teaching/` (INBOX 2026-08-18)  
 > [ ] [fila-academy] baixar as 23 pastas de `### academy/` da fila — as linhas, com o par `local ← Drive path` de cada uma, vivem em `branches/google-migration/ROADMAP.md`  
 > [ ] [fila-branches] baixar as 6 pastas de `### branches/` da fila — mesmas linhas, mesmo arquivo  
-> [ ] [fila-triagem] as 2 linhas de `### triage (do last)`: a pasta `Unorganized/` e os arquivos soltos da raiz. Os **recovery codes** estão entre os arquivos soltos, então esta linha amarra direto em `[auth-recovery]`  
+> [ ] [fila-triagem] as 2 linhas de `### triage (do last)`: a pasta `Unorganized/` e os arquivos soltos da raiz.  
 > [ ] [calendar-migrar] migrar o calendar de lsf@cin.ufpe.br para lsf.cin@gmail.com — `core/tools/calendar/gcalendar` já lê as três contas, então a migração é de dados e de conta padrão, não de ferramenta (INBOX 2026-08-18)  
 > [ ] [calendar-centralizador] resolver o papel de cada calendário: o pessoal vira o centralizador (a fonte da verdade da agenda), e o do cin fica só como visibilidade pro pessoal do voxar saber o horário — não o contrário como hoje (INBOX 2026-09-05)  
-> [ ] [auth-recovery] backup/recovery do Google Authenticator — várias contas com 2FA nele; se o celular quebrar/sumir, como recuperar? Mapear códigos de recuperação por conta + método de restauração antes que vire pesadelo (INBOX 2026-07-24)  
 
 ## done
 
