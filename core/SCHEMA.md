@@ -131,6 +131,7 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | `loop-router` | `route` | 2026-07-23 |
 | `loop-architecture` | `architect` | 2026-07-23 |
 | `KNOWN-BUGS` | `ISSUES.md` | 2026-07-30 |
+| `linha de base sem IA` | `o jeito de hoje` (e `o competidor mais forte`) | 2026-10-30 |
 | `/loops` | `/craft` | 2026-08-17 |
 | `BUGS.md` | `ISSUES.md` | 2026-08-19 |
 | `WATCHLIST.md` | `core/refs/REFS.md` | 2026-08-20 |
