@@ -18,6 +18,9 @@ ai4good/brw-raso	https://lucassf.pages.dev/ai4good/artefatos/brw/raso.md	ai4good
 ai4good/cmp-excelente	https://lucassf.pages.dev/ai4good/artefatos/cmp/excelente.md	ai4good	2026-10-16
 ai4good/cmp-raso	https://lucassf.pages.dev/ai4good/artefatos/cmp/raso.md	ai4good	2026-10-16
 ai4good/crises	https://docs.google.com/presentation/d/1PgIp_SX2wlMYEbGT3i5MMrciRB3NUC_xzDLvCU7O6B0/present	ai4good	2026-09-24
+ai4good/exp	https://lucassf.pages.dev/ai4good/?doc=artefatos/3-desenho-dos-experimentos.md	ai4good	2026-10-30
+ai4good/exp-excelente	https://lucassf.pages.dev/ai4good/artefatos/exp/excelente.md	ai4good	2026-10-30
+ai4good/exp-raso	https://lucassf.pages.dev/ai4good/artefatos/exp/raso.md	ai4good	2026-10-30
 ai4good/flx	https://lucassf.pages.dev/ai4good/?doc=artefatos/3-fluxograma-e-arquitetura.md	ai4good	2026-10-28
 ai4good/flx-excelente	https://lucassf.pages.dev/ai4good/artefatos/flx/excelente.md	ai4good	2026-10-28
 ai4good/flx-raso	https://lucassf.pages.dev/ai4good/artefatos/flx/raso.md	ai4good	2026-10-28
