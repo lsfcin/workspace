@@ -53,6 +53,7 @@ pyyaml	pip	yaml	import:yaml	latex	-	core/tools/paper/terms dies on import, so th
 requests	pip	requests	import:requests	notes-notion	-	core/tools/notes/notion cannot reach the API
 anthropic	pip	anthropic	import:anthropic	mail	-	gmail attachment + triage paths lose their model calls
 pillow	pip	PIL	import:PIL	asset-inspect	-	core/tools/assets/inspect cannot open an image; video OCR, the shared describer and every PDF figure lose image handling
+playwright	pip	playwright	import:playwright	web-search	-	core/tools/web/shoot dies on import, so no HTML page or design artboard becomes a PNG; the module alone is not enough — without `python -m playwright install chromium` it fails at launch with "Executable doesn't exist"
 google-auth	pip	google	import:google.oauth2.credentials	google-auth	-	every Google-backed tool (mail, calendar, files, slides, forms, docs) fails before it reaches the network
 google-auth-oauthlib	pip	google_auth_oauthlib	import:google_auth_oauthlib	google-auth	-	the first-run OAuth consent flow cannot start, so no account can be added
 google-api-python-client	pip	googleapiclient	import:googleapiclient	google-auth	-	mail, calendar, files, slides, forms and docs have no API client to call
