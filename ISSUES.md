@@ -171,7 +171,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/virada-semana-final is 1 ahead of main
-- . — feature/web-shoot is 5 ahead of main
+- . — feature/web-shoot is 8 ahead of main
 
 ### Local branches already merged into their base
 
@@ -214,6 +214,6 @@ FAILED core/tools/test/law/platform/test_b20260901_a_source_file_is_crlf_in_a_tr
 FAILED core/tools/test/law/platform/test_b20260901_a_source_file_is_crlf_in_a_tree_that_declares_lf.py::test_a_renormalised_export_still_parses_to_the_same_table[avalie-o-seu-grupo-intragrupo.csv-shape2]
 FAILED core/tools/test/test_links.py::test_a_page_with_habilidades_block_runs_arvore_generator
 FAILED core/tools/test/wos/test_norms.py::test_the_always_loaded_block_matches_its_sources
-5 failed, 1115 passed, 3 skipped in 72.36s (0:01:12)
+5 failed, 1115 passed, 3 skipped in 76.63s (0:01:16)
 ```
 <!-- verify:end -->
