@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/p/DehErZxDfkE/?img_index=4&srtk=MXR3OGtsc3c5b3VxaA==
+isso é real? é útil pra gente?
+— via aiwbot · 2026-10-31
+
 https://www.instagram.com/p/DfKkR_fDTFY/?img_index=2&obrf=azBmOXUycWR3amgw
 a gente poderia pegar a transcrição disso pra ver como pode ser útil pra gente
 — via aiwbot · 2026-10-31
@@ -58,3 +62,4 @@ checar se realmente preciso do canva pro.
 - (2026-10-30, sessão exp) O type gate recusa uma pasta de .json de cache (um por resposta de API, sem descrição possível). Saída usada no rastro-da-banca: um único TSV com comentário na primeira linha (`resultados/respostas.tsv`). Vale virar convenção em code/SPECS.md?
 - (2026-10-30, sessão exp) Assimetria: o guia do exp manda colar o veredito da auditoria "sem editar", mas no exp/excelente o veredito do Codex (7,9 mil caracteres) estourou o teto de 20 mil e foi resumido, com o aval de Lucas. Decidir se o prompt da auditoria nos guias pede "até 2 frases por célula".
 - (2026-10-31, sessão apptime) Watchdog para subagentes externos (Codex/Agy): o `timeout` já pega o travamento, mas não o "terminou com lixo" — o `codex exec -i …` saiu 0 com "No prompt provided" e o aviso chegou como concluído. Proposta: `core/run tools/agents/watch` = prazo + batimento (saída parada 90 s → mata) + checa resposta final não vazia (senão sai ≠0) + avisa no `notify/telegram`. Aguarda OK do Lucas (arquivo novo).
+- (2026-10-31, sessão apptime) Captura de telas Android virou script de sessão (rolar até o conteúdo parar + folha de contato pra ler 6 prints numa imagem). Proposta: `core/run tools/android/shoot <prefixo>` (adb screencap + swipe até o hash parar) com `--sheet`. Aguarda OK do Lucas (arquivo novo).
