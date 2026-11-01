@@ -9,6 +9,30 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DeFJd9AHPVS/?exln=OXRjNnY5dGk1Nzlx
+vejo muita relação com o texpace, acho que a gente pode estudar esse case
+— via aiwbot · 2026-11-01
+
+https://www.instagram.com/reel/DfLPFzTMzYr/?mdxt=aHZqc3J1cWdpdWU2
+é real isso? é realmente melhor que o claude code em algum sentido? dá realmente pra rodar localmente?
+— via aiwbot · 2026-11-01
+
+https://www.instagram.com/reel/DfMoeX7ij47/?vrfl=cHk2NzkzZmFxcDQ5
+talvez seja útil
+— via aiwbot · 2026-11-01
+
+firecrawl aparecendo de novo
+https://www.instagram.com/reel/DfMiFm0Oc0N/?cplk=MXV0MThmbGZ5c3E2eQ==
+— via aiwbot · 2026-11-01
+
+https://www.instagram.com/reel/DfMB84QAtoL/?exln=bGlwcjUxcG5iazN5
+pode ser útil pra gente
+— via aiwbot · 2026-11-01
+
+https://www.instagram.com/reels/De9or1Jienw/
+isso aqui é útil pra gente? infinity me deixou curioso pra pelo menos testar
+— via aiwbot · 2026-11-01
+
 https://www.instagram.com/p/DehErZxDfkE/?img_index=4&srtk=MXR3OGtsc3c5b3VxaA==
 isso é real? é útil pra gente?
 — via aiwbot · 2026-10-31
@@ -63,3 +87,5 @@ checar se realmente preciso do canva pro.
 - (2026-10-30, sessão exp) Assimetria: o guia do exp manda colar o veredito da auditoria "sem editar", mas no exp/excelente o veredito do Codex (7,9 mil caracteres) estourou o teto de 20 mil e foi resumido, com o aval de Lucas. Decidir se o prompt da auditoria nos guias pede "até 2 frases por célula".
 - (2026-10-31, sessão apptime) Watchdog para subagentes externos (Codex/Agy): o `timeout` já pega o travamento, mas não o "terminou com lixo" — o `codex exec -i …` saiu 0 com "No prompt provided" e o aviso chegou como concluído. Proposta: `core/run tools/agents/watch` = prazo + batimento (saída parada 90 s → mata) + checa resposta final não vazia (senão sai ≠0) + avisa no `notify/telegram`. Aguarda OK do Lucas (arquivo novo).
 - (2026-10-31, sessão apptime) Captura de telas Android virou script de sessão (rolar até o conteúdo parar + folha de contato pra ler 6 prints numa imagem). Proposta: `core/run tools/android/shoot <prefixo>` (adb screencap + swipe até o hash parar) com `--sheet`. Aguarda OK do Lucas (arquivo novo).
+- (2026-11-01, sessão apptime) Watchdog de novo: `codex exec` em segundo plano sem `</dev/null` fica esperando stdin e devolve "What would you like to work on?" com saída 0. O vigia provisório (prazo + saída parada + resposta final não vazia) está em scratchpad `watch.sh` e funcionou em duas rodadas de 1–2 h; reforça a proposta acima, agora com `</dev/null` embutido.
+- (2026-11-01, sessão apptime) Assimetria no `core/hooks/described.txt`: o caminho casa por sufixo do caminho relativo ao repo onde roda o commit, então num repo aninhado (code/apptime) só `test/fixtures/usual_daily.json` funcionou, não `code/apptime/...` — genérico demais, pode casar com outro repo. Corrigir: resolver pro caminho a partir da raiz do workspace antes de comparar. A linha está lá, sem commit (a árvore tem trabalho de outra sessão).
