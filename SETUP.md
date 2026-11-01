@@ -68,6 +68,7 @@ Whether each *gate* then behaves as promised is a different question, answered b
 Each project under `code/` is its own git repo and owns its environment. A project whose setup cannot be inferred from its code carries its own `SETUP.md`.
 
 - [`code/SETUP.md`](code/SETUP.md) — per-language quick start, facade templates, codegraph
+- [`code/apptime/SETUP.md`](code/apptime/SETUP.md) — Android toolchain in `/opt` (JDK 17, SDK, Flutter), phone install
 - [`academy/SETUP.md`](academy/SETUP.md) — LaTeX toolchain, paper compilation
 - [`core/tools/video/SETUP.md`](core/tools/video/SETUP.md) — the video tool's model and cookie state
 - [`core/tools/pdf/CONTEXT.md`](core/tools/pdf/CONTEXT.md) § Install — the PDF engines' own venv, `.venv-pdf`
