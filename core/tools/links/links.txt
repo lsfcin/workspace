@@ -40,6 +40,9 @@ ai4good/sem1	https://lucassf.pages.dev/ai4good/?doc=artefatos/4-seminario-prelim
 ai4good/sem1-deck	https://canva.link/2fgyeajku57c2c8	ai4good	2026-10-30
 ai4good/sem1-excelente	https://lucassf.pages.dev/ai4good/artefatos/sem1/excelente.md	ai4good	2026-10-30
 ai4good/sem1-raso	https://lucassf.pages.dev/ai4good/artefatos/sem1/raso.md	ai4good	2026-10-30
+ai4good/sem2	https://lucassf.pages.dev/ai4good/?doc=artefatos/4-seminario-demonstracao.md	ai4good	2026-11-02
+ai4good/sem2-excelente	https://lucassf.pages.dev/ai4good/artefatos/sem2/excelente.md	ai4good	2026-11-02
+ai4good/sem2-raso	https://lucassf.pages.dev/ai4good/artefatos/sem2/raso.md	ai4good	2026-11-02
 ai4good/setup	https://docs.google.com/forms/d/e/1FAIpQLSfESI8OWLI1JSALkpAAtbRkqRzKxP6az3NCd9mi5Mop_697kQ/viewform	ai4good	2026-09-06
 ai4good/tec	https://lucassf.pages.dev/ai4good/?doc=artefatos/3-tecnologia-base.md	ai4good	2026-10-21
 ai4good/tec-excelente	https://lucassf.pages.dev/ai4good/artefatos/tec/excelente.md	ai4good	2026-10-21
