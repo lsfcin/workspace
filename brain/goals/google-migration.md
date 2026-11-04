@@ -50,5 +50,5 @@ O passo seguinte, `[drive-sync-method]`, é decisão e não clique — deixe par
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-30  ·  trend: decelerating  ·  touches: 1/21/21/21/21/21
+last-touch: 2026-10-30  ·  trend: decelerating  ·  touches: 2/22/22/22/22/22
 <!-- stats:end -->
