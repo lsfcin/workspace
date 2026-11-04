@@ -9,6 +9,12 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/p/DfSHM8YCbvp/?srtk=NTc4MTIwNjQ2YQ==
+— via aiwbot · 2026-11-04
+
+https://www.instagram.com/reel/DfSNWXBj9tA/?dlrf=NTc4MTIwNjQ2YQ==
+— via aiwbot · 2026-11-04
+
 https://www.instagram.com/reel/De11RPAiK4F/?exln=eHJtNGw3eXZidmZj
 interessado principalmente na IA que pode rodar localmente, curioso se serve pra eu usar no meu pc e pra recomendar pros meus alunos
 — via aiwbot · 2026-11-03
@@ -185,3 +191,4 @@ checar se realmente preciso do canva pro.
 - [ ] WOS 2026-11-03: the UNGATED WRITE hook reads a heredoc into `$S/file` (scratchpad var) as `code/apptime/$S/file` — false alarm; resolve shell variables or skip paths outside the workspace.
 - (2026-11-04, sessão apptime) `core/tools/panel/ask` só tem codex e agy; opencode (`~/.opencode/bin/opencode`) e zcode (`/usr/bin/zcode`) estão instalados mas ninguém testou a chamada headless — testar e entrar na cadeia. assimetria: a folha `ask` é uma cadeia de providers, e a regra da família diz "o arquivo é o provider".
 - (2026-11-04, sessão apptime) `./gradlew testDebugUnitTest` falha em `:url_launcher_android` (teste do plugin, não nosso); `:app:testDebugUnitTest` passa. ver se o verify do apptime roda só `:app`. o MIUI recusa `adb install` às vezes (`INSTALL_FAILED_VERIFICATION_FAILURE`), passa na 2ª tentativa — o `phone/adb` podia repetir sozinho.
+- (2026-11-04, sessão apptime) `code/apptime/ROADMAP.md` em 237 linhas / 19.381 chars, bloqueia em 250 / 20.000: cortar (as seções de painel e Workspace drift são candidatas), não dividir.
