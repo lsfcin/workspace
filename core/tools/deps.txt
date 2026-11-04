@@ -71,6 +71,7 @@ tesseract-ocr-por	apt	-	cmd:tesseract --list-langs 2>&1 | grep -qx por	pdf	-	OCR
 pypandoc-binary	pip	-	cmd:pandoc --version	latex	-	core/tools/paper/parse cannot read .docx or .pptx — it falls through to the plain-text arm and returns mojibake rather than an error
 poppler-utils	apt	-	cmd:pdftotext -v	pdf	-	core/tools/pdf cannot read a PDF's metadata, text layer or embedded images, and --review cannot render a page; gmail's PDF attachments go unsummarized, and slides preview/sample render nothing (they ask pdf/poppler)
 ffmpeg	system	-	cmd:ffmpeg -version	video-text	-	audio extraction and frame sampling fail, so the speech and ocr levels cannot start
+adb	binary	-	cmd:adb version	phone	-	core/run tools/phone/adb stops on its first call with "No such file or directory": no screenshot, no prefs edit (it ships with the Android SDK platform-tools, see code/apptime/SETUP.md)
 tesseract-ocr	apt	-	cmd:tesseract --version	video-text	-	pytesseract imports fine and then fails at call time — the module is the wrapper, this is the engine
 ddgr	apt	-	cmd:ddgr --version	web-search	-	the fallback backend is gone, so a missing or rate-limited Exa key leaves no search at all
 nodejs	binary	-	cmd:node --version	opencode-plugin	-	the opencode policy plugin cannot load, and every npm/npx-backed gate below loses its runtime

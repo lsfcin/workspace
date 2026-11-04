@@ -19,8 +19,8 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`audio/`](audio/CONTEXT.md) | Speech to text. Backend leaf: `faster-whisper large-v3-turbo`, local, no network. |
 | [`calendar/`](calendar/CONTEXT.md) | Read what is scheduled. Provider leaf: `gcalendar`. Auth: [`../auth/gauth.py`](calendar/../auth/gauth.py). |
 | [`chat/`](chat/CONTEXT.md) | Exported conversation to navigable text — voice notes transcribed inline, bot noise dropped, secrets redacted. Provider leaf: `wazip` (WhatsApp). |
-| [`docs/`](docs/CONTEXT.md) | Long-form documents, read and edited in place. Provider leaf: `gdocs` (Google Docs API). |
-| [`files/`](files/CONTEXT.md) | Remote file storage: list, search, download, upload. Provider leaf: `gdrive`. |
+| [`docs/`](docs/CONTEXT.md) | Long-form documents, read and edited in place. Provider leaves: `gdocs` (Google Docs API), `docx` (local .docx form tables). |
+| [`files/`](files/CONTEXT.md) | Remote file storage: list, search, download, upload. Provider leaves: `gdrive`, `onedrive` (rclone). |
 | [`forms/`](forms/CONTEXT.md) | Surveys and their answers: a form written as a versioned spec, applied in one call. Provider leaf: `gforms`. |
 | [`links/`](links/CONTEXT.md) | A link gets a name a room can be told out loud. Provider leaf: `cfpages` (Cloudflare Pages). |
 | [`mail/`](mail/CONTEXT.md) | Read a mailbox and triage it. Provider leaf: `gmail`. Auth: [`../auth/gauth.py`](mail/../auth/gauth.py). |
@@ -43,6 +43,7 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`describe.py`](describe.py) | [`describe.pyi`](describe.pyi) | `Description`, `ocr`, `overlap`, `agy_logged_in`, `describe` | describe.py — the one image describer the tools share (pdf figures, video frames): which model looks, what the image's own text says, and whether the description can be trusted. |
 | [`gcli.py`](gcli.py) | [`gcli.pyi`](gcli.pyi) | `run`, `aliases`, `auth_command` | gcli.py — the two things every Google-backed CLI does identically: consent, and fan out over accounts |
 | [`notify/telegram`](notify/telegram) | — | — | tell Lucas, on the chat he already reads |
+| [`phone/adb`](phone/adb) | — | — | drive an Android phone over adb for design rounds: scroll-capture a screen, set an app's prefs and screenshot it, tile shots into one sheet |
 | [`secret_law.py`](secret_law.py) | [`secret_law.pyi`](secret_law.pyi) | `redact_line`, `redact`, `Finding`, `scan_text`, `scan` | secret_law.py — the one definition of what counts as a secret: the patterns, the redaction a transcript needs, and the scan that REFUSES a file rather than cleaning it. |
 | [`short_name.py`](short_name.py) | [`short_name.pyi`](short_name.pyi) | `mint` | short_name.py — the one line a tool spends on offering `--short-name`: mint a short link for what it created |
 | [`tool_law.py`](tool_law.py) | [`tool_law.pyi`](tool_law.pyi) | `require` | tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls |
