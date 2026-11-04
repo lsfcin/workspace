@@ -9,22 +9,6 @@
 
 <!-- add entries below, newest first -->
 
-https://www.instagram.com/p/DfSHM8YCbvp/?srtk=NTc4MTIwNjQ2YQ==
-— via aiwbot · 2026-11-04
-
-https://www.instagram.com/reel/DfSNWXBj9tA/?dlrf=NTc4MTIwNjQ2YQ==
-— via aiwbot · 2026-11-04
-
-https://www.instagram.com/reel/De11RPAiK4F/?exln=eHJtNGw3eXZidmZj
-interessado principalmente na IA que pode rodar localmente, curioso se serve pra eu usar no meu pc e pra recomendar pros meus alunos
-— via aiwbot · 2026-11-03
-
-no feedback do termométrico que a gente tá usando. Eu sei que a gente tem três estágios, mas fico pensando se não derra pra ser algo linear. Se isso for tornar o código mais complicado, aí tudo bem, não precisa. Mas o que eu tava pensando é, por exemplo, no eletrocardiograma, né, SG. Ele intensificando, se acalmando, naturalmente, não ser só três estágios. Ou, se isso for muito complexo e não valer a pena termos de performance, aí talvez fazer, ao invés de três estágios, sete estágios. Por que eu tô falando tudo isso? Porque aí o feedback fica mais imediato, né? O feedback fica mais imediato.
-— via aiwbot · 2026-11-03
-
-https://www.instagram.com/reel/DfKG9Ycwtk_/?mdxt=bmsya25yYmtrcHg2
-— via aiwbot · 2026-11-03
-
 https://www.instagram.com/p/DfQfOlqjPXD/?vrfl=NTc4MTIwNjQ2YQ==
 
 - (2026-11-03, sessão triagem ChatGPT) Ambiguidade nas normas: o agente confundiu configurações e armazenamento independentes de provedor com restrição ao uso de provedores, e tratou revisão por outro fornecedor e autorização de envio de dados como uma mesma decisão. Lucas esclareceu: TODOS os provedores podem ser usados em sua melhor capacidade; a independência é das configurações, para não prender o WOS a um fornecedor. Revisar core/norms/storage.md e interview.md. Também há uma frase mais restritiva em core/CONTEXT.md: “Runtime-agnostic — no provider-specific code”. Parecer interno: separar portabilidade, execução e revisão, sem inventar novos fluxos de aprovação; manter a exigência de outro fornecedor na revisão e a exceção Codex limitada a esta sessão. Versão inicial, ainda não aprovada: “PROVIDER-INDEPENDENT CONFIGURATION AND STATE: the workspace owns portable configuration and state. Use any provider best suited to the task. If a harness requires a separate state path, symlink it into the workspace.” Versão recomendada após o painel, ainda não aprovada: “PROVIDER-AGNOSTIC CONFIGURATION AND STORAGE: the workspace owns portable configuration and state. Use any provider best suited to the task. If a harness requires its own state path, make it a symlink to workspace-owned storage.” No trecho sobre o painel: “Before presenting design choices, obtain expert review from another provider and show its verdict beside each option. This review requirement does not restrict provider use for execution. Session-specific exceptions apply only to that session.” Para corrigir a frase do Core: “Runtime-agnostic configuration and state. Provider-specific integrations are allowed.” As normas não foram alteradas.
@@ -192,3 +176,7 @@ checar se realmente preciso do canva pro.
 - (2026-11-04, sessão apptime) `core/tools/panel/ask` só tem codex e agy; opencode (`~/.opencode/bin/opencode`) e zcode (`/usr/bin/zcode`) estão instalados mas ninguém testou a chamada headless — testar e entrar na cadeia. assimetria: a folha `ask` é uma cadeia de providers, e a regra da família diz "o arquivo é o provider".
 - (2026-11-04, sessão apptime) `./gradlew testDebugUnitTest` falha em `:url_launcher_android` (teste do plugin, não nosso); `:app:testDebugUnitTest` passa. ver se o verify do apptime roda só `:app`. o MIUI recusa `adb install` às vezes (`INSTALL_FAILED_VERIFICATION_FAILURE`), passa na 2ª tentativa — o `phone/adb` podia repetir sozinho.
 - (2026-11-04, sessão apptime) `code/apptime/ROADMAP.md` em 237 linhas / 19.381 chars, bloqueia em 250 / 20.000: cortar (as seções de painel e Workspace drift são candidatas), não dividir.
+- (2026-11-04, sessão ai4good) stats dos goals (`touches`, GOALS.md) se regeneram a cada commit, inclusive o commit das próprias stats: a árvore nunca fica limpa e um `git checkout` trava. o commit de stats não devia contar como touch.
+- (2026-11-04, sessão ai4good) o entropy dashboard rodou num worktree temporário (`/tmp/inbox-promote-develop-20261030`) e gravou no ISSUES.md do develop 72 achados falsos (routing para arquivos "que o repo não carrega"). rodar só na árvore principal, ou recusar fora dela.
+- (2026-11-04, sessão ai4good) `cfpages secrets --push` só configura produção; preview fica sem GITHUB_TOKEN/ENIGMA_SECRET, então nenhum e2e roda em preview. o comentário do GITHUB_TOKEN em `core/tools/links/segredos.env` diz "só lsf-links", mas ele já cobre academy-teaching.
+- (2026-11-04, sessão ai4good) `ciclo.py redes-convolucionais` parou de novo (agy vazio em revisa-d3-r1 e revisa-f3-r1; f6 com problema na r2). falhar de uma vez com o agy vazio fez parar 2 de 2 rodadas desse banco.
