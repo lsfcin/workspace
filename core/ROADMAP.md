@@ -98,8 +98,8 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 *What* — [subscription-review] Review ChatGPT/Canva use, billing, renewal and alternatives today before more build work. Settle editable shapes/connectors versus SVG with Lucas; verify MCP grant (Education/Enterprise documented; Pro trial reportedly ends ~2 Nov) or Apps SDK fallback. Through /craft, k10 must reproduce k1 without human clicks, oracle-verified; reread shared deck each turn. Evidence: tools/slides/SPECS.md, outputs/canva-poder-desenho.md, outputs/.drafts/canva-poder/{oracle.py,mcp_spike.py}. *Why* — Lucas prefers Canva; copied seeds retain motion. *Done when* — Verified k10 lets Lucas choose the home.
 
 
-**🟡 [cross-harness-delegation] Reliable delegation across harnesses**
-*What* — Compare quality, total tokens/cost, capability and quota on matched tasks; keep a dated caller/callee command matrix, automatic setup and discovery beyond PATH (Claude Codex-binary report, 30 Oct). Verify configured credentials, sandbox/network scope, unattended startup, retries, PID completion, stalled logs, interruption survival and duplicate-job prevention; session reports are hypotheses. [r-cli] Include memory-service behavior/portability. [pstack] Compare completion, invariants and behavior evidence; verify throughput claims. [context-evidence] Measure context/planning/checks; reject the invented 100k cutoff. Refs: refs/REFS.md; agents/SPECS.md. *Why* — Shared quota and reliable delegation. *Done when* — Bounded completion/failure and public-clone setup are demonstrated.
+**🟡 [cross-harness-delegation] Parity and reliable delegation across harnesses**
+*What* — Close Codex gaps in read completeness, worker briefs, permissions/effort, session reports/close, automations/bot, state/registry, dependencies/auth and public export. Evidence and acceptance: ../outputs/codex-audit-20261102/auditoria.md; nine public-test causes remain undiagnosed. Compare quality, tokens/cost, capability and quota on matched tasks; keep dated caller/callee commands and automatic executable discovery. Verify credentials, sandbox/network scope, unattended start, retries, process completion, stalled logs, interruption survival and duplicate prevention. [r-cli] Check memory portability. [pstack] Verify completion, invariants and throughput claims. [context-evidence] Measure context/planning/checks; reject the invented 100k cutoff. Refs: refs/REFS.md; agents/SPECS.md. *Why* — Shared quota and equivalent workspace contracts. *Done when* — Declared features have per-harness evidence, bounded completion/failure, and green source/public-clone checks without bypasses.
 
 
 **🟡 evaluate UNSLOP, aihero.dev and Oil UI**
@@ -222,4 +222,3 @@ Flows/agents wait for v1 (Lucas, 25 Aug); preserve the observed 24 Aug failures 
 - Canva motion through PPTX: import/export reduce Match & Move to fade; use a copied seed (3 Oct).
 
 - Outside-skill survey: DM-gated unlinked leads duplicated existing guidance; reopen from a real repository (25 Aug).
-

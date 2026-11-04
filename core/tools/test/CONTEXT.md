@@ -10,6 +10,7 @@
 | [`files/`](files/CONTEXT.md) | T1 coverage for files and drive sync tooling. |
 | [`law/`](law/CONTEXT.md) | Level 0: what a file is, what a name may be, and how big a session may get. |
 | [`pdf/`](pdf/CONTEXT.md) | T1 unit tests for the PDF twin. The PDFs are built in bytes and the engine is faked: no GPU, no network, no model. |
+| [`phone/`](phone/CONTEXT.md) | T1 unit tests for the phone tool. adb is faked and the screencaps are built in bytes: no phone, no SDK. |
 | [`video/`](video/CONTEXT.md) | T1 unit tests for the video tool. Fixtures live here; network-marked cases are excluded from verify-fast. |
 | [`workspace/`](workspace/CONTEXT.md) | Level 0 workspace-wide invariants: pointers resolve, .gitignore self-heals, imports do not shadow. |
 | [`wos/`](wos/CONTEXT.md) | What the workspace declares about itself, and what the session-close ritual really does. |

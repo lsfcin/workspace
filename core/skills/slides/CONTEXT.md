@@ -9,7 +9,7 @@
 | [`formats/`](formats/CONTEXT.md) | Children of formats.md: one file per content format a slide can carry. |
 | [`narrative/`](narrative/CONTEXT.md) | Children of narrative.md: the arc (structure) and the scene (visual-story). |
 | [`refs/`](refs/CONTEXT.md) | One yaml per reference the /slides subskills cite; schema of academy/papers/SPECS.md § Reference reviews, plus `level` and the web|tool|deck|talk types. |
-| [`visuals/`](visuals/CONTEXT.md) | Children of visuals.md: one-idea, layout, typography, color-and-imagery. |
+| [`visuals/`](visuals/CONTEXT.md) | Children of visuals.md: one-idea, layout, typography, color-and-imagery, drawing, motion. |
 
 | File | Description |
 |------|-------------|
