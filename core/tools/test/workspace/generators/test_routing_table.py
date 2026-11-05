@@ -207,6 +207,16 @@ def test_a_nested_repo_and_a_generated_mirror_keep_their_rows(tmp_path: Path) ->
     assert carried([mirror]) == [mirror]
 
 
+def test_a_root_inside_a_mirror_directory_is_not_itself_a_mirror(tmp_path, monkeypatch) -> None:
+    """A git worktree lives under .claude/worktrees/, and the mirror test matched the absolute path,
+    so every file in one was a 'mirror': entropy went blind there and ignored rows survived."""
+    import entropy_corpus
+    root = tmp_path / '.claude/worktrees/w'
+    monkeypatch.setattr(entropy_corpus, '_ROOT', root)
+    assert not entropy_corpus.is_generated_mirror(root / 'outputs/report.md')
+    assert entropy_corpus.is_generated_mirror(root / '.claude/skills/inbox/SKILL.md')
+
+
 def test_preserved_descriptions_survive_a_narrower_table() -> None:
     """Descriptions are re-read from tables of any arity — first cell file, last cell desc."""
     four = '| [`a.py`](a.py) | — | `go` | does the thing |'

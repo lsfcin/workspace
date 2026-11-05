@@ -250,7 +250,8 @@ code/wos
 .agents/skills/*/
 
 # The workspace venv, and the PDF engines' sibling venv. Local to one machine, never versioned.
-.venv/
+# No trailing slash: a worktree borrows the main tree's venv as a symlink, which `.venv/` misses.
+.venv
 .venv-pdf/
 
 # A subtree's passwords and tokens (AGENTS.md: secrets stay out of git; the text keeps the label).

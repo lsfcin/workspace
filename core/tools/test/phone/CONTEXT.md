@@ -4,7 +4,7 @@
 <!-- routing:start -->
 ## Routing
 
-| File | Description |
-|------|-------------|
-| [`test_phone.py`](test_phone.py) | T1 phone/adb: a prefs edit changes only the named values, scrolling ends when the page stops, and a sheet holds every shot. No phone, no adb. |
+| File | Interface | Description |
+|------|-----------|-------------|
+| [`test_phone.py`](test_phone.py) | [`test_phone.pyi`](test_phone.pyi) | T1 phone/adb: a prefs edit changes only the named values, scrolling ends when the page stops, and a sheet holds every shot. No phone, no adb. |
 <!-- routing:end -->
