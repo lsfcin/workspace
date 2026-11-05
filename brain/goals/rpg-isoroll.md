@@ -36,6 +36,11 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 > [ ] [inbox-20261030-isoroll-content] Track [anatomy], [gpu-unlock], [isoroll-environment-life], [rated-tools], [web-motion] in ../../code/isoroll-content/ROADMAP.md; refs: ../../code/isoroll-content/refs/REFS.md (backlog).
 > [ ] [inbox-20261030-isoroll-module] Track [anatomy], [isoroll-environment-life], [web-motion] in ../../code/isoroll-module/ROADMAP.md; refs: ../../code/isoroll-module/refs/REFS.md (backlog).
 
+> [ ] [pixelfx-tracking] Track [pixelfx-sheets] em code/isoroll-content/ROADMAP.md e [pixelfx-foundry] em code/isoroll-module/ROADMAP.md; refs em ambos refs/REFS.md.
+> [ ] [motionbricks-tracking] Track [nvidia-motionbricks] em code/isoroll-content/ROADMAP.md; ref em refs/REFS.md.
+> [ ] [qwen-turbo-tracking] Track [qwen-turbo-comfy] em code/isoroll-content/ROADMAP.md e [qwen-image-2-1] em local-ai.md; ref em refs/REFS.md.
+
+
 > [ ] [captured-isoroll-tools] Track Animater [animater], Universal Modder [modder-patterns], object brush [object-brush] and UniMate [unimate] in both code/isoroll-module/ROADMAP.md and code/isoroll-content/ROADMAP.md; references in both refs/REFS.md (backlog).
 
 > [ ] [game-isolation] Validate Brave voice/game separation in a real Monday session with VS Code/Claude: available RAM, game-first shutdown below 1 GiB, possible leaks and graphics failures. Configuration, diagnostics and removal: [machine setup](../../branches/tweaks/SETUP.md#ubuntu--brave--voz-e-foundry) (week).
@@ -52,6 +57,7 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 > Se bater, o veredito é curto e fica escrito. Irmão de [higgsfield-o-que-roda-aqui] em `local-ai.md`. Ref em `core/refs/REFS.md` (— via aiwbot)  
 > [ ] [capcut-um-take] Assess CapCut and Drift separately for promotional/devlog edits and table-session capture; scope uses before testing. Ref and assessment in code/isoroll-content/.  
 > [ ] [nvidia-imagegen] testar geração de imagem via opencode + chave NVIDIA — nanobanana com a key falhou algumas vezes; validar esse caminho alternativo (INBOX 2026-07-24)  
+> [ ] [scenario-3d-os-pipeline] avaliar impacto do 3D OS (Scenario) na automação do pipeline de assets do Isoroll (aponta para code/isoroll-content/ROADMAP.md [scenario-3d-os])  
 
 ## done
 

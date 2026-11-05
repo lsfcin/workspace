@@ -9,14 +9,11 @@
 
 <!-- add entries below, newest first -->
 
-https://www.instagram.com/p/DfQfOlqjPXD/?vrfl=NTc4MTIwNjQ2YQ==
-
-- (2026-11-03, sessão triagem ChatGPT) Ambiguidade nas normas: o agente confundiu configurações e armazenamento independentes de provedor com restrição ao uso de provedores, e tratou revisão por outro fornecedor e autorização de envio de dados como uma mesma decisão. Lucas esclareceu: TODOS os provedores podem ser usados em sua melhor capacidade; a independência é das configurações, para não prender o WOS a um fornecedor. Revisar core/norms/storage.md e interview.md. Também há uma frase mais restritiva em core/CONTEXT.md: “Runtime-agnostic — no provider-specific code”. Parecer interno: separar portabilidade, execução e revisão, sem inventar novos fluxos de aprovação; manter a exigência de outro fornecedor na revisão e a exceção Codex limitada a esta sessão. Versão inicial, ainda não aprovada: “PROVIDER-INDEPENDENT CONFIGURATION AND STATE: the workspace owns portable configuration and state. Use any provider best suited to the task. If a harness requires a separate state path, symlink it into the workspace.” Versão recomendada após o painel, ainda não aprovada: “PROVIDER-AGNOSTIC CONFIGURATION AND STORAGE: the workspace owns portable configuration and state. Use any provider best suited to the task. If a harness requires its own state path, make it a symlink to workspace-owned storage.” No trecho sobre o painel: “Before presenting design choices, obtain expert review from another provider and show its verdict beside each option. This review requirement does not restrict provider use for execution. Session-specific exceptions apply only to that session.” Para corrigir a frase do Core: “Runtime-agnostic configuration and state. Provider-specific integrations are allowed.” As normas não foram alteradas.
-
-https://www.instagram.com/reel/Debla6vTCkU/?srtk=aWd3NWNnNWk3bXJw
-— via aiwbot · 2026-11-02
+https://www.instagram.com/p/DfXk6uLDXB7/?rpxt=NTc4MTIwNjQ2YQ==
+— via aiwbot · 2026-11-05
 
 https://www.instagram.com/reel/Dd2VDfixrdf/?srtk=aG55OWd0b3dmeDJs
+
 — via aiwbot · 2026-11-02
 
 https://www.instagram.com/reel/DcjlgleALHo/?psln=aDhvdjFpcmw1Y255

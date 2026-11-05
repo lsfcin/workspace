@@ -4,12 +4,12 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-11-04 19:19
+last-updated: 2026-11-05 16:24
 
 >**areas** — last 14 days  
 ```
 health       ░░░░░░░░░░   0 touches
-career       █░░░░░░░░░   18 touches
+career       █░░░░░░░░░   20 touches
 craft        ██████████   131 touches
 finances     ░░░░░░░░░░   4 touches
 fun          ░░░░░░░░░░   4 touches
@@ -27,7 +27,7 @@ dance                    ░░░░░░░░░░   0 touches
 ecovila                  ░░░░░░░░░░   1 touches
 exercise                 ░░░░░░░░░░   0 touches
 finances                 ░░░░░░░░░░   1 touches
-google-migration         ░░░░░░░░░░   2 touches
+google-migration         ░░░░░░░░░░   4 touches
 guitar                   ░░░░░░░░░░   0 touches
 hair                     ░░░░░░░░░░   0 touches
 health-skills            ░░░░░░░░░░   0 touches
@@ -49,13 +49,13 @@ sleep-regularity         ░░░░░░░░░░   0 touches
 smartphone-addiction     ░░░░░░░░░░   0 touches
 spacemantics             ░░░░░░░░░░   1 touches
 spec-driven-development  ░░░░░░░░░░   1 touches
-startapps                ██████████   74 touches
+startapps                ██████████   77 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ███░░░░░░░   28 touches
+teaching-materials       ███░░░░░░░   26 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ████░░░░░░   32 touches
+workspace-os             ████░░░░░░   33 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

@@ -129,6 +129,7 @@ fallback · iterate — MVP can always be extended*
 > [ ] [otimizar-output-tokens-rtk] investigar melhorias no rtk e no consumo de output tokens dos modelos (tanto em argumentos de ferramentas de escrita/edição quanto em mensagens) — hoje o rtk atua apenas comprimindo stdout de Bash; avaliar compressão de payloads e diretivas de concisão em saídas de modelo (INBOX 2026-09-28; ver `core/experiments/output-cost.md`)  
 > [ ] [jev-laya-wos] investigar se modelos de decisão System-1 (JEV / Laya) têm papel estrutural no WOS — avaliação para routing de tarefas, pré-classificação em hooks/gates rápidos e triagem sem inferência cara de LLM (INBOX 2026-09-28; ref em `core/refs/REFS.md`)  
 > [ ] [unsloth-grpo-wos] avaliar se o ecossistema Unsloth Studio + GRPO cabe no ferramental do workspace — treinar ou afinar SLMs locais para tarefas específicas com reforço/recompensas relativas na infraestrutura do usuário (INBOX 2026-09-28; ref em `core/refs/REFS.md`)  
+> [ ] [video-motion-skills] avaliar adoção de skills de vídeo/animação e 3D no WOS (aponta para core/ROADMAP.md [visual-tools])  
 
 ## done
 
@@ -137,5 +138,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-11-04  ·  trend: decelerating  ·  touches: 83/835/987/987/987/987
+last-touch: 2026-11-03  ·  trend: decelerating  ·  touches: 85/837/989/989/989/989
 <!-- stats:end -->

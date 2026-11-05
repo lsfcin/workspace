@@ -108,6 +108,9 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json` (sobras e manutenç
 > [ ] [unsloth-grpo-teched-ai4good] incorporar Unsloth Studio (fine-tuning local no-code) e GRPO reasoning (RL com TRL) como tecnologia emergente em TechEdu e demonstração prática de alinhamento em AI4Good ([carrossel](https://www.instagram.com/p/DdygoZDCfci/?utm_source=ig_web_copy_link), — via aiwbot 2026-09-28; ref em `academy/teaching/REFS.md`)  
 > [ ] [ia-alavanca-brasil] incorporar o debate de soberania tecnológica, IA nacional em português e superação do extrativismo de dados (Galeano / Mídia NINJA) na discussão de impacto e ética de IA em AI4Good e na revisão do PPC da Licenciatura ([reel](https://www.instagram.com/reel/Ddz2POVp-W8/?stkn=NTc4MTIwNjQ2YQ==), — via aiwbot 2026-09-27; ref em `academy/teaching/REFS.md`)  
 > [ ] [fluxo-edicao-online-md] documentar e fechar o ciclo de edição online dos .md das disciplinas (vscode.dev/github/lsfcin/lsf-links) — o HTML renderiza via viewer no Cloudflare Pages, mas commits no GitHub hoje NÃO voltam sozinhos pro workspace local; definir protocolo operacional ou sync de volta antes que uma publicação local sobrescreva edições da nuvem (INBOX 2026-09-28)  
+> [ ] [animacoes-didaticas] avaliar animações explicativas programáticas geradas por IA para slides e material de aula (aponta para academy/teaching/ROADMAP.md [didactic-animations])  
+> [ ] [p5-computacao-criativa] acompanhar uso do p5.brush em práticas de programação visual e materiais didáticos (aponta para academy/teaching/ROADMAP.md [p5-creative-computing])  
+> [ ] [unsloth-praticas-ia] adicionar Unsloth Studio como ferramenta de apoio às práticas de IA sem custo para estudantes (aponta para academy/teaching/REFS.md)  
 
 ## done
 
