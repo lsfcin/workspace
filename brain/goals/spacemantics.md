@@ -52,5 +52,5 @@ profile 2.5D (mais reuso do isoroll). 10 min relendo §6 antes de escrever a gra
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-09-18  ·  trend: stalled  ·  touches: 0/65/89/89/89/89
+last-touch: 2026-10-30  ·  trend: decelerating  ·  touches: 1/66/90/90/90/90
 <!-- stats:end -->

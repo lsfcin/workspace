@@ -66,5 +66,5 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-24  ·  trend: decelerating  ·  touches: 9/90/681/682/682/682
+last-touch: 2026-10-30  ·  trend: decelerating  ·  touches: 9/91/681/683/683/683
 <!-- stats:end -->
