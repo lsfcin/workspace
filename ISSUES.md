@@ -168,7 +168,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/ai4good-v1 is 26 ahead of main
+- . — feature/ai4good-v1 is 27 ahead of main
 - . — feature/web-shoot is 10 ahead of main
 
 ### Work that exists on this disk and nowhere else
