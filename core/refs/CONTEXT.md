@@ -11,7 +11,7 @@ Two levels, the same split as a paper's `refs/`: [REFS.md](REFS.md) is the intak
 
 | File | Description |
 |------|-------------|
-| [`REFS.md`](REFS.md) | What external material exists for the workspace-os agent library, and how much weight does each hold? The intake: one line per ref not yet promoted. A judged ref lives in `<key>.yaml` beside this file, with its level `[A] [B] [P] [V] [C]`. Citation discipline: [SPECS.md](SPECS.md). |
+| [`REFS.md`](REFS.md) | External agent-library sources and evidential weight. Level-1 intake; judged sources live in YAML. Levels: [SPECS.md](SPECS.md). |
 | [`SPECS.md`](SPECS.md) | What each level marker means, and the citation discipline that keeps REFS.md honest. |
 | [`a-unified-approach-to-routing-and-cascading.yaml`](a-unified-approach-to-routing-and-cascading.yaml) | Reference for a-unified-approach-to-routing-and-cascading |
 | [`adr-pattern.yaml`](adr-pattern.yaml) | Reference for adr-pattern |

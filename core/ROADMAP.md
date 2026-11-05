@@ -45,15 +45,16 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 
 
 **🟢 [visual-tools] Captured visual tools — backlog**
-*What* — Compare Hairline/ff-tracking/Papermorph/animated data for editing, accessibility, fidelity and reproducibility. [web-motion] Check one browser visual's identity, licence and export. [anatomy] Separate editable animation, checked semantics, offline sprites and Foundry playback. [repo-maps] Verify inferred maps/prompts against code, not author intent. [plain-explanations] Compare Portuguese text/diagram/interactive clarity without controlled-English claims. Refs: refs/REFS.md. *Why* — Better explanations/teaching. *Done when* — Bounded comparisons establish transfer or rejection.
-
+*What* — Compare Hairline/ff-tracking/Papermorph for editing, accessibility and fidelity; [web-motion] browser visual export; [anatomy] animation and sprites; [video-motion-skills] assess HyperFrames/Remotion/Manim (Sisinty Vaibhav), p5.brush (Rishi Jain) and Scenario 3D OS agent skills (refs/REFS.md). *Why* — Better explanations, teaching and agent capabilities. *Done when* — Bounded comparisons establish transfer or rejection.
 
 **🟢 [expert-depth] Prompt depth — backlog**
 *What* — Compare the attributed Felix Rieseberg prompt with prepare/research: raw sources, methods and independent checks; refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Useful changes or rejection, no scope inflation.
 
-
 **🟢 [modder-patterns] Universal Modder — backlog**
 *What* — Assess Universal Modder discovery, live checks and field notes; refs/REFS.md. *Why* — Repeated discovery. *Done when* — Transfer or rejection is evidenced.
+
+**🟢 [provider-agnostic-clarification] Provider-agnostic governance — backlog**
+*What* — Clarify core/norms/storage.md, interview.md and core/CONTEXT.md: configuration and storage are provider-independent (symlink to WIS), but execution can use any provider; external review does not restrict execution. *Why* — Harness friction (ChatGPT triage 2026-11-03). *Done when* — Updated norms approved and applied.
 
 
 **🟡 Desktop hyperagent — high priority, week**
