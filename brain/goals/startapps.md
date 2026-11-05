@@ -69,6 +69,7 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 > [ ] [voti-data] validar ingestão de dados abertos da Câmara no voti  
 > [ ] [gira-sim] rodar simulação do modelo de crédito mútuo no gira  
 > [ ] [laplata-dataset] mapear o primeiro dataset público de transferências no laplata  
+> [ ] [apptime-termometro-escala] avaliar transição do termômetro do AppTime para escala mais imediata (7 estágios ou contínuo/ECG) (aponta para code/apptime/ROADMAP.md)  
 
 ## done
 
@@ -77,5 +78,5 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-17  ·  trend: decelerating  ·  touches: 2/111/138/153/159/159
+last-touch: 2026-11-05  ·  trend: steady  ·  touches: 80/190/216/232/238/238
 <!-- stats:end -->

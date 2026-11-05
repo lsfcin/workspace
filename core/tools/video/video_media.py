@@ -32,8 +32,11 @@ def download_video(url, runner=None):
 def transcribe(audio_path, model="base", lang=None, _model=None):
     """L2 — local speech-to-text; returns joined transcript."""
     m = _model or _load_model(model)
-    segments, _info = m.transcribe(str(audio_path), language=lang)
-    return " ".join(s.text.strip() for s in segments).strip()
+    try:
+        segments, _info = m.transcribe(str(audio_path), language=lang)
+        return " ".join(s.text.strip() for s in segments).strip()
+    except Exception:
+        return ""
 
 
 def ocr_image(img_path, lang="por+eng"):

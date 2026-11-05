@@ -45,15 +45,16 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 
 
 **🟢 [visual-tools] Captured visual tools — backlog**
-*What* — Compare Hairline/ff-tracking/Papermorph/animated data for editing, accessibility, fidelity and reproducibility. [web-motion] Check one browser visual's identity, licence and export. [anatomy] Separate editable animation, checked semantics, offline sprites and Foundry playback. [repo-maps] Verify inferred maps/prompts against code, not author intent. [plain-explanations] Compare Portuguese text/diagram/interactive clarity without controlled-English claims. Refs: refs/REFS.md. *Why* — Better explanations/teaching. *Done when* — Bounded comparisons establish transfer or rejection.
-
+*What* — Compare Hairline/ff-tracking/Papermorph for editing, accessibility and fidelity; [web-motion] browser visual export; [anatomy] animation and sprites; [video-motion-skills] assess HyperFrames/Remotion/Manim (Sisinty Vaibhav), p5.brush (Rishi Jain) and Scenario 3D OS agent skills (refs/REFS.md). *Why* — Better explanations, teaching and agent capabilities. *Done when* — Bounded comparisons establish transfer or rejection.
 
 **🟢 [expert-depth] Prompt depth — backlog**
 *What* — Compare the attributed Felix Rieseberg prompt with prepare/research: raw sources, methods and independent checks; refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Useful changes or rejection, no scope inflation.
 
-
 **🟢 [modder-patterns] Universal Modder — backlog**
 *What* — Assess Universal Modder discovery, live checks and field notes; refs/REFS.md. *Why* — Repeated discovery. *Done when* — Transfer or rejection is evidenced.
+
+**🟢 [provider-agnostic-clarification] Provider-agnostic governance — backlog**
+*What* — Clarify core/norms/storage.md, interview.md and core/CONTEXT.md: configuration and storage are provider-independent (symlink to WIS), but execution can use any provider; external review does not restrict execution. *Why* — Harness friction (ChatGPT triage 2026-11-03). *Done when* — Updated norms approved and applied.
 
 
 **🟡 Desktop hyperagent — high priority, week**
@@ -98,8 +99,8 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 *What* — [subscription-review] Review ChatGPT/Canva use, billing, renewal and alternatives today before more build work. Settle editable shapes/connectors versus SVG with Lucas; verify MCP grant (Education/Enterprise documented; Pro trial reportedly ends ~2 Nov) or Apps SDK fallback. Through /craft, k10 must reproduce k1 without human clicks, oracle-verified; reread shared deck each turn. Evidence: tools/slides/SPECS.md, outputs/canva-poder-desenho.md, outputs/.drafts/canva-poder/{oracle.py,mcp_spike.py}. *Why* — Lucas prefers Canva; copied seeds retain motion. *Done when* — Verified k10 lets Lucas choose the home.
 
 
-**🟡 [cross-harness-delegation] Reliable delegation across harnesses**
-*What* — Compare quality, total tokens/cost, capability and quota on matched tasks; keep a dated caller/callee command matrix, automatic setup and discovery beyond PATH (Claude Codex-binary report, 30 Oct). Verify configured credentials, sandbox/network scope, unattended startup, retries, PID completion, stalled logs, interruption survival and duplicate-job prevention; session reports are hypotheses. [r-cli] Include memory-service behavior/portability. [pstack] Compare completion, invariants and behavior evidence; verify throughput claims. [context-evidence] Measure context/planning/checks; reject the invented 100k cutoff. Refs: refs/REFS.md; agents/SPECS.md. *Why* — Shared quota and reliable delegation. *Done when* — Bounded completion/failure and public-clone setup are demonstrated.
+**🟡 [cross-harness-delegation] Parity and reliable delegation across harnesses**
+*What* — Close Codex gaps in read completeness, worker briefs, permissions/effort, session reports/close, automations/bot, state/registry, dependencies/auth and public export. Evidence and acceptance: ../outputs/codex-audit-20261102/auditoria.md; nine public-test causes remain undiagnosed. Compare quality, tokens/cost, capability and quota on matched tasks; keep dated caller/callee commands and automatic executable discovery. Verify credentials, sandbox/network scope, unattended start, retries, process completion, stalled logs, interruption survival and duplicate prevention. [r-cli] Check memory portability. [pstack] Verify completion, invariants and throughput claims. [context-evidence] Measure context/planning/checks; reject the invented 100k cutoff. Refs: refs/REFS.md; agents/SPECS.md. *Why* — Shared quota and equivalent workspace contracts. *Done when* — Declared features have per-harness evidence, bounded completion/failure, and green source/public-clone checks without bypasses.
 
 
 **🟡 evaluate UNSLOP, aihero.dev and Oil UI**
@@ -222,4 +223,3 @@ Flows/agents wait for v1 (Lucas, 25 Aug); preserve the observed 24 Aug failures 
 - Canva motion through PPTX: import/export reduce Match & Move to fade; use a copied seed (3 Oct).
 
 - Outside-skill survey: DM-gated unlinked leads duplicated existing guidance; reopen from a real repository (25 Aug).
-

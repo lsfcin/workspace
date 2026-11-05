@@ -53,6 +53,7 @@ pyyaml	pip	yaml	import:yaml	latex	-	core/tools/paper/terms dies on import, so th
 requests	pip	requests	import:requests	notes-notion	-	core/tools/notes/notion cannot reach the API
 anthropic	pip	anthropic	import:anthropic	mail	-	gmail attachment + triage paths lose their model calls
 pillow	pip	PIL	import:PIL	asset-inspect	-	core/tools/assets/inspect cannot open an image; video OCR, the shared describer and every PDF figure lose image handling
+playwright	pip	playwright	import:playwright	web-search	-	core/tools/web/shoot dies on import, so no HTML page or design artboard becomes a PNG; the module alone is not enough — without `python -m playwright install chromium` it fails at launch with "Executable doesn't exist"
 google-auth	pip	google	import:google.oauth2.credentials	google-auth	-	every Google-backed tool (mail, calendar, files, slides, forms, docs) fails before it reaches the network
 google-auth-oauthlib	pip	google_auth_oauthlib	import:google_auth_oauthlib	google-auth	-	the first-run OAuth consent flow cannot start, so no account can be added
 google-api-python-client	pip	googleapiclient	import:googleapiclient	google-auth	-	mail, calendar, files, slides, forms and docs have no API client to call
@@ -71,6 +72,7 @@ tesseract-ocr-por	apt	-	cmd:tesseract --list-langs 2>&1 | grep -qx por	pdf	-	OCR
 pypandoc-binary	pip	-	cmd:pandoc --version	latex	-	core/tools/paper/parse cannot read .docx or .pptx — it falls through to the plain-text arm and returns mojibake rather than an error
 poppler-utils	apt	-	cmd:pdftotext -v	pdf	-	core/tools/pdf cannot read a PDF's metadata, text layer or embedded images, and --review cannot render a page; gmail's PDF attachments go unsummarized, and slides preview/sample render nothing (they ask pdf/poppler)
 ffmpeg	system	-	cmd:ffmpeg -version	video-text	-	audio extraction and frame sampling fail, so the speech and ocr levels cannot start
+adb	binary	-	cmd:adb version	phone	-	core/run tools/phone/adb stops on its first call with "No such file or directory": no screenshot, no prefs edit (it ships with the Android SDK platform-tools, see code/apptime/SETUP.md)
 tesseract-ocr	apt	-	cmd:tesseract --version	video-text	-	pytesseract imports fine and then fails at call time — the module is the wrapper, this is the engine
 ddgr	apt	-	cmd:ddgr --version	web-search	-	the fallback backend is gone, so a missing or rate-limited Exa key leaves no search at all
 nodejs	binary	-	cmd:node --version	opencode-plugin	-	the opencode policy plugin cannot load, and every npm/npx-backed gate below loses its runtime

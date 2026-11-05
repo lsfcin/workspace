@@ -44,6 +44,7 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`describe.py`](describe.py) | [`describe.pyi`](describe.pyi) | `Description`, `ocr`, `overlap`, `agy_logged_in`, `describe` | describe.py — the one image describer the tools share (pdf figures, video frames): which model looks, what the image's own text says, and whether the description can be trusted. |
 | [`gcli.py`](gcli.py) | [`gcli.pyi`](gcli.pyi) | `run`, `aliases`, `auth_command` | gcli.py — the two things every Google-backed CLI does identically: consent, and fan out over accounts |
 | [`notify/telegram`](notify/telegram) | — | — | tell Lucas, on the chat he already reads |
+| [`phone/adb`](phone/adb) | — | — | drive an Android phone over adb for design rounds: scroll-capture a screen, set an app's prefs and screenshot it, tile shots into one sheet |
 | [`secret_law.py`](secret_law.py) | [`secret_law.pyi`](secret_law.pyi) | `redact_line`, `redact`, `Finding`, `scan_text`, `scan` | secret_law.py — the one definition of what counts as a secret: the patterns, the redaction a transcript needs, and the scan that REFUSES a file rather than cleaning it. |
 | [`short_name.py`](short_name.py) | [`short_name.pyi`](short_name.pyi) | `mint` | short_name.py — the one line a tool spends on offering `--short-name`: mint a short link for what it created |
 | [`tool_law.py`](tool_law.py) | [`tool_law.pyi`](tool_law.pyi) | `require` | tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls |

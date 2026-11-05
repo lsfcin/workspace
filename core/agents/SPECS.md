@@ -1,7 +1,7 @@
 # Agents — Specs
 > How a worker runs on another harness, and the traps each call has.
 
-**A worker can run on another harness, from any harness, through bash: prompt in, one file out, read-only.** Lucas prefers GPT and spends `gpt-6.1-sol` before any other worker (2026-10-19), because it does not spend the Claude quota; the spawner writes files from the output, never the worker.
+**A worker can run on another harness, from any harness, through bash: prompt in, one file out, read-only.** An outside panel is one call, `core/run tools/panel/ask --out <file> <prompt>`, which runs the Codex and agy rows below in that order and skips a model out of quota. Lucas prefers GPT and spends `gpt-6.1-sol` before any other worker (2026-10-19), because it does not spend the Claude quota; the spawner writes files from the output, never the worker.
 
 | Harness | Call (verified 2026-10-19) | Traps |
 |---|---|---|
