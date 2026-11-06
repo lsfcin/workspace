@@ -48,6 +48,7 @@ ai4good/tec	https://lucassf.pages.dev/ai4good/?doc=artefatos/3-tecnologia-base.m
 ai4good/tec-excelente	https://lucassf.pages.dev/ai4good/artefatos/tec/excelente.md	ai4good	2026-10-21
 ai4good/tec-raso	https://lucassf.pages.dev/ai4good/artefatos/tec/raso.md	ai4good	2026-10-21
 ai4good/transformers	https://docs.google.com/presentation/d/1xw1QMYfhase1Su0dlT8bYHlYaLouiPOFT2poTHX0i0k/present	ai4good	2026-09-24
+apptime/estrutura	https://claude.ai/artifact/2sLGPb14xRCyTpKHvkswa6	apptime	2026-11-06
 home	https://seasoned-bladder-7d0.notion.site/Lucas-S-Figueiredo-3695d139d7924e52b896d608086a68a5	home	2026-09-08
 p1	https://seasoned-bladder-7d0.notion.site/Programa-o-1-1d51656e2069803a8569e85611aa4dfb	p1	2026-09-08
 redes/aggregateiq	https://www.priv.gc.ca/en/opc-actions-and-decisions/investigations/investigations-into-businesses/2019/pipeda-2019-004/	pesquisa-redes	2026-10-07
