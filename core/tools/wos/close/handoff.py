@@ -142,12 +142,13 @@ def choose(root: Path, cwd: Path, session: str, agent: str, log: Path | None) ->
     totals, roots = Counter(), {}
     for name, n in edits(log, cwd).items() if log else []:
         path = Path(name)
-        if path.is_relative_to(root / 'outputs'):
-            continue
         parent = path.parent
         if parent not in roots:
             roots[parent] = repository(parent)
         repo = roots[parent]
+        # outputs/ is the workspace's scratch, handoffs included; a repo nested there is real work.
+        if path.is_relative_to(root / 'outputs') and repo == root:
+            continue
         if repo and n:
             totals[str(repo)] += n
     chosen = Path(sorted(totals, key=lambda p: (-totals[p], p))[0]) if totals else repository(cwd)
