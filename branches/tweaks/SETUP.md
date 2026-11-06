@@ -15,7 +15,7 @@ No Chrome o Lucas usava atalhos de uma letra: digitar `y` + Tab abre a busca do 
 
 ### Ubuntu / Windows — Atalho global de STT (Speech-to-Text) com invocação de agente
 
-Configurar atalho de teclado global de sistema no Ubuntu (e posteriormente no Windows) com gravação de áudio e dupla ação: (1) transcrição direta via STT onde o cursor estiver; (2) ativação de agente autônomo do WOS caso o áudio inicie com "bot ...". Avaliar STT do Antigravity (com revisão contextual e correção de siglas) vs. Whisper/aiwbot (INBOX 2026-10-01/02).
+Configurar atalho de teclado global de sistema no Ubuntu (e posteriormente no Windows) com gravação de áudio e dupla ação: (1) transcrição direta via STT onde o cursor estiver; (2) ativação de agente autônomo do WOS caso o áudio inicie com "bot ...". Avaliar [Hex](https://github.com/anomalyco/hex) (overlay global de teclado para STT) como referência de arquitetura, comparando STT do Antigravity vs. Whisper/aiwbot (INBOX 2026-10-01/02, 2026-11-02).
 
 ## Ubuntu / Brave — voz e Foundry
 
@@ -103,3 +103,26 @@ Parar somente o serviço não desfaz a intervenção: uma nova abertura pelo lan
 Monitor ativo e habilitado, integridade dos oito arquivos conferida e tetos removidos também no kernel em 17/out. Testes com leituras simuladas e grupos descartáveis verificaram o limiar, a ordem, a recuperação sem encerrar voz, o encerramento forçado e a preservação de um processo externo. Os dois modos do lançador passaram pela consulta de versão. O áudio do Discord foi validado com outra pessoa em 14/out; o Foundry real não foi aberto nestes testes.
 
 A próxima partida deve validar a separação com VS Code/Claude aberto e acompanhar a memória disponível. Vazamento e falha NVIDIA seguem sem solução confirmada. Acompanhamento em [rpg-isoroll](../../brain/goals/rpg-isoroll.md); modelos ociosos em `code/aiwbot/ROADMAP.md`.
+
+## Memória — earlyoom e zram (proteção global contra travamento)
+
+### Motivo e decisão (2026-11-05)
+Com 14 GB de RAM física e base de ~6.6 GB em uso no login, cargas de desenvolvimento com múltiplos agentes e inferência local (Whisper, modelos de visão ou compilações) esgotavam a memória e levavam o Ubuntu a congelamento completo por *I/O thrashing* (leitura/escrita desesperada no `/swap.img` em disco) antes que o OOM killer nativo do kernel pudesse agir. O monitor do Brave cobria apenas o navegador e não protegia contra processos externos.
+
+Solução em duas camadas a nível de sistema:
+1. **`earlyoom`**: daemon em espaço de usuário que monitora a cada segundo e finaliza o processo agressor com SIGTERM/SIGKILL assim que RAM e Swap caem abaixo de 10%, impedindo o travamento da máquina.
+2. **`zram-config`**: cria partição swap compactada diretamente na RAM (LZ4/ZSTD) com prioridade alta (`priority=100`), garantindo que qualquer paginação ocorra na velocidade da memória e sem saturar o barramento de disco.
+
+### Instalação e verificação
+```bash
+sudo apt update && sudo apt install -y earlyoom zram-config
+sudo systemctl enable --now earlyoom
+```
+
+Conferência:
+```bash
+systemctl status earlyoom
+swapon --show
+```
+Deve exibir `/dev/zram0` com prioridade maior que `/swap.img`.
+

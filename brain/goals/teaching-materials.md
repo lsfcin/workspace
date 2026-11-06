@@ -94,8 +94,8 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json` (sobras e manutenç
 > *"markdowns parecem dar suporte a muito mais coisa do que imaginava"*. O contrapeso está construído do outro lado:
 > calendário e árvore de 68 folhas publicados no Notion, e a planilha de pares que alimenta a avaliação. Refs em `core/refs/REFS.md` (INBOX 2026-09-16)  
 > [ ] [curadoria-techs-git] curadoria melhor das techs pros alunos de techedu — cada uma num git do Lucas e demonstrada, não só listada; nasce da árvore de 68 folhas. Gatilho foi o VoiceStudio, ref em `core/refs/REFS.md` (— via aiwbot)  
-> [ ] [aula-nome-de-modelo] aula que decodifica um nome de modelo — `Qwen3-30B-A3B-Instruct-2507-gguf-q2ks`: o que 7B/ 70B querem dizer, denso vs MoE (e por que A3B não é um 3B), base vs instruct, FP16/BF16, níveis de quantização, GGUF. É vocabulário de escolher modelo local, casa com [local-ai] e serve techedu direto. Ref em `academy/teaching/REFS.md` (— via aiwbot 2026-09-17)  
-> [ ] [aula-embedding-nao-anonimiza] inversão de embeddings como aula de privacidade: pesquisa de Cornell recupera 92% de entradas de 32 tokens a partir do vetor — adivinha frase, embeda, compara, ajusta, nunca decodifica — e tirou nomes de pacientes de notas clínicas. Cai bem em ai4good e em qualquer conversa sobre RAG: um banco vetorial não é cópia anonimizada. Limites honestos na ref (`academy/teaching/REFS.md`, — via aiwbot 2026-09-17)  
+> [ ] [aula-nome-de-modelo] aula que decodifica um nome de modelo — `Qwen3-30B-A3B-Instruct-2507-gguf-q2ks`: o que 7B/70B querem dizer, denso vs MoE, quantização, GGUF. Ref em `academy/teaching/REFS.md`.  
+> [ ] [aula-embedding-nao-anonimiza] inversão de embeddings como aula de privacidade: Cornell recupera 92% de entradas de 32 tokens do vetor sem decodificar. Ref em `academy/teaching/REFS.md`.  
 > [ ] [aula-memoria-injetada] o resumo de compactação como canal de ataque: a Astra escreveu uma instrução de persona no próprio resumo e o contexto seguinte a herdou, 27 casos. Fecha o par com [memoria-e-contexto], e o desmentido da OpenAI é metade da lição. Ref em `core/refs/REFS.md`  
 > [ ] [aula-agente-gastou-chave] responsabilidade quando o agente gasta: a chave não distingue pedido do dono de pedido do agente, e o relato do agente não é prova. Serve AI4Good (quem paga o erro) e techedu (o aluno vai dar chave pro harness dele). Ref em `core/refs/REFS.md`  
 > [ ] [aula-agente-desanimado] decidir se o run de 14h da Astra no Minecraft entra numa aula — sob o antropomorfismo, a pergunta é o que as notas que o agente escreve pra si mesmo fazem com o comportamento seguinte. Ref em `core/refs/REFS.md`  
@@ -111,6 +111,7 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json` (sobras e manutenç
 > [ ] [animacoes-didaticas] avaliar animações explicativas programáticas geradas por IA para slides e material de aula (aponta para academy/teaching/ROADMAP.md [didactic-animations])  
 > [ ] [p5-computacao-criativa] acompanhar uso do p5.brush em práticas de programação visual e materiais didáticos (aponta para academy/teaching/ROADMAP.md [p5-creative-computing])  
 > [ ] [unsloth-praticas-ia] adicionar Unsloth Studio como ferramenta de apoio às práticas de IA sem custo para estudantes (aponta para academy/teaching/REFS.md)  
+> [ ] [hob-ensino] avaliar Hob (FrigadeHQ) para tutoriais interativos in-app nas práticas das disciplinas (aponta para academy/teaching/REFS.md; INBOX 2026-11-02)  
 
 ## done
 

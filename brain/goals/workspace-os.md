@@ -65,7 +65,8 @@ fallback · iterate — MVP can always be extended*
 > [ ] [inbox-20261030-wos-ablation] Track [code-mode], [context-evidence], [dependency-provenance], [harness2], [pstack], [r-cli], [repo-maps] in ../../academy/papers/wos-ablation/ROADMAP.md; refs: ../../academy/papers/wos-ablation/refs/REFS.md (backlog).
 > [ ] [inbox-20261030-aiwbot] Track [code-mode], [context-evidence], [dependency-provenance], [dessa], [harness2], [pstack], [r-cli], [rated-tools], [scaledown], [unsloth-browser], [voice-studio] in ../../code/aiwbot/ROADMAP.md; refs: ../../code/aiwbot/REFS.md (backlog).
 > [ ] [inbox-20261030-freeai] Track [airllm], [deepinfer], [mesh-llm], [model-continuity], [nomad], [r-cli], [rated-tools], [strata-local], [unsloth-browser] in ../../code/freeai/ROADMAP.md; refs: ../../code/freeai/refs/REFS.md (backlog).
-> [ ] [inbox-20261030-core] Track [airllm], [anatomy], [code-mode], [context-evidence], [deepinfer], [dependency-provenance], [dessa], [firecrawl], [gpu-unlock], [harness2], [laws-markdown], [mesh-llm], [model-continuity], [nomad], [owly-transfer], [plain-explanations], [pstack], [qwenputer], [r-cli], [rated-tools], [repo-maps], [scaledown], [strata-local], [unlimited-ocr], [unsloth-browser], [visual-comparisons], [voice-studio], [web-motion] in ../../core/ROADMAP.md; refs: ../../branches/tweaks/refs/REFS.md, ../../core/refs/REFS.md (backlog).
+> [ ] [inbox-20261030-core] Track captured intake items in ../../core/ROADMAP.md; refs: ../../branches/tweaks/refs/REFS.md, ../../core/refs/REFS.md (backlog).
+> [ ] [graphify-audit] avaliar utilidade real do graphify no WOS vs sobrecarga (INBOX 2026-10-31; aponta para core/ROADMAP.md)
 
 > [ ] [mcptoon-context] Track the mcptoon comparison in core/ROADMAP.md [mcptoon-context]; reference in core/refs/REFS.md (backlog).
 
