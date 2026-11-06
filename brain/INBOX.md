@@ -9,6 +9,10 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/p/DfTb1XOGW_2/?img_index=3&cplk=b2tmYmJhNDZxb3Jr
+é útil? é melhor? pior? do que o que temos?
+— via aiwbot · 2026-11-06
+
 https://www.instagram.com/p/DfXk6uLDXB7/?rpxt=NTc4MTIwNjQ2YQ==
 — via aiwbot · 2026-11-05
 
