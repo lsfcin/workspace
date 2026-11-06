@@ -90,13 +90,20 @@ def is_partial() -> bool:
 
 
 def stage(cwd, *paths, named_only=False) -> None:
-    """git add, tolerant. `named_only`, in a partial commit: an AGGREGATE (ISSUES.md, GOALS.md,
-    .gitignore) rides only if named; a companion of a named file (stub, CONTEXT.md) always rides."""
+    """git add, tolerant but never silent. `named_only`, in a partial commit: an AGGREGATE (ISSUES.md,
+    GOALS.md, .gitignore) rides only if named; a companion of a named file (stub, CONTEXT.md) always rides.
+
+    A failed add never stops the commit, but it says so: a silent one left the brain stats on disk
+    and out of every commit for weeks (2026-11-06), a dirty tree whose cause nobody could see.
+    """
     if named_only and is_partial():
         named = set(git('diff', '--cached', '--name-only', '--relative', cwd=cwd).splitlines())
         paths = [p for p in paths if Path(os.path.relpath(Path(cwd) / p, cwd)).as_posix() in named]
     for path in paths:
-        git('add', str(path), cwd=cwd)
+        done = subprocess.run(['git', 'add', str(path)], cwd=cwd, capture_output=True, text=True,
+                              encoding='utf-8', errors='replace')
+        if done.returncode:
+            print(f"⚠ could not stage {path} from {cwd}: {done.stderr.strip()}", file=sys.stderr)
 
 
 @dataclass

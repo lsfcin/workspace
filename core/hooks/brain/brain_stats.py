@@ -164,8 +164,10 @@ def pre_commit():
     to_stage = modified[:]
     if GOALS_FILE.exists():
         to_stage.append(str(GOALS_FILE))
+    # From the workspace root, where brain_common's relative paths start. Staged from brain/, they
+    # named brain/brain/… and the add failed in silence: the stats stayed on disk, out of every commit.
     if to_stage:
-        stage(GOALS_FILE.parent, *to_stage, named_only=True)
+        stage(Path('.'), *to_stage, named_only=True)
 
     check_compass_reminder()
 
