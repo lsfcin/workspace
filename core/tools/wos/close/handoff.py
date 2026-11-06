@@ -35,6 +35,16 @@ def records(path: Path):
                 yield row
 
 
+def started(path: Path | None) -> float:
+    """Epoch seconds of a transcript's first timestamp; 0.0 when there is none to read."""
+    from datetime import datetime
+    for row in records(path) if path and path.is_file() else ():
+        stamp = row.get('timestamp')
+        if isinstance(stamp, str):
+            return datetime.fromisoformat(stamp.replace('Z', '+00:00')).timestamp()
+    return 0.0
+
+
 def transcript(session: str, agent: str, cwd: Path, given: str = '') -> Path | None:
     if given:
         path = Path(given)

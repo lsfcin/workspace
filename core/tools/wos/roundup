@@ -33,6 +33,7 @@ import branches  # noqa: E402
 import contract  # noqa: E402
 from artifacts import git, out, spawn  # noqa: E402
 from platform_law import interpreter, posix, session_state  # noqa: E402
+from handoff import started, transcript  # noqa: E402
 from projects import sweep  # noqa: E402
 from repomap import redraw  # noqa: E402
 
@@ -219,7 +220,8 @@ def main(argv: list) -> int:
     cost, size, trace = report(root, sid)
     said = {'cost': cost, 'size': size, 'trace': trace,
             'verify': verdict, 'sync': sync, 'public': public(root), 'entropy': entropy,
-            'projects': sweep(root) if root == WORKSPACE else '', 'map': drawn,
+            'projects': sweep(root, started(transcript(sid, 'claude', root)) if sid else 0.0)
+                        if root == WORKSPACE else '', 'map': drawn,
             'diagram': diagram, 'compaction': compaction(sid) if sid else '',
             'permissions': perms}
     for label in STATE:

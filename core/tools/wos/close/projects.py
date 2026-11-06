@@ -27,8 +27,12 @@ def push(repo, branch: str) -> str:
     return 'pushed' if git(repo, *args).returncode == 0 else 'failed'
 
 
-def sweep(root: Path) -> str:
+def sweep(root: Path, since: float = 0.0) -> str:
     """Push and promote every nested project, and say what happened. Silent about the quiet ones.
+
+    `since` (epoch seconds, the session's start) names every project committed to after it, with
+    its branch: post-commit pushes feature/* itself, so a project worked on all session was never
+    'pushed' here, and the hand-off quoted the workspace's branch as the work's (2026-11-05).
 
     Ruled 2026-09-04 (Lucas). The workspace's list stopped counting these projects, because they
     are IGNORED by its git and a count of them described this disk rather than the repo (b20260902).
@@ -38,25 +42,29 @@ def sweep(root: Path) -> str:
     """
     from entropy_corpus import nested_repos
     from platform_law import posix
-    pushed, promoted, stuck, homeless = [], [], [], []
+    worked, pushed, promoted, stuck, homeless = [], [], [], [], []
     for repo in sorted(nested_repos(root)):
         name = posix(repo.relative_to(root))
+        branch = out(repo, 'rev-parse', '--abbrev-ref', 'HEAD')
+        if since and int(out(repo, 'log', '-1', '--format=%ct') or 0) >= since:
+            worked.append(f'{name} on {branch}')
         if not out(repo, 'remote', 'get-url', 'origin'):
             homeless.append(name)
             continue
         git(repo, 'fetch', '--quiet')
-        landed = push(repo, out(repo, 'rev-parse', '--abbrev-ref', 'HEAD'))
+        landed = push(repo, branch)
         if landed:
             (pushed if landed == 'pushed' else stuck).append(name)
         if not branches.gitflow(root, repo):
             continue
         was = out(repo, 'rev-parse', 'main')
-        refused = branches.promote(repo, out(repo, 'rev-parse', '--abbrev-ref', 'HEAD'), False)
+        refused = branches.promote(repo, branch, False)
         if refused:
             stuck.append(f'{name} — {refused}')
         elif out(repo, 'rev-parse', 'main') != was:
             promoted.append(name)
-    said = [f'{len(pushed)} pushed' if pushed else '',
+    said = [f'worked: {", ".join(worked)}' if worked else '',
+            f'{len(pushed)} pushed' if pushed else '',
             f'{len(promoted)} promoted' if promoted else '',
             f'{len(stuck)} failed: {", ".join(stuck)}' if stuck else '',
             f'{len(homeless)} with no remote: {", ".join(homeless)}' if homeless else '']
