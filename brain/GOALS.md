@@ -4,14 +4,14 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-11-06 02:10
+last-updated: 2026-11-06 02:11
 
 >**areas** — last 14 days  
 ```
-health       ░░░░░░░░░░   0 touches
+health       ░░░░░░░░░░   1 touches
 career       █░░░░░░░░░   20 touches
-craft        ██████████   166 touches
-finances     ░░░░░░░░░░   4 touches
+craft        ██████████   167 touches
+finances     ░░░░░░░░░░   5 touches
 fun          ░░░░░░░░░░   6 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
@@ -26,7 +26,7 @@ cria                     ░░░░░░░░░░   0 touches
 dance                    ░░░░░░░░░░   0 touches
 ecovila                  ░░░░░░░░░░   1 touches
 exercise                 ░░░░░░░░░░   0 touches
-finances                 ░░░░░░░░░░   1 touches
+finances                 ░░░░░░░░░░   2 touches
 google-migration         ░░░░░░░░░░   4 touches
 guitar                   ░░░░░░░░░░   0 touches
 hair                     ░░░░░░░░░░   0 touches
@@ -46,16 +46,16 @@ paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   1 touches
 rpg-isoroll              ░░░░░░░░░░   6 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
-smartphone-addiction     ░░░░░░░░░░   0 touches
+smartphone-addiction     ░░░░░░░░░░   1 touches
 spacemantics             ░░░░░░░░░░   3 touches
 spec-driven-development  ░░░░░░░░░░   1 touches
-startapps                ██████████   91 touches
+startapps                ██████████   92 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ███░░░░░░░   28 touches
+teaching-materials       ███░░░░░░░   29 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████░░░░   56 touches
+workspace-os             ██████░░░░   57 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

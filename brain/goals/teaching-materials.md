@@ -120,5 +120,5 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json` (sobras e manutenç
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-11-05  ·  trend: steady  ·  touches: 58/137/152/152/152/152
+last-touch: 2026-11-06  ·  trend: steady  ·  touches: 59/138/153/153/153/153
 <!-- stats:end -->
