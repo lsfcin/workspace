@@ -100,7 +100,9 @@ def cmd_secrets(push: bool) -> None:
         duplas = [d.split('+') for d in env.get('DUPLAS', '').split(',') if d]
         turmas[page.parent.name] = {'matriculas': {n: env[key(n)].strip() for n in names}, 'duplas': duplas}
     values = {'EDIT_PASSWORD': own.get('EDIT_PASSWORD', ''), 'GITHUB_TOKEN': own.get('GITHUB_TOKEN', ''),
-              'TURMAS': json.dumps(turmas, ensure_ascii=False)}
+              'TURMAS': json.dumps(turmas, ensure_ascii=False), 'ENIGMA_SECRET': own.get('ENIGMA_SECRET', '')}
+    # A preview deploy plays enigmas on its own store and page branches, never on the class's.
+    preview = {'ENIGMA_STORE_BRANCH': 'enigmas-teste', 'ENIGMA_PAGE_BRANCH': 'feature/enigmas-sistema'}
     if not push:
         print("# paste each into the host's secret store, or rerun with --push")
         for k, v in values.items():
@@ -115,8 +117,10 @@ def cmd_secrets(push: bool) -> None:
         with urllib.request.urlopen(req) as res:
             return json.loads(res.read().decode('utf-8'))
     env_vars = {k: {'type': 'secret_text', 'value': v} for k, v in values.items()}
-    call('PATCH', api, {'deployment_configs': {'production': {'env_vars': env_vars}}})
-    print(f"set {', '.join(values)} on {PROJECT}")
+    plain = {k: {'type': 'plain_text', 'value': v} for k, v in preview.items()}
+    call('PATCH', api, {'deployment_configs': {'production': {'env_vars': env_vars},
+                                               'preview': {'env_vars': {**env_vars, **plain}}}})
+    print(f"set {', '.join(values)} on {PROJECT} (preview also {', '.join(preview)})")
     call('POST', f"{api}/deployments")
     print("  redeploying — live in ~1 min")
 
