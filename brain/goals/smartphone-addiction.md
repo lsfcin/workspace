@@ -37,6 +37,8 @@ fallback · if direct reduction fails, investigate what need the phone is fillin
 > [ ] [social-audit] assess social media use specifically — what's being gained vs cost  
 > [ ] [build-alternatives] for each identified need, build one competing alternative  
 > [ ] [natural-fade] describe what version of self would not need the phone compulsively  
+> [ ] [apptime-autostart-ux] Track [B5] em code/apptime/ISSUES.md e tarefas de onboarding/pílula em code/apptime/ROADMAP.md.
+  
 
 ## done
 
@@ -45,5 +47,5 @@ fallback · if direct reduction fails, investigate what need the phone is fillin
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-08-24  ·  trend: decelerating  ·  touches: 1/7/7/7/7/7
+last-touch: 2026-09-18  ·  trend: stalled  ·  touches: 0/2/8/8/8/8
 <!-- stats:end -->

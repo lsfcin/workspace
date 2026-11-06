@@ -10,6 +10,7 @@ Why a draft leaves rather than accumulates, and why a model's name belongs in th
 
 | File | Description |
 |------|-------------|
+| [`ai-literacy-startup.md`](ai-literacy-startup.md) | Semente conceitual de startup (Startapps portfolio, `brain/goals/startapps.md`). Origem: reflexão do Lucas em `brain/INBOX.md` (2026-10-31). |
 | [`context-folding-report.md`](context-folding-report.md) | Context Folding: A Graph-Based Architecture for Infinite-Horizon AI Agent Memory |
 | [`metodologia-aulas-gemini.md`](metodologia-aulas-gemini.md) | Metodologia de aula — proposta consolidada (Gemini, 2026-09-01) |
 | [`metodologia-aulas-opus.md`](metodologia-aulas-opus.md) | Metodologia de aula — proposta independente |

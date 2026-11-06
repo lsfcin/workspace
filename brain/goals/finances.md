@@ -21,7 +21,7 @@ fallback · even a rough estimate is better than no map*
 ## backlog
 
 
-> [ ] [subscription-review] Review actual ChatGPT and Canva use, billing/renewal dates and alternatives before deciding which subscriptions to keep; reassess Canva tooling before more build work (today).
+> [ ] [subscription-review] Review actual ChatGPT and Canva use, billing/renewal dates and alternatives before deciding which subscriptions to keep; Canva trial report showed 179 uses of "Animação premium" — audit whether native workspace animation alternatives (`core/skills/slides/formats/animation.md`) replace it before renewing (INBOX 2026-10-31).
 
 > [ ] [financial-literacy] Identify the financial-literacy portal mentioned by @samuelolandim and assess whether its educational material serves our financial-planning goal; [captured source](https://www.instagram.com/reel/Dd4mWBxAMAA/?dlrf=MW5yYWFzOXlqcmY4bQ==) [src: web:instagram.com], branches/virada/refs/REFS.md (backlog).
 
@@ -40,5 +40,5 @@ fallback · even a rough estimate is better than no map*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-16  ·  trend: steady  ·  touches: 1/5/11/11/11/11
+last-touch: 2026-10-30  ·  trend: steady  ·  touches: 2/6/12/12/12/12
 <!-- stats:end -->

@@ -68,6 +68,18 @@ def test_ranking_counts_only_successful_session_edits(tmp_path):
     assert info['lines'] == {str(root): 2, str(nested): 3}
 
 
+def test_a_repository_nested_in_outputs_counts(tmp_path):
+    root = repo(tmp_path / 'workspace')
+    site = repo(root / 'outputs' / 'links')
+    rows = patch('a', str(root / 'one.md'), '+one')
+    rows += patch('b', str(site / 'lib.js'), '+one\n+two')
+    rows += patch('c', str(root / 'outputs' / 'handoff-x.md'), '+ignored\n' * 100)
+    info = handoff.choose(root, root, 's', 'chatgpt', log(tmp_path / 'log.jsonl', rows))
+    assert info['repository'] == str(site)
+    assert info['lines'] == {str(root): 1, str(site): 2}
+    assert info['path'] == str(root / 'outputs/handoff-links-chatgpt.md')
+
+
 def test_claude_errors_and_sidechains_are_excluded(tmp_path):
     root = repo(tmp_path / 'workspace')
     def use(identifier, side=False):

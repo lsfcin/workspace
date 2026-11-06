@@ -28,8 +28,10 @@ Projetos do portfólio:
 | **xacomigo** | Proposta de valor para serviços de conveniência | semente de proposta |
 | **faz-favor** | Rede de favores, empréstimos e apoio mútuo em círculos de confiança (sem dinheiro) | semente conceitual |
 | **proxima-rede** | Rede social de utilidade e comunidade de propósito (antídoto a padrões viciantes) | semente conceitual |
+| **ai-literacy** | Plataforma de letramento em IA, grafos de conhecimento e empregabilidade | semente conceitual (`brain/drafts/ai-literacy-startup.md`) |
 
 Irmão de [[craft-flows]] e [[spec-driven-development]].
+
 
 >**signals**  
 meaningful · optional · motivated
@@ -57,6 +59,8 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## backlog
 
+> [ ] [ai-literacy-concept] Estruturar concept doc da plataforma de AI Literacy & Empregabilidade e validar com Ralph (INBOX 2026-10-31; rascunho em brain/drafts/ai-literacy-startup.md)
+
 > [ ] [virada-source-review] Track original-source checks in branches/virada/ROADMAP.md [source-review] and refs/REFS.md, dossier drift in ISSUES.md [dossier-source-drift], and the paused Melhor pra Mim record (Claude-session reports, 19–23 Oct).
 
 > [ ] [polilinhas-timeline] Avaliar a timeline documental proposta para a Virada; escopo e escolhas em branches/virada/ROADMAP.md [timeline-evidencias] (backlog).
@@ -78,5 +82,5 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-11-05  ·  trend: steady  ·  touches: 80/190/216/232/238/238
+last-touch: 2026-11-06  ·  trend: steady  ·  touches: 92/202/228/244/250/250
 <!-- stats:end -->

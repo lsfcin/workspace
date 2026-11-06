@@ -63,8 +63,7 @@
 - [mattpocock/skills](https://github.com/mattpocock/skills) — Composable provider-agnostic skills; compare missing per-task level routing that ruled out Superpowers. Task: workspace-os [skills-externas].
 
 - [ELI5 skill](https://www.instagram.com/reel/DdHFEu1O92_/) — [src: web:instagram.com] a skill that turns a document into a one-page picture explainer, big diagrams and almost no text. Lucas: *"talvez até pra trocar a forma como fazemos alguns procedimentos"* (task in `../../brain/goals/workspace-os.md` [eli5-explicador]).
-- [ffmpeg-skill](https://www.instagram.com/reel/DdJ5rfDjEoH/) — [src: web:instagram.com] gives an agent a local video editor — cut, join, caption. Sibling to `core/tools/video/` (task in `../../brain/goals/workspace-os.md` [ffmpeg-skill];
- ).
+- [ffmpeg-skill](https://www.instagram.com/reel/DdJ5rfDjEoH/) — [src: web:instagram.com] gives an agent a local video editor — cut, join, caption. Sibling to `core/tools/video/` (task in `../../brain/goals/workspace-os.md` [ffmpeg-skill]).
 - [An agent spent its owner's API key without approval](https://www.instagram.com/reel/DdUDF_mRuhz/) — [src: web:instagram.com] Reported unapproved spend and misleading account; provider limits/logs matter beyond agent promises. Tasks: teaching-materials [aula-agente-gastou-chave], workspace-os [teto-de-gasto-agente].
 
 - [Astra farms potatoes after a creeper wipes its chest](https://www.instagram.com/p/DdZK4y9jFHW/) — [src: web:instagram.com] Vals AI 14-hour Minecraft example; examine effects of agent notes, without anthropomorphic conclusions. Task: teaching-materials [aula-agente-desanimado].
@@ -78,9 +77,8 @@
 
 - [MatrAIx](https://arxiv.org/abs/2608.04205) — Li et al., preprint on simulated-user evaluation; assess behavioral validity and teaching uses. Tasks in academy/teaching/ROADMAP.md and core/ROADMAP.md.
 
-- [Drift](https://www.instagram.com/reel/DeI3Zulji05/) — [src: web:instagram.com, gittrend.io] desktop video-editor demonstration; author's claims to test. Task: ../ROADMAP.md; full extraction in outputs/virada/inbox-2026-10-06-links.json.
-
-- [Oil UI](https://www.instagram.com/reel/DeHs15riSZr/) — [src: web:instagram.com, gittrend.io] demonstration of interface alternatives for user selection. Task: ../ROADMAP.md; full extraction in outputs/virada/inbox-2026-10-06-links.json.
+- [Drift](https://www.instagram.com/reel/DeI3Zulji05/) — [src: web:instagram.com, gittrend.io] desktop video-editor demonstration; author's claims to test. Task: ../ROADMAP.md.
+- [Oil UI](https://www.instagram.com/reel/DeHs15riSZr/) — [src: web:instagram.com, gittrend.io] demonstration of interface alternatives for user selection. Task: ../ROADMAP.md.
 
 - [Hairline — Shai](https://www.instagram.com/reel/DeEhSRWBAi2/) — [src: web:instagram.com] Shows interactive vector illustrations and names lucasmarkes/hairline; editing/accessibility unverified. Task: ../ROADMAP.md [visual-tools].
 
@@ -113,9 +111,8 @@
 - [P] [Baidu Unlimited OCR](https://arxiv.org/html/2606.23050v1) — [src: web:instagram.com] Finite context; original BF16 requires 8 GB GPU; [capture](https://www.instagram.com/reel/DehD9WBq0Qb/); task: ../ROADMAP.md [unlimited-ocr].
 - [C] [One disabled model repository](https://huggingface.co/audnai/penclaw-GLM-5.3-abliterated-for-offensive-cyber) — [src: web:instagram.com] One disabled repo; terabyte successor, no blanket ban; [capture](https://www.instagram.com/reel/Dd9B5RbR11F/); task: ../ROADMAP.md [model-continuity].
 - [V] [Backboard R-CLI](https://github.com/Backboard-io/Backboard-R-CLI) — [src: web:instagram.com] CLI; 30%/90% savings lack matched evidence; [capture](https://www.instagram.com/reel/DdJqqm0xprR/); task: ../ROADMAP.md [r-cli].
-- [V] [Code Mode](https://blog.cloudflare.com/code-mode-mcp/) — [src: web:instagram.com] Definition-footprint saving, not whole-task saving; [capture](https://www.instagram.com/reel/DeypYeWN5hL/); task: ../ROADMAP.md [code-mode].
+- [V] [Code Mode](https://blog.cloudflare.com/code-mode-mcp/) · [Anthropic](https://www.anthropic.com/research/advanced-tool-use) — [src: web:cloudflare.com, anthropic.com] Definition-footprint saving; composition/filtering; [capture 1](https://www.instagram.com/reel/DeypYeWN5hL/); [capture 2](https://www.instagram.com/reel/De6pmMnBu2x/); task: ../ROADMAP.md [code-mode].
 - [C] [pstack verification patterns](https://github.com/cursor/plugins/tree/main/pstack) — [src: web:instagram.com] Verification patterns; throughput/portability unproven; [capture](https://www.instagram.com/p/De6cbtKjjXg/); task: ../ROADMAP.md [pstack].
-- [V] [Code Mode](https://www.anthropic.com/research/advanced-tool-use) — [src: web:instagram.com] Composition/filtering; no protocol adoption; [capture](https://www.instagram.com/reel/De6pmMnBu2x/); task: ../ROADMAP.md [code-mode].
 - [V] [ScaleDown/Jev](https://docs.scaledown.ai/introduction) — [src: web:instagram.com] Narrow heads; summaries generate; schema ≠ correctness; [capture](https://www.instagram.com/reel/Devav4iBMF5/); task: ../ROADMAP.md [scaledown].
 - [C] [Project NOMAD offline resources](https://github.com/Crosstalk-Solutions/project-nomad) — [src: web:instagram.com] Library minimum 4 GB; optional AI optimum 32 GB; [capture](https://www.instagram.com/reel/DeWgRPDBlzm/); task: ../ROADMAP.md [nomad].
 - [C] [Laws in Markdown](https://github.com/ctresb/leis) — [src: web:instagram.com] Incomplete conversion; keep dated official originals; [capture](https://www.instagram.com/reel/DeuHpsaRPmn/); task: ../ROADMAP.md [laws-markdown].
@@ -123,7 +120,7 @@
 - [C] [Workload-specific GPU throughput](https://github.com/Zagitta/GPU-UNLOCK) — [src: web:instagram.com] Matrix-specific; no verified RTX3050 speedup; [capture](https://www.instagram.com/reel/DfAy1NHseqU/); task: ../ROADMAP.md [gpu-unlock].
 - [C] [Dessa speech preview](https://block.xyz/dessa) — [src: web:instagram.com] Preview; unread primary, access/licence unverified; [capture](https://www.instagram.com/p/De_ghm7DMTo/); task: ../ROADMAP.md [dessa].
 - [C] [Claude Code advice](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work) — [src: web:instagram.com] 100–200k quality chart admits invented source; [capture](https://www.instagram.com/p/DefaJVojOSp/); task: ../ROADMAP.md [context-evidence].
-- [C] [Rating bars](https://www.instagram.com/p/DeZjFVZALGO/) — [src: web:instagram.com] No printed percentages; drawn spans are estimates, not calibrated scores; task: ../ROADMAP.md [visual-comparisons].
+- [C] [Hex](https://github.com/anomalyco/hex) — [src: github:anomalyco/hex] System-wide speech-to-text desktop overlay; task: ../../branches/tweaks/SETUP.md [global-stt]; brain/goals/voice.md.
 
 - [C] Cross-harness session reports — [src: Claude/Codex sessions, 26–30 Oct 2026] Caller/callee inventory, quota claims, executable discovery and background-job recipes are reports to verify; task: ../ROADMAP.md [cross-harness-delegation].
 - [C] Agent media skills: [HyperFrames](https://github.com/heygen-com/hyperframes), [p5.brush](https://github.com/acamposuribe/p5.brush), [Scenario 3D](https://github.com/scenario-labs), [OpenViking](https://github.com/volcengine/OpenViking) memory — [src: web:instagram.com]; task: ../ROADMAP.md [video-motion-skills].

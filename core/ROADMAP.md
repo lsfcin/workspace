@@ -7,19 +7,16 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 ## Open
 
 **🟡 [visual-comparisons] Captured options**
-*What* — [visual-comparisons] Assess complete-image numeric extraction: retain printed values, label estimated bar fractions with uncertainty, and keep perception separate from geometric truth. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance and limits are evidenced.
-
+*What* — Complete-image numeric extraction: retain printed values, label estimated bar fractions with uncertainty. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance/limits evidenced.
 
 **🟡 [owly-transfer] Captured options**
-*What* — [owly-transfer] Check whether our actual wireless adapter and device counterpart meet Owly's documented requirements before considering a transfer test. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance and limits are evidenced.
-
+*What* — Check wireless adapter/device compatibility for Owly. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Compatibility evidenced.
 
 **🟡 [qwenputer] Captured options**
-*What* — [qwenputer] Compare Qwenputer with deterministic tools; retain merged-model/selected-test limits and the absent accepted-paper finding. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance and limits are evidenced.
-
+*What* — Compare Qwenputer with deterministic tools (merged-model/selected-test limits). Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Limits evidenced.
 
 **🟡 [tool-comparison] Captured options**
-*What* — [rated-tools] Assess the relevant voice, meeting, workflow, prototype and media tools against current needs; preserve creator ratings as opinion and numerical bar lengths as estimates. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance and limits are evidenced.
+*What* — [rated-tools] Assess voice/workflow/media tools against current needs. Refs: refs/REFS.md. *Why* — Lucas requested assessment. *Done when* — Relevance evidenced.
 
 
 **🟡 [document-access] Captured options**
@@ -56,6 +53,15 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 **🟢 [provider-agnostic-clarification] Provider-agnostic governance — backlog**
 *What* — Clarify core/norms/storage.md, interview.md and core/CONTEXT.md: configuration and storage are provider-independent (symlink to WIS), but execution can use any provider; external review does not restrict execution. *Why* — Harness friction (ChatGPT triage 2026-11-03). *Done when* — Updated norms approved and applied.
 
+**🟢 [subagent-watchdog] External subagent watchdog — backlog**
+*What* — core/run tools/agents/watch: wrap external CLIs (codex/agy) with timeout, idle heartbeat (kill if stdout idle 90s), non-empty output check, and </dev/null default. Document codex path. *Why* — Silent empty-output failures (INBOX 2026-10-31, 2026-11-01). *Done when* — Watch wraps headless agents reliably.
+
+**🟢 [shoot-unbundle] shoot --unbundle flag — backlog**
+*What* — Add --unbundle flag to tools/web/shoot to unpack base64+gzip artifacts directly. *Why* — Avoid scratchpad scripts (INBOX 2026-10-31). *Done when* — shoot --unbundle unpacks cleanly.
+
+**🟢 [panel-opencode-zcode] Headless opencode & zcode in panel chain — backlog**
+*What* — Test headless execution for opencode (~/.opencode/bin/opencode) and zcode (/usr/bin/zcode) and integrate into tools/panel/ask. *Why* — Expand provider diversity (INBOX 2026-11-04). *Done when* — Both run headless in panel.
+
 
 **🟡 Desktop hyperagent — high priority, week**
 *What* — Reuse aiwbot/Dobra for voice, discovery, bounded context, routing and quotas; assess OpenHarness Linux/lineage/trust (refs/REFS.md; ../code/aiwbot/ROADMAP.md [mobile-session-relay]). [unsloth-browser] Check permissions/network and memory in one bounded browser task. [voice-studio] Compare Portuguese narration, model licence, memory, latency and export. [dessa] Verify release/access/licence and Portuguese relevance; primary page unread. *Why* — Fragmented interaction (Lucas,7 Oct; Claude,23 Oct). *Done when* — Lucas chooses a concrete design.
@@ -66,10 +72,10 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 
 
 **🟡 PDF throughput**
-*What* — Measure description latency, skip decoration and compare current engines after the pymupdf-layout change. *Why* — Large backfills can take hours. *Done when* — A representative batch establishes time, memory and fidelity. Assess captured sources (refs/REFS.md): [unlimited-ocr] Compare one long document for fidelity, order, runtime and supported memory; separate original/v2 results. [laws-markdown] Assess UFRPE Markdown intake with official links, capture/version dates, completeness and conversion limits.
+*What* — Measure description latency and compare engines after pymupdf-layout change. Refs: refs/REFS.md ([unlimited-ocr], [laws-markdown]). *Why* — Large backfills take hours. *Done when* — Time, memory and fidelity evidenced.
 
 **🟡 Dependency checks**
-*What* — Let gates consult shared installation checks; assess local spreadsheet support before adding a package/tool. *Why* — Feature switches do not prove installation; Claude reported unpacking XLSX as XML without openpyxl (18 Oct). *Done when* — Missing dependencies give one diagnosis and a real workbook establishes the supported route. Assess captured sources (refs/REFS.md): [dependency-provenance] Assess how dependency-source verification and locked inventories cover the documented hallucinated-package risk; use the original benign case and reviewed study in teaching.
+*What* — Shared installation checks; assess local spreadsheet support before adding packages. Refs: refs/REFS.md ([dependency-provenance]). *Why* — Feature switches do not prove installation. *Done when* — Missing dependencies give single diagnosis.
 
 **🟡 [drive-doc-update] Existing document updates — backlog**
 *What* — Assess in-place document replacement preserving identity/history/access, including failures. Consumer: ../academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md [drive-update]. *Why* — Missing drive_core capability reported 19 Oct. *Done when* — Authorized update verifies; norms/edit.md binds originals.
@@ -208,15 +214,7 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]].
 
 ## Deferred — flows and agents, findings kept, nothing spent
 
-Flows/agents wait for v1 (Lucas, 25 Aug); preserve the observed 24 Aug failures until reopening.
-
-- Craft Loop 6 reverted an orchestrator's uncommitted edit despite its dirty-tree brief; prompt-only ownership fencing failed.
-- Router lacks experiment routing; controlled measurement fell into padaria's write gate.
-- Padaria requires a feature branch while Field Practice flags concurrent loops in one repo.
-- **The flow reads 18 KB of routing and runtimes before the gate that decides it needs them.**
-- Only Loop 1 declares a cap; whole-file validation falsely covers uncapped Loop 4b (Code Until Green).
-- engineering is path-exempt rather than typed; its schema goes unchecked.
-- craft-* mirrors are authored twice without core source; SCHEMA-layers.md records the provider/manual-sync hazard.
+Flows/agents wait for v1 (Lucas, 25 Aug); observed 24 Aug failures preserved (orchestrator reversion, router experiment gate, 18 KB routing read overhead, uncapped Loop 4b).
 
 ## Rejected
 
