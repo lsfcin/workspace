@@ -155,3 +155,41 @@ def test_the_brain_dashboard_asks_for_named_only(monkeypatch, tmp_path):
     monkeypatch.setattr(brain_stats, 'stage', lambda *a, **k: calls.append(k), raising=False)
     brain_stats.pre_commit()
     assert calls and calls[0].get('named_only') is True
+
+
+def test_the_brain_dashboard_really_reaches_the_index(monkeypatch, tmp_path):
+    """The real `git add`, with brain_common's workspace-relative paths (2026-11-06).
+
+    Staged from `cwd=brain/`, `brain/GOALS.md` named `brain/brain/GOALS.md`; the add failed in
+    silence, every commit left the regenerated stats on disk only, and the tree never came clean.
+    The test above mocks `stage`, which is how it missed that.
+    """
+    import brain_stats
+    repo, _hooks = _repo(tmp_path, '')
+    (repo / 'brain').mkdir()
+    goals = Path('brain/GOALS.md')
+    (repo / goals).write_text('old\n', encoding='utf-8', newline='\n')
+    _git(repo, 'add', str(goals))
+    _git(repo, 'commit', '-q', '-m', 'goals')
+    monkeypatch.chdir(repo)
+    monkeypatch.delenv('GIT_INDEX_FILE', raising=False)
+
+    def regenerate(*_a):
+        goals.write_text('regenerated\n', encoding='utf-8', newline='\n')
+    monkeypatch.setattr(brain_stats, 'load_goal_files', lambda: {'g': goals})
+    monkeypatch.setattr(brain_stats, 'Attention', lambda _f: SimpleNamespace(missing=[]))
+    monkeypatch.setattr(brain_stats, 'staged_goal_files', lambda _f: {})
+    monkeypatch.setattr(brain_stats.feature_law, 'is_enabled', lambda *_: True)
+    monkeypatch.setattr(brain_stats, 'update_goals_md', regenerate)
+    monkeypatch.setattr(brain_stats, 'update_goals_table', lambda *_a: None)
+    monkeypatch.setattr(brain_stats, 'GOALS_FILE', goals)
+    monkeypatch.setattr(brain_stats, 'check_compass_reminder', lambda: None)
+    brain_stats.pre_commit()
+    assert _git(repo, 'diff', '--name-only').strip() == ''
+    assert _git(repo, 'diff', '--cached', '--name-only').strip() == 'brain/GOALS.md'
+
+
+def test_a_failed_stage_says_so(tmp_path, capsys):
+    repo, _hooks = _repo(tmp_path, '')
+    pre_commit.stage(repo, 'brain/brain/GOALS.md')
+    assert 'could not stage brain/brain/GOALS.md' in capsys.readouterr().err
