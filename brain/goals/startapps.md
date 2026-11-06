@@ -82,5 +82,5 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-11-06  ·  trend: steady  ·  touches: 93/203/229/245/251/251
+last-touch: 2026-11-06  ·  trend: steady  ·  touches: 98/208/234/250/256/256
 <!-- stats:end -->
