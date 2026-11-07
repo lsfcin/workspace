@@ -9,6 +9,9 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DfaLyn7Rorf/?mdxt=NTc4MTIwNjQ2YQ==
+— via aiwbot · 2026-11-06
+
 https://www.instagram.com/p/DfTb1XOGW_2/?img_index=3&cplk=b2tmYmJhNDZxb3Jr
 é útil? é melhor? pior? do que o que temos?
 — via aiwbot · 2026-11-06
@@ -182,3 +185,5 @@ checar se realmente preciso do canva pro.
 - (2026-11-04, sessão ai4good) `ciclo.py redes-convolucionais` parou de novo (agy vazio em revisa-d3-r1 e revisa-f3-r1; f6 com problema na r2). falhar de uma vez com o agy vazio fez parar 2 de 2 rodadas desse banco.
 - (2026-10-31, sessão apptime) `core/run tools/web/shoot` nasceu sem o `--unbundle` prometido: desempacotar um artifact exportado (`__bundler/manifest`, base64+gzip) ainda é script de scratchpad — o round 1 do apptime precisou dele de novo. Proposta: flag no shoot ou ferramenta irmã; mesma sessão, mesmo OK.
 - (2026-11-06, 3ª sessão apptime) WOS: decisão construída sem a resposta registrada do Lucas não caiu em "decidido sem perguntar" do handoff (ícone de notificação, `82cdec2`: telefone inteiro + zigue-zague; o estudo perguntou, ninguém registrou a resposta). o handoff/roundup podia cobrar: toda pergunta "para Lucas decidir" aberta na sessão tem resposta registrada ou vai para "decidido sem perguntar". e o agente leu o ROADMAP do apptime em pedaços e listou só os itens 🟡/🔴, deixando Aba, drag e outros de fora — "o que tem pela frente" pede o ROADMAP inteiro.
+- (2026-11-06, 4ª sessão apptime) WOS: um commit anunciou "B10" (`3747fb3`) sem escrever o B10 no ISSUES — o gate de ISSUES cobra prova para *sair* da lista, mas nada confere que uma mensagem de commit que cita `Bnn` deixou o `Bnn` no arquivo. e editar l10n do apptime pelo Edit exige ler os `.api` inteiros (centenas de chaves), então a sessão caiu em heredoc python, que o hook marca como UNGATED WRITE: o pré-requisito do Read empurra para o caminho sem gate.
+- (2026-11-06, 4ª sessão apptime) assimetria: o mesmo âmbar claro tinha três valores (`#8A5A00` no código, `#A86B0C` na página de estrutura, `#9E6500` derivado); ficou o do código, no SPECS § Visual. páginas de decisão deviam ler cores do SPECS, não reinventar. token aposentado "tier"/"slug" sobrevive em `code/apptime/refs/CONTEXT.md` (descrição) e no ROADMAP § Rejected.
