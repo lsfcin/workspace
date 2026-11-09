@@ -4,21 +4,21 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-11-06 13:12
+last-updated: 2026-11-09 16:38
 
 >**areas** — last 14 days  
 ```
-health       ░░░░░░░░░░   4 touches
-career       █░░░░░░░░░   20 touches
-craft        ██████████   177 touches
-finances     ░░░░░░░░░░   8 touches
-fun          ░░░░░░░░░░   6 touches
+health       ░░░░░░░░░░   5 touches
+career       ░░░░░░░░░░   12 touches
+craft        ██████████   235 touches
+finances     ░░░░░░░░░░   6 touches
+fun          ░░░░░░░░░░   3 touches
 spiritual    ░░░░░░░░░░   0 touches
 ```
 
 >**goals** — last 14 days  
 ```
-burocracia-academica     █░░░░░░░░░   16 touches
+burocracia-academica     ░░░░░░░░░░   8 touches
 career-ufrpe             ░░░░░░░░░░   3 touches
 corporal-expressiveness  ░░░░░░░░░░   0 touches
 craft-flows              ░░░░░░░░░░   1 touches
@@ -26,12 +26,12 @@ cria                     ░░░░░░░░░░   0 touches
 dance                    ░░░░░░░░░░   0 touches
 ecovila                  ░░░░░░░░░░   1 touches
 exercise                 ░░░░░░░░░░   0 touches
-finances                 ░░░░░░░░░░   5 touches
+finances                 ░░░░░░░░░░   6 touches
 google-migration         ░░░░░░░░░░   4 touches
 guitar                   ░░░░░░░░░░   0 touches
 hair                     ░░░░░░░░░░   0 touches
 health-skills            ░░░░░░░░░░   0 touches
-home-casinhas            ░░░░░░░░░░   4 touches
+home-casinhas            ░░░░░░░░░░   1 touches
 instituto                ░░░░░░░░░░   0 touches
 lih-dd                   ░░░░░░░░░░   1 touches
 listenreading            ░░░░░░░░░░   0 touches
@@ -44,18 +44,18 @@ paper-jarbinhas          ░░░░░░░░░░   0 touches
 paper-megatruth          ░░░░░░░░░░   0 touches
 paper-scattercode        ░░░░░░░░░░   0 touches
 prompt-opt-automation    ░░░░░░░░░░   1 touches
-rpg-isoroll              ░░░░░░░░░░   6 touches
+rpg-isoroll              ░░░░░░░░░░   3 touches
 sleep-regularity         ░░░░░░░░░░   0 touches
-smartphone-addiction     ░░░░░░░░░░   4 touches
+smartphone-addiction     ░░░░░░░░░░   5 touches
 spacemantics             ░░░░░░░░░░   3 touches
 spec-driven-development  ░░░░░░░░░░   1 touches
-startapps                ██████████   102 touches
+startapps                ██████████   150 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ███░░░░░░░   32 touches
+teaching-materials       ██░░░░░░░░   33 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             █████░░░░░   60 touches
+workspace-os             ████░░░░░░   71 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->
