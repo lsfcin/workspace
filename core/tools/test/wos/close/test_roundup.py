@@ -7,7 +7,7 @@
 # The one thing worth guarding hardest is the dirty stop. It used to assert that uncommitted work
 # was work *this* session forgot to commit, and asked for a commit that would have swept a parallel
 # session's half-finished goal merge into main. Dirt has two possible owners and the script cannot
-# tell them apart, so it names both and lets --leave-dirty answer.
+# tell them apart, so it names both and lets --leave-dirty "<whose and why>" answer.
 import shutil
 import subprocess
 
@@ -108,7 +108,7 @@ def test_leave_dirty_promotes_without_touching_the_tree(tmp_path):
     ws = _workspace(tmp_path)
     _dirty(ws)
     before = _git(ws, 'status', '--porcelain').stdout
-    r = _run(ws, '--leave-dirty')
+    r = _run(ws, '--leave-dirty', 'a parallel session')
     assert r.returncode == 0, r.stdout
     assert 'promoted' in r.stdout
     assert _git(ws, 'rev-parse', 'main').stdout == _git(ws, 'rev-parse', 'feature/x').stdout
@@ -121,8 +121,8 @@ def test_leave_dirty_never_commits_the_foreign_dirt(tmp_path):
     committing it while another session has files staged carries them into chore(entropy)."""
     ws = _workspace(tmp_path)
     _dirty(ws)
-    r = _run(ws, '--leave-dirty')
-    assert 'not committed' in r.stdout
+    r = _run(ws, '--leave-dirty', 'a parallel session')
+    assert 'a parallel session' in r.stdout
     log = _git(ws, 'log', '--name-only', '--pretty=format:', 'feature/x').stdout
     assert 'theirs.md' not in log
     assert 'theirs.md' in _git(ws, 'status', '--porcelain').stdout
@@ -172,7 +172,7 @@ def test_a_real_merge_lands_even_while_the_tree_holds_another_sessions_work(tmp_
     _git(ws, 'push', '-q', 'origin', 'develop')
     _git(ws, 'checkout', '-q', 'feature/x')
     _dirty(ws)
-    r = _run(ws, '--leave-dirty')
+    r = _run(ws, '--leave-dirty', 'a parallel session')
     assert r.returncode == 0, r.stdout
     assert 'promoted' in r.stdout
     assert _git(ws, 'rev-parse', '--abbrev-ref', 'HEAD').stdout.strip() == 'feature/x'
@@ -192,7 +192,7 @@ def test_foreign_dirty_file_survives_real_merge_untouched_and_uncommitted(tmp_pa
     _git(ws, 'checkout', '-q', 'feature/x')
     _dirty(ws)
     before_status = _git(ws, 'status', '--porcelain').stdout
-    r = _run(ws, '--leave-dirty')
+    r = _run(ws, '--leave-dirty', 'a parallel session')
     assert r.returncode == 0, r.stdout
     assert _git(ws, 'status', '--porcelain').stdout == before_status
     assert (ws / 'theirs.md').read_text(encoding='utf-8') == 'their draft\n'
@@ -228,6 +228,6 @@ def test_unknown_flag_is_a_usage_error(tmp_path):
 def test_the_flags_compose(tmp_path):
     ws = _workspace(tmp_path)
     _dirty(ws)
-    r = _run(ws, '--leave-dirty', '--no-promote', 'branch is incoherent')
+    r = _run(ws, '--leave-dirty', 'a parallel session', '--no-promote', 'branch is incoherent')
     assert r.returncode == 0, r.stdout
     assert 'branch is incoherent' in r.stdout and 'not promoted' in r.stdout

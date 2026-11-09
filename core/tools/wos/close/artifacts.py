@@ -5,9 +5,7 @@
 # work because it shared the caller's shell variables, so running it any other way silently did
 # nothing. Here the caller passes what each function needs and the coupling is in the signature.
 #
-# Every artifact follows one rule: regenerate, then commit it — unless the tree holds another
-# session's work, in which case report the number and roll the write back, because a regenerated
-# file left behind rides into that session's next `git add -A`.
+# Every artifact follows one rule: regenerate, then commit it by path, whatever else the tree holds.
 import os
 import re
 import subprocess
@@ -22,6 +20,10 @@ from blocks import markers, replace_block  # noqa: E402
 from platform_law import interpreter  # noqa: E402
 
 DASHBOARD = 'core/hooks/entropy/dashboard/entropy-dashboard.py'
+CLOSE_WRITES = ('ARCHITECTURE.html', 'core/read-matrix.tsv', 'ISSUES.md', 'PROJECTS.md')
+MIXED = ('ISSUES.md', 'PROJECTS.md')   # generated blocks beside hand-written text
+BLOCK = re.compile(r'<!-- (\w+):start -->.*?<!-- \1:end -->', re.DOTALL)
+INBOX, BOT_SIGNATURE = 'brain/INBOX.md', '— via aiwbot'
 
 
 def git(repo, *args) -> subprocess.CompletedProcess:
@@ -54,28 +56,55 @@ def spawn(root, *command) -> subprocess.CompletedProcess:
                           env={**os.environ, 'PYTHONDONTWRITEBYTECODE': '1'})
 
 
-def settle(repo, name: str, was_clean: bool, message: str, leave_dirty: bool) -> str:
-    """The suffix its caller appends to a status line.
+def hand_edited(repo, name: str) -> bool:
+    """Whether a file holding generated blocks differs from HEAD OUTSIDE those blocks."""
+    head = git(repo, 'show', f'HEAD:{name}')
+    if name not in MIXED or head.returncode:
+        return False
+    now = (Path(repo) / name).read_text(encoding='utf-8', errors='replace')
+    return BLOCK.sub('', head.stdout).split() != BLOCK.sub('', now).split()   # a new block moves blank lines
+
+
+def foreign_dirt(repo) -> list:
+    """`git status` lines the close cannot settle itself — what a person still has to answer for.
+
+    Raw stdout on purpose: `out` strips, which eats the first line's status column.
+    """
+    return [line for line in git(repo, 'status', '--porcelain').stdout.splitlines()
+            if line and (line[3:] not in CLOSE_WRITES or hand_edited(repo, line[3:]))]
+
+
+def commit_captures(root) -> None:
+    """Commit brain/INBOX.md when all it holds is what the chat bot appended.
+
+    Added lines alone prove nothing — a session may be drafting an entry — so every added
+    paragraph must end in the bot's own signature, and one removed line disqualifies the file.
+    """
+    lines = git(root, 'diff', 'HEAD', '-U0', '--', INBOX).stdout.splitlines()
+    added = [l[1:] for l in lines if l.startswith('+') and not l.startswith('+++')]
+    if any(l.startswith('-') and not l.startswith('---') for l in lines) or not added:
+        return
+    entries = [e.strip().splitlines() for e in '\n'.join(added).split('\n\n') if e.strip()]
+    if all(entry[-1].startswith(BOT_SIGNATURE) for entry in entries):
+        settle(root, INBOX, 'chore(inbox): captures from the chat bot')
+
+
+def settle(repo, name: str, message: str) -> str:
+    """Commit one artifact BY PATH; the suffix its caller appends to a status line.
 
     Silent and empty when the artifact did not move, which is the common case and the point:
     deterministic output means a file changes when the WORKSPACE changed, never merely because a
-    generator ran.
+    generator ran. `--only` is what makes this safe over someone else's staged work, and is why
+    nothing is ever rolled back: a rollback only applied to a clean file, so an artifact already
+    dirty stayed dirty and blocked the next close (2026-11-09).
     """
     tracked = git(repo, 'ls-files', '--error-unmatch', name).returncode == 0
-    if tracked and git(repo, 'diff', '--quiet', name).returncode == 0:
+    if tracked and git(repo, 'diff', '--quiet', 'HEAD', '--', name).returncode == 0:
         return ''
-    if leave_dirty:
-        if was_clean:
-            # An untracked file has no committed version to restore, so `git checkout -- <name>`
-            # fails and the artifact stays in the other session's tree — the one outcome this
-            # function exists to make impossible. The first generated artifact to land in a repo
-            # that lacks it reaches this: undoing a create is a delete.
-            if tracked:
-                git(repo, 'checkout', '-q', '--', name)
-            else:
-                (Path(repo) / name).unlink(missing_ok=True)
-        return " · reported only, not committed (tree holds another session's work)"
-    if git(repo, 'add', name).returncode or git(repo, 'commit', '-q', '-m', message).returncode:
+    if hand_edited(repo, name):
+        return f' · not committed: {name} has hand edits'
+    if (git(repo, 'add', name).returncode
+            or git(repo, 'commit', '-q', '--only', '-m', message, '--', name).returncode):
         return f' · commit failed, {name} left dirty'
     return ''
 
@@ -110,13 +139,8 @@ def verify_block(target: Path, label: str, verdict: str, log: str) -> None:
     write_block(target, 'verify', '\n'.join(body))
 
 
-def regenerate(root: Path, leave_dirty: bool, clean: bool, promoting: str = '') -> tuple:
+def regenerate(root: Path, promoting: str = '') -> tuple:
     """(entropy, diagram) — both rewritten, then settled.
-
-    `clean` is measured by the CALLER, before the verify block is written. Measuring it here would
-    read this close's own write as pre-existing dirt, so under --leave-dirty the rollback would
-    never fire and the regenerated file would ride into the other session's next `git add -A` —
-    the exact incident settle() exists to make unrepeatable.
 
     `promoting` comes from the CALLER for the same shape of reason: this close runs the dashboard
     BEFORE it merges, so without a name the block published a finding against the close's own
@@ -138,8 +162,8 @@ def regenerate(root: Path, leave_dirty: bool, clean: bool, promoting: str = '') 
         entropy = (found.group(1) + (found.group(2) or '')) if found else ''
     else:
         entropy = 'regen failed'
-    entropy += settle(root, 'ISSUES.md', clean, 'chore(issues): regenerate the entropy and verify '
-                      'blocks at session close', leave_dirty)
+    entropy += settle(root, 'ISSUES.md', 'chore(issues): regenerate the entropy and verify '
+                      'blocks at session close')
 
     # THE MATRIX IS FOLDED BEFORE THE DIAGRAM, and the order is the whole answer to what looked like
     # a conflict: the page must be a pure function of the repository, and a per-session number is
@@ -155,12 +179,9 @@ def regenerate(root: Path, leave_dirty: bool, clean: bool, promoting: str = '') 
     if events.exists() or matrix.exists():
         sys.path.insert(0, str(WOS.parents[1] / 'hooks/read'))
         import read_matrix
-        matrix_clean = git(root, 'diff', '--quiet', 'core/read-matrix.tsv').returncode == 0
         read_matrix.fold(events, matrix)
-        settle(root, 'core/read-matrix.tsv', matrix_clean,
-               'chore(reads): fold this session\'s reads into the matrix', leave_dirty)
+        settle(root, 'core/read-matrix.tsv', 'chore(reads): fold this session\'s reads into the matrix')
 
-    was_clean = git(root, 'diff', '--quiet', 'ARCHITECTURE.html').returncode == 0
     drawn = spawn(root, interpreter(), str(WOS / 'diagram/architecture'))
     text = drawn.stdout + drawn.stderr
     if drawn.returncode == 0:
@@ -168,5 +189,5 @@ def regenerate(root: Path, leave_dirty: bool, clean: bool, promoting: str = '') 
         diagram = hit[0].strip() if hit else ''
     else:
         diagram = f'regen incomplete · {text.count("UNPARSED")} unparsed routing block(s)'
-    return entropy, diagram + settle(root, 'ARCHITECTURE.html', was_clean,
-                                     'chore(diagram): regenerate at session close', leave_dirty)
+    return entropy, diagram + settle(root, 'ARCHITECTURE.html',
+                                     'chore(diagram): regenerate at session close')

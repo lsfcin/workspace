@@ -1,5 +1,5 @@
-# Usage: core/tools/wos/roundup [--no-promote <reason>] [--leave-dirty] — the deterministic half of
-# the /roundup ritual. Verification gate, entropy regen, branch promotion. Prints the state facts
+# Usage: core/tools/wos/roundup [--no-promote <reason>] [--leave-dirty <whose and why>] — the deterministic half of
+# the /roundup ritual, over the repos this session worked in. Verification gate, entropy regen, branch promotion. Prints the state facts
 # /handoff copies and anything that needs a decision; nothing else.
 #
 # WHICH lines print is this file's business alone. The skills copy them and never name them: a
@@ -10,11 +10,6 @@
 # where knowledge goes, what the INBOX means — stays in the skill; everything with one right answer
 # lives here, where it costs one tool call instead of prose reasoned about at the most expensive
 # turns a session ever has (core/SPECS.md § AD-09). Lucas types /roundup; the skill calls this.
-#
-# PORTED FROM BASH 2026-08-29, and ISSUES.md B9 is why: the gate shelled `make`, which this machine
-# does not have, so the close exited before writing either generated block — and § Verification went
-# on asserting `green (572 passed)` while the suite measured 516/78. A close that cannot run is a
-# list that cannot be corrected, which is why that block was never the thing to edit by hand.
 import sys
 from pathlib import Path
 
@@ -33,8 +28,7 @@ import branches  # noqa: E402
 import contract  # noqa: E402
 from artifacts import git, out, spawn  # noqa: E402
 from platform_law import interpreter, posix, session_state  # noqa: E402
-from handoff import started, transcript  # noqa: E402
-from projects import sweep  # noqa: E402
+from projects import session_log, session_repos, sweep  # noqa: E402
 from repomap import redraw  # noqa: E402
 
 WORKSPACE = SCRIPT_DIR.parents[2]
@@ -47,7 +41,7 @@ WORKSPACE = SCRIPT_DIR.parents[2]
 # `trace` sits with them from 2026-09-15, ruled by Lucas: the close prints every spawn, the clock
 # split and the loudest tools, always. It is bare for the same reason the other two are — it writes
 # its own labelled lines, and a label around a labelled block would read twice.
-STATE = ('cost', 'size', 'trace', 'verify', 'sync', 'public', 'projects', 'map', 'entropy',
+STATE = ('cost', 'size', 'trace', 'verify', 'sync', 'dirty', 'public', 'projects', 'map', 'entropy',
          'diagram', 'compaction', 'permissions')
 BARE = ('cost', 'size', 'trace')
 
@@ -154,54 +148,24 @@ def report(root: Path, sid: str) -> tuple:
             (trace.stdout.strip() if trace and trace.returncode == 0 else ''))
 
 
-def main(argv: list) -> int:
-    no_promote, leave_dirty, rest = '', False, argv[1:]
-    while rest:
-        if rest[0] == '--no-promote' and len(rest) > 1:
-            no_promote, rest = rest[1], rest[2:]
-        elif rest[0] == '--leave-dirty':
-            leave_dirty, rest = True, rest[1:]
-        else:
-            print(f'Usage: {argv[0]} [--no-promote <reason>] [--leave-dirty]', file=sys.stderr)
-            return 64
-    top = out(Path.cwd(), 'rev-parse', '--show-toplevel')
-    if not top:
-        print(f'not a git repo: {Path.cwd()}', file=sys.stderr)
-        return 64
-    root = Path(top)
-    branch = out(root, 'rev-parse', '--abbrev-ref', 'HEAD')
-
-    # Uncommitted work is the agent's call (a commit message is judgment), so stop. The one message
-    # here naming two actions, because the question is binary and the script cannot answer it: dirt
-    # may be this session's or a parallel session's. Asserting the first was the defect — it asked
-    # for a commit that would have swept another session's half-done work into main.
-    dirty = [l for l in out(root, 'status', '--porcelain').splitlines() if l]
-    if dirty and not leave_dirty:
-        print(f'{len(dirty)} uncommitted on {branch} — whose?')
-        print('\n'.join(out(root, 'status', '--short').splitlines()[:20]))
-        print("Yours: commit, then rerun.\nAnother session's: rerun with --leave-dirty.")
-        return 2
-
+def close_root(root: Path, branch: str, no_promote: str) -> tuple:
+    """(said, code, verify log): verify, regenerate and promote the repo the close stands in."""
     # BEFORE the suite runs, so it reads a cured tree: two cases assert what the SessionStart heal
     # says, and a drifted permission config makes both of them red over nothing.
     perms = permissions(root) if root == WORKSPACE else ''
-
-    # Measured BEFORE the verify block is written — artifacts.regenerate says why.
-    clean = git(root, 'diff', '--quiet', 'ISSUES.md').returncode == 0
     verdict, label, log = verify(root)
     # Both generated blocks land in ISSUES.md, so they settle once, in one commit. Workspace repo
     # only: the dashboard scans the whole tree, nested repos included.
     entropy = diagram = drawn = ''
     # ASKED BEFORE THE BLOCK IS WRITTEN, because the block has to know it: the close used to publish
     # a finding that its own branch was ahead of main, seconds before merging it. All four facts are
-    # in hand here (--leave-dirty too: promote() refuses under it). Why: branch_debt.
+    # in hand here. Why: branch_debt.
     gitflow = branches.gitflow(WORKSPACE, root)
-    promoting = branch if (verdict != 'red' and not no_promote and gitflow
-                           and not leave_dirty) else ''
+    promoting = branch if (verdict != 'red' and not no_promote and gitflow) else ''
     if root == WORKSPACE:
         artifacts.verify_block(root / 'ISSUES.md', label, verdict, log)
-        entropy, diagram = artifacts.regenerate(root, leave_dirty, clean, promoting)
-        drawn = redraw(root, leave_dirty)   # before promotion, so the map rides into develop
+        entropy, diagram = artifacts.regenerate(root, promoting)
+        drawn = redraw(root)   # before promotion, so the map rides into develop
 
     git(root, 'fetch', '--quiet')
     git(root, 'push', '-q', 'origin', branch)   # post-commit already does this for feature/*
@@ -213,22 +177,61 @@ def main(argv: list) -> int:
     elif not gitflow:
         sync = f'{branch} pushed (repo outside gitflow scope — no merges)'
     else:
-        refused = branches.promote(root, branch, leave_dirty)
+        refused = branches.promote(root, branch)
         sync, code = (refused, 1) if refused else (branches.promoted_line(root, branch), 0)
+    return ({'verify': verdict, 'sync': sync, 'public': public(root), 'entropy': entropy, 'map': drawn,
+             'diagram': diagram, 'permissions': perms}, code, log)
+
+
+def main(argv: list) -> int:
+    no_promote, left_dirty, rest = '', '', argv[1:]
+    while rest:
+        if rest[0] == '--no-promote' and len(rest) > 1:
+            no_promote, rest = rest[1], rest[2:]
+        elif rest[0] == '--leave-dirty' and len(rest) > 1 and rest[1].strip() and rest[1][:2] != '--':
+            left_dirty, rest = rest[1], rest[2:]
+        else:
+            print(f'Usage: {argv[0]} [--no-promote <reason>] [--leave-dirty <whose and why>]',
+                  file=sys.stderr)
+            return 64
+    top = out(Path.cwd(), 'rev-parse', '--show-toplevel')
+    if not top:
+        print(f'not a git repo: {Path.cwd()}', file=sys.stderr)
+        return 64
+    root = Path(top)
+    branch = out(root, 'rev-parse', '--abbrev-ref', 'HEAD')
+
+    # No identity, no guess: only the repo the close was started in.
+    transcript_log = session_log(root) if root == WORKSPACE else None
+    worked = session_repos(root, transcript_log) if transcript_log else {root}
+
+    said, code, log = {'sync': f'{branch} left alone — this session did not work in this repo'}, 0, ''
+    if root in worked:
+        if root == WORKSPACE:
+            artifacts.commit_captures(root)
+        # Uncommitted work is the agent's call (a commit message is judgment), so stop. Dirt may be
+        # this session's or a parallel session's and the script cannot tell; asserting the first
+        # once asked for a commit that would have swept half-done work into main.
+        dirty = artifacts.foreign_dirt(root)
+        if dirty and not left_dirty:
+            print(f'{len(dirty)} uncommitted on {branch} — whose?')
+            print('\n'.join(dirty[:20]))
+            print("Yours: commit, then rerun.\n"
+                  "Another session's, still in progress: rerun with --leave-dirty \"<whose and why>\".")
+            return 2
+        said, code, log = close_root(root, branch, no_promote)
+        said['dirty'] = left_dirty
 
     sid = session_id(root)
-    cost, size, trace = report(root, sid)
-    said = {'cost': cost, 'size': size, 'trace': trace,
-            'verify': verdict, 'sync': sync, 'public': public(root), 'entropy': entropy,
-            'projects': sweep(root, started(transcript(sid, 'claude', root)) if sid else 0.0)
-                        if root == WORKSPACE else '', 'map': drawn,
-            'diagram': diagram, 'compaction': compaction(sid) if sid else '',
-            'permissions': perms}
+    said.update(zip(('cost', 'size', 'trace'), report(root, sid)))
+    said['compaction'] = compaction(sid) if sid else ''
+    if root == WORKSPACE:
+        said['projects'] = sweep(root, worked - {root}, verify, promote=not no_promote)
     for label in STATE:
-        value = said[label]
+        value = said.get(label)
         if value:
             print(value if label in BARE else f'{label}: {value}')
-    if verdict == 'red':
+    if said.get('verify') == 'red':
         print('--- verify tail ---')
         print('\n'.join(log.splitlines()[-20:]))
     return code

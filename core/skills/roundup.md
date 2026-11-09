@@ -84,7 +84,7 @@ So: if the reminder fired and `$ARGUMENTS` names no other focus, hand `/inbox` t
 
 ## Phase 4 — Close
 
-Commit the session's work first — the script stops on a dirty tree, because a commit message is judgment and everything below assumes a clean one. Then, once:
+Commit the session's work first — the script stops on a dirty tree in any repo this session worked in, because a commit message is judgment. Repos the session never touched are not its business. Then, once:
 
 ```bash
 core/run tools/wos/roundup
