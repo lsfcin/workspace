@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 import file_law  # noqa: E402
 from platform_law import rel  # noqa: E402
-from pre_commit import Blocked, git, spawn, stage  # noqa: E402
+from pre_commit import Blocked, git, is_partial, spawn, stage  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'stubgen'))
 import stubs  # noqa: E402
@@ -117,8 +117,9 @@ def issues(commit):
     the nested projects from outside committed lists nobody typed and nobody pushed
     (b20260831-scattered-lists-never-push), against a table that described one disk (b20260902).
     WRITES AND WARNS, never refuses: a gate here would refuse commits over a debt they did not make.
+    A commit by path skips it: the file would be rewritten and left out, dirtying the tree it closed.
     """
-    if not feature_law.is_enabled('entropy-dashboard'):
+    if is_partial() or not feature_law.is_enabled('entropy-dashboard'):
         return
     if not _keeps_a_list(commit):
         return

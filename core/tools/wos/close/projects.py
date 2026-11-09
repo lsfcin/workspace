@@ -15,8 +15,8 @@ import branches
 from artifacts import git, out
 from handoff import edits, identity, records, transcript
 
-COMMIT = re.compile(r'\bgit\s+(?:-C\s+\S+\s+)?commit\b')
-MOVE = re.compile(r'(?:\bcd\s+|\bgit\s+-C\s+)("[^"]+"|\S+)')
+COMMIT = re.compile(r'\bgit\s+(?:-C\s+("[^"]+"|\S+)\s+)?commit\b')
+MOVE = re.compile(r'\bcd\s+("[^"]+"|\S+)')
 
 
 def push(repo, branch: str) -> str:
@@ -47,8 +47,9 @@ def _commit_dir(command: str, cwd: Path) -> Path | None:
     commit = COMMIT.search(command)
     if not commit:
         return None
-    moves = MOVE.findall(command[:commit.end()])
-    return cwd / moves[-1].strip('"\';&') if moves else cwd
+    moves = MOVE.findall(command[:commit.start()])
+    base = cwd / moves[-1].strip('"\';&') if moves else cwd
+    return base / commit.group(1).strip('"') if commit.group(1) else base
 
 
 def _touched_paths(log: Path, cwd: Path) -> set:

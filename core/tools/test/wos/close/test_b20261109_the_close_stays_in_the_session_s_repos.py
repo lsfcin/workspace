@@ -6,7 +6,9 @@
 import json
 import os
 import subprocess
+import sys
 
+from conftest import WORKSPACE_ROOT
 from platform_law import interpreter
 from test_roundup import _dirty, _git, _run, _workspace
 
@@ -40,6 +42,16 @@ def _close(ws, home, edited, *args):
     env = {**os.environ, 'HOME': str(home), 'CLAUDE_CODE_SESSION_ID': 's1'}
     return subprocess.run([interpreter(), str(ws / 'core/tools/wos/roundup'), *args], cwd=ws,
                           capture_output=True, text=True, encoding='utf-8', env=env)
+
+
+def test_only_the_commit_s_own_directory_counts(tmp_path):
+    """`git -C other status` earlier in the same command line once put `other` in the session."""
+    sys.path[:0] = [str(WORKSPACE_ROOT / d) for d in ('core/tools/wos/close', 'core/hooks/routing')]
+    from projects import _commit_dir
+    assert _commit_dir('git -C other status; git add x && git commit -m y', tmp_path) == tmp_path
+    assert _commit_dir('cd code/a && git commit -m y', tmp_path) == tmp_path / 'code/a'
+    assert _commit_dir('git -C code/b commit -m y', tmp_path) == tmp_path / 'code/b'
+    assert _commit_dir('git status', tmp_path) is None
 
 
 def test_a_session_in_a_nested_repo_is_not_stopped_by_dirt_at_the_root(tmp_path):
