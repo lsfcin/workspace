@@ -5,6 +5,8 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- Recheck the dated 2-Nov Codex parity audit: policy.py consumed worker-brief stdin; partial reads passed with exit 0 despite 17 green tests. Permissions/effort, automatic Caveman/status display, bot and export lacked equivalent behavior; six Google grants failed and jscpd lacked its platform package. Native/four-program delegation worked, external calls required escalation; no public push followed 11 failed target tests. Track each feature/environment, including public clone, without assuming failures persist. Evidence/reproducers: outputs/codex-audit-20261102/; Core [cross-harness-delegation]. `b20261102-codex-parity`
+
 - **cfpages secrets --push omite ambiente de preview e restringe escopo documentado do token.** cfpages secrets --push só configura o ambiente de produção; deploys de preview ficam sem GITHUB_TOKEN/ENIGMA_SECRET, impedindo testes e2e em preview. O comentário em segredos.env restringe indevidamente o GITHUB_TOKEN a lsf-links, embora cubra academy-teaching (4 Nov). `b20261104-cfpages-preview-secrets`
 
 - **O entropy dashboard registra achados falsos quando executado em worktrees temporários.** Ao rodar em worktree temporário (/tmp/inbox-promote-develop-...), o entropy dashboard gravou 72 achados falsos de roteamento no ISSUES.md do develop por não resolver a raiz canônica. Deve rodar apenas na árvore principal ou recusar execução fora dela (4 Nov). `b20261104-entropy-worktree-false-findings`
@@ -25,7 +27,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Slides text writes despite its ambiguous name.** It creates a text box; Claude reports nearly invoking it as a read and an expired grant blocking authenticated reads (19 Oct). Clarify intent/grant. `b20261024-slides-command-auth`
 
-- **Public rebuild reportedly fails its target suite.** Claude reports omitted generator dependencies, a missing vendored fixture, routing/header failures and timeouts (21 Oct); test markers were staged into the target. Reproduce current failures; isolation: b20260923-publish-test-real-target; markers: b20260922-state-stores. `b20261024-publish-target-suite`
+- Public rebuild fails target suite (Claude,21 Oct): generator dependencies, vendored fixture, routing/headers and timeouts; target test markers staged. 2-Nov Codex audit: 11 target failures, nine causes undiagnosed; .codex/hooks.json omitted from core/public.txt. Recheck current behavior against outputs/codex-audit-20261102/; fix at source. Isolation: b20260923-publish-test-real-target; markers: b20260922-state-stores. `b20261024-publish-target-suite`
 
 - **Named-link checks accept a site target its renderer cannot resolve.** Claude reports ai4good/brw used an extensionless route instead of the Markdown query form (21 Oct). Validate local targets or diagnose unsupported routes before sharing. `b20261024-links-target-resolution`
 
@@ -33,11 +35,11 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Retired memory integration targets a missing directory.** The Claude memory symlink still targets absent brain/memory (verified 24 Oct). Remove obsolete integration; use durable workspace files. `b20261024-retired-memory-pointer`
 
-- **UNGATED WRITE can attribute an output to the directory preceding cd.** Claude session, 16 Oct, reports a warning naming brw/excelente.md while the command wrote into cmp/; verify relative-path attribution across directory changes. `b20261017-ungated-write-cwd`
+- UNGATED WRITE misattributes paths: brw/excelente.md reported instead of cmp/ after cd (Claude,16 Oct). AppTime 3-Nov report: literal $S/file became code/apptime/$S/file. Resolve cwd/variables safely or explicitly report unresolved attribution; never broadly exempt variable writes. `b20261017-ungated-write-cwd`
 
 - Video extraction hides progress/partial results and calls empty or error-only galleries successful. Reproduced 30 Oct: mixed-carousel omissions, dimensionless thumbnail selection at 150 px, IndexError on downloaded clips without audio, serial image-call stalls without persisted per-link results. Preserve every slide/full-resolution image and numeric comparisons with estimation uncertainty. Earlier reports: cancellation with no output (24 Oct), YouTube 403 despite JS runtime (19 Oct). `b20261017-video-batch-results`
 
-- **Roundup attributes native ChatGPT closes to a Claude transcript.** `core/tools/wos/roundup.session_id()` picks the newest `.claude/projects` transcript; unlike `tools/wos/handoff`, it ignores native session identity. Cost, size deltas and compaction need provider-aware attribution before being treated as this session's measurements. `b20261016-roundup-session-attribution`
+- Roundup picks newest .claude/projects transcript rather than native ChatGPT identity (core/tools/wos/roundup.session_id; handoff differs). 2-Nov audit also reports trace/reads refusing Codex IDs. Recheck identity throughout metrics; cost/size/compaction must refer to the actual session. Evidence: outputs/codex-audit-20261102/auditoria.md. `b20261016-roundup-session-attribution`
 
 - **Brain stats reports success but leaves its refreshed files unstaged.** Inbox triage observed `brain/GOALS.md` unstaged and refreshed goal files partly staged after a successful `core/run hooks/brain/brain_stats.py`; complete staging explicitly and establish why its internal stage call fails. 24 Oct: every commit staging a goal leaves it dirty again, worktree one touch ahead of HEAD (rpg-isoroll 7/121 committed, 8/122 on disk), so roundup never sees a clean tree. `b20261014-brain-stats-staging`
 
@@ -47,7 +49,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Slide sampling starts a renderer per page instead of a multi-page request; verify equivalent output from batched rendering (deck_sample.render_sample_images, 26 Sep).** `b20261014-slide-sample-batch`
 
-- Read-gate tests alternate success/failure; completed CONTEXT reads are repeatedly demanded, including immediately preceding reads in native Codex (30 Oct). Investigate registration/session identity; reported reproducer test_b20260831_silent_stub_gate.py (26 Sep/7 Oct). `b20261014-read-registration`
+- Read-gate tests alternate outcomes; completed CONTEXT reads are demanded again, including immediately preceding native Codex reads (30 Oct). Investigate registration/session identity; reported reproducer test_b20260831_silent_stub_gate.py (26 Sep/7 Oct). Recheck 2-Nov audit partial/zero-exit read acceptance and consumed worker-brief stdin; green unit tests did not establish actual delivery. Evidence: outputs/codex-audit-20261102/. `b20261014-read-registration`
 
 - **Retired-token substring matching rejects valid words and titles; match the intended lexical unit (26 Sep).** `b20261014-retired-substrings` Claude session, 16 Oct, reports a finding inside the cited Patel et al. article title in teaching/cmp; assess proper-name and citation handling alongside lexical matching.
 
@@ -61,7 +63,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Verify transcript redaction of the authorization-code pattern reported in the Canva session; retain labels rather than credentials (26 Sep).** `b20261014-transcript-redaction`
 
-- **File-description lookup and tracked-file validation use incompatible repository roots; neither accepts Virada pagina/frases.json.** Claude reports described.txt suffix matching against nested-repository-relative paths despite workspace-relative keys (administration,18 Oct; 1322,23 Oct). On 30 Oct, the PPC session reports partials/jsconfig.json fails by repository-relative path but works by absolute path; stubgen creates folder configs that trigger it. Its config-consolidation workaround is a report, not the root fix. Resolve roots; bypass debt e106d95 awaits regression coverage. `b20261014-nested-file-description`
+- File-description lookup/tracked-file checks disagree on repository roots: Virada pagina/frases.json rejected (18/23 Oct); PPC partials/jsconfig.json works only as absolute path (30 Oct), including stubgen configs. AppTime 1-Nov report: only test/fixtures/usual_daily.json matched, not code/apptime/...; suffix may collide across repos. Normalize workspace-root paths. Workarounds are not fixes; bypass e106d95 needs regression. `b20261014-nested-file-description`
 
 - **Expanded hook-link verification becomes slow in duplication checking; isolate the cause before changing it (5 Oct).** `b20261014-verification-latency`
 
@@ -77,7 +79,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - entropy_context.check_truncation flags any literal ellipsis in routing prose/titles. Restrict to actual truncation/description overflow; preserve intentional characters (3 Oct). `b20261003-check-truncation-ellipsis`
 
-- Ignored outputs/.drafts and tmp research/benchmarks/Canva utilities do not sync between machines. Preserve reusable findings, inputs and provenance durably; keep credentials excluded. Reassess prototype tracking, lost conference twins and reported artifact limits (511/version,255/publication). 1322 source tracking resolved its own case; broader sync remains open. `b20260924-drafts-sync`
+- Ignored outputs/.drafts/tmp research, benchmarks and Canva utilities do not sync across machines. Preserve findings/inputs/provenance; exclude credentials. Reassess prototype tracking, lost paper twins and artifact limits (511/version,255/publication); 1322 resolved only its case. AI4Good 2-Nov report: brain/drafts/ai4good-git-retro-opus.md, 627 authored lines, uncommitted; path absent 7 Nov. Locate/account for it before recovery; cut authored text, no vendored exemption. `b20260924-drafts-sync`
 
 - line_counts.py, entropy_crowding.py and entropy_context.py use double-negative NOT REFUSED warnings. Audit against SCHEMA vocabulary and prefer affirmative ALLOWED wording (Lucas, 2 Oct). `b20261002-hook-warning-vocabulary`
 
@@ -132,7 +134,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 > Generated by `core/hooks/entropy/dashboard/entropy-dashboard.py`, which scans this repo and no other. Never edit inside this block, and never copy a count out of it — a copied number is the drift these checks exist to catch.
 
-2026-11-06 · 1197 tracked files scanned · **6 findings here** (2026-10-29: 6 · +0 over 8 days)
+2026-11-09 · 1198 tracked files scanned · **7 findings here** (2026-10-29: 6 · +1 over 11 days)
 
 | Check | Findings |
 |-------|----------|
@@ -155,7 +157,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 | Header fields naming code that is not there | 0 |
 | Truncated routing descriptions | 0 |
 | Constraints trapped in a CONTEXT.md head | 0 |
-| Local branches holding unpromoted work | 1 |
+| Local branches holding unpromoted work | 2 |
 | Work that exists on this disk and nowhere else | 0 |
 | Local branches already merged into their base | 1 |
 | Remote branches already merged into their base | 1 |
@@ -175,6 +177,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/ai4good-v1 is 3 ahead of main
+- . — feature/roundup-scope is 4 ahead of main
 
 ### Local branches already merged into their base
 
@@ -195,5 +198,5 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 > Generated by `core/tools/wos/roundup` at session close. The suite is the authority; this is its last result, never a claim that it is still true.
 
-2026-11-06 · `verify.py full` · **green (25 passed, 1137 deselected in 6.51s · 1136 passed, 1 skipped in 238.91s (0:03:58))**
+2026-11-09 · `verify.py full` · **green (25 passed, 1143 deselected in 6.38s · 1142 passed, 1 skipped in 145.14s (0:02:25))**
 <!-- verify:end -->

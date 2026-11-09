@@ -19,7 +19,7 @@ def gitflow(workspace, repo) -> bool:
     return repo == workspace or (repo.parent.name == 'code' and repo.parent.parent == workspace)
 
 
-def promote(root, branch: str, leave_dirty: bool) -> str:
+def promote(root, branch: str) -> str:
     """'' when every hop landed, else the reason nothing was promoted.
 
     The whole thing aborts on the first conflict rather than leaving develop ahead of main.

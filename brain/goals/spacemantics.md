@@ -29,8 +29,8 @@ profile 2.5D (mais reuso do isoroll). 10 min relendo §6 antes de escrever a gra
 ## backlog
 
 
-> [ ] [inbox-20261030-spacemantics] Track [anatomy], [visual-comparisons] in ../../academy/papers/spacemantics/ROADMAP.md; refs: ../../academy/papers/spacemantics/refs/REFS.md (backlog).
-> [ ] [inbox-20261030-spacemantics] Track [anatomy], [visual-comparisons], [web-motion] in ../../code/spacemantics/ROADMAP.md; refs: ../../code/spacemantics/refs/REFS.md (backlog).
+> [ ] [inbox-20261030-spacemantics] Track [anatomy], [visual-comparisons], [taiga-s1] in ../../academy/papers/spacemantics/ROADMAP.md; refs: ../../academy/papers/spacemantics/refs/REFS.md (backlog).
+> [ ] [inbox-20261030-spacemantics] Track [anatomy], [visual-comparisons], [web-motion], [taiga-s1] in ../../code/spacemantics/ROADMAP.md; refs: ../../code/spacemantics/refs/REFS.md (backlog).
 > [ ] [bygga-tracking] Track [bygga-spatial-decomp] em code/spacemantics/ROADMAP.md; ref em refs/REFS.md.
 
 
@@ -52,5 +52,5 @@ profile 2.5D (mais reuso do isoroll). 10 min relendo §6 antes de escrever a gra
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-30  ·  trend: decelerating  ·  touches: 1/66/90/90/90/90
+last-touch: 2026-11-05  ·  trend: decelerating  ·  touches: 3/68/92/92/92/92
 <!-- stats:end -->

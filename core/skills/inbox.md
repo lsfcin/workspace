@@ -80,7 +80,7 @@ do not manufacture busywork. The pairing is for the "this might matter to us" ca
 
 - **idea** → append to `code/<proj>/ROADMAP.md` under `## Backlog` (or the project's backlog section), phrased agent-ready.
 - **bug** → append to `code/<proj>/ISSUES.md`.
-- Code projects are their **own git repos**. Write the file, leave it **staged/uncommitted** — do NOT commit. Report which repo(s) were touched so Lucas commits deliberately.
+- Code projects are their **own git repos**. Each approved batch ends in a commit there, naming only that batch's files.
 - Never write project ideas into `code/<proj>/CONTEXT.md`.
 
 ## Links — one command, before anything is routed
@@ -133,7 +133,8 @@ For each entry:
 - Write new goal files or append to confirmed backlogs
 - Add task lines to the backlog of the goal they serve in `brain/goals/*.md`
 - Append ref lines to the domain `refs/REFS.md` (create `refs/REFS.md` + `refs/CONTEXT.md` if absent)
-- Append project ideas/bugs to `code/<proj>/ROADMAP.md` / `ISSUES.md` — leave **staged**, report repos
+- Append project ideas/bugs to `code/<proj>/ROADMAP.md` / `ISSUES.md`
 - Create draft files in `branches/writing/drafts/[name].md` with a title and blank body
 - Clear confirmed entries from `brain/INBOX.md` — leave unconfirmed entries untouched
 - **Last, always:** `core/run hooks/brain/brain_stats.py` — refreshes the `GOALS.md` dashboard and stages it. The commit hook runs this only when a `brain/goals/` file is already staged (`core/hooks/commit/generators.py`), so a drain that appends a backlog item leaves the dashboard describing the state before the drain until some later commit happens to touch a goal file.
+- **Then commit the batch**, by path, in each repo touched: destination repos first, the `brain/INBOX.md` removal after, so a failed commit never loses a capture. Lucas already approved the routes, so a commit decides nothing new, and a triage left staged blocks every later close.

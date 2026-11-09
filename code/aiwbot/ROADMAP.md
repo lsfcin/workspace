@@ -57,7 +57,7 @@ Both survive here because they are real gaps, not because they are queued. Promo
 - [ ] **mira-benchmark**: avaliar padrões de UX do mira.tg e repo miracodeai/mira no GitHub para benchmarking de assistente/agente no Telegram (integração GitHub/Notion via chat) (ref em `REFS.md`).
 - [ ] **backend-zcode**: implementar provedor Z-Code (Z.ai / GLM) como novo `AgentBackend` em `backend/providers/zcode.py` para execução de tarefas via Telegram (INBOX 2026-09-27).
 - [ ] **backend-antigravity**: implementar provedor Antigravity (`backend/providers/antigravity.py`) no aiwbot e avaliar como backend default no Telegram para evitar limites frequentes de cota do Claude (INBOX 2026-09-27).
-- [ ] **stt-ubuntu-shortcut**: expor comando CLI / endpoint leve de transcrição de áudio do aiwbot para atalho de sistema operacional no Ubuntu (gravação rápida de microfone → transcrição via Whisper do aiwbot → cursor/clipboard) (INBOX 2026-10-01).
+- [ ] **stt-ubuntu-shortcut**: expor comando CLI / endpoint leve de transcrição de áudio do aiwbot para atalho de sistema operacional no Ubuntu (gravação rápida de microfone → transcrição via Whisper do aiwbot → cursor/clipboard) (INBOX 2026-10-01). Compare Hex for Portuguese dictation, Linux shortcut/paste and latency; keyword agent invocation is separate. Ref: REFS.md [Hex].
 
 ## Housekeeping
 
@@ -86,7 +86,13 @@ Tried or measured, then dropped — recorded so a dead idea does not resurface l
 
 ## Backlog
 
-- [ ] [cross-harness-delegation] Compare matched agent tasks for quality, cost, quota, startup discovery and process/log supervision; preserve dated Claude/Codex reports as hypotheses, not executable recipes. Shared assessment: ../../core/ROADMAP.md [cross-harness-delegation].
+- [ ] [advisor] Compare executor-plus-advisor with current model routing on matched tasks, measuring quality, retries, total tokens and quota consumption. Ref: REFS.md [advisor] (Instagram lead).
+
+- [ ] [infinity-runtime] Assess Infinity yielding/hibernation and tool events against existing orchestration: persisted state, interruption recovery, session continuity, memory and bounded concurrency; waiting states are not simultaneous model inference. Ref: REFS.md [Infinity].
+
+- [ ] [respan-gateway] Assess Respan against existing provider integration: format/tool fidelity, streaming, fallback, observability and total cost; hedging can duplicate billed requests. Model-request routing is distinct from CLI session management. Ref: REFS.md [Respan]. Assess model-API paths only; preserve existing CLI-session adapters.
+
+- [ ] [cross-harness-delegation] Compare matched agent tasks for quality, cost, quota, startup discovery and process/log supervision; preserve dated Claude/Codex reports as hypotheses, not executable recipes. Shared assessment: ../../core/ROADMAP.md [cross-harness-delegation]. Include [model-regression] checks of client/model versions, effort, context and settings before switching backend/model; historical incidents do not prove intent.
 
 - [ ] [context-evidence] Compare focused context, planning and meaningful verification with existing practice using measured local outcomes, not the creator's invented 100k quality cutoff. Ref: REFS.md [context-evidence].
 

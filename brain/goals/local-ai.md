@@ -27,11 +27,23 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## backlog
 
+> [ ] [advisor] Track matched executor/advisor assessment in ../../code/dobra/ROADMAP.md and ../../academy/papers/2027-ICLR-dobra/ROADMAP.md; refs in their refs/REFS.md (backlog).
 
-> [ ] [inbox-20261030-2027-ICLR-dobra] Track [airllm], [code-mode], [context-evidence], [deepinfer], [harness2], [mesh-llm], [qwenputer], [scaledown], [unlimited-ocr] in ../../academy/papers/2027-ICLR-dobra/ROADMAP.md; refs: ../../academy/papers/2027-ICLR-dobra/refs/REFS.md (backlog).
+> [ ] [respan-infinity] Track [respan-gateway] in Core/Dobra/flows/aiwbot roadmaps and [infinity-runtime] there plus the Dobra paper; references there (backlog).
+
+> [ ] [glm52-comparison] Track matched coding/model and local/hosted assessment in Dobra, FreeAI, Core and Dobra paper roadmaps; share [colibri-streaming] feasibility work; refs there (backlog).
+
+> [ ] [colibri-streaming] High priority: track disk-streaming feasibility in ../../code/dobra/ROADMAP.md, ../../code/freeai/ROADMAP.md and ../../core/ROADMAP.md; research baseline: ../../academy/papers/2027-ICLR-dobra/ROADMAP.md. References there; no download during triage.
+
+> [ ] [soundbox] Track reusable local-audio tooling assessment in ../../core/ROADMAP.md [soundbox]; refs: ../../core/refs/REFS.md (backlog).
+
+> [ ] [qwen-modified] Track concrete-task assessment of the modified Qwen variant in ../../code/dobra/ROADMAP.md and ../../code/freeai/ROADMAP.md [qwen-modified]; refs in their refs/REFS.md and ../../core/refs/REFS.md. Reduced refusal does not establish task quality (backlog).
+
+
+> [ ] [inbox-20261030-2027-ICLR-dobra] Track [airllm], [code-mode], [context-evidence], [deepinfer], [harness2], [mesh-llm], [qwenputer], [scaledown], [unlimited-ocr], [taiga-s1] in ../../academy/papers/2027-ICLR-dobra/ROADMAP.md; refs: ../../academy/papers/2027-ICLR-dobra/refs/REFS.md (backlog).
 > [ ] [inbox-20261030-aiwbot] Track [code-mode], [context-evidence], [dependency-provenance], [dessa], [harness2], [pstack], [r-cli], [rated-tools], [scaledown], [unsloth-browser], [voice-studio] in ../../code/aiwbot/ROADMAP.md; refs: ../../code/aiwbot/REFS.md (backlog).
-> [ ] [inbox-20261030-dobra] Track [airllm], [code-mode], [context-evidence], [deepinfer], [dependency-provenance], [firecrawl], [gpu-unlock], [harness2], [mesh-llm], [model-continuity], [pstack], [qwenputer], [r-cli], [scaledown], [strata-local], [unlimited-ocr], [unsloth-browser] in ../../code/dobra/ROADMAP.md; refs: ../../code/dobra/refs/REFS.md (backlog).
-> [ ] [inbox-20261030-freeai] Track [airllm], [deepinfer], [mesh-llm], [model-continuity], [nomad], [r-cli], [rated-tools], [strata-local], [unsloth-browser] in ../../code/freeai/ROADMAP.md; refs: ../../code/freeai/refs/REFS.md (backlog).
+> [ ] [inbox-20261030-dobra] Track [airllm], [code-mode], [context-evidence], [deepinfer], [dependency-provenance], [firecrawl], [gpu-unlock], [harness2], [mesh-llm], [model-continuity], [pstack], [qwenputer], [r-cli], [scaledown], [strata-local], [unlimited-ocr], [unsloth-browser], [taiga-s1] in ../../code/dobra/ROADMAP.md; refs: ../../code/dobra/refs/REFS.md (backlog).
+> [ ] [inbox-20261030-freeai] Track [airllm], [deepinfer], [mesh-llm], [model-continuity], [nomad], [r-cli], [rated-tools], [strata-local], [unsloth-browser], [hob-desktop] in ../../code/freeai/ROADMAP.md; refs: ../../code/freeai/refs/REFS.md (backlog).
 
 > [ ] [mcptoon-context] Track tool-discovery and context-budget assessment in code/dobra/ROADMAP.md [mcptoon-context]; reference in code/dobra/refs/REFS.md (backlog).
 
@@ -43,14 +55,14 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 > [ ] [local-setup] set up a local model environment (Ollama or equivalent) compatible with Claude Code  
 > [ ] [tiny-quant] avaliar quantização extrema como caminho pro setup local — Qwen3.6-27B rebuildado em 1-bit (3.9GB) / ternário (5.9GB), arquitetura intacta, cabe até em celular (ref em `core/refs/REFS.md`). Amarra direto em [local-setup]: decide se a RTX 3050 6GB roda um 27B em vez de um 7B (INBOX 2026-07-23)  
 > [ ] [tts-local] KittenTTS <25MB em CPU — checar suporte a pt-BR ANTES de qualquer integração; sem pt-BR não serve pra nada aqui (ref em `core/refs/REFS.md`, INBOX 2026-07-23)  
-> [ ] [cpu-inference-engine] investigar o claim de rodar modelos grandes sem GPU — "Kimi K3nc", motor em C99 de 176KB que alegadamente roda modelos de 2T de parâmetros em laptop com 8GB RAM e sem GPU ([reel](https://www.instagram.com/reel/Db92TZauDGF/), INBOX 2026-08-16, Lucas: *"várias relevantes, especialmente essa de rodar localmente"*). **Conteúdo de agregador de hype, verificar antes de investir**: o mesmo reel mistura releases reais com nomes provavelmente errados. Se o claim se sustentar, muda [local-setup] e [tiny-quant] por completo — daí a prioridade de checar a fonte primária, não o reel  
+> [ ] [cpu-inference-engine] investigar o claim de rodar modelos grandes sem GPU — "Kimi K3nc", motor em C99 de 176KB que alegadamente roda modelos de 2T de parâmetros em laptop com 8GB RAM e sem GPU ([reel](https://www.instagram.com/reel/Db92TZauDGF/), INBOX 2026-08-16, Lucas: *"várias relevantes, especialmente essa de rodar localmente"*). **Conteúdo de agregador de hype, verificar antes de investir**: o mesmo reel mistura releases reais com nomes provavelmente errados. Se o claim se sustentar, muda [local-setup] e [tiny-quant] por completo — daí a prioridade de checar a fonte primária, não o reel Include Kimi-in-C capture DcjlgleALHo; verify implementation, storage and seconds/token before downloading; [airllm] in Core/Dobra/FreeAI/paper roadmaps; core/refs/REFS.md.
 > [ ] [local-opus-claim] checar a leva de releases open-source da semana de 2026-08-17 — claim de um modelo chinês "nível Opus" rodando local e grátis, mais releases Meta/xAI/Zhipu/Alibaba ([reel](https://www.instagram.com/reel/DcJ3PUDyIvS/), INBOX, Lucas: *"interessado especialmente nos casos em que podemos rodar algo localmente"*). **Mesmo gênero de fonte que [cpu-inference-engine] e o mesmo cuidado se aplica**:
 > nenhum modelo é nomeado e nenhum benchmark é citado, então o valor é o ponteiro para aquela semana, não a afirmação.
 > Ir na fonte primária ou descartar  
 > [ ] [prototype-context] build a first prototype: dynamic context collapse for a specific task type  
 > [ ] [benchmark] measure: speed, reliability, quality vs cloud baseline  
 > [ ] [claude-code-alt] set up CLI coding agent alternative to Claude Code — candidates: qwencode + qwen model locally, GLM 5.1 (free cloud), opencode, codex  
-> [ ] [local-video-gen] evaluate the local AI video-gen setup as alternative to opencode+nvidia+image-model (INBOX 2026-07-26, IG carousel `DbKa8dzkRv4` — DM-gated, only title cards extracted; may need the "GUIDE" DM or independent search to get the real tool list)  
+> [ ] [local-video-gen] evaluate the local AI video-gen setup as alternative to opencode+nvidia+image-model (INBOX 2026-07-26, IG carousel `DbKa8dzkRv4` — DM-gated, only title cards extracted; may need the "GUIDE" DM or independent search to get the real tool list) Identify the model behind the MiniMax claim Ddke9-IIpDd; verify published weights, licence and measured hardware before a local trial. Ref: core/refs/REFS.md [MiniMax local-video claim].
 > [ ] [vipassana-autonomous] explorar deixar um agente rodando com autonomia SEGURA durante os 10 dias de vipassana (1–12 ago, offline), entregando resultados RELEVANTES — candidatos: watcher que constrói/refina continuamente as revisões de estado-da-arte dos papers planejados; pasta sandbox pra prototipar. Pré-requisito duro: **mecânica de autostart de sessões** (o caso "sessão morreu, ninguém acorda o agente" do [workspace-os] triggers pós-janela).
 > Definir escopo seguro ANTES; sem isso, não roda (INBOX 2026-07-23)  
 > [ ] [finetune-libs] avaliar as 10 libs de fine-tuning local (Unsloth, LLaMA-Factory, PEFT, Axolotl, TRL, torchtune, LitGPT, SWIFT, DeepSpeed, AutoTrain) — quais servem ao runner de SLM do dobra na RTX 3050 6GB? ref em `core/refs/REFS.md` (INBOX 2026-07-27)  
@@ -74,5 +86,5 @@ Open the weft repo (github.com/WeaveMindAI/weft). Read the README. Understand wh
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-30  ·  trend: decelerating  ·  touches: 7/91/116/116/116/116
+last-touch: 2026-11-05  ·  trend: decelerating  ·  touches: 9/93/118/118/118/118
 <!-- stats:end -->

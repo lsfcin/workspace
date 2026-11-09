@@ -64,33 +64,13 @@ def known(text: str) -> dict:
     return rows
 
 
-def row_set_is_this_close_s_own_change(root: Path, rows: dict, seen: dict) -> bool:
-    """Whether the redraw is describing a project set that has already been committed.
-
-    `settle` rolls a write back whenever the tree is dirty, which is right against another
-    session's work and wrong for the one close that CHANGES the project set: there the dirt is
-    the change the map exists to describe, and until 2026-09-12 the only way past it was to
-    disable settle for one call — reaching around a generator's own safety.
-
-    The row set comes from `.gitignore`, which is tracked, so the two cases separate cleanly. A
-    row set that moved while `.gitignore` is clean means the change is already committed and the
-    map is merely behind; the write is this close's own and must survive. A row set that moved
-    while `.gitignore` is itself dirty means the change is not committed yet, so the map would be
-    drawn from a source nobody has agreed to, and the rollback is correct.
-    """
-    if set(rows) == set(seen):
-        return False
-    return git(root, 'diff', '--quiet', 'HEAD', '--', '.gitignore').returncode == 0
-
-
-def redraw(root: Path, leave_dirty: bool) -> str:
+def redraw(root: Path) -> str:
     """Rewrite the map and settle it. Silent when nothing moved, which is the common case."""
     from platform_law import posix
     from entropy_corpus import nested_repos
     target = root / MAP
     if not target.is_file():   # a repo declaring no map is not a repo that wants one invented
         return ''
-    was_clean = git(root, 'diff', '--quiet', MAP).returncode == 0
     seen = known(target.read_text(encoding='utf-8'))
     rows = {name: seen.get(name, ['—', '—']) for name in declared(root)}
     for repo in nested_repos(root):
@@ -106,7 +86,5 @@ def redraw(root: Path, leave_dirty: bool) -> str:
         (*HEAD, *(f'| `{name}` | {cells[0]} | {cells[1]} |' for name, cells in sorted(rows.items())))))
     if git(root, 'diff', '--quiet', MAP).returncode == 0:
         return ''
-    own = row_set_is_this_close_s_own_change(root, rows, seen)
     return f'{MAP} redrawn' + artifacts.settle(
-        root, MAP, was_clean, 'chore(projects): redraw the map at session close',
-        leave_dirty and not own)
+        root, MAP, 'chore(projects): redraw the map at session close')

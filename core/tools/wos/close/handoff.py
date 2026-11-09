@@ -17,8 +17,9 @@ def identity(session: str = '', agent: str = '') -> tuple[str, str]:
         if os.environ.get('CODEX_THREAD_ID') or os.environ.get('CODEX_SESSION_ID'):
             session = os.environ.get('CODEX_THREAD_ID') or os.environ['CODEX_SESSION_ID']
             agent = agent or 'chatgpt'
-        elif os.environ.get('CLAUDE_SESSION_ID'):
-            session, agent = os.environ['CLAUDE_SESSION_ID'], agent or 'claude'
+        elif os.environ.get('CLAUDE_CODE_SESSION_ID') or os.environ.get('CLAUDE_SESSION_ID'):
+            session = os.environ.get('CLAUDE_CODE_SESSION_ID') or os.environ['CLAUDE_SESSION_ID']
+            agent = agent or 'claude'
     if not session or not agent:
         raise ValueError('No session identity: pass --session and --agent from the native session metadata.')
     return session, name_of(agent)

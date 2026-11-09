@@ -73,6 +73,6 @@ def test_it_runs_before_the_suite_does():
     """Ordering is the whole point: two cases assert what the SessionStart heal says, and a drifted
     config makes both red over nothing. Curing it after verify would fix next session's run only."""
     source = CLOSE.read_text(encoding='utf-8')
-    main = source.partition('def main(argv: list) -> int:')[2]
+    main = source.partition('def close_root(')[2]
     assert main.index('permissions(root)') < main.index('verify(root)'), \
         'the close verifies against the drift it is about to cure'

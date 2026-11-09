@@ -53,7 +53,7 @@ def _table(root) -> str:
 def test_a_row_this_clone_cannot_confirm_survives_the_redraw(tmp_path, repomap) -> None:
     root = _workspace(tmp_path)
 
-    repomap.redraw(root, True)
+    repomap.redraw(root)
 
     assert '`code/elsewhere` | [github](https://github.com/lsfcin/elsewhere)' in _table(root), (
         'the redraw erased a project checked out on the other machine')
@@ -65,7 +65,7 @@ def test_a_cloned_project_gets_its_remote_and_its_drive_home(tmp_path, repomap) 
     (root / 'code/here/drive_sync.json').write_text(
         '{"folder_id": "FOLDER", "account": "personal"}', encoding='utf-8', newline='\n')
 
-    repomap.redraw(root, True)
+    repomap.redraw(root)
     written = _table(root)
 
     assert '`code/here` | [github](https://github.com/lsfcin/here)' in written, written
@@ -80,7 +80,7 @@ def test_a_remote_s_credential_never_reaches_the_map(tmp_path, repomap) -> None:
     (root / 'PROJECTS.md').write_text(SEED.replace('https://github.com', f'https://{userinfo}github.com'),
                                       encoding='utf-8', newline='\n')
 
-    repomap.redraw(root, True)
+    repomap.redraw(root)
 
     assert 'olp_' not in _table(root), _table(root)
     assert '[Overleaf](https://git.overleaf.com/abc)' in _table(root), _table(root)
@@ -91,7 +91,7 @@ def test_a_folder_the_declaration_does_not_name_gets_no_row(tmp_path, repomap) -
     root = _workspace(tmp_path)
     subprocess.run(['git', 'init', '-q', str(root / 'code/undeclared')], check=True)
 
-    repomap.redraw(root, True)
+    repomap.redraw(root)
 
     assert 'code/undeclared' not in _table(root)
 
@@ -114,38 +114,23 @@ def _declare(root, text, commit):
 
 
 def test_the_close_that_changes_the_project_set_may_still_draw_the_map(tmp_path, repomap) -> None:
-    """b20260912 — settle rolls a write back whenever the tree is dirty, which is right against
-    another session's work and wrong for the one close that CHANGES the project set: there the
-    dirt is the change the map exists to describe. Absorbing code/aiwbot hit it, and the row could
-    only be removed by disabling settle for one call."""
+    """b20260912 — the close that CHANGES the project set draws the map over someone else's dirt."""
     root = _workspace(tmp_path)
     _tracked(root)
     _declare(root, IGNORED + 'code/absorbed\n', commit=True)
     (root / 'unrelated.md').write_text('another session is working\n', encoding='utf-8', newline='\n')
 
-    repomap.redraw(root, True)
+    repomap.redraw(root)
 
-    assert 'code/absorbed' in _table(root), 'the redraw was rolled back over its own change'
-
-
-def test_a_declaration_nobody_has_committed_is_still_rolled_back(tmp_path, repomap) -> None:
-    """The bound on the escape above. A row set that moved while .gitignore is itself dirty is a
-    map drawn from a source nobody has agreed to yet, so the rollback stays correct."""
-    root = _workspace(tmp_path)
-    _tracked(root)
-    _declare(root, IGNORED + 'code/absorbed\n', commit=False)
-
-    repomap.redraw(root, True)
-
-    assert 'code/absorbed' not in _table(root)
+    assert 'code/absorbed' in _table(root), 'the redraw lost its own change'
 
 
 def test_a_second_redraw_changes_nothing(tmp_path, repomap) -> None:
     """A file that moves because a generator ran is a file nobody can read a diff of."""
     root = _workspace(tmp_path)
-    repomap.redraw(root, True)
+    repomap.redraw(root)
     once = _table(root)
 
-    repomap.redraw(root, True)
+    repomap.redraw(root)
 
     assert _table(root) == once

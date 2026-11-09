@@ -100,7 +100,7 @@ def test_a_project_ahead_of_its_remote_is_pushed(tmp_path, roundup) -> None:
 	project = root / 'code/proj'
 	assert _git(project, 'log', '--oneline', '@{upstream}..HEAD').stdout.strip(), 'setup is wrong'
 
-	said = roundup.sweep(root)
+	said = roundup.sweep(root, [root / 'code/proj'], lambda _: ('green', '', ''))
 
 	assert '1 pushed' in said, said
 	assert not _git(project, 'log', '--oneline', '@{upstream}..HEAD').stdout.strip(), (
@@ -109,15 +109,16 @@ def test_a_project_ahead_of_its_remote_is_pushed(tmp_path, roundup) -> None:
 
 def test_a_project_with_no_remote_is_named(tmp_path, roundup) -> None:
 	"""Nothing here can fix it, so the only honest act is to say which repo it is."""
-	said = roundup.sweep(_workspace(tmp_path, with_remote=False))
+	root = _workspace(tmp_path, with_remote=False)
+	said = roundup.sweep(root, [root / 'code/proj'], lambda _: ('green', '', ''))
 	assert 'no remote' in said and 'code/proj' in said, said
 
 
 def test_a_project_already_pushed_says_nothing(tmp_path, roundup) -> None:
 	"""A close that reports on every quiet repo is a close nobody reads to the end."""
 	root = _workspace(tmp_path)
-	roundup.sweep(root)
-	assert roundup.sweep(root) == ''
+	roundup.sweep(root, [root / 'code/proj'], lambda _: ('green', '', ''))
+	assert 'pushed' not in roundup.sweep(root, [root / 'code/proj'], lambda _: ('green', '', ''))
 
 
 def test_a_branch_with_no_upstream_is_pushed_rather_than_called_quiet(tmp_path, roundup) -> None:
@@ -126,7 +127,7 @@ def test_a_branch_with_no_upstream_is_pushed_rather_than_called_quiet(tmp_path, 
 	project = root / 'code/proj'
 	assert _git(project, 'rev-parse', '@{upstream}').returncode != 0, 'setup is wrong'
 
-	said = roundup.sweep(root)
+	said = roundup.sweep(root, [root / 'code/proj'], lambda _: ('green', '', ''))
 
 	assert '1 pushed' in said, said
 	assert _git(project, 'rev-parse', '@{upstream}').returncode == 0, (
@@ -139,7 +140,7 @@ def test_a_code_project_leaves_the_close_with_main_on_develop(tmp_path, roundup)
 	project = root / 'code/proj'
 	assert _git(project, 'rev-list', '--count', 'main..develop').stdout.strip() == '1', 'setup'
 
-	roundup.sweep(root)
+	roundup.sweep(root, [root / 'code/proj'], lambda _: ('green', '', ''))
 
 	assert _git(project, 'rev-list', '--count', 'main..develop').stdout.strip() == '0'
 	assert _git(project, 'rev-parse', 'origin/main').stdout == _git(

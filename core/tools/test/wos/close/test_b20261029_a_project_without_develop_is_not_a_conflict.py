@@ -33,5 +33,5 @@ def test_a_repo_without_develop_promotes_nothing_and_says_nothing(tmp_path):
 	_git(repo, 'commit', '-q', '--allow-empty', '-m', 'work')
 	main = _git(repo, 'rev-parse', 'main')
 
-	assert branches.promote(repo, 'feature/x', leave_dirty=False) == ''
+	assert branches.promote(repo, 'feature/x') == ''
 	assert _git(repo, 'rev-parse', 'main') == main

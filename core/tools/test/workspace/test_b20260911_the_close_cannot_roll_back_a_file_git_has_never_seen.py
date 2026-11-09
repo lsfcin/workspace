@@ -1,13 +1,7 @@
-# b20260911 regression — settle() undoes a CREATE by deleting, not by checking out.
+# b20260911 regression: settle() commits an artifact git has never seen.
 #
-# `git checkout -- <name>` needs a committed version to restore. A generated artifact landing in a
-# repo that never carried it has none, so under --leave-dirty the rollback failed silently and the
-# artifact stayed in the other session's tree — the one outcome settle() exists to make impossible.
-# It was found 2026-09-09 by the map generator, the first caller that could reach it; that generator
-# now refuses to invent the file, which sidesteps the bug without fixing it.
-#
-# The same branch fixes the commit side: `git diff --quiet` says "no change" about an untracked
-# file too, so a brand-new artifact was never committed either.
+# `git diff --quiet` says "no change" about an untracked file too, so a brand-new artifact was
+# never committed. The rollback half of this bug went with the rollback itself (b20261109).
 import subprocess
 import sys
 
@@ -36,27 +30,13 @@ def _repo(tmp_path):
     return tmp_path
 
 
-def test_an_untracked_artifact_is_removed_rather_than_checked_out(tmp_path):
-    """The incident itself: under --leave-dirty a created artifact must not survive the close."""
-    repo = _repo(tmp_path)
-    made = repo / 'PROJECTS.md'
-    made.write_text('# Projects\n', encoding='utf-8', newline='\n')
-
-    note = artifacts.settle(repo, 'PROJECTS.md', was_clean=True, message='irrelevant here',
-                            leave_dirty=True)
-
-    assert not made.exists(), "the artifact rode into the other session's tree"
-    assert 'reported only' in note
-
-
 def test_an_untracked_artifact_is_committed_when_the_tree_is_ours(tmp_path):
     """The other half of the same branch. `git diff --quiet` answers "unchanged" for a file git has
     never seen, so the early return swallowed every first-ever artifact before it was committed."""
     repo = _repo(tmp_path)
     (repo / 'PROJECTS.md').write_text('# Projects\n', encoding='utf-8', newline='\n')
 
-    note = artifacts.settle(repo, 'PROJECTS.md', was_clean=True, message='chore: first map',
-                            leave_dirty=False)
+    note = artifacts.settle(repo, 'PROJECTS.md', message='chore: first map')
 
     assert note == '', f'settle reported a problem: {note}'
     assert artifacts.out(repo, 'log', '-1', '--pretty=%s') == 'chore: first map'
@@ -67,15 +47,5 @@ def test_a_tracked_artifact_that_did_not_move_is_still_silent(tmp_path):
     """The common case, and the property the new branch must not cost: deterministic output means a
     file changes when the WORKSPACE changed, never merely because a generator ran."""
     repo = _repo(tmp_path)
-    assert artifacts.settle(repo, 'seed.txt', was_clean=True, message='unused',
-                            leave_dirty=False) == ''
+    assert artifacts.settle(repo, 'seed.txt', message='unused') == ''
 
-
-def test_a_tracked_artifact_is_still_restored_and_not_deleted(tmp_path):
-    """The path that already worked. Undoing an EDIT is a checkout; only a create is a delete."""
-    repo = _repo(tmp_path)
-    (repo / 'seed.txt').write_text('dirtied by a generator\n', encoding='utf-8', newline='\n')
-
-    artifacts.settle(repo, 'seed.txt', was_clean=True, message='unused', leave_dirty=True)
-
-    assert (repo / 'seed.txt').read_text(encoding='utf-8') == 'seed\n'

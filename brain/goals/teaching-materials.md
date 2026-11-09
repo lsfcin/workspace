@@ -23,6 +23,11 @@ Use the published calendar: 17 Wednesday presentation/status meetings and 17 Fri
 
 ## backlog
 
+> [ ] [audit-verdict-size] Track unchanged-verdict/cap assessment in ../../academy/teaching/ROADMAP.md [audit-verdict-size] (backlog).
+> [ ] [ai4good-repository-reconciliation] Track both-repository review in ../../academy/teaching/ROADMAP.md [ai4good-repository-reconciliation]; integration remains Lucas’s decision (backlog).
+
+> [ ] [motionmaxxing-t3] Track [motionmaxxing] and [t3-video] in ../../academy/teaching/ROADMAP.md; refs: ../../academy/teaching/REFS.md (backlog).
+
 > [ ] [guia-humano-ia-artefatos] Track meaningful alternatives, justified student choices and interviews that check understanding in ../../academy/teaching/ROADMAP.md [guia-humano-ia-artefatos]/[prompts-por-etapa-artefatos] and both AI4Good/TechEdu course roadmaps (backlog).
 
 > [ ] [subscription-review] Track the teaching-platform decision after the subscription review in finances.md and core/ROADMAP.md, Canva leaf (today).
@@ -111,7 +116,7 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json` (sobras e manutenç
 > [ ] [animacoes-didaticas] avaliar animações explicativas programáticas geradas por IA para slides e material de aula (aponta para academy/teaching/ROADMAP.md [didactic-animations])  
 > [ ] [p5-computacao-criativa] acompanhar uso do p5.brush em práticas de programação visual e materiais didáticos (aponta para academy/teaching/ROADMAP.md [p5-creative-computing])  
 > [ ] [unsloth-praticas-ia] adicionar Unsloth Studio como ferramenta de apoio às práticas de IA sem custo para estudantes (aponta para academy/teaching/REFS.md)  
-> [ ] [hob-ensino] avaliar Hob (FrigadeHQ) para tutoriais interativos in-app nas práticas das disciplinas (aponta para academy/teaching/REFS.md; INBOX 2026-11-02)  
+> [ ] [hob-ensino] Track the local-AI classroom assessment in ../../academy/teaching/ROADMAP.md [hob-ensino]; ref: ../../academy/teaching/REFS.md [Hob].
 
 ## done
 
@@ -120,5 +125,5 @@ Fonte em `academy/teaching/classes/techedu/tecnologias.json` (sobras e manutenç
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-11-06  ·  trend: steady  ·  touches: 62/141/156/156/156/156
+last-touch: 2026-11-06  ·  trend: steady  ·  touches: 64/143/158/158/158/158
 <!-- stats:end -->

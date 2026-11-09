@@ -59,6 +59,11 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## backlog
 
+> [ ] [prelaunch-legal] Before AppTime release, complete the broader functions/markets-based review in ../../code/apptime/ROADMAP.md [prelaunch-legal]; reference in refs/REFS.md.
+> [ ] [ux-20] Track speech→screen mapping (including gaps), existing-guidance comparison and concrete usability checks in ../../code/apptime/ROADMAP.md and ../../core/ROADMAP.md [ux-20]; references in their refs/REFS.md.
+
+> [ ] [apptime-pill-layout] Track remaining pill spacing and launcher delay in ../../code/apptime/ROADMAP.md; assess against current geometry (backlog).
+
 > [ ] [ai-literacy-concept] Estruturar concept doc da plataforma de AI Literacy & Empregabilidade e validar com Ralph (INBOX 2026-10-31; rascunho em brain/drafts/ai-literacy-startup.md)
 
 > [ ] [virada-source-review] Track original-source checks in branches/virada/ROADMAP.md [source-review] and refs/REFS.md, dossier drift in ISSUES.md [dossier-source-drift], and the paused Melhor pra Mim record (Claude-session reports, 19–23 Oct).
@@ -82,5 +87,5 @@ fallback · liberar via TestFlight ou webapp se review atrasar*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-11-06  ·  trend: steady  ·  touches: 103/213/239/255/261/261
+last-touch: 2026-11-09  ·  trend: advancing  ·  touches: 151/261/285/303/309/309
 <!-- stats:end -->

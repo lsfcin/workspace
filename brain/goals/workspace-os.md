@@ -1,6 +1,6 @@
 # [ craft | workspace | year ] workspace OS
 
-A centralized personal operating system: all thoughts, projects, demands, full-life organization in one place. Automated setup that eases how life gets managed, reduces mental pressure, and enables goals and dreams to move from idea to action. Reliable, productive, and genuinely used — not just designed. Currently in MVP prototyping phase. First validated version expected in ~6 months.
+A personal operating system joining thoughts, projects and life demands to reduce mental pressure through reliable daily use. MVP prototyping; first validation expected in ~6 months.
 
 >**signals**  
 transformative · essential · thrilled
@@ -16,28 +16,27 @@ immersed mode · advancing motion · intrinsic source
     [v1] pass the four-criterion v1 gate — Tier 0 anti-entropy live · one list, no duplicates · everything pushed and
     gitflow-shaped · clonable by a student
 
-**All build work lives in [/ROADMAP.md](../../ROADMAP.md)** — the single wos list, each step tagged with model level and impact flag. This file holds only why, signals, dynamics, and timing. Plans do not live in goal files (AGENTS.md).
+Build work: [/ROADMAP.md](../../ROADMAP.md), tagged by model level/impact. Goals hold motivation, signals, dynamics and timing; execution plans stay in roadmaps (AGENTS.md).
 
 > **The governing constraint, Lucas 2026-08-16:** *"definitivamente, quero zerar o roadmap do WOS o quanto antes. já usamos demasiado tempo e esforço na infraestrutura."*
 >
 > Keep v1 as the filter: refile work to its owning project, assess nonessential additions before adoption, and prefer life demands over infrastructure for its own sake.
 >
-> **Sharpened 2026-08-25, and this is the version to read first.** Lucas: *"semanas completas estourando o uso do claude code com o opus 5 para um progresso duvidoso… realmente vejo que o WOS virou um problema por si só."* The measurement backs the feeling: 50 commits in 30 days, nearly all in `core/` and the roadmaps, **zero in `code/`**. The repo spent the month maintaining itself.
+> **Sharpened 2026-08-25, and this is the version to read first.** Lucas: *"semanas completas estourando o uso do claude code com o opus 5 para um progresso duvidoso… realmente vejo que o WOS virou um problema por si só."*
 >
 > **What v1.0 means from here, in his words:** zero loose ends · minimum coupling · hooks and tools working as advertised on zero-token strategies · small `.md` files · roadmaps small enough that a sibling file is an exception. **Agents, flows and loops wait**; v1 is the `AGENTS.md`/`CONTEXT.md` tree, hooks, tools and `brain/`.
 >
 > Roadmaps state what, why and verification; implementation belongs to the executing session. Length is not evidence of care.
 >
-> **How the work gets pulled, Lucas 2026-08-27:** *"a partir de cada demanda da vida resolver não somente a demanda mas toda a infraestrutura relacionada a ela e assim seguimos progredindo no micro e no macro."* A real demand is what opens a session; the repo it touches is fixed in the same pass. Nothing here is worked for its own sake.
+> **How the work gets pulled, Lucas 2026-08-27:** *"a partir de cada demanda da vida resolver não somente a demanda mas toda a infraestrutura relacionada a ela e assim seguimos progredindo no micro e no macro."* Real demands open sessions and drive repo repairs; no infrastructure for its own sake.
 >
 > **Two things he ruled are NOT on the table**, both because they cut capability rather than fat:
 > deleting a harness (multi-harness is essential — optimise the copy, never the function) and cutting any hook before a scoreboard of what it actually blocked exists.
 
 **ease-start**  
-**All four v1 criteria are green, and nothing in the list is waiting on you.** The drain is agent work now: the remaining items carry their own model level and none of them is blocked on a decision.
-So the easy start is not a decision to make — it is a session to hand off.
+Pull remaining work from ../../ROADMAP.md; verify current criteria and blockers there.
 
-Flows/agents and the knowledge graph require dedicated discussions; schedule them separately. Pull mechanical work from ../../ROADMAP.md rather than inventing infrastructure sessions.
+Discuss flows/agents and the knowledge graph separately; pull mechanical work from ../../ROADMAP.md.
 
 **Known risk — dataset with no live backup:** `datasets/relativistic_raytracer` (5.8 GB) is the sole surviving copy of its data — Zenodo record 20240662 returns HTTP 410 ("personal-data"), gone since 2026-05-24. The `datasets/*/CONTEXT.md` convention of "re-download from the Zenodo link" breaks whenever the link goes dead with no live copy behind it.
 
@@ -52,21 +51,31 @@ fallback · iterate — MVP can always be extended*
 
 ## backlog
 
+> [ ] [inbox-path-drafts] Track root ISSUES [b20261014-nested-file-description], [b20261017-ungated-write-cwd], [b20260924-drafts-sync]; Core [authored-drafts] and teaching ROADMAP [ai4good-repository-reconciliation] (backlog).
+
+> [ ] [inbox-visual-advisor] Track Core [motionmaxxing], [advisor] and [t3-video] in ../../core/ROADMAP.md; refs: ../../core/refs/REFS.md (backlog).
+
+> [ ] [batch6-assessments] Track [colibri-streaming] (high priority), [glm52-comparison], [respan-gateway], [infinity-runtime] and Unslop in ../../core/ROADMAP.md and owning project roadmaps; references there (backlog).
+
+> [ ] [cadcraft-prompt-audit] Track [cadcraft], [prompt-audit] in ../../core/ROADMAP.md; refs: ../../core/refs/REFS.md (backlog).
+
+> [ ] [desktop-memory-review] Verify post-5-Nov freezes and startup memory; review the custom Brave guard against ../../branches/tweaks/SETUP.md. Preserve the 2-Nov symptoms as reported (5.5 GB at startup), without assuming resolution (backlog).
+
 > [ ] [partial-norm-staging] Track root ISSUES.md [b20261030-partial-norm-staging], video-batch findings, repeated-read registration and delayed routing; preserve other sessions' staged work (backlog).
 
 > [ ] [evidence-tool-defects] Track reported calendar ranges, Drive write tokens/paging and compiled-TeX PDF detection in ../../ISSUES.md; administration consumer: ../../academy/administration/ROADMAP.md [evidence-tool-defects] (backlog).
 
 > [ ] [academic-evidence-tools] Track mail/attachment/PDF/bulletin evidence intake in ../../core/ROADMAP.md and ../../academy/administration/ROADMAP.md [academic-evidence-tools]; root mail issue holds reported defects (backlog).
 
-> [ ] [cross-harness-delegation] Track matched comparisons, discovery, quota/cost and process supervision in ../../core/ROADMAP.md, ../../code/aiwbot/ROADMAP.md, ../../code/flows/ROADMAP.md and ../../academy/papers/wos-ablation/ROADMAP.md [cross-harness-delegation]; source reports remain attributed (backlog).
+> [ ] [cross-harness-delegation] Track parity, versioned headless calls and supervision in ../../core/ROADMAP.md, ../../code/aiwbot/ROADMAP.md, ../../code/flows/ROADMAP.md and ../../academy/papers/wos-ablation/ROADMAP.md; Core [subagent-watchdog], root ISSUES [b20261102-codex-parity] and 2-Nov audit hold acceptance/evidence (backlog).
 
 > [ ] [machine-consistency] Track machine/Downloads/repository inventory in ../../ROADMAP.md, Portability; preserve open issues and verify before deletion (backlog).
 
 > [ ] [inbox-20261030-wos-ablation] Track [code-mode], [context-evidence], [dependency-provenance], [harness2], [pstack], [r-cli], [repo-maps] in ../../academy/papers/wos-ablation/ROADMAP.md; refs: ../../academy/papers/wos-ablation/refs/REFS.md (backlog).
-> [ ] [inbox-20261030-aiwbot] Track [code-mode], [context-evidence], [dependency-provenance], [dessa], [harness2], [pstack], [r-cli], [rated-tools], [scaledown], [unsloth-browser], [voice-studio] in ../../code/aiwbot/ROADMAP.md; refs: ../../code/aiwbot/REFS.md (backlog).
+> [ ] [inbox-20261030-aiwbot] Track Hex, [model-regression], [code-mode], [context-evidence], [dependency-provenance], [dessa], [harness2], [pstack], [r-cli], [rated-tools], [scaledown], [unsloth-browser], [voice-studio] in ../../code/aiwbot/ROADMAP.md; references there (backlog).
 > [ ] [inbox-20261030-freeai] Track [airllm], [deepinfer], [mesh-llm], [model-continuity], [nomad], [r-cli], [rated-tools], [strata-local], [unsloth-browser] in ../../code/freeai/ROADMAP.md; refs: ../../code/freeai/refs/REFS.md (backlog).
-> [ ] [inbox-20261030-core] Track captured intake items in ../../core/ROADMAP.md; refs: ../../branches/tweaks/refs/REFS.md, ../../core/refs/REFS.md (backlog).
-> [ ] [graphify-audit] avaliar utilidade real do graphify no WOS vs sobrecarga (INBOX 2026-10-31; aponta para core/ROADMAP.md)
+> [ ] [inbox-20261030-core] Track Hex, Hob, [taiga-s1], [model-regression]: ../../core/ROADMAP.md; refs: ../../core/refs/REFS.md, ../../branches/tweaks/refs/REFS.md (backlog).
+> [ ] [graphify-audit] Track Graphify use/cost assessment in ../../core/ROADMAP.md [graphify-audit] (backlog).
 
 > [ ] [mcptoon-context] Track the mcptoon comparison in core/ROADMAP.md [mcptoon-context]; reference in core/refs/REFS.md (backlog).
 
@@ -97,9 +106,7 @@ fallback · iterate — MVP can always be extended*
 > [ ] [fable-credito] confirmar se o crédito Fable (100 usd até setembro) ainda consome do limite por turno/semanal, ou se é isento (INBOX 2026-07-24)  
 > [ ] [plan-mode-default] plan mode como default de sessão nova na extensão VS Code — checar se é setting (`update-config`) ou só UI (INBOX 2026-08-16)  
 > [ ] [security-gates] decidir quais itens da checklist pré-lançamento (auth server-side, RLS, rate-limit, headers) viram gate para gira, voti e ppc (INBOX 2026-08-13)  
-> [ ] [jcode-custo] o JCode (harness do Claude Code reescrito em Rust) levanta duas perguntas, e a segunda vale mais:
-> a ferramenta presta, e **é o harness que deixa caro ou é o modelo?** A segunda se mede aqui sem instalar nada —
-> tokens de estrutura vs tokens de conteúdo numa sessão nossa. Responder junto com *"vale usar rust em vez de python"* nas nossas `core/tools/`, que é a mesma medição. Ref em `core/refs/REFS.md`  
+> [ ] [jcode-custo] Assess JCode usefulness and harness versus model cost: structure/content tokens, memory and matched task performance; also informs Rust versus Python for core/tools. Verify source/licence; do not adopt automatic memory from the post. Track ../../core/ROADMAP.md [jcode] and ../../code/freeai/ROADMAP.md [jcode]; refs in their refs/REFS.md.
 > [ ] [zcode-trust] aceitar o trust do workspace no ZCode (Settings, ou o prompt ao abrir /mnt/workspace) — **só o Lucas pode**; sem isso os hooks do shim ficam inertes. Depois abrir sessão nova e re-rodar a sonda de `core/experiments/zcode-hook-protocol.md`, que decide se o registro direto fica ou vira adaptador (INBOX 2026-08-21)  
 > [ ] [zero-sum-linhas] avaliar gate de orçamento zero-sum no WOS: nenhum commit adiciona linhas sem que diminua de outro canto — é viável medir e impor? (INBOX 2026-09-05)  
 > [ ] [ferramentas-obsoletas] de tempos em tempos, checar se alguma ferramenta nossa deve ser atualizada ou abandonada porque os modelos e harnesses melhoraram — o WOS existe para contornar fraquezas do modelo, então cada fraqueza corrigida upstream é código nosso que virou peso morto. Mesmo raciocínio do estudo de ablação, em cadência menor (INBOX 2026-08-21)  
@@ -139,5 +146,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-11-06  ·  trend: decelerating  ·  touches: 101/865/1017/1017/1017/1017
+last-touch: 2026-11-06  ·  trend: decelerating  ·  touches: 129/895/1046/1047/1047/1047
 <!-- stats:end -->

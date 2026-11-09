@@ -28,6 +28,10 @@ fallback · even a partial map beats starting from zero again*
 
 ## backlog
 
+> [ ] [cadcraft] Track drawing interoperability and agent-integration assessment in ../../branches/casinhas/ROADMAP-obra.md [cadcraft]; ref: ../../branches/casinhas/refs/REFS.md (backlog).
+
+> [ ] [bimcraft] Assess IPedrax/BIMCraft against script-generated IFC + Blender/Bonsai on copies, with import/export losses recorded before any switch. Task: ../../branches/casinhas/ROADMAP-obra.md [bimcraft]; ref: ../../branches/casinhas/refs/REFS.md.
+
 > [ ] [acerto-pai] Reconcile father's deposit against outstanding construction expenses; confirm the covered rows before filling `Acertado em` in the master spreadsheet, refresh `branches/casinhas/gastos.csv` through the expenses tool and archive/catalogue the receipt in the project and personal Drive. Lucas, 2026-10-22; receipt: `brain/attachments/2026-10/aiwbot-agacageaaxkbaaie3mrao7pcle1z0oefpicqvznx9f9taalzdgsbdh_rrvbbke8ognr9aqadagadeqadpqq.jpg`.
 > [ ] [fotos-internas] mandar a Marcelo as fotos internas do terreno (áreas livres entre construção e muros) — última pendência da Licença Prévia Ambiental  
 > [ ] [responder-severino] responder Severino, que cobrou retorno em 20/07 e tem duas obras concorrentes na mesa —
@@ -65,5 +69,5 @@ fallback · even a partial map beats starting from zero again*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-24  ·  trend: decelerating  ·  touches: 6/52/68/68/68/68
+last-touch: 2026-10-30  ·  trend: decelerating  ·  touches: 6/53/69/69/69/69
 <!-- stats:end -->

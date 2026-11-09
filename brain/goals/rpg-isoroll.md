@@ -32,6 +32,9 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 
 ## backlog
 
+> [ ] [t3-video] Track hardware/licence/runtime and asset-fit assessment in ../../code/isoroll-content/ROADMAP.md; ref: ../../code/isoroll-content/refs/REFS.md (backlog).
+
+> [ ] [soundbox-idol] Track offline audio [soundbox] and prop-view [idol] assessments in ../../code/isoroll-content/ROADMAP.md; refs: ../../code/isoroll-content/refs/REFS.md (backlog).
 
 > [ ] [inbox-20261030-isoroll-content] Track [anatomy], [gpu-unlock], [isoroll-environment-life], [rated-tools], [web-motion] in ../../code/isoroll-content/ROADMAP.md; refs: ../../code/isoroll-content/refs/REFS.md (backlog).
 > [ ] [inbox-20261030-isoroll-module] Track [anatomy], [isoroll-environment-life], [web-motion] in ../../code/isoroll-module/ROADMAP.md; refs: ../../code/isoroll-module/refs/REFS.md (backlog).
@@ -48,7 +51,7 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 > [ ] [playable] = ROADMAP § PLAYABLE — painter MVP + manifest walls/vision/fog + 8+1 view switching + DepthSorter + 8-dir token selection  
 > [ ] [bakeoff] content arms compared behind the frozen boundary: A kit-sprite (baseline) vs B scene-cell world-uv render (continuity by construction) vs C NB-painted textures — your style score 1–5 decides, boarded side by side on the same cabin  
 > [ ] [props-mesh] props + characters via image→3D → render 9 views (Hunyuan3D / TripoSR) — multiview by geometry, never by generation  
-> [ ] [lighting] baked AO + ink + edge highlight + colour grade + clutter — where the perceived style budget actually lives; refs captured 2026-07-23 in `code/isoroll-content/refs/REFS.md` § Technique (seamless tileable painting, normal maps on 2D sprites)  
+> [ ] [lighting] baked AO + ink + edge highlight + colour grade + clutter; include [spritefusion-normals] generation and Foundry lighting assessments in both Isoroll ROADMAP.md files; references in both refs/REFS.md (backlog).
 > [ ] [alpha-pipeline] background transparency — largely resolved for tiles (per-cell rembg, S0-E6-fix5); still open for characters; testar Qwen-Image-2.1 com geração nativa RGBA transparente (INBOX 2026-10-03, amarra em local-ai)  
 > [ ] [8dir-sprites] 8-direction views per character — after tiles ship (NB cardinal weakness returns for tokens)  
 > [ ] [anim-pipeline] animate characters: idle, attack, defend, hurt, cast, crouch  
@@ -66,5 +69,5 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-10-30  ·  trend: decelerating  ·  touches: 9/91/681/683/683/683
+last-touch: 2026-11-05  ·  trend: decelerating  ·  touches: 11/93/682/685/685/685
 <!-- stats:end -->

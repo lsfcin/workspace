@@ -105,7 +105,7 @@ def test_no_recorded_edits_falls_back_without_inspecting_dirty_diff(tmp_path):
 
 
 def test_identity_is_not_guessed_from_latest_session(monkeypatch):
-    for key in ('CODEX_THREAD_ID', 'CODEX_SESSION_ID', 'CLAUDE_SESSION_ID'):
+    for key in ('CODEX_THREAD_ID', 'CODEX_SESSION_ID', 'CLAUDE_SESSION_ID', 'CLAUDE_CODE_SESSION_ID'):
         monkeypatch.delenv(key, raising=False)
     with pytest.raises(ValueError, match='No session identity'):
         handoff.identity()
