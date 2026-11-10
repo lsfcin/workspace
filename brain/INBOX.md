@@ -137,3 +137,5 @@ em alguma sessão acho que do codex ou do antigravity eu pedi pra colocar uns li
 - (2026-10-30, sessão exp) No sandbox do Claude Code, `ps` não enxerga processos lançados em segundo plano: julguei a rodada morta e lancei 3 cópias do avaliar.py em paralelo. Conferir com `ps` fora do sandbox, ou confiar no aviso da tarefa. Decidir onde mora (SPECS de hooks? memória?).
 
 - (2026-10-30, sessão exp) Assimetria: o guia do exp manda colar o veredito da auditoria "sem editar", mas no exp/excelente o veredito do Codex (7,9 mil caracteres) estourou o teto de 20 mil e foi resumido, com o aval de Lucas. Decidir se o prompt da auditoria nos guias pede "até 2 frases por célula".
+
+- (2026-11-10, sessão brave-undo) O `/roundup` não fecha a partir de um worktree em `.claude/worktrees/`: falta `.venv` (`core/run` aborta) e, mesmo com um link para ela, o verify fica vermelho em `test_b20260901_a_mirror_never_reaches_the_machine_that_pulled_it` ("working tree must start in sync"). A sessão usou worktree porque a branch principal estava suja com o trabalho de outra sessão. Promovi à mão, com o aval de Lucas.
