@@ -156,10 +156,6 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 *What* — Require full PDF download/extraction before peer-review simulation in flows/research/review.md. *Why* — Abstract/HTML-only review misses tables, equations and appendices (Lucas, 26 Sep). *Done when* — Review reads the binary and extracted text.
 
 
-**🟢 Project-qualified handoffs**
-*What* — Verify project-qualified handoff naming and roundup recognition. *Why* — Parallel sessions overwrote outputs/handoff.md (25 Sep). *Done when* — Session-safe paths resolve without cross-session replacement.
-
-
 **🟢 Staged slide/animation generation**
 *What* — Assess script→storyboard→visual→render with intermediate Markdown. *Why* — Van Clief reference (30 Sep). *Done when* — Convention in tools/slides/SPECS.md and a pilot demonstrate it.
 
@@ -224,3 +220,7 @@ Flows/agents wait for v1 (Lucas, 25 Aug); observed 24 Aug failures preserved (or
 - Canva motion through PPTX: import/export reduce Match & Move to fade; use a copied seed (3 Oct).
 
 - Outside-skill survey: DM-gated unlinked leads duplicated existing guidance; reopen from a real repository (25 Aug).
+
+- Handoff consumed by a post-read hook: a section appended between read and delete would vanish; `--take` under the lock is the one door (10 Nov).
+
+- Per-file ownership check on every write, and blocking roundup after N non-promotions: a written-files log cannot prove whose a change is, and skips had real causes (10 Nov).
