@@ -1,10 +1,14 @@
-# Repository/environment handoffs: names and edit counts come from local records, never a model.
+# Repository handoffs: names and edit counts come from local records, never a model.
 import json
 import os
 import re
 import subprocess
+import sys
 from collections import Counter
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'hooks'))
+from platform_law import locked  # noqa: E402
 
 
 def name_of(value: str) -> str:
@@ -152,32 +156,70 @@ def choose(root: Path, cwd: Path, session: str, agent: str, log: Path | None) ->
             continue
         if repo and n:
             totals[str(repo)] += n
-    chosen = Path(sorted(totals, key=lambda p: (-totals[p], p))[0]) if totals else repository(cwd)
-    name = name_of(chosen.name if chosen else cwd.name)
-    marker = '<!-- handoff-session: ' + json.dumps([agent, session]) + ' -->\n'
-    target = root / 'outputs' / f'handoff-{name}-{agent}.md'
-    return {'path': str(target), 'marker': marker,
-            'repository': str(chosen) if chosen else '', 'agent': agent, 'session': session,
+    ranked = sorted(totals, key=lambda p: (-totals[p], p)) or [str(repository(cwd) or cwd)]
+    repos = [{'repository': r, 'key': key_of(root, Path(r)), 'lines': totals.get(r, 0)} for r in ranked]
+    for entry in repos:
+        entry['path'] = str(path_for(root, entry['key']))
+    return {**repos[0], 'repos': repos, 'agent': agent, 'session': session,
             'lines': dict(totals), 'basis': 'confirmed Edit/patch lines' if totals else 'working repository fallback',
             'limitation': 'Shell/script writes, full-file replacements and implicit deletions are not measurable from these records.'}
 
 
-def publish(info: dict, text: str | None) -> None:
-    """Latest publication wins for the pair; an older session cannot clear its replacement."""
-    target, marker = Path(info['path']), info['marker']
-    target.parent.mkdir(parents=True, exist_ok=True)
-    lock = target.with_suffix('.lock')
-    fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
-    temp = target.with_suffix('.tmp')
+# ONE HANDOFF PER REPOSITORY, A MAILBOX (Lucas, 2026-11-10). A session writes one section into each
+# repository it worked in; sections from sessions that never met pile up until one session TAKES the
+# file, which hands it every pending thread and deletes it. One file per repository and environment,
+# latest wins, silently destroyed a parallel session's handoff — the defect this replaced.
+MARKER = re.compile(r'^<!-- handoff-session: (\[.*?\]) -->\n', re.M)
+TAKEN = ('— Taken: this file is deleted, and every thread above is now yours. Finish it, move it to its '
+         'ROADMAP or ISSUES, or carry it into your own handoff.')
+
+
+def key_of(root: Path, repo: Path) -> str:
+    """The repository's path under the workspace, so two repositories never share a handoff."""
     try:
-        if text is None:
-            if target.exists() and not target.read_text(encoding='utf-8').startswith(marker):
-                return  # another session has published a newer handoff for this pair
-            target.unlink(missing_ok=True)
-        else:
-            temp.write_text(marker + text.removeprefix(marker), encoding='utf-8', newline='\n')
-            temp.replace(target)
-    finally:
-        os.close(fd)
-        temp.unlink(missing_ok=True)
-        lock.unlink()
+        part = Path(repo).resolve().relative_to(Path(root).resolve()).as_posix()
+    except ValueError:
+        part = Path(repo).name
+    return 'workspace' if part == '.' else name_of(part)
+
+
+def path_for(root: Path, key: str) -> Path:
+    return Path(root) / 'outputs' / f'handoff-{key}.md'
+
+
+def lock_for(path: Path) -> Path:
+    return path.with_name(f'.{path.stem}.lock')
+
+
+def _sections(text: str) -> list[tuple[str, str]]:
+    """(owner, section) pairs, owner being the marker's JSON; text before any marker is kept."""
+    starts = [m.start() for m in MARKER.finditer(text)]
+    head = text[:starts[0]] if starts else text
+    out = [('', head)] if head.strip() else []
+    for begin, end in zip(starts, starts[1:] + [len(text)]):
+        out.append((MARKER.match(text, begin).group(1), text[begin:end]))
+    return out
+
+
+def write(path: Path, agent: str, session: str, text: str) -> None:
+    """Add this session's section; a section it wrote earlier is replaced, never another's."""
+    owner = json.dumps([agent, session])
+    section = f'<!-- handoff-session: {owner} -->\n' + text.strip('\n') + '\n'
+    with locked(lock_for(path)):
+        pending = _sections(path.read_text(encoding='utf-8')) if path.exists() else []
+        kept = [s.strip('\n') + '\n' for o, s in pending if o != owner]
+        temp = path.with_suffix('.tmp')
+        temp.write_text('\n'.join(kept + [section]), encoding='utf-8', newline='\n')
+        temp.replace(path)
+
+
+def take(path: Path) -> str | None:
+    """Every pending section, handed to one taker and deleted; None when nothing is pending."""
+    if not path.exists():
+        return None   # asked before locking, so a mistyped key leaves no lock file behind
+    with locked(lock_for(path)):
+        if not path.exists():
+            return None
+        text = path.read_text(encoding='utf-8')
+        path.unlink()
+    return text.rstrip('\n') + '\n\n' + TAKEN + '\n'

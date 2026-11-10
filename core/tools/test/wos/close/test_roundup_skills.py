@@ -42,12 +42,13 @@ def test_the_skill_calls_the_tool_by_path():
     assert 'core/tools/wos/roundup' in ROUNDUP_SKILL
 
 
-def test_a_skipped_handoff_deletes_the_artifact():
-    """Decided 2026-08-13: the file's existence means a thread is open. A stale block left in
-    place would let the next window resume a thread that closed sessions ago."""
-    assert 'core/run tools/wos/handoff --clear' in HANDOFF_SKILL, (
-        'skipping must clear only the current session artifact through the common tool')
-    assert 'rm -f outputs/handoff.md' not in HANDOFF_SKILL
+def test_a_taken_handoff_is_gone_and_its_threads_are_carried():
+    """Decided 2026-08-13: the file's existence means a thread is open. Since 2026-11-10 taking a
+    handoff deletes it, so a skip needs no command — and the threads it handed over must land
+    somewhere, or consumption drops work in silence."""
+    assert 'handoff --take' in HANDOFF_SKILL
+    assert '--clear' not in HANDOFF_SKILL
+    assert 'never dropped' in HANDOFF_SKILL
 
 
 def test_the_handoff_may_decline_to_write_one():

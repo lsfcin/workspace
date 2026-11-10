@@ -1,4 +1,4 @@
-# Usage: core/run tools/wos/handoff [--write FILE | --clear] [--json] — name this session's handoff locally, without a model.
+# Usage: core/run tools/wos/handoff [--write FILE [--repo PATH] | --take [REPO]] [--json] — one handoff per repository, written and taken locally, without a model.
 import argparse
 import json
 import sys
@@ -8,7 +8,16 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'core' / 'tools'))
 sys.path.insert(0, str(Path(__file__).resolve().parent / 'close'))
 import tool_law
-from handoff import choose, identity, publish, transcript
+from handoff import choose, identity, key_of, name_of, path_for, repository, take, transcript, write
+
+
+def taken(target: str) -> int:
+    """Print every pending section for one repository and delete the file: the one way to open it."""
+    place = Path(target).expanduser()
+    key = key_of(ROOT, repository(place.resolve()) or place) if place.exists() else name_of(target)
+    text = take(path_for(ROOT, key))
+    print(text if text is not None else f'handoff: nothing pending for {key}')
+    return 0
 
 
 def main() -> int:
@@ -18,18 +27,26 @@ def main() -> int:
     parser.add_argument('--agent', default='', help='native environment, not a workflow role')
     parser.add_argument('--transcript', default='')
     parser.add_argument('--cwd', type=Path, default=Path.cwd())
+    parser.add_argument('--repo', type=Path, help='with --write: the repository this block is for')
     parser.add_argument('--json', action='store_true')
     mode = parser.add_mutually_exclusive_group()
-    mode.add_argument('--write', type=Path, help='publish a prepared resume prompt')
-    mode.add_argument('--clear', action='store_true', help='clear the pair only if this session owns its latest handoff')
+    mode.add_argument('--write', type=Path, help="add this session's section to one repository's handoff")
+    mode.add_argument('--take', nargs='?', const='.', metavar='REPO',
+                      help='print and delete a repository handoff (key or path; default: this one)')
     args = parser.parse_args()
     try:
+        if args.take:
+            return taken(str(args.cwd / args.take) if args.take == '.' else args.take)
         session, agent = identity(args.session, args.agent)
         log = transcript(session, agent, args.cwd, args.transcript)
         info = choose(ROOT, args.cwd.resolve(), session, agent, log)
-        if args.write or args.clear:
-            publish(info, args.write.read_text(encoding='utf-8') if args.write else None)
-        print(json.dumps({k: v for k, v in info.items() if k != 'marker'}) if args.json else info['path'])
+        if args.write:
+            if args.repo:
+                key = key_of(ROOT, repository(args.repo.resolve()) or args.repo)
+                info = {**info, 'key': key, 'path': str(path_for(ROOT, key))}
+            write(Path(info['path']), agent, session, args.write.read_text(encoding='utf-8'))
+        info['resume'] = f"core/run tools/wos/handoff --take {info['key']}"
+        print(json.dumps(info) if args.json else f"{info['path']}\n{info['resume']}")
     except (ValueError, OSError) as error:
         print(f'handoff: {error}', file=sys.stderr)
         return 1

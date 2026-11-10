@@ -13,15 +13,9 @@ Arguments: $ARGUMENTS  (focus for next session)
 
 **If the work is finished and there is no next action, do not emit a resume prompt.** Writing one *manufactures* a next action at the last turn before a `/clear` — the output rule ([`roundup.md`](roundup.md) § The output rule) applied to the hand-off itself. That is not a rare edge case; it is how a session that closed properly ends.
 
-Skipping is one command and one line:
+Skipping is one line: *nothing open — no hand-off written.* Nothing else, and stop here. The handoff this session opened is already gone — taking it deleted it.
 
-```bash
-core/run tools/wos/handoff --clear
-```
-
-Then say: *nothing open — no hand-off written.* Nothing else, and stop here.
-
-Clear only if this session still owns the pair's latest handoff; preserve a newer replacement. **The file's existence means exactly one thing: its thread is open.** Leaving the previous session's block in place would let the next window resume a thread that closed sessions ago, and a stub saying "nothing open" costs a read to learn there is nothing to read.
+**A taken handoff's threads are this session's.** Each one is finished, moved to its `ROADMAP.md` or `ISSUES.md`, or carried into this session's own handoff — never dropped. **A handoff file's existence means exactly one thing: its threads are open.**
 
 Hand off when work is mid-flight, a decision is pending, or a trial remains unresolved. If unsure, write it: a dropped thread costs the next session its reconstruction.
 
@@ -47,9 +41,9 @@ Promotion is `/roundup` Phase 4 — point there if anything is behind.
 
 ## Output
 
-Prepare the block in a temporary file, then publish it with `core/run tools/wos/handoff --write <file> --json`. Print the returned path and the block. The common tool owns naming: `outputs/handoff-<repository>-<environment>.md`; environment means ChatGPT or Claude, never a workflow role. One file per repository/environment: the latest publication replaces the previous one. Session metadata protects a newer handoff from being cleared by an older session; it adds no filename suffix.
+**One handoff per repository** (Lucas, 2026-11-10): `outputs/handoff-<key>.md`, the key being the repository's path under the workspace (`workspace`, `code-apptime`). `core/run tools/wos/handoff --json` lists this session's repositories in `repos`, ranked by confirmed Edit/patch lines; each block holds only that repository's threads. Prepare one block per repository with open threads in a temporary file and publish it with `--write <file> --repo <path>`. A pending file is never overwritten: sections from sessions that never met accumulate, and re-writing replaces only this session's own. The measurement's limits: shell/script writes, full-file replacements and implicit deletions are not counted, and the shared dirty tree never is. Native session variables identify the session; when unavailable, pass `--session` and `--agent`. Local code: no model call.
 
-The repository with the most confirmed session Edit/patch additions + removals wins, with a deterministic tie break. The report states the measurement's limits: shell/script writes, full-file replacements and implicit deletions are not measurable. Without measurable edits, use the working repository and report that fallback. Never count the shared dirty tree as this session's work. Native session variables identify the session automatically; when unavailable, pass `--session` and `--agent` from native metadata. Never guess from the newest transcript, or add a session suffix to the filename. This is local code: no model call and no automatic context loading.
+**A handoff is opened by taking it**: `core/run tools/wos/handoff --take <key>` prints every pending section and deletes the file, and `handoff-gate` refuses any other read.
 
 **Never spawn a successor session.** Decided 2026-08-13 ([`core/SPECS.md`](../SPECS.md) § AD-09):
 `claude --bg` can start a fresh-context agent but cannot move the terminal Lucas types into, so a spawned successor would work the same branch *unattended, in parallel with the live session*. Prepare the artifact; let Lucas move his own attention.
@@ -92,4 +86,4 @@ Print the block between the `---` markers:
 
 After printing:
 
-> Resume prompt ready — written to `<returned path>`. Open a new session and start it with: `Lê <returned path> e discute comigo em detalhes (em pt-br) qual vai ser o plano pra essa sessão.` **Plan, never "continue"** (Lucas, 2026-08-16): planning reads the whole list and surfaces blocked decisions before work resumes.
+> Resume prompt ready — written to `<returned path>`. Open a new session and start it with: `Roda <returned resume> e discute comigo em detalhes (em pt-br) qual vai ser o plano pra essa sessão.` — one line per repository handed off. **Plan, never "continue"** (Lucas, 2026-08-16): planning reads the whole list and surfaces blocked decisions before work resumes.

@@ -126,7 +126,13 @@ def verdict(path, session: str) -> tuple:
                 '   Never switch back while the other session works there. Ask Lucas.'), ''
     _write(marker, branch, repo)
     last = git('log', '-1', '--format=%cs: %s', cwd=repo) or 'no commit yet'
-    return '', f'[Git] Writing in {name} on {branch} (last commit {last}). Is it this task\'s branch?'
+    note = f'[Git] Writing in {name} on {branch} (last commit {last}). Is it this task\'s branch?'
+    # Whose work is this, asked at the first write and not only at roundup (Lucas, 2026-11-10).
+    # "Pre-existing", never "another session's": a dirty file names no owner.
+    dirty = len([line for line in git('status', '--porcelain', cwd=repo).splitlines() if line])
+    if dirty:
+        note += f' {dirty} pre-existing uncommitted change(s) here, unattributed: leave them unless they are this task\'s.'
+    return '', note
 
 
 def follow(session: str) -> None:
