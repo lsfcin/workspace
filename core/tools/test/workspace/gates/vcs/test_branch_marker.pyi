@@ -4,6 +4,7 @@ from collections.abc import Generator
 from pathlib import Path
 
 MARKER: Incomplete
+SESSION: str
 
 def marker_path(repo: Path) -> Path: ...
 @pytest.fixture

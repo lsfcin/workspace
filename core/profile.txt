@@ -60,6 +60,7 @@ toggle	verify-suite	on
 toggle	verify-contract	on
 toggle	project-contract	on
 toggle	gitflow-gate	on
+toggle	branch-gate	on
 toggle	gitlink-gate	on
 toggle	gitignore-self-heal	on
 toggle	auto-push	on

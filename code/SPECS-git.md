@@ -32,11 +32,12 @@ whenever `git status` is not clean, and **write the pathspec before the message,
 2026-09-18 three commits used it correctly and the fourth dropped it while a long message was being
 composed, landing 48 files of another session's reorg under an unrelated subject. Recovery is a soft
 reset plus `--force-with-lease`, which is safe only while nobody has committed on top.
-HEAD is shared too: check the branch right before committing, not at session start — a parallel
-session may have switched it, and the post-commit hook pushes to whatever branch it finds.
+HEAD is shared too: a parallel session may switch it, and the post-commit hook pushes to whatever
+branch it finds. `core/hooks/git/branch-gate.py` stops the first write on a shared branch or on one
+switched under the session (core/hooks/SPECS.md § Branch drift), and each close hands HEAD back to `develop`.
 
 **The bypass leaves no trace** outside the commit message, which is the only reason it is dangerous. So when using `--no-verify`: state the reason in the commit message, and file a TODO to pay it back. An undocumented bypass is indistinguishable from the gate never having run.
 
-**Push policy** (moved here from `AGENTS.md` for the same reason; the ritual lives in `core/skills/roundup.md`). Two machines share this workspace, so **unpushed work is invisible work** and `main` is the sync point, not a release tag. `feature/*` auto-pushes via `core/hooks/post-commit`; promotion to `develop`/`main` happens in `/roundup`, only in the repos that session worked in, behind a green verification run; `/handoff` only *reports* divergence and never merges.
+**Push policy** (moved here from `AGENTS.md` for the same reason; the ritual lives in `core/skills/roundup.md`). Two machines share this workspace, so **unpushed work is invisible work** and `main` is the sync point, not a release tag. `feature/*` auto-pushes via `core/hooks/post-commit`; promotion to `develop`/`main` happens in `/roundup`, only in the repos that session worked in, behind a green verification run over a tree holding no other session's files; `/handoff` only *reports* divergence and never merges.
 
 **No pull request is required, and no branch is protected** — ruled 2026-08-31 (Lucas), after an audit found the PR rule honoured in 3 of 18 repos and contradicting the promotion it was written beside: a solo repo whose promotion already sits behind a green verify run gains nothing from a round trip through GitHub. The green run is the gate. What is now enforced instead is the law this file already stated and nothing measured — `core/hooks/git/branch_debt.py` counts a repo with commits its remote does not have, and a repo with no remote at all, so *invisible work* is a number in [`ISSUES.md`](../ISSUES.md) rather than a sentence here.

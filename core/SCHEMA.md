@@ -128,6 +128,7 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | Retired token | Replacement | Retired |
 |---------------|-------------|---------|
 | `loop-engineering` | `craft` | 2026-07-23 |
+| `--leave-dirty` | `--leave <repo>` | 2026-11-09 |
 | `loop-router` | `route` | 2026-07-23 |
 | `loop-architecture` | `architect` | 2026-07-23 |
 | `KNOWN-BUGS` | `ISSUES.md` | 2026-07-30 |

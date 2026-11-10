@@ -6,7 +6,7 @@
 # nested repo just pushes its current branch.
 import tempfile
 
-from artifacts import git, out
+from artifacts import dirt, git, out
 
 
 def gitflow(workspace, repo) -> bool:
@@ -17,6 +17,16 @@ def gitflow(workspace, repo) -> bool:
     promoted nothing, which is how nine projects sat 22 commits behind their own develop.
     """
     return repo == workspace or (repo.parent.name == 'code' and repo.parent.parent == workspace)
+
+
+def disturbed(repo, branch: str) -> str:
+    """Why promotion must not run after all, or ''. Asked AFTER verify: a session writing or
+    switching branches meanwhile makes the green describe a tree that is no longer there."""
+    if out(repo, 'branch', '--show-current') != branch:
+        return f'HEAD moved off {branch} during the close; not promoted'
+    if dirt(repo):
+        return 'the tree changed during the close — another session is writing; not promoted'
+    return ''
 
 
 def promote(root, branch: str) -> str:
@@ -54,6 +64,21 @@ def promote(root, branch: str) -> str:
         if git(root, 'push', '-q', 'origin', target).returncode != 0:
             return f'{target} merged but push failed'
     return ''
+
+
+def park(repo, branch: str) -> str:
+    """Put HEAD back on develop once `branch` has landed there; the suffix a status line gains.
+
+    Ruled 2026-11-09 (Lucas): a finished branch left checked out is inherited by the next session,
+    which then writes on it. On develop, the branch gate makes its first write choose one instead.
+    A tree with anything uncommitted stays where it is: switching would carry that work along.
+    """
+    if branch in ('develop', 'main', 'master') or \
+            git(repo, 'rev-parse', '--verify', '-q', 'develop').returncode != 0 or \
+            git(repo, 'merge-base', '--is-ancestor', branch, 'develop').returncode != 0 or dirt(repo):
+        return ''
+    moved = git(repo, 'switch', '-q', 'develop').returncode == 0
+    return ' · HEAD → develop' if moved else ' · could not switch to develop'
 
 
 def promoted_line(root, branch: str) -> str:

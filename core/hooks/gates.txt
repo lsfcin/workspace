@@ -62,6 +62,7 @@ pre	read	10	read/context-gate.py	blocks	context-chain
 pre	read	20	read/pre-read.py	blocks	interface-first-reads
 pre	read	30	read/pdf-gate.py	blocks	pdf-twin-reads
 pre	write	10	read/context-gate.py	blocks	context-chain
+pre	write	15	git/branch-gate.py	blocks	branch-gate
 pre	write	20	checks/first-line-gate.py	blocks	first-line-comment
 pre	write	25	checks/size-gate.py	blocks	line-limit
 pre	write	30	facade/facade-scan.py	informs	facade-discipline
@@ -69,6 +70,7 @@ pre	write	40	facade/facade-gate.py	blocks	facade-discipline
 pre	write	45	brain/memory-gate.py	blocks	memory-gate
 pre	write	50	checks/issues-gate.py	blocks	issues-gate
 pre	write	60	read/spec-read-gate.py	blocks	spec-read-gate
+post	shell	10	git/branch-gate.py	informs	branch-gate
 post	write	10	checks/retired-gate.py	informs	retired-tokens
 post	read	10	facade/facade-tracker.py	informs	facade-discipline
 post	read	20	read/context-tracker.py	informs	subtree-read-tracking

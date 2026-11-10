@@ -153,8 +153,8 @@ def test_both_skills_agree_on_which_phase_promotes():
 
 
 def test_the_dirty_flag_is_documented_where_it_is_decided():
-    """--leave-dirty answers a question only the agent can answer, so the script's own stop names
-    it at the moment it applies. The skill must not pre-load it as a routine step."""
+    """--leave answers a question only Lucas can answer, so the script's own stop names it at the
+    moment it applies. The skill must not pre-load it as a routine step."""
     for block in _blocks(ROUNDUP_SKILL):
-        assert '--leave-dirty' not in block, (
-            'the skill must not run --leave-dirty by default — the stop offers it when it applies')
+        assert '--leave' not in block, (
+            'the skill must not run --leave by default — the stop offers it when it applies')

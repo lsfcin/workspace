@@ -65,13 +65,22 @@ def hand_edited(repo, name: str) -> bool:
     return BLOCK.sub('', head.stdout).split() != BLOCK.sub('', now).split()   # a new block moves blank lines
 
 
-def foreign_dirt(repo) -> list:
-    """`git status` lines the close cannot settle itself — what a person still has to answer for.
+def dirt(repo) -> list:
+    """Uncommitted paths the close cannot settle itself — what someone still has to answer for.
 
-    Raw stdout on purpose: `out` strips, which eats the first line's status column.
+    NUL-delimited, so a rename or a path with spaces is one entry, and every untracked file is
+    named rather than its directory. A status that fails raises: it is never a clean tree.
     """
-    return [line for line in git(repo, 'status', '--porcelain').stdout.splitlines()
-            if line and (line[3:] not in CLOSE_WRITES or hand_edited(repo, line[3:]))]
+    done = git(repo, 'status', '--porcelain', '-z', '--untracked-files=all')
+    if done.returncode != 0:
+        raise RuntimeError(f'git status failed in {repo}: {done.stderr.strip()}')
+    fields, names = iter(done.stdout.split('\0')), []
+    for field in fields:
+        if field:
+            names.append(field[3:])
+            if field[0] in 'RC':
+                next(fields, None)   # a rename's old path follows its new one
+    return [name for name in names if name not in CLOSE_WRITES or hand_edited(repo, name)]
 
 
 def commit_captures(root) -> None:

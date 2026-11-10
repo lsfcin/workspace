@@ -12,7 +12,7 @@ import re
 from pathlib import Path
 
 import branches
-from artifacts import git, out
+from artifacts import dirt, git, out
 from handoff import edits, identity, records, transcript
 
 COMMIT = re.compile(r'\bgit\s+(?:-C\s+("[^"]+"|\S+)\s+)?commit\b')
@@ -81,26 +81,71 @@ def _touched_paths(log: Path, cwd: Path) -> set:
     return {path for path in paths if path and str(path) != '.'}
 
 
-def session_repos(root: Path, log: Path) -> set:
-    """The repos this session worked in: `root` itself and/or its nested projects."""
+def session_repos(root: Path, log: Path) -> dict:
+    """The repos this session worked in — `root` and/or its nested projects — each with the
+    resolved paths it touched there."""
     from entropy_corpus import nested_repos
     top = root.resolve()
     nested = [repo.resolve() for repo in nested_repos(root)]
-    found = set()
+    found = {}
     for path in _touched_paths(log, root):
         full = (root / path).resolve()
         if full.is_relative_to(top):
-            found.add(max((r for r in nested if full.is_relative_to(r)),
-                          key=lambda r: len(r.parts), default=top))
-    return {root if repo == top else repo for repo in found}
+            repo = max((r for r in nested if full.is_relative_to(r)),
+                       key=lambda r: len(r.parts), default=top)
+            found.setdefault(root if repo == top else repo, set()).add(full)
+    return found
 
 
-def sweep(root: Path, repos, verify, promote: bool = True) -> str:
+def owners(repo: Path, touched) -> tuple:
+    """(this session's, another session's): the dirt `repo` holds, split by who edited it.
+
+    A file both sessions edited counts as this session's. The split routes a question to Lucas;
+    it does not prove who wrote a line, so a commit of "mine" may still carry theirs.
+    """
+    top = repo.resolve()
+    mine, theirs = [], []
+    for name in dirt(repo):
+        (mine if (top / name).resolve() in touched else theirs).append(name)
+    return mine, theirs
+
+
+def stopped(root: Path, worked: dict, leave: set) -> int:
+    """2 or 3 when uncommitted work stops the close, else 0 — asked of EVERY repo before any acts.
+
+    Ruled 2026-11-09 (Lucas): two sessions in one repo is a warning for him, not a puzzle for the
+    session. This session's own files it commits itself (a message is judgment). Another session's
+    it never decides about: it names them per repo, and Lucas picks adopt, leave or stop. Asked of
+    all repos first, so the root is never promoted before a nested conflict would have stopped it.
+    """
+    from platform_law import posix
+    split = {repo: owners(repo, touched) for repo, touched in sorted(worked.items())}
+    name = lambda repo: posix(repo.relative_to(root.resolve())) if repo != root else '.'   # noqa: E731
+    mine = {repo: names for repo, (names, _) in split.items() if names}
+    if mine:
+        print(f'{sum(map(len, mine.values()))} uncommitted by this session — commit, then rerun:')
+        for repo, names in mine.items():
+            print(f'{name(repo)}:', *names[:20], sep='\n  ')
+        return 2
+    theirs = {repo: names for repo, (_, names) in split.items()
+              if names and repo.resolve() not in leave}
+    if not theirs:
+        return 0
+    print(f"{len(theirs)} repo(s) this session changed hold another session's changes:")
+    for repo, names in theirs.items():
+        print(f'{name(repo)} on {out(repo, "branch", "--show-current")}:', *names[:20], sep='\n  ')
+    print('Ask Lucas, per repo — adopt: commit them yourself, rerun · '
+          'leave: rerun with --leave <repo>, pushed and never promoted · stop.')
+    return 3
+
+
+def sweep(root: Path, repos, verify, promote: bool = True, leave=()) -> str:
     """Verify, push and promote the nested projects in `repos`, and say what happened.
 
     Only the ones this session worked in (Lucas, 2026-11-09): this used to walk every project and
     promote each with no verify run, and any debt it left is counted by branch_debt regardless. A
-    repo with no remote is named, never pushed: that one cannot be fixed from here.
+    repo with no remote is named, never pushed: that one cannot be fixed from here. A repo in
+    `leave` holds another session's work Lucas left to it: pushed, never promoted.
     """
     from platform_law import posix
     worked, pushed, promoted, stuck, homeless = [], [], [], [], []
@@ -117,18 +162,25 @@ def sweep(root: Path, repos, verify, promote: bool = True) -> str:
             (pushed if landed == 'pushed' else stuck).append(name)
         if not promote or not branches.gitflow(root, repo):
             continue
+        if repo.resolve() in leave:
+            stuck.append(f'{name} — left to another session, not promoted')
+            continue
         if verify(repo)[0] == 'red':
             stuck.append(f'{name} — verify red, not promoted')
+            continue
+        disturbed = branches.disturbed(repo, branch)
+        if disturbed:
+            stuck.append(f'{name} — {disturbed}')
             continue
         was = out(repo, 'rev-parse', 'main')
         refused = branches.promote(repo, branch)
         if refused:
             stuck.append(f'{name} — {refused}')
         elif out(repo, 'rev-parse', 'main') != was:
-            promoted.append(name)
+            promoted.append(name + branches.park(repo, branch))
     said = [f'worked: {", ".join(worked)}' if worked else '',
             f'{len(pushed)} pushed' if pushed else '',
-            f'{len(promoted)} promoted' if promoted else '',
+            f'{len(promoted)} promoted: {", ".join(promoted)}' if promoted else '',
             f'{len(stuck)} failed: {", ".join(stuck)}' if stuck else '',
             f'{len(homeless)} with no remote: {", ".join(homeless)}' if homeless else '']
     return ' · '.join(part for part in said if part)

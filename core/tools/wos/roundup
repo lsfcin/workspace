@@ -1,4 +1,4 @@
-# Usage: core/tools/wos/roundup [--no-promote <reason>] [--leave-dirty <whose and why>] — the deterministic half of
+# Usage: core/tools/wos/roundup [--no-promote <reason>] [--leave <repo>]... — the deterministic half of
 # the /roundup ritual, over the repos this session worked in. Verification gate, entropy regen, branch promotion. Prints the state facts
 # /handoff copies and anything that needs a decision; nothing else.
 #
@@ -28,7 +28,7 @@ import branches  # noqa: E402
 import contract  # noqa: E402
 from artifacts import git, out, spawn  # noqa: E402
 from platform_law import interpreter, posix, session_state  # noqa: E402
-from projects import session_log, session_repos, sweep  # noqa: E402
+from projects import session_log, session_repos, stopped, sweep  # noqa: E402
 from repomap import redraw  # noqa: E402
 
 WORKSPACE = SCRIPT_DIR.parents[2]
@@ -177,22 +177,22 @@ def close_root(root: Path, branch: str, no_promote: str) -> tuple:
     elif not gitflow:
         sync = f'{branch} pushed (repo outside gitflow scope — no merges)'
     else:
-        refused = branches.promote(root, branch)
-        sync, code = (refused, 1) if refused else (branches.promoted_line(root, branch), 0)
+        refused = branches.disturbed(root, branch) or branches.promote(root, branch)
+        sync, code = (refused, 1) if refused else (
+            branches.promoted_line(root, branch) + branches.park(root, branch), 0)
     return ({'verify': verdict, 'sync': sync, 'public': public(root), 'entropy': entropy, 'map': drawn,
              'diagram': diagram, 'permissions': perms}, code, log)
 
 
 def main(argv: list) -> int:
-    no_promote, left_dirty, rest = '', '', argv[1:]
+    no_promote, leaving, rest = '', [], argv[1:]
     while rest:
         if rest[0] == '--no-promote' and len(rest) > 1:
             no_promote, rest = rest[1], rest[2:]
-        elif rest[0] == '--leave-dirty' and len(rest) > 1 and rest[1].strip() and rest[1][:2] != '--':
-            left_dirty, rest = rest[1], rest[2:]
+        elif rest[0] == '--leave' and len(rest) > 1 and rest[1][:2] != '--':
+            leaving, rest = leaving + [rest[1]], rest[2:]
         else:
-            print(f'Usage: {argv[0]} [--no-promote <reason>] [--leave-dirty <whose and why>]',
-                  file=sys.stderr)
+            print(f'Usage: {argv[0]} [--no-promote <reason>] [--leave <repo>]...', file=sys.stderr)
             return 64
     top = out(Path.cwd(), 'rev-parse', '--show-toplevel')
     if not top:
@@ -200,33 +200,29 @@ def main(argv: list) -> int:
         return 64
     root = Path(top)
     branch = out(root, 'rev-parse', '--abbrev-ref', 'HEAD')
+    leave = {(root / repo).resolve() for repo in leaving}
 
-    # No identity, no guess: only the repo the close was started in.
+    # No identity, no guess: only the repo the close was started in, and none of its dirt is ours.
     transcript_log = session_log(root) if root == WORKSPACE else None
-    worked = session_repos(root, transcript_log) if transcript_log else {root}
+    worked = session_repos(root, transcript_log) if transcript_log else {root: set()}
+    if root in worked and root == WORKSPACE:
+        artifacts.commit_captures(root)
+    code = stopped(root, worked, leave)
+    if code:
+        return code
 
-    said, code, log = {'sync': f'{branch} left alone — this session did not work in this repo'}, 0, ''
+    said, log = {'sync': f'{branch} left alone — this session did not work in this repo'}, ''
     if root in worked:
-        if root == WORKSPACE:
-            artifacts.commit_captures(root)
-        # Uncommitted work is the agent's call (a commit message is judgment), so stop. Dirt may be
-        # this session's or a parallel session's and the script cannot tell; asserting the first
-        # once asked for a commit that would have swept half-done work into main.
-        dirty = artifacts.foreign_dirt(root)
-        if dirty and not left_dirty:
-            print(f'{len(dirty)} uncommitted on {branch} — whose?')
-            print('\n'.join(dirty[:20]))
-            print("Yours: commit, then rerun.\n"
-                  "Another session's, still in progress: rerun with --leave-dirty \"<whose and why>\".")
-            return 2
-        said, code, log = close_root(root, branch, no_promote)
-        said['dirty'] = left_dirty
+        left = root.resolve() in leave
+        said, code, log = close_root(root, branch, 'left to another session' if left else no_promote)
+        said['dirty'] = f'left to another session: {len(artifacts.dirt(root))} file(s)' if left else ''
 
     sid = session_id(root)
     said.update(zip(('cost', 'size', 'trace'), report(root, sid)))
     said['compaction'] = compaction(sid) if sid else ''
     if root == WORKSPACE:
-        said['projects'] = sweep(root, worked - {root}, verify, promote=not no_promote)
+        said['projects'] = sweep(root, [repo for repo in worked if repo != root], verify,
+                                 promote=not no_promote, leave=leave)
     for label in STATE:
         value = said.get(label)
         if value:

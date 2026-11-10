@@ -6,8 +6,8 @@
 #
 # The one thing worth guarding hardest is the dirty stop. It used to assert that uncommitted work
 # was work *this* session forgot to commit, and asked for a commit that would have swept a parallel
-# session's half-finished goal merge into main. Dirt has two possible owners and the script cannot
-# tell them apart, so it names both and lets --leave-dirty "<whose and why>" answer.
+# session's half-finished goal merge into main. Now it decides nothing about another session's
+# work: it names it per repo and Lucas picks adopt, leave or stop (2026-11-09).
 import shutil
 import subprocess
 
@@ -86,46 +86,46 @@ def _dirty(ws):
     (ws / 'shipped.txt').write_text('their edit\n', encoding='utf-8', newline='\n')
 
 
-def test_dirty_stop_prints_the_paths_and_asks_whose(tmp_path):
+def test_another_session_s_dirt_is_named_and_left_for_lucas_to_decide(tmp_path):
+    """No transcript here, so no file is this session's: every one is named, and nothing moves."""
     ws = _workspace(tmp_path)
     _dirty(ws)
+    before = _git(ws, 'status', '--porcelain').stdout, _git(ws, 'rev-parse', 'HEAD').stdout
     r = _run(ws)
-    assert r.returncode == 2
-    assert 'theirs.md' in r.stdout, 'the agent cannot judge ownership without the paths'
-    assert '--leave-dirty' in r.stdout and 'commit' in r.stdout
+    assert r.returncode == 3, r.stdout
+    assert 'theirs.md' in r.stdout and 'shipped.txt' in r.stdout, 'Lucas cannot decide blind'
+    assert all(option in r.stdout for option in ('adopt', '--leave', 'stop'))
+    assert (_git(ws, 'status', '--porcelain').stdout, _git(ws, 'rev-parse', 'HEAD').stdout) == before
 
 
-def test_dirty_stop_does_not_assert_whose_work_it_is(tmp_path):
-    """The defect, in one assertion: the old message said 'commit, then rerun' as a statement of
-    fact about work it had not attributed."""
-    ws = _workspace(tmp_path)
-    _dirty(ws)
-    first = _run(ws).stdout.splitlines()[0]
-    assert 'whose' in first.lower(), f'the stop must ask, not assert: {first!r}'
-
-
-def test_leave_dirty_promotes_without_touching_the_tree(tmp_path):
+def test_left_to_another_session_is_pushed_never_promoted_and_never_committed(tmp_path):
+    """The hazard behind the old flag stays covered: a commit by the close never carries their
+    staged file, and promotion would publish a verify run over a tree that held their work."""
     ws = _workspace(tmp_path)
     _dirty(ws)
     before = _git(ws, 'status', '--porcelain').stdout
-    r = _run(ws, '--leave-dirty', 'a parallel session')
+    r = _run(ws, '--leave', '.')
     assert r.returncode == 0, r.stdout
-    assert 'promoted' in r.stdout
-    assert _git(ws, 'rev-parse', 'main').stdout == _git(ws, 'rev-parse', 'feature/x').stdout
-    assert _git(ws, 'rev-parse', '--abbrev-ref', 'HEAD').stdout.strip() == 'feature/x'
-    assert _git(ws, 'status', '--porcelain').stdout == before, 'a fast-forward must not touch files'
+    assert 'left to another session' in r.stdout and 'not promoted' in r.stdout
+    assert _git(ws, 'rev-parse', 'main').stdout != _git(ws, 'rev-parse', 'feature/x').stdout
+    assert 'theirs.md' not in _git(ws, 'log', '--name-only', '--pretty=format:', 'feature/x').stdout
+    assert _git(ws, 'status', '--porcelain').stdout == before
 
 
-def test_leave_dirty_never_commits_the_foreign_dirt(tmp_path):
-    """The hazard that made this flag necessary: the entropy commit stages the whole index, so
-    committing it while another session has files staged carries them into chore(entropy)."""
+def test_a_promoted_branch_hands_head_back_to_develop(tmp_path):
     ws = _workspace(tmp_path)
-    _dirty(ws)
-    r = _run(ws, '--leave-dirty', 'a parallel session')
-    assert 'a parallel session' in r.stdout
-    log = _git(ws, 'log', '--name-only', '--pretty=format:', 'feature/x').stdout
-    assert 'theirs.md' not in log
-    assert 'theirs.md' in _git(ws, 'status', '--porcelain').stdout
+    r = _run(ws)
+    assert r.returncode == 0, r.stdout
+    assert 'HEAD → develop' in r.stdout
+    assert _git(ws, 'branch', '--show-current').stdout.strip() == 'develop'
+
+
+def test_a_tree_written_to_during_verify_is_not_promoted(tmp_path):
+    """The green described a tree another session changed before promotion could run."""
+    ws = _workspace(tmp_path, verify='open("late.txt", "w").write("x")\nprint("3 passed")\n')
+    r = _run(ws)
+    assert r.returncode == 1 and 'tree changed during the close' in r.stdout, r.stdout
+    assert _git(ws, 'rev-parse', 'main').stdout != _git(ws, 'rev-parse', 'feature/x').stdout
 
 
 def test_clean_tree_still_commits_entropy(tmp_path):
@@ -161,9 +161,9 @@ def test_a_red_suite_reports_itself_in_the_verify_block(tmp_path):
     assert '**red**' in (ws / 'ISSUES.md').read_text(encoding='utf-8')
 
 
-def test_a_real_merge_lands_even_while_the_tree_holds_another_sessions_work(tmp_path):
-    """A real merge runs inside a throwaway git worktree so HEAD in the session's own tree never
-    moves, allowing diverged branches to merge even while the tree holds another session's work."""
+def test_a_real_merge_lands_in_a_throwaway_worktree(tmp_path):
+    """A diverged develop takes a real merge, run in a throwaway worktree so HEAD never moves
+    mid-merge under a session reading the tree."""
     ws = _workspace(tmp_path)
     _git(ws, 'checkout', '-q', 'develop')
     (ws / 'diverged.txt').write_text('elsewhere\n', encoding='utf-8', newline='\n')
@@ -171,36 +171,11 @@ def test_a_real_merge_lands_even_while_the_tree_holds_another_sessions_work(tmp_
     _git(ws, 'commit', '-q', '--no-verify', '-m', 'chore: diverge')
     _git(ws, 'push', '-q', 'origin', 'develop')
     _git(ws, 'checkout', '-q', 'feature/x')
-    _dirty(ws)
-    r = _run(ws, '--leave-dirty', 'a parallel session')
+    r = _run(ws)
     assert r.returncode == 0, r.stdout
     assert 'promoted' in r.stdout
-    assert _git(ws, 'rev-parse', '--abbrev-ref', 'HEAD').stdout.strip() == 'feature/x'
     assert _git(ws, 'log', '--oneline', 'develop').stdout.count('Merge') == 1
     assert _git(ws, 'rev-parse', 'main').stdout == _git(ws, 'rev-parse', 'develop').stdout
-
-
-def test_foreign_dirty_file_survives_real_merge_untouched_and_uncommitted(tmp_path):
-    """Foreign dirty files (both staged and unstaged) must remain untouched in the working tree
-    and must not be swept into the real merge commit on develop or main."""
-    ws = _workspace(tmp_path)
-    _git(ws, 'checkout', '-q', 'develop')
-    (ws / 'diverged.txt').write_text('elsewhere\n', encoding='utf-8', newline='\n')
-    _git(ws, 'add', '-A')
-    _git(ws, 'commit', '-q', '--no-verify', '-m', 'chore: diverge')
-    _git(ws, 'push', '-q', 'origin', 'develop')
-    _git(ws, 'checkout', '-q', 'feature/x')
-    _dirty(ws)
-    before_status = _git(ws, 'status', '--porcelain').stdout
-    r = _run(ws, '--leave-dirty', 'a parallel session')
-    assert r.returncode == 0, r.stdout
-    assert _git(ws, 'status', '--porcelain').stdout == before_status
-    assert (ws / 'theirs.md').read_text(encoding='utf-8') == 'their draft\n'
-    assert (ws / 'shipped.txt').read_text(encoding='utf-8') == 'their edit\n'
-    dev_files = _git(ws, 'log', '--name-only', '--pretty=format:', 'develop').stdout
-    assert 'theirs.md' not in dev_files
-    main_files = _git(ws, 'log', '--name-only', '--pretty=format:', 'main').stdout
-    assert 'theirs.md' not in main_files
     # The throwaway worktree must be unregistered as well as deleted. A leaked entry costs nothing
     # visible on the close that leaked it and accumulates in `git worktree list` forever after.
     assert not (ws / '.git/worktrees').exists(), 'the throwaway worktree was left registered'
@@ -222,12 +197,11 @@ def test_no_promote_needs_a_reason(tmp_path):
 def test_unknown_flag_is_a_usage_error(tmp_path):
     ws = _workspace(tmp_path)
     r = _run(ws, '--commit-everything')
-    assert r.returncode == 64 and '--leave-dirty' in r.stderr
+    assert r.returncode == 64 and '--leave' in r.stderr
 
 
 def test_the_flags_compose(tmp_path):
     ws = _workspace(tmp_path)
-    _dirty(ws)
-    r = _run(ws, '--leave-dirty', 'a parallel session', '--no-promote', 'branch is incoherent')
+    r = _run(ws, '--leave', 'code/elsewhere', '--no-promote', 'branch is incoherent')
     assert r.returncode == 0, r.stdout
     assert 'branch is incoherent' in r.stdout and 'not promoted' in r.stdout
