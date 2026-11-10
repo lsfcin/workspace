@@ -141,6 +141,7 @@ def cmd_build(publish: pathlib.Path, push: bool) -> None:
             f"    gh repo create lsf-links --public --clone {publish}"
         )
     if push:
+        pages.production(publish)  # before pull: a pull on the wrong branch writes into the wrong place
         cmd_pull(publish)  # a push behind the site is refused, and a browser edit would be lost
     (publish / '_redirects').write_text(links_core.redirects(rows), encoding="utf-8", newline="\n")
     (publish / 'index.html').write_text(INDEX, encoding="utf-8", newline="\n")
@@ -153,6 +154,7 @@ def cmd_build(publish: pathlib.Path, push: bool) -> None:
 
 
 def cmd_publish(page: pathlib.Path, publish: pathlib.Path) -> None:
+    pages.production(publish)
     cmd_pull(publish)  # before redraw and mirror, or the workspace copy lands over a browser edit
     for name in pages.redraw(page):
         print(f"redrew {page.name} with {name}")

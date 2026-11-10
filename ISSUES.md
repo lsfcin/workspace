@@ -176,13 +176,13 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 *safe to delete, and purely local — `git -C <repo> branch -d <branch>`*
 
-- . — 7 merged into main: git -C . branch -d feature/ai4good-v1 feature/ementas-lc feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/virada-semana-final
+- . — 8 merged into main: git -C . branch -d feature/ai4good-v1 feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/virada-semana-final
 
 ### Remote branches already merged into their base
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 9 merged into main: git -C . push origin --delete feature/ai4good-v1 feature/disk-hygiene feature/ementas-lc feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/virada-semana-final feature/web-shoot
+- . — 11 merged into main: git -C . push origin --delete feature/ai4good-v1 feature/disk-hygiene feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/virada-semana-final feature/web-shoot
 
 <!-- entropy:end -->
 

@@ -231,6 +231,15 @@ def test_a_site_file_with_no_course_home_moves_the_clone_but_touches_no_workspac
     assert (site / 'viewer.js').read_text(encoding='utf-8') == '// viewer\n'
 
 
+def test_a_push_off_main_is_refused_because_only_main_goes_live(browser_edit):
+    site = browser_edit[1]
+    _git(site, 'switch', '-q', '-c', 'feature/x')
+    head = _git(site, 'rev-parse', 'HEAD')
+    with pytest.raises(pages.Refused, match='feature/x'):
+        pages.push(site, ['ai4good'], 'redirects')
+    assert _git(site, 'rev-parse', 'HEAD') == head
+
+
 def test_a_page_with_habilidades_block_runs_arvore_generator(course):
     page = course / 'ai4good' / 'disciplina.md'
     page.write_text('<!-- habilidades:start -->\n<!-- habilidades:end -->', encoding='utf-8', newline='\n')

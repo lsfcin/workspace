@@ -29,7 +29,8 @@ def handoffs_in(command: str) -> list[str]:
 def refuse(key: str) -> int:
     print(f'⛔ HANDOFF IS TAKEN, NOT READ — outputs/handoff-{key}.md\n'
           f'   core/run tools/wos/handoff --take {key}\n'
-          '   Taking prints every pending section and deletes the file; a session adds its own with --write.',
+          '   Taking prints every pending section and deletes the file; a session adds its own with --write.\n'
+          '   In plan mode: ask Lucas to lift it, take, then plan (core/skills/handoff.md § Output).',
           file=sys.stderr)
     return 2
 
