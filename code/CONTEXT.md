@@ -40,7 +40,8 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`isoroll-module/`](isoroll-module/CONTEXT.md) | Foundry VTT v14 isometric projection module — TypeScript + Vite + SCSS. |
 | [`laplata/`](laplata/CONTEXT.md) | Mapa vivo dos fluxos de dinheiro no Brasil — pipeline de dados abertos (BCB, IBGE) + visualizações que revelam ralos. Infraestrutura do programa instituto (núcleo 4) e estágio 1 do motor de ideação. |
 | [`obra/`](obra/CONTEXT.md) | Somar o dinheiro da obra e primar o STT com o vocabulário dela. Dados em `branches/casinhas/`. |
-| [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for experimenting with LC/UFRPE curriculum redesign |
+| [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for drafting a UFRPE course curriculum grid; LC is the default grid |
+| [`rastro-da-banca/`](rastro-da-banca/CONTEXT.md) | Exemplo excelente dos artefatos tec, flx e exp da disciplina AI4Good: o exemplo oficial do faster-whisper, com entrada e saída trocadas para pedidos de feira, o fluxograma do pedido e os pilotos dos dois experimentos. |
 | [`spacemantics/`](spacemantics/CONTEXT.md) | Verifiable spatial DSL (texpace) + deterministic checker that lift LLM spatial capability across 2D/2.5D/3D/4D |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records — ARCHIVED as a spec |
 | [`wos/`](wos/CONTEXT.md) | — |

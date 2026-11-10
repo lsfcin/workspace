@@ -100,22 +100,45 @@ def test_hand_edits_in_issues_still_stop_the_close(tmp_path):
     page = ws / 'ISSUES.md'
     page.write_text(page.read_text(encoding='utf-8') + '\nA bug someone is writing\n',
                     encoding='utf-8', newline='\n')
-    r = _run(ws)
-    assert r.returncode == 2 and 'ISSUES.md' in r.stdout
+    r = _close(ws, tmp_path / 'home', page)
+    assert r.returncode == 2 and 'ISSUES.md' in r.stdout, 'this session wrote it: commit first'
 
 
 def test_a_regenerated_file_never_carries_foreign_staged_work(tmp_path):
     ws = _workspace(tmp_path)
     _dirty(ws)
-    r = _run(ws, '--leave-dirty', 'parallel session on theirs.md')
+    r = _run(ws, '--leave', '.')
     assert r.returncode == 0, r.stdout
-    assert 'parallel session on theirs.md' in r.stdout
     assert 'theirs.md' not in _git(ws, 'log', '--name-only', '--pretty=format:', 'feature/x').stdout
     assert 'A  theirs.md' in _git(ws, 'status', '--porcelain').stdout
 
 
-def test_leave_dirty_without_a_reason_is_a_usage_error(tmp_path):
-    assert _run(_workspace(tmp_path), '--leave-dirty').returncode == 64
+def test_this_session_s_dirt_in_a_nested_repo_stops_the_close(tmp_path):
+    """The sweep promoted a nested repo with this session's work still uncommitted in it."""
+    ws = _workspace(tmp_path)
+    project = _project(ws)
+    (project / 'a.txt').write_text('two\n', encoding='utf-8', newline='\n')
+    r = _close(ws, tmp_path / 'home', project / 'a.txt')
+    assert r.returncode == 2 and 'code/proj' in r.stdout and 'a.txt' in r.stdout, r.stdout
+
+
+def test_another_session_s_dirt_in_a_nested_repo_is_named_before_anything_promotes(tmp_path):
+    ws = _workspace(tmp_path)
+    project = _project(ws)
+    (project / 'b.txt').write_text('theirs\n', encoding='utf-8', newline='\n')
+    main = _git(ws, 'rev-parse', 'main').stdout
+    r = _close(ws, tmp_path / 'home', project / 'a.txt')
+    assert r.returncode == 3 and 'code/proj on main' in r.stdout and 'b.txt' in r.stdout, r.stdout
+    assert _git(ws, 'rev-parse', 'main').stdout == main, 'the root promoted past a nested conflict'
+
+
+def test_a_nested_repo_left_to_another_session_keeps_its_files(tmp_path):
+    ws = _workspace(tmp_path)
+    project = _project(ws)
+    (project / 'b.txt').write_text('theirs\n', encoding='utf-8', newline='\n')
+    r = _close(ws, tmp_path / 'home', project / 'a.txt', '--leave', 'code/proj')
+    assert r.returncode == 0, r.stdout
+    assert '?? b.txt' in _git(project, 'status', '--porcelain').stdout
 
 
 def _inbox(ws, added):
@@ -139,4 +162,4 @@ def test_an_unsigned_addition_to_the_inbox_is_not_the_bot_s(tmp_path):
     ws = _workspace(tmp_path)
     _inbox(ws, '\nan entry someone is still drafting\n')
     r = _run(ws)
-    assert r.returncode == 2 and 'brain/INBOX.md' in r.stdout
+    assert r.returncode == 3 and 'brain/INBOX.md' in r.stdout

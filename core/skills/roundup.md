@@ -92,6 +92,8 @@ core/run tools/wos/roundup
 
 It runs the verification contract, writes both generated blocks of the root `ISSUES.md` — the verification result and the regenerated entropy findings (workspace repo — and commits them itself, under `chore(issues)`, so no session ever writes that message by hand), merges `feature/*` → `develop` → `main` and pushes, then prints what the close measured. **Every line it printed is the hand-off's State block** — copy them, do not re-derive them, and **do not name them here**: a list of labels in a skill is a second copy of the script's output that rots silently, which is exactly how this file promised three lines while the script printed six.
 
+**Exit 3** means repos this session changed hold another session's files. Never decide that yourself: in the last message's text, name each repo with its files and branch and ask Lucas, per repo, to **adopt** (you read the diff, commit those files by path in their own commit, rerun), **leave** (rerun with the `--leave` flag the stop printed: pushed, never promoted) or **stop**.
+
 It refuses to promote, and says why, when the verification gate is **red** or when a target branch is **behind origin** (a parallel session is mid-flight). Those are decisions, not failures: report the reason, never work around it. One case the script cannot see — the branch holds work that is incoherent on its own (a half-applied refactor, a test deleted before its replacement lands) — is yours to pass in: `core/tools/wos/roundup --no-promote "<reason>"`. *"The milestone is not finished"*
 is **not** a reason: green, coherent, partial work belongs on `develop`, where the other machine can see it.
 

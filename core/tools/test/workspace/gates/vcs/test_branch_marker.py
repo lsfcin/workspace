@@ -6,6 +6,7 @@
 # every nested repo, every non-agent commit — must not hear from this at all. So each case here
 # runs the real script against a real git repo and reads its behaviour, rather than reading the
 # source for a branch that looks right: a guard on an unreachable path passes that reading.
+import os
 import subprocess
 from pathlib import Path
 
@@ -15,6 +16,7 @@ from conftest import WORKSPACE_ROOT
 from platform_law import interpreter, session_state
 
 MARKER = WORKSPACE_ROOT / 'core/hooks/git/branch_marker.py'
+SESSION = 't-marker'
 
 
 def marker_path(repo: Path) -> Path:
@@ -27,8 +29,8 @@ def marker_path(repo: Path) -> Path:
 	was wrong twice: `/tmp` is not a directory Windows has, and the temp directory does not survive
 	a reboot that a session survives (b20260922).
 	"""
-	sanitized = ''.join(c if c.isalnum() else '_' for c in str(repo.resolve()))
-	return session_state(f'claude_branch_{sanitized}.txt')
+	key = lambda text: ''.join(c if c.isalnum() else '_' for c in text)  # noqa: E731
+	return session_state(f'claude_branch_{key(SESSION)}__{key(str(repo.resolve()))}.txt')
 
 
 @pytest.fixture
@@ -40,7 +42,10 @@ def repo(tmp_path):
 
 
 def run(repo: Path, mode: str):
-	done = subprocess.run([interpreter(), str(MARKER), mode], cwd=repo,
+	"""The script as the session SESSION runs it: its id arrives through the environment."""
+	env = {k: v for k, v in os.environ.items() if 'SESSION_ID' not in k and 'THREAD_ID' not in k}
+	done = subprocess.run([interpreter(), str(MARKER), mode], cwd=repo, input='',
+	                      env={**env, 'CLAUDE_CODE_SESSION_ID': SESSION},
 	                      capture_output=True, text=True, encoding='utf-8')
 	assert done.returncode == 0, f'the warning must never block: {done.stderr}'
 	return done.stdout

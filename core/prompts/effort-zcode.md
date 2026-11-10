@@ -27,7 +27,7 @@ core/run tools/wos/sync-skills          # a clone carries no skill mirrors
 
 > In this repository, core/tools/wos/close/branches.py has a function promote() that promotes a feature branch to develop and then to main at session close.
 >
-> It has a known defect, recorded in ISSUES.md: under --leave-dirty it refuses a real merge whenever the working tree is dirty, and two legitimate reasons sit behind that one refusal wanting opposite behaviour. The dirty paths are usually identical on both branches and git would carry them across untouched, but the merge checks the target out and back, so a parallel session inside that window sees the wrong branch.
+> It has a known defect, recorded in ISSUES.md: with a dirty tree it refuses a real merge whenever the working tree is dirty, and two legitimate reasons sit behind that one refusal wanting opposite behaviour. The dirty paths are usually identical on both branches and git would carry them across untouched, but the merge checks the target out and back, so a parallel session inside that window sees the wrong branch.
 >
 > Fix it so both reasons are satisfied at once: perform the real merge inside a throwaway git worktree, so HEAD in the session's own working tree never moves.
 >

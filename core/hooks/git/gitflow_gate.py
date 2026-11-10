@@ -20,7 +20,7 @@ def check(commit):
     # Switched off: a disabled gate does not block, and does not pretend it ran.
     if not feature_law.is_enabled('gitflow-gate'):
         return
-    if not _enforced(commit):
+    if not enforced(commit.toplevel, commit.root):
         return
 
     # A merge in progress leaves MERGE_HEAD. That is a merge, not a hand-typed commit -- the
@@ -52,11 +52,15 @@ def check(commit):
         '   Rename:  git branch -m feature/<name>. See code/SPECS-git.md.')
 
 
-def _enforced(commit) -> bool:
-    """Whether this repo is one the convention covers -- the workspace, or a project under code/."""
-    if commit.is_workspace:
+def enforced(toplevel: Path, root: Path) -> bool:
+    """Whether this repo is one the convention covers -- the workspace, or a project under code/.
+
+    Asked by the branch gate too, at the first write, so the two never disagree about scope.
+    """
+    toplevel, root = Path(toplevel).resolve(), Path(root).resolve()
+    if toplevel == root:
         return True
     try:
-        return commit.toplevel.relative_to(commit.root).parts[:1] == ('code',)
+        return toplevel.relative_to(root).parts[:1] == ('code',)
     except ValueError:
         return False
