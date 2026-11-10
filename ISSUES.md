@@ -176,19 +176,19 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/brave-undo is 2 ahead of main
+- . — feature/brave-undo is 6 ahead of main
 
 ### Local branches already merged into their base
 
 *safe to delete, and purely local — `git -C <repo> branch -d <branch>`*
 
-- . — 6 merged into main: git -C . branch -d feature/ai4good-v1 feature/ementas-lc feature/goals-roadmap feature/pdf-twin feature/roundup-scope feature/virada-semana-final
+- . — 7 merged into main: git -C . branch -d feature/ai4good-v1 feature/ementas-lc feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/virada-semana-final
 
 ### Remote branches already merged into their base
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 8 merged into main: git -C . push origin --delete feature/ai4good-v1 feature/disk-hygiene feature/ementas-lc feature/goals-roadmap feature/pdf-twin feature/roundup-scope feature/virada-semana-final feature/web-shoot
+- . — 9 merged into main: git -C . push origin --delete feature/ai4good-v1 feature/disk-hygiene feature/ementas-lc feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/virada-semana-final feature/web-shoot
 
 <!-- entropy:end -->
 
