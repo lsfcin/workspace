@@ -142,13 +142,23 @@ def pull(publish: pathlib.Path, classes: pathlib.Path = CLASSES) -> list[pathlib
     return written
 
 
+def production(publish: pathlib.Path) -> None:
+    """Cloudflare Pages publishes main alone; any other branch is a preview nobody's short link reaches."""
+    branch = subprocess.run(['git', 'branch', '--show-current'], cwd=publish, capture_output=True,
+                            text=True, encoding='utf-8', check=True).stdout.strip()
+    if branch != 'main':
+        raise Refused(f'{publish} is on {branch or "a detached HEAD"}, and only main goes live.\n'
+                      f'  git -C {publish} switch main   (pushed commits on {branch} stay there)')
+
+
 def push(publish: pathlib.Path, paths: list, message: str) -> None:
-    """git add exactly these paths, commit when something is staged, push.
+    """git add exactly these paths, commit when something is staged, push — from main only.
 
     `add` by path and never `commit -am`: -a skips a file the repo has never seen, which is every
     new artefact. Nothing staged means nothing to COMMIT, never nothing to push — a commit left by a
     run that failed at the push is exactly when the site is still stale.
     """
+    production(publish)
     subprocess.run(['git', 'add', '--', *map(str, paths)], cwd=publish, check=True)
     if subprocess.run(['git', 'diff', '--cached', '--quiet'], cwd=publish).returncode:
         subprocess.run(['git', 'commit', '-q', '-m', message], cwd=publish, check=True)

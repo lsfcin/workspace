@@ -107,4 +107,4 @@ Run `/handoff $ARGUMENTS`. It decides whether a hand-off is warranted at all —
 - what was written, one line per file — only files actually written this phase
 - every line Phase 4 printed, verbatim
 
-Nothing else. No session summary, no next steps: `/handoff` just emitted those, and repeating them is the padding this skill exists to not produce. Close with one instruction — start the next session with `Roda <resume command returned by /handoff> e discute comigo em detalhes (em pt-br) qual vai ser o plano pra essa sessão.` — **plan, never "continue"**; the rationale is in [`handoff.md`](handoff.md). Or, if `/handoff` skipped, nothing.
+Nothing else. No session summary, no next steps: `/handoff` just emitted those, and repeating them is the padding this skill exists to not produce. Close with one instruction: the resume prompt [`handoff.md`](handoff.md) § Output words. Or, if `/handoff` skipped, nothing.
