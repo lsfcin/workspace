@@ -35,8 +35,12 @@ from platform_law import WORKSPACE_ROOT, interpreter, rel  # noqa: E402
 # git handed it -- on Windows that resolves to the console codepage, where those characters raise
 # UnicodeEncodeError and the gate dies printing its own verdict. Named here so no stage has to
 # think about it, per core/SCHEMA.md: a text stream never inherits the machine's encoding.
+# A stream with no reconfigure is the dispatcher's StringIO capture: already text, nothing to set.
+# Calling it anyway killed every importer run in-process -- the branch gate died silently on every
+# write until 2026-11-10 (b20261110).
 for _stream in (sys.stdout, sys.stderr):
-    _stream.reconfigure(encoding='utf-8', errors='replace')
+    if hasattr(_stream, 'reconfigure'):
+        _stream.reconfigure(encoding='utf-8', errors='replace')
 
 
 class Blocked(Exception):

@@ -101,6 +101,10 @@ def post_tool(call: dict[str, Any], sid: str) -> dict[str, Any]:
             p["new_string"] = args.get("ReplacementContent", "")
         run_gate("post-edit.sh", p, tool)
         run_gate("dispatch.py", {**p, "hook_event_name": "PostToolUse"}, tool)
+    elif name == "run_command":
+        # The branch gate re-records after this session's own git switch (b20261110).
+        run_gate("dispatch.py", {"command": args.get("CommandLine", ""), "session_id": sid,
+                                 "hook_event_name": "PostToolUse"}, "Bash")
     return {}
 
 
@@ -110,7 +114,7 @@ def pre_invocation(data: dict[str, Any]) -> dict[str, Any]:
     inv_num = data.get("invocationNum", 0)
     if inv_num == 1:
         run_gate("session/session-prune.py", {}, "SessionStart")
-        run_gate("git/branch_marker.py", {}, "SessionStart", extra_args=["record"])
+        run_gate("git/branch_marker.py", {"session_id": sid}, "SessionStart", extra_args=["record"])
         for script in ("session/mirror-heal.py", "session/reminders.py"):
             _, msg = run_gate(script, {}, "SessionStart")
             if msg:
