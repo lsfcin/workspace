@@ -16,7 +16,7 @@ measuring it after the first write reads the close's own change as pre-existing 
 |------|-----------|-----|-------------|
 | [`artifacts.py`](artifacts.py) | [`artifacts.pyi`](artifacts.pyi) | `git`, `out`, `spawn`, `hand_edited`, `dirt` | The generated artifacts a session close regenerates, and what happens to each one afterwards. |
 | [`branches.py`](branches.py) | [`branches.pyi`](branches.pyi) | `gitflow`, `disturbed`, `promote`, `park`, `promoted_line` | Branch promotion at session close: feature → develop → main, and what to say when it did not run. |
-| [`handoff.py`](handoff.py) | [`handoff.pyi`](handoff.pyi) | `name_of`, `identity`, `records`, `started`, `transcript` | Repository/environment handoffs: names and edit counts come from local records, never a model. |
+| [`handoff.py`](handoff.py) | [`handoff.pyi`](handoff.pyi) | `name_of`, `identity`, `records`, `started`, `transcript` | Repository handoffs: names and edit counts come from local records, never a model. |
 | [`projects.py`](projects.py) | [`projects.pyi`](projects.pyi) | `push`, `session_log`, `session_repos`, `owners`, `stopped` | The repos a session worked in, and at its close: verify, push, promote each nested one. |
 | [`repomap.py`](repomap.py) | [`repomap.pyi`](repomap.pyi) | `declared`, `link`, `home`, `known`, `redraw` | The map of where every project lives, redrawn at session close into PROJECTS.md. |
 <!-- routing:end -->

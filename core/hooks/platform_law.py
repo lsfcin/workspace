@@ -15,6 +15,7 @@
 import os
 import subprocess
 import sys
+from contextlib import contextmanager
 from pathlib import Path
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
@@ -211,3 +212,30 @@ def secure_dir(path) -> None:
 def secure_file(path) -> None:
     """A file only its owner may read — the 600 of SETUP-accounts.md, on either system."""
     _restrict(Path(path), 0o600, 'F')
+
+
+@contextmanager
+def locked(path):
+    """Hold an exclusive lock on `path` for the block; the operating system releases it on death.
+
+    The file is the lock's NAME and is never deleted: a process that deleted it would leave the
+    next two holding locks on two different files. A crashed holder leaves nothing stale behind.
+    """
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, 'a+b') as handle:
+        if _WINDOWS:
+            import msvcrt
+            handle.seek(0)
+            msvcrt.locking(handle.fileno(), msvcrt.LK_LOCK, 1)
+        else:
+            import fcntl
+            fcntl.flock(handle, fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            if _WINDOWS:
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                fcntl.flock(handle, fcntl.LOCK_UN)
