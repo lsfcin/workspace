@@ -46,8 +46,6 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 
 > [ ] [captured-isoroll-tools] Track Animater [animater], Universal Modder [modder-patterns], object brush [object-brush] and UniMate [unimate] in both code/isoroll-module/ROADMAP.md and code/isoroll-content/ROADMAP.md; references in both refs/REFS.md (backlog).
 
-> [ ] [game-isolation] Validate Brave voice/game separation in a real Monday session with VS Code/Claude: available RAM, game-first shutdown below 1 GiB, possible leaks and graphics failures. Configuration, diagnostics and removal: [machine setup](../../branches/tweaks/SETUP.md#ubuntu--brave--voz-e-foundry) (week).
-
 > [ ] [playable] = ROADMAP § PLAYABLE — painter MVP + manifest walls/vision/fog + 8+1 view switching + DepthSorter + 8-dir token selection  
 > [ ] [bakeoff] content arms compared behind the frozen boundary: A kit-sprite (baseline) vs B scene-cell world-uv render (continuity by construction) vs C NB-painted textures — your style score 1–5 decides, boarded side by side on the same cabin  
 > [ ] [props-mesh] props + characters via image→3D → render 9 views (Hunyuan3D / TripoSR) — multiview by geometry, never by generation  
@@ -69,5 +67,5 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-11-05  ·  trend: decelerating  ·  touches: 11/93/682/685/685/685
+last-touch: 2026-11-09  ·  trend: decelerating  ·  touches: 336/2185/2751/2773/2773/2773
 <!-- stats:end -->
