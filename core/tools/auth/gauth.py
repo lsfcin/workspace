@@ -64,7 +64,15 @@ def primary_aliases() -> list:
     return [a["aliases"][0] for a in get_accounts() if a.get("aliases")]
 
 
-def resolve_alias(alias: str) -> str:
+def home_alias() -> str:
+    """The workspace's own Google account (personal): the first in accounts.json. Never ask which."""
+    return (primary_aliases() or ["personal"])[0]
+
+
+def resolve_alias(alias: str | None) -> str:
+    """An alias to its primary name; no alias at all means the home account."""
+    if not alias:
+        return home_alias()
     for acct in get_accounts():
         if alias in acct.get("aliases", []):
             return acct["aliases"][0]
