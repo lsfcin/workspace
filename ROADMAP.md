@@ -62,6 +62,9 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 *Why* — three drawings answered *what is there*; Lucas read this one 2026-09-15 and ruled it an inventory with better manners.
 *Done when* — he reads it at a glance and the shapes that fail are deleted.
 
+**🟢 [downloads-hook] "baixei" lists the recent downloads — next**
+*What* — A UserPromptSubmit hook that fires only when Lucas's message says baixei/download. It injects the files from the last 5, 15 and 30 minutes in `Downloads/` at the workspace root (the usual one), `~/Downloads` and `Downloads/workspace-drive`. *Why* — Lucas, 11/11/2026: a hook, not an AGENTS.md norm, so the other sessions pay nothing. *Done when* — A spec proves it fires on "baixei" and stays silent otherwise.
+
 ## Portability — would this work on a machine that is not Lucas's
 
 **🟡 prepared worktrees**
