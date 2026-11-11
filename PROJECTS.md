@@ -13,7 +13,7 @@ The table is redrawn at every session close by [`core/tools/wos/close/repomap.py
 |------|--------|-------|
 | `academy/administration` | [github](https://github.com/lsfcin/academy-administration) | — |
 | `academy/administration/docs-ufrpe` | — | — |
-| `academy/cv` | — | — |
+| `academy/cv` | [github](https://github.com/lsfcin/academy-cv) | — |
 | `academy/lab` | [github](https://github.com/lsfcin/academy-lab) | — |
 | `academy/papers/2026-JBCS-relativistic_raytracer` | [Overleaf](https://git.overleaf.com/6a06aab5ad89bc3e2628f977) | — |
 | `academy/papers/2026-SIBGRAPI-relativistic_raytracer` | [Overleaf](https://git.overleaf.com/6a0cbc7958195756380a96cb) | — |
