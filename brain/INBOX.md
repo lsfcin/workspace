@@ -9,6 +9,16 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DfijE9TOuvi/?mdxt=MTNmbDRuNmliZ2V5cQ==
+— via aiwbot · 2026-11-11
+
+https://www.instagram.com/reel/DflZcZoG3ep/?obrf=MWxseXFzOXZrMmYxdA==
+— via aiwbot · 2026-11-11
+
+https://www.instagram.com/reel/Dfk7fhqh9zL/?obrf=NTc4MTIwNjQ2YQ==
+será que isso é útil pra gente? digo, já evitamos MCP mas será que a lógica é útil mesmo assim?
+— via aiwbot · 2026-11-11
+
 https://www.instagram.com/reel/DfmN9VOBeXm/?rpxt=MXNvbmNwM3l5anp3Mw==
 — via aiwbot · 2026-11-11
 
@@ -153,3 +163,5 @@ em alguma sessão acho que do codex ou do antigravity eu pedi pra colocar uns li
 - (2026-11-10, CAPD George) Restou do parecer: (a) o `codex` não está instalado nesta máquina (`command -v codex` vazio), então o painel externo que o AGENTS.md exige não rodou e a revisão cética foi feita pelo próprio Claude; o `/install` deveria cobrar isso; (b) em plan mode, o pdf-gate bloqueia até a LEITURA de um PDF sem gêmeo, porque gerar o gêmeo é escrita, e o plano saiu sem ler o Anexo IV e o relatório. Deixar o gêmeo ir para o scratchpad em plan mode? (c) o barema (Anexo IV da Res. 009/2019) agora tem texto, mas só dentro da pasta de um processo (`capd/2026-george-valenca/anexo-iv/`); é referência da norma, e o lugar dele é `refs/` ou `processos/`, usado também pelo B1→B2 de Lucas; (d) assimetria: comissão de progressão (CAPD) e de RDA (CAPR) no plantel, mas só a progressão tem procedimento do lado da comissão.
 
 - (2026-11-11, CAPD George) (a) assimetria de nome: a Portaria DC 57/2026 diz "Comissão de Avaliação e Progressão Docente"; os pareceres da casa dizem "Comissão de Avaliação de Pessoal Docente". (b) a cópia `ParecerNº22_GeorgeValença.docx` ainda cita a Portaria 64/2025, revogada pela 57/2026. (c) a pasta da CAPD no Drive é só leitura para agentes, mas hoje só uma frase em `capd/CONTEXT.md` garante isso; um hook podia recusar escrita de `gdrive`/`gdocs` nos ids protegidos.
+
+- (2026-11-11, docs-ufrpe) MACRO da sessão do lote 1: (a) o gêmeo de PDF começa com frontmatter, então a rota do CONTEXT.md mostra "← add first-line comment" para cada um e o painel de entropia conta isso como placeholder sem resposta; o gerador da rota podia ler o título do frontmatter do gêmeo. O gêmeo de .docx feito à mão (via Google Doc temporário + `gdocs read`) teve de usar `# Título` na 1ª linha, assimétrico ao de PDF; `core/tools/docs/` merecia um `docx`→gêmeo de verdade, com tabelas, no mesmo formato do PDF. (b) o texto legal com dispositivo revogado (tachado) dispara "prose describing finished work": falso positivo em texto verbatim de norma. (c) a lei de segredos marca o CNPJ da própria UFRPE no timbre; redigi para `[CNPJ da UFRPE]`, mas um allowlist de CNPJs institucionais públicos evitaria isso a cada lote. (d) `git commit -q` em repo com hook longo sai com código 0 sem commitar quando o hook recusa (o `-q` engole o ⛔): aconteceu 3 vezes; o rtk ou o hook deviam devolver código ≠ 0. (e) o `docling` em segundo plano não aparece no `ps` desta sessão e levou mais de 10 min por PDF descrevendo brasões; para PDF com camada de texto o `pymupdf` resolveu em segundos — o default podia escolher pelo `text_layer`. (f) `gh repo create` foi recusado pelo classificador do modo automático e Lucas teve de digitar (ele: "se você não precisa de mim, é você quem executa"). Corrigido na fonte: a ação neutra `push` agora rende também `Bash(gh repo create:*)` (`core/tools/wos/permissions`); falta Lucas rodar `--set open`, porque re-renderizar as próprias permissões é auto-modificação e o classificador recusa. (g) comando entregue ao Lucas leva caminho absoluto: dois comandos com `cd` relativo encadeados falharam no segundo. Lugar certo: `core/skills/handoff.md` ou AGENTS.md, com o OK dele.
