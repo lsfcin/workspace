@@ -5,7 +5,7 @@
 
 Auth is two tokens, not one: reads use the `drive` token (`drive.readonly`), and `mkdir` / `put` use a separate `drive-write` one. A read re-consent therefore leaves the write token dead —
 `gdrive auth <alias> --write --reauth` is a different command, and the recovery message says so.
-Downloads land in `Downloads/workspace-drive` at the workspace root.
+Downloads land in `Downloads/workspace-drive` at the workspace root. The workspace's Google account is `personal`: every one-account command (gdrive, gdocs, gslides, gforms) without `--account` goes there — `gauth.home_alias()`, the first in `accounts.json`. Never ask which.
 
 `put --sheet` imports a CSV in the account's locale: `personal` is pt-BR, so write `"414,36"`, not `414.36` — a dot decimal lands as text and every `=formula` over it reads `#VALUE!`.
 

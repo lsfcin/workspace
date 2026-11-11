@@ -182,6 +182,8 @@ brain/drafts/*
 # tracked nothing; the file simply stated both answers. Deleted 2026-09-01.
 # gitignore_heal.py will not re-add them: it skips any subdir holding a `.git`.
 academy/administration
+academy/administration/docs-ufrpe
+academy/cv
 academy/lab
 academy/papers/2026-JBCS-relativistic_raytracer
 academy/papers/2026-SIBGRAPI-relativistic_raytracer

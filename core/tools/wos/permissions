@@ -37,7 +37,9 @@ CLAUDE = {
                      f'Bash({platform_law.WINDOWS_VENV_BIN}/pytest.exe:*)'],
     'run-any': ['Bash'],
     'delete': ['Bash(rm:*)', 'Bash(git clean:*)'],
-    'push': ['Bash(git push:*)'],
+    # Creating the remote is the first push, not a separate act: `gh repo create --push` was refused
+    # by the auto-mode classifier on 2026-11-11 and Lucas had to type it himself.
+    'push': ['Bash(git push:*)', 'Bash(gh repo create:*)'],
     'secrets': ['Read(./.credentials.json)', 'Read(./**/.env)', 'Read(~/.claude/.credentials.json)',
                 'Read(~/.config/workspace-*/**)'],
 }
