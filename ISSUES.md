@@ -176,13 +176,13 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
-- . — feature/capd-george is 1 ahead of main
+- . — feature/capd-george is 4 ahead of main
 
 ### Work that exists on this disk and nowhere else
 
 *two machines share this workspace — push it, or give the repo a remote to push to: code/SPECS-git.md § Push policy*
 
-- . — feature/capd-george is 1 ahead of origin/feature/capd-george
+- . — feature/capd-george is 4 ahead of origin/feature/capd-george
 
 ### Local branches already merged into their base
 
