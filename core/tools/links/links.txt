@@ -167,9 +167,15 @@ spatial/taiga	https://github.com/shhivv/biome-s1	spatial	2026-11-06
 spatial/taiga-reel	https://www.instagram.com/reel/DeFJd9AHPVS/	spatial	2026-11-06
 teach/brasil-ia	https://agenciagov.ebc.com.br/noticias/202608/brasil-avanca-em-infraestrutura-propria-para-inteligencia-artificial-com-supercomputacao-e-nuvem-nacional	teach	2026-11-06
 teach/dietz-source	https://thisisdesignthinking.net/2014/12/changing-experiences-through-empathy-ge-healthcares-adventure-series/	teach	2026-11-06
+techedu/artigo	https://docs.google.com/presentation/d/1iEt2lBPKvn2ccFYc5-9b_TDaCSlhwT3uBAtLsKvy5t4/edit?usp=sharing	techedu	2026-11-11
+techedu/banca	https://docs.google.com/presentation/d/1Jp4M4aeSQSwbICVu62kR5rSfWg-bKKAPD6hg-CoCo7Q/edit?usp=sharing	techedu	2026-11-11
 techedu/draw	https://excalidraw.com/#room=0b5980e37afbc3e7f464,h3zc7ZhzOxGn7sTPfFB2QQ	techedu	2026-09-08
+techedu/entre-equipes	https://docs.google.com/spreadsheets/d/16iG7bhPjGucUGx0-Z2KtvOgytWWoqGTqi3jrPxMalz8/edit?usp=sharing	techedu	2026-11-11
+techedu/intragrupo	https://forms.gle/f5EnsLT3Uc1v3NZk6	techedu	2026-11-11
+techedu/meet	https://meet.google.com/crr-ogeg-qyy	techedu	2026-11-11
 techedu/painel	https://docs.google.com/spreadsheets/d/1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU/edit?gid=1005981620#gid=1005981620	techedu	2026-09-16
 techedu/setup	https://docs.google.com/forms/d/e/1FAIpQLScOoEjTI-l64rgUSBMQ198J_B9ssrai_tIVAcPAOYe-uWklww/viewform	techedu	2026-09-08
+techedu/telegram	https://t.me/+d2MCMR2vR101MWYx	techedu	2026-11-11
 techedu/teste	https://docs.google.com/forms/d/e/1FAIpQLScvZ7Q2lVavhfoLh7mW9zpjZGD68Q_MotO1IHU8sJKfT752yg/viewform	techedu	2026-10-28
 vt-aula	https://docs.google.com/presentation/d/19YKkSqjBQ4k1JfVDG-K4d4FBYdoFdoYVm_lEx_lG1mI/edit	vt-aula	2026-11-09
 vt-mural	https://docs.google.com/presentation/d/1mA952ir_zJ7LF5jS9NBD4jeZCyQ9umQV-5iLNmEa09c/edit	vt-mural	2026-11-09
