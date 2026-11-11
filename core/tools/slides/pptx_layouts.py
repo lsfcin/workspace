@@ -15,12 +15,13 @@ def _ids():
         yield n
 
 
-def _footer(ids, spec, *, on_color=False, anchor=True, accent=False) -> list[str]:
-    """Title-as-anchor on the left, the author's name on the right, both on the footer line."""
+def _footer(ids, spec, *, on_color=False, anchor=True, accent=False, split=False) -> list[str]:
+    """Title-as-anchor on the left, the author's name on the right, both on the footer line.
+    `split`: only the anchor sits on the colour; the name stays on the white side."""
     f, t = spec["fonts"], spec["type"]
     color = "accent2" if on_color else ("accent1" if accent else "dk2")
     out = [S.text(next(ids), "footer name", W / 2, FOOT_Y, W / 2 - M, FOOT_H, spec["footer"]["name"],
-                  size=t["small"], color=color, font=f["footer"], align="r")]
+                  size=t["small"], color="dk2" if split else color, font=f["footer"], align="r")]
     if anchor:
         out.append(S.placeholder(next(ids), "anchor", "title", 0, M, FOOT_Y, W / 2 - M, FOOT_H,
                                  size=t["small"], color=color, font=f["footer"], anchor="b", sample="âncora"))
@@ -41,11 +42,13 @@ def _split_boxes(side: str, r: float):
 
 
 def section(spec, p):
+    """Full fill. `photo` (share of the width, right) leaves that side for a picture inserted per slide."""
     i, t = _ids(), spec["type"]
+    tw = W * (1 - p.get("photo", 0) / 100) - 2 * M
     shapes = [S.box(next(i), "section fill", 0, 0, W, H),
-              S.placeholder(next(i), "title", "title", 0, M, H * .34, W - 2 * M, H * .26, size=t["display"],
+              S.placeholder(next(i), "title", "title", 0, M, H * .34, tw, H * .26, size=t["display"],
                             color="accent2", bold=True, anchor="b", sample="seção"),
-              S.placeholder(next(i), "english", "body", 1, M, H * .61, W - 2 * M, H * .1, size=t["body"],
+              S.placeholder(next(i), "english", "body", 1, M, H * .61, tw, H * .1, size=t["body"],
                             color="accent2", italic=True, sample="section")]
     if p.get("hook"):
         shapes.append(S.placeholder(next(i), "hook", "pic", 2, W - M - H * .3, M, H * .3, H * .3))
@@ -76,9 +79,24 @@ def content(spec, p):
 
 
 def statement(spec, p):
+    """One sentence. `split` (share of colour on the left) puts it on the colour; `bar` keeps a thick
+    left bar; `figure` lifts it to the top, leaving the lower area for a drawing."""
     i, t = _ids(), spec["type"]
-    return [S.placeholder(next(i), "statement", "body", 1, M * 1.5, H * .25, W - 3 * M, H * .45, size=t["statement"],
-                          anchor="ctr", sample="uma frase só")] + _footer(i, spec)
+    r, bar = p.get("split", 0) / 100, p.get("bar", 0) / 100
+    if r:
+        cw = W * r
+        return [S.box(next(i), "split fill", 0, 0, cw, H),
+                S.placeholder(next(i), "statement", "body", 1, M, H * .2, cw - 1.5 * M, H * .55, size=t["statement"],
+                              color="accent2", anchor="ctr", sample="uma frase só"),
+                S.placeholder(next(i), "aside", "body", 2, cw + M / 2, H * .2, W - cw - 1.5 * M, H * .55,
+                              size=t["title"], color="accent1", bold=True, anchor="ctr", sample="termo")] \
+            + _footer(i, spec, on_color=True, split=True)
+    x0 = W * bar + M if bar else M * 1.5
+    shapes = [S.box(next(i), "bar", 0, 0, W * bar, H)] if bar else []
+    y, h = (H * .08, H * .24) if p.get("figure") else (H * .25, H * .45)
+    return shapes + [S.placeholder(next(i), "statement", "body", 1, x0, y, W - x0 - M * 1.5, h,
+                                   size=t["statement"] * (.8 if p.get("figure") else 1),
+                                   anchor="t" if p.get("figure") else "ctr", sample="uma frase só")] + _footer(i, spec)
 
 
 def number(spec, p):
