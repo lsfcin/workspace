@@ -9,6 +9,12 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DfmN9VOBeXm/?rpxt=MXNvbmNwM3l5anp3Mw==
+— via aiwbot · 2026-11-11
+
+https://www.instagram.com/reel/DfkZNM0ON93/?cplk=MTNubHo3czVlcHpoNA==
+— via aiwbot · 2026-11-10
+
 https://www.instagram.com/reel/DfgIWaljmkB/?xtok=NTc4MTIwNjQ2YQ==
 acho que entra na minha aula, confirmar os dados
 — via aiwbot · 2026-11-09
@@ -145,3 +151,5 @@ em alguma sessão acho que do codex ou do antigravity eu pedi pra colocar uns li
 - (2026-11-10, gitflow-parallel) Restou do Git Flow paralelo: (a) o plugin do opencode provavelmente repassa o shell ao gate depois da chamada (mesmo `buildPayloads` do pre), mas não há teste — entra no `test_b20261110_…` dos shims; (b) `WOS_SESSION_ID` único para todos os harnesses (painel recomendou, Lucas adiou): sem ele o commit no Copilot/opencode/Antigravity perde só o aviso de drift; (c) o braço de shell do `handoff-gate` também recusa um comando que só CITA um handoff existente em prosa (ex.: mensagem de commit) — o pdf-gate tira o heredoc de prosa e os dois podiam dividir essa função; (d) o painel lembrou que, se as colisões persistirem, a saída estrutural é um worktree por sessão (choca com o sweep de branches do roundup, AD de 2026-08-14); (e) o `handoff-gate` trata todo `outputs/handoff-*.md` como handoff: bloqueou `handoff-planmode-panel.md`, a saída de um painel (sessão take-then-plan). Restringir a chave aos repositórios conhecidos, ou dar outro prefixo aos handoffs. O `core/run -m pytest` quebra ("can't open core/-m"), então rodei com `.venv/bin/python3`.
 
 - (2026-11-10, CAPD George) Restou do parecer: (a) o `codex` não está instalado nesta máquina (`command -v codex` vazio), então o painel externo que o AGENTS.md exige não rodou e a revisão cética foi feita pelo próprio Claude; o `/install` deveria cobrar isso; (b) em plan mode, o pdf-gate bloqueia até a LEITURA de um PDF sem gêmeo, porque gerar o gêmeo é escrita, e o plano saiu sem ler o Anexo IV e o relatório. Deixar o gêmeo ir para o scratchpad em plan mode? (c) o barema (Anexo IV da Res. 009/2019) agora tem texto, mas só dentro da pasta de um processo (`capd/2026-george-valenca/anexo-iv/`); é referência da norma, e o lugar dele é `refs/` ou `processos/`, usado também pelo B1→B2 de Lucas; (d) assimetria: comissão de progressão (CAPD) e de RDA (CAPR) no plantel, mas só a progressão tem procedimento do lado da comissão.
+
+- (2026-11-11, CAPD George) (a) assimetria de nome: a Portaria DC 57/2026 diz "Comissão de Avaliação e Progressão Docente"; os pareceres da casa dizem "Comissão de Avaliação de Pessoal Docente". (b) a cópia `ParecerNº22_GeorgeValença.docx` ainda cita a Portaria 64/2025, revogada pela 57/2026. (c) a pasta da CAPD no Drive é só leitura para agentes, mas hoje só uma frase em `capd/CONTEXT.md` garante isso; um hook podia recusar escrita de `gdrive`/`gdocs` nos ids protegidos.
