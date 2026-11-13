@@ -67,6 +67,20 @@ def test_the_frontmatter_names_the_source_the_hash_and_the_audit(tmp_path):
     assert '<!-- page 1 -->' in done['twin'].read_text(encoding='utf-8')
 
 
+def test_a_description_is_what_the_routing_table_reads_and_survives_a_rebuild(tmp_path):
+    """Without one, every twin routed as a placeholder: the engine cannot know what a PDF is for."""
+    import pdf_cli
+    from workspace_meta import file_description
+    pdf = make_pdf(tmp_path / 'res.pdf')
+    twin = build(pdf)['twin']
+    assert pdf_meta.read_frontmatter(twin)['description'] is None
+    pdf_cli.label(pdf, 'Resolução que aprova o projeto pedagógico')
+    assert file_description(twin) == 'Resolução que aprova o projeto pedagógico'
+    pdf.write_bytes(pdf.read_bytes() + b'% edited\n')
+    build(pdf)
+    assert pdf_meta.read_frontmatter(twin)['description'] == 'Resolução que aprova o projeto pedagógico'
+
+
 def test_a_fresh_twin_is_skipped_and_a_changed_pdf_is_rebuilt(tmp_path):
     pdf = make_pdf(tmp_path / 'res.pdf')
     build(pdf)

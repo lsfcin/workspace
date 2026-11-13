@@ -9,6 +9,36 @@
 
 <!-- add entries below, newest first -->
 
+mais uma ref pro isoroll
+https://www.instagram.com/reel/DfqSGsDsBx7/?psln=NTc4MTIwNjQ2YQ==
+— via aiwbot · 2026-11-13
+
+https://www.instagram.com/reel/DfqoqEYCWVk/?dlrf=bHJjZ2J1N3EyMDBz
+talvez seja útil pro isoroll 2.0? avaliar junto com as outras propostas
+— via aiwbot · 2026-11-13
+
+https://www.instagram.com/reel/DfgichBCgG0/?srtk=NTc4MTIwNjQ2YQ==
+esse talvez seja o maior exemplo que dá pra fazer o isoroll de uma forma diferente
+talvez até se desgarrar do foundry e focar em three.js...
+— via aiwbot · 2026-11-13
+
+https://www.instagram.com/reel/Dfm0chrgc01/?cplk=MTdoeDFhb3J5YWIwZQ==
+isso é verdade? tenho que incluir langchain/langgraph nas minhas aulas?
+— via aiwbot · 2026-11-13
+
+https://www.instagram.com/reel/DfqrLeoGEhb/?dlrf=MXUyc3AwN3J4Y29xYw==
+isso parece ser um gamechanger pro wos mas posso estar enganado
+sagwiki... temos que checar
+— via aiwbot · 2026-11-13
+
+https://www.instagram.com/reel/DfoOGriCGNL/?mdxt=MWF6NzR6djluZjMyeA==
+Será que conseguimos ignorar o que já foi feito e criar um isoroll 2.0 direto com o fable?
+— via aiwbot · 2026-11-13
+
+https://www.instagram.com/reel/DfoRhzMFVGb/?xtok=c2hpNXo5NGRmeHpm
+além da triagem normal quero monitorar esse repo
+— via aiwbot · 2026-11-13
+
 https://www.instagram.com/reel/DfijE9TOuvi/?mdxt=MTNmbDRuNmliZ2V5cQ==
 — via aiwbot · 2026-11-11
 
@@ -165,3 +195,7 @@ em alguma sessão acho que do codex ou do antigravity eu pedi pra colocar uns li
 - (2026-11-11, CAPD George) (a) assimetria de nome: a Portaria DC 57/2026 diz "Comissão de Avaliação e Progressão Docente"; os pareceres da casa dizem "Comissão de Avaliação de Pessoal Docente". (b) a cópia `ParecerNº22_GeorgeValença.docx` ainda cita a Portaria 64/2025, revogada pela 57/2026. (c) a pasta da CAPD no Drive é só leitura para agentes, mas hoje só uma frase em `capd/CONTEXT.md` garante isso; um hook podia recusar escrita de `gdrive`/`gdocs` nos ids protegidos.
 
 - (2026-11-11, docs-ufrpe) MACRO da sessão do lote 1: (a) o gêmeo de PDF começa com frontmatter, então a rota do CONTEXT.md mostra "← add first-line comment" para cada um e o painel de entropia conta isso como placeholder sem resposta; o gerador da rota podia ler o título do frontmatter do gêmeo. O gêmeo de .docx feito à mão (via Google Doc temporário + `gdocs read`) teve de usar `# Título` na 1ª linha, assimétrico ao de PDF; `core/tools/docs/` merecia um `docx`→gêmeo de verdade, com tabelas, no mesmo formato do PDF. (b) o texto legal com dispositivo revogado (tachado) dispara "prose describing finished work": falso positivo em texto verbatim de norma. (c) a lei de segredos marca o CNPJ da própria UFRPE no timbre; redigi para `[CNPJ da UFRPE]`, mas um allowlist de CNPJs institucionais públicos evitaria isso a cada lote. (d) `git commit -q` em repo com hook longo sai com código 0 sem commitar quando o hook recusa (o `-q` engole o ⛔): aconteceu 3 vezes; o rtk ou o hook deviam devolver código ≠ 0. (e) o `docling` em segundo plano não aparece no `ps` desta sessão e levou mais de 10 min por PDF descrevendo brasões; para PDF com camada de texto o `pymupdf` resolveu em segundos — o default podia escolher pelo `text_layer`. (f) `gh repo create` foi recusado pelo classificador do modo automático e Lucas teve de digitar (ele: "se você não precisa de mim, é você quem executa"). Corrigido na fonte: a ação neutra `push` agora rende também `Bash(gh repo create:*)` (`core/tools/wos/permissions`); falta Lucas rodar `--set open`, porque re-renderizar as próprias permissões é auto-modificação e o classificador recusa. (g) comando entregue ao Lucas leva caminho absoluto: dois comandos com `cd` relativo encadeados falharam no segundo. Lugar certo: `core/skills/handoff.md` ou AGENTS.md, com o OK dele.
+
+- (2026-11-13, ai4good sem3) MACRO: (a) `cfpages publish` recusou porque o painel VA2 do `disciplina.md` no workspace estava atrás do site em 11 linhas (notas dadas no navegador); o `pull` só traz o que não colide, então toda edição de cronograma colide com nota nova — trazer o painel antes de editar, ou o pull mesclar por linha de aluno. (b) Git Flow diz `feature/*` a partir de `develop`, mas o trabalho da disciplina vive num `feature/ai4good-v1` longo, 44 commits à frente do `develop` de `academy/teaching`; e o `rastro-da-banca` nem tem `develop` (assimetria).
+
+- (2026-11-13, administração/docs-ufrpe) MACRO: (a) a ferramenta `attachments` do gmail quebra sem chave da API Anthropic; contornei pelo `body_preview` do cache e pelo link do Drive. (b) `git commit -q` voltou a engolir a recusa do type-gate (CONTRIBUTING.md fora da allowlist) com código 0 — repete a (d) de 11/11. (c) `academy/cv/comprovantes/2026/CONTEXT.md` ainda tem "← add description": o gêmeo agora tem `description` (pdf_cli `--description`), falta rotular os de lá. (d) o painel externo citou um PDF da UFAPE como se fosse da UFRPE: a resposta do painel precisa de conferência de domínio antes de chegar a Lucas. (e) a entropia do docs-ufrpe conta o 14 entre colchetes duplos (nota de rodapé verbatim de norma) como wiki-link quebrado: falso positivo do mesmo tipo do tachado.

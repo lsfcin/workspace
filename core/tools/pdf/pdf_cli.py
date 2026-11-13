@@ -24,6 +24,7 @@ def parse(argv: list[str], leaf: str) -> argparse.Namespace:
     ap.add_argument('--from', dest='listing', type=Path, help='a file with one PDF path per line')
     ap.add_argument('--describer', choices=describe.DESCRIBERS, default='agy')
     ap.add_argument('--origin', help='live URL or Drive id of the PDF (one PDF only)')
+    ap.add_argument('--description', help="what the PDF is, for the routing table (one PDF only)")
     ap.add_argument('--force', action='store_true', help='rebuild even when the twin is fresh')
     ap.add_argument('--review', action='store_true', help='render the flagged pages for an agent to compare')
     ap.add_argument('--reviewed-by', metavar='WHO', help='stamp the twin reviewed after fixing it')
@@ -35,7 +36,16 @@ def parse(argv: list[str], leaf: str) -> argparse.Namespace:
         ap.error('no PDF given')
     if args.origin and len(args.pdfs) != 1:
         ap.error('--origin names the source of ONE PDF')
+    if args.description and len(args.pdfs) != 1:
+        ap.error('--description describes ONE PDF')
     return args
+
+
+def label(pdf: Path, text: str) -> str:
+    """Set the twin's description, the line its parent CONTEXT.md routes it by."""
+    twin = pdf_meta.twin_of(pdf)
+    pdf_meta.replace_frontmatter(twin, description=text)
+    return f'labelled  {twin}'
 
 
 def flagged_pages(twin: Path) -> list[int]:
@@ -93,6 +103,8 @@ def main(engine: str, leaf: str, argv: list[str]) -> int:
                 print(review(pdf, leaf), flush=True)
             else:
                 print(convert(pdf, engine, args), flush=True)
+            if args.description:
+                print(label(pdf, args.description), flush=True)
         except pdf_twin.EngineMissing as e:
             print(e, file=sys.stderr)
             return 2

@@ -29,3 +29,5 @@ coordenacao-lc/novo-ppc-bcc/ementas/autorais.json	Ementas redigidas do zero, sem
 test/fixtures/usual_daily.json	Cases for "your usual" that the Dart test and the Kotlin JUnit test both run, so the two implementations stay equal.
 test/fixtures/thermometer.json	Cases for the thermometer that the Dart test and the Kotlin JUnit test both run: window sums, the open session, the hour turn and bucket keys.
 test/fixtures/peak_hour.json	Cases for the peak hour that the Dart test and the Kotlin JUnit test both run: too few days, today left out, ties and a flat day.
+classes/techedu/2026-2-teste-prototipos.json	O questionário de teste de protótipos da turma 2026.2, uma resposta por protótipo testado, aplicado por gforms new.
+site/jsconfig.json	Diz ao editor que o viewer.js do docs-ufrpe é JavaScript de navegador, sem checagem de tipos.

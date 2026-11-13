@@ -104,7 +104,8 @@ def build(pdf: Path, engine: str, describer: str = 'agy', origin: str | None = N
     audit = {'word_coverage': coverage, 'images': f'{distinct}/{pdf_figures.embedded_count(pdf)}',
              'pages': f'{len(pages)}/{info["pages"]}', **pdf_meta.counts('\n'.join(pages))}
     needs_review = flagged or coverage < REVIEW_COVERAGE or len(pages) != info['pages']
-    fields = {'source': f'../{pdf.name}', 'sha256': digest, 'origin': origin,
+    fields = {'description': before.get('description'),
+              'source': f'../{pdf.name}', 'sha256': digest, 'origin': origin,
               'origin_checked': datetime.date.today().isoformat() if origin else None, 'pdf': info,
               'text_layer': pdf_meta.text_layer(texts), 'engine': result['engine'], 'audit': audit,
               'needs_review': needs_review, 'reviewed_by': None}

@@ -1,0 +1,81 @@
+# Usage: core/run tools/links/ufrpe-site [--dry] — build ufrpe.pages.dev whole from git (montagrade + docs) and deploy it: a direct upload replaces the project, so no part ships alone
+import argparse
+import os
+import pathlib
+import subprocess
+import sys
+import tempfile
+
+_HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(_HERE.parent))
+import tool_law  # noqa: E402
+
+tool_law.require('link-shortener')
+
+ROOT = _HERE.parents[2]
+PROJECT = 'ufrpe'
+WRANGLER = 'wrangler@3.114.0'
+# Every part of the site: (published folder, repo, ref, paths to take, folder inside the repo that becomes the root).
+# A new part of the UFRPE site is one row here, or the next deploy deletes it.
+PARTS = (
+    ('montagrade', ROOT / 'code/ppc', 'main',
+     ['index.html', '*.js', '*.css', 'grade-curricular.json', 'partials', 'constraints'], ''),
+    ('docs', ROOT / 'academy/administration/docs-ufrpe', 'main', ['*.md', ':!.github', 'site'], 'site'),
+)
+# What each part must hold after the build, or the deploy is refused.
+MUST = ('montagrade/index.html', 'docs/index.html', 'docs/viewer.js', 'docs/README.md')
+HOME = """<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UFRPE</title><style>body{font:16px/1.6 system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px}</style></head>
+<body><h1>UFRPE</h1><ul>
+<li><a href="docs/">docs</a> — documentos oficiais da UFRPE em Markdown</li>
+<li><a href="montagrade/">montagrade</a> — montar a grade de um PPC</li>
+</ul></body></html>
+"""
+
+
+def take(dest: pathlib.Path, repo: pathlib.Path, ref: str, paths: list, flatten: str) -> None:
+    dest.mkdir(parents=True)
+    archive = subprocess.run(['git', '-C', str(repo), 'archive', ref, '--', *paths],
+                             check=True, capture_output=True).stdout
+    subprocess.run(['tar', '-x', '-C', str(dest)], input=archive, check=True)
+    if flatten:
+        for item in (dest / flatten).iterdir():
+            item.rename(dest / item.name)
+        (dest / flatten).rmdir()
+
+
+def build(out: pathlib.Path) -> None:
+    for name, repo, ref, paths, flatten in PARTS:
+        take(out / name, repo, ref, paths, flatten)
+    (out / 'index.html').write_text(HOME, encoding='utf-8', newline='\n')
+    missing = [m for m in MUST if not (out / m).is_file()]
+    if missing:
+        sys.exit(f'refused: the build lacks {", ".join(missing)}')
+
+
+def deploy(out: pathlib.Path) -> None:
+    env = dict(os.environ)
+    for line in (_HERE / 'segredos.env').read_text(encoding='utf-8').splitlines():
+        key, sep, value = line.partition('=')
+        if sep and not key.startswith('#'):
+            env[key.strip()] = value.strip().strip('"\'')
+    env.update(CLOUDFLARE_API_TOKEN=env['CLOUDFLARE_TOKEN'], CLOUDFLARE_ACCOUNT_ID=env['CLOUDFLARE_ACCOUNT'],
+               NODE_OPTIONS='--dns-result-order=ipv4first')
+    subprocess.run(['npx', '-y', WRANGLER, 'pages', 'deploy', str(out), '--project-name', PROJECT, '--branch', 'main',
+                    '--commit-dirty=true'], check=True, env=env)
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description='build and deploy ufrpe.pages.dev whole')
+    ap.add_argument('--dry', action='store_true', help='build only, print the folder, deploy nothing')
+    args = ap.parse_args()
+    out = pathlib.Path(tempfile.mkdtemp(prefix='ufrpe-site-')) / 'site'
+    build(out)
+    print(f'built {out}: ' + ', '.join(sorted(p.name for p in out.iterdir())))
+    if not args.dry:
+        deploy(out)
+
+
+if __name__ == '__main__':
+    main()
