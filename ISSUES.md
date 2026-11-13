@@ -183,7 +183,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/ai4good-sem3 is 2 ahead of main
-- . — feature/twin-description is 12 ahead of main
+- . — feature/twin-description is 13 ahead of main
 
 ### Local branches already merged into their base
 
@@ -207,25 +207,25 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 2026-11-13 · `verify.py full` · **red**
 
 ```
-        """
-        if request.node.get_closest_marker('serial'):
-            yield
-            return
-        before = _shape()
-        yield
-        after = _shape()
-        if before != after:
-            changed = sorted(set(before) ^ set(after)
-                             | {k for k in set(before) & set(after) if before[k] != after[k]})
->           pytest.fail(
-                f'this test changed the real workspace tree: {changed[:8]}. Build what you need under '
-                f'tmp_path, or mark the case `serial` if it genuinely has no boundary -- see '
-                f'core/tools/test/wos/CONTEXT.md and b20260902.')
-E           Failed: this test changed the real workspace tree: ['code/ppc']. Build what you need under tmp_path, or mark the case `serial` if it genuinely has no boundary -- see core/tools/test/wos/CONTEXT.md and b20260902.
+E       assert not ['core/tools/links/ufrpe-site:51 (newline)']
 
-core/tools/test/conftest.py:187: Failed
+core/tools/test/workspace/ceilings/test_encoding_ceiling.py:142: AssertionError
+________________ test_constraints_in_context_heads_do_not_grow _________________
+[gw12] linux -- Python 3.14.4 /mnt/workspace/.venv/bin/python3
+
+    def test_constraints_in_context_heads_do_not_grow():
+        live = _misplaced()
+>       assert live <= MISPLACED_CEILING, (
+            f'{live} constrained heads, up from {MISPLACED_CEILING}. CONTEXT.md is the only '
+            f'enforced-read type — move the contract to a sibling SPECS.md and leave one '
+            f'pointer (core/SCHEMA.md § Placement)')
+E       AssertionError: 1 constrained heads, up from 0. CONTEXT.md is the only enforced-read type — move the contract to a sibling SPECS.md and leave one pointer (core/SCHEMA.md § Placement)
+E       assert 1 <= 0
+
+core/tools/test/workspace/ceilings/test_corpus_ceiling.py:106: AssertionError
 =========================== short test summary info ============================
-ERROR core/tools/test/law/entropy/dashboard/test_b9_dry_run.py::test_the_explicit_flag_writes_nothing
-1174 passed, 1 skipped, 1 error in 363.82s (0:06:03)
+FAILED core/tools/test/workspace/ceilings/test_encoding_ceiling.py::test_no_text_read_or_write_inherits_the_os_answer
+FAILED core/tools/test/workspace/ceilings/test_corpus_ceiling.py::test_constraints_in_context_heads_do_not_grow
+2 failed, 1172 passed, 1 skipped in 383.02s (0:06:23)
 ```
 <!-- verify:end -->
