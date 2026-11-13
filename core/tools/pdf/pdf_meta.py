@@ -28,8 +28,10 @@ WORD = re.compile(r'[a-zà-ÿ0-9]{3,}')
 RAW_COMMANDS = ('pdftotext', 'pdftoppm', 'pdfimages', 'pdfinfo', 'pdftohtml', 'pdftocairo', 'mutool')
 RAW_MODULES = ('fitz', 'pymupdf', 'pymupdf4llm', 'pypdf', 'PyPDF2', 'pdfplumber', 'pdfminer',
                'docling', 'markitdown')
-FIELDS = ('source', 'sha256', 'origin', 'origin_checked', 'pdf', 'text_layer', 'engine', 'audit',
-          'needs_review', 'reviewed_by')
+# `description` is the one field a person writes (pdf_cli `--description`): what the routing table
+# shows for the twin. The engine cannot know what a PDF is for, so a rebuild keeps it.
+FIELDS = ('description', 'source', 'sha256', 'origin', 'origin_checked', 'pdf', 'text_layer', 'engine',
+          'audit', 'needs_review', 'reviewed_by')
 
 
 def sha256(path: Path) -> str:

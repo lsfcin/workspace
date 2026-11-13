@@ -2,7 +2,7 @@
 > A PDF becomes its twin: a sibling folder whose .md holds all the text, every figure described, and the hash that says when it went stale. Provider leaves: `docling`, `pymupdf`.
 
 ```
-core/run tools/pdf/docling <pdf>... [--from <file>] [--describer agy|local|claude] [--origin <url>] [--force]
+core/run tools/pdf/docling <pdf>... [--from <file>] [--describer agy|local|claude] [--origin <url>] [--description <text>] [--force]
 core/run tools/pdf/docling <pdf> --review          # render the flagged pages for an agent to compare
 core/run tools/pdf/docling <pdf> --reviewed-by <who>
 ```
@@ -30,7 +30,7 @@ The `.md` is versioned; the PNG originals are gitignored; JPEG previews are vers
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`docling`](docling) | — | — | a PDF becomes its twin folder (full .md, figures described, metadata) through Docling: GPU, scans in Portuguese, tables |
-| [`pdf_cli.py`](pdf_cli.py) | [`pdf_cli.pyi`](pdf_cli.pyi) | `parse`, `flagged_pages`, `review`, `stamp`, `convert` | pdf_cli.py — the command line both engine leaves share: many PDFs per call, one line each, a summary naming the failures, and the review pass. |
+| [`pdf_cli.py`](pdf_cli.py) | [`pdf_cli.pyi`](pdf_cli.pyi) | `parse`, `label`, `flagged_pages`, `review`, `stamp` | pdf_cli.py — the command line both engine leaves share: many PDFs per call, one line each, a summary naming the failures, and the review pass. |
 | [`pdf_engine.py`](pdf_engine.py) | [`pdf_engine.pyi`](pdf_engine.pyi) | `main` | pdf_engine.py — the conversion worker: one PDF in, markdown per page plus every figure out. Runs under .venv-pdf, never .venv. |
 | [`pdf_figures.py`](pdf_figures.py) | [`pdf_figures.pyi`](pdf_figures.pyi) | `Figure`, `look`, `name_all`, `embedded_count`, `save` | pdf_figures.py — a twin's figures: the same image found twice is one figure, a logo on every page is decoration, each gets a name, a file and a markdown block. |
 | [`pdf_meta.py`](pdf_meta.py) | [`pdf_meta.pyi`](pdf_meta.pyi) | `sha256`, `twin_of`, `source_of`, `is_twin`, `twin_state` | pdf_meta.py — the one place a PDF is opened raw, and what a twin says about it: hash, pdfinfo, text layer, pages rendered, the free audit, the frontmatter, and whether the twin is still true. |
