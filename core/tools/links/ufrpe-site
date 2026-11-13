@@ -48,7 +48,7 @@ def take(dest: pathlib.Path, repo: pathlib.Path, ref: str, paths: list, flatten:
 def build(out: pathlib.Path) -> None:
     for name, repo, ref, paths, flatten in PARTS:
         take(out / name, repo, ref, paths, flatten)
-    (out / 'index.html').write_text(HOME, encoding='utf-8')
+    (out / 'index.html').write_text(HOME, encoding='utf-8', newline='\n')
     missing = [m for m in MUST if not (out / m).is_file()]
     if missing:
         sys.exit(f'refused: the build lacks {", ".join(missing)}')

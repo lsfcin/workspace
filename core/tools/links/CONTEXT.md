@@ -10,16 +10,10 @@ core/run tools/links/cfpages check                     # what is untrue about th
 core/run tools/links/cfpages publish academy/teaching/classes/ai4good/disciplina.md   # a course page + artefatos, live
 core/run tools/links/cfpages pull                      # browser edits + student deliveries come home (publish runs it)
 core/run tools/links/cfpages secrets --push            # the site's 3 secrets, from segredos.env, set + redeployed
-core/run tools/links/ufrpe-site [--dry]                # ufrpe.pages.dev whole (montagrade + docs) from git, deployed
+core/run tools/links/ufrpe-site [--dry]                # ufrpe.pages.dev, whole, from git
 ```
 
-Named short names, not codes — `ai4good`, not `x7f2q`. A short name is said out loud and typed from memory.
-
-```
-lucassf.pages.dev/ai4good        a course home
-lucassf.pages.dev/ai4good/setup  something inside it — one level
-lucassf.pages.dev/rva-chico      a one-off, flat and hyphenated
-```
+Named short names, not codes — `ai4good`, `ai4good/setup` (one level), `rva-chico` (a one-off) — never `x7f2q`. A short name is said out loud and typed from memory.
 
 [`links.txt`](links.txt) records every short name's target, one tab-separated row, queried with `find`.
 `gforms new`, `gslides new`, `gdocs new` and `gdrive share` each take `--short-name`, through [`../short_name.py`](../short_name.py), so a link is named where it is created.
