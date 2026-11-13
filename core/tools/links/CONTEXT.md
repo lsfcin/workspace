@@ -10,6 +10,7 @@ core/run tools/links/cfpages check                     # what is untrue about th
 core/run tools/links/cfpages publish academy/teaching/classes/ai4good/disciplina.md   # a course page + artefatos, live
 core/run tools/links/cfpages pull                      # browser edits + student deliveries come home (publish runs it)
 core/run tools/links/cfpages secrets --push            # the site's 3 secrets, from segredos.env, set + redeployed
+core/run tools/links/ufrpe-site [--dry]                # ufrpe.pages.dev whole (montagrade + docs) from git, deployed
 ```
 
 Named short names, not codes — `ai4good`, not `x7f2q`. A short name is said out loud and typed from memory.
@@ -35,4 +36,5 @@ The short name grammar, the private-folder refusal, why Cloudflare rather than G
 | [`links.txt`](links.txt) | — | — | Every short link this workspace hands out: the short name someone is told out loud, and where it really goes. Read by core/tools/links/links_core.py; published as _redirects by `cfpages build`. |
 | [`links_core.py`](links_core.py) | [`links_core.pyi`](links_core.pyi) | `base`, `Refused`, `load`, `preamble`, `save` | links_core.py — the short name map read+write boundary, and the redirect file it emits, for links/cfpages |
 | [`pages.py`](pages.py) | [`pages.pyi`](pages.pyi) | `Refused`, `resolve_page`, `mirror_of`, `redraw`, `mirror` | pages.py — a course page and its artefacts mirrored into the publish repo and pushed, in one call, for links/cfpages |
+| [`ufrpe-site`](ufrpe-site) | — | — | build ufrpe.pages.dev whole from git (montagrade + docs) and deploy it: a direct upload replaces the project, so no part ships alone |
 <!-- routing:end -->
