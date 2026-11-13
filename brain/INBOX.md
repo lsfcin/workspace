@@ -9,6 +9,28 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DfgichBCgG0/?srtk=NTc4MTIwNjQ2YQ==
+esse talvez seja o maior exemplo que dá pra fazer o isoroll de uma forma diferente
+talvez até se desgarrar do foundry e focar em three.js...
+— via aiwbot · 2026-11-13
+
+https://www.instagram.com/reel/Dfm0chrgc01/?cplk=MTdoeDFhb3J5YWIwZQ==
+isso é verdade? tenho que incluir langchain/langgraph nas minhas aulas?
+— via aiwbot · 2026-11-13
+
+https://www.instagram.com/reel/DfqrLeoGEhb/?dlrf=MXUyc3AwN3J4Y29xYw==
+isso parece ser um gamechanger pro wos mas posso estar enganado
+sagwiki... temos que checar
+— via aiwbot · 2026-11-13
+
+https://www.instagram.com/reel/DfoOGriCGNL/?mdxt=MWF6NzR6djluZjMyeA==
+Será que conseguimos ignorar o que já foi feito e criar um isoroll 2.0 direto com o fable?
+— via aiwbot · 2026-11-13
+
+https://www.instagram.com/reel/DfoRhzMFVGb/?xtok=c2hpNXo5NGRmeHpm
+além da triagem normal quero monitorar esse repo
+— via aiwbot · 2026-11-13
+
 https://www.instagram.com/reel/DfijE9TOuvi/?mdxt=MTNmbDRuNmliZ2V5cQ==
 — via aiwbot · 2026-11-11
 
