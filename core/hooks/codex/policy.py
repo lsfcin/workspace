@@ -122,7 +122,7 @@ def main() -> int:
         'SessionStart': ['session/session-prune.py', 'session/mirror-heal.py', 'session/reminders.py'],
         'PreCompact': ['session/precompact-wipe.py'],
         'SubagentStart': ['read/agent-context.py'],
-        'UserPromptSubmit': ['session/context-meter.py'],
+        'UserPromptSubmit': ['session/context-meter.py', 'session/downloads.py'],
     }
     if event in lifecycle:
         for rel in lifecycle[event]:
