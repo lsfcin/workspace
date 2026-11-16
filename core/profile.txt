@@ -79,6 +79,7 @@ toggle	bot	on
 toggle	notify	off
 toggle	context-meter	on
 toggle	statusline	on
+toggle	downloads	on
 toggle	precompact-wipe	on
 toggle	entropy-dashboard	on
 toggle	hook-scoreboard	on

@@ -53,6 +53,11 @@
               "type": "command",
               "timeout": 30,
               "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/context-meter.py"
+            },
+            {
+              "type": "command",
+              "timeout": 30,
+              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/downloads.py"
             }
           ]
         }
