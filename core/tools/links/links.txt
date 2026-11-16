@@ -9,6 +9,8 @@ short_name	url	owner	added
 1322	https://13ou22.pages.dev/	1322	2026-10-23
 ai4good/abertura	https://docs.google.com/presentation/d/1mhJFLULrPU_HoZ5emkeC7AiHCkw5HkHRLm-bCq3e_cE/present	ai4good	2026-09-24
 ai4good/agencia	https://docs.google.com/presentation/d/12uqqaF05i5hs1B1Q4rH9odjlpF8M-QxT6sG_lkkKU1E/present	ai4good	2026-09-23
+ai4good/artigo	https://lucassf.pages.dev/ai4good/?doc=artefatos/6-artigo.md	ai4good	2026-11-16
+ai4good/artigo-deck	https://docs.google.com/presentation/d/1-jbWSvOYqUWVMDuoWuMNJoro1qVshmM3j2KFbYSj2X0/present	ai4good	2026-11-16
 ai4good/autoaprimoramento	https://docs.google.com/presentation/d/1mqFfYtF0yyQd2JAnQoaQ6TnJ0dqpWVmxZcmxEG1K67U/present	ai4good	2026-09-23
 ai4good/autocodificadores	https://docs.google.com/presentation/d/1GZ2W2YAFJkd5Z5uJM8kjuQzZK8SsEPnzO2NWbk1Ji5w/present	ai4good	2026-09-24
 ai4good/autopreservacao	https://docs.google.com/presentation/d/1o7MWYdm74XMNbwWRD7OWXsayB0UQLBTbrcshAkom3cM/present	ai4good	2026-09-23
