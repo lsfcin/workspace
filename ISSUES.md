@@ -5,6 +5,8 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **gslides lint marca "off the slide" em placeholders que renderizam dentro do slide.** Nos decks do artigo (techedu 111 achados, ai4good 62), títulos, corpos e complementos herdados do layout saem como fora do slide, e a prévia mostra todos no lugar: o lint parece ler a transformação do placeholder sem compor a do layout. Com o ruído, um elemento fora de verdade some na lista (16 Nov). `b20261116-gslides-lint-placeholder`
+
 - Recheck the dated 2-Nov Codex parity audit: policy.py consumed worker-brief stdin; partial reads passed with exit 0 despite 17 green tests. Permissions/effort, automatic Caveman/status display, bot and export lacked equivalent behavior; six Google grants failed and jscpd lacked its platform package. Native/four-program delegation worked, external calls required escalation; no public push followed 11 failed target tests. Track each feature/environment, including public clone, without assuming failures persist. Evidence/reproducers: outputs/codex-audit-20261102/; Core [cross-harness-delegation]. `b20261102-codex-parity`
 
 - **cfpages secrets --push omite ambiente de preview e restringe escopo documentado do token.** cfpages secrets --push só configura o ambiente de produção; deploys de preview ficam sem GITHUB_TOKEN/ENIGMA_SECRET, impedindo testes e2e em preview. O comentário em segredos.env restringe indevidamente o GITHUB_TOKEN a lsf-links, embora cubra academy-teaching (4 Nov). `b20261104-cfpages-preview-secrets`
