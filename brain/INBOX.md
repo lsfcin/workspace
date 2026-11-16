@@ -9,6 +9,30 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DfzPa9qOL7F/?exln=MTc4Zm5hdDZsejN3eA==
+vale a pena a gente usar?
+— via aiwbot · 2026-11-16
+
+https://www.instagram.com/reel/DfyQPhFtW-z/
+quero testar isso pra mostrar na aula de transformers
+— via aiwbot · 2026-11-16
+
+https://www.instagram.com/reel/DfwMdQ6hGlh/?xtok=MWd5ODZ4enV6aXp1aA==
+tá aparecendo um desejo de pular pro isoroll 2.0 e fazer ele funcionar pra celular e pc, liso, super otimizado
+— via aiwbot · 2026-11-15
+
+https://www.instagram.com/reel/DfxR4P3DBj7/?cplk=bGRnMXNvdjFlOGp3
+Será que dá pra colocar na nossa estratégia de context folding
+— via aiwbot · 2026-11-15
+
+https://www.instagram.com/reel/DfsjQP3SWbi/?psln=eGR5a3hxb3BjNWZ0
+teste de "ferro" pro texpace
+— via aiwbot · 2026-11-15
+
+https://www.instagram.com/reel/DfqzcWMw5bj/?psln=NTc4MTIwNjQ2YQ==
+você não vai entender isso por que o detalhe está no visual, mas é um jogo com um design que parece uma pintura em 3D, tá muito bonito e foi feito com fable 5.2, to bem interessado em como foi feito esse tipo de coisa e se a gente consegue aproveitar algo do workflow pra nós
+— via aiwbot · 2026-11-13
+
 mais uma ref pro isoroll
 https://www.instagram.com/reel/DfqSGsDsBx7/?psln=NTc4MTIwNjQ2YQ==
 — via aiwbot · 2026-11-13
@@ -156,8 +180,6 @@ https://www.instagram.com/p/De-eRt1knz7/?img_index=3&exln=MXZmaWZncm9pYWkwNw==
 — via aiwbot · 2026-10-31
 
 
-
-
 - (2026-11-04, sessão apptime) `core/tools/panel/ask` só tem codex e agy; opencode (`~/.opencode/bin/opencode`) e zcode (`/usr/bin/zcode`) estão instalados mas ninguém testou a chamada headless — testar e entrar na cadeia. assimetria: a folha `ask` é uma cadeia de providers, e a regra da família diz "o arquivo é o provider".
 - (2026-11-04, sessão apptime) `./gradlew testDebugUnitTest` falha em `:url_launcher_android` (teste do plugin, não nosso); `:app:testDebugUnitTest` passa. ver se o verify do apptime roda só `:app`. o MIUI recusa `adb install` às vezes (`INSTALL_FAILED_VERIFICATION_FAILURE`), passa na 2ª tentativa — o `phone/adb` podia repetir sozinho.
 - (2026-11-04, sessão apptime) `code/apptime/ROADMAP.md` em 237 linhas / 19.381 chars, bloqueia em 250 / 20.000: cortar (as seções de painel e Workspace drift são candidatas), não dividir.
@@ -194,8 +216,7 @@ em alguma sessão acho que do codex ou do antigravity eu pedi pra colocar uns li
 
 - (2026-11-11, CAPD George) (a) assimetria de nome: a Portaria DC 57/2026 diz "Comissão de Avaliação e Progressão Docente"; os pareceres da casa dizem "Comissão de Avaliação de Pessoal Docente". (b) a cópia `ParecerNº22_GeorgeValença.docx` ainda cita a Portaria 64/2025, revogada pela 57/2026. (c) a pasta da CAPD no Drive é só leitura para agentes, mas hoje só uma frase em `capd/CONTEXT.md` garante isso; um hook podia recusar escrita de `gdrive`/`gdocs` nos ids protegidos.
 
-- (2026-11-11, docs-ufrpe) MACRO da sessão do lote 1: (a) o gêmeo de PDF começa com frontmatter, então a rota do CONTEXT.md mostra "← add first-line comment" para cada um e o painel de entropia conta isso como placeholder sem resposta; o gerador da rota podia ler o título do frontmatter do gêmeo. O gêmeo de .docx feito à mão (via Google Doc temporário + `gdocs read`) teve de usar `# Título` na 1ª linha, assimétrico ao de PDF; `core/tools/docs/` merecia um `docx`→gêmeo de verdade, com tabelas, no mesmo formato do PDF. (b) o texto legal com dispositivo revogado (tachado) dispara "prose describing finished work": falso positivo em texto verbatim de norma. (c) a lei de segredos marca o CNPJ da própria UFRPE no timbre; redigi para `[CNPJ da UFRPE]`, mas um allowlist de CNPJs institucionais públicos evitaria isso a cada lote. (d) `git commit -q` em repo com hook longo sai com código 0 sem commitar quando o hook recusa (o `-q` engole o ⛔): aconteceu 3 vezes; o rtk ou o hook deviam devolver código ≠ 0. (e) o `docling` em segundo plano não aparece no `ps` desta sessão e levou mais de 10 min por PDF descrevendo brasões; para PDF com camada de texto o `pymupdf` resolveu em segundos — o default podia escolher pelo `text_layer`. (f) `gh repo create` foi recusado pelo classificador do modo automático e Lucas teve de digitar (ele: "se você não precisa de mim, é você quem executa"). Corrigido na fonte: a ação neutra `push` agora rende também `Bash(gh repo create:*)` (`core/tools/wos/permissions`); falta Lucas rodar `--set open`, porque re-renderizar as próprias permissões é auto-modificação e o classificador recusa. (g) comando entregue ao Lucas leva caminho absoluto: dois comandos com `cd` relativo encadeados falharam no segundo. Lugar certo: `core/skills/handoff.md` ou AGENTS.md, com o OK dele.
-
-- (2026-11-13, ai4good sem3) MACRO: (a) `cfpages publish` recusou porque o painel VA2 do `disciplina.md` no workspace estava atrás do site em 11 linhas (notas dadas no navegador); o `pull` só traz o que não colide, então toda edição de cronograma colide com nota nova — trazer o painel antes de editar, ou o pull mesclar por linha de aluno. (b) Git Flow diz `feature/*` a partir de `develop`, mas o trabalho da disciplina vive num `feature/ai4good-v1` longo, 44 commits à frente do `develop` de `academy/teaching`; e o `rastro-da-banca` nem tem `develop` (assimetria).
 
 - (2026-11-13, administração/docs-ufrpe) MACRO: (a) a ferramenta `attachments` do gmail quebra sem chave da API Anthropic; contornei pelo `body_preview` do cache e pelo link do Drive. (b) `git commit -q` voltou a engolir a recusa do type-gate (CONTRIBUTING.md fora da allowlist) com código 0 — repete a (d) de 11/11. (c) `academy/cv/comprovantes/2026/CONTEXT.md` ainda tem "← add description": o gêmeo agora tem `description` (pdf_cli `--description`), falta rotular os de lá. (d) o painel externo citou um PDF da UFAPE como se fosse da UFRPE: a resposta do painel precisa de conferência de domínio antes de chegar a Lucas. (e) a entropia do docs-ufrpe conta o 14 entre colchetes duplos (nota de rodapé verbatim de norma) como wiki-link quebrado: falso positivo do mesmo tipo do tachado.
+
+
