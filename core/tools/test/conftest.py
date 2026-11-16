@@ -176,6 +176,11 @@ def _no_test_dirties_the_real_tree(request):
     rather than a random red in a file its author never touched.
     """
     if request.node.get_closest_marker('serial'):
+        # Run by hand under -n, a serial case is the coin flip pytest_configure describes: its
+        # neighbours went red by the dozen, blamed on tests that did nothing wrong (2026-11-16).
+        if hasattr(request.config, 'workerinput'):
+            pytest.fail('`serial` case in a parallel (-n) run. Run verify.py, or split it: '
+                        '`-m serial`, then `-n auto -m "not serial"`.', pytrace=False)
         yield
         return
     before = _shape()
