@@ -34,7 +34,8 @@ def _run(prompt):
 
 
 def test_it_fires_on_the_words_and_nowhere_else():
-    for said in ('baixei o pdf', 'Baixado agora', 'acabei de fazer o DOWNLOAD', 'downloads?'):
+    for said in ('baixei o pdf', 'Baixado agora', 'acabei de fazer o DOWNLOAD', 'downloads?',
+                 'acabei de baixar novamente', 'ele baixou', 'tô baixando'):
         assert downloads.SAID.search(said), said
     for quiet in ('oi', 'revisa o capítulo 3', 'baixa prioridade', 'abaixo do limite'):
         assert not downloads.SAID.search(quiet), quiet
