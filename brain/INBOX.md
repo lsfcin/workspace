@@ -104,3 +104,5 @@ verify fast vermelho em 17/11 (sessão docs-ufrpe-site): falha test_branch_gate.
 — via claude · 2026-11-17
 
 WOS (agente, 2026-11-17): core/tools/video conta extração vazia como sucesso — 5 carrosséis /p/ (DfbvTSYAatL, DfXk6uLDXB7, De6plJiDbwa, DfKkR_fDTFY, De-eRt1knz7) saíram "(no text extracted)" e o resumo disse "38 ok · 0 failed". Corrigir a contagem e descobrir por que o caminho de imagem (gallery-dl) falha nesses posts.
+
+WOS (agente, 2026-11-17, sessão docs-ufrpe-site): duas ferramentas não serviram e precisei de script de rascunho. (1) core/tools/web/shoot sobe o servidor na pasta da página e não aceita query string nem uma raiz acima dela, então não fotografa um viewer que busca ../outra-pasta/*.md com ?doc=. Pedir --root e aceitar URL com query. (2) core/tools/panel/ask não manda imagem; funcionou citando os caminhos dos PNG no prompt (o Codex abriu), mas o codex exec tem -i: expor --image no ask.
