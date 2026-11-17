@@ -94,6 +94,8 @@ The other two answers are in: `is_owner_only()` reads the ACL back rather than t
 - **`core/flows/` and `core/agents/`** (Lucas, 2026-08-25) — wait until v1 repo is tight.
 - **Anything a nested repo owns** — each keeps its own `ISSUES.md` and fixes its own findings.
 - **`[gdrive-integration]`, `[offline-resilience]`, serious OCR** — content/infrastructure, not repo.
+- **One `WOS_SESSION_ID` for every harness** (panel recommended, Lucas deferred, 2026-11-10) — **reopen when a drift warning goes missing** on Copilot, opencode or Antigravity; without it, a commit there loses only that warning.
+- **One worktree per session** (panel, 2026-11-10) — **reopen if parallel sessions still collide** after the Git Flow gate. Known conflicts: roundup's branch sweep (AD 2026-08-14), and roundup cannot close from a worktree yet (`b20261110-roundup-worktree`).
 
 ## Rejected
 

@@ -72,6 +72,8 @@ The evidence cost two rounds of wording. `core/skills/inbox.md` ordered link ext
 
 So a tool that a skill *requires* is designed batch-first: many arguments or a file to read them out of, one block of output per item, a summary line naming the failures, and **no item's failure ends the run**. This is the one-action rule for agent-facing text pointed at the tool rather than at the text — the text can only name one action if the tool offers one.
 
+**A background run is watched through the harness's task notice, never `ps`.** Inside the Claude Code sandbox `ps` does not see processes started in the background: on 2026-10-30 a live run looked dead and three more copies of `avaliar.py` were launched beside it.
+
 ## A provider without OAuth
 
 The decision — that the module holding the secret lives in the family rather than in `auth/` — is [`core/SPECS.md`](../SPECS.md) § AD-12. Its two consequences moved here on 2026-09-06 because they constrain **how a tool is written**, not where a module sits, and a rule belongs beside the code it governs.

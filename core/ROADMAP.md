@@ -40,8 +40,8 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 *What* — Identify REA/PhotoCraft/EffectCraft; compare methods, media, licences and legal claims. [cadcraft] Assess agent-controlled drawing, clients and formats; construction: ../branches/casinhas/ROADMAP-obra.md. Virada roadmap. *Why* — Repeated discovery/production. *Done when* — Evidenced transfer or rejection.
 
 
-**🟢 [links-cleanup] lsf-links cleanup — today**
-*What* — Verify orphan functions/api/lib and uncommitted functions/jsconfig.json in lsf-links (Claude, 16 Oct); commit justified cleanup separately. *Why* — Reported permission blocks. *Done when* — Disk/Git diagnosis and verification agree.
+**🟢 [drive-write-guard] Protected Drive ids — backlog**
+*What* — A hook refuses gdrive/gdocs writes to listed Drive ids; first, the CAPD folder. *Why* — One sentence in capd/CONTEXT.md is its only guard (11 Nov). *Done when* — A write to a listed id is refused, naming why.
 
 
 **🟢 [visual-tools] Captured visual tools — backlog**

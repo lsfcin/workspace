@@ -26,20 +26,21 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`links/`](links/CONTEXT.md) | A link gets a name a room can be told out loud. Provider leaf: `cfpages` (Cloudflare Pages). |
 | [`mail/`](mail/CONTEXT.md) | Read a mailbox and triage it. Provider leaf: `gmail`. Auth: [`../auth/gauth.py`](mail/../auth/gauth.py). |
 | [`notes/`](notes/CONTEXT.md) | Pages and note databases, read as navigable text. Provider leaf: `notion` (Notion REST API). |
+| [`panel/`](panel/CONTEXT.md) | An outside verdict from another vendor's model, read-only. Leaf: `ask` (Codex GPT, then agy Gemini Argon, then Flash). |
 | [`paper/`](paper/CONTEXT.md) | Academic sources and text: search papers, extract text, annotate, check terminology. |
 | [`pdf/`](pdf/CONTEXT.md) | A PDF becomes its twin: a sibling folder whose .md holds all the text, every figure described, and the hash that says when it went stale. Provider leaves: `docling`, `pymupdf`. |
 | [`slides/`](slides/CONTEXT.md) | Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides API); `pptx` builds the masters and layouts the API cannot. |
 | [`test/`](test/CONTEXT.md) | The verify-fast suite: every Level 0 check plus the tool unit tests. Zero-token, no network. |
 | [`verify/`](verify/CONTEXT.md) | Verification contract + patterns for all code projects: levels T0-T3, script names, dump-oracle rules. Reference |
 | [`video/`](video/CONTEXT.md) | Link to navigable text — metadata, captions, transcript, OCR, VLM caption. |
-| [`web/`](web/CONTEXT.md) | Reach the open web: search, fetch a page as text, browse and search code hosts. |
+| [`web/`](web/CONTEXT.md) | Reach the open web: search, fetch a page as text, browse and search code hosts, render a page as PNG. |
 | [`wos/`](wos/CONTEXT.md) | Tools that act on the workspace itself: spec list, contract check, skill mirrors. |
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`SPECS.md`](SPECS.md) | — | — | What must be true of a `core/tools/` feature, and why: how a family is named, what a failure has to hand back, and what work is the agent's rather than Lucas's. |
 | [`attachments_util.py`](attachments_util.py) | [`attachments_util.pyi`](attachments_util.pyi) | `safe_name`, `month_dir`, `unique_path`, `prune_old_attachments` | attachments_util.py — shared filename/dir helpers for Core/tools attachment downloaders (gmail, telegram) |
-| [`auth/gauth.py`](auth/gauth.py) | [`auth/gauth.pyi`](auth/gauth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `resolve_alias`, `AuthExpired` | gauth.py — Google's leaf of the auth family: shared OAuth2 for every Google-backed tool |
+| [`auth/gauth.py`](auth/gauth.py) | [`auth/gauth.pyi`](auth/gauth.pyi) | `config_dir`, `get_accounts`, `primary_aliases`, `home_alias`, `resolve_alias` | gauth.py — Google's leaf of the auth family: shared OAuth2 for every Google-backed tool |
 | [`deps.txt`](deps.txt) | — | — | Every external dependency the core/tools surface needs, declared: what installs it, what checks it, and what its absence breaks. Read by core/tools/wos/deps (the check runner) and by core/tools/test/wos/test_deps.py (the class check). |
 | [`describe.py`](describe.py) | [`describe.pyi`](describe.pyi) | `Description`, `ocr`, `overlap`, `agy_logged_in`, `describe` | describe.py — the one image describer the tools share (pdf figures, video frames): which model looks, what the image's own text says, and whether the description can be trusted. |
 | [`gcli.py`](gcli.py) | [`gcli.pyi`](gcli.pyi) | `run`, `aliases`, `auth_command` | gcli.py — the two things every Google-backed CLI does identically: consent, and fan out over accounts |

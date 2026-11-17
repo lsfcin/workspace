@@ -9,6 +9,9 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/Df2FTAskdRe/
+— via aiwbot · 2026-11-17
+
 https://www.instagram.com/p/DfzwRBnDECr/?img_index=4&xtok=YTVjZ2VnMTZ3N2Qz
 vários jogos criados com quase nada de memória, checar se procede e usar esse poder no isoroll
 — via aiwbot · 2026-11-16
@@ -99,8 +102,6 @@ https://www.instagram.com/reel/DfghxaLt3Ey/?vrfl=MTZmYXVkaTVianIxag==
 — via aiwbot · 2026-11-09
 
 https://www.instagram.com/reel/Dfhog8VtWDx/?obrf=OGE1aWZ3emR6d3Bk
-— via aiwbot · 2026-11-09
-
 me parece sólido, gostaria de usar a mesma estratégia aqui
 — via aiwbot · 2026-11-09
 
@@ -108,9 +109,6 @@ investigar raea
 — via aiwbot · 2026-11-09
 
 investigar terminal-rsi
-— via aiwbot · 2026-11-09
-
-no app time, a aba, isso vai acontecer pro bloco também. Ela tem uma posição especifica por app, né? Por causa do drag and drop, você vai puxando ela pra um lado e pra outro, e cada app vai ter uma posição pra ela. O problema é que quando eu abro um app, ela simplesmente não muda pra posição daquele app. Ela faz um zig zag. Ela vai pra posição, aí depois ela volta e volta com um número que tá falando de alguma outra coisa, que não sei o que é, e depois vai de novo. Então, aparentemente o fluxo de abrir um app, não diz pro app time, simplesmente um novo app. É, tem uma ida e volta aí, que eu queria corrigir, esse zig zag.
 — via aiwbot · 2026-11-09
 
 checar, tem a ver com o freeai
@@ -187,44 +185,4 @@ ver se isso é útil no WOS
 https://www.instagram.com/p/De-eRt1knz7/?img_index=3&exln=MXZmaWZncm9pYWkwNw==
 — via aiwbot · 2026-10-31
 
-
-- (2026-11-04, sessão apptime) `core/tools/panel/ask` só tem codex e agy; opencode (`~/.opencode/bin/opencode`) e zcode (`/usr/bin/zcode`) estão instalados mas ninguém testou a chamada headless — testar e entrar na cadeia. assimetria: a folha `ask` é uma cadeia de providers, e a regra da família diz "o arquivo é o provider".
-- (2026-11-04, sessão apptime) `./gradlew testDebugUnitTest` falha em `:url_launcher_android` (teste do plugin, não nosso); `:app:testDebugUnitTest` passa. ver se o verify do apptime roda só `:app`. o MIUI recusa `adb install` às vezes (`INSTALL_FAILED_VERIFICATION_FAILURE`), passa na 2ª tentativa — o `phone/adb` podia repetir sozinho.
-- (2026-11-04, sessão apptime) `code/apptime/ROADMAP.md` em 237 linhas / 19.381 chars, bloqueia em 250 / 20.000: cortar (as seções de painel e Workspace drift são candidatas), não dividir.
-- (2026-11-04, sessão ai4good) o entropy dashboard rodou num worktree temporário (`/tmp/inbox-promote-develop-20261030`) e gravou no ISSUES.md do develop 72 achados falsos (routing para arquivos "que o repo não carrega"). rodar só na árvore principal, ou recusar fora dela.
-- (2026-11-04, sessão ai4good) `cfpages secrets --push` só configura produção; preview fica sem GITHUB_TOKEN/ENIGMA_SECRET, então nenhum e2e roda em preview. o comentário do GITHUB_TOKEN em `core/tools/links/segredos.env` diz "só lsf-links", mas ele já cobre academy-teaching.
-- (2026-11-04, sessão ai4good) `ciclo.py redes-convolucionais` parou de novo (agy vazio em revisa-d3-r1 e revisa-f3-r1; f6 com problema na r2). falhar de uma vez com o agy vazio fez parar 2 de 2 rodadas desse banco.
-- (2026-10-31, sessão apptime) `core/run tools/web/shoot` nasceu sem o `--unbundle` prometido: desempacotar um artifact exportado (`__bundler/manifest`, base64+gzip) ainda é script de scratchpad — o round 1 do apptime precisou dele de novo. Proposta: flag no shoot ou ferramenta irmã; mesma sessão, mesmo OK.
-- (2026-11-06, 3ª sessão apptime) WOS: decisão construída sem a resposta registrada do Lucas não caiu em "decidido sem perguntar" do handoff (ícone de notificação, `82cdec2`: telefone inteiro + zigue-zague; o estudo perguntou, ninguém registrou a resposta). o handoff/roundup podia cobrar: toda pergunta "para Lucas decidir" aberta na sessão tem resposta registrada ou vai para "decidido sem perguntar". e o agente leu o ROADMAP do apptime em pedaços e listou só os itens 🟡/🔴, deixando Aba, drag e outros de fora — "o que tem pela frente" pede o ROADMAP inteiro.
-- (2026-11-06, 4ª sessão apptime) WOS: um commit anunciou "B10" (`3747fb3`) sem escrever o B10 no ISSUES — o gate de ISSUES cobra prova para *sair* da lista, mas nada confere que uma mensagem de commit que cita `Bnn` deixou o `Bnn` no arquivo. e editar l10n do apptime pelo Edit exige ler os `.api` inteiros (centenas de chaves), então a sessão caiu em heredoc python, que o hook marca como UNGATED WRITE: o pré-requisito do Read empurra para o caminho sem gate.
-- (2026-11-06, 4ª sessão apptime) assimetria: o mesmo âmbar claro tinha três valores (`#8A5A00` no código, `#A86B0C` na página de estrutura, `#9E6500` derivado); ficou o do código, no SPECS § Visual. páginas de decisão deviam ler cores do SPECS, não reinventar. dois tokens aposentados sobrevivem em `code/apptime/refs/CONTEXT.md` (descrição) e no ROADMAP § Rejected do apptime (o hook nomeia).
-- (2026-11-06, 5ª sessão apptime) `phone/adb prefs` faz force-stop e lê o XML sem olhar o `.bak`: pós-install truncou o prefs (o Android restaurou do `.bak`). Ler o `.bak` se existir; `--open app` não abre nada.
-- (2026-11-06, 5ª sessão apptime) `cfpages check` testar o 302 de verdade (o push fora do `main` já é recusado). `feature/enigmas-sistema` do `outputs/links` carrega 6 commits de `_redirects` velhos: no merge, regenerar com `build`, não resolver na mão.
-- (2026-11-06, triagem inbox) A extração de links só imprime depois de terminar todos; nesta sessão precisou de adaptador temporário para salvar cada resultado. Avaliar saída incremental e retomada sem repetir links, preservando `--level full` e lotes de cinco para discussão. Assimetria confirmada na retomada: resultado com `method=none` e erro no fallback veio com `ok=true`; não deve contar como extraído.
-
 em alguma sessão acho que do codex ou do antigravity eu pedi pra colocar uns limites no consumo de memória do brave pq o ubuntu tava travando tudo. isso foi feito mas quero desfazer agora. em uma sessão do antigravity relativamente recente ele me falou de um outro método, pra limitar a ram e outro pra "compactar a ram" eu acho, easyloom algo assim, enfim, isso foi feito e a priori essas travas no brave não são mais necessárias. então quero testar. desativar tudo que foi feito especificamente sobre o brave, as mensagens que aparecem ex.: "Há um brave fora da proteção" e daí ver se a gestão de memória tá ok agora.  inclusive, pra ajudar a achar o código, vc pode procurar por essa frase. ATENÇÃO, não quero remover essa parte daqui do inbox! ela fica! até ser resolvido. não quero esconder ela em algum roadmap.
-
-- (2026-11-07, apptime) `code/apptime/SPECS.md` (~20k) e `ROADMAP.md` (19,6k) estão no limite de caracteres: a decisão desta sessão (OverlayStyle; Bloco e Aba recebem o toque e são arrastáveis, posição salva por app em `flutter.overlay_drop_<estilo>_<app>_x|y`; Aba presa à borda, faixa de 8% no meio; a janela é a única fonte do lado da Aba) só está nos commits e comentários. Cortar os dois antes de registrar em SPECS § Architecture Decisions.
-
-- (2026-11-09, palestra VT) tokens Google vencem separados por serviço (slides-write, drive, docs-write) e cada um pede navegador: numa noite travou 3 vezes; `gslides preview` depende do token de drive mesmo com slides autorizado (contornei com getThumbnail); `panel/ask` recebe caminho de arquivo, não texto, e o erro é um traceback. Avaliar reauth único e aceitar texto/erro claro.
-
-- (2026-11-09, apptime) WOS: o gate de primeira linha barra também arquivo no scratchpad (prompt do painel), e os gates de contexto/fachada barram um Read/Edit por vez; numa sessão só de ajustes em Dart isso rendeu várias voltas caras. assimetria: `panel/ask` exige arquivo e o scratchpad é o lugar dele, mas o gate trata como documento do workspace. e handoff citou "SPECS § Architecture Decisions" do apptime, seção que não existe; o roundup também manda escrever lá.
-
-- (2026-10-30, sessão exp) No sandbox do Claude Code, `ps` não enxerga processos lançados em segundo plano: julguei a rodada morta e lancei 3 cópias do avaliar.py em paralelo. Conferir com `ps` fora do sandbox, ou confiar no aviso da tarefa. Decidir onde mora (SPECS de hooks? memória?).
-
-- (2026-10-30, sessão exp) Assimetria: o guia do exp manda colar o veredito da auditoria "sem editar", mas no exp/excelente o veredito do Codex (7,9 mil caracteres) estourou o teto de 20 mil e foi resumido, com o aval de Lucas. Decidir se o prompt da auditoria nos guias pede "até 2 frases por célula".
-
-- (2026-11-10, roundup-conflict) Restou do gate de branch e do conflito no roundup: (a) o `record` do SessionStart ficou nos 3 shims, contra o plano, porque é ele que pega a troca de branch antes da primeira escrita; (b) não conferi se o `session_id` do payload do Codex é o mesmo `CODEX_THREAD_ID` do shell (se não for, o aviso no commit fica mudo no Codex); (c) o verify roda na feature, não no resultado do merge com um develop que divergiu (apontado pelo painel); (d) o pre-commit roda a suíte toda e morreu uma vez com código 137, sem deixar rastro.
-
-- (2026-11-10, sessão brave-undo) O `/roundup` não fecha a partir de um worktree em `.claude/worktrees/`: falta `.venv` (`core/run` aborta) e, mesmo com um link para ela, o verify fica vermelho em `test_b20260901_a_mirror_never_reaches_the_machine_that_pulled_it` ("working tree must start in sync"). A sessão usou worktree porque a branch principal estava suja com o trabalho de outra sessão. Promovi à mão, com o aval de Lucas.
-
-- (2026-11-10, gitflow-parallel) Restou do Git Flow paralelo: (a) o plugin do opencode provavelmente repassa o shell ao gate depois da chamada (mesmo `buildPayloads` do pre), mas não há teste — entra no `test_b20261110_…` dos shims; (b) `WOS_SESSION_ID` único para todos os harnesses (painel recomendou, Lucas adiou): sem ele o commit no Copilot/opencode/Antigravity perde só o aviso de drift; (c) o braço de shell do `handoff-gate` também recusa um comando que só CITA um handoff existente em prosa (ex.: mensagem de commit) — o pdf-gate tira o heredoc de prosa e os dois podiam dividir essa função; (d) o painel lembrou que, se as colisões persistirem, a saída estrutural é um worktree por sessão (choca com o sweep de branches do roundup, AD de 2026-08-14); (e) o `handoff-gate` trata todo `outputs/handoff-*.md` como handoff: bloqueou `handoff-planmode-panel.md`, a saída de um painel (sessão take-then-plan). Restringir a chave aos repositórios conhecidos, ou dar outro prefixo aos handoffs. O `core/run -m pytest` quebra ("can't open core/-m"), então rodei com `.venv/bin/python3`.
-
-- (2026-11-10, CAPD George) Restou do parecer: (a) o `codex` não está instalado nesta máquina (`command -v codex` vazio), então o painel externo que o AGENTS.md exige não rodou e a revisão cética foi feita pelo próprio Claude; o `/install` deveria cobrar isso; (b) em plan mode, o pdf-gate bloqueia até a LEITURA de um PDF sem gêmeo, porque gerar o gêmeo é escrita, e o plano saiu sem ler o Anexo IV e o relatório. Deixar o gêmeo ir para o scratchpad em plan mode? (c) o barema (Anexo IV da Res. 009/2019) agora tem texto, mas só dentro da pasta de um processo (`capd/2026-george-valenca/anexo-iv/`); é referência da norma, e o lugar dele é `refs/` ou `processos/`, usado também pelo B1→B2 de Lucas; (d) assimetria: comissão de progressão (CAPD) e de RDA (CAPR) no plantel, mas só a progressão tem procedimento do lado da comissão.
-
-- (2026-11-11, CAPD George) (a) assimetria de nome: a Portaria DC 57/2026 diz "Comissão de Avaliação e Progressão Docente"; os pareceres da casa dizem "Comissão de Avaliação de Pessoal Docente". (b) a cópia `ParecerNº22_GeorgeValença.docx` ainda cita a Portaria 64/2025, revogada pela 57/2026. (c) a pasta da CAPD no Drive é só leitura para agentes, mas hoje só uma frase em `capd/CONTEXT.md` garante isso; um hook podia recusar escrita de `gdrive`/`gdocs` nos ids protegidos.
-
-
-- (2026-11-13, administração/docs-ufrpe) MACRO: (a) a ferramenta `attachments` do gmail quebra sem chave da API Anthropic; contornei pelo `body_preview` do cache e pelo link do Drive. (b) `git commit -q` voltou a engolir a recusa do type-gate (CONTRIBUTING.md fora da allowlist) com código 0 — repete a (d) de 11/11. (c) `academy/cv/comprovantes/2026/CONTEXT.md` ainda tem "← add description": o gêmeo agora tem `description` (pdf_cli `--description`), falta rotular os de lá. (d) o painel externo citou um PDF da UFAPE como se fosse da UFRPE: a resposta do painel precisa de conferência de domínio antes de chegar a Lucas. (e) a entropia do docs-ufrpe conta o 14 entre colchetes duplos (nota de rodapé verbatim de norma) como wiki-link quebrado: falso positivo do mesmo tipo do tachado.
-
-
