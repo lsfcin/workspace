@@ -12,6 +12,7 @@ of the same scan is the drift those checks exist to catch.
 
 ## Open
 
+- [ ] [b10] A note sent right after a link lands in brain/INBOX.md as its own entry, so the link and its note split (INBOX 9 Nov: "me parece sólido…" and "checar, tem a ver com o freeai" arrived with no link). Join a text to the link it answers by the conversation's context (a reply to it, or a caption), not by time alone, which can merge two separate thoughts — `frontend/bot.py` INBOX capture (inbox triage, 2026-11-17).
 - [ ] [b9] A competing getUpdates reader reportedly leaves the bot alive but unable to receive after HTTP 409; reproduce recovery when that reader exits and establish one polling owner (Claude session, 23 Oct 2026).
 - [ ] [b8] Telegram bot loses authentication or session continuity after Claude Code updates; reproduce the failure and establish its cause before choosing recovery behavior (Lucas, INBOX 2026-10-11).
 - [ ] [b7] áudio capturado para o INBOX não ecoa a transcrição no Telegram — `code/aiwbot/frontend/bot.py` `_route_text`: envia apenas `CAPTURE_ACKS` sem exibir o texto reconhecido pelo Whisper para conferência.

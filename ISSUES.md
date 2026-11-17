@@ -5,9 +5,55 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
-- **`git commit -q` sai com 0 quando o pre-commit recusa.** O `-q` (ou o rtk) engole o ⛔, e a sessão segue achando que commitou: 3 vezes no lote docs-ufrpe (11 Nov) e de novo em 16 Nov. O rtk ou o hook deviam devolver código ≠ 0. `b20261111-commit-q-exit`
+- **Pergunta para Lucas fecha a sessão sem resposta.** Uma escolha "Lucas decide" aberta na sessão terminou construída sem a resposta registrada e fora de "Decidido sem perguntar" do handoff (apptime 6 Nov, ícone de notificação em `82cdec2`). O roundup podia cobrar: toda pergunta aberta tem resposta registrada ou linha em "Decidido sem perguntar". `b20261106-handoff-unanswered`
 
-- **Lote docs-ufrpe (11 Nov), o que ficou.** (a) O gêmeo de PDF começa com frontmatter, então a rota mostra "← add first-line comment" e a entropia conta placeholder; o gerador podia ler o título do frontmatter. O gêmeo de .docx feito à mão usa `# Título`, assimétrico: `core/tools/docs/` merecia um docx→gêmeo no formato do PDF. (b) Norma com dispositivo revogado (tachado) dispara "prose describing finished work": falso positivo. (c) A lei de segredos marca o CNPJ público da UFRPE; um allowlist institucional evitaria redigir a cada lote. (e) `docling` leva mais de 10 min por PDF; com camada de texto o `pymupdf` resolve em segundos, então o default podia escolher pelo `text_layer`. (f) `gh repo create` já sai da ação `push`; falta Lucas rodar `permissions --set open`. (g) Comando entregue ao Lucas leva caminho absoluto (o `cd` relativo encadeado falhou): lugar em `core/skills/handoff.md` ou AGENTS.md, com o OK dele. `b20261111-docs-ufrpe-lote`
+- **"O que tem pela frente" respondido com o ROADMAP lido pela metade.** A sessão do apptime leu o ROADMAP em pedaços e listou só os itens 🟡/🔴, deixando Aba e drag de fora (6 Nov); a pergunta pede o ROADMAP inteiro. `b20261106-partial-roadmap-read`
+
+- **Commit que cita `Bnn` não confere o ISSUES.** O gate cobra prova para um issue *sair*, mas nada confere que a mensagem que cita `Bnn` deixou o `Bnn` no arquivo: `3747fb3` (apptime) anunciou o B10 sem escrevê-lo, e ele só entrou num commit seguinte, `e5f13a1` (6 Nov). `b20261106-commit-cites-missing-bnn`
+
+- **Read-antes-de-Edit empurra para o caminho sem gate.** Editar o l10n do apptime pelo Edit exige ler os `.api` inteiros (centenas de chaves), então a sessão caiu num heredoc python, que o hook marca como UNGATED WRITE (6 Nov). `b20261106-read-gate-pushes-heredoc`
+
+- **Gate de primeira linha barra arquivo de trabalho.** Barrou o prompt do painel no scratchpad (9 Nov) e de novo em `outputs/` (17 Nov): prompt de uso único não é documento do workspace, e o `panel/ask` exige arquivo. `b20261109-first-line-gate-workfiles`
+
+- **Gates de contexto cobram uma volta por árvore.** O gate nomeia só os CONTEXT.md do caminho tocado agora, então uma sessão que lê em várias árvores paga uma recusa por árvore: numa sessão só de ajustes em Dart (9 Nov) e nesta triagem (17 Nov, 6 recusas). `b20261109-context-gate-round-trips`
+
+- **`phone/adb prefs` ignora o `.bak`.** Faz force-stop e lê o XML sem olhar o `.bak`: depois de um install o prefs veio truncado e o Android restaurou do `.bak`. `--open app` não abre nada (6 Nov). `b20261106-adb-prefs-bak`
+
+- **`cfpages check` não testa o 302 de verdade** (6 Nov). `b20261106-cfpages-check-302`
+
+- **Tokens Google vencem um serviço por vez.** slides-write, drive e docs-write vencem separados e cada um pede navegador: numa noite travou 3 vezes. `gslides preview` depende do token de drive mesmo com slides autorizado (contornado com getThumbnail) (9 Nov). `b20261109-google-token-per-service`
+
+- **`panel/ask` só aceita caminho de arquivo.** Texto no lugar do caminho dá traceback em vez de erro claro (9 Nov). `b20261109-panel-ask-text`
+
+- **`record` do SessionStart ficou nos 3 shims, contra o plano do roundup-conflict.** É ele que pega a troca de branch antes da primeira escrita; falta Lucas confirmar a mudança de plano (10 Nov). `b20261110-sessionstart-record`
+
+- **Não se sabe se o `session_id` do Codex é o `CODEX_THREAD_ID`.** Se não for, o aviso de drift no commit fica mudo no Codex. A investigar (10 Nov). `b20261110-codex-session-id`
+
+- **O verify roda na feature, não no resultado do merge.** Com um develop que divergiu, a branch fica verde e o merge pode não ficar (painel, 10 Nov). `b20261110-verify-not-merge-result`
+
+- **Processo morto com 137, sem rastro.** A suíte inteira no pre-commit morreu uma vez com 137 (10 Nov), e o roundup de 16 Nov também, depois dos commits de fechamento. Causa desconhecida. `b20261110-exit-137`
+
+- **O `/roundup` não fecha a partir de um worktree em `.claude/worktrees/`.** Falta `.venv` (`core/run` aborta); com um link para ela, o verify fica vermelho em `test_b20260901_a_mirror_never_reaches_the_machine_that_pulled_it` ("working tree must start in sync"). Promovido à mão, com o aval de Lucas (10 Nov). `b20261110-roundup-worktree`
+
+- **Gate pós-chamada do plugin opencode sem teste.** Provavelmente repassa o shell ao gate depois da chamada (mesmo `buildPayloads` do pre), mas nenhum teste prova; entra no `test_b20261110_…` dos shims (10 Nov). `b20261110-opencode-post-gate`
+
+- **O `handoff-gate` recusa comando que só CITA um handoff.** O braço de shell barra uma mensagem de commit que menciona um handoff em prosa; o pdf-gate já tira o heredoc de prosa, e os dois podiam dividir essa função (10 Nov). `b20261110-handoff-gate-prose`
+
+- **O `handoff-gate` trata todo `outputs/handoff-*.md` como handoff.** Bloqueou `handoff-planmode-panel.md`, saída de um painel: restringir a chave aos repositórios conhecidos ou mudar o prefixo dos handoffs (10 Nov). `b20261110-handoff-gate-prefix`
+
+- **`core/run -m pytest` quebra** com "can't open core/-m"; a sessão rodou `.venv/bin/python3` direto (10 Nov). `b20261110-core-run-module`
+
+- **Em plan mode, o pdf-gate bloqueia até a leitura de um PDF sem gêmeo**, porque gerar o gêmeo é escrita: o parecer da CAPD foi planejado sem ler o Anexo IV e o relatório (10 Nov). Proposta: gêmeo no scratchpad em plan mode. `b20261110-pdf-gate-plan-mode`
+
+- **`gmail attachments` quebra sem chave da API Anthropic.** Contornado pelo `body_preview` do cache e pelo link do Drive (13 Nov). `b20261113-gmail-attachments-key`
+
+- **Resposta do painel chega a Lucas sem conferência de domínio.** O painel citou um PDF da UFAPE como se fosse da UFRPE (13 Nov): conferir a fonte antes de repassar. `b20261113-panel-domain-check`
+
+- **Entropia conta `[[14]]` de nota de rodapé como wiki-link quebrado.** Nota verbatim de norma no docs-ufrpe; falso positivo da família do tachado em `b20261111-docs-ufrpe-lote` (b) (13 Nov). `b20261113-entropy-footnote-wikilink`
+
+- **Proposta "aguardando OK" atravessa a sessão só como resumo.** O handoff de 16 Nov levou as rotas propostas em uma linha cada; a sessão seguinte reconstruiu o texto e achou parte já escrita por outra sessão. O handoff devia apontar para o arquivo com o texto exato da proposta (17 Nov). `b20261117-handoff-proposal-text`
+
+- **Lote docs-ufrpe (11 Nov), o que ficou.** (a) O gêmeo de PDF começa com frontmatter, então a rota mostra "← add first-line comment" e a entropia conta placeholder; o gerador podia ler o título do frontmatter. O gêmeo de .docx feito à mão usa `# Título`, assimétrico: `core/tools/docs/` merecia um docx→gêmeo no formato do PDF. (b) Norma com dispositivo revogado (tachado) dispara "prose describing finished work": falso positivo. (c) A lei de segredos marca o CNPJ público da UFRPE; um allowlist institucional evitaria redigir a cada lote. (e) `docling` leva mais de 10 min por PDF; com camada de texto o `pymupdf` resolve em segundos, então o default podia escolher pelo `text_layer`. (f) `gh repo create` já sai da ação `push`; falta Lucas rodar `permissions --set open`. (h) `academy/cv/comprovantes/2026/CONTEXT.md` ainda tem "← add description": o gêmeo ganhou `description` (`pdf_cli --description`), falta rotular os de lá (13 Nov). `b20261111-docs-ufrpe-lote`
 
 - **Edição de cronograma colide com nota dada no site.** O `cfpages pull` só traz o que não colide, então editar o `disciplina.md` atrás do painel do site faz o `publish` recusar (11 linhas em 13 Nov): trazer o painel antes de editar, ou o pull mesclar por linha de aluno. Assimetria de Git Flow no mesmo dia: o trabalho da disciplina viveu num `feature/ai4good-v1` longo, 44 commits à frente do `develop`, e o `rastro-da-banca` não tem `develop`. `b20261113-cfpages-pull-colisao`
 
@@ -141,7 +187,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - scoreboard.tsv grows append-only; read-matrix.tsv is bounded by day modulo 365; state markers prune after two days. Evaluate shared bounded aging after the scoreboard reading due 28 Sep. Claude 16 Oct reports test markers accumulating; reproduce with claude_nostub_missing-stub and verify teardown/pruning. `b20260922-state-stores`
 
-- rtk git commit reports success after pre-commit refusal (24 Sep), with index unchanged and old HEAD. Send output to a file and verify actual git log until wrapper status propagation is corrected. `b20260924-rtk-commit-false-ok`
+- **`git commit` (via rtk, or with `-q`) reports success after a pre-commit refusal.** 24 Sep: index unchanged, old HEAD. 11 Nov: 3 times in the docs-ufrpe batch, and again 16 Nov. 17 Nov: `git commit -q` returned 1 on a cap refusal, so the swallow is not every time. Send output to a file and verify the actual git log until wrapper status propagation is fixed. `b20260924-rtk-commit-false-ok`
 
 - Empty .git/.codex/.agents (also .aws) directories appear in tmp, root provider folders and isolated outputs after Codex. Sandbox mount-point origin is a hypothesis. is_repo now requires HEAD/file; directory writer/cleanup remains unresolved (7/23 Oct). `b20261007-empty-git-dirs`
 
@@ -150,7 +196,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 > Generated by `core/hooks/entropy/dashboard/entropy-dashboard.py`, which scans this repo and no other. Never edit inside this block, and never copy a count out of it — a copied number is the drift these checks exist to catch.
 
-2026-11-16 · 1207 tracked files scanned · **5 findings here** (2026-11-05: 8 · -3 over 11 days)
+2026-11-17 · 1207 tracked files scanned · **6 findings here** (2026-11-05: 8 · -2 over 12 days)
 
 | Check | Findings |
 |-------|----------|
@@ -173,7 +219,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 | Header fields naming code that is not there | 0 |
 | Truncated routing descriptions | 0 |
 | Constraints trapped in a CONTEXT.md head | 0 |
-| Local branches holding unpromoted work | 0 |
+| Local branches holding unpromoted work | 1 |
 | Work that exists on this disk and nowhere else | 0 |
 | Local branches already merged into their base | 1 |
 | Remote branches already merged into their base | 1 |
@@ -188,17 +234,23 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 - core/tools/test — 15 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
 - core/tools/test/workspace — 11 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
 
+### Local branches holding unpromoted work
+
+*promote when the work is green, or say which reason applies — /roundup Phase 5*
+
+- . — feature/docs-ufrpe-1117 is 2 ahead of main
+
 ### Local branches already merged into their base
 
 *safe to delete, and purely local — `git -C <repo> branch -d <branch>`*
 
-- . — 14 merged into main: git -C . branch -d feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final
+- . — 15 merged into main: git -C . branch -d feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final
 
 ### Remote branches already merged into their base
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 16 merged into main: git -C . push origin --delete feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/disk-hygiene feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final feature/web-shoot
+- . — 17 merged into main: git -C . push origin --delete feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/disk-hygiene feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final feature/web-shoot
 
 <!-- entropy:end -->
 
@@ -207,5 +259,28 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 > Generated by `core/tools/wos/roundup` at session close. The suite is the authority; this is its last result, never a claim that it is still true.
 
-2026-11-16 · `verify.py full` · **green (25 passed, 1182 deselected in 6.79s · 1181 passed, 1 skipped in 337.10s (0:05:37))**
+2026-11-17 · `verify.py full` · **red**
+
+```
+..............................                                           [100%]
+=================================== FAILURES ===================================
+____________ test_the_real_gate_fails_open_and_can_be_switched_off _____________
+[gw8] linux -- Python 3.14.4 /mnt/workspace/.venv/bin/python3
+
+tmp_path = PosixPath('/tmp/pytest-of-lucas/pytest-120/popen-gw8/test_the_real_gate_fails_open_0')
+
+    def test_the_real_gate_fails_open_and_can_be_switched_off(tmp_path):
+        """A payload it cannot use passes; the switch passes even a write it would have refused."""
+        write = {'tool_name': 'Write', 'session_id': SESSION,
+                 'tool_input': {'file_path': str(WORKSPACE_ROOT / 'nowhere/\0bad'), 'content': 'x'}}
+>       assert _gate(write).returncode == 0
+E       assert 2 == 0
+E        +  where 2 = CompletedProcess(args=['/mnt/workspace/.venv/bin/python3', '/mnt/workspace/core/hooks/git/branch-gate.py'], returncode...e/capd-george  (2026-11-11)\n     feature/take-then-plan  (2026-11-10)\n     feature/gitflow-parallel  (2026-11-10)\n").returncode
+E        +    where CompletedProcess(args=['/mnt/workspace/.venv/bin/python3', '/mnt/workspace/core/hooks/git/branch-gate.py'], returncode...e/capd-george  (2026-11-11)\n     feature/take-then-plan  (2026-11-10)\n     feature/gitflow-parallel  (2026-11-10)\n") = _gate({'tool_name': 'Write', 'session_id': 't-gate', 'tool_input': {'file_path': '/mnt/workspace/nowhere/\x00bad', 'content': 'x'}})
+
+core/tools/test/workspace/gates/vcs/test_branch_gate.py:110: AssertionError
+=========================== short test summary info ============================
+FAILED core/tools/test/workspace/gates/vcs/test_branch_gate.py::test_the_real_gate_fails_open_and_can_be_switched_off
+1 failed, 1180 passed, 1 skipped in 251.15s (0:04:11)
+```
 <!-- verify:end -->

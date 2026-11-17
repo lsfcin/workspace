@@ -87,3 +87,5 @@ Print the block between the `---` markers:
 After printing:
 
 > Resume prompt ready — written to `<returned path>`. Open a new session and start it with: `Roda <returned resume>, depois entra em plan mode e discute comigo em detalhes (em pt-br) qual vai ser o plano pra essa sessão.` — one line per repository handed off. **Plan, never "continue"** (Lucas, 2026-08-16): planning reads the whole list and surfaces blocked decisions before work resumes. **Take, then plan** (Lucas, 2026-11-10): the take deletes a file, which plan mode forbids, so the prompt is pasted outside it; an exemption written in the prompt and a non-deleting `--peek` were rejected — text cannot outrank the harness, and a peek lets two sessions read the same threads.
+
+**A command handed to Lucas stands alone** (Lucas, 2026-11-17): absolute paths, never a `cd` relative to this session's directory — a chained relative `cd` failed on 2026-11-11.
