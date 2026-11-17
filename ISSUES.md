@@ -239,7 +239,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/docs-ufrpe-1117 is 4 ahead of main
-- . — feature/inbox-texts-1117 is 2 ahead of main
+- . — feature/inbox-texts-1117 is 3 ahead of main
 
 ### Local branches already merged into their base
 
@@ -263,25 +263,25 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 2026-11-17 · `verify.py full` · **red**
 
 ```
-..............................                                           [100%]
-=================================== FAILURES ===================================
-____________ test_the_real_gate_fails_open_and_can_be_switched_off _____________
-[gw8] linux -- Python 3.14.4 /mnt/workspace/.venv/bin/python3
+        interpreter it exists to find. That is a bootstrap paradox, not an exemption granted to a file
+        somebody did not want to fix -- and it is worth one test of its own, because the honest floor
+        of a ceiling is a claim that should fail loudly if it stops being true.
+        """
+        live = [f for f in _files('-F', POSIX_VENV_BIN, '--', *RECORDS) if f != BOUNDARY]
+>       assert live == [LAUNCHER], (
+            f'expected the launcher alone to name the venv layout, found {live}. If a NEW file needs '
+            f'it, it almost certainly wants {BOUNDARY}.venv_script() instead')
+E       AssertionError: expected the launcher alone to name the venv layout, found ['ISSUES.md', 'core/run']. If a NEW file needs it, it almost certainly wants core/hooks/platform_law.py.venv_script() instead
+E       assert ['ISSUES.md', 'core/run'] == ['core/run']
+E         
+E         At index 0 diff: 'ISSUES.md' != 'core/run'
+E         Left contains one more item: 'core/run'
+E         Use -v to get more diff
 
-tmp_path = PosixPath('/tmp/pytest-of-lucas/pytest-120/popen-gw8/test_the_real_gate_fails_open_0')
-
-    def test_the_real_gate_fails_open_and_can_be_switched_off(tmp_path):
-        """A payload it cannot use passes; the switch passes even a write it would have refused."""
-        write = {'tool_name': 'Write', 'session_id': SESSION,
-                 'tool_input': {'file_path': str(WORKSPACE_ROOT / 'nowhere/\0bad'), 'content': 'x'}}
->       assert _gate(write).returncode == 0
-E       assert 2 == 0
-E        +  where 2 = CompletedProcess(args=['/mnt/workspace/.venv/bin/python3', '/mnt/workspace/core/hooks/git/branch-gate.py'], returncode...e/capd-george  (2026-11-11)\n     feature/take-then-plan  (2026-11-10)\n     feature/gitflow-parallel  (2026-11-10)\n").returncode
-E        +    where CompletedProcess(args=['/mnt/workspace/.venv/bin/python3', '/mnt/workspace/core/hooks/git/branch-gate.py'], returncode...e/capd-george  (2026-11-11)\n     feature/take-then-plan  (2026-11-10)\n     feature/gitflow-parallel  (2026-11-10)\n") = _gate({'tool_name': 'Write', 'session_id': 't-gate', 'tool_input': {'file_path': '/mnt/workspace/nowhere/\x00bad', 'content': 'x'}})
-
-core/tools/test/workspace/gates/vcs/test_branch_gate.py:110: AssertionError
+core/tools/test/workspace/ceilings/test_port_ceiling.py:165: AssertionError
 =========================== short test summary info ============================
-FAILED core/tools/test/workspace/gates/vcs/test_branch_gate.py::test_the_real_gate_fails_open_and_can_be_switched_off
-1 failed, 1180 passed, 1 skipped in 251.15s (0:04:11)
+FAILED core/tools/test/workspace/ceilings/test_port_ceiling.py::test_a_posix_only_venv_path_does_not_spread
+FAILED core/tools/test/workspace/ceilings/test_port_ceiling.py::test_the_launcher_is_the_only_thing_that_cannot_ask
+2 failed, 1179 passed, 1 skipped in 240.21s (0:04:00)
 ```
 <!-- verify:end -->
