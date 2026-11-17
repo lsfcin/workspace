@@ -41,7 +41,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **O `handoff-gate` trata todo `outputs/handoff-*.md` como handoff.** Bloqueou `handoff-planmode-panel.md`, saída de um painel: restringir a chave aos repositórios conhecidos ou mudar o prefixo dos handoffs (10 Nov). `b20261110-handoff-gate-prefix`
 
-- **`core/run -m pytest` quebra** com "can't open core/-m"; a sessão rodou `.venv/bin/python3` direto (10 Nov). `b20261110-core-run-module`
+- **`core/run -m pytest` quebra** com "can't open core/-m"; a sessão chamou o python da venv direto (10 Nov). `b20261110-core-run-module`
 
 - **Em plan mode, o pdf-gate bloqueia até a leitura de um PDF sem gêmeo**, porque gerar o gêmeo é escrita: o parecer da CAPD foi planejado sem ler o Anexo IV e o relatório (10 Nov). Proposta: gêmeo no scratchpad em plan mode. `b20261110-pdf-gate-plan-mode`
 
@@ -239,7 +239,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/docs-ufrpe-1117 is 4 ahead of main
-- . — feature/inbox-texts-1117 is 3 ahead of main
+- . — feature/inbox-texts-1117 is 6 ahead of main
 
 ### Local branches already merged into their base
 
