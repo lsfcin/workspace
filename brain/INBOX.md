@@ -61,27 +61,14 @@ https://www.instagram.com/reel/Dfm0chrgc01/?cplk=MTdoeDFhb3J5YWIwZQ==
 isso é verdade? tenho que incluir langchain/langgraph nas minhas aulas?
 — via aiwbot · 2026-11-13
 
-https://www.instagram.com/reel/DfqrLeoGEhb/?dlrf=MXUyc3AwN3J4Y29xYw==
-isso parece ser um gamechanger pro wos mas posso estar enganado
-sagwiki... temos que checar
-— via aiwbot · 2026-11-13
-
 https://www.instagram.com/reel/DfoOGriCGNL/?mdxt=MWF6NzR6djluZjMyeA==
 Será que conseguimos ignorar o que já foi feito e criar um isoroll 2.0 direto com o fable?
-— via aiwbot · 2026-11-13
-
-https://www.instagram.com/reel/DfoRhzMFVGb/?xtok=c2hpNXo5NGRmeHpm
-além da triagem normal quero monitorar esse repo
 — via aiwbot · 2026-11-13
 
 https://www.instagram.com/reel/DfijE9TOuvi/?mdxt=MTNmbDRuNmliZ2V5cQ==
 — via aiwbot · 2026-11-11
 
 https://www.instagram.com/reel/DflZcZoG3ep/?obrf=MWxseXFzOXZrMmYxdA==
-— via aiwbot · 2026-11-11
-
-https://www.instagram.com/reel/Dfk7fhqh9zL/?obrf=NTc4MTIwNjQ2YQ==
-será que isso é útil pra gente? digo, já evitamos MCP mas será que a lógica é útil mesmo assim?
 — via aiwbot · 2026-11-11
 
 https://www.instagram.com/reel/DfmN9VOBeXm/?rpxt=MXNvbmNwM3l5anp3Mw==
@@ -101,10 +88,6 @@ interessado principalmente sobre isso de acelerar a wifi
 https://www.instagram.com/reel/DfghxaLt3Ey/?vrfl=MTZmYXVkaTVianIxag==
 — via aiwbot · 2026-11-09
 
-https://www.instagram.com/reel/Dfhog8VtWDx/?obrf=OGE1aWZ3emR6d3Bk
-me parece sólido, gostaria de usar a mesma estratégia aqui
-— via aiwbot · 2026-11-09
-
 investigar raea
 — via aiwbot · 2026-11-09
 
@@ -112,23 +95,6 @@ investigar terminal-rsi
 — via aiwbot · 2026-11-09
 
 checar, tem a ver com o freeai
-— via aiwbot · 2026-11-09
-
-o modo planejamento realmente acabou?
-https://www.instagram.com/reel/DfdG4UVxAJc/?xtok=cm11cWNtdHRwZ256
-pegar o estudo/ paper fonte desse post
-— via aiwbot · 2026-11-09
-
-https://www.instagram.com/reel/DfNU_Z9gk5b/?xtok=czJ6b2NkcmlyMTc4
-vale à pena pra gente? temos que adicionar algum?
-— via aiwbot · 2026-11-09
-
-https://www.instagram.com/reel/DfevuYyvCTB/?srtk=MTlkMzRoYXVzcXgxNg==
-definitivamente quero testar esse
-— via aiwbot · 2026-11-09
-
-https://www.instagram.com/reel/DfeIuzRMHn5/?dlrf=cTNsbGtvczg4cGds
-essa pode ser ao mesmo tempo gamechanger pra gente, mudar complemente a forma como uso o pc, IA e diversos projetos como não ser nada
 — via aiwbot · 2026-11-09
 
 pra melhorar nosso check de segurança
@@ -141,10 +107,6 @@ aproveita e já inclui no roadmap do apptime, logo agora como próximo passo pq 
 
 https://www.instagram.com/reel/DdU5LzzvWyW/?vrfl=eDJqYTN6ZDZnOGMw
 formalizar nosso app security check com tudo que temos de refs no tema
-— via aiwbot · 2026-11-07
-
-https://www.instagram.com/reel/Dfa9b-asDPI/?vrfl=eW53cWV5aTBndGlk
-quero testar esse. já já tá na hora de fazer uns testes comparativos com IAs locais
 — via aiwbot · 2026-11-07
 
 https://www.instagram.com/reel/DfahKzZRqW9/?dlrf=Y3pxdG0wODZqdDU3
@@ -167,18 +129,6 @@ https://www.instagram.com/p/De6plJiDbwa/?img_index=5&vrfl=MWtyYWJoOG1icjM3bg==
 
 https://www.instagram.com/p/DfKkR_fDTFY/?img_index=2&obrf=azBmOXUycWR3amgw
 a gente poderia pegar a transcrição disso pra ver como pode ser útil pra gente
-— via aiwbot · 2026-10-31
-
-https://www.instagram.com/p/DesLVzbDIb7/?img_index=7&mdxt=MWZ2eDd4ZHJraXVjdg==
-incorporar o que for pertinente no wos e nas minhas aulas
-— via aiwbot · 2026-10-31
-
-https://www.instagram.com/reel/DfEwIxZhYkK/?vrfl=dnRweDQ3MmhuaXo3
-pode se útil pra gente de diferentes formas, inclusive pode ajudar a melhorar nosso bot de telegram que hoje tá um pouco quebrado
-— via aiwbot · 2026-10-31
-
-https://www.instagram.com/reel/De9_Ma8gXZa/?rpxt=N3QxZTN6d3Bud2Ey
-isso aqui é útil pra gente e alguma forma?
 — via aiwbot · 2026-10-31
 
 ver se isso é útil no WOS 
