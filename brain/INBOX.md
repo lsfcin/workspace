@@ -9,6 +9,14 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/p/DfzwRBnDECr/?img_index=4&xtok=YTVjZ2VnMTZ3N2Qz
+vários jogos criados com quase nada de memória, checar se procede e usar esse poder no isoroll
+— via aiwbot · 2026-11-16
+
+https://www.instagram.com/reel/Df0amhbMdMC/
+a gente TEM que implementar essa lógica no isoroll, usando um "normal map" pra iluminar a cena de acordo
+— via aiwbot · 2026-11-16
+
 https://www.instagram.com/reel/DfzPa9qOL7F/?exln=MTc4Zm5hdDZsejN3eA==
 vale a pena a gente usar?
 — via aiwbot · 2026-11-16
