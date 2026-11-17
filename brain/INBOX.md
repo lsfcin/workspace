@@ -9,6 +9,9 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/Df2FTAskdRe/
+— via aiwbot · 2026-11-17
+
 https://www.instagram.com/p/DfzwRBnDECr/?img_index=4&xtok=YTVjZ2VnMTZ3N2Qz
 vários jogos criados com quase nada de memória, checar se procede e usar esse poder no isoroll
 — via aiwbot · 2026-11-16
