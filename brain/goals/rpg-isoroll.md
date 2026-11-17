@@ -51,6 +51,7 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 > [ ] [props-mesh] props + characters via image→3D → render 9 views (Hunyuan3D / TripoSR) — multiview by geometry, never by generation  
 > [ ] [lighting] baked AO + ink + edge highlight + colour grade + clutter; include [spritefusion-normals] generation and Foundry lighting assessments in both Isoroll ROADMAP.md files; references in both refs/REFS.md (backlog).
 > [ ] [alpha-pipeline] background transparency — largely resolved for tiles (per-cell rembg, S0-E6-fix5); still open for characters; testar Qwen-Image-2.1 com geração nativa RGBA transparente (INBOX 2026-10-03, amarra em local-ai)  
+> [ ] [isoroll-2] Foundry vs standalone (phone+PC): canonical task and spike in ../../code/isoroll-module/ROADMAP.md [isoroll-2]  
 > [ ] [8dir-sprites] 8-direction views per character — after tiles ship (NB cardinal weakness returns for tokens)  
 > [ ] [anim-pipeline] animate characters: idle, attack, defend, hurt, cast, crouch  
 > [ ] [sprite-atlas] atlas packing for Foundry export  
@@ -67,5 +68,5 @@ Nothing to set up on your side. The boundary freeze + cabin fixture run in `code
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-11-09  ·  trend: decelerating  ·  touches: 12/94/683/686/686/686
+last-touch: 2026-11-17  ·  trend: decelerating  ·  touches: 12/94/688/691/691/691
 <!-- stats:end -->
