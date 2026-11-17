@@ -19,7 +19,7 @@ from file_law import load_limits  # noqa: E402
 from hook_input import parse_stdin  # noqa: E402
 
 ROOT = HOOKS.parents[1]
-SAID = re.compile(r'\b(baixei|baixad[oa]s?|downloads?)\b', re.IGNORECASE)
+SAID = re.compile(r'\b(baix(?:ei|ar|ou|ando|ad[oa]s?)|downloads?)\b', re.IGNORECASE)
 
 
 def folders(root: Path, home: Path) -> list[Path]:

@@ -5,6 +5,22 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **`git commit -q` sai com 0 quando o pre-commit recusa.** O `-q` (ou o rtk) engole o ⛔, e a sessão segue achando que commitou: 3 vezes no lote docs-ufrpe (11 Nov) e de novo em 16 Nov. O rtk ou o hook deviam devolver código ≠ 0. `b20261111-commit-q-exit`
+
+- **Lote docs-ufrpe (11 Nov), o que ficou.** (a) O gêmeo de PDF começa com frontmatter, então a rota mostra "← add first-line comment" e a entropia conta placeholder; o gerador podia ler o título do frontmatter. O gêmeo de .docx feito à mão usa `# Título`, assimétrico: `core/tools/docs/` merecia um docx→gêmeo no formato do PDF. (b) Norma com dispositivo revogado (tachado) dispara "prose describing finished work": falso positivo. (c) A lei de segredos marca o CNPJ público da UFRPE; um allowlist institucional evitaria redigir a cada lote. (e) `docling` leva mais de 10 min por PDF; com camada de texto o `pymupdf` resolve em segundos, então o default podia escolher pelo `text_layer`. (f) `gh repo create` já sai da ação `push`; falta Lucas rodar `permissions --set open`. (g) Comando entregue ao Lucas leva caminho absoluto (o `cd` relativo encadeado falhou): lugar em `core/skills/handoff.md` ou AGENTS.md, com o OK dele. `b20261111-docs-ufrpe-lote`
+
+- **Edição de cronograma colide com nota dada no site.** O `cfpages pull` só traz o que não colide, então editar o `disciplina.md` atrás do painel do site faz o `publish` recusar (11 linhas em 13 Nov): trazer o painel antes de editar, ou o pull mesclar por linha de aluno. Assimetria de Git Flow no mesmo dia: o trabalho da disciplina viveu num `feature/ai4good-v1` longo, 44 commits à frente do `develop`, e o `rastro-da-banca` não tem `develop`. `b20261113-cfpages-pull-colisao`
+
+- **Painel externo barrado com dados pessoais.** O classificador do modo auto bloqueou o Gemini via opencode ao receber comprovantes com CPF, e o `opencode` só lê `GOOGLE_GENERATIVE_AI_API_KEY`, não o `GEMINI_API_KEY` do ambiente. Para o rito da CAPD ter painel: redigir antes (`secret_law.redact`) ou uma regra de permissão que Lucas aprove (16 Nov). `b20261116-panel-pii`
+
+- **`progressao.md` § Lado da comissão contradiz a própria regra.** Dá "o artigo premiado (I-n)" como exemplo de duplicidade, mas a regra é "um comprovante pontua uma vez", e o certificado do prêmio é outro documento: decidir e corrigir um dos dois (decisão 3 do parecer de George, 16 Nov). `b20261116-capd-duplicidade`
+
+- **Rotas do academy desatualizadas.** `capd/CONTEXT.md` descreve a pasta de George ("relatores Lucas e Suzana, prazo 19/11/2026") diferente da linha 2 da pasta, e os gêmeos de PDF dela seguem com "← add first-line comment". `academy/CONTEXT.md` diz que `lab/` guarda o processo de orientação, mas `lab/` não tem CONTEXT.md e contém `ai-dungeon-master/ bancas/ neoeduc/`; `students/` e `cv/` não aparecem na tabela, e `students/` não tem CONTEXT.md (16 Nov). `b20261116-academy-routing`
+
+- **Ferramentas que a sessão não achou.** Com um `Conversa do WhatsApp com *.zip` listado, o hook de downloads não aponta `core/run tools/chat/wazip`, e a sessão improvisou um whisper. O faster-whisper não acha `libcublas.so.12` e cai para CPU, com a GPU de 6 GB parada. O gate do heredoc leu `$S` como caminho relativo: falso positivo (16 Nov). `b20261116-tool-discovery`
+
+- **gslides lint marca "off the slide" em placeholders que renderizam dentro do slide.** Nos decks do artigo (techedu 111 achados, ai4good 62), títulos, corpos e complementos herdados do layout saem como fora do slide, e a prévia mostra todos no lugar: o lint parece ler a transformação do placeholder sem compor a do layout. Com o ruído, um elemento fora de verdade some na lista (16 Nov). `b20261116-gslides-lint-placeholder`
+
 - Recheck the dated 2-Nov Codex parity audit: policy.py consumed worker-brief stdin; partial reads passed with exit 0 despite 17 green tests. Permissions/effort, automatic Caveman/status display, bot and export lacked equivalent behavior; six Google grants failed and jscpd lacked its platform package. Native/four-program delegation worked, external calls required escalation; no public push followed 11 failed target tests. Track each feature/environment, including public clone, without assuming failures persist. Evidence/reproducers: outputs/codex-audit-20261102/; Core [cross-harness-delegation]. `b20261102-codex-parity`
 
 - **cfpages secrets --push omite ambiente de preview e restringe escopo documentado do token.** cfpages secrets --push só configura o ambiente de produção; deploys de preview ficam sem GITHUB_TOKEN/ENIGMA_SECRET, impedindo testes e2e em preview. O comentário em segredos.env restringe indevidamente o GITHUB_TOKEN a lsf-links, embora cubra academy-teaching (4 Nov). `b20261104-cfpages-preview-secrets`
@@ -37,7 +53,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - UNGATED WRITE misattributes paths: brw/excelente.md reported instead of cmp/ after cd (Claude,16 Oct). AppTime 3-Nov report: literal $S/file became code/apptime/$S/file. Resolve cwd/variables safely or explicitly report unresolved attribution; never broadly exempt variable writes. `b20261017-ungated-write-cwd`
 
-- Video extraction hides progress/partial results and calls empty or error-only galleries successful. Reproduced 30 Oct: mixed-carousel omissions, dimensionless thumbnail selection at 150 px, IndexError on downloaded clips without audio, serial image-call stalls without persisted per-link results. Preserve every slide/full-resolution image and numeric comparisons with estimation uncertainty. Earlier reports: cancellation with no output (24 Oct), YouTube 403 despite JS runtime (19 Oct). `b20261017-video-batch-results`
+- Video extraction hides progress/partial results and calls empty or error-only galleries successful. Reproduced 30 Oct: mixed-carousel omissions, dimensionless thumbnail selection at 150 px, IndexError on downloaded clips without audio, serial image-call stalls without persisted per-link results. Preserve every slide/full-resolution image and numeric comparisons with estimation uncertainty. Earlier reports: cancellation with no output (24 Oct), YouTube 403 despite JS runtime (19 Oct). 16 Nov: `--from INBOX --level full --save` ran 38 links in ~50 min and `brain/attachments/` received no bundle before exit. `b20261017-video-batch-results`
 
 - Roundup picks newest .claude/projects transcript rather than native ChatGPT identity (core/tools/wos/roundup.session_id; handoff differs). 2-Nov audit also reports trace/reads refusing Codex IDs. Recheck identity throughout metrics; cost/size/compaction must refer to the actual session. Evidence: outputs/codex-audit-20261102/auditoria.md. `b20261016-roundup-session-attribution`
 
@@ -134,7 +150,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 > Generated by `core/hooks/entropy/dashboard/entropy-dashboard.py`, which scans this repo and no other. Never edit inside this block, and never copy a count out of it — a copied number is the drift these checks exist to catch.
 
-2026-11-16 · 1207 tracked files scanned · **5 findings here** (2026-11-04: 7 · -2 over 12 days)
+2026-11-16 · 1207 tracked files scanned · **5 findings here** (2026-11-05: 8 · -3 over 11 days)
 
 | Check | Findings |
 |-------|----------|
@@ -176,13 +192,13 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 *safe to delete, and purely local — `git -C <repo> branch -d <branch>`*
 
-- . — 13 merged into main: git -C . branch -d feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final
+- . — 14 merged into main: git -C . branch -d feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final
 
 ### Remote branches already merged into their base
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 15 merged into main: git -C . push origin --delete feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/disk-hygiene feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final feature/web-shoot
+- . — 16 merged into main: git -C . push origin --delete feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/disk-hygiene feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final feature/web-shoot
 
 <!-- entropy:end -->
 
@@ -191,5 +207,5 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 > Generated by `core/tools/wos/roundup` at session close. The suite is the authority; this is its last result, never a claim that it is still true.
 
-2026-11-16 · `verify.py full` · **green (25 passed, 1182 deselected in 5.05s · 1181 passed, 1 skipped in 105.89s (0:01:45))**
+2026-11-16 · `verify.py full` · **green (25 passed, 1182 deselected in 6.79s · 1181 passed, 1 skipped in 337.10s (0:05:37))**
 <!-- verify:end -->
