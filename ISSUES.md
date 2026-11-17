@@ -244,13 +244,13 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 *safe to delete, and purely local — `git -C <repo> branch -d <branch>`*
 
-- . — 16 merged into main: git -C . branch -d feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-texts-1117 feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final
+- . — 17 merged into main: git -C . branch -d feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-links-1117 feature/inbox-texts-1117 feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final
 
 ### Remote branches already merged into their base
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 18 merged into main: git -C . push origin --delete feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/disk-hygiene feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-texts-1117 feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final feature/web-shoot
+- . — 19 merged into main: git -C . push origin --delete feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/disk-hygiene feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-links-1117 feature/inbox-texts-1117 feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final feature/web-shoot
 
 <!-- entropy:end -->
 
