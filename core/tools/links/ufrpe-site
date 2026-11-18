@@ -23,7 +23,9 @@ PARTS = (
     ('docs', ROOT / 'academy/administration/docs-ufrpe', 'main', ['*.md', ':!.github', 'site'], 'site'),
 )
 # What each part must hold after the build, or the deploy is refused.
-MUST = ('montagrade/index.html', 'docs/index.html', 'docs/viewer.js', 'docs/README.md')
+MUST = ('montagrade/index.html', 'docs/index.html', 'docs/viewer.js', 'docs/README.md', 'docs/busca.json')
+# Generated over the archived tree, never committed: the docs part's own script, so the repo owns its index format.
+INDEX = (ROOT / 'academy/administration/docs-ufrpe/.github/scripts/indexar.py', 'docs')
 HOME = """<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UFRPE</title><style>body{font:16px/1.6 system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px}</style></head>
@@ -48,6 +50,8 @@ def take(dest: pathlib.Path, repo: pathlib.Path, ref: str, paths: list, flatten:
 def build(out: pathlib.Path) -> None:
     for name, repo, ref, paths, flatten in PARTS:
         take(out / name, repo, ref, paths, flatten)
+    script, part = INDEX
+    subprocess.run([sys.executable, str(script), str(out / part)], check=True)
     (out / 'index.html').write_text(HOME, encoding='utf-8', newline='\n')
     missing = [m for m in MUST if not (out / m).is_file()]
     if missing:
