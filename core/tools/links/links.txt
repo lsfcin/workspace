@@ -188,6 +188,7 @@ techedu/entre-equipes	https://docs.google.com/spreadsheets/d/16iG7bhPjGucUGx0-Z2
 techedu/intragrupo	https://forms.gle/f5EnsLT3Uc1v3NZk6	techedu	2026-11-11
 techedu/meet	https://meet.google.com/crr-ogeg-qyy	techedu	2026-11-11
 techedu/painel	https://docs.google.com/spreadsheets/d/1vf_OdrC64M7ULsEpbuv8itu7bJ_3Zm51esll5bVvhBU/edit?gid=1005981620#gid=1005981620	techedu	2026-09-16
+techedu/pitch-comunicacao	https://docs.google.com/presentation/d/1BWyR0zZWPIrsERLIT6zomFepCOxAJXxQaKpy05U-Hxo/present	techedu	2026-11-18
 techedu/setup	https://docs.google.com/forms/d/e/1FAIpQLScOoEjTI-l64rgUSBMQ198J_B9ssrai_tIVAcPAOYe-uWklww/viewform	techedu	2026-09-08
 techedu/telegram	https://t.me/+d2MCMR2vR101MWYx	techedu	2026-11-11
 techedu/teste	https://docs.google.com/forms/d/e/1FAIpQLScvZ7Q2lVavhfoLh7mW9zpjZGD68Q_MotO1IHU8sJKfT752yg/viewform	techedu	2026-10-28
