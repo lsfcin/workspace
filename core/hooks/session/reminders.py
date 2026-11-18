@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # SessionStart — the soft reminders, in one voice: what has piled up, what has gone unreviewed, what
-# has not reached the public repo, and a disk filling up. One file, four switches, and at most one message.
+# has not reached the public repo, a disk filling up, and the PRs waiting on a watched repo. One file,
+# five switches, and at most one message.
 #
 # THREE FILES BECAME ONE ON 2026-09-17, and the reason is in the prose the third would have copied.
 # The compass file of the day ended with an instruction to the agent: *"if the INBOX one already
@@ -15,6 +16,7 @@
 #
 # TONE IS LOAD-BEARING AND LIVES IN brain/FOUNDATIONS.md — *what has good wind*, never guilt. A
 # reminder is ignorable by design: it says the number, offers the command, and never asks twice.
+import json
 import os
 import re
 import shutil
@@ -137,10 +139,68 @@ def disk() -> str:
             f'({u.free / 1024 ** 3:.1f} GB free) — offer this system\'s leaf in core/tools/disk/ (diagnose, then clean).')
 
 
+PR_STATE = WORKSPACE_ROOT / 'core/pr-reminder.json'   # per-machine, outside git (core/ is an allowlist)
+PR_EVERY = 6 * 3600
+PR_MARK = 'PR aberto em '
+
+
+def _open_prs(repo: str) -> list | None:
+    """The repo's open PRs, or None when gh cannot answer (offline, logged out): then nothing changes."""
+    try:
+        done = subprocess.run(['gh', 'pr', 'list', '-R', repo, '--state', 'open', '--json', 'number,title,author,url'],
+                              capture_output=True, text=True, encoding='utf-8', timeout=8)
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    if done.returncode != 0:
+        return None
+    try:
+        return json.loads(done.stdout)
+    except ValueError:
+        return None
+
+
+def prs(now: float | None = None) -> str:
+    """Each open PR of a watched repo is one INBOX entry until it closes (Lucas, 2026-11-13).
+
+    NOT TRIAGED, MIRRORED: the entry says what is waiting, and leaves by itself when the PR is merged
+    or closed, so /inbox never has to route it. Asked of gh at most every six hours, because a
+    SessionStart is paid by every session; a failed call keeps the INBOX as it was, so an offline
+    session never deletes the entry of a PR that is still open. The repos are a profile setting
+    (`pr-watch`, comma-separated), so the capability carries no one's repo name.
+    """
+    repos = [r.strip() for r in feature_law.setting('pr-watch').split(',') if r.strip()]
+    now = time.time() if now is None else now
+    try:
+        state = json.loads(PR_STATE.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        state = {}
+    if not repos or now - state.get('checked', 0) < PR_EVERY or not INBOX.exists():
+        return ''
+    open_now = {}
+    for repo in repos:
+        found = _open_prs(repo)
+        if found is None:
+            return ''
+        open_now.update({f'{PR_MARK}{repo} #{p["number"]}:': p for p in found})
+    text = INBOX.read_text(encoding='utf-8')
+    head, sep, body = text.partition('<!-- add entries below, newest first -->\n')
+    blocks = [b.strip('\n') for b in re.split(r'\n\s*\n', body) if b.strip()]
+    kept = [b for b in blocks if not b.startswith(PR_MARK) or b.split('"')[0].strip() in open_now]
+    present = {b.split('"')[0].strip() for b in kept if b.startswith(PR_MARK)}
+    today = date.fromtimestamp(now).isoformat()
+    new = [f'{key} "{p["title"]}" (de {p.get("author", {}).get("login", "?")}) — {p["url"]}\n'
+           f'revisar e aceitar ou fechar; esta entrada sai sozinha quando o PR fechar, não precisa triar.\n'
+           f'— via pr-reminder · {today}' for key, p in open_now.items() if key not in present]
+    if sep and (new or len(kept) != len(blocks)):
+        INBOX.write_text(head + sep + '\n' + '\n\n'.join(new + kept) + '\n', encoding='utf-8', newline='\n')
+    PR_STATE.write_text(json.dumps({'checked': now}), encoding='utf-8', newline='\n')
+    return f'PRS: {len(new)} PR(s) novo(s) em brain/INBOX.md — mention them.' if new else ''
+
+
 # Feature name → the question it asks. The registry switches each one independently, which is what
 # keeps three reminders in one file from becoming one feature with three reasons.
 ASKS = (('inbox-reminder', inbox), ('compass-reminder', compass), ('publish-reminder', publish),
-        ('disk-reminder', disk))
+        ('disk-reminder', disk), ('pr-reminder', prs))
 
 
 def main() -> int:

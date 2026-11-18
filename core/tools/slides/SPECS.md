@@ -32,7 +32,7 @@ Slides keeps hidden animation states as **zero-scaled copies** of real elements,
 ## Rendering
 
 - **`getThumbnail` is an "expensive read"** with a per-minute quota: a 20-slide deck hits 429. `preview` exports one PDF through Drive and renders it locally.
-- **Drive refuses exports over ~10 MB** ("too large to be exported"); a link-shared deck still has the public `/export/pdf`, which `preview` falls back to.
+- **Drive refuses exports over ~10 MB** ("too large to be exported"); a link-shared deck still has the public `/export/pdf`, which `preview` falls back to; a private one falls to `getThumbnail` per slide, waiting out each 429.
 
 ## Writing
 

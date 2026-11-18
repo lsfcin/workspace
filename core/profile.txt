@@ -35,6 +35,7 @@ kind	key	value
 setting	lang	en
 setting	permissions	open
 setting	links-base	https://lucassf.pages.dev
+setting	pr-watch	lsfcin/docs-ufrpe
 toggle	context-chain	on
 toggle	interface-first-reads	on
 toggle	pdf-twin-reads	on
@@ -75,6 +76,7 @@ toggle	inbox-reminder	on
 toggle	compass-reminder	on
 toggle	publish-reminder	on
 toggle	disk-reminder	on
+toggle	pr-reminder	on
 toggle	bot	on
 toggle	notify	off
 toggle	context-meter	on

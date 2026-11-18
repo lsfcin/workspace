@@ -21,5 +21,6 @@ What stays here is the law **itself** — the definitions every other check read
 | [`test_description_gate.py`](test_description_gate.py) | [`test_description_gate.pyi`](test_description_gate.pyi) | — | T0 description check: a file this commit adds must be able to describe itself. Zero-token, verify-fast. |
 | [`test_downloads.py`](test_downloads.py) | [`test_downloads.pyi`](test_downloads.pyi) | — | T0 downloads hook (ROADMAP.md § Legibility, [downloads-hook]): "baixei" names what just landed. Zero-token, verify-fast. |
 | [`test_file_law.py`](test_file_law.py) | [`test_file_law.pyi`](test_file_law.pyi) | — | T0 file law (core/hooks/SPECS.md). Zero-token, runs in verify-fast. |
+| [`test_pr_reminder.py`](test_pr_reminder.py) | [`test_pr_reminder.pyi`](test_pr_reminder.pyi) | `setup`, `pr` | T0 pr-reminder (academy/administration/ROADMAP.md [docs-ufrpe-pr-inbox]): an open PR is one INBOX entry until it closes. Zero-token, gh faked. |
 | [`test_type_gate.py`](test_type_gate.py) | [`test_type_gate.pyi`](test_type_gate.pyi) | — | T0 type gate (Level 0, law in core/SCHEMA.md): the uppercase allowlist. Zero-token, runs in verify-fast. |
 <!-- routing:end -->

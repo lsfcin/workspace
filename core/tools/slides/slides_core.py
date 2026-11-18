@@ -125,13 +125,41 @@ def previews(alias: str, presentation_id: str, out_dir: pathlib.Path, dpi: int =
         except Exception as err:  # Drive refuses exports over ~10 MB; a link-shared deck still has the public one
             if "too large" not in str(err):
                 raise
-            pdf = deck_sample.download_public_export(presentation_id, pathlib.Path(tmp) / "deck.pdf")
+            try:
+                pdf = deck_sample.download_public_export(presentation_id, pathlib.Path(tmp) / "deck.pdf")
+            except RuntimeError:  # over 10 MB and not link-shared: one thumbnail per slide, slow but sure
+                return _thumbnails(alias, presentation_id, ids, out_dir)
         pages = deck_sample.render_pages(pdf, pathlib.Path(tmp) / "p", dpi=dpi)
         paths, width = [], max(2, len(str(len(ids))))  # names sort in slide order past 99
         for idx, (sid, page) in enumerate(zip(ids, pages), 1):
             dest = out_dir / f"slide_{idx:0{width}d}_{sid}.png"
             shutil.move(page, dest)  # not Path.replace: /tmp and out_dir are often different filesystems
             paths.append(dest)
+    return paths
+
+
+def _thumbnails(alias: str, presentation_id: str, ids: list, out_dir: pathlib.Path) -> list:
+    """The last resort of `previews`: the thumbnail endpoint, waiting out its per-minute quota on 429."""
+    import time, urllib.request
+    from googleapiclient.errors import HttpError
+    svc, paths, width = get_service(alias), [], max(2, len(str(len(ids))))
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for idx, sid in enumerate(ids, 1):
+        for wait in (0, 15, 30, 60, 60):
+            time.sleep(wait)
+            try:
+                t = svc.presentations().pages().getThumbnail(
+                    presentationId=presentation_id, pageObjectId=sid,
+                    thumbnailProperties_thumbnailSize="MEDIUM").execute()
+                break
+            except HttpError as err:
+                if err.resp.status != 429:
+                    raise
+        else:
+            raise RuntimeError(f"thumbnail quota never recovered at slide {idx}")
+        dest = out_dir / f"slide_{idx:0{width}d}_{sid}.png"
+        urllib.request.urlretrieve(t["contentUrl"], dest)
+        paths.append(dest)
     return paths
 
 

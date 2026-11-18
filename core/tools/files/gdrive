@@ -177,7 +177,7 @@ def main():
     psh.add_argument("--role", default="writer", choices=["reader", "commenter", "writer"])
     psh.add_argument("--short-name", default="", help="also mint a short link for the shared file")
     psh.add_argument("file_id")
-    psh.add_argument("email")
+    psh.add_argument("email", help="a Google account, or the word `anyone` for anyone-with-the-link")
     prm = sub.add_parser("rm")
     prm.add_argument("--account", default=None, help="default: the home account (personal)")
     prm.add_argument("file_ids", nargs="+", help="moved to the bin, recoverable for 30 days")

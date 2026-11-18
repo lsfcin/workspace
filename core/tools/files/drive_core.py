@@ -90,7 +90,7 @@ def download_file(alias: str, file_id: str, dest_dir: pathlib.Path, export_as: s
     else:
         req = svc.files().get_media(fileId=file_id)
 
-    path = dest_dir / name
+    path = dest_dir / name.replace("/", "-")  # a Drive name may hold "/" ("Tec. p/ Educação")
     with open(path, "wb") as fh:
         dl = MediaIoBaseDownload(fh, req)
         done = False
