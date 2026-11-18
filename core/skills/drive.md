@@ -23,6 +23,7 @@ core/run tools/files/gdrive search [--account ...] <query>
 core/run tools/files/gdrive download --account <alias> <file_id>
 core/run tools/files/gdrive mkdir   --account <alias> [--parent <id>] <name>
 core/run tools/files/gdrive put     --account <alias> [--parent <id>] [--gdoc] <path>
+core/run tools/files/gdrive share   --account <alias> [--role reader] <file_id> <email|anyone>
 core/run tools/files/gdrive auth <alias>   # first-time per account
 ```
 
