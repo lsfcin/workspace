@@ -21,9 +21,9 @@ All projects under `code/` follow Git Flow:
 - Feature branches: short-lived, one concern each
 - Tag `main` on every release: `v<semver>`
 
-**Enforcement.** `core/hooks/git/gitflow_gate.py` (pre-commit block 1e) **hard-blocks** in `code/` repos: any commit on `main`/`master`/`develop`, or on a branch not matching `feature/*`/`release/*`/`hotfix/*`. Emergency bypass: `git commit --no-verify`. Migration note: a project still committing to `main`/`master` directly must create `develop` and switch to `feature/*` before its next commit, or the gate blocks it.
+**Enforcement.** `core/hooks/git/gitflow_gate.py` (pre-commit block 1e) **hard-blocks** in the declared repos (scope below): any commit on `main`/`master`/`develop`, or on a branch not matching `feature/*`/`release/*`/`hotfix/*`. Emergency bypass: `git commit --no-verify`. Migration note: a project still committing to `main`/`master` directly must create `develop` and switch to `feature/*` before its next commit, or the gate blocks it.
 
-**Scope of the gate** (moved here from `AGENTS.md` 2026-07-30, when the always-loaded root stopped restating rules a hook already enforces): the gate covers every `code/*` repo **and the workspace repo itself**. Paper repos (`academy/papers/*`) and other nested repos are **exempt** —
+**Scope of the gate** (moved here from `AGENTS.md` 2026-07-30, when the always-loaded root stopped restating rules a hook already enforces): the gate and the session close cover the repos [`core/hooks/gitflow.txt`](../core/hooks/gitflow.txt) declares — every `code/*` repo, the workspace repo itself, and `academy/administration` (joined 2026-11-19, Lucas: gitflow by choice, and the close skipped it in silence). Paper repos (`academy/papers/*`) and other nested repos are **exempt** —
 Overleaf is authoritative there and co-authors commit straight to the default branch.
 
 **Two sessions share one index, so `git commit` is not scoped to what you staged.** It commits
