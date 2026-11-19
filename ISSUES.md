@@ -21,6 +21,8 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`cfpages check` não testa o 302 de verdade** (6 Nov). `b20261106-cfpages-check-302`
 
+- **`cfpages publish` não apaga um artefato que saiu da origem.** O `5-demonstracao-poster.md`, rejeitado e apagado do teaching, seguia no ar até ser removido à mão de `outputs/links` (19 Nov). `b20261119-publish-orphans`
+
 - **Tokens Google vencem um serviço por vez.** slides-write, drive e docs-write vencem separados e cada um pede navegador: numa noite travou 3 vezes. `gslides preview` depende do token de drive mesmo com slides autorizado (contornado com getThumbnail) (9 Nov). `b20261109-google-token-per-service`
 
 - **`panel/ask` só aceita caminho de arquivo.** Texto no lugar do caminho dá traceback em vez de erro claro (9 Nov). `b20261109-panel-ask-text`
@@ -248,7 +250,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/docs-ufrpe-1117 is 8 ahead of main
-- . — feature/gitflow-scope-1119 is 3 ahead of main
+- . — feature/gitflow-scope-1119 is 4 ahead of main
 
 ### Local branches already merged into their base
 
