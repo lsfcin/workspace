@@ -4,13 +4,13 @@
 <!-- stats:start -->
 <!-- data:start -->
 ## attention dashboard  _(auto-updated on every commit)_
-last-updated: 2026-11-19 13:22
+last-updated: 2026-11-19 13:31
 
 >**areas** — last 14 days  
 ```
 health       ░░░░░░░░░░   6 touches
 career       █░░░░░░░░░   28 touches
-craft        ██████████   256 touches
+craft        ██████████   261 touches
 finances     ░░░░░░░░░░   6 touches
 fun          ░░░░░░░░░░   10 touches
 spiritual    ░░░░░░░░░░   0 touches
@@ -51,11 +51,11 @@ spacemantics             ░░░░░░░░░░   3 touches
 spec-driven-development  ░░░░░░░░░░   0 touches
 startapps                █████░░░░░   83 touches
 surf                     ░░░░░░░░░░   0 touches
-teaching-materials       ███░░░░░░░   51 touches
+teaching-materials       ███░░░░░░░   52 touches
 travel                   ░░░░░░░░░░   0 touches
 vipassana                ░░░░░░░░░░   0 touches
 voice                    ░░░░░░░░░░   0 touches
-workspace-os             ██████████   141 touches
+workspace-os             ██████████   145 touches
 yoga                     ░░░░░░░░░░   0 touches
 ```
 <!-- data:end -->

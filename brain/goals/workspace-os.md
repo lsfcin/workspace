@@ -86,7 +86,7 @@ fallback · iterate — MVP can always be extended*
 > [ ] [startup-context] Track startup/planning cost and per-session docs-ufrpe-first adherence in ../../ROADMAP.md, Measurement (17 Oct; Claude, 18 Nov).
 > [ ] [document-tooling] Track local spreadsheet support under Dependency checks and [drive-doc-update] in core/ROADMAP.md; preserve third-party-authored originals unless Lucas authorizes editing them (INBOX 18–19 Oct; clarified 24 Oct).
 
-> [ ] [inbox-tool-fixes] Track Core [rea-assessment], captions and [links-cleanup]; root ISSUES covers tokens, state, write attribution, video, mail, Slides, rebuild, links, nested repos, memory/disk, verify, shoot and panel images (17 Oct–18 Nov reports). Polling: code/aiwbot/ISSUES.md; retain bot/MatrAIx assessment when needed (backlog).
+> [ ] [inbox-tool-fixes] Track Core [rea-assessment], captions and [links-cleanup] (today); root ISSUES covers tokens, state, write attribution, video, mail, Slides, rebuild, links, nested repos, memory/disk, verify, shoot and panel images (17 Oct–18 Nov reports). Polling: code/aiwbot/ISSUES.md; retain bot/MatrAIx assessment when needed.
 
 > [ ] [eval-iris-mcp] avaliar o iris (brijr/iris) como ferramenta de câmera MCP para o Antigravity inspecionar visualmente artefatos web e páginas geradas — ref em core/refs/REFS.md (INBOX 2026-09-25)  
 > [ ] [stream-recommendation-wos] conectar histórico de streaming e coisas assistidas ao workspace (branches/tips/) e criar feature de recomendação via chat móvel no bot do Telegram (aiwbot) (INBOX 2026-09-26)  
@@ -146,5 +146,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-11-19  ·  trend: steady  ·  touches: 191/775/1127/1146/1146/1146
+last-touch: 2026-11-19  ·  trend: steady  ·  touches: 195/779/1131/1150/1150/1150
 <!-- stats:end -->
