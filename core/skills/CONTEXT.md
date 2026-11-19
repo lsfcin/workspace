@@ -30,7 +30,7 @@ How to create or edit a skill, the sync commands, the case-sensitivity hazard, w
 | [`foundry.md`](foundry.md) | Foundry VTT v14 module dev reference — router. Load relevant subfiles before working. |
 | [`gforms.md`](gforms.md) | Google Forms as versioned specs: create, edit and read answers across all configured accounts — a form written as JSON, applied in one call. |
 | [`handoff.md`](handoff.md) | Emit a copy-pasteable resume prompt for the next session. For the full session-close ritual use /roundup, which calls this. |
-| [`inbox.md`](inbox.md) | Triage brain/INBOX.md — route each entry to a goal, task, reference, project doc, writing draft, or delete. Cross-domain front door: reaches into code ROADMAP/ISSUES and domain refs/, not just brain/. |
+| [`inbox.md`](inbox.md) | Triage brain/INBOX.md in bounded thematic batches; route entries and reorganize whole destination roadmaps and reference indexes while preserving their meaning and evidence. |
 | [`install.md`](install.md) | Install this workspace on the machine you are running on: check every step in SETUP.md, report what is missing, and execute it. Takes one feature short name, or nothing for everything. |
 | [`iso-visual.md`](iso-visual.md) | Isoroll visual-semantics reference: image-to-text conventions, known model failure modes, and how to verify visual output. Load before touching isoroll guides, kits, sprites or scenes. |
 | [`mail.md`](mail.md) | Triage Gmail across all configured accounts — classify, confirm routes, write to brain/INBOX.md. |

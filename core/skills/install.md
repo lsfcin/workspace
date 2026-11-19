@@ -57,4 +57,4 @@ If you catch yourself explaining a step, you are drifting into a second copy tha
   plainly with the output. An install that reports success it did not verify is worse than one that
   reports the gap.
 - **A step that will not fit the contract is a finding**, not a nuisance: it means the procedure is
-  not executable, and it belongs at the end of `brain/INBOX.md`.
+  not executable, and it belongs in the root `ISSUES.md`, tagged `[src: agent YYYY-MM-DD]`.

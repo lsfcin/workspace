@@ -44,17 +44,17 @@ Route each piece of knowledge the session produced. Conflict with existing conte
 |---|---|
 | Non-obvious design decision + rationale | `SPECS.md` → Architecture Decisions |
 | Discovered convention / coding rule | `SPECS.md` → Conventions |
-| Bug found, not fixed | `ISSUES.md` |
-| New technical work item (project has `ROADMAP.md`) | `ROADMAP.md` |
+| Bug found, not fixed | `ISSUES.md` of the repo that owns it, tagged `[src: agent YYYY-MM-DD]` |
+| New technical work item | `ROADMAP.md` of the repo that owns it, same tag |
 | Reference / link / paper / tool worth keeping | domain `refs/REFS.md` (route-by-domain — see `/inbox`) |
-| Personal / admin / life / teaching task — or project task with hard deadline | the owning goal's backlog in `brain/goals/*.md` (or `brain/INBOX.md` if no goal owns it yet) |
+| Personal / admin / life / teaching task — or project task with hard deadline | the owning goal's backlog in `brain/goals/*.md`; no goal owns it → the hand-off, for Lucas to place |
 | Insight about a specific life or career goal | `brain/goals/[goal].md` (achievement, backlog item, or obstacle) |
 | Skill workflow improvement | the skill file directly |
 | Workspace-wide rule across all projects | `AGENTS.md` |
 | Critical quick-reference fact or constant needed at session start | `CONTEXT.md` — see exclusions |
-| Doesn't fit cleanly | `brain/INBOX.md` — triaged in Phase 3 |
+| Doesn't fit cleanly | `ISSUES.md` of the repo the session worked in, tagged |
 
-**Goal backlog vs ROADMAP.** *ROADMAP*: project has `ROADMAP.md` AND the item is a technical milestone with agent-ready context. *Goal backlog*: personal / admin / life / teaching — append to the backlog of the goal it serves, or write the goal's seed if none exists yet. Neither fits (no owning goal, no technical milestone) → `INBOX.md`. Unclear → INBOX.
+**Never `brain/INBOX.md`.** INBOX is Lucas's own capture ([`brain/CONTEXT.md`](../../brain/CONTEXT.md)); an agent's finding written there drags the workspace repo into every close and gets promoted as if Lucas had said it. *ROADMAP*: a technical milestone with agent-ready context. *Goal backlog*: personal / admin / life / teaching — append to the goal it serves, or write the goal's seed.
 
 **CONTEXT.md exclusions.** Routing-block changes → ignore, hooks auto-sync them. Behavioral cues ("be careful with X", "prefer Y") → `SPECS.md` Conventions or `AGENTS.md`. Decisions + rationale → `SPECS.md` Architecture Decisions. Write to `CONTEXT.md` only for a critical constant, invariant, or quick-start command needed at the *next* session's start, that fits nowhere above.
 
