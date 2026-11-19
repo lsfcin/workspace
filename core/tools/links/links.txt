@@ -14,6 +14,7 @@ ai4good/artigo-deck	https://docs.google.com/presentation/d/1-jbWSvOYqUWVMDuoWuMN
 ai4good/autoaprimoramento	https://docs.google.com/presentation/d/1mqFfYtF0yyQd2JAnQoaQ6TnJ0dqpWVmxZcmxEG1K67U/edit?usp=sharing	ai4good	2026-11-18
 ai4good/autocodificadores	https://docs.google.com/presentation/d/1GZ2W2YAFJkd5Z5uJM8kjuQzZK8SsEPnzO2NWbk1Ji5w/edit?usp=sharing	ai4good	2026-11-18
 ai4good/autopreservacao	https://docs.google.com/presentation/d/1o7MWYdm74XMNbwWRD7OWXsayB0UQLBTbrcshAkom3cM/edit?usp=sharing	ai4good	2026-11-18
+ai4good/banca	https://docs.google.com/forms/d/e/1FAIpQLSfUpb3Xdu9eLzg9vqdmmo33MP_CoMqCy0H8oSQYX--9xCR9uA/viewform	ai4good	2026-11-19
 ai4good/brw	https://lucassf.pages.dev/ai4good/?doc=artefatos/3-brainwriting-hibrido.md	ai4good	2026-10-21
 ai4good/brw-excelente	https://lucassf.pages.dev/ai4good/artefatos/brw/excelente.md	ai4good	2026-10-16
 ai4good/brw-raso	https://lucassf.pages.dev/ai4good/artefatos/brw/raso.md	ai4good	2026-10-16
@@ -43,9 +44,11 @@ ai4good/sem1-deck	https://canva.link/2fgyeajku57c2c8	ai4good	2026-10-30
 ai4good/sem1-excelente	https://lucassf.pages.dev/ai4good/artefatos/sem1/excelente.md	ai4good	2026-10-30
 ai4good/sem1-raso	https://lucassf.pages.dev/ai4good/artefatos/sem1/raso.md	ai4good	2026-10-30
 ai4good/sem2	https://lucassf.pages.dev/ai4good/?doc=artefatos/4-seminario-demonstracao.md	ai4good	2026-11-02
+ai4good/sem2-deck	https://docs.google.com/presentation/d/1_SV70Tq1akBeHE-0vW7ABE3ClzA6b7j2PvAA8u1tzUQ/edit	ai4good	2026-11-19
 ai4good/sem2-excelente	https://lucassf.pages.dev/ai4good/artefatos/sem2/excelente.md	ai4good	2026-11-02
 ai4good/sem2-raso	https://lucassf.pages.dev/ai4good/artefatos/sem2/raso.md	ai4good	2026-11-02
 ai4good/sem3	https://lucassf.pages.dev/ai4good/?doc=artefatos/4-seminario-teste.md	ai4good	2026-11-13
+ai4good/sem3-deck	https://docs.google.com/presentation/d/1609piFhzPlQ_Ys9yzcOkAez8LfvkIkeOidS8Y2pexXY/edit	ai4good	2026-11-19
 ai4good/sem3-excelente	https://lucassf.pages.dev/ai4good/artefatos/sem3/excelente.md	ai4good	2026-11-13
 ai4good/sem3-raso	https://lucassf.pages.dev/ai4good/artefatos/sem3/raso.md	ai4good	2026-11-13
 ai4good/setup	https://docs.google.com/forms/d/e/1FAIpQLSfESI8OWLI1JSALkpAAtbRkqRzKxP6az3NCd9mi5Mop_697kQ/viewform	ai4good	2026-09-06
