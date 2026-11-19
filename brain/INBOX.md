@@ -9,6 +9,14 @@
 
 <!-- add entries below, newest first -->
 
+https://www.instagram.com/reel/DfEdYDOiIoq/?bqrl=NXd0Nm01NjF3ZTdt
+Será que serve pro isoroll?
+— via aiwbot · 2026-11-18
+
+https://www.instagram.com/p/Dfa52pRClb2/?img_index=2&knvt=MWk0MDZ0czY1emt3Zg==
+fizeram o que eu tava pensando... vamo aprender com eles
+— via aiwbot · 2026-11-18
+
 https://www.instagram.com/reel/DfcPWDhREEn/?fqnt=NTc4MTIwNjQ2YQ==
 — via aiwbot · 2026-11-18
 
@@ -103,11 +111,8 @@ https://www.instagram.com/p/De-eRt1knz7/?img_index=3&exln=MXZmaWZncm9pYWkwNw==
 
 em alguma sessão acho que do codex ou do antigravity eu pedi pra colocar uns limites no consumo de memória do brave pq o ubuntu tava travando tudo. isso foi feito mas quero desfazer agora. em uma sessão do antigravity relativamente recente ele me falou de um outro método, pra limitar a ram e outro pra "compactar a ram" eu acho, easyloom algo assim, enfim, isso foi feito e a priori essas travas no brave não são mais necessárias. então quero testar. desativar tudo que foi feito especificamente sobre o brave, as mensagens que aparecem ex.: "Há um brave fora da proteção" e daí ver se a gestão de memória tá ok agora.  inclusive, pra ajudar a achar o código, vc pode procurar por essa frase. ATENÇÃO, não quero remover essa parte daqui do inbox! ela fica! até ser resolvido. não quero esconder ela em algum roadmap.
 
-verify fast vermelho em 17/11 (sessão docs-ufrpe-site): falha test_branch_gate.py::test_the_real_gate_fails_open_and_can_be_switched_off e erro em test_b20260902_a_generated_list_is_red_on_the_clone_that_did_not_write_it.py::test_the_header_counts_what_this_repo_tracks. 1180 passaram. Nada a ver com academy; investigar numa sessão de core. O ISSUES.md raiz ainda diz green.
-— via claude · 2026-11-17
-
 WOS (agente, 2026-11-17): core/tools/video conta extração vazia como sucesso — 5 carrosséis /p/ (DfbvTSYAatL, DfXk6uLDXB7, De6plJiDbwa, DfKkR_fDTFY, De-eRt1knz7) saíram "(no text extracted)" e o resumo disse "38 ok · 0 failed". Corrigir a contagem e descobrir por que o caminho de imagem (gallery-dl) falha nesses posts.
 
-WOS (agente, 2026-11-17, sessão docs-ufrpe-site): duas ferramentas não serviram e precisei de script de rascunho. (1) core/tools/web/shoot sobe o servidor na pasta da página e não aceita query string nem uma raiz acima dela, então não fotografa um viewer que busca ../outra-pasta/*.md com ?doc=. Pedir --root e aceitar URL com query. (2) core/tools/panel/ask não manda imagem; funcionou citando os caminhos dos PNG no prompt (o Codex abriu), mas o codex exec tem -i: expor --image no ask.
+Nota de Lucas (2026-11-19): manter esta entrada e os cinco carrosséis no inbox até tratar o problema e a causa raiz. Micro: recuperar e conferir o conteúdo de todos os slides dos cinco posts; só então propor seus roteamentos. Macro: investigar o caminho de imagem/gallery-dl e a classificação de sucesso no video e no fallback; extração vazia, parcial ou contendo só erro precisa de diagnóstico explícito, sem virar sucesso. Preservar resultados e falhas por link durante o lote, permitir retomar sem perder trabalho e acrescentar regressões para extração vazia, erro, conteúdo parcial e carrossel completo, incluindo o resumo do lote. Comprovar a correção ponta a ponta antes de retirar esta pendência. Relato técnico também incorporado ao ISSUES.md raiz, b20261017-video-batch-results.
 
-WOS (agente, 2026-11-18, sessão docs-ufrpe): (1) r4 — o roundup deveria medir quantas leituras de docs-ufrpe/ cada sessão de academy/administration fez (a matriz de reads mostrava zero; a regra "docs-ufrpe primeiro" entrou no CONTEXT, falta saber se pega). (2) O gerador de routing (context_synchronizer) listou o segredos.env gitignored do repo aninhado academy/administration/ufrpe-sites/ e pediu comentário na 1ª linha; arquivo ignorado pelo git do próprio repo não deveria entrar na tabela.
+WOS (agente, 2026-11-19, sessão docs-ufrpe-census): três ferramentas não serviram e precisei de rascunho no scratchpad. (1) core/tools/web/fetch não aceita --cacert: os sites UFRPE não mandam o intermediário (RNP ICPEdu GR46 2025; a PRPG usa outra cadeia, RNP ICPEdu OV SSL CA 2019) — dar ao fetch um bundle com os intermediários que verificar.py já lista. (2) core/tools/mail/gmail só traz não lidos, máx. 50, sem busca por termo, e `attachments --id` só lê o cache do fetch: pedir `search <query>` paginado e `attachments` direto por id (casa com o ROADMAP [academic-evidence-tools]). (3) O censo de páginas de documentos (seção → nº de arquivos) virou script de rascunho: decidir se vira ferramenta (ex.: core/tools/web/census) antes da próxima sessão do censo.

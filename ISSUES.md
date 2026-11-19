@@ -21,15 +21,23 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`cfpages check` não testa o 302 de verdade** (6 Nov). `b20261106-cfpages-check-302`
 
+- **`cfpages publish` não apaga um artefato que saiu da origem.** O `5-demonstracao-poster.md`, rejeitado e apagado do teaching, seguia no ar até ser removido à mão de `outputs/links` (19 Nov). `b20261119-publish-orphans`
+
 - **Tokens Google vencem um serviço por vez.** slides-write, drive e docs-write vencem separados e cada um pede navegador: numa noite travou 3 vezes. `gslides preview` depende do token de drive mesmo com slides autorizado (contornado com getThumbnail) (9 Nov). `b20261109-google-token-per-service`
 
 - **`panel/ask` só aceita caminho de arquivo.** Texto no lugar do caminho dá traceback em vez de erro claro (9 Nov). `b20261109-panel-ask-text`
+
+- tools/panel/ask cannot attach images; the docs-ufrpe-site session supplied PNG paths in prose instead (Claude, 17 Nov). Expose an image argument and verify delivery, not merely acceptance of its path. `b20261117-panel-images`
+
+- tools/web/shoot serves only the page directory and treats a query string as part of its filesystem path. The docs-ufrpe viewer needs a parent root and ?doc= to fetch sibling Markdown (Claude, 17 Nov). Verify both together. `b20261117-shoot-root-query`
 
 - **`record` do SessionStart ficou nos 3 shims, contra o plano do roundup-conflict.** É ele que pega a troca de branch antes da primeira escrita; falta Lucas confirmar a mudança de plano (10 Nov). `b20261110-sessionstart-record`
 
 - **Não se sabe se o `session_id` do Codex é o `CODEX_THREAD_ID`.** Se não for, o aviso de drift no commit fica mudo no Codex. A investigar (10 Nov). `b20261110-codex-session-id`
 
 - **O verify roda na feature, não no resultado do merge.** Com um develop que divergiu, a branch fica verde e o merge pode não ficar (painel, 10 Nov). `b20261110-verify-not-merge-result`
+
+- Claude reports two verify-fast failures on 17 Nov: test_branch_gate.py::test_the_real_gate_fails_open_and_can_be_switched_off and test_b20260902_a_generated_list_is_red_on_the_clone_that_did_not_write_it.py::test_the_header_counts_what_this_repo_tracks (1180 passed). Recheck reproducibility and environment; the generated 18-Nov green run is later evidence, not proof of a fix. `b20261117-verify-intermittent`
 
 - **Processo morto com 137, sem rastro.** A suíte inteira no pre-commit morreu uma vez com 137 (10 Nov), e o roundup de 16 Nov também, depois dos commits de fechamento. Causa desconhecida. `b20261110-exit-137`
 
@@ -99,7 +107,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - UNGATED WRITE misattributes paths: brw/excelente.md reported instead of cmp/ after cd (Claude,16 Oct). AppTime 3-Nov report: literal $S/file became code/apptime/$S/file. Resolve cwd/variables safely or explicitly report unresolved attribution; never broadly exempt variable writes. `b20261017-ungated-write-cwd`
 
-- Video extraction hides progress/partial results and calls empty or error-only galleries successful. Reproduced 30 Oct: mixed-carousel omissions, dimensionless thumbnail selection at 150 px, IndexError on downloaded clips without audio, serial image-call stalls without persisted per-link results. Preserve every slide/full-resolution image and numeric comparisons with estimation uncertainty. Earlier reports: cancellation with no output (24 Oct), YouTube 403 despite JS runtime (19 Oct). 16 Nov: `--from INBOX --level full --save` ran 38 links in ~50 min and `brain/attachments/` received no bundle before exit. `b20261017-video-batch-results`
+- Video extraction hides progress/partial results and calls empty or error-only galleries successful. Reproduced 30 Oct: mixed-carousel omissions, dimensionless thumbnail selection at 150 px, IndexError on downloaded clips without audio, serial image-call stalls without persisted per-link results. Preserve every slide/full-resolution image and numeric comparisons with estimation uncertainty. Earlier reports: cancellation with no output (24 Oct), YouTube 403 despite JS runtime (19 Oct). 16 Nov: `--from INBOX --level full --save` ran 38 links in ~50 min and `brain/attachments/` received no bundle before exit. 17-Nov agent report: DfbvTSYAatL, DfXk6uLDXB7, De6plJiDbwa, DfKkR_fDTFY and De-eRt1knz7 returned no text despite a 38-ok/0-failed summary; inspect gallery-dl and distinguish empty extraction from success. `b20261017-video-batch-results`
 
 - Roundup picks newest .claude/projects transcript rather than native ChatGPT identity (core/tools/wos/roundup.session_id; handoff differs). 2-Nov audit also reports trace/reads refusing Codex IDs. Recheck identity throughout metrics; cost/size/compaction must refer to the actual session. Evidence: outputs/codex-audit-20261102/auditoria.md. `b20261016-roundup-session-attribution`
 
@@ -132,6 +140,8 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 - **rtk rejects supported search flags; support them or show a working alternative (12 Oct).** `b20261014-search-flags`
 
 - Cloned/shell-created directories do not refresh routing; compare disk independently of edit events. Claude 28 Oct: ai4good/artefatos routing gained tec/* only when flx committed; flx still absent, one turn late. Earlier manual resync: ce4d4ab7 (14 Oct). `b20261014-routing-cloned-dirs`
+
+- context_synchronizer listed the nested academy/administration/ufrpe-sites/segredos.env and demanded a first-line comment although its owning repo ignores it (Claude, 18 Nov). Respect the owning repo's ignore rules; never include secret contents in routing or diagnostics. `b20261118-routing-nested-ignore`
 
 - bash-context-gate.py unnecessarily demands subtree context for binary metadata tools such as pdfinfo. Establish metadata/self-generated compiled-PDF exemptions separately from Python-script PDF detection (25 Sep/9 Oct). `b20260925-gate-binary-readonly`
 
@@ -196,7 +206,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 > Generated by `core/hooks/entropy/dashboard/entropy-dashboard.py`, which scans this repo and no other. Never edit inside this block, and never copy a count out of it — a copied number is the drift these checks exist to catch.
 
-2026-11-18 · 1207 tracked files scanned · **6 findings here** (2026-11-06: 6 · +0 over 12 days)
+2026-11-19 · 1209 tracked files scanned · **7 findings here** (2026-11-09: 5 · +2 over 10 days)
 
 | Check | Findings |
 |-------|----------|
@@ -211,7 +221,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 | Items claimed by two lists | 0 |
 | Size signals | 0 |
 | Source files with no interface stub | 0 |
-| Directories holding too many files | 3 |
+| Directories holding too many files | 4 |
 | Prose describing finished work | 0 |
 | Unanswered placeholders | 0 |
 | Doubt stores missing their own discipline | 0 |
@@ -230,6 +240,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 *splitting costs one hop — pay it only when it removes more table than it adds*
 
+- core/hooks — 11 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
 - core/tools/slides — 13 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
 - core/tools/test — 15 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
 - core/tools/test/workspace — 11 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
@@ -244,13 +255,13 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 *safe to delete, and purely local — `git -C <repo> branch -d <branch>`*
 
-- . — 21 merged into main: git -C . branch -d feature/ai4good-sem3 feature/ai4good-v1 feature/aulas-1118 feature/capd-george feature/docs-ufrpe-search feature/docs-ufrpe-site-close feature/docs-ufrpe-useful feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-links-1117 feature/inbox-texts-1117 feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final
+- . — 22 merged into main: git -C . branch -d feature/admin-roundup-1118 feature/ai4good-sem3 feature/ai4good-v1 feature/aulas-1118 feature/capd-george feature/docs-ufrpe-search feature/docs-ufrpe-site-close feature/docs-ufrpe-useful feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-links-1117 feature/inbox-texts-1117 feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final
 
 ### Remote branches already merged into their base
 
 *safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
 
-- . — 22 merged into main: git -C . push origin --delete feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/disk-hygiene feature/docs-ufrpe-search feature/docs-ufrpe-site-close feature/docs-ufrpe-useful feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-links-1117 feature/inbox-texts-1117 feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final feature/web-shoot
+- . — 23 merged into main: git -C . push origin --delete feature/admin-roundup-1118 feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/disk-hygiene feature/docs-ufrpe-search feature/docs-ufrpe-site-close feature/docs-ufrpe-useful feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-links-1117 feature/inbox-texts-1117 feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final feature/web-shoot
 
 <!-- entropy:end -->
 
@@ -259,5 +270,5 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 > Generated by `core/tools/wos/roundup` at session close. The suite is the authority; this is its last result, never a claim that it is still true.
 
-2026-11-18 · `verify.py full` · **green (25 passed, 1186 deselected in 4.46s · 1185 passed, 1 skipped in 208.62s (0:03:28))**
+2026-11-19 · `verify.py full` · **green (25 passed, 1189 deselected in 5.35s · 1188 passed, 1 skipped in 218.50s (0:03:38))**
 <!-- verify:end -->

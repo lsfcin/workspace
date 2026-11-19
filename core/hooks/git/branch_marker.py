@@ -23,7 +23,8 @@ from pathlib import Path
 
 _HOOKS = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(_HOOKS), str(_HOOKS / 'commit'), str(Path(__file__).resolve().parent)]
-from gitflow_gate import SHARED, enforced  # noqa: E402
+from gitflow_gate import SHARED  # noqa: E402
+from gitflow_law import enforced  # noqa: E402
 from platform_law import rel, session_state  # noqa: E402
 from pre_commit import git  # noqa: E402
 

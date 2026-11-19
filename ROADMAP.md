@@ -30,9 +30,9 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 *Done when* — teste comparativo medido em tarefa longa avaliando perda de fatos e integridade com state file vs native compaction vs handoff.
 
 **🟡 measure and reduce startup and planning context**
-*What* — Measure automatic startup and planning reads separately by component; assess on-demand loading and cut redundant prose.
+*What* — Measure startup/planning reads by component and docs-ufrpe/ reads per academy/administration session at close; distinguish an observed zero from missing measurement. Assess on-demand loading and cut redundant prose.
 *Why* — Lucas reports excessive context before work begins, including during planning (INBOX 1 and 17 Oct).
-*Done when* — A measured baseline and reduction are published without weakening required checks.
+*Done when* — Baseline, reduction and per-session docs-ufrpe-first adherence are evidenced without weakening checks (Claude report, 18 Nov).
 
 **🟡 avaliar jevgrep para seleção cirúrgica de arquivos para coding agents**
 *What* — testar o `jevgrep` (ou seu método de busca/indexação focada em agentes) contra os comandos de busca e leitura do WOS (`grep_search`, `find_by_name`, `session/reads`).
@@ -64,8 +64,8 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 
 ## Portability — would this work on a machine that is not Lucas's
 
-**🟡 prepared worktrees**
-*What* — Establish reproducible preparation for dependencies, mirrors, local settings and nested repositories. *Why* — Fresh checkouts fail verification. *Done when* — One new checkout verifies or names unavailable dependencies.
+**🟡 safe parallel triage and prepared worktrees**
+*What* — Protect inbox batches across owning repositories; compare coordinated short writes with isolated per-session checkouts. Prepare dependencies, mirrors, settings and nested repositories; resolve ISSUES [b20261110-roundup-worktree]. *Why* — Captures, index and branch still collide after the branch gate (17 Nov report; Lucas, 19 Nov). *Done when* — Concurrent capture and triage preserve both sessions’ entries and changes, commit only approved paths, recover after a destination failure, and close from an isolated checkout with verified results.
 
 **🟡 the port grew the workspace and the payment is still short** — *after the ablation, not before*
 *What* — the cut that funds the port, from the top of `core/run tools/wos/size --weighted` down. The instrument names the candidate and it is **this file**, so draining the roadmap and paying the debt are one job.
@@ -95,7 +95,6 @@ The other two answers are in: `is_owner_only()` reads the ACL back rather than t
 - **Anything a nested repo owns** — each keeps its own `ISSUES.md` and fixes its own findings.
 - **`[gdrive-integration]`, `[offline-resilience]`, serious OCR** — content/infrastructure, not repo.
 - **One `WOS_SESSION_ID` for every harness** (panel recommended, Lucas deferred, 2026-11-10) — **reopen when a drift warning goes missing** on Copilot, opencode or Antigravity; without it, a commit there loses only that warning.
-- **One worktree per session** (panel, 2026-11-10) — **reopen if parallel sessions still collide** after the Git Flow gate. Known conflicts: roundup's branch sweep (AD 2026-08-14), and roundup cannot close from a worktree yet (`b20261110-roundup-worktree`).
 
 ## Rejected
 

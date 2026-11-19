@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
 # Branch promotion at session close: feature → develop → main, and what to say when it did not run.
 #
-# Imported by core/tools/wos/roundup, which keeps the sequence and the decisions. Same scope as
-# core/hooks/git/gitflow_gate.py — the workspace repo and code/* project repos promote; every other
-# nested repo just pushes its current branch.
+# Imported by core/tools/wos/roundup, which keeps the sequence and the decisions. The repos that
+# promote are the ones core/hooks/gitflow.txt declares, the scope the branch gate reads too; every
+# other nested repo just pushes its current branch.
 import tempfile
 
 from artifacts import dirt, git, out
+from gitflow_law import enforced
 
 
 def gitflow(workspace, repo) -> bool:
-    """Which repos promote develop → main: the workspace itself, and the projects under code/.
+    """Which repos promote develop → main, asked of core/hooks/gitflow_law.py.
 
-    The scope this file's head has always declared, in the one place both callers read it — the
-    close's own repo and the project sweep beside it. It was a line inside roundup while the sweep
-    promoted nothing, which is how nine projects sat 22 commits behind their own develop.
+    One place both callers read it — the close's own repo and the project sweep beside it. It was a
+    line inside roundup while the sweep promoted nothing, which is how nine projects sat 22 commits
+    behind their own develop; then a second copy of the gate's scope, which is how
+    academy/administration, gitflow by choice, was skipped in silence (2026-11-19).
     """
-    return repo == workspace or (repo.parent.name == 'code' and repo.parent.parent == workspace)
+    return enforced(repo, workspace)
 
 
 def disturbed(repo, branch: str) -> str:

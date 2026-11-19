@@ -31,3 +31,4 @@ test/fixtures/thermometer.json	Cases for the thermometer that the Dart test and 
 test/fixtures/peak_hour.json	Cases for the peak hour that the Dart test and the Kotlin JUnit test both run: too few days, today left out, ties and a flat day.
 classes/techedu/2026-2-teste-prototipos.json	O questionário de teste de protótipos da turma 2026.2, uma resposta por protótipo testado, aplicado por gforms new.
 site/jsconfig.json	Diz ao editor que o viewer.js do docs-ufrpe é JavaScript de navegador, sem checagem de tipos.
+classes/ai4good/2026-2-banca-demonstracao.json	O formulário da banca da demonstração de 02/12, uma resposta por visita: a demo de 1 a 5 e quatro blocos do pitch de 1 a 3, aplicado por gforms new.

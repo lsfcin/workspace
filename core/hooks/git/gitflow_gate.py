@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 # Git Flow branch gate: block direct commits to main/master/develop, require feature|release|hotfix.
 #
-# Scoped to code/ project repos AND the workspace structural repo. Paper repos (academy/papers/*),
-# branches/* and any other nested repo are exempt -- the convention is ours, not git's, and applying
-# it where it was never agreed would be a gate nobody opted into.
-# Convention: AGENTS.md (workspace) / code/SPECS-git.md (projects).
+# Scoped to the repos core/hooks/gitflow.txt declares; every other nested repo is exempt -- the
+# convention is ours, not git's, and applying it where it was never agreed would be a gate nobody
+# opted into. Convention: code/SPECS-git.md.
 import sys
 from pathlib import Path
 
 _HOOKS = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(_HOOKS), str(_HOOKS / 'commit')]
 import feature_law  # noqa: E402
+from gitflow_law import enforced  # noqa: E402
 from pre_commit import Blocked, git  # noqa: E402
 
 SHARED = ('main', 'master', 'develop')
@@ -52,15 +52,3 @@ def check(commit):
         '   Rename:  git branch -m feature/<name>. See code/SPECS-git.md.')
 
 
-def enforced(toplevel: Path, root: Path) -> bool:
-    """Whether this repo is one the convention covers -- the workspace, or a project under code/.
-
-    Asked by the branch gate too, at the first write, so the two never disagree about scope.
-    """
-    toplevel, root = Path(toplevel).resolve(), Path(root).resolve()
-    if toplevel == root:
-        return True
-    try:
-        return toplevel.relative_to(root).parts[:1] == ('code',)
-    except ValueError:
-        return False

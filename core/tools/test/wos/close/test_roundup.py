@@ -35,7 +35,8 @@ PARTS = ('core/tools/wos/roundup', 'core/tools/wos/close/artifacts.py', 'core/ho
          'core/tools/wos/close/branches.py', 'core/tools/wos/close/projects.py', 'core/tools/wos/close/handoff.py',
          'core/tools/wos/close/repomap.py', 'core/tools/verify/contract.py',
          'core/hooks/platform_law.py', 'core/hooks/entropy/entropy_corpus.py',  # real: sweep asks it
-         'core/hooks/file_law.py')  # entropy_corpus asks it which files are vendored
+         'core/hooks/file_law.py',  # entropy_corpus asks it which files are vendored
+         'core/hooks/gitflow_law.py', 'core/hooks/gitflow.txt')  # branches asks which repos promote
 
 
 def _git(repo, *args):

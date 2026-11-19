@@ -1,0 +1,9 @@
+# Repos the Git Flow convention covers: the branch gate blocks direct commits there, and the session
+# close promotes feature → develop → main. Read by core/hooks/gitflow_law.py, the one reader.
+#
+# One repo per line, relative to the workspace root; `*` matches one path segment. A repo absent here
+# is exempt and the close only pushes it — paper repos (academy/papers/*) stay out because Overleaf
+# is authoritative there. Why a repo joined is in code/SPECS-git.md § Scope of the gate.
+.
+code/*
+academy/administration
