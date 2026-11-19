@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-# Auto-push after a commit, so work survives a dead session and reaches the other machine: every
-# branch of a repo whose origin is ours, except develop/main where a develop exists — the close
-# pushes develop after the fast suite, and main moves only by a release (core/hooks/git/SPECS.md).
-# A trunk repo (brain/) is pushed on every commit. Never blocks -- git ignores a post-commit's
+# Auto-push after a commit, so work survives a dead session and reaches the other machine.
+#
+# Every branch of a repo whose origin is ours, except develop/main where a develop exists: the
+# close pushes develop after the fast suite, and main moves only by a release
+# (core/hooks/git/SPECS.md). A trunk repo (brain/) is pushed on every commit. Never blocks -- git ignores a post-commit's
 # exit status, and every failure here is a warning.
 import subprocess
 import sys
