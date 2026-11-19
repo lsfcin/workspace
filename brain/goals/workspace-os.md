@@ -61,7 +61,7 @@ fallback · iterate — MVP can always be extended*
 
 > [ ] [desktop-memory-review] Verify post-5-Nov freezes and startup memory; review the custom Brave guard against ../../branches/tweaks/SETUP.md. Preserve the 2-Nov symptoms as reported (5.5 GB at startup), without assuming resolution (backlog).
 
-> [ ] [partial-norm-staging] Track root ISSUES.md [b20261030-partial-norm-staging], video-batch findings, repeated-read registration and delayed routing; preserve other sessions' staged work (backlog).
+> [ ] [partial-norm-staging] Track root ISSUES.md [b20261030-partial-norm-staging] and ROADMAP.md, Portability: safe parallel triage, prepared worktrees and preservation of other sessions’ changes (backlog).
 
 > [ ] [evidence-tool-defects] Track reported calendar ranges, Drive write tokens/paging and compiled-TeX PDF detection in ../../ISSUES.md; administration consumer: ../../academy/administration/ROADMAP.md [evidence-tool-defects] (backlog).
 
@@ -83,10 +83,10 @@ fallback · iterate — MVP can always be extended*
 > [ ] [expert-depth] Track the prompt attributed to Felix Rieseberg in core/ROADMAP.md [expert-depth]; core/refs/REFS.md (backlog).
 > [ ] [hyperagent-openharness] Track OpenHarness in core/ROADMAP.md, Desktop hyperagent; aiwbot sessions and Dobra context remain part of that assessment (high priority, week).
 > [ ] [modder-patterns] Track Universal Modder discovery, verification and field-note assessment in core/ROADMAP.md [modder-patterns]; core/refs/REFS.md (backlog).
-> [ ] [startup-context] Track separate startup/planning measurements and context reduction in ROADMAP.md, Measurement (Lucas, INBOX 17 Oct).
+> [ ] [startup-context] Track startup/planning cost and per-session docs-ufrpe-first adherence in ../../ROADMAP.md, Measurement (17 Oct; Claude, 18 Nov).
 > [ ] [document-tooling] Track local spreadsheet support under Dependency checks and [drive-doc-update] in core/ROADMAP.md; preserve third-party-authored originals unless Lucas authorizes editing them (INBOX 18–19 Oct; clarified 24 Oct).
 
-> [ ] [inbox-tool-fixes] Track core/ROADMAP.md [rea-assessment], caption-tool comparison and [links-cleanup] (today); ISSUES.md covers retired-token matching, state stores, write attribution, video batches, mail search, Slides command/auth, public rebuild, link targets, nested repositories, retired memory and disk setup (reports 17–24 Oct); nested file-description scope includes the PPC config report of 30 Oct. Polling recovery: code/aiwbot/ISSUES.md. Retain bot compatibility and MatrAIx assessment when active work requires them.
+> [ ] [inbox-tool-fixes] Track Core [rea-assessment], captions and [links-cleanup]; root ISSUES covers tokens, state, write attribution, video, mail, Slides, rebuild, links, nested repos, memory/disk, verify, shoot and panel images (17 Oct–18 Nov reports). Polling: code/aiwbot/ISSUES.md; retain bot/MatrAIx assessment when needed (backlog).
 
 > [ ] [eval-iris-mcp] avaliar o iris (brijr/iris) como ferramenta de câmera MCP para o Antigravity inspecionar visualmente artefatos web e páginas geradas — ref em core/refs/REFS.md (INBOX 2026-09-25)  
 > [ ] [stream-recommendation-wos] conectar histórico de streaming e coisas assistidas ao workspace (branches/tips/) e criar feature de recomendação via chat móvel no bot do Telegram (aiwbot) (INBOX 2026-09-26)  
@@ -146,5 +146,5 @@ fallback · iterate — MVP can always be extended*
 
 ## stats
 <!-- stats:start -->
-last-touch: 2026-11-06  ·  trend: decelerating  ·  touches: 129/895/1046/1047/1047/1047
+last-touch: 2026-11-19  ·  trend: steady  ·  touches: 191/775/1127/1146/1146/1146
 <!-- stats:end -->

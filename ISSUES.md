@@ -248,7 +248,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 *promote when the work is green, or say which reason applies — /roundup Phase 5*
 
 - . — feature/docs-ufrpe-1117 is 8 ahead of main
-- . — feature/gitflow-scope-1119 is 2 ahead of main
+- . — feature/gitflow-scope-1119 is 3 ahead of main
 
 ### Local branches already merged into their base
 
