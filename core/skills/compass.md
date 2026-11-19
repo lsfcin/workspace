@@ -10,8 +10,8 @@ Arguments: $ARGUMENTS
 
 ## Protocol
 
-Read: `brain/GOALS.md` + all files in `brain/goals/` (skip `_template.md`). Read `brain/SPECS.md` § Rationale if you need to recalibrate the tone.
-Run: `git log --oneline --since="14 days ago" -- brain/goals/`
+Read: `brain/GOALS.md` + all files in `brain/goals/` (skip `_template.md`). Read `core/hooks/brain/SPECS.md` § Rationale if you need to recalibrate the tone.
+Run: `git -C brain log --oneline --since="14 days ago" -- goals/`
 
 This is an **interview**, not a report. Propose lightly, let Lucas choose, then write back what he decides. Guiding law: **ordering by motivation wins over deadlines/pressure** — always.
 
@@ -43,7 +43,7 @@ When Lucas marks something done, in that goal file:
 a. Flip `> [ ] [<id>]` → `> [x] [<id>]` in `## backlog`.
 b. Move the `> [x] [<id>] ...` line to the top of the `<!-- done:start -->…<!-- done:end -->` block.
 c. Advance `## selected next achievement` to the next `> [ ]` backlog item.
-d. Write a fresh `**ease-start**` for it — meet the ease-start quality bar in `brain/SPECS.md`
+d. Write a fresh `**ease-start**` for it — meet the ease-start quality bar in `core/hooks/brain/SPECS.md`
    (real link/handle, numbered steps, content pre-staged, 5–10 min ceiling; fetch or ask if missing).
 e. Set `>**dynamics**` motion → `advancing`.
 f. Acknowledge the win — one short, genuine sentence before moving on.

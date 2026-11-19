@@ -50,7 +50,7 @@ Write the decision record. Default target: append to the project's own `SPECS.md
 - **Provenance:** <.craft/<decision-name>/ if kept, or "trail dropped">
 ```
 
-Then: update `ROADMAP.md` if the decision spawns work; delete `.craft/<decision-name>/` unless `keep-trail: yes`; commit on a `feature/*` branch (the gitflow gate applies). Do not merge — the user's call.
+Then: update `ROADMAP.md` if the decision spawns work; delete `.craft/<decision-name>/` unless `keep-trail: yes`; commit on the `feature/*` branch the branch lock created. Do not merge — the user's call.
 
 **Chain-out:** if the decision requires implementation, hand the ADR to the `feature` folder as an input constraint for its Loop 3.5 Contract Layout — the ADR bounds the module contracts.
 

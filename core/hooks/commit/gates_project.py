@@ -72,9 +72,9 @@ def project_contract(commit):
         _spec_declaration(commit)
 
     # Delegated gates carry their own guards, so they are not wrapped in a switch here.
-    import gitflow_gate
     import gitlink_gate
-    gitflow_gate.check(commit)
+    import lock
+    lock.check(commit)
 
     if project:
         for gate in ('checks/type-gate.py', 'checks/citation-gate.py'):
@@ -83,10 +83,6 @@ def project_contract(commit):
                 raise Blocked(done.stdout + done.stderr)
 
     gitlink_gate.check(commit)
-
-    # Branch drift: warn, never block. A deliberate mid-session switch is legitimate.
-    import branch_marker
-    branch_marker.check(commit)
 
 
 def _run_suite(commit, contract):

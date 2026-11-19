@@ -184,7 +184,6 @@ def stages() -> list:
             generators.routing,
             generators.interfaces,
             generators.skills,
-            generators.issues,
             gates.lint]
 
 

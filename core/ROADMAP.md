@@ -135,9 +135,6 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 *What* — Expose element/start/end/frame-count/easing batch generation. *Why* — duplicateObject plus transforms already proved PDF-safe frame sequences (14 Aug); remaining work is ergonomics. *Done when* — Command handles both traps in tools/slides/SPECS.md.
 
 
-**🟢 Main-branch merge gate**
-*What* — Reject merges into main unless from develop/release/hotfix; align code/SPECS-git.md. *Why* — MERGE_HEAD currently bypasses the gate (Lucas, 28 Aug). *Done when* — Invalid ancestry is refused and spec agrees.
-
 
 **🟢 Trash for generated Drive files**
 *What* — Add trash to gdocs/gdrive using write-token access. *Why* — Their own test creations otherwise require manual cleanup. *Done when* — CLI-created files can be trashed by the CLI.

@@ -93,7 +93,7 @@ def _is_path(token: str) -> bool:
 def _resolves(path: Path, token: str) -> bool:
     """Tried against the document's own directory, then its repo, then the workspace.
 
-    Forgiving on purpose: `code/SPECS-git.md` names a workspace path and `code/flows/SPECS-data.md`
+    Forgiving on purpose: `core/hooks/git/SPECS.md` names a workspace path and `code/flows/SPECS-data.md`
     names a repo-relative one, both correctly. A finding is only worth printing when NO reading of
     the token finds anything — otherwise the check would be enforcing a base nobody agreed on.
     """

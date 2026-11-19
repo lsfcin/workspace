@@ -187,13 +187,10 @@ def _modes(floor: core.Floor, names: set[str]) -> None:
                         *wanted], check=True)
 
 
-# THE SYNC COMMITS UNDER THE SAME GIT FLOW AS EVERY OTHER REPO UNDER code/, and no longer bypasses
-# it. `--no-verify` was here because gitflow_gate covers any repo under code/ — this target included
-# — and the target sits on `master`, so a direct commit is refused. The bypass bought that refusal
-# off and took the WHOLE pre-commit pipeline with it: the generators, the gates, and the target's own
-# verify suite, which is the one thing that has ever caught a defect invisible from this side. So the
-# branch is made instead of the gate being dodged, and the two merges land by --no-ff, which is the
-# MERGE_HEAD exit gitflow_gate already grants the sanctioned integration step.
+# THE SYNC COMMITS UNDER THE SAME GIT FLOW AS EVERY OTHER REPO, and never bypasses it. `--no-verify`
+# once bought off the shared-branch refusal and took the WHOLE pre-commit pipeline with it, the
+# target's own verify suite included — the one thing that has ever caught a defect invisible from
+# this side. So the branch is made, and the two merges land by --no-ff: a publish is a release.
 FLOW = ('develop', 'master')
 
 

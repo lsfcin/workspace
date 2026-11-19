@@ -56,7 +56,7 @@ def test_per_machine_state_never_reaches_git():
 def test_no_hook_builds_session_state_out_of_the_system_temp_directory():
     """One owner of the name, held at zero rather than asserted in prose.
 
-    `branch_marker.py` spelled it itself until 2026-09-22 and was wrong in exactly the same way,
+    A branch-marker hook spelled it itself until 2026-09-22 and was wrong in exactly the same way,
     which is what a second spelling always costs: the fix reaches one copy. `mkdtemp` is a different
     thing and stays allowed — a scratch directory for an external tool's output is not session
     state, and nothing reads it after the process ends.

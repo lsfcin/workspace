@@ -5,270 +5,188 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
-- **Pergunta para Lucas fecha a sessão sem resposta.** Uma escolha "Lucas decide" aberta na sessão terminou construída sem a resposta registrada e fora de "Decidido sem perguntar" do handoff (apptime 6 Nov, ícone de notificação em `82cdec2`). O roundup podia cobrar: toda pergunta aberta tem resposta registrada ou linha em "Decidido sem perguntar". `b20261106-handoff-unanswered`
+- **Pergunta para Lucas fecha a sessão sem resposta.** Uma escolha "Lucas decide" terminou construída sem resposta registrada nem linha em "Decidido sem perguntar" do handoff (apptime 6 Nov, `82cdec2`). O roundup podia cobrar isso. `b20261106-handoff-unanswered`
 
-- **"O que tem pela frente" respondido com o ROADMAP lido pela metade.** A sessão do apptime leu o ROADMAP em pedaços e listou só os itens 🟡/🔴, deixando Aba e drag de fora (6 Nov); a pergunta pede o ROADMAP inteiro. `b20261106-partial-roadmap-read`
+- **"O que tem pela frente" respondido com o ROADMAP lido pela metade.** A sessão do apptime listou só os itens 🟡/🔴 (6 Nov); a pergunta pede o ROADMAP inteiro. `b20261106-partial-roadmap-read`
 
-- **Commit que cita `Bnn` não confere o ISSUES.** O gate cobra prova para um issue *sair*, mas nada confere que a mensagem que cita `Bnn` deixou o `Bnn` no arquivo: `3747fb3` (apptime) anunciou o B10 sem escrevê-lo, e ele só entrou num commit seguinte, `e5f13a1` (6 Nov). `b20261106-commit-cites-missing-bnn`
+- **Commit que cita `Bnn` não confere o ISSUES.** `3747fb3` (apptime) anunciou o B10 sem escrevê-lo; entrou só em `e5f13a1` (6 Nov). `b20261106-commit-cites-missing-bnn`
 
-- **Read-antes-de-Edit empurra para o caminho sem gate.** Editar o l10n do apptime pelo Edit exige ler os `.api` inteiros (centenas de chaves), então a sessão caiu num heredoc python, que o hook marca como UNGATED WRITE (6 Nov). `b20261106-read-gate-pushes-heredoc`
+- **Read-antes-de-Edit empurra para o caminho sem gate.** Editar o l10n do apptime exige ler os `.api` inteiros, então a sessão caiu num heredoc python, UNGATED WRITE (6 Nov). `b20261106-read-gate-pushes-heredoc`
 
-- **Gate de primeira linha barra arquivo de trabalho.** Barrou o prompt do painel no scratchpad (9 Nov) e de novo em `outputs/` (17 Nov): prompt de uso único não é documento do workspace, e o `panel/ask` exige arquivo. `b20261109-first-line-gate-workfiles`
+- **Gate de primeira linha barra arquivo de trabalho**: o prompt do painel no scratchpad (9 Nov) e em `outputs/` (17 Nov). `b20261109-first-line-gate-workfiles`
 
-- **Gates de contexto cobram uma volta por árvore.** O gate nomeia só os CONTEXT.md do caminho tocado agora, então uma sessão que lê em várias árvores paga uma recusa por árvore: numa sessão só de ajustes em Dart (9 Nov) e nesta triagem (17 Nov, 6 recusas). `b20261109-context-gate-round-trips`
+- **Gates de contexto cobram uma volta por árvore**: uma recusa por árvore tocada (9 Nov; 6 recusas numa triagem em 17 Nov; de novo em 19 Nov). `b20261109-context-gate-round-trips`
 
-- **`phone/adb prefs` ignora o `.bak`.** Faz force-stop e lê o XML sem olhar o `.bak`: depois de um install o prefs veio truncado e o Android restaurou do `.bak`. `--open app` não abre nada (6 Nov). `b20261106-adb-prefs-bak`
+- **`phone/adb prefs` ignora o `.bak`**: lê o XML truncado depois de um install; `--open app` não abre nada (6 Nov). `b20261106-adb-prefs-bak`
 
 - **`cfpages check` não testa o 302 de verdade** (6 Nov). `b20261106-cfpages-check-302`
 
-- **`cfpages publish` não apaga um artefato que saiu da origem.** O `5-demonstracao-poster.md`, rejeitado e apagado do teaching, seguia no ar até ser removido à mão de `outputs/links` (19 Nov). `b20261119-publish-orphans`
+- **`cfpages publish` não apaga um artefato que saiu da origem**: `5-demonstracao-poster.md` seguiu no ar até remoção à mão (19 Nov). `b20261119-publish-orphans`
 
-- **Tokens Google vencem um serviço por vez.** slides-write, drive e docs-write vencem separados e cada um pede navegador: numa noite travou 3 vezes. `gslides preview` depende do token de drive mesmo com slides autorizado (contornado com getThumbnail) (9 Nov). `b20261109-google-token-per-service`
+- **Tokens Google vencem um serviço por vez**, cada um pedindo navegador (3 vezes numa noite); `gslides preview` depende do token de drive (9 Nov). `b20261109-google-token-per-service`
 
-- **`panel/ask` só aceita caminho de arquivo.** Texto no lugar do caminho dá traceback em vez de erro claro (9 Nov). `b20261109-panel-ask-text`
+- **`panel/ask` só aceita caminho de arquivo**: texto dá traceback, não erro claro (9 Nov). `b20261109-panel-ask-text`
 
-- tools/panel/ask cannot attach images; the docs-ufrpe-site session supplied PNG paths in prose instead (Claude, 17 Nov). Expose an image argument and verify delivery, not merely acceptance of its path. `b20261117-panel-images`
+- tools/panel/ask cannot attach images; PNG paths went in prose (17 Nov). Verify delivery, not acceptance of the path. `b20261117-panel-images`
 
-- tools/web/shoot serves only the page directory and treats a query string as part of its filesystem path. The docs-ufrpe viewer needs a parent root and ?doc= to fetch sibling Markdown (Claude, 17 Nov). Verify both together. `b20261117-shoot-root-query`
+- tools/web/shoot serves only the page directory and reads a query string as a path; the docs-ufrpe viewer needs a parent root and ?doc= (17 Nov). `b20261117-shoot-root-query`
 
-- **`record` do SessionStart ficou nos 3 shims, contra o plano do roundup-conflict.** É ele que pega a troca de branch antes da primeira escrita; falta Lucas confirmar a mudança de plano (10 Nov). `b20261110-sessionstart-record`
+- **Não se sabe se o `session_id` do Codex é o `CODEX_THREAD_ID`.** O pre-commit reconhece um commit de agente pela variável de ambiente; o gate do dispatcher não depende dela (10 Nov). `b20261110-codex-session-id`
 
-- **Não se sabe se o `session_id` do Codex é o `CODEX_THREAD_ID`.** Se não for, o aviso de drift no commit fica mudo no Codex. A investigar (10 Nov). `b20261110-codex-session-id`
+- **O verify roda na feature, não no resultado do merge**: com develop divergente, a branch fica verde e o merge pode não ficar (painel, 10 Nov). `b20261110-verify-not-merge-result`
 
-- **O verify roda na feature, não no resultado do merge.** Com um develop que divergiu, a branch fica verde e o merge pode não ficar (painel, 10 Nov). `b20261110-verify-not-merge-result`
+- Two verify-fast failures on 17 Nov in tests since deleted (test_branch_gate.py, test_b20260902_…); recheck that nothing intermittent remains. `b20261117-verify-intermittent`
 
-- Claude reports two verify-fast failures on 17 Nov: test_branch_gate.py::test_the_real_gate_fails_open_and_can_be_switched_off and test_b20260902_a_generated_list_is_red_on_the_clone_that_did_not_write_it.py::test_the_header_counts_what_this_repo_tracks (1180 passed). Recheck reproducibility and environment; the generated 18-Nov green run is later evidence, not proof of a fix. `b20261117-verify-intermittent`
+- **Processo morto com 137, sem rastro**: a suíte no pre-commit (10 Nov) e o roundup (16 Nov). Causa desconhecida. `b20261110-exit-137`
 
-- **Processo morto com 137, sem rastro.** A suíte inteira no pre-commit morreu uma vez com 137 (10 Nov), e o roundup de 16 Nov também, depois dos commits de fechamento. Causa desconhecida. `b20261110-exit-137`
+- **Gate pós-chamada do plugin opencode sem teste**: o after-hook não repassa shell, e hoje nenhum gate pós-shell existe para provar o caminho (10 Nov). `b20261110-opencode-post-gate`
 
-- **O `/roundup` não fecha a partir de um worktree em `.claude/worktrees/`.** Falta `.venv` (`core/run` aborta); com um link para ela, o verify fica vermelho em `test_b20260901_a_mirror_never_reaches_the_machine_that_pulled_it` ("working tree must start in sync"). Promovido à mão, com o aval de Lucas (10 Nov). `b20261110-roundup-worktree`
+- **O `handoff-gate` recusa comando que só CITA um handoff** em prosa; o pdf-gate já tira o heredoc de prosa e os dois podiam dividir a função (10 Nov). `b20261110-handoff-gate-prose`
 
-- **Gate pós-chamada do plugin opencode sem teste.** Provavelmente repassa o shell ao gate depois da chamada (mesmo `buildPayloads` do pre), mas nenhum teste prova; entra no `test_b20261110_…` dos shims (10 Nov). `b20261110-opencode-post-gate`
+- **O `handoff-gate` trata todo `outputs/handoff-*.md` como handoff**, e bloqueou a saída de um painel (10 Nov). `b20261110-handoff-gate-prefix`
 
-- **O `handoff-gate` recusa comando que só CITA um handoff.** O braço de shell barra uma mensagem de commit que menciona um handoff em prosa; o pdf-gate já tira o heredoc de prosa, e os dois podiam dividir essa função (10 Nov). `b20261110-handoff-gate-prose`
+- **`core/run -m pytest` quebra** com "can't open core/-m" (10 Nov; de novo 19 Nov). `b20261110-core-run-module`
 
-- **O `handoff-gate` trata todo `outputs/handoff-*.md` como handoff.** Bloqueou `handoff-planmode-panel.md`, saída de um painel: restringir a chave aos repositórios conhecidos ou mudar o prefixo dos handoffs (10 Nov). `b20261110-handoff-gate-prefix`
+- **Em plan mode, o pdf-gate bloqueia a leitura de um PDF sem gêmeo**, porque gerar o gêmeo é escrita (10 Nov). Proposta: gêmeo no scratchpad. `b20261110-pdf-gate-plan-mode`
 
-- **`core/run -m pytest` quebra** com "can't open core/-m"; a sessão chamou o python da venv direto (10 Nov). `b20261110-core-run-module`
+- **`gmail attachments` quebra sem chave da API Anthropic** (13 Nov). `b20261113-gmail-attachments-key`
 
-- **Em plan mode, o pdf-gate bloqueia até a leitura de um PDF sem gêmeo**, porque gerar o gêmeo é escrita: o parecer da CAPD foi planejado sem ler o Anexo IV e o relatório (10 Nov). Proposta: gêmeo no scratchpad em plan mode. `b20261110-pdf-gate-plan-mode`
+- **Resposta do painel chega a Lucas sem conferência de domínio**: citou um PDF da UFAPE como da UFRPE (13 Nov). `b20261113-panel-domain-check`
 
-- **`gmail attachments` quebra sem chave da API Anthropic.** Contornado pelo `body_preview` do cache e pelo link do Drive (13 Nov). `b20261113-gmail-attachments-key`
+- **Entropia conta `[[14]]` de nota de rodapé como wiki-link quebrado** (docs-ufrpe, 13 Nov). `b20261113-entropy-footnote-wikilink`
 
-- **Resposta do painel chega a Lucas sem conferência de domínio.** O painel citou um PDF da UFAPE como se fosse da UFRPE (13 Nov): conferir a fonte antes de repassar. `b20261113-panel-domain-check`
+- **Proposta "aguardando OK" atravessa a sessão só como resumo**; o handoff devia apontar para o arquivo com o texto exato (17 Nov). `b20261117-handoff-proposal-text`
 
-- **Entropia conta `[[14]]` de nota de rodapé como wiki-link quebrado.** Nota verbatim de norma no docs-ufrpe; falso positivo da família do tachado em `b20261111-docs-ufrpe-lote` (b) (13 Nov). `b20261113-entropy-footnote-wikilink`
+- **Lote docs-ufrpe (11 Nov), o que ficou.** (a) gêmeo de PDF começa com frontmatter e a rota mostra "← add first-line comment"; o .docx não tem gêmeo no mesmo formato. (b) tachado de norma revogada dispara "finished work". (c) a lei de segredos marca o CNPJ público da UFRPE. (e) `docling` >10 min por PDF onde `pymupdf` resolve. (h) `academy/cv/comprovantes/2026/CONTEXT.md` sem descrições. `b20261111-docs-ufrpe-lote`
 
-- **Proposta "aguardando OK" atravessa a sessão só como resumo.** O handoff de 16 Nov levou as rotas propostas em uma linha cada; a sessão seguinte reconstruiu o texto e achou parte já escrita por outra sessão. O handoff devia apontar para o arquivo com o texto exato da proposta (17 Nov). `b20261117-handoff-proposal-text`
+- **Edição de cronograma colide com nota dada no site**: editar `disciplina.md` atrás do painel faz o `publish` recusar (13 Nov). Trazer o painel antes, ou mesclar por linha de aluno. `b20261113-cfpages-pull-colisao`
 
-- **Lote docs-ufrpe (11 Nov), o que ficou.** (a) O gêmeo de PDF começa com frontmatter, então a rota mostra "← add first-line comment" e a entropia conta placeholder; o gerador podia ler o título do frontmatter. O gêmeo de .docx feito à mão usa `# Título`, assimétrico: `core/tools/docs/` merecia um docx→gêmeo no formato do PDF. (b) Norma com dispositivo revogado (tachado) dispara "prose describing finished work": falso positivo. (c) A lei de segredos marca o CNPJ público da UFRPE; um allowlist institucional evitaria redigir a cada lote. (e) `docling` leva mais de 10 min por PDF; com camada de texto o `pymupdf` resolve em segundos, então o default podia escolher pelo `text_layer`. (f) `gh repo create` já sai da ação `push`; falta Lucas rodar `permissions --set open`. (h) `academy/cv/comprovantes/2026/CONTEXT.md` ainda tem "← add description": o gêmeo ganhou `description` (`pdf_cli --description`), falta rotular os de lá (13 Nov). `b20261111-docs-ufrpe-lote`
+- **Painel externo barrado com dados pessoais**: o modo auto bloqueou o Gemini com CPF, e o `opencode` só lê `GOOGLE_GENERATIVE_AI_API_KEY` (16 Nov). Redigir antes (`secret_law.redact`). `b20261116-panel-pii`
 
-- **Edição de cronograma colide com nota dada no site.** O `cfpages pull` só traz o que não colide, então editar o `disciplina.md` atrás do painel do site faz o `publish` recusar (11 linhas em 13 Nov): trazer o painel antes de editar, ou o pull mesclar por linha de aluno. Assimetria de Git Flow no mesmo dia: o trabalho da disciplina viveu num `feature/ai4good-v1` longo, 44 commits à frente do `develop`, e o `rastro-da-banca` não tem `develop`. `b20261113-cfpages-pull-colisao`
+- **`progressao.md` § Lado da comissão contradiz a própria regra** de duplicidade (parecer de George, 16 Nov). `b20261116-capd-duplicidade`
 
-- **Painel externo barrado com dados pessoais.** O classificador do modo auto bloqueou o Gemini via opencode ao receber comprovantes com CPF, e o `opencode` só lê `GOOGLE_GENERATIVE_AI_API_KEY`, não o `GEMINI_API_KEY` do ambiente. Para o rito da CAPD ter painel: redigir antes (`secret_law.redact`) ou uma regra de permissão que Lucas aprove (16 Nov). `b20261116-panel-pii`
+- **Rotas do academy desatualizadas**: `capd/CONTEXT.md` diverge da pasta de George; `lab/` e `students/` sem CONTEXT.md; `students/` e `cv/` fora da tabela (16 Nov). `b20261116-academy-routing`
 
-- **`progressao.md` § Lado da comissão contradiz a própria regra.** Dá "o artigo premiado (I-n)" como exemplo de duplicidade, mas a regra é "um comprovante pontua uma vez", e o certificado do prêmio é outro documento: decidir e corrigir um dos dois (decisão 3 do parecer de George, 16 Nov). `b20261116-capd-duplicidade`
+- **Ferramentas que a sessão não achou**: o hook de downloads não aponta `tools/chat/wazip` para um zip do WhatsApp; o faster-whisper não acha `libcublas.so.12` e cai para CPU; o gate do heredoc leu `$S` como caminho (16 Nov). `b20261116-tool-discovery`
 
-- **Rotas do academy desatualizadas.** `capd/CONTEXT.md` descreve a pasta de George ("relatores Lucas e Suzana, prazo 19/11/2026") diferente da linha 2 da pasta, e os gêmeos de PDF dela seguem com "← add first-line comment". `academy/CONTEXT.md` diz que `lab/` guarda o processo de orientação, mas `lab/` não tem CONTEXT.md e contém `ai-dungeon-master/ bancas/ neoeduc/`; `students/` e `cv/` não aparecem na tabela, e `students/` não tem CONTEXT.md (16 Nov). `b20261116-academy-routing`
+- **gslides lint marca "off the slide" em placeholders herdados do layout** que renderizam no lugar (techedu 111, ai4good 62 achados, 16 Nov). `b20261116-gslides-lint-placeholder`
 
-- **Ferramentas que a sessão não achou.** Com um `Conversa do WhatsApp com *.zip` listado, o hook de downloads não aponta `core/run tools/chat/wazip`, e a sessão improvisou um whisper. O faster-whisper não acha `libcublas.so.12` e cai para CPU, com a GPU de 6 GB parada. O gate do heredoc leu `$S` como caminho relativo: falso positivo (16 Nov). `b20261116-tool-discovery`
+- Recheck the 2-Nov Codex parity audit (policy.py stdin, partial reads, permissions, Caveman, bot, Google grants, jscpd). Evidence: outputs/codex-audit-20261102/. `b20261102-codex-parity`
 
-- **gslides lint marca "off the slide" em placeholders que renderizam dentro do slide.** Nos decks do artigo (techedu 111 achados, ai4good 62), títulos, corpos e complementos herdados do layout saem como fora do slide, e a prévia mostra todos no lugar: o lint parece ler a transformação do placeholder sem compor a do layout. Com o ruído, um elemento fora de verdade some na lista (16 Nov). `b20261116-gslides-lint-placeholder`
+- **cfpages secrets --push configures production only**: preview lacks GITHUB_TOKEN/ENIGMA_SECRET, and segredos.env understates the token's scope (4 Nov). `b20261104-cfpages-preview-secrets`
 
-- Recheck the dated 2-Nov Codex parity audit: policy.py consumed worker-brief stdin; partial reads passed with exit 0 despite 17 green tests. Permissions/effort, automatic Caveman/status display, bot and export lacked equivalent behavior; six Google grants failed and jscpd lacked its platform package. Native/four-program delegation worked, external calls required escalation; no public push followed 11 failed target tests. Track each feature/environment, including public clone, without assuming failures persist. Evidence/reproducers: outputs/codex-audit-20261102/; Core [cross-harness-delegation]. `b20261102-codex-parity`
+- **O type gate recusa pastas de cache .json**; o rastro-da-banca adotou um TSV com primeira linha. Formalizar a convenção (30 Out). `b20261030-type-gate-api-cache`
 
-- **cfpages secrets --push omite ambiente de preview e restringe escopo documentado do token.** cfpages secrets --push só configura o ambiente de produção; deploys de preview ficam sem GITHUB_TOKEN/ENIGMA_SECRET, impedindo testes e2e em preview. O comentário em segredos.env restringe indevidamente o GITHUB_TOKEN a lsf-links, embora cubra academy-teaching (4 Nov). `b20261104-cfpages-preview-secrets`
+- Calendar ranges return empty for cin/ufrpe; tell empty from failure (24 Oct). `b20261030-calendar-range-auth`
 
-- **O entropy dashboard registra achados falsos quando executado em worktrees temporários.** Ao rodar em worktree temporário (/tmp/inbox-promote-develop-...), o entropy dashboard gravou 72 achados falsos de roteamento no ISSUES.md do develop por não resolver a raiz canônica. Deve rodar apenas na árvore principal ou recusar execução fora dela (4 Nov). `b20261104-entropy-worktree-false-findings`
+- Personal Drive write token failed twice in one session; test refresh apart from reads (24 Oct). `b20261030-drive-write-token`
 
-- **O type gate recusa pastas de cache .json sem descrição possível.** Um arquivo de cache por resposta de API bloqueia no type gate; a saída adotada no rastro-da-banca foi um único TSV/JSONL com comentário na primeira linha (resultados/respostas.tsv). Formalizar como convenção em code/SPECS.md ou core/hooks/ (30 Out). `b20261030-type-gate-api-cache`
+- Drive search silently caps at 20 results; expose pagination (26 Oct). `b20261030-drive-search-pagination`
 
-- Calendar ranges reportedly returned empty for cin/ufrpe; verify dates, account/auth and empty-versus-failure output (Claude RDA session, 24 Oct). `b20261030-calendar-range-auth`
+- PDF gate demands a twin for script-compiled TeX without .texif (24 Oct). `b20261030-compiled-pdf-detection`
 
-- Personal Drive write token reportedly failed twice in one RDA session; reproduce token persistence/refresh separately from read access (Claude, 24 Oct). `b20261030-drive-write-token`
+- A partial path commit regenerated all of AGENTS.md with another session's staged norm line (26 Oct). Extend test_partial_commit_staging to generated norms. `b20261030-partial-norm-staging`
 
-- Drive search reportedly silently caps results at 20; expose limit/pagination and distinguish exhausted results from a partial page (Codex progression report, 26 Oct). `b20261030-drive-search-pagination`
+- Mail fetch: 50 unread, one page, no query; missed DocuSign PDFs, long attachment names (17–28 Oct). `b20261024-mail-search-attachments`
 
-- PDF gate reportedly requires a twin for script-compiled TeX without .texif despite the compiled-PDF exclusion. Verify source recognition, keeping arbitrary Python PDF reads separate (Claude RDA, 24 Oct). `b20261030-compiled-pdf-detection`
+- **`slides text` writes despite its name**, and an expired grant blocked reads (19 Oct). `b20261024-slides-command-auth`
 
-- Partial path commit reportedly regenerated full AGENTS.md with another session's staged EDIT > CREATE line but excluded its norm source. Extend test_partial_commit_staging scope to generated norms, preserving unrelated staging (Claude, 26 Oct). `b20261030-partial-norm-staging`
+- Public rebuild fails the target suite (21 Oct; 11 failures in the 2-Nov audit); .codex/hooks.json missing from core/public.txt. See b20260923-publish-test-real-target. `b20261024-publish-target-suite`
 
-- Mail fetch defaults to 50 unread messages, one page, no arbitrary query. Reproduce missed DocuSign PDFs (Claude, 17 Oct; multipart recursion exists), query/after/before pagination, long attachment filenames and cached-email PDF evidence (RDA/progression reports, 24–28 Oct). `b20261024-mail-search-attachments`
+- **Named-link checks accept a site target its renderer cannot resolve** (ai4good/brw, 21 Oct). `b20261024-links-target-resolution`
 
-- **Slides text writes despite its ambiguous name.** It creates a text box; Claude reports nearly invoking it as a read and an expired grant blocking authenticated reads (19 Oct). Clarify intent/grant. `b20261024-slides-command-auth`
+- **Scheduled disk cleanup depends on a tool absent from the active tree**; SETUP lacks the scheduling and the models/ symlinks (24 Oct). `b20261024-disk-cleanup-install`
 
-- Public rebuild fails target suite (Claude,21 Oct): generator dependencies, vendored fixture, routing/headers and timeouts; target test markers staged. 2-Nov Codex audit: 11 target failures, nine causes undiagnosed; .codex/hooks.json omitted from core/public.txt. Recheck current behavior against outputs/codex-audit-20261102/; fix at source. Isolation: b20260923-publish-test-real-target; markers: b20260922-state-stores. `b20261024-publish-target-suite`
+- **The Claude memory symlink targets the absent brain/memory** (24 Oct). Remove the integration. `b20261024-retired-memory-pointer`
 
-- **Named-link checks accept a site target its renderer cannot resolve.** Claude reports ai4good/brw used an extensionless route instead of the Markdown query form (21 Oct). Validate local targets or diagnose unsupported routes before sharing. `b20261024-links-target-resolution`
+- UNGATED WRITE misattributes paths after `cd`, and reads a literal `$S/file` as a path (16 Oct, 3 Nov). `b20261017-ungated-write-cwd`
 
-- **Scheduled disk cleanup reportedly depends on a tool absent from the active tree.** Claude reports a 1 Nov job targeting tools/disk/ubuntu, missing SETUP coverage for scheduling and Hugging Face/ComfyUI symlinks into models/, and three Whisper variants: turbo for audio, base for video, small for rastro-da-banca (24 Oct). Verify installation and visible failures before November; assess model differences before standardizing. `b20261024-disk-cleanup-install`
+- Video extraction calls empty galleries successful: 5 Instagram links returned no text inside a "38 ok / 0 failed" summary (17 Nov); no partial results persist (16 Nov); carousel omissions and 150 px thumbnails (30 Oct). `b20261017-video-batch-results`
 
-- **Retired memory integration targets a missing directory.** The Claude memory symlink still targets absent brain/memory (verified 24 Oct). Remove obsolete integration; use durable workspace files. `b20261024-retired-memory-pointer`
+- **Brain stats staging**: refreshed goal files were left unstaged (14–24 Oct). It now runs inside the brain repo (2026-11-19); confirm a goal commit there leaves the tree clean. `b20261014-brain-stats-staging`
 
-- UNGATED WRITE misattributes paths: brw/excelente.md reported instead of cmp/ after cd (Claude,16 Oct). AppTime 3-Nov report: literal $S/file became code/apptime/$S/file. Resolve cwd/variables safely or explicitly report unresolved attribution; never broadly exempt variable writes. `b20261017-ungated-write-cwd`
+- **PDF conversions overrun; low-confidence pages inflate audit references (25 Sep–9 Oct).** `b20261014-pdf-conversion-audit`
 
-- Video extraction hides progress/partial results and calls empty or error-only galleries successful. Reproduced 30 Oct: mixed-carousel omissions, dimensionless thumbnail selection at 150 px, IndexError on downloaded clips without audio, serial image-call stalls without persisted per-link results. Preserve every slide/full-resolution image and numeric comparisons with estimation uncertainty. Earlier reports: cancellation with no output (24 Oct), YouTube 403 despite JS runtime (19 Oct). 16 Nov: `--from INBOX --level full --save` ran 38 links in ~50 min and `brain/attachments/` received no bundle before exit. 17-Nov agent report: DfbvTSYAatL, DfXk6uLDXB7, De6plJiDbwa, DfKkR_fDTFY and De-eRt1knz7 returned no text despite a 38-ok/0-failed summary; inspect gallery-dl and distinguish empty extraction from success. `b20261017-video-batch-results`
+- **Python scripts opening PDFs escape command-text detection (26 Sep).** `b20261014-pdf-script-read`
 
-- Roundup picks newest .claude/projects transcript rather than native ChatGPT identity (core/tools/wos/roundup.session_id; handoff differs). 2-Nov audit also reports trace/reads refusing Codex IDs. Recheck identity throughout metrics; cost/size/compaction must refer to the actual session. Evidence: outputs/codex-audit-20261102/auditoria.md. `b20261016-roundup-session-attribution`
+- **Slide sampling starts a renderer per page (deck_sample.render_sample_images, 26 Sep).** `b20261014-slide-sample-batch`
 
-- **Brain stats reports success but leaves its refreshed files unstaged.** Inbox triage observed `brain/GOALS.md` unstaged and refreshed goal files partly staged after a successful `core/run hooks/brain/brain_stats.py`; complete staging explicitly and establish why its internal stage call fails. 24 Oct: every commit staging a goal leaves it dirty again, worktree one touch ahead of HEAD (rpg-isoroll 7/121 committed, 8/122 on disk), so roundup never sees a clean tree. `b20261014-brain-stats-staging`
+- Read gate re-demands CONTEXT reads already made, including native Codex reads (30 Oct); reproducer test_b20260831_silent_stub_gate.py. `b20261014-read-registration`
 
-- **Reported PDF conversions exceed their expected duration; low-confidence page recognition inflates audit references. Isolate the blocking stage and filter confidence (25 Sep, 8/9 Oct).** `b20261014-pdf-conversion-audit`
+- **Retired-token substring matching rejects valid words**, a cited article title among them (26 Sep, 16 Oct). `b20261014-retired-substrings`
 
-- **Python scripts opening PDFs escape command-text detection; scope this independently of metadata inspection and verified self-generated PDF access (26 Sep).** `b20261014-pdf-script-read`
+- **The private-repo fiscal-identifier exception conflicts with the secrets rule**; bypass debt casinhas fa7244e (29 Sep). `b20261014-private-pdf-policy`
 
-- **Slide sampling starts a renderer per page instead of a multi-page request; verify equivalent output from batched rendering (deck_sample.render_sample_images, 26 Sep).** `b20261014-slide-sample-batch`
+- **gslides previews land in the workspace root; private decks have no authenticated export (26 Sep).** `b20261014-slides-preview-export`
 
-- Read-gate tests alternate outcomes; completed CONTEXT reads are demanded again, including immediately preceding native Codex reads (30 Oct). Investigate registration/session identity; reported reproducer test_b20260831_silent_stub_gate.py (26 Sep/7 Oct). Recheck 2-Nov audit partial/zero-exit read acceptance and consumed worker-brief stdin; green unit tests did not establish actual delivery. Evidence: outputs/codex-audit-20261102/. `b20261014-read-registration`
+- **Presentation generation reads JSON instead of design-system tables (26 Sep).** `b20261014-theme-input`
 
-- **Retired-token substring matching rejects valid words and titles; match the intended lexical unit (26 Sep).** `b20261014-retired-substrings` Claude session, 16 Oct, reports a finding inside the cited Patel et al. article title in teaching/cmp; assess proper-name and citation handling alongside lexical matching.
+- **Slide references use inconsistent classification and generic descriptions (26 Sep).** `b20261014-slide-ref-metadata`
 
-- **The reported private-repository fiscal-identifier exception conflicts with the current secrets rule and PDF-twin ignore behavior. Resolve policy before changing either; bypass debt casinhas fa7244e (29 Sep).** `b20261014-private-pdf-policy`
+- **Verify transcript redaction of the authorization-code pattern from the Canva session (26 Sep).** `b20261014-transcript-redaction`
 
-- **Default gslides previews land in the workspace root, unlike Drive downloads; private-deck export lacks an authenticated path. The cross-filesystem move is already corrected (26 Sep).** `b20261014-slides-preview-export`
+- File-description lookups disagree on repo roots: frases.json rejected, jsconfig.json only as an absolute path, fixture suffixes may collide (18 Oct–1 Nov). Bypass e106d95 needs a regression. `b20261014-nested-file-description`
 
-- **Presentation generation reads JSON instead of design-system tables; themes can diverge (26 Sep).** `b20261014-theme-input`
+- **Expanded hook-link verification slows duplication checking (5 Oct).** `b20261014-verification-latency`
 
-- **Reported slide references use inconsistent classification and generic descriptions; assess ownership and relevance descriptions without automatic YAML promotion (26 Sep).** `b20261014-slide-ref-metadata`
+- **rtk rejects supported search flags (12 Oct).** `b20261014-search-flags`
 
-- **Verify transcript redaction of the authorization-code pattern reported in the Canva session; retain labels rather than credentials (26 Sep).** `b20261014-transcript-redaction`
+- Shell-created directories do not refresh routing until a later commit (ai4good/artefatos, 28 Oct; ce4d4ab7). `b20261014-routing-cloned-dirs`
 
-- File-description lookup/tracked-file checks disagree on repository roots: Virada pagina/frases.json rejected (18/23 Oct); PPC partials/jsconfig.json works only as absolute path (30 Oct), including stubgen configs. AppTime 1-Nov report: only test/fixtures/usual_daily.json matched, not code/apptime/...; suffix may collide across repos. Normalize workspace-root paths. Workarounds are not fixes; bypass e106d95 needs regression. `b20261014-nested-file-description`
+- context_synchronizer listed a nested repo's ignored segredos.env and demanded a first-line comment (18 Nov). Respect the owning repo's ignores. `b20261118-routing-nested-ignore`
 
-- **Expanded hook-link verification becomes slow in duplication checking; isolate the cause before changing it (5 Oct).** `b20261014-verification-latency`
+- bash-context-gate.py demands subtree context for binary metadata tools such as pdfinfo (25 Sep). `b20260925-gate-binary-readonly`
 
-- **rtk rejects supported search flags; support them or show a working alternative (12 Oct).** `b20261014-search-flags`
+- PDF-tool children (Marker/MinerU/Surya) keep VRAM after a failure (25 Sep). `b20260925-gpu-orphan-vram`
 
-- Cloned/shell-created directories do not refresh routing; compare disk independently of edit events. Claude 28 Oct: ai4good/artefatos routing gained tec/* only when flx committed; flx still absent, one turn late. Earlier manual resync: ce4d4ab7 (14 Oct). `b20261014-routing-cloned-dirs`
+- Root pre-commit omits nested repos: cached removals or switches can silently delete tracked teaching files (administration mass deletion, 18 Oct). `b20260925-subrepo-tracked-deleted-sentinel`
 
-- context_synchronizer listed the nested academy/administration/ufrpe-sites/segredos.env and demanded a first-line comment although its owning repo ignores it (Claude, 18 Nov). Respect the owning repo's ignore rules; never include secret contents in routing or diagnostics. `b20261118-routing-nested-ignore`
+- entropy_context.check_truncation flags any literal ellipsis (3 Oct). `b20261003-check-truncation-ellipsis`
 
-- bash-context-gate.py unnecessarily demands subtree context for binary metadata tools such as pdfinfo. Establish metadata/self-generated compiled-PDF exemptions separately from Python-script PDF detection (25 Sep/9 Oct). `b20260925-gate-binary-readonly`
+- Ignored outputs/.drafts/tmp work does not sync across machines; brain/drafts/ai4good-git-retro-opus.md (627 lines, 2 Nov) went missing by 7 Nov. `b20260924-drafts-sync`
 
-- Marker/MinerU/Surya children retain VRAM after PDF-tool failure; verify deterministic child cleanup. Distinguish this from reported Docling exhaustion, screen-unlock failure and driver behavior; check simultaneous model residency (25 Sep). `b20260925-gpu-orphan-vram`
+- line_counts.py, entropy_crowding.py and entropy_context.py print double-negative NOT REFUSED warnings (Lucas, 2 Oct). `b20261002-hook-warning-vocabulary`
 
-- Root pre-commit omits nested repos: cached removals/branch switches can silently delete tracked teaching files. Include quiet repositories; Claude restored administration mass deletions on 18 Oct, cause unknown. `b20260925-subrepo-tracked-deleted-sentinel`
+- Goal backlogs and roadmaps duplicate work: rpg-isoroll still names painting in Foundry against content ROADMAP D8 (29 Sep). `b20260929-task-roadmap-boundary`
 
-- entropy_context.check_truncation flags any literal ellipsis in routing prose/titles. Restrict to actual truncation/description overflow; preserve intentional characters (3 Oct). `b20261003-check-truncation-ellipsis`
+- Antigravity lifecycle hooks start at HOME, so a relative core/run fails; prove dispatch from HOME (25 Sep). `b20260925-antigravity-hook-cwd`
 
-- Ignored outputs/.drafts/tmp research, benchmarks and Canva utilities do not sync across machines. Preserve findings/inputs/provenance; exclude credentials. Reassess prototype tracking, lost paper twins and artifact limits (511/version,255/publication); 1322 resolved only its case. AI4Good 2-Nov report: brain/drafts/ai4good-git-retro-opus.md, 627 authored lines, uncommitted; path absent 7 Nov. Locate/account for it before recovery; cut authored text, no vendored exemption. `b20260924-drafts-sync`
+- Agents rewriting an old INBOX snapshot can overwrite concurrent captures; only the bot locks (f11a2334). `b20260921-inbox-writers`
 
-- line_counts.py, entropy_crowding.py and entropy_context.py use double-negative NOT REFUSED warnings. Audit against SCHEMA vocabulary and prefer affirmative ALLOWED wording (Lucas, 2 Oct). `b20261002-hook-warning-vocabulary`
+- Nonmedia fallback reads GitHub sign-in chrome instead of the raw README and counts no text as ok (12 Oct). `b20260921-fetch-fallback`
 
-- Goal backlogs and technical roadmaps duplicate/stale work; define capture versus execution ownership. rpg-isoroll still names painting in Foundry while content ROADMAP D8 chooses text-authored layouts and parks painting; align tracking without reopening design (29 Sep). `b20260929-task-roadmap-boundary`
+- SCHEMA's underscore-template rule has no checker; teaching/structure/templates is unmarked (AD-16). `b20260918-template-naming`
 
-- Antigravity lifecycle hooks start at HOME, so relative core/run blocks tool calls. Current fallback uses ~/workspace from sync-global-skills; prove dispatch from HOME via regression without authoring-mount paths (test_port_ceiling.py). `b20260925-antigravity-hook-cwd`
+- test_a_rebuilt_target_settles_in_one_pass rebuilds the real code/wos target and dirties later runs; the tree guard misses ignored nested repos (23 Sep; seen again 19 Nov). `b20260923-publish-test-real-target`
 
-- Agents rewriting an old INBOX snapshot can overwrite concurrent captures. Bot locks, writes and reads back (f11a2334), but other writers need the same lock or fresh-read contract; lost 20 Sep captures were never committed. `b20260921-inbox-writers`
+- Remaining ruled renames: shim→adapter, drift→divergence, corpus→tracked files, crowding→files per folder, drain→empty, sweep→scan, whitelist→allowed list (23 Sep). `b20260923-vocabulary-queue`
 
-- Nonmedia fallback reads GitHub sign-in chrome instead of raw README and counts no text as ok. Reports add core/ mistaken as workspace root, Exec format error, JavaScript/PDF/HTTP handling, empty searches and concurrency failures; r.jina.ai blocked 12 Oct. Batch persistence/progress: b20261017-video-batch-results. `b20260921-fetch-fallback`
+- The other machine's scoreboard keeps the pre-rename keys inbox-nudge/compass-nudge/publish-nudge (20 Sep). `b20260920-scoreboard-keys`
 
-- SCHEMA underscore-template rule has no checker; teaching/structure/templates remains unmarked (AD-16). Decide whether enforcement earns its cost before rename; existing mechanisms otherwise correctly treat unmarked directories as instances. `b20260918-template-naming`
+- Nested repos' ISSUES.md still carry the entropy block their pre-commit used to write; strip each, then drop `*/ISSUES.md` from core/hooks/generated.txt (20 Sep; 19 Nov). `b20260920-quiet-repo-entropy`
 
-- Parallel sessions share index, branch and suite; unfinished work blocks unrelated commits and failures are misattributed. A previous bypass masked CRLF-on-staged-deletion and untracked-target checker faults and let core refs exceed cap. On 30 Oct, full-suite teardown guards blamed tests for concurrent changes in code/ppc and code/rastro-da-banca; assertion failures were cleared, but this prevented a green close. On 17 Nov a second session switched the shared tree's branch for minutes, and its close commit (`47c82f6a`, "generated blocks") swept another session's staged hand-written issues onto its own branch. Verify branch/index scope and guard attribution; audit bypass scope. Worktree preparation remains in ROADMAP. `b20260918-shared-index`
+- Safe-to-delete branch lists in the entropy report age during a session; recheck ancestry at deletion (14 Sep). `b20260914-branch-list-snapshot`
 
-- test_a_rebuilt_target_settles_in_one_pass rebuilds the real code/wos target (core/public.txt), alternately dirtying/failing subsequent serial runs. conftest tree guard misses gitignored nested repos; isolate the target and cover the guard (23 Sep; related b20260902). `b20260923-publish-test-real-target`
+- Registry keys google-auth/notes-notion/link-shortener/wazip/video-text/asset-inspect/vpn-cin carry vendor names, not family names. `b20260915-feature-names-carry-vendors`
 
-- Remaining ruled renames: shim→adapter, drift→divergence, corpus→tracked files, crowding→files per folder, drain→empty, sweep→scan, whitelist→allowed list. list/check/law/harness/boundary/surface need costed scope; some were chosen replacements despite Lucas finding them unclear. Keep legitimate multi-hop; remeasure with git grep (23 Sep). `b20260923-vocabulary-queue`
+- Feature `bot` and the crossing tree code/aiwbot use different names (17 Sep). `b20260917-bot-directory-keeps-vendor`
 
-- Per-machine ignored scoreboard keys were migrated only here; other machine retains inbox-nudge/compass-nudge/publish-nudge after feature renames. Preserve history there and define migration for future versioned-key/per-machine-data asymmetry before interpreting the reading. `b20260920-scoreboard-keys`
+- foundry/iso-visual/prof cannot cross publicly, but the registry crosses verbatim, leaving them unswitchable (AD-14). `b20260917-private-skills-unswitchable`
 
-- Nested entropy refreshes only on that repo commit; quiet reports age undetected despite printed dates. ai4good example on 20 Sep regenerated a 4 Sep snapshot. Add freshness interpretation without pretending root close scans nested repos. `b20260920-quiet-repo-entropy`
+- `_present` subtracts the target's gitignore, so a newly refused file is never removed from the target (17 Sep). `b20260917-refused-file-never-removed`
 
-- Generated safe-to-delete branch lists age during the session and may name newly unmerged work. Recheck ancestry against origin/main at deletion and assess excluding branches whose tips moved; never execute snapshot advice blindly (14 Sep). `b20260914-branch-list-snapshot`
+- publish --check/_same ignores generated blocks and reports clean for a corrupted target block. `b20260917-check-blind-to-stale-block`
 
-- Registry keys google-auth/notes-notion/link-shortener/wazip/video-text/asset-inspect/vpn-cin diverge from function-family names. Follow tools+skills merge precedent, update setup/profile/deps joins and retired-token rows. links collides with the norm in a flat namespace despite group distinctions; preserve that design question. `b20260915-feature-names-carry-vendors`
+- Public prose promises private paths the clone lacks (README→brain/academy, craft/tree→code/ROADMAP-spec-drive, goal headers→brain/goals). `b20260917-crossed-prose-broken-pointers`
 
-- Feature bot and crossing tree code/aiwbot use different names. Rename tree and all pointers together rather than claim the registry rename completed the family-name rule (17 Sep). `b20260917-bot-directory-keeps-vendor`
+- The read gate demands the same CONTEXT files again inside code/wos (16 Sep). `b20260916-read-gate-charges-twice`
 
-- foundry/iso-visual/prof cannot cross publicly, but registry crosses verbatim; removing their rows makes is_enabled fail open and leaves them unswitchable (AD-14). Filter registry by crossing policy and compare filtered text in _same; cut implementation before growth, assess rebuild.py as owner. `b20260917-private-skills-unswitchable`
+- Feature names opencode-plugin/antigravity-hooks diverge from harnesses.txt and the adapter path. `b20260916-harness-names-four-ways`
 
-- _present subtracts target gitignore, hiding newly refused files from sync cleanup. Old prof files remain locally ignored, not remotely leaked, and can resurface later. Delete generated absent/orphan entries while preserving IGNORE_HEAD exclusions; cut before implementation growth. `b20260917-refused-file-never-removed`
+- Paper search has no working service: Semantic Scholar 429, arXiv timeout (13 Sep). `b20260913-paper-search-has-no-arm`
 
-- publish --check/_same ignores generated blocks and reports clean for corrupted target blocks. Sync regenerates them, but check and roundup public status remain blind. Regenerate-and-compare writes, so decide honest sync/check reporting boundaries. `b20260917-check-blind-to-stale-block`
+- scoreboard.tsv grows append-only; test markers accumulate in core/state (16 Oct). `b20260922-state-stores`
 
-- Public authored prose promises absent private paths: README→brain/academy/branches/models, SETUP→academy, craft/tree→code/ROADMAP-spec-drive, hooks→ROADMAP-verify, goal headers→brain/goals. Generated ignore makes pointer checks green but readers still hit missing files; rewrite promises or deliberately ship dependencies. `b20260917-crossed-prose-broken-pointers`
+- **`git commit` (via rtk, or with `-q`) reports success after a pre-commit refusal** (24 Sep, 11 and 16 Nov). Verify the git log after every commit. `b20260924-rtk-commit-false-ok`
 
-- Read gate keys on path, demanding identical CONTEXT files again inside code/wos. Assess source-target equivalence through core/public.txt while retaining boundaries for genuinely different content (16 Sep). `b20260916-read-gate-charges-twice`
-
-- Feature names opencode-plugin/antigravity-hooks diverge from harnesses.txt names opencode/claude/zcode/agents and the actual antigravity adapter path. Reconcile mechanism/vendor vocabulary rather than add another spelling. `b20260916-harness-names-four-ways`
-
-- Paper tool services remain unavailable: Semantic Scholar 429/arXiv timeout (13 Sep). Dependency checks now call services and flows name venue-host web fallback; capability still missing, forcing per-page venue/review/citation checks. Recheck service and consider another provider. `b20260913-paper-search-has-no-arm`
-
-- scoreboard.tsv grows append-only; read-matrix.tsv is bounded by day modulo 365; state markers prune after two days. Evaluate shared bounded aging after the scoreboard reading due 28 Sep. Claude 16 Oct reports test markers accumulating; reproduce with claude_nostub_missing-stub and verify teardown/pruning. `b20260922-state-stores`
-
-- **`git commit` (via rtk, or with `-q`) reports success after a pre-commit refusal.** 24 Sep: index unchanged, old HEAD. 11 Nov: 3 times in the docs-ufrpe batch, and again 16 Nov. 17 Nov: `git commit -q` returned 1 on a cap refusal, so the swallow is not every time. Send output to a file and verify the actual git log until wrapper status propagation is fixed. `b20260924-rtk-commit-false-ok`
-
-- Empty .git/.codex/.agents (also .aws) directories appear in tmp, root provider folders and isolated outputs after Codex. Sandbox mount-point origin is a hypothesis. is_repo now requires HEAD/file; directory writer/cleanup remains unresolved (7/23 Oct). `b20261007-empty-git-dirs`
-
-<!-- entropy:start -->
-## Entropy
-
-> Generated by `core/hooks/entropy/dashboard/entropy-dashboard.py`, which scans this repo and no other. Never edit inside this block, and never copy a count out of it — a copied number is the drift these checks exist to catch.
-
-2026-11-19 · 1209 tracked files scanned · **7 findings here** (2026-11-09: 5 · +2 over 10 days)
-
-| Check | Findings |
-|-------|----------|
-| Off-allowlist `.md` types | 0 |
-| CONTEXT.md hand-written inventories | 0 |
-| Naming and placement | 0 |
-| Routing tables pointing at files git does not carry | 0 |
-| Projects not declaring their goal | 0 |
-| Wiki-links naming nothing | 0 |
-| Retired tokens still alive | 0 |
-| Roadmap item numbers cited outside a roadmap | 0 |
-| Items claimed by two lists | 0 |
-| Size signals | 0 |
-| Source files with no interface stub | 0 |
-| Directories holding too many files | 4 |
-| Prose describing finished work | 0 |
-| Unanswered placeholders | 0 |
-| Doubt stores missing their own discipline | 0 |
-| Lists naming a model where they mean a level | 0 |
-| Header fields naming code that is not there | 0 |
-| Truncated routing descriptions | 0 |
-| Constraints trapped in a CONTEXT.md head | 0 |
-| Local branches holding unpromoted work | 1 |
-| Work that exists on this disk and nowhere else | 0 |
-| Local branches already merged into their base | 1 |
-| Remote branches already merged into their base | 1 |
-
-*A check with no findings is the `0` in that table and nothing more. Only a check with something to show gets a section below.*
-
-### Directories holding too many files
-
-*splitting costs one hop — pay it only when it removes more table than it adds*
-
-- core/hooks — 11 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
-- core/tools/slides — 13 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
-- core/tools/test — 15 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
-- core/tools/test/workspace — 11 code files in one directory. NOT REFUSED — this is the warning at 10. Nothing stops until 15; split by responsibility if the split removes more table than the hop adds
-
-### Local branches holding unpromoted work
-
-*promote when the work is green, or say which reason applies — /roundup Phase 5*
-
-- . — feature/docs-ufrpe-1117 is 8 ahead of main
-
-### Local branches already merged into their base
-
-*safe to delete, and purely local — `git -C <repo> branch -d <branch>`*
-
-- . — 22 merged into main: git -C . branch -d feature/admin-roundup-1118 feature/ai4good-sem3 feature/ai4good-v1 feature/aulas-1118 feature/capd-george feature/docs-ufrpe-search feature/docs-ufrpe-site-close feature/docs-ufrpe-useful feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-links-1117 feature/inbox-texts-1117 feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final
-
-### Remote branches already merged into their base
-
-*safe to delete, and outward-facing — `git -C <repo> push origin --delete <branch>`, Lucas*
-
-- . — 23 merged into main: git -C . push origin --delete feature/admin-roundup-1118 feature/ai4good-sem3 feature/ai4good-v1 feature/capd-george feature/disk-hygiene feature/docs-ufrpe-search feature/docs-ufrpe-site-close feature/docs-ufrpe-useful feature/downloads-hook feature/drive-home-personal feature/ementas-lc feature/gitflow-parallel feature/goals-roadmap feature/inbox-links-1117 feature/inbox-texts-1117 feature/inbox-triage-1116 feature/pdf-twin feature/roundup-conflict feature/roundup-scope feature/take-then-plan feature/twin-description feature/virada-semana-final feature/web-shoot
-
-<!-- entropy:end -->
-
-<!-- verify:start -->
-## Verification
-
-> Generated by `core/tools/wos/roundup` at session close. The suite is the authority; this is its last result, never a claim that it is still true.
-
-2026-11-19 · `verify.py full` · **green (25 passed, 1189 deselected in 5.35s · 1188 passed, 1 skipped in 218.50s (0:03:38))**
-<!-- verify:end -->
+- Empty .git/.codex/.agents/.aws directories appear after Codex runs (7/23 Oct). `b20261007-empty-git-dirs`

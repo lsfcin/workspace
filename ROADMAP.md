@@ -64,28 +64,6 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 
 ## Portability — would this work on a machine that is not Lucas's
 
-**🔴 the branch is the lock — a close that cannot collide** (ruled 2026-11-19, Lucas; outside panel 4/5)
-*What* — Root cause: parallelism in the workspace repo is accidental, because every close commits generated artifacts there and every finding went to `brain/INBOX.md`. No worktrees. In the order below:
-1. **Generated out of git.** The entropy and verify blocks leave `ISSUES.md` for `outputs/state/`. The pre-commit `issues` generator dies, and the trend comes from a local history line. `core/read-matrix.tsv` and `ARCHITECTURE.html` become untracked. The close stops redrawing `PROJECTS.md`.
-2. **Lock.** A repo with a `develop` branch is free on develop/main with a clean tree.
-   - Taking it: the first write fetches, pulls `--ff-only`, creates `feature/<topic>-<MMDD>` and writes a session marker, all under `flock`.
-   - A repo on `feature/*` without this session's marker refuses writes. Only `core/run tools/wos/claim <repo>`, on Lucas's explicit word, transfers it.
-   - Enforced at two layers: the pre-commit and the `dispatch.py` gate, which all six harness shims already call. A test checks that every shim routes write and shell to it.
-   - `gitflow.txt` and `gitflow_law.py` die; the scope becomes "has develop".
-3. **Lean close.** It covers the repos holding this session's marker.
-   - Dirty → exit 2.
-   - Green fast suite → merge into develop and push. Red or `--draft` → push the feature.
-   - Then, only after the push is confirmed, switch to develop and drop the marker.
-   - A failed push leaves the repo occupied.
-   - `main` moves only by an explicit release.
-   - Leaves the close: transcript parsing, adopt/leave, park, the full suite, and the cost, size, trace, public and permissions reports.
-4. **Findings to their owner.** Done 2026-11-19 in `core/norms/improve.md` and `core/skills/roundup.md`.
-5. **Text.** The Git Flow rule moves from `code/SPECS-git.md` to `core/hooks/git/SPECS.md`. Resolved ISSUES items, retired tokens and stale worktrees are cleared; `docs-ufrpe-1117` holds 8 unmerged commits, so ask Lucas first.
-6. **`brain/` becomes its own trunk repo**, extracted with `filter-repo`. brain_stats leaves the workspace pre-commit, and `SETUP-clone.md` gets a step for the second machine.
-
-*Why* — 18 patches to the close in 5 weeks, and 40% of the workspace repo's commits (125/313) are close regenerations. The branch marker failed open in every harness (79bfd974).
-*Done when* — Parallel sessions cannot take one repo. A plain `git commit` on develop is refused. The close leaves the repo on develop with zero `chore(issues|reads|diagram)` commits. The whole change is net −600 lines or more.
-
 **🟡 the port grew the workspace and the payment is still short** — *after the ablation, not before*
 *What* — the cut that funds the port, from the top of `core/run tools/wos/size --weighted` down. The instrument names the candidate and it is **this file**, so draining the roadmap and paying the debt are one job.
 Next related-fix candidates: `core/hooks/SPECS.md`, added `feature_law.py` commentary and tools concentrated in `core/tools/wos/` (INBOX 26 Sep / 5 Oct).

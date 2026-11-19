@@ -14,7 +14,7 @@ Level: high (architecture + migration). Run through `/craft`. Language with Luca
 ## Scope (~420 open tasks across 38 goals, 2026-10-06 count)
 1. Migration script — deterministic, verbatim text, no rewriting: each goal backlog item → its home ROADMAP with the right goal tag; done items are deleted (git holds them). Dry-run report first, Lucas approves the home of each goal.
 2. Generator for the "open work" block; hook check that every ROADMAP item resolves to a goal.
-3. Update readers: `/compass` (selected achievement = a ROADMAP item id, almost-there from roadmap state), the GOALS.md generator, `brain/SPECS.md` § Backlog, `compress_done`, `/inbox` (routes a task to a ROADMAP only; reverts the 2026-10-02 "redundancy mandate" paragraph), `brain/_templates/`.
+3. Update readers: `/compass` (selected achievement = a ROADMAP item id, almost-there from roadmap state), the GOALS.md generator, `core/hooks/brain/SPECS.md` § Backlog, `compress_done`, `/inbox` (routes a task to a ROADMAP only; reverts the 2026-10-02 "redundancy mandate" paragraph), `core/hooks/brain/_templates/`.
 4. Close the ISSUES entry "Boundary friction between goal tasks and project roadmaps".
 
 ## Also queued for that session

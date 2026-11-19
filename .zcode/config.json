@@ -83,11 +83,6 @@
             {
               "type": "command",
               "timeout": 30,
-              "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/git/branch_marker.py record"
-            },
-            {
-              "type": "command",
-              "timeout": 30,
               "command": "sh ${ZCODE_PROJECT_DIR}/core/run hooks/session/mirror-heal.py"
             },
             {

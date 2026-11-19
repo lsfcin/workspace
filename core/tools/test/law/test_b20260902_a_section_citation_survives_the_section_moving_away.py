@@ -30,7 +30,7 @@ from conftest import WORKSPACE_ROOT
 CITATION = re.compile(r'(?:\[[^\]]*\]\(([^)\s]+\.md)\)|`([^`\s]+\.md)`|(?<![\w/])([\w./-]+\.md))'
                       r'[`\s]*§\s*(.*)')
 # A heading, or a bold label at the head of a line. This corpus names sub-rules in bold —
-# `**Push policy**` in code/SPECS-git.md is cited from the always-loaded AGENTS.md — and promoting
+# `**Push policy**` in core/hooks/git/SPECS.md is cited from core/hooks/entropy/dashboard/entropy_report.py — and promoting
 # every one of them to a heading would grow the .md corpus to satisfy a checker, which is backwards.
 NAMES = re.compile(r'^#{2,6}\s+(.*)$|^\s*(?:[-*]\s*)?\*\*(.+?)\*\*', re.MULTILINE)
 # Where the name stops and the sentence carrying it resumes: `—` and `(` open an aside, the rest
@@ -137,7 +137,7 @@ def test_a_citation_of_a_section_that_moved_away_is_a_finding(tmp_path):
 
 
 def test_a_bold_label_counts_as_a_section(tmp_path):
-    """code/SPECS-git.md names its sub-rules in bold and AGENTS.md cites one of them."""
+    """core/hooks/git/SPECS.md names its sub-rules in bold, and the entropy report cites one."""
     assert _fixture(tmp_path, '## Git Flow\n\n**Push policy** (moved here).\n',
                     'the push policy: [`SPECS.md`](SPECS.md) § Push policy.\n') == []
 

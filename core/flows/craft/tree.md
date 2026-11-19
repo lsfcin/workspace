@@ -37,8 +37,7 @@ The `feature` folder is the spec-driven pipeline. Its distinctive steps:
 ## Standing enforcement (guards every folder's output)
 
 - **Spec gates** ([code/ROADMAP-spec-drive.md](../../../code/ROADMAP-spec-drive.md)): `spec-read-gate` (can't edit a spec-locked module without reading its SPEC), pre-commit `1d` (new module needs a `> spec:`), `spec/scan` list. The feature folder is what *produces* the specs these guard.
-- **Git Flow gate** (`core/hooks/git/gitflow_gate.py`): no direct commits to `main`/`master`/`develop`;
-  `feature|release|hotfix/*` names only, in `code/` repos.
+- **Branch lock** (`core/hooks/git/lock.py`): an agent never commits on `main`/`develop`; one session per repo.
 - **verify:fast** (pre-commit `1a`): tests must be green to commit.
 
 ## Guardrail — do not proliferate folders

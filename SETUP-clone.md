@@ -2,7 +2,7 @@
 > What must exist before anything else in this workspace runs: the permission level the installing
 > agent works under, the interpreter every tool is spawned with, and the gates that fire on commit.
 > Run these in order and stop at the first check that will not pass.
-> feature: permissions, declared-deps, github-auth, git-hooks, skill-mirrors
+> feature: permissions, declared-deps, github-auth, brain-dashboard, git-hooks, skill-mirrors
 > enforced-by: core/tools/test/workspace/test_setup_executable.py
 
 The five-part contract, and the handover rule for the one step marked `agent: no`: [`SETUP.md`](SETUP.md).
@@ -108,6 +108,26 @@ gh auth setup-git                  # registers gh as git's credential helper, wh
 ```bash
 gh auth status
 git push --dry-run origin HEAD
+```
+
+## Brain
+> feature: `brain-dashboard` · agent: yes
+
+`brain/` is its own private repo, ignored by this one, so a fresh clone has none of it.
+
+**Precondition**
+```bash
+test -d brain/.git
+```
+
+**Install** — needs the GitHub account above:
+```bash
+gh repo clone lsfcin/brain brain
+```
+
+**Verify**
+```bash
+git -C brain rev-parse HEAD
 ```
 
 ## Git hook

@@ -79,49 +79,9 @@ def test_the_template_has_no_placeholder_to_fill():
     assert 'Omit the whole section' in template
 
 
-def _state_labels() -> list:
-    """The close's state labels, in order, read out of the one place that declares them.
-
-    Read from the script rather than restated here for the same reason the skills may not name
-    them: a second copy of this list rots without failing anything.
-    """
-    return _declared('STATE')
-
-
-def _declared(name: str) -> list:
-    declared = re.search(rf'^{name} = \(([^)]*)\)', TOOL, re.MULTILINE)
-    return re.findall(r"'([a-z]+)'", declared.group(1)) if declared else []
-
-
 def test_the_state_block_is_whatever_the_tool_printed():
-    """Re-deriving the facts costs a second round of git at the most expensive turn, and lets the
-    two disagree. Naming the lines is the same defect one level up: both skills promised three
-    (`verify:`/`entropy:`/`sync:`) while the script printed six, and nothing failed. So the skills
-    name none, and this asserts they name none — the label list lives only in the script."""
-    printed = set(_state_labels())
-    assert printed, 'core/tools/wos/roundup no longer declares its state labels'
-    state = _template().split('### State')[-1]
-    assert 'verbatim' in state
-    for skill, text in (('roundup.md', ROUNDUP_SKILL), ('handoff.md', HANDOFF_SKILL)):
-        named = {lbl for lbl in printed if f'`{lbl}:`' in text or f'{lbl}: /' in text}
-        assert not named, (
-            f'core/skills/{skill} names {sorted(named)} — the script owns that list; '
-            'a copy in prose goes stale without failing anything')
-
-
-def test_what_the_session_cost_prints_before_the_state():
-    """Ruled 2026-08-25: the cost line printed fifth and was read last, though it is the fact that
-    opened the whole cost frente. What the session spent and whether the workspace shrank lead;
-    verify/sync/entropy follow, because those are for the next session rather than for Lucas.
-
-    The rule is which GROUP leads, so that is what this asserts. It used to assert two fixed indices
-    instead, which made adding a third Lucas-facing line (`trace`, 2026-09-15) fail a case about
-    ordering — the count of lines Lucas reads first was never the ruling.
-    """
-    printed, lucas = _state_labels(), _declared('BARE')
-    assert lucas and printed[:len(lucas)] == lucas, (
-        f'the close no longer leads with what Lucas reads it for: {printed} against {lucas}')
-    assert printed[len(lucas):len(lucas) + 2] == ['verify', 'sync'], printed
+    """The close prints one line per repo it held; the hand-off copies them, never re-derives them."""
+    assert 'verbatim' in _template().split('### State')[-1]
 
 
 def test_the_inbox_phase_counts_instead_of_draining():
@@ -151,11 +111,3 @@ def test_both_skills_agree_on_which_phase_promotes():
     assert cited, 'core/skills/handoff.md no longer points anywhere for promotion'
     assert cited.group(1) == promoting, (
         f'handoff.md sends promotion to Phase {cited.group(1)}; the tool runs in Phase {promoting}')
-
-
-def test_the_dirty_flag_is_documented_where_it_is_decided():
-    """--leave answers a question only Lucas can answer, so the script's own stop names it at the
-    moment it applies. The skill must not pre-load it as a routine step."""
-    for block in _blocks(ROUNDUP_SKILL):
-        assert '--leave' not in block, (
-            'the skill must not run --leave by default — the stop offers it when it applies')

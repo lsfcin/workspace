@@ -64,7 +64,7 @@ def cmd_pull(publish: pathlib.Path) -> None:
                              capture_output=True, text=True, encoding='utf-8', check=True).stdout.strip()
         repos.setdefault(top, []).append(str(p))
     for top, paths in repos.items():
-        # by path: another session may hold staged work in the same index (code/SPECS-git.md)
+        # by path: another session may hold staged work in the same index (core/hooks/git/SPECS.md)
         subprocess.run(['git', 'add', '--', *paths], cwd=top, check=True)
         done = subprocess.run(['git', 'commit', '-q', '-m', 'chore(links): edits made on the site come home',
                                '--', *paths], cwd=top)

@@ -1,6 +1,0 @@
-from _typeshed import Incomplete
-
-DECLARED: Incomplete
-
-def scope() -> list: ...
-def enforced(toplevel, root) -> bool: ...

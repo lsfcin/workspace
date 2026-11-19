@@ -14,7 +14,7 @@ You are a SENIOR software architect, your code WILL be evaluated!
 
 **Language rules, file templates, and the R1–R6 style table:** [SPECS-style.md](SPECS-style.md) § Style Rules (R1-R6).
 
-**Git Flow**, the branch gate's scope, and the push policy: [SPECS-git.md](SPECS-git.md).
+**Git flow**, the branch lock and the push policy: [`core/hooks/git/SPECS.md`](../core/hooks/git/SPECS.md).
 
 **Hooks block automatically** — each explains itself and names the fix when it fires, so nothing about them is restated here. Every numeric limit lives in `core/hooks/limits.env`, and a copy of one here went five days stale before it was deleted. Reasoning: [ROADMAP-verify.md](ROADMAP-verify.md).
 
@@ -51,7 +51,6 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`ROADMAP-spec-drive.md`](ROADMAP-spec-drive.md) | — | — | Enforcement rollout making the spec the contract for `code/` modules: verifiable inputs/outputs/invariants that precede and govern the code. Goal: [spec-driven-development](../brain/goals/spec-driven-development.md). |
 | [`ROADMAP-verify.md`](ROADMAP-verify.md) | — | — | Testing-discipline rollout for `code/` projects: make agents verify their own results (no human eye per prompt) and enforce code centralization. Pilot: isoroll-module. Second: apptime. |
 | [`SETUP.md`](SETUP.md) | — | — | Per-language setup, facade templates, and project template reference |
-| [`SPECS-git.md`](SPECS-git.md) | — | — | Which branches exist, what may be committed where, and when work is pushed. |
 | [`SPECS-structure.md`](SPECS-structure.md) | — | — | How a project is laid out: its files, its module specs, and its facade. |
 | [`SPECS-style.md`](SPECS-style.md) | — | — | How a file is written, how big it may get, and when a directory splits. |
 | [`SPECS.md`](SPECS.md) | — | — | Engineering conventions, architecture decisions, and process rules for all code/ projects. |

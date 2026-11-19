@@ -28,6 +28,8 @@ Downloads/
 # These are session-local artefacts and must not be versioned here;
 # paper-level outputs live inside each project's own repo.
 outputs/
+# Generated pictures and counts this machine makes: never committed, so a close never commits.
+ARCHITECTURE.html
 **/iq-fix-roadmap.md
 ROADMAP.md
 # Exception: the root workspace-os ROADMAP is the durable v1-strong plan (NOT session-local) —
@@ -125,12 +127,6 @@ core/*
 !core/SPECS-*.md
 !core/features.txt
 !core/profile.txt
-# The read matrix is per-machine BEHAVIOUR and still tracked, unlike core/scoreboard.tsv beside it.
-# Both are counts this machine made, but this one answers a question that outlives the machine —
-# what a file costs to keep, which is what every cut is argued from — and a window that resets on
-# each clone could never answer it. Its shape is what makes it committable: one row per file, one
-# column per day, fixed width, so a day's diff is the rows that were actually read.
-!core/read-matrix.tsv
 !core/permissions.txt
 !core/levels.txt
 !core/harnesses.txt
@@ -153,22 +149,6 @@ datasets/*
 datasets/relativistic_raytracer/*
 !datasets/relativistic_raytracer/CONTEXT.md
 
-brain/*
-!brain/CONTEXT.md
-!brain/SPECS.md
-!brain/GOALS.md
-!brain/INBOX.md
-!brain/.log/
-!brain/attachments/
-brain/attachments/*
-!brain/attachments/CONTEXT.md
-!brain/attachments/instituto-estrategias.md
-!brain/goals/
-brain/goals/*
-!brain/goals/*.md
-!brain/drafts/
-brain/drafts/*
-!brain/drafts/*.md
 
 # Nested project repos — each has its own git repo (AGENTS.md: internal projects use
 # their own repos). They must NOT be embedded as gitlinks in the workspace: a fresh
@@ -183,6 +163,7 @@ brain/drafts/*
 # gitignore_heal.py will not re-add them: it skips any subdir holding a `.git`.
 academy/administration
 academy/administration/docs-ufrpe
+brain
 academy/cv
 academy/lab
 academy/papers/2026-JBCS-relativistic_raytracer
@@ -271,7 +252,6 @@ code/wos
 # Google Drive hybrid sync local cache
 .drive-manifest-cache.json
 _material/previews/
-!brain/_templates/
 !branches/health/
 
 # Codex lifecycle wiring connects to the canonical workspace hooks.

@@ -101,10 +101,6 @@
           },
           {
             "type": "command",
-            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/git/branch_marker.py record"
-          },
-          {
-            "type": "command",
             "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/session/mirror-heal.py"
           },
           {

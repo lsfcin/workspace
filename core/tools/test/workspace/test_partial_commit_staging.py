@@ -128,18 +128,6 @@ def _recorder(calls):
     return lambda *paths, **kw: calls.append(kw)
 
 
-def test_the_issues_generator_asks_for_named_only(monkeypatch, tmp_path):
-    import generators
-    calls = []
-    monkeypatch.setattr(generators.feature_law, 'is_enabled', lambda *_: True)
-    monkeypatch.setattr(generators, '_keeps_a_list', lambda _c: True)
-    monkeypatch.setattr(generators, 'spawn', lambda *a, **k: SimpleNamespace(returncode=0))
-    monkeypatch.setattr(generators, 'stage', lambda *a, **k: calls.append(k), raising=False)
-    monkeypatch.setattr(generators, '_stage', lambda *a, **k: None)
-    generators.issues(SimpleNamespace(toplevel=tmp_path))
-    assert calls and calls[0].get('named_only') is True
-
-
 def test_the_brain_dashboard_asks_for_named_only(monkeypatch, tmp_path):
     import brain_stats
     goal = tmp_path / 'g.md'
@@ -158,16 +146,14 @@ def test_the_brain_dashboard_asks_for_named_only(monkeypatch, tmp_path):
 
 
 def test_the_brain_dashboard_really_reaches_the_index(monkeypatch, tmp_path):
-    """The real `git add`, with brain_common's workspace-relative paths (2026-11-06).
+    """The real `git add`, from the brain repo's root (2026-11-06; brain/ its own repo 2026-11-19).
 
-    Staged from `cwd=brain/`, `brain/GOALS.md` named `brain/brain/GOALS.md`; the add failed in
-    silence, every commit left the regenerated stats on disk only, and the tree never came clean.
-    The test above mocks `stage`, which is how it missed that.
+    A path that did not start where the add ran once failed in silence, leaving the stats on disk
+    only. The test above mocks `stage`, which is how it missed that.
     """
     import brain_stats
     repo, _hooks = _repo(tmp_path, '')
-    (repo / 'brain').mkdir()
-    goals = Path('brain/GOALS.md')
+    goals = Path('GOALS.md')
     (repo / goals).write_text('old\n', encoding='utf-8', newline='\n')
     _git(repo, 'add', str(goals))
     _git(repo, 'commit', '-q', '-m', 'goals')
@@ -186,7 +172,7 @@ def test_the_brain_dashboard_really_reaches_the_index(monkeypatch, tmp_path):
     monkeypatch.setattr(brain_stats, 'check_compass_reminder', lambda: None)
     brain_stats.pre_commit()
     assert _git(repo, 'diff', '--name-only').strip() == ''
-    assert _git(repo, 'diff', '--cached', '--name-only').strip() == 'brain/GOALS.md'
+    assert _git(repo, 'diff', '--cached', '--name-only').strip() == 'GOALS.md'
 
 
 def test_a_failed_stage_says_so(tmp_path, capsys):

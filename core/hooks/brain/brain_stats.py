@@ -50,7 +50,7 @@ def build_stats_block(name, attention):
     counts = {period: attention.count(name, days) for period, days in PERIODS}
     lt     = attention.last_touch(name)
 
-    # The six periods are named once, in brain/SPECS.md, instead of on 36 goal files. Spelling
+    # The six periods are named once, in core/hooks/brain/SPECS.md, instead of on 36 goal files. Spelling
     # them here costs 43 characters a line across 36 files — and it is the same restatement the
     # table was.
     return (
@@ -164,8 +164,7 @@ def pre_commit():
     to_stage = modified[:]
     if GOALS_FILE.exists():
         to_stage.append(str(GOALS_FILE))
-    # From the workspace root, where brain_common's relative paths start. Staged from brain/, they
-    # named brain/brain/… and the add failed in silence: the stats stayed on disk, out of every commit.
+    # From the brain repo's root, where brain_common's relative paths start.
     if to_stage:
         stage(Path('.'), *to_stage, named_only=True)
 

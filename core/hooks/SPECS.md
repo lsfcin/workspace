@@ -19,10 +19,9 @@ Applied globally via `core.hooksPath`, so it fires on every `git commit` in **ev
 - `checks/citation-gate.py`: a roadmap item number may not appear outside `ROADMAP*.md`. **Not gradual** — swept to zero 2026-08-16. Completion is deletion here, so a cited number points at nothing the day the item lands; cite the section instead, by its *shape* and never the bare word.
 - `git/gitignore-self-heal.sh`: a new domain subdirectory carrying a `CONTEXT.md` gets its `!<domain>/<dir>/` allow line written, and **then stops the commit** if that directory holds files git could not see. Ruled 2026-08-19 (Lucas): **a commit hook that stages what the caller did not is worse than the bug it fixes.**
 
-### Branch drift
+### Branch lock
 
-**HEAD is shared mutable state between parallel sessions.** A parallel session switches the shared checkout mid-flight and your commit lands on *their* branch, auto-pushed there. **The branch reads correct at session start**, which is why no start-of-session check can catch it.
-[`git/branch_marker.py`](git/branch_marker.py) keeps **one marker per session and repo** (2026-11-09; the git hook reads the id from the agent's environment). [`git/branch-gate.py`](git/branch-gate.py) asks it at every write and refuses exactly two things: a write on `main`/`master`/`develop` in a Git Flow repo, and a write after a parallel session switched an **unfinished** branch away. **Never refused:** this session's own `git switch` (re-recorded after the shell call), leaving a branch already inside `develop`, a repo outside Git Flow, a detached HEAD, and any error, because the gate fails open. Each refusal names the one command that clears it; the switch is `branch-gate`. The first write in each repo also counts the uncommitted changes already there, as unattributed, never as another session's. The commit-time `check` still warns once per divergence. Never reset or force-push theirs, and never `git checkout` your branch back — that yanks HEAD out from under them, the same defect pointed the other way.
+One agent session per repo, and an agent never commits on `develop` or `main`: [`git/SPECS.md`](git/SPECS.md).
 
 **No exemptions for vendored third-party code.** A `.vendor` marker switching the gates off was rejected (2026-07-23, Lucas: *"even thirdparty solutions, once brought to our w-os should comply with our rules. opening exceptions is quite dangerous"*). Vendoring means adopting and adapting: split what is too big, and record the deviations a future re-sync merges against.
 

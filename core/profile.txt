@@ -36,6 +36,7 @@ setting	lang	en
 setting	permissions	open
 setting	links-base	https://lucassf.pages.dev
 setting	pr-watch	lsfcin/docs-ufrpe
+setting	github-owner	lsfcin
 toggle	context-chain	on
 toggle	interface-first-reads	on
 toggle	pdf-twin-reads	on
@@ -60,8 +61,7 @@ toggle	heredoc-gate	on
 toggle	verify-suite	on
 toggle	verify-contract	on
 toggle	project-contract	on
-toggle	gitflow-gate	on
-toggle	branch-gate	on
+toggle	branch-lock	on
 toggle	handoff-gate	on
 toggle	gitlink-gate	on
 toggle	gitignore-self-heal	on

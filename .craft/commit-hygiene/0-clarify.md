@@ -13,7 +13,7 @@ criteria:
  C5 Tests: a fixture repo where `git commit -- a.txt` lands a commit without ISSUES.md; a full commit still carries it; `is_repo` true/false cases incl. `tmp_path/.git` empty dir. `./verify.py fast` green.
  C6 ISSUES.md gains one hand-written entry: empty `/tmp/.git` (also empty `/tmp/.codex`, `/tmp/.agents`, and `.codex/`, `.agents/` at the workspace root) — writer not in this repo; timestamps coincide with the Codex sandbox (bubblewrap creates mount points for protected paths). Hypothesis, not proof.
 tasks: TBD (Loop 1)
-context: /mnt/workspace/AGENTS.md, core/CONTEXT.md, core/hooks/CONTEXT.md, core/hooks/SPECS.md, code/SPECS-git.md
+context: /mnt/workspace/AGENTS.md, core/CONTEXT.md, core/hooks/CONTEXT.md, core/hooks/SPECS.md, core/hooks/git/SPECS.md
 
 ## Clarify (orchestrator inline — Lucas approved plan 2026-10-06/07)
 

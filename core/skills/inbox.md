@@ -126,5 +126,5 @@ For each entry:
 - Keep write/commit windows short and serialize each repo through a common lock where all writers cooperate. Hooks that only check state do not make the subsequent write atomic; a lock cannot protect against nonparticipating writers or another machine.
 - Commit destinations first, by approved paths, and verify the commit contents and resulting HEAD. Do not remove a capture whose destination commit failed; completed destination work is reused on retry rather than duplicated.
 - Remove only confirmed exact entries from a fresh inbox read under the bot’s existing file lock (code/aiwbot/frontend/inbox.py); write in place, preserve concurrent captures and verify the result before releasing the lock.
-- Run `core/run hooks/brain/brain_stats.py`; inspect and stage only this batch’s generated changes. Commit source removal last, by path. Preserve unrelated index/worktree changes.
+- `brain/` is its own repo: committing a goal file there runs the brain stats itself. Commit source removal last, by path, in that repo. Preserve unrelated index/worktree changes.
 - Never resolve semantic conflicts with blanket ours/theirs/union. Reused recorded resolutions still need verification; isolated worktrees require the preparation/close fixes tracked in root ROADMAP, Portability.

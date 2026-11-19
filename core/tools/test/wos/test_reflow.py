@@ -75,7 +75,7 @@ def test_the_header_block_is_untouched():
     fused pair reports clean while the second field has stopped existing — 18 files, first run.
     """
     text = ('# Title\n> a description that wraps\n> onto a second line\n'
-            '> governs: every repo under code/\n> enforced-by: core/hooks/git/gitflow_gate.py\n\n'
+            '> governs: every repo under code/\n> enforced-by: core/hooks/git/lock.py\n\n'
             'body that wraps\nonto two lines.\n')
     new, removed = reflow_tool.reflow(text)
     assert removed == 1                                  # the body only

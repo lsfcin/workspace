@@ -127,11 +127,6 @@ def main() -> int:
     if event in lifecycle:
         for rel in lifecycle[event]:
             failed |= invoke(raw, rel, messages) != 0
-        if event == 'SessionStart':
-            done = subprocess.run(['sh', str(HERE.parents[2] / 'core/run'),
-                                   'hooks/git/branch_marker.py', 'record'],
-                                  input=json.dumps(raw), capture_output=True, text=True, encoding='utf-8')
-            sys.stderr.write(done.stderr)
         dispatch.emit(messages, event)
         return int(failed)
     if event not in ('PreToolUse', 'PostToolUse') or not isinstance(data, dict):

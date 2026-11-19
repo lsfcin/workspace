@@ -128,7 +128,11 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | Retired token | Replacement | Retired |
 |---------------|-------------|---------|
 | `loop-engineering` | `craft` | 2026-07-23 |
-| `--leave-dirty` | `--leave <repo>` | 2026-11-09 |
+| `--leave-dirty` | none: the close covers only the repos its session holds | 2026-11-19 |
+| `--no-promote` | `--draft` | 2026-11-19 |
+| `gitflow_gate` | `lock.check` (core/hooks/git/lock.py) | 2026-11-19 |
+| `branch_marker` | `lock` (core/hooks/git/lock.py) | 2026-11-19 |
+| `SPECS-git.md` | `core/hooks/git/SPECS.md` | 2026-11-19 |
 | `loop-router` | `route` | 2026-07-23 |
 | `loop-architecture` | `architect` | 2026-07-23 |
 | `KNOWN-BUGS` | `ISSUES.md` | 2026-07-30 |

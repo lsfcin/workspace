@@ -4,8 +4,13 @@
 <!-- routing:start -->
 ## Routing
 
+| Subdirectory | Description |
+|--------------|-------------|
+| [`_templates/`](_templates/CONTEXT.md) | The shape of a brain/ — CONTEXT.md, GOALS.md, INBOX.md and two goal shapes, with nobody's content in them. |
+
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`SPECS.md`](SPECS.md) | — | — | Goal file format, section growth triggers, signals, dynamics, timing, and backlog conventions. |
 | [`brain_attention.py`](brain_attention.py) | [`brain_attention.pyi`](brain_attention.pyi) | `parse_owns`, `governing_repo`, `harvest`, `Attention`, `count` | Brain attention — what commits actually touched a goal, across every repo in the workspace. |
 | [`brain_common.py`](brain_common.py) | [`brain_common.pyi`](brain_common.pyi) | `workspace_rel`, `areas`, `git`, `replace_block` | Brain stats — shared config, git helpers, and block replacement. |
 | [`brain_dashboard.py`](brain_dashboard.py) | [`brain_dashboard.pyi`](brain_dashboard.pyi) | `bar`, `area_from_file`, `timing_display`, `parse_goal_file`, `update_goals_table` | Brain stats — GOALS.md dashboard rendering (area/goal bars, active-goals table). |

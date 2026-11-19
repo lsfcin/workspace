@@ -8,7 +8,7 @@ description: >
 
 End the session cleanly: three judgment phases, one script, one hand-off.
 
-Everything with a single right answer — the verification gate, the entropy dashboard, branch promotion — is [`core/tools/wos/roundup`](../tools/wos/roundup), run once in Phase 4. It carries this skill's name because it is the same ritual, one layer down. **Do not do its work by hand:**
+Everything with a single right answer — the fast suite, the merge into develop, the push, giving the repos back — is [`core/tools/wos/roundup`](../tools/wos/roundup), run once in Phase 4. It carries this skill's name because it is the same ritual, one layer down. **Do not do its work by hand:**
 this skill fires at the session's maximum context, so every command reasoned about here is paid at the most expensive turns the session will ever have.
 
 Write directly to files. Ask only on conflict or destructive ambiguity.
@@ -54,7 +54,7 @@ Route each piece of knowledge the session produced. Conflict with existing conte
 | Critical quick-reference fact or constant needed at session start | `CONTEXT.md` — see exclusions |
 | Doesn't fit cleanly | `ISSUES.md` of the repo the session worked in, tagged |
 
-**Never `brain/INBOX.md`.** INBOX is Lucas's own capture ([`brain/CONTEXT.md`](../../brain/CONTEXT.md)); an agent's finding written there drags the workspace repo into every close and gets promoted as if Lucas had said it. *ROADMAP*: a technical milestone with agent-ready context. *Goal backlog*: personal / admin / life / teaching — append to the goal it serves, or write the goal's seed.
+**Never `brain/INBOX.md`.** INBOX is Lucas's own capture ([`brain/CONTEXT.md`](../../brain/CONTEXT.md)); an agent's finding written there gets promoted as if Lucas had said it. *ROADMAP*: a technical milestone with agent-ready context. *Goal backlog*: personal / admin / life / teaching — append to the goal it serves, or write the goal's seed.
 
 **CONTEXT.md exclusions.** Routing-block changes → ignore, hooks auto-sync them. Behavioral cues ("be careful with X", "prefer Y") → `SPECS.md` Conventions or `AGENTS.md`. Decisions + rationale → `SPECS.md` Architecture Decisions. Write to `CONTEXT.md` only for a critical constant, invariant, or quick-start command needed at the *next* session's start, that fits nowhere above.
 
@@ -84,18 +84,15 @@ So: if the reminder fired and `$ARGUMENTS` names no other focus, hand `/inbox` t
 
 ## Phase 4 — Close
 
-Commit the session's work first — the script stops on a dirty tree in any repo this session worked in, because a commit message is judgment. Repos the session never touched are not its business. Then, once:
+Commit the session's work first, in every repo this session holds: the script stops on a dirty tree (exit 2), because a commit message is judgment. Then, once:
 
 ```bash
 core/run tools/wos/roundup
 ```
 
-It runs the verification contract, writes both generated blocks of the root `ISSUES.md` — the verification result and the regenerated entropy findings (workspace repo — and commits them itself, under `chore(issues)`, so no session ever writes that message by hand), merges `feature/*` → `develop` → `main` and pushes, then prints what the close measured. **Every line it printed is the hand-off's State block** — copy them, do not re-derive them, and **do not name them here**: a list of labels in a skill is a second copy of the script's output that rots silently, which is exactly how this file promised three lines while the script printed six.
+[`core/tools/wos/roundup`](../tools/wos/roundup) covers exactly the repos the branch lock says this session holds ([`core/hooks/git/SPECS.md`](../hooks/git/SPECS.md)). Green fast suite → the feature merges into `develop`, which is pushed. Red → only the feature is pushed. Only after a confirmed push does it switch back to `develop` and let the repo go; a failed push keeps the repo held. It commits nothing and never moves `main`. **Every line it printed is the hand-off's State block** — copy them, do not re-derive them.
 
-**Exit 3** means repos this session changed hold another session's files. Never decide that yourself: in the last message's text, name each repo with its files and branch and ask Lucas, per repo, to **adopt** (you read the diff, commit those files by path in their own commit, rerun), **leave** (rerun with the `--leave` flag the stop printed: pushed, never promoted) or **stop**.
-
-It refuses to promote, and says why, when the verification gate is **red** or when a target branch is **behind origin** (a parallel session is mid-flight). Those are decisions, not failures: report the reason, never work around it. One case the script cannot see — the branch holds work that is incoherent on its own (a half-applied refactor, a test deleted before its replacement lands) — is yours to pass in: `core/tools/wos/roundup --no-promote "<reason>"`. *"The milestone is not finished"*
-is **not** a reason: green, coherent, partial work belongs on `develop`, where the other machine can see it.
+A merge it refused (develop diverged, a conflict) is a decision, not a failure: report the line, never work around it. Work that is incoherent on its own (a half-applied refactor) is yours to pass in: `core/run tools/wos/roundup --draft`. *"The milestone is not finished"* is **not** a reason: green, coherent, partial work belongs on `develop`, where the other machine can see it.
 
 ---
 

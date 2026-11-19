@@ -20,7 +20,7 @@ tasks:
  T5 — real-git tests for C1/C2 — new core/tools/test/workspace/test_partial_commit_staging.py — medium
  T6 — ISSUES.md hand entry for C6 — ISSUES.md — low
  T7 — `./verify.py fast` green; caps held — none — low
-context: /mnt/workspace/AGENTS.md, core/CONTEXT.md, core/hooks/CONTEXT.md, core/hooks/SPECS.md, code/SPECS-git.md
+context: /mnt/workspace/AGENTS.md, core/CONTEXT.md, core/hooks/CONTEXT.md, core/hooks/SPECS.md, core/hooks/git/SPECS.md
 
 ## Ground
 branch-created: feature/goals-roadmap base: feature/pdf-twin

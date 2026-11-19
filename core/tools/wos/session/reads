@@ -45,10 +45,11 @@ def _span(days: int) -> int:
 	"""
 	sys.path.insert(0, str(Path(__file__).resolve().parents[4] / 'core' / 'hooks' / 'read'))
 	import read_matrix
+	read_matrix.fold()   # the events since the last read: the matrix is local, folded where it is read
 	_asof, rows = read_matrix.load()
 	ranked = read_matrix.span(rows, days)
 	if not ranked:
-		print(f'\n  nothing recorded in the last {days} days — the matrix is folded at every close\n')
+		print(f'\n  nothing recorded in the last {days} days\n')
 		return 1
 	print(f'\n  {sum(n for _p, n in ranked)} reads over {len(ranked)} files, last {days} days\n')
 	for name, count in ranked[:TOP]:

@@ -20,7 +20,7 @@ tasks:
  T5 — real-git tests for C1/C2 — new core/tools/test/workspace/test_partial_commit_staging.py — medium
  T6 — ISSUES.md hand entry for C6 — ISSUES.md — low
  T7 — `./verify.py fast` green; caps held — none — low
-context: /mnt/workspace/AGENTS.md, core/CONTEXT.md, core/hooks/CONTEXT.md, core/hooks/SPECS.md, code/SPECS-git.md
+context: /mnt/workspace/AGENTS.md, core/CONTEXT.md, core/hooks/CONTEXT.md, core/hooks/SPECS.md, core/hooks/git/SPECS.md
 
 ## Architecture
 Measured 2026-10-07, git 2.55: `git commit -- a.txt` hands the hook GIT_INDEX_FILE=`<abs>/.git/next-index-<pid>.lock` and `diff --cached` = `a.txt` only; `-a` → `<abs>/.git/index.lock`; plain → `.git/index` (RELATIVE). The basename test holds for all three; unset = not inside a commit. The "named set" is what the temp index CHANGES vs HEAD: a named path with no change is not in it (accepted).

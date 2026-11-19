@@ -21,8 +21,8 @@ Cut where a line is READ, not where it merely sits — `core/run tools/wos/sessi
 A weak feature is deleted whole, leaving one rejection note in its SPECS; while a design is still open, every variant stays until Lucas picks.
 <!-- norms:end -->
 
-Git Flow, the branch gate's scope, the `--no-verify` protocol, and the push policy:
-[`code/SPECS-git.md`](code/SPECS-git.md). *Gated by `core/hooks/git/gitflow_gate.py`.*
+Git flow, the branch lock, the close, the `--no-verify` protocol, and the push policy:
+[`core/hooks/git/SPECS.md`](core/hooks/git/SPECS.md). *Enforced by `core/hooks/git/lock.py`.*
 What the hooks block, and the contract a new agent's shim must satisfy:
 [`core/hooks/SPECS.md`](core/hooks/SPECS.md). Installing the toolchain they need — stubgen, tsc, caveman, rtk: [SETUP.md](SETUP.md).
 What we intend to build: [`ROADMAP.md`](ROADMAP.md). What is currently untrue that we know about —

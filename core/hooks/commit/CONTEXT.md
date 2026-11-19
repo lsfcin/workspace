@@ -18,7 +18,7 @@ A **gate** may refuse the commit by raising `Blocked`; a **generator** writes ar
 |------|-----------|-----|-------------|
 | [`gates.py`](gates.py) | [`gates.pyi`](gates.pyi) | `source_quality`, `duplication_and_terms`, `lint` | The pre-commit stages that may REFUSE: line counts, duplication, facade boundaries, terms, lint. |
 | [`gates_project.py`](gates_project.py) | [`gates_project.pyi`](gates_project.pyi) | `project_contract` | What a code/ project must declare before it can commit: verify contract, goal link, spec, branch shape, .md type, citations, gitlink. |
-| [`generators.py`](generators.py) | [`generators.pyi`](generators.pyi) | `prepare`, `routing`, `issues`, `interfaces`, `skills` | The pre-commit stages that WRITE: brain stats, routing tables, interface stubs, skill mirrors. |
-| [`post_commit.py`](post_commit.py) | [`post_commit.pyi`](post_commit.pyi) | `main` | Auto-push feature/* after a commit, so work survives a dead session and reaches the other machine. |
+| [`generators.py`](generators.py) | [`generators.pyi`](generators.pyi) | `prepare`, `routing`, `interfaces`, `skills` | The pre-commit stages that WRITE: brain stats, routing tables, interface stubs, skill mirrors. |
+| [`post_commit.py`](post_commit.py) | [`post_commit.pyi`](post_commit.pyi) | `main` | Auto-push after a commit, so work survives a dead session and reaches the other machine: every branch of a repo whose origin is ours, except develop/main where a develop exists — the close pushes develop after the fast suite, and main moves only by a release (core/hooks/git/SPECS.md). A trunk repo (brain/) is pushed on every commit. Never blocks -- git… |
 | [`pre_commit.py`](pre_commit.py) | [`pre_commit.pyi`](pre_commit.pyi) | `Blocked`, `git`, `spawn`, `is_partial`, `stage` | The git pre-commit pipeline: what every stage shares, and the one place a commit is refused. |
 <!-- routing:end -->

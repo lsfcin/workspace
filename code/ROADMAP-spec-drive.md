@@ -42,7 +42,7 @@ Parity: wired in all three runtimes — Claude Code (`.claude/settings.json`), o
 ## The authoring side — the loop tree (2026-07-18)
 
 The gates above guard the *output*. The *authoring workflow* that produces spec-first code is the **`feature` subtree of the loop tree** ([core/flows/craft/tree.md](../core/flows/craft/tree.md), [route.md](../core/flows/craft/route.md)). Its **Loop 3.5 Contract Layout** lays out every module's `SPEC.md` + interface stubs + a type-matched connection graph *before* any code (checked by `core/tools/wos/spec/contract-check`), with an optional human sign-off configured in the Loop 0 permission panel. A `feature` run is therefore what *fills the coverage* — each shipped module leaves a locked spec.
-Git Flow is enforced alongside (`core/hooks/git/gitflow_gate.py`, pre-commit 1e; see `SPECS-git.md` § Git Branching).
+Git flow is enforced alongside by the branch lock ([`core/hooks/git/SPECS.md`](../core/hooks/git/SPECS.md)).
 
 ## Phases
 

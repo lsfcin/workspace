@@ -85,8 +85,8 @@ def test_the_target_regenerates_its_own_routing_rather_than_inheriting_ours():
 def test_the_target_commits_under_the_branch_gate_like_every_other_repo():
     """--no-verify is what made all three invisible, so its absence is the regression.
 
-    gitflow_gate covers any repo under code/ and the target sits on a shared branch, so the bypass
-    was bought to get past that one refusal — and took the whole pipeline with it. push() now
+    The target sits on a shared branch an agent may not commit on, so the bypass was bought to get
+    past that one refusal — and took the whole pipeline with it. push() now
     branches instead. Read as text rather than run: the alternative is a test that pushes.
 
     COMMENTS ARE STRIPPED FIRST, and that is the point rather than tidiness: the prose right there

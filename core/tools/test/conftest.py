@@ -213,3 +213,28 @@ def pytest_configure(config):
     # NoneType — the child writes a glyph, the parent cannot decode it, the reader thread dies and
     # stdout comes back None. The law: core/tools/test/workspace/ceilings/test_encoding_ceiling.py
     os.environ['PYTHONIOENCODING'] = 'utf-8'
+
+
+# The branch lock's fixture, shared by its gate and its close tests: a governed repo on clean
+# develop, whose lsfcin GitHub origin is rewritten to a local bare repo so every push lands on disk.
+LOCK_URL = 'https://github.com/lsfcin/lock-test.git'
+
+
+def run(repo, *args):
+    import subprocess  # noqa: PLC0415 — the scrub above runs before git is first imported
+    return subprocess.run(['git', *args], cwd=repo, capture_output=True, text=True, encoding='utf-8', check=True).stdout.strip()
+
+
+def governed_repo(tmp_path, name='repo'):
+    import subprocess  # noqa: PLC0415
+    """A repo on clean develop with a bare origin reached through the lsfcin URL."""
+    bare, repo = tmp_path / f'{name}.git', tmp_path / name
+    subprocess.run(['git', 'init', '-q', '--bare', '-b', 'develop', str(bare)], check=True)
+    subprocess.run(['git', 'init', '-q', '-b', 'develop', str(repo)], check=True)
+    run(repo, 'config', f'url.{bare}.insteadOf', LOCK_URL)
+    run(repo, 'remote', 'add', 'origin', LOCK_URL)
+    (repo / 'README.md').write_text('x\n', encoding='utf-8', newline='\n')
+    run(repo, 'add', '.')
+    run(repo, '-c', 'core.hooksPath=/dev/null', 'commit', '-qm', 'init')
+    run(repo, 'push', '-q', '-u', 'origin', 'develop')
+    return repo
