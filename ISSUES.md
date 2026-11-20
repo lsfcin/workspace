@@ -31,6 +31,8 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - tools/web/shoot serves only the page directory and reads a query string as a path; the docs-ufrpe viewer needs a parent root and ?doc= (17 Nov). `b20261117-shoot-root-query`
 
+- **`/publish` and the branch lock disagree about code/wos**: `--push` branches `feature/sync-<date>` in a governed repo, and the lock refuses that branch once nobody holds it. code/wos is stuck on `feature/sync-20261102-1751`, with 686 stale files and 173 orphans (19 Nov). `b20261119-publish-vs-lock`
+
 - **Não se sabe se o `session_id` do Codex é o `CODEX_THREAD_ID`.** O pre-commit reconhece um commit de agente pela variável de ambiente; o gate do dispatcher não depende dela (10 Nov). `b20261110-codex-session-id`
 
 - **O verify roda na feature, não no resultado do merge**: com develop divergente, a branch fica verde e o merge pode não ficar (painel, 10 Nov). `b20261110-verify-not-merge-result`

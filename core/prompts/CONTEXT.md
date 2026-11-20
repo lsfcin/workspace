@@ -15,4 +15,5 @@ One file per prepared session. Produced by `/prepare` or triage sessions. Delete
 | [`metodologia-aulas-opus.md`](metodologia-aulas-opus.md) | metodologia-aulas-opus |
 | [`nested-repos-housekeeping.md`](nested-repos-housekeeping.md) | Every nested repo commits its uncommitted work and ends on its own main (develop → main where a develop exists). Second half of the 2026-10-06 housekeeping; delete when every repo below is clean. |
 | [`slides-padroes.md`](slides-padroes.md) | The whole slides programme in one sequence: Lucas's seven steps of 2026-09-24 merged with everything since, re-ordered around the Canva bet (2026-10-04). Delete when phase 7 lands. |
+| [`subagent-registry.md`](subagent-registry.md) | Every harness knows, without searching, which outside workers it can call, what each is good and bad at, and the one command that calls it. Audit what exists, then redesign it. Delete when the deliverable lands. |
 <!-- routing:end -->
