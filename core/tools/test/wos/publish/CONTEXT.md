@@ -11,8 +11,9 @@ Zero-token, no network. Each builds its own repo and bare origin; nothing touche
 <!-- routing:start -->
 ## Routing
 
-| File | Interface | Description |
-|------|-----------|-------------|
-| [`test_b20260917_a_refused_tree_cannot_let_one_project_out.py`](test_b20260917_a_refused_tree_cannot_let_one_project_out.py) | [`test_b20260917_a_refused_tree_cannot_let_one_project_out.pyi`](test_b20260917_a_refused_tree_cannot_let_one_project_out.pyi) | b20260917 regression — the floor's precedence: the longest prefix wins, both ways. |
-| [`test_b20260917_the_sync_never_finished_at_the_destination.py`](test_b20260917_the_sync_never_finished_at_the_destination.py) | [`test_b20260917_the_sync_never_finished_at_the_destination.pyi`](test_b20260917_the_sync_never_finished_at_the_destination.pyi) | b20260917 regression — the sync copied bytes and stopped: three ways the DESTINATION was left unfinished, each of which reported clean. |
+| File | Interface | API | Description |
+|------|-----------|-----|-------------|
+| [`test_b20260917_a_refused_tree_cannot_let_one_project_out.py`](test_b20260917_a_refused_tree_cannot_let_one_project_out.py) | [`test_b20260917_a_refused_tree_cannot_let_one_project_out.pyi`](test_b20260917_a_refused_tree_cannot_let_one_project_out.pyi) | — | b20260917 regression — the floor's precedence: the longest prefix wins, both ways. |
+| [`test_b20260917_the_sync_never_finished_at_the_destination.py`](test_b20260917_the_sync_never_finished_at_the_destination.py) | [`test_b20260917_the_sync_never_finished_at_the_destination.pyi`](test_b20260917_the_sync_never_finished_at_the_destination.pyi) | — | b20260917 regression — the sync copied bytes and stopped: three ways the DESTINATION was left unfinished, each of which reported clean. |
+| [`test_b20261119_publish_vs_lock.py`](test_b20261119_publish_vs_lock.py) | [`test_b20261119_publish_vs_lock.pyi`](test_b20261119_publish_vs_lock.pyi) | `target` | b20261119-publish-vs-lock regression — the sync takes the target's branch lock and gives it back. |
 <!-- routing:end -->
