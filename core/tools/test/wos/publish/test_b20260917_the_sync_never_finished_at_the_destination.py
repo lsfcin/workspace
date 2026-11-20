@@ -8,6 +8,7 @@
 # target's own pipeline — generators, gates and its suite — never fired.
 #
 # The three are separable and each is checked on its own below.
+import os
 import subprocess
 import sys
 
@@ -15,6 +16,7 @@ from conftest import WORKSPACE_ROOT, floor_of
 
 sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools/wos/publish'))
 import crossing  # noqa: E402
+import lock  # noqa: E402
 
 
 def test_a_tree_grants_eligibility(monkeypatch):
@@ -107,12 +109,17 @@ def test_a_rebuilt_target_settles_in_one_pass():
     Two syncs in a row: the second must find nothing. Runs the real tool against the real target
     because the bug was in the interaction between the copy, the generators and the target's git —
     three things no fixture reproduces. Skipped when the target is not checked out.
+
+    Run AS A PERSON: the sync takes the target's branch lock under the caller's session id, and a
+    test must never hold a lock on the real target, so the session vars are dropped from its env.
     """
     floor = crossing.floor()
     if not floor.target.is_dir():
         return
     tool = ['sh', str(WORKSPACE_ROOT / 'core/run'), 'tools/wos/publish/repo', '--sync']
-    run = dict(cwd=WORKSPACE_ROOT, capture_output=True, text=True, encoding='utf-8', check=True)
+    env = {k: v for k, v in os.environ.items() if k not in lock.SESSION_ENV}
+    run = dict(cwd=WORKSPACE_ROOT, env=env, capture_output=True, text=True, encoding='utf-8',
+               check=True)
     subprocess.run(tool, **run)
     second = subprocess.run(tool, **run)
     assert 'synced: 0 difference(s)' in second.stdout, (
