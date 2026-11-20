@@ -13,9 +13,9 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Read-antes-de-Edit empurra para o caminho sem gate.** Editar o l10n do apptime exige ler os `.api` inteiros, então a sessão caiu num heredoc python, UNGATED WRITE (6 Nov). `b20261106-read-gate-pushes-heredoc`
 
-- **Gate de primeira linha barra arquivo de trabalho**: o prompt do painel no scratchpad (9 Nov) e em `outputs/` (17 Nov). `b20261109-first-line-gate-workfiles`
+- **Gate de primeira linha barra arquivo de trabalho**: o prompt do painel no scratchpad (9 Nov) e em `outputs/` (17 Nov), de novo no scratchpad (20 Nov). `b20261109-first-line-gate-workfiles`
 
-- **Gates de contexto cobram uma volta por árvore**: uma recusa por árvore tocada (9 Nov; 6 recusas numa triagem em 17 Nov; de novo em 19 Nov). `b20261109-context-gate-round-trips`
+- **Gates de contexto cobram uma volta por árvore**: uma recusa por árvore tocada (9 Nov; 6 recusas numa triagem em 17 Nov; de novo em 19 e 20 Nov). `b20261109-context-gate-round-trips`
 
 - **`phone/adb prefs` ignora o `.bak`**: lê o XML truncado depois de um install; `--open app` não abre nada (6 Nov). `b20261106-adb-prefs-bak`
 
@@ -26,6 +26,8 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 - **Tokens Google vencem um serviço por vez**, cada um pedindo navegador (3 vezes numa noite); `gslides preview` depende do token de drive (9 Nov). `b20261109-google-token-per-service`
 
 - **`panel/ask` só aceita caminho de arquivo**: texto dá traceback, não erro claro (9 Nov). `b20261109-panel-ask-text`
+
+- **`core/refs/REFS.md` está no teto de caracteres**: uma linha nova (textfold) reprovou `test_char_cap`; o ref virou `.yaml`, mas a fila de intake continua sem espaço. Promover os itens já avaliados para `.yaml` libera espaço (20 Nov). [src: agent 2026-11-20] `b20261120-refs-at-cap`
 
 - tools/panel/ask cannot attach images; PNG paths went in prose (17 Nov). Verify delivery, not acceptance of the path. `b20261117-panel-images`
 

@@ -55,6 +55,7 @@ Two levels, the same split as a paper's `refs/`: [REFS.md](REFS.md) is the intak
 | [`sillytavern.yaml`](sillytavern.yaml) | Reference for sillytavern |
 | [`software-systems-as-cities.yaml`](software-systems-as-cities.yaml) | Reference for software-systems-as-cities |
 | [`swe-agent.yaml`](swe-agent.yaml) | Reference for swe-agent |
+| [`textfold.yaml`](textfold.yaml) | Reference for textfold |
 | [`the-lab-16-free-artefacts-kem-glitchcatclub.yaml`](the-lab-16-free-artefacts-kem-glitchcatclub.yaml) | Reference for the-lab-16-free-artefacts-kem-glitchcatclub |
 | [`token-budget-aware-reasoning.yaml`](token-budget-aware-reasoning.yaml) | Reference for token-budget-aware-reasoning |
 | [`ucci-calibrated-uncertainty-for-cascade-routing.yaml`](ucci-calibrated-uncertainty-for-cascade-routing.yaml) | Reference for ucci-calibrated-uncertainty-for-cascade-routing |

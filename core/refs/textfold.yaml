@@ -1,0 +1,8 @@
+# Reference for textfold
+key: textfold
+title: "TextFold (formerly PaperFold)"
+url: "https://github.com/chenxiachan/textfold"
+level: C
+section: "Context engineering & progressive disclosure"
+contributions:
+  - "[src: github README, 2026-11-20] Five reading levels: Full and Brief keep the author's sentences, Key/Takeaway/Topic are written by an LLM the user already has (Claude Code, Codex, API key or ollama). CLI `textfold get <link> --level topic`, Python package, Apache-2.0, 1.3k stars, no release. Summarizer leaf candidate beside code/dobra: ../../ROADMAP.md § Workers v1."

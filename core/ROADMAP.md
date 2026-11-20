@@ -59,14 +59,10 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 **🟢 [provider-agnostic-clarification] Provider-agnostic governance — backlog**
 *What* — Clarify core/norms/storage.md, interview.md and core/CONTEXT.md: configuration and storage are provider-independent (symlink to WIS), but execution can use any provider; external review does not restrict execution. *Why* — Harness friction (ChatGPT triage 2026-11-03). *Done when* — Updated norms approved and applied.
 
-**🟢 [subagent-watchdog] External subagent watchdog — backlog**
-*What* — Assess core/run tools/agents/watch: Timeout, 90s idle heartbeat, closed stdin, meaningful final-answer validation; invalid output fails despite exit 0. Reports: 31 Oct “No prompt provided”; 1 Nov stdin wait/“What would you like to work on?”, watch.sh reportedly worked in two 1–2h runs. Notify via notify/telegram; file creation still needs approval. Completion/duplicate prevention: [cross-harness-delegation]. *Why* — False completion. *Done when* — Bounded headless success/failure is evidenced.
 
 **🟢 [shoot-unbundle] shoot --unbundle flag — backlog**
 *What* — Add --unbundle flag to tools/web/shoot to unpack base64+gzip artifacts directly. *Why* — Avoid scratchpad scripts (INBOX 2026-10-31). *Done when* — shoot --unbundle unpacks cleanly.
 
-**🟢 [panel-opencode-zcode] Headless opencode & zcode in panel chain — backlog**
-*What* — Test headless execution for opencode (~/.opencode/bin/opencode) and zcode (/usr/bin/zcode) and integrate into tools/panel/ask. *Why* — Expand provider diversity (INBOX 2026-11-04). *Done when* — Both run headless in panel.
 
 
 **🟡 Desktop hyperagent — high priority, week**
@@ -110,9 +106,9 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 **🔴 Canva leaf: the agent builds and moves a Canva deck, Match & Move included, with no human click per deck**
 *What* — [subscription-review] Review ChatGPT/Canva use, billing, renewal and alternatives today before more build work. Decide shapes/connectors versus SVG with Lucas; verify MCP grant or Apps SDK fallback. Through /craft, k10 must reproduce k1 without human clicks, oracle-verified; reread shared deck each turn. Evidence: tools/slides/SPECS.md, outputs/canva-poder-desenho.md, outputs/.drafts/canva-poder/{oracle.py,mcp_spike.py}. *Why* — Lucas prefers Canva; copied seeds retain motion. *Done when* — Verified k10 lets Lucas choose the home.
 
-
 **🟡 [cross-harness-delegation] Parity and reliable delegation across harnesses**
-*What* — [codex-parity] Recheck 2-Nov reproductions and feature/environment matrix, including public clone; dated failures need rechecking. Evidence: ../outputs/codex-audit-20261102/auditoria.md; ../ISSUES.md. Match quality/cost/capability/quota; date caller/callee commands/discovery. Validate auth, permissions/effort, sandbox/network, start, retries, final answers, recovery and duplicates. Version headless contracts in agents/SPECS.md: closed stdin, final-answer export, argument order (agy -p last), tool restrictions. [r-cli] Memory portability. [pstack] Completion/invariants/throughput. [context-evidence] Context/planning/checks; no invented 100k cutoff. [model-regression] Pin versions, effort, context/settings; incidents prove no intent. *Why* — Shared quota/contracts. *Done when* — Per-environment evidence, bounded completion/failure, green source/public checks; no bypasses.
+*What* — [codex-parity] Recheck 2-Nov reproductions and feature/environment matrix, including public clone; dated failures need rechecking. Evidence: ../outputs/codex-audit-20261102/auditoria.md; ../ISSUES.md. Match quality/cost/capability/quota; date caller/callee commands/discovery. Validate auth, permissions/effort, sandbox/network, start, retries, final answers, recovery and duplicates. The headless call contracts (closed stdin, final-answer export, argument order, tool restrictions) and the watchdog are ../ROADMAP.md § Workers. [r-cli] Memory portability. [pstack] Completion/invariants/throughput. [context-evidence] Context/planning/checks; no invented 100k cutoff. [model-regression] Pin versions, effort, context/settings; incidents prove no intent. *Why* — Shared quota/contracts. *Done when* — Per-environment evidence, bounded completion/failure, green source/public checks; no bypasses.
+
 
 
 **🟡 Unslop, aihero.dev and Oil UI**
