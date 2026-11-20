@@ -31,4 +31,5 @@
 | [`profile.txt`](profile.txt) | Which features are switched on by default, and the settings that are not switches. The registry is core/features.txt; this file holds only the answers. Read by core/hooks/feature_law.py. |
 | [`public.txt`](public.txt) | Which trees may cross into the public repo at all, and where it is checked out. Read by core/tools/wos/publish/crossing.py; the per-feature half of the answer lives in core/features.txt. |
 | [`run`](run) | The one command that runs anything in core/: find this clone's interpreter, then exec with it. |
+| [`workers.txt`](workers.txt) | Every worker a session can hand work to, declared by hand: which harness runs it, whose model it is, what it is good and bad at, what it costs, and when its call was last proven. Read by core/tools/workers.py; the model id lives in core/tools/wos/levels (MODELS), never here. |
 <!-- routing:end -->
