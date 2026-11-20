@@ -62,6 +62,7 @@ def test_draft_or_red_pushes_the_feature_only(tmp_path, args, suite, code):
     done = close(session, *args)
     assert done.returncode == code, done.stdout + done.stderr
     assert 'not merged' in done.stdout and run(repo, 'branch', '--show-current') == 'develop'
+    assert f'ask Lucas before resuming {branch}' in done.stdout   # the line the handoff carries
     assert run(repo, 'rev-parse', branch) == run(repo, 'rev-parse', f'origin/{branch}')
     assert run(repo, 'rev-parse', 'develop') != run(repo, 'rev-parse', branch)
     assert lock.holder(repo) == ('', '')

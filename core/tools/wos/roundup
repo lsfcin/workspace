@@ -75,7 +75,9 @@ def close(repo: Path, session: str, draft: bool) -> tuple:
     git(repo, 'switch', '-q', 'develop')
     lock.release(repo, session)
     why = 'draft' if green else 'verify red'
-    return f'{repo}: {name} pushed, not merged — {why} ({label})', 0 if green else 1
+    # This line is what the handoff carries: the next session starts from a develop that lacks this work.
+    return (f'{repo}: {name} pushed, not merged — {why} ({label}). HANDOFF: develop lacks this work; '
+            f'ask Lucas before resuming {name}'), 0 if green else 1
 
 
 def main() -> int:

@@ -25,7 +25,7 @@
 
 ## Close
 
-`core/run tools/wos/roundup` covers the repos this session holds. Dirty → exit 2. Fast suite green → the feature merges into `develop`, `develop` is pushed, the feature is deleted. Red, or `--draft` → only the feature is pushed. Only after the push is confirmed against origin does the repo switch to `develop` and the lock drop; a failed push keeps it held. The close commits nothing: generated reports live in `outputs/state/`, never in git.
+`core/run tools/wos/roundup` covers the repos this session holds. Dirty → exit 2. Fast suite green → the feature merges into `develop`, `develop` is pushed, the feature is deleted. Red, or `--draft` → only the feature is pushed, unmerged. Either way, only after the push is confirmed against origin does the repo switch to `develop` and the lock drop; a failed push keeps it held. An unmerged feature is resumed only on Lucas's word (ruled 2026-11-19): the close's line says so and the handoff carries it. The close commits nothing: generated reports live in `outputs/state/`, never in git.
 
 **Push policy.** Two machines share this workspace, so **unpushed work is invisible work**. Every commit in an owned repo auto-pushes (`core/hooks/post-commit`), except on `develop`/`main` of a governed repo: the close pushes `develop`, a release pushes `main`. A trunk repo such as `brain/` is pushed on every commit. No pull request is required and no branch is protected (2026-08-31): the green suite is the gate. `core/hooks/git/branch_debt.py` counts work no remote has.
 
