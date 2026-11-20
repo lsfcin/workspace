@@ -7,6 +7,8 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Três ferramentas falharam no censo do docs-ufrpe.** (1) `web/fetch` não aceita `--cacert`, e os sites da UFRPE não mandam o certificado intermediário (RNP ICPEdu GR46 2025; a PRPG usa RNP ICPEdu OV SSL CA 2019), então o fetch devia levar o bundle que `verificar.py` já lista. (2) `mail/gmail` só traz não lidos, no máximo 50, sem busca por termo, e `attachments --id` só lê o cache do fetch; faltam `search <query>` paginado e `attachments` direto por id (ver [academic-evidence-tools]). (3) O censo de páginas virou script de rascunho, falta decidir se vira ferramenta (19 Nov, vindo do INBOX). [src: agent 2026-11-19] `b20261119-census-tool-gaps`
 
+- **O pre-commit diz que `core/hooks/brain` é ignorado** ao re-stagear `CONTEXT.md` e `memory-gate.pyi`, mas `git check-ignore` na raiz diz que não é. Suspeita: o stage roda com o `.gitignore` do repo `brain/` (20 Nov). [src: agent 2026-11-20] `b20261120-brain-hooks-staged-as-ignored`
+
 - **173 arquivos órfãos no publish** (2.681 linhas): rastreados e elegíveis, mas nenhuma feature os reivindica. O `/publish` pede zero, e a lista sai de `core/run tools/wos/publish/repo --orphans` (20 Nov). [src: agent 2026-11-20] `b20261120-publish-173-orphans`
 
 - **Pergunta para Lucas fecha a sessão sem resposta.** Uma escolha "Lucas decide" terminou construída sem resposta registrada nem linha em "Decidido sem perguntar" do handoff (apptime 6 Nov, `82cdec2`). O roundup podia cobrar isso. `b20261106-handoff-unanswered`
