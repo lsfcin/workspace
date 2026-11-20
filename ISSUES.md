@@ -5,6 +5,12 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **O handoff não deixa uma sessão corrigir a própria seção.** `--write` só acrescenta, e o `handoff-gate` recusa ler o arquivo, então para emendar é preciso `--take`, que consome também as seções das outras sessões (20 Nov, duas sessões no mesmo `outputs/handoff-workspace.md`). [src: agent 2026-11-20] `b20261120-handoff-no-amend`
+
+- **O branch lock barra um comando só de leitura.** `core/run tools/panel/ask -` rodado de `/mnt/workspace` foi recusado com BRANCH LOCK enquanto outra sessão segurava o repo; o mesmo comando, rodado de `code/isoroll-module`, passou (20 Nov). [src: agent 2026-11-20] `b20261120-lock-blocks-readonly`
+
+- **173 arquivos órfãos no publish** (2.681 linhas): rastreados e elegíveis, mas nenhuma feature os reivindica. O `/publish` pede zero, e a lista sai de `core/run tools/wos/publish/repo --orphans` (20 Nov). [src: agent 2026-11-20] `b20261120-publish-173-orphans`
+
 - **Pergunta para Lucas fecha a sessão sem resposta.** Uma escolha "Lucas decide" terminou construída sem resposta registrada nem linha em "Decidido sem perguntar" do handoff (apptime 6 Nov, `82cdec2`). O roundup podia cobrar isso. `b20261106-handoff-unanswered`
 
 - **"O que tem pela frente" respondido com o ROADMAP lido pela metade.** A sessão do apptime listou só os itens 🟡/🔴 (6 Nov); a pergunta pede o ROADMAP inteiro. `b20261106-partial-roadmap-read`
