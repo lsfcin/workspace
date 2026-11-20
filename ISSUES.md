@@ -91,8 +91,6 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`slides text` writes despite its name**, and an expired grant blocked reads (19 Oct). `b20261024-slides-command-auth`
 
-- Public rebuild fails the target suite (21 Oct; 11 failures in the 2-Nov audit); .codex/hooks.json missing from core/public.txt. See b20260923-publish-test-real-target. `b20261024-publish-target-suite`
-
 - **Named-link checks accept a site target its renderer cannot resolve** (ai4good/brw, 21 Oct). `b20261024-links-target-resolution`
 
 - **Scheduled disk cleanup depends on a tool absent from the active tree**; SETUP lacks the scheduling and the models/ symlinks (24 Oct). `b20261024-disk-cleanup-install`
