@@ -18,13 +18,10 @@ Quality (panels, opposing and mediating subagents, research, summarizers), then 
 - Robustness, in the panel's order: machine output only (`codex exec --json` / `-o`, `claude -p --output-format json`; keep stderr) → zero-token `--help` check in verify-fast → error classes as data per provider, with `unknown`, never "quota" by default. Plus: fake executables with recorded answers for offline tests, one normalized result contract, kill the process tree on timeout, a worker with a proven break leaves the chain until re-verified.
 
 ## Deliverable
-1. **One call module** used by `panel/ask` and `describe.py`: resolve, call, classify (missing / no-login / quota / timeout / unknown / ok). Drop agy's `--dangerously-skip-permissions`.
-2. **Ids from adapters** in `core/tools/wos/levels` (`CODEX`, `AGY`, `OLLAMA`: level → id or alias); fix the stale ids listed above; fix `features.txt:159`.
-3. **`core/workers.txt`** + `core/run tools/panel/ask --list` (catalog joined with the live check) + `--check` (catalog names a worker whose binary or flags are gone).
-4. **Panel roles**: `--role advocate|opponent|mediator|summarizer`, one short template each; the debate is two vendors in opposite roles and a third mediating.
+What remains (the call module is `core/tools/workers.py`; the catalog `core/workers.txt`):
 5. **One norm** in `core/norms/` that generates the AGENTS.md line: outside workers exist (GPT, Gemini, local), `core/run tools/panel/ask --list`, never mandatory.
-6. **Cut** from `core/agents/SPECS.md` whatever the catalog now holds.
 7. **Test** in `core/tools/test/workspace/shims/`: from each harness in `harnesses.txt`, the shim's environment reaches `panel/ask --help` and finds codex off PATH. It must fail with the app-path fallback removed.
-8. **Telemetry**: each call logs who answered, duration and the miss reason.
+9. **Image worker** (Lucas, 2026-11-20): a catalog row and adapter that returns an image file — candidates Gemini image through `GEMINI_API_KEY`, FLUX via Nvidia in OpenCode; agy lists no image model.
+10. **zcode**: find a headless call or record that it has none; GLM through OpenCode failed every call 2026-11-20.
 
 Done when: verify-fast green; zero model ids outside `wos/levels` (`entropy_vendor`); `panel/ask --only codex` answers with an id read from the adapter; the new shim test fails when it should.

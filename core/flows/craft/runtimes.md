@@ -51,7 +51,7 @@ The flow itself is runtime-agnostic — all state lives in `.craft/` files, so a
 
 | Runtime | Executor definitions | Frontmatter `model` (default fallback) | Status |
 |---|---|---|---|
-| Claude Code | `.claude/agents/craft-{low,medium,high}.md` | `haiku 4.5 \| sonnet 5 \| opus 4.8` (anthropic) | in place |
+| Claude Code | `.claude/agents/craft-{low,medium,high}.md` | `haiku \| sonnet \| opus` aliases (`core/tools/wos/levels` CLAUDE) | in place |
 | opencode | `.opencode/agents/craft-{low,medium,high}.md` (`mode: subagent`) | `nvidia/deepseek-ai/deepseek-v4-flash \| nvidia/deepseek-ai/deepseek-v4-pro \| nvidia/z-ai/glm-5.2` — **default to nvidia** (free) in this workspace; overridable per-spawn to any provider in the availability check. | in place |
 | Copilot CLI | `.github/agents/craft-*.md` **in the target project's repo** (or `~/.copilot/agents/`) | GitHub Models free-level id | recipe only — copy the Claude Code bodies, adjust frontmatter |
 | anything else | none — manual mode: user opens a fresh session per loop with the spawn prompt and picks the model from the active provider's level-map | — | always works |

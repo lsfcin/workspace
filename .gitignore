@@ -130,6 +130,7 @@ core/*
 !core/permissions.txt
 !core/levels.txt
 !core/harnesses.txt
+!core/workers.txt
 !core/agents/
 !core/experiments/
 !core/flows/

@@ -6,5 +6,5 @@
 
 | File | Interface | Description |
 |------|-----------|-------------|
-| [`test_panel.py`](test_panel.py) | [`test_panel.pyi`](test_panel.pyi) | T1 panel/ask: a spent quota or a broken call falls to the next model, the first verdict wins, and none at all stops with every reason. Models faked. |
+| [`test_panel.py`](test_panel.py) | [`test_panel.pyi`](test_panel.pyi) | T1 panel/ask: a spent quota or a broken call falls to the next model, the first verdict wins, none at all stops with every reason, and a debate never gives two roles to one vendor. Models faked. |
 <!-- routing:end -->

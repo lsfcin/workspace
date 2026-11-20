@@ -3,7 +3,7 @@
 
 Each file is a complete operating context for one agent role. In Claude Code, spawn a worker by passing the file content as the system prompt via the Agent tool.
 
-Running a worker on another harness (GPT via Codex first, to save Claude quota): [SPECS.md](SPECS.md).
+Running a worker on another harness, to save Claude quota: [SPECS.md](SPECS.md); who exists is [`core/workers.txt`](../workers.txt).
 
 **One pipeline, in order: `writer` drafts from evidence `researcher` gathered, `verifier` adds the citations afterward, `reviewer` grades the result.** Who each one is, is the routing table's job —
 it reads their frontmatter, which is the same text their spawner gets.

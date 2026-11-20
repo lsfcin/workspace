@@ -71,7 +71,7 @@ def test_agy_logged_out_is_asked_once_and_never_prompted(monkeypatch, capsys):
     monkeypatch.setattr(describe, '_AGY_LOGGED_IN', None)
     monkeypatch.setattr(describe.subprocess, 'run', run)
     assert not describe.agy_logged_in() and not describe.agy_logged_in()
-    assert calls == [['agy', 'models']] and 'agy is not logged in' in capsys.readouterr().err
+    assert len(calls) == 1 and calls[0][0].endswith('agy') and calls[0][1:] == ['models'] and 'agy is not logged in' in capsys.readouterr().err
 
 
 def test_agy_logged_in_lists_its_models(monkeypatch):

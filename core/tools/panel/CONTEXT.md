@@ -1,5 +1,5 @@
 # panel
-> An outside verdict from another vendor's model, read-only. Leaf: `ask` (Codex GPT, then agy Gemini Argon, then Flash).
+> An outside verdict from another vendor's model, read-only. Leaf: `ask`; the chain it walks is `core/workers.txt`.
 
 `core/run tools/panel/ask --out outputs/<topic>-panel.md prompt.md`. The calls and their traps: [`../../agents/SPECS.md`](../../agents/SPECS.md).
 

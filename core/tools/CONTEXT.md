@@ -26,7 +26,7 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`links/`](links/CONTEXT.md) | A link gets a name a room can be told out loud. Provider leaf: `cfpages` (Cloudflare Pages). |
 | [`mail/`](mail/CONTEXT.md) | Read a mailbox and triage it. Provider leaf: `gmail`. Auth: [`../auth/gauth.py`](mail/../auth/gauth.py). |
 | [`notes/`](notes/CONTEXT.md) | Pages and note databases, read as navigable text. Provider leaf: `notion` (Notion REST API). |
-| [`panel/`](panel/CONTEXT.md) | An outside verdict from another vendor's model, read-only. Leaf: `ask` (Codex GPT, then agy Gemini Argon, then Flash). |
+| [`panel/`](panel/CONTEXT.md) | An outside verdict from another vendor's model, read-only. Leaf: `ask`; the chain it walks is `core/workers.txt`. |
 | [`paper/`](paper/CONTEXT.md) | Academic sources and text: search papers, extract text, annotate, check terminology. |
 | [`pdf/`](pdf/CONTEXT.md) | A PDF becomes its twin: a sibling folder whose .md holds all the text, every figure described, and the hash that says when it went stale. Provider leaves: `docling`, `pymupdf`. |
 | [`slides/`](slides/CONTEXT.md) | Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides API); `pptx` builds the masters and layouts the API cannot. |
@@ -49,4 +49,5 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`secret_law.py`](secret_law.py) | [`secret_law.pyi`](secret_law.pyi) | `redact_line`, `redact`, `Finding`, `scan_text`, `scan` | secret_law.py — the one definition of what counts as a secret: the patterns, the redaction a transcript needs, and the scan that REFUSES a file rather than cleaning it. |
 | [`short_name.py`](short_name.py) | [`short_name.pyi`](short_name.pyi) | `mint` | short_name.py — the one line a tool spends on offering `--short-name`: mint a short link for what it created |
 | [`tool_law.py`](tool_law.py) | [`tool_law.pyi`](tool_law.pyi) | `require` | tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls |
+| [`workers.py`](workers.py) | [`workers.pyi`](workers.pyi) | `Result`, `catalog`, `models`, `chain`, `find` | workers.py — the one way a tool calls an outside worker (another harness's model): find it, call it, classify what came back, and log who answered. |
 <!-- routing:end -->

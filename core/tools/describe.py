@@ -15,12 +15,14 @@ import importlib.machinery
 import importlib.util
 import os
 import re
-import shutil
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 from typing import NamedTuple
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import workers  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 THRESHOLD = 0.5
@@ -123,7 +125,7 @@ def agy_logged_in() -> bool:
     global _AGY_LOGGED_IN
     if _AGY_LOGGED_IN is None:
         try:
-            r = subprocess.run(['agy', 'models'], capture_output=True, text=True, encoding='utf-8',
+            r = subprocess.run([workers.find('agy') or 'agy', 'models'], capture_output=True, text=True, encoding='utf-8',
                                timeout=60, stdin=subprocess.DEVNULL)
             _AGY_LOGGED_IN = any('\t' in line for line in r.stdout.splitlines())
         except (OSError, subprocess.TimeoutExpired):
@@ -135,13 +137,13 @@ def agy_logged_in() -> bool:
 
 
 def _agy(image: Path, prompt: str) -> tuple[str, str]:
-    return _cli(['agy', '--disable-slash-commands', '--dangerously-skip-permissions', '-p'],
-                image, prompt), 'agy'
+    """No --dangerously-skip-permissions: the file sits in agy's cwd, which it may read unasked."""
+    return _cli([workers.find('agy') or 'agy', '--disable-slash-commands', '-p'], image, prompt), 'agy'
 
 
 def _claude(image: Path, prompt: str) -> tuple[str, str]:
     alias = _claude_alias()
-    return _cli(['claude', '--model', alias, '--allowedTools', 'Read', '-p'], image, prompt), f'claude:{alias}'
+    return _cli([workers.find('claude') or 'claude', '--model', alias, '--allowedTools', 'Read', '-p'], image, prompt), f'claude:{alias}'
 
 
 def _local(image: Path, prompt: str) -> tuple[str, str]:
@@ -171,7 +173,7 @@ def describe(image, describer: str = 'agy', ocr_text: str = '', prompt: str = FI
     backends = backends or BACKENDS
     kept = None
     for name in CHAINS[describer]:
-        if name in ('agy', 'claude') and backends is BACKENDS and not shutil.which(name):
+        if name in ('agy', 'claude') and backends is BACKENDS and not workers.find(name):
             continue
         if name == 'agy' and backends is BACKENDS and not agy_logged_in():
             continue
