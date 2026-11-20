@@ -7,6 +7,7 @@ import subprocess
 from pathlib import Path
 
 from conftest import WORKSPACE_ROOT
+from platform_law import rel
 
 POSTEDIT = WORKSPACE_ROOT / "core/hooks/postedit/interfaces.sh"
 PRECOMMIT = WORKSPACE_ROOT / "core/hooks/commit/generators.py"
@@ -176,3 +177,10 @@ def test_no_generated_stub_sits_in_a_doubled_path() -> None:
         "generated stubs sit inside a mirror of their own path — the output root was "
         "resolved against the wrong anchor:\n  " + "\n  ".join(offenders)
     )
+
+
+def test_no_tracked_stub_outlives_its_source() -> None:
+    # `rm` is no Edit, so only the commit's interfaces stage can take a deleted source's stub along;
+    # four .pyi outlived their tests by days before it did (2026-11-19).
+    orphans = [p for p in _tracked("*.pyi") if not (p.with_suffix(".py").exists() or p.with_suffix("").exists())]
+    assert not orphans, "\n".join(rel(p) for p in orphans)

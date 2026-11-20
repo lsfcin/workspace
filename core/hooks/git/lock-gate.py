@@ -13,7 +13,7 @@ sys.path[:0] = [str(Path(__file__).resolve().parent), str(Path(__file__).resolve
 from hook_input import capability, parse_stdin  # noqa: E402
 
 GIT = re.compile(r'\bgit\b((?:\s+-C\s+\S+)?)[^;&|\n]*?\s(commit|merge|rebase|reset|cherry-pick|revert|'
-                 r'switch|checkout|push|pull|stash|branch)\b')
+                 r'switch|checkout|push|pull|stash|branch)(?![\w-])')
 CD = re.compile(r'(?:^|[;&|]\s*)cd\s+([^\s;&|]+)')
 HISTORY = ('commit', 'merge', 'rebase', 'reset', 'cherry-pick', 'revert')
 

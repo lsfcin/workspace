@@ -16,7 +16,14 @@ def taken(target: str) -> int:
     place = Path(target).expanduser()
     key = key_of(ROOT, repository(place.resolve()) or place) if place.exists() else name_of(target)
     text = take(path_for(ROOT, key))
-    print(text if text is not None else f'handoff: nothing pending for {key}')
+    if text is None:
+        print(f'handoff: nothing pending for {key}')
+        return 0
+    # The repository named here is a hint: a session once branched in the workspace root while the
+    # work lived in a nested repository (Lucas, 2026-11-17).
+    print(text + '\n\nBEFORE THE FIRST WRITE: decide which repository the next action really edits '
+          '(`git -C <folder> rev-parse --show-toplevel`), whatever this handoff names. '
+          'The first write there takes its lock.')
     return 0
 
 

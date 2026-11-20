@@ -101,7 +101,15 @@ def interfaces(commit):
     if not feature_law.is_enabled('interface-stubs'):
         return
 
-    python = [p for p in commit.matching('.py') if '__pycache__' not in p]
+    # A deleted source takes its stub along: `rm` is no Edit, so nothing else ever saw it, and four
+    # .pyi outlived their tests by days (2026-11-19).
+    for source in (Path(p) for p in commit.deleted if not p.endswith('.d.ts')):
+        suffix = {'.py': '.pyi', '.js': '.d.ts', '.ts': '.d.ts', '.tsx': '.d.ts'}.get(source.suffix)
+        stub = source.with_suffix(suffix) if suffix else Path(f'{source}.api') if source.suffix == '.dart' else None
+        if stub:
+            git('rm', '-q', '--ignore-unmatch', '--', stub.as_posix(), cwd=commit.toplevel)
+
+    python =[p for p in commit.matching('.py') if '__pycache__' not in p]
     for source in commit.existing(_sweep(commit, python, '*.py')):
         if stubs.emit_pyi(commit.toplevel / source):
             _stage(commit, Path(source).with_suffix('.pyi'))

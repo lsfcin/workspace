@@ -92,6 +92,10 @@ def test_an_agent_commit_on_develop_is_refused_at_the_shell(tmp_path):
     done = _gate({'tool_name': 'Bash', 'session_id': A, 'cwd': str(tmp_path),
                   'tool_input': {'command': f'cd {repo} && git commit -qm x'}})
     assert done.returncode == 2 and 'shared branch' in done.stderr
+    # A read whose name merely starts with a history verb is not one (merge-base, 2026-11-19).
+    read = _gate({'tool_name': 'Bash', 'session_id': A, 'cwd': str(tmp_path),
+                  'tool_input': {'command': f'git -C {repo} merge-base develop develop'}})
+    assert read.returncode == 0, read.stderr
 
 
 def test_a_person_commits_on_develop_and_an_agent_cannot(tmp_path):
