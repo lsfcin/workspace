@@ -70,6 +70,7 @@ IGNORE_HEAD = """\
 __pycache__/
 .pytest_cache/
 outputs/
+core/state/
 core/scoreboard.tsv
 core/profile.local.txt
 .claude/skills/*/
@@ -165,8 +166,7 @@ def sync(rep: core.Report, floor: core.Floor, act: bool) -> int:
 
 
 def _modes(floor: core.Floor, names: set[str]) -> None:
-    """Carry the executable bit through the INDEX, not the filesystem: a mount reporting 777 says
-    nothing, and what a clone gets is the index."""
+    """The executable bit goes through the INDEX: a mount reporting 777 says nothing, a clone gets the index."""
     source = subprocess.run(['git', '-C', str(core.ROOT), 'ls-files', '-s'],
                             capture_output=True, text=True, encoding='utf-8', check=True)
     runnable = [line.split('\t', 1)[1] for line in source.stdout.split('\n')

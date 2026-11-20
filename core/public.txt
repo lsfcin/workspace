@@ -37,6 +37,7 @@ root	.claude	harness registration; without it the hooks never fire on a clone
 root	.opencode	same, for opencode
 root	.zcode	same, for zcode
 root	.agents	same, for the Antigravity / Gemini shim
+root	.codex	same, for the Codex shim
 root	.github	inert hook config until Copilot is installed, per SETUP.md
 root	code/aiwbot	the `bot` feature's whole tree, the one project that is WOS rather than built with it — its switch has to be throwable where the ablation runs
 file	core/hooks/session/mirror-heal.py	skill-mirror machinery: it publishes skills, it is not one. Fourteen `skills` rows share one wiring point and no row names the machine under it
@@ -67,6 +68,7 @@ file	code/SPECS-structure.md	how a project is laid out — its files, module spe
 file	code/SPECS-style.md	how a file is written and how big it may get. Cited by the head above, and the R1-R6 table lint-typescript renders
 file	code/SETUP.md	per-language setup and templates, which the root SETUP.md hands the reader off to
 file	code/eslint.shared.js	the R1-R6 rules lint-typescript actually applies, and what code/SPECS-style.md declares as its `enforced-by`. A LINE HERE AND A `ships` ENTRY BOTH, because they answer different questions — eligibility is the floor's, and `absent` is checked before any claim, so the registry alone could never let it out; ownership is the registry's. The target's own suite is what found this, refusing a field that names our code and reaches nothing
+file	code/eslint.shared.d.ts	its interface, which code/CONTEXT.md routes beside it
 tree	code/_templates	the project skeletons the craft flow tells an agent to copy (core/flows/craft/architect.md); a flow that crossed pointing at a template that did not is that flow half-shipped
 absent	brain	his personal operating system: goals, attention, inbox, drafts
 absent	branches	his life — health, finances, the house

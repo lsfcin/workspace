@@ -5,6 +5,7 @@
 # check: type-gate.py is the ceiling that decides WHEN to run a check, these are the
 # rules about what a CONTEXT.md must and must not say.
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -200,12 +201,18 @@ def check_goal_link(path: Path) -> str | None:
         # A GOAL IN A TREE THIS CHECKOUT DOES NOT CARRY is a question with no subject, not a dead
         # link (2026-09-17). `code/aiwbot` crosses into the public repo, and brain/ is refused
         # there by core/public.txt, so the honest goal it declares here would read as drift over
-        # there. Same ruling as conftest.needs() and the pointer check. THE DIRECTORY is what says
-        # which case this is: goals/ missing means the whole tree stayed behind, goals/ present
-        # with the file gone means someone deleted a goal a project still claims — a real finding.
-        if not target.parent.is_dir():
+        # there. Same ruling as conftest.carries(), and asked of GIT for its reason: the public
+        # repo keeps an ignored brain/goals/_template.md on disk. goals/ untracked means the tree
+        # stayed behind; tracked with the file gone means a goal was deleted — a real finding.
+        if not _carried(target.parent):
             return None
         return (f'{path}: line 3 points at a goal file that does not exist.\n'
                 f'   {match.group(3)} — a dead goal link is worse than `none`, because it\n'
                 f'   reads as an answer.')
     return None
+
+
+def _carried(directory: Path) -> bool:
+    present = next((p for p in (directory, *directory.parents) if p.is_dir()), directory)
+    return bool(subprocess.run(['git', '-C', str(present), 'ls-files', '--', str(directory)],
+                               capture_output=True, text=True, encoding='utf-8').stdout.strip())

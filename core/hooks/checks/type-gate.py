@@ -52,7 +52,10 @@ def check_name(path: Path, allowed: set, exempt: set) -> str | None:
 
 
 def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
-                 vocabulary: set) -> list:
+                 vocabulary: set, enforced: set | None = None) -> list:
+    # `enforced` walks the whole tree: main() asks once per commit, not twice per staged file —
+    # a 687-file sync commit spent two minutes here and timed out the target's suite (2026-11-20).
+    enforced = enforcement_paths(WORKSPACE_ROOT) if enforced is None else enforced
     found = [f for f in (check_name(path, allowed, exempt),
                          check_inventory(path) if path.name == 'CONTEXT.md' else None,
                          check_description(path),
@@ -61,12 +64,12 @@ def failures_for(path: Path, allowed: set, exempt: set, scopes: dict,
                          check_dirs(path, WORKSPACE_ROOT),
                          check_placement(path, scopes, WORKSPACE_ROOT)) if f]
     return (found
-            + wiki_link_hits([path], vocabulary, enforcement_paths(WORKSPACE_ROOT))
+            + wiki_link_hits([path], vocabulary, enforced)
             # Completion is deletion, and until this line the rule was detected by the dashboard
             # and enforced by nobody. Held like everything else here: a file this commit ADDS
             # may not arrive already describing work that landed. The inherited queue stays the
             # dashboard's, on the ceiling in ceilings/test_corpus_ceiling.py.
-            + finished_work_hits([path], enforcement_paths(WORKSPACE_ROOT))
+            + finished_work_hits([path], enforced)
             # The two doubt stores are small, closed and clean today, so this one goes in total
             # rather than on a ceiling: a new experiment or a newly judged reference arrives with
             # the discipline or does not arrive (core/SPECS.md § AD-16 band 1).
@@ -87,12 +90,12 @@ def main() -> int:
     allowed, exempt = load_law(SCHEMA)
     scopes = load_scopes(SCHEMA)
     vocabulary = goal_vocabulary(WORKSPACE_ROOT / 'brain/goals')
-    failures = []
+    failures, enforced = [], enforcement_paths(WORKSPACE_ROOT)
     for path in staged_added_files():
         # A tool's output is exempt from every authoring rule (core/hooks/generated.txt), and this
         # gate's rules are authoring rules: a PDF twin inherits its PDF's name and opens on frontmatter.
         if path.exists() and not is_generated_artifact(path.resolve(), WORKSPACE_ROOT):
-            failures.extend(failures_for(path, allowed, exempt, scopes, vocabulary))
+            failures.extend(failures_for(path, allowed, exempt, scopes, vocabulary, enforced))
     if failures:
         print('⛔ type gate:')
         for failure in failures:

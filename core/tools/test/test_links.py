@@ -1,7 +1,7 @@
 # T1 links: a short name stays sayable, a private thing never gets one, and a live link never moves.
 import pathlib
 import pytest
-
+from conftest import needs
 import links_core
 
 
@@ -241,7 +241,7 @@ def test_a_push_off_main_is_refused_because_only_main_goes_live(browser_edit):
 
 
 def test_a_page_with_habilidades_block_runs_arvore_generator(course):
-    page = course / 'ai4good' / 'disciplina.md'
+    needs('academy'); page = course / 'ai4good' / 'disciplina.md'   # arvore.py lives in academy/
     page.write_text('<!-- habilidades:start -->\n<!-- habilidades:end -->', encoding='utf-8', newline='\n')
     (course / 'ai4good' / 'arvore.yaml').write_text('- nome: TestSkill\n  url: https://example.com/test\n', encoding='utf-8', newline='\n')
     assert 'arvore.py' in pages.redraw(page)

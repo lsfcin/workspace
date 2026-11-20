@@ -3,6 +3,7 @@
 # The goal-link check was written AFTER the backfill, not before: all 14 projects already
 # declared line 3, so the check could go straight to blocking instead of warning. That
 # order is the point — a check introduced against a red tree teaches people to ignore it.
+import subprocess
 import sys
 from pathlib import Path
 
@@ -65,8 +66,12 @@ def test_a_file_with_no_routing_block_is_not_asked(tmp_path):
 
 
 def _project(tmp_path, line3):
-    project = tmp_path / 'code' / 'thing'
-    (project / '../../brain/goals').resolve().mkdir(parents=True, exist_ok=True)
+    """The goal tree is CARRIED: tracked in git, which is what check_goal_link asks."""
+    project, goals = tmp_path / 'code' / 'thing', tmp_path / 'brain/goals'
+    goals.mkdir(parents=True, exist_ok=True)
+    (goals / 'kept.md').write_text('# g\n', encoding='utf-8', newline='\n')
+    subprocess.run(['git', 'init', '-q', str(tmp_path)], check=True)
+    subprocess.run(['git', '-C', str(tmp_path), 'add', 'brain'], check=True)
     project.mkdir(parents=True)
     target = project / 'CONTEXT.md'
     target.write_text(f'# thing\n> what it is\n{line3}\n', encoding='utf-8', newline='\n')
