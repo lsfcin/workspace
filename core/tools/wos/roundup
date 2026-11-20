@@ -53,7 +53,11 @@ def merge(repo: Path, branch: str) -> str:
 
 def close(repo: Path, session: str, draft: bool) -> tuple:
     """(line, code) for one held repo, already known clean."""
+    lock.verdict(repo, session, take=False)   # follow a switch no write has seen yet
     name = lock.holder(repo)[1]
+    if name in lock.SHARED or out(repo, 'branch', '--show-current') != name:
+        # A claim records the branch it found; closing `develop` as a feature deletes it (2026-11-19).
+        return f'{repo}: held on {name}, not a feature — switch to one before closing. Still held', 1
     green, label, log = verify(repo)
     state = ROOT / 'outputs/state' / f'verify-{lock.lock_file(repo).stem[5:]}.md'
     state.parent.mkdir(parents=True, exist_ok=True)

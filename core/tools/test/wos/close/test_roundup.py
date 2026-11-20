@@ -85,6 +85,20 @@ def test_a_dirty_tree_stops_before_anything(tmp_path):
     assert run(repo, 'branch', '--show-current') == branch and lock.holder(repo)[0] == session
 
 
+def test_a_claim_on_develop_closes_the_feature_switched_to_never_develop(tmp_path):
+    session = f'test-roundup-{tmp_path.name}'
+    repo = governed_repo(tmp_path)
+    lock.claim(repo, session)                       # records develop, the branch it found
+    assert 'not a feature' in close(session).stdout and run(repo, 'branch', '--list', 'develop')
+    run(repo, 'switch', '-q', '-c', 'feature/claimed')
+    (repo / 'w.md').write_text('# W\n', encoding='utf-8', newline='\n')
+    run(repo, 'add', '.')
+    run(repo, '-c', 'core.hooksPath=/dev/null', 'commit', '-qm', 'w')
+    done = close(session)
+    assert done.returncode == 0 and 'feature/claimed merged into develop' in done.stdout, done.stdout
+    assert run(repo, 'rev-parse', 'origin/develop') == run(repo, 'rev-parse', 'develop')
+
+
 def test_a_session_holding_nothing_closes_quietly():
     done = close('test-roundup-holds-nothing')
     assert done.returncode == 0 and 'holds no repo' in done.stdout

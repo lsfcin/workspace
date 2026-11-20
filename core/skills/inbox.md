@@ -61,7 +61,7 @@ A `ref` goes to the **nearest owning folder's** `refs/REFS.md` — never a centr
 - **Level 1 — capture (default, zero-friction):** insert one line beside related references in `refs/REFS.md`:
   `- [what it is](url) — one-phrase why it matters`. Existing level-1 entries may be edited, grouped and reordered across the whole index; preserve sources and relevance.
 - **Level 2 — promote (manual, deliberate):** when a ref earns real study or citation, a human promotes it to `refs/<name>.yaml` (schema = `academy/papers/*/refs/CONTEXT.md`). Triage NEVER auto-creates a yaml.
-- **Lazy creation:** the first ref routed to a domain births `refs/REFS.md` (and a minimal `refs/CONTEXT.md`: line 2 = `> Captured references for <domain>.`). Do NOT pre-seed empty `refs/` folders across projects.
+- **Lazy creation:** the first ref routed to a domain births `refs/REFS.md` (and a minimal `refs/CONTEXT.md`: line 2 = `> Captured references for <domain>.`, plus `> spec: none` under `code/`, which the module gate demands). Do NOT pre-seed empty `refs/` folders across projects.
 
 ### Policy — a ref is not the end of the line (INBOX 2026-07-24, Lucas)
 
