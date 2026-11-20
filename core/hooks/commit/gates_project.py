@@ -26,13 +26,22 @@ CODE_SUFFIX = ('.js', '.jsx', '.ts', '.tsx', '.py', '.dart')
 GOAL_LINE = r'^>\s*goal:\s*(\[[^]]+\]\([^)]+\)|none)\s*$'
 
 
+WORKSPACE_MARKERS = ('AGENTS.md', 'core/SCHEMA.md')
+
+
 def _under_code(commit) -> bool:
     """Whether the repo committing is a project under code/ -- asked of the MACHINERY root.
 
     The bash matched an absolute `code/*` path on one machine, which is the whole reason this pipeline
     could not run on any other clone. `toplevel` is the repo being committed; `root` is where the
     workspace lives; the question is whether the first sits inside `code/` of the second.
+
+    A WORKSPACE CLONE IS NOT A PROJECT wherever it is checked out (ruled 2026-11-20, Lucas): the
+    public repo lives at code/wos, and judging its core/ by code-project rules asked 16 CONTEXT.md
+    for a `> spec:` the workspace never asks of core/. Both markers, so a project with one is not.
     """
+    if all((commit.toplevel / marker).is_file() for marker in WORKSPACE_MARKERS):
+        return False
     try:
         return commit.toplevel.relative_to(commit.root).parts[:1] == ('code',)
     except ValueError:
