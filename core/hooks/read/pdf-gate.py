@@ -18,12 +18,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from chain import prerequisites  # noqa: E402
-from hook_input import capability, is_subagent, load_iface_seen, load_seen, normalise, parse_stdin  # noqa: E402
+from hook_input import capability, command_only, is_subagent, load_iface_seen, load_seen, normalise, parse_stdin  # noqa: E402
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 
 PDF_PATH = re.compile(r"""(['"])([^'"\n]+?\.pdf)\1|([^\s'"|;&<>()=]+\.pdf)\b""", re.I)
 SEGMENT = re.compile(r'\|\||&&|[|;&\n]')
-HEREDOC = re.compile(r"""<<-?\s*(['"]?)([A-Za-z_]\w*)\1""")
 LEAF_TEXT = re.compile(r'tools/pdf/poppler\s+text\b')
 
 
@@ -32,25 +31,6 @@ def _pdf_meta():
 	sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools/pdf'))
 	import pdf_meta
 	return pdf_meta
-
-
-def _without_prose(command: str) -> str:
-	"""Drop heredoc bodies that are prose (a commit message naming `pdftotext x.pdf`), keep code.
-
-	A body fed to an interpreter IS the command — `python - <<EOF\\nimport fitz` reads the PDF —
-	so only a heredoc on a line with no python/node on it is removed.
-	"""
-	out, pos = [], 0
-	for match in HEREDOC.finditer(command):
-		line = command[command.rfind('\n', 0, match.start()) + 1:match.start()]
-		rest = command[match.end():]
-		end = re.search(rf'^[ \t]*{re.escape(match.group(2))}[ \t]*$', rest, re.M)
-		stop = match.end() + (end.end() if end else len(rest))
-		if not re.search(r'python|node', line):
-			out.append(command[pos:match.end()])
-			pos = stop
-	out.append(command[pos:])
-	return ''.join(out)
 
 
 def reads_raw(command: str, pm) -> bool:
@@ -112,7 +92,7 @@ def main() -> int:
 		if '.pdf' not in command.lower():
 			return 0
 		pm = _pdf_meta()
-		command = _without_prose(command)
+		command = command_only(command)
 		pdfs = pdfs_in(command, cwd or str(WORKSPACE_ROOT)) if reads_raw(command, pm) else []
 	else:
 		return 0

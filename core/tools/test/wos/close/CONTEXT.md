@@ -13,6 +13,8 @@ Zero-token, no network. Each test builds its own repo and bare origin; nothing t
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`test_b20261110_verify_not_merge_result.py`](test_b20261110_verify_not_merge_result.py) | [`test_b20261110_verify_not_merge_result.pyi`](test_b20261110_verify_not_merge_result.pyi) | — | b20261110-verify-not-merge-result regression: the close's suite judges the feature merged with origin/develop, and that commit is what lands. |
+| [`test_b20261120_handoff_no_amend.py`](test_b20261120_handoff_no_amend.py) | [`test_b20261120_handoff_no_amend.pyi`](test_b20261120_handoff_no_amend.pyi) | — | b20261120-handoff-no-amend regression: a session amends its own handoff section by writing it again, and no other session's section moves. |
 | [`test_handoff.py`](test_handoff.py) | [`test_handoff.pyi`](test_handoff.pyi) | `repo`, `log`, `patch` | One handoff per repository: sections accumulate until a session takes them, and taking deletes. |
 | [`test_roundup.py`](test_roundup.py) | [`test_roundup.pyi`](test_roundup.pyi) | `held`, `close` | T1 roundup tool (core/hooks/git/SPECS.md § Close): every repo this session holds goes back to develop. Zero-token, no network — each case builds a throwaway repo with a bare origin, held through the real lock, and runs the real script on it. |
 | [`test_roundup_skills.py`](test_roundup_skills.py) | [`test_roundup_skills.pyi`](test_roundup_skills.pyi) | — | T0 the session-close skills (core/SPECS.md § AD-09): what bash cannot assert about the other layer. Zero-token, no network. |

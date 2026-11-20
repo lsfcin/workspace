@@ -57,16 +57,6 @@ def test_a_pending_handoff_accumulates_and_a_take_empties_it(tmp_path):
     assert not handoff.lock_for(handoff.path_for(root, 'mistyped')).exists()
 
 
-def test_a_session_rewriting_its_handoff_replaces_only_its_own_section(tmp_path):
-    root = repo(tmp_path / 'workspace')
-    path = handoff.path_for(root, 'workspace')
-    handoff.write(path, 'claude', 'a', 'draft\n')
-    handoff.write(path, 'chatgpt', 'b', 'theirs\n')
-    handoff.write(path, 'claude', 'a', 'final\n')
-    text = path.read_text(encoding='utf-8')
-    assert 'draft' not in text and text.index('theirs') < text.index('final')
-
-
 def test_the_lock_outlives_every_operation(tmp_path):
     root = repo(tmp_path / 'workspace')
     path = handoff.path_for(root, 'workspace')

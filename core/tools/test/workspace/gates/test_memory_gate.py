@@ -64,3 +64,20 @@ def test_the_switch_really_switches_it_off() -> None:
 
 if __name__ == '__main__':
     sys.exit(0)
+
+
+def _inbox(old: str, new: str, enabled: bool = True) -> subprocess.CompletedProcess:
+    payload = json.dumps({'tool_name': 'Edit', 'tool_input': {
+        'file_path': str(WORKSPACE_ROOT / 'brain' / 'INBOX.md'), 'old_string': old, 'new_string': new}})
+    env = {**os.environ, **({} if enabled else {'WOS_FEATURES_OFF': 'memory-gate'})}
+    return subprocess.run([sys.executable, str(GATE)], input=payload, env=env,
+                          capture_output=True, text=True, encoding='utf-8')
+
+
+def test_an_agent_only_deletes_from_the_inbox() -> None:
+    """AGENTS.md § IMPROVE: a finding goes to its repo's ISSUES.md or ROADMAP.md, never the INBOX."""
+    assert _inbox('one\n\ntwo\n', 'one\n').returncode == 0                       # triage
+    refused = _inbox('one\n', 'one\n\nWOS (agent): a finding\n')
+    assert refused.returncode == 2 and "Lucas's capture" in refused.stderr
+    assert _inbox('one\n', 'one, reworded\n').returncode == 2
+    assert _inbox('one\n', 'one\nnew\n', enabled=False).returncode == 0

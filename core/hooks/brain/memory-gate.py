@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-# PreToolUse, capability write — this workspace keeps no memory store, so a harness writing one is
-# refused and handed the file that owns the fact.
+# PreToolUse, capability write — an agent's fact goes to the file that owns it, never to a store:
+# a harness memory store is refused outright, and brain/INBOX.md (Lucas's capture, AGENTS.md
+# § IMPROVE) only lets an agent DELETE — triage passes, a new or reworded line is refused.
 #
 # WHY. A harness memory index is folded into the system prompt of EVERY session, including the nine
 # in ten it has nothing to do with, and harnesses write to it unprompted. Lucas ruled 2026-09-15 that
@@ -27,7 +28,7 @@ import platform_law  # noqa: E402
 if not feature_law.is_enabled('memory-gate'):
     sys.exit(0)
 
-file_path, _data = target()
+file_path, data = target()
 if not file_path:
     sys.exit(0)
 
@@ -36,8 +37,21 @@ try:
 except OSError:
     sys.exit(0)
 
-if written.startswith('brain/memory/'):
-    block(f"⛔ MEMORY GATE — {written}: this workspace keeps no memory store.",
+
+
+def added(data: dict, path: Path) -> list:
+    """Non-blank lines this write would put in the file that were not there before."""
+    pairs = [(e.get('old_string', ''), e.get('new_string', '')) for e in data.get('edits') or [data]]
+    if 'content' in data:
+        pairs = [(path.read_text(encoding='utf-8') if path.is_file() else '', data['content'])]
+    return [line for old, new in pairs for line in new.splitlines()
+            if line.strip() and line not in old.splitlines()]
+
+
+inbox = written == 'brain/INBOX.md' and added(data, Path(file_path))
+if written.startswith('brain/memory/') or inbox:
+    block(f"⛔ MEMORY GATE — {written}: " + ("INBOX.md is Lucas's capture; an agent only deletes "
+          "from it." if inbox else "this workspace keeps no memory store."),
           "   Put the fact where its readers already are:",
           "     a rule the agent must obey      -> core/norms/, or the SPECS.md that owns it",
           "     something untrue about the repo -> ISSUES.md",

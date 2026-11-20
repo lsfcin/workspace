@@ -1,9 +1,12 @@
 # T1 roundup tool (core/hooks/git/SPECS.md § Close): every repo this session holds goes back to develop.
 # Zero-token, no network — each case builds a throwaway repo with a bare origin, held through the
 # real lock, and runs the real script on it.
+import os
 import re
 import subprocess
 import sys
+import tempfile
+from pathlib import Path
 
 import pytest
 
@@ -38,9 +41,11 @@ def held(tmp_path, suite=''):
     return repo, run(repo, 'branch', '--show-current'), session
 
 
-def close(session, *args):
+def close(session, *args, state=None):
+    """The real script, its reports kept in the case's own folder (b20261120-roundup-test-state-leak)."""
+    env = {**os.environ, 'WOS_STATE_DIR': str(state or Path(tempfile.mkdtemp()))}
     return subprocess.run([sys.executable, str(ROUNDUP), '--session', session, *args],
-                          capture_output=True, text=True, encoding='utf-8')
+                          capture_output=True, text=True, encoding='utf-8', env=env)
 
 
 def test_green_merges_into_develop_pushes_and_lets_go(tmp_path):

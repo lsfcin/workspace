@@ -148,15 +148,36 @@ def verdict(path, session: str, take: bool = True) -> tuple:
                         f'   git -C {repo} switch {branch}'), ''
             _hold(repo, session, head)   # nobody else can switch a held repo: this was ours
             return '', ''
-        if owner:
-            return (f'⛔ BRANCH LOCK — {_name(repo)} is held by session {owner} on {branch}.\n'
-                    '   Work elsewhere, or wait for its close. Only on Lucas\'s explicit word:\n'
-                    f'     core/run tools/wos/claim {repo} --session {session}'), ''
-        if head not in SHARED:
-            return (f'⛔ BRANCH LOCK — {_name(repo)} is on {head or "a detached HEAD"}, held by nobody.\n'
-                    '   Only on Lucas\'s explicit word:\n'
-                    f'     core/run tools/wos/claim {repo} --session {session}'), ''
+        if owner or head not in SHARED:
+            return _not_yours(repo, session, owner, branch, head), ''
         return _take(repo, session, path) if take else ('', '')
+
+
+def _not_yours(repo, session: str, owner: str, branch: str, head: str) -> str:
+    """Why `session` may not change a repo it does not hold. The one place each refusal is worded."""
+    claim_line = f'   Only on Lucas\'s explicit word:\n     core/run tools/wos/claim {repo} --session {session}'
+    if owner:
+        return (f'⛔ BRANCH LOCK — {_name(repo)} is held by session {owner} on {branch}.\n'
+                '   Work elsewhere, or wait for its close.\n' + claim_line)
+    if head not in SHARED:
+        return f'⛔ BRANCH LOCK — {_name(repo)} is on {head or "a detached HEAD"}, held by nobody.\n' + claim_line
+    return (f'⛔ BRANCH LOCK — {_name(repo)} is free: an agent changes it only after taking it.\n'
+            '   Write a file first: the lock creates the feature branch.')
+
+
+def change(path, session: str, target: str = '') -> str:
+    """Refusal for a git command that changes the repo holding `path` (lock-gate.py classifies it).
+    Only the holder may, and the holder never moves itself onto a shared branch: leaving the feature
+    is the close's job. `target` is the branch a switch or checkout names."""
+    repo = repo_of(path)
+    if not session or not repo or not feature_law.is_enabled('branch-lock') or not governed(repo):
+        return ''
+    with locked(lock_file(repo).with_suffix('.flock')):
+        owner, branch = holder(repo)
+        if owner == session:
+            return '' if target not in (*SHARED, '-') else (
+                f'⛔ BRANCH LOCK — leaving {branch} is the close\'s job: core/run tools/wos/roundup')
+        return _not_yours(repo, session, owner, branch, out(repo, 'branch', '--show-current'))
 
 
 def env_session() -> str:

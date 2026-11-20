@@ -87,15 +87,33 @@ def _gate(payload):
                           capture_output=True, text=True, encoding='utf-8')
 
 
-def test_an_agent_commit_on_develop_is_refused_at_the_shell(tmp_path):
+def _shell(command, session=A, cwd=None):
+    return _gate({'tool_name': 'Bash', 'session_id': session, 'cwd': str(cwd or '.'),
+                  'tool_input': {'command': command}})
+
+
+def test_a_free_repo_is_changed_only_by_writing_first(tmp_path):
+    """b20261120-shell-branch-unheld: a branch made from the shell would be born without an owner."""
     repo = governed_repo(tmp_path)
-    done = _gate({'tool_name': 'Bash', 'session_id': A, 'cwd': str(tmp_path),
-                  'tool_input': {'command': f'cd {repo} && git commit -qm x'}})
-    assert done.returncode == 2 and 'shared branch' in done.stderr
-    # A read whose name merely starts with a history verb is not one (merge-base, 2026-11-19).
-    read = _gate({'tool_name': 'Bash', 'session_id': A, 'cwd': str(tmp_path),
-                  'tool_input': {'command': f'git -C {repo} merge-base develop develop'}})
-    assert read.returncode == 0, read.stderr
+    for command in (f'cd {repo} && git commit -qm x', f'git -C {repo} switch -c feature/mine',
+                    f"sh -c 'git -C {repo} push'", f'git -C {repo} branch feature/mine'):
+        done = _shell(command)
+        assert done.returncode == 2 and 'Write a file first' in done.stderr, command
+    assert not run(repo, 'branch', '--list', 'feature/*')
+
+
+def test_the_holder_never_leaves_its_feature_by_itself(tmp_path):
+    """b20261120-red-close-strands-session: going back after a close is the same refusal as any free repo."""
+    repo = governed_repo(tmp_path)
+    lock.verdict(repo / 'a', A)
+    feature = run(repo, 'branch', '--show-current')
+    assert 'close\'s job' in _shell(f'git -C {repo} switch develop').stderr
+    assert _shell(f'git -C {repo} switch -c feature/second').returncode == 0
+    run(repo, 'switch', '-q', 'develop')   # a person, or the close, moved it back
+    assert 'switch' in lock.verdict(repo / 'a', A)[0]
+    assert _shell(f'git -C {repo} switch {feature}').returncode == 0
+    lock.release(repo, A)
+    assert 'Write a file first' in _shell(f'git -C {repo} switch {feature}').stderr
 
 
 def test_a_person_commits_on_develop_and_an_agent_cannot(tmp_path):
@@ -112,3 +130,12 @@ def test_a_person_commits_on_develop_and_an_agent_cannot(tmp_path):
     agent = subprocess.run(['git', *hooks, 'commit', '-qm', 'agent'], cwd=repo,
                            env={**env, 'CLAUDE_CODE_SESSION_ID': A}, capture_output=True, text=True, encoding='utf-8')
     assert agent.returncode != 0 and 'BRANCH LOCK' in agent.stdout + agent.stderr
+
+
+def test_the_switch_really_switches_the_shell_arm_off(tmp_path):
+    repo = governed_repo(tmp_path)
+    payload = {'tool_name': 'Bash', 'session_id': A, 'cwd': '.',
+               'tool_input': {'command': f'git -C {repo} commit -qm x'}}
+    done = subprocess.run([sys.executable, str(GATE)], input=json.dumps(payload), capture_output=True,
+                          text=True, encoding='utf-8', env={**os.environ, 'WOS_FEATURES_OFF': 'branch-lock'})
+    assert done.returncode == 0, done.stderr

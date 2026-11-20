@@ -2,6 +2,7 @@
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -66,6 +67,25 @@ def capability(tool: str, tool_input: dict[str, Any]) -> str:
 	return 'write' if writes else 'read'
 
 
+HEREDOC = re.compile(r"""<<-?\s*(['"]?)([A-Za-z_]\w*)\1""")
+
+
+def command_only(command: str) -> str:
+	"""The command a shell runs, without the prose it carries: every heredoc body is dropped unless
+	the line feeding it names an interpreter, because `python - <<EOF` runs its body and
+	`git commit -F - <<EOF` only quotes one. The one copy every shell gate reads."""
+	out, pos = [], 0
+	for match in HEREDOC.finditer(command):
+		line = command[command.rfind('\n', 0, match.start()) + 1:match.start()]
+		rest = command[match.end():]
+		end = re.search(rf'^[ \t]*{re.escape(match.group(2))}[ \t]*$', rest, re.M)
+		if not re.search(r'\b(python\d*|node|bash|sh|zsh)\b', line):
+			out.append(command[pos:match.end()])
+			pos = match.end() + (end.end() if end else len(rest))
+	out.append(command[pos:])
+	return ''.join(out)
+
+
 def is_subagent(raw: dict[str, Any]) -> bool:
 	"""True when this hook fired inside a worker rather than the main thread.
 
@@ -82,14 +102,8 @@ def is_subagent(raw: dict[str, Any]) -> bool:
 
 
 def normalise(raw: str) -> str:
-	"""One spelling of a path, so a marker written by one hook is legible to another.
-
-	The alternative cost a live gate: the interface gate, while it was still shell, compared three
-	spellings of one file with `grep -qxF` — this side's `C:\\Users\\...`, the payload's
-	`c:\\Users\\...`, and a `readlink -f` `c:/Users/...`. None matched, so it blocked every source
-	read and reading the interface, the thing its own message promised would unlock it, never could.
-	Both ends call this now, which is the fix the port made structural.
-	"""
+	"""One spelling of a path, so a marker written by one hook is legible to another: three spellings
+	of one Windows path once made the interface gate unsatisfiable."""
 	try:
 		return str(Path(raw).resolve())
 	except OSError:
@@ -111,12 +125,7 @@ def normalise(raw: str) -> str:
 # twice is the same file, which is also what makes marking idempotent and lets every caller drop its
 # read-before-write guard.
 def store(session_id: str, kind: str) -> Path:
-	"""Where one session's marks of one kind live. Public because the wipe deletes these.
-
-	session/precompact-wipe.py spelled `/tmp/claude_ctx_seen_$sid` in shell — a second copy of this
-	name, on the wrong temp directory for one of the two systems. The owner of a name owns who can
-	ask for it.
-	"""
+	"""Where one session's marks of one kind live. Public because the wipe deletes these."""
 	return session_state(f'claude_{kind}_{session_id}')
 
 
@@ -164,12 +173,7 @@ def mark_seen(session_id: str, path: str) -> None:
 	_mark(session_id, 'ctx_seen', path)
 
 
-# The interface marker is the same session-scoped list one store over, and it lived privately in
-# read/context-tracker.py — which no gate can import, because a hyphen is not an identifier. That is
-# the whole reason context-tracker grew a query CLI arm, now deleted with the shell caller that
-# needed it. Beside its twin, both readers just call it. The facade pair is the third of the same
-# shape, hand-rolled in facade-{gate,tracker}.py until the measurement above showed it had been
-# losing marks the whole time too.
+# The interface and facade markers: the same session-scoped list, one store over each.
 def load_iface_seen(session_id: str) -> set[str]:
 	return _load(session_id, 'iface_seen')
 

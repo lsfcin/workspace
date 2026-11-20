@@ -13,7 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
-from hook_input import capability, normalise, parse_stdin  # noqa: E402
+from hook_input import capability, command_only, normalise, parse_stdin  # noqa: E402
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 
 OUTPUTS = WORKSPACE_ROOT / 'outputs'
@@ -46,7 +46,7 @@ def main() -> int:
         return refuse(match.group(1)) if match and target.parent == OUTPUTS else 0
     if kind == 'shell':
         command = str(tool_input.get('command', ''))
-        keys = [] if TOOL in command else handoffs_in(command)
+        keys = [] if TOOL in command else handoffs_in(command_only(command))
         return refuse(keys[0]) if keys else 0
     return 0
 

@@ -3,17 +3,21 @@
 # The deterministic half of the /roundup ritual (core/skills/roundup.md). For each repo the branch
 # lock (core/hooks/git/lock.py) says this session holds:
 #   dirty                         → exit 2 before touching anything: a commit message is judgment
-#   fast suite green, no --draft  → merge the feature into develop and push develop
+#   origin/develop merged in first, so the suite judges what develop will hold
+#   fast suite green, no --draft  → push that exact commit as develop
 #   red, or --draft               → push the feature only
 #   push confirmed                → switch to develop and drop the lock; a failed push keeps it
 # `main` never moves here: only an explicit release moves it. Nothing is committed by the close.
 import argparse
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
 
 sys.dont_write_bytecode = True   # a tool that judges a tree may not dirty it first
 ROOT = Path(__file__).resolve().parents[3]
+# This machine's close reports; a test points it at its own tmp_path (b20261120-roundup-test-state-leak).
+STATE = Path(os.environ.get('WOS_STATE_DIR') or ROOT / 'outputs/state')
 sys.path[:0] = [str(ROOT / 'core/hooks/git'), str(ROOT / 'core/hooks'), str(ROOT / 'core/tools/verify')]
 import contract  # noqa: E402
 import lock  # noqa: E402
@@ -37,15 +41,14 @@ def verify(repo: Path) -> tuple:
     return code == 0, f'{declared[0]}: {counts or ("green" if code == 0 else "red")}', log
 
 
-def merge(repo: Path, branch: str) -> str:
-    """Bring develop up to origin, merge the feature in. '' on success, else why not."""
+def integrate(repo: Path, branch: str) -> str:
+    """Merge origin/develop into the feature, so the suite judges what develop will hold
+    (b20261110-verify-not-merge-result). '' on success, else why not."""
     git(repo, 'fetch', '-q', 'origin')
-    if git(repo, 'switch', '-q', 'develop').returncode != 0:
-        return 'could not switch to develop'
-    if out(repo, 'rev-parse', '--verify', '-q', 'origin/develop') and \
-            git(repo, 'merge', '-q', '--ff-only', 'origin/develop').returncode != 0:
-        return 'local develop diverged from origin'
-    if git(repo, 'merge', '-q', '--no-edit', branch).returncode != 0:
+    base = 'origin/develop' if out(repo, 'rev-parse', '--verify', '-q', 'origin/develop') else 'develop'
+    if out(repo, 'rev-list', '--count', f'{base}..develop') not in ('', '0'):
+        return 'local develop has commits origin lacks'
+    if git(repo, 'merge', '-q', '--no-edit', base).returncode != 0:
         git(repo, 'merge', '--abort')
         return f'{branch} conflicts with develop'
     return ''
@@ -58,19 +61,23 @@ def close(repo: Path, session: str, draft: bool) -> tuple:
     if name in lock.SHARED or out(repo, 'branch', '--show-current') != name:
         # A claim records the branch it found; closing `develop` as a feature deletes it (2026-11-19).
         return f'{repo}: held on {name}, not a feature — switch to one before closing. Still held', 1
+    refused = integrate(repo, name)
+    if refused:
+        return f'{repo}: not merged — {refused}. Still held on {name}', 1
     green, label, log = verify(repo)
-    state = ROOT / 'outputs/state' / f'verify-{lock.lock_file(repo).stem[5:]}.md'
-    state.parent.mkdir(parents=True, exist_ok=True)
-    state.write_text(f'{datetime.now():%Y-%m-%d %H:%M} {"green" if green else "red"} — {label}\n'
-                     + ('' if green else '\n'.join(log.splitlines()[-20:]) + '\n'), encoding='utf-8', newline='\n')
+    STATE.mkdir(parents=True, exist_ok=True)
+    (STATE / f'verify-{lock.lock_file(repo).stem[5:]}.md').write_text(
+        f'{datetime.now():%Y-%m-%d %H:%M} {"green" if green else "red"} — {label}\n'
+        + ('' if green else '\n'.join(log.splitlines()[-20:]) + '\n'), encoding='utf-8', newline='\n')
+    tested = out(repo, 'rev-parse', 'HEAD')
     if green and not draft:
-        refused = merge(repo, name)
-        if refused:
-            git(repo, 'switch', '-q', name)
-            return f'{repo}: not merged — {refused}. Still held on {name}', 1
-        if not pushed(repo, 'develop'):
-            return f'{repo}: merged locally, push of develop failed. Still held', 1
-        git(repo, 'branch', '-q', '-d', name)
+        # Push the exact commit the suite judged; origin refuses it if develop moved meanwhile.
+        if git(repo, 'push', '-q', 'origin', f'{tested}:refs/heads/develop').returncode != 0 or \
+                out(repo, 'rev-parse', 'origin/develop') != tested:
+            return f'{repo}: push of develop failed — origin moved? Close again. Still held on {name}', 1
+        git(repo, 'switch', '-q', 'develop')
+        git(repo, 'merge', '-q', '--ff-only', tested)
+        git(repo, 'branch', '-q', '-D', name)
         git(repo, 'push', '-q', 'origin', '--delete', name)
         lock.release(repo, session)
         return f'{repo}: {name} merged into develop and pushed ({label})', 0

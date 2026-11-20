@@ -3,7 +3,6 @@ from pathlib import Path
 
 PDF_PATH: Incomplete
 SEGMENT: Incomplete
-HEREDOC: Incomplete
 LEAF_TEXT: Incomplete
 
 def reads_raw(command: str, pm) -> bool: ...

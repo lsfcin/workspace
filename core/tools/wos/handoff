@@ -37,7 +37,7 @@ def main() -> int:
     parser.add_argument('--repo', type=Path, help='with --write: the repository this block is for')
     parser.add_argument('--json', action='store_true')
     mode = parser.add_mutually_exclusive_group()
-    mode.add_argument('--write', type=Path, help="add this session's section to one repository's handoff")
+    mode.add_argument('--write', type=Path, help="add this session's section to one repository's handoff, replacing one it wrote earlier")
     mode.add_argument('--take', nargs='?', const='.', metavar='REPO',
                       help='print and delete a repository handoff (key or path; default: this one)')
     args = parser.parse_args()

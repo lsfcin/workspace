@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # PreToolUse write and shell — the branch lock, asked at every write and every git command that
-# moves history. A write takes a free repo; a git command never does. Rules: git/lock.py.
+# changes a repo. A write takes a free repo; a git command never does. Rules: git/lock.py.
+#
+# ONE QUESTION PER GIT CALL: does it change the repo? A read always passes; a change passes only for
+# the holder (lock.change). Every `git` in the command is asked, after heredoc prose is dropped.
 #
 # FAILS OPEN on a crash only: a gate that dies must never cost a session its edits (Lucas,
 # 2026-11-09). A refusal is never an error.
@@ -10,12 +13,56 @@ import sys
 from pathlib import Path
 
 sys.path[:0] = [str(Path(__file__).resolve().parent), str(Path(__file__).resolve().parents[1])]
-from hook_input import capability, parse_stdin  # noqa: E402
+from hook_input import capability, command_only, parse_stdin  # noqa: E402
 
-GIT = re.compile(r'\bgit\b((?:\s+-C\s+\S+)?)[^;&|\n]*?\s(commit|merge|rebase|reset|cherry-pick|revert|'
-                 r'switch|checkout|push|pull|stash|branch)(?![\w-])')
+GIT = re.compile(r'\bgit\b([^;&|\n)`]*)')
 CD = re.compile(r'(?:^|[;&|]\s*)cd\s+([^\s;&|]+)')
-HISTORY = ('commit', 'merge', 'rebase', 'reset', 'cherry-pick', 'revert')
+CHANGES = {'commit', 'merge', 'rebase', 'reset', 'cherry-pick', 'revert', 'switch', 'checkout',
+           'restore', 'push', 'pull', 'stash', 'branch', 'tag', 'am'}
+# `git branch` lists unless it is told to create, delete, rename, copy or re-point one.
+LISTS = {'--show-current', '--list', '-l', '-a', '--all', '-r', '--remotes', '-v', '-vv', '--verbose',
+         '--merged', '--no-merged', '--contains', '--no-contains'}
+BRANCH_WRITES = {'-d', '-D', '--delete', '-m', '-M', '--move', '-c', '-C', '--copy', '-f', '--force',
+                 '-u', '--set-upstream-to', '--unset-upstream', '--edit-description'}
+
+
+def calls(command: str, cwd: str):
+    """(where, verb, args) for every git call: the repo is `-C <dir>`, else the last `cd` before it."""
+    for found in GIT.finditer(command):
+        words, where = [w.strip('\'"') for w in found.group(1).split()], None   # sh -c 'git push'
+        moved = CD.findall(command[:found.start()])
+        base = Path(cwd or '.') / (moved[-1] if moved else '')
+        while words and words[0].startswith('-'):
+            flag = words.pop(0)
+            if flag in ('-C', '-c') and words:
+                value = words.pop(0)
+                where = base / value if flag == '-C' else where
+        if words:
+            yield where or base, words[0], words[1:]
+
+
+def changes(verb: str, args: list) -> bool:
+    if verb == 'branch':
+        flags = set(args)
+        positional = [a for a in args if not a.startswith('-')]
+        return bool(flags & BRANCH_WRITES) or (bool(positional) and not flags & LISTS)
+    if verb == 'stash':
+        return not args or args[0] not in ('list', 'show')
+    if verb == 'tag':
+        return bool([a for a in args if not a.startswith('-')]) and not {'-l', '--list'} & set(args)
+    return verb in CHANGES
+
+
+def target(verb: str, args: list) -> str:
+    """The branch a switch or checkout moves to: its first positional before `--`."""
+    if verb not in ('switch', 'checkout'):
+        return ''
+    for arg in args:
+        if arg == '--':
+            return ''
+        if arg == '-' or not arg.startswith('-'):
+            return arg
+    return ''
 
 
 def main() -> int:
@@ -23,20 +70,13 @@ def main() -> int:
     try:
         import lock
         cap = capability(tool, data)
+        refusal = note = ''
         if cap == 'write' and data.get('file_path'):
             refusal, note = lock.verdict(Path(data['file_path']), session)
-        elif cap == 'shell' and (found := GIT.search(str(data.get('command', '')))):
-            # The repo is `git -C <dir>`, else the last `cd <dir>` before it, else the shell's cwd.
-            moved = CD.findall(str(data['command'])[:found.start()])
-            base = Path(cwd or '.') / (moved[-1] if moved else '')
-            where = base / found.group(1).split()[-1] if found.group(1) else base
-            refusal, note = lock.verdict(where, session, take=False)
-            repo = lock.repo_of(where)
-            if not refusal and found.group(2) in HISTORY and repo and lock.governed(repo) and \
-                    lock.out(repo, 'branch', '--show-current') in lock.SHARED and \
-                    lock.feature_law.is_enabled('branch-lock'):
-                refusal = (f'⛔ BRANCH LOCK — an agent never runs git {found.group(2)} on a shared '
-                           'branch. Write a file first: the lock creates the feature branch.')
+        elif cap == 'shell':
+            for where, verb, args in calls(command_only(str(data.get('command', ''))), cwd):
+                if changes(verb, args) and (refusal := lock.change(where, session, target(verb, args))):
+                    break
         else:
             return 0
     except Exception:   # noqa: BLE001 — fail open, see the head

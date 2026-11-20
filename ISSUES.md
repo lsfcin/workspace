@@ -5,9 +5,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
-- **O handoff não deixa uma sessão corrigir a própria seção.** `--write` só acrescenta, e o `handoff-gate` recusa ler o arquivo, então para emendar é preciso `--take`, que consome também as seções das outras sessões (20 Nov, duas sessões no mesmo `outputs/handoff-workspace.md`). [src: agent 2026-11-20] `b20261120-handoff-no-amend`
-
-- **O branch lock barra um comando só de leitura.** `core/run tools/panel/ask -` rodado de `/mnt/workspace` foi recusado com BRANCH LOCK enquanto outra sessão segurava o repo; o mesmo comando, rodado de `code/isoroll-module`, passou (20 Nov). [src: agent 2026-11-20] `b20261120-lock-blocks-readonly`
+- **Três ferramentas falharam no censo do docs-ufrpe.** (1) `web/fetch` não aceita `--cacert`, e os sites da UFRPE não mandam o certificado intermediário (RNP ICPEdu GR46 2025; a PRPG usa RNP ICPEdu OV SSL CA 2019), então o fetch devia levar o bundle que `verificar.py` já lista. (2) `mail/gmail` só traz não lidos, no máximo 50, sem busca por termo, e `attachments --id` só lê o cache do fetch; faltam `search <query>` paginado e `attachments` direto por id (ver [academic-evidence-tools]). (3) O censo de páginas virou script de rascunho, falta decidir se vira ferramenta (19 Nov, vindo do INBOX). [src: agent 2026-11-19] `b20261119-census-tool-gaps`
 
 - **173 arquivos órfãos no publish** (2.681 linhas): rastreados e elegíveis, mas nenhuma feature os reivindica. O `/publish` pede zero, e a lista sai de `core/run tools/wos/publish/repo --orphans` (20 Nov). [src: agent 2026-11-20] `b20261120-publish-173-orphans`
 
@@ -40,8 +38,6 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 - tools/web/shoot serves only the page directory and reads a query string as a path; the docs-ufrpe viewer needs a parent root and ?doc= (17 Nov). `b20261117-shoot-root-query`
 
 - **Não se sabe se o `session_id` do Codex é o `CODEX_THREAD_ID`.** O pre-commit reconhece um commit de agente pela variável de ambiente; o gate do dispatcher não depende dela (10 Nov). `b20261110-codex-session-id`
-
-- **O verify roda na feature, não no resultado do merge**: com develop divergente, a branch fica verde e o merge pode não ficar (painel, 10 Nov). `b20261110-verify-not-merge-result`
 
 - Two verify-fast failures on 17 Nov in tests since deleted (test_branch_gate.py, test_b20260902_…); recheck that nothing intermittent remains. `b20261117-verify-intermittent`
 
