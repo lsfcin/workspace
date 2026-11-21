@@ -42,6 +42,7 @@ MARKS = {
     'quota': ('usage limit', 'resource_exhausted', 'quota reached', 'quota exceeded', 'rate limit'),
     'no-login': ('not logged in', 'please log in', 'unauthorized', 'login required'),
 }
+ANSWER_FLOOR = 400  # chars; every vendor's quota or login notice seen so far is under 200
 
 
 class Result(NamedTuple):
@@ -99,7 +100,11 @@ def run(cmd: list[str], cwd: str | None = None, timeout: int = TIMEOUT) -> tuple
 
 
 def classify(code: int, text: str) -> str:
-    """ok, or why this is no answer. agy prints a spent quota and may exit 0."""
+    """ok, or why this is no answer. agy prints a spent quota and may exit 0, so a short reply is
+    searched for MARKS; a clean exit with a reply longer than ANSWER_FLOOR is an answer, whatever
+    it talks about (argon's verdicts on quota and login were thrown away 2026-11-20 and 11-21)."""
+    if code == 0 and len(text.strip()) > ANSWER_FLOOR:
+        return 'ok'
     low = text.lower()
     for status, marks in MARKS.items():
         if any(m in low for m in marks):

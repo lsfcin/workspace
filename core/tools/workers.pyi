@@ -8,6 +8,7 @@ TIMEOUT: int
 HOME: Incomplete
 PLACES: Incomplete
 MARKS: Incomplete
+ANSWER_FLOOR: int
 
 class Result(NamedTuple):
     worker: str

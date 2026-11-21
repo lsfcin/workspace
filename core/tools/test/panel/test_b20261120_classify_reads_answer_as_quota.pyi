@@ -1,0 +1,7 @@
+from _typeshed import Incomplete
+
+AGY_QUOTA: str
+ANSWER: Incomplete
+
+def test_b20261120_a_long_clean_answer_about_quota_is_ok() -> None: ...
+def test_b20261120_a_short_notice_or_a_failed_exit_is_still_read_for_marks() -> None: ...

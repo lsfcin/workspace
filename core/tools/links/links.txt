@@ -230,6 +230,7 @@ wos/claude-quality-reel	https://www.instagram.com/reel/DfNHMkaE9yg/	wos	2026-11-
 wos/expired-findings-post	https://www.instagram.com/reel/DfdG4UVxAJc/	wos	2026-11-17
 wos/hex	https://github.com/anomalyco/hex	wos	2026-11-06
 wos/infinity	https://github.com/hydro-project/infinity	wos	2026-11-06
+wos/loopforge	https://www.instagram.com/reel/Df-vE_vkckX/	wos	2026-11-21
 wos/merge-checks-post	https://www.instagram.com/reel/DfNU_Z9gk5b/	wos	2026-11-17
 wos/motionmaxxing	https://github.com/Tejashmakwana/motionmaxxing	wos	2026-11-07
 wos/motionmaxxing-post	https://www.instagram.com/reel/DfJJGp2j0H-/	wos	2026-11-07
@@ -244,6 +245,7 @@ wos/t3-video	https://github.com/zhangzjn/T3-Video	wos	2026-11-07
 wos/t3-video-post	https://www.instagram.com/p/DeZOzoUmVUg/	wos	2026-11-07
 wos/textfold	https://github.com/chenxiachan/textfold	wos	2026-11-17
 wos/textfold-post	https://www.instagram.com/reel/DfxR4P3DBj7/	wos	2026-11-17
+wos/thousand-agents	https://www.instagram.com/reel/Df96hr1Nu5M/	wos	2026-11-21
 wos/token-context-post	https://www.instagram.com/p/DesLVzbDIb7/	wos	2026-11-17
 wos/twil-8b	https://huggingface.co/webAI-Official/TwIL-8B	wos	2026-11-17
 wos/twil-8b-post	https://www.instagram.com/reel/DfevuYyvCTB/	wos	2026-11-17
