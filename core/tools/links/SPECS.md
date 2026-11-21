@@ -38,6 +38,10 @@ The browser edits a page (`editar`, password `EDIT_PASSWORD`) and students fill 
 
 **The published root is a dead end on purpose.** An index listing every short name would hand a stranger the whole map, which is the one thing the refusal above exists to prevent.
 
+## Only our content gets a short name
+
+Someone else's page is cited by its original URL. "Ours" is the `# ours:` line of URL prefixes in `links.txt`, never a per-row marker, because a marker is the escape hatch an agent reaches for to silence `check` (outside panel, 2026-11-21). A room created on a third-party host gets its exact URL as a prefix. **Known hole:** `docs.google.com/` is allowed whole, so a stranger's Doc passes.
+
 ## The map grows forever, and that is fine
 
 One row per short name, and nothing ever prunes it on a schedule. It stays cheap because it is **data a tool queries, not writing a session reads**: `find` greps it and prints the matching rows, so no context ever holds the whole file. That is the same bargain [`../deps.txt`](../deps.txt) and [`../../features.txt`](../../features.txt) make.

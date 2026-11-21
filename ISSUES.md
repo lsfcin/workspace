@@ -5,6 +5,10 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **Nome de branch não é nome de feature.** `core/hooks/git/lock.py:123` monta `feature/<árvore>-<MMDD>` (ex.: `feature/core-1121`) a partir do primeiro arquivo escrito, porque na primeira escrita a sessão ainda não declarou o que vai fazer. Lucas: "isso não é nome de feature". Falta decidir de onde vem o nome (renomear no primeiro commit, pelo tipo/escopo da mensagem?) (21 Nov). [src: agent 2026-11-21] `b20261121-branch-name-not-feature`
+
+- **Sessão paralela com outro foco tomou a trava do workspace.** `d0c03695` escreveu no workspace de passagem, criou `feature/core-1121` (3 commits: `periodicos.txt`, roundup) e nunca fechou, travando a sessão que tinha recebido o handoff. Foi preciso `claim`. A trava não percebe que uma escrita de passagem vai prender o repo inteiro, e a branch continua fora do develop (21 Nov). [src: agent 2026-11-21] `b20261121-drive-by-lock`
+
 - **ZCode tem headless, mas sem modelo.** `node /opt/ZCode/resources/glm/zcode.cjs --prompt "<texto>"` (CLI 0.16.3, embutido no app; `/usr/bin/zcode` é Electron e mostra a ajuda do node) responde `Model config is missing` porque `~/.zcode/cli/config.json` só tem hooks. Com qualquer flag a mais (`--mode plan`, `--max-turns`) imprime a ajuda. Falta declarar um provider (login Z.AI) antes da linha em `core/workers.txt` (20 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
 
 - **`video --level full` parece cortar a fala.** No reel `wos/thousand-agents` a transcrição para no meio de uma frase ("published how it worked in a blog call") depois de ~120 palavras, enquanto os frames seguem até o fim (relógio na tela 14:00→14:02, ~2 min). Suspeita: `audio/stt.py` rejeita segmentos de baixa confiança e o texto restante some sem aviso. Falta comparar com a duração do áudio (21 Nov). [src: agent 2026-11-21] `b20261121-video-speech-cut`

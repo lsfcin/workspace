@@ -117,6 +117,25 @@ def check_private(short_name: str, home: str = '') -> None:
         )
 
 
+# A short name exists only for OUR content; someone else's page is cited by its own URL. "Ours"
+# is a list of URL PREFIXES in the map's own `# ours:` line, never a per-row marker: a marker is
+# the escape hatch an agent reaches for to silence the check (panel, 2026-11-21). Known hole:
+# docs.google.com/ is allowed whole, so a stranger's Doc passes — core/tools/links/SPECS.md.
+OURS = '# ours:'
+
+
+def ours(path: pathlib.Path = MAP) -> tuple[str, ...]:
+    """The URL prefixes that count as our content, scheme stripped. () when the line is missing."""
+    for line in preamble(path):
+        if line.startswith(OURS):
+            return tuple(line[len(OURS):].split())
+    return ()
+
+
+def is_ours(url: str, prefixes: tuple[str, ...]) -> bool:
+    return re.sub(r'^https?://', '', url).startswith(prefixes) if prefixes else False
+
+
 def add(short_name: str, url: str, owner: str = '', home: str = '',
         path: pathlib.Path = MAP) -> dict:
     """Mint one short name. Refuses rather than overwrites — a live link must not silently move."""
@@ -124,6 +143,9 @@ def add(short_name: str, url: str, owner: str = '', home: str = '',
     check_private(short_name, home)
     if not url.startswith(('http://', 'https://')):
         raise Refused(f"'{url}' is not a URL. A short name points somewhere reachable or nowhere.")
+    if not is_ours(url, ours(path)):
+        raise Refused(f"'{url}' is not our content, so it gets no short name.\n"
+                      f"  Cite the original URL. Ours = the `{OURS}` prefixes in {path.name}.")
     rows = load(path)
     for r in rows:
         if r['short_name'] == short_name:
@@ -164,9 +186,11 @@ def redirects(rows: list[dict], code: int = 302) -> str:
     return '\n'.join(lines) + '\n'
 
 
-def check(rows: list[dict]) -> list[str]:
+def check(rows: list[dict], path: pathlib.Path = MAP) -> list[str]:
     """Everything that is untrue about the map, one finding per line."""
-    findings, seen = [], {}
+    findings, seen, prefixes = [], {}, ours(path)
+    if not prefixes:
+        findings.append(f"{path.name}: no `{OURS}` line, so nothing counts as our content")
     for r in rows:
         try:
             validate_short_name(r['short_name'])
@@ -178,4 +202,6 @@ def check(rows: list[dict]) -> list[str]:
         seen[r['short_name']] = r
         if not r['url'].startswith(('http://', 'https://')):
             findings.append(f"{r['short_name']}: target is not a URL ({r['url']})")
+        elif prefixes and not is_ours(r['url'], prefixes):
+            findings.append(f"{r['short_name']}: not our content ({r['url']}) — cite the original URL")
     return findings

@@ -15,9 +15,9 @@
 
 Instagram leads are untested. Task IDs: ../ROADMAP.md unless specified.
 
-- [cadcraft](https://lucassf.pages.dev/wos/cadcraft) — Instagram/eduardocavalcanti: capabilities unverified; [cadcraft].
-- [prompt-audit](https://lucassf.pages.dev/wos/prompt-audit) — Instagram/nocodealex: gains unverified; [prompt-audit].
-- [soundbox](https://lucassf.pages.dev/isoroll/soundbox) — Instagram DfBSFBwCikQ/gittrend.io: local audio/agent claims; [soundbox].
+- [cadcraft](https://www.instagram.com/reel/DeZaWc4Rv77/) — Instagram/eduardocavalcanti: capabilities unverified; [cadcraft].
+- [prompt-audit](https://www.instagram.com/reel/Dd15NcHvlNl/) — Instagram/nocodealex: gains unverified; [prompt-audit].
+- [soundbox](https://github.com/HamSanders/soundbox) — Instagram DfBSFBwCikQ/gittrend.io: local audio/agent claims; [soundbox].
 - [mcptoon — gittrend.io](https://instagram.com/reel/Demkg_Xgmmz/) — On-demand MCP discovery; savings unverified. [mcptoon-context]; Dobra: ../../code/dobra/ROADMAP.md.
 - [Clipa — editandocombeatriz](https://instagram.com/reel/DdsXDRVMgen/) — Sponsored captions; unverified. ../ROADMAP.md, caption-tool comparison; ../../branches/virada/ROADMAP.md.
 - [REA / PhotoCraft / EffectCraft — silvestri_gabriel](https://instagram.com/reel/DeXZnw4mdEr/) — Media demos; claims unverified. [rea-assessment]; ../../branches/virada/ROADMAP.md.
@@ -125,7 +125,7 @@ Instagram leads are untested. Task IDs: ../ROADMAP.md unless specified.
 - [C] [Workload-specific GPU throughput](https://github.com/Zagitta/GPU-UNLOCK) — Matrix-specific; no verified RTX3050 speedup; [post](https://instagram.com/reel/DfAy1NHseqU/); [gpu-unlock].
 - [C] [Dessa speech preview](https://block.xyz/dessa) — Preview; unread primary, access/licence unverified; [post](https://instagram.com/p/De_ghm7DMTo/); [dessa].
 - [C] [Claude Code advice](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work) — 100–200k quality chart admits invented source; [post](https://instagram.com/p/DefaJVojOSp/); [context-evidence].
-- [C] [Hex](https://lucassf.pages.dev/wos/hex) — GitHub: local dictation; task: [tool-comparison]; ../../branches/tweaks/SETUP.md.
+- [C] [Hex](https://github.com/anomalyco/hex) — GitHub: local dictation; task: [tool-comparison]; ../../branches/tweaks/SETUP.md.
 
 - [C] Cross-harness reports — Claude/Codex, 26–30 Oct: verify caller/callee, quota, discovery and background recipes; [cross-harness-delegation].
 - [C] Agent media skills: [HyperFrames](https://github.com/heygen-com/hyperframes), [p5.brush](https://github.com/acamposuribe/p5.brush), [Scenario 3D](https://github.com/scenario-labs), [OpenViking](https://github.com/volcengine/OpenViking) memory —; [video-motion-skills].
@@ -135,25 +135,25 @@ Instagram leads are untested. Task IDs: ../ROADMAP.md unless specified.
 - [JCode](https://instagram.com/reel/DfHKGq9JYkX/) — Rust agent; performance/free claims unverified. [jcode].
 - [Elephant–Goldfish](https://instagram.com/reel/De9SUTPsxWS/) — long-context planner/fresh reviewer; identity/licence unverified. [egm]; craft-flows [B1].
 - [20 UX principles](https://instagram.com/reel/DcwkX6OyduT/) — speech has 20 directives; sampled visual labels partly illegible, item 20 blank. Reconstruct speech→item mapping; task: [ux-20].
-- [Hob](https://lucassf.pages.dev/freeai/hob) — GitHub: file agent; hardware/offline: [tool-comparison].
-- [Taiga-S1 / Biome-S1](https://lucassf.pages.dev/spatial/taiga) — GitHub/Simply AI (DeFJd9AHPVS): FreeCAD executor; unreplicated metrics; [taiga-s1].
-- [Claude quality](https://lucassf.pages.dev/wos/claude-quality) · [post](https://lucassf.pages.dev/wos/claude-quality-reel) — Anthropic: April fixes in other versions; Instagram intent allegation unproven. [model-regression].
-- [Colibri](https://lucassf.pages.dev/local/colibri) — GitHub/JustVugg; Instagram Dd_h_ApIqXb (744B/~372 GB/no GPU), DehErZxDfkE (~11 GB active): claims differ from total RAM. Author: 0.05–0.1 tok/s cold on 25 GB. [colibri-streaming].
-- [GLM-5.2](https://lucassf.pages.dev/local/glm52) — Z.ai: MIT/1M context; Instagram DfLPFzTMzYr superiority/local claims need matched evaluation; API-key demo proves no local run or persistent memory. [glm52-comparison].
-- [Respan](https://lucassf.pages.dev/wos/respan) — GitHub/respanai; Instagram DfMoeX7ij47: provider-format gateway, not CLI-session adapter; author speed figures unreplicated; hedging costs extra calls. [respan-gateway].
-- [Alexandria](https://lucassf.pages.dev/wos/alexandria) — Firecrawl; Instagram DfMiFm0Oc0N: source/index access does not guarantee answer correctness. [firecrawl].
-- [Unslop](https://lucassf.pages.dev/wos/unslop) — GitHub/heydamir; Instagram DfMB84QAtoL: audit, approved direction, nine design passes; test usability/accessibility rather than impose universal aesthetics. UNSLOP.
-- [Infinity](https://lucassf.pages.dev/wos/infinity) — GitHub/hydro-project; Instagram De9or1Jienw: hibernation/tool events; 75k waiting states do not imply 75k simultaneous inferences. [infinity-runtime].
-- [Motionmaxxing](https://lucassf.pages.dev/wos/motionmaxxing) — Instagram/dailyfindsdev: local HTML animation; [post](https://lucassf.pages.dev/wos/motionmaxxing-post); [motionmaxxing].
-- [Claude advisor](https://lucassf.pages.dev/wos/advisor) — Instagram/sully.omarr: stronger-model consult; savings unverified; [post](https://lucassf.pages.dev/wos/advisor-post); [advisor].
-- [T3-Video](https://lucassf.pages.dev/wos/t3-video) — Instagram/simplifyinai: native 4K research; [post](https://lucassf.pages.dev/wos/t3-video-post); [t3-video].
-- [SAG-Wiki](https://lucassf.pages.dev/wos/sag-wiki) — Indexes without a model; retrieval uses one; [sag-wiki].
-- [CL4R1T4S](https://lucassf.pages.dev/wos/cl4r1t4s) — Leaked prompts, unverified; dobra holds the ref; [cl4r1t4s-watch].
-- [APIV loop](https://lucassf.pages.dev/wos/apiv-post) — Align, plan, implement, verify per task; [apiv].
-- [Expired AI findings](https://lucassf.pages.dev/wos/expired-findings-post) — Source unknown; [expired-findings].
-- [Merge checks](https://lucassf.pages.dev/wos/merge-checks-post) — gitleaks, knip, jscpd, osv-scanner; [merge-checks].
-- [TwIL-8B](https://lucassf.pages.dev/wos/twil-8b) — Scores are bf16, not Q4; non-commercial; [twil-8b].
-- [Rune](https://lucassf.pages.dev/wos/rune) — Headless UI to PNG for agents, untested; [rune].
-- [Token budget](https://lucassf.pages.dev/wos/token-context-post) — Every opened file spends; [token-context].
-- [Atomic Agent](https://lucassf.pages.dev/wos/atomic-agent) — Telegram-driven local agent; aiwbot [atomic-telegram].
-- [One folder per task](https://lucassf.pages.dev/wos/one-folder-post) — Already our thesis; ref only.
+- [Hob](https://github.com/FrigadeHQ/hob) — GitHub: file agent; hardware/offline: [tool-comparison].
+- [Taiga-S1 / Biome-S1](https://github.com/shhivv/biome-s1) — GitHub/Simply AI (DeFJd9AHPVS): FreeCAD executor; unreplicated metrics; [taiga-s1].
+- [Claude quality](https://www.anthropic.com/research/april-23-postmortem) · [post](https://www.instagram.com/reel/DfNHMkaE9yg/) — Anthropic: April fixes in other versions; Instagram intent allegation unproven. [model-regression].
+- [Colibri](https://github.com/JustVugg/colibri) — GitHub/JustVugg; Instagram Dd_h_ApIqXb (744B/~372 GB/no GPU), DehErZxDfkE (~11 GB active): claims differ from total RAM. Author: 0.05–0.1 tok/s cold on 25 GB. [colibri-streaming].
+- [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2) — Z.ai: MIT/1M context; Instagram DfLPFzTMzYr superiority/local claims need matched evaluation; API-key demo proves no local run or persistent memory. [glm52-comparison].
+- [Respan](https://github.com/respanai/respan-gateway) — GitHub/respanai; Instagram DfMoeX7ij47: provider-format gateway, not CLI-session adapter; author speed figures unreplicated; hedging costs extra calls. [respan-gateway].
+- [Alexandria](https://www.firecrawl.dev/changelog/introducing-alexandria-series-b) — Firecrawl; Instagram DfMiFm0Oc0N: source/index access does not guarantee answer correctness. [firecrawl].
+- [Unslop](https://github.com/heydamir/unslop) — GitHub/heydamir; Instagram DfMB84QAtoL: audit, approved direction, nine design passes; test usability/accessibility rather than impose universal aesthetics. UNSLOP.
+- [Infinity](https://github.com/hydro-project/infinity) — GitHub/hydro-project; Instagram De9or1Jienw: hibernation/tool events; 75k waiting states do not imply 75k simultaneous inferences. [infinity-runtime].
+- [Motionmaxxing](https://github.com/Tejashmakwana/motionmaxxing) — Instagram/dailyfindsdev: local HTML animation; [post](https://www.instagram.com/reel/DfJJGp2j0H-/); [motionmaxxing].
+- [Claude advisor](https://code.claude.com/docs/en/advisor) — Instagram/sully.omarr: stronger-model consult; savings unverified; [post](https://www.instagram.com/reel/De3Gaq0TiUj/); [advisor].
+- [T3-Video](https://github.com/zhangzjn/T3-Video) — Instagram/simplifyinai: native 4K research; [post](https://www.instagram.com/p/DeZOzoUmVUg/); [t3-video].
+- [SAG-Wiki](https://arxiv.org/abs/2610.22588) — Indexes without a model; retrieval uses one; [sag-wiki].
+- [CL4R1T4S](https://github.com/elder-plinius/CL4R1T4S) — Leaked prompts, unverified; dobra holds the ref; [cl4r1t4s-watch].
+- [APIV loop](https://www.instagram.com/reel/Dfhog8VtWDx/) — Align, plan, implement, verify per task; [apiv].
+- [Expired AI findings](https://www.instagram.com/reel/DfdG4UVxAJc/) — Source unknown; [expired-findings].
+- [Merge checks](https://www.instagram.com/reel/DfNU_Z9gk5b/) — gitleaks, knip, jscpd, osv-scanner; [merge-checks].
+- [TwIL-8B](https://huggingface.co/webAI-Official/TwIL-8B) — Scores are bf16, not Q4; non-commercial; [twil-8b].
+- [Rune](https://github.com/anomalyco/rune) — Headless UI to PNG for agents, untested; [rune].
+- [Token budget](https://www.instagram.com/p/DesLVzbDIb7/) — Every opened file spends; [token-context].
+- [Atomic Agent](https://github.com/AtomicBot-ai/atomic-agent) — Telegram-driven local agent; aiwbot [atomic-telegram].
+- [One folder per task](https://www.instagram.com/reel/De9_Ma8gXZa/) — Already our thesis; ref only.

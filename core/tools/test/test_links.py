@@ -7,8 +7,9 @@ import links_core
 
 @pytest.fixture
 def mapfile(tmp_path):
-    """A map of its own, so a test never writes the real one."""
-    return tmp_path / 'links.txt'
+    """A map of its own, so a test never writes the real one; example.com plays our content."""
+    (path := tmp_path / 'links.txt').write_text('# ours: example.com/\n', encoding='utf-8', newline='\n')
+    return path
 
 
 def test_a_short_name_is_a_name_a_room_can_be_told(mapfile):
@@ -58,6 +59,8 @@ def test_a_taken_short_name_is_refused_rather_than_moved(mapfile):
 def test_a_target_that_is_not_a_url_never_reaches_the_site(mapfile):
     with pytest.raises(links_core.Refused):
         links_core.add('ai4good', 'docs.google.com/forms/d/abc', path=mapfile)
+    with pytest.raises(links_core.Refused, match='not our content'):  # a reel is cited, not shortened
+        links_core.add('wos/reel', 'https://www.instagram.com/reel/x/', path=mapfile)
 
 
 def test_the_map_round_trips_through_the_file(mapfile):
@@ -78,24 +81,19 @@ def test_find_is_how_a_growing_map_stays_cheap(mapfile):
 def test_the_redirect_file_is_what_cloudflare_reads(mapfile):
     links_core.add('ai4good/setup', 'https://example.com/f', path=mapfile)
     out = links_core.redirects(links_core.load(mapfile))
-    assert out == '/ai4good/setup https://example.com/f 302\n'
-
-
-def test_the_redirect_is_302_because_a_301_outlives_the_fix(mapfile):
-    """A 301 is cached by the browser forever, so a wrong target survives correcting the map."""
-    links_core.add('ai4good', 'https://example.com/a', path=mapfile)
-    assert ' 301' not in links_core.redirects(links_core.load(mapfile))
+    assert out == '/ai4good/setup https://example.com/f 302\n', "302: a 301 outlives the fix"
 
 
 def test_check_reads_the_file_rather_than_trusting_the_writer(mapfile):
     """Rows can arrive by hand-edit, which is the only path `add`'s refusals do not cover."""
-    mapfile.write_text('short_name\turl\towner\tadded\n'
+    mapfile.write_text('# ours: example.com/\nshort_name\turl\towner\tadded\n'
                        'Casinhas\tnot-a-url\tx\t2026-09-06\n'
                        'ai4good\thttps://example.com/a\tai4good\t2026-09-06\n'
-                       'ai4good\thttps://example.com/b\tai4good\t2026-09-06\n',
+                       'ai4good\thttps://example.com/b\tai4good\t2026-09-06\n'
+                       'wos/repo\thttps://github.com/x/y\twos\t2026-11-21\n',
                        encoding='utf-8', newline='\n')
-    findings = links_core.check(links_core.load(mapfile))
-    assert len(findings) == 3, findings
+    findings = links_core.check(links_core.load(mapfile), mapfile)
+    assert len(findings) == 4 and any('not our content' in f for f in findings), findings
     assert any('listed twice' in f for f in findings)
 
 
