@@ -15,5 +15,6 @@
 | [`retired-gate.py`](retired-gate.py) | [`retired-gate.pyi`](retired-gate.pyi) | `main` | PostToolUse, capability `write` — a retired token reaches the agent at the edit, not at the close. |
 | [`size-gate.py`](size-gate.py) | [`size-gate.pyi`](size-gate.pyi) | — | PreToolUse, capability write — refuse a write that would put an authored code file over the cap. |
 | [`type-gate.py`](type-gate.py) | [`type-gate.pyi`](type-gate.pyi) | `check_name`, `failures_for`, `main` | Level 0 gate (core/SCHEMA.md § The .md type system): a staged file must be a known .md type or a well-shaped instance, must sit where its type is allowed to live, must give the routing table something to write about it, and a CONTEXT.md must not hand-list files. Zero-token, no LLM. |
+| [`web-retry.py`](web-retry.py) | [`web-retry.pyi`](web-retry.pyi) | `kinds`, `response_text`, `main` | PostToolUse, capability `shell` — a web fetch that failed once is a lead, not a verdict. |
 | [`write_payload.py`](write_payload.py) | [`write_payload.pyi`](write_payload.pyi) | `block`, `target`, `written_size` | What every write gate needs from its stdin: which file is being written, and how big it would get. |
 <!-- routing:end -->

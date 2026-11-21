@@ -54,6 +54,17 @@
         ]
       }
     ],
+    "PostToolUseFailure": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh ${CLAUDE_PROJECT_DIR}/core/run hooks/dispatch.py"
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [

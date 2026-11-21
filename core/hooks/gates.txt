@@ -74,6 +74,7 @@ pre	write	40	facade/facade-gate.py	blocks	facade-discipline
 pre	write	45	brain/memory-gate.py	blocks	memory-gate
 pre	write	50	checks/issues-gate.py	blocks	issues-gate
 pre	write	60	read/spec-read-gate.py	blocks	spec-read-gate
+post	shell	10	checks/web-retry.py	informs	web-retry
 post	write	10	checks/retired-gate.py	informs	retired-tokens
 post	read	10	facade/facade-tracker.py	informs	facade-discipline
 post	read	20	read/context-tracker.py	informs	subtree-read-tracking

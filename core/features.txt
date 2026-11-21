@@ -125,6 +125,7 @@ memory-gate	hooks	automatic	-	blocks	general	core/hooks/brain/memory-gate.py	-	-
 issues-gate	hooks	automatic	-	blocks	general	core/hooks/checks/issues-gate.py	-	-	An issue cannot be flipped to FIXED without a matching regression test, so "it works now" stops being a claim and becomes a file
 spec-read-gate	hooks	automatic	-	blocks	general	core/hooks/read/spec-read-gate.py	-	-	Editing a module with a locked contract requires having read that contract this session
 heredoc-gate	hooks	automatic	-	warns	general	core/hooks/checks/heredoc-gate.py	-	-	Warns when a file is written through a bash heredoc, which is the one path that bypasses every edit-time gate
+web-retry	hooks	automatic	-	advises	general	core/hooks/checks/web-retry.py	-	-	A curl or wget that failed hands the agent the next things to try (browser User-Agent, AIA intermediate, mirror), so a first failure stops reading as an unreachable site
 verify-suite	hooks	automatic	-	blocks	general	core/hooks/commit/gates_project.py	-	-	make verify-fast is what the pre-commit gate checks against; without it the gate has nothing to run
 verify-contract	hooks	automatic	-	blocks	general	core/hooks/commit/gates_project.py	core/tools/verify/*	-	A project declaring verify:fast must be green to commit, discovered by convention, so a new project opts in by naming a script rather than by wiring anything
 project-contract	hooks	automatic	-	blocks	general	core/hooks/commit/gates_project.py	-	-	What a code/ project must declare before it can commit: verify contract, goal link, spec, branch shape, .md type and gitlink

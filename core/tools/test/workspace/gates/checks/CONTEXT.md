@@ -15,4 +15,5 @@ Two clusters, and each is the boundary that put it here. The heredoc gate and th
 | [`test_b7_durable_bug_ids.py`](test_b7_durable_bug_ids.py) | [`test_b7_durable_bug_ids.pyi`](test_b7_durable_bug_ids.pyi) | — | B7 regression — a bug id is a durable id, and never borrowed. |
 | [`test_heredoc_gate.py`](test_heredoc_gate.py) | [`test_heredoc_gate.pyi`](test_heredoc_gate.pyi) | `run` | T0 the heredoc gate: a shell write to a workspace file must not walk past the file gates. |
 | [`test_issues_gate_removal.py`](test_issues_gate_removal.py) | [`test_issues_gate_removal.pyi`](test_issues_gate_removal.pyi) | — | Regression — the issues gate reads removals, not only FIXED flips. |
+| [`test_web_retry_gate.py`](test_web_retry_gate.py) | [`test_web_retry_gate.pyi`](test_web_retry_gate.pyi) | `run` | T0 the web-retry gate: a curl/wget that failed hands the agent the next things to try. |
 <!-- routing:end -->

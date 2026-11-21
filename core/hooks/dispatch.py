@@ -142,7 +142,9 @@ def main() -> int:
 	# and ZCode both send hook_event_name; anything that does not is PreToolUse, which is what this
 	# file did before the column existed and what every shim still assumes.
 	event = str(raw.get('hook_event_name') or raw.get('hookEventName') or 'PreToolUse')
-	moment = 'post' if event == 'PostToolUse' else 'pre'
+	# A failed tool call is PostToolUseFailure in Claude Code, and it is still after the call: a
+	# curl that exits 28 is exactly what checks/web-retry.py exists to hear.
+	moment = 'post' if event in ('PostToolUse', 'PostToolUseFailure') else 'pre'
 	cap = capability(tool, tool_input)
 	gates = load_table().get((moment, cap), [])
 	if not gates:
