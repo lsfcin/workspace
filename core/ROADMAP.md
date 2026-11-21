@@ -80,7 +80,7 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 *What* — Shared installation checks; assess local spreadsheet support before adding packages. Refs: refs/REFS.md ([dependency-provenance]). *Why* — Feature switches do not prove installation. *Done when* — Missing dependencies give single diagnosis.
 
 **🟡 [drive-doc-update] Existing document updates — backlog**
-*What* — Assess in-place document replacement preserving identity/history/access, including failures. Consumer: ../academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md [drive-update]. *Why* — Missing drive_core capability reported 19 Oct. *Done when* — Authorized update verifies; norms/edit.md binds originals.
+*What* — Assess in-place document replacement preserving identity/history/access, including failures. Consumer: ../academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md [drive-update]. *Why* — Missing drive_core capability reported 19 Oct. *Done when* — Authorized update verifies; norms/edit.md binds originals. *Open, Lucas decides* (21 Nov, CAPD Nº 22): creating a new file per change is not workable (Lucas). There are two variants. (a) The agent rewrites only a file it created, tagged at creation with `appProperties`, and only while the head revision is still the one it wrote: the agent and Lucas share one Google account, so Drive's user fields cannot tell them apart. (b) `put --replace <id>` uploads a new version on the same id, with per-act authorization.
 
 
 **🟡 Promotion outside session close**
