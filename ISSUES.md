@@ -5,6 +5,8 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **Uma escrita por script num repo livre não tem volta para o agente.** Um `python -c` que grava num repo governado em `develop` limpo só ganha o aviso UNGATED WRITE; o repo fica sujo sem dono, e daí o lock recusa tanto o Edit (mudança de ninguém) quanto o `git checkout` (repo não tomado). Em 21/11 a saída foi regravar o arquivo do HEAD por script de novo. Ou o aviso vira bloqueio quando o alvo é um repo livre, ou o lock aceita o autor da mudança. [src: agent 2026-11-21]
+
 - **ZCode tem headless, mas sem modelo.** `node /opt/ZCode/resources/glm/zcode.cjs --prompt "<texto>"` (CLI 0.16.3, embutido no app; `/usr/bin/zcode` é Electron e mostra a ajuda do node) responde `Model config is missing` porque `~/.zcode/cli/config.json` só tem hooks. Com qualquer flag a mais (`--mode plan`, `--max-turns`) imprime a ajuda. Falta declarar um provider (login Z.AI) antes da linha em `core/workers.txt` (20 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
 
 - **`video --level full` parece cortar a fala.** No reel `wos/thousand-agents` a transcrição para no meio de uma frase ("published how it worked in a blog call") depois de ~120 palavras, enquanto os frames seguem até o fim (relógio na tela 14:00→14:02, ~2 min). Suspeita: `audio/stt.py` rejeita segmentos de baixa confiança e o texto restante some sem aviso. Falta comparar com a duração do áudio (21 Nov). [src: agent 2026-11-21] `b20261121-video-speech-cut`
