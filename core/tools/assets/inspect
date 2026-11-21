@@ -54,13 +54,18 @@ def gen_imgif(path: Path, desc: str) -> str:
     )
 
 
+def comment_lines(path: Path) -> list[str]:
+    """The `#` lines that open the file: its own description, not a header row."""
+    lines = path.read_text(encoding='utf-8', errors='replace').splitlines()
+    return [l for l in lines[:next((i for i, l in enumerate(lines) if not l.startswith('#')), len(lines))]]
+
+
 def gen_csvif(path: Path, desc: str) -> str:
     name = path.name
     sep = '\t' if path.suffix == '.tsv' else ','
     try:
-        with path.open(newline='', encoding='utf-8', errors='replace') as f:
-            reader = csv.DictReader(f, delimiter=sep)
-            rows = list(reader)
+        lines = path.read_text(encoding='utf-8', errors='replace').splitlines()[len(comment_lines(path)):]
+        rows = list(csv.DictReader(lines, delimiter=sep))
         cols = list(rows[0].keys()) if rows else []
         head = rows[:3] if rows else []
         col_lines = "\n".join(f"  - {c}" for c in cols)
@@ -131,6 +136,9 @@ def main() -> int:
         return 0
 
     existing_desc = load_existing_desc(ipath)
+    own = comment_lines(path)[:1] if is_csv else []
+    if own and existing_desc.startswith("TODO"):
+        existing_desc = own[0].lstrip('# ').split(' — ', 1)[-1]
     desc = args.desc if args.desc else existing_desc
 
     content = gen_imgif(path, desc) if is_img else gen_csvif(path, desc)

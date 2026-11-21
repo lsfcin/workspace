@@ -107,3 +107,24 @@ def test_a_claim_on_develop_closes_the_feature_switched_to_never_develop(tmp_pat
 def test_a_session_holding_nothing_closes_quietly():
     done = close('test-roundup-holds-nothing')
     assert done.returncode == 0 and 'holds no repo' in done.stdout
+
+
+def test_periodic_runs_only_for_the_trees_held_and_only_speaks_with_news(tmp_path, capsys):
+    import importlib.machinery
+    import importlib.util
+    loader = importlib.machinery.SourceFileLoader('roundup_script', str(ROUNDUP))
+    module = importlib.util.module_from_spec(importlib.util.spec_from_loader(loader.name, loader))
+    loader.exec_module(module)
+    module.ROOT = tmp_path
+    for tree, said in (('a', 'news'), ('b', ''), ('c', 'never')):
+        (tmp_path / tree).mkdir()
+        (tmp_path / tree / 'job.py').write_text(f'import sys\nprint("{said}", sys.argv[1:]) if "{said}" else None\n',
+                                                encoding='utf-8', newline='\n')
+    (tmp_path / 'core').mkdir()
+    (tmp_path / 'core/periodicos.txt').write_text(
+        '# comment\ntree\tcommand\tdays\n' + ''.join(f'{t}\tjob.py --every {{days}}\t30\n' for t in 'abc'),
+        encoding='utf-8', newline='\n')
+    module.periodic([tmp_path / 'a', tmp_path / 'b'])
+    shown = capsys.readouterr().out
+    assert "periodic: a\nnews ['--every', '30']" in shown
+    assert 'periodic: b' not in shown and 'never' not in shown

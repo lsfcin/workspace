@@ -131,6 +131,7 @@ core/*
 !core/levels.txt
 !core/harnesses.txt
 !core/workers.txt
+!core/periodicos.txt
 !core/agents/
 !core/experiments/
 !core/flows/
