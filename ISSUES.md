@@ -69,7 +69,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`gmail attachments` quebra sem chave da API Anthropic** (13 Nov). `b20261113-gmail-attachments-key`
 
-- **Resposta do painel chega a Lucas sem conferência de domínio**: citou um PDF da UFAPE como da UFRPE (13 Nov). `b20261113-panel-domain-check`
+- **Resposta do painel chega a Lucas sem conferência de domínio**: citou um PDF da UFAPE como da UFRPE (13 Nov; de novo em 21 Nov, a Res. 009/2019). No rito da CAPD, o painel agora recebe os trechos da norma do docs-ufrpe (`academy/administration/processos/progressao.md`). `b20261113-panel-domain-check`
 
 - **Entropia conta `[[14]]` de nota de rodapé como wiki-link quebrado** (docs-ufrpe, 13 Nov). `b20261113-entropy-footnote-wikilink`
 
