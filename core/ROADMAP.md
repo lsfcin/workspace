@@ -6,6 +6,9 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 
 ## Open
 
+**🟡 [shell-write-lock] A shell write takes a free repo** [src: agent 2026-11-22]
+*What* — P+O (Lucas, panel codex): pre-shell, `written_paths` → `lock.verdict`; post-shell, a reached free repo turned dirty is taken under the `_take` flock; holes in `git/SPECS.md`. *Why* — a heredoc dirtied a free `develop`. *Done when* — both arms tested.
+
 **🟢 [graphify-audit] Graphify use and cost — backlog**
 *What* — Assess actual Graphify use, maintenance/context cost and value against current repository navigation. *Why* — Lucas questions whether it earns its overhead (INBOX 31 Oct). *Done when* — Lucas reviews evidence before retention/removal.
 
@@ -196,12 +199,10 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 *What* — Assess assets/inspect --twin combining OCR, descriptions and .imgif/video captions. *Why* — Standalone images lack navigable text (25 Sep). *Done when* — A sibling Markdown is consumed by read gates.
 
 
-**🟢 gdrive download com flag --out e seletor de destino**
-*What* — Add gdrive download --out. *Why* — Downloads need an explicit destination (25 Sep). *Done when* — Selected paths replace mandatory Downloads/workspace-drive output.
+**🟢 gdrive download --out** — explicit destination instead of Downloads (25 Sep).
 
 
-**🟢 lint de contraste WCAG no gslides e substituição de pdftoppm por mutool**
-*What* — Add WCAG contrast lint and replace cropping pdftoppm sampling with mutool draw -w. *Why* — Slide readability (25 Sep). *Done when* — Contrast is diagnosed and previews preserve page bounds.
+**🟢 gslides WCAG contrast lint; mutool draw -w for previews** — pdftoppm crops page bounds (25 Sep).
 
 ## Blocked — waiting on a trigger
 
