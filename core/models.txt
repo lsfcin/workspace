@@ -1,0 +1,21 @@
+# What each model can do, whatever route reaches it: one row per model. Read by core/tools/workers.py, joined to core/workers.txt by `model`.
+#
+# Route facts (the id a CLI resolves, price, quota, CLI traps) live in core/workers.txt, never here.
+# vendor: two models with one vendor are ONE voice in a debate (argon and flash are both google).
+# tools: tools = calls tools in an agent loop; text = answers text only.
+# intel / coding / agentic: ArtificialAnalysis indices, - when unmeasured; bench_date says how old they are.
+# model	vendor	tools	strength	weakness	intel	coding	agentic	bench_date
+gpt-6.1-sol	openai	tools	strongest outside critic	refuses to generate or rank political persuasion	-	-	-	-
+gemini-4-argon	google	tools	strong critic, long context	-	-	-	-	-
+gemini-3.8-flash	google	tools	fast	shallower than argon	-	-	-	-
+deepseek-v4.1-flash	deepseek	tools	answers in seconds	flash model: weaker on deep critique	-	-	-	-
+qwen3.5-9b	alibaba	text	runs offline on this machine	9B: describes, does not judge	-	-	-	-
+claude-opus-5.5	anthropic	tools	the host harness's high level	-	-	-	-	-
+claude-opus-4.8	anthropic	tools	-	-	55.7	74.3	47.2	2026-07
+claude-sonnet-5	anthropic	tools	-	-	53.4	71.5	46.7	2026-07
+glm-5.2	zhipu	tools	agentic winner among the free options	-	51.1	68.8	43.1	2026-07
+deepseek-v4-pro	deepseek	tools	-	-	44.3	59.4	36.4	2026-07
+kimi-k2.6	moonshot	tools	agentic-emphasis alternative	-	44.2	61.8	30.3	2026-07
+deepseek-v4-flash	deepseek	tools	fastest, cheapest	-	40.3	56.2	31.1	2026-07
+claude-haiku-4.5	anthropic	tools	-	premium-level only	29.6	43.9	16.4	2026-07
+nemotron-3-ultra	nvidia	tools	reasoning-heavy fallback for unsolvable high-level cases	-	-	-	-	2026-07

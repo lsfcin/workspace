@@ -3,5 +3,7 @@
 # One line per job: tree (relative to the workspace root) <TAB> command (run inside the tree, `{days}` replaced; a .py runs with this clone's interpreter) <TAB> days.
 # The command keeps its own last-run date, stays silent when nothing changed, and never advances that date on a failure.
 # Its output is printed; it never changes the close's exit code.
+# days 0: a zero-token check with no date of its own, run at every close.
 tree	command	days
 code/docs-ufrpe	.github/scripts/vigiar.py --se-passaram {days}	30
+core	./run tools/panel/ask --check	0

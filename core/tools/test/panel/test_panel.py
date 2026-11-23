@@ -79,6 +79,25 @@ def test_a_binary_off_path_is_found_where_the_vendor_installs_it(tmp_path, monke
     assert workers.find('codex') is None
 
 
+def test_a_worker_whose_id_the_harness_stopped_offering_is_not_live(tmp_path, monkeypatch):
+    # glm, 2026-11-23: the binary answered --help while its id had left `opencode models`.
+    exe = tmp_path / 'opencode'
+    exe.write_text('#!/bin/sh\n[ "$1" = models ] && printf "opencode/kept-free\\nother/x\\n"\nexit 0\n',
+                   encoding='utf-8', newline='\n')
+    exe.chmod(0o755)
+    monkeypatch.setenv('OPENCODE', str(exe))
+    row = lambda i: {'harness': 'opencode', 'id': i}  # noqa: E731
+    offers = {}
+    assert workers.live(row('opencode/kept-free'), offers) == 'ok'
+    assert workers.live(row('opencode/gone-free'), offers) == 'opencode/gone-free no longer offered'
+    assert offers == {'opencode': {'opencode/kept-free', 'other/x'}}
+    codex = tmp_path / 'codex'  # a harness that lists nothing is proven by --help alone
+    codex.write_text('#!/bin/sh\nexit 0\n', encoding='utf-8', newline='\n')
+    codex.chmod(0o755)
+    monkeypatch.setenv('CODEX', str(codex))
+    assert workers.live({'harness': 'codex', 'id': 'anything'}) == 'ok'
+
+
 def test_every_declared_worker_has_a_model_id_and_the_chain_is_ordered():
     ids = workers.models()
     assert all(r['worker'] in ids for r in workers.catalog())

@@ -5,6 +5,9 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **`test_draft_or_red_pushes_the_feature_only` falha sob carga do verify fast**, passa isolado 3/3. [src: agent 2026-11-23]
+- **Teste grava `claude_cg_reminded_test-*` no `core/state/` real** e não limpa. [src: agent 2026-11-23]
+
 - **`close-report` (hook `Stop`) só existe no Claude Code**: os outros shims não têm fim de turno com mensagem só pro usuário. [src: agent 2026-11-23]
 
 - **`mv` de repo governado deixa a trava órfã**: o lock usa o caminho como chave, e a dona só volta por `wos/claim`. Falta um `wos/move`. [src: agent 2026-11-23]
@@ -19,7 +22,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Sessão paralela com outro foco tomou a trava do workspace.** `d0c03695` escreveu no workspace de passagem, criou `feature/core-1121` (3 commits: `periodicos.txt`, roundup) e nunca fechou, travando a sessão que tinha recebido o handoff. Foi preciso `claim`. A trava não percebe que uma escrita de passagem vai prender o repo inteiro (21 Nov; a branch entrou no develop em 23 Nov). [src: agent 2026-11-21] `b20261121-drive-by-lock`
 
-- **ZCode tem headless, mas sem modelo.** `node /opt/ZCode/resources/glm/zcode.cjs --prompt "<texto>"` (CLI 0.16.3, embutido no app; `/usr/bin/zcode` é Electron e mostra a ajuda do node) responde `Model config is missing` porque `~/.zcode/cli/config.json` só tem hooks. Com qualquer flag a mais (`--mode plan`, `--max-turns`) imprime a ajuda. Falta declarar um provider (login Z.AI) antes da linha em `core/workers.txt` (20 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
+- **ZCode tem headless, mas sem modelo.** `node /opt/ZCode/resources/glm/zcode.cjs --prompt "<texto>"` (CLI 0.16.3) responde `Model config is missing`: `~/.zcode/cli/config.json` só tem hooks. Falta declarar um provider (login Z.AI) antes da linha em `core/workers.txt` (20 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
 
 - **`video` não avisa quando a fala sai curta.** Em 21/11 o reel Df96hr1Nu5M saiu com ~120 palavras, cortado em ~40 s. Em 23/11 não se repetiu: 155,7 s de áudio e 524 palavras até o fim, provavelmente um download parcial na primeira vez. O defeito que sobra: `video_media.transcribe()` devolve `""` em qualquer exceção, e ninguém compara o fim do último segmento com a duração do áudio. Uma fala curta passa por inteira (23 Nov). [src: agent 2026-11-21] `b20261121-video-speech-cut`
 

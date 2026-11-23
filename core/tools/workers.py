@@ -215,12 +215,33 @@ def tally() -> dict:
             for w, c in seen.items()}
 
 
-def live(row: dict) -> str:
-    """Zero-token: is the binary there, and does it still answer --help."""
+# The command that lists what a harness offers today, first column = the id it resolves.
+# codex lists nothing: its id is only proven by a call.
+OFFERS = {'agy': ['models'], 'opencode': ['models'], 'ollama': ['list']}
+
+
+def offered(harness: str) -> set | None:
+    """Zero-token: the ids this harness offers right now, or None when it cannot say."""
+    exe = find(harness)
+    if harness not in OFFERS or not exe:
+        return None
+    code, text = run([exe, *OFFERS[harness]], timeout=60)
+    return {line.split()[0] for line in text.splitlines() if line.strip()} if code == 0 else None
+
+
+def live(row: dict, offers: dict | None = None) -> str:
+    """Zero-token: is the binary there, does it answer --help, and does it still offer the id.
+    `offers` caches offered() per harness across rows."""
     if row['harness'] not in ADAPTERS:
         return 'host'
     exe = find(row['harness'])
     if not exe:
         return 'missing'
     code, _ = run([exe, '--help'], timeout=30)
-    return 'ok' if code == 0 else f'--help exit {code}'
+    if code != 0:
+        return f'--help exit {code}'
+    offers = {} if offers is None else offers
+    if row['harness'] not in offers:
+        offers[row['harness']] = offered(row['harness'])
+    have = offers[row['harness']]
+    return 'ok' if have is None or row['id'] in have else f'{row["id"]} no longer offered'
