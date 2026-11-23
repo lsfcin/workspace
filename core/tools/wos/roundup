@@ -119,6 +119,7 @@ def main() -> int:
     held = lock.held_by(args.session) if args.session else []
     if not held:
         print('roundup: this session holds no repo')
+        arm_report(args.session)   # a session that closed earlier, or only read, still gets its report
         return 0
     dirty = {repo: out(repo, 'status', '--porcelain') for repo in held}
     if any(dirty.values()):
