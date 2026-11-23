@@ -1,0 +1,28 @@
+# Usage: core/run tools/wos/take REPO NAME [--session ID] — take a free repo's branch lock on feature/NAME before the first write.
+import argparse
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+sys.path[:0] = [str(ROOT / 'core/hooks/git'), str(ROOT / 'core/hooks')]
+import lock  # noqa: E402
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description='take a free repo on feature/NAME')
+    parser.add_argument('repo')
+    parser.add_argument('name', help='[a-z0-9-]; the ROADMAP or ISSUES id when one fits')
+    parser.add_argument('--session', default=lock.env_session())
+    args = parser.parse_args()
+    repo = lock.repo_of(Path(args.repo).expanduser())
+    if not repo or not args.session:
+        print('take: needs a git repo and a session id', file=sys.stderr)
+        return 64
+    refusal, note = lock.take(repo, args.session, args.name)
+    print(refusal or note or f'take: {repo} is not under the branch lock; nothing to take',
+          file=sys.stderr if refusal else sys.stdout)
+    return 1 if refusal else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

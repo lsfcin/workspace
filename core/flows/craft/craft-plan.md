@@ -74,7 +74,7 @@ verdict: PASS | FAIL
 
 Mechanical grounding: create the branch from the correct base; verify every path in the plan's `files` column exists (or its parent dir does, for new files); verify `test-cmd` actually runs (may be red, must not error out).
 
-**Git flow (enforced).** The first write creates the session's `feature/<topic>-<MMDD>` off `develop` and holds the repo ([`core/hooks/git/SPECS.md`](../../hooks/git/SPECS.md)); an agent never commits on `main`/`develop`. A project with no `develop` is not gated: create it from `main` first.
+**Git flow (enforced).** `core/run tools/wos/take <repo> <name>` creates the session's `feature/<name>` off `develop` and holds the repo, before the first write ([`core/hooks/git/SPECS.md`](../../hooks/git/SPECS.md)); an agent never commits on `main`/`develop`. A project with no `develop` is not gated: create it from `main` first.
 
 ```markdown
 ## Carry

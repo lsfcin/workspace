@@ -177,10 +177,10 @@ def _modes(floor: core.Floor, names: set[str]) -> None:
                         *wanted], check=True)
 
 
-# THE TARGET IS A GOVERNED REPO: the sync's first write takes its branch lock like any other, so a
-# refused commit leaves a branch its session still holds, never one the lock refuses to everyone.
+# THE TARGET IS GOVERNED: the sync takes it as feature/sync, so a refused commit leaves a held branch.
 def _take(floor: core.Floor) -> int:
-    refusal, note = lock.verdict(floor.target / 'sync', lock.env_session())
+    refusal, note = ('', '') if lock.holder(floor.target)[0] == lock.env_session() else \
+        lock.take(floor.target, lock.env_session(), 'sync')
     if refusal or note:
         print(refusal or note)
     return 1 if refusal else 0

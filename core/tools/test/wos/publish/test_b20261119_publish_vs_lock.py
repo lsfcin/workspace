@@ -2,8 +2,8 @@
 #
 # push() used to branch the target itself, after the sync had already dirtied develop. Every refused
 # commit left a feature/sync-* that nobody held, which the lock then refused to everyone: code/wos
-# sat on one for 18 days. Now the sync's first write takes the lock like any other, and a push that
-# lands returns the repo to develop, deletes the branch on both sides and drops the lock.
+# sat on one for 18 days. Now the sync takes the lock as feature/sync before its first byte, and a
+# push that lands returns the repo to develop, deletes the branch on both sides and drops the lock.
 import importlib.machinery
 import importlib.util
 import re
@@ -34,10 +34,9 @@ def target(tmp_path, monkeypatch):
 
 
 def test_the_sync_takes_the_lock_before_its_first_byte(target):
-    assert publish._take(target) == 0
-    branch = run(target.target, 'branch', '--show-current')
-    assert branch.startswith('feature/sync-')
-    assert publish.lock.holder(target.target) == (SESSION, branch)
+    assert publish._take(target) == 0 and publish._take(target) == 0   # a re-run keeps what it holds
+    assert run(target.target, 'branch', '--show-current') == 'feature/sync'
+    assert publish.lock.holder(target.target) == (SESSION, 'feature/sync')
 
 
 def test_a_landed_push_leaves_the_repo_free(target):

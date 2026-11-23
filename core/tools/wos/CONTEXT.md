@@ -27,4 +27,5 @@
 | [`skills/validate.py`](skills/validate.py) | [`skills/validate.pyi`](skills/validate.pyi) | `frontmatter`, `validate_skills`, `validate_flows`, `validate_flow_loops`, `validate_flow_dag` | Frontmatter validation for every layer of the agent library — skills, flows, the flow composition DAG, and agents. The law is core/SCHEMA.md and core/SCHEMA-layers.md; this only enforces it. A LIBRARY, not an entrypoint — core/tools/wos/sync-skills owns the CLI. |
 | [`sync-global-skills`](sync-global-skills) | — | — | link workspace-vendored global skills into $HOME |
 | [`sync-skills`](sync-skills) | — | — | regenerate skill mirrors from core/skills/*.md |
+| [`take`](take) | — | — | take a free repo's branch lock on feature/NAME before the first write. |
 <!-- routing:end -->

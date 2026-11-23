@@ -2,16 +2,16 @@
 # The branch is the lock: one agent session per repo, held by standing on the branch it created.
 #
 # A governed repo (it has `develop`, and its origin is the profile's GitHub owner) is FREE on a
-# shared branch with a clean tree. A session's first write takes it — fetch, pull --ff-only, a new
-# feature/<topic>-<MMDD> and a lock file naming the session, all under one flock — and the close
-# gives it back. Every other session is refused until then; `core/run tools/wos/claim` hands it over
-# on Lucas's word. The rules bind agents only: no session id, no gate (ruled 2026-11-19, Lucas).
+# shared branch with a clean tree. `core/run tools/wos/take <repo> <name>` takes it — fetch, pull
+# --ff-only, a new feature/<name> and a lock file naming the session, all under one flock — and the
+# close gives it back. A write to a free repo is refused until then: the branch says its work, so the
+# session names it (2026-11-23, Lucas). `core/run tools/wos/claim` hands a repo over on Lucas's word.
+# The rules bind agents only: no session id, no gate (ruled 2026-11-19, Lucas).
 # Contract: core/hooks/git/SPECS.md.
 import os
 import re
 import subprocess
 import sys
-from datetime import date
 from pathlib import Path
 
 _HOOKS = Path(__file__).resolve().parents[1]
@@ -20,6 +20,7 @@ import feature_law  # noqa: E402
 from platform_law import locked, rel, session_state  # noqa: E402
 
 SHARED = ('main', 'master', 'develop')
+NAME = re.compile(r'[a-z0-9][a-z0-9-]*')   # an id from ROADMAP or ISSUES fits; a folder does not
 WORKSPACE = _HOOKS.parents[1]
 # The ids an agent's shell exports, so a git hook it spawns knows it is an agent's commit.
 SESSION_ENV = ('CLAUDE_CODE_SESSION_ID', 'CODEX_THREAD_ID', 'CODEX_SESSION_ID', 'CLAUDE_SESSION_ID')
@@ -62,12 +63,12 @@ def lock_file(repo) -> Path:
 def holder(repo) -> tuple:
     """(session, branch) holding `repo`, or ('', '')."""
     path = lock_file(repo)
-    parts = path.read_text(encoding='utf-8').split('\t') if path.is_file() else []
+    parts = path.read_text(encoding='utf-8').rstrip('\n').split('\t') if path.is_file() else []
     return (parts[0], parts[1]) if len(parts) >= 3 else ('', '')
 
 
 def _hold(repo, session: str, branch: str) -> None:
-    lock_file(repo).write_text(f'{session}\t{branch}\t{Path(repo).resolve()}\t{date.today()}\n',
+    lock_file(repo).write_text(f'{session}\t{branch}\t{Path(repo).resolve()}\n',
                                encoding='utf-8', newline='\n')
 
 
@@ -76,7 +77,7 @@ def held_by(session: str) -> list:
     found = []
     for path in lock_file(WORKSPACE).parent.glob('lock_*.txt'):
         try:   # a lock another close is dropping right now is simply not held
-            row = path.read_text(encoding='utf-8').split('\t')
+            row = path.read_text(encoding='utf-8').rstrip('\n').split('\t')
         except OSError:
             continue
         if len(row) >= 3 and row[0] == session:
@@ -90,50 +91,71 @@ def release(repo, session: str) -> None:
             lock_file(repo).unlink(missing_ok=True)
 
 
-def claim(repo, session: str) -> str:
-    """Hand `repo` to `session` on the branch it stands on; returns the previous holder."""
+def _dirty(repo) -> str:
+    return '' if not out(repo, 'status', '--porcelain') else (
+        f'⛔ BRANCH LOCK — {_name(repo)} has uncommitted changes nobody holds.\n'
+        '   They are not this session\'s. Ask Lucas to commit or stash them, then retry.')
+
+
+def _exists(repo, branch: str) -> bool:
+    return any(out(repo, 'rev-parse', '--verify', '-q', ref) for ref in (f'refs/heads/{branch}',
+                                                                          f'refs/remotes/origin/{branch}'))
+
+
+def claim(repo, session: str, name: str = '') -> tuple:
+    """(refusal, previous holder): hand `repo` to `session`, on feature/<name> when named, else on
+    the branch it stands on. Switching needs a clean tree; a branch only origin has is checked out."""
     with locked(lock_file(repo).with_suffix('.flock')):
-        before = holder(repo)[0]
+        before, branch = holder(repo)[0], f'feature/{name}'
+        if name and out(repo, 'branch', '--show-current') != branch:
+            if refusal := _dirty(repo):
+                return refusal, before
+            git(repo, 'fetch', '-q', 'origin')
+            if not _exists(repo, branch):
+                return f'⛔ claim — no branch {branch} in {_name(repo)} or its origin.', before
+            if git(repo, 'switch', '-q', branch).returncode != 0:
+                return f'⛔ claim — could not switch {_name(repo)} to {branch}.', before
         _hold(repo, session, out(repo, 'branch', '--show-current'))
-    return before
+    return '', before
 
 
 def _name(repo) -> str:
     return 'the workspace' if repo == WORKSPACE else rel(repo, WORKSPACE)
 
 
-def _topic(repo, path) -> str:
-    try:
-        first = Path(path).resolve().relative_to(repo).parts[0]
-    except (ValueError, IndexError):
-        first = 'work'
-    return re.sub(r'[^a-z0-9]+', '-', Path(first).stem.lower()).strip('-') or 'work'
-
-
-def _take(repo, session: str, path) -> tuple:
-    """Clean shared branch, nobody holding: pull develop and branch off it."""
-    if out(repo, 'status', '--porcelain'):
-        return (f'⛔ BRANCH LOCK — {_name(repo)} has uncommitted changes nobody holds.\n'
-                '   They are not this session\'s. Ask Lucas to commit or stash them, then retry.'), ''
-    fetched = git(repo, 'fetch', '-q', 'origin').returncode == 0
-    if git(repo, 'switch', '-q', 'develop').returncode != 0 or \
-            (fetched and git(repo, 'merge', '-q', '--ff-only', 'origin/develop').returncode != 0):
-        return (f'⛔ BRANCH LOCK — develop in {_name(repo)} cannot fast-forward to origin.\n'
-                '   It diverged; that is Lucas\'s to settle.'), ''
-    base = f'feature/{_topic(repo, path)}-{date.today():%m%d}'
-    branch, n = base, 1
-    while out(repo, 'rev-parse', '--verify', '-q', f'refs/heads/{branch}'):
-        n += 1
-        branch = f'{base}-{n}'
-    if git(repo, 'switch', '-q', '-c', branch).returncode != 0:
-        return f'⛔ BRANCH LOCK — could not create {branch} in {_name(repo)}.', ''
-    _hold(repo, session, branch)
+def take(repo, session: str, name: str) -> tuple:
+    """(refusal, note): a clean shared branch nobody holds — pull develop, branch feature/<name> off it."""
+    branch = f'feature/{name}'
+    if not session or not feature_law.is_enabled('branch-lock') or not governed(repo):
+        return '', ''
+    if not NAME.fullmatch(name or ''):
+        return f'⛔ take — "{name}" is not a name: [a-z0-9-], an id from ROADMAP or ISSUES when one fits.', ''
+    with locked(lock_file(repo).with_suffix('.flock')):
+        owner, held = holder(repo)
+        head = out(repo, 'branch', '--show-current')
+        if owner == session:
+            return f'⛔ take — you already hold {_name(repo)} on {held}; one session, one branch.', ''
+        if owner or head not in SHARED:
+            return _not_yours(repo, session, owner, held, head), ''
+        if refusal := _dirty(repo):
+            return refusal, ''
+        fetched = git(repo, 'fetch', '-q', 'origin').returncode == 0
+        if _exists(repo, branch):
+            return (f'⛔ take — {branch} already exists in {_name(repo)} or its origin.\n'
+                    f'   Pick another name, or resume it on Lucas\'s word: core/run tools/wos/claim {repo} {name}'), ''
+        if git(repo, 'switch', '-q', 'develop').returncode != 0 or \
+                (fetched and git(repo, 'merge', '-q', '--ff-only', 'origin/develop').returncode != 0):
+            return (f'⛔ BRANCH LOCK — develop in {_name(repo)} cannot fast-forward to origin.\n'
+                    '   It diverged; that is Lucas\'s to settle.'), ''
+        if git(repo, 'switch', '-q', '-c', branch).returncode != 0:
+            return f'⛔ BRANCH LOCK — could not create {branch} in {_name(repo)}.', ''
+        _hold(repo, session, branch)
     return '', (f'[Git] {_name(repo)} is yours on {branch}' + ('' if fetched else ' (offline: not pulled)')
                 + f'. The close merges it into develop. Session: {session}')
 
 
-def verdict(path, session: str, take: bool = True) -> tuple:
-    """(refusal, note) for this session acting on the repo holding `path`."""
+def verdict(path, session: str) -> tuple:
+    """(refusal, note) for this session acting on the repo holding `path`. Never takes a free repo."""
     repo = repo_of(path)
     if not session or not repo or not feature_law.is_enabled('branch-lock') or not governed(repo):
         return '', ''
@@ -148,9 +170,7 @@ def verdict(path, session: str, take: bool = True) -> tuple:
                         f'   git -C {repo} switch {branch}'), ''
             _hold(repo, session, head)   # nobody else can switch a held repo: this was ours
             return '', ''
-        if owner or head not in SHARED:
-            return _not_yours(repo, session, owner, branch, head), ''
-        return _take(repo, session, path) if take else ('', '')
+        return _not_yours(repo, session, owner, branch, head), ''
 
 
 def _not_yours(repo, session: str, owner: str, branch: str, head: str) -> str:
@@ -161,8 +181,8 @@ def _not_yours(repo, session: str, owner: str, branch: str, head: str) -> str:
                 '   Work elsewhere, or wait for its close.\n' + claim_line)
     if head not in SHARED:
         return f'⛔ BRANCH LOCK — {_name(repo)} is on {head or "a detached HEAD"}, held by nobody.\n' + claim_line
-    return (f'⛔ BRANCH LOCK — {_name(repo)} is free: an agent changes it only after taking it.\n'
-            '   Write a file first: the lock creates the feature branch.')
+    return (f'⛔ BRANCH LOCK — {_name(repo)} is free: name the work before changing it.\n'
+            f'   core/run tools/wos/take {repo} <name>   ([a-z0-9-]; the ROADMAP or ISSUES id when one fits)')
 
 
 def change(path, session: str, target: str = '') -> str:
@@ -193,4 +213,4 @@ def check(commit) -> None:
             or not governed(commit.toplevel):
         return
     raise Blocked(f'⛔ BRANCH LOCK — an agent commits on a feature branch, never on {branch}.\n'
-                  '   Write a file first: the lock creates the branch.')
+                  f'   core/run tools/wos/take {commit.toplevel} <name>')

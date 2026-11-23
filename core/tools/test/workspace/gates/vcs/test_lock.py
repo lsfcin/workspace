@@ -25,17 +25,16 @@ def _drop_locks(tmp_path):
             path.unlink(missing_ok=True)
 
 
-def test_a_first_write_takes_a_clean_develop(tmp_path):
+def test_take_branches_a_clean_develop(tmp_path):
     repo = governed_repo(tmp_path)
-    refusal, note = lock.verdict(repo / 'core/x.py', A)
-    branch = run(repo, 'branch', '--show-current')
-    assert not refusal and branch.startswith('feature/core-') and A in note
-    assert lock.holder(repo) == (A, branch) and repo.resolve() in lock.held_by(A)
+    refusal, note = lock.take(repo, A, 'work')
+    assert not refusal and run(repo, 'branch', '--show-current') == 'feature/work' and A in note
+    assert lock.holder(repo) == (A, 'feature/work') and repo.resolve() in lock.held_by(A)
 
 
 def test_another_session_is_refused_until_claim(tmp_path):
     repo = governed_repo(tmp_path)
-    lock.verdict(repo / 'a.md', A)
+    lock.take(repo, A, 'work')
     refusal, _ = lock.verdict(repo / 'a.md', B)
     assert 'held by session' in refusal and f'claim {repo}' in refusal
     lock.claim(repo, B)
@@ -45,7 +44,7 @@ def test_another_session_is_refused_until_claim(tmp_path):
 def test_two_racing_sessions_get_one_lock(tmp_path):
     repo = governed_repo(tmp_path)
     results = {}
-    threads = [threading.Thread(target=lambda s=s: results.update({s: lock.verdict(repo / 'a', s)[0]}))
+    threads = [threading.Thread(target=lambda s=s: results.update({s: lock.take(repo, s, s)[0]}))
                for s in (A, B)]
     for t in threads:
         t.start()
@@ -57,7 +56,7 @@ def test_two_racing_sessions_get_one_lock(tmp_path):
 
 def test_an_own_switch_is_followed_and_a_shared_branch_is_not(tmp_path):
     repo = governed_repo(tmp_path)
-    lock.verdict(repo / 'a', A)
+    lock.take(repo, A, 'work')
     run(repo, 'branch', '-m', 'feature/renamed')
     assert lock.verdict(repo / 'a', A) == ('', '') and lock.holder(repo)[1] == 'feature/renamed'
     run(repo, 'switch', '-q', 'develop')
@@ -67,7 +66,7 @@ def test_an_own_switch_is_followed_and_a_shared_branch_is_not(tmp_path):
 def test_an_unheld_feature_and_stray_dirt_are_refused(tmp_path):
     repo = governed_repo(tmp_path)
     (repo / 'README.md').write_text('someone else\n', encoding='utf-8', newline='\n')
-    assert 'nobody holds' in lock.verdict(repo / 'a', A)[0]
+    assert 'nobody holds' in lock.take(repo, A, 'work')[0]
     run(repo, 'checkout', '-q', '--', '.')
     run(repo, 'switch', '-q', '-c', 'feature/orphan')
     assert 'held by nobody' in lock.verdict(repo / 'a', A)[0]
@@ -92,7 +91,7 @@ def _shell(command, session=A, cwd=None):
                   'tool_input': {'command': command}})
 
 
-def test_a_free_checkout_is_changed_only_by_writing_first(tmp_path):
+def test_a_free_checkout_is_changed_only_after_take(tmp_path):
     """b20261120-shell-branch-unheld: a checkout moved from the shell would be born without an owner.
     Refs and the remote are not the checkout, so a release passes on a free repo (2026-11-23)."""
     repo = governed_repo(tmp_path)
@@ -101,7 +100,7 @@ def test_a_free_checkout_is_changed_only_by_writing_first(tmp_path):
                     f'git -C {repo} branch -m renamed', f'git -C {repo} fetch -u origin develop:develop',
                     f'git -C {repo} push . main:develop', f'git -C {repo} stash', f'git -C {repo} frobnicate'):
         done = _shell(command)
-        assert done.returncode == 2 and 'Write a file first' in done.stderr, command
+        assert done.returncode == 2 and 'wos/take' in done.stderr, command
     for command in (f'git -C {repo} push origin develop:main', f'git -C {repo} fetch origin main:main',
                     f"sh -c 'git -C {repo} tag v1.0 && git -C {repo} push origin v1.0'",
                     f'git -C {repo} branch -d feature/merged', f'git -C {repo} config --get user.name'):
@@ -112,7 +111,7 @@ def test_a_free_checkout_is_changed_only_by_writing_first(tmp_path):
 def test_the_holder_never_leaves_its_feature_by_itself(tmp_path):
     """b20261120-red-close-strands-session: going back after a close is the same refusal as any free repo."""
     repo = governed_repo(tmp_path)
-    lock.verdict(repo / 'a', A)
+    lock.take(repo, A, 'work')
     feature = run(repo, 'branch', '--show-current')
     assert 'close\'s job' in _shell(f'git -C {repo} switch develop').stderr
     assert _shell(f'git -C {repo} switch -c feature/second').returncode == 0
@@ -120,7 +119,7 @@ def test_the_holder_never_leaves_its_feature_by_itself(tmp_path):
     assert 'switch' in lock.verdict(repo / 'a', A)[0]
     assert _shell(f'git -C {repo} switch {feature}').returncode == 0
     lock.release(repo, A)
-    assert 'Write a file first' in _shell(f'git -C {repo} switch {feature}').stderr
+    assert 'wos/take' in _shell(f'git -C {repo} switch {feature}').stderr
 
 
 def test_a_person_commits_on_develop_and_an_agent_cannot(tmp_path):

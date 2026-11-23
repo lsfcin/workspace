@@ -26,7 +26,7 @@ def _drop_locks(tmp_path):
 def test_develop_moved_on_origin_is_merged_before_the_suite_runs(tmp_path):
     session = f'test-merge-result-{tmp_path.name}'
     repo = governed_repo(tmp_path)
-    lock.verdict(repo / 'work.md', session)
+    lock.take(repo, session, 'work')
     (repo / 'verify.py').write_text(SUITE, encoding='utf-8', newline='\n')
     run(repo, 'add', '.')
     run(repo, '-c', 'core.hooksPath=/dev/null', 'commit', '-qm', 'work')

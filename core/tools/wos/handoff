@@ -22,8 +22,8 @@ def taken(target: str) -> int:
     # The repository named here is a hint: a session once branched in the workspace root while the
     # work lived in a nested repository (Lucas, 2026-11-17).
     print(text + '\n\nBEFORE THE FIRST WRITE: decide which repository the next action really edits '
-          '(`git -C <folder> rev-parse --show-toplevel`), whatever this handoff names. '
-          'The first write there takes its lock.')
+          '(`git -C <folder> rev-parse --show-toplevel`), whatever this handoff names, and take it '
+          'named for the work: core/run tools/wos/take <repo> <name>.')
     return 0
 
 

@@ -59,7 +59,7 @@ def integrate(repo: Path, branch: str) -> str:
 
 def close(repo: Path, session: str, draft: bool) -> tuple:
     """(line, code) for one held repo, already known clean."""
-    lock.verdict(repo, session, take=False)   # follow a switch no write has seen yet
+    lock.verdict(repo, session)   # follow a switch no write has seen yet
     name = lock.holder(repo)[1]
     if name in lock.SHARED or out(repo, 'branch', '--show-current') != name:
         # A claim records the branch it found; closing `develop` as a feature deletes it (2026-11-19).

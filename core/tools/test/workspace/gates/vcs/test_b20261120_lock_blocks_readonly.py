@@ -32,7 +32,7 @@ def _shell(command):
 def test_a_read_passes_whoever_holds_the_repo(tmp_path):
     """Listing, a read verb, and prose that quotes git; a body fed to an interpreter is still a command."""
     repo = governed_repo(tmp_path)
-    lock.verdict(repo / 'a', B)
+    lock.take(repo, B, 'work')
     for command in (f'git -C {repo} branch --show-current', f'git -C {repo} merge-base develop develop',
                     f'git -C {repo} status', f'git -C {repo} stash list',
                     f"cat <<'EOF'\ngit -C {repo} commit -m quoted\nEOF"):

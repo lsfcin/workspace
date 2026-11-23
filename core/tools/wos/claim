@@ -1,4 +1,4 @@
-# Usage: core/run tools/wos/claim REPO [--session ID] — hand a repo's branch lock to a session, on Lucas's explicit word only.
+# Usage: core/run tools/wos/claim REPO [NAME] [--session ID] — hand a repo's branch lock to a session, on Lucas's explicit word only.
 import argparse
 import sys
 from pathlib import Path
@@ -11,13 +11,17 @@ import lock  # noqa: E402
 def main() -> int:
     parser = argparse.ArgumentParser(description='hand a repo\'s branch lock to a session')
     parser.add_argument('repo')
+    parser.add_argument('name', nargs='?', default='', help='resume feature/NAME; omitted, the branch in checkout')
     parser.add_argument('--session', default=lock.env_session())
     args = parser.parse_args()
     repo = lock.repo_of(Path(args.repo).expanduser())
     if not repo or not args.session:
         print('claim: needs a git repo and a session id', file=sys.stderr)
         return 64
-    before = lock.claim(repo, args.session)
+    refusal, before = lock.claim(repo, args.session, args.name)
+    if refusal:
+        print(refusal, file=sys.stderr)
+        return 1
     print(f'claim: {repo} on {lock.holder(repo)[1]} now held by {args.session}'
           + (f' (was {before})' if before else ''))
     return 0

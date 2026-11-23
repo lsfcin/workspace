@@ -32,7 +32,7 @@ def held(tmp_path, suite=''):
     One session per case: parallel cases sharing an id would close each other's repos."""
     session = f'test-roundup-{tmp_path.name}'
     repo = governed_repo(tmp_path)
-    lock.verdict(repo / 'work.md', session)
+    lock.take(repo, session, 'work')
     if suite:
         (repo / 'verify.py').write_text(suite, encoding='utf-8', newline='\n')
     (repo / 'work.md').write_text('# Work\n', encoding='utf-8', newline='\n')
