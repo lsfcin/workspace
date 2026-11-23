@@ -33,14 +33,15 @@ You are a SENIOR software architect, your code WILL be evaluated!
 | [`corpora/`](corpora/CONTEXT.md) | Real-time 3D computer vision pipeline — depth, pose, segmentation from webcam |
 | [`cria/`](cria/CONTEXT.md) | Workflow executável de ideação híbrida (motores de criatividade + score de fronteira semântica + kill-tests). Twin de pesquisa: `academy/papers/2027-CHI-cria/`. |
 | [`dobra/`](dobra/CONTEXT.md) | Context folding + small local models: task-tree runner where SLMs do leaf work under folded context. Paper twin: `academy/papers/2027-ICLR-dobra`. |
+| [`docs-ufrpe/`](docs-ufrpe/CONTEXT.md) | Documentos oficiais da UFRPE em Markdown, um lote por vez (o 1º: progressão, promoção e PDA/RDA), cada um com a fonte oficial e a data de captura. |
 | [`flows/`](flows/CONTEXT.md) | Graph-based workflow engine — typed slots, YAML-defined flows, pluggable agents |
 | [`freeai/`](freeai/CONTEXT.md) | Mapa das opções gratuitas para codar com IA — harnesses de CLI e IDE, provedores com camada gratuita e modelos open-weights, em tabelas comparativas com limites reais e links oficiais. |
 | [`gira/`](gira/CONTEXT.md) | Protocolo + plataforma de crédito mútuo local com matching por agentes de IA — motor do núcleo circuito do instituto (Sardex×Mumbuca com clearing multi-hop). Primeira vertical: feira agroecológica (da-feirinha). |
 | [`isoroll-content/`](isoroll-content/CONTEXT.md) | Offline asset generation pipeline for the isoroll Foundry VTT module |
 | [`isoroll-module/`](isoroll-module/CONTEXT.md) | Foundry VTT v14 isometric projection module — TypeScript + Vite + SCSS. |
 | [`laplata/`](laplata/CONTEXT.md) | Mapa vivo dos fluxos de dinheiro no Brasil — pipeline de dados abertos (BCB, IBGE) + visualizações que revelam ralos. Infraestrutura do programa instituto (núcleo 4) e estágio 1 do motor de ideação. |
+| [`montagrade/`](montagrade/CONTEXT.md) | Interactive browser tool for drafting a UFRPE course curriculum grid; LC is the default grid |
 | [`obra/`](obra/CONTEXT.md) | Somar o dinheiro da obra e primar o STT com o vocabulário dela. Dados em `branches/casinhas/`. |
-| [`ppc/`](ppc/CONTEXT.md) | Interactive browser tool for drafting a UFRPE course curriculum grid; LC is the default grid |
 | [`rastro-da-banca/`](rastro-da-banca/CONTEXT.md) | Exemplo excelente dos artefatos tec, flx e exp da disciplina AI4Good: o exemplo oficial do faster-whisper, com entrada e saída trocadas para pedidos de feira, o fluxograma do pedido e os pilotos dos dois experimentos. |
 | [`spacemantics/`](spacemantics/CONTEXT.md) | Verifiable spatial DSL (texpace) + deterministic checker that lift LLM spatial capability across 2D/2.5D/3D/4D |
 | [`voti/`](voti/CONTEXT.md) | Political alignment tool comparing user answers to real deputy voting records — ARCHIVED as a spec |
