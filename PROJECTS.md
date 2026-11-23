@@ -11,7 +11,6 @@ The table is kept by hand: a project joins with its `.gitignore` line, in the sa
 | Path | Remote | Drive |
 |------|--------|-------|
 | `academy/administration` | [github](https://github.com/lsfcin/academy-administration) | — |
-| `academy/administration/docs-ufrpe` | — | — |
 | `academy/cv` | [github](https://github.com/lsfcin/academy-cv) | — |
 | `academy/lab` | [github](https://github.com/lsfcin/academy-lab) | — |
 | `academy/papers/2026-JBCS-relativistic_raytracer` | [Overleaf](https://git.overleaf.com/6a06aab5ad89bc3e2628f977) | — |
@@ -35,6 +34,7 @@ The table is kept by hand: a project joins with its `.gitignore` line, in the sa
 | `code/corpora` | [github](https://github.com/lsfcin/corpora) | — |
 | `code/cria` | [github](https://github.com/lsfcin/cria) | — |
 | `code/dobra` | [github](https://github.com/lsfcin/dobra) | — |
+| `code/docs-ufrpe` | [github](https://github.com/lsfcin/docs-ufrpe) | — |
 | `code/flows` | [github](https://github.com/lsfcin/flows) | — |
 | `code/freeai` | [github](https://github.com/lsfcin/freeai) | — |
 | `code/futebots` | — | — |
@@ -43,8 +43,8 @@ The table is kept by hand: a project joins with its `.gitignore` line, in the sa
 | `code/isoroll-content` | [github](https://github.com/lsfcin/isoroll-content) | — |
 | `code/isoroll-module` | [github](https://github.com/lsfcin/isoroll) | — |
 | `code/laplata` | [github](https://github.com/lsfcin/laplata) | — |
-| `code/obra` | [github](https://github.com/lsfcin/obra) | — |
 | `code/montagrade` | [github](https://github.com/lsfcin/montagrade) | — |
+| `code/obra` | [github](https://github.com/lsfcin/obra) | — |
 | `code/shortvid` | — | — |
 | `code/spacemantics` | [github](https://github.com/lsfcin/spacemantics) | — |
 | `code/statem` | — | — |

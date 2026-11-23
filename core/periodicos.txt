@@ -4,4 +4,4 @@
 # The command keeps its own last-run date, stays silent when nothing changed, and never advances that date on a failure.
 # Its output is printed; it never changes the close's exit code.
 tree	command	days
-academy/administration/docs-ufrpe	.github/scripts/vigiar.py --se-passaram {days}	30
+code/docs-ufrpe	.github/scripts/vigiar.py --se-passaram {days}	30

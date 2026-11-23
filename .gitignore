@@ -164,7 +164,6 @@ datasets/relativistic_raytracer/*
 # tracked nothing; the file simply stated both answers. Deleted 2026-09-01.
 # gitignore_heal.py will not re-add them: it skips any subdir holding a `.git`.
 academy/administration
-academy/administration/docs-ufrpe
 brain
 academy/cv
 academy/lab
@@ -189,6 +188,7 @@ code/apptime
 code/corpora
 code/cria
 code/dobra
+code/docs-ufrpe
 code/flows
 code/freeai
 code/futebots
@@ -197,8 +197,8 @@ code/isometric-perspective
 code/isoroll-content
 code/isoroll-module
 code/laplata
-code/obra
 code/montagrade
+code/obra
 code/shortvid
 code/spacemantics
 code/voti
