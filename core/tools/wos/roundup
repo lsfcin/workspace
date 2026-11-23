@@ -101,7 +101,8 @@ def periodic(held: list) -> None:
             if l.strip() and not l.startswith('#')] if table.exists() else []
     for tree, command, days in (r for r in rows if len(r) == 3 and r[0] != 'tree'):
         where = (ROOT / tree).resolve()
-        if not any(where == Path(r).resolve() or Path(r).resolve() in where.parents for r in held):
+        # The repo that owns the tree, not any ancestor: holding the root never runs a nested repo's job.
+        if (lock.repo_of(where) or where) not in {Path(r).resolve() for r in held}:
             continue
         argv = shlex.split(command.replace('{days}', days.strip()))
         argv = [sys.executable] + argv if argv[0].endswith('.py') else argv

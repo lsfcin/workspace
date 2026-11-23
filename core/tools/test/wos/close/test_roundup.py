@@ -116,15 +116,17 @@ def test_periodic_runs_only_for_the_trees_held_and_only_speaks_with_news(tmp_pat
     module = importlib.util.module_from_spec(importlib.util.spec_from_loader(loader.name, loader))
     loader.exec_module(module)
     module.ROOT = tmp_path
-    for tree, said in (('a', 'news'), ('b', ''), ('c', 'never')):
+    for tree, said in (('a', 'news'), ('b', ''), ('c', 'never'), ('d', 'nested')):
         (tmp_path / tree).mkdir()
         (tmp_path / tree / 'job.py').write_text(f'import sys\nprint("{said}", sys.argv[1:]) if "{said}" else None\n',
                                                 encoding='utf-8', newline='\n')
+    run(tmp_path / 'd', 'init', '-q')
     (tmp_path / 'core').mkdir()
     (tmp_path / 'core/periodicos.txt').write_text(
-        '# comment\ntree\tcommand\tdays\n' + ''.join(f'{t}\tjob.py --every {{days}}\t30\n' for t in 'abc'),
+        '# comment\ntree\tcommand\tdays\n' + ''.join(f'{t}\tjob.py --every {{days}}\t30\n' for t in 'abcd'),
         encoding='utf-8', newline='\n')
-    module.periodic([tmp_path / 'a', tmp_path / 'b'])
+    # Holding the root (an ancestor) runs neither a plain folder's job nor a nested repo's.
+    module.periodic([tmp_path / 'a', tmp_path / 'b', tmp_path])
     shown = capsys.readouterr().out
     assert "periodic: a\nnews ['--every', '30']" in shown
-    assert 'periodic: b' not in shown and 'never' not in shown
+    assert 'periodic: b' not in shown and 'never' not in shown and 'nested' not in shown
