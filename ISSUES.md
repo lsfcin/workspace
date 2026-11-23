@@ -5,9 +5,11 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **Os workers do painel não leem a web.** Em 23/11, Codex (`Internal Error`) e argon (só `search_web`, sem rede) falharam ao buscar uma página pública. Declarar em `core/workers.txt` ou dar rede ao `panel/ask`. [src: agent 2026-11-23]
+
 - **Uma escrita por script num repo livre não tem volta para o agente.** Um `python -c` que grava num repo governado em `develop` limpo só ganha o aviso UNGATED WRITE; o repo fica sujo sem dono, e daí o lock recusa tanto o Edit (mudança de ninguém) quanto o `git checkout` (repo não tomado). Em 21/11 a saída foi regravar o arquivo do HEAD por script de novo. Ou o aviso vira bloqueio quando o alvo é um repo livre, ou o lock aceita o autor da mudança. [src: agent 2026-11-21]
 
-- **Nome de branch não é nome de feature.** `core/hooks/git/lock.py:123` monta `feature/<árvore>-<MMDD>` (ex.: `feature/core-1121`) a partir do primeiro arquivo escrito, porque na primeira escrita a sessão ainda não declarou o que vai fazer. Lucas: "isso não é nome de feature". Falta decidir de onde vem o nome (renomear no primeiro commit, pelo tipo/escopo da mensagem?) (21 Nov). [src: agent 2026-11-21] `b20261121-branch-name-not-feature`
+- **Nome de branch não é nome de feature.** `lock.py` monta `feature/<árvore>-<MMDD>` a partir do 1º arquivo escrito (Lucas: "isso não é nome de feature"). Decidido em 23/11 (Lucas, painel), trabalho em core/ROADMAP.md [branch-name]: `feature/<nome>`, com o id do ROADMAP/ISSUES quando houver, sem data, contador nem pasta (dígitos podem). A 1ª escrita num repo livre é recusada até `wos/take <repo> <nome>`, que faz o `_take` sob o mesmo flock; nome repetido (local ou origin) é recusado. `claim` passa a trocar para a branch que retoma. [src: agent 2026-11-21] `b20261121-branch-name-not-feature`
 
 - **Sessão paralela com outro foco tomou a trava do workspace.** `d0c03695` escreveu no workspace de passagem, criou `feature/core-1121` (3 commits: `periodicos.txt`, roundup) e nunca fechou, travando a sessão que tinha recebido o handoff. Foi preciso `claim`. A trava não percebe que uma escrita de passagem vai prender o repo inteiro (21 Nov; a branch entrou no develop em 23 Nov). [src: agent 2026-11-21] `b20261121-drive-by-lock`
 

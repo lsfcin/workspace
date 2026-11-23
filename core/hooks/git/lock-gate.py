@@ -2,8 +2,11 @@
 # PreToolUse write and shell — the branch lock, asked at every write and every git command that
 # changes a repo. A write takes a free repo; a git command never does. Rules: git/lock.py.
 #
-# ONE QUESTION PER GIT CALL: does it change the repo? A read always passes; a change passes only for
-# the holder (lock.change). Every `git` in the command is asked, after heredoc prose is dropped.
+# ONE QUESTION PER GIT CALL: does it touch the checkout — HEAD, the index or the files? The lock owns
+# the checkout, the one thing two sessions on one clone can clobber. A read, or a call that moves only
+# refs or the remote, passes for anyone; one that touches the checkout passes only for the holder
+# (lock.change). A verb not listed here touches it. Every `git` in the command is asked, after heredoc
+# prose is dropped.
 #
 # FAILS OPEN on a crash only: a gate that dies must never cost a session its edits (Lucas,
 # 2026-11-09). A refusal is never an error.
@@ -17,13 +20,15 @@ from hook_input import capability, command_only, parse_stdin  # noqa: E402
 
 GIT = re.compile(r'\bgit\b([^;&|\n)`]*)')
 CD = re.compile(r'(?:^|[;&|]\s*)cd\s+([^\s;&|]+)')
-CHANGES = {'commit', 'merge', 'rebase', 'reset', 'cherry-pick', 'revert', 'switch', 'checkout',
-           'restore', 'push', 'pull', 'stash', 'branch', 'tag', 'am'}
-# `git branch` lists unless it is told to create, delete, rename, copy or re-point one.
-LISTS = {'--show-current', '--list', '-l', '-a', '--all', '-r', '--remotes', '-v', '-vv', '--verbose',
-         '--merged', '--no-merged', '--contains', '--no-contains'}
-BRANCH_WRITES = {'-d', '-D', '--delete', '-m', '-M', '--move', '-c', '-C', '--copy', '-f', '--force',
-                 '-u', '--set-upstream-to', '--unset-upstream', '--edit-description'}
+READS = {'status', 'log', 'diff', 'show', 'rev-parse', 'rev-list', 'ls-files', 'ls-tree', 'ls-remote',
+         'cat-file', 'blame', 'grep', 'describe', 'shortlog', 'for-each-ref', 'show-ref', 'merge-base',
+         'reflog', 'name-rev', 'check-ignore', 'show-branch', 'cherry', 'range-diff', 'diff-tree'}
+# Verbs that read only in these forms, named by their first argument.
+READ_FORMS = {'stash': {'list', 'show'}, 'remote': {'-v', '--verbose', 'show', 'get-url'},
+              'config': {'--get', '--get-all', '--get-regexp', '--list', '-l', 'get', 'list'}}
+# Verbs that move only refs or the remote, except these forms, which reach HEAD (git refuses the rest
+# on the branch in checkout). `push .` is a push into this very clone.
+REFS = {'fetch': {'--update-head-ok', '-u'}, 'push': {'.'}, 'tag': set(), 'branch': {'-m', '-M', '--move'}}
 
 
 def calls(command: str, cwd: str):
@@ -42,15 +47,12 @@ def calls(command: str, cwd: str):
 
 
 def changes(verb: str, args: list) -> bool:
-    if verb == 'branch':
-        flags = set(args)
-        positional = [a for a in args if not a.startswith('-')]
-        return bool(flags & BRANCH_WRITES) or (bool(positional) and not flags & LISTS)
-    if verb == 'stash':
-        return not args or args[0] not in ('list', 'show')
-    if verb == 'tag':
-        return bool([a for a in args if not a.startswith('-')]) and not {'-l', '--list'} & set(args)
-    return verb in CHANGES
+    """Does this call touch the checkout? A verb listed nowhere does."""
+    if verb in REFS:
+        return bool(REFS[verb] & set(args))
+    if verb in READ_FORMS:
+        return not args or args[0] not in READ_FORMS[verb]
+    return verb not in READS
 
 
 def target(verb: str, args: list) -> str:
@@ -82,7 +84,8 @@ def main() -> int:
     except Exception:   # noqa: BLE001 — fail open, see the head
         return 0
     if refusal:
-        print(refusal, file=sys.stderr)
+        print(f'{refusal}\n   Refused: git {verb} touches the checkout; a read missing from READS in lock-gate.py '
+              'is one line there.' if cap == 'shell' else refusal, file=sys.stderr)
         return 2
     if note:
         print(json.dumps({'hookSpecificOutput': {'hookEventName': 'PreToolUse', 'additionalContext': note}}))

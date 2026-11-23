@@ -92,14 +92,21 @@ def _shell(command, session=A, cwd=None):
                   'tool_input': {'command': command}})
 
 
-def test_a_free_repo_is_changed_only_by_writing_first(tmp_path):
-    """b20261120-shell-branch-unheld: a branch made from the shell would be born without an owner."""
+def test_a_free_checkout_is_changed_only_by_writing_first(tmp_path):
+    """b20261120-shell-branch-unheld: a checkout moved from the shell would be born without an owner.
+    Refs and the remote are not the checkout, so a release passes on a free repo (2026-11-23)."""
     repo = governed_repo(tmp_path)
     for command in (f'cd {repo} && git commit -qm x', f'git -C {repo} switch -c feature/mine',
-                    f"sh -c 'git -C {repo} push'", f'git -C {repo} branch feature/mine'):
+                    f'git -C {repo} clean -fdq', f'git -C {repo} add .', f'git -C {repo} update-ref HEAD HEAD~',
+                    f'git -C {repo} branch -m renamed', f'git -C {repo} fetch -u origin develop:develop',
+                    f'git -C {repo} push . main:develop', f'git -C {repo} stash', f'git -C {repo} frobnicate'):
         done = _shell(command)
         assert done.returncode == 2 and 'Write a file first' in done.stderr, command
-    assert not run(repo, 'branch', '--list', 'feature/*')
+    for command in (f'git -C {repo} push origin develop:main', f'git -C {repo} fetch origin main:main',
+                    f"sh -c 'git -C {repo} tag v1.0 && git -C {repo} push origin v1.0'",
+                    f'git -C {repo} branch -d feature/merged', f'git -C {repo} config --get user.name'):
+        assert _shell(command).returncode == 0, command
+    assert not lock.holder(repo)[0]
 
 
 def test_the_holder_never_leaves_its_feature_by_itself(tmp_path):

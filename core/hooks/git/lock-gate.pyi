@@ -2,9 +2,9 @@ from _typeshed import Incomplete
 
 GIT: Incomplete
 CD: Incomplete
-CHANGES: Incomplete
-LISTS: Incomplete
-BRANCH_WRITES: Incomplete
+READS: Incomplete
+READ_FORMS: Incomplete
+REFS: Incomplete
 
 def calls(command: str, cwd: str): ...
 def changes(verb: str, args: list) -> bool: ...
