@@ -132,7 +132,19 @@ def main() -> int:
         line, failed = close(repo, args.session, args.draft)
         print(line)
         code = code or failed
+    arm_report(args.session)
     return code
+
+
+def arm_report(session: str) -> None:
+    """The close report reaches Lucas from the end-of-turn hook, never this output (close/report.py)."""
+    sys.path.insert(0, str(ROOT / 'core/tools/wos/close'))
+    import report
+    from handoff import identity
+    try:
+        report.arm(*identity(session))
+    except (ValueError, OSError):
+        pass   # best-effort: a close never fails because its report could not be armed
 
 
 if __name__ == '__main__':

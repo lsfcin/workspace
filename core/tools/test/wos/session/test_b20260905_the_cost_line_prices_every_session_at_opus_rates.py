@@ -108,3 +108,14 @@ def test_the_roundup_line_says_unpriced_instead_of_naming_a_model(tmp_path) -> N
 	assert UNPRICED in printed, printed
 	assert 'opus-5 100%' not in printed, printed
 	assert '$' not in printed, f'an unpriceable session must not print dollars: {printed}'
+
+
+def test_the_current_family_and_dated_snapshots_are_priced() -> None:
+	"""Every claude session from the 5.5 launch to 2026-11-23 printed `unpriced`: the table stopped
+	at opus-5. A dated stamp prices as its model, and cache reads use the model's own rate."""
+	from session_cost import priced
+	for model in ('claude-opus-5-5', 'claude-sonnet-5-5', 'claude-haiku-5-5', 'claude-fable-5-2',
+	              'claude-haiku-4-5-20251001'):
+		assert priced(model), model
+	read = turn_components('claude-opus-5-5', {'cache_read_input_tokens': 1_000_000})['cache_read']
+	assert read == 0.20, read

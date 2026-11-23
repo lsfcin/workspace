@@ -51,7 +51,12 @@ def main() -> int:
             if args.repo:
                 key = key_of(ROOT, repository(args.repo.resolve()) or args.repo)
                 info = {**info, 'key': key, 'path': str(path_for(ROOT, key))}
-            write(Path(info['path']), agent, session, args.write.read_text(encoding='utf-8'))
+            text = args.write.read_text(encoding='utf-8')
+            # The taker sees every repository this session touched, even when one block bundles them.
+            others = [r['key'] for r in info['repos'] if r['lines'] and r['key'] != info['key']]
+            if others:
+                text = text.rstrip('\n') + '\n\nEsta sessão também mexeu em: ' + ', '.join(others) + '\n'
+            write(Path(info['path']), agent, session, text)
         info['resume'] = f"core/run tools/wos/handoff --take {info['key']}"
         print(json.dumps(info) if args.json else f"{info['path']}\n{info['resume']}")
     except (ValueError, OSError) as error:

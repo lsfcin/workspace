@@ -5,13 +5,15 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **`close-report` (hook `Stop`) só existe no Claude Code**: os outros shims não têm fim de turno com mensagem só pro usuário. [src: agent 2026-11-23]
+
 - **`mv` de repo governado deixa a trava órfã**: o lock usa o caminho como chave, e a dona só volta por `wos/claim`. Falta um `wos/move`. [src: agent 2026-11-23]
 
 - **`context_synchronizer.py code` gravou `code/wos/CONTEXT.md`** no clone público. Pular os `WORKSPACE_MARKERS`, como `_under_code`. [src: agent 2026-11-23]
 
 - **Os workers do painel não leem a web.** Em 23/11, Codex (`Internal Error`) e argon (só `search_web`, sem rede) falharam ao buscar uma página pública. Declarar em `core/workers.txt` ou dar rede ao `panel/ask`. [src: agent 2026-11-23]
 
-- **O lock-gate lê `git` dentro do corpo de um heredoc Python como chamada git.** `command_only` mantém o corpo de um interpretador, e o `GIT` acha `'git {verb}'` numa string: em 23/11 um script de patch foi recusado como "git {verb} touches the checkout". Ler só as linhas do shell, ou só chamadas dentro de `subprocess`. [src: agent 2026-11-23]
+- **O lock-gate lê `git` dentro do corpo de um heredoc Python como chamada git.** `command_only` mantém o corpo, e `GIT` acha `'git {verb}'` numa string (23/11). Ler só as linhas do shell. [src: agent 2026-11-23]
 
 - **Assimetria: o Edit num caminho ignorado de um repo livre é recusado; a escrita por shell no mesmo caminho passa.** O shell isenta o que o git ignora (não suja a árvore, não prende o repo); o `lock.verdict` do Edit não olha isso. Decidir se o Edit ganha a mesma isenção. [src: agent 2026-11-23]
 

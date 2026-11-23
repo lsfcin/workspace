@@ -78,6 +78,7 @@ toggle	compass-reminder	on
 toggle	publish-reminder	on
 toggle	disk-reminder	on
 toggle	pr-reminder	on
+toggle	close-report	on
 toggle	bot	on
 toggle	notify	off
 toggle	context-meter	on

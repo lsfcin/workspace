@@ -15,4 +15,5 @@ measuring it after the first write reads the close's own change as pre-existing 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`handoff.py`](handoff.py) | [`handoff.pyi`](handoff.pyi) | `name_of`, `identity`, `records`, `started`, `transcript` | Repository handoffs: names and edit counts come from local records, never a model. |
+| [`report.py`](report.py) | [`report.pyi`](report.pyi) | `marker`, `arm`, `missing`, `render`, `deliver` | The close report: what a session cost and what it left, shown to Lucas and never to the model. |
 <!-- routing:end -->

@@ -6,6 +6,7 @@
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`close-report.py`](close-report.py) | [`close-report.pyi`](close-report.pyi) | `main` | Stop — hand Lucas the close report that roundup armed, on the one channel the model never reads. |
 | [`context-meter.py`](context-meter.py) | [`context-meter.pyi`](context-meter.pyi) | `state_file`, `announced`, `mark`, `compacted_state_file`, `announced_compaction` | UserPromptSubmit — say what the next turn costs, once per threshold crossed. |
 | [`downloads.py`](downloads.py) | [`downloads.pyi`](downloads.pyi) | `folders`, `recent`, `report`, `main` | UserPromptSubmit — when the prompt says "baixei", name the files that just landed. |
 | [`mirror-heal.py`](mirror-heal.py) | [`mirror-heal.pyi`](mirror-heal.pyi) | `heal_skills`, `report_permissions`, `main` | SessionStart — regenerate the generated content that a `git pull` cannot bring with it, and report the generated content that must NOT regenerate itself. |

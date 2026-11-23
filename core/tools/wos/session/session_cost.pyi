@@ -1,6 +1,9 @@
 from _typeshed import Incomplete
 
 RATES: Incomplete
+
+def rate_key(model: str) -> str: ...
+
 NATIVE_RATES: Incomplete
 COMPONENTS: Incomplete
 UNPRICED: str

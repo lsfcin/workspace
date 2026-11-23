@@ -74,13 +74,16 @@ def brief(rows) -> None:
 		total += cost
 		out += comp['output']
 	priced_turns = len(rows) - unpriced
+	# Name the stamps we cannot price, so the line says which row session_cost.RATES lacks.
+	missing = sorted({row[2][len(UNPRICED):].strip(' ()') for row in rows if row[2].startswith(UNPRICED)} - {''})
+	fix = f' ({", ".join(missing)}: add to core/tools/wos/session/session_cost.py RATES)' if missing else ''
 	if not priced_turns or not total:
-		print(f'cost: {len(rows):,} turns · unpriced — no turn carries a rate we hold')
+		print(f'cost: {len(rows):,} turns · unpriced — no turn carries a rate we hold{fix}')
 		return
 	_mean, attr_share, multiplier = self_authored(rows)
 	split = ' · '.join(f'{model.replace("claude-", "")} {cost / total:.0%}'
 	                   for model, cost in sorted(by_model.items(), key=lambda kv: -kv[1]))
-	tail = f' · {unpriced:,} of {len(rows):,} turns unpriced' if unpriced else ''
+	tail = f' · {unpriced:,} of {len(rows):,} turns unpriced{fix}' if unpriced else ''
 	print(f'cost: {priced_turns:,} turns · ${total / priced_turns:.3f}/turn · {split}{tail}')
 	print(f'output: {out / total:.0%} of the bill at list price, {attr_share:.0%} once you count '
 	      f'every later turn re-reading it ({multiplier:.1f}x what it looks like)')
