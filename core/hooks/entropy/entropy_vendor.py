@@ -44,6 +44,7 @@ def vendor_directive_hits(files: list, exempt: set) -> list:
                     f'{path}: names a model where it should name a level (line {number}).\n'
                     f'   `model: {match.group(1).strip()}` → `level: low|medium|high`. Which KIND\n'
                     f'   of work earns which level is core/levels.txt; which model FILLS a level is\n'
-                    f'   data — core/tools/wos/levels per harness, core/flows/craft/routing.md per\n'
-                    f'   provider.')
+                    f'   data — core/tools/wos/levels per harness, core/workers.txt per outside\n'
+                    f'   worker, core/flows/craft/routing.md per provider; what a model can do is\n'
+                    f'   core/models.txt.')
     return hits

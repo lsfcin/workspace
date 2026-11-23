@@ -5,16 +5,14 @@
 # was found 2026-11-20 (describe's agy skipped the app-path fallback). core/tools/SPECS.md: a module
 # imported by more than one family lives at this root.
 #
-# THE CATALOG IS DATA, THE IDS ARE DATA. Who exists, in which order the panel tries them, and what
-# each is good for is core/workers.txt; which model id a worker runs is core/tools/wos/levels
-# (MODELS). Nothing below names a model.
+# THE CATALOG IS DATA, THE IDS ARE DATA. Who exists, which id its harness resolves and in which
+# order the panel tries them is core/workers.txt; what each model is good for is core/models.txt,
+# joined by `model`. Nothing below names a model.
 #
 # A MISS IS CLASSIFIED, NEVER GUESSED. missing / no-login / quota / timeout / unknown / ok. An error
 # matching no known mark is `unknown`, not `quota`: calling a broken call a spent quota hides it.
 from __future__ import annotations
 
-import importlib.machinery
-import importlib.util
 import os
 import pathlib
 import shutil
@@ -27,8 +25,10 @@ from typing import NamedTuple
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 CATALOG = ROOT / 'core' / 'workers.txt'
+MODELS = ROOT / 'core' / 'models.txt'
 LOG = ROOT / 'core' / 'state' / 'workers.tsv'
 TIMEOUT = 900
+COOLDOWN_H = 6  # a quota miss keeps a worker out of the chain this long, unless an ok call clears it
 HOME = pathlib.Path.home()
 # $ENV, then PATH, then where the vendor's app installs it.
 PLACES = {
@@ -53,27 +53,46 @@ class Result(NamedTuple):
     seconds: float
 
 
-def catalog() -> list[dict]:
-    """core/workers.txt as rows, in file order."""
+def table(path: pathlib.Path) -> list[dict]:
+    """A hand-written TSV whose header is the last `# a\tb` comment line, as rows in file order."""
     rows, head = [], None
-    for line in CATALOG.read_text(encoding='utf-8').splitlines():
-        if line.startswith('# worker\t'):
+    for line in path.read_text(encoding='utf-8').splitlines():
+        if line.startswith('# ') and '\t' in line:
             head = line[2:].split('\t')
         elif line.strip() and not line.startswith('#') and head:
             rows.append(dict(zip(head, line.split('\t'))))
     return rows
 
 
+def catalog() -> list[dict]:
+    """core/workers.txt in file order, each row joined to its model's row in core/models.txt."""
+    facts = {m['model']: m for m in table(MODELS)}
+    return [{**facts.get(r['model'], {}), **r} for r in table(CATALOG)]
+
+
 def models() -> dict:
-    loader = importlib.machinery.SourceFileLoader('wos_levels', str(ROOT / 'core/tools/wos/levels'))
-    module = importlib.util.module_from_spec(importlib.util.spec_from_loader('wos_levels', loader))
-    loader.exec_module(module)
-    return module.MODELS
+    """{worker: the id its harness resolves}."""
+    return {r['worker']: r['id'] for r in table(CATALOG)}
 
 
-def chain() -> list[dict]:
-    """The default panel chain: every row with a position, in that order."""
-    return sorted((r for r in catalog() if r['chain'] != '-'), key=lambda r: int(r['chain']))
+def cooling(worker: str, now: str = '') -> str:
+    """When the worker's last logged call was a quota miss under COOLDOWN_H before `now`, its time; else ''."""
+    last = ''
+    if LOG.is_file():
+        for line in LOG.read_text(encoding='utf-8').splitlines():
+            f = line.split('\t')
+            if len(f) >= 5 and f[1] == worker:
+                last = f[0] if f[4] == 'quota' else ''
+    stamp = lambda s: time.mktime(time.strptime(s, '%Y-%m-%dT%H:%M'))  # noqa: E731
+    if last and stamp(now or time.strftime('%Y-%m-%dT%H:%M')) - stamp(last) < COOLDOWN_H * 3600:
+        return last
+    return ''
+
+
+def chain(now: str = '') -> list[dict]:
+    """The default panel chain: every row with a position, in that order, minus the spent ones."""
+    return sorted((r for r in catalog() if r['chain'] != '-' and r['depleted'] == '-' and not cooling(r['worker'], now)),
+                  key=lambda r: int(r['chain']))
 
 
 def find(harness: str) -> str | None:
@@ -157,7 +176,7 @@ ADAPTERS = {'codex': _codex, 'agy': _agy, 'opencode': _opencode, 'ollama': _olla
 
 def call(worker: str, prompt: str, role: str = '-', cwd: str | None = None) -> Result:
     row = next(r for r in catalog() if r['worker'] == worker)
-    model = models()[worker]
+    model = row['id']
     start = time.monotonic()
     exe = find(row['harness'])
     if row['harness'] not in ADAPTERS:

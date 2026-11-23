@@ -64,23 +64,23 @@ def debate(prompt: str, rows=None, caller=workers.call):
 
 def listing() -> int:
     stats = workers.tally()
-    ids = workers.models()
-    print('worker\tharness\tvendor\tlevel\tchain\tmodel\tlive\tcalls\tok\tmedian_s\tcost\tcall_verified\tstrength\tweakness')
+    print('worker\tharness\tvendor\tlevel\tchain\tid\tquota\tlive\tcalls\tok\tmedian_s\tcost\tcall_verified\tstrength\tweakness')
     for r in workers.catalog():
         n, ok, med = stats.get(r['worker'], (0, 0.0, 0))
-        print('\t'.join([r['worker'], r['harness'], r['vendor'], r['level'], r['chain'],
-                         ids.get(r['worker'], '?'), workers.live(r), str(n),
+        quota = f'depleted {r["depleted"]}' if r['depleted'] != '-' else (
+            f'cooling since {since}' if (since := workers.cooling(r['worker'])) else '-')
+        print('\t'.join([r['worker'], r['harness'], r.get('vendor', '?'), r['level'], r['chain'],
+                         r['id'], quota, workers.live(r), str(n),
                          f'{ok:.0%}' if n else '-', f'{med:g}' if n else '-', r['cost'],
-                         r['call_verified'], r['strength'], r['weakness']]))
+                         r['call_verified'], r.get('strength', '?'), r.get('weakness', '?')]))
     return 0
 
 
 def check() -> int:
-    ids = workers.models()
     bad = [f'{r["worker"]}: {state}' for r in workers.catalog()
            if (state := workers.live(r)) not in ('ok', 'host')]
-    bad += [f'{r["worker"]}: no model id in core/tools/wos/levels MODELS'
-            for r in workers.catalog() if r['worker'] not in ids]
+    bad += [f'{r["worker"]}: model {r["model"]} is not in core/models.txt'
+            for r in workers.catalog() if 'vendor' not in r]
     print('\n'.join(bad) if bad else f'workers: {len(workers.catalog())} declared, every binary answers --help',
           file=sys.stderr if bad else sys.stdout)
     return 1 if bad else 0

@@ -36,18 +36,7 @@ CLAUDE = {'low': 'haiku', 'medium': 'sonnet', 'high': 'opus'}
 HARNESSES = {'claude': (CLAUDE, Path('.claude') / 'agents')}
 # On-demand execution only: no Codex agent catalog or mirrored role files.
 CODEX = {'low': 'low', 'medium': 'medium', 'high': 'high'}
-# The outside workers' adapter: worker name (core/workers.txt) -> the id its harness resolves.
-# Pinned ids, not aliases: codex, agy and opencode take no level alias, so a retired id is a
-# failed call that `core/run tools/panel/ask --check` names, never a silent substitution.
-MODELS = {
-	'codex': 'gpt-6.1-sol',
-	'argon': 'gemini-4-argon-high',
-	'flash': 'gemini-3.8-flash-high',
-	'deepseek': 'opencode/deepseek-v4.1-flash-free',
-	'glm': 'opencode/glm-5.3-flash-free',
-	'local': 'qwen3.5:9b',
-	'claude-high': CLAUDE['high'],
-}
+# The outside workers' ids are core/workers.txt's `id` column, not a table here.
 
 FIELD = re.compile(r'^(\w+):[ \t]*(.*)$')
 

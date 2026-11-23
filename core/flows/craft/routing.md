@@ -62,20 +62,7 @@ For each configured provider, the level is filled with the **best available** co
 
 **Default provider per orchestrator runtime (chicken-egg resolved):** the orchestrator inherits its own runtime's provider — Claude Code → anthropic, Copilot CLI → copilot, opencode → detected via the check above (nvidia by default in this workspace, as the active model is `nvidia/z-ai/glm-5.2`).
 
-**Benchmarks driving level selection (ArtificialAnalysis indices: intelligence / coding / agentic / cost $/1M-out, source `openrouter.ai/api/v1/models`):**
-
-| Model | intel | coding | agentic | $/M out | Recommended level |
-|---|---|---|---|---|---|
-| claude-opus-4.8 | 55.7 | 74.3 | 47.2 | $25 | high (anthropic / openrouter-as-max) |
-| claude-sonnet-5 | 53.4 | 71.5 | 46.7 | $10 | medium (anthropic) |
-| glm-5.2 (z-ai) | 51.1 | 68.8 | 43.1 | $2.94 | **high (nvidia)** — agentic winner among free options |
-| deepseek-v4-pro | 44.3 | 59.4 | 36.4 | $0.87 | **medium (nvidia / openrouter)** |
-| kimi-k2.6 (moonshot) | 44.2 | 61.8 | 30.3 | $4.00 | medium (openrouter, agentic-emphasis alt) |
-| deepseek-v4-flash | 40.3 | 56.2 | 31.1 | $0.20 | **low (nvidia / openrouter)** — fastest, cheapest |
-| claude-haiku-4.5 | 29.6 | 43.9 | 16.4 | $5.00 | low (anthropic only — Haiku is premium-level-only) |
-| nemotron-3-ultra (550b) | — | — | — | (free on nvidia) | max (nvidia) — reasoning-heavy, fallback for unsolvable high-level cases |
-
-User instinct confirmed: **GLM 5.2 > DeepSeek V4 Pro > DeepSeek V4 Flash** for nvidia. Source data above; rerun the snippet under `## Provider routing provenance` to refresh quarterly.
+**Benchmarks driving level selection** (ArtificialAnalysis intelligence / coding / agentic) live in [`core/models.txt`](../../models.txt), one row per model with the date they were read. GLM 5.2 > DeepSeek V4 Pro > DeepSeek V4 Flash for nvidia (2026-07). Price is per provider: the table above. Refresh with the snippet under `## Provider routing provenance`.
 
 ## Provider delegation — cost-directional, downward only
 

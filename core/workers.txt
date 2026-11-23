@@ -1,15 +1,21 @@
-# Every worker a session can hand work to, declared by hand: which harness runs it, whose model it is, what it is good and bad at, what it costs, and when its call was last proven. Read by core/tools/workers.py; the model id lives in core/tools/wos/levels (MODELS), never here.
+# Every worker a session can hand work to, declared by hand: one model reached through one harness, with the id that harness resolves, its cost, and when its call was last proven. Read by core/tools/workers.py.
 #
+# What the model itself is good and bad at, and its vendor, is core/models.txt, joined by `model`.
+# id: pinned, not an alias — codex, agy and opencode take no level alias, so a retired id is a
+#   failed call that `core/run tools/panel/ask --check` names, never a silent substitution.
+#   claude-high is the exception: its id is core/tools/wos/levels CLAUDE['high'], and a test holds them equal.
 # chain: position in the default outside-panel chain, or - for out of it (reachable with --only).
 #   codex is out from 2026-11-20 to measure whether the panel loses quality without it
 #   (core/ROADMAP.md [subscription-review]); glm is out because its call is broken.
-# vendor: two rows with one vendor are ONE voice in a debate (argon and flash are both google).
+# depleted: the date Lucas saw an account run dry, or -. Out of the chain until he clears it.
+#   A transient quota miss is never written here: the call log core/state/workers.tsv holds it.
+# trap: what this route does wrong, whatever the model.
 # help_verified / call_verified: the CLI version whose --help, and whose real answer, were last seen.
-# worker	harness	vendor	level	chain	strength	weakness	cost	help_verified	call_verified	date
-codex	codex	openai	high	-	strongest outside critic; reads the tree read-only	off PATH inside the ChatGPT app; refuses political persuasion	subscription	0.167	0.167	2026-11-20
-argon	agy	google	high	1	strong critic, long context	quota can lock out for days (73 h, 2026-11-04)	subscription	1.5.10	1.5.10	2026-11-20
-deepseek	opencode	deepseek	medium	2	free, answers in seconds	flash model: weaker on deep critique	free	1.18.25	1.18.25	2026-11-20
-flash	agy	google	medium	3	fast fallback when argon is spent	same vendor as argon: not a second voice	subscription	1.5.10	1.5.10	2026-11-20
-glm	opencode	zhipu	medium	-	free third vendor	server error on every call (2026-11-20)	free	1.18.25	-	2026-11-20
-local	ollama	local	low	-	offline, zero quota	9B model: describes, does not judge	free	0.24	-	2026-11-20
-claude-high	claude	anthropic	high	-	the host harness itself	spends the quota the others exist to save	subscription	-	-	2026-11-20
+# worker	model	harness	id	level	chain	cost	depleted	trap	help_verified	call_verified	date
+codex	gpt-6.1-sol	codex	gpt-6.1-sol	high	-	subscription	-	off PATH inside the ChatGPT app; reads the tree read-only	0.167	0.167	2026-11-20
+argon	gemini-4-argon	agy	gemini-4-argon-high	high	1	subscription	-	quota can lock out for days (73 h, 2026-11-04)	1.5.10	1.5.10	2026-11-20
+deepseek	deepseek-v4.1-flash	opencode	opencode/deepseek-v4.1-flash-free	medium	2	free	-	-	1.18.25	1.18.25	2026-11-23
+flash	gemini-3.8-flash	agy	gemini-3.8-flash-high	medium	3	subscription	-	the fallback when argon is spent; same vendor, not a second voice	1.5.10	1.5.10	2026-11-20
+glm	glm-5.3-flash	opencode	opencode/glm-5.3-flash-free	medium	-	free	-	server error on every call (2026-11-20)	1.18.25	-	2026-11-20
+local	qwen3.5-9b	ollama	qwen3.5:9b	low	-	free	-	offline, zero quota	0.24	-	2026-11-20
+claude-high	claude-opus-5.5	claude	opus	high	-	subscription	-	spends the quota the others exist to save	-	-	2026-11-20
