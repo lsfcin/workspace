@@ -20,7 +20,7 @@ GitHub Pages serves static files and reads no redirect config, so each short nam
 
 **302 and not 301.** A 301 is cached by the browser forever, so a short name pointed at the wrong document once would keep going there on Lucas's own machine long after the map was fixed.
 
-**Deployed by `git push`, not by `wrangler`.** Wrangler would need an `npm` dependency kind that [`../deps.txt`](../deps.txt) does not have — its `kind` column knows `pip`, `apt`, `binary` and `system` — so the git route adds **zero dependencies**. It also means Cloudflare is connected to a public repo of redirects and to nothing else; the workspace repo is never connected. The publish repo is a target and not a project: no `ISSUES.md`, no pre-commit, and `build` rebuilds `_redirects` whole from `links.txt`. Its only source is the site's own code — `viewer.js`, `lib/`, `functions/` — tested by `node --test test/site.test.mjs`. A standalone site (`13ou22`, `ufrpe`) is the exception: `npx wrangler` direct upload, because its source repo is not ours to connect (or is the workspace) — so it never updates on push, and its own CONTEXT names the redeploy. No dashboard; the token is `CLOUDFLARE_TOKEN` in `segredos.env`:
+**Deployed by `git push`, not by `wrangler`.** Wrangler would need an `npm` dependency kind that [`../deps.txt`](../deps.txt) does not have — its `kind` column knows `pip`, `apt`, `binary` and `system` — so the git route adds **zero dependencies**. It also means Cloudflare is connected to a public repo of redirects and to nothing else; the workspace repo is never connected. The publish repo is a target and not a project: no `ISSUES.md`, no pre-commit, and `build` rebuilds `_redirects` whole from `links.txt`. Its only source is the site's own code — `viewer.js`, `lib/`, `functions/` — tested by `node --test test/site.test.mjs`. Its `lib/texto.js` puts each page's `.md` inside the HTML for readers without JavaScript, and `ufrpe` takes the same file from `main`. A standalone site (`13ou22`, `ufrpe`) is the exception: `npx wrangler` direct upload, because its source repo is not ours to connect (or is the workspace) — so it never updates on push, and its own CONTEXT names the redeploy. No dashboard; the token is `CLOUDFLARE_TOKEN` in `segredos.env`:
 ```bash
 set -a; . core/tools/links/segredos.env; set +a; export CLOUDFLARE_API_TOKEN=$CLOUDFLARE_TOKEN CLOUDFLARE_ACCOUNT_ID=$CLOUDFLARE_ACCOUNT
 export NODE_OPTIONS=--dns-result-order=ipv4first   # without it wrangler dies with "fetch failed" here (2026-10-30)
@@ -37,6 +37,10 @@ The browser edits a page (`editar`, password `EDIT_PASSWORD`) and students fill 
 **The secrets are the workspace's.** `cfpages secrets` builds all three from `segredos.env` files — `TURMAS` from each course's `MATRICULA_<NAME>` lines and `DUPLAS` — so the host holds a copy it can lose, never the original.
 
 **The published root is a dead end on purpose.** An index listing every short name would hand a stranger the whole map, which is the one thing the refusal above exists to prevent.
+
+## Only our content gets a short name
+
+Someone else's page is cited by its original URL. "Ours" is the `# ours:` line of URL prefixes in `links.txt`, never a per-row marker, because a marker is the escape hatch an agent reaches for to silence `check` (outside panel, 2026-11-21). A room created on a third-party host gets its exact URL as a prefix. **Known hole:** `docs.google.com/` is allowed whole, so a stranger's Doc passes.
 
 ## The map grows forever, and that is fine
 

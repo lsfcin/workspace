@@ -4,7 +4,7 @@
 <!-- norms:start -->
 - FILESYSTEM = source of truth. No memory, no assumptions.
 - **PROVIDER-AGNOSTIC STORAGE**: the workspace owns its state, never a harness; if it insists, symlink the path into WIS.
-- A LINK HANDED OUT GETS A NAME — `core/run tools/links/cfpages`, or `--short-name` where it is created.
+- A LINK TO OUR CONTENT HANDED OUT GETS A NAME — `core/run tools/links/cfpages`, or `--short-name` where it is created. Someone else's page is cited by its original URL.
 Targets live in [`core/tools/links/links.txt`](core/tools/links/links.txt); a doc quotes the short link, never the mapping.
 - **SECRETS STAY OUT OF GIT**: passwords, tokens, CPF/CNPJ go in a gitignored `<subtree>/segredos.env`; the text keeps the label.
 - IMPROVE WOS, after finishing MICRO (particular task), take a step back and review and refine MACRO (structure). if it ain't feasible to do it on this session, WRITE IT DOWN IN THE REPO THAT OWNS IT: a defect in its `ISSUES.md`, work in its `ROADMAP.md`, tagged `[src: agent YYYY-MM-DD]`. `brain/INBOX.md` is Lucas's capture, never an agent's.

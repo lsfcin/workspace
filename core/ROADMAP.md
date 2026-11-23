@@ -6,6 +6,9 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 
 ## Open
 
+**🟡 [shell-write-lock] A shell write takes a free repo** [src: agent 2026-11-22]
+*What* — P+O (Lucas, panel codex): pre-shell, `written_paths` → `lock.verdict`; post-shell, a reached free repo turned dirty is taken under the `_take` flock; holes in `git/SPECS.md`. *Why* — a heredoc dirtied a free `develop`. *Done when* — both arms tested.
+
 **🟢 [graphify-audit] Graphify use and cost — backlog**
 *What* — Assess actual Graphify use, maintenance/context cost and value against current repository navigation. *Why* — Lucas questions whether it earns its overhead (INBOX 31 Oct). *Done when* — Lucas reviews evidence before retention/removal.
 
@@ -80,7 +83,7 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 *What* — Shared installation checks; assess local spreadsheet support before adding packages. Refs: refs/REFS.md ([dependency-provenance]). *Why* — Feature switches do not prove installation. *Done when* — Missing dependencies give single diagnosis.
 
 **🟡 [drive-doc-update] Existing document updates — backlog**
-*What* — Assess in-place document replacement preserving identity/history/access, including failures. Consumer: ../academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md [drive-update]. *Why* — Missing drive_core capability reported 19 Oct. *Done when* — Authorized update verifies; norms/edit.md binds originals.
+*What* — Assess in-place document replacement preserving identity/history/access, including failures. Consumer: ../academy/administration/coordenacao-lc/novo-ppc-bcc/ROADMAP-ementas.md [drive-update]. *Why* — Missing drive_core capability reported 19 Oct. *Done when* — Authorized update verifies; norms/edit.md binds originals. *Open, Lucas decides* (21 Nov, CAPD Nº 22): creating a new file per change is not workable (Lucas). There are two variants. (a) The agent rewrites only a file it created, tagged at creation with `appProperties`, and only while the head revision is still the one it wrote: the agent and Lucas share one Google account, so Drive's user fields cannot tell them apart. (b) `put --replace <id>` uploads a new version on the same id, with per-act authorization.
 
 
 **🟡 Promotion outside session close**
@@ -196,12 +199,10 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 *What* — Assess assets/inspect --twin combining OCR, descriptions and .imgif/video captions. *Why* — Standalone images lack navigable text (25 Sep). *Done when* — A sibling Markdown is consumed by read gates.
 
 
-**🟢 gdrive download com flag --out e seletor de destino**
-*What* — Add gdrive download --out. *Why* — Downloads need an explicit destination (25 Sep). *Done when* — Selected paths replace mandatory Downloads/workspace-drive output.
+**🟢 gdrive download --out** — explicit destination instead of Downloads (25 Sep).
 
 
-**🟢 lint de contraste WCAG no gslides e substituição de pdftoppm por mutool**
-*What* — Add WCAG contrast lint and replace cropping pdftoppm sampling with mutool draw -w. *Why* — Slide readability (25 Sep). *Done when* — Contrast is diagnosed and previews preserve page bounds.
+**🟢 gslides WCAG contrast lint; mutool draw -w for previews** — pdftoppm crops page bounds (25 Sep).
 
 ## Blocked — waiting on a trigger
 
