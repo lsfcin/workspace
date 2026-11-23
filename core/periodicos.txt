@@ -1,4 +1,5 @@
-# periodicos.txt — what a tree asks to have run every N days, read by core/tools/wos/roundup at the close of a session that held that tree's repo.
+# What a tree asks to have run every N days, read by core/tools/wos/roundup at the close of a session that held that tree's repo.
+#
 # One line per job: tree (relative to the workspace root) <TAB> command (run inside the tree, `{days}` replaced; a .py runs with this clone's interpreter) <TAB> days.
 # The command keeps its own last-run date, stays silent when nothing changed, and never advances that date on a failure.
 # Its output is printed; it never changes the close's exit code.
