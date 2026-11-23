@@ -5,6 +5,10 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **`mv` de repo governado deixa a trava órfã**: o lock usa o caminho como chave, e a dona só volta por `wos/claim`. Falta um `wos/move`. [src: agent 2026-11-23]
+
+- **`context_synchronizer.py code` gravou `code/wos/CONTEXT.md`** no clone público. Pular os `WORKSPACE_MARKERS`, como `_under_code`. [src: agent 2026-11-23]
+
 - **Os workers do painel não leem a web.** Em 23/11, Codex (`Internal Error`) e argon (só `search_web`, sem rede) falharam ao buscar uma página pública. Declarar em `core/workers.txt` ou dar rede ao `panel/ask`. [src: agent 2026-11-23]
 
 - **Uma escrita por script num repo livre não tem volta para o agente.** Um `python -c` que grava num repo governado em `develop` limpo só ganha o aviso UNGATED WRITE; o repo fica sujo sem dono, e daí o lock recusa tanto o Edit (mudança de ninguém) quanto o `git checkout` (repo não tomado). Em 21/11 a saída foi regravar o arquivo do HEAD por script de novo. Ou o aviso vira bloqueio quando o alvo é um repo livre, ou o lock aceita o autor da mudança. [src: agent 2026-11-21]
