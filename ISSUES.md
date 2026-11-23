@@ -11,7 +11,9 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Os workers do painel não leem a web.** Em 23/11, Codex (`Internal Error`) e argon (só `search_web`, sem rede) falharam ao buscar uma página pública. Declarar em `core/workers.txt` ou dar rede ao `panel/ask`. [src: agent 2026-11-23]
 
-- **Uma escrita por script num repo livre não tem volta para o agente.** Um `python -c` que grava num repo governado em `develop` limpo só ganha o aviso UNGATED WRITE; o repo fica sujo sem dono, e daí o lock recusa tanto o Edit (mudança de ninguém) quanto o `git checkout` (repo não tomado). Em 21/11 a saída foi regravar o arquivo do HEAD por script de novo. Ou o aviso vira bloqueio quando o alvo é um repo livre, ou o lock aceita o autor da mudança. [src: agent 2026-11-21]
+- **O lock-gate lê `git` dentro do corpo de um heredoc Python como chamada git.** `command_only` mantém o corpo de um interpretador, e o `GIT` acha `'git {verb}'` numa string: em 23/11 um script de patch foi recusado como "git {verb} touches the checkout". Ler só as linhas do shell, ou só chamadas dentro de `subprocess`. [src: agent 2026-11-23]
+
+- **Assimetria: o Edit num caminho ignorado de um repo livre é recusado; a escrita por shell no mesmo caminho passa.** O shell isenta o que o git ignora (não suja a árvore, não prende o repo); o `lock.verdict` do Edit não olha isso. Decidir se o Edit ganha a mesma isenção. [src: agent 2026-11-23]
 
 - **Sessão paralela com outro foco tomou a trava do workspace.** `d0c03695` escreveu no workspace de passagem, criou `feature/core-1121` (3 commits: `periodicos.txt`, roundup) e nunca fechou, travando a sessão que tinha recebido o handoff. Foi preciso `claim`. A trava não percebe que uma escrita de passagem vai prender o repo inteiro (21 Nov; a branch entrou no develop em 23 Nov). [src: agent 2026-11-21] `b20261121-drive-by-lock`
 

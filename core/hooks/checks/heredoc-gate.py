@@ -42,6 +42,11 @@ WRITE_VERB = re.compile(r'\b(?:write_text|write_bytes|writeFileSync|appendFileSy
                         r'|os\.rename|shutil\.(?:copy|copy2|move))\s*\(|\bopen\s*\([^)]*[\'"][wax]')
 # A quoted string shaped like a filename. The body is the model's text, so this only proposes.
 QUOTED = re.compile(r'[\'"]([^\'"\n]{2,200}\.[A-Za-z0-9]{1,8})[\'"]')
+# The shell's other writers, read only for the branch lock: `sed -i <script> <file>`, a one-line body
+# `python3 -c "..."`, and any quoted string, blanked so `echo "a > b"` is no redirect.
+SED_INPLACE = re.compile(r'\bsed\s+(?:-\S+\s+)*?-i\S*\s+(?:-e\s+)?(?:\'[^\']*\'|"[^"]*"|\S+)\s+([^\s;|&<>()]+)')
+INLINE = re.compile(r'\b(?:python\d*(?:\.\d+)?|node)\s+-[ce]\s+(\'[^\']*\'|"[^"]*")')
+QUOTES = re.compile(r'\'[^\']*\'|"[^"]*"')
 
 
 def targets(line: str) -> list:
@@ -55,7 +60,9 @@ def targets(line: str) -> list:
 	"""
 	found = [match.group(1) for match in REDIRECT.finditer(line)]
 	found += [match.group(2) for match in TEE.finditer(line)]
-	return found
+	# `> "$OUT"` names a variable, not a file: an unexpanded name is no target to resolve.
+	names = [name.strip('\'"') for name in found]
+	return [name for name in names if name and not name.startswith('$')]
 
 
 def body_writes(body: str, cwd: str) -> list:
@@ -87,11 +94,13 @@ def in_workspace(target: str, cwd: str) -> Path | None:
 	return resolved
 
 
-def written_paths(command: str, cwd: str) -> list:
-	"""Scan a payload for heredoc writes: the opener's redirects, and an interpreted body's writes.
+def candidates(command: str, cwd: str, every_line: bool = False) -> list:
+	"""Every name a payload writes, unresolved: the opener's redirects and an interpreted body's writes.
 
 	A body is read ONLY when its opener handed the heredoc to an interpreter's stdin. Every other
 	body stays unparsed, which is the property that kept this gate quiet enough to leave switched on.
+	`every_line` adds the shell's own lines — a redirect outside any quote, `sed -i`, `python -c` —
+	for the branch lock alone, where a miss strands a repo and a hit costs one `wos/take`.
 	"""
 	found: list = []
 	delimiter, body, interpreted = '', [], False
@@ -100,20 +109,28 @@ def written_paths(command: str, cwd: str) -> list:
 			if line.strip() != delimiter:
 				body.append(line)
 				continue
-			for name in (body_writes('\n'.join(body), cwd) if interpreted else []):
-				path = in_workspace(name, cwd)
-				if path and path not in found:
-					found.append(path)
+			found += body_writes('\n'.join(body), cwd) if interpreted else []
 			delimiter, body, interpreted = '', [], False
 			continue
 		opener = OPENER.search(line)
-		if not opener:
-			continue
-		delimiter, interpreted = opener.group(1), bool(STDIN_DASH.search(line))
-		for target in targets(line):
-			path = in_workspace(target, cwd)
-			if path and path not in found:
-				found.append(path)
+		if opener:
+			delimiter, interpreted = opener.group(1), bool(STDIN_DASH.search(line))
+			found += targets(line)
+		if every_line:
+			found += [] if opener else targets(QUOTES.sub("''", line))
+			found += [name for name in SED_INPLACE.findall(line) if not name.startswith('-')]
+			for code in INLINE.findall(line):
+				found += body_writes(code[1:-1], cwd)
+	return list(dict.fromkeys(found))
+
+
+def written_paths(command: str, cwd: str) -> list:
+	"""The workspace files a payload's heredocs write — what this gate warns about."""
+	found: list = []
+	for name in candidates(command, cwd):
+		path = in_workspace(name, cwd)
+		if path and path not in found:
+			found.append(path)
 	return found
 
 

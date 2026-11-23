@@ -137,8 +137,9 @@ def take(repo, session: str, name: str) -> tuple:
             return f'⛔ take — you already hold {_name(repo)} on {held}; one session, one branch.', ''
         if owner or head not in SHARED:
             return _not_yours(repo, session, owner, held, head), ''
-        if refusal := _dirty(repo):
-            return refusal, ''
+        import dirt   # noqa: PLC0415 — dirt imports this module
+        if not dirt.owns(repo, session) and (refusal := _dirty(repo)):
+            return refusal, ''   # dirt only this session's shell left travels with its take
         fetched = git(repo, 'fetch', '-q', 'origin').returncode == 0
         if _exists(repo, branch):
             return (f'⛔ take — {branch} already exists in {_name(repo)} or its origin.\n'
@@ -150,6 +151,7 @@ def take(repo, session: str, name: str) -> tuple:
         if git(repo, 'switch', '-q', '-c', branch).returncode != 0:
             return f'⛔ BRANCH LOCK — could not create {branch} in {_name(repo)}.', ''
         _hold(repo, session, branch)
+        dirt.owners(repo).unlink(missing_ok=True)
     return '', (f'[Git] {_name(repo)} is yours on {branch}' + ('' if fetched else ' (offline: not pulled)')
                 + f'. The close merges it into develop. Session: {session}')
 

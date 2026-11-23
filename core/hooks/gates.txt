@@ -58,6 +58,7 @@
 pre	shell	5	read/handoff-gate.py	blocks	handoff-gate
 pre	shell	10	read/bash-context-gate.py	blocks	context-chain
 pre	shell	15	git/lock-gate.py	blocks	branch-lock
+pre	shell	16	git/dirt.py	informs	branch-lock
 pre	shell	20	checks/heredoc-gate.py	informs	heredoc-gate
 pre	shell	30	read/pdf-gate.py	blocks	pdf-twin-reads
 pre	read	5	read/handoff-gate.py	blocks	handoff-gate
@@ -75,6 +76,7 @@ pre	write	45	brain/memory-gate.py	blocks	memory-gate
 pre	write	50	checks/issues-gate.py	blocks	issues-gate
 pre	write	60	read/spec-read-gate.py	blocks	spec-read-gate
 post	shell	10	checks/web-retry.py	informs	web-retry
+post	shell	20	git/dirt.py	informs	branch-lock
 post	write	10	checks/retired-gate.py	informs	retired-tokens
 post	read	10	facade/facade-tracker.py	informs	facade-discipline
 post	read	20	read/context-tracker.py	informs	subtree-read-tracking

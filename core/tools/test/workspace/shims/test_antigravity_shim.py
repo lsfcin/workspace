@@ -54,7 +54,7 @@ def test_pre_tool_run_command_blocked_context_gate():
 
 def test_pre_tool_run_command_warns_heredoc():
     sid = str(uuid.uuid4())
-    cmd = "cat << 'EOF' > notes.md\nsome content\nEOF"
+    cmd = "cat << 'EOF' > outputs/notes.md\nsome content\nEOF"
     res = _run_shim("PreToolUse", {
         "conversationId": sid,
         "toolCall": {"name": "run_command", "args": {"CommandLine": cmd}},

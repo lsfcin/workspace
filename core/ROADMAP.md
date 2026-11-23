@@ -6,9 +6,6 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 
 ## Open
 
-**🟡 [shell-write-lock] A shell write takes a free repo** [src: agent 2026-11-22]
-*What* — P+O (Lucas, panel codex): pre-shell, `written_paths` → `lock.verdict`; post-shell, a reached free repo turned dirty is taken under the `_take` flock; holes in `git/SPECS.md`. Since 2026-11-23 no write takes a repo (`wos/take <name>` does), so the post-shell arm needs re-deciding with Lucas. *Why* — a heredoc dirtied a free `develop`. *Done when* — both arms tested.
-
 **🟢 [graphify-audit] Graphify use and cost — backlog**
 *What* — Assess actual Graphify use, maintenance/context cost and value against current repository navigation. *Why* — Lucas questions whether it earns its overhead (INBOX 31 Oct). *Done when* — Lucas reviews evidence before retention/removal.
 

@@ -108,7 +108,7 @@ def test_a_gate_guarded_by_dunder_main_actually_runs():
 	that goes quiet if the dispatcher execs it under any other name. Compared rather than asserted
 	against a fixed string: the point is that routing through here changes nothing.
 	"""
-	payload = call('Bash', {'command': f"cat > {WS}/check.md <<'EOF'\nx\nEOF"}, 'b20260905-main')
+	payload = call('Bash', {'command': f"cat > {WS}/outputs/check.md <<'EOF'\nx\nEOF"}, 'b20260905-main')
 	alone = run(payload, HOOKS / 'checks/heredoc-gate.py')
 	through = run(payload)
 	assert 'UNGATED WRITE' in alone.stdout, 'the gate itself went quiet — this test proves nothing'
