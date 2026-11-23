@@ -72,7 +72,7 @@ def test_an_empty_stub_counts_as_absent(tmp_path):
     """tsc writes a zero-byte .d.ts for a .js that exports nothing.
 
     Blocking on it would hand the reader a blank file instead of the source — so backfilling
-    code/ppc/partials/*.js would have zeroed three findings and broken the reading of three files.
+    code/montagrade/partials/*.js would have zeroed three findings and broken the reading of three files.
     """
     source = tmp_path / 'partial.js'
     source.write_text('MODALS.edit = `<dialog></dialog>`;\n', encoding='utf-8', newline='\n')

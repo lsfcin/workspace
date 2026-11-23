@@ -44,7 +44,7 @@ The table is kept by hand: a project joins with its `.gitignore` line, in the sa
 | `code/isoroll-module` | [github](https://github.com/lsfcin/isoroll) | — |
 | `code/laplata` | [github](https://github.com/lsfcin/laplata) | — |
 | `code/obra` | [github](https://github.com/lsfcin/obra) | — |
-| `code/ppc` | [github](https://github.com/lsfcin/ppc) | — |
+| `code/montagrade` | [github](https://github.com/lsfcin/montagrade) | — |
 | `code/shortvid` | — | — |
 | `code/spacemantics` | [github](https://github.com/lsfcin/spacemantics) | — |
 | `code/statem` | — | — |
