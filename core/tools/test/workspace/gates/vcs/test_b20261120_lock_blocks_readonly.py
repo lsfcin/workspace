@@ -39,3 +39,14 @@ def test_a_read_passes_whoever_holds_the_repo(tmp_path):
         done = _shell(command)
         assert done.returncode == 0, (command, done.stderr)
     assert _shell(f"python3 - <<'EOF'\nimport os; os.system('git -C {repo} commit')\nEOF").returncode == 2
+
+
+def test_a_path_through_a_git_folder_is_not_a_git_call(tmp_path):
+    """2026-11-23: `grep x core/hooks/git/lock.py` was refused as `git /lock.py`."""
+    repo = governed_repo(tmp_path)
+    (repo / 'git').mkdir()
+    for command in (f'cd {repo} && grep -n def git/lock.py', f'cat {repo}/git/SPECS.md | wc -l',
+                    f'ls {repo}/.git/refs', f'cd {repo} && cat my-git/x git_x/y'):
+        done = _shell(command)
+        assert done.returncode == 0, (command, done.stderr)
+    assert _shell(f'cd {repo} && git commit -qm x').returncode == 2

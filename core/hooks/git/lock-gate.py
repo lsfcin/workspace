@@ -18,7 +18,8 @@ from pathlib import Path
 sys.path[:0] = [str(Path(__file__).resolve().parent), str(Path(__file__).resolve().parents[1])]
 from hook_input import capability, command_only, parse_stdin  # noqa: E402
 
-GIT = re.compile(r'\bgit\b([^;&|\n)`]*)')
+# `git` as a command word: a path through a `git/` folder (`core/hooks/git/lock.py`) is not a call.
+GIT = re.compile(r'(?:^|(?<=[\s;&|(`\'"]))git(?=\s|$)([^;&|\n)`]*)', re.M)
 CD = re.compile(r'(?:^|[;&|]\s*)cd\s+([^\s;&|]+)')
 READS = {'status', 'log', 'diff', 'show', 'rev-parse', 'rev-list', 'ls-files', 'ls-tree', 'ls-remote',
          'cat-file', 'blame', 'grep', 'describe', 'shortlog', 'for-each-ref', 'show-ref', 'merge-base',
