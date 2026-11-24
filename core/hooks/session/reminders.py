@@ -197,10 +197,23 @@ def prs(now: float | None = None) -> str:
     return f'PRS: {len(new)} PR(s) novo(s) em brain/INBOX.md — mention them.' if new else ''
 
 
+def outbox() -> str:
+    """Notes waiting for a repo's holder (core/hooks/git/outbox.py): a quiet repo has no natural drain."""
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'git'))
+    import outbox as queue   # noqa: PLC0415
+    waiting = queue.everywhere()
+    if not waiting:
+        return ''
+    oldest = (time.time() - min(n['ts'] for _, notes in waiting for n in notes)) / 86400
+    count = sum(len(notes) for _, notes in waiting)
+    return (f'OUTBOX: {count} note(s) wait for {len(waiting)} repo(s), the oldest {oldest:.0f}d — whoever '
+            f'takes one folds them in: core/run tools/wos/note <repo>')
+
+
 # Feature name → the question it asks. The registry switches each one independently, which is what
 # keeps three reminders in one file from becoming one feature with three reasons.
 ASKS = (('inbox-reminder', inbox), ('compass-reminder', compass), ('publish-reminder', publish),
-        ('disk-reminder', disk), ('pr-reminder', prs))
+        ('disk-reminder', disk), ('pr-reminder', prs), ('branch-lock', outbox))
 
 
 def main() -> int:

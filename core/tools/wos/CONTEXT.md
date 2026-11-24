@@ -20,6 +20,7 @@
 | [`handoff`](handoff) | — | — | one handoff per repository, written and taken locally, without a model. |
 | [`levels`](levels) | — | — | print the work→level map from core/levels.txt with the level each agent definition declares; --set re-renders every harness's agent files from those declarations; --check exits 1 when a rendered file no longer matches the declaration. |
 | [`move`](move) | — | — | move a repo's folder, its branch lock and its dirt with it. |
+| [`note`](note) | — | — | leave a note for a repo you do not hold, list what waits, or clear it as its holder. |
 | [`permissions`](permissions) | — | — | print the permission levels declared in core/permissions.txt with the one this machine answered in core/profile.txt; --set switches level and re-renders every harness config; --check exits 1 when a rendered config no longer matches the answer |
 | [`reflow`](reflow) | — | — | undo the line breaks a dead rule left behind: one paragraph, one line. Zero-token, no network. |
 | [`roundup`](roundup) | — | — | the session close: every repo this session holds goes back to develop. |

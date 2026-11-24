@@ -2,11 +2,10 @@
 # The branch is the lock: one agent session per repo, held by standing on the branch it created.
 #
 # A governed repo (it has `develop`, and its origin is the profile's GitHub owner) is FREE on a
-# shared branch with a clean tree. `core/run tools/wos/take <repo> <name>` takes it — fetch, pull
-# --ff-only, a new feature/<name> and a lock file naming the session, all under one flock — and the
-# close gives it back. A write to a free repo is refused until then: the branch says its work, so the
-# session names it (2026-11-23, Lucas). `core/run tools/wos/claim` hands a repo over on Lucas's word.
-# The rules bind agents only: no session id, no gate (ruled 2026-11-19, Lucas).
+# shared branch with a clean tree. `take` branches feature/<name> off a pulled develop and writes a
+# lock file naming the session, under one flock; the close gives it back. A write to a free repo is
+# refused until then. One repo per session unless `--multi`; a note for another repo's ISSUES.md or
+# ROADMAP.md goes through its outbox (outbox.py). Agents only: no session id, no gate (2026-11-19).
 # Contract: core/hooks/git/SPECS.md.
 import os
 import re
@@ -21,6 +20,7 @@ import feature_law  # noqa: E402
 from platform_law import locked, rel, session_state  # noqa: E402
 
 SHARED = ('main', 'master', 'develop')
+NOTES = ('ISSUES.md', 'ROADMAP.md')   # the files a session that does not hold a repo notes into (outbox.py)
 NAME = re.compile(r'[a-z0-9][a-z0-9-]*')   # an id from ROADMAP or ISSUES fits; a folder does not
 WORKSPACE = _HOOKS.parents[1]
 # The ids an agent's shell exports, so a git hook it spawns knows it is an agent's commit.
@@ -131,13 +131,17 @@ def _name(repo) -> str:
     return 'the workspace' if repo == WORKSPACE else rel(repo, WORKSPACE)
 
 
-def take(repo, session: str, name: str) -> tuple:
+def take(repo, session: str, name: str, multi: bool = False) -> tuple:
     """(refusal, note): a clean shared branch nobody holds — pull develop, branch feature/<name> off it."""
-    branch = f'feature/{name}'
+    branch, others = f'feature/{name}', [r for r in held_by(session) if r != Path(repo).resolve()]
     if not session or not feature_law.is_enabled('branch-lock') or not governed(repo):
         return '', ''
     if not NAME.fullmatch(name or ''):
         return f'⛔ take — "{name}" is not a name: [a-z0-9-], an id from ROADMAP or ISSUES when one fits.', ''
+    if others and not multi:
+        return (f'⛔ take [one-repo] — you already hold {_name(others[0])}. A note for this repo\'s ISSUES.md or'
+                f' ROADMAP.md:\n   core/run tools/wos/note {shlex.quote(str(repo))} ISSUES.md "<text>"'
+                '\n   A change that really spans both repos: take it again with --multi.'), ''
     with locked(lock_file(repo).with_suffix('.flock')):
         owner, held = holder(repo)
         head = out(repo, 'branch', '--show-current')
@@ -192,7 +196,8 @@ def verdict(path, session: str) -> tuple:
                         f'   git -C {shlex.quote(str(repo))} switch {shlex.quote(branch)}'), ''
             _hold(repo, session, head)   # nobody else can switch a held repo: this was ours
             return '', ''
-        return _not_yours(repo, session, owner, branch, head), ''
+        notes = f'\n   A note for its {path.name}: core/run tools/wos/note {shlex.quote(str(repo))} {path.name} "<text>"'
+        return _not_yours(repo, session, owner, branch, head) + (notes if path.name in NOTES else ''), ''
 
 
 def _not_yours(repo, session: str, owner: str, branch: str, head: str) -> str:

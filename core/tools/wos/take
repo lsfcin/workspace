@@ -1,26 +1,32 @@
 # Usage: core/run tools/wos/take REPO NAME [--session ID] — take a free repo's branch lock on feature/NAME before the first write.
 import argparse
+import shlex
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path[:0] = [str(ROOT / 'core/hooks/git'), str(ROOT / 'core/hooks')]
 import lock  # noqa: E402
+import outbox  # noqa: E402
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description='take a free repo on feature/NAME')
     parser.add_argument('repo')
     parser.add_argument('name', help='[a-z0-9-]; the ROADMAP or ISSUES id when one fits')
+    parser.add_argument('--multi', action='store_true', help='a second repo, for a change that spans both')
     parser.add_argument('--session', default=lock.env_session())
     args = parser.parse_args()
     repo = lock.repo_of(Path(args.repo).expanduser())
     if not repo or not args.session:
         print('take: needs a git repo and a session id', file=sys.stderr)
         return 64
-    refusal, note = lock.take(repo, args.session, args.name)
+    refusal, note = lock.take(repo, args.session, args.name, args.multi)
     print(refusal or note or f'take: {repo} is not under the branch lock; nothing to take',
           file=sys.stderr if refusal else sys.stdout)
+    if not refusal and (waiting := len(outbox.pending(repo))):
+        print(f'[Outbox] {waiting} note{" waits" if waiting == 1 else "s wait"} for this repo\'s ISSUES.md or ROADMAP.md;'
+              f' fold them in during the work: core/run tools/wos/note {shlex.quote(str(repo))}')
     return 1 if refusal else 0
 
 

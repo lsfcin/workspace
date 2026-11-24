@@ -13,4 +13,5 @@
 | [`gitlink_gate.py`](gitlink_gate.py) | [`gitlink_gate.pyi`](gitlink_gate.pyi) | `check` | Nested-gitlink gate: block committing an undeclared gitlink (mode 160000) into the workspace repo. |
 | [`lock-gate.py`](lock-gate.py) | [`lock-gate.pyi`](lock-gate.pyi) | `calls`, `changes`, `target`, `writes`, `moves` | PreToolUse write and shell — the branch lock, asked at every write, every shell write its text shows, and every git command that changes a repo. Rules: git/lock.py. |
 | [`lock.py`](lock.py) | [`lock.pyi`](lock.pyi) | `git`, `out`, `repo_of`, `owned`, `governed` | The branch is the lock: one agent session per repo, held by standing on the branch it created. |
+| [`outbox.py`](outbox.py) | [`outbox.pyi`](outbox.pyi) | `path`, `pending`, `add`, `done`, `rekey` | The outbox: a note for a repo's ISSUES.md or ROADMAP.md, left by a session that does not hold it. |
 <!-- routing:end -->

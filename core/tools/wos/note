@@ -1,0 +1,47 @@
+# Usage: core/run tools/wos/note REPO [ISSUES.md|ROADMAP.md TEXT] [--done ID...] [--session ID] — leave a note for a repo you do not hold, list what waits, or clear it as its holder.
+import argparse
+import shlex
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+sys.path[:0] = [str(ROOT / 'core/hooks/git'), str(ROOT / 'core/hooks')]
+import lock  # noqa: E402
+import outbox  # noqa: E402
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description='the outbox of a repo\'s ISSUES.md and ROADMAP.md')
+    parser.add_argument('repo')
+    parser.add_argument('file', nargs='?', default='')
+    parser.add_argument('text', nargs='?', default='')
+    parser.add_argument('--done', nargs='+', default=[], metavar='ID', help='as its holder: folded, or dismissed')
+    parser.add_argument('--session', default=lock.env_session())
+    args = parser.parse_args()
+    repo, q = lock.repo_of(Path(args.repo).expanduser()), shlex.quote
+    if not repo or (args.file and (args.file not in lock.NOTES or not args.text.strip())):
+        print(f'note: needs a repo, then one of {", ".join(lock.NOTES)} and the text', file=sys.stderr)
+        return 64
+    if args.done:
+        if lock.holder(repo)[0] != args.session:
+            print(f'note: only the session holding {repo} clears its notes', file=sys.stderr)
+            return 1
+        print(f'note: cleared {", ".join(outbox.done(repo, set(args.done))) or "nothing"}')
+        return 0
+    if args.file:
+        if lock.holder(repo)[0] == args.session:
+            print(f'note: you hold {repo}; edit its {args.file} directly', file=sys.stderr)
+            return 1
+        here = lock.repo_of(Path.cwd())
+        note = outbox.add(repo, args.file, args.text.strip(), args.session, str(here or ''))
+        print(f'note: {note} waits for {repo}/{args.file}; its holder folds it in.')
+        return 0
+    for note in outbox.pending(repo):
+        print(outbox.line(note))
+    print(f'Fold each into its file, then: core/run tools/wos/note {q(str(repo))} --done ID...'
+          if outbox.pending(repo) else f'note: nothing waits for {repo}')
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

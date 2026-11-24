@@ -21,6 +21,7 @@ PR_EVERY: Incomplete
 PR_MARK: str
 
 def prs(now: float | None = None) -> str: ...
+def outbox() -> str: ...
 
 ASKS: Incomplete
 

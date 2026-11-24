@@ -20,5 +20,6 @@ What these share is that the operator learns the result here or not at all — a
 | [`test_branch_debt.py`](test_branch_debt.py) | [`test_branch_debt.pyi`](test_branch_debt.pyi) | — | T0 the branch-debt signals: a repo is a finding when work lives in only one place, and never otherwise. Zero-token, runs in verify-fast. |
 | [`test_lock.py`](test_lock.py) | [`test_lock.pyi`](test_lock.pyi) | — | T1 the branch lock (core/hooks/git/SPECS.md): one agent session per repo, people never gated. Zero-token, no network — every case builds a throwaway repo whose GitHub origin is rewritten to a local bare repo, so `governed` sees the profile's owner and every push lands on disk. |
 | [`test_move.py`](test_move.py) | [`test_move.pyi`](test_move.pyi) | — | T1 wos/move: a governed repo moves with its lock and its dirt, and a raw `mv` of one is refused. |
+| [`test_outbox.py`](test_outbox.py) | [`test_outbox.pyi`](test_outbox.pyi) | — | b20261121-drive-by-lock regression: a note for another repo's ISSUES.md or ROADMAP.md waits in its outbox, and a session holds one repo unless it says --multi. |
 | [`vcs_repos.py`](vcs_repos.py) | [`vcs_repos.pyi`](vcs_repos.pyi) | `git`, `commit`, `repo`, `cloned` | The git repos every vcs case needs, built once instead of per file. |
 <!-- routing:end -->

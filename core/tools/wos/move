@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path[:0] = [str(ROOT / 'core/hooks/git'), str(ROOT / 'core/hooks')]
 import dirt  # noqa: E402
 import lock  # noqa: E402
+import outbox  # noqa: E402
 from platform_law import locked  # noqa: E402
 
 
@@ -38,6 +39,7 @@ def main() -> int:
         lock.rekey(src, dst)
         if dirt.owners(src).is_file():
             dirt.owners(src).rename(dirt.owners(dst))
+        outbox.rekey(src, dst)
     print(f'move: {src} → {dst}' + (f', held by {owner} on {branch}' if owner else ''))
     return 0
 
