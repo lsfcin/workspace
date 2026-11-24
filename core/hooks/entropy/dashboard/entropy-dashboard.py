@@ -45,7 +45,7 @@ from entropy_vendor import vendor_directive_hits  # noqa: E402
 from file_law import load_limits  # noqa: E402
 from platform_law import rel  # noqa: E402
 from schema_law import (SCHEMA, WORKSPACE_ROOT, load_law,  # noqa: E402
-                        load_retired, load_scopes)
+                        load_retired, load_retired_exceptions, load_scopes)
 
 # NAMED, NEVER INHERITED — the law is ceilings/test_encoding_ceiling.py. The status
 # line here carries `→`. core/run exports PYTHONIOENCODING for what it spawns, which is every
@@ -105,7 +105,7 @@ def collect(files: list, repo: Path = WORKSPACE_ROOT) -> dict:
             if failure:
                 findings['naming'].append(failure)
     exempt = enforcement_paths(WORKSPACE_ROOT)
-    findings['retired'] = retired_hits(files, load_retired(SCHEMA), exempt)
+    findings['retired'] = retired_hits(files, load_retired(SCHEMA), exempt, load_retired_exceptions(SCHEMA))
     citations = _gate('citation-gate')
     findings['citations'] = citations.citation_hits(
         files, citations.citation_exempt_paths(WORKSPACE_ROOT))

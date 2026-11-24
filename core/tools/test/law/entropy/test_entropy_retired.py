@@ -16,7 +16,8 @@ def test_no_retired_token_survives():
     hits = entropy_list.retired_hits(
         entropy_list.tracked_files(WORKSPACE_ROOT),
         schema_law.load_retired(),
-        entropy_list.enforcement_paths(WORKSPACE_ROOT))
+        entropy_list.enforcement_paths(WORKSPACE_ROOT),
+        schema_law.load_retired_exceptions())
     assert hits == [], '\n'.join(hits)
 
 
@@ -26,13 +27,19 @@ def test_the_law_may_name_what_it_retires(tmp_path):
     assert entropy_list.retired_hits([law], {'gone-token': 'kept'}, {law}) == []
 
 
-def test_a_line_marked_as_an_external_field_is_not_a_hit(tmp_path):
-    """An outside API's key is its vocabulary, not ours; the mark needs a reason."""
+def test_a_file_the_law_names_may_spell_that_token_and_no_other(tmp_path):
+    """An outside API's key is its vocabulary, not ours; the law's row names the file, so the
+    excuse is visible in one table and covers one token only."""
     target = tmp_path / 'client.py'
-    target.write_text("m['gone-token']  # retired-ok: the vendor's field\n", encoding='utf-8', newline='\n')
-    assert entropy_list.retired_hits([target], {'gone-token': 'kept'}, set()) == []
-    target.write_text("m['gone-token']  # retired-ok:\n", encoding='utf-8', newline='\n')
-    assert len(entropy_list.retired_hits([target], {'gone-token': 'kept'}, set())) == 1
+    target.write_text("m['gone-token'], m['old-word']\n", encoding='utf-8', newline='\n')
+    retired = {'gone-token': 'kept', 'old-word': 'new'}
+    hits = entropy_list.retired_hits([target], retired, set(), {'gone-token': {target.resolve()}})
+    assert len(hits) == 1 and 'old-word' in hits[0]
+
+
+def test_the_exception_column_is_read_from_the_law():
+    kept = schema_law.load_retired_exceptions()
+    assert (WORKSPACE_ROOT / 'core/tools/workers.py').resolve() in kept['slug']
 
 
 def test_retired_token_in_a_filename_is_a_hit(tmp_path):

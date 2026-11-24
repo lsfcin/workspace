@@ -25,12 +25,12 @@ ITEM_ID = re.compile(
 # rename — it is evidence. Found 2026-08-24 when an INBOX capture turned the suite red and the
 # check's own advice was to delete the line, which would have deleted Lucas's capture.
 _URL = re.compile(r'<?https?://\S+')
-_EXTERNAL = re.compile(r'^.*\bretired-ok: \S.*$', re.M)
 
 
-def retired_hits(files: list, retired: dict, exempt: set) -> list:
-    """Every surviving occurrence of a retired token, in content or in a filename."""
-    exempt = {path.resolve() for path in exempt}
+def retired_hits(files: list, retired: dict, exempt: set, kept: dict | None = None) -> list:
+    """Every surviving occurrence of a retired token, in content or in a filename. `kept` is
+    token -> the resolved files the law lets spell it (schema_law.load_retired_exceptions)."""
+    exempt, kept = {path.resolve() for path in exempt}, kept or {}
     # Hyphen and underscore are boundaries, not word characters: a retired token survives just
     # as much inside `old-name-here.md` or `entropy_oldname.py` as standing alone, and that
     # compound form is how an unfinished rename hides at the leaves. `\w` covered the
@@ -55,12 +55,11 @@ def retired_hits(files: list, retired: dict, exempt: set) -> list:
             continue
         try:
             text = _URL.sub(lambda m: ' ' * len(m.group()), path.read_text(encoding='utf-8'))
-            # A line marked `retired-ok: <why>` spells someone else's field (an external API's
-            # key), not our vocabulary: blanked, so the line count of every other hit holds.
-            text = _EXTERNAL.sub(lambda m: ' ' * len(m.group()), text)
         except (OSError, UnicodeDecodeError):
             continue
         for token, pattern in patterns.items():
+            if path.resolve() in kept.get(token, ()):
+                continue
             where = 'filename' if pattern.search(path.name) else None
             if not where and pattern.search(text):
                 where = f'line {text[:pattern.search(text).start()].count(chr(10)) + 1}'

@@ -17,6 +17,7 @@ RETIRED_HEADING = '### Retired tokens'
 TYPE_ROW = re.compile(r'^\|\s*`([A-Z][A-Z0-9_-]*\.md)`\s*\|', re.M)
 SCOPED_ROW = re.compile(r'^\|\s*`([A-Z][A-Z0-9_-]*\.md)`\s*\|([^|]*)\|', re.M)
 RETIRED_ROW = re.compile(r'^\|\s*`([^`|]+)`\s*\|\s*`([^`|]+)`\s*\|', re.M)
+RETIRED_KEPT = re.compile(r'^\|\s*`([^`|]+)`\s*\|[^|\n]*\|[^|\n]*\|([^|\n]*`[^|\n]*)\|', re.M)
 BACKTICKED_MD = re.compile(r'`([^`]+\.md)`')
 
 # Scope phrases the type table writes in prose, longest first so "repo root only" is not
@@ -74,3 +75,11 @@ def load_scopes(schema_path: Path = SCHEMA) -> dict:
 def load_retired(schema_path: Path = SCHEMA) -> dict:
     """Retired token -> its replacement (§ Retired tokens)."""
     return dict(RETIRED_ROW.findall(_section(_law(schema_path), RETIRED_HEADING)))
+
+
+def load_retired_exceptions(schema_path: Path = SCHEMA) -> dict:
+    """Retired token -> the files that must still spell it, resolved (§ Retired tokens, last column).
+    A file, not a line marker: a marker could excuse any token on any line, unseen in the law."""
+    section = _section(_law(schema_path), RETIRED_HEADING)
+    return {token: {(WORKSPACE_ROOT / p).resolve() for p in re.findall(r'`([^`]+)`', cell)}
+            for token, cell in RETIRED_KEPT.findall(section)}

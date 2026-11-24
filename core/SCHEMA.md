@@ -125,8 +125,8 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 **A rename is finished when its old token appears nowhere.** This table *is* the assertion:
 `entropy_list.py` fails if any token below survives in a tracked file, this file excepted. Add a row the moment a rename lands, and delete the prose that would otherwise explain it.
 
-| Retired token | Replacement | Retired |
-|---------------|-------------|---------|
+| Retired token | Replacement | Retired | Still spelled in: someone else's word |
+|---------------|-------------|---------|------|
 | `loop-engineering` | `craft` | 2026-07-23 |
 | `--leave-dirty` | none: the close covers only the repos its session holds | 2026-11-19 |
 | `--no-promote` | `--draft` | 2026-11-19 |
@@ -148,7 +148,7 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | `ledger` | `list` | 2026-09-14 |
 | `seam` | `boundary` | 2026-09-14 |
 | `tier` | `level` | 2026-09-14 |
-| `slug` | `name` | 2026-09-14 |
+| `slug` | `name` | 2026-09-14 | `core/tools/workers.py`, `core/tools/test/panel/test_panel.py`: codex's JSON key |
 | `probe` | `metadata` | 2026-09-14 |
 | `column cap` | `document cap` | 2026-09-14 |
 | `mail-triage` | `mail` | 2026-09-16 |

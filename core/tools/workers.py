@@ -211,7 +211,7 @@ OFFERS = {'agy': ['models'], 'opencode': ['models'], 'ollama': ['list'], 'codex'
 def _ids(text: str) -> set:
     """The model ids in a codex catalog JSON, first object only: run() appends stderr after it."""
     try:
-        return {m['slug'] for m in json.JSONDecoder().raw_decode(text.lstrip())[0]['models']}  # retired-ok: codex's key
+        return {m['slug'] for m in json.JSONDecoder().raw_decode(text.lstrip())[0]['models']}
     except (ValueError, KeyError, TypeError):
         return set()
 

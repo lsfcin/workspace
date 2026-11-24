@@ -102,10 +102,10 @@ def test_a_worker_whose_id_the_harness_stopped_offering_is_not_live(tmp_path, mo
 def test_codex_offers_the_union_of_its_binary_catalog_and_its_account_cache(tmp_path, monkeypatch):
     # 2026-11-23: `debug models` had gpt-5.5 and not gpt-6.2-sol; the account cache the reverse.
     exe = tmp_path / 'codex'
-    exe.write_text('#!/bin/sh\n[ "$1" = debug ] && printf \'{"models":[{"slug":"built-in"}]}\\nWARN noise\\n\'\nexit 0\n',  # retired-ok: codex's key
+    exe.write_text('#!/bin/sh\n[ "$1" = debug ] && printf \'{"models":[{"slug":"built-in"}]}\\nWARN noise\\n\'\nexit 0\n',
                    encoding='utf-8', newline='\n')
     exe.chmod(0o755)
-    (tmp_path / 'models_cache.json').write_text('{"models":[{"slug":"sent","visibility":"hide"}]}',  # retired-ok: codex's key
+    (tmp_path / 'models_cache.json').write_text('{"models":[{"slug":"sent","visibility":"hide"}]}',
                                                 encoding='utf-8', newline='\n')
     monkeypatch.setenv('CODEX', str(exe))
     monkeypatch.setenv('CODEX_HOME', str(tmp_path))

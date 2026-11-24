@@ -48,7 +48,8 @@ def main() -> int:
     except ValueError:
         return 0
 
-    hits = retired_hits([target], schema_law.load_retired(), enforcement_paths(WORKSPACE_ROOT))
+    hits = retired_hits([target], schema_law.load_retired(), enforcement_paths(WORKSPACE_ROOT),
+                        schema_law.load_retired_exceptions())
     if not hits:
         return 0
     # An informing gate never exits 2, so dispatch.py has no exit code to attribute and `blocked`
