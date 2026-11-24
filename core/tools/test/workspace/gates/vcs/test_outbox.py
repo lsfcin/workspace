@@ -33,6 +33,12 @@ def test_a_note_waits_once_and_only_the_holder_clears_it(tmp_path):
     assert not outbox.pending(repo)
 
 
+def test_a_note_its_author_tagged_is_not_tagged_twice(tmp_path):
+    repo = governed_repo(tmp_path)
+    outbox.add(repo, 'ISSUES.md', 'fix it [src: agent 2026-11-24]', B)
+    assert outbox.line(outbox.pending(repo)[0]).count('[src: ') == 1
+
+
 def test_a_second_repo_takes_multi_and_a_note_needs_nothing(tmp_path):
     first, second = governed_repo(tmp_path, 'first'), governed_repo(tmp_path, 'second')
     lock.take(first, A, 'work')

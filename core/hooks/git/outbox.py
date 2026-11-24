@@ -71,6 +71,7 @@ def everywhere() -> list:
 
 
 def line(note: dict) -> str:
-    """A note as its file will carry it."""
+    """A note as its file will carry it: tagged once, whether or not its author already tagged it."""
     day = time.strftime('%Y-%m-%d', time.localtime(note['ts']))
-    return f'{note["id"]}  {note["file"]}: {note["text"]} [src: agent {day}]'
+    tag = '' if re.search(r'\[src: [^\]]*\]\s*$', note['text']) else f' [src: agent {day}]'
+    return f'{note["id"]}  {note["file"]}: {note["text"]}{tag}'
