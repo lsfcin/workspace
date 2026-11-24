@@ -15,13 +15,13 @@ import importlib.machinery
 import importlib.util
 import os
 import re
-import subprocess
 import sys
 import tempfile
 from pathlib import Path
 from typing import NamedTuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import worker_guard  # noqa: E402
 import workers  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -107,12 +107,11 @@ def _staged(image: Path, into: Path) -> Path:
 def _cli(cmd: list[str], image: Path, prompt: str) -> str:
     with tempfile.TemporaryDirectory(prefix='describe-') as tmp:
         staged = _staged(image, Path(tmp))
-        r = subprocess.run(cmd + [f'Read the image file {staged.name} in the current directory. {prompt}'],
-                           cwd=tmp, capture_output=True, text=True, encoding='utf-8', timeout=TIMEOUT,
-                           stdin=subprocess.DEVNULL)
-    if r.returncode:
-        raise RuntimeError(r.stderr[-500:] or f'exit {r.returncode}')
-    return r.stdout
+        code, out, err = worker_guard.spawn(cmd + [f'Read the image file {staged.name} in the current directory. {prompt}'],
+                                            cwd=tmp, timeout=TIMEOUT)
+    if code:
+        raise RuntimeError(err[-500:] or f'exit {code}')
+    return out
 
 
 _AGY_LOGGED_IN: bool | None = None
@@ -124,12 +123,8 @@ def agy_logged_in() -> bool:
     lists nothing instead, and never prompts. Logged out, the chain goes on to claude, and says so once."""
     global _AGY_LOGGED_IN
     if _AGY_LOGGED_IN is None:
-        try:
-            r = subprocess.run([workers.find('agy') or 'agy', 'models'], capture_output=True, text=True, encoding='utf-8',
-                               timeout=60, stdin=subprocess.DEVNULL)
-            _AGY_LOGGED_IN = any('\t' in line for line in r.stdout.splitlines())
-        except (OSError, subprocess.TimeoutExpired):
-            _AGY_LOGGED_IN = False
+        code, out, _ = worker_guard.spawn([workers.find('agy') or 'agy', 'models'], timeout=60)
+        _AGY_LOGGED_IN = code == 0 and any('\t' in line for line in out.splitlines())
         if not _AGY_LOGGED_IN:
             print('describe: agy is not logged in, so claude describes this run. '
                   'To bring agy back, run `agy` once in a terminal.', file=sys.stderr)

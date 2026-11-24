@@ -64,18 +64,17 @@ def test_agy_logged_out_is_asked_once_and_never_prompted(monkeypatch, capsys):
     """Logged out, `agy -p` opens a browser login per figure; `agy models` lists nothing instead."""
     calls = []
 
-    def run(cmd, **kw):
+    def spawn(cmd, **kw):   # the guarded door closes stdin itself (b20261124-worker-outlives-caller)
         calls.append(cmd)
-        assert kw.get('stdin') is describe.subprocess.DEVNULL
-        return describe.subprocess.CompletedProcess(cmd, 0, stdout='Fetching available models...\n', stderr='')
+        return 0, 'Fetching available models...\n', ''
     monkeypatch.setattr(describe, '_AGY_LOGGED_IN', None)
-    monkeypatch.setattr(describe.subprocess, 'run', run)
+    monkeypatch.setattr(describe.worker_guard, 'spawn', spawn)
     assert not describe.agy_logged_in() and not describe.agy_logged_in()
     assert len(calls) == 1 and calls[0][0].endswith('agy') and calls[0][1:] == ['models'] and 'agy is not logged in' in capsys.readouterr().err
 
 
 def test_agy_logged_in_lists_its_models(monkeypatch):
     monkeypatch.setattr(describe, '_AGY_LOGGED_IN', None)
-    monkeypatch.setattr(describe.subprocess, 'run', lambda cmd, **kw: describe.subprocess.CompletedProcess(
-        cmd, 0, stdout='gemini-3.8-flash-high\tGemini 3.8 Flash (High)\n', stderr=''))
+    monkeypatch.setattr(describe.worker_guard, 'spawn', lambda cmd, **kw: (
+        0, 'gemini-3.8-flash-high\tGemini 3.8 Flash (High)\n', ''))
     assert describe.agy_logged_in()

@@ -17,12 +17,14 @@ import json
 import os
 import pathlib
 import shutil
-import signal
 import statistics
-import subprocess
+import sys
 import tempfile
 import time
 from typing import NamedTuple
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import worker_guard  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 CATALOG = ROOT / 'core' / 'workers.txt'
@@ -49,7 +51,7 @@ ANSWER_FLOOR = 400  # chars; every vendor's quota or login notice seen so far is
 class Result(NamedTuple):
     worker: str
     model: str
-    status: str      # ok | missing | no-login | quota | timeout | unknown
+    status: str      # ok | missing | no-login | quota | timeout | busy | unknown
     text: str        # the answer when ok, the evidence otherwise
     seconds: float
 
@@ -99,18 +101,11 @@ def find(harness: str) -> str | None:
 
 
 def run(cmd: list[str], cwd: str | None = None, timeout: int = TIMEOUT) -> tuple[int, str]:
-    """stdin closed (codex waits on it forever otherwise); stderr kept; on timeout the whole
-    process group dies, so a harness's own children never outlive the call."""
-    proc = subprocess.Popen(cmd, cwd=cwd, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE, text=True, encoding='utf-8', errors='replace',
-                            start_new_session=True)
-    try:
-        out, err = proc.communicate(timeout=timeout)
-    except subprocess.TimeoutExpired:
-        os.killpg(proc.pid, signal.SIGKILL)
-        proc.communicate()
-        return 124, f'timed out after {timeout} s'
-    return proc.returncode, (out or '') + (err or '')
+    """stdout then stderr of `cmd`, run through worker_guard.spawn: stdin closed (codex waits on it
+    forever otherwise), refused when the machine has no memory for it, and dead with its whole tree
+    at the deadline or when this caller dies."""
+    code, out, err = worker_guard.spawn(cmd, cwd=cwd, timeout=timeout)
+    return code, out + err
 
 
 def classify(code: int, text: str) -> str:
@@ -125,6 +120,8 @@ def classify(code: int, text: str) -> str:
             return status
     if code == 124:
         return 'timeout'
+    if code == worker_guard.BUSY:
+        return 'busy'
     if code == 127:
         return 'missing'
     if code != 0 or not text.strip():
