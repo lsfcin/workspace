@@ -73,6 +73,20 @@ def test_an_unheld_feature_and_stray_dirt_are_refused(tmp_path):
     assert 'held by nobody' in lock.verdict(repo / 'a', A)[0]
 
 
+def test_an_ignored_path_is_written_by_edit_as_by_shell(tmp_path):
+    """An Edit on an ignored path of a free repo was refused while the same shell write passed. One
+    rule now: a write git never sees passes, judged at the real target, and never a lock file."""
+    repo = governed_repo(tmp_path)
+    (repo / '.git/info/exclude').write_text('out/\n', encoding='utf-8', newline='\n')
+    (repo / 'out').mkdir()
+    (repo / 'out/readme-link.md').symlink_to(repo / 'README.md')
+    assert lock.verdict(repo / 'out/not/yet/made.md', A) == ('', '')
+    assert '[free]' in lock.verdict(repo / 'out/readme-link.md', A)[0]   # the target is tracked
+    assert '[free]' in lock.verdict(repo / 'a.md', A)[0]
+    assert _shell('echo x > out/report.md', cwd=repo).returncode == 0
+    assert not lock.ignored(lock.lock_file(repo))
+
+
 def test_outside_scope_nothing_is_gated(tmp_path):
     repo = governed_repo(tmp_path)
     run(repo, 'remote', 'set-url', 'origin', 'https://github.com/someone-else/x.git')

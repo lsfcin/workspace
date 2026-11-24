@@ -85,8 +85,7 @@ def writes(command: str, cwd: str) -> list:
     for name in heredoc.candidates(command, str(base), every_line=True):
         path = Path(name).expanduser()
         path = (path if path.is_absolute() else base / path).resolve()
-        repo = lock.repo_of(path)
-        if path not in found and not (repo and lock.git(repo, 'check-ignore', '-q', str(path)).returncode == 0):
+        if path not in found and not lock.ignored(path):
             found.append(path)
     return found
 

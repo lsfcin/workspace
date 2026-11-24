@@ -157,10 +157,22 @@ def take(repo, session: str, name: str) -> tuple:
                 + f'. The close merges it into develop. Session: {session}')
 
 
+def ignored(path, repo=None) -> bool:
+    """A write git never sees strands no repo, so it passes — by Edit and by shell alike. Judged at
+    the real target (a symlink's), in the innermost repo. A lock file is never: rewriting it moves the lock."""
+    path = Path(path).expanduser().resolve()
+    if path.parent == lock_file(WORKSPACE).parent and path.name.startswith('lock_'):
+        return False
+    repo = repo or repo_of(path)
+    return bool(repo) and git(repo, 'check-ignore', '-q', str(path)).returncode == 0
+
+
 def verdict(path, session: str) -> tuple:
     """(refusal, note) for this session acting on the repo holding `path`. Never takes a free repo."""
+    path = Path(path).expanduser().resolve()
     repo = repo_of(path)
-    if not session or not repo or not feature_law.is_enabled('branch-lock') or not governed(repo):
+    if not session or not repo or not feature_law.is_enabled('branch-lock') or not governed(repo) \
+            or ignored(path, repo):
         return '', ''
     with locked(lock_file(repo).with_suffix('.flock')):
         owner, branch = holder(repo)
