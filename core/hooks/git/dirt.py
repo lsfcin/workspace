@@ -10,6 +10,7 @@
 import json
 import os
 import re
+import shlex
 import sys
 from pathlib import Path
 
@@ -80,20 +81,27 @@ def snapshot(session: str, command: str, cwd: str) -> None:
     _before(session).write_text(json.dumps(before), encoding='utf-8', newline='\n')
 
 
-def attribute(session: str) -> list:
-    """Post-shell: the paths that turned dirty since the snapshot are this session's. Returns the repos."""
+def attribute(session: str) -> dict:
+    """Post-shell: the paths that turned dirty since the snapshot are this session's, by repo."""
     path = _before(session)
     if not path.is_file():
-        return []
-    before, touched = json.loads(path.read_text(encoding='utf-8')), []
+        return {}
+    before, touched = json.loads(path.read_text(encoding='utf-8')), {}
     path.unlink()
     for repo, old in before.items():
         if new := dirty(repo) - set(old):
             with locked(owners(repo).with_suffix('.flock')), \
                     owners(repo).open('a', encoding='utf-8', newline='\n') as rows:
                 rows.writelines(f'{session}\t{name}\n' for name in sorted(new))
-            touched.append(repo)
+            touched[repo] = sorted(new)
     return touched
+
+
+def undo(repo, names: list) -> str:
+    """The one shell line that hands `names` back: restore the tracked ones, clean the new ones."""
+    tracked, q = set(lock.out(repo, 'ls-files', '--', *names).splitlines()), shlex.quote
+    parts = [(verb, [n for n in names if (n in tracked) == keep]) for verb, keep in (('restore', True), ('clean -fq', False))]
+    return ' && '.join(f'git -C {q(str(repo))} {verb} -- ' + ' '.join(map(q, picked)) for verb, picked in parts if picked)
 
 
 def mine(repo, session: str) -> set:
@@ -109,11 +117,11 @@ def owns(repo, session: str) -> bool:
 
 
 def restores(where, session: str, verb: str, args: list) -> bool:
-    """`git restore <paths>` or `git checkout -- <paths>` on paths this session dirtied: its own undo."""
-    if verb not in ('restore', 'checkout') or not session:
+    """`git restore|clean <paths>` or `git checkout -- <paths>` on paths this session dirtied: its own undo."""
+    if verb not in ('restore', 'checkout', 'clean') or not session:
         return False
     names = args[args.index('--') + 1:] if '--' in args else \
-        [a for a in args if not a.startswith('-')] if verb == 'restore' else []
+        [a for a in args if not a.startswith('-')] if verb != 'checkout' else []
     repo = lock.repo_of(where)
     if not names or not repo:
         return False
@@ -132,11 +140,11 @@ def main() -> int:
         if str(raw.get('hook_event_name') or raw.get('hookEventName') or 'PreToolUse') != 'PostToolUse':
             snapshot(session, command_only(str(data.get('command', ''))), cwd)
             return 0
-        if repos := attribute(session):
-            names = ', '.join(str(r) for r in repos)
+        if left := attribute(session):
+            lines = ''.join(f'\n   {repo}: carry it with core/run tools/wos/take {shlex.quote(str(repo))} <name>,'
+                            f' or undo it with {undo(repo, names)}' for repo, names in left.items())
             print(json.dumps({'hookSpecificOutput': {'hookEventName': 'PostToolUse', 'additionalContext':
-                f'[Git] this command left {names} dirty while nobody holds it. The dirt is yours: carry it '
-                'with core/run tools/wos/take <repo> <name>, or undo it with git -C <repo> restore <paths>.'}}))
+                f'[Git] this command left dirt in a repo nobody holds. The dirt is yours:{lines}'}}))
     except Exception:   # noqa: BLE001 — fail open, see the head
         return 0
     return 0

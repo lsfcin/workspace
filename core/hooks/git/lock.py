@@ -10,6 +10,7 @@
 # Contract: core/hooks/git/SPECS.md.
 import os
 import re
+import shlex
 import subprocess
 import sys
 from pathlib import Path
@@ -93,7 +94,7 @@ def release(repo, session: str) -> None:
 
 def _dirty(repo) -> str:
     return '' if not out(repo, 'status', '--porcelain') else (
-        f'⛔ BRANCH LOCK — {_name(repo)} has uncommitted changes nobody holds.\n'
+        f'⛔ BRANCH LOCK [dirty] — {_name(repo)} has uncommitted changes nobody holds.\n'
         '   They are not this session\'s. Ask Lucas to commit or stash them, then retry.')
 
 
@@ -146,10 +147,10 @@ def take(repo, session: str, name: str) -> tuple:
                     f'   Pick another name, or resume it on Lucas\'s word: core/run tools/wos/claim {repo} {name}'), ''
         if git(repo, 'switch', '-q', 'develop').returncode != 0 or \
                 (fetched and git(repo, 'merge', '-q', '--ff-only', 'origin/develop').returncode != 0):
-            return (f'⛔ BRANCH LOCK — develop in {_name(repo)} cannot fast-forward to origin.\n'
+            return (f'⛔ BRANCH LOCK [diverged] — develop in {_name(repo)} cannot fast-forward to origin.\n'
                     '   It diverged; that is Lucas\'s to settle.'), ''
         if git(repo, 'switch', '-q', '-c', branch).returncode != 0:
-            return f'⛔ BRANCH LOCK — could not create {branch} in {_name(repo)}.', ''
+            return f'⛔ BRANCH LOCK [branch] — could not create {branch} in {_name(repo)}.', ''
         _hold(repo, session, branch)
         dirt.owners(repo).unlink(missing_ok=True)
     return '', (f'[Git] {_name(repo)} is yours on {branch}' + ('' if fetched else ' (offline: not pulled)')
@@ -168,23 +169,25 @@ def verdict(path, session: str) -> tuple:
             if head == branch or not head:
                 return '', ''
             if head in SHARED:
-                return (f'⛔ BRANCH LOCK — you hold {_name(repo)} on {branch}, but it is on {head}.\n'
-                        f'   git -C {repo} switch {branch}'), ''
+                return (f'⛔ BRANCH LOCK [off-feature] — you hold {_name(repo)} on {branch}, but it is on {head}.\n'
+                        f'   git -C {shlex.quote(str(repo))} switch {shlex.quote(branch)}'), ''
             _hold(repo, session, head)   # nobody else can switch a held repo: this was ours
             return '', ''
         return _not_yours(repo, session, owner, branch, head), ''
 
 
 def _not_yours(repo, session: str, owner: str, branch: str, head: str) -> str:
-    """Why `session` may not change a repo it does not hold. The one place each refusal is worded."""
-    claim_line = f'   Only on Lucas\'s explicit word:\n     core/run tools/wos/claim {repo} --session {session}'
+    """Why `session` may not change a repo it does not hold. The one place each refusal is worded: a
+    stable [code], and a command only when running it is the agent's to do — a runnable claim tempted
+    agents to take a live lock (2026-11-23)."""
     if owner:
-        return (f'⛔ BRANCH LOCK — {_name(repo)} is held by session {owner} on {branch}.\n'
-                '   Work elsewhere, or wait for its close.\n' + claim_line)
+        return (f'⛔ BRANCH LOCK [held] — {_name(repo)} is held by session {owner} on {branch}.\n'
+                '   Work elsewhere, or wait for its close. Handing it over is Lucas\'s call: tell him.')
     if head not in SHARED:
-        return f'⛔ BRANCH LOCK — {_name(repo)} is on {head or "a detached HEAD"}, held by nobody.\n' + claim_line
-    return (f'⛔ BRANCH LOCK — {_name(repo)} is free: name the work before changing it.\n'
-            f'   core/run tools/wos/take {repo} <name>   ([a-z0-9-]; the ROADMAP or ISSUES id when one fits)')
+        return (f'⛔ BRANCH LOCK [unheld] — {_name(repo)} is on {head or "a detached HEAD"}, held by nobody.\n'
+                '   Resuming work nobody holds is Lucas\'s call: tell him.')
+    return (f'⛔ BRANCH LOCK [free] — {_name(repo)} is free: name the work before changing it.\n'
+            f'   core/run tools/wos/take {shlex.quote(str(repo))} <name>   ([a-z0-9-]; the ROADMAP or ISSUES id when one fits)')
 
 
 def change(path, session: str, target: str = '') -> str:
@@ -198,7 +201,7 @@ def change(path, session: str, target: str = '') -> str:
         owner, branch = holder(repo)
         if owner == session:
             return '' if target not in (*SHARED, '-') else (
-                f'⛔ BRANCH LOCK — leaving {branch} is the close\'s job: core/run tools/wos/roundup')
+                f'⛔ BRANCH LOCK [leave] — leaving {branch} is the close\'s job: core/run tools/wos/roundup')
         return _not_yours(repo, session, owner, branch, out(repo, 'branch', '--show-current'))
 
 
@@ -214,5 +217,5 @@ def check(commit) -> None:
             or Path(commit.toplevel, out(commit.toplevel, 'rev-parse', '--git-dir'), 'MERGE_HEAD').exists() \
             or not governed(commit.toplevel):
         return
-    raise Blocked(f'⛔ BRANCH LOCK — an agent commits on a feature branch, never on {branch}.\n'
-                  f'   core/run tools/wos/take {commit.toplevel} <name>')
+    raise Blocked(f'⛔ BRANCH LOCK [shared] — an agent commits on a feature branch, never on {branch}.\n'
+                  f'   core/run tools/wos/take {shlex.quote(str(commit.toplevel))} <name>')

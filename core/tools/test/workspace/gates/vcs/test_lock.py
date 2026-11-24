@@ -36,7 +36,8 @@ def test_another_session_is_refused_until_claim(tmp_path):
     repo = governed_repo(tmp_path)
     lock.take(repo, A, 'work')
     refusal, _ = lock.verdict(repo / 'a.md', B)
-    assert 'held by session' in refusal and f'claim {repo}' in refusal
+    # A runnable claim tempted agents to steal a live lock (argon, 2026-11-23): handing over is Lucas's.
+    assert '[held]' in refusal and 'Lucas' in refusal and 'wos/claim' not in refusal
     lock.claim(repo, B)
     assert lock.verdict(repo / 'a.md', B) == ('', '') and lock.verdict(repo / 'a.md', A)[0]
 
@@ -100,7 +101,8 @@ def test_a_free_checkout_is_changed_only_after_take(tmp_path):
                     f'git -C {repo} branch -m renamed', f'git -C {repo} fetch -u origin develop:develop',
                     f'git -C {repo} push . main:develop', f'git -C {repo} stash', f'git -C {repo} frobnicate'):
         done = _shell(command)
-        assert done.returncode == 2 and 'wos/take' in done.stderr, command
+        assert done.returncode == 2 and '[free]' in done.stderr and 'wos/take' in done.stderr, command
+        assert 'lock-gate.py' not in done.stderr, command   # never sends a non-holder to edit the gate
     for command in (f'git -C {repo} push origin develop:main', f'git -C {repo} fetch origin main:main',
                     f"sh -c 'git -C {repo} tag v1.0 && git -C {repo} push origin v1.0'",
                     f'git -C {repo} branch -d feature/merged', f'git -C {repo} config --get user.name'):
@@ -115,6 +117,8 @@ def test_the_holder_never_leaves_its_feature_by_itself(tmp_path):
     feature = run(repo, 'branch', '--show-current')
     assert 'close\'s job' in _shell(f'git -C {repo} switch develop').stderr
     assert _shell(f'git -C {repo} switch -c feature/second').returncode == 0
+    for restore in (f'git -C {repo} checkout develop -- README.md', f'git -C {repo} checkout develop README.md'):
+        assert _shell(restore).returncode == 0, restore   # a file from develop is not a move onto it
     run(repo, 'switch', '-q', 'develop')   # a person, or the close, moved it back
     assert 'switch' in lock.verdict(repo / 'a', A)[0]
     assert _shell(f'git -C {repo} switch {feature}').returncode == 0

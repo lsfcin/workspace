@@ -60,15 +60,14 @@ def changes(verb: str, args: list) -> bool:
 
 
 def target(verb: str, args: list) -> str:
-    """The branch a switch or checkout moves to: its first positional before `--`."""
+    """The branch a switch or checkout moves to: its one positional. A checkout naming paths too
+    (`checkout develop -- f.py`, `checkout develop f.py`) restores files and moves nothing."""
     if verb not in ('switch', 'checkout'):
         return ''
-    for arg in args:
-        if arg == '--':
-            return ''
-        if arg == '-' or not arg.startswith('-'):
-            return arg
-    return ''
+    named = [a for a in args if a == '-' or not a.startswith('-')]
+    if verb == 'checkout' and ('--' in args or len(named) > 1):
+        return ''
+    return named[0] if named else ''
 
 
 def writes(command: str, cwd: str) -> list:
@@ -105,7 +104,7 @@ def main() -> int:
             for where, verb, args in calls(command_only(command), cwd):
                 if changes(verb, args) and not restores(where, session, verb, args) \
                         and (refusal := lock.change(where, session, target(verb, args))):
-                    reason = f'git {verb} touches the checkout; a read missing from READS in lock-gate.py is one line there.'
+                    reason = f'git {verb} touches the checkout.'
                     break
             else:
                 for path in writes(command, cwd):

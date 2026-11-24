@@ -63,6 +63,10 @@ def test_unseen_dirt_belongs_to_the_session_that_left_it(tmp_path):
     (repo / 'new.md').write_text('new\n', encoding='utf-8', newline='\n')
     done = _hook('dirt.py', 'python3 build.py', repo, event='PostToolUse')
     assert 'wos/take' in done.stdout and dirt.mine(repo, A) == {'README.md', 'new.md'}
+    undo = f'git -C {repo} restore -- README.md && git -C {repo} clean -fq -- new.md'
+    assert undo in done.stdout and '<repo>' not in done.stdout   # the real line, runnable as printed
+    assert _hook('lock-gate.py', undo, repo, session=B).returncode == 2
+    assert _hook('lock-gate.py', undo, repo).returncode == 0
     assert _hook('lock-gate.py', 'git restore README.md', repo, session=B).returncode == 2
     assert _hook('lock-gate.py', 'git restore README.md', repo).returncode == 0
     assert 'nobody holds' in lock.take(repo, B, 'theirs')[0]
