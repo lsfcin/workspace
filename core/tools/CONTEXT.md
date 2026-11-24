@@ -49,5 +49,5 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`secret_law.py`](secret_law.py) | [`secret_law.pyi`](secret_law.pyi) | `redact_line`, `redact`, `Finding`, `scan_text`, `scan` | secret_law.py — the one definition of what counts as a secret: the patterns, the redaction a transcript needs, and the scan that REFUSES a file rather than cleaning it. |
 | [`short_name.py`](short_name.py) | [`short_name.pyi`](short_name.pyi) | `mint` | short_name.py — the one line a tool spends on offering `--short-name`: mint a short link for what it created |
 | [`tool_law.py`](tool_law.py) | [`tool_law.pyi`](tool_law.pyi) | `require` | tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls |
-| [`workers.py`](workers.py) | [`workers.pyi`](workers.pyi) | `Result`, `table`, `catalog`, `models`, `cooling` | workers.py — the one way a tool calls an outside worker (another harness's model): find it, call it, classify what came back, and log who answered. |
+| [`workers.py`](workers.py) | [`workers.pyi`](workers.pyi) | `Result`, `table`, `catalog`, `cooling`, `chain` | workers.py — the one way a tool calls an outside worker (another harness's model): find it, call it, classify what came back, and log who answered. |
 <!-- routing:end -->

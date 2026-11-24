@@ -13,6 +13,7 @@
 # matching no known mark is `unknown`, not `quota`: calling a broken call a spent quota hides it.
 from __future__ import annotations
 
+import json
 import os
 import pathlib
 import shutil
@@ -68,11 +69,6 @@ def catalog() -> list[dict]:
     """core/workers.txt in file order, each row joined to its model's row in core/models.txt."""
     facts = {m['model']: m for m in table(MODELS)}
     return [{**facts.get(r['model'], {}), **r} for r in table(CATALOG)]
-
-
-def models() -> dict:
-    """{worker: the id its harness resolves}."""
-    return {r['worker']: r['id'] for r in table(CATALOG)}
 
 
 def cooling(worker: str, now: str = '') -> str:
@@ -146,13 +142,8 @@ def _codex(exe, model, prompt, cwd):
     return (0, answer) if code == 0 and answer.strip() else (code or 1, log)
 
 
-def _agy(exe, model, prompt, cwd):
-    return run([exe, '--disable-slash-commands', '--model', model, '-p', prompt], cwd=cwd)
-
-
 def _opencode(exe, model, prompt, cwd):
     """--format json: the answer is the text parts of the event stream, never the pretty print."""
-    import json
     code, raw = run([exe, 'run', '--pure', '--format', 'json', '-m', model, prompt], cwd=cwd)
     parts = []
     for line in raw.splitlines():
@@ -167,11 +158,10 @@ def _opencode(exe, model, prompt, cwd):
     return (code, ''.join(parts)) if parts else (code or 1, raw)
 
 
-def _ollama(exe, model, prompt, cwd):
-    return run([exe, 'run', model, prompt], cwd=cwd)
-
-
-ADAPTERS = {'codex': _codex, 'agy': _agy, 'opencode': _opencode, 'ollama': _ollama}
+ADAPTERS = {'codex': _codex, 'opencode': _opencode,
+            'agy': lambda exe, model, prompt, cwd: run(
+                [exe, '--disable-slash-commands', '--model', model, '-p', prompt], cwd=cwd),
+            'ollama': lambda exe, model, prompt, cwd: run([exe, 'run', model, prompt], cwd=cwd)}
 
 
 def call(worker: str, prompt: str, role: str = '-', cwd: str | None = None) -> Result:
@@ -216,8 +206,15 @@ def tally() -> dict:
 
 
 # The command that lists what a harness offers today, first column = the id it resolves.
-# codex lists nothing: its id is only proven by a call.
-OFFERS = {'agy': ['models'], 'opencode': ['models'], 'ollama': ['list']}
+OFFERS = {'agy': ['models'], 'opencode': ['models'], 'ollama': ['list'], 'codex': ['debug', 'models']}
+
+
+def _ids(text: str) -> set:
+    """The model ids in a codex catalog JSON, first object only: run() appends stderr after it."""
+    try:
+        return {m['slug'] for m in json.JSONDecoder().raw_decode(text.lstrip())[0]['models']}  # retired-ok: codex's key
+    except (ValueError, KeyError, TypeError):
+        return set()
 
 
 def offered(harness: str) -> set | None:
@@ -226,6 +223,9 @@ def offered(harness: str) -> set | None:
     if harness not in OFFERS or not exe:
         return None
     code, text = run([exe, *OFFERS[harness]], timeout=60)
+    if harness == 'codex':  # its two catalogs disagreed within an hour (2026-11-23): union, hidden ids too
+        cache = pathlib.Path(os.environ.get('CODEX_HOME', HOME / '.codex')) / 'models_cache.json'
+        return (_ids(text) | _ids(cache.read_text(encoding='utf-8') if cache.is_file() else '')) or None
     return {line.split()[0] for line in text.splitlines() if line.strip()} if code == 0 else None
 
 

@@ -25,6 +25,7 @@ ITEM_ID = re.compile(
 # rename — it is evidence. Found 2026-08-24 when an INBOX capture turned the suite red and the
 # check's own advice was to delete the line, which would have deleted Lucas's capture.
 _URL = re.compile(r'<?https?://\S+')
+_EXTERNAL = re.compile(r'^.*\bretired-ok: \S.*$', re.M)
 
 
 def retired_hits(files: list, retired: dict, exempt: set) -> list:
@@ -54,6 +55,9 @@ def retired_hits(files: list, retired: dict, exempt: set) -> list:
             continue
         try:
             text = _URL.sub(lambda m: ' ' * len(m.group()), path.read_text(encoding='utf-8'))
+            # A line marked `retired-ok: <why>` spells someone else's field (an external API's
+            # key), not our vocabulary: blanked, so the line count of every other hit holds.
+            text = _EXTERNAL.sub(lambda m: ' ' * len(m.group()), text)
         except (OSError, UnicodeDecodeError):
             continue
         for token, pattern in patterns.items():

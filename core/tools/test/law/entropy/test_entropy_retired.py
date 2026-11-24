@@ -26,6 +26,15 @@ def test_the_law_may_name_what_it_retires(tmp_path):
     assert entropy_list.retired_hits([law], {'gone-token': 'kept'}, {law}) == []
 
 
+def test_a_line_marked_as_an_external_field_is_not_a_hit(tmp_path):
+    """An outside API's key is its vocabulary, not ours; the mark needs a reason."""
+    target = tmp_path / 'client.py'
+    target.write_text("m['gone-token']  # retired-ok: the vendor's field\n", encoding='utf-8', newline='\n')
+    assert entropy_list.retired_hits([target], {'gone-token': 'kept'}, set()) == []
+    target.write_text("m['gone-token']  # retired-ok:\n", encoding='utf-8', newline='\n')
+    assert len(entropy_list.retired_hits([target], {'gone-token': 'kept'}, set())) == 1
+
+
 def test_retired_token_in_a_filename_is_a_hit(tmp_path):
     """The `fable-loop-engineering.md` shape: hyphen is a boundary, so a retired token
     hiding inside a compound name is still found. That is where a half-done rename

@@ -91,16 +91,30 @@ def test_a_worker_whose_id_the_harness_stopped_offering_is_not_live(tmp_path, mo
     assert workers.live(row('opencode/kept-free'), offers) == 'ok'
     assert workers.live(row('opencode/gone-free'), offers) == 'opencode/gone-free no longer offered'
     assert offers == {'opencode': {'opencode/kept-free', 'other/x'}}
-    codex = tmp_path / 'codex'  # a harness that lists nothing is proven by --help alone
+    codex = tmp_path / 'codex'  # a harness that cannot say what it offers is proven by --help alone
     codex.write_text('#!/bin/sh\nexit 0\n', encoding='utf-8', newline='\n')
     codex.chmod(0o755)
     monkeypatch.setenv('CODEX', str(codex))
+    monkeypatch.setenv('CODEX_HOME', str(tmp_path / 'no-home'))
     assert workers.live({'harness': 'codex', 'id': 'anything'}) == 'ok'
 
 
+def test_codex_offers_the_union_of_its_binary_catalog_and_its_account_cache(tmp_path, monkeypatch):
+    # 2026-11-23: `debug models` had gpt-5.5 and not gpt-6.2-sol; the account cache the reverse.
+    exe = tmp_path / 'codex'
+    exe.write_text('#!/bin/sh\n[ "$1" = debug ] && printf \'{"models":[{"slug":"built-in"}]}\\nWARN noise\\n\'\nexit 0\n',  # retired-ok: codex's key
+                   encoding='utf-8', newline='\n')
+    exe.chmod(0o755)
+    (tmp_path / 'models_cache.json').write_text('{"models":[{"slug":"sent","visibility":"hide"}]}',  # retired-ok: codex's key
+                                                encoding='utf-8', newline='\n')
+    monkeypatch.setenv('CODEX', str(exe))
+    monkeypatch.setenv('CODEX_HOME', str(tmp_path))
+    assert workers.offered('codex') == {'built-in', 'sent'}
+    assert workers.live({'harness': 'codex', 'id': 'gone'}) == 'gone no longer offered'
+
+
 def test_every_declared_worker_has_a_model_id_and_the_chain_is_ordered():
-    ids = workers.models()
-    assert all(r['worker'] in ids for r in workers.catalog())
+    assert all(r['id'] and r['id'] != '-' for r in workers.catalog())
     positions = [int(r['chain']) for r in workers.chain()]
     assert positions == sorted(positions) and len(set(positions)) == len(positions)
 

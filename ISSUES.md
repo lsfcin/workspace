@@ -24,7 +24,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **ZCode tem headless, mas sem modelo.** `node /opt/ZCode/resources/glm/zcode.cjs --prompt "<texto>"` (CLI 0.16.3) responde `Model config is missing`: `~/.zcode/cli/config.json` só tem hooks. Falta declarar um provider (login Z.AI) antes da linha em `core/workers.txt` (20 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
 
-- **`video` não avisa quando a fala sai curta.** Em 21/11 o reel Df96hr1Nu5M saiu com ~120 palavras, cortado em ~40 s. Em 23/11 não se repetiu: 155,7 s de áudio e 524 palavras até o fim, provavelmente um download parcial na primeira vez. O defeito que sobra: `video_media.transcribe()` devolve `""` em qualquer exceção, e ninguém compara o fim do último segmento com a duração do áudio. Uma fala curta passa por inteira (23 Nov). [src: agent 2026-11-21] `b20261121-video-speech-cut`
+- **`video` não avisa quando a fala sai curta.** `video_media.transcribe()` devolve `""` em qualquer exceção, e ninguém compara o fim do último segmento com a duração do áudio (reel Df96hr1Nu5M, 21 Nov). [src: agent 2026-11-21] `b20261121-video-speech-cut`
 
 - **`core/harnesses.txt` não tem copilot**, mas existem `core/hooks/copilot/` e um teste de shim dele. Ou ganha linha (com o diretório de skills que tiver) ou a ausência fica escrita (20 Nov). [src: agent 2026-11-20] `b20261120-harnesses-no-copilot`
 
