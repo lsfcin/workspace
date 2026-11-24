@@ -25,6 +25,8 @@ export const HOOKS = `${WORKSPACE}/core/hooks`
 // dedupe on hook_input.py's ppid fallback — the terminal, shared by every session the terminal
 // ever ran — and the CONTEXT.md chain leaks "already seen" across sessions.
 export const SESSION_ID = `opencode${process.pid}`
+// Every shell opencode spawns inherits it, so git (core/hooks/git/git) knows whose call it is.
+process.env.WOS_SESSION = SESSION_ID
 
 // The interpreter, asked never spelled. The bare word `python3` is the one spelling this
 // workspace bans (core/run header): on a Windows clone it reaches the Microsoft Store alias,

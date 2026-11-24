@@ -17,18 +17,18 @@ from pathlib import Path
 _HOOKS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(_HOOKS))
 import feature_law  # noqa: E402
-from platform_law import locked, rel, session_state  # noqa: E402
+from platform_law import locked, real_git, rel, session_state  # noqa: E402
 
 SHARED = ('main', 'master', 'develop')
 NOTES = ('ISSUES.md', 'ROADMAP.md')   # the files a session that does not hold a repo notes into (outbox.py)
 NAME = re.compile(r'[a-z0-9][a-z0-9-]*')   # an id from ROADMAP or ISSUES fits; a folder does not
 WORKSPACE = _HOOKS.parents[1]
-# The ids an agent's shell exports, so a git hook it spawns knows it is an agent's commit.
-SESSION_ENV = ('CLAUDE_CODE_SESSION_ID', 'CODEX_THREAD_ID', 'CODEX_SESSION_ID', 'CLAUDE_SESSION_ID')
+# The ids an agent's shell exports, so git (core/hooks/git/git) knows it is an agent's call.
+SESSION_ENV = ('WOS_SESSION', 'CLAUDE_CODE_SESSION_ID', 'CODEX_THREAD_ID', 'CODEX_SESSION_ID', 'CLAUDE_SESSION_ID')
 
 
 def git(repo, *args) -> subprocess.CompletedProcess:
-    return subprocess.run(['git', *args], cwd=repo, capture_output=True, text=True, encoding='utf-8')
+    return subprocess.run([real_git(), *args], cwd=repo, capture_output=True, text=True, encoding='utf-8')
 
 
 def out(repo, *args) -> str:

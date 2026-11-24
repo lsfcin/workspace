@@ -2,7 +2,7 @@
 > What must exist before anything else in this workspace runs: the permission level the installing
 > agent works under, the interpreter every tool is spawned with, and the gates that fire on commit.
 > Run these in order and stop at the first check that will not pass.
-> feature: permissions, declared-deps, github-auth, brain-dashboard, git-hooks, skill-mirrors
+> feature: permissions, declared-deps, github-auth, brain-dashboard, git-hooks, branch-lock, skill-mirrors
 > enforced-by: core/tools/test/workspace/test_setup_executable.py
 
 The five-part contract, and the handover rule for the one step marked `agent: no`: [`SETUP.md`](SETUP.md).
@@ -145,6 +145,21 @@ git config --global core.hooksPath "$PWD/core/hooks"
 
 **Verify** `test -f "$(git config --global core.hooksPath)/pre-commit" && echo "hook reachable"` —
 the path must resolve to a dispatcher, not just be a string.
+
+## Git wrapper
+> feature: `branch-lock` · agent: yes
+
+Puts `core/hooks/git/git` ahead of the real git, once per machine, as a symlink in `~/.local/bin`. Every git call an agent makes — from the shell, a script or a subprocess — then meets the branch lock; a person's passes after one PATH scan. Until it is in, every agent shell call is refused.
+
+**Precondition** `core/run tools/wos/gitwrap --check`
+
+**Install**
+```bash
+core/run tools/wos/gitwrap --install
+```
+If it prints an `export PATH=...` line, that folder is missing from the login shell's PATH: add the line to the shell profile, open a new terminal and restart the agent.
+
+**Verify** `core/run tools/wos/gitwrap --check` — both this PATH and a login shell's must reach the wrapper.
 
 ## Executable bits
 > feature: `git-hooks` · agent: yes

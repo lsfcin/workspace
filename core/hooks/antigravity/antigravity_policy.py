@@ -142,6 +142,10 @@ def main() -> int:
     res: dict[str, Any] = {}
     try:
         if event == "PreToolUse":
+            # Its shell carries no session id: git (core/hooks/git/git) finds this host among its ancestors.
+            sys.path.insert(0, str(HOOKS / "git"))
+            import wrapper
+            wrapper.register(sid, os.getppid())
             res = pre_tool(data.get("toolCall") or {}, sid)
         elif event == "PostToolUse":
             res = post_tool(data.get("toolCall") or {}, sid)

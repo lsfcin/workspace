@@ -1,5 +1,7 @@
 # b20261120-lock-blocks-readonly regression: a git command that only reads passes the branch lock, whoever holds the repo.
+# Since 2026-11-24 git is judged by its wrapper (conftest puts it on PATH), never by the command's text.
 import json
+import os
 import re
 import subprocess
 import sys
@@ -24,13 +26,19 @@ def _drop_locks(tmp_path):
 
 
 def _shell(command):
-    return subprocess.run([sys.executable, str(GATE)], capture_output=True, text=True, encoding='utf-8',
+    """The command run as session A: the shell gate first, then the shell itself, git wrapped."""
+    gate = subprocess.run([sys.executable, str(GATE)], capture_output=True, text=True, encoding='utf-8',
                           input=json.dumps({'tool_name': 'Bash', 'session_id': A, 'cwd': '.',
                                             'tool_input': {'command': command}}))
+    if gate.returncode:
+        return gate
+    env = {k: v for k, v in os.environ.items() if k not in (*lock.SESSION_ENV, 'WOS_GIT_JUDGED')}
+    return subprocess.run(['sh', '-c', command], env={**env, 'WOS_SESSION': A}, capture_output=True,
+                          text=True, encoding='utf-8')
 
 
 def test_a_read_passes_whoever_holds_the_repo(tmp_path):
-    """Listing, a read verb, and prose that quotes git; a body fed to an interpreter is still a command."""
+    """Listing, a read verb, and prose that quotes git; a call an interpreter makes is still a call."""
     repo = governed_repo(tmp_path)
     lock.take(repo, B, 'work')
     for command in (f'git -C {repo} branch --show-current', f'git -C {repo} merge-base develop develop',
@@ -38,15 +46,18 @@ def test_a_read_passes_whoever_holds_the_repo(tmp_path):
                     f"cat <<'EOF'\ngit -C {repo} commit -m quoted\nEOF"):
         done = _shell(command)
         assert done.returncode == 0, (command, done.stderr)
-    assert _shell(f"python3 - <<'EOF'\nimport os; os.system('git -C {repo} commit')\nEOF").returncode == 2
+    script = f"python3 - <<'EOF'\nimport os; raise SystemExit(os.system('git -C {repo} commit -qm x') >> 8)\nEOF"
+    assert _shell(script).returncode == 128
 
 
 def test_a_path_through_a_git_folder_is_not_a_git_call(tmp_path):
     """2026-11-23: `grep x core/hooks/git/lock.py` was refused as `git /lock.py`."""
     repo = governed_repo(tmp_path)
+    lock.take(repo, B, 'work')
     (repo / 'git').mkdir()
-    for command in (f'cd {repo} && grep -n def git/lock.py', f'cat {repo}/git/SPECS.md | wc -l',
-                    f'ls {repo}/.git/refs', f'cd {repo} && cat my-git/x git_x/y'):
+    (repo / 'git/lock.py').write_text('def x(): pass\n', encoding='utf-8', newline='\n')
+    for command in (f'cd {repo} && grep -n def git/lock.py', f'ls {repo}/.git/refs',
+                    f'cd {repo} && cat my-git/x git_x/y 2>/dev/null; true'):
         done = _shell(command)
         assert done.returncode == 0, (command, done.stderr)
-    assert _shell(f'cd {repo} && git commit -qm x').returncode == 2
+    assert _shell(f'cd {repo} && git commit -qm x').returncode == 128

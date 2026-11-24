@@ -9,13 +9,8 @@ import os, sys, pathlib, tempfile
 HERE = pathlib.Path(__file__).resolve().parent
 WORKSPACE_ROOT = HERE.parents[2]
 
-# A git hook exports GIT_DIR, GIT_INDEX_FILE and friends, and every child process inherits them.
-# Dozens of tests here build a throwaway repo in tmp_path and run git inside it; under those
-# variables git ignores the cwd and operates on THIS repo instead. The tests then assert against
-# the workspace's own history and fail — but only when the suite is run BY THE PRE-COMMIT HOOK,
-# which is the one moment verify:fast is acting as a gate. Run by hand it is green, so the gate
-# was red and its operator was told otherwise. Found 2026-08-19; the failure is loud (19 tests)
-# and was invisible for as long as it existed because nobody reproduces a hook's environment.
+# A git hook exports GIT_DIR, GIT_INDEX_FILE and friends; under them a test's throwaway repo is
+# ignored and git acts on THIS repo — red only when the pre-commit runs the suite (2026-08-19).
 for _var in ('GIT_DIR', 'GIT_INDEX_FILE', 'GIT_WORK_TREE', 'GIT_OBJECT_DIRECTORY',
              'GIT_ALTERNATE_OBJECT_DIRECTORIES', 'GIT_PREFIX', 'GIT_COMMON_DIR'):
     os.environ.pop(_var, None)
@@ -29,6 +24,13 @@ os.environ['WOS_SCOREBOARD'] = str(
 # Nor in the session store: the suite left 1,400 markers in core/state (b20261123), and the lock
 # files of two xdist workers shared it. One folder per worker process, inherited the same way.
 os.environ['WOS_SESSION_STATE'] = tempfile.mkdtemp(prefix='wos-state-test-')
+# Nor behind the branch-lock wrapper (core/hooks/git/git): its throwaway repos are governed and no
+# session holds them. The suite runs as a call already judged; test_git_wrapper unsets it.
+os.environ['WOS_GIT_JUDGED'] = '1'
+# And always with it on PATH, as an installed machine has it, so the shell gate sees git wrapped.
+_bin = pathlib.Path(tempfile.mkdtemp(prefix='wos-bin-test-'))
+(_bin / 'git').symlink_to(HERE.parents[2] / 'core/hooks/git/git')
+os.environ['PATH'] = f'{_bin}{os.pathsep}{os.environ.get("PATH", "")}'
 
 # Own directory first, so tests in subdirectories can `from conftest import WORKSPACE_ROOT`.
 sys.path.insert(0, str(HERE))

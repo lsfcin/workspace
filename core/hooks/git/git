@@ -1,0 +1,39 @@
+#!/bin/sh
+# git, through the branch lock: an agent's call that would touch a repo's checkout is asked first; a person's never is.
+#
+# Installed once per machine ahead of the real git on PATH (core/run tools/wos/gitwrap --install).
+# The cheap cases never start Python, so a person's git costs a PATH scan: no session id and no agent
+# registered, a call git spawned inside one already judged, and a few exact read forms (Lucas,
+# 2026-11-24: forms, never a whole verb). Everything else is wrapper.py's. Rules: SPECS.md § The git wrapper.
+real=
+_ifs=$IFS
+IFS=:
+for dir in $PATH; do
+    # The same file as this one, by any name or symlink, is the wrapper: never the real git.
+    if [ -f "$dir/git" ] && [ -x "$dir/git" ] && ! [ "$dir/git" -ef "$0" ]; then real=$dir/git; break; fi
+done
+IFS=$_ifs
+[ -n "$real" ] || { echo 'git (branch lock): no real git on PATH behind the wrapper' >&2; exit 127; }
+[ -n "$WOS_GIT_JUDGED" ] && exec "$real" "$@"
+
+# lock.SESSION_ENV, in its order (test_git_wrapper holds the two lists equal).
+session=${WOS_SESSION:-${CLAUDE_CODE_SESSION_ID:-${CODEX_THREAD_ID:-${CODEX_SESSION_ID:-${CLAUDE_SESSION_ID:-}}}}}
+home=$(readlink -f "$0")
+home=${home%/core/hooks/git/git}
+if [ -z "$session" ]; then
+    registered=
+    for entry in "${WOS_SESSION_STATE:-$home/core/state}"/agent_pid_*; do
+        [ -e "$entry" ] && registered=1
+        break
+    done
+    [ -n "$registered" ] || exec "$real" "$@"
+fi
+
+form=$*
+[ "$1" = -C ] && [ $# -ge 3 ] && form=${form#"-C $2 "}
+case $form in
+    'rev-parse --show-toplevel'|'rev-parse --git-dir'|'rev-parse --abbrev-ref HEAD'|'rev-parse HEAD'|\
+    'branch --show-current'|'status --porcelain'|'status --short'|'diff --cached --name-only'|'--version')
+        exec "$real" "$@" ;;
+esac
+exec sh "$home/core/run" hooks/git/wrapper.py "$@"

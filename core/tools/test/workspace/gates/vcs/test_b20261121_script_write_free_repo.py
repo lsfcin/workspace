@@ -1,5 +1,6 @@
 # b20261121-script-write-free-repo regression: a script write into a free repo is refused when its text shows it, and owned by its session when it does not.
 import json
+import os
 import re
 import subprocess
 import sys
@@ -32,6 +33,13 @@ def _hook(gate, command, cwd, session=A, event='PreToolUse'):
                           capture_output=True, text=True, encoding='utf-8')
 
 
+def _wrapped(command, cwd, session):
+    """`command` through the git wrapper (conftest puts it on PATH), as `session` runs it."""
+    env = {k: v for k, v in os.environ.items() if k not in (*lock.SESSION_ENV, 'WOS_GIT_JUDGED')}
+    return subprocess.run(['sh', '-c', command], cwd=cwd, env={**env, 'WOS_SESSION': session},
+                          capture_output=True, text=True, encoding='utf-8')
+
+
 def test_a_write_the_text_shows_is_refused_on_a_free_repo(tmp_path):
     repo = governed_repo(tmp_path)
     for command in ('echo x > a.md', 'printf x | tee notes.md', "sed -i 's/x/y/' README.md",
@@ -50,7 +58,6 @@ def test_what_is_not_a_write_into_the_repo_passes(tmp_path):
     elsewhere = tmp_path / 'scratch'
     elsewhere.mkdir()
     assert _hook('lock-gate.py', f'S={elsewhere}; cd $S && git init -q && echo x > a.md', repo).returncode == 0
-    assert _hook('lock-gate.py', f'R={repo}; cd $R && git commit -qm x', tmp_path).returncode == 2
     lock.take(repo, A, 'work')
     assert _hook('lock-gate.py', 'echo x > a.md', repo).returncode == 0
     assert _hook('lock-gate.py', 'echo x > a.md', repo, session=B).returncode == 2
@@ -65,10 +72,9 @@ def test_unseen_dirt_belongs_to_the_session_that_left_it(tmp_path):
     assert 'wos/take' in done.stdout and dirt.mine(repo, A) == {'README.md', 'new.md'}
     undo = f'git -C {repo} restore -- README.md && git -C {repo} clean -fq -- new.md'
     assert undo in done.stdout and '<repo>' not in done.stdout   # the real line, runnable as printed
-    assert _hook('lock-gate.py', undo, repo, session=B).returncode == 2
-    assert _hook('lock-gate.py', undo, repo).returncode == 0
-    assert _hook('lock-gate.py', 'git restore README.md', repo, session=B).returncode == 2
-    assert _hook('lock-gate.py', 'git restore README.md', repo).returncode == 0
+    assert _wrapped('git restore README.md', repo, B).returncode == 128   # the git wrapper judges it
+    assert _wrapped(f'git -C {repo} restore -- README.md', repo, A).returncode == 0   # its own undo
+    assert run(repo, 'status', '--porcelain') == '?? new.md'
     assert 'nobody holds' in lock.take(repo, B, 'theirs')[0]
     refusal, _ = lock.take(repo, A, 'carry')
     assert not refusal and run(repo, 'branch', '--show-current') == 'feature/carry'

@@ -1,7 +1,7 @@
 # Git flow and the branch lock
 > Which branches exist, who may write where, and how work reaches develop.
 > governs: every repo that has a `develop` branch and an origin owned by the profile's `github-owner`
-> enforced-by: core/hooks/git/lock.py, core/hooks/git/lock-gate.py, core/hooks/post-commit
+> enforced-by: core/hooks/git/lock.py, core/hooks/git/lock-gate.py, core/hooks/git/wrapper.py, core/hooks/post-commit
 
 ## Branches
 
@@ -21,7 +21,17 @@
 
 **A shell write meets the lock an Edit does** (Lucas, 2026-11-23, panel argon). `lock-gate.py` refuses one its text shows — a redirect outside quotes, `tee`, `sed -i`, `python -c`, an interpreted heredoc — into a repo the session does not hold; a git-ignored path dirties no tree and passes, by Edit or shell alike (`lock.ignored`: the symlink's target, the innermost repo, never a `lock_*` file). No text shows every write, so [`dirt.py`](dirt.py) compares `git status` before and after each shell call on the free repos the command names: what turned dirty is that session's, which may `take` the repo carrying it when every dirty path is its own, or `git restore` it. Anyone else still meets dirt that belongs to nobody. A `cd` or `-C` to a variable the command never sets fails open.
 
-**Enforced at two layers.** [`lock-gate.py`](lock-gate.py), run by `core/hooks/dispatch.py`, which every harness shim calls for writes and shell commands (`test_every_shim_routes_write_and_shell.py` proves all six). The pre-commit refuses an agent's commit on a shared branch (its session id from the shell environment). The gate fails open only on a crash, never on a refusal.
+**Enforced at three layers.** [`lock-gate.py`](lock-gate.py), run by `core/hooks/dispatch.py`, which every harness shim calls for writes and shell commands (`test_every_shim_routes_write_and_shell.py` proves all six). The git wrapper, below, for every git call. The pre-commit refuses an agent's commit on a shared branch (its session id from the shell environment). Each fails open only on a crash, never on a refusal.
+
+## The git wrapper
+
+**git is judged by its own process, never by a command's text** (Lucas, 2026-11-24, panels P1 and P3 in `outputs/lock-close-2/` and `outputs/lock-facade/`). The text regex refused a heredoc that only quoted `git commit` and never saw `subprocess.run(['git', ...])`. [`git`](git) is a `sh` front installed once per machine ahead of the real git (`core/run tools/wos/gitwrap --install`, [SETUP-clone.md](../../../SETUP-clone.md) § Git wrapper); the real git is the next one on PATH that is not the same file. With no session and no agent registered, or inside a call already judged (`WOS_GIT_JUDGED`, set on what git spawns), it execs the real git; a few exact read forms do too, never a whole verb. The rest goes to [`wrapper.py`](wrapper.py): git's own options read before the verb, the repo as the real `git rev-parse --show-toplevel` resolves it through them, and `lock.change()`. A refusal exits 128; a crash lets the call through, says so on stderr and logs to `core/state/git_wrapper.log`.
+
+**Who calls.** The shell's session id (`lock.SESSION_ENV`: Claude Code and Codex export one, opencode's plugin sets `WOS_SESSION`), else the nearest ancestor process a shim registered (Copilot, Antigravity: `wrapper.register()` at each tool call), matched by pid and start time. An editor's root and its pty host are never registered, so a person's terminal beside an agent stays a person's. `lock.git()` runs the real git (`platform_law.real_git()`), so take and the close switch branches unjudged. `lock-gate.py` refuses every shell call from a harness whose PATH does not reach the wrapper, except installing it.
+
+**The race between `lock.change()` and the exec is accepted**: holding the lock's flock through a git call would deadlock a hook that takes it, and the window is one session's own close.
+
+**Rejected** (2026-11-24): an env marker `WOS_GIT_UNGATED` for trusted callers — it leaks to every child and an agent can export it; per-session PATH injection — a harness that cannot carry a session id cannot carry a PATH either; rewriting each command to prefix the id — a safety classifier refuses to judge a command a hook rewrote. A session that notes into a repo it does not hold never takes it to drain its own note (outbox path 3).
 
 **A repo moves through `core/run tools/wos/move FROM TO`** (2026-11-24): the lock is keyed by the path, so the move re-keys the lock and dirt files under both flocks, and `lock-gate.py` refuses a raw `mv` of a governed root with that command.
 

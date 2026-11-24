@@ -106,21 +106,26 @@ def _shell(command, session=A, cwd=None):
                   'tool_input': {'command': command}})
 
 
+def _judge(argv, cwd, session=A):
+    """The git wrapper's verdict on a call, without running it (core/hooks/git/wrapper.py)."""
+    import wrapper   # noqa: PLC0415
+    return wrapper.judge(argv, str(cwd), session)
+
+
 def test_a_free_checkout_is_changed_only_after_take(tmp_path):
     """b20261120-shell-branch-unheld: a checkout moved from the shell would be born without an owner.
     Refs and the remote are not the checkout, so a release passes on a free repo (2026-11-23)."""
     repo = governed_repo(tmp_path)
-    for command in (f'cd {repo} && git commit -qm x', f'git -C {repo} switch -c feature/mine',
-                    f'git -C {repo} clean -fdq', f'git -C {repo} add .', f'git -C {repo} update-ref HEAD HEAD~',
-                    f'git -C {repo} branch -m renamed', f'git -C {repo} fetch -u origin develop:develop',
-                    f'git -C {repo} push . main:develop', f'git -C {repo} stash', f'git -C {repo} frobnicate'):
-        done = _shell(command)
-        assert done.returncode == 2 and '[free]' in done.stderr and 'wos/take' in done.stderr, command
-        assert 'lock-gate.py' not in done.stderr, command   # never sends a non-holder to edit the gate
-    for command in (f'git -C {repo} push origin develop:main', f'git -C {repo} fetch origin main:main',
-                    f"sh -c 'git -C {repo} tag v1.0 && git -C {repo} push origin v1.0'",
-                    f'git -C {repo} branch -d feature/merged', f'git -C {repo} config --get user.name'):
-        assert _shell(command).returncode == 0, command
+    for argv in (['commit', '-qm', 'x'], ['switch', '-c', 'feature/mine'], ['clean', '-fdq'], ['add', '.'],
+                 ['update-ref', 'HEAD', 'HEAD~'], ['branch', '-m', 'renamed'],
+                 ['fetch', '-u', 'origin', 'develop:develop'], ['push', '.', 'main:develop'], ['stash'],
+                 ['frobnicate'], ['-C', str(repo), 'add', '.']):
+        refusal = _judge(argv, repo)
+        assert '[free]' in refusal and 'wos/take' in refusal, argv
+        assert 'lock-gate.py' not in refusal and 'wrapper.py' not in refusal, argv   # never sends one to edit it
+    for argv in (['push', 'origin', 'develop:main'], ['fetch', 'origin', 'main:main'], ['tag', 'v1.0'],
+                 ['push', 'origin', 'v1.0'], ['branch', '-d', 'feature/merged'], ['config', '--get', 'user.name']):
+        assert _judge(argv, repo) == '', argv
     assert not lock.holder(repo)[0]
 
 
@@ -129,15 +134,15 @@ def test_the_holder_never_leaves_its_feature_by_itself(tmp_path):
     repo = governed_repo(tmp_path)
     lock.take(repo, A, 'work')
     feature = run(repo, 'branch', '--show-current')
-    assert 'close\'s job' in _shell(f'git -C {repo} switch develop').stderr
-    assert _shell(f'git -C {repo} switch -c feature/second').returncode == 0
-    for restore in (f'git -C {repo} checkout develop -- README.md', f'git -C {repo} checkout develop README.md'):
-        assert _shell(restore).returncode == 0, restore   # a file from develop is not a move onto it
+    assert 'close\'s job' in _judge(['switch', 'develop'], repo)
+    assert _judge(['switch', '-c', 'feature/second'], repo) == ''
+    for restore in (['checkout', 'develop', '--', 'README.md'], ['checkout', 'develop', 'README.md']):
+        assert _judge(restore, repo) == '', restore   # a file from develop is not a move onto it
     run(repo, 'switch', '-q', 'develop')   # a person, or the close, moved it back
     assert 'switch' in lock.verdict(repo / 'a', A)[0]
-    assert _shell(f'git -C {repo} switch {feature}').returncode == 0
+    assert _judge(['switch', feature], repo) == ''
     lock.release(repo, A)
-    assert 'wos/take' in _shell(f'git -C {repo} switch {feature}').stderr
+    assert 'wos/take' in _judge(['switch', feature], repo)
 
 
 def test_a_person_commits_on_develop_and_an_agent_cannot(tmp_path):
@@ -156,10 +161,8 @@ def test_a_person_commits_on_develop_and_an_agent_cannot(tmp_path):
     assert agent.returncode != 0 and 'BRANCH LOCK' in agent.stdout + agent.stderr
 
 
-def test_the_switch_really_switches_the_shell_arm_off(tmp_path):
+def test_the_switch_really_switches_the_lock_off(tmp_path, monkeypatch):
     repo = governed_repo(tmp_path)
-    payload = {'tool_name': 'Bash', 'session_id': A, 'cwd': '.',
-               'tool_input': {'command': f'git -C {repo} commit -qm x'}}
-    done = subprocess.run([sys.executable, str(GATE)], input=json.dumps(payload), capture_output=True,
-                          text=True, encoding='utf-8', env={**os.environ, 'WOS_FEATURES_OFF': 'branch-lock'})
-    assert done.returncode == 0, done.stderr
+    assert _judge(['commit', '-qm', 'x'], repo)
+    monkeypatch.setenv('WOS_FEATURES_OFF', 'branch-lock')
+    assert _judge(['commit', '-qm', 'x'], repo) == ''

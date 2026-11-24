@@ -1,0 +1,70 @@
+# Usage: core/tools/wos/gitwrap [--install | --check | --remove] — put the branch-lock wrapper ahead of the real git on this machine's PATH, or say whether it is.
+#
+# Once per machine (SETUP-clone.md § Git wrapper): a symlink `git` in the user's own bin folder, which
+# login shells already put before /usr/bin, pointing at core/hooks/git/git in this clone. A person's git
+# then costs one PATH scan; an agent's is judged (core/hooks/git/SPECS.md § The git wrapper). Nothing
+# outside that one link is touched: a shell profile that lacks the folder is reported, never edited.
+import argparse
+import os
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+WRAPPER = ROOT / 'core/hooks/git/git'
+LINK = Path(os.environ.get('WOS_USER_BIN') or Path.home() / '.local/bin') / 'git'
+
+
+def ours(link: Path) -> bool:
+    return link.is_symlink() and link.resolve() == WRAPPER
+
+
+def reached() -> list:
+    """(where, wrapped) for this process's PATH and for a fresh login shell's: a harness inherits one."""
+    login = subprocess.run(['sh', '-lc', 'command -v git'], capture_output=True, text=True,
+                           encoding='utf-8').stdout.strip()
+    return [(name, bool(found) and Path(found).resolve() == WRAPPER)
+            for name, found in (('this PATH', shutil.which('git')), ('a login shell', login))]
+
+
+def install() -> int:
+    if LINK.exists() and not ours(LINK) or (LINK.is_symlink() and not ours(LINK)):
+        print(f'gitwrap: {LINK} is a git this tool did not put there; move it, then retry', file=sys.stderr)
+        return 1
+    LINK.parent.mkdir(parents=True, exist_ok=True)
+    if not ours(LINK):
+        LINK.symlink_to(WRAPPER)
+    WRAPPER.chmod(0o755)
+    return report()
+
+
+def report() -> int:
+    missing = [name for name, wrapped in reached() if not wrapped]
+    for name, wrapped in reached():
+        print(f'gitwrap: {name}: {"the wrapper" if wrapped else "the real git, unjudged"}')
+    if missing:
+        print(f'   {LINK.parent} must come before the real git on PATH. Add to your shell profile:\n'
+              f'   export PATH="{LINK.parent}:$PATH"')
+    return 1 if missing else 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description='the branch-lock wrapper in front of git')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--install', action='store_true', help='link it ahead of the real git')
+    mode.add_argument('--check', action='store_true', help='exit 1 unless git reaches it')
+    mode.add_argument('--remove', action='store_true', help='unlink it; git is the real one again')
+    args = parser.parse_args()
+    if args.install:
+        return install()
+    if args.remove:
+        if ours(LINK):
+            LINK.unlink()
+        print(f'gitwrap: {LINK} removed; git is the real one')
+        return 0
+    return report()
+
+
+if __name__ == '__main__':
+    sys.exit(main())

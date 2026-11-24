@@ -16,6 +16,7 @@ import os
 import subprocess
 import sys
 from contextlib import contextmanager
+from functools import cache
 from pathlib import Path
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[2]
@@ -59,14 +60,8 @@ def session_state(name: str) -> Path:
     CONTEXT.md chain it still had whole in its window. The gate asks *did this session read it* and
     was answered by a directory that had been wiped underneath it — a re-read the workspace pays for
     in tokens and can never detect, because nothing is broken afterwards. `core/` is the one address
-    per-machine state has here, beside `core/scoreboard.tsv`, and `.gitignore` treats that directory
-    as an allowlist, so state lands outside git without a rule being written for it.
-
-    WHY A FUNCTION AND NOT A CONSTANT. Six hooks spelled `/tmp/claude_<x>_<sid>.txt` by hand. `/tmp`
-    is not a directory Windows has: Python anchors a leading slash to the current drive, so every one
-    of those writes aimed at `C:\\tmp`, which does not exist — inside a PostToolUse hook, whose exit
-    status nobody reads. The gate could then never be satisfied by reading anything, and no message
-    anywhere said why. One owner of the name is what stops the second spelling.
+    per-machine state has here, and `.gitignore` treats it as an allowlist, so state stays out of git.
+    A function, not a constant: six hooks once spelled `/tmp/...` by hand, which Windows aims at `C:\\tmp`.
     """
     folder = Path(os.environ.get('WOS_SESSION_STATE') or WORKSPACE_ROOT / 'core' / 'state')
     folder.mkdir(parents=True, exist_ok=True)
@@ -117,28 +112,16 @@ def package_install(name: str) -> list:
 
 
 def posix(path) -> str:
-    """`path` spelled the one way this workspace spells a path that has become DATA.
-
-    pathlib solved the filesystem; it did not solve the vocabulary. A routing table row, a registry
-    key, an ISSUES.md line and a comparison against features.txt are all text, and text spelled with
-    a backslash on one machine and a slash on another makes two workspaces that disagree about their
-    own contents. `Path` is for touching disk; this is for everything a path is written into.
-
-    Not a concession to any one system: it is what makes the routing table and the entropy dashboard
-    byte-identical across machines, which test_the_output_is_deterministic already demands and today
-    passes only because every machine that has run it was the same kind.
+    """`path` spelled the one way this workspace spells a path that has become DATA: a routing row,
+    a registry key, an ISSUES.md line. A backslash on one machine and a slash on another make two
+    workspaces that disagree about their own contents. `Path` is for touching disk; this is for text.
     """
     return Path(path).as_posix()
 
 
 def rel(path, root=WORKSPACE_ROOT) -> str:
-    """`path` relative to `root`, in that same vocabulary, whatever shape it arrived in.
-
-    Tolerant on purpose, because every call site this replaced was: a path already relative comes
-    back unchanged, and one outside `root` comes back whole rather than raising. The scatter's
-    finding heads arrive both ways, and a spelling fix that introduced a new exception would be a
-    worse bug than the one it closed.
-    """
+    """`path` relative to `root`, in that same vocabulary. Tolerant on purpose: a path already
+    relative comes back unchanged, and one outside `root` comes back whole rather than raising."""
     target = Path(path)
     if not target.is_absolute():
         return target.as_posix()
@@ -146,6 +129,34 @@ def rel(path, root=WORKSPACE_ROOT) -> str:
         return target.relative_to(Path(root)).as_posix()
     except ValueError:
         return target.as_posix()
+
+
+@cache
+def real_git() -> str:
+    """The git this machine installed, never the branch-lock wrapper in front of it on PATH
+    (core/hooks/git/git): a candidate that IS the wrapper's file is skipped, so it never finds itself."""
+    wrapper = WORKSPACE_ROOT / 'core/hooks/git/git'
+    for folder in os.environ.get('PATH', '').split(os.pathsep):
+        found = Path(folder) / ('git.exe' if _WINDOWS else 'git')
+        if found.is_file() and os.access(found, os.X_OK) and not (wrapper.exists() and found.samefile(wrapper)):
+            return str(found)
+    return 'git'
+
+
+def ancestors(pid: int = 0) -> list:
+    """(pid, start, name) for `pid` (this process by default) and each parent up to init. The start
+    time, in ticks since boot, tells a live process from a later one that reused its pid. Linux reads
+    /proc; a machine without it answers [] — no process is then known to be an agent's."""
+    found, pid = [], pid or os.getpid()
+    while pid > 1:
+        try:
+            stat = Path(f'/proc/{pid}/stat').read_text(encoding='utf-8', errors='replace')
+        except OSError:
+            break
+        fields = stat[stat.rindex(')') + 2:].split()   # the name may hold spaces and parentheses
+        found.append((pid, fields[19], stat[stat.index('(') + 1:stat.rindex(')')]))
+        pid = int(fields[1])
+    return found
 
 
 def is_repo(path) -> bool:
@@ -162,10 +173,8 @@ def _restrict(path: Path, posix_mode: int, windows_grant: str) -> None:
     it accepts 0o600, returns cleanly, and changes nothing about who can read the file. That is a
     false green, and a false green on a secret is worse than no call at all — the caller is told the
     thing is protected. Windows has no POSIX mode, it has ACLs, so the Windows arm breaks inherited
-    permissions and grants the current user alone.
-
-    Raises rather than warning. A secret written loose does not become safe later, so the caller
-    that cannot protect a file needs to hear about it before it writes one.
+    permissions and grants the current user alone. Raises rather than warning: a secret written loose
+    does not become safe later.
     """
     if not _WINDOWS:
         # Already right means no write: a sandboxed worker (Codex) sees ~/.config read-only.
@@ -182,13 +191,8 @@ def _restrict(path: Path, posix_mode: int, windows_grant: str) -> None:
 
 
 def is_owner_only(path) -> bool:
-    """Whether `path` is really readable by its owner alone — asked, not assumed.
-
-    `st_mode & 0o077 == 0` is a POSIX question. On Windows st_mode is synthesised from the
-    read-only attribute, so it answers the same for a file one user may read and for one the whole
-    machine may — and a check that cannot fail is the worst thing to point at a secret. Read the
-    ACL back instead.
-    """
+    """Whether `path` is really readable by its owner alone — asked, not assumed. On Windows st_mode
+    is synthesised from the read-only attribute and cannot fail, so the ACL is read back instead."""
     path = Path(path)
     if not _WINDOWS:
         return path.stat().st_mode & 0o077 == 0

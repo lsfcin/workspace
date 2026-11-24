@@ -113,6 +113,10 @@ def run_script(script: Path, payload: dict[str, Any], tool_name: str, workspace_
     env = os.environ.copy()
     env["CLAUDE_TOOL_NAME"] = tool_name
     payload = {**payload, "session_id": payload.get("session_id") or session_id()}
+    # Its shell carries no session id: git (core/hooks/git/git) finds the host among its ancestors.
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "git"))
+    import wrapper
+    wrapper.register(payload["session_id"], os.getppid())
     serialized = json.dumps(payload)
     if via_env:
         env["CLAUDE_TOOL_INPUT"] = serialized

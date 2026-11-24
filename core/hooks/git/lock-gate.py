@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-# PreToolUse write and shell — the branch lock, asked at every write, every shell write its text shows, and every git command that changes a repo. Rules: git/lock.py.
+# PreToolUse write and shell — the branch lock, asked at every write and every shell write its text shows; git is judged by its own wrapper. Rules: git/lock.py.
 #
-# ONE QUESTION PER GIT CALL: does it touch the checkout — HEAD, the index or the files? The lock owns
-# the checkout, the one thing two sessions on one clone can clobber. A read, or a call that moves only
-# refs or the remote, passes for anyone; one that touches the checkout passes only for the holder
-# (lock.change). A verb not listed here touches it. Every `git` in the command is asked, after heredoc
-# prose is dropped.
+# A git call is never read from the command's text (Lucas, 2026-11-24, panels P1 and P3): the wrapper
+# in front of git (core/hooks/git/git, wrapper.py) judges the real argv and cwd, whoever spawns it. This
+# gate refuses a shell call from a harness whose PATH does not reach that wrapper, since none of its git
+# calls would be judged; then the raw move of a governed repo, then a write its text shows.
 #
 # FAILS OPEN on a crash only: a gate that dies must never cost a session its edits (Lucas,
 # 2026-11-09). A refusal is never an error.
@@ -13,63 +12,23 @@ import importlib.util
 import json
 import re
 import shlex
+import shutil
 import sys
 from pathlib import Path
 
 sys.path[:0] = [str(Path(__file__).resolve().parent), str(Path(__file__).resolve().parents[1])]
-from dirt import CD, expand, restores  # noqa: E402
+from dirt import CD, expand  # noqa: E402
 from hook_input import capability, command_only, parse_stdin  # noqa: E402
 
-# `git` as a command word: a path through a `git/` folder (`core/hooks/git/lock.py`) is not a call.
-GIT = re.compile(r'(?:^|(?<=[\s;&|(`\'"]))git(?=\s|$)([^;&|\n)`]*)', re.M)
-READS = {'archive', 'status', 'log', 'diff', 'show', 'rev-parse', 'rev-list', 'ls-files', 'ls-tree', 'ls-remote',
-         'cat-file', 'blame', 'grep', 'describe', 'shortlog', 'for-each-ref', 'show-ref', 'merge-base',
-         'reflog', 'name-rev', 'check-ignore', 'show-branch', 'cherry', 'range-diff', 'diff-tree'}
-# Verbs that read only in these forms, named by their first argument.
-READ_FORMS = {'stash': {'list', 'show'}, 'remote': {'-v', '--verbose', 'show', 'get-url'},
-              'config': {'--get', '--get-all', '--get-regexp', '--list', '-l', 'get', 'list'}}
-# Verbs that move only refs or the remote, except these forms, which reach HEAD (git refuses the rest
-# on the branch in checkout). `push .` is a push into this very clone.
 HEREDOC = Path(__file__).resolve().parents[1] / 'checks/heredoc-gate.py'
 MV = re.compile(r'(?:^|(?<=[\s;&|(]))mv\s+([^;&|\n)]+)', re.M)
-REFS = {'fetch': {'--update-head-ok', '-u'}, 'push': {'.'}, 'tag': set(), 'branch': {'-m', '-M', '--move'}}
+WRAPPER = Path(__file__).resolve().parent / 'git'
 
 
-def calls(command: str, cwd: str):
-    """(where, verb, args) for every git call: the repo is `-C <dir>`, else the last `cd` before it,
-    with the command's own variables filled in."""
-    for found in GIT.finditer(command):
-        words, where = [w.strip('\'"') for w in found.group(1).split()], None   # sh -c 'git push'
-        moved = CD.findall(command[:found.start()])
-        last = expand(command, moved[-1]) if moved else '.'
-        base, known = Path(cwd or '.') / (last or '.'), bool(last)
-        while words and words[0].startswith('-'):
-            flag = words.pop(0)
-            if flag in ('-C', '-c') and words:
-                value = expand(command, words.pop(0)) if flag == '-C' else ''
-                known, where = (known and bool(value), base / (value or '.')) if flag == '-C' else (known, where)
-        if words and known:   # a folder the command never names is no repo to ask: fail open
-            yield where or base, words[0], words[1:]
-
-
-def changes(verb: str, args: list) -> bool:
-    """Does this call touch the checkout? A verb listed nowhere does."""
-    if verb in REFS:
-        return bool(REFS[verb] & set(args))
-    if verb in READ_FORMS:
-        return not args or args[0] not in READ_FORMS[verb]
-    return verb not in READS
-
-
-def target(verb: str, args: list) -> str:
-    """The branch a switch or checkout moves to: its one positional. A checkout naming paths too
-    (`checkout develop -- f.py`, `checkout develop f.py`) restores files and moves nothing."""
-    if verb not in ('switch', 'checkout'):
-        return ''
-    named = [a for a in args if a == '-' or not a.startswith('-')]
-    if verb == 'checkout' and ('--' in args or len(named) > 1):
-        return ''
-    return named[0] if named else ''
+def wrapped() -> bool:
+    """Does `git` on this harness's PATH reach the wrapper? Without it, no git call is judged."""
+    found = shutil.which('git')
+    return bool(found) and Path(found).resolve() == WRAPPER
 
 
 def writes(command: str, cwd: str) -> list:
@@ -109,17 +68,17 @@ def moves(command: str, cwd: str) -> list:
 
 
 def shell(command: str, cwd: str, session: str) -> tuple:
-    """(refusal, reason) for a shell command: a raw move of a repo, a git call, then a write."""
+    """(refusal, reason) for a shell command: no wrapper, a raw move of a repo, then a write."""
+    import feature_law   # noqa: PLC0415
     import lock   # noqa: PLC0415
+    if session and not wrapped() and feature_law.is_enabled('branch-lock') and 'wos/gitwrap' not in command:
+        return ('⛔ BRANCH LOCK [unwrapped] — git on this PATH is not the branch-lock wrapper, so no git call'
+                ' here would be judged.\n   core/run tools/wos/gitwrap --install'), 'install it, then retry.'
     bare = command_only(command)
     for src, dst in moves(bare, cwd) if session else []:
         return (f'⛔ BRANCH LOCK [move] — {src} is a governed repo, and its lock is keyed by its path.',
                 f'a raw mv strands that lock. Run instead:\n     core/run tools/wos/move '
                 f'{shlex.quote(str(src))} {shlex.quote(str(dst))}')
-    for where, verb, args in calls(bare, cwd):
-        if changes(verb, args) and not restores(where, session, verb, args) \
-                and (refusal := lock.change(where, session, target(verb, args))):
-            return refusal, f'git {verb} touches the checkout.'
     for path in writes(command, cwd):
         if refusal := lock.verdict(path, session)[0]:
             return refusal, f'this command writes {path}, and a shell write meets the lock an Edit does.'
