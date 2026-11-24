@@ -18,10 +18,11 @@ from conftest import WORKSPACE_ROOT
 HOOKS = WORKSPACE_ROOT / 'core/hooks'
 
 
-def test_session_state_lives_in_a_directory_the_workspace_owns():
+def test_session_state_lives_in_a_directory_the_workspace_owns(monkeypatch):
     """The failure this guards is state the operating system is free to delete under a live session."""
     import tempfile
 
+    monkeypatch.delenv('WOS_SESSION_STATE')   # the default, not the suite's own store
     marker = platform_law.session_state('claude_ctx_seen_any')
     assert WORKSPACE_ROOT in marker.parents, f'{marker} is outside the workspace'
     system_temp = tempfile.gettempdir()
@@ -40,13 +41,14 @@ def test_asking_for_a_marker_is_enough_to_be_able_to_write_it():
     assert marker.parent.is_dir(), f'{marker.parent} was not created'
 
 
-def test_per_machine_state_never_reaches_git():
+def test_per_machine_state_never_reaches_git(monkeypatch):
     """State in the repository is only safe while git cannot see it.
 
     `core/` is an allowlist in .gitignore — everything is ignored and the tracked files are named
     one by one — so this holds without a rule being written for it. The check is here because that
     is a property of another file, and a future edit to the allowlist would break it silently.
     """
+    monkeypatch.delenv('WOS_SESSION_STATE')
     marker = platform_law.session_state('claude_ctx_seen_any')
     done = subprocess.run(['git', 'check-ignore', str(marker)],
                           cwd=WORKSPACE_ROOT, capture_output=True, text=True, encoding='utf-8')
@@ -67,3 +69,9 @@ def test_no_hook_builds_session_state_out_of_the_system_temp_directory():
             offenders.append(module.relative_to(WORKSPACE_ROOT).as_posix())
     assert not offenders, ('session state is asked of platform_law.session_state, never built from '
                            f'the system temp directory: {offenders}')
+
+
+def test_the_suite_writes_no_marker_into_the_real_store():
+    """b20261123: the suite left 1,400 `*_test-*` markers in core/state, and two xdist workers shared
+    one lock store. conftest points the store at a throwaway folder, inherited by every hook spawned."""
+    assert platform_law.session_state('any').parent != WORKSPACE_ROOT / 'core/state'

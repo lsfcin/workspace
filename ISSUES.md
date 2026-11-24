@@ -5,9 +5,6 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
-- **`test_draft_or_red_pushes_the_feature_only` falha sob carga do verify fast**, passa isolado. Causa provável (argon): `tmp_path.name` cortado em 30 chars repete o id de sessão entre workers. [src: agent 2026-11-23]
-- **Teste grava `claude_cg_reminded_test-*` no `core/state/` real** e não limpa. [src: agent 2026-11-23]
-
 - **`close-report` (hook `Stop`) só existe no Claude Code**: os outros shims não têm fim de turno com mensagem só pro usuário. [src: agent 2026-11-23]
 
 - **`mv` de repo governado deixa a trava órfã**: o lock usa o caminho como chave, e a dona só volta por `wos/claim`. Falta um `wos/move`. [src: agent 2026-11-23]

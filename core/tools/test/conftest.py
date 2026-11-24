@@ -26,6 +26,9 @@ for _var in ('GIT_DIR', 'GIT_INDEX_FILE', 'GIT_WORK_TREE', 'GIT_OBJECT_DIRECTORY
 # recording of pytest. Pointed at a throwaway file, and inherited by every subprocess a test spawns.
 os.environ['WOS_SCOREBOARD'] = str(
     pathlib.Path(tempfile.gettempdir()) / 'wos-scoreboard-test.tsv')
+# Nor in the session store: the suite left 1,400 markers in core/state (b20261123), and the lock
+# files of two xdist workers shared it. One folder per worker process, inherited the same way.
+os.environ['WOS_SESSION_STATE'] = tempfile.mkdtemp(prefix='wos-state-test-')
 
 # Own directory first, so tests in subdirectories can `from conftest import WORKSPACE_ROOT`.
 sys.path.insert(0, str(HERE))

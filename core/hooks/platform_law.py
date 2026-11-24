@@ -68,7 +68,7 @@ def session_state(name: str) -> Path:
     status nobody reads. The gate could then never be satisfied by reading anything, and no message
     anywhere said why. One owner of the name is what stops the second spelling.
     """
-    folder = WORKSPACE_ROOT / 'core' / 'state'
+    folder = Path(os.environ.get('WOS_SESSION_STATE') or WORKSPACE_ROOT / 'core' / 'state')
     folder.mkdir(parents=True, exist_ok=True)
     return folder / name
 
