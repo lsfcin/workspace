@@ -73,6 +73,13 @@ def _hold(repo, session: str, branch: str) -> None:
                                encoding='utf-8', newline='\n')
 
 
+def rekey(src, dst) -> None:
+    """After a repo's folder moved from `src` to `dst`: its lock follows. Caller holds both flocks."""
+    if (owner := holder(src))[0]:
+        _hold(dst, *owner)
+        lock_file(src).unlink()
+
+
 def held_by(session: str) -> list:
     """Every repo this session holds — what the close covers."""
     found = []

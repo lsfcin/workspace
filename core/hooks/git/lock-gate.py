@@ -12,6 +12,7 @@
 import importlib.util
 import json
 import re
+import shlex
 import sys
 from pathlib import Path
 
@@ -30,6 +31,7 @@ READ_FORMS = {'stash': {'list', 'show'}, 'remote': {'-v', '--verbose', 'show', '
 # Verbs that move only refs or the remote, except these forms, which reach HEAD (git refuses the rest
 # on the branch in checkout). `push .` is a push into this very clone.
 HEREDOC = Path(__file__).resolve().parents[1] / 'checks/heredoc-gate.py'
+MV = re.compile(r'(?:^|(?<=[\s;&|(]))mv\s+([^;&|\n)]+)', re.M)
 REFS = {'fetch': {'--update-head-ok', '-u'}, 'push': {'.'}, 'tag': set(), 'branch': {'-m', '-M', '--move'}}
 
 
@@ -90,6 +92,40 @@ def writes(command: str, cwd: str) -> list:
     return found
 
 
+def moves(command: str, cwd: str) -> list:
+    """(from, to) for every `mv` of a governed repo's root: a raw move strands its lock (wos/move)."""
+    import lock   # noqa: PLC0415
+    found = []
+    for hit in MV.finditer(command):
+        words = [expand(command, w.strip('\'"')) for w in hit.group(1).split() if not w.startswith('-')]
+        moved = CD.findall(command[:hit.start()])
+        base = Path(cwd or '.') / (expand(command, moved[-1]) if moved else '.')
+        if len(words) < 2 or not all(words):
+            continue   # a name the command never fills: fail open, as calls() does
+        paths = [(base / Path(w).expanduser()).resolve() for w in words]
+        found += [(src, paths[-1]) for src in paths[:-1]
+                  if src.is_dir() and lock.repo_of(src) == src and lock.governed(src)]
+    return found
+
+
+def shell(command: str, cwd: str, session: str) -> tuple:
+    """(refusal, reason) for a shell command: a raw move of a repo, a git call, then a write."""
+    import lock   # noqa: PLC0415
+    bare = command_only(command)
+    for src, dst in moves(bare, cwd) if session else []:
+        return (f'⛔ BRANCH LOCK [move] — {src} is a governed repo, and its lock is keyed by its path.',
+                f'a raw mv strands that lock. Run instead:\n     core/run tools/wos/move '
+                f'{shlex.quote(str(src))} {shlex.quote(str(dst))}')
+    for where, verb, args in calls(bare, cwd):
+        if changes(verb, args) and not restores(where, session, verb, args) \
+                and (refusal := lock.change(where, session, target(verb, args))):
+            return refusal, f'git {verb} touches the checkout.'
+    for path in writes(command, cwd):
+        if refusal := lock.verdict(path, session)[0]:
+            return refusal, f'this command writes {path}, and a shell write meets the lock an Edit does.'
+    return '', ''
+
+
 def main() -> int:
     raw, tool, data, session, cwd = parse_stdin()
     try:
@@ -99,17 +135,7 @@ def main() -> int:
         if cap == 'write' and data.get('file_path'):
             refusal, note = lock.verdict(Path(data['file_path']), session)
         elif cap == 'shell':
-            command = str(data.get('command', ''))
-            for where, verb, args in calls(command_only(command), cwd):
-                if changes(verb, args) and not restores(where, session, verb, args) \
-                        and (refusal := lock.change(where, session, target(verb, args))):
-                    reason = f'git {verb} touches the checkout.'
-                    break
-            else:
-                for path in writes(command, cwd):
-                    if refusal := lock.verdict(path, session)[0]:
-                        reason = f'this command writes {path}, and a shell write meets the lock an Edit does.'
-                        break
+            refusal, reason = shell(str(data.get('command', '')), cwd, session)
         else:
             return 0
     except Exception:   # noqa: BLE001 — fail open, see the head

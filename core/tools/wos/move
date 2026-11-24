@@ -1,0 +1,46 @@
+# Usage: core/run tools/wos/move FROM TO [--session ID] — move a repo's folder, its branch lock and its dirt with it.
+#
+# The lock is keyed by the repo's path (two clones of one repo are two locks: a stable id was rejected
+# by both panels, 2026-11-23), so a raw `mv` strands it and lock-gate.py refuses one. This moves the
+# folder and re-keys the lock and dirt files under both flocks, taken in path order.
+import argparse
+import os
+import sys
+from contextlib import ExitStack
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+sys.path[:0] = [str(ROOT / 'core/hooks/git'), str(ROOT / 'core/hooks')]
+import dirt  # noqa: E402
+import lock  # noqa: E402
+from platform_law import locked  # noqa: E402
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description='move a repo folder with its branch lock')
+    parser.add_argument('src')
+    parser.add_argument('dst')
+    parser.add_argument('--session', default=lock.env_session())
+    args = parser.parse_args()
+    src, dst = Path(args.src).expanduser().resolve(), Path(args.dst).expanduser().resolve()
+    if lock.repo_of(src) != src or src == lock.WORKSPACE or dst.exists() or not dst.parent.is_dir():
+        print(f'move: {src} must be a repo root, and {dst} a new name in a folder that exists', file=sys.stderr)
+        return 64
+    with ExitStack() as stack:
+        for repo in sorted((src, dst), key=str):
+            stack.enter_context(locked(lock.lock_file(repo).with_suffix('.flock')))
+        owner, branch = lock.holder(src)
+        if owner and owner != args.session:
+            print(f'⛔ BRANCH LOCK [held] — {src} is held by session {owner} on {branch}.\n'
+                  '   Moving it under that session is Lucas\'s call: tell him.', file=sys.stderr)
+            return 1
+        os.rename(src, dst)
+        lock.rekey(src, dst)
+        if dirt.owners(src).is_file():
+            dirt.owners(src).rename(dirt.owners(dst))
+    print(f'move: {src} → {dst}' + (f', held by {owner} on {branch}' if owner else ''))
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

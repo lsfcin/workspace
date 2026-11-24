@@ -23,6 +23,8 @@
 
 **Enforced at two layers.** [`lock-gate.py`](lock-gate.py), run by `core/hooks/dispatch.py`, which every harness shim calls for writes and shell commands (`test_every_shim_routes_write_and_shell.py` proves all six). The pre-commit refuses an agent's commit on a shared branch (its session id from the shell environment). The gate fails open only on a crash, never on a refusal.
 
+**A repo moves through `core/run tools/wos/move FROM TO`** (2026-11-24): the lock is keyed by the path, so the move re-keys the lock and dirt files under both flocks, and `lock-gate.py` refuses a raw `mv` of a governed root with that command.
+
 **No worktrees** (2026-11-19): one checkout per repo, held by one session at a time, is what makes the lock sufficient.
 
 ## Close
