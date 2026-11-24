@@ -6,7 +6,7 @@
 # mapping; this is the one place the target is written down.
 # Root url = lucassf.pages.dev/
 # Only OUR content gets a short name; a row whose url starts with none of these prefixes is a finding.
-# ours: lucassf.pages.dev/ 13ou22.pages.dev/ docs.google.com/ drive.google.com/ forms.gle/ meet.google.com/ claude.ai/artifact/ canva.link/ seasoned-bladder-7d0.notion.site/ t.me/+d2MCMR2vR101MWYx excalidraw.com/#room=0b5980e37afbc3e7f464
+# ours: lucassf.pages.dev/ 13ou22.pages.dev/ docs.google.com/ drive.google.com/ forms.gle/ meet.google.com/ claude.ai/artifact/ canva.link/ seasoned-bladder-7d0.notion.site/ t.me/+d2MCMR2vR101MWYx excalidraw.com/#room=0b5980e37afbc3e7f464 gist.github.com/lsfcin/
 short_name	url	owner	added
 1322	https://13ou22.pages.dev/	1322	2026-10-23
 ai4good/abertura	https://docs.google.com/presentation/d/1mhJFLULrPU_HoZ5emkeC7AiHCkw5HkHRLm-bCq3e_cE/edit?usp=sharing	ai4good	2026-11-18
@@ -97,3 +97,5 @@ techedu/testes-empiricos	https://docs.google.com/presentation/d/1qKFGoJYkfy7s2B5
 vt-aula	https://docs.google.com/presentation/d/19YKkSqjBQ4k1JfVDG-K4d4FBYdoFdoYVm_lEx_lG1mI/edit	vt-aula	2026-11-09
 vt-mural	https://docs.google.com/presentation/d/1mA952ir_zJ7LF5jS9NBD4jeZCyQ9umQV-5iLNmEa09c/edit	vt-mural	2026-11-09
 vt-prompt	https://docs.google.com/document/d/1lJctv_TJ3tmAen4RWEvnCcSpZIiGjoL8Lperh2rWv04/edit	vt-prompt	2026-11-09
+workspace-os	https://gist.github.com/lsfcin/f7df694fb028a317f95e91eea125fa29	workspace-os	2026-11-24
+workspace-os/privacidade	https://gist.github.com/lsfcin/f7df694fb028a317f95e91eea125fa29	workspace-os	2026-11-24
