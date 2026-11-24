@@ -35,6 +35,9 @@ VALUED = {'-C', '-c', '--git-dir', '--work-tree', '--namespace', '--config-env',
 # Processes that host more than one session, or a person's terminal beside an agent: registering one
 # would hand a person's git to an agent (panel P3: the editor's root and its pty host).
 SHARED_HOSTS = {'code', 'electron', 'ptyHost', 'systemd', 'init', 'tmux: server', 'screen', 'sshd', 'login'}
+# A harness may run its hook through a shell (agy: `sh -c "cd … && sh core/run …"`); that shell dies
+# with the hook, so the host is the first ancestor that is not one (2026-11-24, the agy e2e).
+SHELLS = {'sh', 'bash', 'dash', 'zsh'}
 
 
 def parse(argv: list) -> tuple:
@@ -73,8 +76,11 @@ def register(session: str, pid: int) -> None:
     """A harness whose shell carries no session id names its host process `pid` here, at every tool
     call; git then finds it among its ancestors. Dead and reused pids are pruned on the way."""
     chain = ancestors(pid)
+    while chain and chain[0][2] in SHELLS:
+        chain = chain[1:]
     if not session or not chain or chain[0][2] in SHARED_HOSTS:
         return
+    pid = chain[0][0]
     for old in _entry('x').parent.glob('agent_pid_*.txt'):
         held = old.read_text(encoding='utf-8').split('\t')
         alive = ancestors(int(old.stem[10:]))

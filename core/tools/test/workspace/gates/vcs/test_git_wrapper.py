@@ -99,6 +99,18 @@ def test_an_ancestor_a_shim_registered_names_the_session(held, tmp_path):
     assert git(repo, env, 'add', 'new.md').returncode == 0 and staged(repo) == 'new.md'
 
 
+def test_a_hook_run_through_a_shell_registers_the_host_not_the_shell(held):
+    repo, env = held
+    hooks = [str(WORKSPACE_ROOT / 'core/hooks/git'), str(WORKSPACE_ROOT / 'core/hooks')]
+    # agy runs its hook as `sh -c "… sh core/run …"`: the hook's parent is a shell that dies with it.
+    hook = (f'import os, sys; sys.path[:0] = {hooks!r}; import wrapper; '
+            f'wrapper.register({OTHER!r}, os.getppid())')
+    script = (f'import subprocess, sys; subprocess.run(["sh", "-c", {f"{sys.executable} -c {hook!r}; true"!r}]); '
+              "raise SystemExit(subprocess.run(['git', 'add', 'new.md']).returncode)")
+    host = subprocess.run([sys.executable, '-c', script], cwd=repo, env=env, capture_output=True, text=True, encoding='utf-8')
+    assert host.returncode == 128 and not staged(repo), host.stderr
+
+
 def test_a_reused_pid_names_nobody(tmp_path, monkeypatch):
     monkeypatch.setenv('WOS_SESSION_STATE', str(tmp_path))
     me = platform_law.ancestors()[0]

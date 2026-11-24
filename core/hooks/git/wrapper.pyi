@@ -5,6 +5,7 @@ READ_FORMS: Incomplete
 REFS: Incomplete
 VALUED: Incomplete
 SHARED_HOSTS: Incomplete
+SHELLS: Incomplete
 
 def parse(argv: list) -> tuple: ...
 def changes(verb: str, args: list) -> bool: ...
