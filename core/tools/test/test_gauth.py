@@ -156,7 +156,18 @@ def test_a_read_never_reaches_the_write_token(consent):
     """A credential that can write is only loaded for a write, so a read has the readonly grant alone."""
     with pytest.raises(SystemExit):
         gauth.auth("personal", "docs")
-    assert consent["dir"] == "docs" and consent["scopes"] == [gauth._SCOPE + "documents.readonly"]
+    assert consent["dir"] == "docs"
+    assert consent["scopes"] == [gauth._SCOPE + "documents.readonly", gauth._SCOPE + "drive.readonly"]
+
+
+def test_a_token_older_than_its_row_names_its_fix(consent, accounts, tmp_path):
+    """grants.txt grew a scope: the token says so before the API answers 403 mid-command."""
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "docs" / "personal.token.json").write_text(
+        '{"scopes": ["%sdocuments.readonly"]}' % gauth._SCOPE, encoding="utf-8", newline="\n")
+    with pytest.raises(gauth.AuthExpired, match="drive.readonly") as dead:
+        gauth.auth("personal", "docs")
+    assert "core/run tools/docs/gdocs auth personal --reauth" in str(dead.value)
 
 
 def test_a_write_loads_the_write_token_with_its_declared_scopes(consent):

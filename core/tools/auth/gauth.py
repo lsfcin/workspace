@@ -18,7 +18,8 @@ from google.auth.transport.requests import Request
 from google.auth.exceptions import RefreshError
 from googleapiclient.errors import HttpError
 
-_GMAIL_CONFIG = pathlib.Path.home() / ".config" / "workspace-gmail"
+# What every Google grant shares, held by none of them: the account list and the one OAuth client.
+_GOOGLE = pathlib.Path.home() / ".config" / "workspace-google"
 
 _SCOPE = "https://www.googleapis.com/auth/"
 
@@ -49,20 +50,17 @@ def config_dir(service: str) -> pathlib.Path:
 
 
 def _credentials_file(service: str) -> pathlib.Path:
-    """Find credentials.json: service dir first, then gmail dir (same GCP project)."""
-    for d in (config_dir(service), _GMAIL_CONFIG):
-        f = d / "credentials.json"
-        if f.exists():
-            return f
-    raise FileNotFoundError(
-        f"credentials.json not found. Place it in {config_dir(service)}/ "
-        f"(download from GCP console → APIs & Services → Credentials)."
-    )
+    """The one OAuth client every grant consents through (GCP project workspace-os-506016)."""
+    f = _GOOGLE / "credentials.json"
+    if not f.exists():
+        raise FileNotFoundError(f"credentials.json not found. Place it in {_GOOGLE}/ "
+                                f"(GCP console → APIs & Services → Credentials).")
+    return f
 
 
 def get_accounts() -> list:
-    """Read accounts.json from gmail config (canonical source for all Google services)."""
-    f = _GMAIL_CONFIG / "accounts.json"
+    """accounts.json: the account list every Google service reads."""
+    f = _GOOGLE / "accounts.json"
     return json.loads(f.read_text(encoding='utf-8')).get("accounts", []) if f.exists() else []
 
 
@@ -92,14 +90,14 @@ class AuthExpired(RuntimeError):
 def account_email(alias: str) -> str:
     """The Google address an alias signs in as — the one thing the consent screen asks for."""
     primary = resolve_alias(alias)
-    email = "unknown (check ~/.config/workspace-gmail/accounts.json)"
+    email = "unknown (check ~/.config/workspace-google/accounts.json)"
     for acct in get_accounts():
         if primary in acct.get("aliases", []):
             email = acct.get("email", email)
     return email
 
 
-def recovery_text(alias: str, service: str, token_path: pathlib.Path) -> str:
+def recovery_text(alias: str, service: str, token_path: pathlib.Path, why: str = "") -> str:
     """The whole instruction: one command, and which account to sign in as."""
     _, write, row = _grant(service)
     if row and row[2]:
@@ -108,8 +106,8 @@ def recovery_text(alias: str, service: str, token_path: pathlib.Path) -> str:
         step = f"rm {token_path}   # then re-run the command that just failed"
     lines = [
         f"GOOGLE AUTH EXPIRED — service '{service}', account '{alias}'.",
-        "The stored token was revoked or expired. A refresh cannot recover it; only a new",
-        "consent can.",
+        why or "The stored token was revoked or expired. A refresh cannot recover it;",
+        "only a new consent can.",
         "",
         "AGENT: run this yourself, do not hand it to Lucas as a chore. It opens a browser",
         "on his machine, so run it in the background and tell him the address below.",
@@ -147,6 +145,12 @@ def auth(alias: str, service: str, write: bool = False) -> Credentials:
     creds = None
 
     if token_path.exists():
+        granted = set(json.loads(token_path.read_text(encoding='utf-8')).get("scopes") or scopes)
+        if missing := set(scopes) - granted:
+            # grants.txt grew a scope this token never consented to: the API would answer 403
+            # mid-command, so the token names its own fix before any call is made.
+            raise AuthExpired(recovery_text(alias, service, token_path,
+                                            f"grants.txt now asks for {', '.join(sorted(m.removeprefix(_SCOPE) for m in missing))}; this token predates it;"))
         creds = Credentials.from_authorized_user_file(str(token_path), scopes)
 
     if not creds or not creds.valid:

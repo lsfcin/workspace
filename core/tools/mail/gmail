@@ -8,29 +8,10 @@ _HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
-import gmail_fetch, gmail_triage, gmail_attachments, gauth
+import gmail_fetch, gmail_triage, gmail_attachments, gauth, gcli
 import tool_law
 
-CONFIG_DIR = pathlib.Path.home() / ".config" / "workspace-gmail"
-CACHE_FILE = CONFIG_DIR / "fetch_cache.json"
-
-
-def _load_accounts() -> list:
-    f = CONFIG_DIR / "accounts.json"
-    return json.loads(f.read_text(encoding='utf-8')).get("accounts", []) if f.exists() else []
-
-
-def _resolve(alias: str) -> str:
-    """Resolve any alias to primary (first) alias. Falls back to input if unknown."""
-    for acct in _load_accounts():
-        if alias in acct.get("aliases", []):
-            return acct["aliases"][0]
-    return alias
-
-
-def _accounts() -> list:
-    """Return list of primary aliases (one per account)."""
-    return [a["aliases"][0] for a in _load_accounts() if a.get("aliases")]
+CACHE_FILE = gauth.config_dir("gmail") / "fetch_cache.json"
 
 
 def _cache_write(emails: list) -> None:
@@ -42,22 +23,11 @@ def _cache_read() -> list:
 
 
 def cmd_auth(alias: str, reauth: bool) -> None:
-    if not (CONFIG_DIR / "credentials.json").exists():
-        print(f"ERROR: Download credentials.json from Google Cloud Console → {CONFIG_DIR}/")
-        sys.exit(1)
-    primary = _resolve(alias)
-    token = CONFIG_DIR / f"{primary}.token.json"
-    if reauth and token.exists():
-        # drop the stale token so a revoked/expired one can't dead-end on refresh
-        token.unlink()
-        print(f"Removed stale token: {token}")
-    print(f"Opening browser for OAuth ({primary})...")
-    gmail_fetch.auth(primary)
-    print(f"Done. Token saved: {token}")
+    gcli.auth_command("gmail", alias, gmail_fetch.get_service, reauth)
 
 
 def cmd_fetch(account: str, since_days: int) -> list:
-    aliases = _accounts() if account == "all" else [_resolve(account)]
+    aliases = gcli.aliases(account)
     if not aliases:
         print("No accounts configured. Run: gmail auth <alias>")
         sys.exit(1)
@@ -96,7 +66,7 @@ def cmd_triage(emails: list | None = None) -> list:
 
 
 def cmd_sync(account: str, since_days: int) -> list:
-    return cmd_triage(cmd_fetch(_resolve(account), since_days))
+    return cmd_triage(cmd_fetch(gauth.resolve_alias(account), since_days))
 
 
 def cmd_attachments(email_id: str | None) -> None:

@@ -3,8 +3,8 @@
 # Shares the tools root with gauth's callers for the reason core/tools/SPECS.md gives: a module
 # imported by more than one family belongs here. `cmd_auth` had been copy-pasted into gslides,
 # gdrive, gcalendar and gforms with only the grant name changing, and the fifth copy was about to
-# arrive with gdocs — at which point the duplication gate would have rejected it. mail/gmail is
-# deliberately NOT a caller: it keeps its own credentials.json and predates gauth.config_dir.
+# arrive with gdocs — at which point the duplication gate would have rejected it. mail/gmail joined
+# on 2026-11-24: every Google CLI consents here, with no exception.
 import pathlib as _pathlib
 import sys as _sys
 

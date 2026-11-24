@@ -12,8 +12,8 @@ import gauth
 GDOC_MIME = drive_core.GDOC_MIME
 MD_MIME = "text/markdown"
 
-# Everything here rides the tokens files/gdrive already owns. A `docs-drive` grant would
-# be a third and fourth config directory holding consents the account has twice over.
+# Drive calls, on the docs grant's own tokens: its grants.txt row carries the Drive scopes
+# (a CLI never borrows another row's token, ruled 2026-11-24).
 COMMENT_FIELDS = ("comments(id,content,resolved,createdTime,author/displayName,"
                   "quotedFileContent/value,replies(content,createdTime,author/displayName))")
 
@@ -24,7 +24,7 @@ def list_documents(alias: str, name: str = "") -> list:
     The Docs API has no list endpoint at all — it only answers about a document you can
     already name — so discovery is Drive's job, exactly as it is for slides.
     """
-    svc = drive_core.get_service(alias)
+    svc = drive_core.get_service(alias, grant="docs")
     q = f"mimeType='{GDOC_MIME}' and trashed=false"
     if name:
         q += f" and name contains '{name}'"
@@ -44,7 +44,7 @@ def export_md(alias: str, document_id: str) -> str:
     wrapped in several kilobytes of style objects per paragraph; Drive's own exporter
     already knows how to render them, so asking it costs one call and no parser.
     """
-    svc = drive_core.get_service(alias)
+    svc = drive_core.get_service(alias, grant="docs")
     return svc.files().export_media(
         fileId=document_id, mimeType=MD_MIME
     ).execute().decode("utf-8")
@@ -58,7 +58,7 @@ def push_md(alias: str, document_id: str, md_path) -> dict:
     makes this a sync rather than a re-upload. What does NOT survive is anything anchored
     to the text that goes away: see SPECS.md before pushing over a reviewed document.
     """
-    svc = drive_core.get_service(alias, write=True)
+    svc = drive_core.get_service(alias, write=True, grant="docs")
     media = MediaFileUpload(str(md_path), mimetype=MD_MIME, resumable=True)
     return svc.files().update(
         fileId=document_id, media_body=media, fields="id,name,webViewLink"
@@ -67,7 +67,7 @@ def push_md(alias: str, document_id: str, md_path) -> dict:
 
 def create_from_md(alias: str, title: str, md_path, folder_id: str = "") -> dict:
     """Create a document whose content is a Markdown file, converted by Drive on import."""
-    svc = drive_core.get_service(alias, write=True)
+    svc = drive_core.get_service(alias, write=True, grant="docs")
     body = {"name": title, "mimeType": GDOC_MIME}
     if folder_id:
         body["parents"] = [folder_id]
@@ -83,7 +83,7 @@ def comments(alias: str, document_id: str, include_resolved: bool = False) -> li
     Comments live in Drive, not in Docs — a `documents.get` never mentions them, which is
     why a document can read as finished while carrying twenty open objections.
     """
-    svc = drive_core.get_service(alias)
+    svc = drive_core.get_service(alias, grant="docs")
     found, token = [], None
     while True:
         res = svc.comments().list(

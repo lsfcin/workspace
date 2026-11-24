@@ -36,11 +36,10 @@ GSLIDES_MIME = "application/vnd.google-apps.presentation"
 GSHEET_MIME = "application/vnd.google-apps.spreadsheet"
 
 
-def get_service(alias: str, write: bool = False):
-    """Build a Drive service for alias. Read uses the `drive` token (readonly);
-    write uses a separate `drive-write` token (full scope) so it never clobbers
-    the readonly one."""
-    return build("drive", "v3", credentials=gauth.auth(alias, "drive", write))
+def get_service(alias: str, write: bool = False, grant: str = "drive"):
+    """A Drive service for alias, on `grant`'s own token (grants.txt): read and write are two
+    tokens, and a CLI whose row carries a Drive scope (docs) passes its own grant, never borrows ours."""
+    return build("drive", "v3", credentials=gauth.auth(alias, grant, write))
 
 
 # ── Reads (per-alias; build their own readonly service) ────────────────────────

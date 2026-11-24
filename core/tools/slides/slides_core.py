@@ -26,8 +26,7 @@ def get_presentation(alias: str, presentation_id: str, write: bool = False) -> d
 
 def list_presentations(alias: str, name: str = "") -> list:
     """List presentations from Drive. Optionally filter by name substring."""
-    drive_creds = gauth.auth(alias, "drive")
-    svc = build("drive", "v3", credentials=drive_creds)
+    svc = build("drive", "v3", credentials=gauth.auth(alias, "slides"))   # its own row carries drive.readonly
     q = "mimeType='application/vnd.google-apps.presentation' and trashed=false"
     if name:
         q += f" and name contains '{name}'"

@@ -27,7 +27,7 @@ Why the address is in the message and not in this file: Lucas has several Google
 printf '%s\n' '<secret>' | core/tools/<family>/<tool> auth <alias>
 ```
 
-`notes/notion` is the non-OAuth shape of the same split. Tokens are per `(service, alias)` at `~/.config/workspace-<service>/<alias>.token.json`; Drive writes (`mkdir`, `put`) use a separate `drive-write` token from the read one.
+`notes/notion` is the non-OAuth shape of the same split. Tokens are per `(service, alias)` at `~/.config/workspace-<service>/<alias>.token.json`, a write in its own `workspace-<service>-write/`; a row of [`auth/grants.txt`](auth/grants.txt) is one CLI's whole contract, and no CLI loads another row's token. The account list and the one OAuth client live in `~/.config/workspace-google/`. **Rejected (2026-11-24):** Google Keep — its API needs a Workspace super-admin's domain-wide delegation and is closed to a consumer account; a Maps user's saved places — no API but Takeout. Maps Platform search and routes take a project key in `segredos.env`, never a grant.
 
 ## Adding a tool
 

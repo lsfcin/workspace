@@ -7,7 +7,7 @@ This family used to be a Slidev CLI plus a Google-Slides→Slidev port pipeline 
 
 ## Auth
 
-Two grants: `slides` (`presentations.readonly`) and `slides-write` (`presentations`), the same split as [`../files/`](../files/CONTEXT.md). A read never borrows the write token ([`../auth/grants.txt`](../auth/grants.txt)).
+Two grants: `slides` (`presentations.readonly`, plus `drive.readonly` for `list`) and `slides-write` (`presentations`), the same split as [`../files/`](../files/CONTEXT.md). A read never borrows the write token ([`../auth/grants.txt`](../auth/grants.txt)).
 
 **The two grants live in two directories, and the write one is easy to miss.** A read token is `~/.config/workspace-slides/<alias>.token.json`; a write token is `~/.config/workspace-slides-**write**/<alias>.token.json` — the grant name *is* the directory suffix, via `gauth.config_dir(kind)`. Checking the read directory to see whether a write grant landed answers **no** forever, no matter how many times the consent succeeds. That failure ran four times in one session on 2026-08-17, while `gslides auth` printed the real path on its own last line each time. **Read the tool's output, not a directory you inferred the name of.**
 

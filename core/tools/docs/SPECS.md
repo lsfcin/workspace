@@ -68,11 +68,11 @@ Three more, measured 2026-08-26 against `academy/lab/`'s 750-line document:
 
 ## Auth
 
-Two grants, `docs` (`documents.readonly`) and `docs-write` (`documents`), the same split as [`../slides/`](../slides/CONTEXT.md) and [`../files/`](../files/CONTEXT.md). A read never borrows the write token ([`../auth/grants.txt`](../auth/grants.txt)).
+Two grants, `docs` (`documents.readonly`, `drive.readonly`) and `docs-write` (`documents`, `drive`), the same split as [`../slides/`](../slides/CONTEXT.md) and [`../files/`](../files/CONTEXT.md). A read never borrows the write token ([`../auth/grants.txt`](../auth/grants.txt)).
 
 **The grant name IS the config directory suffix** — a write token is `~/.config/workspace-**docs-write**/<alias>.token.json`, and checking the read directory to see whether a write grant landed answers *no* forever. `gdocs auth` prints the real path on its last line; read that, not a directory you inferred the name of.
 
-`list`, `read`, `push`, `new --from` and `comments` all ride the **existing** `drive` / `drive-write` tokens rather than minting a third and fourth grant, since discovery, export and comments are Drive endpoints.
+`list`, `read`, `push`, `new --from` and `comments` are Drive endpoints, reached on the docs tokens themselves: their row carries the Drive scopes, because a CLI never borrows another row's token (ruled 2026-11-24).
 
 ## A 403 naming a project is not a permission bug
 
@@ -82,8 +82,4 @@ Confirmed the expensive way on 2026-08-25, after a successful consent:
 Google Docs API has not been used in project 1048141740528 before or it is disabled.
 ```
 
-The token was fine — the **API** was off. `gdocs` has no `credentials.json` of its own, so `gauth._credentials_file` falls back to `~/.config/workspace-gmail/`, which is project `workspace-gmail-499605`. `workspace-os-506016` does have docs switched on, but that is the **forms** project, reached only by the second credential in `workspace-forms/`, and it is not the project `gdocs` authenticates against. A 403 names a project by number: `1048141740528` is `workspace-gmail-499605`, and the console lists ids, so resolve it through `project_id` in the matching `credentials.json` before sending anyone looking.
-
-**So the split matters:** everything Drive-backed (`list`, `read`, `push`, `new --from`, `comments`) worked immediately, because the Drive API was already on. Only the Docs API half (`read --outline`, `read --json`, `apply`, `text`, `replace`) was refused. A family half-working this way is the signature of a disabled API, not of a bad grant — do not spend a re-auth on it.
-
-**Resolved by moving the service, not by hunting the project.** `workspace-gmail-499605` was no longer reachable in Lucas's console, so `docs` got its own `credentials.json` — a copy of the `workspace-os-506016` one that `forms` uses, where the Docs API is on. `gauth._credentials_file` prefers `~/.config/workspace-docs/` over the gmail fallback, so the move is two file copies plus one fresh consent, because the OAuth client changed. Anything that re-mints these tokens must find that credential in place, or it silently falls back to the project that does not work.
+The token was fine — the **API** was off in the GCP project that owned the OAuth client. A 403 names a project by number, and the console lists ids, so resolve it through `project_id` in `credentials.json` before sending anyone looking. A family half-working (the Drive half fine, the Docs API half refused) is the signature of a disabled API, not of a bad grant — do not spend a re-auth on it. Since 2026-11-24 every grant consents through the one client in `~/.config/workspace-google/` (project `workspace-os-506016`); the old `workspace-gmail-499605` is unreachable in Lucas's console, and its tokens live on only until their next consent.

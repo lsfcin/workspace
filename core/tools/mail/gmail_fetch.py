@@ -1,39 +1,12 @@
 # gmail_fetch.py — Gmail API auth, fetch, and MIME parse for Core/tools/mail/gmail
-import json, pathlib, base64
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+import base64
+import gauth
 from googleapiclient.discovery import build
-
-CONFIG_DIR = pathlib.Path.home() / ".config" / "workspace-gmail"
-SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
-
-
-def auth(alias: str) -> Credentials:
-    """Run OAuth2 flow for alias, persist token, return credentials."""
-    token_path = CONFIG_DIR / f"{alias}.token.json"
-    creds = None
-
-    if token_path.exists():
-        creds = Credentials.from_authorized_user_file(str(token_path), SCOPES)
-
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            creds_file = CONFIG_DIR / "credentials.json"
-            if not creds_file.exists():
-                raise FileNotFoundError(f"credentials.json not found at {creds_file}")
-            flow = InstalledAppFlow.from_client_secrets_file(str(creds_file), SCOPES)
-            creds = flow.run_local_server(port=0)
-        token_path.write_text(creds.to_json(), encoding='utf-8', newline='\n')
-
-    return creds
 
 
 def get_service(alias: str):
-    """Return authenticated Gmail API service for alias."""
-    return build("gmail", "v1", credentials=auth(alias))
+    """Gmail API service for alias, on the `gmail` grant (core/tools/auth/grants.txt)."""
+    return build("gmail", "v1", credentials=gauth.auth(alias, "gmail"))
 
 
 def _decode_body(data: str) -> str:

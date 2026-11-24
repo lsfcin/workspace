@@ -1,14 +1,17 @@
 # Every Google grant a tool may hold, declared: the read scopes, the write scopes (- for none), and the CLI that consents to it (- for none yet). Read by core/tools/auth/gauth.py.
 #
+# A row is a CLI's whole contract, and a CLI loads only its own row's two tokens: what it needs from
+# another API (docs and slides listing through Drive) is a scope in its own row, never a borrowed token.
+# Only per-account user OAuth lives here; a provider keyed per project keeps its key in segredos.env.
 # A grant is a pair of tokens, ~/.config/workspace-<service>/ for reading and workspace-<service>-write/ for writing,
 # and a read never borrows the write token: a credential that can write is only ever loaded for a write.
 # A scope is written without its https://www.googleapis.com/auth/ prefix; several are joined by a comma.
 # A service missing here is refused by gauth.auth, and its recovery falls back to naming the token path.
 service	read	write	cli
 calendar	calendar.readonly	-	tools/calendar/gcalendar
-docs	documents.readonly	documents	tools/docs/gdocs
+docs	documents.readonly,drive.readonly	documents,drive	tools/docs/gdocs
 drive	drive.readonly	drive	tools/files/gdrive
 forms	forms.body.readonly,forms.responses.readonly	forms.body,drive.file	tools/forms/gforms
 gmail	gmail.readonly	-	tools/mail/gmail
 sheets	spreadsheets.readonly	spreadsheets	-
-slides	presentations.readonly	presentations	tools/slides/gslides
+slides	presentations.readonly,drive.readonly	presentations	tools/slides/gslides
