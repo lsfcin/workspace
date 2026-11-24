@@ -88,7 +88,7 @@ def register(session: str, pid: int) -> None:
 def session() -> str:
     """The calling agent session, or '' for a person."""
     import lock   # noqa: PLC0415
-    if named := lock.env_session():
+    if named := next((os.environ[k] for k in lock.SESSION_ENV if os.environ.get(k)), ''):
         return named
     for pid, start, _ in ancestors():
         if _entry(pid).is_file():

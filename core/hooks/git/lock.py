@@ -230,7 +230,9 @@ def change(path, session: str, target: str = '') -> str:
 
 
 def env_session() -> str:
-    return next((os.environ[k] for k in SESSION_ENV if os.environ.get(k)), '')
+    """The calling agent session, or '' for a person: the id its shell carries, else its registered ancestor."""
+    from wrapper import session  # noqa: PLC0415
+    return session()
 
 
 def check(commit) -> None:

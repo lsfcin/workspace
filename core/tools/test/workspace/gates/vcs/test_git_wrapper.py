@@ -109,7 +109,7 @@ def test_a_reused_pid_names_nobody(tmp_path, monkeypatch):
         monkeypatch.delenv(name, raising=False)
     assert wrapper.session() == ''
     wrapper.register(OTHER, me[0])
-    assert wrapper.session() == OTHER
+    assert wrapper.session() == OTHER == lock.env_session()   # take, roundup and pre-commit find it too
 
 
 def test_a_harness_whose_git_is_unwrapped_is_refused_its_shell(held):

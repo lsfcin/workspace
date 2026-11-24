@@ -11,9 +11,13 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Os workers do painel não leem a web.** Em 23/11, Codex (`Internal Error`) e argon (só `search_web`, sem rede) falharam ao buscar uma página pública. Declarar em `core/workers.txt` ou dar rede ao `panel/ask`. [src: agent 2026-11-23]
 
-- **O wrapper do git só foi provado no Claude Code.** O e2e (um `git add` alheio recusado pelo shell da tool e por um subprocess) falta no Codex (`CODEX_THREAD_ID` = `session_id` do hook?), opencode (`WOS_SESSION` chega ao shell?), Copilot e agy (o pid do host é ancestral do shell?, e o terminal humano do VS Code fica de fora?). O modo auto barrou rodar os três CLIs com permissão total (24/11); a sonda é `sh outputs/lock-facade/probe.sh <harness>`. Também: `take`/`roundup` e o pre-commit leem só `lock.env_session()`, não a árvore, então Copilot e agy não acham a própria sessão; `ancestors()` devolve [] fora do Linux. [src: agent 2026-11-24] `b20261124-git-wrapper-harnesses`
+- **O wrapper do git acha a sessão nos 4 harnesses, mas a recusa só foi provada no Claude Code.** Sondas de 24/11 (`outputs/lock-facade/probe.sh`): Codex leva `CODEX_THREAD_ID`, opencode `WOS_SESSION`, Copilot `COPILOT_AGENT_SESSION_ID` e o host como ancestral, agy só o ancestral; nenhum `git` antes do wrapper no PATH. Falta o e2e (um `git add` alheio recusado pelo shell de cada um), confirmar que o `session_id` do hook é o do shell (Codex, Copilot) e que o terminal humano do VS Code fica fora; `ancestors()` devolve [] fora do Linux. [src: agent 2026-11-24] `b20261124-git-wrapper-harnesses`
 
-- **ZCode tem headless, mas sem modelo.** `node /opt/ZCode/resources/glm/zcode.cjs --prompt "<texto>"` (CLI 0.16.3) responde `Model config is missing`: `~/.zcode/cli/config.json` só tem hooks. Falta declarar um provider (login Z.AI) antes da linha em `core/workers.txt` (20 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
+- **Três harnesses sem chamada headless.** ZCode: a GUI roda com a chave OpenRouter, mas o CLI (`node /opt/ZCode/resources/glm/zcode.cjs --prompt`, 0.16.3) responde `Model config is missing`, porque `~/.zcode/cli/config.json` só tem hooks. pi: `pi -p` → 402 do ollama cloud; trocar para OpenRouter. DeepSeek harness: virou download, e o baixado em 24/11 é o `.exe` de Windows; não há binário Linux no PATH (20 e 24 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
+
+- **`panel/ask --list` dá `live ok` a um worker que não responde**: o deepseek (opencode) aceitou a chamada e não disse nem "ok" em 100 s (24 Nov). [src: agent 2026-11-24] `b20261124-deepseek-hangs`
+
+- **O pymupdf põe um dígito solto como título** (`# 0`, `# 8`) logo após `<!-- page N -->`, resto do brasão; 45 no docs-ufrpe, corrigidos à mão (24 Nov). [src: agent 2026-11-24] `b20261124-pdf-crest-title`
 
 - **`video` não avisa quando a fala sai curta.** `video_media.transcribe()` devolve `""` em qualquer exceção, e ninguém compara o fim do último segmento com a duração do áudio (reel Df96hr1Nu5M, 21 Nov). [src: agent 2026-11-21] `b20261121-video-speech-cut`
 
