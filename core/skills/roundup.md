@@ -90,7 +90,7 @@ Commit the session's work first, in every repo this session holds: the script st
 core/run tools/wos/roundup
 ```
 
-[`core/tools/wos/roundup`](../tools/wos/roundup) covers exactly the repos the branch lock says this session holds ([`core/hooks/git/SPECS.md`](../hooks/git/SPECS.md)). Green fast suite → the feature merges into `develop`, which is pushed. Red → only the feature is pushed. Only after a confirmed push does it switch back to `develop` and let the repo go; a failed push keeps the repo held. It commits nothing and never moves `main`. **Every line it printed is the hand-off's State block** — copy them, do not re-derive them.
+[`core/tools/wos/roundup`](../tools/wos/roundup) covers exactly the repos the branch lock says this session holds ([`core/hooks/git/SPECS.md`](../hooks/git/SPECS.md)). Green fast suite → the feature merges into `develop`, which is pushed. Red → only the feature is pushed. Only after a confirmed push does it switch back to `develop` and let the repo go; a failed push keeps the repo held. It commits nothing and never moves `main`. An `outbox:` line is a note another session left for that repo: fold it into its file and clear it (`core/run tools/wos/note`), or leave it for the next holder. `roundup <repo>` closes one repo early. **Every line it printed is the hand-off's State block** — copy them, do not re-derive them.
 
 A merge it refused (develop diverged, a conflict) is a decision, not a failure: report the line, never work around it. Work that is incoherent on its own (a half-applied refactor) is yours to pass in: `core/run tools/wos/roundup --draft`. *"The milestone is not finished"* is **not** a reason: green, coherent, partial work belongs on `develop`, where the other machine can see it.
 

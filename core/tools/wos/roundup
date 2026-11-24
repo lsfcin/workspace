@@ -1,4 +1,4 @@
-# Usage: core/tools/wos/roundup [--draft] [--session ID] — the session close: every repo this session holds goes back to develop.
+# Usage: core/tools/wos/roundup [--draft] [--session ID] [REPO...] — the session close: every repo this session holds (or only those named) goes back to develop.
 #
 # The deterministic half of the /roundup ritual (core/skills/roundup.md). For each repo the branch
 # lock (core/hooks/git/lock.py) says this session holds:
@@ -24,6 +24,7 @@ STATE = Path(os.environ.get('WOS_STATE_DIR') or ROOT / 'outputs/state')
 sys.path[:0] = [str(ROOT / 'core/hooks/git'), str(ROOT / 'core/hooks'), str(ROOT / 'core/tools/verify')]
 import contract  # noqa: E402
 import lock  # noqa: E402
+import outbox  # noqa: E402
 from lock import git, out  # noqa: E402
 
 
@@ -115,8 +116,15 @@ def main() -> int:
     parser = argparse.ArgumentParser(description='the session close')
     parser.add_argument('--draft', action='store_true', help='push the feature, never merge')
     parser.add_argument('--session', default=lock.env_session())
+    parser.add_argument('repos', nargs='*', help='close only these; the rest stay held')
     args = parser.parse_args()
     held = lock.held_by(args.session) if args.session else []
+    if args.repos:
+        named = [lock.repo_of(Path(r).expanduser()) for r in args.repos]
+        if (stray := [r for r, n in zip(args.repos, named) if n not in held]):
+            print(f'roundup: this session does not hold {", ".join(stray)}', file=sys.stderr)
+            return 64
+        held = named
     if not held:
         print('roundup: this session holds no repo')
         arm_report(args.session)   # a session that closed earlier, or only read, still gets its report
@@ -130,6 +138,9 @@ def main() -> int:
     periodic(held)
     code = 0
     for repo in held:
+        # Listed, never blocking: the holder folds them in, dismisses them, or leaves them for later.
+        for note in outbox.pending(repo):
+            print(f'outbox: {repo}: {outbox.line(note)}')
         line, failed = close(repo, args.session, args.draft)
         print(line)
         code = code or failed

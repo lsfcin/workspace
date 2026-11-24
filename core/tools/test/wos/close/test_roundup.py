@@ -104,6 +104,25 @@ def test_a_claim_on_develop_closes_the_feature_switched_to_never_develop(tmp_pat
     assert run(repo, 'rev-parse', 'origin/develop') == run(repo, 'rev-parse', 'develop')
 
 
+def test_a_named_repo_closes_alone_and_the_rest_stay_held(tmp_path):
+    repo, branch, session = held(tmp_path)
+    other = governed_repo(tmp_path, 'other')
+    lock.take(other, session, 'more', True)
+    done = close(session, str(repo))
+    assert done.returncode == 0 and 'merged into develop' in done.stdout, done.stdout + done.stderr
+    assert lock.holder(repo) == ('', '') and lock.holder(other)[0] == session
+    assert close(session, str(tmp_path / 'nowhere')).returncode == 64
+
+
+def test_waiting_notes_are_listed_and_never_block(tmp_path, monkeypatch):
+    monkeypatch.setenv('WOS_SESSION_STATE', str(tmp_path / 'state'))
+    import outbox
+    repo, branch, session = held(tmp_path)
+    note = outbox.add(repo, 'ISSUES.md', 'a drive-by finding', 'someone-else')
+    done = close(session)
+    assert done.returncode == 0 and f'outbox: {repo}: {note}  ISSUES.md: a drive-by finding' in done.stdout
+
+
 def test_a_session_holding_nothing_closes_quietly():
     done = close('test-roundup-holds-nothing')
     assert done.returncode == 0 and 'holds no repo' in done.stdout

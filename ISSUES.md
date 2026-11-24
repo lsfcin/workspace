@@ -13,8 +13,6 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **O lock-gate lê `git` dentro do corpo de um heredoc Python como chamada git.** `command_only` mantém o corpo, e `GIT` acha `'git {verb}'` numa string. Decidido (Lucas, 24/11, painel P1): fachada `git` no PATH, front em `sh` (sem sessão ou leitura exata → git real), Python pro resto; ferramentas internas chamam o git real pelo caminho gravado; o regex sai inteiro e harness sem a fachada no PATH é recusado; crash → fail-open + alarme. [src: agent 2026-11-23]
 
-- **Sessão paralela com outro foco tomou a trava do workspace.** `d0c03695` escreveu de passagem e prendeu o repo inteiro até `claim` (21 Nov). Decidido (Lucas, 24/11, painel P2): um repo por sessão, segundo `take` só com `--multi`, `roundup <repo>` solta um cedo; nota a ISSUES/ROADMAP alheio sempre por `wos/note`; `take` mostra as pendentes, o roundup do holder drena (pode adiar), SessionStart lembra com a idade; id = hash curto. Feito (24/11): `wos/note`, `--multi`, aviso no take e no SessionStart. Falta: `roundup` listar as pendentes e aceitar `roundup <repo>`. [src: agent 2026-11-21] `b20261121-drive-by-lock`
-
 - **ZCode tem headless, mas sem modelo.** `node /opt/ZCode/resources/glm/zcode.cjs --prompt "<texto>"` (CLI 0.16.3) responde `Model config is missing`: `~/.zcode/cli/config.json` só tem hooks. Falta declarar um provider (login Z.AI) antes da linha em `core/workers.txt` (20 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
 
 - **`video` não avisa quando a fala sai curta.** `video_media.transcribe()` devolve `""` em qualquer exceção, e ninguém compara o fim do último segmento com a duração do áudio (reel Df96hr1Nu5M, 21 Nov). [src: agent 2026-11-21] `b20261121-video-speech-cut`
