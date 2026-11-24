@@ -29,7 +29,7 @@ CATALOG = ROOT / 'core' / 'workers.txt'
 MODELS = ROOT / 'core' / 'models.txt'
 LOG = ROOT / 'core' / 'state' / 'workers.tsv'
 TIMEOUT = 900
-COOLDOWN_H = 6  # a quota miss keeps a worker out of the chain this long, unless an ok call clears it
+COOLDOWNS_H = (6, 24, 72)  # the 1st, 2nd, 3rd+ quota miss in a row keeps a worker out this long; an ok call clears the run
 HOME = pathlib.Path.home()
 # $ENV, then PATH, then where the vendor's app installs it.
 PLACES = {
@@ -72,15 +72,14 @@ def catalog() -> list[dict]:
 
 
 def cooling(worker: str, now: str = '') -> str:
-    """When the worker's last logged call was a quota miss under COOLDOWN_H before `now`, its time; else ''."""
-    last = ''
-    if LOG.is_file():
-        for line in LOG.read_text(encoding='utf-8').splitlines():
-            f = line.split('\t')
-            if len(f) >= 5 and f[1] == worker:
-                last = f[0] if f[4] == 'quota' else ''
+    """The worker's last quota miss while still cooling before `now`, else ''. Only an ok ends a run of misses."""
+    last, run = '', 0
+    for f in (line.split('\t') for line in (LOG.read_text(encoding='utf-8').splitlines() if LOG.is_file() else [])):
+        if len(f) >= 5 and f[1] == worker and f[4] in ('quota', 'ok'):
+            last, run = (f[0], run + 1) if f[4] == 'quota' else ('', 0)
     stamp = lambda s: time.mktime(time.strptime(s, '%Y-%m-%dT%H:%M'))  # noqa: E731
-    if last and stamp(now or time.strftime('%Y-%m-%dT%H:%M')) - stamp(last) < COOLDOWN_H * 3600:
+    hours = COOLDOWNS_H[min(run, len(COOLDOWNS_H)) - 1] if run else 0
+    if last and stamp(now or time.strftime('%Y-%m-%dT%H:%M')) - stamp(last) < hours * 3600:
         return last
     return ''
 

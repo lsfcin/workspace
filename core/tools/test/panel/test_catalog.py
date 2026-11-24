@@ -81,7 +81,28 @@ def test_a_quota_miss_leaves_the_chain_until_it_cools_or_an_answer_clears_it(tmp
     names = lambda now: [r['worker'] for r in workers.chain(now)]  # noqa: E731
     log.write_text(f'2026-01-01T12:00\t{first}\tm\t-\tquota\t1.0\tlimit\n', encoding='utf-8', newline='\n')
     assert first not in names('2026-01-01T12:30')
-    assert first in names(f'2026-01-01T{12 + workers.COOLDOWN_H}:01')
+    assert first in names(f'2026-01-01T{12 + workers.COOLDOWNS_H[0]}:01')
     with log.open('a', encoding='utf-8', newline='\n') as fh:
         fh.write(f'2026-01-01T12:10\t{first}\tm\t-\tok\t1.0\t\n')
     assert first in names('2026-01-01T12:30')
+
+
+def test_quota_misses_in_a_row_cool_longer_and_only_an_ok_ends_the_run(tmp_path, monkeypatch):
+    log = tmp_path / 'workers.tsv'
+    monkeypatch.setattr(workers, 'LOG', log)
+    line = lambda day, status: f'2026-01-{day:02d}T12:00\tw\tm\t-\t{status}\t1.0\t\n'  # noqa: E731
+
+    def cooling_after(*rows, at):
+        log.write_text(''.join(rows), encoding='utf-8', newline='\n')
+        return workers.cooling('w', at) != ''
+
+    assert cooling_after(line(1, 'quota'), at='2026-01-01T17:59')
+    assert not cooling_after(line(1, 'quota'), at='2026-01-01T18:01')
+    two = (line(1, 'quota'), line(2, 'timeout'), line(3, 'quota'))
+    assert cooling_after(*two, at='2026-01-04T11:59')
+    assert not cooling_after(*two, at='2026-01-04T12:01')
+    four = (line(1, 'quota'), line(2, 'quota'), line(3, 'quota'), line(4, 'quota'))
+    assert cooling_after(*four, at='2026-01-07T11:59')
+    assert not cooling_after(*four, at='2026-01-07T12:01')
+    reset = (line(1, 'quota'), line(2, 'quota'), line(3, 'ok'), line(4, 'quota'))
+    assert not cooling_after(*reset, at='2026-01-04T18:01')

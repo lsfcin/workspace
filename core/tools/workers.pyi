@@ -7,7 +7,7 @@ CATALOG: Incomplete
 MODELS: Incomplete
 LOG: Incomplete
 TIMEOUT: int
-COOLDOWN_H: int
+COOLDOWNS_H: Incomplete
 HOME: Incomplete
 PLACES: Incomplete
 MARKS: Incomplete
