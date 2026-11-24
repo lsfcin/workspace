@@ -11,20 +11,11 @@ import tool_law
 # Guarded before the Google imports: "forms is off" must refuse here, not fail deeper in.
 tool_law.require('forms')
 
-import forms_core, forms_spec, gauth, short_name as short_name_tool  # noqa: E402
+import forms_core, forms_spec, gauth, gcli, short_name as short_name_tool  # noqa: E402
 
 
 def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
-    primary = gauth.resolve_alias(alias)
-    kind = "forms-write" if write else "forms"
-    token = gauth.config_dir(kind) / f"{primary}.token.json"
-    if reauth and token.exists():
-        # drop the stale token so a revoked/expired one can't dead-end on refresh
-        token.unlink()
-        print(f"Removed stale token: {token}")
-    print(f"Opening browser for OAuth — {kind} ({primary})...")
-    forms_core.get_service(primary, write=write)
-    print(f"Done. Token saved: {token}")
+    gcli.auth_command("forms-write" if write else "forms", alias, lambda a: forms_core.get_service(a, write=write), reauth)
 
 
 def cmd_new(account: str, spec_path: str, folder: str, short_name: str) -> None:

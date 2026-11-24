@@ -124,12 +124,49 @@ def test_every_google_cli_routes_its_entrypoint_through_run(tmp_path):
     assert not bypassed, f"these CLIs never reach gauth.run: {bypassed}"
 
 
-def test_every_reauth_command_names_a_tool_that_exists():
-    """The recovery message is only runnable while its path is real, and only through core/run:
-    the tools carry no shebang, so a bare path dies in the shell. Renames rot it silently."""
+def test_every_granted_cli_exists():
+    """The recovery message is only runnable while the grant's CLI is real. Renames rot it silently."""
     workspace_root = TOOLS_ROOT.parents[1]
-    for service, template in gauth._REAUTH_CMD.items():
-        runner, rel = template.format(alias="personal").split()[:2]
-        assert runner == "core/run", f"recovery for '{service}' skips core/run: {template}"
-        tool = workspace_root / "core" / rel
-        assert tool.is_file(), f"recovery for '{service}' points at a missing tool: {tool}"
+    for service, (_, _, cli) in gauth.grants().items():
+        assert not cli or (workspace_root / "core" / cli).is_file(), f"grant '{service}' names a missing CLI: {cli}"
+
+
+def test_a_grant_without_a_cli_recovers_by_its_token_path(accounts):
+    token = pathlib.Path("/home/x/.config/workspace-sheets-write/cin.token.json")
+    assert str(token) in gauth.recovery_text("cin", "sheets-write", token)
+
+
+@pytest.fixture
+def consent(monkeypatch, tmp_path):
+    """Which token directory and scopes an auth call reached, with no browser and no network."""
+    seen = {}
+    monkeypatch.setattr(gauth, "config_dir", lambda service: tmp_path / service)
+
+    class Flow:
+        @staticmethod
+        def from_client_secrets_file(_, scopes):
+            seen["scopes"] = scopes
+            raise SystemExit("consent")
+    monkeypatch.setattr(gauth, "InstalledAppFlow", Flow)
+    monkeypatch.setattr(gauth, "_credentials_file", lambda service: seen.setdefault("dir", service))
+    return seen
+
+
+def test_a_read_never_reaches_the_write_token(consent):
+    """A credential that can write is only loaded for a write, so a read has the readonly grant alone."""
+    with pytest.raises(SystemExit):
+        gauth.auth("personal", "docs")
+    assert consent["dir"] == "docs" and consent["scopes"] == [gauth._SCOPE + "documents.readonly"]
+
+
+def test_a_write_loads_the_write_token_with_its_declared_scopes(consent):
+    with pytest.raises(SystemExit):
+        gauth.auth("personal", "forms", write=True)
+    assert consent["dir"] == "forms-write"
+    assert consent["scopes"] == [gauth._SCOPE + "forms.body", gauth._SCOPE + "drive.file"]
+
+
+@pytest.mark.parametrize("service, write", [("nope", False), ("calendar", True)])
+def test_an_undeclared_grant_is_refused(service, write):
+    with pytest.raises(ValueError, match="grants.txt"):
+        gauth.auth("personal", service, write)

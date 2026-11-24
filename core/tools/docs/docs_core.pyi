@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 
-SCOPES: Incomplete
-SCOPES_WRITE: Incomplete
 LENGTH_CHANGING: Incomplete
 
 class IndexOrderError(ValueError): ...

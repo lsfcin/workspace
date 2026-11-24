@@ -20,19 +20,25 @@ from googleapiclient.errors import HttpError
 
 _GMAIL_CONFIG = pathlib.Path.home() / ".config" / "workspace-gmail"
 
-# Services whose CLI already exposes `auth <alias> --reauth`. Anything absent here has no
-# recovery flag yet, so its instruction is the manual equivalent: drop the token, re-run.
-# When a CLI gains the flag, add it here and its message upgrades itself.
-_REAUTH_CMD = {
-    "drive": "core/run tools/files/gdrive auth {alias} --reauth",
-    "drive-write": "core/run tools/files/gdrive auth {alias} --write --reauth",
-    "gmail": "core/run tools/mail/gmail auth {alias} --reauth",
-    "calendar": "core/run tools/calendar/gcalendar auth {alias} --reauth",
-    "slides": "core/run tools/slides/gslides auth {alias} --reauth",
-    "slides-write": "core/run tools/slides/gslides auth {alias} --write --reauth",
-    "docs": "core/run tools/docs/gdocs auth {alias} --reauth",
-    "docs-write": "core/run tools/docs/gdocs auth {alias} --write --reauth",
-}
+_SCOPE = "https://www.googleapis.com/auth/"
+
+
+def grants() -> dict:
+    """core/tools/auth/grants.txt as {service: (read scopes, write scopes, cli or '')}."""
+    table = {}
+    for line in (pathlib.Path(__file__).with_name("grants.txt")).read_text(encoding="utf-8").splitlines():
+        cols = line.split("\t")
+        if line.startswith("#") or len(cols) != 4 or cols[0] == "service":
+            continue
+        read, write = ([_SCOPE + s for s in col.split(",")] if col != "-" else [] for col in cols[1:3])
+        table[cols[0]] = (read, write, "" if cols[3] == "-" else cols[3])
+    return table
+
+
+def _grant(service: str) -> tuple:
+    """(service, write?, its row) for a token directory name such as 'drive-write'."""
+    base = service.removesuffix("-write")
+    return base, base != service, grants().get(base)
 
 
 def config_dir(service: str) -> pathlib.Path:
@@ -95,9 +101,9 @@ def account_email(alias: str) -> str:
 
 def recovery_text(alias: str, service: str, token_path: pathlib.Path) -> str:
     """The whole instruction: one command, and which account to sign in as."""
-    template = _REAUTH_CMD.get(service)
-    if template:
-        step = template.format(alias=alias)
+    _, write, row = _grant(service)
+    if row and row[2]:
+        step = f"core/run {row[2]} auth {alias}{' --write' if write else ''} --reauth"
     else:
         step = f"rm {token_path}   # then re-run the command that just failed"
     lines = [
@@ -128,8 +134,14 @@ def run(main_fn) -> None:
         sys.exit(f"GOOGLE API REFUSED THE REQUEST ({exc.status_code}):\n    {exc.reason}")
 
 
-def auth(alias: str, service: str, scopes: list) -> Credentials:
-    """OAuth2 flow for alias+service. Tokens stored per-service per-alias."""
+def auth(alias: str, service: str, write: bool = False) -> Credentials:
+    """OAuth2 flow for alias+service, the scopes read from grants.txt. Tokens stored per-grant per-alias:
+    a read loads workspace-<service>/, a write workspace-<service>-write/, and nothing else crosses."""
+    row = grants().get(service)
+    if not row or (write and not row[1]):
+        raise ValueError(f"no {'write ' if write else ''}grant '{service}' in core/tools/auth/grants.txt")
+    scopes = row[1] if write else row[0]
+    service = f"{service}-write" if write else service
     d = config_dir(service)
     token_path = d / f"{alias}.token.json"
     creds = None

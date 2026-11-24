@@ -14,8 +14,6 @@ from drive_core import (  # noqa: F401
     list_folder,
     find_or_create_folder,
     copy_file,
-    SCOPES_READ,
-    SCOPES_WRITE,
 )
 
 # ── Config ───────────────────────────────────────────────────────────────────

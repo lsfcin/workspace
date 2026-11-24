@@ -7,10 +7,6 @@ sys.path.insert(0, str(_HERE.parent / 'auth'))
 from googleapiclient.discovery import build
 import gauth
 
-# Two tokens, same split as slides/gslides: reads are cheap, edit-anything is not.
-SCOPES = ["https://www.googleapis.com/auth/documents.readonly"]
-SCOPES_WRITE = ["https://www.googleapis.com/auth/documents"]
-
 # Requests that change how long the body is, and therefore shift every index after them.
 # This set is the whole reason `check_order` exists — anything not in it can be batched in
 # any order, because it leaves the index space alone.
@@ -26,21 +22,8 @@ class IndexOrderError(ValueError):
     """A batch whose length-changing requests run low-to-high. Carries the fix."""
 
 
-def _read_token(alias: str) -> tuple:
-    """Which grant a read should use: the strongest one this alias already has.
-
-    An edit consent strictly contains a read consent, so demanding a second browser trip
-    for the subset buys no safety — it just gives the account two tokens that can die
-    independently. Aliases that only ever got the read grant are unaffected.
-    """
-    if (gauth.config_dir("docs-write") / f"{alias}.token.json").exists():
-        return "docs-write", SCOPES_WRITE
-    return "docs", SCOPES
-
-
 def get_service(alias: str, write: bool = False):
-    service, scopes = ("docs-write", SCOPES_WRITE) if write else _read_token(alias)
-    return build("docs", "v1", credentials=gauth.auth(alias, service, scopes))
+    return build("docs", "v1", credentials=gauth.auth(alias, "docs", write))
 
 
 def get_document(alias: str, document_id: str, write: bool = False) -> dict:

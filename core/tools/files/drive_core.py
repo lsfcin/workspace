@@ -6,8 +6,6 @@ import sys as _sys, pathlib as _pathlib
 _sys.path.insert(0, str(_pathlib.Path(__file__).resolve().parents[2]))
 import gauth
 
-SCOPES_READ  = ["https://www.googleapis.com/auth/drive.readonly"]
-SCOPES_WRITE = ["https://www.googleapis.com/auth/drive"]
 
 EXPORT_MIME = {
     "application/vnd.google-apps.document":     "application/pdf",
@@ -42,8 +40,7 @@ def get_service(alias: str, write: bool = False):
     """Build a Drive service for alias. Read uses the `drive` token (readonly);
     write uses a separate `drive-write` token (full scope) so it never clobbers
     the readonly one."""
-    service, scopes = ("drive-write", SCOPES_WRITE) if write else ("drive", SCOPES_READ)
-    return build("drive", "v3", credentials=gauth.auth(alias, service, scopes))
+    return build("drive", "v3", credentials=gauth.auth(alias, "drive", write))
 
 
 # ── Reads (per-alias; build their own readonly service) ────────────────────────

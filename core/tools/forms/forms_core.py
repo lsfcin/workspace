@@ -7,29 +7,15 @@ import gauth  # noqa: E402
 
 from googleapiclient.discovery import build  # noqa: E402
 
-# Two grants, same split as files/ and slides/: reading a form and its answers never needs the
-# power to rewrite the questions. `drive.file` rides with the write grant because a form the tool
-# created is a Drive file the tool must be able to file into a folder.
-SCOPES_READ = [
-    'https://www.googleapis.com/auth/forms.body.readonly',
-    'https://www.googleapis.com/auth/forms.responses.readonly',
-]
-SCOPES_WRITE = [
-    'https://www.googleapis.com/auth/forms.body',
-    'https://www.googleapis.com/auth/drive.file',
-]
-
-
+# The two grants are core/tools/auth/grants.txt's `forms` row. `drive.file` rides with the write grant
+# because a form the tool created is a Drive file the tool must be able to file into a folder.
 def get_service(alias: str, write: bool = False):
-    kind = 'forms-write' if write else 'forms'
-    scopes = SCOPES_WRITE if write else SCOPES_READ
-    creds = gauth.auth(alias, kind, scopes)
-    return build('forms', 'v1', credentials=creds)
+    return build('forms', 'v1', credentials=gauth.auth(alias, 'forms', write))
 
 
 def get_drive(alias: str):
     """Drive under the same write grant — only for filing a form the tool created."""
-    creds = gauth.auth(alias, 'forms-write', SCOPES_WRITE)
+    creds = gauth.auth(alias, 'forms', write=True)
     return build('drive', 'v3', credentials=creds)
 
 

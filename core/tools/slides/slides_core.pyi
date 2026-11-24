@@ -1,8 +1,6 @@
 import pathlib
 from _typeshed import Incomplete
 
-SCOPES: Incomplete
-SCOPES_WRITE: Incomplete
 SLIDE_W: Incomplete
 SLIDE_H: Incomplete
 

@@ -1,8 +1,6 @@
 import pathlib
 from _typeshed import Incomplete
 
-SCOPES_READ: Incomplete
-SCOPES_WRITE: Incomplete
 EXPORT_MIME: Incomplete
 EXPORT_MIME_OVERRIDES: Incomplete
 EXPORT_EXT: Incomplete

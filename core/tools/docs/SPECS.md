@@ -68,7 +68,7 @@ Three more, measured 2026-08-26 against `academy/lab/`'s 750-line document:
 
 ## Auth
 
-Two grants, `docs` (`documents.readonly`) and `docs-write` (`documents`), the same split as [`../slides/`](../slides/CONTEXT.md) and [`../files/`](../files/CONTEXT.md). A read prefers the write token when the alias has one: the edit consent already contains the read consent, so a second browser trip would buy no safety and create two tokens that die independently.
+Two grants, `docs` (`documents.readonly`) and `docs-write` (`documents`), the same split as [`../slides/`](../slides/CONTEXT.md) and [`../files/`](../files/CONTEXT.md). A read never borrows the write token ([`../auth/grants.txt`](../auth/grants.txt)).
 
 **The grant name IS the config directory suffix** — a write token is `~/.config/workspace-**docs-write**/<alias>.token.json`, and checking the read directory to see whether a write grant landed answers *no* forever. `gdocs auth` prints the real path on its last line; read that, not a directory you inferred the name of.
 

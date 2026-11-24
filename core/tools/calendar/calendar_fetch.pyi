@@ -1,6 +1,3 @@
-from _typeshed import Incomplete
-
-SCOPES: Incomplete
 EVENT_FIELDS: str
 
 def get_service(alias: str): ...

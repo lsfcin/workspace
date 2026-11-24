@@ -8,29 +8,13 @@ from googleapiclient.discovery import build
 import gauth
 
 # Two tokens, same split as files/gdrive: reads are cheap, edit-anything is not.
-SCOPES = ["https://www.googleapis.com/auth/presentations.readonly"]
-SCOPES_WRITE = ["https://www.googleapis.com/auth/presentations"]
-
 # Standard 16:9 deck, in EMU. Every transform below is expressed against these, so a
 # caller can place an element by fraction of the slide and never handle the unit.
 SLIDE_W, SLIDE_H = 9144000, 5143500
 
 
-def _read_token(alias: str) -> tuple:
-    """Which grant a read should use: the strongest one this alias already has.
-
-    An edit consent strictly contains a read consent, so demanding a second browser trip
-    for the subset buys no safety — it just gives the account two tokens that can die
-    independently. Aliases that only ever got the read grant are unaffected.
-    """
-    if (gauth.config_dir("slides-write") / f"{alias}.token.json").exists():
-        return "slides-write", SCOPES_WRITE
-    return "slides", SCOPES
-
-
 def get_service(alias: str, write: bool = False):
-    service, scopes = ("slides-write", SCOPES_WRITE) if write else _read_token(alias)
-    return build("slides", "v1", credentials=gauth.auth(alias, service, scopes))
+    return build("slides", "v1", credentials=gauth.auth(alias, "slides", write))
 
 
 def get_presentation(alias: str, presentation_id: str, write: bool = False) -> dict:
@@ -42,7 +26,7 @@ def get_presentation(alias: str, presentation_id: str, write: bool = False) -> d
 
 def list_presentations(alias: str, name: str = "") -> list:
     """List presentations from Drive. Optionally filter by name substring."""
-    drive_creds = gauth.auth(alias, "drive", ["https://www.googleapis.com/auth/drive.readonly"])
+    drive_creds = gauth.auth(alias, "drive")
     svc = build("drive", "v3", credentials=drive_creds)
     q = "mimeType='application/vnd.google-apps.presentation' and trashed=false"
     if name:

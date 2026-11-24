@@ -7,7 +7,7 @@ sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
 sys.path.insert(0, str(_HERE.parents[1] / 'hooks'))
-import drive_core, drive_sync, gauth, short_name as short_name_tool
+import drive_core, drive_sync, gauth, gcli, short_name as short_name_tool
 from platform_law import WORKSPACE_ROOT
 
 DOWNLOAD_DIR = WORKSPACE_ROOT / "Downloads/workspace-drive"
@@ -27,15 +27,8 @@ def _print_files(files: list, alias: str) -> None:
 
 
 def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
-    primary = gauth.resolve_alias(alias)
-    kind = "drive-write" if write else "drive"
-    token = gauth.config_dir(kind) / f"{primary}.token.json"
-    if reauth and token.exists():
-        token.unlink()
-        print(f"Removed stale token: {token}")
-    print(f"Opening browser for OAuth — {kind} ({primary})...")
-    drive_core.get_service(primary, write=write)
-    print(f"Done. Token saved: {token}")
+    gcli.auth_command("drive-write" if write else "drive", alias, lambda a: drive_core.get_service(a, write=write), reauth)
+
 
 def cmd_recent(account: str, limit: int) -> None:
     aliases = gauth.primary_aliases() if account == "all" else [gauth.resolve_alias(account)]
