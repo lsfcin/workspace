@@ -13,11 +13,11 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Os workers do painel não leem a web.** Em 23/11, Codex (`Internal Error`) e argon (só `search_web`, sem rede) falharam ao buscar uma página pública. Declarar em `core/workers.txt` ou dar rede ao `panel/ask`. [src: agent 2026-11-23]
 
-- **O lock-gate lê `git` dentro do corpo de um heredoc Python como chamada git.** `command_only` mantém o corpo, e `GIT` acha `'git {verb}'` numa string. Decidido (Lucas, 24/11): um `git` de fachada no PATH pergunta a `lock.change` pelo argv real. [src: agent 2026-11-23]
+- **O lock-gate lê `git` dentro do corpo de um heredoc Python como chamada git.** `command_only` mantém o corpo, e `GIT` acha `'git {verb}'` numa string. Decidido (Lucas, 24/11, painel P1): fachada `git` no PATH, front em `sh` (sem sessão ou leitura exata → git real), Python pro resto; ferramentas internas chamam o git real pelo caminho gravado; o regex sai inteiro e harness sem a fachada no PATH é recusado; crash → fail-open + alarme. [src: agent 2026-11-23]
 
 - **Assimetria: o Edit num caminho ignorado de um repo livre é recusado; a escrita por shell no mesmo caminho passa.** O Edit ganha a mesma isenção, salvo `core/state/lock_*` (painel). [src: agent 2026-11-23]
 
-- **Sessão paralela com outro foco tomou a trava do workspace.** `d0c03695` escreveu de passagem e prendeu o repo inteiro até `claim` (21 Nov). Decidido (Lucas, 24/11): outbox `wos/note`, drenado por take e roundup; "uma sessão, um repo" vai a painel. [src: agent 2026-11-21] `b20261121-drive-by-lock`
+- **Sessão paralela com outro foco tomou a trava do workspace.** `d0c03695` escreveu de passagem e prendeu o repo inteiro até `claim` (21 Nov). Decidido (Lucas, 24/11, painel P2): um repo por sessão, segundo `take` só com `--multi`, `roundup <repo>` solta um cedo; nota a ISSUES/ROADMAP alheio sempre por `wos/note`; `take` mostra as pendentes, o roundup do holder drena (pode adiar), SessionStart lembra com a idade; id = hash curto. [src: agent 2026-11-21] `b20261121-drive-by-lock`
 
 - **ZCode tem headless, mas sem modelo.** `node /opt/ZCode/resources/glm/zcode.cjs --prompt "<texto>"` (CLI 0.16.3) responde `Model config is missing`: `~/.zcode/cli/config.json` só tem hooks. Falta declarar um provider (login Z.AI) antes da linha em `core/workers.txt` (20 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
 
