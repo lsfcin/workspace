@@ -3,7 +3,9 @@
 # What the model itself is good and bad at, and its vendor, is core/models.txt, joined by `model`.
 # id: pinned, not an alias — codex, agy and opencode take no level alias, so a retired id is a
 #   failed call that `core/run tools/panel/ask --check` names, never a silent substitution.
-#   claude-high is the exception: its id is core/tools/wos/levels CLAUDE['high'], and a test holds them equal.
+#   A claude-harness row is the exception: its id is core/tools/wos/levels CLAUDE[level], and a test holds them equal.
+# role: critic-high | critic-fast | coder | vision | describe. A route (one quota pool) holds 1-4
+#   rows, never two for one role (Lucas, 2026-11-23). The nvidia/ ids are the NVIDIA NIM free key, through opencode.
 # chain: position in the default outside-panel chain, or - for out of it (reachable with --only).
 #   codex is out from 2026-11-20 to measure whether the panel loses quality without it
 #   (core/ROADMAP.md [subscription-review]).
@@ -11,10 +13,19 @@
 #   A transient quota miss is never written here: the call log core/state/workers.tsv holds it.
 # trap: what this route does wrong, whatever the model.
 # help_verified / call_verified: the CLI version whose --help, and whose real answer, were last seen.
-# worker	model	harness	id	level	chain	cost	depleted	trap	help_verified	call_verified	date
-codex	gpt-6.1-sol	codex	gpt-6.1-sol	high	-	subscription	-	off PATH inside the ChatGPT app; reads the tree read-only	0.167	0.167	2026-11-20
-argon	gemini-4-argon	agy	gemini-4-argon-high	high	1	subscription	-	quota can lock out for days (73 h, 2026-11-04)	1.5.10	1.5.10	2026-11-20
-deepseek	deepseek-v4.1-flash	opencode	opencode/deepseek-v4.1-flash-free	medium	2	free	-	-	1.18.25	1.18.25	2026-11-23
-flash	gemini-3.8-flash	agy	gemini-3.8-flash-high	medium	3	subscription	-	the fallback when argon is spent; same vendor, not a second voice	1.5.10	1.5.10	2026-11-20
-local	qwen3.5-9b	ollama	qwen3.5:9b	low	-	free	-	offline, zero quota	0.24	-	2026-11-20
-claude-high	claude-opus-5.5	claude	opus	high	-	subscription	-	spends the quota the others exist to save	-	-	2026-11-20
+# worker	model	harness	id	level	role	chain	cost	depleted	trap	help_verified	call_verified	date
+codex	gpt-6.2-astra	codex	gpt-6.2-astra	high	critic-high	-	subscription	-	off PATH inside the ChatGPT app; refuses an untrusted cwd	0.167	0.167	2026-11-23
+sol	gpt-6.2-sol	codex	gpt-6.2-sol	medium	coder	-	subscription	-	off PATH inside the ChatGPT app; refuses an untrusted cwd	0.167	0.167	2026-11-23
+terra	gpt-6.1-terra	codex	gpt-6.1-terra	medium	vision	-	subscription	-	off PATH inside the ChatGPT app; refuses an untrusted cwd	0.167	0.167	2026-11-23
+luna	gpt-6-luna	codex	gpt-6-luna	low	describe	-	subscription	-	off PATH inside the ChatGPT app; refuses an untrusted cwd	0.167	0.167	2026-11-23
+argon	gemini-4-argon	agy	gemini-4-argon-high	high	critic-high	1	subscription	-	quota can lock out for days (73 h, 2026-11-04)	1.5.15	1.5.10	2026-11-20
+flash	gemini-3.8-flash	agy	gemini-3.8-flash-high	medium	critic-fast	3	subscription	-	the fallback when argon is spent; same vendor, not a second voice	1.5.15	1.5.10	2026-11-20
+sonnet-agy	claude-sonnet-5.5	agy	claude-sonnet-5-5-medium	medium	coder	-	subscription	-	Anthropic on the Google quota; its agent loop is unproven	1.5.15	1.5.15	2026-11-23
+deepseek	deepseek-v4.1-flash	opencode	opencode/deepseek-v4.1-flash-free	medium	critic-fast	2	free	-	-	1.18.25	1.18.25	2026-11-23
+nemotron	nemotron-3-ultra	opencode	nvidia/nvidia/nemotron-3-ultra-550b-a55b	high	critic-high	-	free	-	-	1.18.25	1.18.25	2026-11-23
+glm	glm-5.3-flash	opencode	nvidia/z-ai/glm-5.3-flash	medium	coder	-	free	-	203 s on a one-line canary; free-key rate limit	1.18.25	1.18.25	2026-11-23
+nemotron-vl	nemotron-3.5-super-vl	opencode	nvidia/nvidia/nemotron-3.5-super-vl-120b-a12b	medium	vision	-	free	-	canaried on text only	1.18.25	1.18.25	2026-11-23
+local	qwen3.5-9b	ollama	qwen3.5:9b	low	describe	-	free	-	offline, zero quota; text only	0.24	-	2026-11-20
+claude-high	claude-opus-5.5	claude	opus	high	critic-high	-	subscription	-	spends the quota the others exist to save	-	-	2026-11-20
+claude-medium	claude-sonnet-5.5	claude	sonnet	medium	coder	-	subscription	-	a subagent carries the session's context: not comparable to a bare call	-	-	2026-11-23
+claude-low	claude-haiku-5.5	claude	haiku	low	describe	-	subscription	-	a subagent carries the session's context: not comparable to a bare call	-	-	2026-11-23

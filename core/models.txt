@@ -5,7 +5,14 @@
 # tools: tools = calls tools in an agent loop; text = answers text only.
 # intel / coding / agentic: ArtificialAnalysis indices, - when unmeasured; bench_date says how old they are.
 # model	vendor	tools	strength	weakness	intel	coding	agentic	bench_date
-gpt-6.1-sol	openai	tools	strongest outside critic	refuses to generate or rank political persuasion	-	-	-	-
+gpt-6.2-astra	openai	tools	"most capable, complex coding" (its catalog)	gpt-6.1-sol refused to generate or rank political persuasion	-	-	-	-
+gpt-6.2-sol	openai	tools	"fast go-to for coding" (its catalog)	-	-	-	-	-
+gpt-6.1-terra	openai	tools	"visual understanding, computer use" (its catalog)	-	-	-	-	-
+gpt-6-luna	openai	tools	cheap reserve for batch descriptions (core/experiments/description-writer.md)	-	-	-	-	-
+claude-sonnet-5.5	anthropic	tools	the host harness's medium level	-	-	-	-	-
+claude-haiku-5.5	anthropic	tools	the host harness's low level	-	-	-	-	-
+glm-5.3-flash	zhipu	tools	-	slow on the NIM free key	-	-	-	-
+nemotron-3.5-super-vl	nvidia	tools	vision-language, answers in seconds	-	-	-	-	-
 gemini-4-argon	google	tools	strong critic, long context	-	-	-	-	-
 gemini-3.8-flash	google	tools	fast	shallower than argon	-	-	-	-
 deepseek-v4.1-flash	deepseek	tools	answers in seconds	flash model: weaker on deep critique	-	-	-	-
