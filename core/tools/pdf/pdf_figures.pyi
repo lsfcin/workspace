@@ -3,6 +3,7 @@ from pathlib import Path
 
 HASH_SIDE: int
 DECORATIVE_PAGES: int
+DECORATIVE_MAX_SIDE: int
 PREVIEW_SIDE: int
 PREVIEW_QUALITY: int
 EMBEDDED_MIN_SIDE: int
@@ -13,6 +14,7 @@ class Figure:
     page: int
     source: Path
     look: str
+    size: tuple[int, int]
     same_as: str | None = ...
     decorative: bool = ...
     pages: set = field(default_factory=set)

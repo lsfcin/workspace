@@ -1,6 +1,6 @@
 # T1 pdf twin: the frontmatter says what was converted and when it went stale, the git rule follows the origin, and a secret keeps the whole twin out of git. Zero-token, no network, no engine.
 import pytest
-from PIL import Image
+from PIL import Image, ImageDraw
 
 import describe
 import pdf_meta
@@ -29,13 +29,15 @@ def make_pdf(path, text=WORDS):
     return path
 
 
-def fake_engine(page_md=WORDS, figures=1):
+def fake_engine(page_md=WORDS, figures=1, size=(320, 240)):
     def run(engine, pdf, out):
         figs = []
         for i in range(figures):
             png = out / f'f{i}.png'
-            Image.new('RGB', (80, 60), (40 * i, 200, 90)).save(png)
-            figs.append({'page': 1, 'file': str(png)})
+            im = Image.new('RGB', size, (40 * i, 200, 90))
+            ImageDraw.Draw(im).rectangle((0, 0, size[0] * (i + 1) // 3, size[1] // 2), fill=(255, 255, 255))   # a look per figure
+            im.save(png)
+            figs.append({'page': 1, 'file': str(png), 'scale': 2.0})   # docling's: a 320x240 crop is 160x120 pt, content
         return {'engine': f'{engine} 9.9', 'figures': figs,
                 'pages': [page_md + '\n\n<!-- figure -->' * figures]}
     return run
@@ -115,6 +117,23 @@ def test_no_origin_versions_small_previews_and_keeps_originals_local(tmp_path):
     assert (folder / 'img' / 'p01-fig1.jpg').exists() and (folder / 'img' / 'p01-fig1.png').exists()
     assert (folder / '.gitignore').read_text(encoding='utf-8').splitlines()[0] == 'img/*.png'
     assert '](img/p01-fig1.jpg)' in (folder / 'res.md').read_text(encoding='utf-8')
+
+
+def test_a_decorative_figure_leaves_no_trace_in_the_twin_but_is_still_counted(tmp_path):
+    calls = []
+
+    def describer(image, describer, ocr_text):
+        calls.append(image)
+        return said(image, describer, ocr_text)
+
+    pdf = make_pdf(tmp_path / 'res.pdf')
+    done = pdf_twin.build(pdf, 'docling', _engine=fake_engine(figures=2, size=(94, 93)), _describe=describer,
+                          _ocr=lambda p: 'BRASAO', force=True)
+    folder = done['twin'].parent
+    assert calls == [] and not (folder / 'img').exists()
+    text = done['twin'].read_text(encoding='utf-8')
+    assert 'figure' not in text.replace('<!-- page 1 -->', '') and 'BRASAO' not in text
+    assert pdf_meta.read_frontmatter(done['twin'])['audit']['images'].startswith('2/')
 
 
 def test_a_live_origin_keeps_every_image_out_of_git(tmp_path):

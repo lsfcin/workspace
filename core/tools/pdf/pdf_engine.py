@@ -6,7 +6,8 @@
 #
 # Contract: `python pdf_engine.py <docling|pymupdf> <pdf> <figure-dir>` writes <figure-dir>/RESULT:
 #   {"engine": "<name> <version>", "pages": ["<md of page 1>", ...],
-#    "figures": [{"page": 3, "file": "<figure-dir>/f0007.png"}, ...]}
+#    "figures": [{"page": 3, "file": "<figure-dir>/f0007.png", "scale": 2.0}, ...]}
+# A figure's crop is a render of its page region: `scale` is crop pixels per page point (1 pt = 1/72 in).
 # Each figure's place in its page's markdown is the line FIGURE, in the same order as `figures`.
 # A file and not stdout: both engines print progress there (RapidOCR, the layout parser).
 from __future__ import annotations
@@ -20,6 +21,8 @@ from pathlib import Path
 FIGURE = '<!-- figure -->'
 RESULT = 'engine.json'
 MIN_SIDE = 32   # smaller crops are rules, bullets and specks, not figures
+DOCLING_SCALE = 2.0   # crop pixels per page point
+PYMUPDF_DPI = 150     # = 150 / 72 crop pixels per page point
 
 
 def _docling(pdf: Path, out: Path) -> tuple[list[str], list[dict]]:
@@ -29,7 +32,7 @@ def _docling(pdf: Path, out: Path) -> tuple[list[str], list[dict]]:
 
     opts = PdfPipelineOptions()
     opts.generate_picture_images = True
-    opts.images_scale = 2.0
+    opts.images_scale = DOCLING_SCALE
     doc = DocumentConverter(format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=opts)}
                             ).convert(str(pdf)).document
     count = max(doc.pages) if doc.pages else 0
@@ -40,7 +43,7 @@ def _docling(pdf: Path, out: Path) -> tuple[list[str], list[dict]]:
             continue
         image = item.get_image(doc)
         page = item.prov[0].page_no
-        entry = {'page': page, 'file': str(out / f'f{len(figures):04d}.png')}
+        entry = {'page': page, 'file': str(out / f'f{len(figures):04d}.png'), 'scale': DOCLING_SCALE}
         if image is None or min(image.size) < MIN_SIDE:
             entry['file'] = None
         else:
@@ -63,11 +66,11 @@ def _pymupdf(pdf: Path, out: Path) -> tuple[list[str], list[dict]]:
     import pymupdf4llm
 
     chunks = pymupdf4llm.to_markdown(str(pdf), page_chunks=True, write_images=True,
-                                     image_path=str(out), image_format='png')
+                                     image_path=str(out), image_format='png', dpi=PYMUPDF_DPI)
     pages, figures = [], []
     for n, chunk in enumerate(chunks, 1):
         def keep(match: re.Match, page: int = n) -> str:
-            figures.append({'page': page, 'file': str(Path(match.group(1)).resolve())})
+            figures.append({'page': page, 'file': str(Path(match.group(1)).resolve()), 'scale': PYMUPDF_DPI / 72})
             return FIGURE
         pages.append(IMAGE_LINK.sub(keep, chunk['text']))
     return pages, figures

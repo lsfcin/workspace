@@ -14,6 +14,7 @@ import pdf_meta
 
 HASH_SIDE = 16
 DECORATIVE_PAGES = 3   # the same image on this many pages is a letterhead, not content
+DECORATIVE_MAX_SIDE = 72   # a figure this small on the page (points: 72 = 1 in = 150 px at the pymupdf render) is a crest or a bullet
 PREVIEW_SIDE = 1024    # the versioned JPEG: small enough for git, big enough to read a chart
 PREVIEW_QUALITY = 60
 EMBEDDED_MIN_SIDE = 64
@@ -25,9 +26,16 @@ class Figure:
     page: int
     source: Path                  # the engine's crop
     look: str                     # the average hash
+    size: tuple[int, int]         # the crop's pixels; the engine renders it at `scale` pixels per page point
     same_as: str | None = None    # the first figure with this look
     decorative: bool = False
     pages: set = field(default_factory=set)
+
+
+def _size(image: Path) -> tuple[int, int]:
+    from PIL import Image
+    with Image.open(image) as im:
+        return im.size
 
 
 def look(image: Path) -> str:
@@ -39,12 +47,17 @@ def look(image: Path) -> str:
 
 
 def name_all(engine_figures: list[dict], total_pages: int) -> list[Figure]:
-    """Name every figure pNN-figK, and point each repeat at its first appearance."""
+    """Name every figure pNN-figK, and point each repeat at its first appearance. A figure is decorative
+    when its look is on many pages or its larger side, in page points (crop pixels / the engine's
+    scale), is at most DECORATIVE_MAX_SIDE; a repeat inherits from its first."""
     figures, first, per_page = [], {}, {}
     for entry in engine_figures:
         page = entry['page']
         per_page[page] = per_page.get(page, 0) + 1
-        fig = Figure(f'p{page:02d}-fig{per_page[page]}', page, Path(entry['file']), look(Path(entry['file'])))
+        source = Path(entry['file'])
+        fig = Figure(f'p{page:02d}-fig{per_page[page]}', page, source, look(source), _size(source))
+        if max(fig.size) / entry.get('scale', 1.0) <= DECORATIVE_MAX_SIDE:
+            fig.decorative = True
         if fig.look in first:
             fig.same_as = first[fig.look].name
             first[fig.look].pages.add(page)
@@ -53,7 +66,7 @@ def name_all(engine_figures: list[dict], total_pages: int) -> list[Figure]:
             fig.pages.add(page)
         figures.append(fig)
     for fig in first.values():
-        fig.decorative = len(fig.pages) >= min(DECORATIVE_PAGES, max(2, total_pages))
+        fig.decorative |= len(fig.pages) >= min(DECORATIVE_PAGES, max(2, total_pages))
     for fig in figures:
         if fig.same_as:
             fig.decorative = next(f for f in first.values() if f.name == fig.same_as).decorative
@@ -93,8 +106,6 @@ def block(fig: Figure, link: str, description=None, ocr_text: str = '') -> str:
         return f'![{fig.name}]({link})\n\n<!-- figure {fig.name} | same image as {fig.same_as} -->\n'
     tags = [f'figure {fig.name}', f'described_by: {description.by}',
             f'ocr_overlap: {description.overlap}', f'needs_review: {str(description.needs_review).lower()}']
-    if fig.decorative:
-        tags.append('decorative: true')
     text = f'![{fig.name}]({link})\n\n<!-- {" | ".join(tags)} -->\n{description.text or "[no description]"}\n'
     if ocr_text:
         text += f'\n~~~text ocr\n{ocr_text}\n~~~\n'

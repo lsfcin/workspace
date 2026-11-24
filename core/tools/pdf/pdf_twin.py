@@ -85,6 +85,8 @@ def build(pdf: Path, engine: str, describer: str = 'agy', origin: str | None = N
         figures = pdf_figures.name_all(result['figures'], info['pages'])
         links, blocks, flagged, figure_text = {}, {}, False, []
         for fig in figures:
+            if fig.decorative:   # a crest or a letterhead: not saved, read or described, only counted below
+                continue
             if fig.same_as:
                 blocks.setdefault(fig.page, []).append(pdf_figures.block(fig, links[fig.same_as]))
                 continue
