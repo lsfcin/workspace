@@ -4,8 +4,8 @@
 # id: pinned, not an alias — codex, agy and opencode take no level alias, so a retired id is a
 #   failed call that `core/run tools/panel/ask --check` names, never a silent substitution.
 #   A claude-harness row is the exception: its id is core/tools/wos/levels CLAUDE[level], and a test holds them equal.
-# role: critic-high | critic-fast | coder | vision | describe. A route (one quota pool) holds 1-4
-#   rows, never two for one role (Lucas, 2026-11-23). The nvidia/ ids are the NVIDIA NIM free key, through opencode.
+# job: critic-high | critic-fast | coder | vision | describe. A route (one quota pool) holds 1-4
+#   rows, never two for one job (Lucas, 2026-11-23). The nvidia/ ids are the NVIDIA NIM free key, through opencode.
 # chain: position in the default outside-panel chain, or - for out of it (reachable with --only).
 #   codex is out from 2026-11-20 to measure whether the panel loses quality without it
 #   (core/ROADMAP.md [subscription-review]).
@@ -13,7 +13,7 @@
 #   A transient quota miss is never written here: the call log core/state/workers.tsv holds it.
 # trap: what this route does wrong, whatever the model.
 # help_verified / call_verified: the CLI version whose --help, and whose real answer, were last seen.
-# worker	model	harness	id	level	role	chain	cost	depleted	trap	help_verified	call_verified	date
+# worker	model	harness	id	level	job	chain	cost	depleted	trap	help_verified	call_verified	date
 codex	gpt-6.2-astra	codex	gpt-6.2-astra	high	critic-high	-	subscription	-	off PATH inside the ChatGPT app; refuses an untrusted cwd	0.167	0.167	2026-11-23
 sol	gpt-6.2-sol	codex	gpt-6.2-sol	medium	coder	-	subscription	-	off PATH inside the ChatGPT app; refuses an untrusted cwd	0.167	0.167	2026-11-23
 terra	gpt-6.1-terra	codex	gpt-6.1-terra	medium	vision	-	subscription	-	off PATH inside the ChatGPT app; refuses an untrusted cwd	0.167	0.167	2026-11-23
