@@ -39,5 +39,6 @@ How to create or edit a skill, the sync commands, the case-sensitivity hazard, w
 | [`publish.md`](publish.md) | Rebuild the public repo from this workspace and push it — what crosses, what the target regenerates, and the target's own suite as the gate. One way: nothing is ever edited on the far side. |
 | [`research.md`](research.md) | Execute a research workflow from the workspace Core research system. |
 | [`roundup.md`](roundup.md) | Full session-close ritual: drain the lists, route session knowledge to durable files, then verify and hand off. Use at session end. |
+| [`sheets.md`](sheets.md) | Read and edit Google Sheets in place across all configured accounts — cells by A1 address, values as TSV, style, conditional rules and validation as a JSON spec. |
 | [`slides.md`](slides.md) | Make slide decks that look and teach well — lectures, talks, conference/defense, pitch — router. Loads the craft subskills, and the provider leaf (gslides) to read and edit decks. |
 <!-- routing:end -->

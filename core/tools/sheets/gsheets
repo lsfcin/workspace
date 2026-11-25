@@ -1,0 +1,173 @@
+# Usage: core/run tools/sheets/gsheets <cmd> [args] — Google Sheets CLI: auth, list, read, set, append, new, format, apply
+import argparse
+import json
+import pathlib
+import sys
+
+_HERE = pathlib.Path(__file__).resolve().parent
+# Boundaries sit beside the CLI; gauth is its own family, shared by every provider tool.
+sys.path.insert(0, str(_HERE))
+sys.path.insert(0, str(_HERE.parent))
+sys.path.insert(0, str(_HERE.parent / 'auth'))
+import tool_law
+
+# Guarded before the Google imports: "sheets is off" must refuse here, not fail deeper in.
+tool_law.require('sheets')
+
+import gauth, gcli, sheets_a1, sheets_core, sheets_spec, short_name as short_name_tool  # noqa: E402
+
+MAX_ROWS = 200   # per tab on a whole-spreadsheet read; a range reads in full
+
+
+def _tab_map(meta: dict) -> tuple[dict, str]:
+    sheets = {s["properties"]["title"]: s["properties"]["sheetId"] for s in meta.get("sheets", [])}
+    return sheets, next(iter(sheets))
+
+
+def _origin(a1: str) -> tuple[int, int]:
+    """Where a returned range starts, as (row, column index): 'Notas!B3:D9' → (3, 1)."""
+    _, cells = sheets_a1.split_a1(a1)
+    start = cells.split(":")[0]
+    letters = start.rstrip("0123456789")
+    digits = start[len(letters):]
+    return int(digits or 1), sheets_a1.col_index(letters) if letters else 0
+
+
+def _rows_from(path: str) -> list:
+    text = sys.stdin.read() if path == "-" else pathlib.Path(path).read_text(encoding="utf-8")
+    return sheets_a1.read_tsv(text)
+
+
+def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
+    gcli.auth_command("sheets-write" if write else "sheets", alias, lambda a: sheets_core.get_service(a, write=write), reauth)
+
+
+def cmd_list(account: str, name: str) -> None:
+    for alias in gcli.aliases(account):
+        files = sheets_core.list_spreadsheets(alias, name)
+        print(f"── {alias}: {len(files)} spreadsheet(s) ──")
+        for f in files:
+            print(f"  {f['modifiedTime'][:10]}  {f['name']}  id:{f['id']}")
+
+
+def cmd_read(account: str, sid: str, a1: str, formulas: bool, as_json: bool) -> None:
+    alias = gauth.resolve_alias(account)
+    if as_json:
+        print(json.dumps(sheets_core.get_full(alias, sid, [a1] if a1 else None), ensure_ascii=False, indent=2))
+        return
+    meta = sheets_core.tabs(alias, sid)
+    print(f"── {meta['properties']['title']} ──  {sheets_core.edit_url(sid)}")
+    for s in meta["sheets"]:
+        p, g = s["properties"], s["properties"].get("gridProperties", {})
+        print(f"  tab {p['title']!r}  sheetId:{p['sheetId']}  {g.get('rowCount')}×{g.get('columnCount')}")
+    ranges = [a1] if a1 else [sheets_a1.quote(s["properties"]["title"]) for s in meta["sheets"]]
+    for vr in sheets_core.get_values(alias, sid, ranges, formulas):
+        rows = vr.get("values", [])
+        shown = rows if a1 else rows[:MAX_ROWS]
+        top, left = _origin(vr["range"])
+        print(f"\n── {vr['range']} ──")
+        print(sheets_a1.grid(shown, top, left), end="")
+        if len(rows) > len(shown):
+            print(f"  … {len(rows) - len(shown)} more row(s): read a range to see them")
+
+
+def cmd_set(account: str, sid: str, a1: str, path: str) -> None:
+    res = sheets_core.set_values(gauth.resolve_alias(account), sid, a1, _rows_from(path))
+    print(f"Set {res.get('updatedCells', 0)} cell(s) in {res.get('updatedRange', a1)}")
+
+
+def cmd_append(account: str, sid: str, a1: str, path: str) -> None:
+    res = sheets_core.append_values(gauth.resolve_alias(account), sid, a1, _rows_from(path))
+    up = res.get("updates", {})
+    print(f"Appended {up.get('updatedRows', 0)} row(s) at {up.get('updatedRange', a1)}")
+
+
+def cmd_new(account: str, title: str, tabs: list, short_name: str) -> None:
+    alias = gauth.resolve_alias(account)
+    res = sheets_core.create(alias, title, tabs)
+    print(f"Created '{title}' ({alias})  id:{res['spreadsheetId']}")
+    print(f"  {res['spreadsheetUrl']}")
+    print("  in Drive's root: the write grant is `spreadsheets` alone (SPECS.md § Auth)")
+    if short_name:
+        print(short_name_tool.mint(short_name, res["spreadsheetUrl"]))
+
+
+def cmd_format(account: str, sid: str, path: str, dry_run: bool) -> None:
+    alias = gauth.resolve_alias(account)
+    spec = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+    sheets, default = _tab_map(sheets_core.tabs(alias, sid))
+    reqs = sheets_spec.requests(spec, sheets, default)
+    if dry_run:
+        print(json.dumps(reqs, ensure_ascii=False, indent=2))
+        return
+    sheets_core.apply(alias, sid, reqs)
+    print(f"Formatted {sid}: {len(spec)} entr(y/ies) → {len(reqs)} request(s)")
+
+
+def cmd_apply(account: str, sid: str, path: str) -> None:
+    """The general boundary: a JSON array of Sheets API requests, applied atomically."""
+    reqs = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+    sheets_core.apply(gauth.resolve_alias(account), sid, reqs)
+    print(f"Applied {len(reqs)} request(s) to {sid}")
+    print(f"  {sheets_core.edit_url(sid)}")
+
+
+def main():
+    p = argparse.ArgumentParser(prog="gsheets")
+    sub = p.add_subparsers(dest="cmd")
+    acct = {"default": None, "help": "default: the home account (personal)"}
+
+    pa = sub.add_parser("auth")
+    pa.add_argument("alias")
+    pa.add_argument("--write", action="store_true", help="request edit scope (sheets-write token)")
+    pa.add_argument("--reauth", action="store_true", help="drop the existing token and re-consent (fixes revoked/expired)")
+
+    pl = sub.add_parser("list")
+    pl.add_argument("--account", default="all", help="an alias, or all (default)")
+    pl.add_argument("--name", default="", help="name substring")
+
+    pr = sub.add_parser("read")
+    pr.add_argument("--account", **acct)
+    pr.add_argument("--formulas", action="store_true", help="formulas instead of their values")
+    pr.add_argument("--json", dest="as_json", action="store_true", help="raw API JSON: formats, rules, validation")
+    pr.add_argument("spreadsheet_id")
+    pr.add_argument("range", nargs="?", default="", help="A1 range; default: every tab, first rows")
+
+    for name, verb in (("set", "write these cells, top-left at RANGE"), ("append", "add rows after the table in RANGE")):
+        ps = sub.add_parser(name, help=verb)
+        ps.add_argument("--account", **acct)
+        ps.add_argument("spreadsheet_id")
+        ps.add_argument("range")
+        ps.add_argument("tsv", help="TSV file, or - for stdin; =formulas are entered as formulas")
+
+    pn = sub.add_parser("new")
+    pn.add_argument("--account", **acct)
+    pn.add_argument("--tab", action="append", default=[], help="a tab title; repeat for several")
+    pn.add_argument("--short-name", default="", help="also mint a short link for it")
+    pn.add_argument("title")
+
+    pf = sub.add_parser("format", help="a format spec (SPECS.md § Format spec) → batchUpdate")
+    pf.add_argument("--account", **acct)
+    pf.add_argument("--dry-run", action="store_true", help="print the requests, send nothing")
+    pf.add_argument("spreadsheet_id")
+    pf.add_argument("spec_json")
+
+    pap = sub.add_parser("apply")
+    pap.add_argument("--account", **acct)
+    pap.add_argument("spreadsheet_id")
+    pap.add_argument("requests_json", help="file holding a JSON array of Sheets API requests")
+
+    a = p.parse_args()
+    if   a.cmd == "auth":   cmd_auth(a.alias, a.write, a.reauth)
+    elif a.cmd == "list":   cmd_list(a.account, a.name)
+    elif a.cmd == "read":   cmd_read(a.account, a.spreadsheet_id, a.range, a.formulas, a.as_json)
+    elif a.cmd == "set":    cmd_set(a.account, a.spreadsheet_id, a.range, a.tsv)
+    elif a.cmd == "append": cmd_append(a.account, a.spreadsheet_id, a.range, a.tsv)
+    elif a.cmd == "new":    cmd_new(a.account, a.title, a.tab, a.short_name)
+    elif a.cmd == "format": cmd_format(a.account, a.spreadsheet_id, a.spec_json, a.dry_run)
+    elif a.cmd == "apply":  cmd_apply(a.account, a.spreadsheet_id, a.requests_json)
+    else:                   p.print_help()
+
+
+if __name__ == "__main__":
+    gcli.run(main, ValueError)

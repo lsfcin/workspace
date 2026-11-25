@@ -32,5 +32,6 @@
 | [`test_pptx.py`](test_pptx.py) | [`test_pptx.pyi`](test_pptx.pyi) | — | T1 pptx template: every section becomes a master carrying the same layouts, and every colour stays a theme slot. |
 | [`test_pptx_motion.py`](test_pptx_motion.py) | [`test_pptx_motion.pyi`](test_pptx_motion.pyi) | — | T1 pptx motion: a build shows what it means to show, lint names what a room would see wrong, and flatten turns every click into a page. |
 | [`test_secret_law.py`](test_secret_law.py) | [`test_secret_law.pyi`](test_secret_law.pyi) | `scan` | T1 secret law: every shape of credential is found, and the near-misses that would make anyone switch the gate off are not. Zero-token, no network. |
+| [`test_sheets.py`](test_sheets.py) | [`test_sheets.pyi`](test_sheets.pyi) | `rng` | T1 sheets: a cell addressed the way a person reads it must reach the API as that same cell, and a format spec must change only what it names. |
 | [`test_slides.py`](test_slides.py) | [`test_slides.pyi`](test_slides.pyi) | — | T1 slides: the geometry a deck reports must be the geometry the write path accepts. |
 <!-- routing:end -->

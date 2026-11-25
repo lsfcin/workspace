@@ -1,0 +1,6 @@
+from _typeshed import Incomplete
+
+KEYS: Incomplete
+
+def condition(spec) -> dict: ...
+def requests(spec: list[dict], sheets: dict[str, int], default: str) -> list: ...

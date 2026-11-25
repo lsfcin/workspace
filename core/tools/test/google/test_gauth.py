@@ -6,7 +6,7 @@ import sys
 
 import pytest
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2]))
 import gauth
 from platform_law import interpreter
 
@@ -48,8 +48,8 @@ def test_drive_write_recovers_with_the_write_flag(accounts):
 
 def test_service_without_a_reauth_flag_still_gets_a_runnable_step(accounts):
     """A service outside the table falls back to naming the real token path."""
-    token = pathlib.Path("/home/x/.config/workspace-sheets/cin.token.json")
-    text = gauth.recovery_text("cin", "sheets", token)
+    token = pathlib.Path("/home/x/.config/workspace-tasks/cin.token.json")
+    text = gauth.recovery_text("cin", "tasks", token)
     assert str(token) in text
     assert "lsf@cin.ufpe.br" in text
 
@@ -64,7 +64,7 @@ def test_run_prints_the_instruction_instead_of_raising(accounts, capsys):
     assert "lsf.cin@gmail.com" in str(exit_info.value)
 
 
-TOOLS_ROOT = pathlib.Path(__file__).resolve().parents[1]
+TOOLS_ROOT = pathlib.Path(__file__).resolve().parents[2]
 
 
 def _gauth_clis():
@@ -131,9 +131,11 @@ def test_every_granted_cli_exists():
         assert not cli or (workspace_root / "core" / cli).is_file(), f"grant '{service}' names a missing CLI: {cli}"
 
 
-def test_a_grant_without_a_cli_recovers_by_its_token_path(accounts):
-    token = pathlib.Path("/home/x/.config/workspace-sheets-write/cin.token.json")
-    assert str(token) in gauth.recovery_text("cin", "sheets-write", token)
+def test_a_grant_without_a_cli_recovers_by_its_token_path(accounts, monkeypatch):
+    """A row declared before its CLI exists (sheets was one until 2026-11-24) still names a fix."""
+    monkeypatch.setattr(gauth, "grants", lambda: {"tasks": (["r"], ["w"], "")})
+    token = pathlib.Path("/home/x/.config/workspace-tasks-write/cin.token.json")
+    assert str(token) in gauth.recovery_text("cin", "tasks-write", token)
 
 
 @pytest.fixture

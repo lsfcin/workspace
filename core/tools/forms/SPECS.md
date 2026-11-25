@@ -22,7 +22,7 @@ Companion to [`CONTEXT.md`](CONTEXT.md), which says what this directory is and h
 
 Every question type also takes `title`, `description` and `required`. An unknown type raises before anything reaches Google, because the API's own error for a malformed request does not name the typo.
 
-**The description is a `updateFormInfo`, not part of creation.** `forms.create` accepts a title and nothing else, so the builder emits the description first and the items after — order is load-bearing and [`../test/test_forms.py`](../test/test_forms.py) holds it.
+**The description is a `updateFormInfo`, not part of creation.** `forms.create` accepts a title and nothing else, so the builder emits the description first and the items after — order is load-bearing and [`../test/google/test_forms.py`](../test/google/test_forms.py) holds it.
 
 ## Two grants, not one
 

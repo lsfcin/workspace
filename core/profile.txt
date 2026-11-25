@@ -95,6 +95,7 @@ toggle	rtk-compaction	on
 toggle	web-search	on
 toggle	google-auth	on
 toggle	forms	on
+toggle	sheets	on
 toggle	vpn-cin	on
 toggle	mail	on
 toggle	notes-notion	on

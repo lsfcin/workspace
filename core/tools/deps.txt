@@ -54,9 +54,9 @@ requests	pip	requests	import:requests	notes-notion	-	core/tools/notes/notion can
 anthropic	pip	anthropic	import:anthropic	mail	-	gmail attachment + triage paths lose their model calls
 pillow	pip	PIL	import:PIL	asset-inspect	-	core/tools/assets/inspect cannot open an image; video OCR, the shared describer and every PDF figure lose image handling
 playwright	pip	playwright	import:playwright	web-search	-	core/tools/web/shoot dies on import, so no HTML page or design artboard becomes a PNG; the module alone is not enough — without `python -m playwright install chromium` it fails at launch with "Executable doesn't exist"
-google-auth	pip	google	import:google.oauth2.credentials	google-auth	-	every Google-backed tool (mail, calendar, files, slides, forms, docs) fails before it reaches the network
+google-auth	pip	google	import:google.oauth2.credentials	google-auth	-	every Google-backed tool (mail, calendar, files, slides, forms, docs, sheets) fails before it reaches the network
 google-auth-oauthlib	pip	google_auth_oauthlib	import:google_auth_oauthlib	google-auth	-	the first-run OAuth consent flow cannot start, so no account can be added
-google-api-python-client	pip	googleapiclient	import:googleapiclient	google-auth	-	mail, calendar, files, slides, forms and docs have no API client to call
+google-api-python-client	pip	googleapiclient	import:googleapiclient	google-auth	-	mail, calendar, files, slides, forms, docs and sheets have no API client to call
 python-pptx	pip	pptx	import:pptx	slides	-	core/tools/slides/pptx cannot build a template, so no new master or layout can reach Google Slides (the Slides API cannot create either)
 python-docx	pip	docx	import:docx	docs	-	core/tools/docs/docx cannot fill or read a .docx form table, so an ementa (or any SIGAA-shaped form) must be retyped by hand into the template
 lxml	pip	lxml	import:lxml	slides	-	core/tools/slides/pptx cannot rewrite a theme or add a master; python-pptx pulls it in, but the generator edits the XML with it directly

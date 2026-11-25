@@ -1,7 +1,7 @@
 # T1 slides: the geometry a deck reports must be the geometry the write path accepts.
 import pathlib, sys, urllib.request
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "slides"))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "slides"))
 import deck_sample, slides_core, slides_geom, slides_outline, slides_style
 
 

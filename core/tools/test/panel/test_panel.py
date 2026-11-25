@@ -14,6 +14,16 @@ CODEX_LIMIT = "ERROR: You've hit your usage limit. Upgrade to Pro or try again a
 AGY_QUOTA = 'Error: Individual quota reached. Resets in 73h6m3s.\nAGY_ERROR: {"status":"RESOURCE_EXHAUSTED"}'
 
 
+@pytest.fixture(autouse=True)
+def _admission_reads_no_machine(monkeypatch, tmp_path):
+    """Admission is worker_guard's question, tested in its own file. Here it must not read this
+    machine's free memory or its live worker slots: both failed this suite on 2026-11-24 while
+    real panel calls ran beside it (2928 MB available, 2 live)."""
+    import worker_guard
+    monkeypatch.setattr(worker_guard, 'memory', lambda: None)
+    monkeypatch.setattr(worker_guard, 'SLOTS', tmp_path / 'slots')
+
+
 def _tool():
     path = _TOOLS / 'panel' / 'ask'
     loader = importlib.machinery.SourceFileLoader('panel_ask', str(path))

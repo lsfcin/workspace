@@ -13,5 +13,5 @@ docs	documents.readonly,drive.readonly	documents,drive	tools/docs/gdocs
 drive	drive.readonly	drive	tools/files/gdrive
 forms	forms.body.readonly,forms.responses.readonly	forms.body,drive.file	tools/forms/gforms
 gmail	gmail.readonly	-	tools/mail/gmail
-sheets	spreadsheets.readonly	spreadsheets	-
+sheets	spreadsheets.readonly,drive.readonly	spreadsheets	tools/sheets/gsheets
 slides	presentations.readonly,drive.readonly	presentations	tools/slides/gslides
