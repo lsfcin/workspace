@@ -116,7 +116,7 @@ Tried or measured, then dropped — recorded so a dead idea does not resurface l
 
 - [ ] [rated-tools] Assess the relevant voice, meeting, workflow, prototype and media tools against current needs; preserve creator ratings as opinion and numerical bar lengths as estimates. Ref: REFS.md [rated-tools].
 
-- [ ] [atomic-telegram] Reproduce the current bot failure, then compare Atomic Agent's matching Telegram code path for a fix; its GAIA score says nothing about our integration. Ref: ../../core/refs/REFS.md [Atomic Agent].
+- [ ] [atomic-telegram] Restore and verify the failing Telegram path; establish why it fell behind and prevent recurrence for the proven cause (ISSUES.md b11). Then compare Atomic Agent's matching Telegram path; its GAIA score says nothing about our integration. Ref: ../../core/refs/REFS.md [Atomic Agent].
 
 <!-- routing:start -->
 ## Routing

@@ -7,7 +7,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`panel/ask --debate` sai 0 sem veredito e joga fora o parcial**: deepseek pendurou 900 s, argon respondeu em 47 s e a resposta sumiu (24 Nov). Correção decidida em `29cf0fb0`. [src: agent 2026-11-24] `b20261124-debate-exit-zero`
 
-- **`close-report` (hook `Stop`) só existe no Claude Code**: os outros shims não têm fim de turno com mensagem só pro usuário. [src: agent 2026-11-23]
+- **Missing roundup stats and cost messages after an apparent fix (Lucas, twice).** Only Claude Code has user-only Stop delivery (`close-report`). Reproduce by harness and surface to test the cause and verify visible delivery. [src: agent 2026-11-23]
 
 - **`context_synchronizer.py code` gravou `code/wos/CONTEXT.md`** no clone público. Pular os `WORKSPACE_MARKERS`, como `_under_code`. [src: agent 2026-11-23]
 
@@ -127,7 +127,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - UNGATED WRITE misattributes paths after `cd`, and reads a literal `$S/file` as a path (16 Oct, 3 Nov). `b20261017-ungated-write-cwd`
 
-- Video extraction calls empty galleries successful: 5 Instagram links returned no text inside a "38 ok / 0 failed" summary (17 Nov); no partial results persist (16 Nov); carousel omissions and 150 px thumbnails (30 Oct). `b20261017-video-batch-results`
+- Video: five empty galleries counted as "38 ok / 0 failed" (17 Nov); lost partials (16 Nov), omitted slides and 150 px thumbnails (30 Oct). Recover and check all five decks before routing. Diagnose empty/error/partial output; save per-link results for resumption. Test empty, error, partial, full and batch counts. Require end-to-end proof before unpinning. [src: Lucas 2026-11-19] `b20261017-video-batch-results`
 
 - **Brain stats staging**: refreshed goal files were left unstaged (14–24 Oct). It now runs inside the brain repo (2026-11-19); confirm a goal commit there leaves the tree clean. `b20261014-brain-stats-staging`
 

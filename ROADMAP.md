@@ -30,9 +30,9 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 *Done when* — teste comparativo medido em tarefa longa avaliando perda de fatos e integridade com state file vs native compaction vs handoff.
 
 **🟡 measure and reduce startup and planning context**
-*What* — Measure startup/planning reads by component and docs-ufrpe/ reads per academy/administration session at close; distinguish an observed zero from missing measurement. Assess on-demand loading and cut redundant prose.
-*Why* — Lucas reports excessive context before work begins, including during planning (INBOX 1 and 17 Oct).
-*Done when* — Baseline, reduction and per-session docs-ufrpe-first adherence are evidenced without weakening checks (Claude report, 18 Nov).
+*What* — Measure startup/planning reads, hook messages and WOS prose; distinguish zero from missing data. Count whether interface reads avoid or precede full-source reads and their token cost. Compare Markdown interfaces and TextFold before adoption; assess on-demand loading and cut redundancy after ablation. Keep per-administration-session docs-ufrpe read measurement.
+*Why* — Lucas reports 75–80k context at planning and sessions reaching 150k; WOS overhead is a hypothesis, minimal or net-positive cost the target. He requests reviewing all hook messages and WOS prose (INBOX).
+*Done when* — Comparable tasks evidence baseline, reduction, interface savings and docs-ufrpe-first adherence without weakened checks; each loading alternative has a verdict.
 
 **🟡 avaliar jevgrep para seleção cirúrgica de arquivos para coding agents**
 *What* — testar o `jevgrep` (ou seu método de busca/indexação focada em agentes) contra os comandos de busca e leitura do WOS (`grep_search`, `find_by_name`, `session/reads`).
