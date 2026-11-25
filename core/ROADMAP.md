@@ -211,6 +211,7 @@ Flows/agents wait for v1 (Lucas, 25 Aug); observed 24 Aug failures preserved (or
 
 ## Rejected
 
+- Write approval by pid or plan age (panel, 25 Nov): every run has a new pid and 5 s proves nobody read the plan; a prompt-turn stamp does (outputs/remote-edit-gate-plan.md).
 - Canva motion through PPTX: import/export reduce Match & Move to fade; use a copied seed (3 Oct).
 
 - Outside-skill survey: DM-gated unlinked leads duplicated existing guidance; reopen from a real repository (25 Aug).
