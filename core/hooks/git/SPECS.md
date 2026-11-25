@@ -31,7 +31,7 @@
 
 **The race between `lock.change()` and the exec is accepted**: holding the lock's flock through a git call would deadlock a hook that takes it, and the window is one session's own close.
 
-**Rejected** (2026-11-24): an env marker `WOS_GIT_UNGATED` for trusted callers — it leaks to every child and an agent can export it; per-session PATH injection — a harness that cannot carry a session id cannot carry a PATH either; rewriting each command to prefix the id — a safety classifier refuses to judge a command a hook rewrote. A session that notes into a repo it does not hold never takes it to drain its own note (outbox path 3).
+**Rejected** (2026-11-24): an env marker `WOS_GIT_UNGATED` for trusted callers — it leaks to every child and an agent can export it; per-session PATH injection — a harness that cannot carry a session id cannot carry a PATH either; rewriting each command to prefix the id — a safety classifier refuses to judge a command a hook rewrote. For a sandbox whose root `.git` is read-only (2026-11-25), these were rejected: Codex `prefix_rule` allow-rules for `take` and `roundup`, because the scripts sit in the writable tree, so escaping is trivial; "Full access", because it opens all of `$HOME`; and a broker daemon, because the workspace grows. A Codex permission profile that writes `.git` is what was kept (SETUP-clone § Codex permissions). A session that notes into a repo it does not hold never takes it to drain its own note (outbox path 3).
 
 **A repo moves through `core/run tools/wos/move FROM TO`** (2026-11-24): the lock is keyed by the path, so the move re-keys the lock and dirt files under both flocks, and `lock-gate.py` refuses a raw `mv` of a governed root with that command.
 
