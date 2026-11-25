@@ -74,7 +74,7 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 
 
 **🟡 PDF throughput**
-*What* — Compare description engines after pymupdf-layout change on a representative long document: latency, memory, fidelity and reading order; distinguish original/v2 [unlimited-ocr]. Refs: refs/REFS.md ([unlimited-ocr], [laws-markdown]). *Why* — Backfills take hours. *Done when* — Time, memory and fidelity evidenced.
+*What* — Compare description engines after pymupdf-layout change on a representative long document: latency, memory, fidelity and reading order; distinguish original/v2 [unlimited-ocr]. Refs: refs/REFS.md ([unlimited-ocr], [laws-markdown]). *Why* — Backfills take hours. *Done when* — Time, memory and fidelity evidenced. [figura-v2] (Lucas, 25 Nov): px/aspect floors; describe.py call timeout; convert with `none` + resumable "describe pending" pass. 17% of irrelevant figures still pass, mostly scanned pages (area rule) [src: agent 2026-11-25].
 
 **🟡 Dependency checks**
 *What* — Shared installation checks; assess local spreadsheet support before adding packages. Refs: refs/REFS.md ([dependency-provenance]). *Why* — Feature switches do not prove installation. *Done when* — Missing dependencies give single diagnosis.
@@ -212,6 +212,7 @@ Flows/agents wait for v1 (Lucas, 25 Aug); observed 24 Aug failures preserved (or
 ## Rejected
 
 - Write approval by pid or plan age (panel, 25 Nov): every run has a new pid and 5 s proves nobody read the plan; a prompt-turn stamp does (outputs/remote-edit-gate-plan.md).
+- Figure OCR vs page text as relevance rule: pymupdf puts the image's OCR in the page, so all score ~1 (25 Nov).
 - Canva motion through PPTX: import/export reduce Match & Move to fade; use a copied seed (3 Oct).
 
 - Outside-skill survey: DM-gated unlinked leads duplicated existing guidance; reopen from a real repository (25 Aug).
