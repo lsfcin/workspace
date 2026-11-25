@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 import describe
+import pdf_cache
 import pdf_meta
 import pdf_twin
 
@@ -79,7 +80,7 @@ def stamp(pdf: Path, who: str) -> str:
 
 
 def convert(pdf: Path, engine: str, args: argparse.Namespace) -> str:
-    done = pdf_twin.build(pdf, engine, args.describer, args.origin, args.force)
+    done = pdf_twin.build(pdf, engine, args.describer, args.origin, args.force, cache=pdf_cache.Cache())
     line = f"{done['status']:8s} {done['twin']}"
     if done.get('audit'):
         line += '  ' + ' '.join(f'{k}={v}' for k, v in done['audit'].items())

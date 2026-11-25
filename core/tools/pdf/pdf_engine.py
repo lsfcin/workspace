@@ -6,8 +6,10 @@
 #
 # Contract: `python pdf_engine.py <docling|pymupdf> <pdf> <figure-dir>` writes <figure-dir>/RESULT:
 #   {"engine": "<name> <version>", "pages": ["<md of page 1>", ...],
-#    "figures": [{"page": 3, "file": "<figure-dir>/f0007.png", "scale": 2.0}, ...]}
+#    "figures": [{"page": 3, "file": "<figure-dir>/f0007.png", "scale": 2.0, "box": [x0, y0, x1, y1]}, ...]}
 # A figure's crop is a render of its page region: `scale` is crop pixels per page point (1 pt = 1/72 in).
+# `box` is where the region sits, as fractions of the page, origin top-left; null when the engine
+# does not say. pdf_relevance.py reads it: a crest lives in the header band, a screenshot does not.
 # Each figure's place in its page's markdown is the line FIGURE, in the same order as `figures`.
 # A file and not stdout: both engines print progress there (RapidOCR, the layout parser).
 from __future__ import annotations
@@ -43,7 +45,8 @@ def _docling(pdf: Path, out: Path) -> tuple[list[str], list[dict]]:
             continue
         image = item.get_image(doc)
         page = item.prov[0].page_no
-        entry = {'page': page, 'file': str(out / f'f{len(figures):04d}.png'), 'scale': DOCLING_SCALE}
+        entry = {'page': page, 'file': str(out / f'f{len(figures):04d}.png'), 'scale': DOCLING_SCALE,
+                 'box': _docling_box(doc, item.prov[0])}
         if image is None or min(image.size) < MIN_SIDE:
             entry['file'] = None
         else:
@@ -59,18 +62,45 @@ def _docling(pdf: Path, out: Path) -> tuple[list[str], list[dict]]:
     return pages, [f for f in figures if f['file']]
 
 
+def _docling_box(doc, prov) -> list[float] | None:
+    size = doc.pages[prov.page_no].size
+    box = prov.bbox.to_top_left_origin(page_height=size.height)
+    return _fractions((box.l, box.t, box.r, box.b), size.width, size.height)
+
+
+def _fractions(rect, width: float, height: float) -> list[float] | None:
+    if not width or not height:
+        return None
+    x0, y0, x1, y1 = rect
+    return [round(min(max(v, 0.0), 1.0), 4) for v in (x0 / width, y0 / height, x1 / width, y1 / height)]
+
+
 IMAGE_LINK = re.compile(r'!\[[^\]]*\]\(([^)]+)\)')
 
 
+PYMUPDF_INDEX = re.compile(r'-\d{4}-(\d+)\.png$')   # pymupdf4llm 1.28 names a crop <pdf>-<page>-<i>: i indexes chunk['page_boxes']
+
+
+def _pymupdf_box(name: str, chunk: dict, page) -> list[float] | None:
+    index = PYMUPDF_INDEX.search(name)
+    boxes = chunk.get('page_boxes') or []
+    if not index or int(index.group(1)) >= len(boxes):
+        return None
+    return _fractions(tuple(boxes[int(index.group(1))]['bbox']), page.rect.width, page.rect.height)
+
+
 def _pymupdf(pdf: Path, out: Path) -> tuple[list[str], list[dict]]:
+    import pymupdf
     import pymupdf4llm
 
     chunks = pymupdf4llm.to_markdown(str(pdf), page_chunks=True, write_images=True,
                                      image_path=str(out), image_format='png', dpi=PYMUPDF_DPI)
     pages, figures = [], []
+    doc = pymupdf.open(str(pdf))
     for n, chunk in enumerate(chunks, 1):
-        def keep(match: re.Match, page: int = n) -> str:
-            figures.append({'page': page, 'file': str(Path(match.group(1)).resolve()), 'scale': PYMUPDF_DPI / 72})
+        def keep(match: re.Match, page: int = n, chunk: dict = chunk) -> str:
+            figures.append({'page': page, 'file': str(Path(match.group(1)).resolve()), 'scale': PYMUPDF_DPI / 72,
+                            'box': _pymupdf_box(match.group(1), chunk, doc[page - 1])})
             return FIGURE
         pages.append(IMAGE_LINK.sub(keep, chunk['text']))
     return pages, figures

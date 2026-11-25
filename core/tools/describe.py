@@ -32,7 +32,9 @@ MIN_WORDS = 3            # fewer OCR words than this cannot judge a description
 MIN_CONFIDENCE = 60      # tesseract's per-word confidence, 0–100; below it a word is a guess
 OCR_SCALES = (1, 2, 3)
 # Lucas, 2026-09-25: the default is agy (cheap for him, best quality); claude is the fallback.
-CHAINS = {'agy': ('agy', 'claude'), 'claude': ('claude',), 'local': ('local', 'agy', 'claude')}
+# `none` calls no model: the caller keeps the image and its OCR, and says nobody described it.
+CHAINS = {'agy': ('agy', 'claude'), 'claude': ('claude',), 'local': ('local', 'agy', 'claude'), 'none': ()}
+NOBODY = 'none'
 DESCRIBERS = tuple(CHAINS)
 # The local model is DATA: the one the bake-off kept (180/189 facts, never invented). Overridable.
 LOCAL_MODEL = os.environ.get('WOS_LOCAL_VLM', 'qwen3.5:9b')
@@ -165,6 +167,8 @@ def describe(image, describer: str = 'agy', ocr_text: str = '', prompt: str = FI
     A failed or empty answer is skipped, never raised: one figure must not end a batch. When no
     answer passes, the one with the best overlap is kept and flagged.
     """
+    if describer == NOBODY:
+        return Description('', NOBODY, None, False)
     backends = backends or BACKENDS
     kept = None
     for name in CHAINS[describer]:

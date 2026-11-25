@@ -10,6 +10,7 @@ import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
 
+import describe
 import pdf_meta
 
 HASH_SIDE = 16
@@ -28,8 +29,11 @@ class Figure:
     look: str                     # the average hash
     size: tuple[int, int]         # the crop's pixels; the engine renders it at `scale` pixels per page point
     same_as: str | None = None    # the first figure with this look
-    decorative: bool = False
+    decorative: bool = False      # small, or on many pages: a hint pdf_relevance weighs, no longer a cut
     pages: set = field(default_factory=set)
+    box: list | None = None       # where on its page, as fractions, origin top-left (pdf_engine.py)
+    scale: float = 1.0
+    order: int = 0                # its place among the page's figure markers
 
 
 def _size(image: Path) -> tuple[int, int]:
@@ -55,7 +59,8 @@ def name_all(engine_figures: list[dict], total_pages: int) -> list[Figure]:
         page = entry['page']
         per_page[page] = per_page.get(page, 0) + 1
         source = Path(entry['file'])
-        fig = Figure(f'p{page:02d}-fig{per_page[page]}', page, source, look(source), _size(source))
+        fig = Figure(f'p{page:02d}-fig{per_page[page]}', page, source, look(source), _size(source),
+                     box=entry.get('box'), scale=entry.get('scale', 1.0), order=per_page[page] - 1)
         if max(fig.size) / entry.get('scale', 1.0) <= DECORATIVE_MAX_SIDE:
             fig.decorative = True
         if fig.look in first:
@@ -100,13 +105,17 @@ def save(fig: Figure, img_dir: Path, preview: bool) -> str:
     return f'img/{fig.name}.jpg'
 
 
-def block(fig: Figure, link: str, description=None, ocr_text: str = '') -> str:
-    """One figure in the twin: the image, who described it, the description, the OCR verbatim."""
+def block(fig: Figure, link: str, description=None, ocr_text: str = '', why: str = '') -> str:
+    """One figure in the twin: the image, who described it, the description, the OCR verbatim.
+    A figure nobody described (`described_by: none`) says why instead, so a re-run can find it."""
     if fig.same_as:
         return f'![{fig.name}]({link})\n\n<!-- figure {fig.name} | same image as {fig.same_as} -->\n'
-    tags = [f'figure {fig.name}', f'described_by: {description.by}',
-            f'ocr_overlap: {description.overlap}', f'needs_review: {str(description.needs_review).lower()}']
-    text = f'![{fig.name}]({link})\n\n<!-- {" | ".join(tags)} -->\n{description.text or "[no description]"}\n'
+    tags = [f'figure {fig.name}', f'described_by: {description.by}']
+    if description.by == describe.NOBODY:
+        text = f'![{fig.name}]({link})\n\n<!-- {" | ".join(tags + [f"why: {why}"] * bool(why))} -->\n'
+    else:
+        tags += [f'ocr_overlap: {description.overlap}', f'needs_review: {str(description.needs_review).lower()}']
+        text = f'![{fig.name}]({link})\n\n<!-- {" | ".join(tags)} -->\n{description.text or "[no description]"}\n'
     if ocr_text:
         text += f'\n~~~text ocr\n{ocr_text}\n~~~\n'
     return text

@@ -254,6 +254,8 @@ code/wos
 
 # Google Drive hybrid sync local cache
 .drive-manifest-cache.json
+# Figure descriptions core/tools/pdf/pdf_cache.py reads back: the OCR can hold what a twin hides
+/.cache/
 _material/previews/
 !branches/health/
 

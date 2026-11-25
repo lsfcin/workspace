@@ -2,12 +2,12 @@
 > A PDF becomes its twin: a sibling folder whose .md holds all the text, every figure described, and the hash that says when it went stale. Provider leaves: `docling`, `pymupdf`.
 
 ```
-core/run tools/pdf/docling <pdf>... [--from <file>] [--describer agy|local|claude] [--origin <url>] [--description <text>] [--force]
+core/run tools/pdf/docling <pdf>... [--from <file>] [--describer agy|local|claude|none] [--origin <url>] [--description <text>] [--force]
 core/run tools/pdf/docling <pdf> --review          # render the flagged pages for an agent to compare
 core/run tools/pdf/docling <pdf> --reviewed-by <who>
 ```
 
-`docling` (GPU, reads Portuguese scans and tables) is the default; `pymupdf` is the CPU path, seconds to a minute per PDF, with fewer tables. `res.pdf` gets `res/res.md`: frontmatter with the hash that marks it stale, `<!-- page N -->` anchors, and one block per figure — described by [`../describe.py`](../describe.py), checked against the figure's own OCR. Why these engines and describers: [`pdf-engine.md`](../../experiments/pdf-engine.md), [`vlm-describe.md`](../../experiments/vlm-describe.md).
+`docling` (GPU, reads Portuguese scans and tables) is the default; `pymupdf` is the CPU path, seconds to a minute per PDF, with fewer tables. `res.pdf` gets `res/res.md`: frontmatter with the hash that marks it stale, `<!-- page N -->` anchors, and one block per figure — described by [`../describe.py`](../describe.py), checked against the figure's own OCR, only when [`pdf_relevance.py`](pdf_relevance.py) judges it worth the call (weights: [`relevance.tsv`](relevance.tsv)). The rest keep image and OCR under `described_by: none`, or vanish when they are letterhead. Answers are cached by look and OCR (`.cache/describe.jsonl`), so a dead run resumes and a crest is described once across PDFs; three calls run at once. Why these engines and describers: [`pdf-engine.md`](../../experiments/pdf-engine.md), [`vlm-describe.md`](../../experiments/vlm-describe.md).
 
 The `.md` is versioned; the PNG originals are gitignored; JPEG previews are versioned unless `--origin` names a live URL. A secret in the text gitignores the whole twin. The engines run in their own venv, `.venv-pdf`, through [`pdf_engine.py`](pdf_engine.py).
 
@@ -29,11 +29,14 @@ The `.md` is versioned; the PNG originals are gitignored; JPEG previews are vers
 
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
+| [`decorations.txt`](decorations.txt) | — | — | Looks (256-bit average hash, hex) of figures labelled decorative by bench/relevance_train.py. |
 | [`docling`](docling) | — | — | a PDF becomes its twin folder (full .md, figures described, metadata) through Docling: GPU, scans in Portuguese, tables |
+| [`pdf_cache.py`](pdf_cache.py) | [`pdf_cache.pyi`](pdf_cache.pyi) | `key`, `Cache`, `get`, `put` | pdf_cache.py — a figure described once is never described again: the same look with the same OCR, in this PDF or any other, reads its answer back. |
 | [`pdf_cli.py`](pdf_cli.py) | [`pdf_cli.pyi`](pdf_cli.pyi) | `parse`, `label`, `flagged_pages`, `review`, `stamp` | pdf_cli.py — the command line both engine leaves share: many PDFs per call, one line each, a summary naming the failures, and the review pass. |
 | [`pdf_engine.py`](pdf_engine.py) | [`pdf_engine.pyi`](pdf_engine.pyi) | `main` | pdf_engine.py — the conversion worker: one PDF in, markdown per page plus every figure out. Runs under .venv-pdf, never .venv. |
 | [`pdf_figures.py`](pdf_figures.py) | [`pdf_figures.pyi`](pdf_figures.pyi) | `Figure`, `look`, `name_all`, `embedded_count`, `save` | pdf_figures.py — a twin's figures: the same image found twice is one figure, a logo on every page is decoration, each gets a name, a file and a markdown block. |
 | [`pdf_meta.py`](pdf_meta.py) | [`pdf_meta.pyi`](pdf_meta.pyi) | `sha256`, `twin_of`, `source_of`, `is_twin`, `twin_state` | pdf_meta.py — the one place a PDF is opened raw, and what a twin says about it: hash, pdfinfo, text layer, pages rendered, the free audit, the frontmatter, and whether the twin is still true. |
+| [`pdf_relevance.py`](pdf_relevance.py) | [`pdf_relevance.pyi`](pdf_relevance.pyi) | `area`, `document`, `decorations`, `known`, `context` | pdf_relevance.py — whether a figure is worth a vision call: the text around it first, then where it sits, how big it is and what its pixels look like. |
 | [`pdf_twin.py`](pdf_twin.py) | [`pdf_twin.pyi`](pdf_twin.pyi) | `EngineMissing`, `run_engine`, `origin_live`, `build` | pdf_twin.py — one PDF becomes its twin: a sibling folder whose .md holds all the text, every figure described, and the metadata that says whether the twin is still true. |
 | [`poppler`](poppler) | — | — | a PDF's raw pages for another tool: the text layer split by form feed, or each page as a PNG. An agent reads the twin instead. |
 | [`pymupdf`](pymupdf) | — | — | a PDF becomes its twin folder through PyMuPDF4LLM: CPU, seconds to a minute per PDF, finds fewer tables than docling |

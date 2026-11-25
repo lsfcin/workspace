@@ -1,0 +1,13 @@
+import describe
+from _typeshed import Incomplete
+from pathlib import Path
+
+ROOT: Incomplete
+CACHE: Incomplete
+
+def key(look: str, ocr_text: str) -> str: ...
+
+class Cache:
+    def __init__(self, path: Path = ...) -> None: ...
+    def get(self, k: str) -> describe.Description | None: ...
+    def put(self, k: str, said: describe.Description) -> None: ...

@@ -67,6 +67,9 @@ faster-whisper	pip	faster_whisper	import:faster_whisper	video-text	-	local trans
 pytesseract	pip	pytesseract	import:pytesseract	video-text	-	burned-in text OCR (level ocr) is unavailable, and every PDF figure is described without its own text to check against
 docling	binary	docling	venv-import:.venv-pdf:docling	pdf	-	core/run tools/pdf/docling stops with ".venv-pdf is missing" or an engine traceback, so no PDF gets a twin; scans and tables have no other reader here
 pymupdf4llm	binary	pymupdf4llm	venv-import:.venv-pdf:pymupdf4llm	pdf	-	core/run tools/pdf/pymupdf fails on every PDF, and the CPU path for born-digital PDFs is gone
+pymupdf	binary	pymupdf	venv-import:.venv-pdf:pymupdf	pdf	-	the pymupdf engine cannot say where a figure sits, so every figure loses its position signal; it comes with pymupdf4llm
+scikit-learn	pip	sklearn	import:sklearn	pdf	-	core/tools/pdf/bench/relevance_train.py cannot refit the figure-relevance weights; converting still works on the weights already in relevance.tsv
+numpy	pip	numpy	import:numpy	pdf	-	core/tools/pdf/bench/relevance_train.py cannot refit the figure-relevance weights; it comes with scikit-learn
 uv	binary	-	cmd:uv --version	pdf	-	.venv-pdf cannot be created, so the install line the pdf tools print cannot run
 tesseract-ocr-por	apt	-	cmd:tesseract --list-langs 2>&1 | grep -qx por	pdf	-	OCR reads Portuguese as English: accents vanish, so the figure cross-check flags good descriptions and a scan's audit coverage drops for no real loss
 pypandoc-binary	pip	-	cmd:pandoc --version	latex	-	core/tools/paper/parse cannot read .docx or .pptx — it falls through to the plain-text arm and returns mojibake rather than an error

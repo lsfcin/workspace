@@ -1,0 +1,13 @@
+# The weights pdf_relevance.py scores a figure with: z = bias + sum(weight * (value - mean) / std), p = 1 / (1 + e^-z); a figure at or above `threshold` is described.
+# Written by bench/relevance_train.py from labelled figures; edit by retraining, not by hand.
+# Trained 366 figures / 48 documents, C=0.1: held-out recall 0.985, skipped 28.1%.
+signal	mean	std	weight
+threshold	0	1	0.118
+named	0.0546	0.2273	0.1684
+ocr_words	1.6315	1.7777	0.4569
+boilerplate	0.0634	0.2121	0.2566
+lines	0.2554	0.2547	-0.3647
+colours	3.3292	1.0317	0.9330
+doc_figures	3.1383	1.0921	0.1759
+doc_big	0.3277	0.3280	0.9455
+bias	0.0000	1.0000	-0.3205

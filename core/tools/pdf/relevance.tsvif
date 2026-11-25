@@ -1,0 +1,13 @@
+# relevance.tsvif — CSV interface (auto-generated)
+file: relevance.tsv
+shape: 9 rows × 4 cols
+columns:
+  - signal
+  - mean
+  - std
+  - weight
+head:
+  signal: bias  mean: 0  std: 1  weight: -0.5
+  signal: threshold  mean: 0  std: 1  weight: 0.5
+  signal: named  mean: 0  std: 1  weight: 1.5
+description: The weights pdf_relevance.py scores a figure with: z = bias + sum(weight * (value - mean) / std), p = 1 / (1 + e^-z); a figure at or above `threshold` is described.

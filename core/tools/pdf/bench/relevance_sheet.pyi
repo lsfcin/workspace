@@ -1,0 +1,3 @@
+STYLE: str
+
+def main() -> int: ...

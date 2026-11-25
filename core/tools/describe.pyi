@@ -9,6 +9,7 @@ MIN_WORDS: int
 MIN_CONFIDENCE: int
 OCR_SCALES: Incomplete
 CHAINS: Incomplete
+NOBODY: str
 DESCRIBERS: Incomplete
 LOCAL_MODEL: Incomplete
 CLAUDE_LEVEL: str
