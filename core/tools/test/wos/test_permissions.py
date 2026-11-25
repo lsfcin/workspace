@@ -82,17 +82,21 @@ def test_check_notices_a_config_that_no_longer_matches(tmp_path):
     other = next(iter(LEVELS - {declared}))
     target = tmp_path / 'settings.local.json'
     module._target = lambda: target
+    module.CODEX = tmp_path / 'config.toml'
 
     target.write_text(json.dumps({'permissions': module.render_claude(declared)}), encoding='utf-8', newline='\n')
+    assert module._check() == 1, '--check passed without the Codex profile'
+    module.CODEX.write_text(module.CODEX_PROFILE, encoding='utf-8', newline='\n')
     assert module._check() == 0
 
     target.write_text(json.dumps({'permissions': module.render_claude(other)}), encoding='utf-8', newline='\n')
     assert module._check() == 1, '--check passed a config that does not match the answer'
 
 
-def test_codex_permission_difference_is_explicit_without_a_runtime_override():
+def test_codex_gets_one_fixed_sandbox_and_keeps_its_own_config_read_only():
     module = _tool()
     for level in LEVELS:
         assert 'host' in module.codex_gaps(level)
         assert 'no complete native equivalent' in module.codex_gaps(level)
-    assert not hasattr(module, 'write_codex')
+    profile = module.CODEX_PROFILE   # the root .git opens; .codex is never granted, so the agent cannot widen it
+    assert 'default_permissions = "wos"' in profile and '".git" = "write"' in profile and '.codex"' not in profile

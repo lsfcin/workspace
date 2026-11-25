@@ -89,7 +89,7 @@ def codex_gaps(level: str) -> str:
     """Represent the native boundary without changing the host's permission settings."""
     if level not in levels():
         raise ValueError(level)
-    return ('Codex: approvals remain controlled by the host. Its sandbox is the versioned `wos` profile in '
+    return ('Codex: approvals remain controlled by the host. Its sandbox is the `wos` profile rendered into '
             '.codex/config.toml (writable root .git, network), whatever the level; per-action patterns have no '
             'complete native equivalent.')
 
@@ -111,6 +111,15 @@ def _load(path: Path) -> dict:
         return {}
 
 
+CODEX = ROOT / '.codex' / 'config.toml'   # git-ignored for the same reason as _target()
+# Codex's `:workspace` keeps the root .git read-only, so take could not branch nor roundup push (2026-11-24).
+# .codex stays read-only: the agent cannot widen this. The app's "ChatGPT" mode ignores it (tested 2026-11-25).
+CODEX_PROFILE = ('# Rendered by core/tools/wos/permissions --set; edit it there. SETUP-clone.md § Codex permissions.\n'
+                 'default_permissions = "wos"\n\n[permissions.wos]\nextends = ":workspace"\n\n'
+                 '[permissions.wos.filesystem.":workspace_roots"]\n".git" = "write"\n\n'
+                 '[permissions.wos.network]\nenabled = true\n')
+
+
 def write_shims(level: str) -> list:
     """Render every harness config. Only `permissions` is replaced — anything else the file carries
     is somebody's deliberate local setting and is none of this tool's business."""
@@ -119,7 +128,8 @@ def write_shims(level: str) -> list:
     data['permissions'] = render_claude(level)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8', newline='\n')
-    return [path]
+    CODEX.write_text(CODEX_PROFILE, encoding='utf-8', newline='\n')
+    return [path, CODEX]
 
 
 def _set(level: str) -> int:
@@ -145,10 +155,11 @@ def _set(level: str) -> int:
 def _check() -> int:
     level = law.setting('permissions', DEFAULT_LEVEL)
     live = _load(_target()).get('permissions')
-    if live == render_claude(level):
+    codex = CODEX.read_text(encoding='utf-8') if CODEX.is_file() else ''
+    if live == render_claude(level) and codex == CODEX_PROFILE:
         print(f'permissions: {level} — rendered config matches')
         return 0
-    print(f'permissions: {level} declared, but .claude/settings.local.json does not match it. '
+    print(f'permissions: {level} declared, but .claude/settings.local.json or .codex/config.toml does not match it. '
           f'Re-render with `core/tools/wos/permissions --set {level}`', file=sys.stderr)
     return 1
 

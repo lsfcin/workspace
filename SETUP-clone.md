@@ -226,10 +226,10 @@ unread subtree, then permits it after reading its context chain. The local behav
 ## Codex permissions
 > feature: `branch-lock` · agent: no
 
-Codex's default `:workspace` sandbox keeps the root's `.git` read-only, so `take` refuses with `[readonly]` and nothing can be committed. [`.codex/config.toml`](.codex/config.toml) declares the `wos` profile: `:workspace`, plus a writable root `.git` and network for the fetch and push. `.codex` stays read-only, so the agent cannot widen its own profile. Codex loads it only while the workspace is a trusted project. The app's "ChatGPT" agent mode does not run the local Codex and is outside this step.
+Codex's default `:workspace` sandbox keeps the root's `.git` read-only, so `take` refuses with `[readonly]` and nothing can be committed. The `wos` profile is `:workspace`, plus a writable root `.git` and network for the fetch and push. `core/run tools/wos/permissions --set` renders it into the git-ignored `.codex/config.toml`, the Agent permissions step above. `.codex` stays read-only, so the agent cannot widen its own profile. Codex loads it only while the workspace is a trusted project. Tested 2026-11-25 in the desktop app: the "Codex" mode runs with it, while the "ChatGPT" mode (`codex_work_desktop`) ignores the project profile and keeps `.git` read-only, a limit the platform imposes. That mode prepares patches and a handoff, and a "Codex" or Claude Code session takes the repo and applies them.
 
 **Precondition** — the project is trusted (`[projects."<root>"] trust_level = "trusted"` in `~/.codex/config.toml`).
 
-**Install** — nothing to copy: the file is versioned. In the desktop app's "Codex" mode, the permission menu under the composer should offer `wos`; if it shows only the built-ins, pick it there.
+**Install** — `core/run tools/wos/permissions --set <level>` (any level; the Codex profile is the same for all).
 
 **Verify** — `codex sandbox -C <root> -P wos -- sh -c ': > .git/.w && rm .git/.w && git ls-remote -q origin develop && echo ok'` prints `ok`; with `-P :workspace` it fails on `.git`. A session's shell shows `CODEX_PERMISSION_PROFILE=wos`.
