@@ -17,7 +17,11 @@ def main() -> int:
     parser.add_argument('--multi', action='store_true', help='a second repo, for a change that spans both')
     parser.add_argument('--session', default=lock.env_session())
     args = parser.parse_args()
-    repo = lock.repo_of(Path(args.repo).expanduser())
+    path = Path(args.repo).expanduser()
+    if not path.exists():  # a bare repo name would walk up to the workspace and take it instead
+        print(f'take: {path} does not exist; pass the repo\'s path', file=sys.stderr)
+        return 64
+    repo = lock.repo_of(path)
     if not repo or not args.session:
         print('take: needs a git repo and a session id', file=sys.stderr)
         return 64
