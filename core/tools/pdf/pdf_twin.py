@@ -96,7 +96,7 @@ def _describe_all(figures: list, texts_of: dict, describer: str, _describe, cach
 
 
 def build(pdf: Path, engine: str, describer: str = 'agy', origin: str | None = None, force: bool = False,
-          _engine=run_engine, _describe=describe.describe, _ocr=describe.ocr, cache=None) -> dict:
+          relevance: pdf_relevance.Profile | None = None, _engine=run_engine, _describe=describe.describe, _ocr=describe.ocr, cache=None) -> dict:
     """Write the twin of one PDF. Returns what happened, for the batch summary."""
     state, twin = pdf_meta.twin_state(pdf)
     before = pdf_meta.read_frontmatter(twin)
@@ -113,10 +113,9 @@ def build(pdf: Path, engine: str, describer: str = 'agy', origin: str | None = N
         figures = pdf_figures.name_all(result['figures'], info['pages'])
         firsts = [f for f in figures if not f.same_as]
         texts_of = {f.name: _ocr(f.source) for f in firsts}
-        table, seen = pdf_relevance.load(), pdf_relevance.decorations()
         doc = pdf_relevance.document([pdf_relevance.area(f) for f in firsts])
         verdicts = {f.name: pdf_relevance.verdict(f, result['pages'][f.page - 1], texts_of[f.name], describer,
-                                                  table, doc, seen) for f in firsts}
+                                                  relevance, doc) for f in firsts}
         said = _describe_all([f for f in firsts if verdicts[f.name][0] == 'describe'], texts_of, describer,
                              _describe, cache)
         links, blocks, flagged, figure_text = {}, {}, False, []

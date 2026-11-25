@@ -1,10 +1,11 @@
-# Usage: core/run tools/pdf/bench/relevance_train.py <out-dir> [--recall 0.98] [--write] — fit pdf_relevance's weights on <out-dir>/signals.tsv and labels.tsv, leaving one document out at a time, and print what the bar would skip and miss
+# Usage: core/run tools/pdf/bench/relevance_train.py <out-dir> [--recall 0.98] [--write <profile-dir>] — fit pdf_relevance's weights on <out-dir>/signals.tsv and labels.tsv, leaving one document out at a time, and print what the bar would skip and miss
 #
 # The model half of the relevance bench (the panel, 2026-11-25): an L1 logistic regression, because
 # 50 documents are too few for a tree and a person must be able to read why a figure was skipped.
 # Figures of one document are not independent, so each document is held out whole and scored by a
 # model that never saw it. The bar is the lowest-cost one whose rules-plus-score recall still meets
-# --recall. --write replaces core/tools/pdf/relevance.tsv; without it nothing changes.
+# --recall. --write replaces the profile's relevance.tsv and decorations.txt (pdf_relevance.py says
+# what a profile is); without it nothing changes.
 from __future__ import annotations
 
 import argparse
@@ -76,20 +77,20 @@ def fit_all(rows: list[dict], y: list[int], c: float) -> dict:
         {'bias': (0.0, 1.0, float(model.intercept_[0]))}
 
 
-def write(table: dict, threshold: float, note: str) -> None:
+def write(profile: Path, table: dict, threshold: float, note: str) -> None:
     lines = [f'# The weights pdf_relevance.py scores a figure with: z = bias + sum(weight * (value - mean) / std), '
              f'p = 1 / (1 + e^-z); a figure at or above `threshold` is described.',
              '# Written by bench/relevance_train.py from labelled figures; edit by retraining, not by hand.',
              f'# {note}', 'signal\tmean\tstd\tweight', f'threshold\t0\t1\t{threshold:.3f}']
     lines += [f'{k}\t{m:.4f}\t{s:.4f}\t{w:.4f}' for k, (m, s, w) in table.items()]
-    pdf_relevance.WEIGHTS.write_text('\n'.join(lines) + '\n', encoding='utf-8', newline='\n')
+    (profile / pdf_relevance.WEIGHTS).write_text('\n'.join(lines) + '\n', encoding='utf-8', newline='\n')
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('out', type=Path)
     ap.add_argument('--recall', type=float, default=0.98)
-    ap.add_argument('--write', action='store_true')
+    ap.add_argument('--write', metavar='PROFILE', type=Path, help="the collection's profile folder to write")
     args = ap.parse_args()
     rows, y = labelled(args.out)
     ruled = [pdf_relevance.judge(r, NEVER)[0] == 'describe' for r in rows]
@@ -107,12 +108,13 @@ def main() -> int:
         import pdf_figures
         looks = sorted({f'{int(pdf_figures.look(args.out / "img" / f"{r["doc"]}--{r["figure"]}.png"), 2):064x}'
                         for r, label in zip(rows, y) if not label})
-        pdf_relevance.DECORATIONS.write_text(
+        args.write.mkdir(parents=True, exist_ok=True)
+        (args.write / pdf_relevance.DECORATIONS).write_text(
             '# Looks (256-bit average hash, hex) of figures labelled decorative by bench/relevance_train.py.\n'
             + '\n'.join(looks) + '\n', encoding='utf-8', newline='\n')
-        write(table, t,f'Trained {len(rows)} figures / {len({r["doc"] for r in rows})} documents, C={c}: '
-                        f'held-out recall {hit:.3f}, skipped {skipped:.1%}.')
-        print(f'wrote {pdf_relevance.WEIGHTS}')
+        write(args.write, table, t, f'Trained {len(rows)} figures / {len({r["doc"] for r in rows})} documents, '
+                                    f'C={c}: held-out recall {hit:.3f}, skipped {skipped:.1%}.')
+        print(f'wrote {args.write}')
     return 0
 
 

@@ -1,6 +1,7 @@
 # T1 pdf relevance: a figure the text points at is described, a crest in the header is not, a figure nobody described keeps its image and OCR, and a described one is never asked twice. Zero-token, no network.
 import threading
 
+import pytest
 from PIL import Image
 
 import describe
@@ -12,6 +13,7 @@ from test_pdf_twin import fake_engine, make_pdf, offline  # noqa: F401 — the f
 
 TABLE = {'bias': (0, 1, -0.5), 'threshold': (0, 1, 0.5), 'named': (0, 1, 1.5), 'margin': (0, 1, -2.0),
          'decorative': (0, 1, -3.0)}
+PROFILE = pdf_relevance.Profile(TABLE, boilerplate=frozenset({'ministério', 'educação'}))
 
 
 def figure(tmp_path, box=None, size=(320, 240), decorative=False, order=0):
@@ -34,7 +36,7 @@ def test_a_caption_under_the_figure_is_described_whatever_the_score(tmp_path):
 def test_text_naming_the_figure_raises_the_score_and_a_header_crest_is_hidden(tmp_path):
     named = pdf_relevance.signals(figure(tmp_path), 'Veja a tela abaixo.\n<!-- figure -->', '')
     crest = pdf_relevance.signals(figure(tmp_path, box=[0.4, 0.01, 0.6, 0.08], decorative=True),
-                                  '<!-- figure -->\nRESOLUÇÃO Nº 1', 'MINISTÉRIO DA EDUCAÇÃO')
+                                  '<!-- figure -->\nRESOLUÇÃO Nº 1', 'MINISTÉRIO DA EDUCAÇÃO', prof=PROFILE)
     assert crest['margin'] == 1.0 and crest['boilerplate'] == 1.0
     assert pdf_relevance.judge(named, TABLE)[0] == 'describe'
     assert pdf_relevance.judge(crest, TABLE)[0] == 'hide'
@@ -55,14 +57,33 @@ def test_a_big_figure_off_the_margins_is_described_unless_it_is_a_page_of_text(t
 
 
 def test_describer_none_shows_what_would_have_been_described(tmp_path):
-    action, why = pdf_relevance.verdict(figure(tmp_path), 'Figura 1\n<!-- figure -->', '', 'none', TABLE)
+    action, why = pdf_relevance.verdict(figure(tmp_path), 'Figura 1\n<!-- figure -->', '', 'none', PROFILE)
     assert (action, why) == ('show', 'describer none')
 
 
-def test_a_figure_nobody_described_keeps_its_image_and_ocr_and_says_why(tmp_path, monkeypatch):
-    monkeypatch.setattr(pdf_relevance, 'load', lambda: TABLE | {'bias': (0, 1, 9.0)})   # the score would describe it
-    calls = []
-    done = pdf_twin.build(make_pdf(tmp_path / 'res.pdf'), 'docling', 'none', _engine=fake_engine(),
+def test_without_a_profile_every_figure_but_a_decorative_one_is_described(tmp_path):
+    plain = figure(tmp_path)
+    crest = figure(tmp_path, box=[0.4, 0.01, 0.6, 0.08], decorative=True, order=1)
+    assert pdf_relevance.verdict(plain, '<!-- figure -->', '', 'agy', PROFILE)[0] == 'show'
+    assert pdf_relevance.verdict(plain, '<!-- figure -->', '', 'agy', None) == ('describe', 'no profile')
+    assert pdf_relevance.verdict(crest, '<!-- figure -->', '', 'agy', None)[0] == 'hide'
+
+
+def test_a_profile_is_a_folder_of_weights_crests_and_letterhead_words(tmp_path):
+    (tmp_path / 'relevance.tsv').write_text('signal\tmean\tstd\tweight\nthreshold\t0\t1\t0.5\nbias\t0\t1\t-1\n', encoding='utf-8', newline='\n')
+    (tmp_path / 'decorations.txt').write_text('# looks\nff\n', encoding='utf-8', newline='\n')
+    (tmp_path / 'boilerplate.txt').write_text('Reitoria\n', encoding='utf-8', newline='\n')
+    prof = pdf_relevance.profile(tmp_path)
+    assert prof.table['threshold'][2] == 0.5 and prof.looks == (255,) and prof.boilerplate == {'reitoria'}
+    assert pdf_relevance.profile(None) is None
+    (tmp_path / 'relevance.tsv').unlink()
+    with pytest.raises(FileNotFoundError, match='relevance.tsv'):
+        pdf_relevance.profile(tmp_path)
+
+
+def test_a_figure_nobody_described_keeps_its_image_and_ocr_and_says_why(tmp_path):
+    calls, scored = [], pdf_relevance.Profile(TABLE | {'bias': (0, 1, 9.0)})   # the score would describe it
+    done = pdf_twin.build(make_pdf(tmp_path / 'res.pdf'), 'docling', 'none', relevance=scored, _engine=fake_engine(),
                           _describe=lambda *a: calls.append(a), _ocr=lambda p: 'texto da figura')
     text = done['twin'].read_text(encoding='utf-8')
     assert calls == [] and 'described_by: none | why: describer none' in text

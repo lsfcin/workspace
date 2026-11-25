@@ -1,4 +1,4 @@
-# Usage: core/run tools/pdf/docling <pdf>... [--from <file>] [--describer agy|local|claude] [--origin <url>] [--force] [--review | --reviewed-by <who>] — a PDF becomes its twin folder (full .md, figures described, metadata) through Docling: GPU, scans in Portuguese, tables
+# Usage: core/run tools/pdf/docling <pdf>... [--from <file>] [--describer agy|local|claude|none] [--relevance <dir>] [--origin <url>] [--force] [--review | --reviewed-by <who>] — a PDF becomes its twin folder (full .md, figures described, metadata) through Docling: GPU, scans in Portuguese, tables
 import sys
 from pathlib import Path
 

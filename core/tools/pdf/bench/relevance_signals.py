@@ -1,4 +1,4 @@
-# Usage: core/run tools/pdf/bench/relevance_signals.py <listing> <out-dir> — every figure of every PDF in the listing, through the production engine, as one TSV row of pdf_relevance signals, with its crop and the description its twin already holds
+# Usage: core/run tools/pdf/bench/relevance_signals.py <listing> <out-dir> [--relevance <profile-dir>] — every figure of every PDF in the listing, through the production engine, as one TSV row of pdf_relevance signals, with its crop and the description its twin already holds
 #
 # The data half of the relevance bench: relevance_train.py fits the weights on these rows once each
 # has a label. The labels are a person's (or an agent's, audited by one): `labels.tsv` beside the
@@ -32,7 +32,7 @@ def described(twin: Path) -> dict[str, tuple[str, str]]:
     return {m[0]: (m[1], m[2][:160]) for m in DESCRIBED.findall(twin.read_text(encoding='utf-8'))}
 
 
-def rows(pdf: Path, img_dir: Path) -> list[dict]:
+def rows(pdf: Path, img_dir: Path, prof: pdf_relevance.Profile | None = None) -> list[dict]:
     twin = pdf_meta.twin_of(pdf)
     engine = 'docling' if 'docling' in str(pdf_meta.read_frontmatter(twin).get('engine', '')) else 'pymupdf'
     said = described(twin)
@@ -43,7 +43,7 @@ def rows(pdf: Path, img_dir: Path) -> list[dict]:
             if fig.same_as:
                 continue
             ocr = describe.ocr(fig.source)
-            sig = pdf_relevance.signals(fig, result['pages'][fig.page - 1], ocr)
+            sig = pdf_relevance.signals(fig, result['pages'][fig.page - 1], ocr, prof=prof)
             shutil.copyfile(fig.source, img_dir / f'{pdf.stem}--{fig.name}.png')
             by, head = said.get(fig.name, ('-', ''))
             out.append({'doc': pdf.stem, 'figure': fig.name, 'page': fig.page, 'described_by': by,
@@ -55,7 +55,9 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('listing', type=Path, help='one PDF path per line')
     ap.add_argument('out', type=Path)
+    ap.add_argument('--relevance', metavar='DIR', type=Path, help="the collection's profile, for its boilerplate words")
     args = ap.parse_args()
+    prof = pdf_relevance.profile(args.relevance)
     (args.out / 'img').mkdir(parents=True, exist_ok=True)
     table = args.out / 'signals.tsv'
     done = {ln.split('\t')[0] for ln in table.read_text(encoding='utf-8').splitlines()[1:]} if table.exists() else set()
@@ -66,7 +68,7 @@ def main() -> int:
         if not line.strip() or pdf.stem in done:
             continue
         try:
-            found = rows(pdf, args.out / 'img')
+            found = rows(pdf, args.out / 'img', prof)
         except Exception as e:  # noqa: BLE001 — one PDF's failure never ends the bench
             print(f'FAILED {pdf}: {e}', flush=True)
             continue

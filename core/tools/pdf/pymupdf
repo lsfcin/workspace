@@ -1,4 +1,4 @@
-# Usage: core/run tools/pdf/pymupdf <pdf>... [--from <file>] [--describer agy|local|claude] [--origin <url>] [--force] [--review | --reviewed-by <who>] — a PDF becomes its twin folder through PyMuPDF4LLM: CPU, seconds to a minute per PDF, finds fewer tables than docling
+# Usage: core/run tools/pdf/pymupdf <pdf>... [--from <file>] [--describer agy|local|claude|none] [--relevance <dir>] [--origin <url>] [--force] [--review | --reviewed-by <who>] — a PDF becomes its twin folder through PyMuPDF4LLM: CPU, seconds to a minute per PDF, finds fewer tables than docling
 import sys
 from pathlib import Path
 

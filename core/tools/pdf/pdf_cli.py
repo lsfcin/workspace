@@ -13,6 +13,7 @@ from pathlib import Path
 import describe
 import pdf_cache
 import pdf_meta
+import pdf_relevance
 import pdf_twin
 
 REVIEW_DPI = 100
@@ -24,6 +25,8 @@ def parse(argv: list[str], leaf: str) -> argparse.Namespace:
     ap.add_argument('pdfs', nargs='*', type=Path)
     ap.add_argument('--from', dest='listing', type=Path, help='a file with one PDF path per line')
     ap.add_argument('--describer', choices=describe.DESCRIBERS, default='agy')
+    ap.add_argument('--relevance', metavar='DIR', type=Path,
+                    help="a collection's relevance profile (pdf_relevance.py); without it every figure is described")
     ap.add_argument('--origin', help='live URL or Drive id of the PDF (one PDF only)')
     ap.add_argument('--description', help="what the PDF is, for the routing table (one PDF only)")
     ap.add_argument('--force', action='store_true', help='rebuild even when the twin is fresh')
@@ -35,6 +38,10 @@ def parse(argv: list[str], leaf: str) -> argparse.Namespace:
                       if ln.strip()]
     if not args.pdfs:
         ap.error('no PDF given')
+    try:
+        args.relevance = pdf_relevance.profile(args.relevance)   # read once, refused before any PDF
+    except FileNotFoundError as e:
+        ap.error(str(e))
     if args.origin and len(args.pdfs) != 1:
         ap.error('--origin names the source of ONE PDF')
     if args.description and len(args.pdfs) != 1:
@@ -80,7 +87,7 @@ def stamp(pdf: Path, who: str) -> str:
 
 
 def convert(pdf: Path, engine: str, args: argparse.Namespace) -> str:
-    done = pdf_twin.build(pdf, engine, args.describer, args.origin, args.force, cache=pdf_cache.Cache())
+    done = pdf_twin.build(pdf, engine, args.describer, args.origin, args.force, args.relevance, cache=pdf_cache.Cache())
     line = f"{done['status']:8s} {done['twin']}"
     if done.get('audit'):
         line += '  ' + ' '.join(f'{k}={v}' for k, v in done['audit'].items())

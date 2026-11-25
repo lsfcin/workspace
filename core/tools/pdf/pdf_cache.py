@@ -1,7 +1,7 @@
 # pdf_cache.py — a figure described once is never described again: the same look with the same OCR, in this PDF or any other, reads its answer back.
 #
 # WHY. A run that dies at figure 90 of 127 lost 45 minutes of vision calls (2026-11-24, the PDI),
-# and the same SIGAA screen or crest crosses dozens of documents. Each answer is appended the moment
+# and the same system screen or crest crosses dozens of documents. Each answer is appended the moment
 # it lands, so the cache is both the resume and the cross-document memory. The key is the average
 # hash AND the OCR: two screenshots of one template share a look but not their text.
 # Only trusted answers are kept: a flagged one is asked again next time.

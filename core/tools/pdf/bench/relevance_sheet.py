@@ -1,4 +1,4 @@
-# Usage: core/run tools/pdf/bench/relevance_sheet.py <out-dir> — one HTML page of every figure in <out-dir>/signals.tsv: the crop, its label, what its twin said, and the verdict the current weights give it, the disagreements first
+# Usage: core/run tools/pdf/bench/relevance_sheet.py <out-dir> <profile-dir> — one HTML page of every figure in <out-dir>/signals.tsv: the crop, its label, what its twin said, and the verdict the profile's weights give it, the disagreements first
 #
 # How a person audits the relevance bench in minutes: thumbnails, not files. The page lands at
 # <out-dir>/folha.html beside the crops it shows; nothing is published.
@@ -19,10 +19,10 @@ STYLE = ('body{font:13px sans-serif;margin:16px}.f{display:inline-block;width:23
 
 
 def main() -> int:
-    out = Path(sys.argv[1])
+    out, prof = Path(sys.argv[1]), pdf_relevance.profile(Path(sys.argv[2]))
     labels = {(r[0], r[1]): r[2] for r in csv.reader((out / 'labels.tsv').open(encoding='utf-8'), delimiter='\t')
               if len(r) >= 3} if (out / 'labels.tsv').exists() else {}
-    table = pdf_relevance.load()
+    table = prof.table
     cards, rows = [], list(csv.DictReader((out / 'signals.tsv').open(encoding='utf-8'), delimiter='\t'))
     areas: dict[str, list[float]] = {}
     for r in rows:

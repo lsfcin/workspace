@@ -8,14 +8,22 @@
 #
 # Three answers: `describe` (the vision call), `show` (image and OCR kept, `described_by: none`),
 # `hide` (a crest or letterhead below the bar: no trace, as the old decorative cut did).
+#
+# WHAT IS NOT HERE. Weights trained on one collection say nothing about another, so the tool ships
+# none: a collection brings its own PROFILE, a folder passed as `--relevance <dir>`:
+#   relevance.tsv    the weights and the bar (required; written by bench/relevance_train.py --write)
+#   decorations.txt  looks of its crests and logos, one hex hash per line (optional)
+#   boilerplate.txt  words its letterheads repeat, one per line (optional)
+# Without a profile no figure is scored: every one that is not decorative is described.
 from __future__ import annotations
 
 import math
 import re
+from dataclasses import dataclass
 from pathlib import Path
 
 FIGURE = '<!-- figure -->'
-WEIGHTS = Path(__file__).resolve().parent / 'relevance.tsv'
+WEIGHTS, DECORATIONS, BOILERPLATE = 'relevance.tsv', 'decorations.txt', 'boilerplate.txt'
 WINDOW = 250          # characters of page text each side of the figure that are read
 MARGIN = 0.18         # the header and footer bands, as a share of the page height (the panel's figure)
 BIG = 0.18            # a figure this share of the page is content unless its OCR says it is a page of text
@@ -27,12 +35,8 @@ NAMED = re.compile(r'\b(figura|fig\.|imagem|ilustra\w*|tela|print|captura|quadro
 POINTER = re.compile(r'\b(abaixo|acima|a seguir|ao lado|seguinte|clique|clicar|selecion\w*|bot[ãa]o|[íi]cone|'
                      r'menu|aba|janela|marque|below|above|click)\b', re.I)
 CAPTION = re.compile(r'^\W*(figura|fig\.|quadro|imagem|gr[áa]fico|fonte|figure)\b', re.I)
-BOILERPLATE = {'ministério', 'ministerio', 'educação', 'educacao', 'universidade', 'federal', 'rural',
-               'pernambuco', 'reitoria', 'assinado', 'digitalmente', 'siape', 'brasil', 'república',
-               'republica', 'documento', 'servico', 'serviço', 'público', 'publico', 'gabinete', 'ufrpe'}
 WORD = re.compile(r'[a-zà-ÿ]{4,}', re.I)
 
-DECORATIONS = Path(__file__).resolve().parent / 'decorations.txt'
 NEAR = 20             # bits of the 256-bit average hash two crops of one crest differ by, at most (bench, 2026-11-25)
 
 SIGNALS = ('named', 'pointer', 'caption', 'in_table', 'margin', 'edge', 'area', 'side', 'repeats', 'decorative',
@@ -46,17 +50,33 @@ def area(fig) -> float:
 
 def document(areas: list[float]) -> dict[str, float]:
     """What the whole PDF says about its figures, from the area of each distinct one: a manual of
-    screenshots makes its small icons matter (the bench's hardest misses were SIGAA toolbar icons)."""
+    screenshots makes its small icons matter (the bench's hardest misses were toolbar icons)."""
     return {'doc_figures': round(math.log1p(len(areas)), 3),
             'doc_big': round(sum(a >= BIG for a in areas) / len(areas), 3) if areas else 0.0}
 
 
-def decorations(path: Path = DECORATIONS) -> list[int]:
-    """The looks of figures a person labelled decorative, in any PDF: a crest seen once is known everywhere."""
+@dataclass(frozen=True)
+class Profile:
+    """One collection's relevance: its weights, its crests, its letterhead words."""
+    table: dict
+    looks: tuple[int, ...] = ()
+    boilerplate: frozenset[str] = frozenset()
+
+
+def _lines(path: Path) -> list[str]:
     if not path.exists():
         return []
-    return [int(ln.strip(), 16) for ln in path.read_text(encoding='utf-8').splitlines()
-            if ln.strip() and not ln.startswith('#')]
+    return [ln.strip() for ln in path.read_text(encoding='utf-8').splitlines() if ln.strip() and not ln.startswith('#')]
+
+
+def profile(folder: Path | None) -> Profile | None:
+    """The profile in `folder`, or None (score nothing) when no folder is given."""
+    if folder is None:
+        return None
+    if not (folder / WEIGHTS).exists():
+        raise FileNotFoundError(f'{folder}: a relevance profile needs {WEIGHTS} (bench/relevance_train.py --write)')
+    return Profile(load(folder / WEIGHTS), tuple(int(h, 16) for h in _lines(folder / DECORATIONS)),
+                   frozenset(w.lower() for w in _lines(folder / BOILERPLATE)))
 
 
 def known(look: str, known_looks: list[int]) -> bool:
@@ -119,8 +139,9 @@ def _pixels(image: Path) -> tuple[float, float, float]:
     return round(ink, 3), round((rows + cols) / (w + h), 3), round(math.log1p(colours), 3)
 
 
-def signals(fig, page_md: str, ocr_text: str, doc: dict | None = None, known_looks: list[int] = ()) -> dict[str, float]:
+def signals(fig, page_md: str, ocr_text: str, doc: dict | None = None, prof: Profile | None = None) -> dict[str, float]:
     """Every signal of one figure, as numbers; `fig` is a pdf_figures.Figure, `doc` is document()."""
+    boilerplate, known_looks = (prof.boilerplate, prof.looks) if prof else (frozenset(), ())
     before, after = context(page_md, fig.order)
     near = before[-WINDOW:] + ' ' + after[:WINDOW]
     box = fig.box or [0.0, 0.0, 0.0, 0.0]
@@ -138,7 +159,7 @@ def signals(fig, page_md: str, ocr_text: str, doc: dict | None = None, known_loo
         'repeats': float(len(fig.pages)),
         'decorative': float(fig.decorative),
         'ocr_words': round(math.log1p(len(words)), 3),
-        'boilerplate': round(sum(w in BOILERPLATE for w in words) / len(words), 3) if words else 0.0,
+        'boilerplate': round(sum(w in boilerplate for w in words) / len(words), 3) if words else 0.0,
         'ink': ink, 'lines': lines, 'colours': colours,
         'text_around': round(math.log1p(len(page_md.replace(FIGURE, '').strip())), 3),
         **(doc or {'doc_figures': 0.0, 'doc_big': 0.0}),
@@ -146,7 +167,7 @@ def signals(fig, page_md: str, ocr_text: str, doc: dict | None = None, known_loo
     }
 
 
-def load(path: Path = WEIGHTS) -> dict[str, tuple[float, float, float]]:
+def load(path: Path) -> dict[str, tuple[float, float, float]]:
     """{signal: (mean, std, weight)}, plus `bias` and `threshold` in the weight column."""
     table = {}
     for line in path.read_text(encoding='utf-8').splitlines():
@@ -177,10 +198,14 @@ def judge(sig: dict[str, float], table: dict) -> tuple[str, str]:
     return ('hide' if sig['decorative'] else 'show'), f'score {p:.2f}'
 
 
-def verdict(fig, page_md: str, ocr_text: str, describer: str, table: dict, doc: dict | None = None,
-            known_looks: list[int] = ()) -> tuple[str, str]:
-    """judge(), except that `--describer none` turns every `describe` into `show`."""
-    action, why = judge(signals(fig, page_md, ocr_text, doc, known_looks), table)
+def verdict(fig, page_md: str, ocr_text: str, describer: str, prof: Profile | None,
+            doc: dict | None = None) -> tuple[str, str]:
+    """judge() under the profile; without one, every figure that is not decorative is described.
+    `--describer none` turns every `describe` into `show`."""
+    if prof is None:
+        action, why = ('hide', 'decorative') if fig.decorative else ('describe', 'no profile')
+    else:
+        action, why = judge(signals(fig, page_md, ocr_text, doc, prof), prof.table)
     if action == 'describe' and describer == 'none':
         return 'show', 'describer none'
     return action, why
