@@ -29,6 +29,7 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`panel/`](panel/CONTEXT.md) | An outside verdict from another vendor's model, read-only. Leaf: `ask`; the chain it walks is `core/workers.txt`. |
 | [`paper/`](paper/CONTEXT.md) | Academic sources and text: search papers, extract text, annotate, check terminology. |
 | [`pdf/`](pdf/CONTEXT.md) | A PDF becomes its twin: a sibling folder whose .md holds all the text, every figure described, and the hash that says when it went stale. Provider leaves: `docling`, `pymupdf`. |
+| [`sheets/`](sheets/CONTEXT.md) | Spreadsheets, read and edited in place. Provider leaf: `gsheets` (Google Sheets API). |
 | [`slides/`](slides/CONTEXT.md) | Presentations, read and edited in place. Provider leaf: `gslides` (Google Slides API); `pptx` builds the masters and layouts the API cannot. |
 | [`test/`](test/CONTEXT.md) | The verify-fast suite: every Level 0 check plus the tool unit tests. Zero-token, no network. |
 | [`verify/`](verify/CONTEXT.md) | Verification contract + patterns for all code projects: levels T0-T3, script names, dump-oracle rules. Reference |
@@ -52,4 +53,5 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`tool_law.py`](tool_law.py) | [`tool_law.pyi`](tool_law.pyi) | `require` | tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls |
 | [`worker_guard.py`](worker_guard.py) | [`worker_guard.pyi`](worker_guard.pyi) | `contain`, `memory`, `kill_tree`, `guard`, `spawn` | worker_guard.py — the process between a worker and its caller: when the caller dies, or the deadline passes, the worker and everything it spawned die with it. |
 | [`workers.py`](workers.py) | [`workers.pyi`](workers.pyi) | `Result`, `table`, `catalog`, `cooling`, `chain` | workers.py — the one way a tool calls an outside worker (another harness's model): find it, call it, classify what came back, and log who answered. |
+| [`write_approval.py`](write_approval.py) | [`write_approval.pyi`](write_approval.pyi) | `take_code`, `pending_path`, `turn`, `digest`, `request_lines` | write_approval.py — no write token loads until Lucas approved the exact plan it carries out |
 <!-- routing:end -->

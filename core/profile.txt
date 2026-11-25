@@ -94,6 +94,7 @@ toggle	size	on
 toggle	rtk-compaction	on
 toggle	web-search	on
 toggle	google-auth	on
+toggle	write-approval	on
 toggle	forms	on
 toggle	sheets	on
 toggle	vpn-cin	on

@@ -15,6 +15,7 @@ rule	guarded	ask	edit-workspace
 rule	guarded	ask	run-any
 rule	guarded	ask	delete
 rule	guarded	ask	push
+rule	guarded	ask	approve-remote-edit
 rule	guarded	deny	secrets
 
 level	standard	summary	Allows reading and editing workspace files freely, asks before executing arbitrary commands or pushing.
@@ -26,6 +27,7 @@ rule	standard	allow	run-readonly
 rule	standard	ask	run-any
 rule	standard	ask	delete
 rule	standard	ask	push
+rule	standard	ask	approve-remote-edit
 rule	standard	deny	secrets
 
 level	open	summary	Autonomous execution for reading, editing, running commands, and managing repository state.
@@ -37,3 +39,4 @@ rule	open	allow	run-readonly
 rule	open	allow	run-any
 rule	open	allow	delete
 rule	open	allow	push
+rule	open	ask	approve-remote-edit

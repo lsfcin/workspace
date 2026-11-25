@@ -40,6 +40,9 @@ CLAUDE = {
     # Creating the remote is the first push, not a separate act: `gh repo create --push` was refused
     # by the auto-mode classifier on 2026-11-11 and Lucas had to type it himself.
     'push': ['Bash(git push:*)', 'Bash(gh repo create:*)'],
+    # The second click of a Google write (core/tools/write_approval.py): Lucas already approved the
+    # plan in chat; this makes the harness ask again on the command that carries it out.
+    'approve-remote-edit': ['Bash(*--approve *)', 'Bash(*--approve=*)'],
     'secrets': ['Read(./.credentials.json)', 'Read(./**/.env)', 'Read(~/.claude/.credentials.json)',
                 'Read(~/.config/workspace-*/**)'],
 }

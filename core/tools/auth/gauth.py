@@ -4,6 +4,7 @@ import json, pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / 'hooks'))
 import tool_law  # noqa: E402
+import write_approval  # noqa: E402  — imported here so every Google CLI loses --approve from argv
 from platform_law import secure_dir, secure_file  # noqa: E402
 
 # Guarded at IMPORT, not in a main(): this is a library with no entrypoint of its own, and
@@ -138,6 +139,8 @@ def auth(alias: str, service: str, write: bool = False) -> Credentials:
     row = grants().get(service)
     if not row or (write and not row[1]):
         raise ValueError(f"no {'write ' if write else ''}grant '{service}' in core/tools/auth/grants.txt")
+    if write:
+        write_approval.consume(service)
     scopes = row[1] if write else row[0]
     service = f"{service}-write" if write else service
     d = config_dir(service)
