@@ -7,15 +7,25 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`panel/ask --debate` sai 0 sem veredito e joga fora o parcial**: deepseek pendurou 900 s, argon respondeu em 47 s e a resposta sumiu (24 Nov). Correção decidida em `29cf0fb0`. [src: agent 2026-11-24] `b20261124-debate-exit-zero`
 
+- **Codex aberto de dentro do Claude herda `CLAUDE_CODE_SESSION_ID`**; `lock.SESSION_ENV` lê esse antes do `CODEX_THREAD_ID` e o wrapper confunde as duas sessões (25 Nov). [src: agent 2026-11-25]
+
+- **Espelhos de skills não seguem `claim`/`switch`** (untracked): com `inbox.md` diferente entre branches, o close falha `test_a_mirror_dirtied_by_a_merge` até o `sync-skills` (25 Nov). [src: agent 2026-11-25]
+
+- **verify fast checa a forma da árvore inteira**: um commit paralelo em `code/docs-ufrpe` deu 13 erros falsos (25 Nov). [src: agent 2026-11-25]
+
+- **`routing()` só re-sincroniza o pai imediato** (`commit/generators.py` 43-44): em `<pasta>/<nome>/<nome>.md` (docs-ufrpe modelos/), 30 formulários no disco e 5 na tabela. Subir até o ancestral com CONTEXT.md (24 Nov). [src: agent 2026-11-24]
+
+- `session/context` despeja as pastas `-tmp-describe-*`; `gforms.md` foge do padrão de nome das skills (25 Nov). [src: agent 2026-11-25]
+
 - **Missing roundup stats and cost messages after an apparent fix (Lucas, twice).** Only Claude Code has user-only Stop delivery (`close-report`). Reproduce by harness and surface to test the cause and verify visible delivery. [src: agent 2026-11-23]
 
 - **`context_synchronizer.py code` gravou `code/wos/CONTEXT.md`** no clone público. Pular os `WORKSPACE_MARKERS`, como `_under_code`. [src: agent 2026-11-23]
 
 - **Os workers do painel não leem a web.** Em 23/11, Codex (`Internal Error`) e argon (só `search_web`, sem rede) falharam ao buscar uma página pública. Declarar em `core/workers.txt` ou dar rede ao `panel/ask`. [src: agent 2026-11-23]
 
-- **O wrapper do git ainda deixa passar o Copilot.** E2e de 24/11 (`outputs/lock-facade/e2e.sh <harness>`, um `git add` alheio pelo shell e por subprocess): Codex, opencode e agy recusados, o terminal humano do VS Code passa. Copilot `-p` pula os hooks: a raiz do workspace não está em `trustedFolders` de `~/.copilot/config.json` (Lucas adiciona, ou dá o OK). Falta confirmar que o `session_id` do hook é o do shell (Codex, Copilot); `ancestors()` devolve [] fora do Linux. [src: agent 2026-11-24] `b20261124-git-wrapper-harnesses`
+- **O wrapper do git ainda deixa passar o Copilot.** E2e de 24/11 (`outputs/lock-facade/e2e.sh <harness>`): Codex, opencode e agy recusados; Copilot `-p` pula os hooks, pois a raiz não está em `trustedFolders` de `~/.copilot/config.json` (falta o OK de Lucas). Confirmar que o `session_id` do hook é o do shell (Codex, Copilot); `ancestors()` dá [] fora do Linux. [src: agent 2026-11-24] `b20261124-git-wrapper-harnesses`
 
-- **Três harnesses sem chamada headless.** ZCode: a GUI roda com a chave OpenRouter, mas o CLI (`node /opt/ZCode/resources/glm/zcode.cjs --prompt`, 0.16.3) responde `Model config is missing`, porque `~/.zcode/cli/config.json` só tem hooks. pi: `pi -p` → 402 do ollama cloud; trocar para OpenRouter. DeepSeek harness: virou download, e o baixado em 24/11 é o `.exe` de Windows; não há binário Linux no PATH (20 e 24 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
+- **Três harnesses sem chamada headless.** ZCode CLI 0.16.3 (`zcode.cjs --prompt`): `Model config is missing`, `~/.zcode/cli/config.json` só tem hooks. pi: `pi -p` → 402 do ollama cloud; trocar para OpenRouter. DeepSeek: só há `.exe` de Windows (20 e 24 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
 
 - **`panel/ask --list` dá `live ok` a um worker que não responde**: o deepseek (opencode) aceitou a chamada e não disse nem "ok" em 100 s (24 Nov). [src: agent 2026-11-24] `b20261124-deepseek-hangs`
 
@@ -25,15 +35,15 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`core/harnesses.txt` não tem copilot**, mas existem `core/hooks/copilot/` e um teste de shim dele. Ou ganha linha (com o diretório de skills que tiver) ou a ausência fica escrita (20 Nov). [src: agent 2026-11-20] `b20261120-harnesses-no-copilot`
 
-- **Três ferramentas falharam no censo do docs-ufrpe.** (1) `web/fetch` não aceita `--cacert`, e os sites da UFRPE não mandam o certificado intermediário (RNP ICPEdu GR46 2025; a PRPG usa RNP ICPEdu OV SSL CA 2019), então o fetch devia levar o bundle que `verificar.py` já lista. (2) `mail/gmail` só traz não lidos, no máximo 50, sem busca por termo, e `attachments --id` só lê o cache do fetch; faltam `search <query>` paginado e `attachments` direto por id (ver [academic-evidence-tools]). (3) O censo de páginas virou script de rascunho, falta decidir se vira ferramenta (19 Nov, vindo do INBOX). (4) 21 Nov: os servidores da UFRPE seguram um User-Agent de curl (502 depois de 90 s) e respondem em 0,6 s a um de navegador; `web/fetch` deve mandar um UA de navegador e descobrir o intermediário pela AIA do certificado, como o módulo de rede planejado para o docs-ufrpe (vigia). [src: agent 2026-11-19] `b20261119-census-tool-gaps`
+- **Três ferramentas falharam no censo do docs-ufrpe.** (1) `web/fetch` sem `--cacert`; os sites da UFRPE não mandam o intermediário (RNP ICPEdu GR46 2025; PRPG: RNP ICPEdu OV SSL CA 2019): levar o bundle de `verificar.py`. (2) `mail/gmail`: só não lidos, máx. 50, sem busca; `attachments --id` só lê o cache; faltam `search <query>` paginado e `attachments` por id ([academic-evidence-tools]). (3) O censo de páginas virou rascunho: vira ferramenta? (19 Nov, INBOX). (4) UFRPE segura UA de curl (502 em 90 s) e responde em 0,6 s a um de navegador: mandar UA de navegador e achar o intermediário pela AIA (21 Nov). [src: agent 2026-11-19] `b20261119-census-tool-gaps`
 
-- **`checks/web-retry.py` só escuta o Claude Code.** O gate pós-shell lê `tool_response`/`error` do payload, e só `.claude/settings.json` registra `PostToolUseFailure`. Falta conferir se os shims do Codex, do Copilot, do OpenCode e do Antigravity entregam a saída do comando no momento `post` (21 Nov). [src: agent 2026-11-21] `b20261121-web-retry-shims`
+- **`checks/web-retry.py` só escuta o Claude Code.** Só `.claude/settings.json` registra `PostToolUseFailure`; conferir se os shims de Codex, Copilot, OpenCode e Antigravity entregam a saída no `post` (21 Nov). [src: agent 2026-11-21] `b20261121-web-retry-shims`
 
 - **O pre-commit diz que `core/hooks/brain` é ignorado** ao re-stagear `CONTEXT.md` e `memory-gate.pyi`, mas `git check-ignore` na raiz diz que não é. Suspeita: o stage roda com o `.gitignore` do repo `brain/` (20 Nov). [src: agent 2026-11-20] `b20261120-brain-hooks-staged-as-ignored`
 
-- **173 arquivos órfãos no publish** (2.681 linhas): rastreados e elegíveis, mas nenhuma feature os reivindica. O `/publish` pede zero, e a lista sai de `core/run tools/wos/publish/repo --orphans` (20 Nov). [src: agent 2026-11-20] `b20261120-publish-173-orphans`
+- **173 arquivos órfãos no publish** (2.681 linhas): nenhuma feature os reivindica; `/publish` pede zero (`publish/repo --orphans`, 20 Nov). [src: agent 2026-11-20] `b20261120-publish-173-orphans`
 
-- **Pergunta para Lucas fecha a sessão sem resposta.** Uma escolha "Lucas decide" terminou construída sem resposta registrada nem linha em "Decidido sem perguntar" do handoff (apptime 6 Nov, `82cdec2`). O roundup podia cobrar isso. `b20261106-handoff-unanswered`
+- **Pergunta para Lucas fecha a sessão sem resposta.** Uma escolha "Lucas decide" foi construída sem resposta nem linha em "Decidido sem perguntar" (apptime 6 Nov, `82cdec2`); o roundup podia cobrar. `b20261106-handoff-unanswered`
 
 - **"O que tem pela frente" respondido com o ROADMAP lido pela metade.** A sessão do apptime listou só os itens 🟡/🔴 (6 Nov); a pergunta pede o ROADMAP inteiro. `b20261106-partial-roadmap-read`
 
@@ -55,7 +65,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`panel/ask` só aceita caminho de arquivo**: texto dá traceback, não erro claro (9 Nov). `b20261109-panel-ask-text`
 
-- **`core/refs/REFS.md` está no teto de caracteres**: uma linha nova (textfold) reprovou `test_char_cap`; o ref virou `.yaml`, mas a fila de intake continua sem espaço. Promover os itens já avaliados para `.yaml` libera espaço (20 Nov). [src: agent 2026-11-20] `b20261120-refs-at-cap`
+- **`core/refs/REFS.md` está no teto de caracteres**: a fila de intake não tem espaço; promover os itens avaliados para `.yaml` (20 Nov). [src: agent 2026-11-20] `b20261120-refs-at-cap`
 
 - tools/panel/ask cannot attach images; PNG paths went in prose (17 Nov). Verify delivery, not acceptance of the path. `b20261117-panel-images`
 
@@ -79,23 +89,23 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`gmail attachments` quebra sem chave da API Anthropic** (13 Nov). `b20261113-gmail-attachments-key`
 
-- **Resposta do painel chega a Lucas sem conferência de domínio**: citou um PDF da UFAPE como da UFRPE (13 Nov; de novo em 21 Nov, a Res. 009/2019). No rito da CAPD, o painel agora recebe os trechos da norma do docs-ufrpe (`academy/administration/processos/progressao.md`). `b20261113-panel-domain-check`
+- **Resposta do painel chega a Lucas sem conferência de domínio**: citou um PDF da UFAPE como da UFRPE (13 Nov; de novo em 21 Nov, a Res. 009/2019). `b20261113-panel-domain-check`
 
 - **Entropia conta `[[14]]` de nota de rodapé como wiki-link quebrado** (docs-ufrpe, 13 Nov). `b20261113-entropy-footnote-wikilink`
 
 - **Proposta "aguardando OK" atravessa a sessão só como resumo**; o handoff devia apontar para o arquivo com o texto exato (17 Nov). `b20261117-handoff-proposal-text`
 
-- **Lote docs-ufrpe (11 Nov), o que ficou.** (a) gêmeo de PDF começa com frontmatter e a rota mostra "← add first-line comment"; o .docx não tem gêmeo no mesmo formato. (b) tachado de norma revogada dispara "finished work". (c) a lei de segredos marca o CNPJ público da UFRPE. (e) `docling` >10 min por PDF onde `pymupdf` resolve. (h) `academy/cv/comprovantes/2026/CONTEXT.md` sem descrições. `b20261111-docs-ufrpe-lote`
+- **Lote docs-ufrpe (11 Nov), o que ficou.** (a) gêmeo de PDF com frontmatter mostra "← add first-line comment"; .docx sem gêmeo igual. (b) tachado de norma revogada dispara "finished work" (4 casos em normas/ e orientacoes/, 24 Nov): pular o corpo de documento de arquivo. (c) a lei de segredos marca o CNPJ público da UFRPE. (e) `docling` >10 min por PDF onde `pymupdf` resolve. (h) `academy/cv/comprovantes/2026/CONTEXT.md` sem descrições. `b20261111-docs-ufrpe-lote`
 
 - **Edição de cronograma colide com nota dada no site**: editar `disciplina.md` atrás do painel faz o `publish` recusar (13 Nov). Trazer o painel antes, ou mesclar por linha de aluno. `b20261113-cfpages-pull-colisao`
 
-- **Painel externo barrado com dados pessoais**: o modo auto bloqueou o Gemini com CPF, e o `opencode` só lê `GOOGLE_GENERATIVE_AI_API_KEY` (16 Nov). Redigir antes (`secret_law.redact`). `b20261116-panel-pii`
+- **Painel externo barrado com dados pessoais**: o modo auto barrou o Gemini com CPF (16 Nov). Redigir antes (`secret_law.redact`). `b20261116-panel-pii`
 
 - **`progressao.md` § Lado da comissão contradiz a própria regra** de duplicidade (parecer de George, 16 Nov). `b20261116-capd-duplicidade`
 
 - **Rotas do academy desatualizadas**: `capd/CONTEXT.md` diverge da pasta de George; `lab/` e `students/` sem CONTEXT.md; `students/` e `cv/` fora da tabela (16 Nov). `b20261116-academy-routing`
 
-- **Ferramentas que a sessão não achou**: o hook de downloads não aponta `tools/chat/wazip` para um zip do WhatsApp; o faster-whisper não acha `libcublas.so.12` e cai para CPU; o gate do heredoc leu `$S` como caminho (16 Nov). `b20261116-tool-discovery`
+- **Ferramentas que a sessão não achou**: downloads não aponta `chat/wazip` para zip do WhatsApp; faster-whisper sem `libcublas.so.12` cai para CPU (16 Nov). `b20261116-tool-discovery`
 
 - **gslides lint marca "off the slide" em placeholders herdados do layout** que renderizam no lugar (techedu 111, ai4good 62 achados, 16 Nov). `b20261116-gslides-lint-placeholder`
 
@@ -109,7 +119,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - Personal Drive write token failed twice in one session; test refresh apart from reads (24 Oct). `b20261030-drive-write-token`
 
-- Drive search silently caps at 20 results; expose pagination (26 Oct). `b20261030-drive-search-pagination`
+- Drive search caps at 20 results, and gsheets/Drive `list` has no pagination (26 Oct, 25 Nov). `b20261030-drive-search-pagination`
 
 - PDF gate demands a twin for script-compiled TeX without .texif (24 Oct). `b20261030-compiled-pdf-detection`
 
@@ -129,7 +139,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - Video: five empty galleries counted as "38 ok / 0 failed" (17 Nov); lost partials (16 Nov), omitted slides and 150 px thumbnails (30 Oct). Recover and check all five decks before routing. Diagnose empty/error/partial output; save per-link results for resumption. Test empty, error, partial, full and batch counts. Require end-to-end proof before unpinning. [src: Lucas 2026-11-19] `b20261017-video-batch-results`
 
-- **Brain stats staging**: refreshed goal files were left unstaged (14–24 Oct). It now runs inside the brain repo (2026-11-19); confirm a goal commit there leaves the tree clean. `b20261014-brain-stats-staging`
+- **Brain stats staging**: refreshed goal files were left unstaged (14–24 Oct). Still MM after a goal commit inside brain: index old stats, HEAD and disk new (5961a25, 25 Nov). `b20261014-brain-stats-staging`
 
 - **PDF conversions overrun; low-confidence pages inflate audit references (25 Sep–9 Oct).** `b20261014-pdf-conversion-audit`
 
@@ -151,7 +161,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Verify transcript redaction of the authorization-code pattern from the Canva session (26 Sep).** `b20261014-transcript-redaction`
 
-- File-description lookups disagree on repo roots: frases.json rejected, jsconfig.json only as an absolute path, fixture suffixes may collide (18 Oct–1 Nov). Bypass e106d95 needs a regression. `b20261014-nested-file-description`
+- File-description lookups disagree on repo roots (frases.json, jsconfig.json; 18 Oct–1 Nov). Bypass e106d95 needs a regression. `b20261014-nested-file-description`
 
 - **Expanded hook-link verification slows duplication checking (5 Oct).** `b20261014-verification-latency`
 
@@ -189,7 +199,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - The other machine's scoreboard keeps the pre-rename keys inbox-nudge/compass-nudge/publish-nudge (20 Sep). `b20260920-scoreboard-keys`
 
-- Nested repos' ISSUES.md still carry the entropy block their pre-commit used to write; strip each, then drop `*/ISSUES.md` from core/hooks/generated.txt (20 Sep; 19 Nov). `b20260920-quiet-repo-entropy`
+- Nested repos' ISSUES.md still carry the entropy block their pre-commit used to write; strip each, then drop `*/ISSUES.md` from core/hooks/generated.txt (20 Sep; 19 Nov). The dashboard CONTEXT says roundup rewrites that block, but it only writes outputs/state/entropy-<repo>.md (docs-ufrpe, 24 Nov). `b20260920-quiet-repo-entropy`
 
 - Safe-to-delete branch lists in the entropy report age during a session; recheck ancestry at deletion (14 Sep). `b20260914-branch-list-snapshot`
 
