@@ -5,6 +5,8 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **`panel/ask --debate` sai 0 sem veredito e joga fora o parcial**: deepseek pendurou 900 s, argon respondeu em 47 s e a resposta sumiu (24 Nov). Correção decidida em `29cf0fb0`. [src: agent 2026-11-24] `b20261124-debate-exit-zero`
+
 - **`close-report` (hook `Stop`) só existe no Claude Code**: os outros shims não têm fim de turno com mensagem só pro usuário. [src: agent 2026-11-23]
 
 - **`context_synchronizer.py code` gravou `code/wos/CONTEXT.md`** no clone público. Pular os `WORKSPACE_MARKERS`, como `_under_code`. [src: agent 2026-11-23]
