@@ -65,6 +65,8 @@ def close(repo: Path, session: str, draft: bool) -> tuple:
     if name in lock.SHARED or out(repo, 'branch', '--show-current') != name:
         # A claim records the branch it found; closing `develop` as a feature deletes it (2026-11-19).
         return f'{repo}: held on {name}, not a feature — switch to one before closing. Still held', 1
+    if refused := lock.unwritable(repo):
+        return f'{repo}: {refused}\n   Still held on {name}', 1
     refused = integrate(repo, name)
     if refused:
         return f'{repo}: not merged — {refused}. Still held on {name}', 1

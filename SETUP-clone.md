@@ -216,9 +216,20 @@ sync`. Any `MISSING` / `STALE` / `ORPHAN` line names the file and the source it 
 **Install** — review and trust the definitions in `.codex/hooks.json`. They resolve `core/run`
 from the workspace tree and call `core/hooks/codex/policy.py`, which reuses the common gates.
 Trust is stored by the runtime against each definition's hash; a changed definition needs review.
-No agent catalog, separate instructions or permission override is installed.
+No agent catalog or separate instructions are installed. The one permission override is the next step.
 
 **Verify** — `/hooks` lists six trusted events, including the existing prompt meter; routine
 success is silent. A fresh session blocks an edit in an
 unread subtree, then permits it after reading its context chain. The local behavioral tests are
 `core/tools/test/workspace/shims/test_codex_shim.py`; they make no model calls.
+
+## Codex permissions
+> feature: `branch-lock` · agent: no
+
+Codex's default `:workspace` sandbox keeps the root's `.git` read-only, so `take` refuses with `[readonly]` and nothing can be committed. [`.codex/config.toml`](.codex/config.toml) declares the `wos` profile: `:workspace`, plus a writable root `.git` and network for the fetch and push. `.codex` stays read-only, so the agent cannot widen its own profile. Codex loads it only while the workspace is a trusted project. The app's "ChatGPT" agent mode does not run the local Codex and is outside this step.
+
+**Precondition** — the project is trusted (`[projects."<root>"] trust_level = "trusted"` in `~/.codex/config.toml`).
+
+**Install** — nothing to copy: the file is versioned. In the desktop app's "Codex" mode, the permission menu under the composer should offer `wos`; if it shows only the built-ins, pick it there.
+
+**Verify** — `codex sandbox -C <root> -P wos -- sh -c ': > .git/.w && rm .git/.w && git ls-remote -q origin develop && echo ok'` prints `ok`; with `-P :workspace` it fails on `.git`. A session's shell shows `CODEX_PERMISSION_PROFILE=wos`.

@@ -71,7 +71,6 @@ When Lucas intends evaluation/adoption ("investigar", "útil pro X") or the entr
 
 - **idea** → insert in the relevant roadmap section, phrased agent-ready.
 - **bug** → merge matching evidence or insert beside related defects in `code/<proj>/ISSUES.md`.
-- Code projects are their **own git repos**. Each approved batch ends in a commit there, naming only that batch's files.
 - Never write project ideas into `code/<proj>/CONTEXT.md`.
 
 ## Links — extract only the selected batch
@@ -110,7 +109,7 @@ For each entry:
    - **project** → name the target file (ROADMAP / ISSUES), the exact line, and the repo
    - **draft** → propose filename short name and one-line description of the draft
    - **delete** → one-line reason
-3. Present proposed routes and the destination organization first, including whole-document changes, held entries and missing context. Wait for confirmation of routes; existing approval covers the organization scope. Act on confirmed work without asking again.
+3. Present routes, owning repositories (`git -C <folder> rev-parse --show-toplevel`), known blockers, whole-document moves and held entries. Wait for route confirmation; approved organization needs no second confirmation.
 
 ## Timeframe judgment (task, when unspecified)
 
@@ -121,10 +120,9 @@ For each entry:
 
 ## After confirmation
 
-- Recheck every owning repo’s branch, HEAD, index and destination content; apply only approved edits to a fresh read. If context changed, recompute the insertion; stop for a changed meaning or priority.
-- Reorganize whole target roadmaps/reference indexes when useful; preserve meaning, evidence and goal tracking. Keep level-1 refs; create a refs folder only when needed. Whole-document scope is authorized, not a license to discard content or override Lucas's decisions.
-- Keep write/commit windows short and serialize each repo through a common lock where all writers cooperate. Hooks that only check state do not make the subsequent write atomic; a lock cannot protect against nonparticipating writers or another machine.
+- Before the first write in a repo governed by `core/hooks/git/SPECS.md`, run `core/run tools/wos/take <repo> <name>` unless this session already holds it. A free repo needs no handoff. If take fails, report its reason and leave the affected captures in place.
+- Recheck branch, HEAD, index and destination content before editing. Apply approved edits to the fresh text; recompute moved anchors and stop on changed meaning or priority. Preserve sources, priorities and goal tracking when reorganizing.
 - Commit destinations first, by approved paths, and verify the commit contents and resulting HEAD. Do not remove a capture whose destination commit failed; completed destination work is reused on retry rather than duplicated.
 - Remove only confirmed exact entries from a fresh inbox read under the bot’s existing file lock (code/aiwbot/frontend/inbox.py); write in place, preserve concurrent captures and verify the result before releasing the lock.
 - `brain/` is its own repo: committing a goal file there runs the brain stats itself. Commit source removal last, by path, in that repo. Preserve unrelated index/worktree changes.
-- Never resolve semantic conflicts with blanket ours/theirs/union. Reused recorded resolutions still need verification; isolated worktrees require the preparation/close fixes tracked in root ROADMAP, Portability.
+- Verify reused conflict resolutions. Never resolve semantic conflicts with blanket ours/theirs/union.

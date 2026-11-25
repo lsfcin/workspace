@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 # The branch is the lock: one agent session per repo, held by standing on the branch it created.
-#
-# A governed repo (it has `develop`, and its origin is the profile's GitHub owner) is FREE on a
-# shared branch with a clean tree. `take` branches feature/<name> off a pulled develop and writes a
-# lock file naming the session, under one flock; the close gives it back. A write to a free repo is
-# refused until then. One repo per session unless `--multi`; a note for another repo's ISSUES.md or
-# ROADMAP.md goes through its outbox (outbox.py). Agents only: no session id, no gate (2026-11-19).
-# Contract: core/hooks/git/SPECS.md.
+# Agents only: no session id, no gate (2026-11-19). Contract: core/hooks/git/SPECS.md.
 import os
 import re
 import shlex
@@ -45,8 +39,7 @@ def repo_of(path) -> Path | None:
 
 
 def owned(repo) -> bool:
-    """Origin's GitHub owner is the profile's `github-owner`: a clone of someone else's repo, or a
-    paper on Overleaf, is never merged or pushed by a hook or a close."""
+    """Origin's owner is the profile's `github-owner`: someone else's clone, or Overleaf, is never merged or pushed."""
     match = re.search(r'github\.com[:/]([^/]+)/', out(repo, 'config', '--get', 'remote.origin.url'))
     owner = feature_law.setting('github-owner')
     return bool(match and owner) and match.group(1).lower() == owner.lower()
@@ -69,8 +62,7 @@ def holder(repo) -> tuple:
 
 
 def _hold(repo, session: str, branch: str) -> None:
-    lock_file(repo).write_text(f'{session}\t{branch}\t{Path(repo).resolve()}\n',
-                               encoding='utf-8', newline='\n')
+    lock_file(repo).write_text(f'{session}\t{branch}\t{Path(repo).resolve()}\n', encoding='utf-8', newline='\n')
 
 
 def rekey(src, dst) -> None:
@@ -150,22 +142,32 @@ def take(repo, session: str, name: str, multi: bool = False) -> tuple:
         if owner or head not in SHARED:
             return _not_yours(repo, session, owner, held, head), ''
         import dirt   # noqa: PLC0415 — dirt imports this module
-        if not dirt.owns(repo, session) and (refusal := _dirty(repo)):
+        if not dirt.owns(repo, session) and (refusal := _dirty(repo)) or (refusal := unwritable(repo)):
             return refusal, ''   # dirt only this session's shell left travels with its take
-        fetched = git(repo, 'fetch', '-q', 'origin').returncode == 0
+        fetch = git(repo, 'fetch', '-q', 'origin')
         if _exists(repo, branch):
             return (f'⛔ take — {branch} already exists in {_name(repo)} or its origin.\n'
                     f'   Pick another name, or resume it on Lucas\'s word: core/run tools/wos/claim {repo} {name}'), ''
-        if git(repo, 'switch', '-q', 'develop').returncode != 0 or \
-                (fetched and git(repo, 'merge', '-q', '--ff-only', 'origin/develop').returncode != 0):
-            return (f'⛔ BRANCH LOCK [diverged] — develop in {_name(repo)} cannot fast-forward to origin.\n'
-                    '   It diverged; that is Lucas\'s to settle.'), ''
-        if git(repo, 'switch', '-q', '-c', branch).returncode != 0:
-            return f'⛔ BRANCH LOCK [branch] — could not create {branch} in {_name(repo)}.', ''
+        pull = [] if fetch.returncode else [('diverged', 'merge', '-q', '--ff-only', 'origin/develop')]
+        for code, *args in [('git', 'switch', '-q', 'develop'), *pull, ('branch', 'switch', '-q', '-c', branch)]:
+            if (done := git(repo, *args)).returncode:   # git's own words: a sandbox refusal once read as divergence
+                return (f'⛔ BRANCH LOCK [{code}] — git {shlex.join(args)} failed in {_name(repo)}.'
+                        f'{" It diverged: Lucas settles that." if code == "diverged" else ""}\n'
+                        f'   {(done.stderr or done.stdout).strip()}'), ''
         _hold(repo, session, branch)
         dirt.owners(repo).unlink(missing_ok=True)
-    return '', (f'[Git] {_name(repo)} is yours on {branch}' + ('' if fetched else ' (offline: not pulled)')
-                + f'. The close merges it into develop. Session: {session}')
+    offline = f' (offline: not pulled — {(fetch.stderr.strip() or "fetch failed").splitlines()[0]})' if fetch.returncode else ''
+    return '', f'[Git] {_name(repo)} is yours on {branch}{offline}. The close merges it into develop. Session: {session}'
+
+
+def unwritable(repo) -> str:
+    """Why this process cannot write the repo's git dir, or ''. Tried, not asked: a sandbox does not show in mode bits."""
+    trial = Path(repo, out(repo, 'rev-parse', '--git-common-dir') or '.git', f'.wos-write-trial.{os.getpid()}')
+    try:
+        return trial.touch(exist_ok=False) or trial.unlink() or ''
+    except OSError as error:
+        return (f'⛔ BRANCH LOCK [readonly] — this session cannot write {trial.parent} ({error.strerror}); nothing taken.\n'
+                '   Its harness grants that, not the lock: SETUP-clone.md § Codex permissions, else tell Lucas.')
 
 
 def ignored(path, repo=None) -> bool:

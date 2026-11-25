@@ -89,8 +89,8 @@ def codex_gaps(level: str) -> str:
     """Represent the native boundary without changing the host's permission settings."""
     if level not in levels():
         raise ValueError(level)
-    return ('Codex: permission settings remain controlled by the host. The neutral profile does '
-            'not automatically change its sandbox or approvals; per-action patterns have no '
+    return ('Codex: approvals remain controlled by the host. Its sandbox is the versioned `wos` profile in '
+            '.codex/config.toml (writable root .git, network), whatever the level; per-action patterns have no '
             'complete native equivalent.')
 
 
