@@ -64,9 +64,50 @@ def test_a_document_that_moved_since_the_plan_is_refused(plan_state, monkeypatch
         wa.gate("sheets set", "id A1", [["x"]], [], revision=[["someone typed here"]])
 
 
-def test_a_write_token_without_a_gate_is_refused_before_it_loads(plan_state):
+@pytest.mark.parametrize("grant", sorted(wa.GATED))
+def test_a_write_token_without_a_gate_is_refused_before_it_loads(plan_state, grant):
     with pytest.raises(PermissionError, match="write_approval.gate"):
-        gauth.auth("personal", "sheets", write=True)
+        gauth.auth("personal", grant, write=True)
+
+
+def test_consenting_to_a_write_token_needs_no_plan(plan_state):
+    wa.consent()  # gcli.auth_command, for an `auth --write`: a dead write token must stay renewable
+    wa.consume("drive")
+
+
+def gdrive(monkeypatch, names: dict):
+    """The gdrive CLI with Drive's file metadata faked: no network, no token."""
+    from conftest import WORKSPACE_ROOT
+    from importlib.machinery import SourceFileLoader
+    from importlib.util import module_from_spec, spec_from_loader
+    loader = SourceFileLoader("gdrive_cli", str(WORKSPACE_ROOT / "core/tools/files/gdrive"))
+    cli = module_from_spec(spec_from_loader(loader.name, loader))
+    loader.exec_module(cli)
+    monkeypatch.setattr(gauth, "resolve_alias", lambda a: "personal")
+    monkeypatch.setattr(cli, "_meta", lambda alias, fid: {"id": fid, "name": names[fid], "modifiedTime": "t0"})
+    return cli
+
+
+def test_trashing_many_files_is_one_plan_that_names_each_of_them(plan_state, monkeypatch, capsys):
+    cli = gdrive(monkeypatch, {"a1": "Ata.pdf", "b2": "Notas"})
+    with pytest.raises(SystemExit) as stop:
+        cli.cmd_rm(None, ["a1", "b2"])
+    out = capsys.readouterr().out
+    assert stop.value.code == wa.AWAITING and out.count("CODE") == 1
+    assert "'Ata.pdf' (a1)" in out and "'Notas' (b2)" in out
+
+
+def test_a_local_file_edited_after_its_upload_plan_is_refused(plan_state, monkeypatch, capsys, tmp_path):
+    cli = gdrive(monkeypatch, {})
+    doc = tmp_path / "aula.md"
+    doc.write_text("v1", encoding="utf-8", newline="\n")
+    with pytest.raises(SystemExit):
+        cli.cmd_put(None, str(doc), "root", None, None)
+    code = json.loads((plan_state / "pending_write.json").read_text(encoding="utf-8"))["code"]
+    doc.write_text("v2", encoding="utf-8", newline="\n")
+    approve(plan_state, monkeypatch, code)
+    with pytest.raises(SystemExit, match="changed since"):
+        cli.cmd_put(None, str(doc), "root", None, None)
 
 
 def test_an_ungated_grant_still_writes_until_its_slice_lands(plan_state):

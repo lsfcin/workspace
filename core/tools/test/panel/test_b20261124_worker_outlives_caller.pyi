@@ -6,7 +6,7 @@ SCOPED: Incomplete
 WORKER: Incomplete
 
 @pytest.fixture
-def fake(tmp_path, monkeypatch) -> Generator[Incomplete]: ...
+def fake(tmp_path, monkeypatch) -> Generator[Incomplete, None, Incomplete]: ...
 
 escapes: Incomplete
 

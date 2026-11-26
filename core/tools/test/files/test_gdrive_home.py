@@ -24,13 +24,16 @@ def test_no_alias_resolves_to_the_first_account_and_a_named_one_still_wins(monke
     assert gauth.resolve_alias("rural") == "ufrpe"
 
 
-def test_put_without_account_goes_home_and_explicit_account_wins(monkeypatch) -> None:
+def test_put_without_account_goes_home_and_explicit_account_wins(monkeypatch, tmp_path) -> None:
     gdrive = load("core/tools/files/gdrive")
     monkeypatch.setattr(gdrive.gauth, "get_accounts", lambda: ACCOUNTS)
     seen = []
     monkeypatch.setattr(gdrive.drive_core, "get_service", lambda alias, write=False: seen.append(alias))
     monkeypatch.setattr(gdrive.drive_core, "upload_local", lambda *a, **k: {"name": "x", "id": "1"})
-    for argv in (["gdrive", "put", "x.pdf"], ["gdrive", "put", "--account", "ufrpe", "x.pdf"]):
+    monkeypatch.setattr(gdrive.write_approval, "gate", lambda *a, **k: None)  # the plan is test_write_approval's
+    pdf = tmp_path / "x.pdf"
+    pdf.write_bytes(b"%PDF")
+    for argv in (["gdrive", "put", str(pdf)], ["gdrive", "put", "--account", "ufrpe", str(pdf)]):
         monkeypatch.setattr(sys, "argv", argv)
         gdrive.main()
     assert seen == ["personal", "ufrpe"]

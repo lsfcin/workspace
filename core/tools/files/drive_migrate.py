@@ -15,8 +15,12 @@ Output:
 """
 
 import argparse
+import contextlib
+import io
 import json
 import time
+
+import write_approval  # on the path gauth put there
 
 from drive_migrate_core import (
     CIN_DISCIPLINAS_ID,
@@ -91,11 +95,33 @@ def migrate_recursive(cin_svc, personal_svc, cin_folder_id: str, personal_parent
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+def _flat(results: list, path: str = ""):
+    """The files a run would copy, as paths; one already copied (it has a personal_id) is skipped."""
+    for r in results:
+        if r.get("type") == "folder":
+            yield from _flat(r["children"], f"{path}{r['name']}/")
+        elif "personal_id" not in r:
+            yield f"{path}{r['name']}"
+
+
 def run(dry_run: bool) -> None:
+    if not dry_run:
+        # The whole batch is one plan and one CODE (Lucas, 2026-11-26): the dry pass is the plan,
+        # and it needs no write token, since a dry find_or_create_folder never calls the service.
+        with contextlib.redirect_stdout(io.StringIO()):
+            planned = _run(None, dry_run=True)
+        lines = [f"+ copia da cin para personal:Academy/Teaching/{ws}/{f}"
+                 for ws, m in planned.items() for f in _flat(m["files"])]
+        write_approval.gate("drive migrate", "cin → personal", planned, lines)
+        print("Authenticating personal (write) — browser will open for first-time auth...")
+        _run(get_personal_service(), dry_run=False)
+        return
+    _run(None, dry_run=True)
+
+
+def _run(personal_svc, dry_run: bool) -> dict:
     print("Authenticating cin (read)...")
     cin_svc = get_cin_service()
-    print("Authenticating personal (write) — browser will open for first-time auth...")
-    personal_svc = get_personal_service()
 
     state = json.loads(STATE_FILE.read_text(encoding='utf-8')) if STATE_FILE.exists() else {}
 
@@ -135,6 +161,7 @@ def run(dry_run: bool) -> None:
     MAP_FILE.write_text(json.dumps(full_map, indent=2, ensure_ascii=False), encoding='utf-8', newline='\n')
     tag = "DRY RUN — " if dry_run else ""
     print(f"\n{tag}Done. Map saved to {MAP_FILE}")
+    return full_map
 
 
 if __name__ == "__main__":

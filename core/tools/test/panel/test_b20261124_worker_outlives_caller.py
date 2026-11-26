@@ -73,6 +73,8 @@ def fake(tmp_path, monkeypatch):
     os.mkfifo(fifo)
     reader = os.open(fifo, os.O_RDWR | os.O_NONBLOCK)
     monkeypatch.setattr(worker_guard, 'SLOTS', tmp_path / 'slots')
+    # The host's own free memory is not this test's subject: the floor has its own case below.
+    monkeypatch.setattr(worker_guard, 'memory', lambda: 10 ** 6)
     yield script, fifo, reader
     os.close(reader)
 
@@ -110,6 +112,7 @@ def test_a_caller_killed_outright_takes_the_whole_tree_with_it(fake, escape, sco
         sys.path.insert(0, {str(_TOOLS)!r})
         import workers
         workers.worker_guard.SLOTS = pathlib.Path({str(tmp_path / 'slots')!r})
+        workers.worker_guard.memory = lambda: 10 ** 6
         if not {scoped!r}:
             workers.worker_guard.contain = lambda *a: []
         workers.run({_cmd(script, fifo, 'hang', escape)!r}, timeout=300)

@@ -51,5 +51,8 @@ def auth_command(kind: str, alias: str, connect, reauth: bool = False) -> None:
         token.unlink()
         print(f"Removed stale token: {token}")
     print(f"Opening browser for OAuth — {kind} ({primary})...")
+    if kind.endswith("-write"):
+        import write_approval  # gauth put it on the path
+        write_approval.consent()
     connect(primary)
     print(f"Done. Token saved: {token}")

@@ -1,5 +1,5 @@
 # gdrive — Google Drive read+write CLI for workspace OS — commands: auth, recent, list, search, download, mkdir, put, copy, rename, perms, share, rm, sync
-import sys, pathlib, argparse
+import sys, pathlib, argparse, hashlib
 
 _HERE = pathlib.Path(__file__).resolve().parent
 # Boundaries sit beside the CLI; gauth is its own family, shared by every provider tool.
@@ -8,6 +8,7 @@ sys.path.insert(0, str(_HERE.parent))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
 sys.path.insert(0, str(_HERE.parents[1] / 'hooks'))
 import drive_core, drive_sync, gauth, gcli, short_name as short_name_tool
+import write_approval  # gauth put it on the path
 from platform_law import WORKSPACE_ROOT
 
 DOWNLOAD_DIR = WORKSPACE_ROOT / "Downloads/workspace-drive"
@@ -54,8 +55,15 @@ def cmd_download(account: str, file_id: str, export_as: str) -> None:
     path = drive_core.download_file(alias, file_id, DOWNLOAD_DIR, export_as=export_as)
     print(f"Saved: {path}")
 
+def _meta(alias: str, file_id: str) -> dict:
+    """What a plan names a file by, read on the read token: its name, and the time that moves when it changes."""
+    return drive_core.get_service(alias).files().get(fileId=file_id, fields="id,name,modifiedTime").execute()
+
+
 def cmd_mkdir(account: str, name: str, parent_id: str) -> None:
     alias = gauth.resolve_alias(account)
+    write_approval.gate("drive mkdir", f"{alias} {parent_id}", name,
+                        [f"+ pasta {name!r} em {parent_id} (se ainda não existir)"])
     svc = drive_core.get_service(alias, write=True)
     fid = drive_core.find_or_create_folder(svc, name, parent_id)
     print(f"Folder '{name}' ({alias})  id:{fid}")
@@ -65,19 +73,31 @@ CONVERT = {"gdoc": (drive_core.GDOC_MIME, "Google Doc"), "slides": (drive_core.G
 
 def cmd_put(account: str, path: str, parent_id: str, convert: str, name: str) -> None:
     alias = gauth.resolve_alias(account)
-    svc = drive_core.get_service(alias, write=True)
     mime, kind = CONVERT.get(convert, (None, "file"))
+    data = pathlib.Path(path).read_bytes()
+    shown = name or pathlib.Path(path).name
+    # The file's own hash is in the plan: a file edited after Lucas read the plan is refused.
+    write_approval.gate("drive put", f"{alias} {parent_id}",
+                        {"sha256": hashlib.sha256(data).hexdigest(), "name": shown, "convert": mime},
+                        [f"+ envia {path} ({len(data) // 1024} KB) como {kind} {shown!r} em {parent_id}"])
+    svc = drive_core.get_service(alias, write=True)
     res = drive_core.upload_local(svc, path, parent_id, convert_to=mime, name=name)
     print(f"Uploaded {kind} '{res['name']}' ({alias})  id:{res['id']}\n  {res.get('webViewLink', '')}")
 
 def cmd_copy(account: str, file_id: str, name: str, parent_id: str) -> None:
     alias = gauth.resolve_alias(account)
+    src = _meta(alias, file_id)
+    write_approval.gate("drive copy", f"{alias} {file_id}", {"name": name, "parent": parent_id},
+                        [f"+ copia {src['name']!r} ({file_id}) → {name!r} em {parent_id}"],
+                        revision=src["modifiedTime"])
     svc = drive_core.get_service(alias, write=True)
     res = drive_core.copy_file(svc, file_id, name, parent_id)
     print(f"Copied to '{name}' ({alias})  id:{res['id']}\n  {res.get('webViewLink', '')}")
 
 def cmd_rename(account: str, file_id: str, name: str) -> None:
     alias = gauth.resolve_alias(account)
+    old = _meta(alias, file_id)["name"]
+    write_approval.gate("drive rename", f"{alias} {file_id}", name, [f"{file_id}: {old!r} → {name!r}"], revision=old)
     res = drive_core.rename_file(drive_core.get_service(alias, write=True), file_id, name)
     print(f"Renamed to '{res['name']}' ({alias})  id:{res['id']}")
 
@@ -89,8 +109,14 @@ def cmd_perms(account: str, file_id: str) -> None:
 
 def cmd_share(account: str, file_id: str, email: str, role: str, short_name: str) -> None:
     alias = gauth.resolve_alias(account)
-    svc = drive_core.get_service(alias, write=True)
     kind = "anyone" if email == "anyone" else "user"
+    target = _meta(alias, file_id)["name"]
+    who = "⚠ PÚBLICO: qualquer pessoa com o link" if kind == "anyone" else email
+    # Today's permissions are the revision: a share someone changed since the plan is refused.
+    write_approval.gate("drive share", f"{alias} {file_id}", {"email": email, "role": role},
+                        [f"+ {who} vira {role} de {target!r} ({file_id})"],
+                        revision=drive_core.list_permissions(drive_core.get_service(alias), file_id))
+    svc = drive_core.get_service(alias, write=True)
     drive_core.grant_permission(svc, file_id, email, role=role, kind=kind)
     print(f"Shared {file_id} with {email} as {role} ({alias})")
     if short_name:
@@ -100,6 +126,11 @@ def cmd_share(account: str, file_id: str, email: str, role: str, short_name: str
 
 def cmd_rm(account: str, file_ids: list) -> None:
     alias = gauth.resolve_alias(account)
+    # Many ids, one plan and one CODE (Lucas, 2026-11-26): the plan lists every file it trashes.
+    metas = [_meta(alias, f) for f in file_ids]
+    write_approval.gate("drive rm", alias, file_ids,
+                        [f"- lixeira (30 dias): {m['name']!r} ({m['id']})" for m in metas],
+                        revision=[m["modifiedTime"] for m in metas])
     svc = drive_core.get_service(alias, write=True)
     for file_id in file_ids:
         res = drive_core.trash_file(svc, file_id)

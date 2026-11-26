@@ -15,7 +15,7 @@ AWAITING = 75          # EX_TEMPFAIL: the plan is printed and waits for Lucas
 TTL_S = 15 * 60        # a plan older than this is refused: long enough to read, short enough to rot
 # Grants whose write token gauth refuses without an approved plan. It grows one service per slice
 # until it holds every write grant; then the set, and this comment, are deleted.
-GATED = frozenset({"sheets"})
+GATED = frozenset({"sheets", "drive"})
 
 
 def take_code(argv: list) -> str:
@@ -103,6 +103,13 @@ def gate(action: str, target: str, payload, lines: list, revision="") -> None:
     if plan["turn"] and plan["turn"] == turn():
         _refuse("the plan was made in this same turn; Lucas has not answered it yet.")
     _approved = want
+
+
+def consent() -> None:
+    """`auth --write` loads the write token only to consent to it, and writes nothing: no plan to
+    approve. Without this a dead write token of a gated grant could never be renewed."""
+    global _consumed
+    _consumed = True
 
 
 def consume(grant: str) -> None:

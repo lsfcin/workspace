@@ -11,5 +11,5 @@
 | [`test_gauth.py`](test_gauth.py) | [`test_gauth.pyi`](test_gauth.pyi) | `accounts`, `consent` | T1 auth recovery: a dead Google token must hand Lucas a runnable fix, not a traceback. |
 | [`test_sheets.py`](test_sheets.py) | [`test_sheets.pyi`](test_sheets.pyi) | `rng` | T1 sheets: a cell addressed the way a person reads it must reach the API as that same cell, and a format spec must change only what it names. |
 | [`test_slides.py`](test_slides.py) | [`test_slides.pyi`](test_slides.pyi) | — | T1 slides: the geometry a deck reports must be the geometry the write path accepts. |
-| [`test_write_approval.py`](test_write_approval.py) | [`test_write_approval.pyi`](test_write_approval.pyi) | `plan_state`, `plan`, `approve` | T1 write approval: no write token loads unless Lucas approved, in a later turn, the exact plan it carries out. |
+| [`test_write_approval.py`](test_write_approval.py) | [`test_write_approval.pyi`](test_write_approval.pyi) | `plan_state`, `plan`, `approve`, `gdrive` | T1 write approval: no write token loads unless Lucas approved, in a later turn, the exact plan it carries out. |
 <!-- routing:end -->
