@@ -5,7 +5,11 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
-- **`panel/ask --debate` sai 0 sem veredito e joga fora o parcial**: deepseek pendurou 900 s, argon respondeu em 47 s e a resposta sumiu (24 Nov). Correção decidida em `29cf0fb0`. [src: agent 2026-11-24] `b20261124-debate-exit-zero`
+- **`panel/ask --debate` joga fora o parcial**: deepseek pendurou 900 s e a resposta de 47 s do argon sumiu (24 Nov). O exit já é 1 (`SystemExit` com texto); o 0 visto veio do pipe do chamador (26 Nov). [src: agent 2026-11-24] `b20261124-debate-exit-zero`
+
+- **O outbox é oferecido em vez de usado**: no /inbox, com o repo de outro, o agente disse "podemos encaminhar" sem chamar `wos/note` (25 Nov). Refinar `core/norms/improve.md`: anotar na hora, conferir pendente, seguir. [src: agent 2026-11-25]
+
+- **Codex gerenciado: os três workers do painel caem com `Failed to connect to user scope bus`** antes do veredito (25 Nov). Separar user bus inacessível de login e de modelo fora. [src: agent 2026-11-25]
 
 - **Codex aberto de dentro do Claude herda `CLAUDE_CODE_SESSION_ID`**; `lock.SESSION_ENV` lê esse antes do `CODEX_THREAD_ID` e o wrapper confunde as duas sessões (25 Nov). [src: agent 2026-11-25]
 
@@ -17,15 +21,15 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - `session/context` despeja as pastas `-tmp-describe-*`; `gforms.md` foge do padrão de nome das skills (25 Nov). [src: agent 2026-11-25]
 
-- **Missing roundup stats and cost messages after an apparent fix (Lucas, twice).** Only Claude Code has user-only Stop delivery (`close-report`). Reproduce by harness and surface to test the cause and verify visible delivery. [src: agent 2026-11-23]
+- **Roundup stats and cost messages missing after an apparent fix (Lucas, twice).** Only Claude Code has user-only Stop delivery (`close-report`); reproduce per harness and verify delivery. [src: agent 2026-11-23]
 
 - **`context_synchronizer.py code` gravou `code/wos/CONTEXT.md`** no clone público. Pular os `WORKSPACE_MARKERS`, como `_under_code`. [src: agent 2026-11-23]
 
-- **Os workers do painel não leem a web.** Em 23/11, Codex (`Internal Error`) e argon (só `search_web`, sem rede) falharam ao buscar uma página pública. Declarar em `core/workers.txt` ou dar rede ao `panel/ask`. [src: agent 2026-11-23]
+- **Os workers do painel não leem a web**: Codex (`Internal Error`) e argon (sem rede) falharam numa página pública (23/11). Declarar em `core/workers.txt` ou dar rede. [src: agent 2026-11-23]
 
-- **O wrapper do git ainda deixa passar o Copilot.** E2e de 24/11 (`outputs/lock-facade/e2e.sh <harness>`): Codex, opencode e agy recusados; Copilot `-p` pula os hooks, pois a raiz não está em `trustedFolders` de `~/.copilot/config.json` (falta o OK de Lucas). Confirmar que o `session_id` do hook é o do shell (Codex, Copilot); `ancestors()` dá [] fora do Linux. [src: agent 2026-11-24] `b20261124-git-wrapper-harnesses`
+- **O wrapper do git deixa passar o Copilot** (e2e 24/11, `outputs/lock-facade/e2e.sh`): `-p` pula os hooks sem a raiz em `trustedFolders` (falta o OK de Lucas). Conferir o `session_id` do hook (Codex, Copilot); `ancestors()` dá [] fora do Linux. [src: agent 2026-11-24] `b20261124-git-wrapper-harnesses`
 
-- **Três harnesses sem chamada headless.** ZCode CLI 0.16.3 (`zcode.cjs --prompt`): `Model config is missing`, `~/.zcode/cli/config.json` só tem hooks. pi: `pi -p` → 402 do ollama cloud; trocar para OpenRouter. DeepSeek: só há `.exe` de Windows (20 e 24 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
+- **Três harnesses sem chamada headless.** ZCode 0.16.3 `--prompt`: `Model config is missing` (config só tem hooks). `pi -p`: 402 do ollama cloud; trocar para OpenRouter. DeepSeek: só `.exe` de Windows (20, 24 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
 
 - **`panel/ask --list` dá `live ok` a um worker que não responde**: o deepseek (opencode) aceitou a chamada e não disse nem "ok" em 100 s (24 Nov). [src: agent 2026-11-24] `b20261124-deepseek-hangs`
 
@@ -35,7 +39,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`core/harnesses.txt` não tem copilot**, mas existem `core/hooks/copilot/` e um teste de shim dele. Ou ganha linha (com o diretório de skills que tiver) ou a ausência fica escrita (20 Nov). [src: agent 2026-11-20] `b20261120-harnesses-no-copilot`
 
-- **Três ferramentas falharam no censo do docs-ufrpe.** (1) `web/fetch` sem `--cacert`; os sites da UFRPE não mandam o intermediário (RNP ICPEdu GR46 2025; PRPG: RNP ICPEdu OV SSL CA 2019): levar o bundle de `verificar.py`. (2) `mail/gmail`: só não lidos, máx. 50, sem busca; `attachments --id` só lê o cache; faltam `search <query>` paginado e `attachments` por id ([academic-evidence-tools]). (3) O censo de páginas virou rascunho: vira ferramenta? (19 Nov, INBOX). (4) UFRPE segura UA de curl (502 em 90 s) e responde em 0,6 s a um de navegador: mandar UA de navegador e achar o intermediário pela AIA (21 Nov). [src: agent 2026-11-19] `b20261119-census-tool-gaps`
+- **Censo do docs-ufrpe.** (1) `web/fetch`: a UFRPE não manda o intermediário (RNP ICPEdu); levar o bundle de `verificar.py` ou achar pela AIA; segura UA de curl (502 em 90 s), atende navegador em 0,6 s (21 Nov). (2) `mail/gmail` sem busca nem anexo por id: ver `b20261024-mail-search-attachments`. (3) O censo de páginas vira ferramenta? (19 Nov). [src: agent 2026-11-19] `b20261119-census-tool-gaps`
 
 - **`checks/web-retry.py` só escuta o Claude Code.** Só `.claude/settings.json` registra `PostToolUseFailure`; conferir se os shims de Codex, Copilot, OpenCode e Antigravity entregam a saída no `post` (21 Nov). [src: agent 2026-11-21] `b20261121-web-retry-shims`
 
@@ -95,7 +99,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Proposta "aguardando OK" atravessa a sessão só como resumo**; o handoff devia apontar para o arquivo com o texto exato (17 Nov). `b20261117-handoff-proposal-text`
 
-- **Lote docs-ufrpe (11 Nov), o que ficou.** (a) gêmeo de PDF com frontmatter mostra "← add first-line comment"; .docx sem gêmeo igual. (b) tachado de norma revogada dispara "finished work" (4 casos em normas/ e orientacoes/, 24 Nov): pular o corpo de documento de arquivo. (c) a lei de segredos marca o CNPJ público da UFRPE. (e) `docling` >10 min por PDF onde `pymupdf` resolve. (h) `academy/cv/comprovantes/2026/CONTEXT.md` sem descrições. `b20261111-docs-ufrpe-lote`
+- **Lote docs-ufrpe (11 Nov).** (a) gêmeo de PDF com frontmatter, e .docx sem gêmeo, pedem "first-line comment". (b) tachado de norma revogada dispara "finished work" (24 Nov): pular corpo de documento de arquivo. (c) a lei de segredos marca o CNPJ público da UFRPE. (e) `docling` >10 min onde `pymupdf` resolve. (h) `academy/cv/comprovantes/2026/CONTEXT.md` sem descrições. `b20261111-docs-ufrpe-lote`
 
 - **Edição de cronograma colide com nota dada no site**: editar `disciplina.md` atrás do painel faz o `publish` recusar (13 Nov). Trazer o painel antes, ou mesclar por linha de aluno. `b20261113-cfpages-pull-colisao`
 
@@ -109,7 +113,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **gslides lint marca "off the slide" em placeholders herdados do layout** que renderizam no lugar (techedu 111, ai4good 62 achados, 16 Nov). `b20261116-gslides-lint-placeholder`
 
-- Recheck the 2-Nov Codex parity audit (policy.py stdin, partial reads, permissions, Caveman, bot, Google grants, jscpd). Evidence: outputs/codex-audit-20261102/. `b20261102-codex-parity`
+- Recheck the 2-Nov Codex parity audit (outputs/codex-audit-20261102/). `b20261102-codex-parity`
 
 - **cfpages secrets --push configures production only**: preview lacks GITHUB_TOKEN/ENIGMA_SECRET, and segredos.env understates the token's scope (4 Nov). `b20261104-cfpages-preview-secrets`
 
@@ -137,9 +141,9 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - UNGATED WRITE misattributes paths after `cd`, and reads a literal `$S/file` as a path (16 Oct, 3 Nov). `b20261017-ungated-write-cwd`
 
-- Video: five empty galleries counted as "38 ok / 0 failed" (17 Nov); lost partials (16 Nov), omitted slides and 150 px thumbnails (30 Oct). Recover and check all five decks before routing. Diagnose empty/error/partial output; save per-link results for resumption. Test empty, error, partial, full and batch counts. Require end-to-end proof before unpinning. [src: Lucas 2026-11-19] `b20261017-video-batch-results`
+- Video: five empty galleries counted as "38 ok / 0 failed" (17 Nov); lost partials (16 Nov), omitted slides and 150 px thumbnails (30 Oct). 25 Nov: three `--level full` batches said ok with no visual layer (`agy not logged in`, claude fallback); a read-only cookie jar (Errno 30) failed unnamed links; evidence `outputs/inbox-{teaching,projects}-20261125/`. A missing layer is a failure, not ok. Save per-link results; test empty, error, partial, full, batch. [src: Lucas 2026-11-19] `b20261017-video-batch-results`
 
-- **Brain stats staging**: refreshed goal files were left unstaged (14–24 Oct). Still MM after a goal commit inside brain: index old stats, HEAD and disk new (5961a25, 25 Nov). `b20261014-brain-stats-staging`
+- **Brain stats staging**: refreshed goal files left unstaged (14–24 Oct); index old, HEAD and disk new (5961a25, eeba4ab, 25 Nov). `b20261014-brain-stats-staging`
 
 - **PDF conversions overrun; low-confidence pages inflate audit references (25 Sep–9 Oct).** `b20261014-pdf-conversion-audit`
 
@@ -199,7 +203,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - The other machine's scoreboard keeps the pre-rename keys inbox-nudge/compass-nudge/publish-nudge (20 Sep). `b20260920-scoreboard-keys`
 
-- Nested repos' ISSUES.md still carry the entropy block their pre-commit used to write; strip each, then drop `*/ISSUES.md` from core/hooks/generated.txt (20 Sep; 19 Nov). The dashboard CONTEXT says roundup rewrites that block, but it only writes outputs/state/entropy-<repo>.md (docs-ufrpe, 24 Nov). `b20260920-quiet-repo-entropy`
+- Nested repos' ISSUES.md still carry the old entropy block; strip each, then drop `*/ISSUES.md` from core/hooks/generated.txt (20 Sep; 19 Nov). Roundup writes only outputs/state/entropy-<repo>.md, not the block its CONTEXT claims (24 Nov). `b20260920-quiet-repo-entropy`
 
 - Safe-to-delete branch lists in the entropy report age during a session; recheck ancestry at deletion (14 Sep). `b20260914-branch-list-snapshot`
 

@@ -140,14 +140,6 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 *What* — Compare Claude Slides/design with gslides/slides_build. *Why* — Lucas requested repo-to-deck assessment (27 Sep). *Done when* — Useful differences and verdict are in tools/slides/SPECS.md.
 
 
-**🟢 Harness runner patterns**
-*What* — Assess DeepSeek Harness/Cordis/bubblewrap, Kilo specialized modes and Cline against our runner/flows. *Why* — Lucas requested modular patterns (27 Sep). *Done when* — refs/REFS.md records transfer or rejection. [jcode] Verify source/licence; compare task, memory and model cost; no auto-memory adoption.
-
-
-**🟢 Systematic role prompting**
-*What* — Compare explicit roles versus none on three tasks. *Why* — Lucas questioned role consistency (27 Sep). *Done when* — Quality/token costs and task adherence are measured.
-
-
 **🟢 Full-PDF review input**
 *What* — Require full PDF download/extraction before peer-review simulation in flows/research/review.md. *Why* — Abstract/HTML-only review misses tables, equations and appendices (Lucas, 26 Sep). *Done when* — Review reads the binary and extracted text.
 
@@ -188,8 +180,11 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 *What* — Verify sync-skills mirrors prof/slides subfolders. *Why* — Relative subskill links must work across harnesses (24 Sep). *Done when* — Every target resolves the mirrored children.
 
 
-**🟡 bounded orchestration through files**
-*What* — Bound files/briefs/reads/cost/checkpoints; resume roadmaps. Assess Canva/Virada search and AI4Good brainwriting first. [respan-gateway] Compare formats/tools, streaming, fallback/cost; hedging duplicates calls, not sessions. [infinity-runtime] Yielding, events, state/recovery, memory/concurrency; waiting is not inference. [harness2] Bound calls, held-out checks, judge bias/sandbox. [code-mode] Composition/filtering versus direct calls; no protocol adoption. [scaledown] Narrow-head cost/correctness, schema/meaning, generation/access. [omega-loop/advisor] Match planner/worker/check versus executor/advisor quality, retries, tokens/quota (Instagram; refs/REFS.md). [egm] Verify identity/licence; compare fresh plan review with craft [B1] defects/cost. [taiga-s1] Tiny executors, completion checks. *Why* — Lost progress. *Done when* — Budget/progress/ownership survive.
+**🟡 Write approval: the live proofs left** (2026-11-26)
+*What* — Live tests of slides, forms and `docs push` with its diff, Lucas approving each; `outputs/remote-edit-gate-plan.md` items (c) the hook refuses a chained `--approve` and (d) asks before quoting `~/.config/workspace-*-write`; whether the `Bash(*--approve *)` prompt shows in auto mode (asked twice, unanswered). Test leftovers in Google (`[teste] gate drive`, `[teste] gate docs`, sheet cell Z1) go only with Lucas's OK. *Why* — Sheets, drive and docs are proven; three services are not. *Done when* — Every service has one approved live write on record.
+
+**🟡 /inbox consumes the Brain handoff** (Lucas, 2026-11-25)
+*What* — `core/skills/inbox.md`: before picking a batch, run `core/run tools/wos/handoff --take brain` once per session and fold in its pending work; none pending is not a blocker; reuse it if already taken. Handoff taking is not `wos/take` branch ownership. Sync mirrors after. *Why* — The Brain handoff was skipped by hand. *Done when* — A fresh /inbox session takes it unprompted.
 
 
 **🟢 image twin: arquivo .md irmão com OCR + VLM para qualquer imagem isolada**

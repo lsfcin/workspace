@@ -20,6 +20,7 @@
 
 | File | Description |
 |------|-------------|
+| [`ROADMAP-workers.md`](ROADMAP-workers.md) | Workers Roadmap |
 | [`ROADMAP.md`](ROADMAP.md) | Core Library Roadmap |
 | [`SCHEMA-layers.md`](SCHEMA-layers.md) | The frontmatter every skill, agent, norm and flow declares, and how they compose. The document law — types, placement, cutting, vocabulary — is the index, [`SCHEMA.md`](SCHEMA.md); this part is the prompt-loaded half, because a `.md` a session reads and a frontmatter block a runtime parses are two different contracts. |
 | [`SCHEMA.md`](SCHEMA.md) | The law about `.md` documents: which types exist, where a file belongs, how one that outgrew the cap is cut, and which words are canonical. The **tables here are load-bearing** — [`schema_law.py`](hooks/schema_law.py) parses them and no checker restates them. Drift is a bug. |
