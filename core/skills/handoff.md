@@ -70,7 +70,8 @@ Print the block between the `---` markers:
  what belongs here is what a reader of those files would still not know.]
 
 ### Open threads
-[Discussed but unresolved — dead ends and what was tried. Omit the whole section if there are none.]
+[Discussed but unresolved — dead ends and what was tried. Omit the whole section if there are none.
+ An outward action Lucas approved here (deploy, remote delete) is done here: a file cannot carry consent, so auto mode refuses it next session (2026-11-25). Left for later, it reads "ask Lucas", never "authorized".]
 
 ### Decided without asking
 [One line each: the choice, and the option not taken. Only choices Lucas could reasonably have made
