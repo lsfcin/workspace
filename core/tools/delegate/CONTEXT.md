@@ -6,7 +6,9 @@
 <!-- routing:start -->
 ## Routing
 
-| File | Description |
-|------|-------------|
-| [`ask`](ask) | ask an outside panel (another vendor's model), falling to the next model when one gives no verdict |
+| File | API | Description |
+|------|-----|-------------|
+| [`ask`](ask) | — | hand a task to another vendor's model, falling to the next model when one gives no answer |
+| [`delegation.py`](delegation.py) | `is_contract`, `sections`, `parse`, `validate`, `bundle` | delegation.py — the delegation contract as text: read one, refuse what v0 cannot keep, build the worker's prompt from it, and read, flag and cut what came back. Pure: no call, no disk write. |
+| [`roles.txt`](roles.txt) | — | Every role a delegated worker can be given, and the pre-prompt that opens its prompt. Read by core/tools/delegate/ask. The pre-prompt is the stable head of every prompt, so a change here re-bills every provider's prefix cache once. A repeated failure becomes one line here only once it passes the logged cases (core/ROADMAP-workers.md § v2). role	pre |
 <!-- routing:end -->

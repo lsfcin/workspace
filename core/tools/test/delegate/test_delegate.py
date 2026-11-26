@@ -189,3 +189,47 @@ def test_every_log_line_carries_a_check_derived_from_its_status_and_old_lines_st
     workers.record(workers.Result('a', 'm', 'ok', 'free text', 1.0), check='bad-format')
     assert [l.split('\t')[7] for l in log.read_text(encoding='utf-8').splitlines()[-2:]] == ['empty', 'bad-format']
     assert workers.cooling('a', '2026-11-20T10:05') == ''
+
+
+CONTRACT = '---\ngoal: say whether the plan holds\nwork: review\nrole: critic\nread_paths: [{path}]\nreturn: answer\n---\n## Context\nA plan.\n'
+FORMATTED = ('status: ok\n## Answer\n' + 'It holds. ' * 1000 + '\n## Assumptions\n- the tests pass\n'
+             '## Unverified\nnone\n## Left untouched\nnone\n')
+
+
+def _judging(answer):
+    """A fake workers.call that, like the real one, runs the judge on an ok answer."""
+    seen = []
+
+    def call(worker, prompt, role='-', judge=None):
+        seen.append((worker, role, prompt, judge(answer) if judge else ''))
+        return workers.Result(worker, 'm', 'ok', answer, 0.1)
+    call.seen = seen
+    return call
+
+
+def test_a_contract_goes_to_the_worker_framed_and_comes_back_cut_with_the_full_answer_kept(tmp_path, monkeypatch):
+    (tmp_path / 'plan.md').write_text('step one', encoding='utf-8', newline='\n')
+    caller, out = _judging(FORMATTED), tmp_path / 'full.md'
+    who, text, full = _tool().delegated(CONTRACT.format(path='plan.md'), _rows(('argon', 'google')), str(out), caller, tmp_path)
+    worker, role, prompt, check = caller.seen[0]
+    assert (worker, role, check) == ('argon', 'critic', '-')
+    assert prompt.startswith(_tool().ROLES['critic']) and '### plan.md\nstep one' in prompt
+    assert full == out and out.read_text(encoding='utf-8') == FORMATTED + '\n'
+    assert 'review needed' in text and '- the tests pass' in text and str(out) in text and len(text) < len(FORMATTED)
+
+
+def test_a_free_text_answer_to_a_contract_is_logged_bad_format(tmp_path, monkeypatch):
+    (tmp_path / 'plan.md').write_text('x', encoding='utf-8', newline='\n')
+    caller = _judging('Looks fine to me. ' * 40)
+    _, text, _ = _tool().delegated(CONTRACT.format(path='plan.md'), _rows(('argon', 'google')), str(tmp_path / 'o.md'), caller, tmp_path)
+    assert caller.seen[0][3] == 'bad-format' and 'check bad-format' in text
+
+
+def test_context_over_budget_goes_only_to_a_worker_that_reads_files_else_blocked(tmp_path, monkeypatch):
+    (tmp_path / 'big.md').write_text('x' * 20000, encoding='utf-8', newline='\n')
+    rows = [{'worker': 'ollama', 'vendor': 'meta', 'tools': 'text'}, {'worker': 'codex', 'vendor': 'openai', 'tools': 'tools'}]
+    caller = _judging(FORMATTED)
+    _tool().delegated(CONTRACT.format(path='big.md'), rows, str(tmp_path / 'o.md'), caller, tmp_path)
+    assert [s[0] for s in caller.seen] == ['codex'] and 'big.md' in caller.seen[0][2] and 'x' * 100 not in caller.seen[0][2]
+    with pytest.raises(SystemExit, match='status: blocked'):
+        _tool().delegated(CONTRACT.format(path='big.md'), rows[:1], str(tmp_path / 'o.md'), caller, tmp_path)

@@ -1,36 +1,48 @@
-# Usage: core/run tools/delegate/ask [--out FILE] [--only NAME] [--role ROLE | --debate] PROMPT_FILE|- | --list | --check — ask an outside panel (another vendor's model), falling to the next model when one gives no verdict
+# Usage: core/run tools/delegate/ask [--out FILE] [--only NAME] [--role ROLE | --debate] CONTRACT|PROMPT_FILE|- | --list | --check — hand a task to another vendor's model, falling to the next model when one gives no answer
 #
 # WHY THIS EXISTS: AGENTS.md puts an outside panel's verdict next to every option Lucas decides,
 # and each session rebuilt the call by hand (2026-11-04: three manual tries before the first
 # verdict). Who is in the chain, and in which order, is core/workers.txt; the call itself is
 # core/tools/workers.py, shared with describe.py.
 #
-# WHY READ-ONLY: a panel comments, it never edits. The spawner writes files from the answer.
+# A CONTRACT OR A PROMPT. A file that opens with a YAML frontmatter is a delegation contract
+# (delegation.py): validated, its read_paths bundled, the answer read for its status and three lists,
+# kept whole on disk and printed cut. Anything else is a bare prompt, the outside verdict of old.
+#
+# WHY READ-ONLY: v0 answers, it never edits. The spawner writes files from the answer.
 #
 # WHY EVERY MISS FALLS THROUGH: a spent quota and a broken call both gave no verdict, and the next
 # model's verdict is worth more than a stop. Each miss is printed with its class, so a broken call
 # is never mistaken for a spent quota.
 #
 # WHY A DEBATE NEEDS THREE VENDORS: two models of one vendor are one voice (argon and flash are
-# both google). --debate gives advocate, opponent and mediator to three distinct vendors or stops.
+# both google). --debate gives advocate, opponent and mediator to three distinct vendors.
 import argparse
 import datetime
+import functools
+import importlib.machinery
+import importlib.util
 import pathlib
 import sys
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))
+sys.path.insert(0, str(HERE))
+import delegation  # noqa: E402
 import tool_law  # noqa: E402
 import workers  # noqa: E402
 
 tool_law.require('delegate')
 
-ROLES = {
-    'advocate': 'Argue FOR the proposal below as strongly as the evidence allows; name its best case.',
-    'opponent': 'Argue AGAINST the proposal below: the strongest objections, risks and failure cases.',
-    'mediator': 'Two experts argued opposite sides below. Weigh both, say who is right on each point, '
-                'and give one verdict with its biggest remaining risk.',
-    'summarizer': 'Summarize the material below for a decision-maker: what is settled, what is open.',
-}
+ROLES = {r['role']: r['pre'] for r in workers.table(HERE / 'roles.txt')}
+
+
+def works() -> set:
+    """The kinds of work core/levels.txt declares, through its one reader, core/tools/wos/levels."""
+    loader = importlib.machinery.SourceFileLoader('wos_levels', str(HERE.parent / 'wos' / 'levels'))
+    module = importlib.util.module_from_spec(importlib.util.spec_from_loader('wos_levels', loader))
+    loader.exec_module(module)
+    return set(module.declared())
 
 
 def framed(prompt: str, role: str) -> str:
@@ -47,13 +59,13 @@ def ask(prompt: str, rows=None, caller=workers.call, role: str = '-', skip_vendo
         if r.status == 'ok':
             return r, row, misses
         misses.append(f'{r.worker}: {r.status}: {r.text[-160:]}')
-    raise SystemExit('panel: no model answered\n  ' + '\n  '.join(misses))
+    raise SystemExit('delegate: no model answered\n  ' + '\n  '.join(misses))
 
 
 def debate(prompt: str, rows=None, caller=workers.call):
-    """Advocate, opponent and mediator, each from a vendor the others are not."""
-    """A role nobody filled is named, never fatal: the answers already paid for are kept (2026-11-24,
-    a hung deepseek cost the whole debate). Only a debate with no answer at all stops."""
+    """Advocate, opponent and mediator, each from a vendor the others are not. A role nobody filled
+    is named, never fatal: the answers already paid for are kept (2026-11-24, a hung deepseek cost
+    the whole debate). Only a debate with no answer at all stops."""
     used, parts, missing = [], [], []
     for role in ('advocate', 'opponent', 'mediator'):
         text = prompt if role != 'mediator' else '\n\n'.join(parts) + f'\n\n## The proposal\n{prompt}'
@@ -66,8 +78,34 @@ def debate(prompt: str, rows=None, caller=workers.call):
         used.append(row['vendor'])
         parts.append(f'## {role} ({r.worker} {r.model})\n{r.text}')
     if not used:
-        raise SystemExit('panel: no model answered the debate\n' + '\n'.join(parts))
+        raise SystemExit('delegate: no model answered the debate\n' + '\n'.join(parts))
     return f'debate: {", ".join(used)}' + (f' (missing: {", ".join(missing)})' if missing else ''), '\n\n'.join(parts) + '\n'
+
+
+def delegated(text: str, rows=None, out: str = '', caller=workers.call, root=workers.ROOT) -> tuple:
+    """A contract run: (who, the cut answer to print, the path holding the full one). read_paths
+    are relative to `root`, the workspace."""
+    c = delegation.parse(text)
+    delegation.validate(c, works(), set(ROLES))
+    inline, by_path = delegation.bundle(c['read_paths'], root)
+    rows = rows if rows is not None else workers.chain()
+    if by_path:  # a file over the inline budget is opened by the worker itself, so only one that can
+        rows = [r for r in rows if r.get('tools') == 'tools']
+        if not rows:
+            raise SystemExit(f'status: blocked — {", ".join(by_path)} over the inline budget and no '
+                             'file-reading worker left in the chain; inline less, or name one with --only')
+    judged = functools.partial(caller, judge=lambda t: delegation.read(t)['check'])
+    r, _, misses = ask(delegation.prompt(c, inline, by_path), rows, judged, c['role'])
+    for m in misses:
+        print(f'delegate: skipped {m}', file=sys.stderr)
+    seen = delegation.read(r.text)
+    stamp = datetime.datetime.now()
+    full = pathlib.Path(out) if out else workers.ROOT / 'outputs' / 'delegate' / f'{stamp:%Y%m%d-%H%M%S}-{r.worker}.md'
+    full.parent.mkdir(parents=True, exist_ok=True)
+    full.write_text(r.text + '\n', encoding='utf-8', newline='\n')
+    head = (f'<!-- delegate: {r.worker} {r.model} · {stamp:%Y-%m-%d %H:%M} · check {seen["check"]}'
+            f' · review {"needed" if seen["review"] else "no"} -->\n')
+    return f'{r.worker} {r.model}', head + delegation.cut(r.text, full=str(full)) + '\n', full
 
 
 def listing() -> int:
@@ -99,8 +137,8 @@ def check() -> int:
 
 def main() -> int:
     names = [r['worker'] for r in workers.catalog()]
-    p = argparse.ArgumentParser(description='Ask an outside panel; the next model when one gives no verdict.')
-    p.add_argument('prompt', nargs='?', help='prompt file, or - for stdin')
+    p = argparse.ArgumentParser(description='Hand a task to another vendor; the next model when one gives no answer.')
+    p.add_argument('prompt', nargs='?', help='a contract (YAML frontmatter) or a prompt file, or - for stdin')
     p.add_argument('--out', help='write the answer here, headed by who answered and when')
     p.add_argument('--only', choices=names, help='ask this worker alone, in the chain or not')
     p.add_argument('--role', choices=sorted(ROLES), default='-')
@@ -113,20 +151,28 @@ def main() -> int:
     if a.check:
         return check()
     if not a.prompt:
-        p.error('a prompt file, or - for stdin')
+        p.error('a contract or a prompt file, or - for stdin')
     prompt = sys.stdin.read() if a.prompt == '-' else pathlib.Path(a.prompt).read_text(encoding='utf-8')
     rows = [r for r in workers.catalog() if r['worker'] == a.only] if a.only else None
+    if delegation.is_contract(prompt):
+        try:
+            who, text, full = delegated(prompt, rows, a.out)
+        except ValueError as bad:
+            raise SystemExit(str(bad))
+        sys.stdout.write(text)
+        print(f'delegate: {who} answered → {full}', file=sys.stderr)
+        return 0
     if a.debate:
         who, answer = debate(prompt, rows)
     else:
         r, _, misses = ask(prompt, rows, role=a.role)
         for m in misses:
-            print(f'panel: skipped {m}', file=sys.stderr)
+            print(f'delegate: skipped {m}', file=sys.stderr)
         who, answer = f'{r.worker} {r.model}', r.text + '\n'
-    text = f"<!-- panel: {who} · {datetime.datetime.now():%Y-%m-%d %H:%M} -->\n{answer}"
+    text = f"<!-- delegate: {who} · {datetime.datetime.now():%Y-%m-%d %H:%M} -->\n{answer}"
     if a.out:
         pathlib.Path(a.out).write_text(text, encoding='utf-8', newline='\n')
-        print(f'panel: {who} answered → {a.out}', file=sys.stderr)
+        print(f'delegate: {who} answered → {a.out}', file=sys.stderr)
     else:
         sys.stdout.write(text)
     return 0

@@ -167,7 +167,7 @@ ADAPTERS = {'codex': _codex, 'opencode': _opencode,
             'ollama': lambda exe, model, prompt, cwd, timeout: run([exe, 'run', model, prompt], cwd=cwd, timeout=timeout)}
 
 
-def call(worker: str, prompt: str, role: str = '-', cwd: str | None = None) -> Result:
+def call(worker: str, prompt: str, role: str = '-', cwd: str | None = None, judge=None) -> Result:  # judge(text) -> check
     row = next(r for r in catalog() if r['worker'] == worker)
     model = row['id']
     start = time.monotonic()
@@ -179,7 +179,7 @@ def call(worker: str, prompt: str, role: str = '-', cwd: str | None = None) -> R
     else:
         code, text = ADAPTERS[row['harness']](exe, model, prompt, cwd or str(ROOT), deadline(worker))
     result = Result(worker, model, classify(code, text), text.strip(), round(time.monotonic() - start, 1))
-    record(result, role)
+    record(result, role, judge(result.text) if judge and result.status == 'ok' else '')
     return result
 
 
