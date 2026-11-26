@@ -45,7 +45,7 @@ Three readings, and the third is the one that decides anything:
 | Run | Route | Result | Seconds | ΔC_orch | Leak |
 |-----|-------|--------|--------:|--------:|------|
 | 1 | glm → sol | blocked: the copy lacked untracked modules (fixed in `sandbox.make`) | 1,702 | 108 | no |
-| 2 | sol | ok on try 1, 9 tests, suite green | 189 | 165 | no |
+| 2 | sol | ok on try 1, 9 tests, suite green | 189 | 165 | partial: 12 grep lines, to fix line endings the contract's checks missed (the encoding ceiling belongs in every code contract's checks) |
 
 n = 1 task: no saving is claimed yet. The A/B (same task alone, clean session) is owed; the orchestrator's own session was already at ~150k from building the mode, which is the case for delegating from the start.
 
