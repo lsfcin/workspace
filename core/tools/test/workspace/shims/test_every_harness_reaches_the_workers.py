@@ -1,6 +1,6 @@
 # Every harness in core/harnesses.txt reaches the outside workers, even one installed off PATH.
 #
-# From the bare environment a shim hands a tool, `panel/ask` starts, and a worker installed only
+# From the bare environment a shim hands a tool, `delegate/ask` starts, and a worker installed only
 # where its vendor's app puts it is still found. 2026-11-20: sessions reported codex missing while it sat off PATH inside the ChatGPT
 # app; the fallback that finds it is workers.PLACES, and this is what fails if it goes.
 import os
@@ -21,7 +21,7 @@ BARE_PATH = '/usr/bin:/bin'
 def test_panel_starts_from_a_shim_environment(harness):
     env = {'PATH': BARE_PATH, 'HOME': os.environ.get('HOME', '/tmp'),
            f'{harness.upper()}_PROJECT_DIR': str(WORKSPACE_ROOT)}
-    done = subprocess.run([str(WORKSPACE_ROOT / 'core/run'), 'tools/panel/ask', '--help'], env=env,
+    done = subprocess.run([str(WORKSPACE_ROOT / 'core/run'), 'tools/delegate/ask', '--help'], env=env,
                           cwd=str(WORKSPACE_ROOT), capture_output=True, text=True, encoding='utf-8')
     assert done.returncode == 0, done.stderr
     assert '--only' in done.stdout

@@ -1,7 +1,7 @@
 # Agents — Specs
 > How a worker runs on another harness, and the traps each call has.
 
-**A worker can run on another harness, from any harness, through bash: prompt in, one file out, read-only.** An outside panel is one call, `core/run tools/panel/ask --out <file> <prompt>`, which walks the chain declared in [`core/workers.txt`](../workers.txt) and skips a model that gave no verdict; `--list` shows every worker with its live check and call stats. Each worker's id is its row's `id` there; what its model can do is [`core/models.txt`](../models.txt). The spawner writes files from the output, never the worker. One row below per harness in `core/workers.txt`, held by a test.
+**A worker can run on another harness, from any harness, through bash: prompt in, one file out, read-only.** An outside panel is one call, `core/run tools/delegate/ask --out <file> <prompt>`, which walks the chain declared in [`core/workers.txt`](../workers.txt) and skips a model that gave no verdict; `--list` shows every worker with its live check and call stats. Each worker's id is its row's `id` there; what its model can do is [`core/models.txt`](../models.txt). The spawner writes files from the output, never the worker. One row below per harness in `core/workers.txt`, held by a test.
 
 | Harness | Call (verified 2026-10-19 unless dated) | Traps |
 |---|---|---|

@@ -2,7 +2,7 @@
 #
 # What the model itself is good and bad at, and its vendor, is core/models.txt, joined by `model`.
 # id: pinned, not an alias — codex, agy and opencode take no level alias, so a retired id is a
-#   failed call that `core/run tools/panel/ask --check` names, never a silent substitution.
+#   failed call that `core/run tools/delegate/ask --check` names, never a silent substitution.
 #   A claude-harness row is the exception: its id is core/tools/wos/levels CLAUDE[level], and a test holds them equal.
 # job: critic-high | critic-fast | coder | vision | describe. A route holds 1-4 rows, never two
 #   for one job (Lucas, 2026-11-23). agy splits its quota in buckets — Gemini Pro-class, Flash,

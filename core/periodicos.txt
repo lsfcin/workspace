@@ -6,4 +6,4 @@
 # days 0: a zero-token check with no date of its own, run at every close.
 tree	command	days
 code/docs-ufrpe	.github/scripts/vigiar.py --se-passaram {days}	30
-core	./run tools/panel/ask --check	0
+core	./run tools/delegate/ask --check	0

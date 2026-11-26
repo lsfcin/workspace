@@ -1,4 +1,4 @@
-# Usage: core/run tools/panel/ask [--out FILE] [--only NAME] [--role ROLE | --debate] PROMPT_FILE|- | --list | --check — ask an outside panel (another vendor's model), falling to the next model when one gives no verdict
+# Usage: core/run tools/delegate/ask [--out FILE] [--only NAME] [--role ROLE | --debate] PROMPT_FILE|- | --list | --check — ask an outside panel (another vendor's model), falling to the next model when one gives no verdict
 #
 # WHY THIS EXISTS: AGENTS.md puts an outside panel's verdict next to every option Lucas decides,
 # and each session rebuilt the call by hand (2026-11-04: three manual tries before the first
@@ -22,7 +22,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 import tool_law  # noqa: E402
 import workers  # noqa: E402
 
-tool_law.require('panel')
+tool_law.require('delegate')
 
 ROLES = {
     'advocate': 'Argue FOR the proposal below as strongly as the evidence allows; name its best case.',

@@ -5,7 +5,6 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
-- **`panel/ask --debate` joga fora o parcial**: deepseek pendurou 900 s e a resposta de 47 s do argon sumiu (24 Nov). O exit já é 1 (`SystemExit` com texto); o 0 visto veio do pipe do chamador (26 Nov). [src: agent 2026-11-24] `b20261124-debate-exit-zero`
 
 - **O outbox é oferecido em vez de usado**: no /inbox, com o repo de outro, o agente disse "podemos encaminhar" sem chamar `wos/note` (25 Nov). Refinar `core/norms/improve.md`: anotar na hora, conferir pendente, seguir. [src: agent 2026-11-25]
 
@@ -31,7 +30,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Três harnesses sem chamada headless.** ZCode 0.16.3 `--prompt`: `Model config is missing` (config só tem hooks). `pi -p`: 402 do ollama cloud; trocar para OpenRouter. DeepSeek: só `.exe` de Windows (20, 24 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
 
-- **`panel/ask --list` dá `live ok` a um worker que não responde**: o deepseek (opencode) aceitou a chamada e não disse nem "ok" em 100 s (24 Nov). [src: agent 2026-11-24] `b20261124-deepseek-hangs`
+- **`delegate/ask --list` dá `live ok` a um worker que não responde**: o deepseek (opencode) aceitou a chamada e não disse nem "ok" em 100 s (24 Nov). [src: agent 2026-11-24] `b20261124-deepseek-hangs`
 
 - **O pymupdf põe um dígito solto como título** (`# 0`, `# 8`) logo após `<!-- page N -->`, resto do brasão; 45 no docs-ufrpe, corrigidos à mão (24 Nov). [src: agent 2026-11-24] `b20261124-pdf-crest-title`
 
@@ -67,11 +66,11 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Tokens Google vencem um serviço por vez**, cada um pedindo navegador (3 vezes numa noite); `gslides preview` depende do token de drive (9 Nov). `b20261109-google-token-per-service`
 
-- **`panel/ask` só aceita caminho de arquivo**: texto dá traceback, não erro claro (9 Nov). `b20261109-panel-ask-text`
+- **`delegate/ask` só aceita caminho de arquivo**: texto dá traceback, não erro claro (9 Nov). `b20261109-panel-ask-text`
 
 - **`core/refs/REFS.md` está no teto de caracteres**: a fila de intake não tem espaço; promover os itens avaliados para `.yaml` (20 Nov). [src: agent 2026-11-20] `b20261120-refs-at-cap`
 
-- tools/panel/ask cannot attach images; PNG paths went in prose (17 Nov). Verify delivery, not acceptance of the path. `b20261117-panel-images`
+- tools/delegate/ask cannot attach images; PNG paths went in prose (17 Nov). Verify delivery, not acceptance of the path. `b20261117-panel-images`
 
 - tools/web/shoot serves only the page directory and reads a query string as a path; the docs-ufrpe viewer needs a parent root and ?doc= (17 Nov). `b20261117-shoot-root-query`
 

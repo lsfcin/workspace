@@ -1,4 +1,4 @@
-# T1 panel/ask: a spent quota or a broken call falls to the next model, the first verdict wins, none at all stops with every reason, and a debate never gives two roles to one vendor. Models faked.
+# T1 delegate/ask: a spent quota or a broken call falls to the next model, the first verdict wins, none at all stops with every reason, and a debate never gives two roles to one vendor. Models faked.
 import importlib.machinery
 import importlib.util
 import pathlib
@@ -25,7 +25,7 @@ def _admission_reads_no_machine(monkeypatch, tmp_path):
 
 
 def _tool():
-    path = _TOOLS / 'panel' / 'ask'
+    path = _TOOLS / 'delegate' / 'ask'
     loader = importlib.machinery.SourceFileLoader('panel_ask', str(path))
     module = importlib.util.module_from_spec(importlib.util.spec_from_loader('panel_ask', loader))
     loader.exec_module(module)

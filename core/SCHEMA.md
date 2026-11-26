@@ -133,6 +133,7 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | `gitflow_gate` | `lock.check` (core/hooks/git/lock.py) | 2026-11-19 |
 | `branch_marker` | `lock` (core/hooks/git/lock.py) | 2026-11-19 |
 | `SPECS-git.md` | `core/hooks/git/SPECS.md` | 2026-11-19 |
+| `panel/ask` | `delegate/ask` (core/tools/delegate/) | 2026-11-26 |
 | `loop-router` | `route` | 2026-07-23 |
 | `loop-architecture` | `architect` | 2026-07-23 |
 | `KNOWN-BUGS` | `ISSUES.md` | 2026-07-30 |
@@ -148,7 +149,7 @@ Written here 2026-09-18 because it was folklore in those four files and stated i
 | `ledger` | `list` | 2026-09-14 |
 | `seam` | `boundary` | 2026-09-14 |
 | `tier` | `level` | 2026-09-14 |
-| `slug` | `name` | 2026-09-14 | `core/tools/workers.py`, `core/tools/test/panel/test_panel.py`: codex's JSON key |
+| `slug` | `name` | 2026-09-14 | `core/tools/workers.py`, `core/tools/test/delegate/test_delegate.py`: codex's JSON key |
 | `probe` | `metadata` | 2026-09-14 |
 | `column cap` | `document cap` | 2026-09-14 |
 | `mail-triage` | `mail` | 2026-09-16 |

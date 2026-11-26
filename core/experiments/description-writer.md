@@ -7,7 +7,7 @@ One prompt, the same for every arm: the instruction below plus the body of four 
 
 > Escreva a linha `description` de cada documento. Formato: `Nome: resto.` — Nome até 40 caracteres; depois, para que serve e quem usa, numa frase. Sem inventar. Expanda sigla só se o texto a expandir. Responda só com 4 linhas `N. <description>`. *(plus three good descriptions already in the corpus as examples)*
 
-- outside workers: `core/run tools/panel/ask --only deepseek|flash|codex <prompt.md>`
+- outside workers: `core/run tools/delegate/ask --only deepseek|flash|codex <prompt.md>`
 - other codex models: `/usr/lib/chatgpt/resources/codex exec -s read-only -m <model> --ephemeral --skip-git-repo-check -o <out> "$(cat prompt.md)"`
 - Claude: the Agent tool with `model: sonnet|haiku` (`general-purpose`), told to read the prompt file and answer only.
 

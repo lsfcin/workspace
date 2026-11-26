@@ -1,6 +1,6 @@
 # workers.py — the one way a tool calls an outside worker (another harness's model): find it, call it, classify what came back, and log who answered.
 #
-# WHY ONE MODULE. panel/ask and describe.py each built their own vendor call — two ideas of where
+# WHY ONE MODULE. delegate/ask and describe.py each built their own vendor call — two ideas of where
 # a binary lives, of what a spent quota looks like, of what a timeout leaves running. Their drift
 # was found 2026-11-20 (describe's agy skipped the app-path fallback). core/tools/SPECS.md: a module
 # imported by more than one family lives at this root.
