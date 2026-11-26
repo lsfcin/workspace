@@ -1,4 +1,4 @@
-# delegation.py — the delegation contract as text: read one, refuse what v0 cannot keep, build the worker's prompt from it, and read, flag and cut what came back. Pure: no call, no disk write.
+# delegation.py — the delegation contract as text: read one, refuse what this version cannot keep, build the worker's prompt from it, and read, flag and cut what came back. Pure: no call, no disk write.
 #
 # WHY YAML FRONTMATTER. A `key: value` block broke the moment a check command held a colon (panel
 # argon, 2026-11-26, outputs/delegate-v0-contract-panel.md); a YAML frontmatter is parsed by a real
@@ -37,6 +37,12 @@ status: ok | blocked | split | fail
 ## Subtasks
 <only when split: one subtask per line, no deeper>
 Never rate your own confidence.'''
+WRITE = '''## Write
+Edit files in this directory, and only these (a path ending in / is a directory):
+{paths}
+These checks run after you, from this directory; make them pass, never edit what they run:
+{checks}
+Your ## Answer says what you changed and why, in a few lines; never paste the files.'''
 # Only the contract's own headings split a text: a worker's `## Finding 1` stays inside its Answer (argon, 2026-11-26).
 HEADINGS = ('Context', 'Last Failure', 'Answer', *LISTS, 'Questions', 'Subtasks')
 _SECTION = re.compile(r'(?m)^## (' + '|'.join(HEADINGS) + r')[ \t]*\r?$')
@@ -67,13 +73,14 @@ def parse(text: str) -> dict:
 
 
 def validate(c: dict, works: set, roles: set) -> None:
-    """ValueError naming the first thing a v0 run cannot keep: read-only, answer mode, ≤2 tries."""
+    """ValueError naming the first thing a run cannot keep: an answer reads, an artifact writes
+    only write_paths and is held to checks; ≤2 tries."""
     missing = [k for k in ('goal', 'work', 'role', 'return') if not c.get(k)]
-    n, of = c['attempt']
+    n, of, art = *c['attempt'], c.get('return') == 'artifact'
     problems = [f'missing {", ".join(missing)}' if missing else '',
-                'v0 runs return: answer only' if c.get('return') != 'answer' else '',
-                'v0 is read-only: write_paths must be empty' if c['write_paths'] else '',
-                'checks run from v1 (artifact, patch), never on an answer' if c['checks'] else '',
+                'return is answer or artifact (patch comes later)' if c.get('return') not in ('answer', 'artifact') else '',
+                'an answer is read-only: write_paths and checks must be empty' if not art and (c['write_paths'] or c['checks']) else '',
+                'an artifact needs write_paths and checks, written before delegating' if art and not (c['write_paths'] and c['checks']) else '',
                 f'work {c.get("work")!r} is not in core/levels.txt' if c.get('work') not in works else '',
                 f'role {c.get("role")!r} is not in core/tools/delegate/roles.txt' if c.get('role') not in roles else '',
                 f'attempt {n}/{of}: at most 2 tries, and n ≤ of' if not 1 <= n <= of <= 2 else '',
@@ -105,6 +112,7 @@ def prompt(c: dict, inline: str, by_path: list) -> str:
     task += [f'## {k}\n{s[k]}' for k in ('Context', 'Last Failure') if k in s]
     task += [f'## Files\n{inline}'] if inline else []
     task += [f'## Files to read yourself\n' + '\n'.join(by_path)] if by_path else []
+    task += [WRITE.format(paths='\n'.join(c['write_paths']), checks='\n'.join(c['checks']))] if c.get('return') == 'artifact' else []
     return f'{RETURN_FORMAT}\n\n' + '\n\n'.join(task) + '\n'
 
 
@@ -134,3 +142,16 @@ def cut(text: str, limit: int = RETURN_TOKENS, full: str = '') -> str:
     mark = f'\n[… cut — the full answer: {full}]\n'
     keep = max(0, room - (len(text) - (end - start)) - len(mark))
     return text[:start] + text[start:start + keep // 2] + mark + text[end - keep // 2:end] + text[end:]
+
+
+def outside(changed: list, write_paths: list) -> list:
+    """The changed paths no write_path covers: an exact path, or a directory prefix ending in /."""
+    return [p for p in changed if not any(p == w or (w.endswith('/') and p.startswith(w)) for w in write_paths)]
+
+
+def failure(out_of_scope: list, failed: list, changed: list, limit: int = 1200) -> str:
+    """The ## Last Failure a retry gets: what broke, from the wrapper's own evidence, bounded."""
+    lines = [] if changed else ['you changed no file']
+    lines += [f'you changed {p}, outside write_paths: revert it' for p in out_of_scope]
+    lines += [f'check failed (exit {code}): {cmd}\n{tail}' for cmd, code, tail in failed]
+    return '\n'.join(lines)[-limit:]

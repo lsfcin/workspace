@@ -40,6 +40,15 @@ Three readings, and the third is the one that decides anything:
   That is the measured case for why the narrow fix — a default subagent model in one settings file —
   was refused (Lucas, 2026-09-14): it is a real cut aimed at a rounding error.
 
+**Artifact mode, first runs** (2026-11-26, `core/state/delegations.tsv`, one contract: T1 tests for `produce.py`). ΔC_orch = report tokens entering the orchestrator's thread; leak = it read `write_paths` afterwards.
+
+| Run | Route | Result | Seconds | ΔC_orch | Leak |
+|-----|-------|--------|--------:|--------:|------|
+| 1 | glm → sol | blocked: the copy lacked untracked modules (fixed in `sandbox.make`) | 1,702 | 108 | no |
+| 2 | sol | ok on try 1, 9 tests, suite green | 189 | 165 | no |
+
+n = 1 task: no saving is claimed yet. The A/B (same task alone, clean session) is owed; the orchestrator's own session was already at ~150k from building the mode, which is the case for delegating from the start.
+
 ## What changed
 
 The false "nothing has ever been delegated" claim was cut from the wos list's agents item and replaced with a pointer here. The item was **not** closed on that number: a feature never given a deliberate trial is not the same as one tried and refused (Lucas, 2026-08-17).

@@ -5,6 +5,11 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **`is_twin` só aceita `source: ../<stem>.pdf`**: twin de .doc/.docx não é isento dos tetos. Aceitar, com caso em `test_pdf_twin.py`. [src: agent 2026-11-26]
+
+- **Processo de agente sem prazo**: Foundry com `&`, 6 dias. Regra: `systemd-run --user --collect -p RuntimeMaxSec=`; SessionStart lista órfãos. [src: agent 2026-11-26]
+
+- **aiwbot.service a 3,7 GiB** em 2 h. Medir RSS, achar o vazamento, `MemoryMax=`. [src: agent 2026-11-26]
 
 - **O outbox é oferecido em vez de usado**: no /inbox, com o repo de outro, o agente disse "podemos encaminhar" sem chamar `wos/note` (25 Nov). Refinar `core/norms/improve.md`: anotar na hora, conferir pendente, seguir. [src: agent 2026-11-25]
 

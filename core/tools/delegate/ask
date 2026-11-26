@@ -29,6 +29,7 @@ HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 sys.path.insert(0, str(HERE))
 import delegation  # noqa: E402
+import produce  # noqa: E402
 import tool_law  # noqa: E402
 import workers  # noqa: E402
 
@@ -154,6 +155,13 @@ def main() -> int:
         p.error('a contract or a prompt file, or - for stdin')
     prompt = sys.stdin.read() if a.prompt == '-' else pathlib.Path(a.prompt).read_text(encoding='utf-8')
     rows = [r for r in workers.catalog() if r['worker'] == a.only] if a.only else None
+    if delegation.is_contract(prompt) and delegation.parse(prompt).get('return') == 'artifact':
+        try:
+            status, report = produce.produced(prompt, works(), ROLES, rows)
+        except ValueError as bad:
+            raise SystemExit(str(bad))
+        sys.stdout.write(report)
+        return 0 if status == 'ok' else 1
     if delegation.is_contract(prompt):
         try:
             who, text, full = delegated(prompt, rows, a.out)

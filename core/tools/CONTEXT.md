@@ -19,7 +19,7 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`audio/`](audio/CONTEXT.md) | Speech to text. Backend leaf: `faster-whisper large-v3-turbo`, local, no network. |
 | [`calendar/`](calendar/CONTEXT.md) | Read what is scheduled. Provider leaf: `gcalendar`. Auth: [`../auth/gauth.py`](calendar/../auth/gauth.py). |
 | [`chat/`](chat/CONTEXT.md) | Exported conversation to navigable text — voice notes transcribed inline, bot noise dropped, secrets redacted. Provider leaf: `wazip` (WhatsApp). |
-| [`delegate/`](delegate/CONTEXT.md) | Hand a task to another vendor's model through one contract, read-only for now. Leaf: `ask` (answer mode, an outside verdict included); the chain it walks is `core/workers.txt`. |
+| [`delegate/`](delegate/CONTEXT.md) | Hand a task to another vendor's model through one contract: `return: answer` reads, `return: artifact` writes in an isolated copy held to checks. Leaf: `ask`; routes from `core/workers.txt`. |
 | [`disk/`](disk/CONTEXT.md) | Where the disk went, and the safe half of getting it back. Provider leaf: `ubuntu` (apt, snap, flatpak). |
 | [`docs/`](docs/CONTEXT.md) | Long-form documents, read and edited in place. Provider leaves: `gdocs` (Google Docs API), `docx` (local .docx form tables). |
 | [`files/`](files/CONTEXT.md) | Remote file storage: list, search, download, upload. Provider leaves: `gdrive`, `onedrive` (rclone). |

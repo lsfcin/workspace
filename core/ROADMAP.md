@@ -222,5 +222,5 @@ Flows/agents wait for v1 (Lucas, 25 Aug); observed 24 Aug failures preserved (or
 
 | Part | Description | Items |
 |------|-------------|-------|
-| [`ROADMAP-workers.md`](ROADMAP-workers.md) | ← add description | `subscription-review` |
+| [`ROADMAP-workers.md`](ROADMAP-workers.md) | ← add description | `orchestrate-by-default` `wos-diet` `subscription-review` |
 <!-- routing:end -->

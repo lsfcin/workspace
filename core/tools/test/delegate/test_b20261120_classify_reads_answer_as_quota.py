@@ -18,3 +18,8 @@ def test_b20261120_a_long_clean_answer_about_quota_is_ok():
 def test_b20261120_a_short_notice_or_a_failed_exit_is_still_read_for_marks():
     assert workers.classify(0, AGY_QUOTA) == 'quota'
     assert workers.classify(1, ANSWER) == 'quota'
+
+
+def test_a_timeout_is_a_timeout_even_when_its_stream_says_rate_limit():
+    """glm passed 900 s on 2026-11-26 and was logged quota, which cooled it out of the ladder for 6 h."""
+    assert workers.classify(124, '{"type":"step-start"} rate limit ... timed out after 900 s') == 'timeout'

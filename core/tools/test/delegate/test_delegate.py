@@ -165,7 +165,7 @@ def test_a_hung_worker_ends_at_its_deadline(tmp_path, monkeypatch):
     monkeypatch.setattr(workers, 'find', lambda h: '/bin/sh')
     monkeypatch.setattr(workers, 'deadline', lambda w: 1)
     monkeypatch.setitem(workers.ADAPTERS, 'fake',
-                        lambda exe, model, prompt, cwd, timeout: workers.run([exe, '-c', 'sleep 30'], timeout=timeout))
+                        lambda exe, model, prompt, cwd, timeout, write=False: workers.run([exe, '-c', 'sleep 30'], timeout=timeout))
     r = workers.call('hung', 'q')
     assert r.status == 'timeout' and r.seconds < 10
 

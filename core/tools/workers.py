@@ -1,9 +1,8 @@
 # workers.py — the one way a tool calls an outside worker (another harness's model): find it, call it, classify what came back, and log who answered.
 #
 # WHY ONE MODULE. delegate/ask and describe.py each built their own vendor call — two ideas of where
-# a binary lives, of what a spent quota looks like, of what a timeout leaves running. Their drift
-# was found 2026-11-20 (describe's agy skipped the app-path fallback). core/tools/SPECS.md: a module
-# imported by more than one family lives at this root.
+# a binary lives, of what a spent quota looks like, of what a timeout leaves running.
+# core/tools/SPECS.md: a module imported by more than one family lives at this root.
 #
 # THE CATALOG IS DATA, THE IDS ARE DATA. Who exists, which id its harness resolves and in which
 # order the panel tries them is core/workers.txt; what each model is good for is core/models.txt,
@@ -94,8 +93,7 @@ def cooling(worker: str, now: str = '') -> str:
 
 
 def deadline(worker: str) -> int:
-    """min(ceiling, max(floor, 3 × p90)) of the worker's ok calls; the ceiling under MIN_OK of them.
-    One fixed 900 s let deepseek hang a whole panel call (2026-11-24, b20261124-debate-exit-zero)."""
+    """min(ceiling, max(floor, 3 × p90)) of the worker's ok calls; the ceiling under MIN_OK of them."""
     oks = [float(f[5]) for f in calls() if f[1] == worker and f[4] == 'ok']
     return TIMEOUT if len(oks) < MIN_OK else int(min(TIMEOUT, max(FLOOR_S, 3 * statistics.quantiles(oks, n=10)[-1])))
 
@@ -124,30 +122,29 @@ def run(cmd: list[str], cwd: str | None = None, timeout: int = TIMEOUT) -> tuple
 
 def classify(code: int, text: str) -> str:
     """ok, or why this is no answer. agy prints a spent quota and may exit 0, so a short reply is
-    searched for MARKS; a clean exit with a reply longer than ANSWER_FLOOR is an answer, whatever
-    it talks about (argon's verdicts on quota and login were thrown away 2026-11-20 and 11-21)."""
+    searched for MARKS; a clean exit with a reply longer than ANSWER_FLOOR is an answer, whatever it says."""
     if code == 0 and len(text.strip()) > ANSWER_FLOOR:
         return 'ok'
     low = text.lower()
-    for status, marks in MARKS.items():
+    for status, marks in MARKS.items() if code != 124 else ():  # a timeout's stream may say 'rate limit' anywhere
         if any(m in low for m in marks):
             return status
     by_code = {124: 'timeout', worker_guard.BUSY: 'busy', 127: 'missing'}
     return by_code.get(code) or ('unknown' if code != 0 or not text.strip() else 'ok')
 
 
-def _codex(exe, model, prompt, cwd, timeout):
+def _codex(exe, model, prompt, cwd, timeout, write=False):
     with tempfile.TemporaryDirectory() as tmp:
         out = pathlib.Path(tmp) / 'answer.md'
-        code, log = run([exe, 'exec', '-s', 'read-only', '-m', model, '-C', cwd, '--ephemeral',
-                         '-o', str(out), prompt], timeout=timeout)
+        code, log = run([exe, 'exec', '-s', 'workspace-write' if write else 'read-only', '-m', model, '-C', cwd,
+                         '--ephemeral', '-o', str(out), prompt], timeout=timeout)
         answer = out.read_text(encoding='utf-8') if out.exists() else ''
     return (0, answer) if code == 0 and answer.strip() else (code or 1, log)
 
 
-def _opencode(exe, model, prompt, cwd, timeout):
+def _opencode(exe, model, prompt, cwd, timeout, write=False):
     """--format json: the answer is the text parts of the event stream, never the pretty print."""
-    code, raw = run([exe, 'run', '--pure', '--format', 'json', '-m', model, prompt], cwd=cwd, timeout=timeout)
+    code, raw = run([exe, 'run', '--pure', '--format', 'json', *['--auto'][:write], '-m', model, prompt], cwd=cwd, timeout=timeout)
     parts = []
     for line in raw.splitlines():
         try:
@@ -161,13 +158,17 @@ def _opencode(exe, model, prompt, cwd, timeout):
     return (code, ''.join(parts)) if parts else (code or 1, raw)
 
 
+# write=True only in delegate's isolated copy (delegate/sandbox.py). claude: clean context, no project hooks, no parent session id.
 ADAPTERS = {'codex': _codex, 'opencode': _opencode,
-            'agy': lambda exe, model, prompt, cwd, timeout: run(
-                [exe, '--disable-slash-commands', '--model', model, '-p', prompt], cwd=cwd, timeout=timeout),
-            'ollama': lambda exe, model, prompt, cwd, timeout: run([exe, 'run', model, prompt], cwd=cwd, timeout=timeout)}
+            'agy': lambda exe, model, prompt, cwd, timeout, write=False: run(
+                [exe, '--disable-slash-commands', *['--mode', 'accept-edits'][:2 * write], '--model', model, '-p', prompt], cwd=cwd, timeout=timeout),
+            'claude': lambda exe, model, prompt, cwd, timeout, write=False: run(
+                ['env', '-u', 'CLAUDE_CODE_SESSION_ID', '-u', 'CLAUDECODE', exe, '-p', '--model', model, '--permission-mode',
+                 ('default', 'acceptEdits')[write], '--setting-sources', 'user', '--no-session-persistence', prompt], cwd=cwd, timeout=timeout),
+            'ollama': lambda exe, model, prompt, cwd, timeout, write=False: run([exe, 'run', model, prompt], cwd=cwd, timeout=timeout)}
 
 
-def call(worker: str, prompt: str, role: str = '-', cwd: str | None = None, judge=None) -> Result:  # judge(text) -> check
+def call(worker: str, prompt: str, role: str = '-', cwd: str | None = None, judge=None, write: bool = False) -> Result:  # judge(text) -> check
     row = next(r for r in catalog() if r['worker'] == worker)
     model = row['id']
     start = time.monotonic()
@@ -177,16 +178,15 @@ def call(worker: str, prompt: str, role: str = '-', cwd: str | None = None, judg
     elif not exe:
         code, text = 127, f'{row["harness"]} not found (${PLACES[row["harness"]][0]}, PATH, app place)'
     else:
-        code, text = ADAPTERS[row['harness']](exe, model, prompt, cwd or str(ROOT), deadline(worker))
+        code, text = ADAPTERS[row['harness']](exe, model, prompt, cwd or str(ROOT), deadline(worker), write)
     result = Result(worker, model, classify(code, text), text.strip(), round(time.monotonic() - start, 1))
     record(result, role, judge(result.text) if judge and result.status == 'ok' else '')
     return result
 
 
 def record(result: Result, role: str = '-', check: str = '') -> None:
-    """One line per call — who answered, how long, why not, which check failed. Local state, never
-    committed. `check` is derived (a miss is timeout or infra, an ok is empty or -); only the caller
-    knows a format, so bad-format is passed in, never derived — a free-text debate has none."""
+    """One line per call — who answered, how long, why not, which check failed. `check` is derived (a miss is
+    timeout or infra, an ok is empty or -); only the caller knows a format, so bad-format is passed in, never derived — a free-text debate has none."""
     ok, s = result.status == 'ok', result.status
     check = check or (('-' if result.text.strip() else 'empty') if ok else 'timeout' if s == 'timeout' else 'infra')
     try:
