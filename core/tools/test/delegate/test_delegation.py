@@ -85,3 +85,23 @@ def test_the_cut_keeps_every_fixed_field_and_points_at_the_full_answer():
     assert len(out) <= 1500 * delegation.CHARS_PER_TOKEN
     assert out.startswith('status: ok') and '- one' in out and '## Left untouched' in out and 'outputs/delegate/x.md' in out
     assert delegation.cut('status: ok\nshort', limit=1500, full='f') == 'status: ok\nshort'
+
+
+def test_a_subheading_inside_the_answer_stays_in_the_answer_and_is_cut_with_it():
+    # argon's review of this file, 2026-11-26: any `## ` line used to end the Answer.
+    text = 'status: ok\n## Answer\nintro\n## Finding 1\n' + 'word ' * 4000 + '\n## Assumptions\nnone\n## Unverified\nnone\n## Left untouched\nnone\n'
+    assert 'Finding 1' in delegation.sections(text)['Answer']
+    assert len(delegation.cut(text, limit=1500, full='f')) <= 1500 * delegation.CHARS_PER_TOKEN
+
+
+def test_a_blocked_return_counts_its_questions_not_its_search_notes():
+    lists = '## Assumptions\nnone\n## Unverified\nnone\n## Left untouched\nnone\n'
+    ok = 'status: blocked\n## Answer\nx\n## Questions\nSearched core/ and git log.\n- Which branch?\n- Which repo?\n' + lists
+    assert delegation.read(ok)['check'] == '-'
+    assert delegation.read(ok.replace('- Which branch?\n- Which repo?\n', ''))['check'] == 'bad-format'
+
+
+def test_a_status_in_bold_or_capitals_and_none_in_its_variants_read_as_meant():
+    r = delegation.read('**Status:** OK\n## Answer\nx\n## Assumptions\n- none.\n## Unverified\n* (none)\n## Left untouched\nN/A\n')
+    assert (r['status'], r['check'], r['review']) == ('ok', '-', False)
+    assert delegation.read('status: ok\n## Answer\n\n## Assumptions\nnone\n## Unverified\nnone\n## Left untouched\nnone\n')['check'] == 'bad-format'

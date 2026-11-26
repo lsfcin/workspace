@@ -7,6 +7,7 @@ RETURN_TOKENS: int
 STATUSES: Incomplete
 LISTS: Incomplete
 RETURN_FORMAT: str
+HEADINGS: Incomplete
 
 def is_contract(text: str) -> bool: ...
 def sections(body: str) -> dict: ...

@@ -37,7 +37,9 @@ status: ok | blocked | split | fail
 ## Subtasks
 <only when split: one subtask per line, no deeper>
 Never rate your own confidence.'''
-_SECTION = re.compile(r'(?m)^## (.+?)\s*$')
+# Only the contract's own headings split a text: a worker's `## Finding 1` stays inside its Answer (argon, 2026-11-26).
+HEADINGS = ('Context', 'Last Failure', 'Answer', *LISTS, 'Questions', 'Subtasks')
+_SECTION = re.compile(r'(?m)^## (' + '|'.join(HEADINGS) + r')[ \t]*\r?$')
 
 
 def is_contract(text: str) -> bool:
@@ -109,11 +111,13 @@ def prompt(c: dict, inline: str, by_path: list) -> str:
 def read(text: str) -> dict:
     """status, the check (- or bad-format), and whether any of the three lists sends it to review."""
     first = next((l for l in text.splitlines() if l.strip()), '')
-    status = first.partition(':')[2].strip() if first.lower().startswith('status:') else ''
+    first = first.replace('*', '').replace('`', '').strip().lower()
+    status = first.partition(':')[2].strip() if first.startswith('status:') else ''
     s = sections(text)
-    items = lambda k: [l for l in s.get(k, '').splitlines() if l.strip().lstrip('- ').lower() not in ('', 'none')]  # noqa: E731
-    bad = (status not in STATUSES or not all(k in s for k in ('Answer', *LISTS))
-           or (status == 'blocked' and not 1 <= len(items('Questions')) <= 3)
+    items = lambda k: [l for l in s.get(k, '').splitlines() if l.strip().lstrip('-* ').strip('.()').lower() not in ('', 'none', 'n/a')]  # noqa: E731
+    asked = [l for l in items('Questions') if l.rstrip().endswith('?')]  # what it searched is prose, not a question
+    bad = (status not in STATUSES or not s.get('Answer') or not all(k in s for k in LISTS)
+           or (status == 'blocked' and not 1 <= len(asked) <= 3)
            or (status == 'split' and not items('Subtasks')))
     return {'status': status or '-', 'check': 'bad-format' if bad else '-',
             'review': any(items(k) for k in LISTS)}
@@ -124,8 +128,9 @@ def cut(text: str, limit: int = RETURN_TOKENS, full: str = '') -> str:
     room = limit * CHARS_PER_TOKEN
     if len(text) <= room:
         return text
-    m = re.search(r'(?ms)^## Answer\n(.*?)(?=^## |\Z)', text)
-    start, end = (m.start(1), m.end(1)) if m else (0, len(text))
+    heads = [h for h in _SECTION.finditer(text)]
+    at = next((i for i, h in enumerate(heads) if h.group(1) == 'Answer'), None)
+    start, end = (heads[at].end() + 1, heads[at + 1].start() if at + 1 < len(heads) else len(text)) if at is not None else (0, len(text))
     mark = f'\n[… cut — the full answer: {full}]\n'
     keep = max(0, room - (len(text) - (end - start)) - len(mark))
     return text[:start] + text[start:start + keep // 2] + mark + text[end - keep // 2:end] + text[end:]
