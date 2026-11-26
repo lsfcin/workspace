@@ -110,6 +110,16 @@ def test_a_local_file_edited_after_its_upload_plan_is_refused(plan_state, monkey
         cli.cmd_put(None, str(doc), "root", None, None)
 
 
+def test_a_body_replace_shows_its_diff_capped_and_saves_all_of_it(plan_state):
+    old = "\n".join(f"linha {i}" for i in range(200))
+    new = old.replace("linha 150", "linha cento e cinquenta")
+    assert wa.diff_lines(old, old, "doc.md") == []
+    lines = wa.diff_lines("", new, "doc.md")
+    assert lines[0] == "doc.md: +200 / -0 linhas" and len(lines) == 1 + wa.SHOWN + 1
+    assert str(plan_state / "pending_write.diff") in lines[-1]
+    assert "+linha cento e cinquenta" in (plan_state / "pending_write.diff").read_text(encoding="utf-8")
+
+
 def test_an_ungated_grant_still_writes_until_its_slice_lands(plan_state):
     wa.consume("slides")  # not in GATED yet: no plan asked for
 

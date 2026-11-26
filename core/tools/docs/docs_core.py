@@ -6,6 +6,7 @@ sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
 from googleapiclient.discovery import build
 import gauth
+import write_approval  # on the path gauth put there
 
 # Requests that change how long the body is, and therefore shift every index after them.
 # This set is the whole reason `check_order` exists — anything not in it can be batched in
@@ -33,6 +34,7 @@ def get_document(alias: str, document_id: str, write: bool = False) -> dict:
 
 def create(alias: str, title: str) -> dict:
     """Create an empty document and return it."""
+    write_approval.gate("docs new", alias, title, [f"+ cria documento vazio {title!r}"])
     return get_service(alias, write=True).documents().create(body={"title": title}).execute()
 
 
@@ -102,6 +104,11 @@ def apply(alias: str, document_id: str, requests: list,
     """
     if not force:
         check_order(requests)
+    # Without a revision from the caller (`replace`), today's is read, so a document edited after
+    # the plan is refused rather than written over.
+    revision = revision_id or get_document(alias, document_id).get("revisionId", "")
+    write_approval.gate("docs apply", document_id, requests, write_approval.request_lines(requests),
+                        revision=revision)
     return get_service(alias, write=True).documents().batchUpdate(
         documentId=document_id, body=batch_body(requests, revision_id)
     ).execute()

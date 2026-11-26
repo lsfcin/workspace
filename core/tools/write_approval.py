@@ -15,7 +15,8 @@ AWAITING = 75          # EX_TEMPFAIL: the plan is printed and waits for Lucas
 TTL_S = 15 * 60        # a plan older than this is refused: long enough to read, short enough to rot
 # Grants whose write token gauth refuses without an approved plan. It grows one service per slice
 # until it holds every write grant; then the set, and this comment, are deleted.
-GATED = frozenset({"sheets", "drive"})
+GATED = frozenset({"sheets", "drive", "docs"})
+SHOWN = 75             # diff lines a plan prints; the rest is saved where the plan names it
 
 
 def take_code(argv: list) -> str:
@@ -69,6 +70,22 @@ def digest(action: str, target: str, revision, payload) -> str:
 def request_lines(requests: list) -> list:
     """A batchUpdate shown as one compact JSON line per request: no renderer per request type to rot."""
     return [f"{i}. {json.dumps(r, ensure_ascii=False, separators=(',', ':'))}" for i, r in enumerate(requests, 1)]
+
+
+def diff_lines(old: str, new: str, name: str) -> list:
+    """A whole-body replace shown as its unified diff: counts, the first SHOWN lines, and the path of
+    the full diff — a deletion past line SHOWN must still be readable before --approve (2026-11-26)."""
+    import difflib
+    diff = list(difflib.unified_diff(old.splitlines(), new.splitlines(), "atual", "novo", lineterm=""))
+    if not diff:
+        return []
+    full = session_state("pending_write.diff")
+    full.write_text("\n".join(diff) + "\n", encoding="utf-8", newline="\n")
+    body = diff[2:]
+    plus = sum(1 for d in body if d.startswith("+"))
+    minus = sum(1 for d in body if d.startswith("-"))
+    shown = [f"{name}: +{plus} / -{minus} linhas"] + body[:SHOWN]
+    return shown + ([f"… {len(body) - SHOWN} linhas a mais — diff completo em {full}"] if len(body) > SHOWN else [])
 
 
 def _refuse(why: str) -> None:

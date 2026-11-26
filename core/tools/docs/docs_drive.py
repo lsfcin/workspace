@@ -8,6 +8,7 @@ sys.path.insert(0, str(_HERE.parent / 'files'))
 from googleapiclient.http import MediaFileUpload
 import drive_core
 import gauth
+import write_approval  # on the path gauth put there
 
 GDOC_MIME = drive_core.GDOC_MIME
 MD_MIME = "text/markdown"
@@ -57,7 +58,12 @@ def push_md(alias: str, document_id: str, md_path) -> dict:
     document are replaced" — the file id, URL and sharing all survive, which is what
     makes this a sync rather than a re-upload. What does NOT survive is anything anchored
     to the text that goes away: see SPECS.md before pushing over a reviewed document.
+    The plan is the diff of today's body against the file; today's body is its revision.
     """
+    old = export_md(alias, document_id)
+    new = pathlib.Path(md_path).read_text(encoding="utf-8")
+    write_approval.gate("docs push", document_id, new, write_approval.diff_lines(old, new, str(md_path)),
+                        revision=old)
     svc = drive_core.get_service(alias, write=True, grant="docs")
     media = MediaFileUpload(str(md_path), mimetype=MD_MIME, resumable=True)
     return svc.files().update(
@@ -67,6 +73,10 @@ def push_md(alias: str, document_id: str, md_path) -> dict:
 
 def create_from_md(alias: str, title: str, md_path, folder_id: str = "") -> dict:
     """Create a document whose content is a Markdown file, converted by Drive on import."""
+    text = pathlib.Path(md_path).read_text(encoding="utf-8")
+    write_approval.gate("docs new", f"{alias} {folder_id or 'root'}", {"title": title, "md": text},
+                        [f"+ cria documento {title!r} de {md_path} ({len(text.splitlines())} linhas) "
+                         f"em {folder_id or 'root'}"])
     svc = drive_core.get_service(alias, write=True, grant="docs")
     body = {"name": title, "mimeType": GDOC_MIME}
     if folder_id:
