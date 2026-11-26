@@ -30,7 +30,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 CATALOG = ROOT / 'core' / 'workers.txt'
 MODELS = ROOT / 'core' / 'models.txt'
 LOG = ROOT / 'core' / 'state' / 'workers.tsv'
-TIMEOUT = 900
+TIMEOUT = 900  # the ceiling, and the deadline of a worker with too few ok calls to measure
+FLOOR_S, MIN_OK = 120, 5
 COOLDOWNS_H = (6, 24, 72)  # the 1st, 2nd, 3rd+ quota miss in a row keeps a worker out this long; an ok call clears the run
 HOME = pathlib.Path.home()
 # $ENV, then PATH, then where the vendor's app installs it.
@@ -73,17 +74,30 @@ def catalog() -> list[dict]:
     return [{**facts.get(r['model'], {}), **r} for r in table(CATALOG)]
 
 
+def calls() -> list[list[str]]:
+    """The call log as rows of at least 6 fields: 7 before the `check` column (2026-11-26), 8 after."""
+    lines = LOG.read_text(encoding='utf-8').splitlines() if LOG.is_file() else []
+    return [f for f in (line.split('\t') for line in lines) if len(f) >= 6]
+
+
 def cooling(worker: str, now: str = '') -> str:
     """The worker's last quota miss while still cooling before `now`, else ''. Only an ok ends a run of misses."""
     last, run = '', 0
-    for f in (line.split('\t') for line in (LOG.read_text(encoding='utf-8').splitlines() if LOG.is_file() else [])):
-        if len(f) >= 5 and f[1] == worker and f[4] in ('quota', 'ok'):
+    for f in calls():
+        if f[1] == worker and f[4] in ('quota', 'ok'):
             last, run = (f[0], run + 1) if f[4] == 'quota' else ('', 0)
     stamp = lambda s: time.mktime(time.strptime(s, '%Y-%m-%dT%H:%M'))  # noqa: E731
     hours = COOLDOWNS_H[min(run, len(COOLDOWNS_H)) - 1] if run else 0
     if last and stamp(now or time.strftime('%Y-%m-%dT%H:%M')) - stamp(last) < hours * 3600:
         return last
     return ''
+
+
+def deadline(worker: str) -> int:
+    """min(ceiling, max(floor, 3 × p90)) of the worker's ok calls; the ceiling under MIN_OK of them.
+    One fixed 900 s let deepseek hang a whole panel call (2026-11-24, b20261124-debate-exit-zero)."""
+    oks = [float(f[5]) for f in calls() if f[1] == worker and f[4] == 'ok']
+    return TIMEOUT if len(oks) < MIN_OK else int(min(TIMEOUT, max(FLOOR_S, 3 * statistics.quantiles(oks, n=10)[-1])))
 
 
 def chain(now: str = '') -> list[dict]:
@@ -118,29 +132,22 @@ def classify(code: int, text: str) -> str:
     for status, marks in MARKS.items():
         if any(m in low for m in marks):
             return status
-    if code == 124:
-        return 'timeout'
-    if code == worker_guard.BUSY:
-        return 'busy'
-    if code == 127:
-        return 'missing'
-    if code != 0 or not text.strip():
-        return 'unknown'
-    return 'ok'
+    by_code = {124: 'timeout', worker_guard.BUSY: 'busy', 127: 'missing'}
+    return by_code.get(code) or ('unknown' if code != 0 or not text.strip() else 'ok')
 
 
-def _codex(exe, model, prompt, cwd):
+def _codex(exe, model, prompt, cwd, timeout):
     with tempfile.TemporaryDirectory() as tmp:
         out = pathlib.Path(tmp) / 'answer.md'
         code, log = run([exe, 'exec', '-s', 'read-only', '-m', model, '-C', cwd, '--ephemeral',
-                         '-o', str(out), prompt])
+                         '-o', str(out), prompt], timeout=timeout)
         answer = out.read_text(encoding='utf-8') if out.exists() else ''
     return (0, answer) if code == 0 and answer.strip() else (code or 1, log)
 
 
-def _opencode(exe, model, prompt, cwd):
+def _opencode(exe, model, prompt, cwd, timeout):
     """--format json: the answer is the text parts of the event stream, never the pretty print."""
-    code, raw = run([exe, 'run', '--pure', '--format', 'json', '-m', model, prompt], cwd=cwd)
+    code, raw = run([exe, 'run', '--pure', '--format', 'json', '-m', model, prompt], cwd=cwd, timeout=timeout)
     parts = []
     for line in raw.splitlines():
         try:
@@ -155,9 +162,9 @@ def _opencode(exe, model, prompt, cwd):
 
 
 ADAPTERS = {'codex': _codex, 'opencode': _opencode,
-            'agy': lambda exe, model, prompt, cwd: run(
-                [exe, '--disable-slash-commands', '--model', model, '-p', prompt], cwd=cwd),
-            'ollama': lambda exe, model, prompt, cwd: run([exe, 'run', model, prompt], cwd=cwd)}
+            'agy': lambda exe, model, prompt, cwd, timeout: run(
+                [exe, '--disable-slash-commands', '--model', model, '-p', prompt], cwd=cwd, timeout=timeout),
+            'ollama': lambda exe, model, prompt, cwd, timeout: run([exe, 'run', model, prompt], cwd=cwd, timeout=timeout)}
 
 
 def call(worker: str, prompt: str, role: str = '-', cwd: str | None = None) -> Result:
@@ -170,20 +177,24 @@ def call(worker: str, prompt: str, role: str = '-', cwd: str | None = None) -> R
     elif not exe:
         code, text = 127, f'{row["harness"]} not found (${PLACES[row["harness"]][0]}, PATH, app place)'
     else:
-        code, text = ADAPTERS[row['harness']](exe, model, prompt, cwd or str(ROOT))
+        code, text = ADAPTERS[row['harness']](exe, model, prompt, cwd or str(ROOT), deadline(worker))
     result = Result(worker, model, classify(code, text), text.strip(), round(time.monotonic() - start, 1))
     record(result, role)
     return result
 
 
-def record(result: Result, role: str = '-') -> None:
-    """One line per call — who answered, how long, why not. Local state, never committed."""
+def record(result: Result, role: str = '-', check: str = '') -> None:
+    """One line per call — who answered, how long, why not, which check failed. Local state, never
+    committed. `check` is derived (a miss is timeout or infra, an ok is empty or -); only the caller
+    knows a format, so bad-format is passed in, never derived — a free-text debate has none."""
+    ok, s = result.status == 'ok', result.status
+    check = check or (('-' if result.text.strip() else 'empty') if ok else 'timeout' if s == 'timeout' else 'infra')
     try:
         LOG.parent.mkdir(parents=True, exist_ok=True)
-        reason = '' if result.status == 'ok' else result.text.replace('\t', ' ').replace('\n', ' ')[-160:]
+        reason = '' if ok else result.text.replace('\t', ' ').replace('\n', ' ')[-160:]
         with LOG.open('a', encoding='utf-8', newline='\n') as fh:
             fh.write(f'{time.strftime("%Y-%m-%dT%H:%M")}\t{result.worker}\t{result.model}\t{role}\t'
-                     f'{result.status}\t{result.seconds}\t{reason}\n')
+                     f'{s}\t{result.seconds}\t{reason}\t{check}\n')
     except OSError:
         pass
 
@@ -191,11 +202,8 @@ def record(result: Result, role: str = '-') -> None:
 def tally() -> dict:
     """{worker: (calls, ok share, median seconds of the ok ones)} from the call log."""
     seen: dict = {}
-    if LOG.is_file():
-        for line in LOG.read_text(encoding='utf-8').splitlines():
-            f = line.split('\t')
-            if len(f) >= 6:
-                seen.setdefault(f[1], []).append((f[4], float(f[5])))
+    for f in calls():
+        seen.setdefault(f[1], []).append((f[4], float(f[5])))
     return {w: (len(c), sum(s == 'ok' for s, _ in c) / len(c),
                 statistics.median([t for s, t in c if s == 'ok'] or [0]))
             for w, c in seen.items()}
@@ -236,8 +244,6 @@ def live(row: dict, offers: dict | None = None) -> str:
     code, _ = run([exe, '--help'], timeout=30)
     if code != 0:
         return f'--help exit {code}'
-    offers = {} if offers is None else offers
-    if row['harness'] not in offers:
-        offers[row['harness']] = offered(row['harness'])
-    have = offers[row['harness']]
+    offers, h = ({} if offers is None else offers), row['harness']
+    have = offers[h] if h in offers else offers.setdefault(h, offered(h))
     return 'ok' if have is None or row['id'] in have else f'{row["id"]} no longer offered'

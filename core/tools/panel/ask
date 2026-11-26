@@ -52,14 +52,22 @@ def ask(prompt: str, rows=None, caller=workers.call, role: str = '-', skip_vendo
 
 def debate(prompt: str, rows=None, caller=workers.call):
     """Advocate, opponent and mediator, each from a vendor the others are not."""
-    used, parts = [], []
-    for role in ('advocate', 'opponent'):
-        r, row, _ = ask(prompt, rows, caller, role, used)
+    """A role nobody filled is named, never fatal: the answers already paid for are kept (2026-11-24,
+    a hung deepseek cost the whole debate). Only a debate with no answer at all stops."""
+    used, parts, missing = [], [], []
+    for role in ('advocate', 'opponent', 'mediator'):
+        text = prompt if role != 'mediator' else '\n\n'.join(parts) + f'\n\n## The proposal\n{prompt}'
+        try:
+            r, row, _ = ask(text, rows, caller, role, used)
+        except SystemExit as miss:
+            missing.append(role)
+            parts.append(f'## {role} — missing\n{miss}')
+            continue
         used.append(row['vendor'])
         parts.append(f'## {role} ({r.worker} {r.model})\n{r.text}')
-    r, row, _ = ask('\n\n'.join(parts) + f'\n\n## The proposal\n{prompt}', rows, caller, 'mediator', used)
-    parts.append(f'## mediator ({r.worker} {r.model})\n{r.text}')
-    return f'debate: {", ".join(used + [row["vendor"]])}', '\n\n'.join(parts) + '\n'
+    if not used:
+        raise SystemExit('panel: no model answered the debate\n' + '\n'.join(parts))
+    return f'debate: {", ".join(used)}' + (f' (missing: {", ".join(missing)})' if missing else ''), '\n\n'.join(parts) + '\n'
 
 
 def listing() -> int:

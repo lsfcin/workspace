@@ -132,3 +132,60 @@ def test_every_declared_worker_has_a_model_id_and_the_chain_is_ordered():
 def test_a_timeout_kills_the_whole_process_group():
     code, text = workers.run(['sh', '-c', 'sleep 30 & sleep 30'], timeout=1)
     assert code == 124 and 'timed out' in text
+
+
+def _log(tmp_path, monkeypatch, rows):
+    log = tmp_path / 'workers.tsv'
+    log.write_text(''.join('\t'.join(r) + '\n' for r in rows), encoding='utf-8', newline='\n')
+    monkeypatch.setattr(workers, 'LOG', log)
+    return log
+
+
+def test_a_deadline_is_three_p90s_of_the_ok_calls_bounded_and_the_ceiling_under_five(tmp_path, monkeypatch):
+    ok = lambda w, s: ['2026-11-20T10:00', w, 'm', '-', 'ok', str(s), '']  # noqa: E731
+    _log(tmp_path, monkeypatch, [ok('fast', 10)] * 9 + [ok('fast', 20)] + [ok('slow', 400)] * 6
+         + [ok('few', 5)] * 4 + [['2026-11-20T10:00', 'fast', 'm', '-', 'timeout', '900', 'x', 'timeout']])
+    assert workers.deadline('fast') == 120          # 3 × p90 = 3 × ~20 < floor
+    assert workers.deadline('slow') == 900          # 3 × 400 > ceiling
+    assert workers.deadline('few') == 900           # under 5 ok calls: the ceiling
+    assert workers.deadline('never') == 900
+
+
+def test_the_deadline_reaches_every_adapter(monkeypatch):
+    seen = []
+    monkeypatch.setattr(workers, 'run', lambda cmd, cwd=None, timeout=0: seen.append(timeout) or (0, 'x' * 500))
+    for name, adapter in workers.ADAPTERS.items():
+        adapter('/bin/true', 'm', 'q', '/tmp', 7)
+    assert seen == [7] * len(workers.ADAPTERS)
+
+
+def test_a_hung_worker_ends_at_its_deadline(tmp_path, monkeypatch):
+    _log(tmp_path, monkeypatch, [])
+    monkeypatch.setattr(workers, 'catalog', lambda: [{'worker': 'hung', 'harness': 'fake', 'id': 'm'}])
+    monkeypatch.setattr(workers, 'find', lambda h: '/bin/sh')
+    monkeypatch.setattr(workers, 'deadline', lambda w: 1)
+    monkeypatch.setitem(workers.ADAPTERS, 'fake',
+                        lambda exe, model, prompt, cwd, timeout: workers.run([exe, '-c', 'sleep 30'], timeout=timeout))
+    r = workers.call('hung', 'q')
+    assert r.status == 'timeout' and r.seconds < 10
+
+
+def test_a_debate_keeps_the_answers_it_got_and_names_the_role_that_was_missing():
+    rows = _rows(('argon', 'google'), ('deepseek', 'deepseek'))
+    caller = _caller({'argon': (0, 'argon says'), 'deepseek': (124, 'timed out after 900 s')})
+    who, text = _tool().debate('q', rows, caller)
+    assert 'argon says' in text and 'missing: opponent, mediator' in who
+    assert 'deepseek: timeout' in text
+
+
+def test_every_log_line_carries_a_check_derived_from_its_status_and_old_lines_still_count(tmp_path, monkeypatch):
+    log = _log(tmp_path, monkeypatch, [['2026-11-20T10:00', 'a', 'm', '-', 'ok', '3.0', '']])  # a 7-column line
+    for status in ('ok', 'timeout', 'quota', 'unknown'):
+        workers.record(workers.Result('a', 'm', status, 'x' * 500 if status == 'ok' else 'why', 1.0))
+    lines = [l.split('\t') for l in log.read_text(encoding='utf-8').splitlines()]
+    assert [l[7] for l in lines[1:]] == ['-', 'timeout', 'infra', 'infra']
+    assert workers.tally()['a'][0] == 5
+    workers.record(workers.Result('a', 'm', 'ok', '', 1.0))
+    workers.record(workers.Result('a', 'm', 'ok', 'free text', 1.0), check='bad-format')
+    assert [l.split('\t')[7] for l in log.read_text(encoding='utf-8').splitlines()[-2:]] == ['empty', 'bad-format']
+    assert workers.cooling('a', '2026-11-20T10:05') == ''

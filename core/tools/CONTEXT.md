@@ -52,6 +52,6 @@ core/run tools/files/gdrive search --account personal "aula"
 | [`short_name.py`](short_name.py) | [`short_name.pyi`](short_name.pyi) | `mint` | short_name.py — the one line a tool spends on offering `--short-name`: mint a short link for what it created |
 | [`tool_law.py`](tool_law.py) | [`tool_law.pyi`](tool_law.pyi) | `require` | tool_law.py — the feature switch for core/tools features: the one guard every CLI entrypoint calls |
 | [`worker_guard.py`](worker_guard.py) | [`worker_guard.pyi`](worker_guard.pyi) | `contain`, `memory`, `kill_tree`, `guard`, `spawn` | worker_guard.py — the process between a worker and its caller: when the caller dies, or the deadline passes, the worker and everything it spawned die with it. |
-| [`workers.py`](workers.py) | [`workers.pyi`](workers.pyi) | `Result`, `table`, `catalog`, `cooling`, `chain` | workers.py — the one way a tool calls an outside worker (another harness's model): find it, call it, classify what came back, and log who answered. |
+| [`workers.py`](workers.py) | [`workers.pyi`](workers.pyi) | `Result`, `table`, `catalog`, `calls`, `cooling` | workers.py — the one way a tool calls an outside worker (another harness's model): find it, call it, classify what came back, and log who answered. |
 | [`write_approval.py`](write_approval.py) | [`write_approval.pyi`](write_approval.pyi) | `take_code`, `pending_path`, `turn`, `digest`, `request_lines` | write_approval.py — no write token loads until Lucas approved the exact plan it carries out |
 <!-- routing:end -->
