@@ -12,6 +12,7 @@ import tool_law
 tool_law.require('forms')
 
 import forms_core, forms_spec, gauth, gcli, short_name as short_name_tool  # noqa: E402
+import write_approval  # noqa: E402  — on the path gauth put there
 
 
 def cmd_auth(alias: str, write: bool, reauth: bool) -> None:
@@ -22,9 +23,13 @@ def cmd_new(account: str, spec_path: str, folder: str, short_name: str) -> None:
     """A form is created, filled and filed in one call: the whole spec or nothing."""
     alias = gauth.resolve_alias(account)
     spec = json.loads(pathlib.Path(spec_path).read_text(encoding='utf-8'))
+    reqs = forms_spec.requests(spec)
+    # Create, fill and file are three writes and one plan: the whole spec is what Lucas approves.
+    write_approval.gate("forms new", f"{alias} {folder or 'root'}", spec,
+                        [f"+ cria formulário {spec['title']!r} em {folder or 'root'}"]
+                        + write_approval.request_lines(reqs))
     form = forms_core.create(alias, spec["title"], spec.get("documentTitle", ""))
     form_id = form["formId"]
-    reqs = forms_spec.requests(spec)
     forms_core.apply(alias, form_id, reqs)
     print(f"Created '{spec['title']}' ({alias}) with {len(reqs)} request(s)  id:{form_id}")
     if folder:
@@ -59,6 +64,8 @@ def cmd_apply(account: str, form_id: str, path: str) -> None:
     """The general boundary: a JSON array of Forms API requests, applied atomically."""
     alias = gauth.resolve_alias(account)
     reqs = json.loads(pathlib.Path(path).read_text(encoding='utf-8'))
+    write_approval.gate("forms apply", form_id, reqs, write_approval.request_lines(reqs),
+                        revision=forms_core.get_form(alias, form_id).get("revisionId", ""))
     forms_core.apply(alias, form_id, reqs)
     print(f"Applied {len(reqs)} request(s) to {form_id}")
     print(f"  {forms_core.edit_url(form_id)}")

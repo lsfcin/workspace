@@ -6,6 +6,7 @@ sys.path.insert(0, str(_HERE))
 sys.path.insert(0, str(_HERE.parent / 'auth'))
 from googleapiclient.discovery import build
 import gauth
+import write_approval  # on the path gauth put there
 
 # Two tokens, same split as files/gdrive: reads are cheap, edit-anything is not.
 # Standard 16:9 deck, in EMU. Every transform below is expressed against these, so a
@@ -41,6 +42,7 @@ def list_presentations(alias: str, name: str = "") -> list:
 
 def create(alias: str, title: str) -> dict:
     """Create an empty presentation and return it."""
+    write_approval.gate("slides new", alias, title, [f"+ cria apresentação vazia {title!r}"])
     return get_service(alias, write=True).presentations().create(
         body={"title": title}
     ).execute()
@@ -52,7 +54,10 @@ def apply(alias: str, presentation_id: str, requests: list) -> dict:
     Every edit this tool makes goes through here. The API is itself a batch of typed
     requests, so wrapping it is honest — inventing a DSL on top would be the thing that
     goes stale when Google adds a request type.
+    The deck's revisionId is the plan's revision: a deck edited after the plan is refused.
     """
+    write_approval.gate("slides apply", presentation_id, requests, write_approval.request_lines(requests),
+                        revision=get_presentation(alias, presentation_id).get("revisionId", ""))
     return get_service(alias, write=True).presentations().batchUpdate(
         presentationId=presentation_id, body={"requests": requests}
     ).execute()

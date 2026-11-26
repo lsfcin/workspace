@@ -3,7 +3,6 @@ from _typeshed import Incomplete
 
 AWAITING: int
 TTL_S: Incomplete
-GATED: Incomplete
 SHOWN: int
 
 def take_code(argv: list) -> str: ...

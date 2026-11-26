@@ -13,9 +13,6 @@ from platform_law import secure_file, session_state  # noqa: E402
 
 AWAITING = 75          # EX_TEMPFAIL: the plan is printed and waits for Lucas
 TTL_S = 15 * 60        # a plan older than this is refused: long enough to read, short enough to rot
-# Grants whose write token gauth refuses without an approved plan. It grows one service per slice
-# until it holds every write grant; then the set, and this comment, are deleted.
-GATED = frozenset({"sheets", "drive", "docs"})
 SHOWN = 75             # diff lines a plan prints; the rest is saved where the plan names it
 
 
@@ -133,7 +130,7 @@ def consume(grant: str) -> None:
     """gauth.auth(write=True) calls this, so a verb that forgot gate() is refused, never left unguarded.
     The first write unlinks the approved plan; later writes in the same process reuse that approval."""
     global _consumed
-    if grant not in GATED or _consumed or not is_enabled("write-approval"):
+    if _consumed or not is_enabled("write-approval"):
         return
     path = pending_path()
     plan = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}

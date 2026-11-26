@@ -172,7 +172,9 @@ def test_a_token_older_than_its_row_names_its_fix(consent, accounts, tmp_path):
     assert "core/run tools/docs/gdocs auth personal --reauth" in str(dead.value)
 
 
-def test_a_write_loads_the_write_token_with_its_declared_scopes(consent):
+def test_a_write_loads_the_write_token_with_its_declared_scopes(consent, monkeypatch):
+    import write_approval
+    monkeypatch.setattr(write_approval, "_consumed", True)  # the plan is test_write_approval's subject
     with pytest.raises(SystemExit):
         gauth.auth("personal", "forms", write=True)
     assert consent["dir"] == "forms-write"

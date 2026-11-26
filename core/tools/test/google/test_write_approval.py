@@ -64,8 +64,9 @@ def test_a_document_that_moved_since_the_plan_is_refused(plan_state, monkeypatch
         wa.gate("sheets set", "id A1", [["x"]], [], revision=[["someone typed here"]])
 
 
-@pytest.mark.parametrize("grant", sorted(wa.GATED))
+@pytest.mark.parametrize("grant", sorted(g for g, row in gauth.grants().items() if row[1]))
 def test_a_write_token_without_a_gate_is_refused_before_it_loads(plan_state, grant):
+    """Every write grant grants.txt declares, a new one included: no allowlist to forget to grow."""
     with pytest.raises(PermissionError, match="write_approval.gate"):
         gauth.auth("personal", grant, write=True)
 
@@ -120,8 +121,6 @@ def test_a_body_replace_shows_its_diff_capped_and_saves_all_of_it(plan_state):
     assert "+linha cento e cinquenta" in (plan_state / "pending_write.diff").read_text(encoding="utf-8")
 
 
-def test_an_ungated_grant_still_writes_until_its_slice_lands(plan_state):
-    wa.consume("slides")  # not in GATED yet: no plan asked for
 
 
 def test_the_plan_names_only_the_cells_that_change():
