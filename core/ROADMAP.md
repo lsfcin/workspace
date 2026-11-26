@@ -104,7 +104,7 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 
 
 **🔴 Canva leaf: the agent builds and moves a Canva deck, Match & Move included, with no human click per deck**
-*What* — [subscription-review] ChatGPT: Lucas's own use is near zero (the free plan in a browser serves it, 2026-11-20); the open question is whether Codex as a worker is replaceable. decide by 2026-12-02 (renewal 2026-12-04; cancel means the free plan) from `panel/ask --list` stats; the blind sample (`outputs/chatgpt-blind/`) tied under the neutral judge: drop if quality holds and the Claude quota does not visibly rise. Images do not tie us to it (7 Codex images, all 2026-10; candidates: Gemini image via `GEMINI_API_KEY`, FLUX via Nvidia). Canva: review billing and alternatives before more build work. Decide shapes/connectors versus SVG with Lucas; verify MCP grant or Apps SDK fallback. Through /craft, k10 must reproduce k1 without human clicks, oracle-verified; reread shared deck each turn. Evidence: tools/slides/SPECS.md, outputs/canva-poder-desenho.md, outputs/.drafts/canva-poder/{oracle.py,mcp_spike.py}. *Why* — Lucas prefers Canva; copied seeds retain motion. *Done when* — Verified k10 lets Lucas choose the home.
+*What* — Canva: review billing and alternatives before more build work. Decide shapes/connectors versus SVG with Lucas; verify MCP grant or Apps SDK fallback. Through /craft, k10 must reproduce k1 without human clicks, oracle-verified; reread shared deck each turn. Evidence: tools/slides/SPECS.md, outputs/canva-poder-desenho.md, outputs/.drafts/canva-poder/{oracle.py,mcp_spike.py}. *Why* — Lucas prefers Canva; copied seeds retain motion. *Done when* — Verified k10 lets Lucas choose the home.
 
 **🟡 [cross-harness-delegation] Every feature works on every harness, and delegates from any of them**
 *What* — **One map** (Lucas, 2026-11-24): per harness (Claude Code, Codex, Copilot, opencode, agy, ZCode, pi, DeepSeek harness), what works — skills, hooks, session id, git wrapper, headless call, workers orchestrated from it. Lucas picked (2026-11-24, panel argon): `core/harnesses.txt` gains a column per feature, each cell naming the CLI version it was proven on, flagged at the close when that CLI moves; risk: bumping versions untested. [codex-parity] Recheck 2-Nov (../outputs/codex-audit-20261102/auditoria.md). [r-cli] Memory portability. [pstack] Completion/invariants/throughput. [context-evidence] Context/planning/checks; no invented 100k cutoff. [model-regression] Pin versions, effort, context/settings. *Why* — Agnostic, unproven. *Done when* — Every cell is proven or names its ISSUES defect; source/public checks green.
@@ -221,3 +221,11 @@ Flows/agents wait for v1 (Lucas, 25 Aug); observed 24 Aug failures preserved (or
 - Handoff consumed by a post-read hook: a section appended between read and delete would vanish; `--take` under the lock is the one door (10 Nov).
 
 - Per-file ownership check on every write, and blocking roundup after N non-promotions: a written-files log cannot prove whose a change is, and skips had real causes (10 Nov).
+
+<!-- routing:start -->
+## Routing
+
+| Part | Description | Items |
+|------|-------------|-------|
+| [`ROADMAP-workers.md`](ROADMAP-workers.md) | ← add description | `subscription-review` |
+<!-- routing:end -->

@@ -118,6 +118,7 @@ branches/writing/drafts/email/*
 core/*
 !core/CONTEXT.md
 !core/ROADMAP.md
+!core/ROADMAP-*.md
 # The law and the conventions, INCLUDING their parts. Named one by one until 2026-08-20, which
 # left every SCHEMA-*.md and SPECS-*.md silently untracked — a clone got an index pointing at four
 # files it did not have. A type that is cut must be allowlisted by its shape, never by enumeration.
