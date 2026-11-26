@@ -69,7 +69,7 @@ When Lucas intends evaluation/adoption ("investigar", "útil pro X") or the entr
 
 ## project route — writing into code repos
 
-- **idea** → insert in the relevant roadmap section, phrased agent-ready.
+- **idea** → insert in the relevant roadmap section, phrased agent-ready; never in `## Agora` (only Lucas re-ranks the Agora).
 - **bug** → merge matching evidence or insert beside related defects in `code/<proj>/ISSUES.md`.
 - Never write project ideas into `code/<proj>/CONTEXT.md`.
 

@@ -75,6 +75,7 @@ toggle	brain-dashboard	on
 toggle	brain-attention	on
 toggle	inbox-reminder	on
 toggle	compass-reminder	on
+toggle	roadmap-reminder	on
 toggle	publish-reminder	on
 toggle	disk-reminder	on
 toggle	pr-reminder	on

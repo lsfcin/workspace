@@ -6,6 +6,9 @@ Contract: [SCHEMA.md](SCHEMA.md). Goal: [[spec-driven-development]]. Evidence: [
 
 ## Open
 
+**🟡 [roundup-advance] The close checks that the served item moved** (Lucas, 2026-11-26)
+*What* — `core/tools/wos/roundup` reads the branch's tag (`feature/<tag>`) and warns when neither that item nor the `## Agora` changed in the session's diff; warn first, refuse once the warning proves fair. The roundup "advance" rule is prose today: induced, not enforced. *Why* — handoff chains bypassed the ROADMAP for a month. *Done when* — a close that served `[x]` without touching it prints the warning, with a test.
+
 **🟢 [graphify-audit] Graphify use and cost — backlog**
 *What* — Assess actual Graphify use, maintenance/context cost and value against current repository navigation. *Why* — Lucas questions whether it earns its overhead (INBOX 31 Oct). *Done when* — Lucas reviews evidence before retention/removal.
 
@@ -222,5 +225,5 @@ Flows/agents wait for v1 (Lucas, 25 Aug); observed 24 Aug failures preserved (or
 
 | Part | Description | Items |
 |------|-------------|-------|
-| [`ROADMAP-workers.md`](ROADMAP-workers.md) | ← add description | `orchestrate-by-default` `wos-diet` `subscription-review` |
+| [`ROADMAP-workers.md`](ROADMAP-workers.md) | ← add description | `delegate-v1` `orchestrate-by-default` `wos-diet` `subscription-review` |
 <!-- routing:end -->

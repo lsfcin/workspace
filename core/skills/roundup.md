@@ -32,6 +32,8 @@ Read what the session touched. Then:
 
 **Done work is deleted. Git is the history.** There is no `HISTORY.md`, no `ARCHIVE.md`, no done-log — see [`core/SCHEMA.md`](../SCHEMA.md) § No archive types. A completed item's record is its commit; re-writing it into an archive file only grows a doc nobody opens. So: delete completed `ROADMAP.md` items (`- [x]`, "done", "shipped", "merged", "✅") and resolved `ISSUES.md` items (`- [x]`, "fixed", "resolved", "closed"). For a bug, the regression spec (`test/**/b<N>-*`) is the durable proof it is dead — that is what [`core/hooks/checks/issues-gate.py`](../hooks/checks/issues-gate.py) enforces, and it outlives any writing.
 
+**Advance, not only delete** (Lucas, 2026-11-26). For the item this session served, cut the `Done when` clause it met. Then re-read the whole repo ROADMAP against its `## Agora` (≤3 `[tag]` pointers in the root `ROADMAP.md`; the item stays in its section). Confirm the Agora or re-rank it, and cut, demote or defer what the session showed is stale. The Agora is a view of the structure, never a second list. A repo with no root `ROADMAP.md` or no Agora gets one now, ranked with Lucas, because `handoff --write` refuses without it.
+
 **The one thing that must not be deleted.** An approach the session **tried and rejected** was never committed, so git cannot hold it. Write **one line** under `## Rejected` in the relevant `ROADMAP.md` (for a ditched goal: under `## Ditched` in `brain/GOALS.md`) with the reason. One line — not a post-mortem.
 
 ---

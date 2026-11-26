@@ -9,7 +9,13 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Processo de agente sem prazo**: Foundry com `&`, 6 dias. Regra: `systemd-run --user --collect -p RuntimeMaxSec=`; SessionStart lista órfãos. [src: agent 2026-11-26]
 
-- **aiwbot.service a 3,7 GiB** em 2 h. Medir RSS, achar o vazamento, `MemoryMax=`. [src: agent 2026-11-26]
+- **aiwbot.service a 3,7 GiB** em 2 h. Medir RSS, achar o vazamento, `MemoryMax=`. RAM/swap: reboot; zram e swappiness são de Lucas. [src: agent 2026-11-26]
+
+- **A cópia do modo artifact não leva os repos aninhados** (`brain/`): `test_features_wiring` falha lá e passa na árvore real, e o contrato perde 2 tentativas (26 Nov). [src: agent 2026-11-26]
+
+- **`handoff --take` aceita o nome do repo, `wos/take` exige o caminho** (assimetria). Um resolvedor só. [src: agent 2026-11-26]
+
+- **Fios herdados sem detalhe** (handoffs até 26 Nov): checagem de token órfão; rótulo de segredo × gate do INBOX; `outputs/codex-git-write/e2e.sh` só roda o read-only a partir de `/tmp`; seção 7 do diagrama atrás do roadmap. Reproduzir ou apagar. [src: agent 2026-11-26]
 
 - **O outbox é oferecido em vez de usado**: no /inbox, com o repo de outro, o agente disse "podemos encaminhar" sem chamar `wos/note` (25 Nov). Refinar `core/norms/improve.md`: anotar na hora, conferir pendente, seguir. [src: agent 2026-11-25]
 
@@ -31,7 +37,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Os workers do painel não leem a web**: Codex (`Internal Error`) e argon (sem rede) falharam numa página pública (23/11). Declarar em `core/workers.txt` ou dar rede. [src: agent 2026-11-23]
 
-- **O wrapper do git deixa passar o Copilot** (e2e 24/11, `outputs/lock-facade/e2e.sh`): `-p` pula os hooks sem a raiz em `trustedFolders` (falta o OK de Lucas). Conferir o `session_id` do hook (Codex, Copilot); `ancestors()` dá [] fora do Linux. [src: agent 2026-11-24] `b20261124-git-wrapper-harnesses`
+- **O wrapper do git deixa passar o Copilot** (e2e 24/11, `outputs/lock-facade/e2e.sh`): `-p` pula os hooks sem a raiz em `trustedFolders` (falta o OK de Lucas). `ancestors()` dá [] fora do Linux. [src: agent 2026-11-24] `b20261124-git-wrapper-harnesses`
 
 - **Três harnesses sem chamada headless.** ZCode 0.16.3 `--prompt`: `Model config is missing` (config só tem hooks). `pi -p`: 402 do ollama cloud; trocar para OpenRouter. DeepSeek: só `.exe` de Windows (20, 24 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
 
@@ -39,15 +45,15 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **O pymupdf põe um dígito solto como título** (`# 0`, `# 8`) logo após `<!-- page N -->`, resto do brasão; 45 no docs-ufrpe, corrigidos à mão (24 Nov). [src: agent 2026-11-24] `b20261124-pdf-crest-title`
 
-- **`video` não avisa quando a fala sai curta.** `video_media.transcribe()` devolve `""` em qualquer exceção, e ninguém compara o fim do último segmento com a duração do áudio (reel Df96hr1Nu5M, 21 Nov). [src: agent 2026-11-21] `b20261121-video-speech-cut`
+- **`video` não avisa quando a fala sai curta.** `video_media.transcribe()` devolve `""` em qualquer exceção, e ninguém compara o último segmento com a duração (21 Nov). [src: agent 2026-11-21] `b20261121-video-speech-cut`
 
-- **`core/harnesses.txt` não tem copilot**, mas existem `core/hooks/copilot/` e um teste de shim dele. Ou ganha linha (com o diretório de skills que tiver) ou a ausência fica escrita (20 Nov). [src: agent 2026-11-20] `b20261120-harnesses-no-copilot`
+- **`core/harnesses.txt` não tem copilot**, mas existem `core/hooks/copilot/` e um teste de shim dele: linha ou ausência escrita (20 Nov). [src: agent 2026-11-20] `b20261120-harnesses-no-copilot`
 
-- **Censo do docs-ufrpe.** (1) `web/fetch`: a UFRPE não manda o intermediário (RNP ICPEdu); levar o bundle de `verificar.py` ou achar pela AIA; segura UA de curl (502 em 90 s), atende navegador em 0,6 s (21 Nov). (2) `mail/gmail` sem busca nem anexo por id: ver `b20261024-mail-search-attachments`. (3) O censo de páginas vira ferramenta? (19 Nov). [src: agent 2026-11-19] `b20261119-census-tool-gaps`
+- **Censo do docs-ufrpe.** `web/fetch`: a UFRPE não manda o intermediário (RNP ICPEdu) e segura UA de curl (502 em 90 s); levar o bundle de `verificar.py`. O censo vira ferramenta? (19–21 Nov). [src: agent 2026-11-19] `b20261119-census-tool-gaps`
 
-- **`checks/web-retry.py` só escuta o Claude Code.** Só `.claude/settings.json` registra `PostToolUseFailure`; conferir se os shims de Codex, Copilot, OpenCode e Antigravity entregam a saída no `post` (21 Nov). [src: agent 2026-11-21] `b20261121-web-retry-shims`
+- **`checks/web-retry.py` só escuta o Claude Code.** Só `.claude/settings.json` registra `PostToolUseFailure`; conferir os outros shims (21 Nov). [src: agent 2026-11-21] `b20261121-web-retry-shims`
 
-- **O pre-commit diz que `core/hooks/brain` é ignorado** ao re-stagear `CONTEXT.md` e `memory-gate.pyi`, mas `git check-ignore` na raiz diz que não é. Suspeita: o stage roda com o `.gitignore` do repo `brain/` (20 Nov). [src: agent 2026-11-20] `b20261120-brain-hooks-staged-as-ignored`
+- **O pre-commit diz que `core/hooks/brain` é ignorado** ao re-stagear, mas `git check-ignore` diz que não; suspeita: o `.gitignore` de `brain/` (20 Nov). [src: agent 2026-11-20] `b20261120-brain-hooks-staged-as-ignored`
 
 - **173 arquivos órfãos no publish** (2.681 linhas): nenhuma feature os reivindica; `/publish` pede zero (`publish/repo --orphans`, 20 Nov). [src: agent 2026-11-20] `b20261120-publish-173-orphans`
 
@@ -69,7 +75,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`cfpages publish` não apaga um artefato que saiu da origem**: `5-demonstracao-poster.md` seguiu no ar até remoção à mão (19 Nov). `b20261119-publish-orphans`
 
-- **Tokens Google vencem um serviço por vez**, cada um pedindo navegador (3 vezes numa noite); `gslides preview` depende do token de drive (9 Nov). `b20261109-google-token-per-service`
+- **Tokens Google vencem um serviço por vez**, cada um pedindo navegador; `gslides preview` depende do token de drive (9 Nov). App em Teste: tokens vencem perto de 01/12. `b20261109-google-token-per-service`
 
 - **`delegate/ask` só aceita caminho de arquivo**: texto dá traceback, não erro claro (9 Nov). `b20261109-panel-ask-text`
 
@@ -103,7 +109,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Proposta "aguardando OK" atravessa a sessão só como resumo**; o handoff devia apontar para o arquivo com o texto exato (17 Nov). `b20261117-handoff-proposal-text`
 
-- **Lote docs-ufrpe (11 Nov).** (a) gêmeo de PDF com frontmatter, e .docx sem gêmeo, pedem "first-line comment". (b) tachado de norma revogada dispara "finished work" (24 Nov): pular corpo de documento de arquivo. (c) a lei de segredos marca o CNPJ público da UFRPE. (e) `docling` >10 min onde `pymupdf` resolve. (h) `academy/cv/comprovantes/2026/CONTEXT.md` sem descrições. `b20261111-docs-ufrpe-lote`
+- **Lote docs-ufrpe (11 Nov).** Gêmeo de PDF com frontmatter e .docx pedem "first-line comment"; tachado de norma revogada dispara "finished work"; a lei de segredos marca o CNPJ público da UFRPE; `docling` >10 min onde `pymupdf` resolve. `b20261111-docs-ufrpe-lote`
 
 - **Edição de cronograma colide com nota dada no site**: editar `disciplina.md` atrás do painel faz o `publish` recusar (13 Nov). Trazer o painel antes, ou mesclar por linha de aluno. `b20261113-cfpages-pull-colisao`
 
@@ -145,9 +151,9 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - UNGATED WRITE misattributes paths after `cd`, and reads a literal `$S/file` as a path (16 Oct, 3 Nov). `b20261017-ungated-write-cwd`
 
-- Video: five empty galleries counted as "38 ok / 0 failed" (17 Nov); lost partials (16 Nov), omitted slides and 150 px thumbnails (30 Oct). 25 Nov: three `--level full` batches said ok with no visual layer (`agy not logged in`, claude fallback); a read-only cookie jar (Errno 30) failed unnamed links; evidence `outputs/inbox-{teaching,projects}-20261125/`. A missing layer is a failure, not ok. Save per-link results; test empty, error, partial, full, batch. [src: Lucas 2026-11-19] `b20261017-video-batch-results`
+- Video batches say ok on failure: empty galleries as "38 ok" (17 Nov), lost partials, `--level full` with no visual layer (25 Nov, `agy not logged in`), a read-only cookie jar (Errno 30). A missing layer is a failure; save per-link results. [src: Lucas 2026-11-19] `b20261017-video-batch-results`
 
-- **Brain stats staging**: refreshed goal files left unstaged (14–24 Oct); index old, HEAD and disk new (5961a25, eeba4ab, 25 Nov). `b20261014-brain-stats-staging`
+- **Brain stats staging**: refreshed goal files left unstaged (14–24 Oct); a path-only commit leaves the index old, HEAD and disk new (5961a25, eeba4ab, 51ba029, 25–26 Nov). `b20261014-brain-stats-staging`
 
 - **PDF conversions overrun; low-confidence pages inflate audit references (25 Sep–9 Oct).** `b20261014-pdf-conversion-audit`
 

@@ -71,12 +71,13 @@ def _template():
 
 
 def test_the_template_has_no_placeholder_to_fill():
-    """`Open threads` is omitted, not answered with a "none." placeholder — the output rule
-    applied to a section. A placeholder is a shape the model fills rather than a fact it
-    reports. Scoped to the template: the prose above it may quote what it forbids."""
+    """A section with nothing is omitted, not answered with a "none." placeholder — the output rule
+    applied to a section. `Open threads` is gone: a thread lives in its ROADMAP or ISSUES, never
+    in a chain of handoffs (Lucas, 2026-11-26). Scoped to the template."""
     template = _template()
     assert '"none."' not in template
-    assert 'Omit the whole section' in template
+    assert 'Omit if none' in template
+    assert '### Open threads' not in template
 
 
 def test_the_state_block_is_whatever_the_tool_printed():

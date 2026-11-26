@@ -5,7 +5,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-sys.path[:0] = [str(ROOT / 'core/hooks/git'), str(ROOT / 'core/hooks')]
+sys.path[:0] = [str(ROOT / 'core/hooks/git'), str(ROOT / 'core/hooks'),
+               str(ROOT / 'core/tools/wos/close')]
+import agora  # noqa: E402
 import lock  # noqa: E402
 import outbox  # noqa: E402
 
@@ -31,6 +33,17 @@ def main() -> int:
     if not refusal and (waiting := len(outbox.pending(repo))):
         print(f'[Outbox] {waiting} note{" waits" if waiting == 1 else "s wait"} for this repo\'s ISSUES.md or ROADMAP.md;'
               f' fold them in during the work: core/run tools/wos/note {shlex.quote(str(repo))}')
+    if not refusal:
+        try:
+            item = agora.item(repo, args.name)
+        except (OSError, UnicodeError) as error:
+            print(f'[Roadmap] could not read the ROADMAPs: {error}', file=sys.stderr)
+        else:
+            if item is not None:
+                print(f'[Roadmap] this work serves [{args.name}]:\n{item}')
+            else:
+                print(f"[Roadmap] no item [{args.name}] in this repo's ROADMAPs: "
+                      'this work is off the roadmap — add the item or say why in the plan.')
     return 1 if refusal else 0
 
 

@@ -15,9 +15,11 @@ Arguments: $ARGUMENTS  (focus for next session)
 
 Skipping is one line: *nothing open — no hand-off written.* Nothing else, and stop here. The handoff this session opened is already gone — taking it deleted it.
 
-**A taken handoff's threads are this session's.** Each one is finished, moved to its `ROADMAP.md` or `ISSUES.md`, or carried into this session's own handoff — never dropped. **A handoff file's existence means exactly one thing: its threads are open.**
+**A handoff points; the ROADMAP is the plan** (Lucas, 2026-11-26). A taken handoff's threads are this session's: each one is finished or moved to its `ROADMAP.md` / `ISSUES.md` — never carried forward, never dropped. A dead end goes to `## Rejected`. Handoff chains that carried threads session after session were the reason the ROADMAPs stopped moving.
 
-Hand off when work is mid-flight, a decision is pending, or a trial remains unresolved. If unsure, write it: a dropped thread costs the next session its reconstruction.
+**`--write` enforces the shape** (Lucas, 2026-11-26): only the four sections of the template, ≤600 characters outside `State`, every `[tag]` and id real, and a root `ROADMAP.md` with a `## Agora` in the repo. A repo without one gets it from the close before the handoff.
+
+Hand off when work is mid-flight or a decision is pending. If unsure, write it: a dropped mid-flight step costs the next session its reconstruction.
 
 ## Gather state
 
@@ -63,15 +65,14 @@ Print the block between the `---` markers:
 ## Resume — [PROJECT] — [DATE]
 
 ### Next action
-[If $ARGUMENTS: use as directive. Else: the single next step, from ROADMAP + current state.]
+[A ROADMAP [tag] or an ISSUES id, then one line of mid-flight state. `none` when the work closed
+ clean: the next session picks from the ## Agora. `--write` refuses a tag or id that does not exist.
+ An outward action Lucas approved (deploy, remote delete) is done this session: a file cannot carry
+ consent (2026-11-25). Left for later, it reads "ask Lucas", never "authorized".]
 
 ### Worked on
 [≤3 bullets, and only what no list already holds. Shipped work is in git and the ROADMAP —
  what belongs here is what a reader of those files would still not know.]
-
-### Open threads
-[Discussed but unresolved — dead ends and what was tried. Omit the whole section if there are none.
- An outward action Lucas approved here (deploy, remote delete) is done here: a file cannot carry consent, so auto mode refuses it next session (2026-11-25). Left for later, it reads "ask Lucas", never "authorized".]
 
 ### Decided without asking
 [One line each: the choice, and the option not taken. Only choices Lucas could reasonably have made

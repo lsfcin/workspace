@@ -5,10 +5,18 @@
 > **Three fields per item, no fourth.** *What* will exist · *Why* it is worth building · *Done when*, the observable that ends it. **HOW is the job of the session that takes the item** — a roadmap carrying its own implementation goes stale the day the code disagrees with it. Rules live in the `SPECS.md` that owns them; numbers live in `core/experiments/` and `ISSUES.md`. Re-run an instrument.
 >
 > 🔴 Lucas decides · 🟡 an agent can rule alone · 🟢 mechanical. Items are named, never numbered.
+>
+> **`## Agora` is what comes now: ≤3 `- [tag] — why now` pointers to items in any ROADMAP of this repo. The item stays in its section.** Lucas ranks it. `handoff --take`, `wos/take`, `/roundup` and SessionStart show it, and `handoff --write` refuses an Agora or a Next action that points at nothing (Lucas, 2026-11-26).
+
+## Agora
+
+- [wos-diet] — the workspace feels heavy, and every cut shrinks every future session
+- [delegate-v1] — half-proven; cutting the WOS is its workbench
+- [scoreboard-reading] — the baseline that tells which cut is a guess
 
 ## Measurement — does any of this earn its keep
 
-**🟡 the scoreboard is running and owes its first reading**
+**🟡 [scoreboard-reading] the scoreboard is running and owes its first reading**
 *What* — the two-week reading, and the cuts it justifies: `core/run tools/wos/features --scoreboard`, into `core/experiments/hook-scoreboard.md`. **Due 2026-09-28**; the tool prints its own start date, so check it rather than this line.
 *Why* — 82 features are on, so every cut is a guess and kept rules are paid on faith.
 *Done when* — the table is read after two weeks of ordinary use and each silent feature is a decision.
@@ -19,20 +27,10 @@
 It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is what says which mechanism earns its keep. Unblocked 2026-09-16: the repo it varies is `lsfcin/wos`, public, synced one way by `core/run tools/wos/publish/repo` and green on its own suite.
 *Done when* — a **per-feature** verdict is readable. Runs outside this workspace (`academy/papers/wos-ablation/`).
 
-**🟡 two ways of not re-sending the same knowledge every turn, neither of them looked at**
-*What* — a reading of `briefd` and of the cheap decide-only model Lucas forwarded (`core/refs/REFS.md`), against what this workspace already does: does either beat the CONTEXT.md chain plus the interface-first read, and at what cost. `briefd` compiles a git-backed markdown corpus into one token-budgeted bundle per task over MCP; the other decides what to expand and what to contract, which is the same question answered per turn rather than per task. Lucas also asks whether the decide-only model automates functional tests here.
-*Why* — both attack the bill this workspace already knows it pays: `core/experiments/context-window.md` and `read-amplification.md` measure it, and the chain gate is the current answer. A third mechanism is worth a reading, not a port. INBOX 2026-09-18 and 2026-09-21.
-*Done when* — each has a verdict against a measured number of ours, and the losing one is deleted from `REFS.md` with its reason.
-
-**🟡 auto-compaction orientada a state file vs handover/handoff manual**
-*What* — avaliar a substituição de handovers manuais (`outputs/handoff.md`, commits intermediários forçados) e do resumo destrutivo de auto-compactação nativa dos harnesses pelo padrão de *state file* (GlitchCatClub, `core/refs/REFS.md`): o agente mantém um arquivo de estado compacto e afiado durante o trabalho, e no gatilho de tokens o harness descarta o histórico e reapresenta apenas esse arquivo.
-*Why* — handovers manuais geram fricção, enquanto a auto-compactação padrão dos harnesses dispara tarde e introduz *context rot* / *context poisoning* por resumos opacos (INBOX 2026-09-27, 2026-09-29).
-*Done when* — teste comparativo medido em tarefa longa avaliando perda de fatos e integridade com state file vs native compaction vs handoff.
-
-**🟡 measure and reduce startup and planning context**
-*What* — Measure startup/planning reads, hook messages and WOS prose; distinguish zero from missing data. Count whether interface reads avoid or precede full-source reads and their token cost. Compare Markdown interfaces and TextFold before adoption; assess on-demand loading and cut redundancy after ablation. Keep per-administration-session docs-ufrpe read measurement.
-*Why* — Lucas reports 75–80k context at planning and sessions reaching 150k; WOS overhead is a hypothesis, minimal or net-positive cost the target. He requests reviewing all hook messages and WOS prose (INBOX).
-*Done when* — Comparable tasks evidence baseline, reduction, interface savings and docs-ufrpe-first adherence without weakened checks; each loading alternative has a verdict.
+**🟡 what a session carries between turns and sessions — three mechanisms, none looked at**
+*What* — readings against what this workspace already does (the CONTEXT.md chain, the interface-first read, the handoff): `briefd` (a git-backed corpus compiled into one token-budgeted bundle per task over MCP), the cheap decide-only model (what to expand or contract per turn; does it also automate functional tests here?), and the *state file* (GlitchCatClub): a compact file kept during work that the harness re-presents when it discards history, against native auto-compaction and the handoff. All in `core/refs/REFS.md`.
+*Why* — they attack the bill `core/experiments/context-window.md` and `read-amplification.md` measure; native compaction fires late and its opaque summaries rot the context. INBOX 2026-09-18, 09-21, 09-27, 09-29.
+*Done when* — each has a verdict against a measured number of ours (the state file on one long task: facts lost, integrity), and each loser is deleted from `REFS.md` with its reason.
 
 **🟡 avaliar jevgrep para seleção cirúrgica de arquivos para coding agents**
 *What* — testar o `jevgrep` (ou seu método de busca/indexação focada em agentes) contra os comandos de busca e leitura do WOS (`grep_search`, `find_by_name`, `session/reads`).

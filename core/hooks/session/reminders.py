@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # SessionStart — the soft reminders, in one voice: what has piled up, what has gone unreviewed, what
 # has not reached the public repo, a disk filling up, and the PRs waiting on a watched repo. One file,
-# five switches, and at most one message.
+# switches per reminder, and at most one message.
 #
 # THREE FILES BECAME ONE ON 2026-09-17, and the reason is in the prose the third would have copied.
 # The compass file of the day ended with an instruction to the agent: *"if the INBOX one already
@@ -30,10 +30,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 
+sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools/wos/close'))
+import agora  # noqa: E402
+
 INBOX = WORKSPACE_ROOT / 'brain/INBOX.md'
 INBOX_WARN, INBOX_LOUD = 15, 25
 COMPASS_LOG = WORKSPACE_ROOT / 'brain/.log/compass-last.txt'
 COMPASS_STALE_DAYS = 14   # ~2x/month rhythm; below this, stay silent
+ROADMAP_STALE_DAYS = 14
 PUBLISH_WARN = 5
 DISK_WARN, DISK_LOUD = 0.85, 0.95
 
@@ -86,6 +90,15 @@ def compass() -> str:
     if days < COMPASS_STALE_DAYS:
         return ''
     return f'COMPASS: last review was {days}d ago — offer /compass when it feels right.'
+
+
+def roadmap() -> str:
+    days = agora.age(WORKSPACE_ROOT)
+    if days is not None and days >= ROADMAP_STALE_DAYS:
+        return f'ROADMAP: the ## Agora in ROADMAP.md has not changed in {days}d — re-rank it when planning.'
+    if not agora.has_agora(WORKSPACE_ROOT):
+        return 'ROADMAP: ROADMAP.md has no ## Agora — rank one when planning.'
+    return ''
 
 
 def _git(*args, cwd=WORKSPACE_ROOT) -> str:
@@ -212,7 +225,8 @@ def outbox() -> str:
 
 # Feature name → the question it asks. The registry switches each one independently, which is what
 # keeps three reminders in one file from becoming one feature with three reasons.
-ASKS = (('inbox-reminder', inbox), ('compass-reminder', compass), ('publish-reminder', publish),
+ASKS = (('inbox-reminder', inbox), ('compass-reminder', compass), ('roadmap-reminder', roadmap),
+        ('publish-reminder', publish),
         ('disk-reminder', disk), ('pr-reminder', prs), ('branch-lock', outbox))
 
 

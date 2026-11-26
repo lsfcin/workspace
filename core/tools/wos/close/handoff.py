@@ -170,8 +170,8 @@ def choose(root: Path, cwd: Path, session: str, agent: str, log: Path | None) ->
 # file, which hands it every pending thread and deletes it. One file per repository and environment,
 # latest wins, silently destroyed a parallel session's handoff — the defect this replaced.
 MARKER = re.compile(r'^<!-- handoff-session: (\[.*?\]) -->\n', re.M)
-TAKEN = ('— Taken: this file is deleted, and every thread above is now yours. Finish it, move it to its '
-         'ROADMAP or ISSUES, or carry it into your own handoff.')
+TAKEN = ('— Taken: this file is deleted, and every thread above is now yours. Finish it or move it to its '
+         'ROADMAP or ISSUES; a handoff points at those lists and never carries a thread forward.')
 
 
 def key_of(root: Path, repo: Path) -> str:
