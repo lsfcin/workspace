@@ -15,7 +15,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
 from chain import EXEMPT_NAMES, interface_state, prerequisites  # noqa: E402
 from file_law import is_code_file  # noqa: E402
-from hook_input import announced, capability, load_iface_seen, load_seen, parse_stdin  # noqa: E402
+from hook_input import (  # noqa: E402
+	announced,
+	capability,
+	is_subagent,
+	load_iface_seen,
+	load_seen,
+	parse_stdin,
+)
 from platform_law import WORKSPACE_ROOT  # noqa: E402
 
 
@@ -82,7 +89,10 @@ def main() -> int:
 	# drives each wired hook with a payload and this arm was the one it could not see.
 	if not feature_law.is_enabled('interface-first-reads'):
 		return 0
-	_, tool, tool_input, session_id, _ = parse_stdin()
+	raw, tool, tool_input, session_id, _ = parse_stdin()
+	# Subagents are handed an explicit target and exempt from read gates by design (AD-13).
+	if is_subagent(raw):
+		return 0
 	# A read, by capability — the `file_path` check below is what keeps a directory-wide search out.
 	if capability(tool, tool_input) != 'read':
 		return 0

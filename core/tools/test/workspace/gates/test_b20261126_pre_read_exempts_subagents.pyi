@@ -1,0 +1,3 @@
+GATE: str
+
+def test_subagent_read_on_unread_current_stub_is_exempt_while_main_session_blocks(tmp_path) -> None: ...
