@@ -5,8 +5,8 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **Sandbox do delegate**: cópia no tmpfs (`Errno 122`), sem espelhos de skills (`verify.py fast` falha); `worker_guard` barra 2 workers em 15 GB. [src: agent 2026-11-27]
 - **`context-chain off` não cala `pre-read.py`**: lista a cadeia; nomear só o stub. [src: agent 2026-11-27]
-
 
 - **`is_twin` só aceita `source: ../<stem>.pdf`**: twin de .doc/.docx não é isento dos tetos. Aceitar, com caso em `test_pdf_twin.py`. [src: agent 2026-11-26]
 
@@ -22,7 +22,6 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **O outbox é oferecido em vez de usado**: no /inbox, com o repo de outro, o agente disse "podemos encaminhar" sem chamar `wos/note` (25 Nov). Refinar `core/norms/improve.md`: anotar na hora, conferir pendente, seguir. [src: agent 2026-11-25]
 
-- **Codex gerenciado: os três workers do painel caem com `Failed to connect to user scope bus`** antes do veredito (25 Nov). Separar user bus inacessível de login e de modelo fora. [src: agent 2026-11-25]
 
 - **Codex aberto de dentro do Claude herda `CLAUDE_CODE_SESSION_ID`**; `lock.SESSION_ENV` lê esse antes do `CODEX_THREAD_ID` e o wrapper confunde as duas sessões (25 Nov). [src: agent 2026-11-25]
 
