@@ -5,13 +5,16 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **`context-chain off` não cala `pre-read.py`**: lista a cadeia; nomear só o stub. [src: agent 2026-11-27]
+
+
 - **`is_twin` só aceita `source: ../<stem>.pdf`**: twin de .doc/.docx não é isento dos tetos. Aceitar, com caso em `test_pdf_twin.py`. [src: agent 2026-11-26]
 
 - **Processo de agente sem prazo**: Foundry com `&`, 6 dias. Regra: `systemd-run --user --collect -p RuntimeMaxSec=`; SessionStart lista órfãos. [src: agent 2026-11-26]
 
 - **aiwbot.service a 3,7 GiB** em 2 h. Medir RSS, achar o vazamento, `MemoryMax=`. RAM/swap: reboot; zram e swappiness são de Lucas. [src: agent 2026-11-26]
 
-- **A cópia do modo artifact não leva os repos aninhados** (`brain/`): `test_features_wiring` falha lá e passa na árvore real, e o contrato perde 2 tentativas (26 Nov). [src: agent 2026-11-26]
+- **A cópia do modo artifact não leva `brain/` nem o espelho de skills**: `verify.py fast` falha lá e passa na árvore real. [src: agent 2026-11-26]
 
 - **`handoff --take` aceita o nome do repo, `wos/take` exige o caminho** (assimetria). Um resolvedor só. [src: agent 2026-11-26]
 

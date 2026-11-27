@@ -47,6 +47,18 @@ Three readings, and the third is the one that decides anything:
 | 1 | glm → sol | blocked: the copy lacked untracked modules (fixed in `sandbox.make`) | 1,702 | 108 | no |
 | 2 | sol | ok on try 1, 9 tests, suite green | 189 | 165 | partial: 12 grep lines, to fix line endings the contract's checks missed (the encoding ceiling belongs in every code contract's checks) |
 
+2026-11-27, second contract: `pre-read.py` exempts subagents (AD-13), each route from the same base, the result saved and reverted between routes.
+
+| Run | Route | Result | Seconds | ΔC_orch | Leak |
+|-----|-------|--------|--------:|--------:|------|
+| 3 | sol, argon, flash, deepseek | refused before any call: `work: code` is not in `core/levels.txt` | 0 | ~100 | no |
+| 4 | sol · argon · flash · deepseek | blocked · fail · fail · timeout: `verify.py fast` fails inside the copy (mirror test), not the workers | 170 · 139 · 75 · 165 | ~600 | no |
+| 5 | sol | ok on try 1, both checks (check narrowed to the gates' tests) | 100 | ~250 | yes: diff read to pick one |
+| 6 | argon | ok on try 1, both checks; adopted as `959c35dc`, live suite 1347 passed | 114 | ~250 | yes: same |
+| 7 | flash | fail: changed no file in 2 tries | 111 | ~80 | no |
+
+One contract green on two providers (sol, argon). The leak is the choice between two passing diffs: comparing them belongs to the reviewer step (iii), not the orchestrator.
+
 n = 1 task: no saving is claimed yet. The A/B (same task alone, clean session) is owed; the orchestrator's own session was already at ~150k from building the mode, which is the case for delegating from the start.
 
 ## What changed
