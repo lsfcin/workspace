@@ -48,8 +48,9 @@ _MENU_XML = """<node><interface name="com.canonical.dbusmenu">
   <property name="Status" type="s" access="read"/><property name="IconThemePath" type="as" access="read"/>
 </interface></node>"""
 
-_REC_CYCLE = ("wos-rec-0", "wos-rec-1", "wos-rec-2", "wos-rec-3", "wos-rec-2", "wos-rec-1")
-_TX_CYCLE = ("wos-tx-0", "wos-tx-1", "wos-tx-2", "wos-tx-3", "wos-tx-4", "wos-tx-5")
+_REC_STEPS, _TX_FRAMES = 8, 12
+_REC_CYCLE = tuple(f"wos-rec-{i}" for i in (*range(_REC_STEPS + 1), *range(_REC_STEPS - 1, 0, -1)))
+_TX_CYCLE = tuple(f"wos-tx-{i}" for i in range(_TX_FRAMES))
 
 
 def _runtime_root() -> pathlib.Path:
@@ -66,7 +67,7 @@ def _rec_svg(coral_op: float) -> str:
 def _wave_svg(frame: int) -> str:
     dots = []
     for k, cx in enumerate((5.5, 12.0, 18.5)):
-        s = math.sin(2.0 * math.pi * frame / 6.0 - k * math.pi / 2.0)
+        s = math.sin(2.0 * math.pi * frame / _TX_FRAMES - k * math.pi / 2.0)
         cy, op = 12.0 - 1.5 * s, 0.84 + 0.16 * s
         dots.append(f'<circle cx="{cx:.1f}" cy="{cy:.2f}" r="2.1" fill="#F3F4F6" fill-opacity="{op:.2f}"/>')
     return f'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">{"".join(dots)}</svg>\n'
@@ -79,9 +80,9 @@ def write_svg_icons(icon_dir: pathlib.Path | None = None) -> pathlib.Path:
     for stale in target.glob("wos-*.svg"):
         stale.unlink(missing_ok=True)
     frames = {"wos-idle": _rec_svg(0.05)}
-    for i, op in enumerate((0.05, 0.35, 0.70, 1.00)):
-        frames[f"wos-rec-{i}"] = _rec_svg(op)
-    for i in range(6):
+    for i in range(_REC_STEPS + 1):
+        frames[f"wos-rec-{i}"] = _rec_svg(0.05 + 0.95 * 0.5 * (1.0 - math.cos(math.pi * i / _REC_STEPS)))
+    for i in range(_TX_FRAMES):
         frames[f"wos-tx-{i}"] = _wave_svg(i)
     for name, svg in frames.items():
         (target / f"{name}.svg").write_text(svg, encoding="utf-8", newline="\n")
@@ -152,7 +153,7 @@ class DictateTray:
             GLib.source_remove(self._tick_id)
             self._tick_id = None
         if norm in ("recording", "transcribing"):
-            self._tick_id = GLib.timeout_add(360 if norm == "recording" else 140, self._on_tick)
+            self._tick_id = GLib.timeout_add(105 if norm == "recording" else 70, self._on_tick)
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewStatus", GLib.Variant("(s)", (self._status_str(),)))
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewIcon")
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewToolTip")

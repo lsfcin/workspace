@@ -44,11 +44,11 @@ def test_ibus_async_injection_never_calls_sync_switch(monkeypatch, tmp_path):
     assert res["ok"] is True and eng.committed == ["Olá mundo"] and bus.calls == ["wos-dictate", "xkb:us:intl:eng"]
 
     icon_dir = tray.write_svg_icons(tmp_path)
-    for name in (*(f"wos-rec-{i}.svg" for i in range(4)), *(f"wos-tx-{i}.svg" for i in range(6))):
+    for name in (*(f"wos-rec-{i}.svg" for i in range(9)), *(f"wos-tx-{i}.svg" for i in range(12))):
         assert (icon_dir / name).is_file()
     assert "<rect" not in (icon_dir / "wos-rec-0.svg").read_text(encoding="utf-8")
     assert "<rect" not in (icon_dir / "wos-tx-0.svg").read_text(encoding="utf-8")
     import re
-    cys = [float(y) for i in range(6) for y in re.findall(r'cy="([0-9.]+)"', (icon_dir / f"wos-tx-{i}.svg").read_text(encoding="utf-8"))]
-    assert len(cys) == 18 and min(cys) >= 10.5 and max(cys) <= 13.5
+    cys = [float(y) for i in range(12) for y in re.findall(r'cy="([0-9.]+)"', (icon_dir / f"wos-tx-{i}.svg").read_text(encoding="utf-8"))]
+    assert len(cys) == 36 and min(cys) >= 10.5 and max(cys) <= 13.5
     assert abs((sum(cys) / len(cys)) - 12.0) < 1e-6
