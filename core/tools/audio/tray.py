@@ -1,8 +1,7 @@
-# Zero-dependency StatusNotifierItem top-bar indicator for WOS desktop dictation
+# Vector-SVG StatusNotifierItem top-bar indicator for WOS desktop dictation
 from __future__ import annotations
 
 import json
-import math
 import os
 import pathlib
 import subprocess
@@ -22,7 +21,8 @@ _SNI_XML = """<node><interface name="org.kde.StatusNotifierItem">
   <method name="Activate"><arg name="x" type="i" direction="in"/><arg name="y" type="i" direction="in"/></method>
   <method name="SecondaryActivate"><arg name="x" type="i" direction="in"/><arg name="y" type="i" direction="in"/></method>
   <method name="Scroll"><arg name="delta" type="i" direction="in"/><arg name="orientation" type="s" direction="in"/></method>
-  <signal name="NewTitle"/><signal name="NewIcon"/><signal name="NewToolTip"/>
+  <signal name="NewTitle"/><signal name="NewIcon"/><signal name="NewAttentionIcon"/>
+  <signal name="NewOverlayIcon"/><signal name="NewToolTip"/>
   <signal name="NewStatus"><arg name="status" type="s"/></signal>
   <property name="Category" type="s" access="read"/><property name="Id" type="s" access="read"/>
   <property name="Title" type="s" access="read"/><property name="Status" type="s" access="read"/>
@@ -47,40 +47,45 @@ _MENU_XML = """<node><interface name="com.canonical.dbusmenu">
   <property name="Status" type="s" access="read"/><property name="IconThemePath" type="as" access="read"/>
 </interface></node>"""
 
-
-def _circle_argb(size: int, fill: tuple[int, int, int, int],
-                 ring: tuple[int, int, int, int] | None = None, dots: bool = False) -> bytes:
-    """Render a square ARGB32 big-endian circle icon without external image dependencies."""
-    buf = bytearray(size * size * 4)
-    cx = cy = (size - 1) / 2.0
-    r_out, r_in = size * 0.40, size * 0.25
-    for y in range(size):
-        for x in range(size):
-            dist = math.hypot(x - cx, y - cy)
-            idx = (y * size + x) * 4
-            if dots and abs(y - cy) <= 1.6 and any(abs(x - dx) <= 1.6 for dx in (cx - 4.5, cx, cx + 4.5)):
-                a, r, g, b = 255, 255, 255, 255
-            elif dist <= r_out:
-                r, g, b, a = ring if (ring and dist >= r_in) else fill
-            else:
-                a = r = g = b = 0
-            buf[idx:idx + 4] = bytes((a, r, g, b))
-    return bytes(buf)
+_REC_CYCLE = ("wos-rec-0", "wos-rec-1", "wos-rec-2", "wos-rec-1")
+_TX_CYCLE = ("wos-tx-0", "wos-tx-1", "wos-tx-2", "wos-tx-3")
 
 
-def build_icons(size: int = 24) -> dict[str, list[tuple[int, int, bytes]]]:
-    """Pre-render StatusNotifierItem pixmaps for each dictation state."""
-    return {
-        "recording_on": [(size, size, _circle_argb(size, (229, 57, 53, 255), (255, 205, 210, 255)))],
-        "recording_off": [(size, size, _circle_argb(size, (90, 22, 22, 180), (229, 57, 53, 255)))],
-        "transcribing": [(size, size, _circle_argb(size, (245, 158, 11, 255), (254, 243, 199, 255), dots=True))],
-        "idle": [(size, size, _circle_argb(size, (148, 163, 184, 200)))],
+def _runtime_root() -> pathlib.Path:
+    return pathlib.Path(os.environ.get("WOS_DICTATE_RUNTIME") or os.environ.get("XDG_RUNTIME_DIR") or f"/tmp/wos-stt-{os.getuid()}")
+
+
+def _rec_svg(halo_r: float, halo_op: float, dot_op: float) -> str:
+    return ('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">'
+            '<rect x="8.5" y="3.5" width="5" height="9" rx="2.5" fill="#F3F4F6"/>'
+            '<path d="M5.5 10.5a5.5 5.5 0 0 0 11 0M11 16v3.5M8 19.5h6" fill="none" stroke="#F3F4F6" stroke-width="1.8" stroke-linecap="round"/>'
+            f'<circle cx="18.5" cy="5.5" r="{halo_r:.1f}" fill="#FF5C5C" fill-opacity="{halo_op:.2f}"/>'
+            f'<circle cx="18.5" cy="5.5" r="2.6" fill="#FF5C5C" fill-opacity="{dot_op:.2f}"/></svg>\n')
+
+
+def _dots_svg(ys: tuple[float, float, float], ops: tuple[float, float, float]) -> str:
+    dots = "".join(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="2.4" fill="#F3F4F6" fill-opacity="{op:.2f}"/>'
+                   for cx, cy, op in zip((5.5, 12.0, 18.5), ys, ops))
+    return f'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">{dots}</svg>\n'
+
+
+def write_svg_icons(icon_dir: pathlib.Path | None = None) -> pathlib.Path:
+    """Write crisp vector SVG frames for GNOME StatusNotifierItem into a runtime directory."""
+    target = icon_dir or (_runtime_root() / "wos-tray-icons")
+    target.mkdir(parents=True, exist_ok=True)
+    frames = {
+        "wos-idle": _rec_svg(3.2, 0.0, 0.0),
+        "wos-rec-0": _rec_svg(3.8, 0.20, 0.85), "wos-rec-1": _rec_svg(4.5, 0.44, 0.95), "wos-rec-2": _rec_svg(5.1, 0.68, 1.00),
+        "wos-tx-0": _dots_svg((9.0, 12.5, 14.5), (1.00, 0.80, 0.65)), "wos-tx-1": _dots_svg((12.5, 9.0, 12.5), (0.80, 1.00, 0.80)),
+        "wos-tx-2": _dots_svg((14.5, 12.5, 9.0), (0.65, 0.80, 1.00)), "wos-tx-3": _dots_svg((12.5, 15.0, 12.5), (0.80, 0.68, 0.80)),
     }
+    for name, svg in frames.items():
+        (target / f"{name}.svg").write_text(svg, encoding="utf-8", newline="\n")
+    return target
 
 
 def _recorder_alive() -> bool:
-    rt = pathlib.Path(os.environ.get("WOS_DICTATE_RUNTIME") or os.environ.get("XDG_RUNTIME_DIR") or f"/tmp/wos-stt-{os.getuid()}")
-    sf = rt / "wos-dictate.json"
+    sf = _runtime_root() / "wos-dictate.json"
     if not sf.is_file():
         return False
     try:
@@ -98,8 +103,9 @@ def _spawn_dictate(*args: str) -> None:
 class DictateTray:
     """StatusNotifierItem + DBusMenu controller living on the GLib main loop."""
 
-    def __init__(self, bus: Gio.DBusConnection | None = None) -> None:
-        self._icons, self._state, self._blink_on, self._revision = build_icons(24), "idle", True, 1
+    def __init__(self, bus: Gio.DBusConnection | None = None, icon_dir: pathlib.Path | None = None) -> None:
+        self._icon_dir = str(write_svg_icons(icon_dir))
+        self._state, self._frame, self._revision = "idle", 0, 1
         self._state_since, self._tick_id = time.monotonic(), None
         self._bus = bus or Gio.bus_get_sync(Gio.BusType.SESSION, None)
         sni_iface = Gio.DBusNodeInfo.new_for_xml(_SNI_XML).interfaces[0]
@@ -123,6 +129,11 @@ class DictateTray:
     def _status_str(self) -> str:
         return "Passive" if self._state == "idle" else "Active"
 
+    def _icon_name(self) -> str:
+        if self._state == "recording":
+            return _REC_CYCLE[self._frame % len(_REC_CYCLE)]
+        return _TX_CYCLE[self._frame % len(_TX_CYCLE)] if self._state == "transcribing" else "wos-idle"
+
     def _emit(self, path: str, iface: str, sig: str, arg: GLib.Variant | None = None) -> None:
         try:
             self._bus.emit_signal(None, path, iface, sig, arg)
@@ -131,13 +142,13 @@ class DictateTray:
 
     def set_state(self, state: str) -> str:
         norm = state if state in ("idle", "recording", "transcribing") else "idle"
-        self._state, self._blink_on, self._state_since = norm, True, time.monotonic()
+        self._state, self._frame, self._state_since = norm, 0, time.monotonic()
         self._revision += 1
         if self._tick_id is not None:
             GLib.source_remove(self._tick_id)
             self._tick_id = None
         if norm in ("recording", "transcribing"):
-            self._tick_id = GLib.timeout_add(500, self._on_tick)
+            self._tick_id = GLib.timeout_add(380 if norm == "recording" else 220, self._on_tick)
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewStatus", GLib.Variant("(s)", (self._status_str(),)))
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewIcon")
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewToolTip")
@@ -149,31 +160,31 @@ class DictateTray:
             if (time.monotonic() - self._state_since) > 1.0 and not _recorder_alive():
                 self.set_state("idle")
                 return False
-            self._blink_on = not self._blink_on
+            self._frame += 1
             self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewIcon")
             return True
         if self._state == "transcribing" and (time.monotonic() - self._state_since) <= 90.0:
+            self._frame += 1
+            self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewIcon")
             return True
         self.set_state("idle")
         return False
 
     def _on_sni_get(self, _c, _s, _p, _i, prop: str) -> GLib.Variant | None:
         tip = {"recording": "WOS Ditado: gravando (clique para parar)", "transcribing": "WOS Ditado: transcrevendo..."}.get(self._state, "WOS Ditado")
-        key = ("recording_on" if self._blink_on else "recording_off") if self._state == "recording" else self._state
         table = {
             "Category": GLib.Variant("s", "ApplicationStatus"), "Id": GLib.Variant("s", "wos-dictate"),
             "Title": GLib.Variant("s", "WOS Ditado"), "Status": GLib.Variant("s", self._status_str()),
-            "WindowId": GLib.Variant("i", 0), "IconPixmap": GLib.Variant("a(iiay)", self._icons[key]),
+            "WindowId": GLib.Variant("i", 0), "IconName": GLib.Variant("s", self._icon_name()),
+            "IconThemePath": GLib.Variant("s", self._icon_dir), "IconPixmap": GLib.Variant("a(iiay)", []),
             "ToolTip": GLib.Variant("(sa(iiay)ss)", ("", [], tip, "")),
             "Menu": GLib.Variant("o", _MENU_PATH), "ItemIsMenu": GLib.Variant("b", False),
         }
         if prop in table:
             return table[prop]
-        if prop in ("IconName", "IconThemePath", "OverlayIconName", "AttentionIconName", "AttentionMovieName"):
+        if prop in ("OverlayIconName", "AttentionIconName", "AttentionMovieName"):
             return GLib.Variant("s", "")
-        if prop in ("OverlayIconPixmap", "AttentionIconPixmap"):
-            return GLib.Variant("a(iiay)", [])
-        return None
+        return GLib.Variant("a(iiay)", []) if prop in ("OverlayIconPixmap", "AttentionIconPixmap") else None
 
     def _on_sni_call(self, _c, _s, _p, _i, method: str, _params, inv) -> None:
         if method == "Activate" and self._state == "recording":

@@ -53,20 +53,21 @@ class WosDictateEngine(IBus.Engine):
     active_instance: WosDictateEngine | None = None
 
     def do_enable(self) -> None:
-        self.enabled = True
+        # Avoid IBus.Engine's read-only C `enabled` field (RuntimeError: unable to set value for field).
+        self._is_enabled = True
         WosDictateEngine.active_instance = self
 
     def do_disable(self) -> None:
-        self.enabled = False
+        self._is_enabled = False
         if WosDictateEngine.active_instance is self:
             WosDictateEngine.active_instance = None
 
     def do_focus_in(self) -> None:
-        self.focused = True
+        self._is_focused = True
         WosDictateEngine.active_instance = self
 
     def do_focus_out(self) -> None:
-        self.focused = False
+        self._is_focused = False
 
     def do_process_key_event(self, keyval: int, keycode: int, state: int) -> bool:
         return False
@@ -140,7 +141,7 @@ class IBusInjector:
                     def _wait_and_commit() -> bool:
                         checks["n"] += 1
                         eng = WosDictateEngine.active_instance
-                        if eng is not None and getattr(eng, "enabled", False):
+                        if eng is not None and getattr(eng, "_is_enabled", False):
                             try:
                                 eng.commit_text(IBus.Text.new_from_string(text))
                                 result.clear()

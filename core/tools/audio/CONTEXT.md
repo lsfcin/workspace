@@ -17,6 +17,6 @@ The wrapper is domain-free on purpose: `run` takes the conditioning prompt as an
 | [`refine.py`](refine.py) | [`refine.pyi`](refine.pyi) | `state_dir`, `load_aiwbot_carrier`, `load_vocab`, `build_prompt`, `apply_replacements` | Deterministic STT vocabulary correction, prompt builder, Ollama polish, and log |
 | [`stt.py`](stt.py) | [`stt.pyi`](stt.pyi) | `default_socket_path`, `daemon_alive`, `DaemonWhisper`, `model`, `confident` | stt.py — speech-to-text boundary: faster-whisper large-v3-turbo, lazy-loaded; fails safe to "" . Priming is the CALLER's data — a domain passes its own carrier prose to `run`, because the prompt is what buys both vocabulary and punctuation, and no two domains share one. |
 | [`sttd`](sttd) | — | — | local STT daemon |
-| [`tray.py`](tray.py) | [`tray.pyi`](tray.pyi) | `build_icons`, `DictateTray`, `start_tray`, `set_state`, `close` | Zero-dependency StatusNotifierItem top-bar indicator for WOS desktop dictation |
+| [`tray.py`](tray.py) | [`tray.pyi`](tray.pyi) | `write_svg_icons`, `DictateTray`, `start_tray`, `set_state`, `close` | Vector-SVG StatusNotifierItem top-bar indicator for WOS desktop dictation |
 | [`vocab.json`](vocab.json) | — | — | Editable manual STT vocabulary replacements and punctuated desktop carrier sentences. |
 <!-- routing:end -->
