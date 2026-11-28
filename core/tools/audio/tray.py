@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import math
 import os
 import pathlib
 import subprocess
@@ -47,38 +48,41 @@ _MENU_XML = """<node><interface name="com.canonical.dbusmenu">
   <property name="Status" type="s" access="read"/><property name="IconThemePath" type="as" access="read"/>
 </interface></node>"""
 
-_REC_CYCLE = ("wos-rec-0", "wos-rec-1", "wos-rec-2", "wos-rec-1")
-_TX_CYCLE = ("wos-tx-0", "wos-tx-1", "wos-tx-2", "wos-tx-3")
+_REC_CYCLE = ("wos-rec-0", "wos-rec-1", "wos-rec-2", "wos-rec-3", "wos-rec-2", "wos-rec-1")
+_TX_CYCLE = ("wos-tx-0", "wos-tx-1", "wos-tx-2", "wos-tx-3", "wos-tx-4", "wos-tx-5")
 
 
 def _runtime_root() -> pathlib.Path:
     return pathlib.Path(os.environ.get("WOS_DICTATE_RUNTIME") or os.environ.get("XDG_RUNTIME_DIR") or f"/tmp/wos-stt-{os.getuid()}")
 
 
-def _rec_svg(halo_r: float, halo_op: float, dot_op: float) -> str:
+def _rec_svg(coral_op: float) -> str:
     return ('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">'
-            '<rect x="8.5" y="3.5" width="5" height="9" rx="2.5" fill="#F3F4F6"/>'
-            '<path d="M5.5 10.5a5.5 5.5 0 0 0 11 0M11 16v3.5M8 19.5h6" fill="none" stroke="#F3F4F6" stroke-width="1.8" stroke-linecap="round"/>'
-            f'<circle cx="18.5" cy="5.5" r="{halo_r:.1f}" fill="#FF5C5C" fill-opacity="{halo_op:.2f}"/>'
-            f'<circle cx="18.5" cy="5.5" r="2.6" fill="#FF5C5C" fill-opacity="{dot_op:.2f}"/></svg>\n')
+            '<circle cx="12" cy="12" r="8.2" fill="none" stroke="#F3F4F6" stroke-width="1.8"/>'
+            '<circle cx="12" cy="12" r="5.0" fill="#18181B"/>'
+            f'<circle cx="12" cy="12" r="5.0" fill="#FF5C5C" fill-opacity="{coral_op:.2f}"/></svg>\n')
 
 
-def _dots_svg(ys: tuple[float, float, float], ops: tuple[float, float, float]) -> str:
-    dots = "".join(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="2.4" fill="#F3F4F6" fill-opacity="{op:.2f}"/>'
-                   for cx, cy, op in zip((5.5, 12.0, 18.5), ys, ops))
-    return f'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">{dots}</svg>\n'
+def _wave_svg(frame: int) -> str:
+    dots = []
+    for k, cx in enumerate((5.5, 12.0, 18.5)):
+        s = math.sin(2.0 * math.pi * frame / 6.0 - k * math.pi / 2.0)
+        cy, op = 12.0 - 1.5 * s, 0.84 + 0.16 * s
+        dots.append(f'<circle cx="{cx:.1f}" cy="{cy:.2f}" r="2.1" fill="#F3F4F6" fill-opacity="{op:.2f}"/>')
+    return f'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">{"".join(dots)}</svg>\n'
 
 
 def write_svg_icons(icon_dir: pathlib.Path | None = None) -> pathlib.Path:
     """Write crisp vector SVG frames for GNOME StatusNotifierItem into a runtime directory."""
     target = icon_dir or (_runtime_root() / "wos-tray-icons")
     target.mkdir(parents=True, exist_ok=True)
-    frames = {
-        "wos-idle": _rec_svg(3.2, 0.0, 0.0),
-        "wos-rec-0": _rec_svg(3.8, 0.20, 0.85), "wos-rec-1": _rec_svg(4.5, 0.44, 0.95), "wos-rec-2": _rec_svg(5.1, 0.68, 1.00),
-        "wos-tx-0": _dots_svg((9.0, 12.5, 14.5), (1.00, 0.80, 0.65)), "wos-tx-1": _dots_svg((12.5, 9.0, 12.5), (0.80, 1.00, 0.80)),
-        "wos-tx-2": _dots_svg((14.5, 12.5, 9.0), (0.65, 0.80, 1.00)), "wos-tx-3": _dots_svg((12.5, 15.0, 12.5), (0.80, 0.68, 0.80)),
-    }
+    for stale in target.glob("wos-*.svg"):
+        stale.unlink(missing_ok=True)
+    frames = {"wos-idle": _rec_svg(0.05)}
+    for i, op in enumerate((0.05, 0.35, 0.70, 1.00)):
+        frames[f"wos-rec-{i}"] = _rec_svg(op)
+    for i in range(6):
+        frames[f"wos-tx-{i}"] = _wave_svg(i)
     for name, svg in frames.items():
         (target / f"{name}.svg").write_text(svg, encoding="utf-8", newline="\n")
     return target
@@ -148,7 +152,7 @@ class DictateTray:
             GLib.source_remove(self._tick_id)
             self._tick_id = None
         if norm in ("recording", "transcribing"):
-            self._tick_id = GLib.timeout_add(380 if norm == "recording" else 220, self._on_tick)
+            self._tick_id = GLib.timeout_add(180 if norm == "recording" else 140, self._on_tick)
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewStatus", GLib.Variant("(s)", (self._status_str(),)))
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewIcon")
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewToolTip")
