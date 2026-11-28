@@ -1,0 +1,7 @@
+{
+  "shortcuts": ["<Alt>v"],
+  "idle_seconds": 300,
+  "max_record_seconds": 300,
+  "polish": false,
+  "no_ibus": false
+}

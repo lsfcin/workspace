@@ -46,6 +46,17 @@ def ibus_alive(sock_path: pathlib.Path | None = None) -> bool:
         return False
 
 
+def set_state(state: str, sock_path: pathlib.Path | None = None) -> bool:
+    """Update top-bar tray indicator state (idle|recording|transcribing)."""
+    path = sock_path or default_socket_path()
+    if not path.exists():
+        return False
+    try:
+        return bool(_rpc(path, {"op": "state", "state": state}, timeout=0.3).get("ok"))
+    except (OSError, ValueError):
+        return False
+
+
 def inject(text: str, use_ibus: bool = True, sock_path: pathlib.Path | None = None) -> str:
     """Inject text at cursor via IBus, falling back to wl-copy + notification."""
     if not text:
@@ -53,7 +64,7 @@ def inject(text: str, use_ibus: bool = True, sock_path: pathlib.Path | None = No
     path = sock_path or default_socket_path()
     if use_ibus and path.exists():
         try:
-            resp = _rpc(path, {"op": "inject", "text": text}, timeout=2.0)
+            resp = _rpc(path, {"op": "inject", "text": text}, timeout=2.5)
             if resp.get("ok"):
                 return "ibus"
         except (OSError, ValueError):
@@ -61,7 +72,7 @@ def inject(text: str, use_ibus: bool = True, sock_path: pathlib.Path | None = No
     if shutil.which("wl-copy"):
         subprocess.run(["wl-copy"], input=text, text=True, encoding="utf-8", check=False)
         preview = text[:90] + ("..." if len(text) > 90 else "")
-        notify("Ditado copiado (Ctrl+Shift+V)", preview, timeout_ms=2500)
+        notify("Ditado copiado — cole com Ctrl+V", preview, timeout_ms=2500)
         return "clipboard"
     notify("Ditado concluído (sem injetor)", text[:90], timeout_ms=2500)
     return "none"

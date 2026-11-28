@@ -9,6 +9,7 @@ import os
 import pathlib
 import signal
 import socket
+import subprocess
 import sys
 import threading
 import time
@@ -21,20 +22,15 @@ if str(_HERE) not in sys.path:
 import stt as shared_stt  # noqa: E402
 
 _CUDA_LIBS = (
-    "nvidia/cu13/lib/libcublas.so.13",
-    "nvidia/cu13/lib/libcublasLt.so.13",
-    "nvidia/cudnn/lib/libcudnn.so.9",
-    "nvidia/cudnn/lib/libcudnn_ops.so.9",
-    "nvidia/cudnn/lib/libcudnn_cnn.so.9",
-    "nvidia/cudnn/lib/libcudnn_graph.so.9",
+    "nvidia/cu13/lib/libcublas.so.13", "nvidia/cu13/lib/libcublasLt.so.13",
+    "nvidia/cudnn/lib/libcudnn.so.9", "nvidia/cudnn/lib/libcudnn_ops.so.9",
+    "nvidia/cudnn/lib/libcudnn_cnn.so.9", "nvidia/cudnn/lib/libcudnn_graph.so.9",
     "nvidia/cudnn/lib/libcudnn_heuristic.so.9",
 )
 
 
 def _preload_cuda_libs() -> None:
-    """Load venv CUDA/cuDNN shared libs globally so CTranslate2 finds them without LD_LIBRARY_PATH."""
-    py_ver = f"python{sys.version_info.major}.{sys.version_info.minor}"
-    site = _ROOT / ".venv" / "lib" / py_ver / "site-packages"
+    site = _ROOT / ".venv" / "lib" / f"python{sys.version_info.major}.{sys.version_info.minor}" / "site-packages"
     for rel in _CUDA_LIBS:
         lib = site / rel
         if lib.is_file():
@@ -45,80 +41,139 @@ def _preload_cuda_libs() -> None:
 
 
 def _load_whisper() -> tuple[object, str]:
-    """Load faster-whisper large-v3-turbo on CUDA int8_float16, falling back to CPU int8."""
     models_hf = _ROOT / "models" / "hf"
     if models_hf.is_dir():
         os.environ.setdefault("HF_HOME", str(models_hf))
     _preload_cuda_libs()
     from faster_whisper import WhisperModel
-
     local_only = (models_hf / "hub").is_dir()
     try:
-        m = WhisperModel(shared_stt._MODEL_NAME, device="cuda", compute_type="int8_float16",
-                         local_files_only=local_only)
-        return m, "cuda:int8_float16"
+        return WhisperModel(shared_stt._MODEL_NAME, device="cuda", compute_type="int8_float16", local_files_only=local_only), "cuda:int8_float16"
     except Exception:
-        m = WhisperModel(shared_stt._MODEL_NAME, device="cpu", compute_type="int8",
-                         local_files_only=local_only)
-        return m, "cpu:int8"
+        return WhisperModel(shared_stt._MODEL_NAME, device="cpu", compute_type="int8", local_files_only=local_only), "cpu:int8"
 
 
 class SttEngine:
-    """Thread-safe lazy STT model holder with idle auto-unload."""
+    """Thread-safe lazy STT supervisor delegating CUDA work to an ephemeral subprocess."""
 
-    def __init__(self, idle_seconds: float = 300.0, loader=_load_whisper, clock=time.monotonic) -> None:
-        self._idle_seconds = float(idle_seconds)
-        self._loader = loader
-        self._clock = clock
+    def __init__(self, idle_seconds: float = 300.0, loader=None, clock=time.monotonic,
+                 worker_cmd: list[str] | None = None) -> None:
+        self._idle_seconds, self._loader, self._clock = float(idle_seconds), loader, clock
+        self._worker_cmd = worker_cmd or [sys.executable, str(pathlib.Path(__file__).resolve()), "--worker"]
         self._lock = threading.Lock()
-        self._model = None
-        self._device: str | None = None
-        self._last_used: float = 0.0
+        self._model = self._proc = self._device = None
+        self._last_used = 0.0
+
+    def _worker_alive(self) -> bool:
+        return self._proc is not None and self._proc.poll() is None
+
+    def _kill_worker(self) -> bool:
+        if self._proc is None:
+            return False
+        proc, self._proc, self._device = self._proc, None, None
+        try:
+            if proc.stdin:
+                proc.stdin.close()
+        except OSError:
+            pass
+        if proc.poll() is None:
+            # Kill process group so CUDA/multiprocessing resource_tracker children exit too.
+            for sig, wait_s in ((signal.SIGTERM, 3.0), (signal.SIGKILL, 2.0)):
+                try:
+                    os.killpg(proc.pid, sig)
+                except ProcessLookupError:
+                    break
+                except OSError:
+                    proc.terminate() if sig == signal.SIGTERM else proc.kill()
+                try:
+                    proc.wait(timeout=wait_s)
+                    break
+                except subprocess.TimeoutExpired:
+                    continue
+        else:
+            proc.wait(timeout=1.0)
+        return True
 
     def status(self) -> dict:
         with self._lock:
-            loaded = self._model is not None
+            loaded = (self._model is not None) or self._worker_alive()
             idle = (self._clock() - self._last_used) if loaded else 0.0
             return {"ok": True, "loaded": loaded, "device": self._device,
                     "idle_seconds": round(idle, 2), "unload_after": self._idle_seconds}
 
+    def _drop_loaded(self) -> bool:
+        if self._loader is None:
+            return self._kill_worker()
+        was = self._model is not None
+        self._model = self._device = None
+        if was:
+            gc.collect()
+        return was
+
     def unload(self) -> dict:
         with self._lock:
-            was_loaded = self._model is not None
-            self._model = None
-            self._device = None
-        if was_loaded:
-            gc.collect()
-        return {"ok": True, "unloaded": was_loaded}
+            return {"ok": True, "unloaded": self._drop_loaded()}
 
     def maybe_unload(self) -> bool:
         with self._lock:
-            if self._model is None or self._idle_seconds <= 0:
+            loaded = (self._model is not None) or self._worker_alive()
+            if not loaded or self._idle_seconds <= 0 or (self._clock() - self._last_used) < self._idle_seconds:
                 return False
-            if (self._clock() - self._last_used) < self._idle_seconds:
-                return False
-            self._model = None
-            self._device = None
-        gc.collect()
-        return True
+            return self._drop_loaded()
+
+    def _transcribe_worker(self, req: dict) -> dict:
+        if not self._worker_alive():
+            self._kill_worker()
+            self._proc = subprocess.Popen(self._worker_cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                          stderr=sys.stderr, text=True, encoding="utf-8", start_new_session=True)
+        assert self._proc and self._proc.stdin and self._proc.stdout
+        try:
+            self._proc.stdin.write(json.dumps(req, ensure_ascii=False) + "\n")
+            self._proc.stdin.flush()
+            line = self._proc.stdout.readline()
+            if not line:
+                raise RuntimeError("stt worker exited unexpectedly")
+            resp = json.loads(line)
+            self._device = str(resp.get("device") or self._device or "")
+            self._last_used = self._clock()
+            return resp
+        except Exception:
+            self._kill_worker()
+            raise
 
     def transcribe(self, req: dict) -> dict:
         path = str(req.get("path", ""))
         if not path:
             return {"ok": False, "error": "missing path"}
-        lang = str(req.get("lang") or "pt")
-        prompt = req.get("prompt")
-        vad_filter = bool(req.get("vad_filter", True))
+        lang, prompt, vad = str(req.get("lang") or "pt"), req.get("prompt"), bool(req.get("vad_filter", True))
         with self._lock:
+            if self._loader is None:
+                return self._transcribe_worker({"op": "transcribe", "path": path, "lang": lang,
+                                                "prompt": prompt or "", "vad_filter": vad})
             if self._model is None:
                 self._model, self._device = self._loader()
             self._last_used = self._clock()
-            segments, _info = self._model.transcribe(
-                path, language=lang, initial_prompt=prompt or None, vad_filter=vad_filter
-            )
+            segments, _info = self._model.transcribe(path, language=lang, initial_prompt=prompt or None, vad_filter=vad)
             out = [{"text": s.text, "avg_logprob": float(s.avg_logprob)} for s in segments]
             self._last_used = self._clock()
         return {"ok": True, "segments": out, "device": self._device}
+
+
+def _worker_main() -> int:
+    model, device = _load_whisper()
+    for line in sys.stdin:
+        if not line.strip():
+            continue
+        try:
+            req = json.loads(line)
+            segs, _ = model.transcribe(str(req.get("path", "")), language=str(req.get("lang") or "pt"),
+                                       initial_prompt=req.get("prompt") or None, vad_filter=bool(req.get("vad_filter", True)))
+            resp = {"ok": True, "segments": [{"text": s.text, "avg_logprob": float(s.avg_logprob)} for s in segs], "device": device}
+        except Exception as exc:
+            resp = {"ok": False, "error": str(exc)}
+        sys.stdout.write(json.dumps(resp, ensure_ascii=False) + "\n")
+        sys.stdout.flush()
+    return 0
 
 
 def handle_request(engine: SttEngine, req: dict) -> dict:
@@ -139,8 +194,7 @@ def _serve_client(conn: socket.socket, engine: SttEngine) -> None:
             if not line:
                 return
             try:
-                req = json.loads(line)
-                resp = handle_request(engine, req)
+                resp = handle_request(engine, json.loads(line))
             except Exception as exc:
                 resp = {"ok": False, "error": str(exc)}
             conn.sendall((json.dumps(resp, ensure_ascii=False) + "\n").encode("utf-8"))
@@ -153,13 +207,7 @@ def serve(sock_path: pathlib.Path, engine: SttEngine, stop_event: threading.Even
     sock_path.parent.mkdir(parents=True, exist_ok=True)
     sock_path.unlink(missing_ok=True)
     stop = stop_event or threading.Event()
-
-    def _idle_loop() -> None:
-        while not stop.wait(5.0):
-            engine.maybe_unload()
-
-    watcher = threading.Thread(target=_idle_loop, daemon=True)
-    watcher.start()
+    threading.Thread(target=lambda: [engine.maybe_unload() for _ in iter(lambda: stop.wait(5.0), True)], daemon=True).start()
     with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as srv:
         srv.bind(str(sock_path))
         os.chmod(sock_path, 0o600)
@@ -173,10 +221,10 @@ def serve(sock_path: pathlib.Path, engine: SttEngine, stop_event: threading.Even
                     conn, _ = srv.accept()
                 except socket.timeout:
                     continue
-                t = threading.Thread(target=_serve_client, args=(conn, engine), daemon=True)
-                t.start()
+                threading.Thread(target=_serve_client, args=(conn, engine), daemon=True).start()
         finally:
             stop.set()
+            engine.unload()
             sock_path.unlink(missing_ok=True)
 
 
@@ -184,7 +232,10 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Local STT Unix-socket daemon")
     parser.add_argument("--socket", type=pathlib.Path, default=shared_stt.default_socket_path())
     parser.add_argument("--idle-seconds", type=float, default=300.0)
+    parser.add_argument("--worker", action="store_true")
     args = parser.parse_args(argv)
+    if args.worker:
+        return _worker_main()
     stop = threading.Event()
     for sig in (signal.SIGINT, signal.SIGTERM):
         signal.signal(sig, lambda *_a: stop.set())

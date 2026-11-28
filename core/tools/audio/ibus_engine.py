@@ -75,33 +75,34 @@ class WosDictateEngine(IBus.Engine):
 class IBusInjector:
     """Thread-safe bridge between socket requests and the GLib/IBus main loop."""
 
-    def __init__(self) -> None:
-        IBus.init()
-        self.bus = IBus.Bus()
-        if not self.bus.is_connected():
-            raise RuntimeError("ibus-daemon is not connected")
-        self.factory = IBus.Factory.new(self.bus.get_connection())
-        self.factory.add_engine(_ENGINE_NAME, WosDictateEngine)
-        self.bus.request_name(_COMP_NAME, 0)
-        comp = IBus.Component.new(_COMP_NAME, "WOS Dictate", "0.1", "MIT", "WOS", "", "", "wos")
-        desc = IBus.EngineDesc.new(_ENGINE_NAME, "WOS Dictate", "Local STT", "pt", "MIT", "WOS", "", "us")
-        comp.add_engine(desc)
-        if not self.bus.register_component(comp):
-            raise RuntimeError("register_component failed")
+    def __init__(self, bus=None, idle_add=GLib.idle_add, timeout_add=GLib.timeout_add) -> None:
+        self._idle_add, self._timeout_add = idle_add, timeout_add
+        if bus is None:
+            IBus.init()
+            self.bus = IBus.Bus()
+            if not self.bus.is_connected():
+                raise RuntimeError("ibus-daemon is not connected")
+            self.factory = IBus.Factory.new(self.bus.get_connection())
+            self.factory.add_engine(_ENGINE_NAME, WosDictateEngine)
+            self.bus.request_name(_COMP_NAME, 0)
+            comp = IBus.Component.new(_COMP_NAME, "WOS Dictate", "0.1", "MIT", "WOS", "", "", "wos")
+            comp.add_engine(IBus.EngineDesc.new(_ENGINE_NAME, "WOS Dictate", "Local STT", "pt", "MIT", "WOS", "", "default"))
+            if not self.bus.register_component(comp):
+                raise RuntimeError("register_component failed")
+        else:
+            self.bus, self.factory = bus, None
         self._lock = threading.Lock()
 
     def _current_engine_name(self) -> str:
         try:
             cur = self.bus.get_global_engine()
-            if cur is not None:
-                name = cur.get_name()
-                if name and name != _ENGINE_NAME:
-                    return name
+            if cur is not None and cur.get_name() and cur.get_name() != _ENGINE_NAME:
+                return cur.get_name()
         except Exception:
             pass
         return _fallback_engine_from_gsettings()
 
-    def inject(self, text: str, timeout: float = 0.6) -> dict:
+    def inject(self, text: str, timeout: float = 1.5) -> dict:
         if not text:
             return {"ok": True, "empty": True}
         with self._lock:
@@ -109,54 +110,67 @@ class IBusInjector:
             result: dict = {"ok": False, "error": "timeout"}
             prev = self._current_engine_name()
 
-            def _start() -> bool:
-                try:
-                    if not self.bus.set_global_engine(_ENGINE_NAME):
-                        result["error"] = "set_global_engine returned False"
-                        done.set()
-                        return False
-                except Exception as exc:
-                    result["error"] = str(exc)
-                    done.set()
-                    return False
-
-                checks = {"n": 0}
-
-                def _wait_and_commit() -> bool:
-                    checks["n"] += 1
-                    eng = WosDictateEngine.active_instance
-                    if eng is not None and getattr(eng, "enabled", False):
-                        try:
-                            eng.commit_text(IBus.Text.new_from_string(text))
-                            result.clear()
-                            result["ok"] = True
-                        except Exception as exc:
-                            result["error"] = str(exc)
-                        GLib.timeout_add(80, _restore)
-                        return False
-                    if checks["n"] >= 25:
-                        result["error"] = "engine did not enable in time"
-                        GLib.timeout_add(10, _restore)
-                        return False
-                    return True
-
-                def _restore() -> bool:
+            def _restore() -> bool:
+                def _on_restore(bus_obj, res, _data) -> None:
                     try:
-                        self.bus.set_global_engine(prev)
+                        bus_obj.set_global_engine_async_finish(res)
                     except Exception:
                         pass
                     done.set()
-                    return False
 
-                GLib.timeout_add(15, _wait_and_commit)
+                try:
+                    self.bus.set_global_engine_async(prev, 1000, None, _on_restore, None)
+                except Exception:
+                    done.set()
                 return False
 
-            GLib.idle_add(_start)
-            done.wait(timeout + 0.3)
+            def _start() -> bool:
+                def _on_switched(bus_obj, res, _data) -> None:
+                    try:
+                        if not bus_obj.set_global_engine_async_finish(res):
+                            result["error"] = "set_global_engine_async returned False"
+                            done.set()
+                            return
+                    except Exception as exc:
+                        result["error"] = str(exc)
+                        done.set()
+                        return
+                    checks = {"n": 0}
+
+                    def _wait_and_commit() -> bool:
+                        checks["n"] += 1
+                        eng = WosDictateEngine.active_instance
+                        if eng is not None and getattr(eng, "enabled", False):
+                            try:
+                                eng.commit_text(IBus.Text.new_from_string(text))
+                                result.clear()
+                                result["ok"] = True
+                            except Exception as exc:
+                                result["error"] = str(exc)
+                            self._timeout_add(80, _restore)
+                            return False
+                        if checks["n"] >= 30:
+                            result["error"] = "engine did not enable in time"
+                            self._timeout_add(10, _restore)
+                            return False
+                        return True
+
+                    self._timeout_add(15, _wait_and_commit)
+
+                try:
+                    # Async switch prevents deadlocking CreateEngine on the same GLib loop (b20261128-ibus-deadlock).
+                    self.bus.set_global_engine_async(_ENGINE_NAME, int(timeout * 1000), None, _on_switched, None)
+                except Exception as exc:
+                    result["error"] = str(exc)
+                    done.set()
+                return False
+
+            self._idle_add(_start)
+            done.wait(timeout + 0.5)
             return result
 
 
-def _serve_socket(sock_path: pathlib.Path, injector: IBusInjector, stop: threading.Event) -> None:
+def _serve_socket(sock_path: pathlib.Path, injector: IBusInjector, stop: threading.Event, tray=None) -> None:
     sock_path.parent.mkdir(parents=True, exist_ok=True)
     sock_path.unlink(missing_ok=True)
     with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as srv:
@@ -179,6 +193,11 @@ def _serve_socket(sock_path: pathlib.Path, injector: IBusInjector, stop: threadi
                             resp = {"ok": True, "engine": _ENGINE_NAME}
                         elif op == "inject":
                             resp = injector.inject(str(req.get("text", "")))
+                        elif op == "state":
+                            st = str(req.get("state", "idle"))
+                            if tray is not None:
+                                GLib.idle_add(lambda s=st: (tray.set_state(s), False)[1])
+                            resp = {"ok": True, "state": st}
                         else:
                             resp = {"ok": False, "error": f"unknown op: {op}"}
                     except Exception as exc:
@@ -193,22 +212,29 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--socket", type=pathlib.Path, default=default_socket_path())
     args = parser.parse_args(argv)
     injector = IBusInjector()
-    loop = GLib.MainLoop()
-    stop = threading.Event()
+    try:
+        import tray as tray_mod
+        tray = tray_mod.start_tray()
+    except Exception:
+        tray = None
+    loop, stop = GLib.MainLoop(), threading.Event()
 
     def _shutdown(*_a) -> None:
         stop.set()
+        if tray is not None:
+            tray.close()
         GLib.idle_add(loop.quit)
 
     for sig in (signal.SIGINT, signal.SIGTERM):
         signal.signal(sig, _shutdown)
-    srv_thread = threading.Thread(target=_serve_socket, args=(args.socket, injector, stop), daemon=True)
-    srv_thread.start()
+    threading.Thread(target=_serve_socket, args=(args.socket, injector, stop, tray), daemon=True).start()
     print(f"wos-ibus: listening on {args.socket}", flush=True)
     try:
         loop.run()
     finally:
         stop.set()
+        if tray is not None:
+            tray.close()
     return 0
 
 

@@ -51,43 +51,58 @@ def _default_transcript_roots() -> list[pathlib.Path]:
     ]
 
 
+def _strip_user_request(text: str) -> str:
+    m = re.search(r"<USER_REQUEST>\s*(.*?)\s*</USER_REQUEST>", text, re.DOTALL)
+    return m.group(1).strip() if m else text.strip()
+
+
 def _messages_from_file(path: pathlib.Path) -> list[tuple[float, str]]:
     out: list[tuple[float, str]] = []
     try:
-        lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
+        fh = path.open("r", encoding="utf-8", errors="replace")
     except OSError:
         return out
-    for line in lines:
-        if not line.strip():
-            continue
-        try:
-            obj = json.loads(line)
-        except ValueError:
-            continue
-        ts = _parse_iso_ts(obj.get("timestamp") or obj.get("ts"))
-        text = ""
-        if obj.get("type") == "user" and isinstance(obj.get("message"), dict):
-            text = _extract_text(obj["message"].get("content"))
-        elif obj.get("role") == "user":
-            text = _extract_text(obj.get("content") or obj.get("text"))
-        elif isinstance(obj.get("payload"), dict):
-            p = obj["payload"]
-            if p.get("role") == "user" or p.get("type") == "user_message":
-                text = _extract_text(p.get("content") or p.get("message") or p.get("text"))
-        if ts is not None and text:
-            out.append((ts, text))
+    with fh:
+        for line in fh:
+            if not line.strip() or ("user" not in line and "USER_INPUT" not in line):
+                continue
+            try:
+                obj = json.loads(line)
+            except ValueError:
+                continue
+            ts = _parse_iso_ts(obj.get("timestamp") or obj.get("created_at") or obj.get("ts"))
+            text = ""
+            if obj.get("type") == "user" and isinstance(obj.get("message"), dict):
+                text = _extract_text(obj["message"].get("content"))
+            elif obj.get("type") == "USER_INPUT":
+                text = _strip_user_request(_extract_text(obj.get("content") or obj.get("text")))
+            elif obj.get("role") == "user":
+                text = _extract_text(obj.get("content") or obj.get("text"))
+            elif isinstance(obj.get("payload"), dict):
+                p = obj["payload"]
+                if p.get("role") == "user" or p.get("type") == "user_message":
+                    text = _extract_text(p.get("content") or p.get("message") or p.get("text"))
+            if ts is not None and text:
+                out.append((ts, text))
     return out
 
 
 def collect_user_messages(roots: list[pathlib.Path] | None = None,
-                          max_age_days: float = 14.0) -> list[tuple[float, str]]:
+                          max_age_days: float = 14.0,
+                          since_ts: float | None = None) -> list[tuple[float, str]]:
     """Collect (timestamp, text) user messages from recent local agent transcripts."""
     cutoff = dt.datetime.now().timestamp() - max_age_days * 86400.0
+    if since_ts is not None:
+        cutoff = max(cutoff, since_ts)
     msgs: list[tuple[float, str]] = []
     for root in (roots if roots is not None else _default_transcript_roots()):
         if not root.exists():
             continue
+        is_agy = "antigravity-cli" in root.as_posix()
         for jsonl in root.rglob("*.jsonl"):
+            posix = jsonl.as_posix()
+            if is_agy and (jsonl.name != "transcript.jsonl" or "/chunks/" in posix):
+                continue
             try:
                 if jsonl.stat().st_mtime < cutoff:
                     continue
@@ -99,11 +114,19 @@ def collect_user_messages(roots: list[pathlib.Path] | None = None,
 
 
 def _tokens(text: str) -> list[str]:
-    return re.findall(r"[^\W\d_][\w-]*", text, re.UNICODE)
+    return re.findall(r"[^\W\d_](?:[\w+-]*[\w])?", text, re.UNICODE)
+
+
+def _pair_similar(wrong: str, right_low: str) -> bool:
+    if difflib.SequenceMatcher(None, wrong, right_low).ratio() >= 0.45:
+        return True
+    w_compact = wrong.replace(" ", "").replace("+", "").replace("-", "")
+    r_compact = right_low.replace(" ", "").replace("+", "").replace("-", "")
+    return difflib.SequenceMatcher(None, w_compact, r_compact).ratio() >= 0.45
 
 
 def diff_token_pairs(dictated: str, sent: str) -> list[tuple[str, str]]:
-    """Return conservative 1-to-1 word correction pairs when sent resembles dictated."""
+    """Return conservative 1..2-token correction pairs when sent resembles dictated."""
     d_norm, s_norm = dictated.strip(), sent.strip()
     if not d_norm or not s_norm:
         return []
@@ -111,18 +134,26 @@ def diff_token_pairs(dictated: str, sent: str) -> list[tuple[str, str]]:
     if sim < 0.65 or sim >= 1.0:
         return []
     d_tok, s_tok = _tokens(d_norm), _tokens(s_norm)
+    d_low, s_low = [t.lower() for t in d_tok], [t.lower() for t in s_tok]
     pairs: list[tuple[str, str]] = []
-    sm = difflib.SequenceMatcher(None, [t.lower() for t in d_tok], [t.lower() for t in s_tok])
+    sm = difflib.SequenceMatcher(None, d_low, s_low)
     for tag, i1, i2, j1, j2 in sm.get_opcodes():
-        if tag != "replace" or (i2 - i1) != 1 or (j2 - j1) != 1:
+        d_len, s_len = i2 - i1, j2 - j1
+        if tag != "replace" or d_len not in (1, 2) or s_len not in (1, 2):
             continue
-        wrong, right = d_tok[i1].lower(), s_tok[j1]
+        if (d_len > 1 or s_len > 1) and len(d_low) > 2:
+            left_ok = i1 > 0 and j1 > 0 and d_low[i1 - 1] == s_low[j1 - 1]
+            right_ok = i2 < len(d_low) and j2 < len(s_low) and d_low[i2] == s_low[j2]
+            if not (left_ok or right_ok):
+                continue
+        wrong = " ".join(d_low[i1:i2])
+        right = " ".join(s_tok[j1:j2])
         r_low = right.lower()
         if wrong == r_low or len(wrong) < 3 or len(r_low) < 3:
             continue
-        if wrong in _STOPWORDS or r_low in _STOPWORDS:
+        if all(w in _STOPWORDS for w in wrong.split()) or all(w in _STOPWORDS for w in r_low.split()):
             continue
-        if difflib.SequenceMatcher(None, wrong, r_low).ratio() < 0.45:
+        if not _pair_similar(wrong, r_low):
             continue
         pairs.append((wrong, right))
     return pairs
@@ -146,10 +177,10 @@ def run(state_dir: pathlib.Path | None = None, manual_vocab_path: pathlib.Path |
     max_ts = last_ts
 
     if not log_path.is_file():
-        return {"processed": 0, "promoted": 0, "replacements": state.get("replacements") or {}}
+        return {"processed": 0, "promoted": 0, "replacements": state.get("replacements") or {},
+                "terms": state.get("terms") or []}
 
-    msgs = collect_user_messages(transcript_roots)
-    processed = 0
+    pending: list[tuple[float, str]] = []
     for line in log_path.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
@@ -162,6 +193,17 @@ def run(state_dir: pathlib.Path | None = None, manual_vocab_path: pathlib.Path |
             continue
         max_ts = max(max_ts, d_ts)
         dictated = str(row.get("corrected") or row.get("raw") or "")
+        if dictated.strip():
+            pending.append((d_ts, dictated))
+
+    if not pending:
+        return {"processed": 0, "promoted": len(state.get("replacements") or {}),
+                "replacements": state.get("replacements") or {}, "terms": state.get("terms") or []}
+
+    since_ts = min(ts for ts, _ in pending) - 5.0
+    msgs = collect_user_messages(transcript_roots, since_ts=since_ts)
+    processed = 0
+    for d_ts, dictated in pending:
         best_msg, best_ratio = "", 0.0
         for m_ts, m_text in msgs:
             delta = m_ts - d_ts
@@ -170,7 +212,7 @@ def run(state_dir: pathlib.Path | None = None, manual_vocab_path: pathlib.Path |
                 if r > best_ratio:
                     best_ratio, best_msg = r, m_text
         if best_msg:
-            for wrong, right in diff_token_pairs(dictated, best_msg):
+            for wrong, right in set(diff_token_pairs(dictated, best_msg)):
                 bucket = counts.setdefault(wrong, {})
                 bucket[right] = int(bucket.get(right, 0)) + 1
             processed += 1

@@ -5,8 +5,6 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
-- **`wos-ibus` deadlock em `set_global_engine`**: `ibus_engine.py` chama síncrono em `GLib.idle_add`, trava `CreateEngine` (+2 s, cai em `wl-copy`); usar `set_global_engine_async`. [src: agent 2026-11-28] `b20261128-ibus-deadlock`
-- **`wos-stt` retém 1,3 GiB RAM + 2,0 GiB swap (pico 2,6 GiB)**: `gc.collect()` não libera arenas CTranslate2/CUDA em processo longo; isolar inferência em worker encerrado no idle. [src: agent 2026-11-28] `b20261128-sttd-memory-retention`
 - **`context-chain off` não cala `pre-read.py`**: lista a cadeia; nomear só o stub. [src: agent 2026-11-27]
 
 - **`is_twin` só aceita `source: ../<stem>.pdf`**: twin de .doc/.docx não é isento dos tetos. Aceitar, com caso em `test_pdf_twin.py`. [src: agent 2026-11-26]

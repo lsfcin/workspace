@@ -7,3 +7,4 @@
 tree	command	days
 code/docs-ufrpe	.github/scripts/vigiar.py --se-passaram {days}	30
 core	./run tools/delegate/ask --check	0
+core	./run tools/audio/dictate learn --quiet	1

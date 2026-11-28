@@ -142,3 +142,20 @@ def test_refine_polish_ollama_and_fail_safe(monkeypatch):
 
     monkeypatch.setattr(refine.urllib.request, "urlopen", _boom)
     assert refine.polish_ollama("texto original") == "texto original"
+
+
+def test_config_merge_and_conflict_detection(tmp_path):
+    import config
+    d_path, l_path = tmp_path / "default.json", tmp_path / "local.json"
+    d_path.write_text(json.dumps({"shortcuts": ["<Alt>v"], "idle_seconds": 300}), encoding="utf-8", newline="\n")
+    l_path.write_text(json.dumps({"shortcuts": ["<Alt>v", "<Super>r"], "polish": True}), encoding="utf-8", newline="\n")
+    merged = config.load_config(d_path, l_path)
+    assert merged["shortcuts"] == ["<Alt>v", "<Super>r"] and merged["idle_seconds"] == 300 and merged["polish"] is True
+    dump = (
+        "org.gnome.desktop.wm.keybindings close ['<Alt>F4']\n"
+        "org.gnome.settings-daemon.plugins.media-keys terminal ['<Primary><Alt>t']\n"
+        "custom /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ ['<Super>e']\n"
+    )
+    assert config.find_gnome_conflicts(["<Alt>v"], gsettings_dump=dump) == {}
+    conflicts = config.find_gnome_conflicts(["<Control><Alt>t", "<Super>e"], gsettings_dump=dump)
+    assert "<Control><Alt>t" in conflicts and "<Super>e" in conflicts

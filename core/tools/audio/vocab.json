@@ -14,11 +14,18 @@
     "a i w bot": "aiwbot",
     "pitxis": "ptyxis",
     "ptixis": "ptyxis",
-    "agê": "agy"
+    "agê": "agy",
+    "agi": "agy",
+    "auto t": "Alt+T",
+    "auto v": "Alt+V",
+    "ibot": "aiwbot",
+    "a iwbot": "aiwbot",
+    "multigravity iy": "Antigravity IDE",
+    "antigravity iy": "Antigravity IDE"
   },
   "carrier": [
     "Depois faz o roundup, gera o handoff e manda no terminal do ptyxis.",
-    "Roda o codex, o agy ou o claude code aqui no Wayland pelo Ubuntu.",
+    "Roda o codex, o agy ou o claude code aqui no Antigravity IDE com Alt+V.",
     "Confere as regras do WOS e atualiza o ROADMAP e o ISSUES."
   ]
 }
