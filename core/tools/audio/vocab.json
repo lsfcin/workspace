@@ -1,0 +1,24 @@
+{
+  "replacements": {
+    "cloud": "claude",
+    "cloude": "claude",
+    "claud": "claude",
+    "claudsonner": "claude sonnet",
+    "claude sonner": "claude sonnet",
+    "bote": "bot",
+    "rondape": "roundup",
+    "randape": "roundup",
+    "rendofe": "handoff",
+    "rendof": "handoff",
+    "aiw bot": "aiwbot",
+    "a i w bot": "aiwbot",
+    "pitxis": "ptyxis",
+    "ptixis": "ptyxis",
+    "agê": "agy"
+  },
+  "carrier": [
+    "Depois faz o roundup, gera o handoff e manda no terminal do ptyxis.",
+    "Roda o codex, o agy ou o claude code aqui no Wayland pelo Ubuntu.",
+    "Confere as regras do WOS e atualiza o ROADMAP e o ISSUES."
+  ]
+}

@@ -57,7 +57,7 @@ Both survive here because they are real gaps, not because they are queued. Promo
 - [ ] **mira-benchmark**: avaliar padrões de UX do mira.tg e repo miracodeai/mira no GitHub para benchmarking de assistente/agente no Telegram (integração GitHub/Notion via chat) (ref em `REFS.md`).
 - [ ] **backend-zcode**: implementar provedor Z-Code (Z.ai / GLM) como novo `AgentBackend` em `backend/providers/zcode.py` para execução de tarefas via Telegram (INBOX 2026-09-27).
 - [ ] **backend-antigravity**: implementar provedor Antigravity (`backend/providers/antigravity.py`) no aiwbot e avaliar como backend default no Telegram para evitar limites frequentes de cota do Claude (INBOX 2026-09-27).
-- [ ] **stt-ubuntu-shortcut**: expor comando CLI / endpoint leve de transcrição de áudio do aiwbot para atalho de sistema operacional no Ubuntu (gravação rápida de microfone → transcrição via Whisper do aiwbot → cursor/clipboard) (INBOX 2026-10-01). Compare Hex for Portuguese dictation, Linux shortcut/paste and latency; keyword agent invocation is separate. Ref: REFS.md [Hex].
+- [ ] **stt-v2-wakeword-and-lora**: evoluir o ditado desktop (`core/tools/audio/dictate`) para suportar gatilho falado `"bot, ..."` roteando direto a um agente e fine-tuning acústico LoRA (Low-Rank Adaptation) no `large-v3-turbo` na RTX 3050 com pares de áudio/correção reais.
 
 ## Housekeeping
 

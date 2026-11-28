@@ -20,6 +20,8 @@
 | File | Interface | API | Description |
 |------|-----------|-----|-------------|
 | [`conftest.py`](conftest.py) | [`conftest.pyi`](conftest.pyi) | `floor_of`, `git_lines`, `needs`, `carries`, `pytest_configure` | conftest.py — the one place the suite learns where things are: workspace root, core/tools, and the enforcement layer. Also registers the network marker for the video tests. |
+| [`test_audio_learn.py`](test_audio_learn.py) | [`test_audio_learn.pyi`](test_audio_learn.pyi) | — | T1 audio self-learning: temporal correlation, conservative promotion, manual priority |
+| [`test_audio_stt.py`](test_audio_stt.py) | [`test_audio_stt.pyi`](test_audio_stt.pyi) | `transcribe` | T1 audio STT: sttd Unix socket protocol, idle unload, client fallback, and refine |
 | [`test_caveman_compress.py`](test_caveman_compress.py) | [`test_caveman_compress.pyi`](test_caveman_compress.pyi) | — | T1 caveman compress: model output reaches disk as a text file, and the default id has one home. |
 | [`test_describe.py`](test_describe.py) | [`test_describe.pyi`](test_describe.pyi) | `backends` | T1 describe: an answer that ignores the image's own text is escalated, and a chain that runs out keeps its best answer flagged rather than nothing. Zero-token, no network. |
 | [`test_docx_template.py`](test_docx_template.py) | [`test_docx_template.pyi`](test_docx_template.pyi) | — | T1 docx template: a filled form reads back as the fields written, with the template's defaults gone and its table found even inside a content control. |

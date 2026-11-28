@@ -35,6 +35,29 @@ def said(msg: str) -> str:
         return msg
 
 
+def _file_payload(name: str, args: dict[str, Any]) -> tuple[dict[str, Any] | None, str]:
+    """Translate IDE (`view_file`, `write_to_file`, `replace_file_content`) and CLI
+    (`read_file`, `write_file`, `edit_file`) file tool calls to canonical payloads."""
+    if name in ("view_file", "read_file"):
+        path = args.get("AbsolutePath" if name == "view_file" else "Path", "")
+        return {"file_path": path}, "Read"
+    if name in ("replace_file_content", "edit_file"):
+        if name == "replace_file_content":
+            return {"file_path": args.get("TargetFile", ""),
+                    "old_string": args.get("TargetContent", ""),
+                    "new_string": args.get("ReplacementContent", "")}, "Edit"
+        return {"file_path": args.get("Path", ""),
+                "old_string": args.get("Target", ""),
+                "new_string": args.get("Replacement", "")}, "Edit"
+    if name in ("write_to_file", "write_file"):
+        if name == "write_to_file":
+            return {"file_path": args.get("TargetFile", ""),
+                    "content": args.get("CodeContent", "")}, "Write"
+        return {"file_path": args.get("Path", ""),
+                "content": args.get("Content", "")}, "Write"
+    return None, ""
+
+
 # ARGUMENT NAMES ARE THIS SHIM'S JOB; THE GATE LIST IS NOT. Antigravity spells one file path four
 # ways (AbsolutePath, TargetFile, SearchPath, CommandLine), which only a per-tool branch can
 # translate. Which gates then run used to be spelled out here too — five hand-copied orderings of
@@ -43,18 +66,10 @@ def said(msg: str) -> str:
 def pre_tool(call: dict[str, Any], sid: str) -> dict[str, Any]:
     name = call.get("name", "")
     args = call.get("args") or {}
-    payload: dict[str, Any] | None = None
-    tool = ""
+    payload, tool = _file_payload(name, args)
 
-    if name == "view_file":
-        payload, tool = {"file_path": args.get("AbsolutePath", "")}, "Read"
-    elif name == "replace_file_content":
-        payload, tool = {"file_path": args.get("TargetFile", ""),
-                         "old_string": args.get("TargetContent", ""),
-                         "new_string": args.get("ReplacementContent", "")}, "Edit"
-    elif name == "write_to_file":
-        payload, tool = {"file_path": args.get("TargetFile", ""),
-                         "content": args.get("CodeContent", "")}, "Write"
+    if payload is not None:
+        pass
     elif name == "run_command":
         payload, tool = {"command": args.get("CommandLine", "")}, "Bash"
     elif name == "grep_search":
@@ -87,18 +102,12 @@ def pre_tool(call: dict[str, Any], sid: str) -> dict[str, Any]:
 def post_tool(call: dict[str, Any], sid: str) -> dict[str, Any]:
     name = call.get("name", "")
     args = call.get("args") or {}
-    if name == "view_file":
-        run_gate("dispatch.py", {"file_path": args.get("AbsolutePath", ""), "session_id": sid,
+    payload, tool = _file_payload(name, args)
+    if tool == "Read" and payload is not None:
+        run_gate("dispatch.py", {**payload, "session_id": sid,
                                  "hook_event_name": "PostToolUse"}, "Read")
-    elif name in ("replace_file_content", "write_to_file"):
-        path = args.get("TargetFile", "")
-        tool = "Write" if name == "write_to_file" else "Edit"
-        p = {"file_path": path, "session_id": sid}
-        if name == "write_to_file":
-            p["content"] = args.get("CodeContent", "")
-        else:
-            p["old_string"] = args.get("TargetContent", "")
-            p["new_string"] = args.get("ReplacementContent", "")
+    elif tool in ("Write", "Edit") and payload is not None:
+        p = {**payload, "session_id": sid}
         run_gate("post-edit.sh", p, tool)
         run_gate("dispatch.py", {**p, "hook_event_name": "PostToolUse"}, tool)
     elif name == "run_command":

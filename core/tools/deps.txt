@@ -64,6 +64,7 @@ yt-dlp	pip	-	venv-script:yt-dlp	video-text	-	core/tools/video/video returns noth
 gallery-dl	pip	-	venv-script:gallery-dl	video-text	-	image posts and Instagram carousels fall back to yt-dlp, which reports "No video formats found" — reads like an auth failure, is not one
 secretstorage	pip	-	import:secretstorage	video-text	-	yt-dlp cannot decrypt the Brave cookie DB and fails with "failed to decrypt cookie (AES-CBC) ... Possibly the key is wrong?" — reads like a wrong password, is a missing module. Cost a full session to diagnose.
 faster-whisper	pip	faster_whisper	import:faster_whisper	video-text	-	local transcription (level speech) is unavailable; the tool stops at captions
+python3-gi	apt	gi	cmd:/usr/bin/python3 -c "import gi; gi.require_version('IBus', '1.0')"	wazip	-	IBus desktop text injection falls back to clipboard copy instead of typing at the cursor
 pytesseract	pip	pytesseract	import:pytesseract	video-text	-	burned-in text OCR (level ocr) is unavailable, and every PDF figure is described without its own text to check against
 docling	binary	docling	venv-import:.venv-pdf:docling	pdf	-	core/run tools/pdf/docling stops with ".venv-pdf is missing" or an engine traceback, so no PDF gets a twin; scans and tables have no other reader here
 pymupdf4llm	binary	pymupdf4llm	venv-import:.venv-pdf:pymupdf4llm	pdf	-	core/run tools/pdf/pymupdf fails on every PDF, and the CPU path for born-digital PDFs is gone

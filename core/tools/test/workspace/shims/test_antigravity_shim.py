@@ -151,3 +151,56 @@ def test_agents_hooks_json_schema_valid():
                 assert "hooks" not in item, f"{event} must not nest hooks list"
                 assert "matcher" not in item, f"{event} must not specify matcher"
 
+
+def test_cli_read_file_and_bash_context_gate_integration():
+    sid = str(uuid.uuid4())
+    target = WORKSPACE_ROOT / "core/hooks/brain/brain_attention.py"
+    blocked = _run_shim("PreToolUse", {
+        "conversationId": sid,
+        "toolCall": {"name": "read_file", "args": {"Path": str(target)}},
+    })
+    assert blocked.get("decision") == "deny"
+    assert "CONTEXT GATE" in blocked.get("reason", "")
+
+    for rel_ctx in ("core/CONTEXT.md", "core/hooks/CONTEXT.md", "core/hooks/brain/CONTEXT.md"):
+        ctx = WORKSPACE_ROOT / rel_ctx
+        assert _run_shim("PostToolUse", {
+            "conversationId": sid,
+            "toolCall": {"name": "read_file", "args": {"Path": str(ctx)}},
+        }) == {}
+
+    bash_ok = _run_shim("PreToolUse", {
+        "conversationId": sid,
+        "toolCall": {"name": "run_command", "args": {"CommandLine": "wc -l core/hooks/brain/brain_attention.py"}},
+    })
+    assert bash_ok.get("decision") == "allow"
+
+
+def test_cli_write_file_and_edit_file_reach_gates():
+    sid = str(uuid.uuid4())
+    target = WORKSPACE_ROOT / "core/hooks/test_large_cli_file.py"
+    long_content = "# Description\n" + "\n".join(f"x_{i} = {i}" for i in range(250))
+    write_res = _run_shim("PreToolUse", {
+        "conversationId": sid,
+        "toolCall": {"name": "write_file", "args": {"Path": str(target), "Content": long_content}},
+    })
+    assert write_res.get("decision") == "deny"
+    assert "SIZE GATE" in write_res.get("reason", "") or "CONTEXT GATE" in write_res.get("reason", "")
+
+    edit_res = _run_shim("PreToolUse", {
+        "conversationId": sid,
+        "toolCall": {"name": "edit_file", "args": {
+            "Path": str(WORKSPACE_ROOT / "core/hooks/brain/brain_attention.py"),
+            "Target": "a", "Replacement": "b",
+        }},
+    })
+    assert edit_res.get("decision") == "deny"
+    assert "CONTEXT GATE" in edit_res.get("reason", "")
+    assert _run_shim("PostToolUse", {
+        "conversationId": sid,
+        "toolCall": {"name": "edit_file", "args": {
+            "Path": str(WORKSPACE_ROOT / "outputs/scratch_nonexistent.txt"),
+            "Target": "a", "Replacement": "b",
+        }},
+    }) == {}
+

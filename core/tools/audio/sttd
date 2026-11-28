@@ -1,0 +1,198 @@
+# Usage: core/run tools/audio/sttd [--socket PATH] [--idle-seconds 300] — local STT daemon
+from __future__ import annotations
+
+import argparse
+import ctypes
+import gc
+import json
+import os
+import pathlib
+import signal
+import socket
+import sys
+import threading
+import time
+
+_HERE = pathlib.Path(__file__).resolve().parent
+_ROOT = _HERE.parents[2]
+if str(_HERE) not in sys.path:
+    sys.path.insert(0, str(_HERE))
+
+import stt as shared_stt  # noqa: E402
+
+_CUDA_LIBS = (
+    "nvidia/cu13/lib/libcublas.so.13",
+    "nvidia/cu13/lib/libcublasLt.so.13",
+    "nvidia/cudnn/lib/libcudnn.so.9",
+    "nvidia/cudnn/lib/libcudnn_ops.so.9",
+    "nvidia/cudnn/lib/libcudnn_cnn.so.9",
+    "nvidia/cudnn/lib/libcudnn_graph.so.9",
+    "nvidia/cudnn/lib/libcudnn_heuristic.so.9",
+)
+
+
+def _preload_cuda_libs() -> None:
+    """Load venv CUDA/cuDNN shared libs globally so CTranslate2 finds them without LD_LIBRARY_PATH."""
+    py_ver = f"python{sys.version_info.major}.{sys.version_info.minor}"
+    site = _ROOT / ".venv" / "lib" / py_ver / "site-packages"
+    for rel in _CUDA_LIBS:
+        lib = site / rel
+        if lib.is_file():
+            try:
+                ctypes.CDLL(str(lib), mode=ctypes.RTLD_GLOBAL)
+            except OSError:
+                pass
+
+
+def _load_whisper() -> tuple[object, str]:
+    """Load faster-whisper large-v3-turbo on CUDA int8_float16, falling back to CPU int8."""
+    models_hf = _ROOT / "models" / "hf"
+    if models_hf.is_dir():
+        os.environ.setdefault("HF_HOME", str(models_hf))
+    _preload_cuda_libs()
+    from faster_whisper import WhisperModel
+
+    local_only = (models_hf / "hub").is_dir()
+    try:
+        m = WhisperModel(shared_stt._MODEL_NAME, device="cuda", compute_type="int8_float16",
+                         local_files_only=local_only)
+        return m, "cuda:int8_float16"
+    except Exception:
+        m = WhisperModel(shared_stt._MODEL_NAME, device="cpu", compute_type="int8",
+                         local_files_only=local_only)
+        return m, "cpu:int8"
+
+
+class SttEngine:
+    """Thread-safe lazy STT model holder with idle auto-unload."""
+
+    def __init__(self, idle_seconds: float = 300.0, loader=_load_whisper, clock=time.monotonic) -> None:
+        self._idle_seconds = float(idle_seconds)
+        self._loader = loader
+        self._clock = clock
+        self._lock = threading.Lock()
+        self._model = None
+        self._device: str | None = None
+        self._last_used: float = 0.0
+
+    def status(self) -> dict:
+        with self._lock:
+            loaded = self._model is not None
+            idle = (self._clock() - self._last_used) if loaded else 0.0
+            return {"ok": True, "loaded": loaded, "device": self._device,
+                    "idle_seconds": round(idle, 2), "unload_after": self._idle_seconds}
+
+    def unload(self) -> dict:
+        with self._lock:
+            was_loaded = self._model is not None
+            self._model = None
+            self._device = None
+        if was_loaded:
+            gc.collect()
+        return {"ok": True, "unloaded": was_loaded}
+
+    def maybe_unload(self) -> bool:
+        with self._lock:
+            if self._model is None or self._idle_seconds <= 0:
+                return False
+            if (self._clock() - self._last_used) < self._idle_seconds:
+                return False
+            self._model = None
+            self._device = None
+        gc.collect()
+        return True
+
+    def transcribe(self, req: dict) -> dict:
+        path = str(req.get("path", ""))
+        if not path:
+            return {"ok": False, "error": "missing path"}
+        lang = str(req.get("lang") or "pt")
+        prompt = req.get("prompt")
+        vad_filter = bool(req.get("vad_filter", True))
+        with self._lock:
+            if self._model is None:
+                self._model, self._device = self._loader()
+            self._last_used = self._clock()
+            segments, _info = self._model.transcribe(
+                path, language=lang, initial_prompt=prompt or None, vad_filter=vad_filter
+            )
+            out = [{"text": s.text, "avg_logprob": float(s.avg_logprob)} for s in segments]
+            self._last_used = self._clock()
+        return {"ok": True, "segments": out, "device": self._device}
+
+
+def handle_request(engine: SttEngine, req: dict) -> dict:
+    op = req.get("op", "")
+    if op == "ping":
+        return engine.status()
+    if op == "unload":
+        return engine.unload()
+    if op == "transcribe":
+        return engine.transcribe(req)
+    return {"ok": False, "error": f"unknown op: {op}"}
+
+
+def _serve_client(conn: socket.socket, engine: SttEngine) -> None:
+    try:
+        with conn, conn.makefile("r", encoding="utf-8") as reader:
+            line = reader.readline()
+            if not line:
+                return
+            try:
+                req = json.loads(line)
+                resp = handle_request(engine, req)
+            except Exception as exc:
+                resp = {"ok": False, "error": str(exc)}
+            conn.sendall((json.dumps(resp, ensure_ascii=False) + "\n").encode("utf-8"))
+    except OSError:
+        pass
+
+
+def serve(sock_path: pathlib.Path, engine: SttEngine, stop_event: threading.Event | None = None,
+          ready_event: threading.Event | None = None) -> None:
+    sock_path.parent.mkdir(parents=True, exist_ok=True)
+    sock_path.unlink(missing_ok=True)
+    stop = stop_event or threading.Event()
+
+    def _idle_loop() -> None:
+        while not stop.wait(5.0):
+            engine.maybe_unload()
+
+    watcher = threading.Thread(target=_idle_loop, daemon=True)
+    watcher.start()
+    with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as srv:
+        srv.bind(str(sock_path))
+        os.chmod(sock_path, 0o600)
+        srv.listen(16)
+        srv.settimeout(0.5)
+        if ready_event is not None:
+            ready_event.set()
+        try:
+            while not stop.is_set():
+                try:
+                    conn, _ = srv.accept()
+                except socket.timeout:
+                    continue
+                t = threading.Thread(target=_serve_client, args=(conn, engine), daemon=True)
+                t.start()
+        finally:
+            stop.set()
+            sock_path.unlink(missing_ok=True)
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Local STT Unix-socket daemon")
+    parser.add_argument("--socket", type=pathlib.Path, default=shared_stt.default_socket_path())
+    parser.add_argument("--idle-seconds", type=float, default=300.0)
+    args = parser.parse_args(argv)
+    stop = threading.Event()
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        signal.signal(sig, lambda *_a: stop.set())
+    engine = SttEngine(idle_seconds=args.idle_seconds)
+    print(f"sttd: listening on {args.socket} (idle_unload={args.idle_seconds}s)", flush=True)
+    serve(args.socket, engine, stop)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -12,9 +12,21 @@ No Chrome o Lucas usava atalhos de uma letra: digitar `y` + Tab abre a busca do 
 **O trabalho é a lista, não a ativação.** Atalho de uma letra é recurso escasso — cada letra gasta vale um serviço que ele usa toda semana. Certos: **Maps** e **Google Tradutor**. Em dúvida:
 **Amazon**, **Mercado Livre**, **ChatGPT**. Decidir a lista com ele antes de configurar (INBOX 2026-08-24).
 
-### Ubuntu / Windows — Atalho global de STT (Speech-to-Text) com invocação de agente
+## Ditado por voz local (STT) — `wos-stt` + `Alt+T`
 
-Configurar atalho de teclado global de sistema no Ubuntu (e posteriormente no Windows) com gravação de áudio e dupla ação: (1) transcrição direta via STT onde o cursor estiver; (2) ativação de agente autônomo do WOS caso o áudio inicie com "bot ...". Avaliar [Hex](https://github.com/anomalyco/hex) (overlay global de teclado para STT) como referência de arquitetura, comparando STT do Antigravity vs. Whisper/aiwbot (INBOX 2026-10-01/02, 2026-11-02).
+### Motivo e decisão (2026-11-28)
+Em vez de instalar um daemon separado (Canonical Myna ou Voxtype), reutilizamos o motor `faster-whisper large-v3-turbo` já calibrado no `aiwbot` (`core/tools/audio/stt.py`, filtro de confiança `-0.9` e prompt em prosa pontuada AD-21):
+- **Sem duplicar RAM/disco:** o modelo já estava em `models/hf/` (partição com 105 GiB livres; `/` tinha 12 GiB). Um único daemon (`wos-stt.service` em socket Unix `$XDG_RUNTIME_DIR/wos-stt.sock`) atende o ditado desktop (`Alt+T`), o `aiwbot` e o `obra`. O `aiwbot` caiu de ~221 MB (pico 619 MB) para ~117 MB RSS; o `wos-stt` descarrega o modelo da GPU após 300 s ociosos.
+- **Performance CUDA medida (RTX 3050 6 GB, `int8_float16`):** carga fria + 1ª transcrição `10,34 s`, transcrição quente `0,053 s`, `1158 MiB` VRAM em uso (`4649 MiB` livres).
+- **Injeção no terminal e polimento:** captura via PipeWire (`pw-record`), injeção direta no cursor via **IBus (Intelligent Input Bus)** (`wos-ibus.service`, `CommitText` em UTF-8 preservando acentos PT-BR no `ptyxis`) com fallback automático para `wl-copy` + `notify-send`; dicionário editável em `core/tools/audio/vocab.json`, polimento opcional via Ollama (`--polish` / `WOS_STT_POLISH=1`) e auto-aprendizado passivo (`core/run tools/audio/dictate learn`) cruzando `outputs/state/stt/dictations.jsonl` com prompts enviados no Claude, Codex e Antigravity.
+
+### Serviços, atalho e verificação
+- Unidades systemd do usuário: `~/.config/systemd/user/wos-stt.service` (`core/run tools/audio/sttd --idle-seconds 300`) e `~/.config/systemd/user/wos-ibus.service` (`/usr/bin/python3 <workspace>/core/tools/audio/ibus_engine.py`).
+- Atalho GNOME (toggle): `<Alt>t` → `<workspace>/core/run tools/audio/dictate toggle`.
+```bash
+systemctl --user enable --now wos-stt.service wos-ibus.service
+core/run tools/audio/dictate status
+```
 
 ## Memória — earlyoom e zram (proteção global contra travamento)
 
