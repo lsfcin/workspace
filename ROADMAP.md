@@ -37,10 +37,10 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 *Why* — Lucas (INBOX 2026-09-30): ferramenta open-source promete reduzir em até ~30% o consumo de tokens/custos por tarefa ao entregar apenas os arquivos exatos ao contexto do modelo.
 *Done when* — teste comparativo medido em 3 tarefas de refatoração no WOS, registrando se houve ganho real sobre a navegação atual por `CONTEXT.md` + ferramentas de busca.
 
-**🟡 canal global de voz e STT multiplataforma (Ubuntu/Windows) com ativação de bot**
-*What* — atalho global de sistema operacional para captura de áudio com duas rotas de saída: (1) transcrição direta no cursor (ditado de texto em qualquer aplicativo); (2) invocação direta de agente inteligente caso a fala inicie por palavra-chave ("bot ...") ou via atalho secundário. Inclui comparativo de engines de STT: avaliar viabilidade de acessar a engine do Antigravity (com revisão contextual de texto, siglas e termos anteriores) vs. Whisper local (`core/tools/audio`) do aiwbot com pós-processador de contexto. Implementação inicial no Ubuntu com especificação para Windows.
-*Why* — Lucas (INBOX 2026-10-01/02): falta ditado rápido no dia a dia do OS e poder disparar comandos falados para agentes sem abrir chat ou terminal reduz drasticamente a fricção de uso móvel/desktop.
-*Done when* — atalho funcional no Ubuntu capturando áudio, transcrevendo no cursor e roteando comandos iniciados por "bot" para o runner de agentes do WOS.
+**🟡 [stt-desktop-ux] ditado por voz local (Ubuntu/Windows): cursor via IBus, feedback e memória**
+*What* — evoluir `core/tools/audio/` (v1 entregue em 2026-11-28): corrigir deadlock IBus (`b20261128-ibus-deadlock`) para injetar direto no cursor sem apagar o clipboard (+ avaliar histórico `Super+V`); remover notificação inicial redundante; avaliar indicador piscando na barra superior e feedback no cursor via IBus preedit (`"[ouvindo...]"`/`"[reconhecendo...]"` ou texto parcial em tempo real); isolar inferência do `wos-stt` em worker descartável (`b20261128-sttd-memory-retention`); agendar `dictate learn` automaticamente e cobrir `Auto T`→`Alt+T`, `AGI`/`Multigravity IY`→`agy`/`Antigravity IDE`. Mantém no horizonte gatilho `"bot ..."` e Windows.
+*Why* — teste ao vivo de Lucas (2026-11-28): transcrição PT-BR ficou muito boa, mas a usabilidade sofre com atraso de 2 s + queda no clipboard, falta de sinal visual de gravação ativa/progresso no cursor e 1,3 GiB RAM / 2 GiB swap retidos no `wos-stt`.
+*Done when* — ditado via `Alt+T` injeta direto no cursor sem tocar o clipboard, mostra feedback claro sem notificação intrusiva, devolve RAM/swap/VRAM a ~0 após idle testado ao vivo e roda `learn` automaticamente.
 
 ## Legibility — can Lucas still read what he owns
 

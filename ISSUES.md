@@ -5,6 +5,8 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
+- **`wos-ibus` deadlock em `set_global_engine`**: `ibus_engine.py` chama síncrono em `GLib.idle_add`, trava `CreateEngine` (+2 s, cai em `wl-copy`); usar `set_global_engine_async`. [src: agent 2026-11-28] `b20261128-ibus-deadlock`
+- **`wos-stt` retém 1,3 GiB RAM + 2,0 GiB swap (pico 2,6 GiB)**: `gc.collect()` não libera arenas CTranslate2/CUDA em processo longo; isolar inferência em worker encerrado no idle. [src: agent 2026-11-28] `b20261128-sttd-memory-retention`
 - **`context-chain off` não cala `pre-read.py`**: lista a cadeia; nomear só o stub. [src: agent 2026-11-27]
 
 - **`is_twin` só aceita `source: ../<stem>.pdf`**: twin de .doc/.docx não é isento dos tetos. Aceitar, com caso em `test_pdf_twin.py`. [src: agent 2026-11-26]
@@ -17,12 +19,11 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`handoff --take` aceita o nome do repo, `wos/take` exige o caminho** (assimetria). Um resolvedor só. [src: agent 2026-11-26]
 
-- **Fios herdados sem detalhe** (handoffs até 26 Nov): checagem de token órfão; rótulo de segredo × gate do INBOX; `outputs/codex-git-write/e2e.sh` só roda o read-only a partir de `/tmp`; seção 7 do diagrama atrás do roadmap. Reproduzir ou apagar. [src: agent 2026-11-26]
+- **Fios herdados sem detalhe** (handoffs até 26 Nov): token órfão; rótulo de segredo × INBOX; `outputs/codex-git-write/e2e.sh` só read-only de `/tmp`; seção 7 atrás do roadmap. [src: agent 2026-11-26]
 
-- **O outbox é oferecido em vez de usado**: no /inbox, com o repo de outro, o agente disse "podemos encaminhar" sem chamar `wos/note` (25 Nov). Refinar `core/norms/improve.md`: anotar na hora, conferir pendente, seguir. [src: agent 2026-11-25]
+- **O outbox é oferecido em vez de usado**: no /inbox, disse "podemos encaminhar" sem chamar `wos/note` (25 Nov). Refinar `core/norms/improve.md`. [src: agent 2026-11-25]
 
-
-- **Codex aberto de dentro do Claude herda `CLAUDE_CODE_SESSION_ID`**; `lock.SESSION_ENV` lê esse antes do `CODEX_THREAD_ID` e o wrapper confunde as duas sessões (25 Nov). [src: agent 2026-11-25]
+- **Codex aberto de dentro do Claude herda `CLAUDE_CODE_SESSION_ID`**; `lock.SESSION_ENV` lê esse antes do `CODEX_THREAD_ID` e confunde as sessões (25 Nov). [src: agent 2026-11-25]
 
 - **Espelhos de skills não seguem `claim`/`switch`** (untracked): com `inbox.md` diferente entre branches, o close falha `test_a_mirror_dirtied_by_a_merge` até o `sync-skills` (25 Nov). [src: agent 2026-11-25]
 
@@ -38,9 +39,9 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Os workers do painel não leem a web**: Codex (`Internal Error`) e argon (sem rede) falharam numa página pública (23/11). Declarar em `core/workers.txt` ou dar rede. [src: agent 2026-11-23]
 
-- **O wrapper do git deixa passar o Copilot** (e2e 24/11, `outputs/lock-facade/e2e.sh`): `-p` pula os hooks sem a raiz em `trustedFolders` (falta o OK de Lucas). `ancestors()` dá [] fora do Linux. [src: agent 2026-11-24] `b20261124-git-wrapper-harnesses`
+- **O wrapper do git deixa passar o Copilot** (`outputs/lock-facade/e2e.sh`, 24/11): `-p` pula hooks sem raiz em `trustedFolders` (falta OK de Lucas). `ancestors()` dá [] fora do Linux. `b20261124-git-wrapper-harnesses`
 
-- **Três harnesses sem chamada headless.** ZCode 0.16.3 `--prompt`: `Model config is missing` (config só tem hooks). `pi -p`: 402 do ollama cloud; trocar para OpenRouter. DeepSeek: só `.exe` de Windows (20, 24 Nov). [src: agent 2026-11-20] `b20261120-zcode-headless-no-model`
+- **Três harnesses sem headless.** ZCode 0.16.3 `--prompt`: `Model config is missing`; `pi -p`: 402 ollama cloud (usar OpenRouter); DeepSeek: só `.exe` Windows (20, 24 Nov). `b20261120-zcode-headless-no-model`
 
 - **`delegate/ask --list` dá `live ok` a um worker que não responde**: o deepseek (opencode) aceitou a chamada e não disse nem "ok" em 100 s (24 Nov). [src: agent 2026-11-24] `b20261124-deepseek-hangs`
 
@@ -50,7 +51,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **`core/harnesses.txt` não tem copilot**, mas existem `core/hooks/copilot/` e um teste de shim dele: linha ou ausência escrita (20 Nov). [src: agent 2026-11-20] `b20261120-harnesses-no-copilot`
 
-- **Censo do docs-ufrpe.** `web/fetch`: a UFRPE não manda o intermediário (RNP ICPEdu) e segura UA de curl (502 em 90 s); levar o bundle de `verificar.py`. O censo vira ferramenta? (19–21 Nov). [src: agent 2026-11-19] `b20261119-census-tool-gaps`
+- **Censo do docs-ufrpe.** `web/fetch`: UFRPE omite intermediário (RNP ICPEdu) e trava UA de curl (502 em 90 s); levar bundle de `verificar.py` (19–21 Nov). `b20261119-census-tool-gaps`
 
 - **`checks/web-retry.py` só escuta o Claude Code.** Só `.claude/settings.json` registra `PostToolUseFailure`; conferir os outros shims (21 Nov). [src: agent 2026-11-21] `b20261121-web-retry-shims`
 
@@ -110,7 +111,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - **Proposta "aguardando OK" atravessa a sessão só como resumo**; o handoff devia apontar para o arquivo com o texto exato (17 Nov). `b20261117-handoff-proposal-text`
 
-- **Lote docs-ufrpe (11 Nov).** Gêmeo de PDF com frontmatter e .docx pedem "first-line comment"; tachado de norma revogada dispara "finished work"; a lei de segredos marca o CNPJ público da UFRPE; `docling` >10 min onde `pymupdf` resolve. `b20261111-docs-ufrpe-lote`
+- **Lote docs-ufrpe (11 Nov).** Gêmeo PDF com frontmatter e .docx pedem first-line comment; norma revogada dispara finished work; CNPJ público da UFRPE cai na lei de segredos; `docling` >10 min onde `pymupdf` resolve. `b20261111-docs-ufrpe-lote`
 
 - **Edição de cronograma colide com nota dada no site**: editar `disciplina.md` atrás do painel faz o `publish` recusar (13 Nov). Trazer o painel antes, ou mesclar por linha de aluno. `b20261113-cfpages-pull-colisao`
 
@@ -152,7 +153,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - UNGATED WRITE misattributes paths after `cd`, and reads a literal `$S/file` as a path (16 Oct, 3 Nov). `b20261017-ungated-write-cwd`
 
-- Video batches say ok on failure: empty galleries as "38 ok" (17 Nov), lost partials, `--level full` with no visual layer (25 Nov, `agy not logged in`), a read-only cookie jar (Errno 30). A missing layer is a failure; save per-link results. [src: Lucas 2026-11-19] `b20261017-video-batch-results`
+- Video batches dizem ok na falha: galerias vazias ("38 ok", 17 Nov), parciais perdidas, `--level full` sem camada visual (25 Nov, `agy not logged in`), cookie jar read-only (Errno 30). [src: Lucas 2026-11-19] `b20261017-video-batch-results`
 
 - **Brain stats staging**: refreshed goal files left unstaged (14–24 Oct); a path-only commit leaves the index old, HEAD and disk new (5961a25, eeba4ab, 51ba029, 25–26 Nov). `b20261014-brain-stats-staging`
 
@@ -214,7 +215,7 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 - The other machine's scoreboard keeps the pre-rename keys inbox-nudge/compass-nudge/publish-nudge (20 Sep). `b20260920-scoreboard-keys`
 
-- Nested repos' ISSUES.md still carry the old entropy block; strip each, then drop `*/ISSUES.md` from core/hooks/generated.txt (20 Sep; 19 Nov). Roundup writes only outputs/state/entropy-<repo>.md, not the block its CONTEXT claims (24 Nov). `b20260920-quiet-repo-entropy`
+- Nested repos' `ISSUES.md` mantêm bloco de entropia antigo; limpar e tirar `*/ISSUES.md` de `core/hooks/generated.txt` (20 Sep, 19 Nov). Roundup só escreve `outputs/state/entropy-<repo>.md` (24 Nov). `b20260920-quiet-repo-entropy`
 
 - Safe-to-delete branch lists in the entropy report age during a session; recheck ancestry at deletion (14 Sep). `b20260914-branch-list-snapshot`
 
