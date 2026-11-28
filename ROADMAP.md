@@ -37,10 +37,10 @@ It also **runs before the cutting campaign** (Lucas, 2026-09-15), because it is 
 *Why* — Lucas (INBOX 2026-09-30): ferramenta open-source promete reduzir em até ~30% o consumo de tokens/custos por tarefa ao entregar apenas os arquivos exatos ao contexto do modelo.
 *Done when* — teste comparativo medido em 3 tarefas de refatoração no WOS, registrando se houve ganho real sobre a navegação atual por `CONTEXT.md` + ferramentas de busca.
 
-**🟡 [stt-desktop-ux] ditado por voz local (Ubuntu/Windows): cursor via IBus, feedback e memória**
-*What* — `core/tools/audio/` (v2 entregue em 2026-11-28, aguardando teste ao vivo de Lucas): `ibus_engine.py` assíncrono (`set_global_engine_async`), indicador StatusNotifierItem piscando na barra (`tray.py`) sem notificação inicial, trava de gravação (`max_record_seconds=300`), worker CUDA descartável no `sttd` (zera RAM/swap/VRAM após `idle_seconds=300`), `config.json` + `dictate apply-config` com checagem de conflitos (`<Alt>v`), `clipboard-indicator` (`Super+V`/`Super+M`, ativo após re-login) e `learn.py` otimizado/agendado (diário no systemd + `core/periodicos.txt`) com `Alt+T`/`Antigravity IDE`/`agy`/`aiwbot` em `vocab.json`. Mantém no horizonte gatilho `"bot ..."` e Windows.
-*Why* — teste ao vivo de Lucas (2026-11-28): corrigir atraso de 2 s/queda no clipboard, ausência de feedback na barra/limite de gravação, escolha do atalho (`<Alt>v`), retenção de memória do `sttd` e automação do `learn`.
-*Done when* — Lucas confirma ao vivo `Alt+V` injetando direto no cursor com indicador na barra e `Super+V` funcionando após re-login (gatilho `"bot ..."` e Windows seguem separados).
+**🟡 [stt-desktop-ux] ditado por voz local — próximas extensões (gatilho `"bot ..."` e Windows)**
+*What* — base Ubuntu/GNOME entregue e aprovada ao vivo por Lucas (2026-11-28: `Alt+V` via `ibus_engine.py` assíncrono direto no cursor sem tocar o clipboard, ícone vetorial `tray.py` sem notificação inicial, `max_record_seconds=300`, worker CUDA descartável no `sttd` com `idle_seconds=300`, `config.json` + `dictate apply-config`, `clipboard-indicator` em `Super+V`/`Super+M`, `learn.py` otimizado e agendado no systemd diário + `core/periodicos.txt`). Resta só o horizonte futuro: gatilho por palavra-chave (`"bot ..."`) e suporte Windows.
+*Why* — manter registrado o próximo passo após a entrega desktop Ubuntu estar fechada em produção.
+*Done when* — gatilho `"bot ..."` ou suporte Windows forem priorizados e entregues.
 
 ## Legibility — can Lucas still read what he owns
 

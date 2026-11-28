@@ -152,7 +152,7 @@ class DictateTray:
             GLib.source_remove(self._tick_id)
             self._tick_id = None
         if norm in ("recording", "transcribing"):
-            self._tick_id = GLib.timeout_add(180 if norm == "recording" else 140, self._on_tick)
+            self._tick_id = GLib.timeout_add(360 if norm == "recording" else 140, self._on_tick)
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewStatus", GLib.Variant("(s)", (self._status_str(),)))
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewIcon")
         self._emit(_SNI_PATH, "org.kde.StatusNotifierItem", "NewToolTip")
