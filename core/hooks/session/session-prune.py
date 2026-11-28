@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SessionStart — delete session marker stores older than 2 days. See code/ROADMAP-verify.md W1.
+# SessionStart — delete session marker stores older than 2 days, and temp folders a dead run left behind. See code/ROADMAP-verify.md W1.
 #
 # THIS HOOK IS NOW LOAD-BEARING, not hygiene. The stores moved out of the temp directory into the
 # repository on 2026-09-22, because a session outlives a reboot and a temp directory does not. The
@@ -7,36 +7,90 @@
 # accumulate under core/state/ forever — which is the cost that buys a marker surviving the night.
 #
 # A SECOND SPELLING OF A PATH ANOTHER MODULE OWNS is the defect this was ported to remove, and it
-# outranks any question about which directory is which: the store's name is asked of hook_input, and
-# where state lives is asked of platform_law. Neither is restated here.
+# outranks any question about which directory is which: where state and scratch live is asked of
+# platform_law, never restated here.
 #
-# THE KIND LIST IS HAND-MAINTAINED, and that is a known cost. There is no registry of marker kinds —
-# each hook names its own — so a new kind leaks until someone adds it here. The alternative, globbing
-# every `claude_*` in the temp directory, would reach files this workspace does not own; a list that
-# can go stale is the smaller mistake.
+# THE STORE LIST IS HAND-MAINTAINED, and that is a known cost: a new kind leaks until someone adds
+# it here (five had, 1,600 files, b20261127). The temp directory gets a RULE instead, because what
+# leaks there is named by whoever ran mktemp (tools, the suite, agents' shells, browsers): this
+# user's, a day untouched, and holding no socket — a live tmux, ssh-agent or editor keeps one.
+#
+# WHY THE TEMP DIRECTORY TOO. It is tmpfs on this machine, so what a killed run leaves there is RAM,
+# and the operating system ages it at 10 days: 4 GB of leaks starved every worker (2026-11-27).
+import os
 import shutil
+import stat
 import sys
 import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from platform_law import session_state  # noqa: E402
+from platform_law import scratch_root, session_state, system_temp  # noqa: E402
 
 MAX_AGE_SECONDS = 2 * 24 * 60 * 60
-KINDS = ('ctx_seen', 'iface_seen', 'facades', 'cg_reminded', 'nostub', 'branch', 'ctx_meter',
-         'agent_ctx')
+SCRATCH_AGE_SECONDS = 24 * 60 * 60
+STORES = ('claude_ctx_seen_*', 'claude_iface_seen_*', 'claude_facades_*', 'claude_cg_reminded_*',
+          'claude_nostub_*', 'claude_branch_*', 'claude_ctx_meter_*', 'claude_agent_ctx_*',
+          'claude_ctx_compacted_*', 'claude_web_retry_*', 'claude_rtk_compact_*', 'dirt_before_*',
+          'turn_*')
 
 
-def stale(now: float, path: Path) -> bool:
-	"""Older than two days by mtime, asked without raising on a path that vanished mid-scan.
-
-	A store is written by a live session while this runs, so a race here is normal traffic. Missing
-	is not stale: something else already removed it.
-	"""
+def stale(now: float, path: Path, age: float = MAX_AGE_SECONDS) -> bool:
+	"""Untouched for `age`, by the newest mtime of the path and what sits directly in it — a folder
+	whose run is still writing a file inside is not stale. Never raises on a path that vanished
+	mid-scan: a live session writes while this runs, and missing is not stale."""
 	try:
-		return now - path.stat().st_mtime > MAX_AGE_SECONDS
+		newest = path.stat().st_mtime
+		if path.is_dir() and not path.is_symlink():
+			newest = max([newest, *(child.lstat().st_mtime for child in path.iterdir())])
+		return now - newest > age
 	except OSError:
 		return False
+
+
+def _drop(path: Path) -> None:
+	try:
+		if path.is_dir() and not path.is_symlink():
+			shutil.rmtree(path, ignore_errors=True)
+		else:
+			path.unlink()
+	except OSError:
+		pass
+
+
+def _in_use(path: Path) -> bool:
+	"""A socket at the path or directly in it: something alive is listening there. Unreadable counts."""
+	try:
+		if stat.S_ISSOCK(path.lstat().st_mode):
+			return True
+		return path.is_dir() and any(stat.S_ISSOCK(c.lstat().st_mode) for c in path.iterdir())
+	except OSError:
+		return True
+
+
+def leftovers(temp: Path, uid: int) -> list:
+	"""Temp entries of this user that nothing listens on: the top level, pytest's numbered folders
+	(their parent is touched every run), and each Claude session's scratchpad (claude-<uid>/<p>/<s>)."""
+	found = [*temp.iterdir(), *temp.glob('pytest-of-*/pytest-[0-9]*'), *temp.glob(f'claude-{uid}/*/*')]
+	mine = []
+	for path in found:
+		try:
+			if path.lstat().st_uid == uid and not path.is_symlink() and not _in_use(path):
+				mine.append(path)
+		except OSError:
+			continue
+	return mine
+
+
+def sweep(now: float, temp: Path = None) -> None:
+	"""Scratch folders older than a day, wherever platform_law put them, and our temp leftovers."""
+	uid = os.getuid() if hasattr(os, 'getuid') else -1
+	roots = {scratch_root(), scratch_root(tree=True)}
+	candidates = [child for root in roots for child in root.iterdir()]
+	candidates += leftovers(Path(temp or system_temp()), uid)
+	for path in candidates:
+		if stale(now, path, SCRATCH_AGE_SECONDS):
+			_drop(path)
 
 
 def main() -> int:
@@ -45,19 +99,14 @@ def main() -> int:
 	# argument is discarded. Asking it is what makes this hook find the stores on both systems.
 	state_dir = session_state('any').parent
 	now = time.time()
-	for kind in KINDS:
-		for store in state_dir.glob(f'claude_{kind}_*'):
-			if not stale(now, store):
-				continue
-			# Both shapes, because the ported stores are directories and the pre-2026-09-02 ones
-			# beside them are still `.txt` files. `rm -rf` in the bash covered both; so does this.
-			try:
-				if store.is_dir():
-					shutil.rmtree(store, ignore_errors=True)
-				else:
-					store.unlink()
-			except OSError:
-				continue
+	for pattern in STORES:
+		for store in state_dir.glob(pattern):
+			if stale(now, store):
+				_drop(store)
+	try:
+		sweep(now)
+	except OSError:
+		pass
 	return 0
 
 

@@ -130,7 +130,9 @@ def main(argv=None):
         print("no links found — nothing to extract", file=sys.stderr)
         return 0
 
-    bundles = run_batch(urls, level=level, save=save, force=force)
+    from platform_law import scratch  # tool_law put core/hooks on the path
+    with scratch('video-'):  # every download and frame of the run, gone when it ends
+        bundles = run_batch(urls, level=level, save=save, force=force)
     if as_json:
         print(json.dumps(bundles, ensure_ascii=False, indent=2))
         return 0

@@ -3,16 +3,8 @@
 # has not reached the public repo, a disk filling up, and the PRs waiting on a watched repo. One file,
 # switches per reminder, and at most one message.
 #
-# THREE FILES BECAME ONE ON 2026-09-17, and the reason is in the prose the third would have copied.
-# The compass file of the day ended with an instruction to the agent: *"if the INBOX one already
-# fired, fold both into a single gentle line (never stack them)"* — a structural problem being
-# solved by asking a model nicely, once per sibling, and an instruction that gets weaker with every
-# sibling added. Here the folding is the code: main() collects and prints ONCE. Adding a fourth
-# costs a function, not another plea.
-#
-# It also paid for itself. core/hooks/session/ was at the crowding signal, and the honest options
-# were split the directory, grow a baseline the check says may only shrink, or stop writing one file
-# per reminder. Three reminders were never three responsibilities.
+# THREE FILES BECAME ONE ON 2026-09-17: each asked the model to "fold both into one gentle line", a
+# structural problem solved by asking nicely. Here the folding is the code: main() prints ONCE.
 #
 # TONE IS LOAD-BEARING AND LIVES IN brain/FOUNDATIONS.md — *what has good wind*, never guilt. A
 # reminder is ignorable by design: it says the number, offers the command, and never asks twice.
@@ -28,7 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import feature_law  # noqa: E402
-from platform_law import WORKSPACE_ROOT  # noqa: E402
+from platform_law import WORKSPACE_ROOT, ancestors, system_temp  # noqa: E402
 
 sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools/wos/close'))
 import agora  # noqa: E402
@@ -40,6 +32,7 @@ COMPASS_STALE_DAYS = 14   # ~2x/month rhythm; below this, stay silent
 ROADMAP_STALE_DAYS = 14
 PUBLISH_WARN = 5
 DISK_WARN, DISK_LOUD = 0.85, 0.95
+TEMP_WARN, SWAP_WARN, STRAY_HOURS = (0.60, 0.80), 0.80, 24   # the temp bar is low: tmpfs is RAM
 
 
 def read_body(text: str) -> str:
@@ -62,11 +55,8 @@ def count_entries(body: str) -> int:
 
 
 def inbox() -> str:
-    """How much untriaged capture is waiting, and how long it has been waiting.
-
-    The drain runs at session START, where context is cheap — /roundup only counts and hands /inbox
-    to the next session (core/skills/roundup.md § Phase 3).
-    """
+    """How much untriaged capture is waiting, and how long. Drained at START, where context is cheap
+    (core/skills/roundup.md § Phase 3)."""
     if not os.path.exists(INBOX):
         return ''
     n = count_entries(read_body(INBOX.read_text(encoding='utf-8')))
@@ -110,15 +100,9 @@ def _git(*args, cwd=WORKSPACE_ROOT) -> str:
 def publish() -> str:
     """Work that landed here and has not reached the repo his students clone.
 
-    ASKED OF GIT, NOT OF THE SYNC. The honest question — which crossing files differ — is
-    `publish/repo --check`, and it walks 1150 files for 3.1 s. A SessionStart is paid by EVERY
-    session (core/experiments/hook-latency.md), so three seconds to tell most of them nothing is not
-    a price this may charge. Two `git log` calls cost 16 ms and answer what a REMINDER needs: has work
-    landed that COULD have crossed. /roundup asks the exact question once, at the end.
-
-    The target's last commit is the timestamp, because the target is rebuilt and never edited: its
-    history IS the publish log, so no state file of ours has to be kept in step with it. Scoped to
-    the floor's own roots, so a session spent entirely in brain/ or academy/ stays silent.
+    ASKED OF GIT, NOT OF THE SYNC: `publish/repo --check` takes 3.1 s and every session pays a
+    SessionStart (core/experiments/hook-latency.md); two `git log` calls take 16 ms and say whether
+    work COULD have crossed. The target is rebuilt, never edited, so its history IS the publish log.
     """
     sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools/wos/publish'))
     import crossing  # noqa: PLC0415 — only reached when the switch is on
@@ -143,13 +127,30 @@ def disk() -> str:
 
     ASKED OF THE HOME DIRECTORY, NOT OF `/`: home is where every cache lands, it names a partition on
     every system, and on 2026-10-24 it was the one at 100% while the workspace beside it had 113 GB.
+    AND OF THE TEMP DIRECTORY, at a lower bar: tmpfs here, so a full one is RAM gone (2026-11-27).
     """
-    u = shutil.disk_usage(Path.home())
-    if u.used / u.total < DISK_WARN:
-        return ''
-    level = 'LOUD' if u.used / u.total >= DISK_LOUD else 'warn'
-    return (f'DISK [{level}]: the partition holding ~ is {u.used / u.total:.0%} full '
-            f'({u.free / 1024 ** 3:.1f} GB free) — offer this system\'s leaf in core/tools/disk/ (diagnose, then clean).')
+    said = []
+    for label, where, warn, loud in (('the partition holding ~', Path.home(), DISK_WARN, DISK_LOUD),
+                                     ('the temp directory (RAM)', system_temp(), *TEMP_WARN)):
+        u = shutil.disk_usage(where)
+        if u.used / u.total >= warn:
+            level = 'LOUD' if u.used / u.total >= loud else 'warn'
+            said.append(f'DISK [{level}]: {label} is {u.used / u.total:.0%} full ({u.free / 1024 ** 3:.1f} GB free)')
+    tail = ' — offer this system\'s leaf in core/tools/disk/ (diagnose, then clean).'
+    return '; '.join(said) + tail if said else ''
+
+
+def memory() -> str:
+    """Swap nearly full, and agent CLIs of ours alive past a day: RAM no session sees itself paying."""
+    sys.path.insert(0, str(WORKSPACE_ROOT / 'core/tools'))
+    from worker_guard import memory as meminfo, strays  # noqa: PLC0415 — only when the switch is on
+    total, free = meminfo('SwapTotal'), meminfo('SwapFree')
+    said = [f'swap {1 - free / total:.0%} used'] if total and free is not None and 1 - free / total >= SWAP_WARN else []
+    old = strays(STRAY_HOURS, {pid for pid, _, _ in ancestors()})
+    if old:
+        said.append('agent CLIs alive over a day: ' + ', '.join(f'{n} {p} ({d:.0f}d, {mb} MB)' for n, p, d, mb in old))
+    return ('MEMORY: ' + '; '.join(said) + ' — offer to name which session each is, so Lucas closes '
+            'the ones he left.') if said else ''
 
 
 PR_STATE = WORKSPACE_ROOT / 'core/pr-reminder.json'   # per-machine, outside git (core/ is an allowlist)
@@ -227,7 +228,8 @@ def outbox() -> str:
 # keeps three reminders in one file from becoming one feature with three reasons.
 ASKS = (('inbox-reminder', inbox), ('compass-reminder', compass), ('roadmap-reminder', roadmap),
         ('publish-reminder', publish),
-        ('disk-reminder', disk), ('pr-reminder', prs), ('branch-lock', outbox))
+        ('disk-reminder', disk), ('memory-reminder', memory), ('pr-reminder', prs),
+        ('branch-lock', outbox))
 
 
 def main() -> int:

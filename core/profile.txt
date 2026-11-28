@@ -78,6 +78,7 @@ toggle	compass-reminder	on
 toggle	roadmap-reminder	on
 toggle	publish-reminder	on
 toggle	disk-reminder	on
+toggle	memory-reminder	on
 toggle	pr-reminder	on
 toggle	close-report	on
 toggle	bot	on

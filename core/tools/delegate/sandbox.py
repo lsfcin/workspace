@@ -12,6 +12,7 @@ import hashlib
 import pathlib
 import shutil
 import subprocess
+import sys
 import tempfile
 
 CHECK_TIMEOUT = 600
@@ -28,7 +29,9 @@ def make(root: pathlib.Path) -> pathlib.Path:
     """A copy of `root`'s tree as the orchestrator sees it — tracked files with their uncommitted
     edits, and new files not yet tracked (a worker once blocked on modules never committed,
     2026-11-26) — with the interpreter linked in so `core/run` works, committed as the base."""
-    copy = pathlib.Path(tempfile.mkdtemp(prefix='delegate-'))
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / 'hooks'))
+    from platform_law import scratch_root  # noqa: PLC0415 — a tree on tmpfs is RAM (Errno 122)
+    copy = pathlib.Path(tempfile.mkdtemp(prefix='delegate-', dir=scratch_root(tree=True)))
     tree = subprocess.run(['git', '-C', str(root), 'stash', 'create'], capture_output=True, text=True, encoding="utf-8").stdout.strip() or 'HEAD'
     archive = subprocess.run(['git', '-C', str(root), 'archive', tree], check=True, capture_output=True).stdout
     subprocess.run(['tar', '-x', '-C', str(copy)], input=archive, check=True)

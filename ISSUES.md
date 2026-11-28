@@ -5,14 +5,13 @@ Delete resolved issues only with matching passing regression proof. Tools own ge
 
 ## Open
 
-- **Sandbox do delegate**: cópia no tmpfs (`Errno 122`), sem espelhos de skills (`verify.py fast` falha); `worker_guard` barra 2 workers em 15 GB. [src: agent 2026-11-27]
 - **`context-chain off` não cala `pre-read.py`**: lista a cadeia; nomear só o stub. [src: agent 2026-11-27]
 
 - **`is_twin` só aceita `source: ../<stem>.pdf`**: twin de .doc/.docx não é isento dos tetos. Aceitar, com caso em `test_pdf_twin.py`. [src: agent 2026-11-26]
 
-- **Processo de agente sem prazo**: Foundry com `&`, 6 dias. Regra: `systemd-run --user --collect -p RuntimeMaxSec=`; SessionStart lista órfãos. [src: agent 2026-11-26]
+- **Processo de agente sem prazo**: o `memory-reminder` nomeia CLIs vivos há um dia, mas um `&` de agente (Foundry, 6 dias) segue sem prazo: `systemd-run --user --collect -p RuntimeMaxSec=`. [src: agent 2026-11-26]
 
-- **aiwbot.service a 3,7 GiB** em 2 h. Medir RSS, achar o vazamento, `MemoryMax=`. RAM/swap: reboot; zram e swappiness são de Lucas. [src: agent 2026-11-26]
+- **aiwbot vaza memória** (3,7 GiB em 2 h): `MemoryMax=1G` agora o reinicia; o vazamento segue sem causa. [src: agent 2026-11-26]
 
 - **A cópia do modo artifact não leva `brain/` nem o espelho de skills**: `verify.py fast` falha lá e passa na árvore real. [src: agent 2026-11-26]
 

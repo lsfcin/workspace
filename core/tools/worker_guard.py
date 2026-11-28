@@ -45,15 +45,41 @@ def contain(lifetime_s: int, mem_mb: int) -> list:
             '-p', f'RuntimeMaxSec={lifetime_s}', '-p', f'MemoryMax={mem_mb}M', '-p', 'MemorySwapMax=0']
 
 
-def memory() -> int | None:
-    """MB the kernel says it can hand out without swapping, or None where it does not say."""
+def memory(field: str = 'MemAvailable') -> int | None:
+    """MB of a /proc/meminfo field (by default what the kernel can hand out without swapping), or
+    None where it does not say."""
     try:
         for line in Path('/proc/meminfo').read_text(encoding='utf-8').splitlines():
-            if line.startswith('MemAvailable:'):
+            if line.startswith(f'{field}:'):
                 return int(line.split()[1]) // 1024
     except OSError:
         pass
     return None
+
+
+AGENTS = ('claude', 'codex', 'opencode', 'gemini', 'agy')   # a CLI's process name, as /proc spells it
+
+
+def strays(hours: float, spare: set) -> list:
+    """(name, pid, days, MB) of this user's agent CLIs alive past `hours`, outside `spare` (the asker's
+    own ancestry). The guard ends a delegated worker; a session's own CLI or a tool an agent backgrounded
+    is ended by no one: Foundry ran 6 days; two idle sessions were 1 and 3 days old (2026-11-27)."""
+    try:
+        uptime = float(Path('/proc/uptime').read_text(encoding='utf-8').split()[0])
+    except OSError:
+        return []
+    tick, page, found = os.sysconf('SC_CLK_TCK'), os.sysconf('SC_PAGE_SIZE'), []
+    for stat in Path('/proc').glob('[0-9]*/stat'):
+        try:
+            text, pid = stat.read_text(encoding='utf-8'), int(stat.parent.name)
+            name, fields = text[text.index('(') + 1:text.rindex(')')], text[text.rindex(')') + 2:].split()
+            age = uptime - int(fields[19]) / tick
+            if (name in AGENTS and pid not in spare and age > hours * 3600
+                    and stat.parent.stat().st_uid == os.getuid()):
+                found.append((name, pid, age / 86400, int(fields[21]) * page // 2 ** 20))
+        except (OSError, ValueError, IndexError):
+            continue
+    return sorted(found, key=lambda row: -row[3])
 
 
 def _scope_procs() -> Path | None:

@@ -21,7 +21,9 @@ It must carry `Environment=PYTHONUNBUFFERED=1`: the journal is a pipe, so Python
 stdout and every diagnostic sits in an 8 KB buffer until the process exits, which made the bot's
 logs invisible exactly while it was running (2026-07-27). `Restart=always` self-heals a crash, and
 the unit does not survive a reboot without a login session unless `loginctl enable-linger <user>` is
-set (sudo). Switching branches or pulling takes effect only on restart.
+set (sudo). Switching branches or pulling takes effect only on restart. It also carries
+`MemoryHigh=768M` and `MemoryMax=1G`: it reached 3.7 GiB in 2 h (2026-11-26), and the kernel
+restarting it beats the laptop swapping.
 
 **Precondition** `systemctl --user status aiwbot --no-pager | head -3`
 

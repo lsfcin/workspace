@@ -1,10 +1,8 @@
 # conftest.py — the one place the suite learns where things are: workspace root, core/tools,
 # and the enforcement layer. Also registers the network marker for the video tests.
 #
-# Every test used to spell out `parents[3]` for the workspace root — nine copies of a depth,
-# which is a number that changes the moment a test moves into a subdirectory. Import it from
-# here instead; pytest loads this file before any test module.
-import os, sys, pathlib, tempfile
+# Import the root from here, never spell `parents[3]`: a depth changes when a test moves.
+import atexit, os, sys, pathlib, shutil, tempfile
 
 HERE = pathlib.Path(__file__).resolve().parent
 WORKSPACE_ROOT = HERE.parents[2]
@@ -18,17 +16,23 @@ for _var in ('GIT_DIR', 'GIT_INDEX_FILE', 'GIT_WORK_TREE', 'GIT_OBJECT_DIRECTORY
 # THE SUITE MUST NOT BE IN THE MEASUREMENT. core/hooks/scoreboard.py counts what each feature did in
 # real use, and feature_law.is_enabled() is on the hot path of nearly every test here: one run wrote
 # 47,000 rows into the real store, which would have made a two-week reading almost entirely a
-# recording of pytest. Pointed at a throwaway file, and inherited by every subprocess a test spawns.
-os.environ['WOS_SCOREBOARD'] = str(
-    pathlib.Path(tempfile.gettempdir()) / 'wos-scoreboard-test.tsv')
-# Nor in the session store: the suite left 1,400 markers in core/state (b20261123), and the lock
-# files of two xdist workers shared it. One folder per worker process, inherited the same way.
-os.environ['WOS_SESSION_STATE'] = tempfile.mkdtemp(prefix='wos-state-test-')
+# recording of pytest. Nor in the session store: the suite left 1,400 markers in core/state
+# (b20261123). So each process gets its own folder under ONE root per run, deleted at exit by the
+# process that made it: a folder each and never removed left 3,225 in a /tmp that is RAM
+# (b20261127). It is TMPDIR too, so what a case forgets lands inside. Inherited by every subprocess.
+_OWNER = not os.environ.get('WOS_TEST_ROOT')
+if _OWNER:
+    os.environ['WOS_TEST_ROOT'] = os.environ['TMPDIR'] = tempfile.tempdir = tempfile.mkdtemp(prefix='wos-test-')
+    atexit.register(shutil.rmtree, os.environ['WOS_TEST_ROOT'], True)
+_mine = pathlib.Path(os.environ['WOS_TEST_ROOT']) / str(os.getpid())
+os.environ['WOS_SCOREBOARD'] = str(_mine / 'scoreboard.tsv')
+os.environ['WOS_SESSION_STATE'] = str(_mine / 'state')
 # Nor behind the branch-lock wrapper (core/hooks/git/git): its throwaway repos are governed and no
 # session holds them. The suite runs as a call already judged; test_git_wrapper unsets it.
 os.environ['WOS_GIT_JUDGED'] = '1'
 # And always with it on PATH, as an installed machine has it, so the shell gate sees git wrapped.
-_bin = pathlib.Path(tempfile.mkdtemp(prefix='wos-bin-test-'))
+_bin = _mine / 'bin'
+_bin.mkdir(parents=True, exist_ok=True)
 (_bin / 'git').symlink_to(HERE.parents[2] / 'core/hooks/git/git')
 os.environ['PATH'] = f'{_bin}{os.pathsep}{os.environ.get("PATH", "")}'
 

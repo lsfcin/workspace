@@ -6,6 +6,21 @@
     "System Volume Information": true,
     "Downloads": true
   },
+  "files.watcherExclude": {
+    "core/state/**": true,
+    "models/**": true,
+    "outputs/**": true,
+    "code/wos/**": true,
+    "**/node_modules/**": true
+  },
+  "python.analysis.exclude": [
+    "core/state",
+    "models",
+    "outputs",
+    "code/wos",
+    "**/node_modules",
+    "**/.*"
+  ],
   "chat.hookFilesLocations": {
     ".github/hooks": true,
     ".claude/settings.json": false,

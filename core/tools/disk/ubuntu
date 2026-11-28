@@ -10,14 +10,21 @@
 # snap revisions, flatpak runtimes, old kernels — needs root, so it is PRINTED for Lucas to paste,
 # never run: a monthly cron job holding root is a worse risk than a full disk.
 #
+# WHY THE TEMP DIRECTORY TOO: it is tmpfs here, so its bytes are RAM, and 4 GB of leftovers starved
+# every worker on 2026-11-27. clean sweeps what session-prune sweeps (a day old), on demand.
+#
 # WHY THE LEAF IS NAMED ubuntu: apt, snap and flatpak are the provider. A second machine runs another
 # system, and its leaf sits beside this one (core/tools/SPECS.md § Naming).
 import argparse
+import importlib.util
 import json
+import os
 import pathlib
 import shutil
 import subprocess
 import sys
+import tempfile
+import time
 
 _HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE.parent))
@@ -26,6 +33,7 @@ import tool_law  # noqa: E402
 tool_law.require('disk')
 
 HOME = pathlib.Path.home()
+TEMP = pathlib.Path(tempfile.gettempdir())
 GB = 1024 ** 3
 # Where the bytes went on 2026-10-24, in the order they were found. A new consumer is one line here.
 WATCH = ('~/.cache', '~/.npm', '~/.config/Code', '~/.vscode', '~/.nvm', '~/.local', '~/ComfyUI',
@@ -51,7 +59,7 @@ def free(path) -> str:
 
 def diagnose() -> int:
     print('PARTITIONS')
-    for p in ('/', HOME, HOME / 'workspace'):
+    for p in ('/', HOME, HOME / 'workspace', TEMP):
         if pathlib.Path(p).exists():
             print(f'  {str(p):28} {free(p)}')
     print('\nCONSUMERS (on the partition of their path)')
@@ -72,7 +80,20 @@ def diagnose() -> int:
     for line in sorted(big, key=lambda l: -int(l.split('\t')[0]))[:10]:
         n, p = line.split('\t', 1)
         print(f'  {int(n) / GB:6.1f} GB  {p}')
+    du = subprocess.run(['du', '-xab', '-d1', str(TEMP)], capture_output=True, text=True, encoding='utf-8', errors='replace')
+    rows = sorted((int(n), p) for n, p in (l.split('\t', 1) for l in du.stdout.splitlines()) if p != str(TEMP))
+    print(f'\nTEMP {TEMP} (RAM when tmpfs) · {len(_prune().leftovers(TEMP, os.getuid()))} leftovers of ours')
+    for n, p in rows[::-1][:10]:
+        print(f'  {n / GB:6.2f} GB  {p}')
     return 0
+
+
+def _prune():
+    """The session-prune hook, whose sweep is the one definition of what a dead run left."""
+    spec = importlib.util.spec_from_file_location('session_prune', _HERE.parents[1] / 'hooks/session/session-prune.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def obsolete_extensions() -> list[pathlib.Path]:
@@ -101,6 +122,9 @@ def clean(dry: bool) -> int:
             if not dry:
                 shutil.rmtree(p, ignore_errors=True)
     if not dry:
+        temp = shutil.disk_usage(TEMP).free
+        _prune().sweep(time.time())
+        print(f'  swept  temp leftovers a day old: {(shutil.disk_usage(TEMP).free - temp) / GB:.2f} GB')
         print(f'\nfreed {(shutil.disk_usage(HOME).free - before) / GB:.1f} GB · now {free(HOME)}')
     print('\nThe root half, for Lucas to paste (never run from here):\n' + SUDO)
     return 0

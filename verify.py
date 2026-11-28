@@ -13,6 +13,7 @@
 # Discovery is unchanged in spirit: core/hooks/commit/gates_project.py looks for this file first,
 # then an npm "verify:fast", then a Makefile target, so a project keeps declaring a contract rather
 # than wiring anything.
+import os
 import subprocess
 import sys
 from importlib.util import find_spec
@@ -21,7 +22,7 @@ from shutil import which
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / 'core/hooks'))
-from platform_law import interpreter  # noqa: E402
+from platform_law import interpreter, locked, session_state  # noqa: E402
 
 SUITE = 'core/tools/test/'
 
@@ -64,8 +65,10 @@ def suite(network: bool) -> int:
     root -- so a commit cost 5-10 minutes on a Windows clone. 167 s -> 45 s over three consecutive
     green runs, 659 passed each.
 
-    `auto`, never a number: how many cores this machine has is a per-machine value, and spelling
-    one in a versioned file is the defect the whole port exists to remove.
+    HOW MANY IS ASKED OF THE MACHINE, never spelled: cores, and the memory free right now. `auto`
+    alone gave 20 workers that took MemAvailable from 5.5 GB to 976 MB, timed a hook out, and ran no
+    faster than 8 (48 s vs 41 s, 2026-11-27); two sessions committing at once doubled it, so one
+    suite runs at a time on the machine (the lock) and the next one reads what is free after it.
 
     ASKED FOR, NOT ASSUMED. A clone without xdist would die on the flag it was handed and report a
     RED SUITE for a missing dependency -- the exact lie the absent `make` told (ISSUES.md B9), and
@@ -79,13 +82,27 @@ def suite(network: bool) -> int:
     marker, conftest.py holds the reason, and the pass costs a few seconds because almost nothing
     wears it. Without xdist there is one pass and the marker means nothing.
     """
-    base = [interpreter(), '-m', 'pytest', SUITE, '-q']
+    base = [interpreter(), '-m', 'pytest', SUITE, '-q', '-o', 'tmp_path_retention_policy=failed']
     marks = [] if network else ['not network']
     if not find_spec('xdist'):
         print('⚠  pytest-xdist not installed — suite runs serial (~4x slower). See SETUP.md.')
         return _run(base + (['-m', ' and '.join(marks)] if marks else []))
-    code = _run(base + ['-m', ' and '.join([*marks, 'serial'])])
-    return code or _run(base + ['-n', 'auto', '-m', ' and '.join([*marks, 'not serial'])])
+    with locked(session_state('suite.lock')):
+        code = _run(base + ['-m', ' and '.join([*marks, 'serial'])])
+        return code or _run(base + ['-n', str(workers()), '-m', ' and '.join([*marks, 'not serial'])])
+
+
+WORKER_MB = 250   # one xdist worker and what its cases spawn, measured as MemAvailable lost / workers
+
+
+def workers() -> int:
+    """Cores, capped by what free memory carries above worker_guard's floor: that floor is what
+    keeps a delegated worker admissible while the suite runs."""
+    sys.path.insert(0, str(ROOT / 'core/tools'))
+    from worker_guard import MEM_FLOOR_MB, memory  # noqa: PLC0415
+    free = memory()
+    cores = os.cpu_count() or 1
+    return cores if free is None else max(1, min(cores, (free - MEM_FLOOR_MB) // WORKER_MB))
 
 
 def main(argv: list) -> int:

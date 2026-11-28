@@ -61,11 +61,12 @@ def test_no_hook_builds_session_state_out_of_the_system_temp_directory():
     A branch-marker hook spelled it itself until 2026-09-22 and was wrong in exactly the same way,
     which is what a second spelling always costs: the fix reaches one copy. `mkdtemp` is a different
     thing and stays allowed — a scratch directory for an external tool's output is not session
-    state, and nothing reads it after the process ends.
+    state, and nothing reads it after the process ends. platform_law.system_temp() is the one
+    owner: the hooks that watch the temp directory itself (it is RAM here) ask it.
     """
     offenders = []
     for module in sorted(HOOKS.rglob('*.py')):
-        if 'gettempdir' in module.read_text(encoding='utf-8'):
+        if module.name != 'platform_law.py' and 'gettempdir' in module.read_text(encoding='utf-8'):
             offenders.append(module.relative_to(WORKSPACE_ROOT).as_posix())
     assert not offenders, ('session state is asked of platform_law.session_state, never built from '
                            f'the system temp directory: {offenders}')

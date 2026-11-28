@@ -38,7 +38,8 @@ printf '%s\n' '<secret>' | core/tools/<family>/<tool> auth <alias>
 5. Give it **no shebang and no execute bit** — `core/run` starts it. See § The interpreter below.
 6. Declare any new third-party dependency in [`deps.txt`](deps.txt) — see § Declared dependencies.
 7. Every Google-backed family gets a skill wrapper in `core/skills/` (ruled 2026-08-31, Lucas: add where missing, never half) — `gmail`, `gcalendar`, `gdrive`, `gslides`, `gforms`, `gdocs`, `gsheets` set.
-8. Save — the routing block regenerates automatically.
+8. Temp that grows with its input never goes in the system temp directory, which is RAM on this machine: `platform_law.scratch()` around the run, or `scratch_root(tree=True)` for a copied tree. Everything else is a `TemporaryDirectory`.
+9. Save — the routing block regenerates automatically.
 
 ## The one capability with no CLI wrapper
 

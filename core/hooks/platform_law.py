@@ -2,8 +2,7 @@
 # The platform boundary: the one file in this workspace allowed to know what an operating system is.
 #
 # Sibling of file_law.py / schema_law.py / feature_law.py — one module owns one question so the
-# answer cannot drift. file_law says what a file IS, schema_law what a name MAY BE, feature_law
-# what is ON, this one what the machine underneath is.
+# answer cannot drift: this one, what the machine underneath is.
 #
 # WHY A BOUNDARY AND NOT A PER-OS FORK. Porting bash to Python removes the per-OS axis rather than
 # adding a Windows arm: all three per-OS forks this workspace ever had were broken by the time the
@@ -13,8 +12,10 @@
 # ONLY WHAT HAS A CALLER — an API written before its call site is a guess later readers mistake for
 # a decision. Every name below is imported or spawned from outside this file.
 import os
+import shutil
 import subprocess
 import sys
+import tempfile
 from contextlib import contextmanager
 from functools import cache
 from pathlib import Path
@@ -40,14 +41,9 @@ def venv_script(name: str, venv: str = '.venv') -> Path:
 
 
 def interpreter() -> str:
-    """The Python that should run a script we spawn.
-
-    `python3` is not a name Windows has. The bare word reaches an App Execution Alias that prints an
-    advert for the Microsoft Store and exits 9009, so a gate spawned that way never runs at all and
-    the caller reads the advert as the gate's own output -- a silent pass wearing a failure's coat.
-    `sys.executable` is the interpreter already running, which is the venv's on every platform, and
-    it needs no PATH to be right.
-    """
+    """The Python that should run a script we spawn. Never `python3`: on Windows the bare word is a
+    Store advert that exits 9009, a silent pass wearing a failure's coat. `sys.executable` is the
+    venv's on every platform and needs no PATH."""
     return sys.executable
 
 
@@ -55,29 +51,50 @@ def session_state(name: str) -> Path:
     """A session-scoped scratch file — the markers a gate writes in one hook and reads in the next.
 
     WHY THE REPOSITORY AND NOT THE TEMP DIRECTORY. **A session outlives a reboot; the temp directory
-    does not.** Measured 2026-09-22: a session opened the previous day was resumed after a 00:11
-    boot, found its marker store emptied by the operating system, and was made to re-read the whole
-    CONTEXT.md chain it still had whole in its window. The gate asks *did this session read it* and
-    was answered by a directory that had been wiped underneath it — a re-read the workspace pays for
-    in tokens and can never detect, because nothing is broken afterwards. `core/` is the one address
-    per-machine state has here, and `.gitignore` treats it as an allowlist, so state stays out of git.
-    A function, not a constant: six hooks once spelled `/tmp/...` by hand, which Windows aims at `C:\\tmp`.
+    does not** (2026-09-22: a resumed session found its markers wiped and re-read its whole chain).
+    `.gitignore` treats `core/` as an allowlist, so state stays out of git. A function, not a
+    constant: six hooks once spelled `/tmp/...` by hand, which Windows aims at `C:\\tmp`.
     """
     folder = Path(os.environ.get('WOS_SESSION_STATE') or WORKSPACE_ROOT / 'core' / 'state')
     folder.mkdir(parents=True, exist_ok=True)
     return folder / name
 
 
+def system_temp() -> Path:
+    """The system temp directory, named here alone (never session state): tmpfs here, so it is RAM."""
+    return Path(tempfile.gettempdir())
+
+
+def scratch_root(tree: bool = False) -> Path:
+    """Where temp that grows with its input lives, never the temp directory: tmpfs here, so a leak is
+    RAM (4 GB of them starved every worker, 2026-11-27). A copied TREE goes to /var/tmp, native disk;
+    a blob (video, archive) to the state folder, a FUSE disk with room but slow on small files. Under
+    the suite WOS_SESSION_STATE holds both. session-prune.py deletes what a killed process left."""
+    tree = tree and not _WINDOWS and not os.environ.get('WOS_SESSION_STATE')
+    folder = Path('/var/tmp/wos') if tree else session_state('tmp')
+    folder.mkdir(parents=True, exist_ok=True)
+    return folder
+
+
+@contextmanager
+def scratch(prefix: str):
+    """A folder under scratch_root() for the block, where every mkdtemp and child process inside it
+    lands too (tempfile.tempdir, TMPDIR); deleted on the way out, whatever happened."""
+    folder = tempfile.mkdtemp(prefix=prefix, dir=scratch_root())
+    saved = tempfile.tempdir, os.environ.get('TMPDIR')
+    tempfile.tempdir = os.environ['TMPDIR'] = folder
+    try:
+        yield Path(folder)
+    finally:
+        tempfile.tempdir = saved[0]
+        os.environ.pop('TMPDIR') if saved[1] is None else os.environ.update(TMPDIR=saved[1])
+        shutil.rmtree(folder, ignore_errors=True)
+
+
 def install_command(directory, name: str, source: str) -> None:
     """Put python `source` in `directory` so the bare word `name` runs it once that dir is on PATH.
-
-    WHY THIS IS THE BOUNDARY'S AND NOT THE CALLER'S. Faking a binary is POSIX muscle memory — write a
-    file, give it a shebang, chmod +x — and none of the three mechanisms exists on Windows: the
-    execute bit is not a permission there, a shebang is inert, and CreateProcess resolves a bare
-    name only through PATHEXT, so an extensionless file is not findable at all. The caller does not
-    want a shebang; it wants `name` to run. That is one question with two mechanisms, which is
-    exactly what this module is for.
-    """
+    The boundary's, because Windows has none of shebang, execute bit or extensionless lookup
+    (CreateProcess resolves through PATHEXT): one question, two mechanisms."""
     directory = Path(directory)
     if not _WINDOWS:
         target = directory / name
@@ -92,16 +109,9 @@ def install_command(directory, name: str, source: str) -> None:
 def package_install(name: str) -> list:
     """The command that installs a system package, whichever manager this machine actually has.
 
-    THE POINT IS THAT `name` DOES NOT CHANGE. core/tools/deps.txt says a dependency's name is spelled
-    "exactly as the install command spells it" -- a contract that was only ever true because one kind
-    of machine had read the file. Three managers, three spellings, and the row would have to fork.
-    So the boundary absorbs the difference and the registry keeps one name per dependency.
-
-    WHY THE WINDOWS ARM PINS ITS SOURCE. `winget install gh` is ambiguous and refuses: the msstore
-    source offers unrelated apps matching those letters, and winget exits asking the caller to refine
-    rather than installing anything. Pinning --source winget makes the moniker exact -- verified
-    against the live index, not assumed -- and it also skips the Store's terms prompt, which is
-    interactive and would hang a non-interactive install.
+    `name` does not change: the boundary absorbs three managers so core/tools/deps.txt keeps one name
+    per dependency. Windows pins `--source winget`: bare `winget install gh` is ambiguous against the
+    msstore source and refuses, and the pin also skips the Store's interactive terms prompt.
     """
     if _WINDOWS:
         return ['winget', 'install', '--moniker', name, '--source', 'winget',
@@ -167,15 +177,9 @@ def is_repo(path) -> bool:
 
 
 def _restrict(path: Path, posix_mode: int, windows_grant: str) -> None:
-    """Owner-only access, by whatever mechanism this machine actually has.
-
-    WHY THIS IS NOT os.chmod EVERYWHERE. On Windows os.chmod only toggles the read-only attribute;
-    it accepts 0o600, returns cleanly, and changes nothing about who can read the file. That is a
-    false green, and a false green on a secret is worse than no call at all — the caller is told the
-    thing is protected. Windows has no POSIX mode, it has ACLs, so the Windows arm breaks inherited
-    permissions and grants the current user alone. Raises rather than warning: a secret written loose
-    does not become safe later.
-    """
+    """Owner-only access, by whatever mechanism this machine actually has. Not os.chmod everywhere:
+    on Windows it accepts 0o600 and changes nothing, a false green on a secret. So ACLs there:
+    break inheritance, grant the user alone. Raises: a secret written loose does not become safe."""
     if not _WINDOWS:
         # Already right means no write: a sandboxed worker (Codex) sees ~/.config read-only.
         if path.stat().st_mode & 0o777 != posix_mode:
